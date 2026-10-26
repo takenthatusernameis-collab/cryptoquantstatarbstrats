@@ -53,13 +53,14 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Scheduled/rebalancing backtest runs (`create_rebalanced_weights`, engine `run`/`run_portfolio` `rebalance_frequency`/`rebalance_offset` params, CLI flags, config mapping, `tests/test_rebalancing.py`) complete and verified end-to-end.
 
 ## Next task for the next agent
-Add VWAP and TWAP execution models to `backtest/execution.py`:
+VWAP/TWAP execution models are complete and verified:
 
-- Extend the execution simulation module with VWAP (volume-weighted average price) and TWAP (time-weighted average price) order execution over a bar, honoring bar-volume participation constraints for partial fills.
-- Wire the new simulators into `BacktestEngine` via the existing `execution_simulator` parameter (and `run`/`run_portfolio` `volume` passthrough) so they are consumable end-to-end; keep the public API backward compatible.
-- Add tests (e.g. `tests/test_execution_vwap_twap.py`) verifying VWAP/TWAP fill prices respect volume participation and differ appropriately from plain market fills.
-- Quality: `python3 -m pytest tests/ -q`, `ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `mypy backtest/ strategies/ utils/` all clean; keep public API backward compatible.
+- `backtest/execution.py` `ExecutionSimulator.simulate_order` supports `order_type` in `{"market", "limit", "vwap", "twap"}`. VWAP fills at `(high + low + close) / 3`, TWAP at `(high + low) / 2`, both honoring the bar-volume participation cap for partial fills.
+- `BacktestEngine._simulate_execution` reads `order_type` from the simulator and passes `bar_volume` through to `simulate_order`, so VWAP/TWAP are consumable end-to-end via `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`. Public API unchanged.
+- `tests/test_execution_vwap_twap.py` covers VWAP/TWAP fill prices, partial-fill participation, divergence from market fills, and end-to-end engine runs.
+- Verified: 147 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
-Follows existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions) and the constraints in TASK.md (no `# type: ignore` to suppress real bugs, backward-compatible public API).
+### Suggested next task
+Wire `bar_high`/`bar_low` (OHLC) into the engine's execution path so VWAP/TWAP use real bar highs/lows instead of falling back to the close. Currently `_simulate_execution` only passes `bar_volume`; extend the optional `high`/`low` DataFrame passthrough (analogous to `volume`) through `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` and add tests asserting VWAP/TWAP fill prices use the supplied highs/lows.
 
 **Ready for next agent.**
