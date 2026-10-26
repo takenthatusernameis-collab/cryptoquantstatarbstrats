@@ -50,13 +50,14 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Execution simulation module + engine integration + tests complete.
 - [x] CLI entry point + volume-tied partial fills + test_cli.py complete and verified.
 - [x] Config-driven backtest runs (YAML/TOML/JSON config -> `cryptoquant` CLI) complete and verified end-to-end.
+- [x] Scheduled/rebalancing backtest runs (`create_rebalanced_weights`, engine `run`/`run_portfolio` `rebalance_frequency`/`rebalance_offset` params, CLI flags, config mapping, `tests/test_rebalancing.py`) complete and verified end-to-end.
 
 ## Next task for the next agent
-Implement scheduled/rebalancing backtest runs:
+Add VWAP and TWAP execution models to `backtest/execution.py`:
 
-- Add support for periodic rebalancing: run a backtest over a set of rebalance dates, recomputing target weights at each rebalance and holding them constant between rebalances (forward-fill), producing a weights DataFrame consumable by `BacktestEngine.run_portfolio` / `walk_forward_portfolio`.
-- Wire it to the `cryptoquant` CLI and config: a `--rebalance-frequency` / config `rebalance_frequency` (e.g. `1d`, `1w`, `1m`) option plus optional `--rebalance-offset`, applying to both single-strategy `run` and portfolio `run_portfolio` paths.
-- Add tests (e.g. `tests/test_rebalancing.py`) verifying weights only change on rebalance dates and are held flat between them, and that the CLI/config option flows through to the engine output.
+- Extend the execution simulation module with VWAP (volume-weighted average price) and TWAP (time-weighted average price) order execution over a bar, honoring bar-volume participation constraints for partial fills.
+- Wire the new simulators into `BacktestEngine` via the existing `execution_simulator` parameter (and `run`/`run_portfolio` `volume` passthrough) so they are consumable end-to-end; keep the public API backward compatible.
+- Add tests (e.g. `tests/test_execution_vwap_twap.py`) verifying VWAP/TWAP fill prices respect volume participation and differ appropriately from plain market fills.
 - Quality: `python3 -m pytest tests/ -q`, `ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `mypy backtest/ strategies/ utils/` all clean; keep public API backward compatible.
 
 Follows existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions) and the constraints in TASK.md (no `# type: ignore` to suppress real bugs, backward-compatible public API).
