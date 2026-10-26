@@ -32,6 +32,7 @@ class BacktestEngine:
         risk_manager: Any = None,
         cost_model: Any = None,
         execution_simulator: Any = None,
+        volume: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -57,7 +58,7 @@ class BacktestEngine:
 
         if execution_simulator is not None:
             portfolio_returns, cost = self._simulate_execution(
-                weights, data, returns, execution_simulator
+                weights, data, returns, execution_simulator, volume=volume
             )
         else:
             portfolio_returns = (weights * returns).sum(axis=1)
@@ -136,6 +137,7 @@ class BacktestEngine:
         data: pd.DataFrame,
         returns: pd.DataFrame,
         execution_simulator: Any,
+        volume: pd.DataFrame | None = None,
     ) -> tuple[pd.Series, pd.Series]:
         """Simulate order execution per period using ``execution_simulator``.
 
@@ -183,7 +185,15 @@ class BacktestEngine:
 
                 side = "buy" if trade_dollars > 0.0 else "sell"
                 qty = abs(trade_dollars) / price
-                fill = execution_simulator.simulate_order("market", side, qty, price)
+                bar_volume = 0.0
+                if volume is not None:
+                    try:
+                        bar_volume = float(volume.iloc[i].get(asset, 0.0))
+                    except (TypeError, ValueError, AttributeError):
+                        bar_volume = 0.0
+                fill = execution_simulator.simulate_order(
+                    "market", side, qty, price, bar_volume=bar_volume
+                )
                 try:
                     filled_qty = float(fill["filled_qty"])
                     avg_price = float(fill["avg_price"])
@@ -211,6 +221,7 @@ class BacktestEngine:
         risk_manager: Any = None,
         cost_model: Any = None,
         execution_simulator: Any = None,
+        volume: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy.
 
@@ -258,6 +269,7 @@ class BacktestEngine:
             risk_manager=risk_manager,
             cost_model=cost_model,
             execution_simulator=execution_simulator,
+            volume=volume,
         )
 
     def run_with_benchmark(
@@ -313,6 +325,7 @@ class BacktestEngine:
         risk_manager: Any = None,
         cost_model: Any = None,
         execution_simulator: Any = None,
+        volume: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -332,6 +345,9 @@ class BacktestEngine:
                 set).
             risk_manager: Optional risk manager to apply to the weights.
             cost_model: Optional transaction cost model.
+            volume: Optional per-asset bar volume (indexed like ``data``)
+                used by the execution simulator for volume participation
+                constraints. Ignored when no ``execution_simulator`` is set.
 
         Returns:
             A backtest result dictionary (same shape as :meth:`run`).
@@ -344,6 +360,7 @@ class BacktestEngine:
             risk_manager=risk_manager,
             cost_model=cost_model,
             execution_simulator=execution_simulator,
+            volume=volume,
         )
 
     def walk_forward(
@@ -357,6 +374,7 @@ class BacktestEngine:
         cost_model: Any = None,
         risk_manager: Any = None,
         execution_simulator: Any = None,
+        volume: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -380,6 +398,7 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
+                volume=volume,
             )
             results.append(result)
             i += test_period
@@ -394,6 +413,7 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
+                volume=volume,
             )
             return {
                 "returns": [result["total_return"]],
@@ -429,6 +449,7 @@ class BacktestEngine:
         cost_model: Any = None,
         risk_manager: Any = None,
         execution_simulator: Any = None,
+        volume: pd.DataFrame | None = None,
         reoptimize: bool = False,
         optimizer: Any = None,
     ) -> dict[str, Any]:
@@ -479,6 +500,7 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
+                volume=volume,
             )
             results.append(result)
             i += test_period
@@ -492,6 +514,7 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
+                volume=volume,
             )
             return {"returns": [result["total_return"]], "results": [result]}
 

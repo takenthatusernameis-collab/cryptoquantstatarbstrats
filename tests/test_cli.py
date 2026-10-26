@@ -1,0 +1,139 @@
+"""
+Tests for the backtest CLI and volume-tied partial fills.
+
+Covers the CLI text/JSON output (reusing ``utils.reporting``) and the
+engine's volume-tied partial-fill behavior executed through the same
+``run``/``run_portfolio`` path the CLI uses.
+"""
+
+from __future__ import annotations
+
+import contextlib
+import io
+import json
+
+import numpy as np
+import pandas as pd
+import pytest
+
+from backtest.cli import build_parser, main
+from backtest.engine import BacktestEngine
+from backtest.execution import ExecutionSimulator
+
+
+def _make_data(n: int = 200, seed: int = 0) -> pd.DataFrame:
+    rng = np.random.default_rng(seed)
+    dates = pd.date_range("2024-01-01", periods=n, freq="1h")
+    return pd.DataFrame(
+        {"BTC": 100 * np.exp(np.cumsum(rng.normal(0.0, 0.02, n)))},
+        index=dates,
+    )
+
+
+def _run_cli(argv: list[str]) -> str:
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = main(argv)
+    assert code == 0
+    return buf.getvalue()
+
+
+def test_cli_parser_defaults():
+    parser = build_parser()
+    ns = parser.parse_args([])
+    assert ns.strategy == "mean_reversion"
+    assert ns.output == "text"
+    assert ns.report == "full"
+    assert ns.asset == "BTC"
+    assert ns.initial_capital == 100_000.0
+
+
+def test_cli_text_output_contains_report_sections():
+    out = _run_cli(["--strategy", "mean_reversion", "--asset", "BTC"])
+    assert "Backtest Report" in out
+    assert "Total Return" in out
+    assert "Sharpe Ratio" in out
+    assert "Sortino Ratio" in out
+    assert "VaR (95%)" in out
+    assert "CVaR (95%)" in out
+    assert "Max Drawdown" in out
+    assert "Calmar Ratio" in out
+
+
+def test_cli_json_output_is_serializable():
+    out = _run_cli(
+        ["--strategy", "pairs", "--pair", "BTC", "ETH", "--output", "json"]
+    )
+    payload = json.loads(out)
+    assert isinstance(payload, dict)
+    for key, value in payload.items():
+        assert isinstance(value, (float, int, str)), f"{key}: {type(value)}"
+    assert "total_return" in payload
+    assert "sharpe_ratio" in payload
+    assert "max_drawdown" in payload
+    assert "equity_curve" not in payload
+    assert "weights" not in payload
+
+
+def test_cli_risk_report():
+    out = _run_cli(
+        ["--strategy", "mean_reversion", "--asset", "BTC", "--report", "risk"]
+    )
+    assert "Risk Report" in out
+    assert "VaR (95%)" in out
+    assert "Max Drawdown" in out
+
+
+def test_cli_invalid_strategy_exits():
+    with pytest.raises(SystemExit):
+        main(["--strategy", "not_a_strategy"])
+
+
+def test_cli_pairs_strategy_runs():
+    out = _run_cli(["--strategy", "pairs", "--pair", "BTC", "ETH", "--output", "json"])
+    payload = json.loads(out)
+    assert "total_return" in payload
+
+
+def _volume_frame(index: pd.Index, volume: float) -> pd.DataFrame:
+    return pd.DataFrame({"BTC": float(volume)}, index=index)
+
+
+def test_volume_tied_partial_fills_reduce_return():
+    data = _make_data(n=150)
+    weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
+
+    # Tiny bar volume relative to the order size forces heavy partial fills.
+    low_vol = _volume_frame(data.index, volume=1.0)
+    sim_low = ExecutionSimulator(participation_rate=0.01, slippage_bps=0)
+    low = BacktestEngine(initial_capital=100_000.0).run_portfolio(
+        weights, data, execution_simulator=sim_low, volume=low_vol
+    )
+
+    # Large bar volume means no participation cap binds -> full fills.
+    high_vol = _volume_frame(data.index, volume=1_000_000.0)
+    sim_high = ExecutionSimulator(participation_rate=0.01, slippage_bps=0)
+    high = BacktestEngine(initial_capital=100_000.0).run_portfolio(
+        weights, data, execution_simulator=sim_high, volume=high_vol
+    )
+
+    # Partial fills leave the position under-filled vs the target, so with
+    # zero slippage the low-volume run should not outperform the full-fill run.
+    assert low["total_return"] <= high["total_return"] + 1e-9
+    assert any(f["status"] == "partial" for f in sim_low.fills())
+    assert all(f["status"] != "partial" for f in sim_high.fills())
+
+
+def test_volume_absent_matches_full_fill_behavior():
+    """Without a volume DataFrame the engine behaves as before (full fills)."""
+    data = _make_data(n=100)
+    weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
+
+    sim = ExecutionSimulator(participation_rate=0.01, slippage_bps=0)
+    with_vol = BacktestEngine(initial_capital=100_000.0).run_portfolio(
+        weights, data, execution_simulator=sim, volume=_volume_frame(data.index, 1_000_000.0)
+    )
+    without_vol = BacktestEngine(initial_capital=100_000.0).run_portfolio(
+        weights, data, execution_simulator=sim
+    )
+    assert abs(with_vol["total_return"] - without_vol["total_return"]) < 1e-9

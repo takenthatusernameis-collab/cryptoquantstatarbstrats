@@ -8,23 +8,27 @@ All requirements from the previous task have been completed and verified:
 - 117 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 
 ## Current State
-- 128 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- 136 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 - Objective complete: portfolio optimization + portfolio-level risk metrics + walk-forward portfolio robustness.
 - Execution simulation module `backtest/execution.py` (ExecutionSimulator) added with market/limit orders, partial fills, and volume participation constraints.
 - Regime detection utilities `utils/regime.py` (rolling volatility regimes, trend detection) already present with tests.
 - `BacktestEngine._evaluate_weights` now integrates `execution_simulator` (slippage applied per fill) when provided; legacy `fee_rate`/`slippage`/`cost_model` path unchanged when not provided.
+- CLI entry point added: `backtest/cli.py` (`main`) and `backtest/__main__.py` (`python -m backtest`), plus `cryptoquant` console script in `pyproject.toml`. Runs a backtest and emits a text or JSON report reusing `utils.reporting` (`generate_report` / `report_to_dict` / `generate_risk_report`).
+- Engine execution-simulation integration now accepts an optional `volume` DataFrame (per-asset bar volume) passed through `run` / `run_portfolio` / `walk_forward` / `walk_forward_portfolio` to `_simulate_execution`, so volume participation constraints produce real partial fills in-engine. Legacy behavior unchanged when `volume` is not provided.
+- Comprehensive tests in `tests/test_cli.py` covering CLI output (text/json/full/risk) and volume-tied partial fills (low volume forces partial fills; high volume/absent volume gives full fills).
+- Verified: `python3 -m pytest tests/ -q` (136 passed), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Objective
-COMPLETED — Extend the framework with portfolio-level risk/optimization utilities, execution simulation, regime detection, and walk-forward robustness, with tests and type checking passing.
+COMPLETED — Extend the framework with portfolio-level risk/optimization utilities, execution simulation, regime detection, walk-forward robustness, CLI reporting, and volume-tied partial fills, with tests and type checking passing.
 
 ## Background
-Good next steps: CLI/reporting enhancements, volume-tied slippage (partial fills driven by bar volume in the engine), more execution models, or config-driven backtest runs.
+Good next steps: config-driven backtest runs (YAML/TOML config file driving symbols, dates, strategy, costs), more execution models (VWAP/TWAP, limit-order books), scheduled/rebalancing runs, or notebook/report artifacts.
 
 ## Tasks
-- [ ] Task 1: Add a CLI entry point (`cli.py` / `__main__.py`) that runs a backtest and emits a text or JSON report, reusing `utils.reporting` (generate_report / report_to_dict / generate_risk_report).
-- [ ] Task 2: Extend the engine's execution-simulation integration to accept bar volume (e.g. via an optional `volume` DataFrame or per-asset volume column) so volume participation constraints produce real partial fills in-engine.
-- [ ] Task 3: Add comprehensive tests in `tests/test_cli.py` covering the CLI output and volume-tied partial fills.
-- [ ] Task 4: Verify quality - all tests pass, ruff and mypy clean.
+- [x] Task 1: Add a CLI entry point (`cli.py` / `__main__.py`) that runs a backtest and emits a text or JSON report, reusing `utils.reporting` (generate_report / report_to_dict / generate_risk_report).
+- [x] Task 2: Extend the engine's execution-simulation integration to accept bar volume (e.g. via an optional `volume` DataFrame or per-asset volume column) so volume participation constraints produce real partial fills in-engine.
+- [x] Task 3: Add comprehensive tests in `tests/test_cli.py` covering the CLI output and volume-tied partial fills.
+- [x] Task 4: Verify quality - all tests pass, ruff and mypy clean.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -42,5 +46,8 @@ python3 -m mypy backtest/ strategies/ utils/
 ## Status
 - [x] All previous tasks complete and verified.
 - [x] Execution simulation module + engine integration + tests complete.
+- [x] CLI entry point + volume-tied partial fills + test_cli.py complete and verified.
 
 **Ready for next agent.**
+
+Suggested next agent task: implement config-driven backtest runs (load a YAML/TOML config specifying symbols, dates, strategy, fee/slippage, output path) wired to the `cryptoquant` CLI, with tests and quality checks.
