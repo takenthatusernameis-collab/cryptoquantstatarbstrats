@@ -20,6 +20,7 @@ import pandas as pd
 
 from backtest.config import load_config
 from backtest.engine import BacktestEngine
+from backtest.execution import ExecutionSimulator
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
@@ -111,6 +112,44 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Optional rebalance offset.",
     )
+    parser.add_argument(
+        "--volume-csv",
+        default=None,
+        help="Path to CSV with per-asset bar volume (timestamp/index + asset columns).",
+    )
+    parser.add_argument(
+        "--high-csv",
+        default=None,
+        help="Path to CSV with per-asset bar highs (timestamp/index + asset columns).",
+    )
+    parser.add_argument(
+        "--low-csv",
+        default=None,
+        help="Path to CSV with per-asset bar lows (timestamp/index + asset columns).",
+    )
+    parser.add_argument(
+        "--execution-simulator",
+        action="store_true",
+        help="Enable execution simulation path (for VWAP/TWAP/participation).",
+    )
+    parser.add_argument(
+        "--order-type",
+        choices=["market", "limit", "vwap", "twap"],
+        default=None,
+        help="Order type for execution simulator.",
+    )
+    parser.add_argument(
+        "--participation-rate",
+        type=float,
+        default=None,
+        help="Max fraction of bar volume to fill per order.",
+    )
+    parser.add_argument(
+        "--slippage-bps",
+        type=float,
+        default=None,
+        help="Slippage in basis points for execution simulator.",
+    )
     return parser
 
 
@@ -157,6 +196,13 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("output_path", ("output_path", "outputPath", "output_file")),
         ("rebalance_frequency", ("rebalance_frequency", "rebalance_freq", "rebal_freq")),
         ("rebalance_offset", ("rebalance_offset", "offset")),
+        ("volume_csv", ("volume_csv", "volume", "volume_path")),
+        ("high_csv", ("high_csv", "high", "high_path")),
+        ("low_csv", ("low_csv", "low", "low_path")),
+        ("execution_simulator", ("execution_simulator", "use_execution_simulator")),
+        ("order_type", ("order_type",)),
+        ("participation_rate", ("participation_rate",)),
+        ("slippage_bps", ("slippage_bps",)),
     ]
 
     for attr, keys in mappings:
@@ -209,11 +255,60 @@ def main(argv: Sequence[str] | None = None) -> int:
     data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
     data = loader.clean_data(data)
 
+    volume_df = None
+    high_df = None
+    low_df = None
+    vol_path = getattr(args, "volume_csv", None)
+    if vol_path:
+        try:
+            volume_df = DataLoader.load_csv(vol_path)
+            volume_df = loader.clean_data(volume_df)
+            volume_df = volume_df.reindex(index=data.index).ffill().fillna(0.0)
+            if isinstance(data, pd.DataFrame):
+                volume_df = volume_df.reindex(columns=data.columns, fill_value=0.0)
+        except Exception:
+            volume_df = None
+    high_path = getattr(args, "high_csv", None)
+    if high_path:
+        try:
+            high_df = DataLoader.load_csv(high_path)
+            high_df = loader.clean_data(high_df)
+            high_df = high_df.reindex(index=data.index).ffill()
+            if isinstance(data, pd.DataFrame):
+                high_df = high_df.reindex(columns=data.columns)
+        except Exception:
+            high_df = None
+    low_path = getattr(args, "low_csv", None)
+    if low_path:
+        try:
+            low_df = DataLoader.load_csv(low_path)
+            low_df = loader.clean_data(low_df)
+            low_df = low_df.reindex(index=data.index).ffill()
+            if isinstance(data, pd.DataFrame):
+                low_df = low_df.reindex(columns=data.columns)
+        except Exception:
+            low_df = None
+
+    exec_sim = None
+    use_exec = getattr(args, "execution_simulator", False)
+    order_type = getattr(args, "order_type", None)
+    part_rate = getattr(args, "participation_rate", None)
+    slip_bps = getattr(args, "slippage_bps", None)
+    if use_exec or order_type or part_rate is not None or slip_bps is not None:
+        if part_rate is None:
+            part_rate = 0.1
+        if slip_bps is None:
+            slip_bps = 0.0
+        exec_sim = ExecutionSimulator(
+            participation_rate=float(part_rate),
+            slippage_bps=float(slip_bps),
+            order_type=str(order_type) if order_type is not None else "market",
+        )
+
     strategy = _build_strategy(args.strategy, args)
     engine = BacktestEngine(initial_capital=float(args.initial_capital))
     rebalance_freq = getattr(args, "rebalance_frequency", None)
     if rebalance_freq:
-        # Create rebalance weights from strategy signals
         signals = strategy.generate_signals(data)
         weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
         weight_cols = [c for c in data.columns if c in signals.columns]
@@ -240,6 +335,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             data,
             fee_rate=float(args.fee_rate),
             slippage=float(args.slippage),
+            execution_simulator=exec_sim,
+            volume=volume_df,
+            high=high_df,
+            low=low_df,
         )
     else:
         result = engine.run(
@@ -247,6 +346,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             data,
             fee_rate=float(args.fee_rate),
             slippage=float(args.slippage),
+            execution_simulator=exec_sim,
+            volume=volume_df,
+            high=high_df,
+            low=low_df,
         )
 
     if args.output == "json":
