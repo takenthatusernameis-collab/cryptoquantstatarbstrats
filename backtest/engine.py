@@ -30,6 +30,12 @@ class BacktestEngine:
         # Determine per-asset weights from signals.
         weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
 
+        # Explicit per-asset weight columns (e.g. cross-exchange legs).
+        weight_cols = [c for c in data.columns if c in signals.columns]
+        if weight_cols:
+            for asset in weight_cols:
+                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
+
         if "long" in signals.columns and "short" in signals.columns:
             long_mask = signals["long"].fillna(False).reindex(
                 data.index, fill_value=False
