@@ -239,7 +239,7 @@ def test_risk_manager_max_position_size():
             assert max_w <= 0.2 + 1e-10
 
 
-
+def test_metrics_basic():
     rng = np.random.default_rng(123)
     returns = rng.normal(0.001, 0.01, 1000)
     s = sortino_ratio(returns)
