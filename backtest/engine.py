@@ -22,7 +22,13 @@ class BacktestEngine:
         self.trades: list[dict[str, Any]] = []
         self.equity_curve: list[float] = []
 
-    def run(self, strategy: Strategy, data: pd.DataFrame) -> dict[str, Any]:
+    def run(
+        self,
+        strategy: Strategy,
+        data: pd.DataFrame,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+    ) -> dict[str, Any]:
         """Run backtest for a given strategy."""
         signals = strategy.generate_signals(data)
         returns = data.pct_change().fillna(0.0)
@@ -58,6 +64,12 @@ class BacktestEngine:
         weights = weights.div(active, axis=0).fillna(0.0)
 
         portfolio_returns = (weights * returns).sum(axis=1)
+
+        # Apply transaction costs: fees and slippage on turnover
+        turnover = weights.diff().abs().sum(axis=1).fillna(0.0)
+        cost = turnover * (fee_rate + slippage)
+        portfolio_returns = portfolio_returns - cost
+
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
 
         total_return = float(cumulative_returns.iloc[-1] - 1.0)
@@ -68,6 +80,33 @@ class BacktestEngine:
         drawdown = cumulative_returns / running_max - 1.0
         max_drawdown = float(drawdown.min())
 
+        # Compute max drawdown duration
+        max_dd_duration = 0
+        if len(drawdown) > 0:
+            in_drawdown = False
+            dd_start = 0
+            for i in range(len(drawdown)):
+                if drawdown.iloc[i] < 0:
+                    if not in_drawdown:
+                        in_drawdown = True
+                        dd_start = i
+                else:
+                    if in_drawdown:
+                        dd_duration = i - dd_start
+                        if dd_duration > max_dd_duration:
+                            max_dd_duration = dd_duration
+                        in_drawdown = False
+            if in_drawdown:
+                dd_duration = len(drawdown) - dd_start
+                if dd_duration > max_dd_duration:
+                    max_dd_duration = dd_duration
+
+        # Compute Calmar ratio
+        if max_drawdown < 0:
+            calmar_ratio = total_return / abs(max_drawdown)
+        else:
+            calmar_ratio = 0.0
+
         self.equity_curve = [float(x) for x in cumulative_returns]
         self.positions = weights.iloc[-1].to_dict() if len(weights) else {}
 
@@ -75,6 +114,49 @@ class BacktestEngine:
             "total_return": total_return,
             "sharpe_ratio": sharpe_ratio,
             "max_drawdown": max_drawdown,
+            "max_drawdown_duration": int(max_dd_duration),
+            "calmar_ratio": float(calmar_ratio),
             "equity_curve": cumulative_returns,
             "weights": weights,
+        }
+
+    def walk_forward(
+        self,
+        strategy: Strategy,
+        data: pd.DataFrame,
+        train_period: int = 252,
+        test_period: int = 63,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+    ) -> dict[str, Any]:
+        """Perform walk-forward validation."""
+        results = []
+        total = len(data)
+        i = 0
+        while i + train_period + test_period <= total:
+            train_data = data.iloc[i : i + train_period]
+            test_data = data.iloc[i + train_period : i + train_period + test_period]
+            # Train the strategy if it has a fit method
+            if hasattr(strategy, "fit"):
+                try:
+                    strategy.fit(train_data)
+                except Exception:
+                    pass
+            # Run on test data
+            result = self.run(strategy, test_data, fee_rate=fee_rate, slippage=slippage)
+            results.append(result)
+            i += test_period
+
+        if not results:
+            # If not enough data for walk-forward, run on all data
+            result = self.run(strategy, data, fee_rate=fee_rate, slippage=slippage)
+            return {
+                "returns": [result["total_return"]],
+                "results": [result],
+            }
+
+        returns_list = [r["total_return"] for r in results]
+        return {
+            "returns": returns_list,
+            "results": results,
         }

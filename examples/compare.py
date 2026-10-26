@@ -25,6 +25,8 @@ def run_backtest(strategy, data: pd.DataFrame) -> dict[str, float]:
         "total_return": result["total_return"],
         "sharpe_ratio": result["sharpe_ratio"],
         "max_drawdown": result["max_drawdown"],
+        "max_drawdown_duration": result["max_drawdown_duration"],
+        "calmar_ratio": result["calmar_ratio"],
     }
 
 
@@ -63,6 +65,8 @@ def main() -> None:
                 "total_return": "{:.4%}".format,
                 "sharpe_ratio": "{:.4f}".format,
                 "max_drawdown": "{:.4%}".format,
+                "max_drawdown_duration": "{:.0f}".format,
+                "calmar_ratio": "{:.4f}".format,
             },
         )
     )

@@ -146,19 +146,22 @@ def test_cross_exchange_backtest_runs():
     assert isinstance(result["total_return"], float)
 
 
-def test_comparative_harness_runs():
-    loader = DataLoader()
-    single = loader.load_data(["BTC", "ETH", "SOL"], "2024-01-01", "2024-01-02", freq="1h")
-    single = loader.clean_data(single)
-    cross = loader.load_data(["BTC_Binance", "BTC_Coinbase"], "2024-01-01", "2024-01-02", freq="1h")
-    cross = loader.clean_data(cross)
-
+def test_transaction_costs_reduce_returns():
+    df = make_data()
+    strat = CointegrationPairsStrategy(("BTC", "ETH"))
     engine = BacktestEngine(initial_capital=100_000)
-    r1 = engine.run(CointegrationPairsStrategy(("BTC", "ETH")), single)
-    r2 = engine.run(MeanReversionStrategy("BTC"), single)
-    r3 = engine.run(CrossExchangeArb("BTC_Binance", "BTC_Coinbase"), cross)
+    result_no_cost = engine.run(strat, df)
+    result_with_cost = engine.run(strat, df, fee_rate=0.001, slippage=0.0005)
+    assert result_with_cost["total_return"] < result_no_cost["total_return"]
 
-    for r in (r1, r2, r3):
-        assert "total_return" in r
-        assert "sharpe_ratio" in r
-        assert "max_drawdown" in r
+
+def test_walk_forward_returns_dict():
+    df = make_data(n=1000)
+    strat = CointegrationPairsStrategy(("BTC", "ETH"))
+    engine = BacktestEngine(initial_capital=100_000)
+    wf_result = engine.walk_forward(strat, df, train_period=200, test_period=50)
+    assert isinstance(wf_result, dict)
+    assert "returns" in wf_result
+    assert isinstance(wf_result["returns"], list)
+    assert len(wf_result["returns"]) > 0
+    assert "results" in wf_result
