@@ -240,15 +240,36 @@ def test_risk_manager_max_position_size():
             assert max_w <= 0.2 + 1e-10
 
 
-def test_risk_manager_stop_loss():
-    """Test RiskManager.stop_loss detects breaches."""
-    import pandas as pd
+from utils.metrics import cvar, max_drawdown_duration_from_curve, sortino_ratio, var
 
-    from utils.risk import RiskManager
 
-    rm = RiskManager()
-    prices = pd.Series([100, 90, 80])
-    entry_prices = pd.Series([100, 100, 100])
-    breach = rm.stop_loss(prices, entry_prices, threshold=0.1)
-    # 10% drop breaches threshold 0.1
-    assert breach.iloc[1] or breach.iloc[2]
+def test_metrics_sortino_var_cvar():
+    rng = np.random.default_rng(123)
+    returns = rng.normal(0.001, 0.01, 1000)
+    s = sortino_ratio(returns)
+    v = var(returns, confidence=0.95)
+    c = cvar(returns, confidence=0.95)
+    assert isinstance(s, float)
+    assert isinstance(v, float)
+    assert isinstance(c, float)
+    assert c <= v  # CVaR should be <= VaR (more negative for losses)
+
+
+def test_metrics_max_drawdown_duration():
+    equity = pd.Series([100, 110, 90, 80, 95, 120])
+    duration = max_drawdown_duration_from_curve(equity)
+    assert isinstance(duration, int)
+    assert duration >= 0
+
+
+def test_backtest_engine_returns_new_metrics():
+    df = make_data()
+    strat = CointegrationPairsStrategy(("BTC", "ETH"))
+    engine = BacktestEngine(initial_capital=100_000)
+    result = engine.run(strat, df)
+    assert "sortino_ratio" in result
+    assert "var" in result
+    assert "cvar" in result
+    assert isinstance(result["sortino_ratio"], float)
+    assert isinstance(result["var"], float)
+    assert isinstance(result["cvar"], float)

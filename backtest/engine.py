@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from strategies.base import Strategy
+from utils.metrics import cvar, sortino_ratio, var
 
 
 class BacktestEngine:
@@ -115,6 +116,11 @@ class BacktestEngine:
         else:
             calmar_ratio = 0.0
 
+        # Compute advanced risk metrics
+        sortino = sortino_ratio(portfolio_returns)
+        var_95 = var(portfolio_returns, confidence=0.95)
+        cvar_95 = cvar(portfolio_returns, confidence=0.95)
+
         self.equity_curve = [float(x) for x in cumulative_returns]
         self.positions = weights.iloc[-1].to_dict() if len(weights) else {}
 
@@ -124,6 +130,9 @@ class BacktestEngine:
             "max_drawdown": max_drawdown,
             "max_drawdown_duration": int(max_dd_duration),
             "calmar_ratio": float(calmar_ratio),
+            "sortino_ratio": float(sortino),
+            "var": float(var_95),
+            "cvar": float(cvar_95),
             "equity_curve": cumulative_returns,
             "weights": weights,
         }
