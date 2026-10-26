@@ -441,6 +441,9 @@ class BacktestEngine:
                 except Exception:
                     pass
             # Run on test data
+            test_volume = volume.loc[test_data.index] if (volume is not None) else None
+            test_high = high.loc[test_data.index] if (high is not None) else None
+            test_low = low.loc[test_data.index] if (low is not None) else None
             result = self.run(
                 strategy,
                 test_data,
@@ -449,9 +452,9 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
-                volume=volume,
-                high=high,
-                low=low,
+                volume=test_volume,
+                high=test_high,
+                low=test_low,
             )
             results.append(result)
             i += test_period
@@ -549,6 +552,9 @@ class BacktestEngine:
                     w_test = w_opt_df
                 except Exception:
                     pass
+            test_volume = volume.loc[test_data.index] if (volume is not None) else None
+            test_high = high.loc[test_data.index] if (high is not None) else None
+            test_low = low.loc[test_data.index] if (low is not None) else None
             result = self.run_portfolio(
                 w_test,
                 test_data,
@@ -557,9 +563,9 @@ class BacktestEngine:
                 cost_model=cost_model,
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
-                volume=volume,
-                high=high,
-                low=low,
+                volume=test_volume,
+                high=test_high,
+                low=test_low,
             )
             results.append(result)
             i += test_period

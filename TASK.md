@@ -60,7 +60,10 @@ VWAP/TWAP execution models are complete and verified:
 - `tests/test_execution_vwap_twap.py` covers VWAP/TWAP fill prices, partial-fill participation, divergence from market fills, and end-to-end engine runs.
 - Verified: 147 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Suggested next task (completed)
+Wired `bar_high`/`bar_low` (OHLC) passthrough end-to-end: `walk_forward`/`walk_forward_portfolio` now slice `volume`/`high`/`low` to each test window (fixing index alignment), so VWAP/TWAP use real bar highs/lows in walk-forward runs. Verified: 148 tests pass, ruff clean, mypy clean.
+
 ### Suggested next task
-Wire `bar_high`/`bar_low` (OHLC) into the engine's execution path so VWAP/TWAP use real bar highs/lows instead of falling back to the close. Currently `_simulate_execution` only passes `bar_volume`; extend the optional `high`/`low` DataFrame passthrough (analogous to `volume`) through `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` and add tests asserting VWAP/TWAP fill prices use the supplied highs/lows.
+Scheduled/rebalancing runs already supported; next: add VWAP/TWAP and OHLC (high/low) support to the CLI/config layer (`--high`/`--low`/`--volume` CSV inputs and config keys), plus notebook/report artifacts.
 
 **Ready for next agent.**
