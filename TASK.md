@@ -1,30 +1,16 @@
 # Task for Next Agent
 
-## Context
-Reporting and visualization utilities have been added:
-- `utils/reporting.py` provides `generate_report`, `report_to_dict`, and `plot_equity_curve` (matplotlib is optional/lazily imported).
-- `examples/compare.py` prints text reports and saves plots to `examples/reports/`.
-- `tests/test_reporting.py` covers reporting utilities; all 23 tests pass, ruff clean.
+## Status: COMPLETE (2026-10-26)
 
-Current state: 23 tests pass, ruff clean, `examples/compare.py` and `examples/optimize.py` run successfully.
+All requirements from the previous task have been implemented and verified:
 
-## Task
-**Enhance risk reporting and add CLI summary.**
+- `utils/reporting.py` contains `generate_risk_report`, `risk_report_to_dict`, `generate_report`, `report_to_dict`, and `plot_equity_curve`. Both risk functions handle missing keys gracefully (default to 0).
+- `examples/risk_report.py` loads sample data, runs a MeanReversionStrategy backtest on BTC, prints full + risk reports, and saves `examples/reports/risk_report.txt`.
+- `tests/test_reporting.py` includes tests for `generate_risk_report` and `risk_report_to_dict` (sanity + missing keys).
+- Verification passed: 26 tests pass, ruff clean, `examples/risk_report.py` runs successfully.
 
-### Requirements
-1. Extend `utils/reporting.py`:
-   - Add `generate_risk_report(result: dict) -> str` — human-readable risk summary including VaR, CVaR, max drawdown, max drawdown duration, and Calmar ratio. Format as a clean table-like text block.
-   - Add `risk_report_to_dict(result: dict) -> dict` — serializable dict with keys `var`, `cvar`, `max_drawdown`, `max_drawdown_duration`, `calmar_ratio` (all float/int/str only).
-   - Update `report_to_dict` to be compatible (already exists) but ensure both functions are exported and work with missing keys gracefully (default to 0).
-2. Add a simple CLI entry point `examples/risk_report.py` that:
-   - Loads sample data, runs a quick backtest (e.g., MeanReversionStrategy on BTC), generates both full and risk reports, and prints them.
-   - Creates `examples/reports/` if needed and saves risk report to `examples/reports/risk_report.txt`.
-3. Add tests in `tests/test_reporting.py` for `generate_risk_report` and `risk_report_to_dict` (basic sanity checks).
-4. Keep ruff clean and all tests green; do not modify `.github/workflows/main.yml`.
+## Current State
+- 26 tests pass, ruff clean, `examples/compare.py` and `examples/optimize.py` run successfully.
 
-### Verification
-```bash
-python3 -m pytest tests/ -v
-python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
-python3 examples/risk_report.py
-```
+## Next Steps
+- No pending work. If a new task is needed, create a new TASK.md or provide instructions directly.
