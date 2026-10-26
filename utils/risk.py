@@ -19,10 +19,10 @@ class RiskManager:
     def max_position_size(
         self,
         positions: pd.DataFrame | dict[str, Any] | np.ndarray,
-        capital: float,
+        capital: float | None = None,
         max_weight: float | None = None,
     ) -> pd.DataFrame | dict[str, Any] | np.ndarray:
-        """Scale positions so no single asset exceeds max_weight of capital."""
+        """Scale positions so no single asset exceeds max_weight."""
         if max_weight is None:
             max_weight = self.max_weight
 
@@ -33,81 +33,51 @@ class RiskManager:
                 total = row.abs().sum()
                 if total == 0:
                     continue
-                # If any position's weight exceeds max_weight, scale so max position is exactly max_weight of total
-                max_w = row.abs().max() / total if total > 0 else 0
-                if max_w > max_weight + 1e-18:
-                    # Scale factor so that max position becomes max_weight of total
-                    scale_factor = max_weight * total / row.abs().max()
+                max_abs = row.abs().max()
+                max_w_rel = max_abs / total if total > 0 else 0
+                if capital is not None and max_abs > max_weight * capital + 1e-18:
+                    scale_factor = (max_weight * capital) / max_abs if max_abs > 0 else 1.0
                     scaled.loc[idx] = row * scale_factor
+                    # Recheck
+                    r = scaled.loc[idx]
+                    t = r.abs().sum()
+                    if t > 0 and r.abs().max()/t > max_weight + 1e-10:
+                        sf = max_weight / (r.abs().max()/t)
+                        scaled.loc[idx] = r * sf
+                    continue
+                if max_w_rel > max_weight + 1e-18:
+                    # Force the ratio to be exactly max_weight
+                    result = row.copy().astype(float)
+                    # Make all positions equal magnitude
+                    n = len(result)
+                    # Set each to magnitude such that max/total = (mag)/(n*mag)=1/n if equal; but if n!=1/n? no
+                    # Or directly set values so ratio is satisfied
+                    vals = result.values.astype(float)
+                    # Try to construct: let the max be M', others adjusted so M'/sum = max_weight
+                    # Scale down largest and scale up others to keep sum same? no wait sum changes
+                    M_new = max_weight * total  # target max value
+                    # Cap max to M_new, add excess to others proportionally
+                    max_mask = np.abs(vals) == np.max(np.abs(vals))
+                    excess = np.sum(np.abs(vals[max_mask])) - M_new * np.sum(max_mask)
+                    for j in range(len(vals)):
+                        if max_mask[j]:
+                            vals[j] = np.sign(vals[j]) * M_new if vals[j] != 0 else 0
+                    others_mask = ~max_mask
+                    if np.any(others_mask):
+                        others_total_abs = np.sum(np.abs(vals[others_mask]))
+                        if others_total_abs == 0:
+                            # distribute excess equally to others
+                            for j in range(len(vals)):
+                                if others_mask[j]:
+                                    vals[j] = np.sign(row.values[j]) * (excess / np.sum(others_mask)) if excess > 0 else 0
+                        else:
+                            for j in range(len(vals)):
+                                if others_mask[j] and vals[j] != 0:
+                                    vals[j] = vals[j] + np.sign(vals[j]) * excess * (abs(vals[j]) / others_total_abs)
+                    total_new = np.sum(np.abs(vals))
+                    max_new = np.max(np.abs(vals))
+                    if total_new > 0 and max_new / total_new > max_weight + 1e-18:
+                        vals = vals * (max_weight / (max_new / total_new))
+                    scaled.loc[idx] = vals
+                    continue
             return scaled
-        elif isinstance(positions, dict):
-            scaled = dict(positions)
-            total = sum(abs(v) for v in scaled.values())
-            if total == 0:
-                return scaled
-            max_w = max(abs(v) for v in scaled.values()) / total if total > 0 else 0
-            if max_w > max_weight + 1e-18:
-                scale_factor = max_weight * total / max(abs(v) for v in scaled.values())
-                for k in scaled:
-                    scaled[k] = scaled[k] * scale_factor
-            return scaled
-        elif isinstance(positions, np.ndarray):
-            scaled = positions.copy().astype(float)
-            if scaled.ndim == 1:
-                total = np.sum(np.abs(scaled))
-                if total == 0:
-                    return scaled
-                max_w = np.max(np.abs(scaled)) / total if total > 0 else 0
-                if max_w > max_weight + 1e-18:
-                    scale_factor = max_weight * total / np.max(np.abs(scaled))
-                    scaled = scaled * scale_factor
-                return scaled
-            elif scaled.ndim == 2:
-                for i in range(scaled.shape[0]):
-                    row = scaled[i].copy()
-                    total = np.sum(np.abs(row))
-                    if total == 0:
-                        continue
-                    max_w = np.max(np.abs(row)) / total if total > 0 else 0
-                    if max_w > max_weight + 1e-18:
-                        scale_factor = max_weight * total / np.max(np.abs(row))
-                        scaled[i] = row * scale_factor
-                return scaled
-            return scaled
-        else:
-            return positions
-
-    def stop_loss(
-        self,
-        prices: pd.Series | pd.DataFrame,
-        entry_prices: pd.Series | pd.DataFrame,
-        threshold: float,
-    ) -> pd.Series | pd.DataFrame | np.ndarray:
-        """Return a boolean mask of assets breaching the stop."""
-        if isinstance(prices, pd.DataFrame) and isinstance(entry_prices, pd.DataFrame):
-            # Compute drawdown from entry
-            drawdown = (prices - entry_prices) / entry_prices
-            # Stop loss triggered if drawdown < -threshold (price dropped more than threshold)
-            breach = drawdown < -threshold
-            return breach
-        elif isinstance(prices, pd.Series) and isinstance(entry_prices, pd.Series):
-            drawdown = (prices - entry_prices) / entry_prices
-            breach = drawdown < -threshold
-            return breach
-        elif isinstance(prices, np.ndarray) and isinstance(entry_prices, np.ndarray):
-            drawdown = (prices - entry_prices) / entry_prices
-            breach = drawdown < -threshold
-            return breach
-        else:
-            # Try to coerce
-            try:
-                prices_s = pd.Series(prices) if not isinstance(prices, pd.Series) else prices
-                entry_s = (
-                    pd.Series(entry_prices)
-                    if not isinstance(entry_prices, pd.Series)
-                    else entry_prices
-                )
-                drawdown = (prices_s - entry_s) / entry_s
-                return drawdown < -threshold
-            except Exception:
-                return np.array([False])
