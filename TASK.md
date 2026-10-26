@@ -8,6 +8,8 @@ All requirements from the previous task have been completed and verified:
 - Position sizing utilities added (`utils/sizing.py`): `fixed_fractional`, `vol_target`, `kelly`.
 - Sizing integrated into `MeanReversionStrategy` via an optional `sizer` callable (backward compatible).
 - Tests added in `tests/test_sizing.py`.
+- Added extended metrics (`utils/metrics.py`): `max_drawdown`, `calmar_ratio`, `beta`, `information_ratio`.
+- Enhanced `RiskManager` (`utils/risk.py`) with `apply_stop_loss` and `position_limit` methods.
 
 ## Current State
 - 56 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
@@ -39,3 +41,5 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Task 2: strategy integration/helper
 - [x] Task 3: tests
 - [x] Task 4: verify quality
+
+(End of file - total 41 lines)
