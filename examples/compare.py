@@ -17,22 +17,25 @@ from strategies.cross_exchange import CrossExchangeArb
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
+from utils.reporting import generate_report, plot_equity_curve
 from utils.risk import RiskManager
 
 
-def run_backtest(strategy, data: pd.DataFrame, risk_manager: Any = None) -> dict[str, float]:
+def run_backtest(strategy, data: pd.DataFrame, risk_manager: Any = None) -> dict[str, Any]:
     engine = BacktestEngine(initial_capital=100_000)
-    result = engine.run(strategy, data, risk_manager=risk_manager)
-    return {
-        "total_return": result["total_return"],
-        "sharpe_ratio": result["sharpe_ratio"],
-        "sortino_ratio": result["sortino_ratio"],
-        "var": result["var"],
-        "cvar": result["cvar"],
-        "max_drawdown": result["max_drawdown"],
-        "max_drawdown_duration": result["max_drawdown_duration"],
-        "calmar_ratio": result["calmar_ratio"],
-    }
+    return engine.run(strategy, data, risk_manager=risk_manager)
+
+
+METRIC_KEYS: list[str] = [
+    "total_return",
+    "sharpe_ratio",
+    "sortino_ratio",
+    "var",
+    "cvar",
+    "max_drawdown",
+    "max_drawdown_duration",
+    "calmar_ratio",
+]
 
 
 def main() -> None:
@@ -49,6 +52,9 @@ def main() -> None:
 
     risk_manager = RiskManager(max_weight=0.25)
 
+    reports_dir = Path(__file__).resolve().parent / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+
     strategies = [
         ("Cointegration Pairs (BTC-ETH)", CointegrationPairsStrategy(("BTC", "ETH")), single),
         ("Mean Reversion (BTC)", MeanReversionStrategy("BTC"), single),
@@ -60,8 +66,14 @@ def main() -> None:
 
     rows: list[dict[str, Any]] = []
     for name, strategy, data in strategies:
-        metrics = run_backtest(strategy, data, risk_manager=risk_manager)
-        rows.append({"Strategy": name, **metrics})
+        result = run_backtest(strategy, data, risk_manager=risk_manager)
+        rows.append({"Strategy": name, **{key: result[key] for key in METRIC_KEYS}})
+
+        print(generate_report(result))
+        print()
+
+        safe_name = name.replace(" ", "_").replace("/", "_")
+        plot_equity_curve(result, save_path=str(reports_dir / f"{safe_name}.png"))
 
     df = pd.DataFrame(rows)
     print("Strategy Comparison")
