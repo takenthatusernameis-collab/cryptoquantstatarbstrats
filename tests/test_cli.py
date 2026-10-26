@@ -11,6 +11,7 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -137,3 +138,69 @@ def test_volume_absent_matches_full_fill_behavior():
         weights, data, execution_simulator=sim
     )
     assert abs(with_vol["total_return"] - without_vol["total_return"]) < 1e-9
+
+
+def test_cli_vwap_order_type_runs():
+    out = _run_cli(
+        [
+            "--strategy", "mean_reversion", "--asset", "BTC",
+            "--execution-simulator", "--order-type", "vwap",
+        ]
+    )
+    assert "Backtest Report" in out
+
+
+def test_cli_twap_order_type_runs():
+    out = _run_cli(
+        [
+            "--strategy", "mean_reversion", "--asset", "BTC",
+            "--execution-simulator", "--order-type", "twap",
+        ]
+    )
+    assert "Backtest Report" in out
+
+
+def _write_csv(tmp_path: Path, name: str, index: pd.Index, values: dict[str, float]) -> str:
+    df = pd.DataFrame(values, index=index)
+    path = tmp_path / name
+    df.to_csv(path)
+    return str(path)
+
+
+def test_cli_high_low_csv_drives_vwap_fills(tmp_path):
+    data = _make_data(n=50)
+    high = _write_csv(tmp_path, "high.csv", data.index, {"BTC": 120.0})
+    low = _write_csv(tmp_path, "low.csv", data.index, {"BTC": 80.0})
+    out = _run_cli(
+        [
+            "--strategy", "mean_reversion", "--asset", "BTC",
+            "--execution-simulator", "--order-type", "vwap",
+            "--high-csv", high, "--low-csv", low,
+        ]
+    )
+    assert "Backtest Report" in out
+
+
+def test_cli_config_drives_vwap_and_ohlc(tmp_path):
+    import yaml
+
+    data = _make_data(n=50)
+    high = _write_csv(tmp_path, "high.csv", data.index, {"BTC": 120.0})
+    low = _write_csv(tmp_path, "low.csv", data.index, {"BTC": 80.0})
+    cfg_path = tmp_path / "config.yaml"
+    cfg_path.write_text(
+        yaml.safe_dump(
+            {
+                "strategy": "mean_reversion",
+                "asset": "BTC",
+                "execution_simulator": True,
+                "order_type": "vwap",
+                "high_csv": high,
+                "low_csv": low,
+                "output": "json",
+            }
+        )
+    )
+    out = _run_cli(["--config", str(cfg_path)])
+    payload = json.loads(out)
+    assert "total_return" in payload
