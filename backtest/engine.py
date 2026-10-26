@@ -287,30 +287,6 @@ class BacktestEngine:
                     strategy.fit(train_data)
                 except Exception:
                     pass
-    def walk_forward(
-        self,
-        strategy: Strategy,
-        data: pd.DataFrame,
-        train_period: int = 252,
-        test_period: int = 63,
-        fee_rate: float = 0.0,
-        slippage: float = 0.0,
-        cost_model: Any = None,
-        risk_manager: Any = None,
-    ) -> dict[str, Any]:
-        """Perform walk-forward validation."""
-        results = []
-        total = len(data)
-        i = 0
-        while i + train_period + test_period <= total:
-            train_data = data.iloc[i : i + train_period]
-            test_data = data.iloc[i + train_period : i + train_period + test_period]
-            # Train the strategy if it has a fit method
-            if hasattr(strategy, "fit"):
-                try:
-                    strategy.fit(train_data)
-                except Exception:
-                    pass
             # Run on test data
             result = self.run(
                 strategy,
