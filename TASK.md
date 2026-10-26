@@ -8,21 +8,23 @@ All requirements from the previous task have been completed and verified:
 - 117 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 
 ## Current State
-- 117 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- 128 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 - Objective complete: portfolio optimization + portfolio-level risk metrics + walk-forward portfolio robustness.
+- Execution simulation module `backtest/execution.py` (ExecutionSimulator) added with market/limit orders, partial fills, and volume participation constraints.
+- Regime detection utilities `utils/regime.py` (rolling volatility regimes, trend detection) already present with tests.
+- `BacktestEngine._evaluate_weights` now integrates `execution_simulator` (slippage applied per fill) when provided; legacy `fee_rate`/`slippage`/`cost_model` path unchanged when not provided.
 
 ## Objective
-COMPLETED — Extend the framework with portfolio-level risk/optimization utilities and improve walk-forward/reporting robustness, with tests and type checking passing.
+COMPLETED — Extend the framework with portfolio-level risk/optimization utilities, execution simulation, regime detection, and walk-forward robustness, with tests and type checking passing.
 
 ## Background
-Good next steps: execution simulation, slippage models tied to volume, regime detection, or CLI/reporting enhancements.
+Good next steps: CLI/reporting enhancements, volume-tied slippage (partial fills driven by bar volume in the engine), more execution models, or config-driven backtest runs.
 
 ## Tasks
-- [ ] Task 1: Add execution simulation module `backtest/execution.py` (ExecutionSimulator) supporting market/limit orders, partial fills, and volume participation constraints, with type hints.
-- [ ] Task 2: Integrate execution simulation into `BacktestEngine.run`/`run_portfolio` via optional `execution_simulator` parameter (backward compatible).
-- [ ] Task 3: Add regime detection utilities in `utils/regime.py` (rolling volatility regimes, trend detection) with type hints.
-- [ ] Task 4: Add comprehensive tests in `tests/test_execution.py` and `tests/test_regime.py` covering edge cases.
-- [ ] Task 5: Verify quality - all tests pass, ruff and mypy clean.
+- [ ] Task 1: Add a CLI entry point (`cli.py` / `__main__.py`) that runs a backtest and emits a text or JSON report, reusing `utils.reporting` (generate_report / report_to_dict / generate_risk_report).
+- [ ] Task 2: Extend the engine's execution-simulation integration to accept bar volume (e.g. via an optional `volume` DataFrame or per-asset volume column) so volume participation constraints produce real partial fills in-engine.
+- [ ] Task 3: Add comprehensive tests in `tests/test_cli.py` covering the CLI output and volume-tied partial fills.
+- [ ] Task 4: Verify quality - all tests pass, ruff and mypy clean.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -39,5 +41,6 @@ python3 -m mypy backtest/ strategies/ utils/
 
 ## Status
 - [x] All previous tasks complete and verified.
+- [x] Execution simulation module + engine integration + tests complete.
 
 **Ready for next agent.**

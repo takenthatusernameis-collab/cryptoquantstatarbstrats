@@ -55,17 +55,22 @@ class BacktestEngine:
             except Exception:
                 pass
 
-        portfolio_returns = (weights * returns).sum(axis=1)
-
-        # Apply transaction costs: fees and slippage on turnover
-        turnover = weights.diff().abs().sum(axis=1).fillna(0.0)
-        # Initial turnover (first row has no diff).
-        if len(turnover) > 0:
-            turnover.iloc[0] = float(weights.iloc[0].abs().sum())
-        if cost_model is not None:
-            cost = cost_model.compute_cost_series(turnover, self.capital)
+        if execution_simulator is not None:
+            portfolio_returns, cost = self._simulate_execution(
+                weights, data, returns, execution_simulator
+            )
         else:
-            cost = turnover * (fee_rate + slippage)
+            portfolio_returns = (weights * returns).sum(axis=1)
+
+            # Apply transaction costs: fees and slippage on turnover
+            turnover = weights.diff().abs().sum(axis=1).fillna(0.0)
+            # Initial turnover (first row has no diff).
+            if len(turnover) > 0:
+                turnover.iloc[0] = float(weights.iloc[0].abs().sum())
+            if cost_model is not None:
+                cost = cost_model.compute_cost_series(turnover, self.capital)
+            else:
+                cost = turnover * (fee_rate + slippage)
         portfolio_returns = portfolio_returns - cost
 
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
@@ -124,6 +129,78 @@ class BacktestEngine:
             "weights": weights,
         }
         return result
+
+    def _simulate_execution(
+        self,
+        weights: pd.DataFrame,
+        data: pd.DataFrame,
+        returns: pd.DataFrame,
+        execution_simulator: Any,
+    ) -> tuple[pd.Series, pd.Series]:
+        """Simulate order execution per period using ``execution_simulator``.
+
+        Converts each period's target weight change into dollar orders, simulates
+        each fill (applying slippage and volume participation constraints), and
+        tracks the actually executed positions. The portfolio return for a period
+        is earned by the executed position held through that period, and slippage
+        costs are returned as a per-period cost series (fraction of capital).
+
+        When the simulator fills only part of an order, the unfilled portion is
+        not carried into the position, so the executed weight drifts from the
+        target. This path only runs when an ``execution_simulator`` is supplied;
+        the legacy cost model is used otherwise, keeping the default behavior
+        unchanged.
+        """
+        capital = self.capital
+        portfolio_returns = pd.Series(0.0, index=weights.index, dtype=float)
+        cost = pd.Series(0.0, index=weights.index, dtype=float)
+        prev_executed = pd.Series(0.0, index=weights.columns, dtype=float)
+
+        for i in range(len(weights)):
+            target_dollars = weights.iloc[i] * capital
+            prices = data.iloc[i]
+            period_rets = returns.iloc[i]
+            new_executed = prev_executed.copy()
+            period_cost = 0.0
+
+            for asset in weights.columns:
+                try:
+                    target_d = float(target_dollars.get(asset, 0.0))
+                    prev_d = float(prev_executed.get(asset, 0.0))
+                except (TypeError, ValueError):
+                    continue
+                if not np.isfinite(target_d) or not np.isfinite(prev_d):
+                    continue
+                trade_dollars = target_d - prev_d
+                if trade_dollars == 0.0:
+                    continue
+                try:
+                    price = float(prices.get(asset, 0.0))
+                except (TypeError, ValueError):
+                    continue
+                if not np.isfinite(price) or price <= 0.0:
+                    continue
+
+                side = "buy" if trade_dollars > 0.0 else "sell"
+                qty = abs(trade_dollars) / price
+                fill = execution_simulator.simulate_order("market", side, qty, price)
+                try:
+                    filled_qty = float(fill["filled_qty"])
+                    avg_price = float(fill["avg_price"])
+                except (TypeError, ValueError, KeyError):
+                    continue
+                if not np.isfinite(filled_qty) or not np.isfinite(avg_price) or avg_price <= 0.0:
+                    continue
+
+                filled_dollars = filled_qty * avg_price
+                new_executed[asset] = prev_d + filled_dollars
+                period_cost += abs(filled_qty) * abs(avg_price - price)
+
+            portfolio_returns.iloc[i] = float((new_executed * period_rets).sum()) / capital
+            cost.iloc[i] = period_cost / capital
+            prev_executed = new_executed
+
+        return portfolio_returns, cost
 
     def run(
         self,
