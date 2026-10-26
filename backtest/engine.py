@@ -192,8 +192,9 @@ class BacktestEngine:
                         bar_volume = float(volume.iloc[i].get(asset, 0.0))
                     except (TypeError, ValueError, AttributeError):
                         bar_volume = 0.0
+                order_type = getattr(execution_simulator, "order_type", "market")
                 fill = execution_simulator.simulate_order(
-                    "market", side, qty, price, bar_volume=bar_volume
+                    order_type, side, qty, price, bar_volume=bar_volume
                 )
                 try:
                     filled_qty = float(fill["filled_qty"])

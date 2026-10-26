@@ -25,6 +25,7 @@ class ExecutionSimulator:
 
     participation_rate: float = 0.1
     slippage_bps: float = 0.0
+    order_type: str = "market"
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
 
     def _valid_rate(self) -> float:
@@ -66,7 +67,7 @@ class ExecutionSimulator:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         order_type = str(order_type).lower()
-        if order_type not in ("market", "limit"):
+        if order_type not in ("market", "limit", "vwap", "twap"):
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         # Limit price eligibility
@@ -100,12 +101,30 @@ class ExecutionSimulator:
         if filled <= 0.0:
             filled = 0.0
 
+        # Base fill price depends on order type
+        if order_type == "vwap":
+            try:
+                hi = float(bar_high) if bar_high is not None else px
+                lo = float(bar_low) if bar_low is not None else px
+            except (TypeError, ValueError):
+                hi, lo = px, px
+            base_price = (hi + lo + px) / 3.0
+        elif order_type == "twap":
+            try:
+                hi = float(bar_high) if bar_high is not None else px
+                lo = float(bar_low) if bar_low is not None else px
+            except (TypeError, ValueError):
+                hi, lo = px, px
+            base_price = (hi + lo) / 2.0
+        else:
+            base_price = px
+
         # Slippage
         slip = self.slippage_bps / 10000.0
         if side == "buy":
-            fill_price = px * (1.0 + slip)
+            fill_price = base_price * (1.0 + slip)
         else:
-            fill_price = px * (1.0 - slip)
+            fill_price = base_price * (1.0 - slip)
 
         # Partial fill determination
         if filled < abs(qty) - 1e-12:
