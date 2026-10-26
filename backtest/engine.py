@@ -34,6 +34,8 @@ class BacktestEngine:
         cost_model: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -59,7 +61,7 @@ class BacktestEngine:
 
         if execution_simulator is not None:
             portfolio_returns, cost = self._simulate_execution(
-                weights, data, returns, execution_simulator, volume=volume
+                weights, data, returns, execution_simulator, volume=volume, high=high, low=low
             )
         else:
             portfolio_returns = (weights * returns).sum(axis=1)
@@ -139,6 +141,8 @@ class BacktestEngine:
         returns: pd.DataFrame,
         execution_simulator: Any,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
     ) -> tuple[pd.Series, pd.Series]:
         """Simulate order execution per period using ``execution_simulator``.
 
@@ -192,9 +196,31 @@ class BacktestEngine:
                         bar_volume = float(volume.iloc[i].get(asset, 0.0))
                     except (TypeError, ValueError, AttributeError):
                         bar_volume = 0.0
+                bar_high = None
+                bar_low = None
+                if high is not None:
+                    try:
+                        bar_high = float(high.iloc[i].get(asset, np.nan))
+                        if not np.isfinite(bar_high):
+                            bar_high = None
+                    except (TypeError, ValueError, AttributeError):
+                        bar_high = None
+                if low is not None:
+                    try:
+                        bar_low = float(low.iloc[i].get(asset, np.nan))
+                        if not np.isfinite(bar_low):
+                            bar_low = None
+                    except (TypeError, ValueError, AttributeError):
+                        bar_low = None
                 order_type = getattr(execution_simulator, "order_type", "market")
                 fill = execution_simulator.simulate_order(
-                    order_type, side, qty, price, bar_volume=bar_volume
+                    order_type,
+                    side,
+                    qty,
+                    price,
+                    bar_volume=bar_volume,
+                    bar_high=bar_high,
+                    bar_low=bar_low,
                 )
                 try:
                     filled_qty = float(fill["filled_qty"])
@@ -224,6 +250,8 @@ class BacktestEngine:
         cost_model: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
         rebalance_frequency: str | None = None,
         rebalance_offset: Any = None,
     ) -> dict[str, Any]:
@@ -279,6 +307,8 @@ class BacktestEngine:
             cost_model=cost_model,
             execution_simulator=execution_simulator,
             volume=volume,
+            high=high,
+            low=low,
         )
 
     def run_with_benchmark(
@@ -335,6 +365,8 @@ class BacktestEngine:
         cost_model: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
         rebalance_frequency: str | None = None,
         rebalance_offset: Any = None,
     ) -> dict[str, Any]:
@@ -376,6 +408,8 @@ class BacktestEngine:
             cost_model=cost_model,
             execution_simulator=execution_simulator,
             volume=volume,
+            high=high,
+            low=low,
         )
 
     def walk_forward(
@@ -390,6 +424,8 @@ class BacktestEngine:
         risk_manager: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -414,6 +450,8 @@ class BacktestEngine:
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
                 volume=volume,
+                high=high,
+                low=low,
             )
             results.append(result)
             i += test_period
@@ -429,6 +467,8 @@ class BacktestEngine:
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
                 volume=volume,
+                high=high,
+                low=low,
             )
             return {
                 "returns": [result["total_return"]],
@@ -465,6 +505,8 @@ class BacktestEngine:
         risk_manager: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        high: pd.DataFrame | None = None,
+        low: pd.DataFrame | None = None,
         reoptimize: bool = False,
         optimizer: Any = None,
     ) -> dict[str, Any]:
@@ -516,6 +558,8 @@ class BacktestEngine:
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
                 volume=volume,
+                high=high,
+                low=low,
             )
             results.append(result)
             i += test_period
@@ -530,6 +574,8 @@ class BacktestEngine:
                 risk_manager=risk_manager,
                 execution_simulator=execution_simulator,
                 volume=volume,
+                high=high,
+                low=low,
             )
             return {"returns": [result["total_return"]], "results": [result]}
 

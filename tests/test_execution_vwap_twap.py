@@ -71,10 +71,33 @@ def test_engine_vwap_end_to_end():
     assert "total_return" in result
 
 
-def test_engine_twap_end_to_end():
-    data = _make_data()
+def test_engine_vwap_uses_supplied_high_low():
+    n = 10
+    dates = pd.date_range("2024-01-01", periods=n, freq="1h")
+    data = pd.DataFrame({"BTC": [100.0] * n}, index=dates)
+    high = pd.DataFrame({"BTC": [120.0] * n}, index=dates)
+    low = pd.DataFrame({"BTC": [80.0] * n}, index=dates)
     weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
     engine = BacktestEngine(initial_capital=100_000.0)
-    sim = ExecutionSimulator(order_type="twap", slippage_bps=5)
-    result = engine.run_portfolio(weights, data, execution_simulator=sim)
-    assert "total_return" in result
+    sim = ExecutionSimulator(order_type="vwap", participation_rate=1.0, slippage_bps=0)
+    engine.run_portfolio(weights, data, execution_simulator=sim, high=high, low=low)
+    fills = sim.fills()
+    assert len(fills) > 0
+    # VWAP price = (high + low + close) / 3 = (120 + 80 + 100) / 3
+    assert abs(fills[0]["avg_price"] - (120.0 + 80.0 + 100.0) / 3.0) < 1e-9
+
+
+def test_engine_twap_uses_supplied_high_low():
+    n = 10
+    dates = pd.date_range("2024-01-01", periods=n, freq="1h")
+    data = pd.DataFrame({"BTC": [100.0] * n}, index=dates)
+    high = pd.DataFrame({"BTC": [110.0] * n}, index=dates)
+    low = pd.DataFrame({"BTC": [90.0] * n}, index=dates)
+    weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
+    engine = BacktestEngine(initial_capital=100_000.0)
+    sim = ExecutionSimulator(order_type="twap", participation_rate=1.0, slippage_bps=0)
+    engine.run_portfolio(weights, data, execution_simulator=sim, high=high, low=low)
+    fills = sim.fills()
+    assert len(fills) > 0
+    # TWAP price = (high + low) / 2 = (110 + 90) / 2
+    assert abs(fills[0]["avg_price"] - (110.0 + 90.0) / 2.0) < 1e-9
