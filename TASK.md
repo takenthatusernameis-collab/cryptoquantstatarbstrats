@@ -1,51 +1,25 @@
 # Task for Next Agent
 
 ## Context
-You are continuing the **cryptoquantstatarbstrats** repository, a statistical-arbitrage framework for crypto markets. The previous agent completed the initial framework:
-
-- `strategies/base.py` — `Strategy` / `PairStrategy` base classes
-- `strategies/pairs_trading.py` — `CointegrationPairsStrategy` (OLS hedge ratio + z-score signals)
-- `backtest/engine.py` — `BacktestEngine` consuming strategy signals with position-weighted returns
-- `data/loader.py` — `DataLoader` with synthetic data + cleaning helpers
-- `utils/__init__.py` — returns, z-score, half-life, annualized metrics
-- `tests/test_strategies.py` — 5 passing pytest tests
-- `examples/run_pairs.py` — end-to-end demo
-- `pyproject.toml`, `requirements.txt`, updated `README.md`
-
-All tests pass (`pytest` → 5 passed) and `ruff check` is clean.
+The crypto stat-arb framework is fully implemented and verified:
+- 12 tests pass, ruff clean, `examples/compare.py` runs.
 
 ## Task
-**Implement a mean-reversion strategy and a cross-exchange arbitrage strategy, then add a comparative backtest harness.**
+**Add transaction-cost modeling and walk-forward validation to the backtest engine, plus risk metrics.**
 
 ### Requirements
-1. **New strategy: MeanReversionStrategy** (`strategies/mean_reversion.py`)
-   - Subclass `Strategy` (not `PairStrategy`).
-   - Generate entry/exit signals based on a rolling z-score or Bollinger Band of a single asset's returns/price.
-   - Implement `calculate_position_sizes` returning per-asset weights.
-
-2. **New strategy: CrossExchangeArb** (`strategies/cross_exchange.py`)
-   - Subclass `Strategy`.
-   - Model two price feeds for the same asset on different exchanges; signal when the spread exceeds a threshold minus estimated fees.
-   - Implement `calculate_position_sizes`.
-
-3. **Comparative harness** (`examples/compare.py`)
-   - Load data for 2–3 assets via `DataLoader`.
-   - Run each strategy through `BacktestEngine`.
-   - Print a side-by-side comparison table of `total_return`, `sharpe_ratio`, `max_drawdown`.
-
-4. **Tests** (`tests/test_strategies.py`)
-   - Add tests for the two new strategies (signal shape, position sizes, harness runs).
+1. `BacktestEngine.run` accepts `fee_rate` and `slippage` params; subtract costs from portfolio returns.
+2. Add `walk_forward` method splitting data into train/test windows.
+3. Add `max_drawdown_duration`, `calmar_ratio` to result dict.
+4. Tests in `tests/test_strategies.py` for costs reduce returns and walk-forward returns dict.
+5. Update `examples/compare.py` to print new metrics.
 
 ### Constraints
-- Follow existing conventions: `from __future__ import annotations`, type hints, `Strategy` ABC with abstract `generate_signals` and `calculate_position_sizes`.
-- Keep `ruff check` clean and all `pytest` tests green.
-- Do **not** modify `.github/workflows/main.yml`.
-- Use lowercase `1h` for pandas frequency strings (pandas 2.x rejects `1H`).
-- Prefer editing existing files over creating new ones; create new files only where required.
+- Keep ruff clean and all tests green.
+- Do not modify `.github/workflows/main.yml`.
 
 ### Verification
 ```bash
-python3 -m pip install -e ".[dev]"   # if needed
 python3 -m pytest tests/ -v
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python3 examples/compare.py
