@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from strategies.base import Strategy
-from utils.metrics import cvar, sortino_ratio, var
+from utils.metrics import cvar, sharpe_ratio, sortino_ratio, var
 
 
 class BacktestEngine:
@@ -82,9 +82,7 @@ class BacktestEngine:
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
 
         total_return = float(cumulative_returns.iloc[-1] - 1.0)
-        mean_ret = float(portfolio_returns.mean())
-        std_ret = float(portfolio_returns.std())
-        sharpe_ratio = (mean_ret / std_ret * np.sqrt(252)) if std_ret > 0 else 0.0
+        sharpe = sharpe_ratio(portfolio_returns)
         running_max = cumulative_returns.cummax()
         drawdown = cumulative_returns / running_max - 1.0
         max_drawdown = float(drawdown.min())
@@ -126,7 +124,7 @@ class BacktestEngine:
 
         return {
             "total_return": total_return,
-            "sharpe_ratio": sharpe_ratio,
+            "sharpe_ratio": sharpe,
             "max_drawdown": max_drawdown,
             "max_drawdown_duration": int(max_dd_duration),
             "calmar_ratio": float(calmar_ratio),
