@@ -17,6 +17,7 @@ from strategies.cross_exchange import CrossExchangeArb
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
+from utils.metrics import cvar, max_drawdown_duration_from_curve, sortino_ratio, var
 
 
 def make_data(n: int = 500, seed: int = 42) -> pd.DataFrame:
@@ -225,8 +226,6 @@ def test_walk_forward_returns_dict():
 
 def test_risk_manager_max_position_size():
     """Test RiskManager.max_position_size scales positions."""
-    import pandas as pd
-
     from utils.risk import RiskManager
 
     rm = RiskManager(max_weight=0.2)
@@ -240,10 +239,7 @@ def test_risk_manager_max_position_size():
             assert max_w <= 0.2 + 1e-10
 
 
-from utils.metrics import cvar, max_drawdown_duration_from_curve, sortino_ratio, var
 
-
-def test_metrics_sortino_var_cvar():
     rng = np.random.default_rng(123)
     returns = rng.normal(0.001, 0.01, 1000)
     s = sortino_ratio(returns)
