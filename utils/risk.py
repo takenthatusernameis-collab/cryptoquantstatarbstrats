@@ -16,68 +16,68 @@ class RiskManager:
     def __init__(self, max_weight: float = 0.2):
         self.max_weight = max_weight
 
+    def _scale_row(self, vals: np.ndarray, max_weight: float) -> np.ndarray:
+        vals = vals.astype(float).copy()
+        total = float(np.abs(vals).sum())
+        if total == 0:
+            return vals
+        max_abs = float(np.abs(vals).max())
+        if max_abs / total <= max_weight + 1e-12:
+            return vals
+        # If capping cannot be satisfied by scaling (e.g. too few assets),
+        # zero out positions.
+        if len(vals) < 2 or max_weight < 1.0 / len(vals) - 1e-12:
+            return np.zeros_like(vals)
+        max_mask = np.abs(vals) == max_abs
+        # Scale up non-max assets so max becomes at most max_weight of total.
+        others_sum = float(np.abs(vals[~max_mask]).sum())
+        required_others = max_abs * (1.0 - max_weight) / max_weight
+        if others_sum > 0:
+            factor = required_others / others_sum
+            vals[~max_mask] = vals[~max_mask] * factor
+        else:
+            cnt = int(np.sum(~max_mask))
+            if cnt > 0:
+                vals[~max_mask] = np.sign(vals[~max_mask] + 1e-30) * (required_others / cnt)
+        return vals
+
     def max_position_size(
         self,
         positions: pd.DataFrame | dict[str, Any] | np.ndarray,
         capital: float | None = None,
         max_weight: float | None = None,
     ) -> pd.DataFrame | dict[str, Any] | np.ndarray:
-        """Scale positions so no single asset exceeds max_weight."""
+        """Scale positions so no single asset exceeds max_weight (by weight)."""
         if max_weight is None:
             max_weight = self.max_weight
 
         if isinstance(positions, pd.DataFrame):
-            scaled = positions.copy()
+            scaled = positions.copy().astype(float)
             for idx in scaled.index:
-                row = scaled.loc[idx].copy()
-                total = row.abs().sum()
-                if total == 0:
-                    continue
-                max_abs = row.abs().max()
-                max_w_rel = max_abs / total if total > 0 else 0
-                if capital is not None and max_abs > max_weight * capital + 1e-18:
-                    scale_factor = (max_weight * capital) / max_abs if max_abs > 0 else 1.0
-                    scaled.loc[idx] = row * scale_factor
-                    # Recheck
-                    r = scaled.loc[idx]
-                    t = r.abs().sum()
-                    if t > 0 and r.abs().max()/t > max_weight + 1e-10:
-                        sf = max_weight / (r.abs().max()/t)
-                        scaled.loc[idx] = r * sf
-                    continue
-                if max_w_rel > max_weight + 1e-18:
-                    # Force the ratio to be exactly max_weight
-                    result = row.copy().astype(float)
-                    # Make all positions equal magnitude
-                    n = len(result)
-                    # Set each to magnitude such that max/total = (mag)/(n*mag)=1/n if equal; but if n!=1/n? no
-                    # Or directly set values so ratio is satisfied
-                    vals = result.values.astype(float)
-                    # Try to construct: let the max be M', others adjusted so M'/sum = max_weight
-                    # Scale down largest and scale up others to keep sum same? no wait sum changes
-                    M_new = max_weight * total  # target max value
-                    # Cap max to M_new, add excess to others proportionally
-                    max_mask = np.abs(vals) == np.max(np.abs(vals))
-                    excess = np.sum(np.abs(vals[max_mask])) - M_new * np.sum(max_mask)
-                    for j in range(len(vals)):
-                        if max_mask[j]:
-                            vals[j] = np.sign(vals[j]) * M_new if vals[j] != 0 else 0
-                    others_mask = ~max_mask
-                    if np.any(others_mask):
-                        others_total_abs = np.sum(np.abs(vals[others_mask]))
-                        if others_total_abs == 0:
-                            # distribute excess equally to others
-                            for j in range(len(vals)):
-                                if others_mask[j]:
-                                    vals[j] = np.sign(row.values[j]) * (excess / np.sum(others_mask)) if excess > 0 else 0
-                        else:
-                            for j in range(len(vals)):
-                                if others_mask[j] and vals[j] != 0:
-                                    vals[j] = vals[j] + np.sign(vals[j]) * excess * (abs(vals[j]) / others_total_abs)
-                    total_new = np.sum(np.abs(vals))
-                    max_new = np.max(np.abs(vals))
-                    if total_new > 0 and max_new / total_new > max_weight + 1e-18:
-                        vals = vals * (max_weight / (max_new / total_new))
-                    scaled.loc[idx] = vals
-                    continue
+                scaled.loc[idx] = self._scale_row(scaled.loc[idx].values, max_weight)
             return scaled
+
+        if isinstance(positions, dict):
+            vals = np.array(list(positions.values()), dtype=float)
+            new_vals = self._scale_row(vals, max_weight)
+            return {k: float(v) for k, v in zip(positions.keys(), new_vals)}
+
+        arr = np.asarray(positions, dtype=float).copy()
+        if arr.ndim == 1:
+            arr = self._scale_row(arr, max_weight)
+        elif arr.ndim == 2:
+            for i in range(arr.shape[0]):
+                arr[i] = self._scale_row(arr[i], max_weight)
+        return arr
+
+    def stop_loss(
+        self,
+        prices: pd.Series | np.ndarray,
+        entry_prices: pd.Series | np.ndarray,
+        threshold: float = 0.1,
+    ) -> pd.Series | np.ndarray:
+        """Return boolean mask of assets breaching stop-loss threshold."""
+        p = pd.Series(prices) if not isinstance(prices, pd.Series) else prices
+        e = pd.Series(entry_prices) if not isinstance(entry_prices, pd.Series) else entry_prices
+        breach = (e - p) / e.replace(0, np.nan) >= threshold
+        return breach.fillna(False).astype(bool)

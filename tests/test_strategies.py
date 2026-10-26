@@ -225,8 +225,9 @@ def test_walk_forward_returns_dict():
 
 def test_risk_manager_max_position_size():
     """Test RiskManager.max_position_size scales positions."""
-    from utils.risk import RiskManager
     import pandas as pd
+
+    from utils.risk import RiskManager
 
     rm = RiskManager(max_weight=0.2)
     positions = pd.DataFrame({"A": [0.6], "B": [0.4]})
@@ -241,12 +242,13 @@ def test_risk_manager_max_position_size():
 
 def test_risk_manager_stop_loss():
     """Test RiskManager.stop_loss detects breaches."""
-    from utils.risk import RiskManager
     import pandas as pd
+
+    from utils.risk import RiskManager
 
     rm = RiskManager()
     prices = pd.Series([100, 90, 80])
     entry_prices = pd.Series([100, 100, 100])
     breach = rm.stop_loss(prices, entry_prices, threshold=0.1)
     # 10% drop breaches threshold 0.1
-    assert breach.iloc[1] == True or breach.iloc[2] == True
+    assert breach.iloc[1] or breach.iloc[2]
