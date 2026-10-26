@@ -1,0 +1,776 @@
+name: Kilo General Agent Loop
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      agents:
+        description: "Maximum sequential Kilo worker sessions for this activation"
+        required: false
+        default: 1000
+        type: number
+
+# The repository-scoped token can persist ordinary repository changes, but it
+# cannot authorize changes to GitHub Actions workflow files.
+permissions:
+  contents: write
+
+# Prevent overlapping activations of this workflow in the same repository.
+concurrency:
+  group: kilo-repository
+  cancel-in-progress: false
+
+jobs:
+  kilo:
+    runs-on: ubuntu-24.04
+    # Leave five minutes of margin below GitHub's six-hour job ceiling.
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          # For schedule events the event payload can be empty; schedule runs
+          # always target the default branch, so github.ref_name is the fallback.
+          ref: ${{ github.event.repository.default_branch || github.ref_name }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+
+      - name: Run general-purpose Kilo agent loop
+        id: kilo
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Auto Free does not require a Kilo API key. Keep only GitHub's
+          # repository token for checkout and checkpoint persistence.
+          KILO_DEFAULT_BRANCH: ${{ github.event.repository.default_branch || github.ref_name }}
+          KILO_INPUT_AGENTS: ${{ inputs.agents }}
+          KILO_IDLE_TIMEOUT_SECONDS: "900"
+        run: |
+          set -Eeuo pipefail
+          umask 077
+          # Start the hard controller cutoff immediately; all setup and worker
+          # activity must fit inside this 355-minute budget.
+          cutoff_epoch=$(( $(date +%s) + 355 * 60 ))
+          # Reserve the final five minutes of the controller budget for committing,
+          # reconciling, pushing, and verifying a durable checkpoint.
+          checkpoint_reserve_seconds=300
+          # Kilo Auto Free (kilo/kilo-auto/free) does not need KILO_API_KEY.
+
+          # The watchdog is generated in RUNNER_TEMP. The repository needs only
+          # this workflow file; no controller/helper scripts need to be copied.
+          cat > "$RUNNER_TEMP/kilo-idle-timeout.py" <<'PYTHON'
+          #!/usr/bin/env python3
+          """Run a child command with an idle timeout and secret-conscious diagnostics."""
+          from __future__ import annotations
+          import argparse
+          import io
+          import os
+          import selectors
+          import shutil
+          import signal
+          import subprocess
+          import sys
+          import time
+          from datetime import datetime, timezone
+          from typing import Sequence
+
+          _requested_signal: int | None = None
+
+          def _handle_signal(signum: int, _frame: object) -> None:
+              global _requested_signal
+              _requested_signal = signum
+
+          def _signal_process_group(process: subprocess.Popen[bytes], signum: int) -> None:
+              try:
+                  os.killpg(process.pid, signum)
+              except ProcessLookupError:
+                  pass
+              except OSError as exc:
+                  print(f"[idle-watchdog] Unable to signal child process group: {exc}", file=sys.stderr, flush=True)
+
+          def _terminate_process_group(process: subprocess.Popen[bytes]) -> None:
+              _signal_process_group(process, signal.SIGTERM)
+              try:
+                  process.wait(timeout=5)
+              except subprocess.TimeoutExpired:
+                  pass
+              _signal_process_group(process, signal.SIGKILL)
+              try:
+                  process.wait(timeout=2)
+              except subprocess.TimeoutExpired:
+                  print("[idle-watchdog] Child process did not exit after SIGKILL.", file=sys.stderr, flush=True)
+
+          def _run_diagnostic_command(args: list[str], timeout: float = 2.0) -> str:
+              try:
+                  result = subprocess.run(args, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                      stderr=subprocess.STDOUT, text=True, errors="replace", timeout=timeout, check=False)
+                  output = result.stdout.strip()
+                  if result.returncode != 0:
+                      return f"(exit {result.returncode})\n{output}"
+                  return output or "(no output)"
+              except FileNotFoundError:
+                  return f"(unavailable: {args[0]} not installed)"
+              except subprocess.TimeoutExpired:
+                  return f"(diagnostic command timed out after {timeout:.1f}s)"
+              except OSError as exc:
+                  return f"(diagnostic command failed: {exc})"
+
+          def _capture_snapshot(history: io.StringIO, pgid: int, label: str) -> None:
+              now = datetime.now(timezone.utc).isoformat()
+              history.write(f"\n--- snapshot={label} utc={now} kilo_pgid={pgid} ---\n")
+              for path, title in (("/proc/loadavg", "loadavg"), ("/proc/uptime", "uptime")):
+                  try:
+                      with open(path, encoding="utf-8") as handle:
+                          history.write(f"{title}: {handle.read().strip()}\n")
+                  except OSError as exc:
+                      history.write(f"{title}: unavailable ({exc})\n")
+              try:
+                  with open("/proc/meminfo", encoding="utf-8") as handle:
+                      for line in handle:
+                          if line.startswith(("MemTotal:", "MemAvailable:", "SwapTotal:", "SwapFree:")):
+                              history.write(f"memory: {line.strip()}\n")
+              except OSError as exc:
+                  history.write(f"memory: unavailable ({exc})\n")
+
+              ps_output = _run_diagnostic_command(["ps", "-eo", "pid=,ppid=,pgid=,stat=,etime=,time=,%cpu=,%mem=,wchan:24=,comm="])
+              members: list[tuple[int, str]] = []
+              for line in ps_output.splitlines():
+                  columns = line.split(None, 9)
+                  if len(columns) >= 3 and columns[2] == str(pgid):
+                      try:
+                          members.append((int(columns[0]), line))
+                      except ValueError:
+                          continue
+              history.write("process_group_members: pid ppid pgid stat elapsed cpu_time cpu_pct mem_pct wait_channel command_name\n")
+              if members:
+                  for _pid, line in members:
+                      history.write(f"  {line}\n")
+                  selected = ("Name:", "State:", "Pid:", "PPid:", "Threads:", "VmRSS:",
+                      "voluntary_ctxt_switches:", "nonvoluntary_ctxt_switches:")
+                  for pid, _line in members:
+                      history.write(f"proc_status pid={pid}: ")
+                      try:
+                          values = []
+                          with open(f"/proc/{pid}/status", encoding="utf-8") as handle:
+                              for row in handle:
+                                  if row.startswith(selected):
+                                      values.append(row.strip())
+                          history.write(" | ".join(values) if values else "(selected fields unavailable)")
+                      except OSError as exc:
+                          history.write(f"(unavailable: {exc})")
+                      try:
+                          history.write(f" | open_fd_count={len(os.listdir(f'/proc/{pid}/fd'))}")
+                      except OSError as exc:
+                          history.write(f" | open_fd_count=unavailable ({exc})")
+                      history.write("\n")
+              else:
+                  history.write("  (no processes currently found in the Kilo process group)\n")
+                  history.write(f"  ps_diagnostic: {ps_output[:1200]}\n")
+
+              ss_path = shutil.which("ss")
+              if ss_path and members:
+                  socket_output = _run_diagnostic_command([ss_path, "-tpn"], timeout=2.0)
+                  member_ids = [pid for pid, _line in members]
+                  socket_lines = [line for line in socket_output.splitlines()
+                                  if any(f"pid={pid}," in line for pid in member_ids)]
+                  history.write("process_group_tcp_sockets:\n")
+                  for line in socket_lines[:40]:
+                      history.write(f"  {line}\n")
+                  if not socket_lines:
+                      history.write("  (no TCP sockets attributed to this process group, or socket ownership unavailable)\n")
+              else:
+                  history.write("process_group_tcp_sockets: unavailable (ss missing or process group empty)\n")
+
+          def _emit_diagnostics(history: io.StringIO) -> None:
+              print("\n=== KILO_IDLE_DIAGNOSTICS_BEGIN ===", flush=True)
+              print("Samples collected while child output was silent. Process names/states, selected counters, system load/memory, and process-attributed TCP socket summaries are included; argv and environment are omitted.", flush=True)
+              print(history.getvalue().strip() or "(no process snapshots were collected)", flush=True)
+              print("=== KILO_IDLE_DIAGNOSTICS_END ===\n", flush=True)
+
+          def _parse_args(argv: Sequence[str]) -> tuple[int, int, list[str]]:
+              try:
+                  divider = list(argv).index("--")
+              except ValueError as exc:
+                  raise SystemExit("usage: kilo-idle-timeout.py --idle-timeout-seconds N [--diagnostic-sample-interval-seconds N] -- COMMAND [ARGS...]") from exc
+              parser = argparse.ArgumentParser(add_help=True)
+              parser.add_argument("--idle-timeout-seconds", type=int, default=900)
+              parser.add_argument("--diagnostic-sample-interval-seconds", type=int, default=60)
+              options = parser.parse_args(list(argv[:divider]))
+              command = list(argv[divider + 1:])
+              if options.idle_timeout_seconds < 1:
+                  parser.error("--idle-timeout-seconds must be at least 1")
+              if options.diagnostic_sample_interval_seconds < 1:
+                  parser.error("--diagnostic-sample-interval-seconds must be at least 1")
+              if not command:
+                  parser.error("a command is required after --")
+              return options.idle_timeout_seconds, options.diagnostic_sample_interval_seconds, command
+
+          def main(argv: Sequence[str] | None = None) -> int:
+              global _requested_signal
+              idle_timeout, sample_interval, command = _parse_args(sys.argv[1:] if argv is None else argv)
+              signal.signal(signal.SIGTERM, _handle_signal)
+              signal.signal(signal.SIGINT, _handle_signal)
+              try:
+                  process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                      stderr=subprocess.STDOUT, bufsize=0, start_new_session=True)
+              except OSError as exc:
+                  print(f"[idle-watchdog] Could not start child command: {exc}", file=sys.stderr, flush=True)
+                  return 127
+              assert process.stdout is not None
+              last_output = time.monotonic()
+              last_snapshot = last_output
+              history = io.StringIO()
+              selector = selectors.DefaultSelector()
+              selector.register(process.stdout, selectors.EVENT_READ)
+              _capture_snapshot(history, process.pid, "started")
+              try:
+                  while True:
+                      now = time.monotonic()
+                      if _requested_signal is not None:
+                          print(f"[idle-watchdog] Received signal {_requested_signal}; collecting diagnostics before termination.", flush=True)
+                          _capture_snapshot(history, process.pid, "termination-signal")
+                          _emit_diagnostics(history)
+                          _terminate_process_group(process)
+                          return 128 + _requested_signal
+                      idle_for = now - last_output
+                      remaining_idle = idle_timeout - idle_for
+                      if remaining_idle <= 0:
+                          print(f"[idle-watchdog] Kilo invocation idle timeout: no child output for {idle_timeout} seconds; collecting diagnostics before terminating this invocation.", flush=True)
+                          _capture_snapshot(history, process.pid, "idle-timeout")
+                          _emit_diagnostics(history)
+                          _terminate_process_group(process)
+                          print("[idle-watchdog] Child process group termination attempted; controller may preserve the session log and checkpoint.", flush=True)
+                          return 124
+                      remaining_sample = sample_interval - (now - last_snapshot)
+                      select_timeout = min(1.0, remaining_idle, max(0.0, remaining_sample))
+                      if not selector.get_map():
+                          if process.poll() is not None:
+                              return process.wait()
+                          time.sleep(max(0.01, select_timeout))
+                          events = []
+                      else:
+                          events = selector.select(timeout=select_timeout)
+                      for key, _mask in events:
+                          try:
+                              chunk = os.read(key.fileobj.fileno(), 65536)
+                          except OSError as exc:
+                              print(f"[idle-watchdog] Error reading child output: {exc}", file=sys.stderr, flush=True)
+                              chunk = b""
+                          if not chunk:
+                              selector.unregister(key.fileobj)
+                              continue
+                          try:
+                              sys.stdout.buffer.write(chunk)
+                              sys.stdout.buffer.flush()
+                          except BrokenPipeError:
+                              _capture_snapshot(history, process.pid, "parent-pipe-closed")
+                              _terminate_process_group(process)
+                              return 141
+                          last_output = time.monotonic()
+                      if process.poll() is not None and not selector.get_map():
+                          return process.wait()
+                      now = time.monotonic()
+                      if now - last_snapshot >= sample_interval:
+                          _capture_snapshot(history, process.pid, "silent-period")
+                          last_snapshot = now
+              finally:
+                  selector.close()
+                  if process.poll() is None:
+                      _terminate_process_group(process)
+                  process.stdout.close()
+
+          if __name__ == "__main__":
+              raise SystemExit(main())
+          PYTHON
+          chmod 700 "$RUNNER_TEMP/kilo-idle-timeout.py"
+          python3 -m py_compile "$RUNNER_TEMP/kilo-idle-timeout.py"
+
+          export HOME="$RUNNER_TEMP/kilo-home"
+          export XDG_CONFIG_HOME="$HOME/.config"
+          export XDG_DATA_HOME="$HOME/.local/share"
+          export XDG_CACHE_HOME="$HOME/.cache"
+          export TMPDIR="$RUNNER_TEMP/kilo-tmp"
+          mkdir -p "$XDG_CONFIG_HOME/kilo" "$XDG_DATA_HOME/kilo" "$XDG_CACHE_HOME/kilo" "$TMPDIR" "$RUNNER_TEMP/kilo"
+          for directory in "$HOME" "$XDG_CONFIG_HOME/kilo" "$XDG_DATA_HOME/kilo" "$XDG_CACHE_HOME/kilo" "$TMPDIR" "$RUNNER_TEMP/kilo"; do
+            if ! ( : > "$directory/.kilo-write-test" ) 2>/dev/null; then
+              echo "::error::Runtime directory is not writable: $directory."
+              exit 1
+            fi
+            rm -f "$directory/.kilo-write-test"
+          done
+
+          cat > "$XDG_CONFIG_HOME/kilo/kilo.json" <<'JSON'
+          {"$schema":"https://app.kilo.ai/config.json","permission":"allow"}
+          JSON
+          chmod 600 "$XDG_CONFIG_HOME/kilo/kilo.json"
+
+          install_backoff=5
+          while ! timeout --signal=TERM --kill-after=10s 180s npm install --no-audit --no-fund --prefix "$RUNNER_TEMP/kilo" @kilocode/cli@7.8.8; do
+            remaining=$((cutoff_epoch - $(date +%s)))
+            if (( remaining <= 0 )); then
+              echo "::error::Kilo CLI could not be installed before the 355-minute cutoff."
+              exit 1
+            fi
+            delay=$install_backoff
+            (( delay > remaining )) && delay=$remaining
+            echo "::warning::Kilo CLI installation failed; retrying after ${delay}s."
+            sleep "$delay"
+            (( install_backoff < 60 )) && install_backoff=$((install_backoff * 2))
+            (( install_backoff > 60 )) && install_backoff=60
+          done
+          export PATH="$RUNNER_TEMP/kilo/node_modules/.bin:$PATH"
+          kilo --version
+
+          git config user.name "kilo-autonomous"
+          git config user.email "kilo-autonomous@users.noreply.github.com"
+          DEFAULT_BRANCH="${KILO_DEFAULT_BRANCH:-}"
+          if [[ -z "$DEFAULT_BRANCH" ]]; then
+            echo "::error::GitHub did not provide the repository default branch."
+            exit 1
+          fi
+
+          agents="${KILO_INPUT_AGENTS:-1000}"
+          if ! [[ "$agents" =~ ^[0-9]+$ ]]; then
+            echo "::warning::Invalid agent count; using a safe value of 1."
+            agents=1
+          fi
+          (( agents < 1 )) && agents=1
+          (( agents > 1000 )) && agents=1000
+          idle_timeout="${KILO_IDLE_TIMEOUT_SECONDS:-900}"
+          if ! [[ "$idle_timeout" =~ ^[0-9]+$ ]] || (( idle_timeout < 60 )); then idle_timeout=900; fi
+
+          command='Execute the task assigned by the previous agent and prepare a task for the next agent!'
+
+          heartbeat() {
+            local heartbeat_sleep_pid=""
+            trap 'if [[ -n "$heartbeat_sleep_pid" ]]; then kill "$heartbeat_sleep_pid" 2>/dev/null || true; fi; exit 0' TERM INT
+            while true; do
+              printf '[heartbeat] %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              sleep 60 &
+              heartbeat_sleep_pid=$!
+              wait "$heartbeat_sleep_pid" || true
+              heartbeat_sleep_pid=""
+            done
+          }
+          heartbeat &
+          heartbeat_pid=$!
+          trap 'kill -TERM "$heartbeat_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true' EXIT
+
+          session_started=0
+          session_completed=0
+          failed_sessions=0
+          consecutive_failures=0
+          retry_count=0
+          provider_pressure_streak=0
+          project_progress=0
+          checkpoint_count=0
+          persistence_attempts=0
+          final_phase="starting"
+          final_detail="initializing"
+          fatal_persistence=0
+          backoff=15
+
+          remote_error_is_fatal() {
+            grep -Eiq 'Authentication failed|could not read Username|Permission denied \(publickey\)|Write access to repository not granted|Repository not found|HTTP 403|403 Forbidden|protected branch hook declined|pre-receive hook declined|GH006|GH013|repository rule violations|not authorized to access|does not have permission|couldn.t find remote ref' <<< "${1:-}"
+          }
+
+          persist_checkpoint() {
+            local push_backoff=5 local_delay remaining remote_sha local_sha command_timeout
+            local fetch_output push_output verify_output
+            while true; do
+              remaining=$((cutoff_epoch - $(date +%s)))
+              if (( remaining <= 0 )); then
+                echo "::error::Persistence could not be verified before the global cutoff."
+                return 1
+              fi
+              command_timeout=60
+              (( command_timeout > remaining )) && command_timeout=$remaining
+              persistence_attempts=$((persistence_attempts + 1))
+              if fetch_output="$(timeout --signal=TERM --kill-after=5s "${command_timeout}s" git fetch origin "$DEFAULT_BRANCH" 2>&1)"; then
+                [[ -z "$fetch_output" ]] || printf '%s\n' "$fetch_output"
+              else
+                printf '%s\n' "$fetch_output"
+                if remote_error_is_fatal "$fetch_output"; then
+                  echo "::error::Remote authentication, permission, or branch configuration rejected fetch; stopping persistence retries."
+                  return 1
+                fi
+                echo "::warning::Fetch failed or timed out during persistence attempt ${persistence_attempts}; retrying."
+              fi
+              remaining=$((cutoff_epoch - $(date +%s)))
+              if (( remaining <= 0 )); then return 1; fi
+              command_timeout=60
+              (( command_timeout > remaining )) && command_timeout=$remaining
+              if ! git merge-base --is-ancestor "origin/$DEFAULT_BRANCH" HEAD 2>/dev/null; then
+                if rebase_output="$(timeout --signal=TERM --kill-after=5s "${command_timeout}s" git rebase --autostash "origin/$DEFAULT_BRANCH" 2>&1)"; then
+                  [[ -z "$rebase_output" ]] || printf '%s\n' "$rebase_output"
+                else
+                  printf '%s\n' "$rebase_output"
+                  git rebase --abort >/dev/null 2>&1 || true
+                  echo "::error::Remote reconciliation hit conflicts or timed out; refusing an automatic conflict strategy that could discard remote work."
+                  return 1
+                fi
+              fi
+              if git merge-base --is-ancestor "origin/$DEFAULT_BRANCH" HEAD 2>/dev/null; then
+                remaining=$((cutoff_epoch - $(date +%s)))
+                if (( remaining <= 0 )); then return 1; fi
+                command_timeout=60
+                (( command_timeout > remaining )) && command_timeout=$remaining
+                if push_output="$(timeout --signal=TERM --kill-after=5s "${command_timeout}s" git push origin "HEAD:$DEFAULT_BRANCH" 2>&1)"; then
+                  [[ -z "$push_output" ]] || printf '%s\n' "$push_output"
+                  remaining=$((cutoff_epoch - $(date +%s)))
+                  if (( remaining <= 0 )); then return 1; fi
+                  command_timeout=60
+                  (( command_timeout > remaining )) && command_timeout=$remaining
+                  if verify_output="$(timeout --signal=TERM --kill-after=5s "${command_timeout}s" git ls-remote origin "refs/heads/$DEFAULT_BRANCH" 2>&1)"; then
+                    remote_sha="$(awk 'NR==1 {print $1}' <<< "$verify_output")"
+                  else
+                    printf '%s\n' "$verify_output"
+                    if remote_error_is_fatal "$verify_output"; then
+                      echo "::error::Remote authentication or permission failed during checkpoint verification."
+                      return 1
+                    fi
+                    remote_sha=""
+                  fi
+                  local_sha="$(git rev-parse HEAD)"
+                  if [[ -n "$remote_sha" && "$remote_sha" == "$local_sha" ]]; then
+                    checkpoint_count=$((checkpoint_count + 1))
+                    echo "Verified durable checkpoint ${checkpoint_count} at ${remote_sha}."
+                    return 0
+                  fi
+                  echo "::warning::Remote advanced during verification or the verification command timed out; refetching."
+                else
+                  printf '%s\n' "$push_output"
+                  if remote_error_is_fatal "$push_output"; then
+                    echo "::error::Remote authentication, permission, or branch protection rejected checkpoint push; stopping persistence retries."
+                    return 1
+                  fi
+                  echo "::warning::Push failed or timed out on persistence attempt ${persistence_attempts}; refetching and reconciling."
+                fi
+              fi
+              remaining=$((cutoff_epoch - $(date +%s)))
+              if (( remaining <= 0 )); then return 1; fi
+              local_delay=$push_backoff
+              (( local_delay > remaining )) && local_delay=$remaining
+              sleep "$local_delay"
+              (( push_backoff < 60 )) && push_backoff=$((push_backoff * 2))
+              (( push_backoff > 60 )) && push_backoff=60
+            done
+          }
+
+          save_recovery_evidence() {
+            local base_sha="${1:-HEAD}"
+            local suffix="${GITHUB_RUN_ID:-local}-${GITHUB_RUN_ATTEMPT:-1}"
+            git bundle create "$RUNNER_TEMP/kilo-recovery-${suffix}.bundle" --all HEAD >/dev/null 2>&1 || true
+            git diff --binary "$base_sha" > "$RUNNER_TEMP/kilo-working-tree-${suffix}.patch" 2>/dev/null || true
+            git diff --cached --binary "$base_sha" > "$RUNNER_TEMP/kilo-index-${suffix}.patch" 2>/dev/null || true
+            git status --short > "$RUNNER_TEMP/kilo-recovery-status-${suffix}.txt" 2>/dev/null || true
+          }
+
+          stage_safe_changes() {
+            local base_sha="$1" changed_path
+            # A plain add respects .gitignore. Negative pathspecs on `git add -A -- .`
+            # can make Git treat an ignored directory itself as an explicit path and
+            # fail the entire checkpoint (observed with __pycache__). Stage first,
+            # then unstage excluded paths one-by-one without deleting worker changes.
+            git add -A -- . || return 1
+            while IFS= read -r -d '' changed_path; do
+              case "$changed_path" in
+                .github/workflows/*|.venv/*|*/.venv/*|venv/*|*/venv/*|node_modules/*|*/node_modules/*|__pycache__/*|*/__pycache__/*|.pytest_cache/*|*/.pytest_cache/*|.mypy_cache/*|*/.mypy_cache/*|.ruff_cache/*|*/.ruff_cache/*|.tox/*|*/.tox/*|.env|.env.*|*/.env|*/.env.*|*.pyc|*.pyo|*.sqlite|*.sqlite3|*.db|*.sqlite-wal|*.sqlite-shm|*.sqlite3-wal|*.sqlite3-shm|*.db-wal|*.db-shm|*.tmp|coverage.xml|*/coverage.xml|.coverage|*/.coverage|kilo-session-*.log|*/kilo-session-*.log|kilo-progress-*.log|*/kilo-progress-*.log)
+                  if git cat-file -e "$base_sha:$changed_path" 2>/dev/null; then
+                    git restore --staged -- "$changed_path" || return 1
+                  else
+                    git rm --cached -q --ignore-unmatch -- "$changed_path" || return 1
+                  fi
+                  ;;
+              esac
+            done < <(git diff --cached --name-only -z)
+          }
+
+          stage_and_checkpoint() {
+            local base_sha="$1"
+            local committed_this_iteration=0
+            checkpoint_has_project_changes=0
+            # Keep workflow definitions maintainer-managed; the standard token cannot
+            # authorize workflow-file changes. Remove agent-created workflow files too.
+            git restore --source="$base_sha" --staged --worktree -- .github/workflows >/dev/null 2>&1 || true
+            git clean -fd -- .github/workflows >/dev/null 2>&1 || true
+            if ! stage_safe_changes "$base_sha"; then
+              save_recovery_evidence "$base_sha"
+              return 1
+            fi
+
+            # Repair whitespace in staged text files before failing the checkpoint.
+            if ! git diff --cached --check; then
+              echo "::warning::Normalizing trailing whitespace and extra blank lines at EOF."
+              if ! python3 - <<'PYTHON'
+          import os
+          import re
+          import subprocess
+          from pathlib import Path
+          raw_paths = subprocess.check_output(
+              ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR", "-z"]
+          ).split(b"\0")
+          for raw_path in raw_paths:
+              if not raw_path:
+                  continue
+              path = Path(os.fsdecode(raw_path))
+              if path.is_symlink() or not path.is_file():
+                  continue
+              data = path.read_bytes()
+              if b"\0" in data:
+                  continue
+              cleaned = re.sub(rb"[ \t]+(?=\r?$)", b"", data, flags=re.MULTILINE)
+              cleaned = re.sub(rb"(?:[ \t]*\r?\n)+\Z", b"\n", cleaned)
+              if cleaned != data:
+                  path.write_bytes(cleaned)
+          PYTHON
+              then
+                echo "::warning::Whitespace normalizer failed; saving evidence and deferring checkpoint."
+                save_recovery_evidence "$base_sha"
+                git reset >/dev/null 2>&1 || true
+                return 1
+              fi
+              if ! stage_safe_changes "$base_sha"; then
+                save_recovery_evidence "$base_sha"
+                git reset >/dev/null 2>&1 || true
+                return 1
+              fi
+              if ! git diff --cached --check; then
+                echo "::error::Staged whitespace check still fails after normalization; saving recovery evidence."
+                save_recovery_evidence "$base_sha"
+                git reset >/dev/null 2>&1 || true
+                return 1
+              fi
+            fi
+
+            # Meaningful progress excludes only workflow definitions; marker-only
+            # commits are not used by this non-one-shot workflow.
+            if ! git diff --cached --quiet; then
+              while IFS= read -r -d '' changed_path; do
+                case "$changed_path" in
+                  .github/workflows/*) ;;
+                  *) checkpoint_has_project_changes=1 ;;
+                esac
+              done < <(git diff --cached --name-only -z)
+              git diff --cached --check || { save_recovery_evidence "$base_sha"; git reset >/dev/null 2>&1 || true; return 1; }
+              git commit -m "chore(kilo): checkpoint agent session" || { save_recovery_evidence "$base_sha"; return 1; }
+              committed_this_iteration=1
+            fi
+
+            if (( committed_this_iteration == 1 )); then
+              if ! persist_checkpoint; then
+                save_recovery_evidence "$base_sha"
+                return 1
+              fi
+              if (( checkpoint_has_project_changes == 1 )); then
+                project_progress=1
+                echo "Meaningful repository progress checkpoint verified at $(git rev-parse HEAD)."
+              fi
+            fi
+            return 0
+          }
+
+          echo "Starting Kilo activation: target=${agents} sequential sessions, idle timeout=${idle_timeout}s, cutoff=355 minutes."
+          echo "Repository default branch: ${DEFAULT_BRANCH}"
+
+          for ((agent_index=1; agent_index<=agents; agent_index++)); do
+            remaining=$((cutoff_epoch - $(date +%s)))
+            if (( remaining <= checkpoint_reserve_seconds )); then
+              final_phase="cutoff"
+              final_detail="checkpoint reserve reached before session ${agent_index}; last completed checkpoint remains authoritative"
+              break
+            fi
+            session_started=$((session_started + 1))
+            final_phase="worker-session"
+            final_detail="session ${agent_index} started"
+            base_sha="$(git rev-parse HEAD)"
+            session_log="$RUNNER_TEMP/kilo-session-${agent_index}.log"
+            : > "$session_log"
+            attempt=0
+            transient_backoff=15
+            rc=1
+            echo "Starting sequential Kilo session ${agent_index}/${agents}; remaining safety budget ${remaining}s."
+
+            while true; do
+              remaining=$((cutoff_epoch - $(date +%s)))
+              worker_budget=$((remaining - checkpoint_reserve_seconds))
+              if (( worker_budget <= 0 )); then rc=124; break; fi
+              attempt=$((attempt + 1))
+              attempt_log="$RUNNER_TEMP/kilo-session-${agent_index}-attempt-${attempt}.log"
+              set +e
+              timeout --signal=TERM --kill-after=10s "${worker_budget}s" \
+                python3 "$RUNNER_TEMP/kilo-idle-timeout.py" \
+                --idle-timeout-seconds "$idle_timeout" -- \
+                kilo run --model kilo/kilo-auto/free --auto "$command" \
+                2>&1 | tee "$attempt_log" | tee -a "$session_log"
+              rc=${PIPESTATUS[0]}
+              set -e
+              if (( rc == 0 )); then break; fi
+
+              normalized_log="$RUNNER_TEMP/kilo-session-${agent_index}-attempt-${attempt}.normalized.log"
+              python3 - "$attempt_log" "$normalized_log" <<'PYTHON'
+          import re, sys
+          from pathlib import Path
+          source, target = map(Path, sys.argv[1:3])
+          text = source.read_text(encoding="utf-8", errors="replace")
+          text = re.sub(r"\x1b\[[0-?]*[ -/]*[@-~]", "", text)
+          target.write_text(text, encoding="utf-8")
+          PYTHON
+              if grep -Eiq 'Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)' "$normalized_log"; then
+                retry_count=$((retry_count + 1))
+                remaining=$((cutoff_epoch - $(date +%s)))
+                if (( remaining <= transient_backoff )); then
+                  echo "::warning::Recognized transient Kilo/provider/network error, but insufficient time remains for backoff."
+                  break
+                fi
+                echo "::warning::Transient upstream/network failure; retry #${retry_count} after ${transient_backoff}s. Retrying until the global cutoff."
+                sleep "$transient_backoff"
+                (( transient_backoff < 300 )) && transient_backoff=$((transient_backoff * 2))
+                (( transient_backoff > 300 )) && transient_backoff=300
+                continue
+              fi
+              if grep -Fq 'Kilo invocation idle timeout:' "$normalized_log"; then
+                echo "::warning::Worker became silent for ${idle_timeout}s; diagnostic evidence was recorded and a fresh session will follow this checkpoint."
+              fi
+              break
+            done
+
+            provider_pressure=0
+            if (( rc == 0 )); then
+              session_completed=$((session_completed + 1))
+              consecutive_failures=0
+              provider_pressure_streak=0
+              final_detail="session ${agent_index} exited successfully; checkpointing"
+            else
+              failed_sessions=$((failed_sessions + 1))
+              consecutive_failures=$((consecutive_failures + 1))
+              mkdir -p "$RUNNER_TEMP/kilo-failure-logs"
+              tail -n 2000 "$session_log" > "$RUNNER_TEMP/kilo-failure-logs/session-${agent_index}.log" || true
+              if grep -Eiq '(^|[^0-9])429([^0-9]|$)|rate[ _-]?limit|resource[_ -]?exhausted|quota.*(exceed|limit)|current[:= ]*402.*limit[:= ]*400|provider.{0,30}(capacity|overload)' "$session_log"; then
+                provider_pressure=1
+                provider_pressure_streak=$((provider_pressure_streak + 1))
+                echo "::warning::Provider quota/capacity failure detected; applying a longer cooldown after checkpointing."
+              fi
+              final_detail="session ${agent_index} exited with status ${rc}; preserving evidence and checkpointing"
+              echo "::warning::Kilo session ${agent_index} exited with status ${rc}; preserving its evidence and continuing if time remains."
+            fi
+
+            if ! stage_and_checkpoint "$base_sha"; then
+              mkdir -p "$RUNNER_TEMP/kilo-failure-logs"
+              tail -n 2000 "$session_log" > "$RUNNER_TEMP/kilo-failure-logs/checkpoint-failure-session-${agent_index}.log" || true
+              save_recovery_evidence "$base_sha"
+              fatal_persistence=1
+              final_phase="checkpoint-failure"
+              final_detail="checkpoint validation or persistence failed for session ${agent_index}; recovery evidence was saved when possible"
+              echo "::error::Checkpoint could not be safely committed and verified. Stopping to avoid claiming persistence. Recovery artifacts will be uploaded."
+              break
+            fi
+
+            if (( $(date +%s) >= cutoff_epoch )); then
+              final_phase="cutoff"
+              final_detail="355-minute cutoff reached after a verified checkpoint"
+              break
+            fi
+            if (( provider_pressure == 1 )); then
+              case "$provider_pressure_streak" in
+                1) cooldown=300 ;;
+                2) cooldown=600 ;;
+                *) cooldown=900 ;;
+              esac
+              remaining=$((cutoff_epoch - $(date +%s)))
+              (( cooldown > remaining )) && cooldown=$remaining
+              if (( cooldown > 0 )); then
+                echo "Provider cooldown: waiting ${cooldown}s (pressure streak=${provider_pressure_streak}); global cutoff remains authoritative."
+                sleep "$cooldown"
+              fi
+            elif (( consecutive_failures > 0 )); then
+              case "$consecutive_failures" in
+                1) cooldown=15 ;;
+                2) cooldown=30 ;;
+                3) cooldown=60 ;;
+                *) cooldown=120 ;;
+              esac
+              cooldown=$((cooldown + RANDOM % 8))
+              remaining=$((cutoff_epoch - $(date +%s)))
+              (( cooldown > remaining )) && cooldown=$remaining
+              if (( cooldown > 0 )); then
+                echo "Waiting ${cooldown}s before the next Kilo session after failure streak ${consecutive_failures}."
+                sleep "$cooldown"
+              fi
+            else
+              # Brief pause reduces avoidable upstream contention.
+              sleep 2
+            fi
+          done
+
+          if (( fatal_persistence == 0 )) && (( $(date +%s) >= cutoff_epoch )); then
+            final_phase="cutoff"
+            final_detail="355-minute cutoff reached; the last completed checkpoint remains authoritative"
+          fi
+          echo "KILO_SESSIONS_STARTED=${session_started}" >> "$GITHUB_OUTPUT"
+          echo "KILO_SESSIONS_COMPLETED=${session_completed}" >> "$GITHUB_OUTPUT"
+          echo "KILO_FAILED_SESSIONS=${failed_sessions}" >> "$GITHUB_OUTPUT"
+          echo "KILO_TRANSIENT_RETRIES=${retry_count}" >> "$GITHUB_OUTPUT"
+          echo "KILO_PERSISTED_CHECKPOINTS=${checkpoint_count}" >> "$GITHUB_OUTPUT"
+          echo "KILO_PERSISTENCE_ATTEMPTS=${persistence_attempts}" >> "$GITHUB_OUTPUT"
+          echo "KILO_PROJECT_PROGRESS=${project_progress}" >> "$GITHUB_OUTPUT"
+          echo "KILO_FINAL_PHASE=${final_phase}" >> "$GITHUB_OUTPUT"
+          echo "KILO_FINAL_DETAIL=${final_detail}" >> "$GITHUB_OUTPUT"
+          {
+            echo "## Kilo general-agent workflow summary"
+            echo "- Sessions started: ${session_started}"
+            echo "- Sessions exited successfully: ${session_completed}"
+            echo "- Sessions with errors/timeouts: ${failed_sessions}"
+            echo "- Recognized transient retries: ${retry_count}"
+            echo "- Controller-verified persisted checkpoints: ${checkpoint_count}"
+            echo "- Persistence attempts: ${persistence_attempts}"
+            echo "- Meaningful project progress verified: ${project_progress}"
+            echo "- Consecutive worker failures at end: ${consecutive_failures}"
+            echo "- Provider quota/capacity failure streak: ${provider_pressure_streak}"
+            echo "- Final phase: ${final_phase} — ${final_detail}"
+            echo "- Idle timeout: ${idle_timeout}s; workflow safety cutoff: 355 minutes"
+            echo
+            echo "A successful worker exit is not by itself proof of task correctness. Review the worker logs and persisted repository changes."
+          } >> "$GITHUB_STEP_SUMMARY"
+          if (( fatal_persistence == 1 )); then
+            echo "::error::Checkpoint validation or persistence failed; see recovery artifacts and the summary above."
+            exit 1
+          fi
+          if (( project_progress != 1 )); then
+            echo "::error::No meaningful repository change was committed and verified in this activation."
+            exit 1
+          fi
+
+      - name: Upload Kilo failure logs
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: kilo-failure-logs-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/kilo-failure-logs/
+            ${{ runner.temp }}/kilo-recovery-*.bundle
+            ${{ runner.temp }}/kilo-working-tree-*.patch
+            ${{ runner.temp }}/kilo-index-*.patch
+            ${{ runner.temp }}/kilo-recovery-status-*.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Report controller outcomes
+        if: always()
+        shell: bash
+        env:
+          STARTED: ${{ steps.kilo.outputs.KILO_SESSIONS_STARTED }}
+          COMPLETED: ${{ steps.kilo.outputs.KILO_SESSIONS_COMPLETED }}
+          FAILED: ${{ steps.kilo.outputs.KILO_FAILED_SESSIONS }}
+          CHECKPOINTS: ${{ steps.kilo.outputs.KILO_PERSISTED_CHECKPOINTS }}
+          PROJECT_PROGRESS: ${{ steps.kilo.outputs.KILO_PROJECT_PROGRESS }}
+          PHASE: ${{ steps.kilo.outputs.KILO_FINAL_PHASE }}
+          DETAIL: ${{ steps.kilo.outputs.KILO_FINAL_DETAIL }}
+        run: |
+          echo "Kilo sessions started=${STARTED:-unknown}; completed=${COMPLETED:-unknown}; failed=${FAILED:-unknown}; verified checkpoints=${CHECKPOINTS:-unknown}; meaningful project progress=${PROJECT_PROGRESS:-unknown}."
+          echo "Final phase=${PHASE:-unknown}; detail=${DETAIL:-unknown}."
