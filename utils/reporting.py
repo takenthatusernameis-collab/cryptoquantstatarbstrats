@@ -82,3 +82,34 @@ def plot_equity_curve(result: dict, save_path: str | None = None) -> None:
         plt.close(fig)
     else:
         plt.show()
+
+
+def generate_risk_report(result: dict) -> str:
+    """Build a human-readable risk summary of a backtest result."""
+    var = result.get("var", 0.0)
+    cvar = result.get("cvar", 0.0)
+    max_drawdown = result.get("max_drawdown", 0.0)
+    max_dd_duration = result.get("max_drawdown_duration", 0)
+    calmar_ratio = result.get("calmar_ratio", 0.0)
+
+    lines: list[str] = [
+        "Risk Report",
+        "===========",
+        f"VaR (95%):              {var:.4%}",
+        f"CVaR (95%):             {cvar:.4%}",
+        f"Max Drawdown:           {max_drawdown:.4%}",
+        f"Max DD Duration:        {int(max_dd_duration)} periods",
+        f"Calmar Ratio:           {calmar_ratio:.4f}",
+    ]
+    return "\n".join(lines)
+
+
+def risk_report_to_dict(result: dict) -> dict:
+    """Return a serializable dict of risk metrics (float/int/str only)."""
+    return {
+        "var": float(result.get("var", 0.0)),
+        "cvar": float(result.get("cvar", 0.0)),
+        "max_drawdown": float(result.get("max_drawdown", 0.0)),
+        "max_drawdown_duration": int(result.get("max_drawdown_duration", 0)),
+        "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
+    }
