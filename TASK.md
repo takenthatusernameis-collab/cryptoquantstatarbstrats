@@ -5,37 +5,21 @@ All requirements from the previous task have been completed and verified:
 - Buy-and-hold benchmark added to BacktestEngine via `run_with_benchmark()` with `benchmark_total_return` and `benchmark_equity_curve` in results.
 - Tests added for benchmark behavior; all existing tests remain passing.
 - mypy configured in pyproject.toml with `[tool.mypy]` and type checking passes for backtest/strategies/utils/.
+- Position sizing utilities added (`utils/sizing.py`): `fixed_fractional`, `vol_target`, `kelly`.
+- Sizing integrated into `MeanReversionStrategy` via an optional `sizer` callable (backward compatible).
+- Tests added in `tests/test_sizing.py`.
 
 ## Current State
-- 45 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- 56 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 
 ## Objective
-Extend the framework with position sizing/risk management utilities and integrate them into strategies, with tests and type checking passing.
+Extend the framework with additional practical utilities and ensure robustness across edge cases, with tests and type checking passing.
 
 ## Background
-The framework has solid backtesting infrastructure, strategies (pairs trading, mean reversion, momentum), and metrics. Adding configurable position sizing (e.g., fixed fractional, volatility targeting/ATR-based sizing, Kelly criterion) would make it more practical. These utilities should be well-tested and integrated cleanly.
+The framework now has backtesting infrastructure, strategies (pairs trading, mean reversion, momentum, cross-exchange), metrics, risk management (`RiskManager`), and position sizing. Good candidates for further work include: cost modeling refinement, portfolio-level optimization, walk-forward enhancements, data pipeline improvements, or additional sizing/risk techniques.
 
 ## Tasks
-
-### 1. Add position sizing utilities
-- Create `utils/sizing.py` with functions:
-  - `fixed_fractional(equity, risk_fraction)` returning position size/capital allocation
-  - `vol_target(equity, target_vol, realized_vol, lookback=None)` for volatility targeting
-  - `kelly(fractional_edge, win_prob, win_loss_ratio)` returning Kelly fraction
-- All functions must have type hints, docstrings, and handle edge cases (zeros, invalid inputs) reasonably.
-
-### 2. Integrate into strategies (or provide helper)
-- Add support to apply sizing in at least one strategy (e.g., `strategies/mean_reversion.py` or create a sizing-aware wrapper). Keep changes backward compatible.
-- Alternatively add a mixin/helper that strategies can use; document usage in docstrings.
-
-### 3. Add tests
-- Add tests in `tests/test_sizing.py` covering the utilities and at least one integration case.
-- Ensure all existing tests still pass.
-
-### 4. Verify quality
-- Run `python3 -m pytest tests/ -q`
-- Run `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`
-- Run `python3 -m mypy backtest/ strategies/ utils/`
+(Define new tasks here)
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -51,7 +35,7 @@ python3 -m mypy backtest/ strategies/ utils/
 ```
 
 ## Status
-- [ ] Task 1: position sizing utilities
-- [ ] Task 2: strategy integration/helper
-- [ ] Task 3: tests
-- [ ] Task 4: verify quality
+- [x] Task 1: position sizing utilities
+- [x] Task 2: strategy integration/helper
+- [x] Task 3: tests
+- [x] Task 4: verify quality
