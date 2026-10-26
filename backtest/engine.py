@@ -31,6 +31,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         risk_manager: Any = None,
         cost_model: Any = None,
+        execution_simulator: Any = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -132,6 +133,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         risk_manager: Any = None,
         cost_model: Any = None,
+        execution_simulator: Any = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy.
 
@@ -178,6 +180,7 @@ class BacktestEngine:
             slippage=slippage,
             risk_manager=risk_manager,
             cost_model=cost_model,
+            execution_simulator=execution_simulator,
         )
 
     def run_with_benchmark(
@@ -188,6 +191,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         risk_manager: Any = None,
         cost_model: Any = None,
+        execution_simulator: Any = None,
     ) -> dict[str, Any]:
         """Run backtest and include an equal-weighted buy-and-hold benchmark."""
         result = self.run(
@@ -231,6 +235,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         risk_manager: Any = None,
         cost_model: Any = None,
+        execution_simulator: Any = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -261,6 +266,7 @@ class BacktestEngine:
             slippage=slippage,
             risk_manager=risk_manager,
             cost_model=cost_model,
+            execution_simulator=execution_simulator,
         )
 
     def walk_forward(
@@ -273,6 +279,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         cost_model: Any = None,
         risk_manager: Any = None,
+        execution_simulator: Any = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -295,6 +302,7 @@ class BacktestEngine:
                 slippage=slippage,
                 cost_model=cost_model,
                 risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
             )
             results.append(result)
             i += test_period
@@ -308,6 +316,7 @@ class BacktestEngine:
                 slippage=slippage,
                 cost_model=cost_model,
                 risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
             )
             return {
                 "returns": [result["total_return"]],
@@ -342,6 +351,7 @@ class BacktestEngine:
         slippage: float = 0.0,
         cost_model: Any = None,
         risk_manager: Any = None,
+        execution_simulator: Any = None,
         reoptimize: bool = False,
         optimizer: Any = None,
     ) -> dict[str, Any]:
@@ -391,6 +401,7 @@ class BacktestEngine:
                 slippage=slippage,
                 cost_model=cost_model,
                 risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
             )
             results.append(result)
             i += test_period
@@ -403,6 +414,7 @@ class BacktestEngine:
                 slippage=slippage,
                 cost_model=cost_model,
                 risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
             )
             return {"returns": [result["total_return"]], "results": [result]}
 
