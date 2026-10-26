@@ -8,6 +8,25 @@ import numpy as np
 import pandas as pd
 
 
+def sharpe_ratio(returns, risk_free_rate: float = 0.0, periods_per_year: int = 252) -> float:
+    """Calculate Sharpe ratio."""
+    if isinstance(returns, pd.Series):
+        returns = returns.dropna()
+    else:
+        returns = np.asarray(returns)
+        returns = returns[~np.isnan(returns)]
+
+    if len(returns) == 0:
+        return 0.0
+
+    excess_returns = returns - risk_free_rate / periods_per_year
+    mean_excess = np.mean(excess_returns)
+    std = np.std(excess_returns, ddof=0)
+    if std == 0:
+        return 0.0
+    return float(mean_excess / std * np.sqrt(periods_per_year))
+
+
 def sortino_ratio(returns, risk_free_rate: float = 0.0, periods_per_year: int = 252) -> float:
     """Calculate Sortino ratio using downside deviation (only negative returns)."""
     if isinstance(returns, pd.Series):

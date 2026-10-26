@@ -4,13 +4,12 @@
 
 All requirements from the previous task have been implemented and verified:
 
-- `utils/reporting.py` contains `generate_risk_report`, `risk_report_to_dict`, `generate_report`, `report_to_dict`, and `plot_equity_curve`. Both risk functions handle missing keys gracefully (default to 0).
-- `examples/risk_report.py` loads sample data, runs a MeanReversionStrategy backtest on BTC, prints full + risk reports, and saves `examples/reports/risk_report.txt`.
-- `tests/test_reporting.py` includes tests for `generate_risk_report` and `risk_report_to_dict` (sanity + missing keys).
-- Verification passed: 26 tests pass, ruff clean, `examples/risk_report.py` runs successfully.
+- `utils/metrics.py` now includes a `sharpe_ratio` helper alongside sortino/var/cvar/max_drawdown_duration.
+- Verification passed: 26 tests pass, ruff clean.
 
 ## Current State
-- 26 tests pass, ruff clean, `examples/compare.py` and `examples/optimize.py` run successfully.
+- 26 tests pass, ruff clean.
 
 ## Next Steps
-- No pending work. If a new task is needed, create a new TASK.md or provide instructions directly.
+- Wire `sharpe_ratio` into the backtest engine and reporting layer for consistency (engine currently computes sharpe inline).
+- Add unit tests for `sharpe_ratio` in tests/test_metrics.py (new).
