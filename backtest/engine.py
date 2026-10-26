@@ -30,8 +30,14 @@ class BacktestEngine:
         fee_rate: float = 0.0,
         slippage: float = 0.0,
         risk_manager: Any = None,
+        cost_model: Any = None,
     ) -> dict[str, Any]:
-        """Run backtest for a given strategy."""
+        """Run backtest for a given strategy.
+
+        Transaction costs are computed from per-period turnover. When
+        ``cost_model`` is provided it takes precedence over ``fee_rate`` and
+        ``slippage``; otherwise the legacy linear model is used.
+        """
         signals = strategy.generate_signals(data)
         returns = data.pct_change().fillna(0.0)
 
@@ -76,7 +82,13 @@ class BacktestEngine:
 
         # Apply transaction costs: fees and slippage on turnover
         turnover = weights.diff().abs().sum(axis=1).fillna(0.0)
-        cost = turnover * (fee_rate + slippage)
+        # Initial turnover (first row has no diff).
+        if len(turnover) > 0:
+            turnover.iloc[0] = float(weights.iloc[0].abs().sum())
+        if cost_model is not None:
+            cost = cost_model.compute_cost_series(turnover, self.capital)
+        else:
+            cost = turnover * (fee_rate + slippage)
         portfolio_returns = portfolio_returns - cost
 
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
@@ -143,10 +155,16 @@ class BacktestEngine:
         fee_rate: float = 0.0,
         slippage: float = 0.0,
         risk_manager: Any = None,
+        cost_model: Any = None,
     ) -> dict[str, Any]:
         """Run backtest and include an equal-weighted buy-and-hold benchmark."""
         result = self.run(
-            strategy, data, fee_rate=fee_rate, slippage=slippage, risk_manager=risk_manager
+            strategy,
+            data,
+            fee_rate=fee_rate,
+            slippage=slippage,
+            risk_manager=risk_manager,
+            cost_model=cost_model,
         )
         returns = data.pct_change().fillna(0.0)
         n = data.shape[1]
@@ -160,7 +178,10 @@ class BacktestEngine:
             turnover = bench_weights.diff().abs().sum(axis=1).fillna(0.0)
             # Initial entry turnover
             turnover.iloc[0] = float(bench_weights.iloc[0].abs().sum())
-            cost = turnover * (fee_rate + slippage)
+            if cost_model is not None:
+                cost = cost_model.compute_cost_series(turnover, self.capital)
+            else:
+                cost = turnover * (fee_rate + slippage)
             bench_returns = bench_returns - cost
 
         bench_equity = (1.0 + bench_returns).cumprod()
@@ -178,6 +199,7 @@ class BacktestEngine:
         test_period: int = 63,
         fee_rate: float = 0.0,
         slippage: float = 0.0,
+        cost_model: Any = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -193,13 +215,25 @@ class BacktestEngine:
                 except Exception:
                     pass
             # Run on test data
-            result = self.run(strategy, test_data, fee_rate=fee_rate, slippage=slippage)
+            result = self.run(
+                strategy,
+                test_data,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+            )
             results.append(result)
             i += test_period
 
         if not results:
             # If not enough data for walk-forward, run on all data
-            result = self.run(strategy, data, fee_rate=fee_rate, slippage=slippage)
+            result = self.run(
+                strategy,
+                data,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+            )
             return {
                 "returns": [result["total_return"]],
                 "results": [result],

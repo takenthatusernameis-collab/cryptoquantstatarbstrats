@@ -12,16 +12,20 @@ All requirements from the previous task have been completed and verified:
 - Enhanced `RiskManager` (`utils/risk.py`) with `apply_stop_loss` and `position_limit` methods.
 
 ## Current State
-- 56 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- 75 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
 
 ## Objective
 Extend the framework with additional practical utilities and ensure robustness across edge cases, with tests and type checking passing.
 
 ## Background
-The framework now has backtesting infrastructure, strategies (pairs trading, mean reversion, momentum, cross-exchange), metrics, risk management (`RiskManager`), and position sizing. Good candidates for further work include: cost modeling refinement, portfolio-level optimization, walk-forward enhancements, data pipeline improvements, or additional sizing/risk techniques.
+The framework now has backtesting infrastructure, strategies (pairs trading, mean reversion, momentum, cross-exchange), metrics, risk management (`RiskManager`), position sizing, and **pluggable transaction cost models** (`utils/costs.py`). Good candidates for further work include: cost modeling refinement, portfolio-level optimization, walk-forward enhancements, data pipeline improvements, or additional sizing/risk techniques.
 
 ## Tasks
-(Define new tasks here)
+- [x] Task 1: position sizing utilities
+- [x] Task 2: strategy integration/helper
+- [x] Task 3: tests
+- [x] Task 4: verify quality
+- [x] Task 5: pluggable transaction cost models (`utils/costs.py` with `FixedCostModel` and `SquareRootImpactCostModel`, integrated into `BacktestEngine.run`/`run_with_benchmark`/`walk_forward` via optional `cost_model` parameter, backward compatible, 19 new tests)
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -41,5 +45,6 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Task 2: strategy integration/helper
 - [x] Task 3: tests
 - [x] Task 4: verify quality
+- [x] Task 5: pluggable transaction cost models
 
-(End of file - total 41 lines)
+(End of file - total 45 lines)
