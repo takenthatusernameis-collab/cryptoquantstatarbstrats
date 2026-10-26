@@ -17,11 +17,12 @@ from strategies.cross_exchange import CrossExchangeArb
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
+from utils.risk import RiskManager
 
 
-def run_backtest(strategy, data: pd.DataFrame) -> dict[str, float]:
+def run_backtest(strategy, data: pd.DataFrame, risk_manager: Any = None) -> dict[str, float]:
     engine = BacktestEngine(initial_capital=100_000)
-    result = engine.run(strategy, data)
+    result = engine.run(strategy, data, risk_manager=risk_manager)
     return {
         "total_return": result["total_return"],
         "sharpe_ratio": result["sharpe_ratio"],
@@ -43,6 +44,8 @@ def main() -> None:
     cross = loader.load_data(["BTC_Binance", "BTC_Coinbase"], start, end, freq="1h")
     cross = loader.clean_data(cross)
 
+    risk_manager = RiskManager(max_weight=0.25)
+
     strategies = [
         ("Cointegration Pairs (BTC-ETH)", CointegrationPairsStrategy(("BTC", "ETH")), single),
         ("Mean Reversion (BTC)", MeanReversionStrategy("BTC"), single),
@@ -54,7 +57,7 @@ def main() -> None:
 
     rows: list[dict[str, Any]] = []
     for name, strategy, data in strategies:
-        metrics = run_backtest(strategy, data)
+        metrics = run_backtest(strategy, data, risk_manager=risk_manager)
         rows.append({"Strategy": name, **metrics})
 
     df = pd.DataFrame(rows)

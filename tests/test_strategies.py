@@ -221,3 +221,32 @@ def test_walk_forward_returns_dict():
     assert isinstance(wf_result["returns"], list)
     assert len(wf_result["returns"]) > 0
     assert "results" in wf_result
+
+
+def test_risk_manager_max_position_size():
+    """Test RiskManager.max_position_size scales positions."""
+    from utils.risk import RiskManager
+    import pandas as pd
+
+    rm = RiskManager(max_weight=0.2)
+    positions = pd.DataFrame({"A": [0.6], "B": [0.4]})
+    scaled = rm.max_position_size(positions, capital=100000)
+    # Max position weight should be <= 0.2
+    for _, row in scaled.iterrows():
+        total = row.abs().sum()
+        if total > 0:
+            max_w = (row.abs().max() / total)
+            assert max_w <= 0.2 + 1e-10
+
+
+def test_risk_manager_stop_loss():
+    """Test RiskManager.stop_loss detects breaches."""
+    from utils.risk import RiskManager
+    import pandas as pd
+
+    rm = RiskManager()
+    prices = pd.Series([100, 90, 80])
+    entry_prices = pd.Series([100, 100, 100])
+    breach = rm.stop_loss(prices, entry_prices, threshold=0.1)
+    # 10% drop breaches threshold 0.1
+    assert breach.iloc[1] == True or breach.iloc[2] == True

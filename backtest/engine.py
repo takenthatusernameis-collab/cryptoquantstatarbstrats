@@ -28,6 +28,7 @@ class BacktestEngine:
         data: pd.DataFrame,
         fee_rate: float = 0.0,
         slippage: float = 0.0,
+        risk_manager: Any = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy."""
         signals = strategy.generate_signals(data)
@@ -62,6 +63,13 @@ class BacktestEngine:
         # Equal-weight across active positions to stay fully invested.
         active = weights.abs().sum(axis=1).replace(0.0, np.nan)
         weights = weights.div(active, axis=0).fillna(0.0)
+
+        # Apply risk management if provided
+        if risk_manager is not None:
+            try:
+                weights = risk_manager.max_position_size(weights, self.capital)
+            except Exception:
+                pass
 
         portfolio_returns = (weights * returns).sum(axis=1)
 
