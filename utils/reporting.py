@@ -9,13 +9,14 @@ import pandas as pd
 
 def generate_report(result: dict) -> str:
     """Build a human-readable text summary of a backtest result."""
+    result = result or {}
     total_return = result.get("total_return", 0.0)
     sharpe_ratio = result.get("sharpe_ratio", 0.0)
     sortino_ratio = result.get("sortino_ratio", 0.0)
-    var_95 = result.get("var", 0.0)
-    cvar_95 = result.get("cvar", 0.0)
-    max_drawdown = result.get("max_drawdown", 0.0)
-    max_dd_duration = result.get("max_drawdown_duration", 0)
+    var_95 = result.get("var", result.get("VaR", 0.0))
+    cvar_95 = result.get("cvar", result.get("CVaR", 0.0))
+    max_drawdown = result.get("max_drawdown", result.get("maxDD", 0.0))
+    max_dd_duration = result.get("max_drawdown_duration", result.get("max_drawdown_duration", 0))
     calmar_ratio = result.get("calmar_ratio", 0.0)
 
     lines: list[str] = [
@@ -35,13 +36,14 @@ def generate_report(result: dict) -> str:
 
 def report_to_dict(result: dict) -> dict:
     """Return a serializable dict of key metrics (float/int/str only)."""
+    result = result or {}
     return {
         "total_return": float(result.get("total_return", 0.0)),
         "sharpe_ratio": float(result.get("sharpe_ratio", 0.0)),
         "sortino_ratio": float(result.get("sortino_ratio", 0.0)),
-        "var": float(result.get("var", 0.0)),
-        "cvar": float(result.get("cvar", 0.0)),
-        "max_drawdown": float(result.get("max_drawdown", 0.0)),
+        "var": float(result.get("var", result.get("VaR", 0.0))),
+        "cvar": float(result.get("cvar", result.get("CVaR", 0.0))),
+        "max_drawdown": float(result.get("max_drawdown", result.get("maxDD", 0.0))),
         "max_drawdown_duration": int(result.get("max_drawdown_duration", 0)),
         "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
     }
@@ -86,9 +88,10 @@ def plot_equity_curve(result: dict, save_path: str | None = None) -> None:
 
 def generate_risk_report(result: dict) -> str:
     """Build a human-readable risk summary of a backtest result."""
-    var = result.get("var", 0.0)
-    cvar = result.get("cvar", 0.0)
-    max_drawdown = result.get("max_drawdown", 0.0)
+    result = result or {}
+    var = result.get("var", result.get("VaR", 0.0))
+    cvar = result.get("cvar", result.get("CVaR", 0.0))
+    max_drawdown = result.get("max_drawdown", result.get("maxDD", 0.0))
     max_dd_duration = result.get("max_drawdown_duration", 0)
     calmar_ratio = result.get("calmar_ratio", 0.0)
 
@@ -106,10 +109,11 @@ def generate_risk_report(result: dict) -> str:
 
 def risk_report_to_dict(result: dict) -> dict:
     """Return a serializable dict of risk metrics (float/int/str only)."""
+    result = result or {}
     return {
-        "var": float(result.get("var", 0.0)),
-        "cvar": float(result.get("cvar", 0.0)),
-        "max_drawdown": float(result.get("max_drawdown", 0.0)),
+        "var": float(result.get("var", result.get("VaR", 0.0))),
+        "cvar": float(result.get("cvar", result.get("CVaR", 0.0))),
+        "max_drawdown": float(result.get("max_drawdown", result.get("maxDD", 0.0))),
         "max_drawdown_duration": int(result.get("max_drawdown_duration", 0)),
         "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
     }

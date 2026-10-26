@@ -272,6 +272,31 @@ class BacktestEngine:
         fee_rate: float = 0.0,
         slippage: float = 0.0,
         cost_model: Any = None,
+        risk_manager: Any = None,
+    ) -> dict[str, Any]:
+        """Perform walk-forward validation."""
+        results = []
+        total = len(data)
+        i = 0
+        while i + train_period + test_period <= total:
+            train_data = data.iloc[i : i + train_period]
+            test_data = data.iloc[i + train_period : i + train_period + test_period]
+            # Train the strategy if it has a fit method
+            if hasattr(strategy, "fit"):
+                try:
+                    strategy.fit(train_data)
+                except Exception:
+                    pass
+    def walk_forward(
+        self,
+        strategy: Strategy,
+        data: pd.DataFrame,
+        train_period: int = 252,
+        test_period: int = 63,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+        cost_model: Any = None,
+        risk_manager: Any = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -293,6 +318,7 @@ class BacktestEngine:
                 fee_rate=fee_rate,
                 slippage=slippage,
                 cost_model=cost_model,
+                risk_manager=risk_manager,
             )
             results.append(result)
             i += test_period
@@ -305,6 +331,7 @@ class BacktestEngine:
                 fee_rate=fee_rate,
                 slippage=slippage,
                 cost_model=cost_model,
+                risk_manager=risk_manager,
             )
             return {
                 "returns": [result["total_return"]],
@@ -312,7 +339,108 @@ class BacktestEngine:
             }
 
         returns_list = [r["total_return"] for r in results]
-        return {
+        agg: dict[str, Any] = {
             "returns": returns_list,
             "results": results,
         }
+        try:
+            import numpy as _np
+
+            arr = _np.array(returns_list, dtype=float)
+            if arr.size > 0:
+                agg["mean_return"] = float(_np.mean(arr))
+                agg["std_return"] = float(_np.std(arr, ddof=1)) if arr.size > 1 else 0.0
+                agg["positive_periods"] = int(_np.sum(arr > 0))
+                agg["total_periods"] = int(arr.size)
+        except Exception:
+            pass
+        return agg
+
+    def walk_forward_portfolio(
+        self,
+        weights: pd.DataFrame,
+        data: pd.DataFrame,
+        train_period: int = 252,
+        test_period: int = 63,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+        cost_model: Any = None,
+        risk_manager: Any = None,
+        reoptimize: bool = False,
+        optimizer: Any = None,
+    ) -> dict[str, Any]:
+        """Perform walk-forward validation using portfolio weights.
+
+        If ``reoptimize`` is True and an ``optimizer`` is provided, weights
+        are recomputed on each train window (optimizer should accept
+        ``train_data`` and return a weights DataFrame/Series aligned to
+        assets).
+        """
+        results = []
+        total = len(data)
+        i = 0
+        w = weights.copy() if hasattr(weights, "copy") else weights
+        # Align
+        if isinstance(w, pd.Series):
+            w = w.to_frame().T
+        w = w.reindex(index=data.index, method="ffill").fillna(0.0)
+        # ensure columns align
+        if isinstance(data, pd.DataFrame) and hasattr(w, "columns"):
+            w = w.reindex(columns=data.columns, fill_value=0.0)
+
+        while i + train_period + test_period <= total:
+            train_data = data.iloc[i : i + train_period]
+            test_data = data.iloc[i + train_period : i + train_period + test_period]
+            test_index = test_data.index
+            w_test = w.reindex(index=test_index)
+            if reoptimize and optimizer is not None:
+                try:
+                    w_opt = optimizer(train_data)
+                    if isinstance(w_opt, pd.Series):
+                        w_opt_df = w_opt.to_frame().T.reindex(index=test_index)
+                    elif isinstance(w_opt, pd.DataFrame):
+                        w_opt_df = w_opt.reindex(index=test_index, method="ffill").fillna(0.0)
+                    else:
+                        w_opt_df = w_test
+                    # align columns
+                    if isinstance(test_data, pd.DataFrame):
+                        w_opt_df = w_opt_df.reindex(columns=test_data.columns, fill_value=0.0)
+                    w_test = w_opt_df
+                except Exception:
+                    pass
+            result = self.run_portfolio(
+                w_test,
+                test_data,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+                risk_manager=risk_manager,
+            )
+            results.append(result)
+            i += test_period
+
+        if not results:
+            result = self.run_portfolio(
+                w,
+                data,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+                risk_manager=risk_manager,
+            )
+            return {"returns": [result["total_return"]], "results": [result]}
+
+        returns_list = [r["total_return"] for r in results]
+        agg: dict[str, Any] = {"returns": returns_list, "results": results}
+        try:
+            import numpy as _np
+
+            arr = _np.array(returns_list, dtype=float)
+            if arr.size > 0:
+                agg["mean_return"] = float(_np.mean(arr))
+                agg["std_return"] = float(_np.std(arr, ddof=1)) if arr.size > 1 else 0.0
+                agg["positive_periods"] = int(_np.sum(arr > 0))
+                agg["total_periods"] = int(arr.size)
+        except Exception:
+            pass
+        return agg
