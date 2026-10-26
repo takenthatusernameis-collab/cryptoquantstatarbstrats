@@ -6,8 +6,12 @@ portfolio return. Built-in models:
 
 * :class:`FixedCostModel` - linear cost in turnover (fees + slippage). This
   matches the legacy ``fee_rate`` / ``slippage`` behavior of the engine.
+* :class:`LinearCostModel` - alias for :class:`FixedCostModel`.
 * :class:`SquareRootImpactCostModel` - adds a square-root market-impact term,
   which better captures the nonlinear cost of large or frequent rebalancing.
+* :class:`ProportionalCostModel` - simple proportional cost model.
+* :class:`VolumeSlippageCostModel` - volume-based slippage approximation.
+* :class:`TransactionCostModel` - flexible configurable cost model.
 
 Pass a model to :meth:`backtest.engine.BacktestEngine.run` via the
 ``cost_model`` argument to override the legacy ``fee_rate`` / ``slippage``
@@ -81,6 +85,85 @@ class FixedCostModel(CostModel):
     def __repr__(self) -> str:
         return (
             f"FixedCostModel(fee_rate={self.fee_rate}, slippage={self.slippage})"
+        )
+
+
+# Alias for compatibility
+LinearCostModel = FixedCostModel
+ProportionalCostModel = FixedCostModel
+
+
+class TransactionCostModel(CostModel):
+    """Flexible configurable cost model.
+
+    Combines a proportional fee with optional fixed cost per trade and
+    slippage components. ``fixed_cost`` is treated as a fraction of capital
+    if applied per rebalance event (when turnover > 0).
+    """
+
+    def __init__(
+        self,
+        commission: float = 0.0,
+        slippage: float = 0.0,
+        fixed_cost: float = 0.0,
+        impact: float = 0.0,
+    ) -> None:
+        self.commission = float(commission)
+        self.slippage = float(slippage)
+        self.fixed_cost = float(fixed_cost)
+        self.impact = float(impact)
+
+    def compute_cost(self, turnover: float, capital: float | None = None) -> float:
+        if turnover is None:
+            return 0.0
+        try:
+            t = float(turnover)
+        except (TypeError, ValueError):
+            return 0.0
+        if not _is_finite(t) or t < 0.0:
+            return 0.0
+        cost = t * (self.commission + self.slippage)
+        if t > 0.0 and self.fixed_cost != 0.0:
+            cost += self.fixed_cost
+        if self.impact != 0.0 and t > 0.0:
+            cost += self.impact * math.sqrt(t)
+        return cost
+
+    def __repr__(self) -> str:
+        return (
+            "TransactionCostModel("
+            f"commission={self.commission}, slippage={self.slippage}, "
+            f"fixed_cost={self.fixed_cost}, impact={self.impact})"
+        )
+
+
+class VolumeSlippageCostModel(CostModel):
+    """Volume-based slippage approximation.
+
+    Models slippage as proportional to turnover (as a proxy for market
+    impact relative to volume) with a configurable coefficient.
+    """
+
+    def __init__(self, slippage_coeff: float = 0.001, fee_rate: float = 0.0):
+        self.slippage_coeff = float(slippage_coeff)
+        self.fee_rate = float(fee_rate)
+
+    def compute_cost(self, turnover: float, capital: float | None = None) -> float:
+        if turnover is None:
+            return 0.0
+        try:
+            t = float(turnover)
+        except (TypeError, ValueError):
+            return 0.0
+        if not _is_finite(t) or t < 0.0:
+            return 0.0
+        slippage_cost = self.slippage_coeff * t * math.sqrt(t + 1e-18)
+        return self.fee_rate * t + slippage_cost
+
+    def __repr__(self) -> str:
+        return (
+            "VolumeSlippageCostModel("
+            f"slippage_coeff={self.slippage_coeff}, fee_rate={self.fee_rate})"
         )
 
 
