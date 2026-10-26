@@ -4,6 +4,10 @@ Tests for the stat-arb framework.
 
 from __future__ import annotations
 
+import os
+import sys
+import tempfile
+
 import numpy as np
 import pandas as pd
 
@@ -11,6 +15,7 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from strategies.cross_exchange import CrossExchangeArb
 from strategies.mean_reversion import MeanReversionStrategy
+from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 
 
@@ -49,6 +54,20 @@ def test_dataloader_loads_data():
     df = loader.load_data(["BTC", "ETH"], "2024-01-01", "2024-01-02", freq="1h")
     assert df.shape[1] == 2
     assert df.isna().sum().sum() == 0
+
+
+def test_dataloader_load_csv():
+    df = make_data()
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as f:
+        df.to_csv(f.name)
+        path = f.name
+    try:
+        loaded = DataLoader.load_csv(path)
+        assert isinstance(loaded, pd.DataFrame)
+        assert len(loaded) == len(df)
+        assert set(["BTC", "ETH"]).issubset(set(loaded.columns))
+    finally:
+        os.unlink(path)
 
 
 def test_clean_data_removes_nans():
@@ -114,6 +133,43 @@ def test_mean_reversion_backtest_runs():
     result = engine.run(strat, df)
     assert "total_return" in result
     assert isinstance(result["total_return"], float)
+
+
+def test_momentum_generate_signals():
+    df = make_data()
+    strat = MomentumStrategy("BTC")
+    signals = strat.generate_signals(df)
+    assert "ma" in signals.columns
+    assert "long" in signals.columns
+    assert "short" in signals.columns
+    assert len(signals) == len(df)
+
+
+def test_momentum_position_sizes():
+    df = make_data()
+    strat = MomentumStrategy("BTC")
+    signals = strat.generate_signals(df)
+    sizes = strat.calculate_position_sizes(signals)
+    assert set(sizes.keys()) == {"BTC"}
+    assert sizes["BTC"] in (-1.0, 0.0, 1.0)
+
+
+def test_momentum_backtest_runs():
+    df = make_data()
+    strat = MomentumStrategy("BTC")
+    engine = BacktestEngine(initial_capital=100_000)
+    result = engine.run(strat, df)
+    assert "total_return" in result
+    assert isinstance(result["total_return"], float)
+
+
+def test_optimize_returns_non_empty_dataframe():
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from examples.optimize import optimize
+
+    df = optimize()
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
 
 
 def test_cross_exchange_generate_signals():

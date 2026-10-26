@@ -16,6 +16,36 @@ class DataLoader:
     def __init__(self, data_source: str = "csv"):
         self.data_source = data_source
 
+    @classmethod
+    def load_csv(cls, path: str) -> pd.DataFrame:
+        """Load data from a CSV file.
+
+        Reads a CSV with a `timestamp` column + asset columns, parses
+        timestamps, sets the index, and returns a DataFrame aligned with
+        the engine's expected shape.
+        """
+        df = pd.read_csv(path)
+        if "timestamp" in df.columns:
+            df["timestamp"] = pd.to_datetime(df["timestamp"])
+            df = df.set_index("timestamp")
+        elif "date" in df.columns:
+            df["date"] = pd.to_datetime(df["date"])
+            df = df.set_index("date")
+        elif "time" in df.columns:
+            df["time"] = pd.to_datetime(df["time"])
+            df = df.set_index("time")
+        else:
+            # Try to parse first column as datetime if it looks like it
+            first_col = df.columns[0]
+            try:
+                df[first_col] = pd.to_datetime(df[first_col])
+                df = df.set_index(first_col)
+            except Exception:
+                pass
+
+        df = df.sort_index()
+        return df
+
     def load_data(
         self,
         symbols: list[str],

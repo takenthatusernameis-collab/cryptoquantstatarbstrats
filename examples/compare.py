@@ -15,6 +15,7 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from strategies.cross_exchange import CrossExchangeArb
 from strategies.mean_reversion import MeanReversionStrategy
+from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 
 
@@ -47,6 +48,7 @@ def main() -> None:
         ("Mean Reversion (BTC)", MeanReversionStrategy("BTC"), single),
         ("Mean Reversion (ETH)", MeanReversionStrategy("ETH"), single),
         ("Mean Reversion (SOL)", MeanReversionStrategy("SOL"), single),
+        ("Momentum (BTC)", MomentumStrategy("BTC"), single),
         ("Cross-Exchange (BTC)", CrossExchangeArb("BTC_Binance", "BTC_Coinbase"), cross),
     ]
 
