@@ -16,11 +16,14 @@ import sys
 from pathlib import Path
 from typing import Any, Sequence
 
+import pandas as pd
+
 from backtest.config import load_config
 from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
+from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
     generate_report,
     generate_risk_report,
@@ -97,6 +100,17 @@ def build_parser() -> argparse.ArgumentParser:
         default="full",
         help="Report kind (full backtest report or risk report).",
     )
+    parser.add_argument(
+        "--rebalance-frequency",
+        "--rebalance_freq",
+        default=None,
+        help="Rebalance frequency (e.g. 1d, 1w, 1m).",
+    )
+    parser.add_argument(
+        "--rebalance-offset",
+        default=None,
+        help="Optional rebalance offset.",
+    )
     return parser
 
 
@@ -141,6 +155,8 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("output", ("output", "format")),
         ("report", ("report", "report_type")),
         ("output_path", ("output_path", "outputPath", "output_file")),
+        ("rebalance_frequency", ("rebalance_frequency", "rebalance_freq", "rebal_freq")),
+        ("rebalance_offset", ("rebalance_offset", "offset")),
     ]
 
     for attr, keys in mappings:
@@ -195,12 +211,43 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     strategy = _build_strategy(args.strategy, args)
     engine = BacktestEngine(initial_capital=float(args.initial_capital))
-    result = engine.run(
-        strategy,
-        data,
-        fee_rate=float(args.fee_rate),
-        slippage=float(args.slippage),
-    )
+    rebalance_freq = getattr(args, "rebalance_frequency", None)
+    if rebalance_freq:
+        # Create rebalance weights from strategy signals
+        signals = strategy.generate_signals(data)
+        weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
+        weight_cols = [c for c in data.columns if c in signals.columns]
+        if weight_cols:
+            for asset in weight_cols:
+                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
+        if "long" in signals.columns and "short" in signals.columns:
+            import numpy as _np
+
+            long_mask = signals["long"].fillna(False).reindex(data.index, fill_value=False)
+            short_mask = signals["short"].fillna(False).reindex(data.index, fill_value=False)
+            for asset in data.columns:
+                weights.loc[long_mask, asset] = 1.0
+                weights.loc[short_mask, asset] = -1.0
+        if "exit" in signals.columns:
+            exit_mask = signals["exit"].fillna(False).reindex(data.index, fill_value=False)
+            weights.loc[exit_mask, :] = 0.0
+        active = weights.abs().sum(axis=1).replace(0.0, _np.nan)
+        weights = weights.div(active, axis=0).fillna(0.0)
+        reb_offset = getattr(args, "rebalance_offset", None)
+        weights = create_rebalanced_weights(weights, data, freq=rebalance_freq, offset=reb_offset)
+        result = engine.run_portfolio(
+            weights,
+            data,
+            fee_rate=float(args.fee_rate),
+            slippage=float(args.slippage),
+        )
+    else:
+        result = engine.run(
+            strategy,
+            data,
+            fee_rate=float(args.fee_rate),
+            slippage=float(args.slippage),
+        )
 
     if args.output == "json":
         payload = (

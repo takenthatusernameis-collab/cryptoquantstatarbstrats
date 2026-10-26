@@ -11,6 +11,7 @@ import pandas as pd
 
 from strategies.base import Strategy
 from utils.metrics import cvar, sharpe_ratio, sortino_ratio, var
+from utils.rebalance import create_rebalanced_weights
 
 
 class BacktestEngine:
@@ -222,6 +223,8 @@ class BacktestEngine:
         cost_model: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        rebalance_frequency: str | None = None,
+        rebalance_offset: Any = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy.
 
@@ -260,6 +263,11 @@ class BacktestEngine:
         # Equal-weight across active positions to stay fully invested.
         active = weights.abs().sum(axis=1).replace(0.0, np.nan)
         weights = weights.div(active, axis=0).fillna(0.0)
+
+        if rebalance_frequency is not None:
+            weights = create_rebalanced_weights(
+                weights, data, freq=rebalance_frequency, offset=rebalance_offset
+            )
 
         return self._evaluate_weights(
             weights,
@@ -326,6 +334,8 @@ class BacktestEngine:
         cost_model: Any = None,
         execution_simulator: Any = None,
         volume: pd.DataFrame | None = None,
+        rebalance_frequency: str | None = None,
+        rebalance_offset: Any = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -352,6 +362,10 @@ class BacktestEngine:
         Returns:
             A backtest result dictionary (same shape as :meth:`run`).
         """
+        if rebalance_frequency is not None:
+            weights = create_rebalanced_weights(
+                weights, data, freq=rebalance_frequency, offset=rebalance_offset
+            )
         return self._evaluate_weights(
             weights,
             data,
