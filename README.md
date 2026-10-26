@@ -15,18 +15,34 @@ This repository contains implementations of various statistical arbitrage tradin
 ```
 cryptoquantstatarbstrats/
 ├── strategies/          # Strategy implementations
-├── data/               # Data collection and processing
-├── backtest/           # Backtesting framework
-├── utils/              # Utility functions
-└── tests/              # Unit tests
+│   ├── base.py          # Strategy & PairStrategy base classes
+│   └── pairs_trading.py # Cointegration pairs trading strategy
+├── data/                # Data collection and processing
+│   └── loader.py        # DataLoader with synthetic/clean data helpers
+├── backtest/            # Backtesting framework
+│   └── engine.py        # BacktestEngine that consumes strategy signals
+├── utils/               # Utility functions (returns, z-score, metrics)
+├── tests/               # Unit tests (pytest)
+├── examples/            # End-to-end example scripts
+├── pyproject.toml       # Project metadata, deps, tooling config
+└── requirements.txt     # Pinned runtime dependencies
 ```
 
 ## Getting Started
 
-1. Install dependencies
-2. Configure data sources
-3. Run backtests
-4. Deploy strategies
+```bash
+# Install dependencies
+python3 -m pip install -e ".[dev]"
+
+# Run the example backtest
+python3 examples/run_pairs.py
+
+# Run the test suite
+python3 -m pytest tests/ -v
+
+# Lint
+python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+```
 
 ## Disclaimer
 
