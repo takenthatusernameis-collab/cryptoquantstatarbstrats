@@ -17,6 +17,8 @@ All requirements from the previous task have been completed and verified:
 - Engine execution-simulation integration now accepts an optional `volume` DataFrame (per-asset bar volume) passed through `run` / `run_portfolio` / `walk_forward` / `walk_forward_portfolio` to `_simulate_execution`, so volume participation constraints produce real partial fills in-engine. Legacy behavior unchanged when `volume` is not provided.
 - Comprehensive tests in `tests/test_cli.py` covering CLI output (text/json/full/risk) and volume-tied partial fills (low volume forces partial fills; high volume/absent volume gives full fills).
 - Verified: `python3 -m pytest tests/ -q` (136 passed), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+- Config-driven backtest runs verified end-to-end: `backtest/config.py` (`load_config` for YAML/TOML/JSON) wired to `backtest/cli.py` (`--config`, `_apply_config`) and the `cryptoquant` console script; YAML and TOML configs drive symbols, dates, strategy, fee/slippage, output format/report kind, and output path.
+- Fixed `tests/test_cli.py::test_cli_parser_defaults` (parser now declares defaults matching `main()`'s applied defaults) and removed unused `# type: ignore` comments in `backtest/config.py` (superseded by `ignore_missing_imports`).
 
 ## Objective
 COMPLETED — Extend the framework with portfolio-level risk/optimization utilities, execution simulation, regime detection, walk-forward robustness, CLI reporting, and volume-tied partial fills, with tests and type checking passing.
@@ -47,7 +49,16 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] All previous tasks complete and verified.
 - [x] Execution simulation module + engine integration + tests complete.
 - [x] CLI entry point + volume-tied partial fills + test_cli.py complete and verified.
+- [x] Config-driven backtest runs (YAML/TOML/JSON config -> `cryptoquant` CLI) complete and verified end-to-end.
+
+## Next task for the next agent
+Implement scheduled/rebalancing backtest runs:
+
+- Add support for periodic rebalancing: run a backtest over a set of rebalance dates, recomputing target weights at each rebalance and holding them constant between rebalances (forward-fill), producing a weights DataFrame consumable by `BacktestEngine.run_portfolio` / `walk_forward_portfolio`.
+- Wire it to the `cryptoquant` CLI and config: a `--rebalance-frequency` / config `rebalance_frequency` (e.g. `1d`, `1w`, `1m`) option plus optional `--rebalance-offset`, applying to both single-strategy `run` and portfolio `run_portfolio` paths.
+- Add tests (e.g. `tests/test_rebalancing.py`) verifying weights only change on rebalance dates and are held flat between them, and that the CLI/config option flows through to the engine output.
+- Quality: `python3 -m pytest tests/ -q`, `ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `mypy backtest/ strategies/ utils/` all clean; keep public API backward compatible.
+
+Follows existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions) and the constraints in TASK.md (no `# type: ignore` to suppress real bugs, backward-compatible public API).
 
 **Ready for next agent.**
-
-Suggested next agent task: implement config-driven backtest runs (load a YAML/TOML config specifying symbols, dates, strategy, fee/slippage, output path) wired to the `cryptoquant` CLI, with tests and quality checks.

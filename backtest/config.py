@@ -23,7 +23,7 @@ def load_config(config_path: str | Path) -> dict[str, Any]:
 
     if suffix in (".yaml", ".yml"):
         try:
-            import yaml  # type: ignore
+            import yaml
         except Exception as exc:  # pragma: no cover - env dependent
             raise ImportError("PyYAML is required to load YAML config files") from exc
         data = yaml.safe_load(text) or {}
@@ -36,7 +36,7 @@ def load_config(config_path: str | Path) -> dict[str, Any]:
             import tomllib  # Python 3.11+
         except Exception:
             try:
-                import tomli as tomllib  # type: ignore
+                import tomli as tomllib
             except Exception as exc:  # pragma: no cover - env dependent
                 raise ImportError("tomllib/tomli is required to load TOML config files") from exc
         data = tomllib.loads(text)
@@ -52,7 +52,7 @@ def load_config(config_path: str | Path) -> dict[str, Any]:
 
     # Try YAML first, then JSON as a fallback.
     try:
-        import yaml  # type: ignore
+        import yaml
 
         data = yaml.safe_load(text) or {}
         if isinstance(data, dict):

@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: cryptoquantstatarbstrats
+Version: 0.1.0
+Summary: Statistical arbitrage strategies for cryptocurrency markets
+Author: Kilo Autonomous
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: scikit-learn>=1.2
+Requires-Dist: statsmodels>=0.14
+Requires-Dist: scipy>=1.11
+Provides-Extra: dev
+Requires-Dist: pytest>=7; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"
+Requires-Dist: mypy>=1.8; extra == "dev"
+
+# CryptoQuant Stat Arb Strategies
+
+A collection of statistical arbitrage strategies for cryptocurrency markets.
+
+## Overview
+
+This repository contains implementations of various statistical arbitrage trading strategies, focusing on:
+- Pairs trading
+- Cointegration-based strategies
+- Mean reversion strategies
+- Cross-exchange arbitrage
+
+## Structure
+
+```
+cryptoquantstatarbstrats/
+├── strategies/          # Strategy implementations
+│   ├── base.py          # Strategy & PairStrategy base classes
+│   └── pairs_trading.py # Cointegration pairs trading strategy
+├── data/                # Data collection and processing
+│   └── loader.py        # DataLoader with synthetic/clean data helpers
+├── backtest/            # Backtesting framework
+│   └── engine.py        # BacktestEngine that consumes strategy signals
+├── utils/               # Utility functions (returns, z-score, metrics)
+├── tests/               # Unit tests (pytest)
+├── examples/            # End-to-end example scripts
+├── pyproject.toml       # Project metadata, deps, tooling config
+└── requirements.txt     # Pinned runtime dependencies
+```
+
+## Getting Started
+
+```bash
+# Install dependencies
+python3 -m pip install -e ".[dev]"
+
+# Run the example backtest
+python3 examples/run_pairs.py
+
+# Run the test suite
+python3 -m pytest tests/ -v
+
+# Lint
+python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+
+# Type check
+python3 -m mypy backtest/ strategies/ utils/
+```
+
+## Disclaimer
+
+This software is for educational and research purposes only. Use at your own risk.

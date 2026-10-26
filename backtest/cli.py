@@ -56,11 +56,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--strategy",
         choices=sorted(STRATEGIES),
-        default=None,
+        default="mean_reversion",
         help="Strategy to run.",
     )
     parser.add_argument(
-        "--asset", default=None, help="Asset for the mean_reversion strategy."
+        "--asset", default="BTC", help="Asset for the mean_reversion strategy."
     )
     parser.add_argument(
         "--pair",
@@ -69,7 +69,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Pair (asset1 asset2) for the pairs strategy.",
     )
     parser.add_argument(
-        "--initial-capital", type=float, default=None, help="Starting capital."
+        "--initial-capital",
+        type=float,
+        default=100_000.0,
+        help="Starting capital.",
     )
     parser.add_argument(
         "--fee-rate", type=float, default=None, help="Legacy linear fee rate."
@@ -80,7 +83,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         choices=["text", "json"],
-        default=None,
+        default="text",
         help="Report format (text or json).",
     )
     parser.add_argument(
@@ -91,7 +94,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--report",
         choices=["full", "risk"],
-        default=None,
+        default="full",
         help="Report kind (full backtest report or risk report).",
     )
     return parser
@@ -107,50 +110,49 @@ def _build_strategy(name: str, args: argparse.Namespace):
     raise ValueError(f"Unknown strategy: {name}")
 
 
-def _apply_config(args: argparse.Namespace) -> argparse.Namespace:
+def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> argparse.Namespace:
     config_path = getattr(args, "config", None)
     if not config_path:
         return args
 
     cfg = load_config(config_path)
 
-    # Map common config keys to CLI args (config takes lower precedence if
-    # explicitly passed? Or vice versa - but easier to have CLI override config)
-    def _get(cfg: dict[str, Any], *keys: str, default: Any = None) -> Any:
+    def _get(cfg: dict[str, Any], *keys: str) -> Any:
         for k in keys:
             if k in cfg and cfg[k] is not None:
                 return cfg[k]
-        return default
+        return None
 
-    if args.symbols is None:
-        args.symbols = _get(cfg, "symbols")
-    if args.start is None:
-        args.start = _get(cfg, "start", "start_date")
-    if args.end is None:
-        args.end = _get(cfg, "end", "end_date")
-    if args.freq is None:
-        args.freq = _get(cfg, "freq", "frequency")
-    if args.strategy is None:
-        args.strategy = _get(cfg, "strategy")
-    if args.asset is None:
-        args.asset = _get(cfg, "asset")
-    if args.pair is None:
-        pair = _get(cfg, "pair", "pairs")
-        if pair is not None:
-            # Allow list/tuple
-            args.pair = list(pair)
-    if args.initial_capital is None:
-        args.initial_capital = _get(cfg, "initial_capital", "initialCapital", "capital")
-    if args.fee_rate is None:
-        args.fee_rate = _get(cfg, "fee_rate", "feeRate", "fee")
-    if args.slippage is None:
-        args.slippage = _get(cfg, "slippage")
-    if args.output is None:
-        args.output = _get(cfg, "output", "format")
-    if args.report is None:
-        args.report = _get(cfg, "report", "report_type")
-    if getattr(args, "output_path", None) is None:
-        args.output_path = _get(cfg, "output_path", "outputPath", "output_file")
+    # Config fills in values the user did not explicitly override on the CLI.
+    # An argument is treated as "not overridden" when it is None or still at its
+    # parser default, so config-driven runs work without CLI flags while an
+    # explicitly passed CLI flag always wins.
+    mappings = [
+        ("symbols", ("symbols",)),
+        ("start", ("start", "start_date")),
+        ("end", ("end", "end_date")),
+        ("freq", ("freq", "frequency")),
+        ("strategy", ("strategy",)),
+        ("asset", ("asset",)),
+        ("pair", ("pair", "pairs")),
+        ("initial_capital", ("initial_capital", "initialCapital", "capital")),
+        ("fee_rate", ("fee_rate", "feeRate", "fee")),
+        ("slippage", ("slippage",)),
+        ("output", ("output", "format")),
+        ("report", ("report", "report_type")),
+        ("output_path", ("output_path", "outputPath", "output_file")),
+    ]
+
+    for attr, keys in mappings:
+        config_value = _get(cfg, *keys)
+        if config_value is None:
+            continue
+        current = getattr(args, attr, None)
+        parser_default = parser.get_default(attr)
+        if current is None or current == parser_default:
+            if attr == "pair" and config_value is not None:
+                config_value = list(config_value)
+            setattr(args, attr, config_value)
 
     return args
 
@@ -159,7 +161,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     """Run a backtest and print a report. Returns the process exit code."""
     parser = build_parser()
     args = parser.parse_args(argv)
-    args = _apply_config(args)
+    args = _apply_config(args, parser)
 
     # Apply defaults if still missing
     if args.symbols is None:
