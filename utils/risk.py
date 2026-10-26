@@ -178,3 +178,31 @@ class RiskManager:
             for i in range(arr.shape[0]):
                 arr[i] = self.position_limit(arr[i], max_positions)
         return arr
+
+
+    def drawdown_control(
+        self,
+        positions: pd.DataFrame | dict[str, Any] | np.ndarray,
+        current_drawdown: float,
+        max_drawdown: float = 0.2,
+    ) -> pd.DataFrame | dict[str, Any] | np.ndarray:
+        """Scale or reduce positions if current drawdown exceeds threshold."""
+        if current_drawdown >= max_drawdown:
+            # Liquidate positions if drawdown exceeds max
+            if isinstance(positions, pd.DataFrame):
+                return positions.copy().astype(float) * 0.0
+            if isinstance(positions, dict):
+                return {k: 0.0 for k in positions}
+            arr = np.asarray(positions, dtype=float).copy()
+            return arr * 0.0
+        elif current_drawdown > max_drawdown * 0.5:
+            # Scale down positions proportionally
+            scale = 1.0 - (current_drawdown - max_drawdown * 0.5) / (max_drawdown * 0.5)
+            scale = max(0.0, min(1.0, scale))
+            if isinstance(positions, pd.DataFrame):
+                return positions.copy().astype(float) * scale
+            if isinstance(positions, dict):
+                return {k: float(v) * scale for k, v in positions.items()}
+            arr = np.asarray(positions, dtype=float).copy()
+            return arr * scale
+        return positions

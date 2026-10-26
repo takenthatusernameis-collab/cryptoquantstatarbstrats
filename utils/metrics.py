@@ -228,3 +228,101 @@ def information_ratio(returns, benchmark_returns) -> float:
         return 0.0
 
     return float(mean_excess / tracking_error * np.sqrt(252))
+
+
+def alpha(returns, market_returns, risk_free_rate: float = 0.0,
+           periods_per_year: int = 252) -> float:
+    """Calculate Jensen's alpha (annualized)."""
+    if isinstance(returns, pd.Series):
+        returns = returns.dropna()
+    else:
+        returns = np.asarray(returns)
+        returns = returns[~np.isnan(returns)]
+
+    if isinstance(market_returns, pd.Series):
+        market_returns = market_returns.dropna()
+    else:
+        market_returns = np.asarray(market_returns)
+        market_returns = market_returns[~np.isnan(market_returns)]
+
+    if len(returns) == 0 or len(market_returns) == 0:
+        return 0.0
+
+    min_len = min(len(returns), len(market_returns))
+    returns = returns[-min_len:]
+    market_returns = market_returns[-min_len:]
+
+    b = beta(returns, market_returns, risk_free_rate)
+    excess_returns = np.mean(returns) - risk_free_rate / periods_per_year
+    excess_market = np.mean(market_returns) - risk_free_rate / periods_per_year
+    alpha_daily = excess_returns - b * excess_market
+    return float(alpha_daily * periods_per_year)
+
+
+def tracking_error(returns, benchmark_returns, periods_per_year: int = 252) -> float:
+    """Calculate annualized tracking error."""
+    if isinstance(returns, pd.Series):
+        returns = returns.dropna()
+    else:
+        returns = np.asarray(returns)
+        returns = returns[~np.isnan(returns)]
+
+    if isinstance(benchmark_returns, pd.Series):
+        benchmark_returns = benchmark_returns.dropna()
+    else:
+        benchmark_returns = np.asarray(benchmark_returns)
+        benchmark_returns = benchmark_returns[~np.isnan(benchmark_returns)]
+
+    if len(returns) == 0 or len(benchmark_returns) == 0:
+        return 0.0
+
+    min_len = min(len(returns), len(benchmark_returns))
+    returns = returns[-min_len:]
+    benchmark_returns = benchmark_returns[-min_len:]
+
+    excess = returns - benchmark_returns
+    te = np.std(excess, ddof=0)
+    if te == 0:
+        return 0.0
+    return float(te * np.sqrt(periods_per_year))
+
+
+def win_rate(returns) -> float:
+    """Calculate win rate (proportion of positive returns)."""
+    if isinstance(returns, pd.Series):
+        returns_clean = returns.dropna()
+    else:
+        returns_clean = np.asarray(returns)
+        returns_clean = returns_clean[~np.isnan(returns_clean)]
+
+    if len(returns_clean) == 0:
+        return 0.0
+
+    wins = np.sum(returns_clean > 0)
+    return float(wins / len(returns_clean))
+
+
+def profit_factor(returns) -> float:
+    """Calculate profit factor (gross profit / gross loss)."""
+    if isinstance(returns, pd.Series):
+        returns_clean = returns.dropna()
+    else:
+        returns_clean = np.asarray(returns)
+        returns_clean = returns_clean[~np.isnan(returns_clean)]
+
+    if len(returns_clean) == 0:
+        return 0.0
+
+    gains = returns_clean[returns_clean > 0].sum()
+    losses = returns_clean[returns_clean < 0].sum()
+
+    if losses == 0:
+        return float("inf") if gains > 0 else 0.0
+
+    return float(abs(gains / losses))
+
+
+def max_drawdown_percent(equity_curve) -> float:
+    """Compute maximum drawdown as percentage (positive number)."""
+    mdd = max_drawdown(equity_curve)
+    return float(abs(mdd) * 100.0)

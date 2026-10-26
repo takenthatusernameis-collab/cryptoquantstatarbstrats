@@ -113,3 +113,36 @@ def test_mean_reversion_with_sizer():
     # Sign of allocation should match the base direction
     base = 1.0 if sizes["BTC"] > 0 else -1.0
     assert base in (1.0, -1.0)
+
+
+def test_risk_manager_apply_stop_loss():
+    from utils.risk import RiskManager
+
+    rm = RiskManager()
+    positions = {"BTC": 1.0, "ETH": 1.0}
+    prices = pd.Series([90, 95], index=["BTC", "ETH"])
+    entry_prices = pd.Series([100, 100], index=["BTC", "ETH"])
+    result = rm.apply_stop_loss(positions, prices, entry_prices, threshold=0.1)
+    assert result["BTC"] == 0.0  # 10% drop triggers stop
+    assert result["ETH"] == 1.0
+
+
+def test_risk_manager_position_limit():
+    from utils.risk import RiskManager
+
+    rm = RiskManager()
+    positions = pd.DataFrame({"BTC": [0.5], "ETH": [0.3], "SOL": [0.2], "XRP": [0.1]})
+    result = rm.position_limit(positions, max_positions=2)
+    # Should keep top 2 by absolute weight
+    assert (np.abs(result.values) > 1e-18).sum() == 2
+
+
+def test_risk_manager_drawdown_control():
+    from utils.risk import RiskManager
+
+    rm = RiskManager()
+    positions = {"BTC": 1.0, "ETH": 0.5}
+    result = rm.drawdown_control(positions, current_drawdown=0.25, max_drawdown=0.2)
+    # Should liquidate if drawdown exceeds max
+    assert result["BTC"] == 0.0
+    assert result["ETH"] == 0.0

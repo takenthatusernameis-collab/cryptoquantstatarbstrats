@@ -106,3 +106,47 @@ def test_max_drawdown_duration_from_curve_list():
     equity = [100, 90, 80, 90]
     duration = max_drawdown_duration_from_curve(equity)
     assert isinstance(duration, int)
+
+
+def test_alpha_basic():
+    from utils.metrics import alpha
+
+    returns = np.array([0.01, 0.02, -0.01, 0.015])
+    market_returns = np.array([0.008, 0.015, -0.005, 0.01])
+    val = alpha(returns, market_returns)
+    assert isinstance(val, float)
+
+
+def test_tracking_error_basic():
+    from utils.metrics import tracking_error
+
+    returns = np.array([0.01, 0.02, -0.01])
+    benchmark_returns = np.array([0.008, 0.015, -0.005])
+    val = tracking_error(returns, benchmark_returns)
+    assert isinstance(val, float)
+    assert val >= 0
+
+
+def test_win_rate_basic():
+    from utils.metrics import win_rate
+
+    returns = np.array([0.01, -0.005, 0.02, -0.001, 0.015])
+    assert win_rate(returns) == 0.6
+
+
+def test_profit_factor_basic():
+    from utils.metrics import profit_factor
+
+    returns = np.array([0.02, -0.01, 0.01, -0.005])
+    pf = profit_factor(returns)
+    assert isinstance(pf, float)
+    assert pf > 0
+
+
+def test_max_drawdown_percent_basic():
+    from utils.metrics import max_drawdown_percent
+
+    equity = pd.Series([100, 110, 90, 95])
+    val = max_drawdown_percent(equity)
+    assert isinstance(val, float)
+    assert val > 0
