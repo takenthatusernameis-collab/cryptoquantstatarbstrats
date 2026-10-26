@@ -23,53 +23,29 @@ class BacktestEngine:
         self.trades: list[dict[str, Any]] = []
         self.equity_curve: list[float] = []
 
-    def run(
+    def _evaluate_weights(
         self,
-        strategy: Strategy,
+        weights: pd.DataFrame,
         data: pd.DataFrame,
         fee_rate: float = 0.0,
         slippage: float = 0.0,
         risk_manager: Any = None,
         cost_model: Any = None,
     ) -> dict[str, Any]:
-        """Run backtest for a given strategy.
+        """Core backtest computation given a (pre-computed) weights DataFrame.
 
-        Transaction costs are computed from per-period turnover. When
-        ``cost_model`` is provided it takes precedence over ``fee_rate`` and
-        ``slippage``; otherwise the legacy linear model is used.
+        Aligns ``weights`` to ``data``, optionally applies risk management,
+        subtracts transaction costs from turnover, and returns the standard
+        result dictionary. This is shared by :meth:`run` and
+        :meth:`run_portfolio`.
         """
-        signals = strategy.generate_signals(data)
         returns = data.pct_change().fillna(0.0)
 
-        # Determine per-asset weights from signals.
-        weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
-
-        # Explicit per-asset weight columns (e.g. cross-exchange legs).
-        weight_cols = [c for c in data.columns if c in signals.columns]
-        if weight_cols:
-            for asset in weight_cols:
-                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
-
-        if "long" in signals.columns and "short" in signals.columns:
-            long_mask = signals["long"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            short_mask = signals["short"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            for asset in data.columns:
-                weights.loc[long_mask, asset] = 1.0
-                weights.loc[short_mask, asset] = -1.0
-
-        if "exit" in signals.columns:
-            exit_mask = signals["exit"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            weights.loc[exit_mask, :] = 0.0
-
-        # Equal-weight across active positions to stay fully invested.
-        active = weights.abs().sum(axis=1).replace(0.0, np.nan)
-        weights = weights.div(active, axis=0).fillna(0.0)
+        # Align weights to data: reindex to data index/columns, fill NaN with 0.
+        weights = (
+            weights.reindex(index=data.index, columns=data.columns, fill_value=0.0)
+            .fillna(0.0)
+        )
 
         # Apply risk management if provided
         if risk_manager is not None:
@@ -148,6 +124,62 @@ class BacktestEngine:
         }
         return result
 
+    def run(
+        self,
+        strategy: Strategy,
+        data: pd.DataFrame,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+        risk_manager: Any = None,
+        cost_model: Any = None,
+    ) -> dict[str, Any]:
+        """Run backtest for a given strategy.
+
+        Transaction costs are computed from per-period turnover. When
+        ``cost_model`` is provided it takes precedence over ``fee_rate`` and
+        ``slippage``; otherwise the legacy linear model is used.
+        """
+        signals = strategy.generate_signals(data)
+
+        # Determine per-asset weights from signals.
+        weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
+
+        # Explicit per-asset weight columns (e.g. cross-exchange legs).
+        weight_cols = [c for c in data.columns if c in signals.columns]
+        if weight_cols:
+            for asset in weight_cols:
+                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
+
+        if "long" in signals.columns and "short" in signals.columns:
+            long_mask = signals["long"].fillna(False).reindex(
+                data.index, fill_value=False
+            )
+            short_mask = signals["short"].fillna(False).reindex(
+                data.index, fill_value=False
+            )
+            for asset in data.columns:
+                weights.loc[long_mask, asset] = 1.0
+                weights.loc[short_mask, asset] = -1.0
+
+        if "exit" in signals.columns:
+            exit_mask = signals["exit"].fillna(False).reindex(
+                data.index, fill_value=False
+            )
+            weights.loc[exit_mask, :] = 0.0
+
+        # Equal-weight across active positions to stay fully invested.
+        active = weights.abs().sum(axis=1).replace(0.0, np.nan)
+        weights = weights.div(active, axis=0).fillna(0.0)
+
+        return self._evaluate_weights(
+            weights,
+            data,
+            fee_rate=fee_rate,
+            slippage=slippage,
+            risk_manager=risk_manager,
+            cost_model=cost_model,
+        )
+
     def run_with_benchmark(
         self,
         strategy: Strategy,
@@ -190,6 +222,46 @@ class BacktestEngine:
         result["benchmark_total_return"] = bench_total_return
         result["benchmark_equity_curve"] = bench_equity
         return result
+
+    def run_portfolio(
+        self,
+        weights: pd.DataFrame,
+        data: pd.DataFrame,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+        risk_manager: Any = None,
+        cost_model: Any = None,
+    ) -> dict[str, Any]:
+        """Run a backtest using pre-computed portfolio weights.
+
+        Unlike :meth:`run`, this does not generate signals from a strategy;
+        it uses the supplied ``weights`` DataFrame directly (aligned to
+        ``data``). This makes it straightforward to combine with the portfolio
+        optimization utilities in :mod:`utils.optimization`.
+
+        Args:
+            weights: Target portfolio weights indexed like ``data``, with one
+                column per asset. Non-finite or missing entries are treated as
+                zero.
+            data: Price data DataFrame (assets as columns).
+            fee_rate: Legacy linear fee rate (ignored when ``cost_model`` is
+                set).
+            slippage: Legacy slippage rate (ignored when ``cost_model`` is
+                set).
+            risk_manager: Optional risk manager to apply to the weights.
+            cost_model: Optional transaction cost model.
+
+        Returns:
+            A backtest result dictionary (same shape as :meth:`run`).
+        """
+        return self._evaluate_weights(
+            weights,
+            data,
+            fee_rate=fee_rate,
+            slippage=slippage,
+            risk_manager=risk_manager,
+            cost_model=cost_model,
+        )
 
     def walk_forward(
         self,

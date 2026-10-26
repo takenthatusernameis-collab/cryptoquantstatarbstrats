@@ -13,20 +13,21 @@ All requirements from the previous task have been completed and verified:
 - Pluggable transaction cost models added (`utils/costs.py`) with `CostModel`, `FixedCostModel`/`LinearCostModel`/`ProportionalCostModel`, `SquareRootImpactCostModel`, `TransactionCostModel`, `VolumeSlippageCostModel`; integrated into `BacktestEngine.run`/`run_with_benchmark`/`walk_forward` via optional `cost_model` parameter, backward compatible.
 
 ## Current State
-- 75 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- 117 tests pass (75 existing + 42 new), ruff clean, mypy clean on backtest/strategies/utils/.
+- Objective complete: portfolio optimization (`utils/optimization.py`), portfolio risk metrics (`utils/portfolio_risk.py`), and `BacktestEngine.run_portfolio()` all implemented, tested, and verified.
 
 ## Objective
-Extend the framework with portfolio-level risk/optimization utilities and improve walk-forward/reporting robustness, with tests and type checking passing.
+COMPLETED — Extend the framework with portfolio-level risk/optimization utilities and improve walk-forward/reporting robustness, with tests and type checking passing.
 
 ## Background
-The framework has backtesting, strategies, metrics, risk management, position sizing, and pluggable transaction costs. Good next steps: portfolio optimization (e.g., mean-variance / minimum variance / risk parity helpers), portfolio-level risk metrics (e.g., portfolio VaR/CVaR, correlation-based risk, drawdown analysis), walk-forward/reporting enhancements (e.g., summary statistics aggregation), and broader test coverage for edge cases.
+The framework has backtesting, strategies, metrics, risk management, position sizing, pluggable transaction costs, and now portfolio optimization + portfolio-level risk metrics. Good next steps: execution simulation, slippage models tied to volume, regime detection, or CLI/reporting enhancements.
 
 ## Tasks
-- [ ] Task 1: Add portfolio optimization utilities in `utils/optimization.py` (e.g., `equal_weight`, `inverse_volatility`, `min_variance_weights`, `mean_variance_weights`, `risk_parity_weights`) with input validation and type hints.
-- [ ] Task 2: Add portfolio risk metrics in `utils/portfolio_risk.py` (e.g., `portfolio_var`, `portfolio_cvar`, `conditional_drawdown_at_risk`, `marginal_var`, `component_var`) returning floats/series as appropriate.
-- [ ] Task 3: Enhance `BacktestEngine` to support portfolio-level analysis helpers or accept portfolio weights constructor/utility integration (backward compatible). If helpful, add a method like `run_portfolio()` or just ensure compatibility.
-- [ ] Task 4: Add comprehensive tests in `tests/test_optimization.py` and `tests/test_portfolio_risk.py` covering edge cases (NaN/empty/single asset).
-- [ ] Task 5: Verify quality - all tests pass, ruff and mypy clean on backtest/strategies/utils/.
+- [x] Task 1: Add portfolio optimization utilities in `utils/optimization.py` (equal_weight, inverse_volatility, min_variance_weights, mean_variance_weights, risk_parity_weights) with input validation and type hints.
+- [x] Task 2: Add portfolio risk metrics in `utils/portfolio_risk.py` (portfolio_var, portfolio_cvar, conditional_drawdown_at_risk, marginal_var, component_var) returning floats/series as appropriate.
+- [x] Task 3: Enhance `BacktestEngine` to support portfolio-level analysis via `run_portfolio()` accepting pre-computed weights (backward compatible).
+- [x] Task 4: Add comprehensive tests in `tests/test_optimization.py` and `tests/test_portfolio_risk.py` covering edge cases (NaN/empty/single asset).
+- [x] Task 5: Verify quality - all tests pass, ruff and mypy clean on backtest/strategies/utils/.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -48,4 +49,6 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Task 4: verify quality
 - [x] Task 5: pluggable transaction cost models
 
-(End of file - total 65 lines)
+**Ready for next agent.** All tasks above are complete and verified. No pending work remains on this objective.
+
+(End of file)
