@@ -53,6 +53,6 @@ python3 -m mypy backtest/ strategies/ utils/
 ```
 
 ## Status
-- [ ] Task 1: buy-and-hold benchmark
-- [ ] Task 2: tests
-- [ ] Task 3: mypy config + clean run
+- [x] Task 1: buy-and-hold benchmark
+- [x] Task 2: tests
+- [x] Task 3: mypy config + clean run

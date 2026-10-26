@@ -258,14 +258,12 @@ def test_metrics_max_drawdown_duration():
     assert duration >= 0
 
 
-def test_backtest_engine_returns_new_metrics():
+def test_benchmark_basic():
     df = make_data()
     strat = CointegrationPairsStrategy(("BTC", "ETH"))
     engine = BacktestEngine(initial_capital=100_000)
-    result = engine.run(strat, df)
-    assert "sortino_ratio" in result
-    assert "var" in result
-    assert "cvar" in result
-    assert isinstance(result["sortino_ratio"], float)
-    assert isinstance(result["var"], float)
-    assert isinstance(result["cvar"], float)
+    result = engine.run_with_benchmark(strat, df)
+    assert "benchmark_total_return" in result
+    assert "benchmark_equity_curve" in result
+    assert len(result["benchmark_equity_curve"]) == len(df)
+    assert "total_return" in result

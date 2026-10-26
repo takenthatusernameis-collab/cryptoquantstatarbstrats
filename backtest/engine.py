@@ -122,7 +122,7 @@ class BacktestEngine:
         self.equity_curve = [float(x) for x in cumulative_returns]
         self.positions = weights.iloc[-1].to_dict() if len(weights) else {}
 
-        return {
+        result = {
             "total_return": total_return,
             "sharpe_ratio": sharpe,
             "max_drawdown": max_drawdown,
@@ -134,6 +134,41 @@ class BacktestEngine:
             "equity_curve": cumulative_returns,
             "weights": weights,
         }
+        return result
+
+    def run_with_benchmark(
+        self,
+        strategy: Strategy,
+        data: pd.DataFrame,
+        fee_rate: float = 0.0,
+        slippage: float = 0.0,
+        risk_manager: Any = None,
+    ) -> dict[str, Any]:
+        """Run backtest and include an equal-weighted buy-and-hold benchmark."""
+        result = self.run(
+            strategy, data, fee_rate=fee_rate, slippage=slippage, risk_manager=risk_manager
+        )
+        returns = data.pct_change().fillna(0.0)
+        n = data.shape[1]
+        if n == 0:
+            bench_returns = pd.Series(0.0, index=data.index)
+        else:
+            bench_weights = pd.DataFrame(
+                1.0 / n, index=data.index, columns=data.columns
+            )
+            bench_returns = (bench_weights * returns).sum(axis=1)
+            turnover = bench_weights.diff().abs().sum(axis=1).fillna(0.0)
+            # Initial entry turnover
+            turnover.iloc[0] = float(bench_weights.iloc[0].abs().sum())
+            cost = turnover * (fee_rate + slippage)
+            bench_returns = bench_returns - cost
+
+        bench_equity = (1.0 + bench_returns).cumprod()
+        bench_total_return = float(bench_equity.iloc[-1] - 1.0) if len(bench_equity) else 0.0
+
+        result["benchmark_total_return"] = bench_total_return
+        result["benchmark_equity_curve"] = bench_equity
+        return result
 
     def walk_forward(
         self,

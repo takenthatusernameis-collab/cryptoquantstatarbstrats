@@ -42,6 +42,9 @@ python3 -m pytest tests/ -v
 
 # Lint
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+
+# Type check
+python3 -m mypy backtest/ strategies/ utils/
 ```
 
 ## Disclaimer
