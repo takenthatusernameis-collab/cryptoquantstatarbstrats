@@ -149,9 +149,18 @@ class DataLoader:
             frame = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()
             series_by_symbol[output_name] = frame[output_name]
 
-        data = pd.concat(series_by_symbol.values(), axis=1, join="outer")
+        # Keep only genuinely observed timestamps shared by every symbol.
+        # Forward-filling a missing candle would manufacture flat returns and
+        # conceal gaps or listing-date differences in market data.
+        data = pd.concat(series_by_symbol.values(), axis=1, join="inner")
         data.columns = list(series_by_symbol.keys())
-        return data.sort_index().ffill()
+        data = data.sort_index()
+        if data.empty:
+            raise ValueError(
+                "The requested symbols have no shared Binance candle timestamps "
+                "in the requested date range."
+            )
+        return data
 
     def load_data(
         self,
