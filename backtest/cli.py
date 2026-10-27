@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -96,6 +97,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--output-path",
         default=None,
         help="Write the report to this file instead of stdout.",
+    )
+    parser.add_argument(
+        "--artifact-dir",
+        default=None,
+        help="Directory to persist timestamped report artifacts (html/pdf/json/txt).",
     )
     parser.add_argument(
         "--title",
@@ -201,6 +207,7 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("output", ("output", "format")),
         ("report", ("report", "report_type")),
         ("output_path", ("output_path", "outputPath", "output_file")),
+        ("artifact_dir", ("artifact_dir", "artifactDir", "artifact_directory")),
         ("rebalance_frequency", ("rebalance_frequency", "rebalance_freq", "rebal_freq")),
         ("rebalance_offset", ("rebalance_offset", "offset")),
         ("volume_csv", ("volume_csv", "volume", "volume_path")),
@@ -365,6 +372,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         content = json.dumps(payload, indent=2)
         output_path = getattr(args, "output_path", None)
+        artifact_dir = getattr(args, "artifact_dir", None)
+        if artifact_dir and not output_path:
+            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_path = str(Path(artifact_dir) / f"report_{stamp}.json")
         if output_path:
             path = Path(output_path)
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -376,6 +388,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             result, title=getattr(args, "title", None) or "Backtest Report"
         )
         output_path = getattr(args, "output_path", None)
+        artifact_dir = getattr(args, "artifact_dir", None)
+        if artifact_dir and not output_path:
+            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_path = str(Path(artifact_dir) / f"report_{stamp}.html")
         if output_path:
             path = Path(output_path)
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -385,6 +402,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.output == "pdf":
         output_path = getattr(args, "output_path", None)
         title = getattr(args, "title", None) or "Backtest Report"
+        artifact_dir = getattr(args, "artifact_dir", None)
+        if artifact_dir and not output_path:
+            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_path = str(Path(artifact_dir) / f"report_{stamp}.pdf")
         if output_path:
             path = Path(output_path)
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -403,6 +425,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             else generate_report(result)
         )
         output_path = getattr(args, "output_path", None)
+        artifact_dir = getattr(args, "artifact_dir", None)
+        if artifact_dir and not output_path:
+            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_path = str(Path(artifact_dir) / f"report_{stamp}.txt")
         if output_path:
             path = Path(output_path)
             path.parent.mkdir(parents=True, exist_ok=True)
