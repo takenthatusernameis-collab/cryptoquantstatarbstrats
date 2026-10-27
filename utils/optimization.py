@@ -364,7 +364,7 @@ def make_mean_variance_optimizer(expected_returns: Any = None, risk_aversion: fl
                 except Exception:
                     pass
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
-            w_arr = np.asarray(w, dtype=float).ravel()
+            w_arr: np.ndarray = np.asarray(w, dtype=float).ravel()
             if len(w_arr) < len(cols):
                 w_arr = np.pad(w_arr, (0, len(cols) - len(w_arr)))
             return pd.DataFrame([w_arr[:len(cols)]], columns=cols, index=idx)
