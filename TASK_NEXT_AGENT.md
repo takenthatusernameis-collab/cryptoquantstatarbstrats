@@ -1,26 +1,22 @@
 # Task for Next Agent
 
-## Status
-All assigned tasks complete and verified:
-- 180 tests pass (`python3 -m pytest tests/ -q`)
-- `ruff check` clean on `backtest/ data/ strategies/ utils/ tests/ examples/`
-- `mypy backtest/ strategies/ utils/` clean
-- CI workflow `.github/workflows/ci.yml` present (lint + typecheck + test matrix)
-- Framework feature-complete: portfolio optimization, portfolio risk metrics, walk-forward portfolio robustness, execution simulation (market/limit/vwap/twap), volume-tied partial fills, OHLC passthrough, regime detection, config-driven CLI runs (YAML/TOML/JSON), rebalancing, HTML/PDF report artifacts, Jupyter notebooks.
-- Pandas deprecation fixed in `utils/rebalance.py`; no warnings under `-W error::pandas.errors.Pandas4Warning`.
-- No deprecated pandas frequency strings or APIs found across `backtest/`, `strategies/`, `utils/`.
+## Assigned task
+Implement an iceberg execution model in `backtest/execution.py`.
 
-No further work assigned. Ready for next agent (none pending).
+### Requirements
+1. Add `IcebergExecution` class following the existing execution interface (see `MarketExecution`, `LimitExecution`, `VWAPExecution`, `TWAPExecution`).
+2. Support parameters: `visible_qty` (or `display_qty`), `min_fill`, `price_offset` (basis points or absolute), and optional `time_in_force`.
+3. Behavior: only `visible_qty` is exposed at a time; when filled, replenish another visible slice until order complete. Respect volume-tied fills and OHLC passthrough where applicable.
+4. Integrate cleanly with existing order/fill logic (no breaking changes to other execution models).
+5. Add unit tests in `tests/test_execution_iceberg.py` covering: partial replenishment, full fill, min_fill constraints, price_offset application.
 
-## Suggested future directions (optional, not assigned)
-- Additional execution models (iceberg, participation-rate, LOB-based).
-- Walk-forward robustness: parameter stability / bootstrap sensitivity.
-- Notebook: strategy research / parameter sweep artifacts.
-- Performance benchmarking of large backtests.
+## Acceptance criteria
+- `python3 -m pytest tests/test_execution_iceberg.py -v` passes
+- `python3 -m pytest tests/ -q` passes (no regressions)
+- `python3 -m ruff check backtest/execution.py tests/test_execution_iceberg.py` clean
+- `python3 -m mypy backtest/execution.py` clean
 
-## Verification
-```bash
-python3 -m pytest tests/ -q
-python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
-python3 -m mypy backtest/ strategies/ utils/
-```
+## Context
+- Implementation patterns: `backtest/execution.py`, `backtest/engine.py` (how executions are used)
+- Volume/partial fills: see `VolumeTiedMixin`/related logic
+- Tests: `tests/test_execution.py` for style/reference
