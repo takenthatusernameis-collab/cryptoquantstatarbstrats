@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
 
@@ -863,7 +863,108 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
     for key in ("mean_return", "std_return", "positive_periods", "total_periods"):
         if key in wf_result:
             report[key] = wf_result[key]
+
+    # Aggregate attribution across windows when present.
+    brinsons_raw = [(r or {}).get("brinson") for r in results]
+    brinsons: list[dict[str, Any]] = [
+        cast(dict[str, Any], b) for b in brinsons_raw if isinstance(b, dict)
+    ]
+    if brinsons:
+        alloc = sum(_series_sum(b.get("allocation_total")) for b in brinsons)
+        sel = sum(_series_sum(b.get("selection_total")) for b in brinsons)
+        inter = sum(_series_sum(b.get("interaction_total")) for b in brinsons)
+        port_ret = sum(_series_sum(b.get("portfolio_return")) for b in brinsons)
+        bench_ret = sum(_series_sum(b.get("benchmark_return")) for b in brinsons)
+        frames = []
+        for b in brinsons:
+            s = b.get("summary")
+            if isinstance(s, pd.DataFrame) and len(s) > 0:
+                frames.append(s)
+        agg_summary = None
+        if frames:
+            combined = pd.concat(frames, ignore_index=True)
+            if "asset" in combined.columns:
+                for col in ("allocation", "selection", "interaction", "total"):
+                    if col in combined.columns:
+                        combined[col] = pd.to_numeric(combined[col], errors="coerce").fillna(0.0)
+                base_cols = ("allocation", "selection", "interaction", "total")
+                cols = [c for c in base_cols if c in combined.columns]
+                agg_dict = {c: "sum" for c in cols}
+                agg_summary = combined.groupby("asset", as_index=False).agg(agg_dict)
+        report["brinson"] = {
+            "allocation_total": alloc,
+            "selection_total": sel,
+            "interaction_total": inter,
+            "portfolio_return": port_ret,
+            "benchmark_return": bench_ret,
+            "summary": agg_summary if agg_summary is not None else pd.DataFrame(),
+        }
+
+    factors_raw = [(r or {}).get("factor") for r in results]
+    factors: list[dict[str, Any]] = [
+        cast(dict[str, Any], f) for f in factors_raw if isinstance(f, dict)
+    ]
+    if factors:
+        n = len(factors)
+        alpha = sum(_safe_float(f.get("alpha")) for f in factors) / n
+        alpha_ann = sum(_safe_float(f.get("alpha_annualized")) for f in factors) / n
+        r2 = sum(_safe_float(f.get("r_squared")) for f in factors) / n
+        n_obs = sum(int(_safe_float(f.get("n_obs"))) for f in factors)
+        beta_names: set[str] = set()
+        for f in factors:
+            beta_obj = f.get("beta")
+            if isinstance(beta_obj, pd.Series):
+                beta_names.update(str(x) for x in beta_obj.index)
+            elif isinstance(beta_obj, dict):
+                beta_names.update(beta_obj.keys())
+        beta_agg: dict[str, float] = {}
+        for name in beta_names:
+            vals = []
+            for f in factors:
+                beta_obj2 = f.get("beta")
+                v = None
+                if isinstance(beta_obj2, pd.Series) and name in beta_obj2.index:
+                    v = beta_obj2[name]
+                elif isinstance(beta_obj2, dict) and name in beta_obj2:
+                    v = beta_obj2[name]
+                if v is not None:
+                    vals.append(_safe_float(v))
+            if vals:
+                beta_agg[name] = float(sum(vals) / len(vals))
+        report["factor"] = {
+            "alpha": alpha,
+            "alpha_annualized": alpha_ann,
+            "r_squared": r2,
+            "n_obs": n_obs,
+            "beta": pd.Series(beta_agg) if beta_agg else pd.Series(dtype=float),
+        }
+
     return report
+
+
+def walk_forward_report_to_dict(wf_report: dict) -> dict:
+    """Return a serializable dict of a walk-forward report including attribution."""
+    wf_report = wf_report or {}
+    out: dict[str, Any] = {}
+    summary = wf_report.get("summary")
+    if isinstance(summary, pd.DataFrame):
+        out["summary"] = summary.to_dict(orient="records")
+    else:
+        try:
+            out["summary"] = list(summary) if summary is not None else []
+        except Exception:
+            out["summary"] = []
+    for key in ("mean_return", "std_return", "positive_periods", "total_periods"):
+        if key in wf_report:
+            try:
+                out[key] = wf_report[key]
+            except Exception:
+                pass
+    brinson = wf_report.get("brinson")
+    factor = wf_report.get("factor")
+    if isinstance(brinson, dict) or isinstance(factor, dict):
+        out.update(attribution_to_dict({"brinson": brinson, "factor": factor}))
+    return out
 
 
 def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forward Report") -> str:
@@ -941,6 +1042,27 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
         html.append("</div>")
     else:
         html.append("<h2>Equity Curve</h2>")
+
+    # Attribution (if available)
+    brinson, factor = _get_attribution(wf_report or {})
+    if brinson is not None or factor is not None:
+        html.append("<h2>Attribution</h2>")
+        if isinstance(brinson, dict):
+            html.append("<h3>Brinson Attribution (aggregated)</h3>")
+            html.append("<table><tr><th>Effect</th><th>Total</th></tr>")
+            html.append(f"<tr><td>Allocation</td><td>{_fmt_pct(_series_sum(brinson.get('allocation_total')))}</td></tr>")
+            html.append(f"<tr><td>Selection</td><td>{_fmt_pct(_series_sum(brinson.get('selection_total')))}</td></tr>")
+            html.append(f"<tr><td>Interaction</td><td>{_fmt_pct(_series_sum(brinson.get('interaction_total')))}</td></tr>")
+            html.append("</table>")
+        if isinstance(factor, dict):
+            html.append("<h3>Factor Attribution (aggregated)</h3>")
+            html.append("<table><tr><th>Metric</th><th>Value</th></tr>")
+            alpha_val = _fmt_num(_safe_float(factor.get("alpha")))
+            html.append(f"<tr><td>Alpha (period)</td><td>{alpha_val}</td></tr>")
+            alpha_ann_val = _fmt_num(_safe_float(factor.get("alpha_annualized")))
+            html.append(f"<tr><td>Alpha (annualized)</td><td>{alpha_ann_val}</td></tr>")
+            html.append(f"<tr><td>R-squared</td><td>{_fmt_num(_safe_float(factor.get('r_squared')))}</td></tr>")
+            html.append("</table>")
 
     html.extend(["</body>", "</html>"])
     return "\n".join(html)
