@@ -41,6 +41,11 @@ class MomentumStrategy(Strategy):
         signals["long"] = price > ma * (1 + self.entry_threshold)
         signals["short"] = price < ma * (1 - self.entry_threshold)
         signals["exit"] = abs(price - ma) / ma < self.entry_threshold * 0.5
+        # Explicit asset weights prevent this single-asset strategy from
+        # applying its generic long/short flags to every input column.
+        signals[self.asset] = (
+            signals["long"].astype(float) - signals["short"].astype(float)
+        )
         return signals
 
     def calculate_position_sizes(self, signals: pd.DataFrame) -> dict[str, float]:
