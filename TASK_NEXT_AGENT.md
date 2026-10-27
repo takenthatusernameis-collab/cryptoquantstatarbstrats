@@ -1,13 +1,13 @@
 # Task for Next Agent
 
 ## Status
-All tasks complete and verified (243 tests pass, ruff clean, mypy clean on backtest/strategies/utils/). CLI/config integration for `TermStructureStrategy` is wired and tested.
+All tasks complete and verified (251 tests pass, ruff clean, mypy clean on backtest/strategies/utils/). Monte Carlo robustness analysis is wired into CLI (`--monte-carlo N`) with summary report and JSON artifact output.
 
 ## Next task for the next agent
-Monte Carlo robustness analysis for strategy equity curves:
-1. Add `utils/monte_carlo.py` with a function to bootstrap trade returns / shuffle trade sequences and compute distribution of final equity, max drawdown, and Sharpe.
-2. Integrate into `BacktestEngine` or CLI as `--monte-carlo N` producing a summary report.
-3. Add tests in `tests/test_monte_carlo.py`.
+No assigned next task. Suggested next steps:
+1. Add Monte Carlo integration tests in `tests/test_cli.py` covering `--monte-carlo` flag output.
+2. Extend Monte Carlo to output percentile CI for drawdowns and risk-of-ruin metrics.
+3. Add notebook demonstrating Monte Carlo robustness.
 
 ### Verification
 ```bash
