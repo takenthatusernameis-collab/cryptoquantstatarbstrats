@@ -26,7 +26,13 @@ class ExecutionSimulator:
     participation_rate: float = 0.1
     slippage_bps: float = 0.0
     order_type: str = "market"
+    iceberg_visible_qty: float = 1.0
+    iceberg_min_fill: float = 0.0
+    iceberg_price_offset_bps: float = 0.0
+    iceberg_price_offset_absolute: float = 0.0
+    iceberg_time_in_force: str = "day"
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
+    _iceberg: IcebergExecution | None = field(default=None, repr=False)
 
     def _valid_rate(self) -> float:
         try:
@@ -67,7 +73,7 @@ class ExecutionSimulator:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         order_type = str(order_type).lower()
-        if order_type not in ("market", "limit", "vwap", "twap"):
+        if order_type not in ("market", "limit", "vwap", "twap", "iceberg"):
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         # Limit price eligibility
@@ -85,6 +91,11 @@ class ExecutionSimulator:
             if side == "sell" and px < lp:
                 return {"filled_qty": 0.0, "avg_price": 0.0,
                         "status": "unfilled", "remaining_qty": qty}
+
+        if order_type == "iceberg":
+            return self._simulate_iceberg(
+                side, qty, px, bar_volume, bar_high, bar_low
+            )
 
         # Volume participation cap
         try:
