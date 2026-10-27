@@ -494,10 +494,12 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
                 html.append("<h3>Factor Attribution</h3>")
                 html.append("<table><tr><th>Metric</th><th>Value</th></tr>")
                 html.append(
-                    f"<tr><td>Alpha (period)</td><td>{_fmt_num(_safe_float(factor.get('alpha')))}</td></tr>"
+                    f"<tr><td>Alpha (period)</td>"
+                    f"<td>{_fmt_num(_safe_float(factor.get('alpha')))}</td></tr>"
                 )
                 html.append(
-                    f"<tr><td>Alpha (annualized)</td><td>{_fmt_num(_safe_float(factor.get('alpha_annualized')))}</td></tr>"
+                    f"<tr><td>Alpha (annualized)</td>"
+                    f"<td>{_fmt_num(_safe_float(factor.get('alpha_annualized')))}</td></tr>"
                 )
                 html.append(
                     f"<tr><td>R-squared</td><td>{_fmt_num(_safe_float(factor.get('r_squared')))}</td></tr>"
@@ -589,20 +591,24 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 text.append("Attribution:")
                 if isinstance(brinson, dict):
                     text.append(
-                        f"  Brinson allocation:  {fmt_pct(_series_sum(brinson.get('allocation_total')))}"
+                        "  Brinson allocation:  "
+                        f"{fmt_pct(_series_sum(brinson.get('allocation_total')))}"
                     )
                     text.append(
-                        f"  Brinson selection:   {fmt_pct(_series_sum(brinson.get('selection_total')))}"
+                        "  Brinson selection:   "
+                        f"{fmt_pct(_series_sum(brinson.get('selection_total')))}"
                     )
                     text.append(
-                        f"  Brinson interaction: {fmt_pct(_series_sum(brinson.get('interaction_total')))}"
+                        "  Brinson interaction: "
+                        f"{fmt_pct(_series_sum(brinson.get('interaction_total')))}"
                     )
                 if isinstance(factor, dict):
                     text.append(
                         f"  Factor alpha:        {fmt_num(_safe_float(factor.get('alpha')))}"
                     )
                     text.append(
-                        f"  Factor alpha (ann):  {fmt_num(_safe_float(factor.get('alpha_annualized')))}"
+                        "  Factor alpha (ann):  "
+                        f"{fmt_num(_safe_float(factor.get('alpha_annualized')))}"
                     )
                     text.append(
                         f"  Factor R-squared:    {fmt_num(_safe_float(factor.get('r_squared')))}"

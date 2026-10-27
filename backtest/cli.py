@@ -192,12 +192,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--benchmark-weights-csv",
         default=None,
-        help="Path to CSV with benchmark weights (timestamp/index + asset columns) for Brinson attribution.",
+        help=("Path to CSV with benchmark weights (timestamp/index + asset "
+              "columns) for Brinson attribution."),
     )
     parser.add_argument(
         "--factor-returns-csv",
         default=None,
-        help="Path to CSV with factor returns (timestamp/index + factor columns) for factor attribution.",
+        help=("Path to CSV with factor returns (timestamp/index + factor "
+              "columns) for factor attribution."),
     )
     parser.add_argument(
         "--execution-simulator",
@@ -363,7 +365,8 @@ def _apply_config_from_dict(
         ("volume_csv", ("volume_csv", "volume", "volume_path")),
         ("high_csv", ("high_csv", "high", "high_path")),
         ("low_csv", ("low_csv", "low", "low_path")),
-        ("benchmark_weights_csv", ("benchmark_weights_csv", "benchmark_weights", "benchmark_weights_path")),
+        ("benchmark_weights_csv", ("benchmark_weights_csv", "benchmark_weights",
+                                   "benchmark_weights_path")),
         ("factor_returns_csv", ("factor_returns_csv", "factor_returns", "factor_returns_path")),
         ("execution_simulator", ("execution_simulator", "use_execution_simulator")),
         ("order_type", ("order_type",)),
@@ -504,9 +507,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         try:
             benchmark_weights_df = DataLoader.load_csv(bw_path)
             benchmark_weights_df = loader.clean_data(benchmark_weights_df)
-            benchmark_weights_df = benchmark_weights_df.reindex(index=data.index).ffill().fillna(0.0)
+            benchmark_weights_df = benchmark_weights_df.reindex(
+                index=data.index).ffill().fillna(0.0)
             if isinstance(data, pd.DataFrame):
-                benchmark_weights_df = benchmark_weights_df.reindex(columns=data.columns, fill_value=0.0)
+                benchmark_weights_df = benchmark_weights_df.reindex(
+                    columns=data.columns, fill_value=0.0)
         except Exception:
             benchmark_weights_df = None
 

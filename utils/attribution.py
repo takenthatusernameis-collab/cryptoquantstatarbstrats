@@ -61,7 +61,7 @@ def _align_inputs(
         f = f.reindex(index=common_index)
         f = f.reindex(columns=columns, fill_value=0.0)
         aligned.append(f.fillna(0.0))
-    return tuple(aligned)  # type: ignore[return-value]
+    return tuple(aligned)
 
 
 def brinson_attribution(
