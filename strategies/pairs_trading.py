@@ -70,6 +70,10 @@ class CointegrationPairsStrategy(PairStrategy):
         ).var()
         hedge_ratio = rolling_cov.div(rolling_var.where(rolling_var > 0))
         hedge_ratio = hedge_ratio.replace([np.inf, -np.inf], np.nan)
+        # This long/short pairs implementation is intended for positively
+        # related legs; a non-positive hedge ratio would create same-direction
+        # exposures rather than a spread hedge.
+        hedge_ratio = hedge_ratio.where(hedge_ratio > 0)
         self.hedge_ratio_series = hedge_ratio
         valid = hedge_ratio.dropna()
         self.hedge_ratio = float(valid.iloc[-1]) if not valid.empty else 1.0
