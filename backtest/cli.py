@@ -127,11 +127,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Also compute benchmark for portfolio/walk-forward paths.",
     )
     parser.add_argument(
-        "--rebalance_benchmark",
+        "--walk-forward-report",
+        "--walk_forward_report",
         action="store_true",
         default=False,
-        dest="rebalance_benchmark",
-        help=argparse.SUPPRESS,
+        dest="walk_forward_report",
+        help="Generate walk-forward report artifacts.",
     )
     parser.add_argument(
         "--rebalance-frequency",
