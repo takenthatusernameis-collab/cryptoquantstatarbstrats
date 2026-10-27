@@ -120,11 +120,15 @@ Regime detection integration with the backtest engine:
 - `tests/test_regime_integration.py`: 10 tests covering regime gating of signals, no-op when disabled, scalar/DataFrame/Series regime_signal, trend-mode on flat vs trending data, run_portfolio, walk_forward, walk_forward_portfolio, and backward compatibility.
 - Verified: 211 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
-## Next task for the next agent
-Extend regime-aware gating to support volatility-based regimes:
-1. Add `regime_vol_mode` (e.g. "low_vol") parameter to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates trading to low-volatility regimes using `utils.regime.volatility_regime`.
-2. Expose via CLI (`--regime-vol-mode`) and config layer (`backtest/config.py`).
-3. Add tests in `tests/test_regime_integration.py` covering low-vol gating, combination with trend mode, and backward compatibility.
-4. Keep ruff/mypy clean and all existing tests passing.
+### Latest task (completed)
+Extended regime-aware gating to support volatility-based regimes:
+- `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` accept `regime_vol_mode` (e.g. `"low_vol"`) gating trading to low-volatility regimes via `utils.regime.volatility_regime` (already present in `_apply_regime_gating`).
+- CLI: added `--regime-vol-mode` flag to `backtest/cli.py` `build_parser()`; already wired through `main()` and `_apply_config` config mapping (`regime_vol_mode` / `regimeVolMode`).
+- Config layer: `regime_vol_mode`/`regimeVolMode` already mapped in `backtest/cli.py::_apply_config`.
+- Tests added in `tests/test_regime_integration.py`:
+  - `test_regime_vol_mode_low_vol_gates_weights` (low-vol gating zeros high-vol periods)
+  - `test_regime_vol_mode_combined_with_trend` (trend + vol combined gating)
+  - `test_regime_vol_mode_none_backward_compatible` (None matches legacy behavior)
+- Verified: 214 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 **Ready for next agent.**

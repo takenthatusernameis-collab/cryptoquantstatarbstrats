@@ -28,6 +28,17 @@ def _make_trending_data(n=120):
     )
 
 
+def _make_vol_split_data(n=200):
+    """Low volatility first half, high volatility second half."""
+    dates = pd.date_range("2024-01-01", periods=n, freq="h")
+    rng = np.random.default_rng(7)
+    rets = np.zeros((n, 2))
+    rets[: n // 2] = rng.normal(0, 0.0001, size=(n // 2, 2))
+    rets[n // 2 :] = rng.normal(0, 0.05, size=(n // 2, 2))
+    prices = 100 * np.exp(np.cumsum(rets, axis=0))
+    return pd.DataFrame(prices, index=dates, columns=["BTC", "ETH"])
+
+
 def test_regime_disabled_is_noop():
     """No regime params -> unchanged results (backward compatible)."""
     engine = BacktestEngine(initial_capital=100_000.0)
@@ -168,6 +179,62 @@ def test_regime_backward_compatibility_defaults():
         regime_signal=None,
         regime_mode=None,
         regime_lookback=None,
+    )
+    pd.testing.assert_frame_equal(r1["weights"], r2["weights"])
+    assert r1["total_return"] == r2["total_return"]
+
+
+def test_regime_vol_mode_low_vol_gates_weights():
+    """regime_vol_mode='low_vol' reduces weights in high-volatility periods."""
+    engine = BacktestEngine(initial_capital=100_000.0)
+    data = _make_vol_split_data()
+    weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
+
+    result_full = engine.run_portfolio(weights, data)
+    assert (result_full["weights"] == 1.0).all().all()
+
+    result_gated = engine.run_portfolio(
+        weights, data, regime_vol_mode="low_vol", regime_lookback=10
+    )
+    gated = result_gated["weights"]
+    split = len(data) // 2
+    low_vol_weight = gated.iloc[:split].abs().sum().sum()
+    high_vol_weight = gated.iloc[split:].abs().sum().sum()
+    assert low_vol_weight > 0.0
+    assert high_vol_weight < low_vol_weight
+
+
+def test_regime_vol_mode_combined_with_trend():
+    """regime_vol_mode='low_vol' combined with regime_mode='trend' runs end-to-end."""
+    engine = BacktestEngine(initial_capital=100_000.0)
+    data = _make_vol_split_data()
+    weights = pd.DataFrame(1.0, index=data.index, columns=data.columns)
+
+    result = engine.run_portfolio(
+        weights,
+        data,
+        regime_mode="trend",
+        regime_vol_mode="low_vol",
+        regime_lookback=10,
+    )
+    assert "total_return" in result
+    assert (result["weights"] <= 1.0).all().all()
+    assert (result["weights"] >= -1.0).all().all()
+
+
+def test_regime_vol_mode_none_backward_compatible():
+    """regime_vol_mode=None matches no regime params (backward compatible)."""
+    engine = BacktestEngine(initial_capital=100_000.0)
+    data = _make_vol_split_data()
+    strategy = MeanReversionStrategy(asset="BTC")
+    r1 = engine.run(strategy, data)
+    r2 = engine.run(
+        strategy,
+        data,
+        regime_signal=None,
+        regime_mode=None,
+        regime_lookback=None,
+        regime_vol_mode=None,
     )
     pd.testing.assert_frame_equal(r1["weights"], r2["weights"])
     assert r1["total_return"] == r2["total_return"]

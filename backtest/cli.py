@@ -226,6 +226,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Lookback window for regime detection.",
     )
+    parser.add_argument(
+        "--regime-vol-mode",
+        default=None,
+        help="Volatility-based regime gating (e.g. low_vol).",
+    )
     return parser
 
 
