@@ -47,6 +47,12 @@ python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python3 -m mypy backtest/ strategies/ utils/
 ```
 
+## CI
+
+[![CI](https://github.com/Kilo-Org/cryptoquantstatarbstrats/actions/workflows/ci.yml/badge.svg)](https://github.com/Kilo-Org/cryptoquantstatarbstrats/actions/workflows/ci.yml)
+
+The CI workflow (`.github/workflows/ci.yml`) runs on push and pull requests, executing `ruff check`, `mypy backtest/ strategies/ utils/`, and `pytest tests/ -q` across Python 3.10/3.11/3.12.
+
 ## Disclaimer
 
 This software is for educational and research purposes only. Use at your own risk.

@@ -8,14 +8,16 @@ All work assigned in previous rounds is complete and verified:
 3. `generate_walk_forward_html_report` / `generate_walk_forward_pdf_report` renderers — summary table + equity chart pages (`utils/reporting.py`).
 4. `--walk-forward-report` CLI flag — emits walk-forward summary artifact (csv/html/pdf) under `reports/` or via `--artifact-dir`/`--output-path` (`backtest/cli.py`).
 5. Comprehensive walk-forward reporting tests and all prior features (portfolio optimization/risk, execution simulation VWAP/TWAP + OHLC, regime detection, rebalancing, config-driven CLI, HTML/PDF artifacts) remain intact.
+6. **GitHub Actions CI workflow** (`.github/workflows/ci.yml`) added — runs on push/PR, installs deps via `pip install -e ".[dev]"`, and executes `ruff check`, `mypy backtest/ strategies/ utils/`, and `pytest tests/ -q` across Python 3.10/3.11/3.12.
 
 ## Current State (verified)
 - `python3 -m pytest tests/ -q` -> 180 passed
 - `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> All checks passed
 - `python3 -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 24 source files
+- `.github/workflows/ci.yml` created with `lint`, `typecheck`, and `test` jobs (test job matrixed on Python 3.10/3.11/3.12)
 
 ## Framework Status
-Feature-complete: portfolio optimization, portfolio-level risk metrics, execution simulation (market/limit/VWAP/TWAP + OHLC passthrough), regime detection, walk-forward robustness, config-driven CLI (YAML/TOML/JSON), HTML/PDF report artifacts, rebalancing, benchmark curves, and walk-forward reporting — all with tests and type checking passing.
+Feature-complete: portfolio optimization, portfolio-level risk metrics, execution simulation (market/limit/VWAP/TWAP + OHLC passthrough), regime detection, walk-forward robustness, config-driven CLI (YAML/TOML/JSON), HTML/PDF report artifacts, rebalancing, benchmark curves, walk-forward reporting, and CI workflow — all with tests and type checking passing.
 
 ## Next task for the next agent
 Add a GitHub Actions CI workflow (`.github/workflows/ci.yml`) that runs on push/PR and executes:
@@ -27,8 +29,8 @@ Add a GitHub Actions CI workflow (`.github/workflows/ci.yml`) that runs on push/
 Keep workflow minimal, cache pip if reasonable, and ensure it passes against current repo state. Update README if desired (optional). Do not change library code unless necessary for CI to pass.
 
 ### Acceptance criteria
-- [ ] `.github/workflows/ci.yml` added with jobs for ruff, mypy, pytest
-- [ ] Workflow runs successfully (or is correctly configured)
-- [ ] All checks remain green: `pytest`, `ruff`, `mypy`
+- [x] `.github/workflows/ci.yml` added with jobs for ruff, mypy, pytest
+- [x] Workflow runs successfully (or is correctly configured)
+- [x] All checks remain green: `pytest`, `ruff`, `mypy`
 
 **Ready for next agent.**

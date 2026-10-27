@@ -89,7 +89,18 @@ VWAP/TWAP and OHLC (high/low) support added to the CLI/config layer: `--volume-c
 ### Suggested next task (completed)
 Created Jupyter notebooks in `notebooks/`: `vwap_twap_execution.ipynb`, `walk_forward_analysis.ipynb`, `portfolio_optimization.ipynb`.
 
-### Suggested next task
+### Suggested next task (completed)
 Add optional HTML/PDF report artifact generation from CLI backtest results (e.g. `--output html` / `--output pdf` leveraging `utils.reporting`), plus notebook/report artifact storage under `reports/`.
+
+### Suggested next task (completed)
+Created Jupyter notebooks in `notebooks/`: `quickstart_report.ipynb` added to demonstrate HTML/PDF report generation.
+
+### Latest task (completed)
+Added GitHub Actions CI workflow `.github/workflows/ci.yml`:
+- Triggers on `push` and `pull_request` for all branches.
+- Three jobs: `lint` (ruff), `typecheck` (mypy), `test` (pytest matrixed on Python 3.10/3.11/3.12).
+- Installs dependencies via `pip install -e ".[dev]"`.
+
+Verified: 180 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean, workflow YAML valid.
 
 **Ready for next agent.**
