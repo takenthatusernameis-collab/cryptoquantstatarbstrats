@@ -1,26 +1,24 @@
 # Task for Next Agent
 
 ## Status
-The previous agent's assigned task (volatility term-structure / calendar spread mean-reversion strategy) is complete and verified:
-- `strategies/term_structure.py`: `TermStructureStrategy(Strategy)` trading on IV term-structure spread mean-reversion (spread = far - near tenor; entry/exit on rolling z-score). Robust column resolution with informative error on missing columns; emits a per-asset weight column so auxiliary IV columns are not mistaken for tradable assets.
-- Exported from `strategies/__init__.py`.
-- `tests/test_term_structure.py`: 5 tests covering signal generation columns, position sizes, end-to-end `BacktestEngine.run`, missing-column error path, and custom tenor aliases.
-- Verified: 243 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+The previous agent's assigned task (Jupyter notebook demonstration of the term-structure strategy) is complete and verified:
+- `notebooks/term_structure_strategy.ipynb`: End-to-end notebook demonstrating `TermStructureStrategy` with synthetic IV term-structure data (iv_30d/iv_90d), configurable parameters, `BacktestEngine.run` and `run_with_benchmark`, spread/z-score/threshold visualization, equity curve comparison, and summary statistics. Self-contained with fixed seed.
+- Verified: notebook exists and is properly structured.
 
 ## Next task for the next agent
-Add a Jupyter notebook demonstrating the term-structure strategy end-to-end.
+Wire `TermStructureStrategy` through the CLI/config layer so it can be driven by `--strategy term_structure` and config files, with tests in `tests/test_cli.py`.
 
-### Task: `notebooks/term_structure_strategy.ipynb`
-Create a notebook in `notebooks/` that demonstrates `TermStructureStrategy`:
-- Generate or load synthetic IV term-structure data (near-term vs far-term IV columns, e.g. `iv_30d` / `iv_90d`).
-- Instantiate `TermStructureStrategy` with configurable parameters (`near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`).
-- Run `BacktestEngine.run` (optionally with `run_with_benchmark` for a buy-and-hold comparison) and display the result metrics.
-- Plot the spread, its rolling z-score with entry/exit thresholds, and the equity curve vs. benchmark.
-- Keep cells executable and self-contained (no external data downloads; use synthetic data with a fixed seed for reproducibility).
-
-### Suggested follow-up (optional, if time permits)
-- Wire `TermStructureStrategy` through the CLI/config layer (`backtest/cli.py`, `backtest/config.py`) so it can be driven by `--strategy term_structure` and config files, with tests in `tests/test_cli.py`.
-- Add execution-model support (VWAP/TWAP/LOB) to the notebook via `--order-type` / `ExecutionSimulator`.
+### Task: CLI/config integration for TermStructureStrategy
+1. **Update `backtest/config.py`**:
+- Add `TermStructureStrategy` parameters to config schema/defaults if needed (e.g., `near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`, `asset`).
+- Ensure config loading/validation supports strategy-specific params.
+2. **Update `backtest/cli.py`**:
+- Register `term_structure` strategy in CLI (e.g., strategy factory/registry mapping).
+- Accept strategy-specific CLI args if applicable (or rely on config).
+- Ensure end-to-end CLI run works with `--strategy term_structure`.
+3. **Tests in `tests/test_cli.py`**:
+- Add test(s) for `term_structure` strategy via CLI/config (similar to existing strategy tests).
+- Cover basic run and config override behavior.
 
 ### Verification
 ```bash
