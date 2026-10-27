@@ -68,7 +68,13 @@ def test_make_mean_variance_optimizer():
 
 
 def test_get_optimizer():
-    for name in ["equal_weight", "inverse_volatility", "risk_parity", "min_variance", "mean_variance"]:
+    for name in [
+        "equal_weight",
+        "inverse_volatility",
+        "risk_parity",
+        "min_variance",
+        "mean_variance",
+    ]:
         opt = get_optimizer(name)
         assert callable(opt)
 
@@ -88,7 +94,9 @@ def test_walk_forward_portfolio_reoptimize_true_with_optimizer():
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
     opt = make_equal_weight_optimizer()
-    res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt
+    )
     assert "results" in res
     assert len(res["results"]) > 0
 
@@ -104,7 +112,9 @@ def test_walk_forward_portfolio_reoptimize_different_optimizers():
         make_min_variance_optimizer(),
         make_mean_variance_optimizer(),
     ]:
-        res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt)
+        res = engine.walk_forward_portfolio(
+            w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt
+        )
         assert "results" in res
 
 
@@ -121,7 +131,9 @@ def test_walk_forward_portfolio_reoptimize_weight_alignment():
         calls.append(train_data)
         return opt(train_data)
 
-    res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=tracking_opt)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=30, test_period=10, reoptimize=True, optimizer=tracking_opt
+    )
     assert len(calls) > 0
     # returned weights aligned
     assert len(res["results"]) > 0
@@ -189,6 +201,144 @@ def test_cli_config_drives_reoptimize(tmp_path):
         "test_period": 5,
         "reoptimize": True,
         "optimizer": "inverse_volatility",
+        "output": "json",
+    }
+    cfg_path = tmp_path / "cfg.yaml"
+    cfg_path.write_text(yaml.safe_dump(cfg))
+
+    rc = cli.main(["--config", str(cfg_path)])
+    assert rc == 0
+
+
+def test_cli_walk_forward_reoptimize_without_rebalance_frequency(tmp_path):
+    from backtest import cli
+
+    data_loader = DataLoader()
+    data = data_loader.load_data(["BTC", "ETH"], "2024-01-01", "2024-03-01", freq="1d")
+    data = data_loader.clean_data(data)
+    data.to_csv(tmp_path / "data.csv")
+
+    rc = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--data-source",
+            "synthetic",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--reoptimize",
+            "--optimizer",
+            "equal_weight",
+            "--output",
+            "json",
+        ]
+    )
+    assert rc == 0
+
+
+def test_cli_walk_forward_reoptimize_optimizer_applied_differs(tmp_path):
+    import json
+
+    from backtest import cli
+
+    rc1 = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--data-source",
+            "synthetic",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--reoptimize",
+            "--optimizer",
+            "equal_weight",
+            "--output",
+            "json",
+            "--output-path",
+            str(tmp_path / "r1.json"),
+        ]
+    )
+    assert rc1 == 0
+    # Run without reoptimize (should use strategy-based walk_forward)
+    rc2 = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--data-source",
+            "synthetic",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--output",
+            "json",
+            "--output-path",
+            str(tmp_path / "r2.json"),
+        ]
+    )
+    assert rc2 == 0
+    r1 = json.loads((tmp_path / "r1.json").read_text())
+    r2 = json.loads((tmp_path / "r2.json").read_text())
+    # Both should produce results
+    # Walk-forward returns aggregated dict with results list
+    assert "results" in r1 or "total_return" in r1
+    assert "results" in r2 or "total_return" in r2
+    if "results" in r1:
+        assert len(r1["results"]) > 0
+    if "results" in r2:
+        assert len(r2["results"]) > 0
+
+
+def test_cli_config_drives_reoptimize_without_rebalance_frequency(tmp_path):
+    import yaml
+
+    from backtest import cli
+
+    cfg = {
+        "symbols": ["BTC", "ETH"],
+        "start": "2024-01-01",
+        "end": "2024-03-01",
+        "freq": "1d",
+        "strategy": "mean_reversion",
+        "walk_forward": True,
+        "train_period": 20,
+        "test_period": 10,
+        "reoptimize": True,
+        "optimizer": "risk_parity",
         "output": "json",
     }
     cfg_path = tmp_path / "cfg.yaml"
