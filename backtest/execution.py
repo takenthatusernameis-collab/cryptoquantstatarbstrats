@@ -77,6 +77,45 @@ class TWAPExecution:
 
 
 @dataclass
+class LimitOrderBookExecution:
+    """Limit order book (LOB) execution model.
+
+    Walks ``depth_levels`` price levels away from the mid price, consuming
+    quantity at each level and applying ``market_impact_bps`` per level walked.
+    A buy order walks the ask side (prices rise); a sell order walks the bid
+    side (prices fall). Partial fills occur when volume participation caps the
+    fillable quantity before the order is complete.
+    """
+
+    depth_levels: int = 3
+    market_impact_bps: float = 5.0
+    slippage_bps: float = 0.0
+    participation_rate: float = 0.1
+
+    def __post_init__(self) -> None:
+        try:
+            d = int(self.depth_levels)
+            self.depth_levels = d if d > 0 else 1
+        except (TypeError, ValueError):
+            self.depth_levels = 1
+        try:
+            m = float(self.market_impact_bps)
+            self.market_impact_bps = m if np.isfinite(m) and m >= 0.0 else 0.0
+        except (TypeError, ValueError):
+            self.market_impact_bps = 0.0
+        try:
+            s = float(self.slippage_bps)
+            self.slippage_bps = s if np.isfinite(s) else 0.0
+        except (TypeError, ValueError):
+            self.slippage_bps = 0.0
+        try:
+            p = float(self.participation_rate)
+            self.participation_rate = p if np.isfinite(p) and p > 0.0 else 0.1
+        except (TypeError, ValueError):
+            self.participation_rate = 0.1
+
+
+@dataclass
 class ExecutionSimulator:
     """Simulate order execution with volume participation limits."""
 
@@ -88,8 +127,29 @@ class ExecutionSimulator:
     iceberg_price_offset_bps: float = 0.0
     iceberg_price_offset_absolute: float = 0.0
     iceberg_time_in_force: str = "day"
+    lob_depth_levels: int = 3
+    lob_market_impact_bps: float = 5.0
+    lob_slippage_bps: float = 0.0
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
     _iceberg: IcebergExecution | None = field(default=None, repr=False)
+    _lob: LimitOrderBookExecution | None = field(default=None, repr=False)
+
+    def __post_init__(self) -> None:
+        try:
+            d = int(self.lob_depth_levels)
+            self.lob_depth_levels = d if d > 0 else 1
+        except (TypeError, ValueError):
+            self.lob_depth_levels = 1
+        try:
+            m = float(self.lob_market_impact_bps)
+            self.lob_market_impact_bps = m if np.isfinite(m) and m >= 0.0 else 0.0
+        except (TypeError, ValueError):
+            self.lob_market_impact_bps = 0.0
+        try:
+            s = float(self.lob_slippage_bps)
+            self.lob_slippage_bps = s if np.isfinite(s) else 0.0
+        except (TypeError, ValueError):
+            self.lob_slippage_bps = 0.0
 
     def _valid_rate(self) -> float:
         try:
