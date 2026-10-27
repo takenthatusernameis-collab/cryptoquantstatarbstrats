@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from strategies.base import Strategy
+from utils.attribution import brinson_attribution, factor_attribution
 from utils.metrics import cvar, sharpe_ratio, sortino_ratio, var
 from utils.rebalance import create_rebalanced_weights
 from utils.regime import detect_regimes, volatility_regime
@@ -129,6 +130,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -136,6 +139,11 @@ class BacktestEngine:
         subtracts transaction costs from turnover, and returns the standard
         result dictionary. This is shared by :meth:`run` and
         :meth:`run_portfolio`.
+
+        When ``benchmark_weights`` is provided, Brinson-style allocation /
+        selection / interaction attribution is computed against the benchmark.
+        When ``factor_returns`` is provided, an OLS factor attribution
+        (alpha / beta / residual) is computed on the portfolio returns.
         """
         returns = data.pct_change().fillna(0.0)
 
@@ -237,6 +245,28 @@ class BacktestEngine:
             "portfolio_returns": portfolio_returns,
             "returns": portfolio_returns,
         }
+
+        # Optional Brinson attribution vs a benchmark.
+        if benchmark_weights is not None:
+            try:
+                result["brinson"] = brinson_attribution(
+                    returns,
+                    weights,
+                    benchmark_weights,
+                    returns,
+                )
+            except Exception:
+                pass
+
+        # Optional OLS factor attribution on portfolio returns.
+        if factor_returns is not None:
+            try:
+                result["factor"] = factor_attribution(
+                    portfolio_returns, factor_returns
+                )
+            except Exception:
+                pass
+
         return result
 
     def _simulate_execution(
@@ -363,6 +393,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy.
 
@@ -422,6 +454,8 @@ class BacktestEngine:
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
             regime_vol_mode=regime_vol_mode,
+            benchmark_weights=benchmark_weights,
+            factor_returns=factor_returns,
         )
 
     def run_with_benchmark(
@@ -437,6 +471,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Run backtest and include an equal-weighted buy-and-hold benchmark."""
         result = self.run(
@@ -451,6 +487,8 @@ class BacktestEngine:
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
             regime_vol_mode=regime_vol_mode,
+            benchmark_weights=benchmark_weights,
+            factor_returns=factor_returns,
         )
         returns = data.pct_change().fillna(0.0)
         n = data.shape[1]
@@ -495,6 +533,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -540,6 +580,8 @@ class BacktestEngine:
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
             regime_vol_mode=regime_vol_mode,
+            benchmark_weights=benchmark_weights,
+            factor_returns=factor_returns,
         )
 
     def walk_forward(
@@ -560,6 +602,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -658,6 +702,8 @@ class BacktestEngine:
         regime_mode: str | None = None,
         regime_lookback: int | None = None,
         regime_vol_mode: str | None = None,
+        benchmark_weights: pd.DataFrame | None = None,
+        factor_returns: pd.DataFrame | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation using portfolio weights.
 

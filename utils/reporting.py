@@ -30,13 +30,24 @@ def generate_report(result: dict) -> str:
         f"Max DD Duration:     {int(max_dd_duration)} periods",
         f"Calmar Ratio:        {calmar_ratio:.4f}",
     ]
+    # Attribution section (Brinson / factor) when available.
+    brinson = result.get("brinson")
+    factor = result.get("factor")
+    if brinson is not None or factor is not None:
+        lines.append("")
+        lines.append("Attribution")
+        lines.append("===========")
+        if isinstance(brinson, dict):
+            lines.extend(brinson_text_lines(brinson))
+        if isinstance(factor, dict):
+            lines.extend(factor_text_lines(factor))
     return "\n".join(lines)
 
 
 def report_to_dict(result: dict) -> dict:
     """Return a serializable dict of key metrics (float/int/str only)."""
     result = result or {}
-    return {
+    data: dict[str, Any] = {
         "total_return": float(result.get("total_return", 0.0)),
         "sharpe_ratio": float(result.get("sharpe_ratio", 0.0)),
         "sortino_ratio": float(result.get("sortino_ratio", 0.0)),
@@ -46,6 +57,8 @@ def report_to_dict(result: dict) -> dict:
         "max_drawdown_duration": int(result.get("max_drawdown_duration", 0)),
         "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
     }
+    data.update(attribution_to_dict(result))
+    return data
 
 
 def plot_equity_curve(result: dict, save_path: str | None = None) -> None:
@@ -116,6 +129,143 @@ def risk_report_to_dict(result: dict) -> dict:
         "max_drawdown_duration": int(result.get("max_drawdown_duration", 0)),
         "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
     }
+
+
+def _fmt_pct(x: float) -> str:
+    try:
+        return f"{float(x):.4%}"
+    except Exception:
+        return str(x)
+
+
+def _fmt_num(x: float) -> str:
+    try:
+        return f"{float(x):.4f}"
+    except Exception:
+        return str(x)
+
+
+def _series_sum(s: Any) -> float:
+    try:
+        if s is None:
+            return 0.0
+        if isinstance(s, pd.Series):
+            return float(pd.Series(s).dropna().sum())
+        return float(s)
+    except Exception:
+        return 0.0
+
+
+def _safe_float(x: Any, default: float = 0.0) -> float:
+    try:
+        v = float(x)
+        if v != v:  # NaN
+            return default
+        return v
+    except (TypeError, ValueError):
+        return default
+
+
+def brinson_text_lines(brinson: dict[str, Any]) -> list[str]:
+    """Text lines summarizing Brinson attribution results."""
+    lines: list[str] = []
+    if not isinstance(brinson, dict):
+        return lines
+    alloc_total = _series_sum(brinson.get("allocation_total"))
+    selection_total = _series_sum(brinson.get("selection_total"))
+    interaction_total = _series_sum(brinson.get("interaction_total"))
+    lines.append("Brinson Attribution (allocation / selection / interaction):")
+    lines.append(f"  Allocation effect:  {_fmt_pct(alloc_total)}")
+    lines.append(f"  Selection effect:   {_fmt_pct(selection_total)}")
+    lines.append(f"  Interaction effect: {_fmt_pct(interaction_total)}")
+    summary = brinson.get("summary")
+    if isinstance(summary, pd.DataFrame) and len(summary) > 0:
+        lines.append("")
+        lines.append("Per-asset attribution (top by |total|):")
+        header = "  " + "  ".join(
+            f"{c:>10}" for c in ["asset", "allocation", "selection", "interaction", "total"]
+        )
+        lines.append(header)
+        summ = summary.copy()
+        summ["__abs__"] = summ["total"].abs()
+        summ = summ.sort_values("__abs__", ascending=False).head(10)
+        for _, row in summ.iterrows():
+            lines.append(
+                "  "
+                + "  ".join(
+                    [
+                        f"{str(row['asset']):>10}",
+                        f"{_fmt_pct(_safe_float(row['allocation'])):>10}",
+                        f"{_fmt_pct(_safe_float(row['selection'])):>10}",
+                        f"{_fmt_pct(_safe_float(row['interaction'])):>10}",
+                        f"{_fmt_pct(_safe_float(row['total'])):>10}",
+                    ]
+                )
+            )
+    return lines
+
+
+def factor_text_lines(factor: dict[str, Any]) -> list[str]:
+    """Text lines summarizing factor attribution results."""
+    lines: list[str] = []
+    if not isinstance(factor, dict):
+        return lines
+    lines.append("Factor Attribution (OLS regression):")
+    lines.append(f"  Alpha (per period): {_fmt_num(_safe_float(factor.get('alpha')))}")
+    lines.append(f"  Alpha (annualized): {_fmt_num(_safe_float(factor.get('alpha_annualized')))}")
+    lines.append(f"  R-squared:          {_fmt_num(_safe_float(factor.get('r_squared')))}")
+    lines.append(f"  Observations:       {int(_safe_float(factor.get('n_obs')))}")
+    beta = factor.get("beta")
+    if isinstance(beta, pd.Series) and len(beta) > 0:
+        lines.append("  Factor exposures (beta):")
+        for name, val in beta.items():
+            lines.append(f"    {name}: {_fmt_num(_safe_float(val))}")
+    return lines
+
+
+def attribution_to_dict(result: dict) -> dict:
+    """Return a serializable dict of attribution metrics."""
+    result = result or {}
+    out: dict[str, Any] = {}
+    brinson = result.get("brinson")
+    factor = result.get("factor")
+    if isinstance(brinson, dict):
+        summary = brinson.get("summary")
+        summary_records: list[dict[str, Any]] = []
+        if isinstance(summary, pd.DataFrame) and len(summary) > 0:
+            for _, row in summary.iterrows():
+                summary_records.append(
+                    {
+                        "asset": str(row["asset"]),
+                        "allocation": _safe_float(row.get("allocation")),
+                        "selection": _safe_float(row.get("selection")),
+                        "interaction": _safe_float(row.get("interaction")),
+                        "total": _safe_float(row.get("total")),
+                    }
+                )
+        out["brinson"] = {
+            "allocation_total": _series_sum(brinson.get("allocation_total")),
+            "selection_total": _series_sum(brinson.get("selection_total")),
+            "interaction_total": _series_sum(brinson.get("interaction_total")),
+            "portfolio_return": _series_sum(brinson.get("portfolio_return")),
+            "benchmark_return": _series_sum(brinson.get("benchmark_return")),
+            "summary": summary_records,
+        }
+    if isinstance(factor, dict):
+        beta = factor.get("beta")
+        beta_dict: dict[str, float] = {}
+        if isinstance(beta, pd.Series):
+            for name, val in beta.items():
+                beta_dict[str(name)] = _safe_float(val)
+        out["factor"] = {
+            "alpha": _safe_float(factor.get("alpha")),
+            "alpha_annualized": _safe_float(factor.get("alpha_annualized")),
+            "r_squared": _safe_float(factor.get("r_squared")),
+            "n_obs": int(_safe_float(factor.get("n_obs"))),
+            "beta": beta_dict,
+        }
+    return out
+
 
 
 def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
@@ -301,6 +451,71 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
         except Exception:
             pass
 
+    # Attribution (if available)
+    brinson = (result or {}).get("brinson")
+    factor = (result or {}).get("factor")
+    if brinson is not None or factor is not None:
+        try:
+            html.append("<h2>Attribution</h2>")
+            if isinstance(brinson, dict):
+                html.append("<h3>Brinson Attribution</h3>")
+                html.append("<table><tr><th>Effect</th><th>Total</th></tr>")
+                html.append(
+                    f"<tr><td>Allocation</td><td>{_fmt_pct(_series_sum(brinson.get('allocation_total')))}</td></tr>"
+                )
+                html.append(
+                    f"<tr><td>Selection</td><td>{_fmt_pct(_series_sum(brinson.get('selection_total')))}</td></tr>"
+                )
+                html.append(
+                    f"<tr><td>Interaction</td><td>{_fmt_pct(_series_sum(brinson.get('interaction_total')))}</td></tr>"
+                )
+                html.append("</table>")
+                summary = brinson.get("summary")
+                if isinstance(summary, pd.DataFrame) and len(summary) > 0:
+                    html.append("<h4>Per-Asset Attribution</h4>")
+                    html.append(
+                        "<table><tr><th>Asset</th><th>Allocation</th><th>Selection</th><th>Interaction</th><th>Total</th></tr>"
+                    )
+                    summ = summary.copy()
+                    summ["__abs__"] = summ["total"].abs()
+                    summ = summ.sort_values("__abs__", ascending=False).head(10)
+                    for _, row in summ.iterrows():
+                        html.append(
+                            "<tr>"
+                            f"<td>{row['asset']}</td>"
+                            f"<td>{_fmt_pct(_safe_float(row.get('allocation')))}</td>"
+                            f"<td>{_fmt_pct(_safe_float(row.get('selection')))}</td>"
+                            f"<td>{_fmt_pct(_safe_float(row.get('interaction')))}</td>"
+                            f"<td>{_fmt_pct(_safe_float(row.get('total')))}</td>"
+                            "</tr>"
+                        )
+                    html.append("</table>")
+            if isinstance(factor, dict):
+                html.append("<h3>Factor Attribution</h3>")
+                html.append("<table><tr><th>Metric</th><th>Value</th></tr>")
+                html.append(
+                    f"<tr><td>Alpha (period)</td><td>{_fmt_num(_safe_float(factor.get('alpha')))}</td></tr>"
+                )
+                html.append(
+                    f"<tr><td>Alpha (annualized)</td><td>{_fmt_num(_safe_float(factor.get('alpha_annualized')))}</td></tr>"
+                )
+                html.append(
+                    f"<tr><td>R-squared</td><td>{_fmt_num(_safe_float(factor.get('r_squared')))}</td></tr>"
+                )
+                html.append(
+                    f"<tr><td>Observations</td><td>{int(_safe_float(factor.get('n_obs')))}</td></tr>"
+                )
+                beta = factor.get("beta")
+                if isinstance(beta, pd.Series) and len(beta) > 0:
+                    html.append("<tr><td colspan=2>Factor exposures (beta):</td></tr>")
+                    for name, val in beta.items():
+                        html.append(
+                            f"<tr><td>{name}</td><td>{_fmt_num(_safe_float(val))}</td></tr>"
+                        )
+                html.append("</table>")
+        except Exception:
+            pass
+
     html.append("</body></html>")
     return "\n".join(html)
 
@@ -366,6 +581,32 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
             text.append(
                 f"  Max DD Duration:     {int(risk.get('max_drawdown_duration', 0))} periods"
             )
+            # Attribution summary (Brinson / factor) when available.
+            brinson = (result or {}).get("brinson")
+            factor = (result or {}).get("factor")
+            if brinson is not None or factor is not None:
+                text.append("")
+                text.append("Attribution:")
+                if isinstance(brinson, dict):
+                    text.append(
+                        f"  Brinson allocation:  {fmt_pct(_series_sum(brinson.get('allocation_total')))}"
+                    )
+                    text.append(
+                        f"  Brinson selection:   {fmt_pct(_series_sum(brinson.get('selection_total')))}"
+                    )
+                    text.append(
+                        f"  Brinson interaction: {fmt_pct(_series_sum(brinson.get('interaction_total')))}"
+                    )
+                if isinstance(factor, dict):
+                    text.append(
+                        f"  Factor alpha:        {fmt_num(_safe_float(factor.get('alpha')))}"
+                    )
+                    text.append(
+                        f"  Factor alpha (ann):  {fmt_num(_safe_float(factor.get('alpha_annualized')))}"
+                    )
+                    text.append(
+                        f"  Factor R-squared:    {fmt_num(_safe_float(factor.get('r_squared')))}"
+                    )
             plt.text(
                 0.08,
                 0.94,

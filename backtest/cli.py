@@ -190,6 +190,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to CSV with per-asset bar lows (timestamp/index + asset columns).",
     )
     parser.add_argument(
+        "--benchmark-weights-csv",
+        default=None,
+        help="Path to CSV with benchmark weights (timestamp/index + asset columns) for Brinson attribution.",
+    )
+    parser.add_argument(
+        "--factor-returns-csv",
+        default=None,
+        help="Path to CSV with factor returns (timestamp/index + factor columns) for factor attribution.",
+    )
+    parser.add_argument(
         "--execution-simulator",
         action="store_true",
         help="Enable execution simulation path (for VWAP/TWAP/participation).",
@@ -353,6 +363,8 @@ def _apply_config_from_dict(
         ("volume_csv", ("volume_csv", "volume", "volume_path")),
         ("high_csv", ("high_csv", "high", "high_path")),
         ("low_csv", ("low_csv", "low", "low_path")),
+        ("benchmark_weights_csv", ("benchmark_weights_csv", "benchmark_weights", "benchmark_weights_path")),
+        ("factor_returns_csv", ("factor_returns_csv", "factor_returns", "factor_returns_path")),
         ("execution_simulator", ("execution_simulator", "use_execution_simulator")),
         ("order_type", ("order_type",)),
         ("participation_rate", ("participation_rate",)),
@@ -485,6 +497,30 @@ def main(argv: Sequence[str] | None = None) -> int:
         except Exception:
             low_df = None
 
+    # Benchmark weights (for Brinson attribution): asset columns aligned to data.
+    benchmark_weights_df = None
+    bw_path = getattr(args, "benchmark_weights_csv", None)
+    if bw_path:
+        try:
+            benchmark_weights_df = DataLoader.load_csv(bw_path)
+            benchmark_weights_df = loader.clean_data(benchmark_weights_df)
+            benchmark_weights_df = benchmark_weights_df.reindex(index=data.index).ffill().fillna(0.0)
+            if isinstance(data, pd.DataFrame):
+                benchmark_weights_df = benchmark_weights_df.reindex(columns=data.columns, fill_value=0.0)
+        except Exception:
+            benchmark_weights_df = None
+
+    # Factor returns (for factor attribution): factor columns kept as-is.
+    factor_returns_df = None
+    fr_path = getattr(args, "factor_returns_csv", None)
+    if fr_path:
+        try:
+            factor_returns_df = DataLoader.load_csv(fr_path)
+            factor_returns_df = loader.clean_data(factor_returns_df)
+            factor_returns_df = factor_returns_df.reindex(index=data.index).ffill().fillna(0.0)
+        except Exception:
+            factor_returns_df = None
+
     exec_sim = None
     use_exec = getattr(args, "execution_simulator", False)
     order_type = getattr(args, "order_type", None)
@@ -555,6 +591,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights_df,
+                factor_returns=factor_returns_df,
             )
         else:
             result = engine.walk_forward(
@@ -571,6 +609,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights_df,
+                factor_returns=factor_returns_df,
             )
     elif rebalance_freq:
         signals = strategy.generate_signals(data)
