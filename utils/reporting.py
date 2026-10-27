@@ -267,6 +267,28 @@ def attribution_to_dict(result: dict) -> dict:
     return out
 
 
+def generate_attribution_report(result: dict) -> str:
+    """Build a human-readable attribution report from a backtest result."""
+    result = result or {}
+    lines: list[str] = ["Attribution Report", "=================="]
+    brinson = result.get("brinson")
+    factor = result.get("factor")
+    if isinstance(brinson, dict):
+        lines.append("")
+        lines.extend(brinson_text_lines(brinson))
+    if isinstance(factor, dict):
+        lines.append("")
+        lines.extend(factor_text_lines(factor))
+    if brinson is None and factor is None:
+        lines.append("No attribution results available.")
+    return "\n".join(lines)
+
+
+def attribution_report_to_dict(result: dict) -> dict:
+    """Return a serializable dict of attribution metrics."""
+    return attribution_to_dict(result or {})
+
+
 
 def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
     """Generate a simple HTML report from a backtest result."""

@@ -31,6 +31,8 @@ from utils.monte_carlo import monte_carlo_analysis
 from utils.optimization import get_optimizer
 from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
+    attribution_report_to_dict,
+    generate_attribution_report,
     generate_html_report,
     generate_pdf_report,
     generate_report,
@@ -125,7 +127,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--report",
-        choices=["full", "risk"],
+        choices=["full", "risk", "attribution"],
         default="full",
         help="Report kind (full backtest report or risk report).",
     )
@@ -771,7 +773,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             pass
 
     if args.output == "json":
-        payload = risk_report_to_dict(result) if args.report == "risk" else report_to_dict(result)
+        payload = (
+            risk_report_to_dict(result)
+            if args.report == "risk"
+            else attribution_report_to_dict(result)
+            if args.report == "attribution"
+            else report_to_dict(result)
+        )
         content = json.dumps(payload, indent=2)
         output_path = getattr(args, "output_path", None)
         artifact_dir = getattr(args, "artifact_dir", None)
@@ -821,7 +829,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             generate_pdf_report(result, str(path), title=title)
             print(f"PDF report saved to {path}")
     else:
-        content = generate_risk_report(result) if args.report == "risk" else generate_report(result)
+        content = (
+            generate_risk_report(result)
+            if args.report == "risk"
+            else generate_attribution_report(result)
+            if args.report == "attribution"
+            else generate_report(result)
+        )
         output_path = getattr(args, "output_path", None)
         artifact_dir = getattr(args, "artifact_dir", None)
         if artifact_dir and not output_path:
