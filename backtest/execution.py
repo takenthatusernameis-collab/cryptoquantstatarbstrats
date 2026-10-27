@@ -150,6 +150,13 @@ class ExecutionSimulator:
             self.lob_slippage_bps = s if np.isfinite(s) else 0.0
         except (TypeError, ValueError):
             self.lob_slippage_bps = 0.0
+        # Keep limit order book object in sync if parameters change
+        self._lob = LimitOrderBookExecution(
+            depth_levels=self.lob_depth_levels,
+            market_impact_bps=self.lob_market_impact_bps,
+            slippage_bps=self.lob_slippage_bps,
+            participation_rate=self.participation_rate,
+        )
 
     def _valid_rate(self) -> float:
         try:
@@ -190,7 +197,7 @@ class ExecutionSimulator:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         order_type = str(order_type).lower()
-        if order_type not in ("market", "limit", "vwap", "twap", "iceberg"):
+        if order_type not in ("market", "limit", "vwap", "twap", "iceberg", "lob"):
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         # Limit price eligibility
@@ -210,6 +217,11 @@ class ExecutionSimulator:
 
         if order_type == "iceberg":
             return self._simulate_iceberg(
+                side, qty, px, bar_volume, bar_high, bar_low
+            )
+
+        if order_type == "lob":
+            return self._simulate_lob(
                 side, qty, px, bar_volume, bar_high, bar_low
             )
 
@@ -402,6 +414,128 @@ class ExecutionSimulator:
             "remaining_qty": q - signed_filled,
         }
         self._fills.append({"order_type": "iceberg", "side": side, **result})
+        return result
+
+    def _simulate_lob(
+        self,
+        side: str,
+        qty: float,
+        price: float,
+        bar_volume: float = 0.0,
+        bar_high: float | None = None,
+        bar_low: float | None = None,
+    ) -> dict[str, Any]:
+        try:
+            q = float(qty)
+            px = float(price)
+        except (TypeError, ValueError):
+            return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
+
+        if not np.isfinite(q) or not np.isfinite(px) or abs(q) == 0.0 or px <= 0.0:
+            return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
+
+        side = str(side).lower()
+        if side not in ("buy", "sell"):
+            return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
+
+        lob = self._lob
+        depth_levels = int(
+            getattr(lob, "depth_levels", None) or self.lob_depth_levels or 1
+        )
+        if depth_levels < 1:
+            depth_levels = 1
+        market_impact_bps = float(
+            getattr(lob, "market_impact_bps", None) or self.lob_market_impact_bps or 0.0
+        )
+        slippage_bps = float(
+            getattr(lob, "slippage_bps", None) or self.lob_slippage_bps or 0.0
+        )
+        participation_rate = float(
+            getattr(lob, "participation_rate", None) or self.participation_rate or 0.1
+        )
+
+        try:
+            if not np.isfinite(market_impact_bps) or market_impact_bps < 0.0:
+                market_impact_bps = 0.0
+            if not np.isfinite(slippage_bps):
+                slippage_bps = 0.0
+            if not np.isfinite(participation_rate) or participation_rate <= 0.0:
+                participation_rate = 0.1
+            else:
+                participation_rate = min(participation_rate, 1.0)
+        except Exception:
+            market_impact_bps = 0.0
+            slippage_bps = 0.0
+            participation_rate = 0.1
+
+        # Volume participation cap
+        try:
+            vol = float(bar_volume) if bar_volume is not None else 0.0
+        except (TypeError, ValueError):
+            vol = 0.0
+        if not np.isfinite(vol) or vol <= 0.0:
+            max_fill_by_vol = abs(q)
+        else:
+            cap = participation_rate * vol
+            max_fill_by_vol = min(abs(q), cap) if cap > 0 else abs(q)
+
+        # Book depth limit - total quantity available across levels
+        # Assume each level has some liquidity; use volume as proxy or default
+        # Model: total book depth = depth_levels * (some fraction of volume)
+        # If no volume, assume book can take up to reasonable amount
+        if not np.isfinite(vol) or vol <= 0.0:
+            book_total = abs(q) * 10.0  # effectively unlimited depth if no volume info
+        else:
+            book_total = participation_rate * vol * depth_levels * 2.0  # scale by depth
+        # But also respect that we consume up to depth_levels - cap by book total
+        max_fill_by_depth = book_total
+        if max_fill_by_depth > abs(q) * 1000:  # avoid unreasonably large
+            max_fill_by_depth = abs(q)
+
+        filled = min(abs(q), max_fill_by_vol)
+        # If depth insufficient
+        if filled > max_fill_by_depth:
+            filled = max_fill_by_depth
+        if filled <= 0.0:
+            filled = 0.0
+
+        # Walk the book: consume price levels
+        # Each level adds market impact
+        impact_per_level = market_impact_bps / 10000.0
+        total_impact = impact_per_level * min(depth_levels, max(1, int(np.ceil(filled / (abs(q) / depth_levels + 1e-18)))))
+        if filled < abs(q) - 1e-12:
+            levels_walked = depth_levels  # walked full depth if can't fill
+        else:
+            levels_walked = min(depth_levels, max(1, int(np.ceil((filled / abs(q)) * depth_levels))))
+        total_impact = impact_per_level * levels_walked
+
+        base_price = px
+        if side == "buy":
+            # Buy walks ask side - prices rise
+            fill_price = base_price * (1.0 + total_impact + slippage_bps / 10000.0)
+        else:
+            # Sell walks bid side - prices fall
+            fill_price = base_price * (1.0 - total_impact - slippage_bps / 10000.0)
+
+        if filled < abs(q) - 1e-12:
+            # Check if we hit depth limit (book insufficient)
+            if filled >= max_fill_by_depth - 1e-12 and max_fill_by_depth < abs(q) - 1e-12:
+                status = "partial"
+            elif filled < abs(q) - 1e-12:
+                status = "partial"
+            else:
+                status = "filled"
+        else:
+            status = "filled"
+
+        signed_filled = filled if side == "buy" else -filled
+        result = {
+            "filled_qty": signed_filled,
+            "avg_price": float(fill_price),
+            "status": status,
+            "remaining_qty": qty - signed_filled,
+        }
+        self._fills.append({"order_type": "lob", "side": side, **result})
         return result
 
     def fills(self) -> list[dict[str, Any]]:
