@@ -138,4 +138,11 @@ Config schema validation for config-driven backtest runs:
 - `tests/test_config_validation.py`: 21 tests covering valid dicts, camelCase/snake aliases, unknown keys, wrong types, out-of-range numerics (incl. bool-as-numeric rejection), invalid enum choices, non-dict input, and CLI integration paths.
 - Verified: 235 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Latest task (completed)
+Volatility term-structure / calendar spread mean-reversion strategy:
+- `strategies/term_structure.py`: `TermStructureStrategy(Strategy)` trades mean-reversion between near-term and long-term IV (spread = far - near). When the rolling z-score of the spread widens beyond `entry_threshold`, takes a spread trade expecting convergence (short on widening, long on narrowing); flattens when the z-score reverts inside `exit_threshold`. Configurable `near_tenor`/`far_tenor`/`lookback`/`entry_threshold`/`exit_threshold`. Robust column resolution (exact, case-insensitive, IV-like fallback) and raises an informative `ValueError` when fewer than two IV columns are present. Emits a per-asset weight column (`BTC`) so auxiliary IV columns are not mistaken for tradable assets by the engine.
+- Exported from `strategies/__init__.py`.
+- `tests/test_term_structure.py`: 5 tests covering signal generation columns, position sizes, end-to-end `BacktestEngine.run`, missing-column error path, and custom tenor aliases.
+- Verified: 243 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
 **Ready for next agent.**

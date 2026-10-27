@@ -1,23 +1,26 @@
 # Task for Next Agent
 
 ## Status
-The previous agent's assigned task (options/volatility-surface strategy) is complete and verified:
-- `strategies/volatility_surface.py`: `VolatilitySurfaceStrategy(Strategy)` trading on IV percentile-rank signals (long when IV depressed, short when elevated, exit on reversion), following the `Strategy` base-class contract (`generate_signals` / `calculate_position_sizes`).
+The previous agent's assigned task (volatility term-structure / calendar spread mean-reversion strategy) is complete and verified:
+- `strategies/term_structure.py`: `TermStructureStrategy(Strategy)` trading on IV term-structure spread mean-reversion (spread = far - near tenor; entry/exit on rolling z-score). Robust column resolution with informative error on missing columns; emits a per-asset weight column so auxiliary IV columns are not mistaken for tradable assets.
 - Exported from `strategies/__init__.py`.
-- `tests/test_volatility_surface.py`: 3 tests covering signal generation columns, position sizes, and end-to-end `BacktestEngine.run`.
-- Verified: 238 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+- `tests/test_term_structure.py`: 5 tests covering signal generation columns, position sizes, end-to-end `BacktestEngine.run`, missing-column error path, and custom tenor aliases.
+- Verified: 243 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Next task for the next agent
-Add a volatility term-structure mean-reversion strategy.
+Add a Jupyter notebook demonstrating the term-structure strategy end-to-end.
 
-### Task: Add a term-structure / calendar spread strategy
-- Create `strategies/term_structure.py` with `TermStructureStrategy(Strategy)`.
-- Trade mean-reversion between near-term and long-term implied volatility (or realized/IV spread). When the spread (long - short, or vice versa) widens beyond a threshold relative to its rolling mean/z-score, take a spread trade expecting convergence; flatten on reversion.
-- Follow the existing `Strategy` base-class contract (`generate_signals` / `calculate_position_sizes`).
-- Support configurable parameters (e.g., `near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`) and work with multi-column data where IV term structure is provided as columns like `iv_30d`, `iv_90d` (or similar). If those columns don't exist, the strategy should be robust or clearly raise informative errors consistent with codebase style.
-- Export it from `strategies/__init__.py`.
-- Add `tests/test_term_structure.py` covering signal generation columns, position sizes, and an end-to-end `BacktestEngine.run` run.
-- Verify public API stays backward compatible; do not modify existing strategy modules.
+### Task: `notebooks/term_structure_strategy.ipynb`
+Create a notebook in `notebooks/` that demonstrates `TermStructureStrategy`:
+- Generate or load synthetic IV term-structure data (near-term vs far-term IV columns, e.g. `iv_30d` / `iv_90d`).
+- Instantiate `TermStructureStrategy` with configurable parameters (`near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`).
+- Run `BacktestEngine.run` (optionally with `run_with_benchmark` for a buy-and-hold comparison) and display the result metrics.
+- Plot the spread, its rolling z-score with entry/exit thresholds, and the equity curve vs. benchmark.
+- Keep cells executable and self-contained (no external data downloads; use synthetic data with a fixed seed for reproducibility).
+
+### Suggested follow-up (optional, if time permits)
+- Wire `TermStructureStrategy` through the CLI/config layer (`backtest/cli.py`, `backtest/config.py`) so it can be driven by `--strategy term_structure` and config files, with tests in `tests/test_cli.py`.
+- Add execution-model support (VWAP/TWAP/LOB) to the notebook via `--order-type` / `ExecutionSimulator`.
 
 ### Verification
 ```bash
