@@ -27,6 +27,8 @@ class CointegrationPairsStrategy(PairStrategy):
         lookback: int = 60,
         entry_threshold: float = 2.0,
         exit_threshold: float = 0.5,
+        cointegration_pvalue: float = 0.05,
+        cointegration_check_interval: int | None = None,
         params: dict[str, Any] | None = None,
     ):
         if len(pair) != 2 or pair[0] == pair[1]:
@@ -37,10 +39,17 @@ class CointegrationPairsStrategy(PairStrategy):
             raise ValueError(
                 "Thresholds must satisfy entry_threshold > exit_threshold >= 0."
             )
+        if not 0.0 < cointegration_pvalue < 1.0:
+            raise ValueError("cointegration_pvalue must be strictly between 0 and 1.")
+        check_interval = cointegration_check_interval or lookback
+        if check_interval < 1:
+            raise ValueError("cointegration_check_interval must be at least 1.")
         super().__init__(f"coint_pairs_{pair[0]}_{pair[1]}", pair, params)
         self.lookback = int(lookback)
         self.entry_threshold = float(entry_threshold)
         self.exit_threshold = float(exit_threshold)
+        self.cointegration_pvalue = float(cointegration_pvalue)
+        self.cointegration_check_interval = int(check_interval)
         self.hedge_ratio_series = pd.Series(dtype=float)
 
     def test_cointegration(
@@ -94,13 +103,47 @@ class CointegrationPairsStrategy(PairStrategy):
         spread_std = spread.rolling(self.lookback, min_periods=self.lookback).std()
         zscore = spread.sub(spread_mean).div(spread_std.where(spread_std > 0))
 
-        # Maintain the position between entry and exit thresholds; a new
-        # opposite entry flips the spread position.
+        # Refresh the Engle-Granger cointegration test using trailing data only.
+        # Cache each result for a bounded interval to keep the walk-forward
+        # research workflow practical on long hourly histories.
+        cointegration_pvalues = pd.Series(np.nan, index=data.index, dtype=float)
+        last_pvalue = float("nan")
+        last_test_index = -1
+        for i in range(self.lookback - 1, len(data)):
+            should_test = (
+                last_test_index < 0
+                or i - last_test_index >= self.cointegration_check_interval
+            )
+            if should_test:
+                start = i - self.lookback + 1
+                sample = pd.concat(
+                    [price1.iloc[start : i + 1], price2.iloc[start : i + 1]],
+                    axis=1,
+                ).dropna()
+                if len(sample) >= self.lookback:
+                    try:
+                        _, last_pvalue = self.test_cointegration(
+                            sample.iloc[:, 0], sample.iloc[:, 1]
+                        )
+                    except (ValueError, np.linalg.LinAlgError):
+                        last_pvalue = float("nan")
+                else:
+                    last_pvalue = float("nan")
+                last_test_index = i
+            cointegration_pvalues.iloc[i] = last_pvalue
+
+        # Maintain a position only while the trailing sample passes the
+        # cointegration screen; use hysteresis for entries and exits.
         state = 0
         position = np.zeros(len(data), dtype=float)
         z_values = zscore.to_numpy(dtype=float)
-        for i, z_value in enumerate(z_values):
-            if not np.isfinite(z_value):
+        p_values = cointegration_pvalues.to_numpy(dtype=float)
+        for i, (z_value, pvalue) in enumerate(zip(z_values, p_values)):
+            if (
+                not np.isfinite(z_value)
+                or not np.isfinite(pvalue)
+                or pvalue > self.cointegration_pvalue
+            ):
                 state = 0
             elif state == 1:
                 if z_value >= self.entry_threshold:
@@ -121,6 +164,7 @@ class CointegrationPairsStrategy(PairStrategy):
         signals = pd.DataFrame(index=data.index)
         signals["spread"] = spread
         signals["zscore"] = zscore
+        signals["cointegration_pvalue"] = cointegration_pvalues
         signals["long"] = position > 0
         signals["short"] = position < 0
         signals["exit"] = position == 0
