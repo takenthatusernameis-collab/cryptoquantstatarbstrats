@@ -91,6 +91,8 @@ class LimitOrderBookExecution:
     market_impact_bps: float = 5.0
     slippage_bps: float = 0.0
     participation_rate: float = 0.1
+    level_liquidity: list[float] | None = None
+    queue_position: float = 0.0
 
     def __post_init__(self) -> None:
         try:
@@ -113,6 +115,14 @@ class LimitOrderBookExecution:
             self.participation_rate = p if np.isfinite(p) and p > 0.0 else 0.1
         except (TypeError, ValueError):
             self.participation_rate = 0.1
+        try:
+            qp = float(self.queue_position)
+            if np.isfinite(qp):
+                self.queue_position = min(max(qp, 0.0), 1.0)
+            else:
+                self.queue_position = 0.0
+        except (TypeError, ValueError):
+            self.queue_position = 0.0
 
 
 @dataclass
@@ -130,6 +140,8 @@ class ExecutionSimulator:
     lob_depth_levels: int = 3
     lob_market_impact_bps: float = 5.0
     lob_slippage_bps: float = 0.0
+    lob_level_liquidity: list[float] | None = None
+    lob_queue_position: float = 0.0
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
     _iceberg: IcebergExecution | None = field(default=None, repr=False)
     _lob: LimitOrderBookExecution | None = field(default=None, repr=False)
@@ -156,6 +168,8 @@ class ExecutionSimulator:
             market_impact_bps=self.lob_market_impact_bps,
             slippage_bps=self.lob_slippage_bps,
             participation_rate=self.participation_rate,
+            level_liquidity=self.lob_level_liquidity,
+            queue_position=self.lob_queue_position,
         )
 
     def _valid_rate(self) -> float:
@@ -468,49 +482,81 @@ class ExecutionSimulator:
             slippage_bps = 0.0
             participation_rate = 0.1
 
-        # Volume participation cap
+        # Per-level liquidity (enhanced LOB model). Falls back to the
+        # volume-proxy logic below when level_liquidity is not provided.
+        level_liquidity = getattr(lob, "level_liquidity", None)
+        queue_position = float(getattr(lob, "queue_position", 0.0) or 0.0)
         try:
-            vol = float(bar_volume) if bar_volume is not None else 0.0
-        except (TypeError, ValueError):
-            vol = 0.0
-        if not np.isfinite(vol) or vol <= 0.0:
-            max_fill_by_vol = abs(q)
-        else:
-            cap = participation_rate * vol
-            max_fill_by_vol = min(abs(q), cap) if cap > 0 else abs(q)
+            if not np.isfinite(queue_position) or queue_position < 0.0:
+                queue_position = 0.0
+            queue_position = min(queue_position, 1.0)
+        except Exception:
+            queue_position = 0.0
 
-        # Book depth limit - total quantity available across levels
-        # Assume each level has some liquidity; use volume as proxy or default
-        # Model: total book depth = depth_levels * (some fraction of volume)
-        # If no volume, assume book can take up to reasonable amount
-        if not np.isfinite(vol) or vol <= 0.0:
-            book_total = abs(q) * 10.0  # effectively unlimited depth if no volume info
-        else:
-            book_total = participation_rate * vol * depth_levels * 2.0  # scale by depth
-        # But also respect that we consume up to depth_levels - cap by book total
-        max_fill_by_depth = book_total
-        if max_fill_by_depth > abs(q) * 1000:  # avoid unreasonably large
-            max_fill_by_depth = abs(q)
-
-        filled = min(abs(q), max_fill_by_vol)
-        # If depth insufficient
-        if filled > max_fill_by_depth:
-            filled = max_fill_by_depth
-        if filled <= 0.0:
-            filled = 0.0
-
-        # Walk the book: consume price levels
-        # Each level adds market impact
         impact_per_level = market_impact_bps / 10000.0
-        denom = abs(q) / depth_levels + 1e-18
-        total_impact = impact_per_level * min(
-            depth_levels, max(1, int(np.ceil(filled / denom)))
-        )
-        if filled < abs(q) - 1e-12:
-            levels_walked = depth_levels  # walked full depth if can't fill
+        abs_q = abs(q)
+
+        if level_liquidity is not None:
+            # Enhanced: consume liquidity level-by-level, applying market
+            # impact per level walked. Queue position reduces the fillable
+            # portion at the first level.
+            try:
+                liq = [float(x) for x in level_liquidity]
+            except (TypeError, ValueError):
+                liq = []
+            remaining = abs_q
+            total_filled = 0.0
+            levels_walked = 0
+            for level in range(depth_levels):
+                if remaining <= 0.0:
+                    break
+                levels_walked += 1
+                level_liq = liq[level] if level < len(liq) else 0.0
+                if not np.isfinite(level_liq) or level_liq < 0.0:
+                    level_liq = 0.0
+                # Queue position penalty: only the portion behind the queue
+                # at the first level is fillable.
+                if level == 0 and queue_position > 0.0:
+                    fillable_at_level = level_liq * (1.0 - queue_position)
+                else:
+                    fillable_at_level = level_liq
+                consume = min(fillable_at_level, remaining)
+                if consume > 0.0:
+                    total_filled += consume
+                    remaining -= consume
+            filled = total_filled
         else:
-            ratio = (filled / abs(q)) * depth_levels
-            levels_walked = min(depth_levels, max(1, int(np.ceil(ratio))))
+            # Backward-compatible volume-proxy logic.
+            try:
+                vol = float(bar_volume) if bar_volume is not None else 0.0
+            except (TypeError, ValueError):
+                vol = 0.0
+            if not np.isfinite(vol) or vol <= 0.0:
+                max_fill_by_vol = abs_q
+            else:
+                cap = participation_rate * vol
+                max_fill_by_vol = min(abs_q, cap) if cap > 0 else abs_q
+
+            if not np.isfinite(vol) or vol <= 0.0:
+                book_total = abs_q * 10.0
+            else:
+                book_total = participation_rate * vol * depth_levels * 2.0
+            max_fill_by_depth = book_total
+            if max_fill_by_depth > abs_q * 1000:
+                max_fill_by_depth = abs_q
+
+            filled = min(abs_q, max_fill_by_vol)
+            if filled > max_fill_by_depth:
+                filled = max_fill_by_depth
+            if filled <= 0.0:
+                filled = 0.0
+
+            if filled < abs_q - 1e-12:
+                levels_walked = depth_levels
+            else:
+                ratio = (filled / abs_q) * depth_levels
+                levels_walked = min(depth_levels, max(1, int(np.ceil(ratio))))
+
         total_impact = impact_per_level * levels_walked
 
         base_price = px
@@ -522,13 +568,7 @@ class ExecutionSimulator:
             fill_price = base_price * (1.0 - total_impact - slippage_bps / 10000.0)
 
         if filled < abs(q) - 1e-12:
-            # Check if we hit depth limit (book insufficient)
-            if filled >= max_fill_by_depth - 1e-12 and max_fill_by_depth < abs(q) - 1e-12:
-                status = "partial"
-            elif filled < abs(q) - 1e-12:
-                status = "partial"
-            else:
-                status = "filled"
+            status = "partial"
         else:
             status = "filled"
 
