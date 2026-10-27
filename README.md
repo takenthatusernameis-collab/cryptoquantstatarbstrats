@@ -8,7 +8,7 @@ The command-line backtest uses **free public Binance spot candles by default**.
 It does not require a Binance API key. Symbols such as BTC, ETH, and SOL are
 mapped to USDT-quoted spot markets.
 
-\`\`\`bash
+```bash
 python -m pip install -e ".[dev]"
 
 # Historical Binance spot candles
@@ -22,7 +22,7 @@ cryptoquant --data-source csv --data-csv data/prices.csv \
 
 # Synthetic data is for tests and demonstrations only
 cryptoquant --data-source synthetic --strategy mean_reversion --asset BTC
-\`\`\`
+```
 
 Synthetic runs print a warning to stderr. Their metrics are **not evidence of
 real-market performance**. The Python method DataLoader.load_data() remains
@@ -50,11 +50,11 @@ series when they are missing.
 
 ## Development
 
-\`\`\`bash
+```bash
 python -m pytest tests/ -v
 python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python -m mypy backtest/ strategies/ utils/
-\`\`\`
+```
 
 ## CI
 
