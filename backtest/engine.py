@@ -757,6 +757,11 @@ class BacktestEngine:
         ``train_data`` and return a weights DataFrame/Series aligned to
         assets).
         """
+        if train_period < 1 or test_period < 1:
+            raise ValueError("train_period and test_period must be positive.")
+        if reoptimize and optimizer is None:
+            raise ValueError("optimizer is required when reoptimize=True.")
+
         results = []
         total = len(data)
         i = 0
@@ -775,20 +780,34 @@ class BacktestEngine:
             test_index = test_data.index
             w_test = w.reindex(index=test_index)
             if reoptimize and optimizer is not None:
-                try:
-                    w_opt = optimizer(train_data)
-                    if isinstance(w_opt, pd.Series):
-                        w_opt_df = w_opt.to_frame().T.reindex(index=test_index)
-                    elif isinstance(w_opt, pd.DataFrame):
-                        w_opt_df = w_opt.reindex(index=test_index, method="ffill").fillna(0.0)
-                    else:
-                        w_opt_df = w_test
-                    # align columns
-                    if isinstance(test_data, pd.DataFrame):
-                        w_opt_df = w_opt_df.reindex(columns=test_data.columns, fill_value=0.0)
-                    w_test = w_opt_df
-                except Exception:
-                    pass
+                # Reoptimization failures must be explicit: silently reverting
+                # to stale weights would make the reported run misleading.
+                w_opt = optimizer(train_data)
+                if isinstance(w_opt, pd.Series):
+                    aligned = w_opt.reindex(test_data.columns).fillna(0.0)
+                    w_opt_df = pd.DataFrame(
+                        [aligned.to_numpy(dtype=float)],
+                        columns=test_data.columns,
+                        index=[test_index[0]],
+                    )
+                elif isinstance(w_opt, pd.DataFrame):
+                    if w_opt.empty:
+                        raise ValueError("Optimizer returned an empty weights DataFrame.")
+                    w_opt_df = w_opt.reindex(
+                        columns=test_data.columns, fill_value=0.0
+                    )
+                    w_opt_df = w_opt_df.reindex(
+                        index=test_index, method="ffill"
+                    ).fillna(0.0)
+                else:
+                    raise TypeError(
+                        "Optimizer must return a pandas Series or DataFrame of weights."
+                    )
+                # A Series optimizer result is a single target estimated from
+                # the training window, applied throughout the next test window.
+                w_test = w_opt_df.reindex(
+                    index=test_index, method="ffill"
+                ).fillna(0.0)
             test_volume = volume.loc[test_data.index] if (volume is not None) else None
             test_high = high.loc[test_data.index] if (high is not None) else None
             test_low = low.loc[test_data.index] if (low is not None) else None
