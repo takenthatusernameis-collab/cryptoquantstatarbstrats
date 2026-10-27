@@ -116,8 +116,13 @@ def test_engine_preserves_explicit_opposing_pair_weights():
             )
 
     index = pd.date_range("2024-01-01", periods=4, freq="1h")
-    data = pd.DataFrame({"A": [100.0, 102.0, 101.0, 105.0],
-                         "B": [100.0, 99.0, 98.0, 97.0]}, index=index)
+    data = pd.DataFrame(
+        {
+            "A": [100.0, 102.0, 101.0, 105.0],
+            "B": [100.0, 99.0, 98.0, 97.0],
+        },
+        index=index,
+    )
     result = BacktestEngine().run(ExplicitPairSignals(), data)
     weights = result["weights"]
     assert weights.iloc[0].abs().sum() == 0.0
