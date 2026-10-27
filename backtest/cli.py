@@ -69,7 +69,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--start", default=None, help="Start date (YYYY-MM-DD).")
     parser.add_argument("--end", default=None, help="End date (YYYY-MM-DD).")
-    parser.add_argument("--freq", default=None, help="Bar frequency.")
+    parser.add_argument("--freq", default=None, help="Bar frequency / Binance kline interval.")
+    parser.add_argument(
+        "--data-source",
+        choices=["binance", "csv", "synthetic"],
+        default=None,
+        help="Price source. Defaults to public Binance spot candles; synthetic is demo-only.",
+    )
+    parser.add_argument(
+        "--data-csv",
+        default=None,
+        help="CSV with timestamp/index plus price columns (required for --data-source csv).",
+    )
     parser.add_argument(
         "--strategy",
         choices=sorted(STRATEGIES),
@@ -362,6 +373,8 @@ def _apply_config_from_dict(
         ("start", ("start", "start_date")),
         ("end", ("end", "end_date")),
         ("freq", ("freq", "frequency")),
+        ("data_source", ("data_source", "dataSource")),
+        ("data_csv", ("data_csv", "data_path", "price_csv")),
         ("strategy", ("strategy",)),
         ("asset", ("asset",)),
         ("pair", ("pair", "pairs")),
@@ -442,6 +455,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.end = "2024-02-01"
     if args.freq is None:
         args.freq = "1h"
+    if args.data_source is None:
+        args.data_source = "binance"
     if args.strategy is None:
         args.strategy = "mean_reversion"
     if args.asset is None:
@@ -460,24 +475,33 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.report = "full"
 
     loader = DataLoader()
-    data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+    if args.data_source == "binance":
+        data = loader.load_binance_data(
+            args.symbols, args.start, args.end, interval=args.freq
+        )
+    elif args.data_source == "synthetic":
+        print(
+            "WARNING: using synthetic demonstration prices; results are not evidence "
+            "of real-market performance.",
+            file=sys.stderr,
+        )
+        data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+    elif args.data_source == "csv":
+        if not args.data_csv:
+            raise ValueError("--data-source csv requires --data-csv PATH.")
+        data = DataLoader.load_csv(args.data_csv)
+    else:
+        raise ValueError(f"Unsupported data source: {args.data_source!r}")
     data = loader.clean_data(data)
 
     if args.strategy == "term_structure":
         if not isinstance(data, pd.DataFrame):
             data = pd.DataFrame(data)
         if "iv_30d" not in data.columns or "iv_90d" not in data.columns:
-            import numpy as _np
-
-            rng = _np.random.default_rng(12345)
-            base = 0.5
-            t = _np.linspace(0, 10, len(data))
-            data["iv_30d"] = base + 0.02 * _np.sin(t) + rng.normal(0, 0.01, len(data))
-            data["iv_90d"] = (
-                base
-                + 0.01
-                + 0.015 * _np.sin(_np.linspace(0, 8, len(data)))
-                + rng.normal(0, 0.01, len(data))
+            raise ValueError(
+                "The term_structure strategy requires real iv_30d and iv_90d "
+                "columns in --data-csv. Synthetic implied-volatility columns are "
+                "not generated automatically."
             )
 
     volume_df = None
