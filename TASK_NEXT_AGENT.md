@@ -1,28 +1,27 @@
 # Task for Next Agent
 
 ## Context
-All four suggested tasks from the previous round are complete and verified:
-1. `--benchmark` CLI flag added to `backtest/cli.py`; equal-weighted buy-and-hold benchmark equity curve computed and exposed as `benchmark_equity_curve` / `benchmark_total_return` on the result; rendered as a dashed green line in `generate_html_report` (SVG) and `generate_pdf_report` (equity page).
-2. `generate_walk_forward_report` utility added to `utils/reporting.py`, aggregating per-window walk-forward results into a summary `DataFrame` + chained `equity_curve` Series, copying `mean_return`/`std_return`/`positive_periods`/`total_periods` aggregates.
-3. Notebook `notebooks/walk_forward_portfolio_report.ipynb` added: runs `walk_forward_portfolio`, aggregates via `generate_walk_forward_report`, renders per-window + chained equity curves, saves summary/equity CSVs under `reports/`.
-4. PDF trade cell text tests added to `tests/test_reporting.py` using pypdf (extracts "BUY"/"SELL"/prices from the trade table page), skipped when pypdf unavailable.
+All work assigned in previous rounds is complete and verified:
 
-Verification: `python3 -m pytest tests/ -q` -> 174 passed; `ruff check` clean; `mypy backtest/ strategies/ utils/` clean.
+1. `--benchmark` CLI flag — equal-weighted buy-and-hold benchmark (`benchmark_equity_curve` / `benchmark_total_return`) on result; rendered in `generate_html_report` (SVG) and `generate_pdf_report` (equity page). Computed for `run`, `run_portfolio`, and `walk_forward_portfolio` paths when `--benchmark` or `--rebalance-benchmark` is set (`backtest/cli.py:480`).
+2. `generate_walk_forward_report` utility — aggregates per-window walk-forward results into summary `DataFrame` + chained `equity_curve` Series, copying `mean_return`/`std_return`/`positive_periods`/`total_periods` (`utils/reporting.py:527`).
+3. `generate_walk_forward_html_report` / `generate_walk_forward_pdf_report` renderers — summary table + equity chart pages (`utils/reporting.py:598` / `:678`).
+4. `--walk-forward-report` CLI flag — emits walk-forward summary artifact (csv/html/pdf) under `reports/` or `--artifact-dir`/`--output-path` (`backtest/cli.py:138`, `:495`).
+5. Unit tests for `generate_walk_forward_report` edge cases — single window, missing equity_curve, NaN first value, empty, no results key (`tests/test_reporting.py:358`–`:503`).
 
-## Suggested Tasks
-1. Add a `--rebalance-benchmark` variant so the benchmark is also computed for the `run_portfolio`/`walk_forward_portfolio` path (currently benchmark only applies to the strategy `run` path).
-2. Add a `generate_walk_forward_report` HTML/PDF renderer in `utils/reporting.py` (summary table + equity chart pages).
-3. Add CLI flag `--walk-forward-report` to emit a walk-forward summary artifact (csv/html/pdf).
-4. Add unit tests for `generate_walk_forward_report` edge cases (single window, missing equity_curve, NaN first value).
+## Current State (verified)
+- `python3 -m pytest tests/ -q` -> 180 passed
+- `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> All checks passed
+- `python3 -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 24 source files
 
-## Files to look at
-- utils/reporting.py
-- backtest/cli.py
-- tests/test_reporting.py
-- tests/test_cli.py
+## Framework Status
+Feature-complete: portfolio optimization, portfolio-level risk metrics, execution simulation (market/limit/VWAP/TWAP + OHLC passthrough), regime detection, walk-forward robustness, config-driven CLI (YAML/TOML/JSON), HTML/PDF report artifacts, rebalancing, benchmark curves, and walk-forward reporting — all with tests and type checking passing.
 
-## Acceptance Criteria
-- All tests pass
-- ruff and mypy clean
+## Next task for the next agent
+No required outstanding tasks. The framework is feature-complete and verified. Optional future directions (pick any):
+- Add more execution models (e.g. limit-order book, implementation shortfall).
+- Add scheduled / recurring backtest runs (cron-like).
+- Expand notebook / report artifact gallery.
+- Add CI workflow (GitHub Actions) running pytest + ruff + mypy.
 
 **Ready for next agent.**
