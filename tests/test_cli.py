@@ -341,3 +341,12 @@ def test_cli_walk_forward_report_artifacts(tmp_path):
     names = [f.name for f in files]
     assert any(n.endswith(".csv") for n in names)
     assert any(n.endswith(".html") for n in names) or any(n.endswith(".pdf") for n in names)
+
+
+def test_cli_monte_carlo_flag_output():
+    out = _run_cli(["--strategy", "mean_reversion", "--asset", "BTC", "--monte-carlo", "5"])
+    assert "Monte Carlo Robustness Analysis" in out
+    assert "Simulations: 5" in out
+    assert "Final Equity:" in out
+    assert "Max Drawdown:" in out
+    assert "Sharpe Ratio:" in out
