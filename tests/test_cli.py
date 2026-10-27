@@ -96,6 +96,46 @@ def test_cli_pairs_strategy_runs():
     assert "total_return" in payload
 
 
+def test_cli_term_structure_strategy_runs():
+    out = _run_cli(["--strategy", "term_structure", "--output", "json"])
+    payload = json.loads(out)
+    assert "total_return" in payload
+
+
+def test_cli_term_structure_strategy_config_override(tmp_path):
+    import yaml
+
+    data = _make_data(n=50)
+    df = data.copy()
+    df["iv_30d"] = 0.5 + 0.01 * np.arange(len(df))
+    df["iv_90d"] = 0.6 + 0.005 * np.arange(len(df))
+    path = tmp_path / "term.csv"
+    df.to_csv(path)
+
+    cfg_path = tmp_path / "config.yaml"
+    cfg_path.write_text(
+        yaml.safe_dump(
+            {
+                "strategy": "term_structure",
+                "symbols": ["BTC"],
+                "start": "2024-01-01",
+                "end": "2024-01-03",
+                "freq": "1h",
+                "near_tenor": "iv_30d",
+                "far_tenor": "iv_90d",
+                "lookback": 10,
+                "entry_threshold": 1.5,
+                "exit_threshold": 0.3,
+                "asset": "BTC",
+                "output": "json",
+            }
+        )
+    )
+    out = _run_cli(["--config", str(cfg_path)])
+    payload = json.loads(out)
+    assert "total_return" in payload
+
+
 def _volume_frame(index: pd.Index, volume: float) -> pd.DataFrame:
     return pd.DataFrame({"BTC": float(volume)}, index=index)
 

@@ -87,7 +87,7 @@ CONFIG_SCHEMA: dict[str, tuple] = {
     "end_date": ("type", str),
     "freq": ("type", str),
     "frequency": ("type", str),
-    "strategy": ("choice", {"mean_reversion", "pairs"}),
+    "strategy": ("choice", {"mean_reversion", "pairs", "term_structure"}),
     "asset": ("type", str),
     "pair": ("type", (list, tuple)),
     "pairs": ("type", (list, tuple)),
@@ -144,6 +144,11 @@ CONFIG_SCHEMA: dict[str, tuple] = {
     "test_period": ("range", 1, float("inf")),
     "testPeriod": ("range", 1, float("inf")),
     "title": ("type", str),
+    "near_tenor": ("type", str),
+    "far_tenor": ("type", str),
+    "lookback": ("range", 1, float("inf")),
+    "entry_threshold": ("range", 0.0, float("inf")),
+    "exit_threshold": ("range", 0.0, float("inf")),
 }
 
 

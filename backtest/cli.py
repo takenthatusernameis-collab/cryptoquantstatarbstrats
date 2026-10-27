@@ -26,6 +26,7 @@ from backtest.execution import ExecutionSimulator
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
+from strategies.term_structure import TermStructureStrategy
 from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
     generate_html_report,
@@ -39,6 +40,7 @@ from utils.reporting import (
 STRATEGIES = {
     "mean_reversion": MeanReversionStrategy,
     "pairs": CointegrationPairsStrategy,
+    "term_structure": TermStructureStrategy,
 }
 
 
@@ -231,6 +233,34 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Volatility-based regime gating (e.g. low_vol).",
     )
+    parser.add_argument(
+        "--near-tenor",
+        default=None,
+        help="Near tenor IV column name for term_structure.",
+    )
+    parser.add_argument(
+        "--far-tenor",
+        default=None,
+        help="Far tenor IV column name for term_structure.",
+    )
+    parser.add_argument(
+        "--lookback",
+        type=int,
+        default=None,
+        help="Lookback window for term_structure z-score.",
+    )
+    parser.add_argument(
+        "--entry-threshold",
+        type=float,
+        default=None,
+        help="Entry threshold for term_structure.",
+    )
+    parser.add_argument(
+        "--exit-threshold",
+        type=float,
+        default=None,
+        help="Exit threshold for term_structure.",
+    )
     return parser
 
 
@@ -241,6 +271,21 @@ def _build_strategy(name: str, args: argparse.Namespace):
     if name == "pairs":
         pair = getattr(args, "pair", None) or ["BTC", "ETH"]
         return CointegrationPairsStrategy(pair=tuple(pair))
+    if name == "term_structure":
+        asset = getattr(args, "asset", None) or "BTC"
+        near_tenor = getattr(args, "near_tenor", None) or "iv_30d"
+        far_tenor = getattr(args, "far_tenor", None) or "iv_90d"
+        lookback = getattr(args, "lookback", None) or 30
+        entry_threshold = getattr(args, "entry_threshold", None) or 2.0
+        exit_threshold = getattr(args, "exit_threshold", None) or 0.5
+        return TermStructureStrategy(
+            asset=asset,
+            near_tenor=near_tenor,
+            far_tenor=far_tenor,
+            lookback=int(lookback),
+            entry_threshold=float(entry_threshold),
+            exit_threshold=float(exit_threshold),
+        )
     raise ValueError(f"Unknown strategy: {name}")
 
 
@@ -356,6 +401,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     loader = DataLoader()
     data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
     data = loader.clean_data(data)
+
+    if args.strategy == "term_structure":
+        if not isinstance(data, pd.DataFrame):
+            data = pd.DataFrame(data)
+        if "iv_30d" not in data.columns or "iv_90d" not in data.columns:
+            import numpy as _np
+
+            rng = _np.random.default_rng(12345)
+            base = 0.5
+            t = _np.linspace(0, 10, len(data))
+            data["iv_30d"] = base + 0.02 * _np.sin(t) + rng.normal(0, 0.01, len(data))
+            data["iv_90d"] = base + 0.01 + 0.015 * _np.sin(_np.linspace(0, 8, len(data))) + rng.normal(
+                0, 0.01, len(data)
+            )
 
     volume_df = None
     high_df = None
