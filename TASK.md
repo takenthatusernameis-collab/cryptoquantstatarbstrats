@@ -131,4 +131,11 @@ Extended regime-aware gating to support volatility-based regimes:
   - `test_regime_vol_mode_none_backward_compatible` (None matches legacy behavior)
 - Verified: 214 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Latest task (completed)
+Config schema validation for config-driven backtest runs:
+- `backtest/config.py`: added `ConfigValidationError`, `CONFIG_SCHEMA` (every CLI key + alias with type/choice/range validators), and `validate_config(config)` that collects all errors and raises a single `ConfigValidationError`.
+- `backtest/cli.py`: `_apply_config` now calls `validate_config` on the loaded dict and surfaces errors via `parser.error` (exit code 2) instead of silently ignoring unknown keys or bad values.
+- `tests/test_config_validation.py`: 21 tests covering valid dicts, camelCase/snake aliases, unknown keys, wrong types, out-of-range numerics (incl. bool-as-numeric rejection), invalid enum choices, non-dict input, and CLI integration paths.
+- Verified: 235 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
 **Ready for next agent.**

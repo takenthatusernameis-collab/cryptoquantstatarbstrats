@@ -20,7 +20,7 @@ from typing import Any, Sequence
 
 import pandas as pd
 
-from backtest.config import load_config
+from backtest.config import ConfigValidationError, load_config, validate_config
 from backtest.engine import BacktestEngine
 from backtest.execution import ExecutionSimulator
 from data.loader import DataLoader
@@ -250,6 +250,17 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         return args
 
     cfg = load_config(config_path)
+    try:
+        validate_config(cfg)
+    except ConfigValidationError as exc:
+        parser.error(f"Invalid config {config_path}: {exc}")
+    args = _apply_config_from_dict(args, parser, cfg)
+    return args
+
+
+def _apply_config_from_dict(
+    args: argparse.Namespace, parser: argparse.ArgumentParser, cfg: dict[str, Any]
+) -> argparse.Namespace:
 
     def _get(cfg: dict[str, Any], *keys: str) -> Any:
         for k in keys:
