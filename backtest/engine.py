@@ -15,6 +15,16 @@ from utils.rebalance import create_rebalanced_weights
 from utils.regime import detect_regimes
 
 
+class BacktestEngine:
+    """Backtesting engine for trading strategies."""
+
+    def __init__(self, initial_capital: float = 100000.0):
+        self.initial_capital = initial_capital
+        self.capital = initial_capital
+        self.positions: dict[str, float] = {}
+        self.trades: list[dict[str, Any]] = []
+        self.equity_curve: list[float] = []
+
     def _apply_regime_gating(
         self,
         weights: pd.DataFrame,
