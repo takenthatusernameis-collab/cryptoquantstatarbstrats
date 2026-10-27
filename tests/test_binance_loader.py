@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 import json
+from urllib.parse import parse_qs, urlparse
 
 import pandas as pd
 import pytest
@@ -36,6 +37,26 @@ def test_binance_loader_parses_public_candles(monkeypatch):
     assert isinstance(result.index, pd.DatetimeIndex)
     assert str(result.index.tz) == "UTC"
     assert "symbol=BTCUSDT" in seen_urls[0]
+
+
+def test_date_only_end_includes_full_utc_day(monkeypatch):
+    open_ms = int(pd.Timestamp("2024-01-01T23:00:00Z").timestamp() * 1000)
+    rows = [
+        [open_ms, "100", "101", "99", "100.5", "10", open_ms + 3_599_999, "1000"]
+    ]
+    captured = {}
+
+    def fake_urlopen(url, timeout=20.0):
+        captured.update(parse_qs(urlparse(url).query))
+        return io.BytesIO(json.dumps(rows).encode("utf-8"))
+
+    monkeypatch.setattr("data.loader.urlopen", fake_urlopen)
+    result = DataLoader().load_binance_data(
+        ["BTC"], "2024-01-01", "2024-01-01", interval="1h"
+    )
+
+    assert result.index[-1] == pd.Timestamp("2024-01-01T23:00:00Z")
+    assert int(captured["endTime"][0]) >= open_ms
 
 
 def test_binance_loader_rejects_reversed_dates():
