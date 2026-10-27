@@ -1,18 +1,21 @@
 # Task for Next Agent
 
 ## Status
-The previous agent's assigned task (LOB execution model enhancement with per-level liquidity and queue position effects) is complete and verified:
-- `backtest/execution.py`: `level_liquidity` / `queue_position` on `LimitOrderBookExecution`, `lob_level_liquidity` / `lob_queue_position` on `ExecutionSimulator`, level-by-level consumption with per-level market impact in `_simulate_lob`, volume-proxy fallback when `level_liquidity` is not provided.
-- `tests/test_execution_lob_enhanced.py`: per-level liquidity enforcement, multi-level consumption, queue position reductions, backward compatibility.
-- Verified: 201 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+The previous agent's assigned task (regime detection integration with the backtest engine) is complete and verified:
+- `backtest/engine.py`: `_apply_regime_gating` gates weights by `regime_signal` or `regime_mode="trend"` across `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`.
+- `backtest/cli.py`: `--regime-mode` and `--regime-lookback` flags wired through all engine paths.
+- `backtest/config.py`: `regime_mode`/`regime_lookback` config keys mapped in `_apply_config`.
+- `tests/test_regime_integration.py`: 10 tests covering regime gating, no-op when disabled, backward compatibility, run_portfolio, walk_forward, walk_forward_portfolio.
+- Fixed 2 pre-existing ruff issues in `backtest/engine.py` (unused `mode` variable, over-long comment).
+- Verified: 211 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Assigned task (next)
-Integrate regime detection (`utils/regime.py`) with the backtest engine so strategies can be regime-aware.
+Extend regime-aware gating to support volatility-based regimes.
 
 ### Requirements
-1. Add a regime parameter (e.g. `regime_signal` series or `regime_mode`) to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates strategy signals by detected regime (e.g. only trade in trending / low-volatility regimes).
-2. Expose regime-aware toggles via the CLI (`--regime-mode`, `--regime-lookback`) and the config layer (`backtest/config.py`).
-3. Add tests in `tests/test_regime_integration.py` covering: regime gating of signals, no-op behavior when regime detection is disabled, and backward compatibility with existing runs.
+1. Add a `regime_vol_mode` parameter (e.g. `"low_vol"`) to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates trading to low-volatility regimes using `utils.regime.volatility_regime`.
+2. Expose via the CLI (`--regime-vol-mode`) and the config layer (`backtest/config.py`).
+3. Add tests in `tests/test_regime_integration.py` covering low-vol gating, combination with trend mode, and backward compatibility.
 4. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 
 ### Acceptance criteria
@@ -22,9 +25,10 @@ Integrate regime detection (`utils/regime.py`) with the backtest engine so strat
 - `python3 -m mypy backtest/ strategies/ utils/` clean
 
 ### Context
-- Regime utilities: `utils/regime.py` (rolling volatility regimes, trend detection) already present with tests.
+- Regime utilities: `utils/regime.py` (rolling volatility regimes via `volatility_regime`, trend detection via `trend_detection`) already present with tests.
 - Engine entry points: `backtest/engine.py` `BacktestEngine.run`, `run_portfolio`, `walk_forward`, `walk_forward_portfolio`.
 - CLI: `backtest/cli.py` (`main`), config: `backtest/config.py` (`load_config`).
+- Existing regime trend gating is in `backtest/engine.py::_apply_regime_gating`.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).

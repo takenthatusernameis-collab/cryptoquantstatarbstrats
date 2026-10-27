@@ -49,7 +49,7 @@ class BacktestEngine:
                     if rs.shape[1] == 1:
                         rs_series = rs.iloc[:, 0]
                     else:
-                        # If any column is False, treat as not allowed? Or require True - be permissive
+                        # If any column is True, treat as allowed (permissive).
                         rs_series = rs.any(axis=1)
                 else:
                     rs_series = rs.reindex(index=w.index)
@@ -70,7 +70,6 @@ class BacktestEngine:
                     mask = None
 
         if mask is None and regime_mode is not None:
-            mode = str(regime_mode).lower()
             lb = int(regime_lookback) if regime_lookback is not None and regime_lookback > 0 else 20
             try:
                 regimes = detect_regimes(data, window=lb)

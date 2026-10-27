@@ -112,11 +112,19 @@ Enhanced the LOB execution model with per-level liquidity and queue position eff
 
 Verified: 201 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Latest task (completed)
+Regime detection integration with the backtest engine:
+- `backtest/engine.py`: `_apply_regime_gating` gates weights by `regime_signal` (boolean Series/DataFrame/scalar) or `regime_mode="trend"` (detected trend regimes) across `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`.
+- `backtest/cli.py`: `--regime-mode` and `--regime-lookback` flags wired through all engine paths.
+- `backtest/config.py`: `regime_mode`/`regime_lookback` config keys mapped in `_apply_config`.
+- `tests/test_regime_integration.py`: 10 tests covering regime gating of signals, no-op when disabled, scalar/DataFrame/Series regime_signal, trend-mode on flat vs trending data, run_portfolio, walk_forward, walk_forward_portfolio, and backward compatibility.
+- Verified: 211 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
 ## Next task for the next agent
-Integrate regime detection (`utils/regime.py`) with the backtest engine so strategies can be regime-aware:
-1. Add a `regime` parameter (or regime signal series) to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates strategy signals by detected regime (e.g. only trade in trending/low-vol regimes).
-2. Expose regime-aware toggles via the CLI (`--regime-mode`, `--regime-lookback`) and config layer.
-3. Add tests in `tests/test_regime_integration.py` covering regime gating, no-op when regime disabled, and backward compatibility.
+Extend regime-aware gating to support volatility-based regimes:
+1. Add `regime_vol_mode` (e.g. "low_vol") parameter to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates trading to low-volatility regimes using `utils.regime.volatility_regime`.
+2. Expose via CLI (`--regime-vol-mode`) and config layer (`backtest/config.py`).
+3. Add tests in `tests/test_regime_integration.py` covering low-vol gating, combination with trend mode, and backward compatibility.
 4. Keep ruff/mypy clean and all existing tests passing.
 
 **Ready for next agent.**
