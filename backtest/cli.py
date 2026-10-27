@@ -98,6 +98,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Write the report to this file instead of stdout.",
     )
     parser.add_argument(
+        "--title",
+        default=None,
+        help="Custom title for HTML/PDF reports.",
+    )
+    parser.add_argument(
         "--report",
         choices=["full", "risk"],
         default="full",
@@ -367,7 +372,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             print(content)
     elif args.output == "html":
-        content = generate_html_report(result)
+        content = generate_html_report(
+            result, title=getattr(args, "title", None) or "Backtest Report"
+        )
         output_path = getattr(args, "output_path", None)
         if output_path:
             path = Path(output_path)
@@ -377,16 +384,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(content)
     elif args.output == "pdf":
         output_path = getattr(args, "output_path", None)
+        title = getattr(args, "title", None) or "Backtest Report"
         if output_path:
             path = Path(output_path)
             path.parent.mkdir(parents=True, exist_ok=True)
-            generate_pdf_report(result, str(path))
+            generate_pdf_report(result, str(path), title=title)
         else:
             # Write to reports/ by default if no path specified
             reports_dir = Path("reports")
             reports_dir.mkdir(parents=True, exist_ok=True)
             path = reports_dir / "report.pdf"
-            generate_pdf_report(result, str(path))
+            generate_pdf_report(result, str(path), title=title)
             print(f"PDF report saved to {path}")
     else:
         content = (

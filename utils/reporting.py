@@ -172,7 +172,7 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
         "<tr><td>Max DD Duration</td>"
         f"<td>{int(risk.get('max_drawdown_duration', 0))} periods</td></tr>"
     )
-    # Equity curve visualization (if available)
+    html.append("</table>")
     equity_curve = (result or {}).get("equity_curve")
     if equity_curve is not None:
         try:
@@ -217,7 +217,57 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
         except Exception:
             pass
 
-    html.append("</table>")
+    # Trade list (if available)
+    trades = (result or {}).get("trades") or (result or {}).get("trade_list")
+    if trades is not None:
+        try:
+            import pandas as _pd
+
+            if isinstance(trades, _pd.DataFrame) and not trades.empty:
+                html.append("<h2>Trade List</h2>")
+                html.append("<table>")
+                html.append(
+                    "<tr>"
+                    + "".join(f"<th>{col}</th>" for col in trades.columns)
+                    + "</tr>"
+                )
+                for _, row in trades.head(200).iterrows():
+                    html.append(
+                        "<tr>"
+                        + "".join(f"<td>{row[c]}</td>" for c in trades.columns)
+                        + "</tr>"
+                    )
+                html.append("</table>")
+                if len(trades) > 200:
+                    html.append(f"<p><em>Showing first 200 of {len(trades)} trades.</em></p>")
+        except Exception:
+            pass
+
+    # Weights (if available)
+    weights = (result or {}).get("weights")
+    if weights is not None:
+        try:
+            import pandas as _pd
+
+            if isinstance(weights, _pd.DataFrame) and not weights.empty:
+                html.append("<h2>Portfolio Weights</h2>")
+                html.append("<table>")
+                html.append(
+                    "<tr>"
+                    + "".join(f"<th>{col}</th>" for col in weights.columns)
+                    + "</tr>"
+                )
+                # Show last row
+                last = weights.tail(1).iloc[0]
+                html.append(
+                    "<tr>"
+                    + "".join(f"<td>{last[c]}</td>" for c in weights.columns)
+                    + "</tr>"
+                )
+                html.append("</table>")
+        except Exception:
+            pass
+
     html.append("</body></html>")
     return "\\n".join(html)
 
@@ -260,6 +310,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 return str(x)
 
         with PdfPages(output_path) as pdf:
+            # Page 1: Metrics
             fig = plt.figure(figsize=(11, 8.5))
             plt.axis("off")
             text = []
@@ -292,6 +343,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
             pdf.savefig(fig, bbox_inches="tight")
             plt.close(fig)
 
+            # Page 2: Equity curve and drawdown
             equity_curve = (result or {}).get("equity_curve")
             if equity_curve is not None:
                 try:
@@ -304,24 +356,78 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                     )
                     if len(equity) > 0:
                         fig, axes = plt.subplots(2, 1, figsize=(11, 8.5), sharex=True)
-                    axes[0].plot(equity.index, equity.values, label="Equity")
-                    axes[0].set_ylabel("Equity")
-                    axes[0].legend()
-                    running_max = equity.cummax()
-                    drawdown = equity / running_max - 1.0
-                    axes[1].fill_between(
-                        drawdown.index,
-                        drawdown.values,
-                        color="red",
-                        alpha=0.3,
-                        label="Drawdown",
-                    )
-                    axes[1].set_ylabel("Drawdown")
-                    axes[1].set_xlabel("Time")
-                    axes[1].legend()
-                    fig.tight_layout()
-                    pdf.savefig(fig, bbox_inches="tight")
-                    plt.close(fig)
+                        axes[0].plot(equity.index, equity.values, label="Equity")
+                        axes[0].set_ylabel("Equity")
+                        axes[0].legend()
+                        running_max = equity.cummax()
+                        drawdown = equity / running_max - 1.0
+                        axes[1].fill_between(
+                            drawdown.index,
+                            drawdown.values,
+                            color="red",
+                            alpha=0.3,
+                            label="Drawdown",
+                        )
+                        axes[1].set_ylabel("Drawdown")
+                        axes[1].set_xlabel("Time")
+                        axes[1].legend()
+                        fig.suptitle("Equity Curve & Drawdown")
+                        fig.tight_layout()
+                        pdf.savefig(fig, bbox_inches="tight")
+                        plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page 3: Weights (if available)
+            weights = (result or {}).get("weights")
+            if weights is not None:
+                try:
+                    import pandas as _pd
+
+                    if isinstance(weights, _pd.DataFrame) and not weights.empty:
+                        fig = plt.figure(figsize=(11, 8.5))
+                        plt.axis("off")
+                        wtext = ["Portfolio Weights (Last)"]
+                        wtext.append("=" * len(wtext[0]))
+                        wtext.append("")
+                        last = weights.tail(1).iloc[0]
+                        for c in weights.columns:
+                            wtext.append(f"  {c}: {float(last[c]):.4f}")
+                        plt.text(
+                            0.1, 0.9, "\n".join(wtext), va="top", family="monospace", fontsize=9
+                        )
+                        pdf.savefig(fig, bbox_inches="tight")
+                        plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page 4: Trades (if available)
+            trades = (result or {}).get("trades") or (result or {}).get("trade_list")
+            if trades is not None:
+                try:
+                    import pandas as _pd
+
+                    if isinstance(trades, _pd.DataFrame) and not trades.empty:
+                        fig = plt.figure(figsize=(11, 8.5))
+                        plt.axis("off")
+                        ttext = ["Trade List (first 50)"]
+                        ttext.append("=" * len(ttext[0]))
+                        ttext.append("")
+                        for _, row in trades.head(50).iterrows():
+                            parts = []
+                            for c in trades.columns[:6]:
+                                parts.append(f"{c}={row[c]}")
+                            ttext.append("  " + ", ".join(str(p) for p in parts))
+                        plt.text(
+                            0.05,
+                            0.95,
+                            "\n".join(ttext),
+                            va="top",
+                            family="monospace",
+                            fontsize=7,
+                        )
+                        pdf.savefig(fig, bbox_inches="tight")
+                        plt.close(fig)
                 except Exception:
                     pass
         return output_path
