@@ -374,7 +374,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     strategy = _build_strategy(args.strategy, args)
     engine = BacktestEngine(initial_capital=float(args.initial_capital))
     rebalance_freq = getattr(args, "rebalance_frequency", None)
-    walk_forward = getattr(args, "walk_forward", False) or getattr(args, "walk_forward_report", False)
+    walk_forward = getattr(args, "walk_forward", False) or getattr(
+        args, "walk_forward_report", False
+    )
     train_period = getattr(args, "train_period", None)
     test_period = getattr(args, "test_period", None)
     if train_period is None:
@@ -403,7 +405,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             active = weights.abs().sum(axis=1).replace(0.0, _np.nan)
             weights = weights.div(active, axis=0).fillna(0.0)
             reb_offset = getattr(args, "rebalance_offset", None)
-            weights = create_rebalanced_weights(weights, data, freq=rebalance_freq, offset=reb_offset)
+            weights = create_rebalanced_weights(
+                weights, data, freq=rebalance_freq, offset=reb_offset
+            )
             result = engine.walk_forward_portfolio(
                 weights,
                 data,

@@ -279,7 +279,6 @@ def test_cli_walk_forward_report_flag_parses():
 
 
 def test_cli_walk_forward_report_artifacts(tmp_path):
-    out_path = tmp_path / "out"
     _run_cli(
         [
             "--symbols",
