@@ -218,12 +218,17 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
             pass
 
     # Trade list (if available)
-    trades = (result or {}).get("trades") or (result or {}).get("trade_list")
+    trades = None
+    if result:
+        if "trades" in result and result.get("trades") is not None:
+            trades = result.get("trades")
+        elif "trade_list" in result and result.get("trade_list") is not None:
+            trades = result.get("trade_list")
     if trades is not None:
         try:
             import pandas as _pd
 
-            if isinstance(trades, _pd.DataFrame) and not trades.empty:
+            if isinstance(trades, _pd.DataFrame) and len(trades) > 0:
                 html.append("<h2>Trade List</h2>")
                 html.append("<table>")
                 html.append(
@@ -249,22 +254,25 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
         try:
             import pandas as _pd
 
-            if isinstance(weights, _pd.DataFrame) and not weights.empty:
-                html.append("<h2>Portfolio Weights</h2>")
-                html.append("<table>")
-                html.append(
-                    "<tr>"
-                    + "".join(f"<th>{col}</th>" for col in weights.columns)
-                    + "</tr>"
-                )
-                # Show last row
-                last = weights.tail(1).iloc[0]
-                html.append(
-                    "<tr>"
-                    + "".join(f"<td>{last[c]}</td>" for c in weights.columns)
-                    + "</tr>"
-                )
-                html.append("</table>")
+            if isinstance(weights, _pd.DataFrame):
+                if len(weights) == 0:
+                    pass
+                else:
+                    html.append("<h2>Portfolio Weights</h2>")
+                    html.append("<table>")
+                    html.append(
+                        "<tr>"
+                        + "".join(f"<th>{col}</th>" for col in weights.columns)
+                        + "</tr>"
+                    )
+                    # Show last row
+                    last = weights.tail(1).iloc[0]
+                    html.append(
+                        "<tr>"
+                        + "".join(f"<td>{last[c]}</td>" for c in weights.columns)
+                        + "</tr>"
+                    )
+                    html.append("</table>")
         except Exception:
             pass
 
@@ -384,7 +392,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 try:
                     import pandas as _pd
 
-                    if isinstance(weights, _pd.DataFrame) and not weights.empty:
+                    if isinstance(weights, _pd.DataFrame) and len(weights) > 0:
                         fig = plt.figure(figsize=(11, 8.5))
                         plt.axis("off")
                         wtext = ["Portfolio Weights (Last)"]
@@ -394,7 +402,12 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                         for c in weights.columns:
                             wtext.append(f"  {c}: {float(last[c]):.4f}")
                         plt.text(
-                            0.1, 0.9, "\n".join(wtext), va="top", family="monospace", fontsize=9
+                            0.1,
+                            0.9,
+                            "\n".join(wtext),
+                            va="top",
+                            family="monospace",
+                            fontsize=9,
                         )
                         pdf.savefig(fig, bbox_inches="tight")
                         plt.close(fig)
@@ -402,12 +415,17 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                     pass
 
             # Page 4: Trades (if available)
-            trades = (result or {}).get("trades") or (result or {}).get("trade_list")
+            trades = None
+            if result:
+                if result.get("trades") is not None:
+                    trades = result.get("trades")
+                elif result.get("trade_list") is not None:
+                    trades = result.get("trade_list")
             if trades is not None:
                 try:
                     import pandas as _pd
 
-                    if isinstance(trades, _pd.DataFrame) and not trades.empty:
+                    if isinstance(trades, _pd.DataFrame) and len(trades) > 0:
                         fig = plt.figure(figsize=(11, 8.5))
                         plt.axis("off")
                         ttext = ["Trade List (first 50)"]

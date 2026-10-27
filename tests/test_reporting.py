@@ -127,3 +127,46 @@ def test_generate_pdf_report_creates_html_fallback(tmp_path):
     assert isinstance(path, str)
     # Fallback may write HTML if matplotlib/pdf unavailable
     assert path.endswith((".pdf", ".html"))
+
+
+def test_generate_html_report_includes_trades_and_weights():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    trades = pd.DataFrame(
+        {
+            "timestamp": ["2024-01-01", "2024-01-02"],
+            "side": ["BUY", "SELL"],
+            "quantity": [1.0, 1.0],
+            "price": [100.0, 105.0],
+        }
+    )
+    weights = pd.DataFrame({"BTC": [0.6, 0.4], "ETH": [0.4, 0.6]})
+    result["trades"] = trades
+    result["weights"] = weights
+    report = generate_html_report(result)
+    assert "Trade List" in report
+    assert "Portfolio Weights" in report
+    assert "BUY" in report
+    assert "SELL" in report
+
+
+def test_generate_pdf_report_includes_trades_and_weights(tmp_path):
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    trades = pd.DataFrame(
+        {
+            "timestamp": ["2024-01-01", "2024-01-02"],
+            "side": ["BUY", "SELL"],
+            "quantity": [1.0, 1.0],
+            "price": [100.0, 105.0],
+        }
+    )
+    weights = pd.DataFrame({"BTC": [0.6, 0.4], "ETH": [0.4, 0.6]})
+    result["trades"] = trades
+    result["weights"] = weights
+    out = tmp_path / "report.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    assert path.endswith((".pdf", ".html"))
