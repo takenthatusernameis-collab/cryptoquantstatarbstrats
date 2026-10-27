@@ -282,6 +282,7 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("slippage_bps", ("slippage_bps",)),
         ("regime_mode", ("regime_mode", "regimeMode")),
         ("regime_lookback", ("regime_lookback", "regimeLookback")),
+        ("regime_vol_mode", ("regime_vol_mode", "regimeVolMode")),
         ("benchmark", ("benchmark",)),
         ("rebalance_benchmark", ("rebalance_benchmark", "rebalanceBenchmark")),
         ("walk_forward_report", ("walk_forward_report", "walkForwardReport")),
@@ -400,6 +401,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     test_period = getattr(args, "test_period", None)
     regime_mode = getattr(args, "regime_mode", None)
     regime_lookback = getattr(args, "regime_lookback", None)
+    regime_vol_mode = getattr(args, "regime_vol_mode", None)
     if train_period is None:
         train_period = 60
     if test_period is None:
@@ -442,6 +444,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
+            regime_vol_mode=regime_vol_mode,
             )
         else:
             result = engine.walk_forward(
@@ -457,6 +460,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
+            regime_vol_mode=regime_vol_mode,
             )
     elif rebalance_freq:
         signals = strategy.generate_signals(data)
@@ -491,6 +495,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             low=low_df,
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
+            regime_vol_mode=regime_vol_mode,
         )
     else:
         result = engine.run(
@@ -504,6 +509,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             low=low_df,
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
+            regime_vol_mode=regime_vol_mode,
         )
 
     if getattr(args, "benchmark", False) or getattr(args, "rebalance_benchmark", False):
