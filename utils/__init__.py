@@ -40,14 +40,33 @@ def half_life(series: pd.Series) -> float:
 
 
 def clean_data(data: pd.DataFrame) -> pd.DataFrame:
-    """Remove NaNs and clip extreme outliers."""
-    data = data.dropna()
-    # Winsorize at 0.1% on each side to avoid extreme outliers.
-    quantiles = data.quantile([0.001, 0.999])
-    for col in data.columns:
-        lo, hi = quantiles.loc[0.001, col], quantiles.loc[0.999, col]
-        data[col] = data[col].clip(lower=lo, upper=hi)
-    return data
+    """Drop incomplete rows while preserving observed market prices exactly.
+
+    Winsorizing price levels changes historical returns and can erase real
+    market shocks. Use winsorize_data explicitly for features where clipping
+    is methodologically justified; never apply it implicitly to prices.
+    """
+    return data.dropna().copy()
+
+
+def winsorize_data(
+    data: pd.DataFrame,
+    lower_quantile: float = 0.001,
+    upper_quantile: float = 0.999,
+) -> pd.DataFrame:
+    """Explicitly winsorize numeric columns for feature preprocessing."""
+    if not 0.0 <= lower_quantile < upper_quantile <= 1.0:
+        raise ValueError("Quantiles must satisfy 0 <= lower < upper <= 1.")
+    result = data.copy()
+    numeric = result.select_dtypes(include=[np.number]).columns
+    if len(numeric) == 0:
+        return result
+    quantiles = result[numeric].quantile([lower_quantile, upper_quantile])
+    for col in numeric:
+        lo = quantiles.loc[lower_quantile, col]
+        hi = quantiles.loc[upper_quantile, col]
+        result[col] = result[col].clip(lower=lo, upper=hi)
+    return result
 
 
 def annualized_metrics(returns: pd.Series, periods: int = 252) -> dict[str, float]:
