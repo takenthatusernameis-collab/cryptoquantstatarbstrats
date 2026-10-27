@@ -569,7 +569,7 @@ class BacktestEngine:
         regime_vol_mode: str | None = None,
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
-        weights_are_targets: bool = True,
+        weights_are_targets: bool = False,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
