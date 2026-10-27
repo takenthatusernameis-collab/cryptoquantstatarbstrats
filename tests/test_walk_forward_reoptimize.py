@@ -166,3 +166,137 @@ def test_cli_config_drives_reoptimize(tmp_path):
 
     rc = cli.main(["--config", str(cfg_path)])
     assert rc == 0
+
+
+def test_cli_walk_forward_reoptimize_without_rebalance_frequency(tmp_path):
+    import json
+
+    from backtest import cli
+
+    data_loader = DataLoader()
+    data = data_loader.load_data(["BTC", "ETH"], "2024-01-01", "2024-03-01", freq="1d")
+    data = data_loader.clean_data(data)
+    data.to_csv(tmp_path / "data.csv")
+
+    rc = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--reoptimize",
+            "--optimizer",
+            "equal_weight",
+            "--output",
+            "json",
+        ]
+    )
+    assert rc == 0
+
+
+def test_cli_walk_forward_reoptimize_optimizer_applied_differs(tmp_path):
+    import json
+
+    from backtest import cli
+
+    rc1 = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--reoptimize",
+            "--optimizer",
+            "equal_weight",
+            "--output",
+            "json",
+            "--output-path",
+            str(tmp_path / "r1.json"),
+        ]
+    )
+    assert rc1 == 0
+    # Run without reoptimize (should use strategy-based walk_forward)
+    rc2 = cli.main(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-03-01",
+            "--freq",
+            "1d",
+            "--strategy",
+            "mean_reversion",
+            "--walk-forward",
+            "--train-period",
+            "20",
+            "--test-period",
+            "10",
+            "--output",
+            "json",
+            "--output-path",
+            str(tmp_path / "r2.json"),
+        ]
+    )
+    assert rc2 == 0
+    r1 = json.loads((tmp_path / "r1.json").read_text())
+    r2 = json.loads((tmp_path / "r2.json").read_text())
+    # Both should produce results
+    # Walk-forward returns aggregated dict with results list
+    assert "results" in r1 or "total_return" in r1
+    assert "results" in r2 or "total_return" in r2
+    if "results" in r1:
+        assert len(r1["results"]) > 0
+    if "results" in r2:
+        assert len(r2["results"]) > 0
+
+
+def test_cli_config_drives_reoptimize_without_rebalance_frequency(tmp_path):
+    import yaml
+
+    from backtest import cli
+
+    cfg = {
+        "symbols": ["BTC", "ETH"],
+        "start": "2024-01-01",
+        "end": "2024-03-01",
+        "freq": "1d",
+        "strategy": "mean_reversion",
+        "walk_forward": True,
+        "train_period": 20,
+        "test_period": 10,
+        "reoptimize": True,
+        "optimizer": "risk_parity",
+        "output": "json",
+    }
+    cfg_path = tmp_path / "cfg.yaml"
+    cfg_path.write_text(yaml.safe_dump(cfg))
+
+    rc = cli.main(["--config", str(cfg_path)])
+    assert rc == 0

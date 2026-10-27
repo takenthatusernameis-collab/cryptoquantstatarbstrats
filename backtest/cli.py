@@ -573,7 +573,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if test_period is None:
         test_period = 20
     if walk_forward:
-        if rebalance_freq:
+        reopt = bool(getattr(args, "reoptimize", False))
+        opt_name = getattr(args, "optimizer", None)
+        opt_fn = get_optimizer(opt_name) if opt_name else None
+        if rebalance_freq or reopt:
             signals = strategy.generate_signals(data)
             weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
             weight_cols = [c for c in data.columns if c in signals.columns]
@@ -593,13 +596,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 weights.loc[exit_mask, :] = 0.0
             active = weights.abs().sum(axis=1).replace(0.0, _np.nan)
             weights = weights.div(active, axis=0).fillna(0.0)
-            reb_offset = getattr(args, "rebalance_offset", None)
-            weights = create_rebalanced_weights(
-                weights, data, freq=rebalance_freq, offset=reb_offset
-            )
-            reopt = bool(getattr(args, "reoptimize", False))
-            opt_name = getattr(args, "optimizer", None)
-            opt_fn = get_optimizer(opt_name) if opt_name else None
+            if rebalance_freq:
+                reb_offset = getattr(args, "rebalance_offset", None)
+                weights = create_rebalanced_weights(
+                    weights, data, freq=rebalance_freq, offset=reb_offset
+                )
             result = engine.walk_forward_portfolio(
                 weights,
                 data,
