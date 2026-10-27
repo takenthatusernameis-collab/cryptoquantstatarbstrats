@@ -169,8 +169,6 @@ def test_cli_config_drives_reoptimize(tmp_path):
 
 
 def test_cli_walk_forward_reoptimize_without_rebalance_frequency(tmp_path):
-    import json
-
     from backtest import cli
 
     data_loader = DataLoader()
