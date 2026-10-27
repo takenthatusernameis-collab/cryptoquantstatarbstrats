@@ -142,6 +142,7 @@ def test_cli_config_drives_reoptimize(tmp_path):
         "end": "2024-02-01",
         "freq": "1d",
         "strategy": "mean_reversion",
+        "data_source": "synthetic",
         "walk_forward": True,
         "train_period": 10,
         "test_period": 5,
