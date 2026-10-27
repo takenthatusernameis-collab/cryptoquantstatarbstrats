@@ -776,13 +776,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 f"p50={mdd.get('p50', 0):.3f} "
                 f"p95={mdd.get('p95', 0):.3f}"
             )
-            print(
-                "Sharpe Ratio:  "
-                f"mean={shr.get('mean', 0):.3f} "
-                f"p5={shr.get('p5', 0):.3f} "
-                f"p50={shr.get('p50', 0):.3f} "
-                f"p95={shr.get('p95', 0):.3f}"
-            )
+            if isinstance(mdd.get("ci95"), (list, tuple)):
+                ci95 = mdd["ci95"]
+                print(f"Max Drawdown CI (95%): [{ci95[0]:.3f}, {ci95[1]:.3f}]")
+            if mc_res.get("risk_of_ruin") is not None:
+                ror = mc_res.get("risk_of_ruin", 0.0)
+                thr = mc_res.get("risk_of_ruin_threshold", 0.5)
+                print(f"Risk of Ruin (below {thr:.2f}x): {ror:.2%}")
             # Optionally write MC report to artifact dir if requested
             artifact_dir = getattr(args, "artifact_dir", None)
             if artifact_dir:
