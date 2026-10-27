@@ -67,7 +67,13 @@ def test_make_mean_variance_optimizer():
 
 
 def test_get_optimizer():
-    for name in ["equal_weight", "inverse_volatility", "risk_parity", "min_variance", "mean_variance"]:
+    for name in [
+        "equal_weight",
+        "inverse_volatility",
+        "risk_parity",
+        "min_variance",
+        "mean_variance",
+    ]:
         opt = get_optimizer(name)
         assert callable(opt)
 
@@ -87,7 +93,9 @@ def test_walk_forward_portfolio_reoptimize_true_with_optimizer():
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
     opt = make_equal_weight_optimizer()
-    res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt
+    )
     assert "results" in res
     assert len(res["results"]) > 0
 
@@ -103,7 +111,9 @@ def test_walk_forward_portfolio_reoptimize_different_optimizers():
         make_min_variance_optimizer(),
         make_mean_variance_optimizer(),
     ]:
-        res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt)
+        res = engine.walk_forward_portfolio(
+            w, data, train_period=30, test_period=10, reoptimize=True, optimizer=opt
+        )
         assert "results" in res
 
 
@@ -120,7 +130,9 @@ def test_walk_forward_portfolio_reoptimize_weight_alignment():
         calls.append(train_data)
         return opt(train_data)
 
-    res = engine.walk_forward_portfolio(w, data, train_period=30, test_period=10, reoptimize=True, optimizer=tracking_opt)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=30, test_period=10, reoptimize=True, optimizer=tracking_opt
+    )
     assert len(calls) > 0
     # returned weights aligned
     assert len(res["results"]) > 0

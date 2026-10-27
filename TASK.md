@@ -145,4 +145,13 @@ Volatility term-structure / calendar spread mean-reversion strategy:
 - `tests/test_term_structure.py`: 5 tests covering signal generation columns, position sizes, end-to-end `BacktestEngine.run`, missing-column error path, and custom tenor aliases.
 - Verified: 243 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Latest task (completed)
+Walk-forward portfolio reoptimization:
+- `BacktestEngine.walk_forward_portfolio` `reoptimize`/`optimizer` path exercised end-to-end with per-window weight reindexing/alignment.
+- Optimizer callables in `utils/optimization.py` (`equal_weight`, `inverse_volatility`, `risk_parity`, `min_variance`, `mean_variance` via `get_optimizer`).
+- CLI flags `--reoptimize`/`--optimizer` wired through `backtest/cli.py` to `walk_forward_portfolio`; config keys `reoptimize`/`optimizer` in `CONFIG_SCHEMA`/`validate_config`.
+- Tests in `tests/test_walk_forward_reoptimize.py` (12 tests): optimizers, backward compatibility, weight alignment, CLI/config driving.
+- Fixed 11 E501 line-too-long ruff errors introduced by the reoptimization code.
+- Verified: 278 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
 **Ready for next agent.**

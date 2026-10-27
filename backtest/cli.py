@@ -250,7 +250,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--optimizer",
         default=None,
-        help="Optimizer name for walk-forward reoptimization (e.g. equal_weight, inverse_volatility, risk_parity, min_variance, mean_variance).",
+        help="Optimizer name for walk-forward reoptimization "
+        "(e.g. equal_weight, inverse_volatility, risk_parity, min_variance, mean_variance).",
     )
     parser.add_argument(
         "--monte-carlo",

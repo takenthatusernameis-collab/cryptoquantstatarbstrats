@@ -1,30 +1,49 @@
 # Task for Next Agent
 
 ## Status
-All previous tasks complete and verified (267 tests pass, 1 skipped, ruff/mypy clean). Monte Carlo robustness analysis reports percentile confidence intervals for max drawdown (ci95/ci99) and risk-of-ruin metrics; CLI displays them in text output and writes JSON artifact. Strategy performance attribution (`utils/attribution.py`: `brinson_attribution`, `factor_attribution`) is implemented, wired into `BacktestEngine`, `utils/reporting.py`, the CLI (`--benchmark-weights-csv`/`--factor-returns-csv`), and `backtest/config.py` schema; comprehensive tests added in `tests/test_attribution.py` (15 tests).
+Walk-forward portfolio reoptimization is complete and verified:
+- `utils/optimization.py` exposes optimizer callables (`equal_weight`, `inverse_volatility`, `risk_parity`, `min_variance`, `mean_variance` via `get_optimizer`).
+- `BacktestEngine.walk_forward_portfolio` exercises the `reoptimize`/`optimizer` path end-to-end with per-window weight alignment.
+- CLI flags `--reoptimize`/`--optimizer` wired through `build_parser()`/`main()`/`_apply_config` to `walk_forward_portfolio`.
+- Config keys `reoptimize`/`optimizer` (and aliases) in `backtest/config.py` `CONFIG_SCHEMA`/`validate_config`.
+- `tests/test_walk_forward_reoptimize.py` covers optimizers, backward compatibility, weight alignment, and CLI/config driving.
+- Verified: 278 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Next task for the next agent
 
-### Walk-forward portfolio reoptimization
+### Make `--reoptimize`/`--optimizer` effective with `--walk-forward` without requiring `--rebalance-frequency`
 
-Wire the `reoptimize`/`optimizer` path of `BacktestEngine.walk_forward_portfolio` (already accepted but unused) through the portfolio optimization utilities in `utils/optimization.py` so each train window re-derives optimal weights instead of reusing static weights.
+In `backtest/cli.py`, the `if walk_forward:` block only calls
+`engine.walk_forward_portfolio(..., reoptimize=..., optimizer=...)` when
+`rebalance_freq` is set. Without `--rebalance-frequency`, it falls through to
+`engine.walk_forward` (strategy-based) and silently ignores `--reoptimize`/
+`--optimizer`.
 
 ### Objective
-Enable re-optimizing portfolio weights on each walk-forward train window, configurable via CLI and config, with tests.
+Route `--walk-forward --reoptimize --optimizer <name>` through
+`walk_forward_portfolio` using signal-derived weights (no rebalancing) even
+when `--rebalance-frequency` is not set, while preserving current behavior when
+`--reoptimize` is not set.
 
 ### Requirements
-1. Expose optimizer callables in `utils/optimization.py` (or a new `utils/walk_forward_optimize.py`) that accept `train_data` and return a weights DataFrame/Series aligned to assets (e.g. mean-variance, risk-parity, equal-weight).
-2. `BacktestEngine.walk_forward_portfolio` already accepts `reoptimize: bool` and `optimizer`; ensure the path is exercised end-to-end and weights are reindexed/aligned to each test window.
-3. Add CLI flags: `--reoptimize` (bool) and `--optimizer` (choice of available optimizers), wired through `backtest/cli.py` `build_parser()`/`main()`/`_apply_config` to `walk_forward_portfolio`.
-4. Add config keys: `reoptimize`, `optimizer` (and aliases) to `backtest/config.py` `CONFIG_SCHEMA`/`validate_config`.
-5. Add comprehensive tests in `tests/test_walk_forward_reoptimize.py` covering: reoptimize=True/False, each optimizer, backward compatibility (static weights when reoptimize=False), CLI/config driving, and weight alignment per window.
-6. Keep public API backward compatible; all existing tests must still pass.
-
-### Constraints
-- Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
-- Keep public API backward compatible.
-- All existing tests must still pass; ruff and mypy must remain clean.
-- Do not add `# type: ignore` to suppress real bugs.
+1. `backtest/cli.py`: when `--walk-forward` and `--reoptimize` are set, build
+   signal-derived weights and call `engine.walk_forward_portfolio` with
+   `reoptimize=True` and the resolved optimizer, regardless of
+   `--rebalance-frequency`. Keep the existing `rebalance_freq` branch behavior
+   (rebalanced weights + reoptimize) unchanged.
+2. `--walk-forward` without `--reoptimize` keeps current behavior
+   (`engine.walk_forward` strategy-based) — backward compatible.
+3. Existing CLI flags (`--reoptimize`, `--optimizer`) and config keys
+   (`reoptimize`, `optimizer`) already exist; no new flags/schema keys needed.
+4. Add tests in `tests/test_walk_forward_reoptimize.py` covering: CLI
+   reoptimize without `--rebalance-frequency` runs end-to-end, optimizer is
+   applied (weights differ from static), backward compatibility when
+   `--reoptimize` not set, and config-driven reoptimize without
+   `rebalance_frequency`.
+5. Keep public API backward compatible; all existing tests must still pass.
+6. Follow existing code style (4-space indent, `from __future__ import
+   annotations`, type hints on public functions); no `# type: ignore` for real
+   bugs.
 
 ### Verification
 ```bash
@@ -32,6 +51,3 @@ python3 -m pytest tests/ -q
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python3 -m mypy backtest/ strategies/ utils/
 ```
-
-### Notes
-`walk_forward_portfolio` in `backtest/engine.py:685` already accepts `reoptimize` and `optimizer` but no CLI/config wiring or optimizer implementations exist yet; `utils/optimization.py` already has portfolio optimization utilities to build on.
