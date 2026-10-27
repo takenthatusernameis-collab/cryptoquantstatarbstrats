@@ -967,6 +967,44 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
     return out
 
 
+def generate_walk_forward_text_report(wf_report: dict) -> str:
+    """Build a human-readable text summary of a walk-forward report."""
+    wf_report = wf_report or {}
+    summary = wf_report.get("summary")
+    if not isinstance(summary, pd.DataFrame):
+        try:
+            summary = pd.DataFrame(summary) if summary is not None else pd.DataFrame()
+        except Exception:
+            summary = pd.DataFrame()
+
+    lines: list[str] = [
+        "Walk-Forward Report",
+        "====================",
+    ]
+    for key in ("mean_return", "std_return", "positive_periods", "total_periods"):
+        if key in wf_report:
+            lines.append(f"{key}: {wf_report[key]}")
+    lines.append("")
+
+    if len(summary) > 0:
+        lines.append("Per-window summary:")
+        lines.append(summary.to_string(index=False))
+    else:
+        lines.append("No walk-forward windows.")
+
+    # Attribution (if available)
+    brinson, factor = _get_attribution(wf_report)
+    if brinson is not None or factor is not None:
+        lines.append("")
+        lines.append("Attribution")
+        lines.append("===========")
+        if isinstance(brinson, dict):
+            lines.extend(brinson_text_lines(brinson))
+        if isinstance(factor, dict):
+            lines.extend(factor_text_lines(factor))
+    return "\n".join(lines)
+
+
 def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forward Report") -> str:
     """Render a walk-forward report as HTML with summary table and equity chart."""
     wf_report = wf_report or {}

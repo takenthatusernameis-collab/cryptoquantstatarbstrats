@@ -830,8 +830,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         generate_pdf_report,
         generate_report,
         generate_risk_report,
+        generate_walk_forward_html_report,
+        generate_walk_forward_pdf_report,
+        generate_walk_forward_report,
+        generate_walk_forward_text_report,
         report_to_dict,
         risk_report_to_dict,
+        walk_forward_report_to_dict,
     )
 
     report_kind = getattr(args, "report", "full") or "full"
@@ -839,15 +844,30 @@ def main(argv: Sequence[str] | None = None) -> int:
     output_path = getattr(args, "output_path", None)
     title = getattr(args, "title", None) or "Backtest Report"
 
-    if report_kind == "attribution":
-        text = generate_attribution_report(result)
-        data = attribution_report_to_dict(result)
-    elif report_kind == "risk":
-        text = generate_risk_report(result)
-        data = risk_report_to_dict(result)
+    # Walk-forward results aggregate per-window result dicts; route them through
+    # the walk-forward report generators so attribution (when present) is
+    # surfaced alongside the summary table and equity curve.
+    if walk_forward:
+        try:
+            wf_report = generate_walk_forward_report(result)
+        except Exception:
+            wf_report = result
+        result_for_report = wf_report
     else:
-        text = generate_report(result)
-        data = report_to_dict(result)
+        result_for_report = result
+
+    if report_kind == "attribution":
+        text = generate_attribution_report(result_for_report)
+        data = attribution_report_to_dict(result_for_report)
+    elif walk_forward:
+        text = generate_walk_forward_text_report(result_for_report)
+        data = walk_forward_report_to_dict(result_for_report)
+    elif report_kind == "risk":
+        text = generate_risk_report(result_for_report)
+        data = risk_report_to_dict(result_for_report)
+    else:
+        text = generate_report(result_for_report)
+        data = report_to_dict(result_for_report)
 
     def _emit(content: str, path: str | None) -> None:
         if path is not None:
@@ -856,16 +876,24 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(content)
 
     if output_format == "json":
+        if walk_forward:
+            data = walk_forward_report_to_dict(result_for_report)
         _emit(json.dumps(data, indent=2, default=float), output_path)
     elif output_format == "html":
-        _emit(generate_html_report(result, title=title), output_path)
+        if walk_forward:
+            _emit(generate_walk_forward_html_report(result_for_report, title=title), output_path)
+        else:
+            _emit(generate_html_report(result_for_report, title=title), output_path)
     elif output_format == "pdf":
         if output_path is None:
             Path("reports").mkdir(parents=True, exist_ok=True)
             output_path = str(
                 Path("reports") / f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
             )
-        generate_pdf_report(result, str(output_path), title=title)
+        if walk_forward:
+            generate_walk_forward_pdf_report(result_for_report, str(output_path), title=title)
+        else:
+            generate_pdf_report(result_for_report, str(output_path), title=title)
         print(f"PDF report written to {output_path}")
     else:
         _emit(text, output_path)

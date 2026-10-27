@@ -313,14 +313,12 @@ def test_cli_walk_forward_reoptimize_optimizer_applied_differs(tmp_path):
     assert rc2 == 0
     r1 = json.loads((tmp_path / "r1.json").read_text())
     r2 = json.loads((tmp_path / "r2.json").read_text())
-    # Both should produce results
-    # Walk-forward returns aggregated dict with results list
-    assert "results" in r1 or "total_return" in r1
-    assert "results" in r2 or "total_return" in r2
-    if "results" in r1:
-        assert len(r1["results"]) > 0
-    if "results" in r2:
-        assert len(r2["results"]) > 0
+    # Walk-forward runs emit the aggregated walk-forward report (summary table +
+    # aggregates). Each must contain a non-empty summary of per-window results.
+    assert "summary" in r1
+    assert "summary" in r2
+    assert len(r1["summary"]) > 0
+    assert len(r2["summary"]) > 0
 
 
 def test_cli_config_drives_reoptimize_without_rebalance_frequency(tmp_path):
