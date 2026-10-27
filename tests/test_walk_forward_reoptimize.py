@@ -334,6 +334,7 @@ def test_cli_config_drives_reoptimize_without_rebalance_frequency(tmp_path):
         "end": "2024-03-01",
         "freq": "1d",
         "strategy": "mean_reversion",
+        "data_source": "synthetic",
         "walk_forward": True,
         "train_period": 20,
         "test_period": 10,
