@@ -88,6 +88,61 @@ def test_strategy_generate_signals():
     assert len(signals) == len(df)
 
 
+def test_pairs_hedge_ratio_is_causal():
+    data = make_data(n=300)
+    strategy = CointegrationPairsStrategy(("BTC", "ETH"), lookback=30)
+    original = strategy.calculate_spread(data["BTC"], data["ETH"])
+    changed = data.copy()
+    changed.loc[changed.index[-20:], "BTC"] *= 3.0
+    altered = strategy.calculate_spread(changed["BTC"], changed["ETH"])
+    cutoff = data.index[-20]
+    pd.testing.assert_series_equal(
+        original.loc[original.index < cutoff],
+        altered.loc[altered.index < cutoff],
+    )
+
+
+def test_engine_preserves_explicit_opposing_pair_weights():
+    class ExplicitPairSignals:
+        def generate_signals(self, data):
+            return pd.DataFrame(
+                {
+                    "long": True,
+                    "short": False,
+                    "A": 0.5,
+                    "B": -0.5,
+                },
+                index=data.index,
+            )
+
+    index = pd.date_range("2024-01-01", periods=4, freq="1h")
+    data = pd.DataFrame({"A": [100.0, 102.0, 101.0, 105.0],
+                         "B": [100.0, 99.0, 98.0, 97.0]}, index=index)
+    result = BacktestEngine().run(ExplicitPairSignals(), data)
+    weights = result["weights"]
+    assert weights.iloc[0].abs().sum() == 0.0
+    assert weights.iloc[1]["A"] > 0.0
+    assert weights.iloc[1]["B"] < 0.0
+    assert np.isclose(weights.iloc[1].abs().sum(), 1.0)
+
+
+def test_engine_applies_close_based_signals_on_next_bar():
+    class OneBarSignal:
+        def generate_signals(self, data):
+            signals = pd.DataFrame(index=data.index)
+            signals["A"] = [1.0, 0.0, 0.0, 0.0]
+            return signals
+
+    index = pd.date_range("2024-01-01", periods=4, freq="1h")
+    data = pd.DataFrame({"A": [100.0, 110.0, 121.0, 133.1]}, index=index)
+    result = BacktestEngine().run(OneBarSignal(), data)
+    assert result["weights"].iloc[0]["A"] == 0.0
+    assert result["weights"].iloc[1]["A"] == 1.0
+    # The first +10% close-to-close return is not captured by a signal
+    # that only becomes known at the first close.
+    assert np.isclose(result["portfolio_returns"].iloc[1], 0.1)
+
+
 def test_backtest_engine_runs():
     df = make_data()
     strat = CointegrationPairsStrategy(("BTC", "ETH"))
