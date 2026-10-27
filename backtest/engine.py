@@ -12,17 +12,81 @@ import pandas as pd
 from strategies.base import Strategy
 from utils.metrics import cvar, sharpe_ratio, sortino_ratio, var
 from utils.rebalance import create_rebalanced_weights
+from utils.regime import detect_regimes
 
 
-class BacktestEngine:
-    """Backtesting engine for trading strategies."""
+    def _apply_regime_gating(
+        self,
+        weights: pd.DataFrame,
+        data: pd.DataFrame,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
+    ) -> pd.DataFrame:
+        if regime_signal is None and regime_mode is None:
+            return weights
 
-    def __init__(self, initial_capital: float = 100000.0):
-        self.initial_capital = initial_capital
-        self.capital = initial_capital
-        self.positions: dict[str, float] = {}
-        self.trades: list[dict[str, Any]] = []
-        self.equity_curve: list[float] = []
+        w = weights.copy()
+        mask = None
+
+        if regime_signal is not None:
+            if isinstance(regime_signal, (pd.Series, pd.DataFrame)):
+                rs = regime_signal
+                if isinstance(rs, pd.DataFrame):
+                    # If multiple columns, OR/any True where any allows? Or just take first aligned
+                    # Or check if all True means allowed; alternatively treat as boolean per period
+                    rs = rs.reindex(index=w.index).fillna(True)
+                    if rs.shape[1] == 1:
+                        rs_series = rs.iloc[:, 0]
+                    else:
+                        # If any column is False, treat as not allowed? Or require True - be permissive
+                        rs_series = rs.any(axis=1)
+                else:
+                    rs_series = rs.reindex(index=w.index)
+                # Normalize to boolean: True means allowed to trade
+                try:
+                    mask = rs_series.astype(bool)
+                except Exception:
+                    mask = pd.Series(True, index=w.index)
+            else:
+                # Assume scalar True/False
+                try:
+                    allowed = bool(regime_signal)
+                except Exception:
+                    allowed = True
+                if not allowed:
+                    mask = pd.Series(False, index=w.index)
+                else:
+                    mask = None
+
+        if mask is None and regime_mode is not None:
+            mode = str(regime_mode).lower()
+            lb = int(regime_lookback) if regime_lookback is not None and regime_lookback > 0 else 20
+            try:
+                regimes = detect_regimes(data, window=lb)
+            except Exception:
+                regimes = None
+            if regimes is not None and not regimes.empty:
+                # Default behavior: allow trading in trending regimes (trend != 0) or low vol
+                # Be permissive by default - check trend columns if present
+                trend_cols = [c for c in regimes.columns if c.endswith("_trend")]
+                if trend_cols:
+                    # Allow if any trend is trending (|trend| > 0) or follow simple rule
+                    trend_mask = regimes[trend_cols].abs().sum(axis=1) > 0
+                    mask = trend_mask
+                else:
+                    vol_cols = [c for c in regimes.columns if c.endswith("_vol_regime")]
+                    if vol_cols:
+                        # Allow all by default if only vol regime exists
+                        mask = pd.Series(True, index=w.index)
+            else:
+                mask = None
+
+        if mask is not None:
+            mask = mask.reindex(index=w.index).fillna(True)
+            # Gate: zero weights when not allowed
+            w = w.where(mask, 0.0)
+        return w.fillna(0.0)
 
     def _evaluate_weights(
         self,
@@ -36,6 +100,9 @@ class BacktestEngine:
         volume: pd.DataFrame | None = None,
         high: pd.DataFrame | None = None,
         low: pd.DataFrame | None = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -50,6 +117,15 @@ class BacktestEngine:
         weights = (
             weights.reindex(index=data.index, columns=data.columns, fill_value=0.0)
             .fillna(0.0)
+        )
+
+        # Apply regime gating if provided
+        weights = self._apply_regime_gating(
+            weights,
+            data,
+            regime_signal=regime_signal,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
 
         # Apply risk management if provided
@@ -254,6 +330,9 @@ class BacktestEngine:
         low: pd.DataFrame | None = None,
         rebalance_frequency: str | None = None,
         rebalance_offset: Any = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Run backtest for a given strategy.
 
@@ -309,6 +388,9 @@ class BacktestEngine:
             volume=volume,
             high=high,
             low=low,
+            regime_signal=regime_signal,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
 
     def run_with_benchmark(
@@ -320,6 +402,9 @@ class BacktestEngine:
         risk_manager: Any = None,
         cost_model: Any = None,
         execution_simulator: Any = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Run backtest and include an equal-weighted buy-and-hold benchmark."""
         result = self.run(
@@ -329,6 +414,10 @@ class BacktestEngine:
             slippage=slippage,
             risk_manager=risk_manager,
             cost_model=cost_model,
+            execution_simulator=execution_simulator,
+            regime_signal=regime_signal,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
         returns = data.pct_change().fillna(0.0)
         n = data.shape[1]
@@ -369,6 +458,9 @@ class BacktestEngine:
         low: pd.DataFrame | None = None,
         rebalance_frequency: str | None = None,
         rebalance_offset: Any = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -410,6 +502,9 @@ class BacktestEngine:
             volume=volume,
             high=high,
             low=low,
+            regime_signal=regime_signal,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
 
     def walk_forward(
@@ -426,6 +521,9 @@ class BacktestEngine:
         volume: pd.DataFrame | None = None,
         high: pd.DataFrame | None = None,
         low: pd.DataFrame | None = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation."""
         results = []
@@ -455,6 +553,9 @@ class BacktestEngine:
                 volume=test_volume,
                 high=test_high,
                 low=test_low,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
             results.append(result)
             i += test_period
@@ -472,6 +573,9 @@ class BacktestEngine:
                 volume=volume,
                 high=high,
                 low=low,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
             return {
                 "returns": [result["total_return"]],
@@ -512,6 +616,9 @@ class BacktestEngine:
         low: pd.DataFrame | None = None,
         reoptimize: bool = False,
         optimizer: Any = None,
+        regime_signal: Any = None,
+        regime_mode: str | None = None,
+        regime_lookback: int | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation using portfolio weights.
 
@@ -566,6 +673,9 @@ class BacktestEngine:
                 volume=test_volume,
                 high=test_high,
                 low=test_low,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
             results.append(result)
             i += test_period
@@ -582,6 +692,9 @@ class BacktestEngine:
                 volume=volume,
                 high=high,
                 low=low,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
             return {"returns": [result["total_return"]], "results": [result]}
 

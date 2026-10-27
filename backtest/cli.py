@@ -215,6 +215,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Slippage in basis points for execution simulator.",
     )
+    parser.add_argument(
+        "--regime-mode",
+        default=None,
+        help="Regime mode for regime-aware gating (e.g. trend/volatility).",
+    )
+    parser.add_argument(
+        "--regime-lookback",
+        type=int,
+        default=None,
+        help="Lookback window for regime detection.",
+    )
     return parser
 
 
@@ -269,6 +280,8 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("order_type", ("order_type",)),
         ("participation_rate", ("participation_rate",)),
         ("slippage_bps", ("slippage_bps",)),
+        ("regime_mode", ("regime_mode", "regimeMode")),
+        ("regime_lookback", ("regime_lookback", "regimeLookback")),
         ("benchmark", ("benchmark",)),
         ("rebalance_benchmark", ("rebalance_benchmark", "rebalanceBenchmark")),
         ("walk_forward_report", ("walk_forward_report", "walkForwardReport")),
@@ -385,6 +398,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     train_period = getattr(args, "train_period", None)
     test_period = getattr(args, "test_period", None)
+    regime_mode = getattr(args, "regime_mode", None)
+    regime_lookback = getattr(args, "regime_lookback", None)
     if train_period is None:
         train_period = 60
     if test_period is None:
@@ -425,6 +440,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 volume=volume_df,
                 high=high_df,
                 low=low_df,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
         else:
             result = engine.walk_forward(
@@ -438,6 +455,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 volume=volume_df,
                 high=high_df,
                 low=low_df,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
             )
     elif rebalance_freq:
         signals = strategy.generate_signals(data)
@@ -470,6 +489,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             volume=volume_df,
             high=high_df,
             low=low_df,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
     else:
         result = engine.run(
@@ -481,6 +502,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             volume=volume_df,
             high=high_df,
             low=low_df,
+            regime_mode=regime_mode,
+            regime_lookback=regime_lookback,
         )
 
     if getattr(args, "benchmark", False) or getattr(args, "rebalance_benchmark", False):
