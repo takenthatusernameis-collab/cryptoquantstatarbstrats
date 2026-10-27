@@ -108,6 +108,20 @@ def test_pairs_hedge_ratio_is_causal():
     )
 
 
+def test_pairs_strategy_blocks_entries_when_cointegration_fails(monkeypatch):
+    data = make_data(n=300)
+    strategy = CointegrationPairsStrategy(
+        ("BTC", "ETH"), lookback=30, cointegration_check_interval=15
+    )
+    monkeypatch.setattr(
+        strategy, "test_cointegration", lambda price1, price2: (-1.0, 0.5)
+    )
+    signals = strategy.generate_signals(data)
+    assert not signals["long"].any()
+    assert not signals["short"].any()
+    assert signals["cointegration_pvalue"].dropna().eq(0.5).all()
+
+
 def test_engine_preserves_explicit_opposing_pair_weights():
     class ExplicitPairSignals:
         def generate_signals(self, data):
