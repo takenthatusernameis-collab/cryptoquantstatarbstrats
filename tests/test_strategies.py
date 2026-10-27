@@ -78,6 +78,12 @@ def test_clean_data_removes_nans():
     assert cleaned.isna().sum().sum() == 0
 
 
+def test_clean_data_preserves_observed_price_extremes():
+    data = pd.DataFrame({"BTC": [100.0, 100.1, 101.0, 10_000.0]})
+    cleaned = DataLoader().clean_data(data)
+    assert cleaned["BTC"].iloc[-1] == 10_000.0
+
+
 def test_strategy_generate_signals():
     df = make_data()
     strat = CointegrationPairsStrategy(("BTC", "ETH"))
