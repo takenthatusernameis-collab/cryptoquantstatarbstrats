@@ -30,16 +30,6 @@ from strategies.term_structure import TermStructureStrategy
 from utils.monte_carlo import monte_carlo_analysis
 from utils.optimization import get_optimizer
 from utils.rebalance import create_rebalanced_weights
-from utils.reporting import (
-    attribution_report_to_dict,
-    generate_attribution_report,
-    generate_html_report,
-    generate_pdf_report,
-    generate_report,
-    generate_risk_report,
-    report_to_dict,
-    risk_report_to_dict,
-)
 
 STRATEGIES = {
     "mean_reversion": MeanReversionStrategy,
@@ -771,83 +761,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                 pass
         except Exception:
             pass
-
-    if args.output == "json":
-        payload = (
-            risk_report_to_dict(result)
-            if args.report == "risk"
-            else attribution_report_to_dict(result)
-            if args.report == "attribution"
-            else report_to_dict(result)
-        )
-        content = json.dumps(payload, indent=2)
-        output_path = getattr(args, "output_path", None)
-        artifact_dir = getattr(args, "artifact_dir", None)
-        if artifact_dir and not output_path:
-            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = str(Path(artifact_dir) / f"report_{stamp}.json")
-        if output_path:
-            path = Path(output_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content)
-        else:
-            print(content)
-    elif args.output == "html":
-        content = generate_html_report(
-            result, title=getattr(args, "title", None) or "Backtest Report"
-        )
-        output_path = getattr(args, "output_path", None)
-        artifact_dir = getattr(args, "artifact_dir", None)
-        if artifact_dir and not output_path:
-            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = str(Path(artifact_dir) / f"report_{stamp}.html")
-        if output_path:
-            path = Path(output_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content)
-        else:
-            print(content)
-    elif args.output == "pdf":
-        output_path = getattr(args, "output_path", None)
-        title = getattr(args, "title", None) or "Backtest Report"
-        artifact_dir = getattr(args, "artifact_dir", None)
-        if artifact_dir and not output_path:
-            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = str(Path(artifact_dir) / f"report_{stamp}.pdf")
-        if output_path:
-            path = Path(output_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            generate_pdf_report(result, str(path), title=title)
-        else:
-            # Write to reports/ by default if no path specified
-            reports_dir = Path("reports")
-            reports_dir.mkdir(parents=True, exist_ok=True)
-            path = reports_dir / "report.pdf"
-            generate_pdf_report(result, str(path), title=title)
-            print(f"PDF report saved to {path}")
-    else:
-        content = (
-            generate_risk_report(result)
-            if args.report == "risk"
-            else generate_attribution_report(result)
-            if args.report == "attribution"
-            else generate_report(result)
-        )
-        output_path = getattr(args, "output_path", None)
-        artifact_dir = getattr(args, "artifact_dir", None)
-        if artifact_dir and not output_path:
-            Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = str(Path(artifact_dir) / f"report_{stamp}.txt")
-        if output_path:
-            path = Path(output_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content)
-        else:
-            print(content)
 
     # Monte Carlo analysis if requested
     monte_carlo_n = getattr(args, "monte_carlo", None)

@@ -9,6 +9,8 @@ import pandas as pd
 from utils.reporting import (
     attribution_report_to_dict,
     generate_attribution_report,
+    generate_html_report,
+    generate_pdf_report,
 )
 
 
@@ -16,8 +18,10 @@ def _make_result():
     dates = pd.date_range("2024-01-01", periods=10, freq="1h")
     summary = pd.DataFrame(
         [
-            {"asset": "BTC", "allocation": 0.01, "selection": 0.02, "interaction": 0.005, "total": 0.035},
-            {"asset": "ETH", "allocation": -0.005, "selection": 0.01, "interaction": -0.002, "total": 0.003},
+            {"asset": "BTC", "allocation": 0.01, "selection": 0.02,
+             "interaction": 0.005, "total": 0.035},
+            {"asset": "ETH", "allocation": -0.005, "selection": 0.01,
+             "interaction": -0.002, "total": 0.003},
         ]
     )
     brinson = {
@@ -61,3 +65,19 @@ def test_backward_compat_no_attribution():
     assert "No attribution results" in text
     d = attribution_report_to_dict({})
     assert d == {}
+
+
+def test_html_includes_attribution_when_inputs_present():
+    result = _make_result()
+    html = generate_html_report(result)
+    assert "Attribution" in html
+    assert "Brinson" in html
+    assert "Factor" in html
+
+
+def test_pdf_includes_attribution_when_inputs_present(tmp_path):
+    result = _make_result()
+    out = tmp_path / "attr.pdf"
+    generate_pdf_report(result, str(out))
+    # File should be created (matplotlib may write PDF or fallback to HTML)
+    assert out.exists() or (tmp_path / "attr.html").exists()

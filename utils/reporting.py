@@ -6,6 +6,13 @@ from typing import Any
 import pandas as pd
 
 
+def _get_attribution(result: dict) -> tuple[Any, Any]:
+    result = result or {}
+    brinson = result.get("brinson") or result.get("brinson_attribution")
+    factor = result.get("factor") or result.get("factor_attribution")
+    return brinson, factor
+
+
 def generate_report(result: dict) -> str:
     """Build a human-readable text summary of a backtest result."""
     result = result or {}
@@ -31,8 +38,7 @@ def generate_report(result: dict) -> str:
         f"Calmar Ratio:        {calmar_ratio:.4f}",
     ]
     # Attribution section (Brinson / factor) when available.
-    brinson = result.get("brinson")
-    factor = result.get("factor")
+    brinson, factor = _get_attribution(result)
     if brinson is not None or factor is not None:
         lines.append("")
         lines.append("Attribution")
@@ -227,8 +233,7 @@ def attribution_to_dict(result: dict) -> dict:
     """Return a serializable dict of attribution metrics."""
     result = result or {}
     out: dict[str, Any] = {}
-    brinson = result.get("brinson")
-    factor = result.get("factor")
+    brinson, factor = _get_attribution(result)
     if isinstance(brinson, dict):
         summary = brinson.get("summary")
         summary_records: list[dict[str, Any]] = []
@@ -271,8 +276,7 @@ def generate_attribution_report(result: dict) -> str:
     """Build a human-readable attribution report from a backtest result."""
     result = result or {}
     lines: list[str] = ["Attribution Report", "=================="]
-    brinson = result.get("brinson")
-    factor = result.get("factor")
+    brinson, factor = _get_attribution(result)
     if isinstance(brinson, dict):
         lines.append("")
         lines.extend(brinson_text_lines(brinson))
@@ -474,8 +478,7 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
             pass
 
     # Attribution (if available)
-    brinson = (result or {}).get("brinson")
-    factor = (result or {}).get("factor")
+    brinson, factor = _get_attribution(result)
     if brinson is not None or factor is not None:
         try:
             html.append("<h2>Attribution</h2>")
@@ -606,8 +609,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 f"  Max DD Duration:     {int(risk.get('max_drawdown_duration', 0))} periods"
             )
             # Attribution summary (Brinson / factor) when available.
-            brinson = (result or {}).get("brinson")
-            factor = (result or {}).get("factor")
+            brinson, factor = _get_attribution(result)
             if brinson is not None or factor is not None:
                 text.append("")
                 text.append("Attribution:")
