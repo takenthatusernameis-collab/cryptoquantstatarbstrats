@@ -807,6 +807,7 @@ class BacktestEngine:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                weights_are_targets=not (reoptimize and optimizer is not None),
             )
             results.append(result)
             i += test_period
