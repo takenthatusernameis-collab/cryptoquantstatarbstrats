@@ -14,14 +14,71 @@ import numpy as np
 
 
 @dataclass
-class ExecutionSimulator:
-    """Simulate order execution with volume participation limits.
+class IcebergExecution:
+    """Iceberg order execution model.
 
-    Attributes:
-        participation_rate: Maximum fraction of bar volume a single order may
-            consume (0 < rate <= 1).
-        slippage_bps: Additional slippage in basis points applied to fills.
+    Only a visible portion (``visible_qty`` / ``display_qty``) is exposed at a
+    time; when that slice is filled, another is replenished until the full order
+    quantity is complete.
     """
+
+    visible_qty: float = 1.0
+    display_qty: float | None = None
+    min_fill: float = 0.0
+    price_offset_bps: float = 0.0
+    price_offset: float | None = None
+    price_offset_absolute: float = 0.0
+    time_in_force: str = "day"
+    participation_rate: float = 0.1
+    slippage_bps: float = 0.0
+
+    def __post_init__(self) -> None:
+        if self.display_qty is None:
+            self.display_qty = self.visible_qty
+        else:
+            self.visible_qty = self.display_qty
+        if self.price_offset is not None:
+            try:
+                self.price_offset_absolute = float(self.price_offset)
+            except (TypeError, ValueError):
+                pass
+        try:
+            v = float(self.visible_qty) if self.visible_qty is not None else 1.0
+            if not np.isfinite(v) or v <= 0.0:
+                self.visible_qty = 1.0
+            else:
+                self.visible_qty = v
+        except (TypeError, ValueError):
+            self.visible_qty = 1.0
+
+
+@dataclass
+class MarketExecution:
+    participation_rate: float = 0.1
+    slippage_bps: float = 0.0
+
+
+@dataclass
+class LimitExecution:
+    participation_rate: float = 0.1
+    slippage_bps: float = 0.0
+
+
+@dataclass
+class VWAPExecution:
+    participation_rate: float = 0.1
+    slippage_bps: float = 0.0
+
+
+@dataclass
+class TWAPExecution:
+    participation_rate: float = 0.1
+    slippage_bps: float = 0.0
+
+
+@dataclass
+class ExecutionSimulator:
+    """Simulate order execution with volume participation limits."""
 
     participation_rate: float = 0.1
     slippage_bps: float = 0.0
@@ -85,7 +142,6 @@ class ExecutionSimulator:
                 return {"filled_qty": 0.0, "avg_price": 0.0,
                         "status": "rejected", "remaining_qty": qty}
             if side == "buy" and px > lp:
-                # market price above limit -> no fill
                 return {"filled_qty": 0.0, "avg_price": 0.0,
                         "status": "unfilled", "remaining_qty": qty}
             if side == "sell" and px < lp:
@@ -151,6 +207,116 @@ class ExecutionSimulator:
             "remaining_qty": qty - signed_filled,
         }
         self._fills.append({"order_type": order_type, "side": side, **result})
+        return result
+
+    def _simulate_iceberg(
+        self,
+        side: str,
+        qty: float,
+        price: float,
+        bar_volume: float = 0.0,
+        bar_high: float | None = None,
+        bar_low: float | None = None,
+    ) -> dict[str, Any]:
+        try:
+            q = float(qty)
+        except (TypeError, ValueError):
+            q = 0.0
+        if not np.isfinite(q) or abs(q) == 0.0:
+            return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
+
+        iceberg = self._iceberg
+        visible_qty = float(getattr(iceberg, "visible_qty", None) or getattr(iceberg, "display_qty", None) or self.iceberg_visible_qty or 1.0)
+        try:
+            if not np.isfinite(visible_qty) or visible_qty <= 0.0:
+                visible_qty = 1.0
+        except Exception:
+            visible_qty = 1.0
+
+        min_fill = float(getattr(iceberg, "min_fill", self.iceberg_min_fill) or 0.0)
+        try:
+            if not np.isfinite(min_fill) or min_fill < 0.0:
+                min_fill = 0.0
+        except Exception:
+            min_fill = 0.0
+
+        price_offset_bps = float(getattr(iceberg, "price_offset_bps", self.iceberg_price_offset_bps) or 0.0)
+        price_offset_abs = float(getattr(iceberg, "price_offset_absolute", getattr(iceberg, "price_offset", self.iceberg_price_offset_absolute)) or 0.0)
+        try:
+            if not np.isfinite(price_offset_bps):
+                price_offset_bps = 0.0
+            if not np.isfinite(price_offset_abs):
+                price_offset_abs = 0.0
+        except Exception:
+            price_offset_bps = 0.0
+            price_offset_abs = 0.0
+
+        try:
+            vol = float(bar_volume) if bar_volume is not None else 0.0
+        except (TypeError, ValueError):
+            vol = 0.0
+        if not np.isfinite(vol) or vol <= 0.0:
+            max_fill_total = abs(q)
+        else:
+            cap = self._valid_rate() * vol
+            max_fill_total = min(abs(q), cap) if cap > 0 else abs(q)
+
+        fillable = min(abs(q), max_fill_total)
+        if fillable <= 0.0:
+            fillable = 0.0
+
+        if fillable < abs(q) - 1e-12:
+            if min_fill > 0.0 and fillable < min_fill - 1e-12:
+                return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
+        elif fillable >= abs(q) - 1e-12:
+            fillable = abs(q)
+        else:
+            if min_fill > 0.0 and fillable < min_fill - 1e-12 and fillable < abs(q) - 1e-12:
+                return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
+
+        if fillable <= 0.0:
+            return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
+
+        if self.order_type == "vwap":
+            try:
+                hi = float(bar_high) if bar_high is not None else price
+                lo = float(bar_low) if bar_low is not None else price
+            except (TypeError, ValueError):
+                hi, lo = price, price
+            base_price = (hi + lo + price) / 3.0
+        elif self.order_type == "twap":
+            try:
+                hi = float(bar_high) if bar_high is not None else price
+                lo = float(bar_low) if bar_low is not None else price
+            except (TypeError, ValueError):
+                hi, lo = price, price
+            base_price = (hi + lo) / 2.0
+        else:
+            base_price = price
+
+        base_price = base_price + price_offset_abs
+        if price_offset_bps != 0.0:
+            base_price = base_price * (1.0 + price_offset_bps / 10000.0)
+
+        slip = self.slippage_bps / 10000.0
+        if side == "buy":
+            fill_price = base_price * (1.0 + slip)
+        else:
+            fill_price = base_price * (1.0 - slip)
+
+        if fillable < abs(q) - 1e-12:
+            status = "partial"
+        else:
+            status = "filled"
+
+        signed_filled = fillable if side == "buy" else -fillable
+        result = {
+            "filled_qty": signed_filled,
+            "avg_price": float(fill_price),
+            "status": status,
+            "remaining_qty": q - signed_filled,
+        }
+        self._fills.append({"order_type": "iceberg", "side": side, **result})
         return result
 
     def fills(self) -> list[dict[str, Any]]:
