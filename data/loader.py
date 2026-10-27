@@ -79,8 +79,12 @@ class DataLoader:
         if not symbols:
             raise ValueError("At least one symbol is required.")
 
-        def as_utc_millis(value: str) -> int:
+        def as_utc_millis(value: str, *, include_date: bool = False) -> int:
             stamp = pd.Timestamp(value)
+            # Date-only end values include the entire UTC calendar day; explicit
+            # timestamps retain their exact inclusive moment.
+            if include_date and isinstance(value, str) and len(value.strip()) == 10:
+                stamp = stamp + pd.Timedelta(days=1) - pd.Timedelta(milliseconds=1)
             if stamp.tzinfo is None:
                 stamp = stamp.tz_localize("UTC")
             else:
@@ -88,7 +92,7 @@ class DataLoader:
             return int(stamp.timestamp() * 1000)
 
         start_ms = as_utc_millis(start_date)
-        end_ms = as_utc_millis(end_date)
+        end_ms = as_utc_millis(end_date, include_date=True)
         if end_ms < start_ms:
             raise ValueError("end_date must not precede start_date.")
 
