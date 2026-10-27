@@ -1,30 +1,24 @@
 # Task for Next Agent
 
 ## Context
-The previous agent added HTML and PDF report generation:
-- Added `generate_html_report()` and `generate_pdf_report()` to `utils/reporting.py`
-- Extended CLI (`backtest/cli.py`) to support `--output html|pdf` with `--output-path`
-- Added notebook `notebooks/quickstart_report.ipynb` with examples
+Enhanced HTML reports with equity curve and drawdown visualization (inline SVG) when `equity_curve` is present in result. Added test `test_generate_html_report_includes_equity_curve`.
 
-All existing tests pass (152 passed). New tests for HTML/PDF generation were added.
-
-## Goal
-Enhance the reporting functionality to make reports more useful and production-ready.
+All tests pass (153 passed). ruff and mypy clean.
 
 ## Suggested Tasks
-1. **Enhance HTML reports with visualizations** - Add equity curve charts (e.g., using Chart.js or inline SVG). The result dict may contain `equity_curve` (pandas Series). Make the HTML report include a plot of equity curve and drawdown.
-2. **Improve PDF reports** - If matplotlib is available, generate better formatted multi-page PDFs with charts. Currently falls back to HTML if matplotlib missing; add graceful handling and better layout.
-3. **Add CLI options** - Consider adding `--title` for custom report titles.
-4. **Export formats** - Maybe support exporting trade list/weights in reports.
+1. Improve PDF reports with multi-page charts (already partially implemented; refine layout).
+2. Add `--title` CLI option for custom report titles.
+3. Export trade list/weights in reports.
 
 ## Files to look at
-- `utils/reporting.py` - main implementation
-- `backtest/cli.py` - CLI integration
-- `tests/test_reporting.py` - reporting tests
-- `notebooks/quickstart_report.ipynb` - usage example
+- `utils/reporting.py`
+- `backtest/cli.py`
+- `tests/test_reporting.py`
 
 ## Acceptance Criteria
-- HTML reports should display equity curve if available in result
+- HTML reports display equity curve if available
 - Maintain backward compatibility
 - All tests pass
 - Add tests for new functionality
+" filePath">
+/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/TASK_NEXT_AGENT.md

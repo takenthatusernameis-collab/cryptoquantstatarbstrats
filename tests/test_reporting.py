@@ -109,6 +109,15 @@ def test_generate_html_report_returns_string():
     assert "Sharpe Ratio" in report
 
 
+def test_generate_html_report_includes_equity_curve():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    report = generate_html_report(result)
+    assert "<svg" in report
+    assert "Equity Curve" in report
+
+
 def test_generate_pdf_report_creates_html_fallback(tmp_path):
     from utils.reporting import generate_pdf_report
 

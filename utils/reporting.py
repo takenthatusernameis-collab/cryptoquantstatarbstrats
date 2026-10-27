@@ -172,9 +172,54 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
         "<tr><td>Max DD Duration</td>"
         f"<td>{int(risk.get('max_drawdown_duration', 0))} periods</td></tr>"
     )
+    # Equity curve visualization (if available)
+    equity_curve = (result or {}).get("equity_curve")
+    if equity_curve is not None:
+        try:
+            equity = (
+                equity_curve
+                if isinstance(equity_curve, pd.Series)
+                else pd.Series(equity_curve)
+            )
+            if len(equity) > 0:
+                running_max = equity.cummax()
+                drawdown = equity / running_max - 1.0
+
+                def _normalize(values, height=120.0):
+                    vmin = float(values.min())
+                    vmax = float(values.max())
+                    span = vmax - vmin if vmax != vmin else 1.0
+                    return [height - (float(v) - vmin) / span * height for v in values]
+
+                width = 600.0
+                n = len(equity)
+                xs = [i * width / max(n - 1, 1) for i in range(n)]
+                ey = _normalize(equity.values)
+                dy = _normalize(drawdown.values)
+
+                equity_points = " ".join(f"{x:.1f},{y:.1f}" for x, y in zip(xs, ey))
+                dd_points = " ".join(f"{x:.1f},{y:.1f}" for x, y in zip(xs, dy))
+
+                html.append("<h2>Equity Curve &amp; Drawdown</h2>")
+                html.append(
+                    f'<svg width="{int(width)}" height="260" '
+                    'style="border:1px solid #ddd;background:#fafafa;">'
+                )
+                html.append(
+                    f'<polyline points="{equity_points}" fill="none" '
+                    'stroke="#1f77b4" stroke-width="2" />'
+                )
+                html.append(
+                    f'<polyline points="{dd_points}" fill="none" '
+                    'stroke="#d62728" stroke-width="1.5" />'
+                )
+                html.append("</svg>")
+        except Exception:
+            pass
+
     html.append("</table>")
     html.append("</body></html>")
-    return "\n".join(html)
+    return "\\n".join(html)
 
 
 def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest Report") -> str:
