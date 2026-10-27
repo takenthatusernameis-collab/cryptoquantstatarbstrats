@@ -1183,7 +1183,7 @@ def generate_walk_forward_pdf_report(
                                 colLabels=["Effect", "Total"],
                                 loc="center",
                                 cellLoc="center",
-                                bbox=(0.05, y - 0.25, 0.9, 0.2),
+                                bbox=cast(Any, (0.05, y - 0.25, 0.9, 0.2)),
                             )
                             table.auto_set_font_size(False)
                             table.set_fontsize(8)
@@ -1213,7 +1213,7 @@ def generate_walk_forward_pdf_report(
                                 colLabels=["Metric", "Value"],
                                 loc="center",
                                 cellLoc="center",
-                                bbox=(0.05, y - 0.25, 0.9, 0.2),
+                                bbox=cast(Any, (0.05, y - 0.25, 0.9, 0.2)),
                             )
                             table.auto_set_font_size(False)
                             table.set_fontsize(8)

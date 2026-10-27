@@ -2,14 +2,9 @@
 
 from __future__ import annotations
 
-import contextlib
-import io
-import json
-
 import numpy as np
 import pandas as pd
 
-from backtest.cli import main
 from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from utils.reporting import (
@@ -35,7 +30,10 @@ def test_walk_forward_aggregates_attribution_across_windows():
     # create factor returns
     rng = np.random.default_rng(123)
     factors = pd.DataFrame({"mkt": rng.normal(0, 0.01, len(data))}, index=data.index)
-    res = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, benchmark_weights=bench, factor_returns=factors)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10,
+        benchmark_weights=bench, factor_returns=factors,
+    )
     # aggregate report
     wf_rep = generate_walk_forward_report(res)
     assert "brinson" in wf_rep or "factor" in wf_rep
@@ -51,7 +49,10 @@ def test_walk_forward_html_pdf_include_attribution_when_present(tmp_path):
     bench = pd.DataFrame({"BTC": 0.6, "ETH": 0.4}, index=data.index)
     rng = np.random.default_rng(456)
     factors = pd.DataFrame({"mkt": rng.normal(0, 0.01, len(data))}, index=data.index)
-    res = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, benchmark_weights=bench, factor_returns=factors)
+    res = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10,
+        benchmark_weights=bench, factor_returns=factors,
+    )
     wf_rep = generate_walk_forward_report(res)
     html = generate_walk_forward_html_report(wf_rep)
     assert "Attribution" in html
