@@ -27,9 +27,9 @@ class CointegrationPairsStrategy(PairStrategy):
         lookback: int = 60,
         entry_threshold: float = 2.0,
         exit_threshold: float = 0.5,
+        params: dict[str, Any] | None = None,
         cointegration_pvalue: float = 0.05,
         cointegration_check_interval: int | None = None,
-        params: dict[str, Any] | None = None,
     ):
         if len(pair) != 2 or pair[0] == pair[1]:
             raise ValueError("pair must contain two distinct asset names.")
