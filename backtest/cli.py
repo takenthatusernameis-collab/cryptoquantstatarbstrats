@@ -28,6 +28,7 @@ from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 from strategies.term_structure import TermStructureStrategy
 from utils.monte_carlo import monte_carlo_analysis
+from utils.optimization import get_optimizer
 from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
     generate_html_report,
@@ -241,6 +242,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Volatility-based regime gating (e.g. low_vol).",
     )
     parser.add_argument(
+        "--reoptimize",
+        action="store_true",
+        default=False,
+        help="Reoptimize portfolio weights on each walk-forward train window.",
+    )
+    parser.add_argument(
+        "--optimizer",
+        default=None,
+        help="Optimizer name for walk-forward reoptimization (e.g. equal_weight, inverse_volatility, risk_parity, min_variance, mean_variance).",
+    )
+    parser.add_argument(
         "--monte-carlo",
         type=int,
         default=None,
@@ -381,6 +393,8 @@ def _apply_config_from_dict(
         ("walk_forward", ("walk_forward",)),
         ("train_period", ("train_period", "trainPeriod")),
         ("test_period", ("test_period", "testPeriod")),
+        ("reoptimize", ("reoptimize", "reOptimize", "reoptimize_portfolio")),
+        ("optimizer", ("optimizer", "opt", "optimization", "optimizer_name")),
     ]
 
     for attr, keys in mappings:
@@ -582,6 +596,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             weights = create_rebalanced_weights(
                 weights, data, freq=rebalance_freq, offset=reb_offset
             )
+            reopt = bool(getattr(args, "reoptimize", False))
+            opt_name = getattr(args, "optimizer", None)
+            opt_fn = get_optimizer(opt_name) if opt_name else None
             result = engine.walk_forward_portfolio(
                 weights,
                 data,
@@ -593,6 +610,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 volume=volume_df,
                 high=high_df,
                 low=low_df,
+                reoptimize=reopt,
+                optimizer=opt_fn,
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,

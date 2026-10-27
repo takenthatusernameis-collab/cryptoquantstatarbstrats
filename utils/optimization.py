@@ -221,3 +221,185 @@ def risk_parity_weights(cov_matrix: np.ndarray | pd.DataFrame) -> np.ndarray:
         Normalized weight vector summing to one.
     """
     return inverse_volatility(cov_matrix)
+
+
+def make_equal_weight_optimizer():
+    """Return an optimizer callable for walk-forward reoptimization.
+
+    The returned callable accepts ``train_data`` and returns a weights
+    DataFrame aligned to ``train_data`` columns (equal weight).
+    """
+
+    def _optimizer(train_data: pd.DataFrame | pd.Series):
+        if isinstance(train_data, pd.Series):
+            n = len(train_data)
+            cols = list(train_data.index)
+            w = equal_weight(n)
+            s = pd.Series(w, index=cols)
+            return s.to_frame().T
+        if isinstance(train_data, pd.DataFrame):
+            cols = list(train_data.columns)
+            n = len(cols)
+            w = equal_weight(n)
+            return pd.DataFrame([w], columns=cols, index=[train_data.index[0] if len(train_data.index) > 0 else 0])
+        return pd.DataFrame()
+
+    return _optimizer
+
+
+def make_inverse_volatility_optimizer(lookback: int | None = None):
+    """Return an inverse-volatility optimizer callable.
+
+    Computes returns on ``train_data``, builds covariance matrix,
+    and returns weights via :func:`inverse_volatility`.
+    """
+
+    def _optimizer(train_data: pd.DataFrame | pd.Series):
+        if isinstance(train_data, pd.Series):
+            train_data = train_data.to_frame()
+        if not isinstance(train_data, pd.DataFrame) or train_data.empty:
+            return pd.DataFrame()
+        try:
+            returns = train_data.pct_change().dropna(how="all")
+            if returns.empty:
+                returns = train_data
+            cov = returns.cov()
+            w = inverse_volatility(cov)
+            cols = list(train_data.columns)
+            if len(w) != len(cols):
+                # align by columns order
+                w = inverse_volatility(cov.reindex(index=cols, columns=cols).fillna(0.0))
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([np.asarray(w, dtype=float).ravel()[:len(cols)]], columns=cols, index=idx)
+        except Exception:
+            cols = list(train_data.columns)
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([equal_weight(len(cols))], columns=cols, index=idx)
+
+    return _optimizer
+
+
+def make_risk_parity_optimizer(lookback: int | None = None):
+    """Return a risk-parity optimizer callable (inverse-volatility approximation)."""
+
+    def _optimizer(train_data: pd.DataFrame | pd.Series):
+        if isinstance(train_data, pd.Series):
+            train_data = train_data.to_frame()
+        if not isinstance(train_data, pd.DataFrame) or train_data.empty:
+            return pd.DataFrame()
+        try:
+            returns = train_data.pct_change().dropna(how="all")
+            if returns.empty:
+                returns = train_data
+            cov = returns.cov()
+            w = risk_parity_weights(cov)
+            cols = list(train_data.columns)
+            if len(w) != len(cols):
+                w = risk_parity_weights(cov.reindex(index=cols, columns=cols).fillna(0.0))
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([np.asarray(w, dtype=float).ravel()[:len(cols)]], columns=cols, index=idx)
+        except Exception:
+            cols = list(train_data.columns)
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([equal_weight(len(cols))], columns=cols, index=idx)
+
+    return _optimizer
+
+
+def make_min_variance_optimizer(lookback: int | None = None):
+    """Return a minimum-variance optimizer callable."""
+
+    def _optimizer(train_data: pd.DataFrame | pd.Series):
+        if isinstance(train_data, pd.Series):
+            train_data = train_data.to_frame()
+        if not isinstance(train_data, pd.DataFrame) or train_data.empty:
+            return pd.DataFrame()
+        try:
+            returns = train_data.pct_change().dropna(how="all")
+            if returns.empty:
+                returns = train_data
+            cov = returns.cov()
+            w = min_variance_weights(cov)
+            cols = list(train_data.columns)
+            if len(w) != len(cols):
+                w = min_variance_weights(cov.reindex(index=cols, columns=cols).fillna(0.0))
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([np.asarray(w, dtype=float).ravel()[:len(cols)]], columns=cols, index=idx)
+        except Exception:
+            cols = list(train_data.columns)
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([equal_weight(len(cols))], columns=cols, index=idx)
+
+    return _optimizer
+
+
+def make_mean_variance_optimizer(expected_returns: Any = None, risk_aversion: float = 1.0, lookback: int | None = None):
+    """Return a mean-variance optimizer callable."""
+
+    def _optimizer(train_data: pd.DataFrame | pd.Series):
+        if isinstance(train_data, pd.Series):
+            train_data = train_data.to_frame()
+        if not isinstance(train_data, pd.DataFrame) or train_data.empty:
+            return pd.DataFrame()
+        try:
+            returns = train_data.pct_change().dropna(how="all")
+            if returns.empty:
+                returns = train_data
+            cov = returns.cov()
+            mu = expected_returns
+            if mu is None:
+                try:
+                    mu = returns.mean()
+                except Exception:
+                    mu = None
+            w = mean_variance_weights(cov, expected_returns=mu, risk_aversion=risk_aversion)
+            cols = list(train_data.columns)
+            if len(w) != len(cols):
+                try:
+                    mu2 = mu
+                    if isinstance(mu2, (pd.Series, pd.DataFrame)):
+                        mu2 = pd.Series(mu2).reindex(cols).fillna(0.0)
+                    cov2 = cov.reindex(index=cols, columns=cols).fillna(0.0)
+                    w = mean_variance_weights(cov2, expected_returns=mu2, risk_aversion=risk_aversion)
+                except Exception:
+                    pass
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            w_arr = np.asarray(w, dtype=float).ravel()
+            if len(w_arr) < len(cols):
+                w_arr = np.pad(w_arr, (0, len(cols) - len(w_arr)))
+            return pd.DataFrame([w_arr[:len(cols)]], columns=cols, index=idx)
+        except Exception:
+            cols = list(train_data.columns)
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([equal_weight(len(cols))], columns=cols, index=idx)
+
+    return _optimizer
+
+
+OPTIMIZERS = {
+    "equal": make_equal_weight_optimizer,
+    "equal_weight": make_equal_weight_optimizer,
+    "1/n": make_equal_weight_optimizer,
+    "inverse_vol": make_inverse_volatility_optimizer,
+    "inverse_volatility": make_inverse_volatility_optimizer,
+    "iv": make_inverse_volatility_optimizer,
+    "risk_parity": make_risk_parity_optimizer,
+    "min_variance": make_min_variance_optimizer,
+    "minimum_variance": make_min_variance_optimizer,
+    "mean_variance": make_mean_variance_optimizer,
+    "mv": make_mean_variance_optimizer,
+}
+
+
+def get_optimizer(name: str, **kwargs: Any):
+    """Get an optimizer callable by name."""
+    if name is None:
+        return None
+    key = str(name).strip().lower().replace("-", "_")
+    if key in OPTIMIZERS:
+        factory = OPTIMIZERS[key]
+        try:
+            return factory(**kwargs)
+        except TypeError:
+            return factory()
+    raise ValueError(f"Unknown optimizer: {name}")
