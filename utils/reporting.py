@@ -320,6 +320,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
         with PdfPages(output_path) as pdf:
             # Page 1: Metrics
             fig = plt.figure(figsize=(11, 8.5))
+            plt.rcParams.update({"font.size": 9})
             plt.axis("off")
             text = []
             text.append(title)
@@ -341,14 +342,14 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 f"  Max DD Duration:     {int(risk.get('max_drawdown_duration', 0))} periods"
             )
             plt.text(
-                0.1,
-                0.9,
+                0.08,
+                0.92,
                 "\n".join(text),
                 va="top",
                 family="monospace",
-                fontsize=10,
+                fontsize=9,
             )
-            pdf.savefig(fig, bbox_inches="tight")
+            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
             plt.close(fig)
 
             # Page 2: Equity curve and drawdown
@@ -364,7 +365,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                     )
                     if len(equity) > 0:
                         fig, axes = plt.subplots(2, 1, figsize=(11, 8.5), sharex=True)
-                        axes[0].plot(equity.index, equity.values, label="Equity")
+                        axes[0].plot(equity.index, equity.values, label="Equity", linewidth=1.2)
                         axes[0].set_ylabel("Equity")
                         axes[0].legend()
                         running_max = equity.cummax()
@@ -380,8 +381,8 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                         axes[1].set_xlabel("Time")
                         axes[1].legend()
                         fig.suptitle("Equity Curve & Drawdown")
-                        fig.tight_layout()
-                        pdf.savefig(fig, bbox_inches="tight")
+                        fig.tight_layout(pad=2.0)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                         plt.close(fig)
                 except Exception:
                     pass
@@ -394,22 +395,26 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
 
                     if isinstance(weights, _pd.DataFrame) and len(weights) > 0:
                         fig = plt.figure(figsize=(11, 8.5))
+                        plt.rcParams.update({"font.size": 9})
                         plt.axis("off")
                         wtext = ["Portfolio Weights (Last)"]
                         wtext.append("=" * len(wtext[0]))
                         wtext.append("")
                         last = weights.tail(1).iloc[0]
                         for c in weights.columns:
-                            wtext.append(f"  {c}: {float(last[c]):.4f}")
+                            try:
+                                wtext.append(f"  {c}: {float(last[c]):.4f}")
+                            except Exception:
+                                wtext.append(f"  {c}: {last[c]}")
                         plt.text(
-                            0.1,
-                            0.9,
+                            0.08,
+                            0.92,
                             "\n".join(wtext),
                             va="top",
                             family="monospace",
-                            fontsize=9,
+                            fontsize=8,
                         )
-                        pdf.savefig(fig, bbox_inches="tight")
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                         plt.close(fig)
                 except Exception:
                     pass
@@ -427,6 +432,7 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
 
                     if isinstance(trades, _pd.DataFrame) and len(trades) > 0:
                         fig = plt.figure(figsize=(11, 8.5))
+                        plt.rcParams.update({"font.size": 7})
                         plt.axis("off")
                         ttext = ["Trade List (first 50)"]
                         ttext.append("=" * len(ttext[0]))
@@ -442,9 +448,9 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                             "\n".join(ttext),
                             va="top",
                             family="monospace",
-                            fontsize=7,
+                            fontsize=6.5,
                         )
-                        pdf.savefig(fig, bbox_inches="tight")
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                         plt.close(fig)
                 except Exception:
                     pass

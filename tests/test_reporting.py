@@ -170,3 +170,41 @@ def test_generate_pdf_report_includes_trades_and_weights(tmp_path):
     path = generate_pdf_report(result, str(out))
     assert isinstance(path, str)
     assert path.endswith((".pdf", ".html"))
+
+
+def test_generate_html_report_accepts_trade_list_key():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    trades = pd.DataFrame(
+        {
+            "timestamp": ["2024-01-01"],
+            "side": ["BUY"],
+            "quantity": [1.0],
+            "price": [100.0],
+        }
+    )
+    result["trade_list"] = trades
+    report = generate_html_report(result)
+    assert "Trade List" in report
+    assert "BUY" in report
+
+
+def test_generate_html_report_empty_trades_and_weights():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    result["trades"] = pd.DataFrame()
+    result["weights"] = pd.DataFrame()
+    report = generate_html_report(result)
+    assert isinstance(report, str)
+    assert "<!DOCTYPE html>" in report
+
+
+def test_generate_html_report_custom_title():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    report = generate_html_report(result, title="Custom Report Title")
+    assert "Custom Report Title" in report
+    assert "<title>Custom Report Title</title>" in report
