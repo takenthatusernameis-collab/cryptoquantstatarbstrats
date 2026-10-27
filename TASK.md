@@ -66,7 +66,10 @@ Wired `bar_high`/`bar_low` (OHLC) passthrough end-to-end: `walk_forward`/`walk_f
 ### Suggested next task (completed)
 VWAP/TWAP and OHLC (high/low) support added to the CLI/config layer: `--volume-csv`/`--high-csv`/`--low-csv` flags and config keys wired end-to-end through `backtest/cli.py` to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`. Tests in `tests/test_cli.py` (`test_cli_vwap_order_type_runs`, `test_cli_twap_order_type_runs`, `test_cli_high_low_csv_drives_vwap_fills`, `test_cli_config_drives_vwap_and_ohlc`) cover the CLI path. Verified: 152 tests pass, ruff clean, mypy clean.
 
+### Suggested next task (completed)
+Created Jupyter notebooks in `notebooks/`: `vwap_twap_execution.ipynb`, `walk_forward_analysis.ipynb`, `portfolio_optimization.ipynb`.
+
 ### Suggested next task
-Create Jupyter notebooks in `notebooks/` demonstrating backtesting workflows (VWAP/TWAP execution, walk-forward analysis, portfolio optimization) as promised by `notebooks/README.md`, plus optional HTML/PDF report artifact generation from CLI backtest results.
+Add optional HTML/PDF report artifact generation from CLI backtest results (e.g. `--output html` / `--output pdf` leveraging `utils.reporting`), plus notebook/report artifact storage under `reports/`.
 
 **Ready for next agent.**
