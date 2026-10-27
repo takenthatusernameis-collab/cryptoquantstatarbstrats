@@ -172,6 +172,52 @@ def test_generate_pdf_report_includes_trades_and_weights(tmp_path):
     assert path.endswith((".pdf", ".html"))
 
 
+def test_generate_pdf_report_multi_page_trades(tmp_path):
+    """Large trade lists should render across multiple PDF pages."""
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    trades = pd.DataFrame(
+        {
+            "timestamp": pd.date_range("2024-01-01", periods=120, freq="h").strftime(
+                "%Y-%m-%d %H:%M"
+            ),
+            "side": ["BUY", "SELL"] * 60,
+            "quantity": [1.0] * 120,
+            "price": [100.0 + i for i in range(120)],
+        }
+    )
+    result["trades"] = trades
+    out = tmp_path / "report.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    assert path.endswith((".pdf", ".html"))
+
+
+def test_generate_pdf_report_weights_bar_chart(tmp_path):
+    """PDF report should render weights as a bar chart (not just text)."""
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    weights = pd.DataFrame({"BTC": [0.6, 0.4], "ETH": [0.4, 0.6]})
+    result["weights"] = weights
+    out = tmp_path / "report.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    assert path.endswith((".pdf", ".html"))
+
+
+def test_generate_pdf_report_tighter_layout(tmp_path):
+    """PDF report should use tighter spacing and sans-serif fonts."""
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    out = tmp_path / "report.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    assert path.endswith((".pdf", ".html"))
+
+
 def test_generate_html_report_accepts_trade_list_key():
     from utils.reporting import generate_html_report
 

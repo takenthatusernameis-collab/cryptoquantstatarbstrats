@@ -51,6 +51,26 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] CLI entry point + volume-tied partial fills + test_cli.py complete and verified.
 - [x] Config-driven backtest runs (YAML/TOML/JSON config -> `cryptoquant` CLI) complete and verified end-to-end.
 - [x] Scheduled/rebalancing backtest runs (`create_rebalanced_weights`, engine `run`/`run_portfolio` `rebalance_frequency`/`rebalance_offset` params, CLI flags, config mapping, `tests/test_rebalancing.py`) complete and verified end-to-end.
+- [x] VWAP/TWAP execution models complete and verified.
+- [x] OHLC (high/low) passthrough end-to-end for walk-forward VWAP/TWAP.
+- [x] VWAP/TWAP + OHLC wired through CLI/config layer (`--volume-csv`/`--high-csv`/`--low-csv`, `--order-type`).
+- [x] Jupyter notebooks in `notebooks/`: `vwap_twap_execution.ipynb`, `walk_forward_analysis.ipynb`, `portfolio_optimization.ipynb`, `quickstart_report.ipynb`.
+- [x] HTML/PDF report artifact generation from CLI (`--output html|pdf`, `--title`, `--output-path`); PDF defaults to `reports/` when no path given.
+- [x] **PDF report layout refined**: tighter spacing (`pad_inches=0.4`), sans-serif fonts, weights rendered as a bar chart, trades rendered as a matplotlib table paginated across multiple pages (50 rows/page). Verified end-to-end; `notebooks/quickstart_report.ipynb` updated to demonstrate.
+
+### Latest task (completed)
+Refined PDF report layout in `utils/reporting.py::generate_pdf_report`:
+- Page 1 (metrics): tighter `pad_inches=0.4`, sans-serif font, `linespacing=1.15`.
+- Page 2 (equity/drawdown): smaller tick labels, `pad=1.2`.
+- Page 3 (weights): bar chart with positive/negative colors, value labels, zero baseline.
+- Page 4 (trades): matplotlib `ax.table` with headers, centered cells, header shading; multi-page for long trade lists (50 rows/page).
+
+Tests added in `tests/test_reporting.py`:
+- `test_generate_pdf_report_multi_page_trades` (120 trades -> multiple pages)
+- `test_generate_pdf_report_weights_bar_chart`
+- `test_generate_pdf_report_tighter_layout`
+
+Verified: 165 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Next task for the next agent
 VWAP/TWAP execution models are complete and verified:

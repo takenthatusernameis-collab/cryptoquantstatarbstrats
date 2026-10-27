@@ -318,9 +318,9 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                 return str(x)
 
         with PdfPages(output_path) as pdf:
-            # Page 1: Metrics
+            # Page 1: Metrics (tighter spacing, sans-serif font)
             fig = plt.figure(figsize=(11, 8.5))
-            plt.rcParams.update({"font.size": 9})
+            plt.rcParams.update({"font.size": 9, "font.family": "sans-serif"})
             plt.axis("off")
             text = []
             text.append(title)
@@ -343,13 +343,14 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
             )
             plt.text(
                 0.08,
-                0.92,
+                0.94,
                 "\n".join(text),
                 va="top",
-                family="monospace",
+                family="sans-serif",
                 fontsize=9,
+                linespacing=1.15,
             )
-            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
             plt.close(fig)
 
             # Page 2: Equity curve and drawdown
@@ -366,8 +367,9 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                     if len(equity) > 0:
                         fig, axes = plt.subplots(2, 1, figsize=(11, 8.5), sharex=True)
                         axes[0].plot(equity.index, equity.values, label="Equity", linewidth=1.2)
-                        axes[0].set_ylabel("Equity")
-                        axes[0].legend()
+                        axes[0].set_ylabel("Equity", fontsize=8)
+                        axes[0].legend(fontsize=7, loc="best")
+                        axes[0].tick_params(labelsize=7)
                         running_max = equity.cummax()
                         drawdown = equity / running_max - 1.0
                         axes[1].fill_between(
@@ -377,49 +379,50 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                             alpha=0.3,
                             label="Drawdown",
                         )
-                        axes[1].set_ylabel("Drawdown")
-                        axes[1].set_xlabel("Time")
-                        axes[1].legend()
-                        fig.suptitle("Equity Curve & Drawdown")
-                        fig.tight_layout(pad=2.0)
-                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                        axes[1].set_ylabel("Drawdown", fontsize=8)
+                        axes[1].set_xlabel("Time", fontsize=8)
+                        axes[1].legend(fontsize=7, loc="best")
+                        axes[1].tick_params(labelsize=7)
+                        fig.suptitle("Equity Curve & Drawdown", fontsize=10)
+                        fig.tight_layout(pad=1.2)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
                         plt.close(fig)
                 except Exception:
                     pass
 
-            # Page 3: Weights (if available)
+            # Page 3: Weights (bar chart, tighter layout)
             weights = (result or {}).get("weights")
             if weights is not None:
                 try:
                     import pandas as _pd
 
                     if isinstance(weights, _pd.DataFrame) and len(weights) > 0:
-                        fig = plt.figure(figsize=(11, 8.5))
-                        plt.rcParams.update({"font.size": 9})
-                        plt.axis("off")
-                        wtext = ["Portfolio Weights (Last)"]
-                        wtext.append("=" * len(wtext[0]))
-                        wtext.append("")
+                        fig, ax = plt.subplots(figsize=(11, 8.5))
                         last = weights.tail(1).iloc[0]
-                        for c in weights.columns:
-                            try:
-                                wtext.append(f"  {c}: {float(last[c]):.4f}")
-                            except Exception:
-                                wtext.append(f"  {c}: {last[c]}")
-                        plt.text(
-                            0.08,
-                            0.92,
-                            "\n".join(wtext),
-                            va="top",
-                            family="monospace",
-                            fontsize=8,
-                        )
-                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                        labels = [str(c) for c in weights.columns]
+                        values = [float(last[c]) for c in weights.columns]
+                        colors = ["#1f77b4" if v >= 0 else "#d62728" for v in values]
+                        ax.bar(labels, values, color=colors)
+                        ax.axhline(0, color="black", linewidth=0.8)
+                        ax.set_ylabel("Weight", fontsize=9)
+                        ax.set_title("Portfolio Weights (Last)", fontsize=10)
+                        ax.tick_params(labelsize=8)
+                        for i, v in enumerate(values):
+                            ax.text(
+                                i,
+                                v,
+                                f"{v:.3f}",
+                                ha="center",
+                                va="bottom" if v >= 0 else "top",
+                                fontsize=7,
+                            )
+                        fig.tight_layout(pad=1.0)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
                         plt.close(fig)
                 except Exception:
                     pass
 
-            # Page 4: Trades (if available)
+            # Page 4: Trades (rendered as a table, multi-page if long)
             trades = None
             if result:
                 if result.get("trades") is not None:
@@ -431,27 +434,30 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                     import pandas as _pd
 
                     if isinstance(trades, _pd.DataFrame) and len(trades) > 0:
-                        fig = plt.figure(figsize=(11, 8.5))
-                        plt.rcParams.update({"font.size": 7})
-                        plt.axis("off")
-                        ttext = ["Trade List (first 50)"]
-                        ttext.append("=" * len(ttext[0]))
-                        ttext.append("")
-                        for _, row in trades.head(50).iterrows():
-                            parts = []
-                            for c in trades.columns[:6]:
-                                parts.append(f"{c}={row[c]}")
-                            ttext.append("  " + ", ".join(str(p) for p in parts))
-                        plt.text(
-                            0.05,
-                            0.95,
-                            "\n".join(ttext),
-                            va="top",
-                            family="monospace",
-                            fontsize=6.5,
-                        )
-                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
-                        plt.close(fig)
+                        # Render in chunks of 50 rows per page
+                        chunk_size = 50
+                        for start in range(0, len(trades), chunk_size):
+                            chunk = trades.iloc[start : start + chunk_size]
+                            fig, ax = plt.subplots(figsize=(11, 8.5))
+                            ax.axis("off")
+                            end_row = min(start + chunk_size, len(trades))
+                            ax.set_title(
+                                f"Trade List (rows {start + 1}-{end_row} of {len(trades)})",
+                                fontsize=10,
+                            )
+                            table = ax.table(
+                                cellText=chunk.values.astype(str),
+                                colLabels=[str(c) for c in chunk.columns],
+                                cellLoc="center",
+                                loc="center",
+                                colColours=["#f2f2f2"] * len(chunk.columns),
+                            )
+                            table.auto_set_font_size(False)
+                            table.set_fontsize(7)
+                            table.scale(1.0, 1.1)
+                            fig.tight_layout(pad=1.0)
+                            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
+                            plt.close(fig)
                 except Exception:
                     pass
         return output_path
