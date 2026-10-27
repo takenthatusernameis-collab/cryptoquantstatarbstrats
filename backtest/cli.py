@@ -14,6 +14,7 @@ import argparse
 import json
 import sys
 from datetime import datetime
+from importlib.metadata import version as _pkg_version
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -46,6 +47,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="cryptoquant",
         description="Run a statistical arbitrage backtest and emit a report.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {_pkg_version('cryptoquantstatarbstrats')}",
     )
     parser.add_argument(
         "--config",
