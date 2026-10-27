@@ -703,6 +703,8 @@ class BacktestEngine:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
             )
             return {
                 "returns": [result["total_return"]],
@@ -826,6 +828,8 @@ class BacktestEngine:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
                 weights_are_targets=not (reoptimize and optimizer is not None),
             )
             results.append(result)
@@ -847,6 +851,8 @@ class BacktestEngine:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
             )
             return {"returns": [result["total_return"]], "results": [result]}
 

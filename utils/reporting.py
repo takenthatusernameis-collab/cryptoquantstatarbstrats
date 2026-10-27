@@ -1150,8 +1150,89 @@ def generate_walk_forward_pdf_report(
                     plt.close(fig)
                 except Exception:
                     pass
+
+            # Attribution (if available)
+            brinson, factor = _get_attribution(wf_report or {})
+            if brinson is not None or factor is not None:
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Attribution", fontsize=12, pad=20)
+                    y = 0.85
+                    if isinstance(brinson, dict):
+                        ax.text(
+                            0.05,
+                            y,
+                            "Brinson Attribution (aggregated)",
+                            fontsize=10,
+                            transform=ax.transAxes,
+                        )
+                        y -= 0.08
+                        rows_b = [
+                            ["Allocation", _fmt_pct(_series_sum(brinson.get("allocation_total")))],
+                            ["Selection", _fmt_pct(
+                                _series_sum(brinson.get("selection_total"))
+                            )],
+                            ["Interaction", _fmt_pct(
+                                _series_sum(brinson.get("interaction_total"))
+                            )],
+                        ]
+                        try:
+                            table = ax.table(
+                                cellText=rows_b,
+                                colLabels=["Effect", "Total"],
+                                loc="center",
+                                cellLoc="center",
+                                bbox=(0.05, y - 0.25, 0.9, 0.2),
+                            )
+                            table.auto_set_font_size(False)
+                            table.set_fontsize(8)
+                            table.scale(1.0, 1.2)
+                            y -= 0.35
+                        except Exception:
+                            pass
+                    if isinstance(factor, dict):
+                        ax.text(
+                            0.05,
+                            y,
+                            "Factor Attribution (aggregated)",
+                            fontsize=10,
+                            transform=ax.transAxes,
+                        )
+                        y -= 0.08
+                        rows_f = [
+                            ["Alpha (period)", _fmt_num(_safe_float(factor.get("alpha")))],
+                            ["Alpha (annualized)", _fmt_num(
+                                _safe_float(factor.get("alpha_annualized"))
+                            )],
+                            ["R-squared", _fmt_num(_safe_float(factor.get("r_squared")))],
+                        ]
+                        try:
+                            table = ax.table(
+                                cellText=rows_f,
+                                colLabels=["Metric", "Value"],
+                                loc="center",
+                                cellLoc="center",
+                                bbox=(0.05, y - 0.25, 0.9, 0.2),
+                            )
+                            table.auto_set_font_size(False)
+                            table.set_fontsize(8)
+                            table.scale(1.0, 1.2)
+                        except Exception:
+                            pass
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
         return output_path
     except Exception:
+        try:
+            html = generate_walk_forward_html_report(wf_report, title=title)
+            html_path = output_path.replace(".pdf", ".html")
+            Path(html_path).write_text(html)
+            return html_path
+        except Exception:
+            return output_path
         try:
             html = generate_walk_forward_html_report(wf_report, title=title)
             html_path = output_path.replace(".pdf", ".html")
