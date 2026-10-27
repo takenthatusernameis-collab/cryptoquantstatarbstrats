@@ -258,6 +258,29 @@ def test_cross_exchange_generate_signals():
     assert len(signals) == len(df)
 
 
+def test_cross_exchange_position_persists_until_convergence():
+    index = pd.date_range("2024-01-01", periods=6, freq="1h")
+    data = pd.DataFrame(
+        {
+            "BTC_A": [98.0, 98.5, 99.2, 99.7, 100.3, 101.2],
+            "BTC_B": [100.0] * 6,
+        },
+        index=index,
+    )
+    strategy = CrossExchangeArb(
+        "BTC_A", "BTC_B", entry_threshold=0.01, exit_threshold=0.002, fee_rate=0.001
+    )
+    signals = strategy.generate_signals(data)
+    assert signals.loc[index[0], "BTC_A"] > 0.0
+    assert signals.loc[index[2], "BTC_A"] > 0.0  # still inside the holding band
+    assert signals.loc[index[4], "BTC_A"] == 0.0  # spread crossed the exit band
+    assert signals.loc[index[5], "BTC_A"] < 0.0  # later, a large opposite spread enters
+    assert np.allclose(
+        signals[["BTC_A", "BTC_B"]].abs().sum(axis=1).to_numpy(),
+        [1.0, 1.0, 1.0, 1.0, 0.0, 1.0],
+    )
+
+
 def test_cross_exchange_position_sizes():
     df = make_cross_exchange_data()
     strat = CrossExchangeArb("BTC_Binance", "BTC_Coinbase")
