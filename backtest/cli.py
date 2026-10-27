@@ -26,6 +26,8 @@ from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
+    generate_html_report,
+    generate_pdf_report,
     generate_report,
     generate_risk_report,
     report_to_dict,
@@ -86,7 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--output",
-        choices=["text", "json"],
+        choices=["text", "json", "html", "pdf"],
         default="text",
         help="Report format (text or json).",
     )
@@ -357,20 +359,48 @@ def main(argv: Sequence[str] | None = None) -> int:
             risk_report_to_dict(result) if args.report == "risk" else report_to_dict(result)
         )
         content = json.dumps(payload, indent=2)
+        output_path = getattr(args, "output_path", None)
+        if output_path:
+            path = Path(output_path)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        else:
+            print(content)
+    elif args.output == "html":
+        content = generate_html_report(result)
+        output_path = getattr(args, "output_path", None)
+        if output_path:
+            path = Path(output_path)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        else:
+            print(content)
+    elif args.output == "pdf":
+        output_path = getattr(args, "output_path", None)
+        if output_path:
+            path = Path(output_path)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            generate_pdf_report(result, str(path))
+        else:
+            # Write to reports/ by default if no path specified
+            reports_dir = Path("reports")
+            reports_dir.mkdir(parents=True, exist_ok=True)
+            path = reports_dir / "report.pdf"
+            generate_pdf_report(result, str(path))
+            print(f"PDF report saved to {path}")
     else:
         content = (
             generate_risk_report(result)
             if args.report == "risk"
             else generate_report(result)
         )
-
-    output_path = getattr(args, "output_path", None)
-    if output_path:
-        path = Path(output_path)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content)
-    else:
-        print(content)
+        output_path = getattr(args, "output_path", None)
+        if output_path:
+            path = Path(output_path)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        else:
+            print(content)
     return 0
 
 
