@@ -264,3 +264,41 @@ def test_cli_html_includes_benchmark_line(tmp_path):
     assert "<!DOCTYPE html>" in content
     # Benchmark equity polyline (green, dashed) rendered into the SVG.
     assert "#2ca02c" in content
+
+
+def test_cli_rebalance_benchmark_flag_parses():
+    parser = build_parser()
+    ns = parser.parse_args(["--rebalance-benchmark"])
+    assert ns.rebalance_benchmark is True
+
+
+def test_cli_walk_forward_report_flag_parses():
+    parser = build_parser()
+    ns = parser.parse_args(["--walk-forward-report"])
+    assert ns.walk_forward_report is True
+
+
+def test_cli_walk_forward_report_artifacts(tmp_path):
+    out_path = tmp_path / "out"
+    _run_cli(
+        [
+            "--symbols",
+            "BTC",
+            "ETH",
+            "--start",
+            "2024-01-01",
+            "--end",
+            "2024-01-05",
+            "--freq",
+            "1h",
+            "--walk-forward",
+            "--walk-forward-report",
+            "--artifact-dir",
+            str(tmp_path),
+        ]
+    )
+    files = list(tmp_path.glob("walk_forward*"))
+    assert len(files) >= 1
+    names = [f.name for f in files]
+    assert any(n.endswith(".csv") for n in names)
+    assert any(n.endswith(".html") for n in names) or any(n.endswith(".pdf") for n in names)

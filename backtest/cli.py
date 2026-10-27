@@ -122,17 +122,43 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--rebalance-benchmark",
+        "--rebalance_benchmark",
         action="store_true",
         default=False,
+        dest="rebalance_benchmark",
         help="Also compute benchmark for portfolio/walk-forward paths.",
     )
     parser.add_argument(
-        "--walk-forward-report",
-        "--walk_forward_report",
+        "--walk-forward",
         action="store_true",
         default=False,
+        help="Run walk-forward validation.",
+    )
+    parser.add_argument(
+        "--walk-forward-report",
         dest="walk_forward_report",
+        action="store_true",
+        default=False,
         help="Generate walk-forward report artifacts.",
+    )
+    parser.add_argument(
+        "--walk_forward_report",
+        dest="walk_forward_report",
+        action="store_true",
+        default=False,
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--train-period",
+        type=int,
+        default=None,
+        help="Walk-forward train period.",
+    )
+    parser.add_argument(
+        "--test-period",
+        type=int,
+        default=None,
+        help="Walk-forward test period.",
     )
     parser.add_argument(
         "--rebalance-frequency",
@@ -237,6 +263,12 @@ def _apply_config(args: argparse.Namespace, parser: argparse.ArgumentParser) -> 
         ("order_type", ("order_type",)),
         ("participation_rate", ("participation_rate",)),
         ("slippage_bps", ("slippage_bps",)),
+        ("benchmark", ("benchmark",)),
+        ("rebalance_benchmark", ("rebalance_benchmark", "rebalanceBenchmark")),
+        ("walk_forward_report", ("walk_forward_report", "walkForwardReport")),
+        ("walk_forward", ("walk_forward",)),
+        ("train_period", ("train_period", "trainPeriod")),
+        ("test_period", ("test_period", "testPeriod")),
     ]
 
     for attr, keys in mappings:
@@ -342,7 +374,62 @@ def main(argv: Sequence[str] | None = None) -> int:
     strategy = _build_strategy(args.strategy, args)
     engine = BacktestEngine(initial_capital=float(args.initial_capital))
     rebalance_freq = getattr(args, "rebalance_frequency", None)
-    if rebalance_freq:
+    walk_forward = getattr(args, "walk_forward", False) or getattr(args, "walk_forward_report", False)
+    train_period = getattr(args, "train_period", None)
+    test_period = getattr(args, "test_period", None)
+    if train_period is None:
+        train_period = 60
+    if test_period is None:
+        test_period = 20
+    if walk_forward:
+        if rebalance_freq:
+            signals = strategy.generate_signals(data)
+            weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
+            weight_cols = [c for c in data.columns if c in signals.columns]
+            if weight_cols:
+                for asset in weight_cols:
+                    weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
+            if "long" in signals.columns and "short" in signals.columns:
+                import numpy as _np
+
+                long_mask = signals["long"].fillna(False).reindex(data.index, fill_value=False)
+                short_mask = signals["short"].fillna(False).reindex(data.index, fill_value=False)
+                for asset in data.columns:
+                    weights.loc[long_mask, asset] = 1.0
+                    weights.loc[short_mask, asset] = -1.0
+            if "exit" in signals.columns:
+                exit_mask = signals["exit"].fillna(False).reindex(data.index, fill_value=False)
+                weights.loc[exit_mask, :] = 0.0
+            active = weights.abs().sum(axis=1).replace(0.0, _np.nan)
+            weights = weights.div(active, axis=0).fillna(0.0)
+            reb_offset = getattr(args, "rebalance_offset", None)
+            weights = create_rebalanced_weights(weights, data, freq=rebalance_freq, offset=reb_offset)
+            result = engine.walk_forward_portfolio(
+                weights,
+                data,
+                train_period=int(train_period),
+                test_period=int(test_period),
+                fee_rate=float(args.fee_rate),
+                slippage=float(args.slippage),
+                execution_simulator=exec_sim,
+                volume=volume_df,
+                high=high_df,
+                low=low_df,
+            )
+        else:
+            result = engine.walk_forward(
+                strategy,
+                data,
+                train_period=int(train_period),
+                test_period=int(test_period),
+                fee_rate=float(args.fee_rate),
+                slippage=float(args.slippage),
+                execution_simulator=exec_sim,
+                volume=volume_df,
+                high=high_df,
+                low=low_df,
+            )
+    elif rebalance_freq:
         signals = strategy.generate_signals(data)
         weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
         weight_cols = [c for c in data.columns if c in signals.columns]

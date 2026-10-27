@@ -600,7 +600,13 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
     wf_report = wf_report or {}
     summary = wf_report.get("summary")
     if not isinstance(summary, pd.DataFrame):
-        summary = pd.DataFrame(summary) if summary is not None else pd.DataFrame()
+        try:
+            if summary is not None:
+                summary = pd.DataFrame(summary)
+            else:
+                summary = pd.DataFrame()
+        except Exception:
+            summary = pd.DataFrame()
     equity_curve = wf_report.get("equity_curve")
     if equity_curve is not None and not isinstance(equity_curve, pd.Series):
         try:
@@ -631,14 +637,15 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
     ]
 
     if len(summary) > 0:
-        html.append("<h2>Summary</h2>")
+        html.append("<h2>Summary Table</h2>")
         html.append(summary.to_html(index=False, border=0))
     else:
+        html.append("<h2>Summary Table</h2>")
         html.append("<p>No walk-forward windows.</p>")
 
     if equity_curve is not None and len(equity_curve) > 0:
         html.append('<div class="chart">')
-        html.append("<h2>Chained Equity Curve</h2>")
+        html.append("<h2>Equity Curve</h2>")
         try:
             values = equity_curve.astype(float).values
             n = len(values)
@@ -661,6 +668,8 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
         except Exception:
             pass
         html.append("</div>")
+    else:
+        html.append("<h2>Equity Curve</h2>")
 
     html.extend(["</body>", "</html>"])
     return "\n".join(html)
@@ -688,7 +697,13 @@ def generate_walk_forward_pdf_report(
     wf_report = wf_report or {}
     summary = wf_report.get("summary")
     if not isinstance(summary, pd.DataFrame):
-        summary = pd.DataFrame(summary) if summary is not None else pd.DataFrame()
+        try:
+            if summary is not None:
+                summary = pd.DataFrame(summary)
+            else:
+                summary = pd.DataFrame()
+        except Exception:
+            summary = pd.DataFrame()
     equity_curve = wf_report.get("equity_curve")
     if equity_curve is not None and not isinstance(equity_curve, pd.Series):
         try:
@@ -700,27 +715,44 @@ def generate_walk_forward_pdf_report(
 
     try:
         with PdfPages(output_path) as pdf:
+            # Page 1: Summary table
             fig, ax = plt.subplots(figsize=(11, 8.5))
             ax.axis("off")
             ax.set_title(title, fontsize=14, pad=20)
             if len(summary) > 0:
-                table_data = [list(summary.columns)] + summary.values.tolist()
-                table = ax.table(cellText=table_data, loc="center", cellLoc="center")
-                table.auto_set_font_size(False)
-                table.set_fontsize(7)
-                table.scale(1.0, 1.2)
+                try:
+                    table_data = [list(summary.columns)] + summary.values.tolist()
+                    table = ax.table(cellText=table_data, loc="center", cellLoc="center")
+                    table.auto_set_font_size(False)
+                    table.set_fontsize(7)
+                    table.scale(1.0, 1.2)
+                except Exception:
+                    pass
+            else:
+                ax.text(0.5, 0.5, "No walk-forward windows.", ha="center", va="center")
             pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
             plt.close(fig)
 
+            # Page 2: Equity curve chart
             if equity_curve is not None and len(equity_curve) > 0:
                 try:
-                    fig, ax = plt.subplots(figsize=(11, 4))
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
                     eq = equity_curve.astype(float)
                     ax.plot(eq.index, eq.values, linewidth=1.5)
-                    ax.set_title("Chained Equity Curve")
+                    ax.set_title("Equity Curve")
                     ax.set_ylabel("Equity")
                     ax.grid(True, alpha=0.3)
                     fig.tight_layout()
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+            else:
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Equity Curve")
+                    ax.text(0.5, 0.5, "No equity curve data.", ha="center", va="center")
                     pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
                 except Exception:
