@@ -761,7 +761,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"Simulations: {mc_res.get('n_simulations')} (method={mc_res.get('method')})")
             fe = mc_res.get("final_equity", {})
             mdd = mc_res.get("max_drawdown", {})
-            shr = mc_res.get("sharpe_ratio", {})
             print(
                 "Final Equity: "
                 f"mean={fe.get('mean', 0):.3f} "

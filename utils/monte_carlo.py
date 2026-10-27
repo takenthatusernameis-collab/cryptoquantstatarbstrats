@@ -60,7 +60,10 @@ def risk_of_ruin(
             sim_trades = rng.choice(trades, size=len(trades), replace=True)
 
         equity_curve = initial_equity * np.cumprod(1.0 + sim_trades)
-        if np.min(equity_curve) < initial_equity * ruin_threshold or equity_curve[-1] < initial_equity * ruin_threshold:
+        if (
+            np.min(equity_curve) < initial_equity * ruin_threshold
+            or equity_curve[-1] < initial_equity * ruin_threshold
+        ):
             ruin_count += 1
 
     return float(ruin_count / float(n_simulations))
@@ -153,7 +156,10 @@ def bootstrap_trade_returns(
         max_drawdowns.append(float(abs(mdd)))
         sharpes.append(float(sharpe_ratio(sim_trades)))
         if compute_risk_of_ruin:
-            if np.min(equity_curve) < initial_equity * ruin_threshold or equity_curve[-1] < initial_equity * ruin_threshold:
+            if (
+                np.min(equity_curve) < initial_equity * ruin_threshold
+                or equity_curve[-1] < initial_equity * ruin_threshold
+            ):
                 ruin_count += 1
 
     def _stats(arr: list[float]) -> dict[str, Any]:
@@ -186,7 +192,9 @@ def bootstrap_trade_returns(
         "sharpes": sharpes,
     }
     if compute_risk_of_ruin:
-        result["risk_of_ruin"] = float(ruin_count / float(n_simulations)) if n_simulations > 0 else 0.0
+        result["risk_of_ruin"] = (
+            float(ruin_count / float(n_simulations)) if n_simulations > 0 else 0.0
+        )
         result["risk_of_ruin_threshold"] = float(ruin_threshold)
     else:
         result["risk_of_ruin"] = 0.0
