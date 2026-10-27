@@ -1,33 +1,39 @@
 # Task for Next Agent
 
-## Assigned task
-Enhance the LOB execution model with per-level liquidity and queue position effects.
+## Status
+The previous agent's assigned task (LOB execution model enhancement with per-level liquidity and queue position effects) is complete and verified:
+- `backtest/execution.py`: `level_liquidity` / `queue_position` on `LimitOrderBookExecution`, `lob_level_liquidity` / `lob_queue_position` on `ExecutionSimulator`, level-by-level consumption with per-level market impact in `_simulate_lob`, volume-proxy fallback when `level_liquidity` is not provided.
+- `tests/test_execution_lob_enhanced.py`: per-level liquidity enforcement, multi-level consumption, queue position reductions, backward compatibility.
+- Verified: 201 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
+## Assigned task (next)
+Integrate regime detection (`utils/regime.py`) with the backtest engine so strategies can be regime-aware.
 
 ### Requirements
-1. Extend `LimitOrderBookExecution` to support per-level configuration: allow passing `level_liquidity` (list/array of quantities available at each price level) and `queue_position` (fraction 0-1 indicating position in queue at first level).
-2. Update `ExecutionSimulator._simulate_lob` to consume liquidity level-by-level: for each of the first `depth_levels` levels, consume up to the level's available liquidity (or remaining order quantity), applying `market_impact_bps` per level consumed. If `level_liquidity` not provided, fall back to the current volume-proxy logic for backward compatibility.
-3. Apply queue position penalty/constraint: when `queue_position` is provided and > 0, the order may only fill from the portion behind queue (reduce fillable by queue position) before consuming subsequent levels; this affects partial fills when queue is long.
-4. Register/accept parameters via `ExecutionSimulator` (add `lob_level_liquidity`, `lob_queue_position` fields) and pass through cleanly.
-5. Add unit tests in `tests/test_execution_lob_enhanced.py` covering: per-level liquidity enforcement, multi-level consumption with different liquidity per level, queue position reducing fills, and backward compatibility when enhanced params not provided.
+1. Add a regime parameter (e.g. `regime_signal` series or `regime_mode`) to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates strategy signals by detected regime (e.g. only trade in trending / low-volatility regimes).
+2. Expose regime-aware toggles via the CLI (`--regime-mode`, `--regime-lookback`) and the config layer (`backtest/config.py`).
+3. Add tests in `tests/test_regime_integration.py` covering: regime gating of signals, no-op behavior when regime detection is disabled, and backward compatibility with existing runs.
+4. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 
-## Acceptance criteria
-- `python3 -m pytest tests/test_execution_lob_enhanced.py -v` passes
+### Acceptance criteria
+- `python3 -m pytest tests/test_regime_integration.py -v` passes
 - `python3 -m pytest tests/ -q` passes (no regressions)
-- `python3 -m ruff check backtest/execution.py tests/test_execution_lob_enhanced.py` clean
-- `python3 -m mypy backtest/execution.py` clean
+- `python3 -m ruff check backtest/ strategies/ utils/ tests/` clean
+- `python3 -m mypy backtest/ strategies/ utils/` clean
 
-## Context
-- Implementation patterns: `backtest/execution.py` (`LimitOrderBookExecution`, `_simulate_lob`, `ExecutionSimulator`), existing LOB tests in `tests/test_execution_lob.py`.
-- Volume/partial fills: see current `_simulate_lob` logic for volume caps and depth limits.
-- Keep public API backward compatible - all existing behavior must remain unchanged when new params are not specified.
+### Context
+- Regime utilities: `utils/regime.py` (rolling volatility regimes, trend detection) already present with tests.
+- Engine entry points: `backtest/engine.py` `BacktestEngine.run`, `run_portfolio`, `walk_forward`, `walk_forward_portfolio`.
+- CLI: `backtest/cli.py` (`main`), config: `backtest/config.py` (`load_config`).
 
-## Prior completed task (reference)
-Limit order book execution model (`LimitOrderBookExecution` + `_simulate_lob` + `order_type="lob"`) complete with tests in `tests/test_execution_lob.py`; ruff and mypy clean, 190 tests pass.
+## Constraints
+- Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
+- Keep public API backward compatible.
+- Do not add `# type: ignore` to suppress real bugs.
 
 ## Verification
 ```bash
-python3 -m pytest tests/test_execution_lob_enhanced.py -v
 python3 -m pytest tests/ -q
-python3 -m ruff check backtest/execution.py tests/test_execution_lob_enhanced.py
-python3 -m mypy backtest/execution.py
+python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+python3 -m mypy backtest/ strategies/ utils/
 ```

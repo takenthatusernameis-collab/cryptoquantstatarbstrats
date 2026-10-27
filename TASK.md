@@ -103,4 +103,20 @@ Added GitHub Actions CI workflow `.github/workflows/ci.yml`:
 
 Verified: 180 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean, workflow YAML valid.
 
+### Latest task (completed)
+Enhanced the LOB execution model with per-level liquidity and queue position effects (`backtest/execution.py` `LimitOrderBookExecution` / `_simulate_lob` / `ExecutionSimulator`):
+- `level_liquidity` (per-level quantities) and `queue_position` (fraction 0-1) fields on `LimitOrderBookExecution` and `lob_level_liquidity` / `lob_queue_position` on `ExecutionSimulator`, passed through cleanly.
+- `_simulate_lob` consumes liquidity level-by-level up to `depth_levels`, applying `market_impact_bps` per level walked; queue position reduces the fillable portion at the first level.
+- Falls back to the volume-proxy logic when `level_liquidity` is not provided (backward compatible).
+- Tests in `tests/test_execution_lob_enhanced.py` cover per-level liquidity enforcement, multi-level consumption, queue position reductions, and backward compatibility.
+
+Verified: 201 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
+## Next task for the next agent
+Integrate regime detection (`utils/regime.py`) with the backtest engine so strategies can be regime-aware:
+1. Add a `regime` parameter (or regime signal series) to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` that gates strategy signals by detected regime (e.g. only trade in trending/low-vol regimes).
+2. Expose regime-aware toggles via the CLI (`--regime-mode`, `--regime-lookback`) and config layer.
+3. Add tests in `tests/test_regime_integration.py` covering regime gating, no-op when regime disabled, and backward compatibility.
+4. Keep ruff/mypy clean and all existing tests passing.
+
 **Ready for next agent.**
