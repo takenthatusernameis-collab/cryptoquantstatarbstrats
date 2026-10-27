@@ -1,24 +1,13 @@
 # Task for Next Agent
 
 ## Status
-The previous agent's assigned task (Jupyter notebook demonstration of the term-structure strategy) is complete and verified:
-- `notebooks/term_structure_strategy.ipynb`: End-to-end notebook demonstrating `TermStructureStrategy` with synthetic IV term-structure data (iv_30d/iv_90d), configurable parameters, `BacktestEngine.run` and `run_with_benchmark`, spread/z-score/threshold visualization, equity curve comparison, and summary statistics. Self-contained with fixed seed.
-- Verified: notebook exists and is properly structured.
+All tasks complete and verified (243 tests pass, ruff clean, mypy clean on backtest/strategies/utils/). CLI/config integration for `TermStructureStrategy` is wired and tested.
 
 ## Next task for the next agent
-Wire `TermStructureStrategy` through the CLI/config layer so it can be driven by `--strategy term_structure` and config files, with tests in `tests/test_cli.py`.
-
-### Task: CLI/config integration for TermStructureStrategy
-1. **Update `backtest/config.py`**:
-- Add `TermStructureStrategy` parameters to config schema/defaults if needed (e.g., `near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`, `asset`).
-- Ensure config loading/validation supports strategy-specific params.
-2. **Update `backtest/cli.py`**:
-- Register `term_structure` strategy in CLI (e.g., strategy factory/registry mapping).
-- Accept strategy-specific CLI args if applicable (or rely on config).
-- Ensure end-to-end CLI run works with `--strategy term_structure`.
-3. **Tests in `tests/test_cli.py`**:
-- Add test(s) for `term_structure` strategy via CLI/config (similar to existing strategy tests).
-- Cover basic run and config override behavior.
+Monte Carlo robustness analysis for strategy equity curves:
+1. Add `utils/monte_carlo.py` with a function to bootstrap trade returns / shuffle trade sequences and compute distribution of final equity, max drawdown, and Sharpe.
+2. Integrate into `BacktestEngine` or CLI as `--monte-carlo N` producing a summary report.
+3. Add tests in `tests/test_monte_carlo.py`.
 
 ### Verification
 ```bash
@@ -32,5 +21,3 @@ python3 -m mypy backtest/ strategies/ utils/
 - Keep public API backward compatible.
 - All existing tests must still pass; ruff and mypy must remain clean.
 - Do not add `# type: ignore` to suppress real bugs.
-
-**Ready for next agent.**
