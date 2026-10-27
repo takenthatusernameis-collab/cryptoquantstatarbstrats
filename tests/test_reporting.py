@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from utils.reporting import (
     generate_report,
@@ -254,3 +255,159 @@ def test_generate_html_report_custom_title():
     report = generate_html_report(result, title="Custom Report Title")
     assert "Custom Report Title" in report
     assert "<title>Custom Report Title</title>" in report
+
+
+def test_generate_html_report_includes_benchmark_line():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    dates = pd.date_range("2024-01-01", periods=100, freq="1h")
+    bench = pd.Series(
+        100 * np.exp(np.cumsum(np.random.default_rng(3).normal(0.0005, 0.015, 100))),
+        index=dates,
+    )
+    result["benchmark_equity_curve"] = bench
+    report = generate_html_report(result)
+    assert "#2ca02c" in report
+
+
+def test_generate_pdf_report_with_benchmark(tmp_path):
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    dates = pd.date_range("2024-01-01", periods=100, freq="1h")
+    bench = pd.Series(
+        100 * np.exp(np.cumsum(np.random.default_rng(3).normal(0.0005, 0.015, 100))),
+        index=dates,
+    )
+    result["benchmark_equity_curve"] = bench
+    out = tmp_path / "report_bench.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    assert path.endswith((".pdf", ".html"))
+
+
+def test_generate_pdf_report_trade_cell_text_via_pypdf(tmp_path):
+    """PDF trade table should embed extractable cell text (pypdf when available)."""
+    try:
+        import pypdf  # noqa: F401
+    except ImportError:
+        pytest.skip("pypdf not installed")
+
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    trades = pd.DataFrame(
+        {
+            "timestamp": ["2024-01-01", "2024-01-02"],
+            "side": ["BUY", "SELL"],
+            "quantity": [1.0, 1.0],
+            "price": [100.0, 105.0],
+        }
+    )
+    result["trades"] = trades
+    out = tmp_path / "report_trades.pdf"
+    path = generate_pdf_report(result, str(out))
+    if not path.endswith(".pdf"):
+        pytest.skip("PDF backend unavailable; HTML fallback written")
+
+    reader = pypdf.PdfReader(path)
+    text = "\n".join((page.extract_text() or "") for page in reader.pages)
+    assert "BUY" in text
+    assert "SELL" in text
+    assert "100.0" in text or "100" in text
+    assert "105.0" in text or "105" in text
+
+
+def _wf_result() -> dict:
+    dates = pd.date_range("2024-01-01", periods=10, freq="1h")
+    rng = np.random.default_rng(1)
+    ec1 = pd.Series(
+        100 * np.exp(np.cumsum(rng.normal(0.001, 0.01, 10))), index=dates
+    )
+    ec2 = pd.Series(
+        100 * np.exp(np.cumsum(rng.normal(0.001, 0.01, 10))), index=dates
+    )
+    return {
+        "returns": [0.05, -0.02],
+        "results": [
+            {
+                "total_return": 0.05,
+                "sharpe_ratio": 1.0,
+                "sortino_ratio": 1.2,
+                "max_drawdown": -0.03,
+                "calmar_ratio": 1.5,
+                "equity_curve": ec1,
+            },
+            {
+                "total_return": -0.02,
+                "sharpe_ratio": 0.5,
+                "sortino_ratio": 0.6,
+                "max_drawdown": -0.04,
+                "calmar_ratio": 0.4,
+                "equity_curve": ec2,
+            },
+        ],
+        "mean_return": 0.015,
+        "std_return": 0.05,
+        "positive_periods": 1,
+        "total_periods": 2,
+    }
+
+
+def test_generate_walk_forward_report_summary():
+    from utils.reporting import generate_walk_forward_report
+
+    report = generate_walk_forward_report(_wf_result())
+    summary = report["summary"]
+    assert isinstance(summary, pd.DataFrame)
+    assert len(summary) == 2
+    expected_cols = {
+        "window",
+        "total_return",
+        "sharpe_ratio",
+        "sortino_ratio",
+        "max_drawdown",
+        "calmar_ratio",
+        "start_equity",
+        "end_equity",
+    }
+    assert expected_cols.issubset(set(summary.columns))
+    assert summary.loc[0, "total_return"] == 0.05
+    assert summary.loc[1, "total_return"] == -0.02
+    assert report["mean_return"] == 0.015
+    assert report["total_periods"] == 2
+
+
+def test_generate_walk_forward_report_equity_curve_chained():
+    from utils.reporting import generate_walk_forward_report
+
+    report = generate_walk_forward_report(_wf_result())
+    ec = report["equity_curve"]
+    assert isinstance(ec, pd.Series)
+    assert len(ec) == 20
+    # Segment 1 starts at 1.0 (cumulative_before == 1.0), normalized by its own first value.
+    assert abs(float(ec.iloc[0]) - 1.0) < 1e-9
+    # Last value of segment 1 equals its own end/start growth.
+    seg1 = _wf_result()["results"][0]["equity_curve"]
+    seg1 = seg1 if isinstance(seg1, pd.Series) else pd.Series(seg1)
+    assert abs(float(ec.iloc[9]) - float(seg1.iloc[-1] / seg1.iloc[0])) < 1e-9
+    # First value of segment 2 = 1.0 * (1.0 + total_return of window 0) = 1.05.
+    assert abs(float(ec.iloc[10]) - 1.05) < 1e-9
+
+
+def test_generate_walk_forward_report_empty():
+    from utils.reporting import generate_walk_forward_report
+
+    report = generate_walk_forward_report({})
+    assert isinstance(report["summary"], pd.DataFrame)
+    assert len(report["summary"]) == 0
+    assert isinstance(report["equity_curve"], pd.Series)
+    assert len(report["equity_curve"]) == 0
+
+
+def test_generate_walk_forward_report_no_results_key():
+    from utils.reporting import generate_walk_forward_report
+
+    report = generate_walk_forward_report({"returns": []})
+    assert len(report["summary"]) == 0

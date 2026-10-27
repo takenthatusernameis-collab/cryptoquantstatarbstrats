@@ -235,3 +235,32 @@ def test_cli_title_default_in_html():
         )
     assert code == 0
     assert "Backtest Report" in buf.getvalue()
+
+
+def test_cli_benchmark_flag_parses():
+    parser = build_parser()
+    ns = parser.parse_args(["--benchmark"])
+    assert ns.benchmark is True
+    ns_off = parser.parse_args([])
+    assert ns_off.benchmark is False
+
+
+def test_cli_html_includes_benchmark_line(tmp_path):
+    out_path = tmp_path / "report_bench.html"
+    _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--output",
+            "html",
+            "--benchmark",
+            "--output-path",
+            str(out_path),
+        ]
+    )
+    content = out_path.read_text()
+    assert "<!DOCTYPE html>" in content
+    # Benchmark equity polyline (green, dashed) rendered into the SVG.
+    assert "#2ca02c" in content

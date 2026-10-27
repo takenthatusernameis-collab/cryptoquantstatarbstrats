@@ -115,6 +115,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Report kind (full backtest report or risk report).",
     )
     parser.add_argument(
+        "--benchmark",
+        action="store_true",
+        default=False,
+        help="Include an equal-weighted buy-and-hold benchmark in reports.",
+    )
+    parser.add_argument(
         "--rebalance-frequency",
         "--rebalance_freq",
         default=None,
@@ -365,6 +371,21 @@ def main(argv: Sequence[str] | None = None) -> int:
             high=high_df,
             low=low_df,
         )
+
+    if getattr(args, "benchmark", False):
+        # Equal-weighted buy-and-hold benchmark over the same data window.
+        bench_returns = data.pct_change().fillna(0.0)
+        n_assets = data.shape[1]
+        if n_assets > 0:
+            bench_weights = pd.DataFrame(
+                1.0 / n_assets, index=data.index, columns=data.columns
+            )
+            bench_series = (bench_weights * bench_returns).sum(axis=1)
+            bench_equity = (1.0 + bench_series).cumprod()
+            result["benchmark_equity_curve"] = bench_equity
+            result["benchmark_total_return"] = (
+                float(bench_equity.iloc[-1] - 1.0) if len(bench_equity) else 0.0
+            )
 
     if args.output == "json":
         payload = (

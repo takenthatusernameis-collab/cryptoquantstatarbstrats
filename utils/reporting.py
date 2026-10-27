@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 
@@ -209,6 +210,30 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
                     f'<polyline points="{equity_points}" fill="none" '
                     'stroke="#1f77b4" stroke-width="2" />'
                 )
+                # Equal-weighted buy-and-hold benchmark line (if available).
+                bench_equity = (result or {}).get("benchmark_equity_curve")
+                if bench_equity is not None:
+                    try:
+                        import pandas as _pd
+
+                        bench = (
+                            bench_equity
+                            if isinstance(bench_equity, _pd.Series)
+                            else _pd.Series(bench_equity)
+                        )
+                        if len(bench) == n:
+                            bench_norm = bench / float(bench.iloc[0])
+                            bey = _normalize(bench_norm.values)
+                            bpts = " ".join(
+                                f"{x:.1f},{y:.1f}" for x, y in zip(xs, bey)
+                            )
+                            html.append(
+                                f'<polyline points="{bpts}" fill="none" '
+                                'stroke="#2ca02c" stroke-width="1.5" '
+                                'stroke-dasharray="4,4" />'
+                            )
+                    except Exception:
+                        pass
                 html.append(
                     f'<polyline points="{dd_points}" fill="none" '
                     'stroke="#d62728" stroke-width="1.5" />'
@@ -370,6 +395,33 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                         axes[0].set_ylabel("Equity", fontsize=8)
                         axes[0].legend(fontsize=7, loc="best")
                         axes[0].tick_params(labelsize=7)
+                        # Equal-weighted buy-and-hold benchmark line (if available).
+                        bench_equity = (result or {}).get("benchmark_equity_curve")
+                        if bench_equity is not None:
+                            try:
+                                import pandas as _pd
+
+                                bench = (
+                                    bench_equity
+                                    if isinstance(bench_equity, _pd.Series)
+                                    else _pd.Series(bench_equity)
+                                )
+                                bench = bench.reindex(equity.index).ffill()
+                                if len(bench) > 0 and bench.iloc[0] != 0:
+                                    bench_norm = bench / float(bench.iloc[0]) * float(
+                                        equity.iloc[0]
+                                    )
+                                    axes[0].plot(
+                                        equity.index,
+                                        bench_norm.values,
+                                        label="Benchmark",
+                                        linewidth=1.0,
+                                        linestyle="--",
+                                        color="#2ca02c",
+                                    )
+                                    axes[0].legend(fontsize=7, loc="best")
+                            except Exception:
+                                pass
                         running_max = equity.cummax()
                         drawdown = equity / running_max - 1.0
                         axes[1].fill_between(
@@ -455,9 +507,9 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
                             table.auto_set_font_size(False)
                             table.set_fontsize(7)
                             table.scale(1.0, 1.1)
-                            fig.tight_layout(pad=1.0)
-                            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
-                            plt.close(fig)
+                        fig.tight_layout(pad=1.0)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.4)
+                        plt.close(fig)
                 except Exception:
                     pass
         return output_path
@@ -470,3 +522,74 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
             return html_path
         except Exception:
             return html
+
+
+def generate_walk_forward_report(wf_result: dict) -> dict:
+    """Aggregate walk-forward per-window results into a summary table + equity curve.
+
+    ``wf_result`` is the dict returned by
+    :meth:`backtest.engine.BacktestEngine.walk_forward` or
+    :meth:`backtest.engine.BacktestEngine.walk_forward_portfolio`, i.e.
+    ``{"returns": [...], "results": [result_dict, ...], ...}``.
+
+    Returns a dict with:
+
+    * ``summary``: :class:`pandas.DataFrame` with one row per window
+      (total_return, sharpe_ratio, sortino_ratio, max_drawdown, calmar_ratio,
+      start_equity, end_equity).
+    * ``equity_curve``: :class:`pandas.Series` chaining the per-window equity
+      curves into a single continuous curve.
+    * ``mean_return``, ``std_return``, ``positive_periods``,
+      ``total_periods``: aggregates copied from ``wf_result`` when present.
+    """
+    wf_result = wf_result or {}
+    results = wf_result.get("results", []) or []
+
+    rows: list[dict[str, Any]] = []
+    equity_segments: list[pd.Series] = []
+    cumulative_before = 1.0
+
+    for i, res in enumerate(results):
+        res = res or {}
+        total_return = float(res.get("total_return", 0.0))
+        rows.append(
+            {
+                "window": i,
+                "total_return": total_return,
+                "sharpe_ratio": float(res.get("sharpe_ratio", 0.0)),
+                "sortino_ratio": float(res.get("sortino_ratio", 0.0)),
+                "max_drawdown": float(res.get("max_drawdown", 0.0)),
+                "calmar_ratio": float(res.get("calmar_ratio", 0.0)),
+                "start_equity": float(cumulative_before),
+                "end_equity": float(cumulative_before * (1.0 + total_return)),
+            }
+        )
+
+        ec = res.get("equity_curve")
+        if ec is not None:
+            try:
+                s = ec if isinstance(ec, pd.Series) else pd.Series(ec)
+                s = s.astype(float)
+                if len(s) > 0:
+                    first = float(s.iloc[0])
+                    if first != 0 and first == first:  # non-zero and not NaN
+                        equity_segments.append((s / first) * cumulative_before)
+            except Exception:
+                pass
+
+        cumulative_before = cumulative_before * (1.0 + total_return)
+
+    summary = pd.DataFrame(rows)
+    if equity_segments:
+        equity_curve = pd.concat(equity_segments)
+    else:
+        equity_curve = pd.Series(dtype=float)
+
+    report: dict[str, Any] = {
+        "summary": summary,
+        "equity_curve": equity_curve,
+    }
+    for key in ("mean_return", "std_return", "positive_periods", "total_periods"):
+        if key in wf_result:
+            report[key] = wf_result[key]
+    return report
