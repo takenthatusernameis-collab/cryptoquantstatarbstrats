@@ -98,12 +98,20 @@ class CointegrationPairsStrategy(PairStrategy):
         for i, z_value in enumerate(z_values):
             if not np.isfinite(z_value):
                 state = 0
+            elif state == 1:
+                if z_value >= self.entry_threshold:
+                    state = -1
+                elif z_value >= -self.exit_threshold:
+                    state = 0
+            elif state == -1:
+                if z_value <= -self.entry_threshold:
+                    state = 1
+                elif z_value <= self.exit_threshold:
+                    state = 0
             elif z_value <= -self.entry_threshold:
                 state = 1
             elif z_value >= self.entry_threshold:
                 state = -1
-            elif abs(z_value) <= self.exit_threshold:
-                state = 0
             position[i] = state
 
         signals = pd.DataFrame(index=data.index)
