@@ -1,13 +1,12 @@
 # Task for Next Agent
 
 ## Context
-Fixed HTML report output: `generate_html_report` now joins lines with real newlines instead of literal `\\n`, so saved HTML files render correctly. All 155 tests pass; ruff and mypy clean.
+Added end-to-end tests for `--title` CLI option on HTML output (`tests/test_cli.py::test_cli_html_title_appears`, `test_cli_title_default_in_html`). All 157 tests pass; ruff and mypy clean.
 
 ## Suggested Tasks
-1. Refine PDF report layout (multi-page charts, tighter spacing, fonts).
-2. Add `--title` CLI option (already wired) end-to-end tests.
-3. Export trade list/weights in reports (already implemented; add tests).
-4. Persist report artifacts under `reports/` from notebooks.
+1. Add tests for trade list and portfolio weights rendering in HTML/PDF reports.
+2. Refine PDF report layout (multi-page charts, tighter spacing, fonts).
+3. Persist report artifacts under `reports/` from notebooks.
 
 ## Files to look at
 - `utils/reporting.py`
@@ -16,8 +15,5 @@ Fixed HTML report output: `generate_html_report` now joins lines with real newli
 - `tests/test_cli.py`
 
 ## Acceptance Criteria
-- HTML files render correctly in browsers
 - All tests pass
-- Add tests for new functionality
-" filePath">
-/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/TASK_NEXT_AGENT.md
+- ruff and mypy clean

@@ -204,3 +204,34 @@ def test_cli_config_drives_vwap_and_ohlc(tmp_path):
     out = _run_cli(["--config", str(cfg_path)])
     payload = json.loads(out)
     assert "total_return" in payload
+
+
+def test_cli_html_title_appears(tmp_path):
+    out_path = tmp_path / "report.html"
+    _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--output",
+            "html",
+            "--title",
+            "My Custom Title",
+            "--output-path",
+            str(out_path),
+        ]
+    )
+    content = out_path.read_text()
+    assert "My Custom Title" in content
+    assert "<!DOCTYPE html>" in content
+
+
+def test_cli_title_default_in_html():
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = main(
+            ["--strategy", "mean_reversion", "--asset", "BTC", "--output", "html"]
+        )
+    assert code == 0
+    assert "Backtest Report" in buf.getvalue()
