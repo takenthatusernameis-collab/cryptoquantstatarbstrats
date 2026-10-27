@@ -1,23 +1,22 @@
 # Task for Next Agent
 
 ## Context
-Enhanced HTML reports with equity curve and drawdown visualization (inline SVG) when `equity_curve` is present in result. Added test `test_generate_html_report_includes_equity_curve`.
-
-All tests pass (153 passed). ruff and mypy clean.
+Fixed HTML report output: `generate_html_report` now joins lines with real newlines instead of literal `\\n`, so saved HTML files render correctly. All 155 tests pass; ruff and mypy clean.
 
 ## Suggested Tasks
-1. Improve PDF reports with multi-page charts (already partially implemented; refine layout).
-2. Add `--title` CLI option for custom report titles.
-3. Export trade list/weights in reports.
+1. Refine PDF report layout (multi-page charts, tighter spacing, fonts).
+2. Add `--title` CLI option (already wired) end-to-end tests.
+3. Export trade list/weights in reports (already implemented; add tests).
+4. Persist report artifacts under `reports/` from notebooks.
 
 ## Files to look at
 - `utils/reporting.py`
 - `backtest/cli.py`
 - `tests/test_reporting.py`
+- `tests/test_cli.py`
 
 ## Acceptance Criteria
-- HTML reports display equity curve if available
-- Maintain backward compatibility
+- HTML files render correctly in browsers
 - All tests pass
 - Add tests for new functionality
 " filePath">

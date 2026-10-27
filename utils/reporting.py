@@ -269,7 +269,7 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
             pass
 
     html.append("</body></html>")
-    return "\\n".join(html)
+    return "\n".join(html)
 
 
 def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest Report") -> str:
