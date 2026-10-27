@@ -27,6 +27,7 @@ from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 from strategies.term_structure import TermStructureStrategy
+from utils.monte_carlo import monte_carlo_analysis
 from utils.rebalance import create_rebalanced_weights
 from utils.reporting import (
     generate_html_report,
@@ -234,6 +235,27 @@ def build_parser() -> argparse.ArgumentParser:
         help="Volatility-based regime gating (e.g. low_vol).",
     )
     parser.add_argument(
+        "--monte-carlo",
+        type=int,
+        default=None,
+        dest="monte_carlo",
+        help="Run Monte Carlo bootstrap analysis with N simulations.",
+    )
+    parser.add_argument(
+        "--monte-carlo-method",
+        choices=["bootstrap", "shuffle"],
+        default="bootstrap",
+        dest="monte_carlo_method",
+        help="Monte Carlo resampling method.",
+    )
+    parser.add_argument(
+        "--monte-carlo-seed",
+        type=int,
+        default=None,
+        dest="monte_carlo_seed",
+        help="Random seed for Monte Carlo analysis.",
+    )
+    parser.add_argument(
         "--near-tenor",
         default=None,
         help="Near tenor IV column name for term_structure.",
@@ -361,6 +383,22 @@ def _apply_config_from_dict(
         if current is None or current == parser_default:
             if attr == "pair" and config_value is not None:
                 config_value = list(config_value)
+            setattr(args, attr, config_value)
+
+    # Also apply term structure specific params if present
+    for attr, keys in [
+        ("near_tenor", ("near_tenor", "nearTenor")),
+        ("far_tenor", ("far_tenor", "farTenor")),
+        ("lookback", ("lookback",)),
+        ("entry_threshold", ("entry_threshold", "entryThreshold")),
+        ("exit_threshold", ("exit_threshold", "exitThreshold")),
+    ]:
+        config_value = _get(cfg, *keys)
+        if config_value is None:
+            continue
+        current = getattr(args, attr, None)
+        parser_default = parser.get_default(attr)
+        if current is None or current == parser_default:
             setattr(args, attr, config_value)
 
     return args
@@ -714,6 +752,48 @@ def main(argv: Sequence[str] | None = None) -> int:
             path.write_text(content)
         else:
             print(content)
+
+    # Monte Carlo analysis if requested
+    monte_carlo_n = getattr(args, "monte_carlo", None)
+    if monte_carlo_n:
+        try:
+            mc_method = getattr(args, "monte_carlo_method", "bootstrap")
+            mc_seed = getattr(args, "monte_carlo_seed", None)
+            mc_res = monte_carlo_analysis(
+                returns=result.get("portfolio_returns"),
+                equity_curve=result.get("equity_curve"),
+                trade_returns=None,
+                n_simulations=int(monte_carlo_n),
+                method=mc_method,
+                seed=mc_seed,
+            )
+            print("\n=== Monte Carlo Robustness Analysis ===")
+            print(f"Simulations: {mc_res.get('n_simulations')} (method={mc_res.get('method')})")
+            fe = mc_res.get("final_equity", {})
+            mdd = mc_res.get("max_drawdown", {})
+            shr = mc_res.get("sharpe_ratio", {})
+            print(
+                f"Final Equity: mean={fe.get('mean',0):.3f} p5={fe.get('p5',0):.3f} p50={fe.get('p50',0):.3f} p95={fe.get('p95',0):.3f}"
+            )
+            print(
+                f"Max Drawdown:  mean={mdd.get('mean',0):.3f} p5={mdd.get('p5',0):.3f} p50={mdd.get('p50',0):.3f} p95={mdd.get('p95',0):.3f}"
+            )
+            print(
+                f"Sharpe Ratio:  mean={shr.get('mean',0):.3f} p5={shr.get('p5',0):.3f} p50={shr.get('p50',0):.3f} p95={shr.get('p95',0):.3f}"
+            )
+            # Optionally write MC report to artifact dir if requested
+            artifact_dir = getattr(args, "artifact_dir", None)
+            if artifact_dir:
+                try:
+                    Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+                    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    mc_path = Path(artifact_dir) / f"monte_carlo_{stamp}.json"
+                    mc_path.write_text(json.dumps(mc_res, indent=2, default=float))
+                except Exception:
+                    pass
+        except Exception as exc:
+            print(f"Monte Carlo analysis failed: {exc}", file=sys.stderr)
+
     return 0
 
 

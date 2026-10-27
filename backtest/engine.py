@@ -234,6 +234,8 @@ class BacktestEngine:
             "cvar": float(cvar_95),
             "equity_curve": cumulative_returns,
             "weights": weights,
+            "portfolio_returns": portfolio_returns,
+            "returns": portfolio_returns,
         }
         return result
 
