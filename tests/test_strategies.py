@@ -78,6 +78,12 @@ def test_clean_data_removes_nans():
     assert cleaned.isna().sum().sum() == 0
 
 
+def test_clean_data_preserves_observed_price_extremes():
+    data = pd.DataFrame({"BTC": [100.0, 100.1, 101.0, 10_000.0]})
+    cleaned = DataLoader().clean_data(data)
+    assert cleaned["BTC"].iloc[-1] == 10_000.0
+
+
 def test_strategy_generate_signals():
     df = make_data()
     strat = CointegrationPairsStrategy(("BTC", "ETH"))
@@ -86,6 +92,79 @@ def test_strategy_generate_signals():
     assert "long" in signals.columns
     assert "short" in signals.columns
     assert len(signals) == len(df)
+
+
+def test_pairs_hedge_ratio_is_causal():
+    data = make_data(n=300)
+    strategy = CointegrationPairsStrategy(("BTC", "ETH"), lookback=30)
+    original = strategy.calculate_spread(data["BTC"], data["ETH"])
+    changed = data.copy()
+    changed.loc[changed.index[-20:], "BTC"] *= 3.0
+    altered = strategy.calculate_spread(changed["BTC"], changed["ETH"])
+    cutoff = data.index[-20]
+    pd.testing.assert_series_equal(
+        original.loc[original.index < cutoff],
+        altered.loc[altered.index < cutoff],
+    )
+
+
+def test_pairs_strategy_blocks_entries_when_cointegration_fails(monkeypatch):
+    data = make_data(n=300)
+    strategy = CointegrationPairsStrategy(
+        ("BTC", "ETH"), lookback=30, cointegration_check_interval=15
+    )
+    monkeypatch.setattr(
+        strategy, "test_cointegration", lambda price1, price2: (-1.0, 0.5)
+    )
+    signals = strategy.generate_signals(data)
+    assert not signals["long"].any()
+    assert not signals["short"].any()
+    assert signals["cointegration_pvalue"].dropna().eq(0.5).all()
+
+
+def test_engine_preserves_explicit_opposing_pair_weights():
+    class ExplicitPairSignals:
+        def generate_signals(self, data):
+            return pd.DataFrame(
+                {
+                    "long": True,
+                    "short": False,
+                    "A": 0.5,
+                    "B": -0.5,
+                },
+                index=data.index,
+            )
+
+    index = pd.date_range("2024-01-01", periods=4, freq="1h")
+    data = pd.DataFrame(
+        {
+            "A": [100.0, 102.0, 101.0, 105.0],
+            "B": [100.0, 99.0, 98.0, 97.0],
+        },
+        index=index,
+    )
+    result = BacktestEngine().run(ExplicitPairSignals(), data)
+    weights = result["weights"]
+    assert weights.iloc[0].abs().sum() == 0.0
+    assert weights.iloc[1]["A"] > 0.0
+    assert weights.iloc[1]["B"] < 0.0
+    assert np.isclose(weights.iloc[1].abs().sum(), 1.0)
+
+
+def test_engine_applies_close_based_signals_on_next_bar():
+    class OneBarSignal:
+        def generate_signals(self, data):
+            signals = pd.DataFrame(index=data.index)
+            signals["A"] = [1.0, 0.0, 0.0, 0.0]
+            return signals
+
+    index = pd.date_range("2024-01-01", periods=4, freq="1h")
+    data = pd.DataFrame({"A": [100.0, 110.0, 121.0, 133.1]}, index=index)
+    result = BacktestEngine().run(OneBarSignal(), data)
+    assert result["weights"].iloc[0]["A"] == 0.0
+    assert result["weights"].iloc[1]["A"] == 1.0
+    # The target generated at the first close earns the following bar return.
+    assert np.isclose(result["portfolio_returns"].iloc[1], 0.1)
 
 
 def test_backtest_engine_runs():
@@ -116,6 +195,16 @@ def test_mean_reversion_generate_signals():
     assert "short" in signals.columns
     assert "exit" in signals.columns
     assert len(signals) == len(df)
+
+
+def test_single_asset_strategy_does_not_trade_other_input_columns():
+    data = make_data()
+    data["SOL"] = 100.0
+    strategy = MeanReversionStrategy("BTC")
+    signals = strategy.generate_signals(data)
+    weights = BacktestEngine()._signals_to_weights(signals, data)
+    assert weights["ETH"].abs().sum() == 0.0
+    assert weights["SOL"].abs().sum() == 0.0
 
 
 def test_mean_reversion_position_sizes():
@@ -183,6 +272,29 @@ def test_cross_exchange_generate_signals():
     assert len(signals) == len(df)
 
 
+def test_cross_exchange_position_persists_until_convergence():
+    index = pd.date_range("2024-01-01", periods=6, freq="1h")
+    data = pd.DataFrame(
+        {
+            "BTC_A": [98.0, 98.5, 99.2, 99.7, 100.3, 101.2],
+            "BTC_B": [100.0] * 6,
+        },
+        index=index,
+    )
+    strategy = CrossExchangeArb(
+        "BTC_A", "BTC_B", entry_threshold=0.01, exit_threshold=0.002, fee_rate=0.001
+    )
+    signals = strategy.generate_signals(data)
+    assert signals.loc[index[0], "BTC_A"] > 0.0
+    assert signals.loc[index[2], "BTC_A"] > 0.0  # still inside the holding band
+    assert signals.loc[index[4], "BTC_A"] == 0.0  # spread crossed the exit band
+    assert signals.loc[index[5], "BTC_A"] < 0.0  # later, a large opposite spread enters
+    assert np.allclose(
+        signals[["BTC_A", "BTC_B"]].abs().sum(axis=1).to_numpy(),
+        [1.0, 1.0, 1.0, 1.0, 0.0, 1.0],
+    )
+
+
 def test_cross_exchange_position_sizes():
     df = make_cross_exchange_data()
     strat = CrossExchangeArb("BTC_Binance", "BTC_Coinbase")
@@ -204,11 +316,16 @@ def test_cross_exchange_backtest_runs():
 
 
 def test_transaction_costs_reduce_returns():
-    df = make_data()
-    strat = CointegrationPairsStrategy(("BTC", "ETH"))
+    class AlwaysLong:
+        def generate_signals(self, data):
+            return pd.DataFrame({"BTC": 1.0}, index=data.index)
+
+    df = make_data()[["BTC"]]
     engine = BacktestEngine(initial_capital=100_000)
-    result_no_cost = engine.run(strat, df)
-    result_with_cost = engine.run(strat, df, fee_rate=0.001, slippage=0.0005)
+    result_no_cost = engine.run(AlwaysLong(), df)
+    result_with_cost = engine.run(
+        AlwaysLong(), df, fee_rate=0.001, slippage=0.0005
+    )
     assert result_with_cost["total_return"] < result_no_cost["total_return"]
 
 

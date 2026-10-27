@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Parameter optimization harness for strategies."""
+"""Synthetic parameter-optimization demo, not a valid strategy-selection workflow.
+
+This script intentionally uses generated prices to demonstrate the API. Its
+ranked output is in-sample and must not be interpreted as evidence of alpha.
+Use real historical data, chronological out-of-sample validation, and realistic
+transaction costs for research.
+"""
 
 from __future__ import annotations
 
@@ -71,6 +77,10 @@ def optimize() -> pd.DataFrame:
 
 
 def main() -> None:
+    print(
+        "DEMO ONLY: results below use synthetic prices and in-sample ranking; "
+        "they are not evidence of market performance."
+    )
     result_df = optimize()
     print(result_df.to_string(index=False))
 

@@ -4,6 +4,11 @@ Data loader for cryptocurrency market data
 
 from __future__ import annotations
 
+import json
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import urlopen
+
 import numpy as np
 import pandas as pd
 
@@ -46,6 +51,121 @@ class DataLoader:
         df = df.sort_index()
         return df
 
+    def load_binance_data(
+        self,
+        symbols: list[str],
+        start_date: str,
+        end_date: str,
+        interval: str = "1h",
+        quote_asset: str = "USDT",
+        timeout: float = 20.0,
+    ) -> pd.DataFrame:
+        """Load free public Binance spot closes without requiring an API key.
+
+        Symbols may use base names such as BTC or Binance symbols such as BTCUSDT.
+        Output columns retain the requested names. Timestamps are UTC candle-open
+        timestamps, and the backtest engine executes generated signals one bar later.
+        The supplied end timestamp is inclusive.
+        """
+        supported_intervals = {
+            "1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h",
+            "6h", "8h", "12h", "1d", "3d", "1w", "1M",
+        }
+        if interval not in supported_intervals:
+            raise ValueError(
+                f"Unsupported Binance interval {interval!r}. "
+                f"Choose one of {sorted(supported_intervals)}."
+            )
+        if not symbols:
+            raise ValueError("At least one symbol is required.")
+
+        def as_utc_millis(value: str, *, include_date: bool = False) -> int:
+            stamp = pd.Timestamp(value)
+            # Date-only end values include the entire UTC calendar day; explicit
+            # timestamps retain their exact inclusive moment.
+            if include_date and isinstance(value, str) and len(value.strip()) == 10:
+                stamp = stamp + pd.Timedelta(days=1) - pd.Timedelta(milliseconds=1)
+            if stamp.tzinfo is None:
+                stamp = stamp.tz_localize("UTC")
+            else:
+                stamp = stamp.tz_convert("UTC")
+            return int(stamp.timestamp() * 1000)
+
+        start_ms = as_utc_millis(start_date)
+        end_ms = as_utc_millis(end_date, include_date=True)
+        if end_ms < start_ms:
+            raise ValueError("end_date must not precede start_date.")
+
+        series_by_symbol: dict[str, pd.Series] = {}
+        for requested_symbol in symbols:
+            output_name = str(requested_symbol)
+            market_symbol = output_name.upper().replace("/", "").replace("-", "")
+            if not market_symbol.endswith(quote_asset.upper()):
+                market_symbol = f"{market_symbol}{quote_asset.upper()}"
+
+            cursor_ms = start_ms
+            candles: list[tuple[int, float]] = []
+            while cursor_ms <= end_ms:
+                query = urlencode({
+                    "symbol": market_symbol,
+                    "interval": interval,
+                    "startTime": cursor_ms,
+                    "endTime": end_ms,
+                    "limit": 1000,
+                })
+                url = f"https://api.binance.com/api/v3/klines?{query}"
+                try:
+                    with urlopen(url, timeout=timeout) as response:
+                        payload = json.loads(response.read().decode("utf-8"))
+                except (HTTPError, URLError, TimeoutError, OSError) as exc:
+                    raise RuntimeError(
+                        f"Could not fetch Binance candles for {market_symbol}: {exc}"
+                    ) from exc
+                if not isinstance(payload, list):
+                    raise RuntimeError(
+                        f"Unexpected Binance response for {market_symbol}: {payload!r}"
+                    )
+                if not payload:
+                    break
+
+                for candle in payload:
+                    open_ms = int(candle[0])
+                    if start_ms <= open_ms <= end_ms:
+                        candles.append((open_ms, float(candle[4])))
+
+                last_open_ms = int(payload[-1][0])
+                if len(payload) < 1000 or last_open_ms >= end_ms:
+                    break
+                next_cursor = last_open_ms + 1
+                if next_cursor <= cursor_ms:
+                    raise RuntimeError(
+                        f"Binance pagination stalled for {market_symbol} at {cursor_ms}."
+                    )
+                cursor_ms = next_cursor
+
+            if not candles:
+                raise ValueError(
+                    f"No Binance spot candles returned for {market_symbol} "
+                    f"between {start_date} and {end_date}."
+                )
+            frame = pd.DataFrame(candles, columns=["timestamp", output_name])
+            frame["timestamp"] = pd.to_datetime(frame["timestamp"], unit="ms", utc=True)
+            frame = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()
+            series_by_symbol[output_name] = frame[output_name]
+
+        # Keep only genuinely observed timestamps shared by every symbol.
+        # Forward-filling a missing candle would manufacture flat returns and
+        # conceal gaps or listing-date differences in market data.
+        data = pd.concat(series_by_symbol.values(), axis=1, join="inner")
+        data.columns = list(series_by_symbol.keys())
+        data = data.sort_index()
+        if data.empty:
+            raise ValueError(
+                "The requested symbols have no shared Binance candle timestamps "
+                "in the requested date range."
+            )
+        return data
+
     def load_data(
         self,
         symbols: list[str],
@@ -53,12 +173,16 @@ class DataLoader:
         end_date: str,
         freq: str = "1h",
     ) -> pd.DataFrame:
-        """Load price data for given symbols."""
+        """Generate synthetic prices for unit tests and demonstrations only.
+
+        This function deliberately does not fetch historical market data.
+        Use load_binance_data for public-market backtests.
+        """
         dates = pd.date_range(start_date, end_date, freq=freq)
         data = pd.DataFrame(index=dates)
 
         for symbol in symbols:
-            # Generate correlated price series for demonstration.
+            # Synthetic demonstration series; not evidence of market behavior.
             returns = np.random.randn(len(dates)) * 0.02
             prices = 100 * np.exp(np.cumsum(returns))
             data[symbol] = prices

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example: run a cointegration pairs backtest end-to-end."""
+"""Synthetic demonstration of the pairs API; not evidence of a trading edge."""
 
 from __future__ import annotations
 
@@ -14,6 +14,10 @@ from strategies.pairs_trading import CointegrationPairsStrategy
 
 
 def main() -> None:
+    print(
+        "DEMO ONLY: this example uses synthetic prices and must not be interpreted "
+        "as evidence of real-market performance."
+    )
     loader = DataLoader()
     data = loader.load_data(["BTC", "ETH"], "2024-01-01", "2024-02-01", freq="1h")
     data = loader.clean_data(data)

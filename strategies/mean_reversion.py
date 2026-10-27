@@ -54,6 +54,11 @@ class MeanReversionStrategy(Strategy):
         signals["long"] = z < -self.entry_threshold
         signals["short"] = z > self.entry_threshold
         signals["exit"] = abs(z) < self.exit_threshold
+        # Emit an explicit weight for this asset so generic signals do not
+        # accidentally trade every column in a multi-asset input frame.
+        signals[self.asset] = (
+            signals["long"].astype(float) - signals["short"].astype(float)
+        )
 
         return signals
 

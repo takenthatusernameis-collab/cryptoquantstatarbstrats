@@ -241,8 +241,8 @@ def make_equal_weight_optimizer():
             cols = list(train_data.columns)
             n = len(cols)
             w = equal_weight(n)
-            first = train_data.index[0] if len(train_data.index) > 0 else 0
-            return pd.DataFrame([w], columns=cols, index=[first])
+            idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
+            return pd.DataFrame([w], columns=cols, index=idx)
         return pd.DataFrame()
 
     return _optimizer
@@ -269,10 +269,14 @@ def make_inverse_volatility_optimizer(lookback: int | None = None):
             cols = list(train_data.columns)
             if len(w) != len(cols):
                 # align by columns order
-                w = inverse_volatility(cov.reindex(index=cols, columns=cols).fillna(0.0))
+                cov_aligned = cov.reindex(index=cols, columns=cols).fillna(0.0)
+                w = inverse_volatility(cov_aligned)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
-            w_arr = np.asarray(w, dtype=float).ravel()[: len(cols)]
-            return pd.DataFrame([w_arr], columns=cols, index=idx)
+            return pd.DataFrame(
+                [np.asarray(w, dtype=float).ravel()[: len(cols)]],
+                columns=cols,
+                index=idx,
+            )
         except Exception:
             cols = list(train_data.columns)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
@@ -297,10 +301,14 @@ def make_risk_parity_optimizer(lookback: int | None = None):
             w = risk_parity_weights(cov)
             cols = list(train_data.columns)
             if len(w) != len(cols):
-                w = risk_parity_weights(cov.reindex(index=cols, columns=cols).fillna(0.0))
+                cov_aligned = cov.reindex(index=cols, columns=cols).fillna(0.0)
+                w = risk_parity_weights(cov_aligned)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
-            w_arr = np.asarray(w, dtype=float).ravel()[: len(cols)]
-            return pd.DataFrame([w_arr], columns=cols, index=idx)
+            return pd.DataFrame(
+                [np.asarray(w, dtype=float).ravel()[: len(cols)]],
+                columns=cols,
+                index=idx,
+            )
         except Exception:
             cols = list(train_data.columns)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
@@ -325,10 +333,14 @@ def make_min_variance_optimizer(lookback: int | None = None):
             w = min_variance_weights(cov)
             cols = list(train_data.columns)
             if len(w) != len(cols):
-                w = min_variance_weights(cov.reindex(index=cols, columns=cols).fillna(0.0))
+                cov_aligned = cov.reindex(index=cols, columns=cols).fillna(0.0)
+                w = min_variance_weights(cov_aligned)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
-            w_arr = np.asarray(w, dtype=float).ravel()[: len(cols)]
-            return pd.DataFrame([w_arr], columns=cols, index=idx)
+            return pd.DataFrame(
+                [np.asarray(w, dtype=float).ravel()[: len(cols)]],
+                columns=cols,
+                index=idx,
+            )
         except Exception:
             cols = list(train_data.columns)
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
@@ -338,7 +350,9 @@ def make_min_variance_optimizer(lookback: int | None = None):
 
 
 def make_mean_variance_optimizer(
-    expected_returns: Any = None, risk_aversion: float = 1.0, lookback: int | None = None
+    expected_returns: Any = None,
+    risk_aversion: float = 1.0,
+    lookback: int | None = None,
 ):
     """Return a mean-variance optimizer callable."""
 
@@ -372,7 +386,7 @@ def make_mean_variance_optimizer(
                 except Exception:
                     pass
             idx = [train_data.index[0]] if len(train_data.index) > 0 else [0]
-            w_arr = np.asarray(w, dtype=float).ravel()
+            w_arr: np.ndarray = np.asarray(w, dtype=float).ravel()
             if len(w_arr) < len(cols):
                 w_arr = np.pad(w_arr, (0, len(cols) - len(w_arr)))
             return pd.DataFrame([w_arr[:len(cols)]], columns=cols, index=idx)

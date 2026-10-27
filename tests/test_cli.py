@@ -32,6 +32,10 @@ def _make_data(n: int = 200, seed: int = 0) -> pd.DataFrame:
 
 
 def _run_cli(argv: list[str]) -> str:
+    argv = list(argv)
+    # Unit tests are offline and must opt into explicitly labelled synthetic data.
+    if "--config" not in argv and "--data-source" not in argv:
+        argv.extend(["--data-source", "synthetic"])
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         code = main(argv)
@@ -96,10 +100,23 @@ def test_cli_pairs_strategy_runs():
     assert "total_return" in payload
 
 
-def test_cli_term_structure_strategy_runs():
-    out = _run_cli(["--strategy", "term_structure", "--output", "json"])
+def test_cli_term_structure_strategy_runs(tmp_path):
+    data = _make_data(n=200)
+    data["iv_30d"] = 0.5 + 0.01 * np.sin(np.arange(len(data)) / 8)
+    data["iv_90d"] = 0.6 + 0.015 * np.sin(np.arange(len(data)) / 10)
+    path = tmp_path / "term.csv"
+    data.to_csv(path)
+    out = _run_cli([
+        "--strategy", "term_structure", "--output", "json",
+        "--data-source", "csv", "--data-csv", str(path),
+    ])
     payload = json.loads(out)
     assert "total_return" in payload
+
+
+def test_cli_term_structure_refuses_synthetic_iv_data():
+    with pytest.raises(ValueError, match="requires real iv_30d and iv_90d"):
+        main(["--strategy", "term_structure", "--data-source", "synthetic"])
 
 
 def test_cli_term_structure_strategy_config_override(tmp_path):
@@ -117,6 +134,8 @@ def test_cli_term_structure_strategy_config_override(tmp_path):
         yaml.safe_dump(
             {
                 "strategy": "term_structure",
+                "data_source": "csv",
+                "data_csv": str(path),
                 "symbols": ["BTC"],
                 "start": "2024-01-01",
                 "end": "2024-01-03",
@@ -232,6 +251,7 @@ def test_cli_config_drives_vwap_and_ohlc(tmp_path):
         yaml.safe_dump(
             {
                 "strategy": "mean_reversion",
+                "data_source": "synthetic",
                 "asset": "BTC",
                 "execution_simulator": True,
                 "order_type": "vwap",
@@ -271,7 +291,8 @@ def test_cli_title_default_in_html():
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         code = main(
-            ["--strategy", "mean_reversion", "--asset", "BTC", "--output", "html"]
+            ["--strategy", "mean_reversion", "--asset", "BTC", "--output", "html",
+             "--data-source", "synthetic"]
         )
     assert code == 0
     assert "Backtest Report" in buf.getvalue()

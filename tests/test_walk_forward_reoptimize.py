@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from backtest.engine import BacktestEngine
 from data.loader import DataLoader
@@ -138,6 +139,46 @@ def test_walk_forward_portfolio_reoptimize_weight_alignment():
     assert len(res["results"]) > 0
 
 
+def test_walk_forward_portfolio_supports_series_optimizer_output():
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100000)
+    initial = pd.DataFrame(0.5, index=data.index, columns=data.columns)
+
+    def series_optimizer(train_data):
+        return pd.Series({"BTC": 0.25, "ETH": 0.75})
+
+    result = engine.walk_forward_portfolio(
+        initial,
+        data,
+        train_period=30,
+        test_period=10,
+        reoptimize=True,
+        optimizer=series_optimizer,
+    )
+    first_weights = result["results"][0]["weights"].iloc[0]
+    assert np.isclose(first_weights["BTC"], 0.25)
+    assert np.isclose(first_weights["ETH"], 0.75)
+
+
+def test_walk_forward_portfolio_does_not_hide_optimizer_failure():
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100000)
+    initial = pd.DataFrame(0.5, index=data.index, columns=data.columns)
+
+    def broken_optimizer(train_data):
+        raise RuntimeError("optimizer failed")
+
+    with pytest.raises(RuntimeError, match="optimizer failed"):
+        engine.walk_forward_portfolio(
+            initial,
+            data,
+            train_period=30,
+            test_period=10,
+            reoptimize=True,
+            optimizer=broken_optimizer,
+        )
+
+
 def test_cli_config_drives_reoptimize(tmp_path):
     import yaml
 
@@ -154,6 +195,7 @@ def test_cli_config_drives_reoptimize(tmp_path):
         "end": "2024-02-01",
         "freq": "1d",
         "strategy": "mean_reversion",
+        "data_source": "synthetic",
         "walk_forward": True,
         "train_period": 10,
         "test_period": 5,
@@ -189,6 +231,8 @@ def test_cli_walk_forward_reoptimize_without_rebalance_frequency(tmp_path):
             "1d",
             "--strategy",
             "mean_reversion",
+            "--data-source",
+            "synthetic",
             "--walk-forward",
             "--train-period",
             "20",
@@ -222,6 +266,8 @@ def test_cli_walk_forward_reoptimize_optimizer_applied_differs(tmp_path):
             "1d",
             "--strategy",
             "mean_reversion",
+            "--data-source",
+            "synthetic",
             "--walk-forward",
             "--train-period",
             "20",
@@ -251,6 +297,8 @@ def test_cli_walk_forward_reoptimize_optimizer_applied_differs(tmp_path):
             "1d",
             "--strategy",
             "mean_reversion",
+            "--data-source",
+            "synthetic",
             "--walk-forward",
             "--train-period",
             "20",
@@ -286,6 +334,7 @@ def test_cli_config_drives_reoptimize_without_rebalance_frequency(tmp_path):
         "end": "2024-03-01",
         "freq": "1d",
         "strategy": "mean_reversion",
+        "data_source": "synthetic",
         "walk_forward": True,
         "train_period": 20,
         "test_period": 10,
