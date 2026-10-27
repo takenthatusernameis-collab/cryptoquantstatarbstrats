@@ -138,8 +138,7 @@ def test_engine_applies_close_based_signals_on_next_bar():
     result = BacktestEngine().run(OneBarSignal(), data)
     assert result["weights"].iloc[0]["A"] == 0.0
     assert result["weights"].iloc[1]["A"] == 1.0
-    # The first +10% close-to-close return is not captured by a signal
-    # that only becomes known at the first close.
+    # The target generated at the first close earns the following bar return.
     assert np.isclose(result["portfolio_returns"].iloc[1], 0.1)
 
 
@@ -171,6 +170,16 @@ def test_mean_reversion_generate_signals():
     assert "short" in signals.columns
     assert "exit" in signals.columns
     assert len(signals) == len(df)
+
+
+def test_single_asset_strategy_does_not_trade_other_input_columns():
+    data = make_data()
+    data["SOL"] = 100.0
+    strategy = MeanReversionStrategy("BTC")
+    signals = strategy.generate_signals(data)
+    weights = BacktestEngine()._signals_to_weights(signals, data)
+    assert weights["ETH"].abs().sum() == 0.0
+    assert weights["SOL"].abs().sum() == 0.0
 
 
 def test_mean_reversion_position_sizes():
