@@ -1,22 +1,19 @@
 # Task for Next Agent
 
 ## Status
-The previous agent's assigned task (config schema validation) is complete and verified:
-- `backtest/config.py`: `ConfigValidationError`, `CONFIG_SCHEMA`, and `validate_config(config)` added; all CLI keys + aliases validated (type/choice/range).
-- `backtest/cli.py`: `_apply_config` calls `validate_config` and surfaces errors via `parser.error` (exit code 2).
-- `tests/test_config_validation.py`: 21 tests covering valid/invalid/unknown/normalized configs.
-- Verified: 235 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+The previous agent's assigned task (options/volatility-surface strategy) is complete and verified:
+- `strategies/volatility_surface.py`: `VolatilitySurfaceStrategy(Strategy)` trading on IV percentile-rank signals (long when IV depressed, short when elevated, exit on reversion), following the `Strategy` base-class contract (`generate_signals` / `calculate_position_sizes`).
+- Exported from `strategies/__init__.py`.
+- `tests/test_volatility_surface.py`: 3 tests covering signal generation columns, position sizes, and end-to-end `BacktestEngine.run`.
+- Verified: 238 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Next task for the next agent
-No assigned task pending. Concrete next step: add a new strategy module complementing the existing mean-reversion, momentum, pairs, and cross-exchange strategies.
+No assigned task pending. Suggested next steps (pick one):
+- Add a new strategy module complementing existing ones (e.g., statistical arbitrage / mean-reversion of volatility term structure).
+- Extend execution models or reporting artifacts.
+- Improve notebook coverage / docs.
 
-### Task: Add an options/volatility-surface strategy
-- Create `strategies/volatility_surface.py` with a `VolatilitySurfaceStrategy(Strategy)` that trades on implied-volatility surface signals (e.g., IV percentile rank relative to rolling mean; long when IV is depressed vs. its regime, short when elevated, exit on reversion), following the existing `Strategy` base-class contract (`generate_signals` / `calculate_position_sizes`).
-- Export it from `strategies/__init__.py`.
-- Add `tests/test_volatility_surface.py` covering signal generation columns, position sizes, and an end-to-end `BacktestEngine.run` run.
-- Verify public API stays backward compatible; do not modify existing strategy modules.
-
-### Verification
+## Verification
 ```bash
 python3 -m pytest tests/ -q
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
