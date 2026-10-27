@@ -502,11 +502,15 @@ class ExecutionSimulator:
         # Walk the book: consume price levels
         # Each level adds market impact
         impact_per_level = market_impact_bps / 10000.0
-        total_impact = impact_per_level * min(depth_levels, max(1, int(np.ceil(filled / (abs(q) / depth_levels + 1e-18)))))
+        denom = abs(q) / depth_levels + 1e-18
+        total_impact = impact_per_level * min(
+            depth_levels, max(1, int(np.ceil(filled / denom)))
+        )
         if filled < abs(q) - 1e-12:
             levels_walked = depth_levels  # walked full depth if can't fill
         else:
-            levels_walked = min(depth_levels, max(1, int(np.ceil((filled / abs(q)) * depth_levels))))
+            ratio = (filled / abs(q)) * depth_levels
+            levels_walked = min(depth_levels, max(1, int(np.ceil(ratio))))
         total_impact = impact_per_level * levels_walked
 
         base_price = px
