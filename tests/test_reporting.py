@@ -411,3 +411,97 @@ def test_generate_walk_forward_report_no_results_key():
 
     report = generate_walk_forward_report({"returns": []})
     assert len(report["summary"]) == 0
+
+
+def test_generate_walk_forward_report_single_window():
+    from utils.reporting import generate_walk_forward_report
+
+    dates = pd.date_range("2024-01-01", periods=5, freq="1h")
+    rng = np.random.default_rng(123)
+    ec = pd.Series(100 * np.exp(np.cumsum(rng.normal(0.002, 0.01, 5))), index=dates)
+    wf = {
+        "returns": [0.03],
+        "results": [
+            {
+                "total_return": 0.03,
+                "sharpe_ratio": 1.1,
+                "sortino_ratio": 1.3,
+                "max_drawdown": -0.02,
+                "calmar_ratio": 1.5,
+                "equity_curve": ec,
+            }
+        ],
+        "mean_return": 0.03,
+        "std_return": 0.0,
+        "positive_periods": 1,
+        "total_periods": 1,
+    }
+    report = generate_walk_forward_report(wf)
+    summary = report["summary"]
+    assert isinstance(summary, pd.DataFrame)
+    assert len(summary) == 1
+    assert summary.loc[0, "window"] == 0
+    assert abs(float(summary.loc[0, "start_equity"]) - 1.0) < 1e-9
+    assert abs(float(summary.loc[0, "end_equity"]) - 1.03) < 1e-9
+    ec_out = report["equity_curve"]
+    assert isinstance(ec_out, pd.Series)
+    assert len(ec_out) == 5
+    assert abs(float(ec_out.iloc[0]) - 1.0) < 1e-9
+
+
+def test_generate_walk_forward_report_missing_equity_curve():
+    from utils.reporting import generate_walk_forward_report
+
+    wf = {
+        "returns": [0.01, -0.005],
+        "results": [
+            {
+                "total_return": 0.01,
+                "sharpe_ratio": 0.8,
+                "sortino_ratio": 0.9,
+                "max_drawdown": -0.01,
+                "calmar_ratio": 1.0,
+            },
+            {
+                "total_return": -0.005,
+                "sharpe_ratio": 0.2,
+                "sortino_ratio": 0.3,
+                "max_drawdown": -0.015,
+                "calmar_ratio": 0.2,
+            },
+        ],
+        "mean_return": 0.0025,
+        "std_return": 0.0106,
+        "positive_periods": 1,
+        "total_periods": 2,
+    }
+    report = generate_walk_forward_report(wf)
+    assert isinstance(report["summary"], pd.DataFrame)
+    assert len(report["summary"]) == 2
+    assert isinstance(report["equity_curve"], pd.Series)
+    assert len(report["equity_curve"]) == 0
+
+
+def test_generate_walk_forward_report_nan_first_value():
+    from utils.reporting import generate_walk_forward_report
+
+    dates = pd.date_range("2024-01-01", periods=3, freq="1h")
+    ec = pd.Series([float("nan"), 101.0, 102.0], index=dates)
+    wf = {
+        "returns": [0.02],
+        "results": [
+            {
+                "total_return": 0.02,
+                "sharpe_ratio": 1.0,
+                "sortino_ratio": 1.0,
+                "max_drawdown": -0.01,
+                "calmar_ratio": 1.0,
+                "equity_curve": ec,
+            },
+        ],
+    }
+    report = generate_walk_forward_report(wf)
+    # NaN/invalid first value should be skipped (no equity segment added)
+    assert isinstance(report["equity_curve"], pd.Series)
+    assert len(report["equity_curve"]) == 0
+    assert len(report["summary"]) == 1

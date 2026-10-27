@@ -593,3 +593,144 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
         if key in wf_result:
             report[key] = wf_result[key]
     return report
+
+
+def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forward Report") -> str:
+    """Render a walk-forward report as HTML with summary table and equity chart."""
+    wf_report = wf_report or {}
+    summary = wf_report.get("summary")
+    if not isinstance(summary, pd.DataFrame):
+        summary = pd.DataFrame(summary) if summary is not None else pd.DataFrame()
+    equity_curve = wf_report.get("equity_curve")
+    if equity_curve is not None and not isinstance(equity_curve, pd.Series):
+        try:
+            import pandas as _pd
+
+            equity_curve = _pd.Series(equity_curve)
+        except Exception:
+            equity_curve = None
+
+    html = [
+        "<!DOCTYPE html>",
+        '<html lang="en">',
+        "<head>",
+        '<meta charset="utf-8" />',
+        f"<title>{title}</title>",
+        "<style>",
+        "body{font-family:Arial,Helvetica,sans-serif;margin:40px;background:#fff;color:#222}",
+        "h1{font-size:22px;margin-bottom:10px}",
+        "table{border-collapse:collapse;width:100%;max-width:900px}",
+        "th,td{border:1px solid #ddd;padding:6px 8px;font-size:12px;text-align:right}",
+        "th{background:#f5f5f5;text-align:right}",
+        "td:first-child,th:first-child{text-align:left}",
+        ".chart{margin-top:24px}",
+        "</style>",
+        "</head>",
+        "<body>",
+        f"<h1>{title}</h1>",
+    ]
+
+    if len(summary) > 0:
+        html.append("<h2>Summary</h2>")
+        html.append(summary.to_html(index=False, border=0))
+    else:
+        html.append("<p>No walk-forward windows.</p>")
+
+    if equity_curve is not None and len(equity_curve) > 0:
+        html.append('<div class="chart">')
+        html.append("<h2>Chained Equity Curve</h2>")
+        try:
+            values = equity_curve.astype(float).values
+            n = len(values)
+            if n > 0:
+                mn = float(min(values))
+                mx = float(max(values))
+                span = mx - mn if (mx - mn) != 0 else 1.0
+                width = 600
+                height = 200
+                xs = [20 + (width - 40) * i / (n - 1) if n > 1 else 310 for i in range(n)]
+                ys = [height - 40 - (height - 80) * (v - mn) / span for v in values]
+                points = " ".join(f"{x:.1f},{y:.1f}" for x, y in zip(xs, ys))
+                html.append(
+                    '<svg width="640" height="240" xmlns="http://www.w3.org/2000/svg">'
+                )
+                html.append(
+                    f'<polyline points="{points}" fill="none" stroke="#1f77b4" stroke-width="2" />'
+                )
+                html.append("</svg>")
+        except Exception:
+            pass
+        html.append("</div>")
+
+    html.extend(["</body>", "</html>"])
+    return "\n".join(html)
+
+
+def generate_walk_forward_pdf_report(
+    wf_report: dict, output_path: str, title: str = "Walk-Forward Report"
+) -> str:
+    """Render a walk-forward report as PDF with summary table and equity chart."""
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        from matplotlib.backends.backend_pdf import PdfPages
+    except Exception:
+        html = generate_walk_forward_html_report(wf_report, title=title)
+        html_path = output_path.replace(".pdf", ".html")
+        try:
+            Path(html_path).write_text(html)
+            return html_path
+        except Exception:
+            return html
+
+    wf_report = wf_report or {}
+    summary = wf_report.get("summary")
+    if not isinstance(summary, pd.DataFrame):
+        summary = pd.DataFrame(summary) if summary is not None else pd.DataFrame()
+    equity_curve = wf_report.get("equity_curve")
+    if equity_curve is not None and not isinstance(equity_curve, pd.Series):
+        try:
+            import pandas as _pd
+
+            equity_curve = _pd.Series(equity_curve)
+        except Exception:
+            equity_curve = None
+
+    try:
+        with PdfPages(output_path) as pdf:
+            fig, ax = plt.subplots(figsize=(11, 8.5))
+            ax.axis("off")
+            ax.set_title(title, fontsize=14, pad=20)
+            if len(summary) > 0:
+                table_data = [list(summary.columns)] + summary.values.tolist()
+                table = ax.table(cellText=table_data, loc="center", cellLoc="center")
+                table.auto_set_font_size(False)
+                table.set_fontsize(7)
+                table.scale(1.0, 1.2)
+            pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+            plt.close(fig)
+
+            if equity_curve is not None and len(equity_curve) > 0:
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4))
+                    eq = equity_curve.astype(float)
+                    ax.plot(eq.index, eq.values, linewidth=1.5)
+                    ax.set_title("Chained Equity Curve")
+                    ax.set_ylabel("Equity")
+                    ax.grid(True, alpha=0.3)
+                    fig.tight_layout()
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+        return output_path
+    except Exception:
+        try:
+            html = generate_walk_forward_html_report(wf_report, title=title)
+            html_path = output_path.replace(".pdf", ".html")
+            Path(html_path).write_text(html)
+            return html_path
+        except Exception:
+            return output_path

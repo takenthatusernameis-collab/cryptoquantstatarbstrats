@@ -121,6 +121,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="Include an equal-weighted buy-and-hold benchmark in reports.",
     )
     parser.add_argument(
+        "--rebalance-benchmark",
+        action="store_true",
+        default=False,
+        help="Also compute benchmark for portfolio/walk-forward paths.",
+    )
+    parser.add_argument(
+        "--rebalance_benchmark",
+        action="store_true",
+        default=False,
+        dest="rebalance_benchmark",
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
         "--rebalance-frequency",
         "--rebalance_freq",
         default=None,
@@ -372,7 +385,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             low=low_df,
         )
 
-    if getattr(args, "benchmark", False):
+    if getattr(args, "benchmark", False) or getattr(args, "rebalance_benchmark", False):
         # Equal-weighted buy-and-hold benchmark over the same data window.
         bench_returns = data.pct_change().fillna(0.0)
         n_assets = data.shape[1]
@@ -386,6 +399,48 @@ def main(argv: Sequence[str] | None = None) -> int:
             result["benchmark_total_return"] = (
                 float(bench_equity.iloc[-1] - 1.0) if len(bench_equity) else 0.0
             )
+
+    if getattr(args, "walk_forward_report", False):
+        try:
+            from utils.reporting import (
+                generate_walk_forward_html_report,
+                generate_walk_forward_pdf_report,
+                generate_walk_forward_report,
+            )
+
+            wf_rep = generate_walk_forward_report(result)
+            artifact_dir = getattr(args, "artifact_dir", None)
+            out_path_base = getattr(args, "output_path", None)
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            if artifact_dir:
+                Path(artifact_dir).mkdir(parents=True, exist_ok=True)
+                base = Path(artifact_dir) / f"walk_forward_{stamp}"
+            elif out_path_base:
+                p = Path(out_path_base)
+                base = p.parent / f"walk_forward_{p.stem}_{stamp}"
+            else:
+                Path("reports").mkdir(parents=True, exist_ok=True)
+                base = Path("reports") / f"walk_forward_{stamp}"
+            try:
+                import pandas as _pd
+
+                if isinstance(wf_rep.get("summary"), _pd.DataFrame):
+                    (base.parent / f"{base.name}.csv").write_text(
+                        wf_rep["summary"].to_csv(index=False)
+                    )
+            except Exception:
+                pass
+            try:
+                html_p = base.with_suffix(".html")
+                Path(html_p).write_text(generate_walk_forward_html_report(wf_rep))
+            except Exception:
+                pass
+            try:
+                generate_walk_forward_pdf_report(wf_rep, str(base.with_suffix(".pdf")))
+            except Exception:
+                pass
+        except Exception:
+            pass
 
     if args.output == "json":
         payload = (
