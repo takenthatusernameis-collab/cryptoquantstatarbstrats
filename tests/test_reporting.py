@@ -95,3 +95,26 @@ def test_risk_report_missing_keys():
     assert data["max_drawdown_duration"] == 0
     report = generate_risk_report({})
     assert isinstance(report, str)
+
+
+def test_generate_html_report_returns_string():
+    from utils.reporting import generate_html_report
+
+    result = make_result()
+    report = generate_html_report(result)
+    assert isinstance(report, str)
+    assert "<!DOCTYPE html>" in report
+    assert "Backtest Report" in report
+    assert "Total Return" in report
+    assert "Sharpe Ratio" in report
+
+
+def test_generate_pdf_report_creates_html_fallback(tmp_path):
+    from utils.reporting import generate_pdf_report
+
+    result = make_result()
+    out = tmp_path / "report.pdf"
+    path = generate_pdf_report(result, str(out))
+    assert isinstance(path, str)
+    # Fallback may write HTML if matplotlib/pdf unavailable
+    assert path.endswith((".pdf", ".html"))
