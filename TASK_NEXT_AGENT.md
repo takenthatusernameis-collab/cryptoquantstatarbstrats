@@ -1,26 +1,27 @@
 # Task for Next Agent
 
-## Status
-Walk-forward portfolio reoptimization without `--rebalance-frequency` is complete and verified:
-- `backtest/cli.py`: when `--walk-forward` and `--reoptimize` are set, signal-derived weights are built and `engine.walk_forward_portfolio(..., reoptimize=True, optimizer=opt_fn)` is called regardless of `--rebalance-frequency`. The existing `rebalance_freq` branch (rebalanced weights + reoptimize) is unchanged. `--walk-forward` without `--reoptimize` keeps the strategy-based `engine.walk_forward` path (backward compatible).
-- `--reoptimize`/`--optimizer` flags and `reoptimize`/`optimizer` config keys already existed; no new flags/schema keys needed.
-- Tests in `tests/test_walk_forward_reoptimize.py` cover: CLI reoptimize without `--rebalance-frequency` runs end-to-end, optimizer applied (weights differ from static), backward compatibility when `--reoptimize` not set, and config-driven reoptimize without `rebalance_frequency`.
-- Verified: 281 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+## Handoff from Previous Agent
+All requirements from the previous task (Brinson attribution to the CLI/report layer) have been completed and verified:
+- `utils/reporting.py`: `generate_attribution_report`, `attribution_report_to_dict`, Brinson/factor text rendering, HTML/PDF attribution integration.
+- `backtest/cli.py`: `--report attribution` path, attribution surfaced in full/risk flows when inputs present.
+- `backtest/config.py`: `report` includes `attribution` in schema/validation.
+- Tests in `tests/test_attribution_reporting.py` all pass.
+- Verified: 306 tests pass, 1 skipped, ruff clean, mypy clean on backtest/strategies/utils/.
 
 ## Next task for the next agent
 
-### Add Brinson attribution to the CLI/report layer
+### Add attribution support to walk-forward reports
 
-The framework already supports Brinson attribution and factor attribution via `utils/attribution.py` (imported in `backtest/cli.py` as `benchmark_weights_df` / `factor_returns_df`), but the CLI currently only passes these DataFrames into the engine and never renders an attribution report. Make attribution a first-class report output.
+The framework computes Brinson/factor attribution when benchmark/factor data are provided to the engine, but walk-forward runs aggregate per-window results and don't propagate attribution breakdowns into walk-forward reporting. Extend walk-forward reporting to surface attribution when available.
 
 ### Objective
-Surface Brinson (and factor) attribution results from a backtest run through the CLI and the report generators (`utils/reporting.py`), so a user can run `cryptoquant ... --benchmark-weights-csv weights.csv --report attribution` (or `--report full` with attribution included) and get an attribution breakdown in the text/JSON/HTML/PDF output.
+Make attribution visible in walk-forward text/HTML/PDF reports when benchmark-weights / factor-returns are supplied to walk-forward runs.
 
 ### Requirements
-1. `utils/reporting.py`: add `generate_attribution_report(...)` (text) and `attribution_report_to_dict(...)` (JSON-serializable) that consume the attribution result dict already produced by the engine (keys like `brinson_attribution`, `factor_attribution` if present) and render a readable breakdown.
-2. `backtest/cli.py`: when `--report attribution` (or a new `--attribution` flag) is set and benchmark-weights / factor-returns CSVs are provided, render the attribution report instead of / in addition to the normal backtest report. Keep `--report full`/`--report risk` behavior unchanged when attribution inputs are absent.
-3. `backtest/config.py`: add `report` choice `"attribution"` (and alias) to `CONFIG_SCHEMA`/`validate_config` if not already present.
-4. Add tests in `tests/test_attribution_reporting.py` covering: text report renders allocation/interaction/select effect rows; JSON dict is serializable and contains expected keys; HTML/PDF paths include attribution when inputs present; backward compatibility when no attribution inputs provided.
+1. `backtest/engine.py`: when running walk-forward with attribution inputs, aggregate Brinson/factor attribution across windows (or attach per-window and aggregate totals) into the walk-forward result dict (e.g. under `brinson`/`factor` keys) in a serializable form compatible with `utils.reporting`.
+2. `utils/reporting.py`: extend `generate_walk_forward_report`/`walk_forward_report_to_dict` and HTML/PDF walk-forward generators to include an attribution section when present (mirroring the style of `generate_attribution_report`).
+3. `backtest/cli.py`: ensure walk-forward + attribution inputs flow correctly and walk-forward reports render attribution when `--walk-forward-report`/walk-forward outputs are used.
+4. Add tests in `tests/test_walk_forward_attribution.py` covering aggregation, text/HTML/PDF rendering, and backward compatibility when no attribution inputs are provided.
 5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
@@ -30,3 +31,5 @@ python3 -m pytest tests/ -q
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python3 -m mypy backtest/ strategies/ utils/
 ```
+
+**Ready for next agent.**

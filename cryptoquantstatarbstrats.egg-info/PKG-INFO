@@ -11,6 +11,7 @@ Requires-Dist: numpy>=1.24
 Requires-Dist: scikit-learn>=1.2
 Requires-Dist: statsmodels>=0.14
 Requires-Dist: scipy>=1.11
+Requires-Dist: PyYAML>=6.0
 Provides-Extra: dev
 Requires-Dist: pytest>=7; extra == "dev"
 Requires-Dist: ruff>=0.4; extra == "dev"
@@ -18,59 +19,71 @@ Requires-Dist: mypy>=1.8; extra == "dev"
 
 # CryptoQuant Stat Arb Strategies
 
-A collection of statistical arbitrage strategies for cryptocurrency markets.
+A research framework for cryptocurrency statistical-arbitrage experiments.
 
-## Overview
+## Research data versus demonstration data
 
-This repository contains implementations of various statistical arbitrage trading strategies, focusing on:
-- Pairs trading
-- Cointegration-based strategies
-- Mean reversion strategies
-- Cross-exchange arbitrage
-
-## Structure
-
-```
-cryptoquantstatarbstrats/
-├── strategies/          # Strategy implementations
-│   ├── base.py          # Strategy & PairStrategy base classes
-│   └── pairs_trading.py # Cointegration pairs trading strategy
-├── data/                # Data collection and processing
-│   └── loader.py        # DataLoader with synthetic/clean data helpers
-├── backtest/            # Backtesting framework
-│   └── engine.py        # BacktestEngine that consumes strategy signals
-├── utils/               # Utility functions (returns, z-score, metrics)
-├── tests/               # Unit tests (pytest)
-├── examples/            # End-to-end example scripts
-├── pyproject.toml       # Project metadata, deps, tooling config
-└── requirements.txt     # Pinned runtime dependencies
-```
-
-## Getting Started
+The command-line backtest uses **free public Binance spot candles by default**.
+It does not require a Binance API key. Symbols such as BTC, ETH, and SOL are
+mapped to USDT-quoted spot markets.
 
 ```bash
-# Install dependencies
-python3 -m pip install -e ".[dev]"
+python -m pip install -e ".[dev]"
 
-# Run the example backtest
-python3 examples/run_pairs.py
+# Historical Binance spot candles
+cryptoquant --strategy pairs --pair BTC ETH --start 2024-01-01 \
+  --end 2024-06-01 --freq 1h --fee-rate 0.001 --slippage 0.0005 \
+  --walk-forward --output json --output-path reports/btc_eth.json
 
-# Run the test suite
-python3 -m pytest tests/ -v
+# Explicit CSV input (timestamp/date/time column plus price columns)
+cryptoquant --data-source csv --data-csv data/prices.csv \
+  --strategy mean_reversion --asset BTC
 
-# Lint
-python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+# Synthetic data is for tests and demonstrations only
+cryptoquant --data-source synthetic --strategy mean_reversion --asset BTC
+```
 
-# Type check
-python3 -m mypy backtest/ strategies/ utils/
+Synthetic runs print a warning to stderr. Their metrics are **not evidence of
+real-market performance**. The Python method DataLoader.load_data() remains
+available for test fixtures and example scripts; use
+DataLoader.load_binance_data() or CLI Binance mode for actual historical
+spot prices.
+
+The term-structure strategy requires actual iv_30d and iv_90d columns in
+the input CSV. The CLI deliberately does not fabricate implied-volatility
+series when they are missing.
+
+## Validation notes
+
+- Strategy target weights are applied starting on the next bar, not against
+  the close-to-close return that was used to compute the signal.
+- The pairs strategy estimates a rolling hedge ratio from trailing observations
+  and emits explicit opposing legs. The engine does not overwrite explicit
+  asset weights with generic long/short flags.
+- The default price loader is a free public data source, but this project is
+  still a research framework. A successful backtest or passing unit tests do
+  not establish a profitable strategy. Validate unseen periods, transaction
+  costs, funding where relevant, execution assumptions, and data quality.
+- The provided examples/optimize.py is a small synthetic demonstration. Its
+  top-ranked parameter set is not an out-of-sample strategy recommendation.
+
+## Development
+
+```bash
+python -m pytest tests/ -v
+python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+python -m mypy backtest/ strategies/ utils/
 ```
 
 ## CI
 
-[![CI](https://github.com/Kilo-Org/cryptoquantstatarbstrats/actions/workflows/ci.yml/badge.svg)](https://github.com/Kilo-Org/cryptoquantstatarbstrats/actions/workflows/ci.yml)
+[![CI](https://github.com/takenthatusernameis-collab/cryptoquantstatarbstrats/actions/workflows/ci.yml/badge.svg)](https://github.com/takenthatusernameis-collab/cryptoquantstatarbstrats/actions/workflows/ci.yml)
 
-The CI workflow (`.github/workflows/ci.yml`) runs on push and pull requests, executing `ruff check`, `mypy backtest/ strategies/ utils/`, and `pytest tests/ -q` across Python 3.10/3.11/3.12.
+GitHub Actions runs Ruff, mypy, and the test suite across Python 3.10, 3.11,
+and 3.12.
 
 ## Disclaimer
 
-This software is for educational and research purposes only. Use at your own risk.
+This software is for educational and research purposes only. It does not
+provide investment advice and is not intended for live trading without
+independent validation.

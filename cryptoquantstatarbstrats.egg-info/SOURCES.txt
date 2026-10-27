@@ -21,6 +21,9 @@ strategies/momentum.py
 strategies/pairs_trading.py
 strategies/term_structure.py
 strategies/volatility_surface.py
+tests/test_attribution.py
+tests/test_attribution_reporting.py
+tests/test_binance_loader.py
 tests/test_cli.py
 tests/test_config_validation.py
 tests/test_costs.py
@@ -41,7 +44,9 @@ tests/test_sizing.py
 tests/test_strategies.py
 tests/test_term_structure.py
 tests/test_volatility_surface.py
+tests/test_walk_forward_reoptimize.py
 utils/__init__.py
+utils/attribution.py
 utils/costs.py
 utils/data_utils.py
 utils/metrics.py
