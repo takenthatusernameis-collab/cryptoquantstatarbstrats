@@ -1,25 +1,33 @@
 # Task for Next Agent
 
 ## Assigned task
-Implement a limit-order book (LOB) execution model in `backtest/execution.py`.
+Enhance the LOB execution model with per-level liquidity and queue position effects.
 
 ### Requirements
-1. Add `LimitOrderBookExecution` class following the existing execution interface (see `MarketExecution`, `LimitExecution`, `VWAPExecution`, `TWAPExecution`, `IcebergExecution`).
-2. Support parameters: `depth_levels` (number of price levels to consume), `market_impact_bps` (price impact per unit of size consumed from the book), `slippage_bps`, and optional `participation_rate`.
-3. Behavior: walk the book consuming price levels up to `depth_levels`, applying market impact to fill price, respecting volume-tied fills and OHLC passthrough where applicable. Partial fills when book depth is insufficient.
-4. Integrate cleanly with existing order/fill logic (no breaking changes to other execution models). Register `order_type == "lob"` in `ExecutionSimulator.simulate_order` and route to a `_simulate_lob` helper.
-5. Add unit tests in `tests/test_execution_lob.py` covering: single-level fill, multi-level walk with market impact, partial fill when depth insufficient, price impact direction (buy pushes price up, sell pushes price down).
+1. Extend `LimitOrderBookExecution` to support per-level configuration: allow passing `level_liquidity` (list/array of quantities available at each price level) and `queue_position` (fraction 0-1 indicating position in queue at first level).
+2. Update `ExecutionSimulator._simulate_lob` to consume liquidity level-by-level: for each of the first `depth_levels` levels, consume up to the level's available liquidity (or remaining order quantity), applying `market_impact_bps` per level consumed. If `level_liquidity` not provided, fall back to the current volume-proxy logic for backward compatibility.
+3. Apply queue position penalty/constraint: when `queue_position` is provided and > 0, the order may only fill from the portion behind queue (reduce fillable by queue position) before consuming subsequent levels; this affects partial fills when queue is long.
+4. Register/accept parameters via `ExecutionSimulator` (add `lob_level_liquidity`, `lob_queue_position` fields) and pass through cleanly.
+5. Add unit tests in `tests/test_execution_lob_enhanced.py` covering: per-level liquidity enforcement, multi-level consumption with different liquidity per level, queue position reducing fills, and backward compatibility when enhanced params not provided.
 
 ## Acceptance criteria
-- `python3 -m pytest tests/test_execution_lob.py -v` passes
+- `python3 -m pytest tests/test_execution_lob_enhanced.py -v` passes
 - `python3 -m pytest tests/ -q` passes (no regressions)
-- `python3 -m ruff check backtest/execution.py tests/test_execution_lob.py` clean
+- `python3 -m ruff check backtest/execution.py tests/test_execution_lob_enhanced.py` clean
 - `python3 -m mypy backtest/execution.py` clean
 
 ## Context
-- Implementation patterns: `backtest/execution.py` (`ExecutionSimulator`, `_simulate_iceberg`, existing dataclasses), `backtest/engine.py` (how executions are used).
-- Volume/partial fills: see `_simulate_iceberg` / `VolumeTiedMixin`-related logic.
-- Tests: `tests/test_execution_iceberg.py` and `tests/test_execution_vwap_twap.py` for style/reference.
+- Implementation patterns: `backtest/execution.py` (`LimitOrderBookExecution`, `_simulate_lob`, `ExecutionSimulator`), existing LOB tests in `tests/test_execution_lob.py`.
+- Volume/partial fills: see current `_simulate_lob` logic for volume caps and depth limits.
+- Keep public API backward compatible - all existing behavior must remain unchanged when new params are not specified.
 
 ## Prior completed task (reference)
-Iceberg execution model (`IcebergExecution` + `_simulate_iceberg` + `order_type="iceberg"`) complete with tests in `tests/test_execution_iceberg.py`; ruff and mypy clean, 186 tests pass.
+Limit order book execution model (`LimitOrderBookExecution` + `_simulate_lob` + `order_type="lob"`) complete with tests in `tests/test_execution_lob.py`; ruff and mypy clean, 190 tests pass.
+
+## Verification
+```bash
+python3 -m pytest tests/test_execution_lob_enhanced.py -v
+python3 -m pytest tests/ -q
+python3 -m ruff check backtest/execution.py tests/test_execution_lob_enhanced.py
+python3 -m mypy backtest/execution.py
+```
