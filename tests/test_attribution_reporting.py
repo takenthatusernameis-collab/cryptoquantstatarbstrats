@@ -1,11 +1,15 @@
-"""Tests for attribution reporting through utils.reporting and CLI."""
+"""Tests for attribution reporting through utils.reporting and the CLI."""
 
 from __future__ import annotations
 
+import contextlib
+import io
 import json
 
+import numpy as np
 import pandas as pd
 
+from backtest.cli import main
 from utils.reporting import (
     attribution_report_to_dict,
     generate_attribution_report,
@@ -81,3 +85,203 @@ def test_pdf_includes_attribution_when_inputs_present(tmp_path):
     generate_pdf_report(result, str(out))
     # File should be created (matplotlib may write PDF or fallback to HTML)
     assert out.exists() or (tmp_path / "attr.html").exists()
+
+
+def _make_cli_files(tmp_path):
+    rng = np.random.default_rng(7)
+    dates = pd.date_range("2024-01-01", periods=120, freq="1h")
+    data = pd.DataFrame(
+        {
+            "BTC": 100 * np.exp(np.cumsum(rng.normal(0, 0.02, 120))),
+            "ETH": 100 * np.exp(np.cumsum(rng.normal(0, 0.02, 120))),
+        },
+        index=dates,
+    )
+    price_path = tmp_path / "prices.csv"
+    data.to_csv(price_path)
+    bench_path = tmp_path / "bench.csv"
+    pd.DataFrame({"BTC": 0.6, "ETH": 0.4}, index=dates).to_csv(bench_path)
+    factor_path = tmp_path / "factors.csv"
+    pd.DataFrame({"mkt": rng.normal(0, 0.01, 120)}, index=dates).to_csv(factor_path)
+    return str(price_path), str(bench_path), str(factor_path)
+
+
+def _run_cli(argv: list[str]) -> str:
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = main(argv)
+    assert code == 0
+    return buf.getvalue()
+
+
+def test_cli_attribution_text_renders_effects(tmp_path):
+    price, bench, factors = _make_cli_files(tmp_path)
+    out = _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--data-source",
+            "csv",
+            "--data-csv",
+            price,
+            "--benchmark-weights-csv",
+            bench,
+            "--factor-returns-csv",
+            factors,
+            "--report",
+            "attribution",
+            "--output",
+            "text",
+        ]
+    )
+    assert "Brinson Attribution" in out
+    assert "Allocation" in out or "allocation" in out.lower()
+    assert "Selection" in out or "selection" in out.lower()
+    assert "Interaction" in out or "interaction" in out.lower()
+    assert "Factor Attribution" in out
+
+
+def test_cli_attribution_json_serializable(tmp_path):
+    price, bench, factors = _make_cli_files(tmp_path)
+    out = _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--data-source",
+            "csv",
+            "--data-csv",
+            price,
+            "--benchmark-weights-csv",
+            bench,
+            "--factor-returns-csv",
+            factors,
+            "--report",
+            "attribution",
+            "--output",
+            "json",
+        ]
+    )
+    payload = json.loads(out)
+    assert isinstance(payload, dict)
+    assert "brinson" in payload
+    assert "factor" in payload
+    assert payload["brinson"]["allocation_total"] is not None
+    assert payload["brinson"]["summary"]
+
+
+def test_cli_attribution_html_includes_breakdown(tmp_path):
+    price, bench, factors = _make_cli_files(tmp_path)
+    out_path = tmp_path / "attr.html"
+    argv = [
+        "--strategy",
+        "mean_reversion",
+        "--asset",
+        "BTC",
+        "--data-source",
+        "csv",
+        "--data-csv",
+        price,
+        "--benchmark-weights-csv",
+        bench,
+        "--factor-returns-csv",
+        factors,
+        "--report",
+        "attribution",
+        "--output",
+        "html",
+        "--output-path",
+        str(out_path),
+    ]
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = main(argv)
+    assert code == 0
+    content = out_path.read_text()
+    assert "<!DOCTYPE html>" in content
+    assert "Attribution" in content
+    assert "Brinson" in content
+    assert "Factor" in content
+
+
+def test_cli_attribution_pdf_written(tmp_path):
+    price, bench, factors = _make_cli_files(tmp_path)
+    out_path = tmp_path / "attr.pdf"
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        code = main(
+            [
+                "--strategy",
+                "mean_reversion",
+                "--asset",
+                "BTC",
+                "--data-source",
+                "csv",
+                "--data-csv",
+                price,
+                "--benchmark-weights-csv",
+                bench,
+                "--factor-returns-csv",
+                factors,
+                "--report",
+                "attribution",
+                "--output",
+                "pdf",
+                "--output-path",
+                str(out_path),
+            ]
+        )
+    assert code == 0
+    assert out_path.exists() and out_path.stat().st_size > 0
+    assert out_path.read_bytes()[:4] == b"%PDF"
+
+
+def test_cli_attribution_no_inputs_backward_compat(tmp_path):
+    price, _, _ = _make_cli_files(tmp_path)
+    out = _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--data-source",
+            "csv",
+            "--data-csv",
+            price,
+            "--report",
+            "attribution",
+            "--output",
+            "text",
+        ]
+    )
+    assert "No attribution results" in out
+
+
+def test_cli_attribution_full_includes_attribution(tmp_path):
+    price, bench, factors = _make_cli_files(tmp_path)
+    out = _run_cli(
+        [
+            "--strategy",
+            "mean_reversion",
+            "--asset",
+            "BTC",
+            "--data-source",
+            "csv",
+            "--data-csv",
+            price,
+            "--benchmark-weights-csv",
+            bench,
+            "--factor-returns-csv",
+            factors,
+            "--report",
+            "full",
+            "--output",
+            "text",
+        ]
+    )
+    assert "Backtest Report" in out
+    assert "Attribution" in out
+    assert "Brinson" in out

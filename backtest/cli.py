@@ -690,6 +690,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
             regime_vol_mode=regime_vol_mode,
+            benchmark_weights=benchmark_weights_df,
+            factor_returns=factor_returns_df,
         )
     else:
         result = engine.run(
@@ -704,6 +706,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             regime_mode=regime_mode,
             regime_lookback=regime_lookback,
             regime_vol_mode=regime_vol_mode,
+            benchmark_weights=benchmark_weights_df,
+            factor_returns=factor_returns_df,
         )
 
     if getattr(args, "benchmark", False) or getattr(args, "rebalance_benchmark", False):
@@ -813,6 +817,58 @@ def main(argv: Sequence[str] | None = None) -> int:
                     pass
         except Exception as exc:
             print(f"Monte Carlo analysis failed: {exc}", file=sys.stderr)
+
+    # Emit the requested report (text / json / html / pdf) for the chosen report
+    # kind (full / risk / attribution). Attribution results produced by the
+    # engine (brinson / factor) are surfaced automatically when benchmark
+    # weights / factor returns were provided via --benchmark-weights-csv /
+    # --factor-returns-csv.
+    from utils.reporting import (
+        attribution_report_to_dict,
+        generate_attribution_report,
+        generate_html_report,
+        generate_pdf_report,
+        generate_report,
+        generate_risk_report,
+        report_to_dict,
+        risk_report_to_dict,
+    )
+
+    report_kind = getattr(args, "report", "full") or "full"
+    output_format = getattr(args, "output", "text") or "text"
+    output_path = getattr(args, "output_path", None)
+    title = getattr(args, "title", None) or "Backtest Report"
+
+    if report_kind == "attribution":
+        text = generate_attribution_report(result)
+        data = attribution_report_to_dict(result)
+    elif report_kind == "risk":
+        text = generate_risk_report(result)
+        data = risk_report_to_dict(result)
+    else:
+        text = generate_report(result)
+        data = report_to_dict(result)
+
+    def _emit(content: str, path: str | None) -> None:
+        if path is not None:
+            Path(path).write_text(content)
+        else:
+            print(content)
+
+    if output_format == "json":
+        _emit(json.dumps(data, indent=2, default=float), output_path)
+    elif output_format == "html":
+        _emit(generate_html_report(result, title=title), output_path)
+    elif output_format == "pdf":
+        if output_path is None:
+            Path("reports").mkdir(parents=True, exist_ok=True)
+            output_path = str(
+                Path("reports") / f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            )
+        generate_pdf_report(result, str(output_path), title=title)
+        print(f"PDF report written to {output_path}")
+    else:
+        _emit(text, output_path)
 
     return 0
 
