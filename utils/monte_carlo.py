@@ -58,9 +58,33 @@ def bootstrap_trade_returns(
     if len(trades) == 0:
         return {
             "n_simulations": int(n_simulations),
-            "final_equity": {"mean": 0.0, "std": 0.0, "p5": 0.0, "p25": 0.0, "p50": 0.0, "p75": 0.0, "p95": 0.0},
-            "max_drawdown": {"mean": 0.0, "std": 0.0, "p5": 0.0, "p25": 0.0, "p50": 0.0, "p75": 0.0, "p95": 0.0},
-            "sharpe_ratio": {"mean": 0.0, "std": 0.0, "p5": 0.0, "p25": 0.0, "p50": 0.0, "p75": 0.0, "p95": 0.0},
+            "final_equity": {
+                "mean": 0.0,
+                "std": 0.0,
+                "p5": 0.0,
+                "p25": 0.0,
+                "p50": 0.0,
+                "p75": 0.0,
+                "p95": 0.0,
+            },
+            "max_drawdown": {
+                "mean": 0.0,
+                "std": 0.0,
+                "p5": 0.0,
+                "p25": 0.0,
+                "p50": 0.0,
+                "p75": 0.0,
+                "p95": 0.0,
+            },
+            "sharpe_ratio": {
+                "mean": 0.0,
+                "std": 0.0,
+                "p5": 0.0,
+                "p25": 0.0,
+                "p50": 0.0,
+                "p75": 0.0,
+                "p95": 0.0,
+            },
         }
 
     method = method.lower()
@@ -75,7 +99,7 @@ def bootstrap_trade_returns(
         else:  # bootstrap
             sim_trades = rng.choice(trades, size=len(trades), replace=True)
 
-        equity_curve = initial_equity * (1.0 + sim_trades).cumprod()
+        equity_curve = initial_equity * np.cumprod(1.0 + sim_trades)
         final_equities.append(float(equity_curve[-1]))
         mdd = max_drawdown(equity_curve)
         max_drawdowns.append(float(abs(mdd)))
@@ -128,11 +152,15 @@ def monte_carlo_analysis(
     if equity_curve is not None:
         eq = _to_series(equity_curve).dropna()
         if len(eq) == 0:
-            return bootstrap_trade_returns([], n_simulations=n_simulations, method=method, seed=seed)
+            return bootstrap_trade_returns(
+                [], n_simulations=n_simulations, method=method, seed=seed
+            )
         # Compute period returns from equity curve
         period_rets = eq.pct_change().dropna()
         if len(period_rets) == 0:
-            return bootstrap_trade_returns([], n_simulations=n_simulations, method=method, seed=seed)
+            return bootstrap_trade_returns(
+                [], n_simulations=n_simulations, method=method, seed=seed
+            )
         return bootstrap_trade_returns(
             period_rets, n_simulations=n_simulations, method=method, seed=seed
         )
@@ -140,9 +168,9 @@ def monte_carlo_analysis(
     if returns is not None:
         r = _to_series(returns).dropna()
         if len(r) == 0:
-            return bootstrap_trade_returns([], n_simulations=n_simulations, method=method, seed=seed)
-        return bootstrap_trade_returns(
-            r, n_simulations=n_simulations, method=method, seed=seed
-        )
+            return bootstrap_trade_returns(
+                [], n_simulations=n_simulations, method=method, seed=seed
+            )
+        return bootstrap_trade_returns(r, n_simulations=n_simulations, method=method, seed=seed)
 
     return bootstrap_trade_returns([], n_simulations=n_simulations, method=method, seed=seed)

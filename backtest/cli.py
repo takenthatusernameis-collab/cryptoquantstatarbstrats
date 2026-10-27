@@ -75,9 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
         default="mean_reversion",
         help="Strategy to run.",
     )
-    parser.add_argument(
-        "--asset", default="BTC", help="Asset for the mean_reversion strategy."
-    )
+    parser.add_argument("--asset", default="BTC", help="Asset for the mean_reversion strategy.")
     parser.add_argument(
         "--pair",
         nargs=2,
@@ -90,12 +88,8 @@ def build_parser() -> argparse.ArgumentParser:
         default=100_000.0,
         help="Starting capital.",
     )
-    parser.add_argument(
-        "--fee-rate", type=float, default=None, help="Legacy linear fee rate."
-    )
-    parser.add_argument(
-        "--slippage", type=float, default=None, help="Legacy slippage rate."
-    )
+    parser.add_argument("--fee-rate", type=float, default=None, help="Legacy linear fee rate.")
+    parser.add_argument("--slippage", type=float, default=None, help="Legacy slippage rate.")
     parser.add_argument(
         "--output",
         choices=["text", "json", "html", "pdf"],
@@ -450,8 +444,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             base = 0.5
             t = _np.linspace(0, 10, len(data))
             data["iv_30d"] = base + 0.02 * _np.sin(t) + rng.normal(0, 0.01, len(data))
-            data["iv_90d"] = base + 0.01 + 0.015 * _np.sin(_np.linspace(0, 8, len(data))) + rng.normal(
-                0, 0.01, len(data)
+            data["iv_90d"] = (
+                base
+                + 0.01
+                + 0.015 * _np.sin(_np.linspace(0, 8, len(data)))
+                + rng.normal(0, 0.01, len(data))
             )
 
     volume_df = None
@@ -557,7 +554,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
-            regime_vol_mode=regime_vol_mode,
+                regime_vol_mode=regime_vol_mode,
             )
         else:
             result = engine.walk_forward(
@@ -573,7 +570,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
-            regime_vol_mode=regime_vol_mode,
+                regime_vol_mode=regime_vol_mode,
             )
     elif rebalance_freq:
         signals = strategy.generate_signals(data)
@@ -630,9 +627,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         bench_returns = data.pct_change().fillna(0.0)
         n_assets = data.shape[1]
         if n_assets > 0:
-            bench_weights = pd.DataFrame(
-                1.0 / n_assets, index=data.index, columns=data.columns
-            )
+            bench_weights = pd.DataFrame(1.0 / n_assets, index=data.index, columns=data.columns)
             bench_series = (bench_weights * bench_returns).sum(axis=1)
             bench_equity = (1.0 + bench_series).cumprod()
             result["benchmark_equity_curve"] = bench_equity
@@ -651,41 +646,40 @@ def main(argv: Sequence[str] | None = None) -> int:
             wf_rep = generate_walk_forward_report(result)
             artifact_dir = getattr(args, "artifact_dir", None)
             out_path_base = getattr(args, "output_path", None)
+            out_path_base = None if out_path_base is None else str(out_path_base)
             stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             if artifact_dir:
                 Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-                base = Path(artifact_dir) / f"walk_forward_{stamp}"
+                base_path = Path(artifact_dir) / f"walk_forward_{stamp}"
             elif out_path_base:
-                p = Path(out_path_base)
-                base = p.parent / f"walk_forward_{p.stem}_{stamp}"
+                pp = Path(out_path_base)
+                base_path = pp.parent / f"walk_forward_{pp.stem}_{stamp}"
             else:
                 Path("reports").mkdir(parents=True, exist_ok=True)
-                base = Path("reports") / f"walk_forward_{stamp}"
+                base_path = Path("reports") / f"walk_forward_{stamp}"
             try:
                 import pandas as _pd
 
                 if isinstance(wf_rep.get("summary"), _pd.DataFrame):
-                    (base.parent / f"{base.name}.csv").write_text(
+                    (base_path.parent / f"{base_path.name}.csv").write_text(
                         wf_rep["summary"].to_csv(index=False)
                     )
             except Exception:
                 pass
             try:
-                html_p = base.with_suffix(".html")
+                html_p = base_path.with_suffix(".html")
                 Path(html_p).write_text(generate_walk_forward_html_report(wf_rep))
             except Exception:
                 pass
             try:
-                generate_walk_forward_pdf_report(wf_rep, str(base.with_suffix(".pdf")))
+                generate_walk_forward_pdf_report(wf_rep, str(base_path.with_suffix(".pdf")))
             except Exception:
                 pass
         except Exception:
             pass
 
     if args.output == "json":
-        payload = (
-            risk_report_to_dict(result) if args.report == "risk" else report_to_dict(result)
-        )
+        payload = risk_report_to_dict(result) if args.report == "risk" else report_to_dict(result)
         content = json.dumps(payload, indent=2)
         output_path = getattr(args, "output_path", None)
         artifact_dir = getattr(args, "artifact_dir", None)
@@ -735,11 +729,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             generate_pdf_report(result, str(path), title=title)
             print(f"PDF report saved to {path}")
     else:
-        content = (
-            generate_risk_report(result)
-            if args.report == "risk"
-            else generate_report(result)
-        )
+        content = generate_risk_report(result) if args.report == "risk" else generate_report(result)
         output_path = getattr(args, "output_path", None)
         artifact_dir = getattr(args, "artifact_dir", None)
         if artifact_dir and not output_path:
@@ -773,13 +763,25 @@ def main(argv: Sequence[str] | None = None) -> int:
             mdd = mc_res.get("max_drawdown", {})
             shr = mc_res.get("sharpe_ratio", {})
             print(
-                f"Final Equity: mean={fe.get('mean',0):.3f} p5={fe.get('p5',0):.3f} p50={fe.get('p50',0):.3f} p95={fe.get('p95',0):.3f}"
+                "Final Equity: "
+                f"mean={fe.get('mean', 0):.3f} "
+                f"p5={fe.get('p5', 0):.3f} "
+                f"p50={fe.get('p50', 0):.3f} "
+                f"p95={fe.get('p95', 0):.3f}"
             )
             print(
-                f"Max Drawdown:  mean={mdd.get('mean',0):.3f} p5={mdd.get('p5',0):.3f} p50={mdd.get('p50',0):.3f} p95={mdd.get('p95',0):.3f}"
+                "Max Drawdown:  "
+                f"mean={mdd.get('mean', 0):.3f} "
+                f"p5={mdd.get('p5', 0):.3f} "
+                f"p50={mdd.get('p50', 0):.3f} "
+                f"p95={mdd.get('p95', 0):.3f}"
             )
             print(
-                f"Sharpe Ratio:  mean={shr.get('mean',0):.3f} p5={shr.get('p5',0):.3f} p50={shr.get('p50',0):.3f} p95={shr.get('p95',0):.3f}"
+                "Sharpe Ratio:  "
+                f"mean={shr.get('mean', 0):.3f} "
+                f"p5={shr.get('p5', 0):.3f} "
+                f"p50={shr.get('p50', 0):.3f} "
+                f"p95={shr.get('p95', 0):.3f}"
             )
             # Optionally write MC report to artifact dir if requested
             artifact_dir = getattr(args, "artifact_dir", None)
