@@ -22,9 +22,13 @@ strategies/pairs_trading.py
 tests/test_cli.py
 tests/test_costs.py
 tests/test_execution.py
+tests/test_execution_iceberg.py
+tests/test_execution_lob.py
+tests/test_execution_vwap_twap.py
 tests/test_metrics.py
 tests/test_optimization.py
 tests/test_portfolio_risk.py
+tests/test_rebalancing.py
 tests/test_regime.py
 tests/test_reporting.py
 tests/test_sizing.py
@@ -36,6 +40,7 @@ utils/metrics.py
 utils/optimization.py
 utils/portfolio.py
 utils/portfolio_risk.py
+utils/rebalance.py
 utils/regime.py
 utils/reporting.py
 utils/risk.py
