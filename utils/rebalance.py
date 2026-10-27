@@ -11,7 +11,7 @@ import pandas as pd
 
 def generate_rebalance_dates(
     index: pd.DatetimeIndex | pd.Index,
-    freq: str = "1w",
+    freq: str = "1W",
     offset: Any = None,
 ) -> pd.DatetimeIndex:
     """Generate rebalance dates from a price index."""
@@ -22,6 +22,10 @@ def generate_rebalance_dates(
             raise ValueError("index must be datetime-like")
     else:
         idx = index
+
+    # Normalize deprecated lowercase weekly frequency to uppercase (pandas 2.x)
+    if isinstance(freq, str):
+        freq = freq.replace("w", "W")
 
     if len(idx) == 0:
         return pd.DatetimeIndex([])
@@ -48,7 +52,7 @@ def generate_rebalance_dates(
 def create_rebalanced_weights(
     weights_func: Callable[..., Any] | pd.DataFrame | pd.Series,
     data: pd.DataFrame,
-    freq: str = "1w",
+    freq: str = "1W",
     offset: Any = None,
 ) -> pd.DataFrame:
     """Create a weights DataFrame with periodic rebalancing (forward-filled)."""
