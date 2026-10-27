@@ -8,12 +8,18 @@ The previous agent's assigned task (options/volatility-surface strategy) is comp
 - Verified: 238 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Next task for the next agent
-No assigned task pending. Suggested next steps (pick one):
-- Add a new strategy module complementing existing ones (e.g., statistical arbitrage / mean-reversion of volatility term structure).
-- Extend execution models or reporting artifacts.
-- Improve notebook coverage / docs.
+Add a volatility term-structure mean-reversion strategy.
 
-## Verification
+### Task: Add a term-structure / calendar spread strategy
+- Create `strategies/term_structure.py` with `TermStructureStrategy(Strategy)`.
+- Trade mean-reversion between near-term and long-term implied volatility (or realized/IV spread). When the spread (long - short, or vice versa) widens beyond a threshold relative to its rolling mean/z-score, take a spread trade expecting convergence; flatten on reversion.
+- Follow the existing `Strategy` base-class contract (`generate_signals` / `calculate_position_sizes`).
+- Support configurable parameters (e.g., `near_tenor`, `far_tenor`, `lookback`, `entry_threshold`, `exit_threshold`) and work with multi-column data where IV term structure is provided as columns like `iv_30d`, `iv_90d` (or similar). If those columns don't exist, the strategy should be robust or clearly raise informative errors consistent with codebase style.
+- Export it from `strategies/__init__.py`.
+- Add `tests/test_term_structure.py` covering signal generation columns, position sizes, and an end-to-end `BacktestEngine.run` run.
+- Verify public API stays backward compatible; do not modify existing strategy modules.
+
+### Verification
 ```bash
 python3 -m pytest tests/ -q
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
