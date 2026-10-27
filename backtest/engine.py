@@ -16,6 +16,21 @@ from utils.rebalance import create_rebalanced_weights
 from utils.regime import detect_regimes, volatility_regime
 
 
+def _infer_periods_per_year(index: pd.Index) -> int:
+    """Infer annualization from timestamp spacing; default to daily market data."""
+    if not isinstance(index, pd.DatetimeIndex) or len(index) < 3:
+        return 252
+    seconds = index.to_series().diff().dt.total_seconds().dropna()
+    seconds = seconds[seconds > 0]
+    if seconds.empty:
+        return 252
+    median_seconds = float(seconds.median())
+    if not np.isfinite(median_seconds) or median_seconds <= 0:
+        return 252
+    seconds_per_year = 365.25 * 24.0 * 60.0 * 60.0
+    return int(max(1, min(round(seconds_per_year / median_seconds), 525600)))
+
+
 class BacktestEngine:
     """Backtesting engine for trading strategies."""
 
@@ -132,6 +147,7 @@ class BacktestEngine:
         regime_vol_mode: str | None = None,
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
+        weights_are_targets: bool = True,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -170,6 +186,11 @@ class BacktestEngine:
             except Exception:
                 pass
 
+        # Signals/target weights calculated from bar t close cannot earn the
+        # return that ended at bar t. Execute them from the next bar instead.
+        if weights_are_targets:
+            weights = weights.shift(1).fillna(0.0)
+
         if execution_simulator is not None:
             portfolio_returns, cost = self._simulate_execution(
                 weights, data, returns, execution_simulator, volume=volume, high=high, low=low
@@ -191,7 +212,8 @@ class BacktestEngine:
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
 
         total_return = float(cumulative_returns.iloc[-1] - 1.0)
-        sharpe = sharpe_ratio(portfolio_returns)
+        periods_per_year = _infer_periods_per_year(data.index)
+        sharpe = sharpe_ratio(portfolio_returns, periods_per_year=periods_per_year)
         running_max = cumulative_returns.cummax()
         drawdown = cumulative_returns / running_max - 1.0
         max_drawdown = float(drawdown.min())
@@ -219,12 +241,21 @@ class BacktestEngine:
 
         # Compute Calmar ratio
         if max_drawdown < 0:
-            calmar_ratio = total_return / abs(max_drawdown)
+            observed_periods = max(len(portfolio_returns) - 1, 1)
+            if total_return > -1.0:
+                annualized_return = (1.0 + total_return) ** (
+                    periods_per_year / observed_periods
+                ) - 1.0
+            else:
+                annualized_return = total_return
+            calmar_ratio = annualized_return / abs(max_drawdown)
         else:
             calmar_ratio = 0.0
 
         # Compute advanced risk metrics
-        sortino = sortino_ratio(portfolio_returns)
+        sortino = sortino_ratio(
+            portfolio_returns, periods_per_year=periods_per_year
+        )
         var_95 = var(portfolio_returns, confidence=0.95)
         cvar_95 = cvar(portfolio_returns, confidence=0.95)
 
@@ -375,6 +406,37 @@ class BacktestEngine:
 
         return portfolio_returns, cost
 
+    def _signals_to_weights(
+        self, signals: pd.DataFrame, data: pd.DataFrame
+    ) -> pd.DataFrame:
+        """Convert strategy signals to target weights without overriding explicit legs."""
+        weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
+
+        # Explicit per-asset weights take precedence over generic long/short flags.
+        weight_cols = [c for c in data.columns if c in signals.columns]
+        if weight_cols:
+            for asset in weight_cols:
+                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
+        elif "long" in signals.columns and "short" in signals.columns:
+            long_mask = signals["long"].fillna(False).reindex(
+                data.index, fill_value=False
+            ).astype(bool)
+            short_mask = signals["short"].fillna(False).reindex(
+                data.index, fill_value=False
+            ).astype(bool)
+            for asset in data.columns:
+                weights.loc[long_mask, asset] = 1.0
+                weights.loc[short_mask, asset] = -1.0
+
+        if "exit" in signals.columns:
+            exit_mask = signals["exit"].fillna(False).reindex(
+                data.index, fill_value=False
+            ).astype(bool)
+            weights.loc[exit_mask, :] = 0.0
+
+        active = weights.abs().sum(axis=1).replace(0.0, np.nan)
+        return weights.div(active, axis=0).fillna(0.0)
+
     def run(
         self,
         strategy: Strategy,
@@ -404,35 +466,7 @@ class BacktestEngine:
         """
         signals = strategy.generate_signals(data)
 
-        # Determine per-asset weights from signals.
-        weights = pd.DataFrame(0.0, index=data.index, columns=data.columns)
-
-        # Explicit per-asset weight columns (e.g. cross-exchange legs).
-        weight_cols = [c for c in data.columns if c in signals.columns]
-        if weight_cols:
-            for asset in weight_cols:
-                weights[asset] = signals[asset].reindex(data.index).fillna(0.0)
-
-        if "long" in signals.columns and "short" in signals.columns:
-            long_mask = signals["long"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            short_mask = signals["short"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            for asset in data.columns:
-                weights.loc[long_mask, asset] = 1.0
-                weights.loc[short_mask, asset] = -1.0
-
-        if "exit" in signals.columns:
-            exit_mask = signals["exit"].fillna(False).reindex(
-                data.index, fill_value=False
-            )
-            weights.loc[exit_mask, :] = 0.0
-
-        # Equal-weight across active positions to stay fully invested.
-        active = weights.abs().sum(axis=1).replace(0.0, np.nan)
-        weights = weights.div(active, axis=0).fillna(0.0)
+        weights = self._signals_to_weights(signals, data)
 
         if rebalance_frequency is not None:
             weights = create_rebalanced_weights(
@@ -535,6 +569,7 @@ class BacktestEngine:
         regime_vol_mode: str | None = None,
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
+        weights_are_targets: bool = True,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -582,6 +617,7 @@ class BacktestEngine:
             regime_vol_mode=regime_vol_mode,
             benchmark_weights=benchmark_weights,
             factor_returns=factor_returns,
+            weights_are_targets=weights_are_targets,
         )
 
     def walk_forward(
@@ -618,12 +654,18 @@ class BacktestEngine:
                     strategy.fit(train_data)
                 except Exception:
                     pass
-            # Run on test data
+            # Generate signals with both the training history and test bars
+            # available. The strategy must still use causal rolling features.
+            full_window = data.iloc[i : i + train_period + test_period]
+            signals = strategy.generate_signals(full_window)
+            target_weights = self._signals_to_weights(signals, full_window)
+            executed_weights = target_weights.shift(1).fillna(0.0)
+            weights_test = executed_weights.reindex(test_data.index).fillna(0.0)
             test_volume = volume.loc[test_data.index] if (volume is not None) else None
             test_high = high.loc[test_data.index] if (high is not None) else None
             test_low = low.loc[test_data.index] if (low is not None) else None
-            result = self.run(
-                strategy,
+            result = self.run_portfolio(
+                weights_test,
                 test_data,
                 fee_rate=fee_rate,
                 slippage=slippage,
@@ -637,6 +679,9 @@ class BacktestEngine:
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
+                weights_are_targets=False,
             )
             results.append(result)
             i += test_period
