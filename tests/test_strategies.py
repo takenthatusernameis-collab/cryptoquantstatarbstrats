@@ -302,11 +302,16 @@ def test_cross_exchange_backtest_runs():
 
 
 def test_transaction_costs_reduce_returns():
-    df = make_data()
-    strat = CointegrationPairsStrategy(("BTC", "ETH"))
+    class AlwaysLong:
+        def generate_signals(self, data):
+            return pd.DataFrame({"BTC": 1.0}, index=data.index)
+
+    df = make_data()[["BTC"]]
     engine = BacktestEngine(initial_capital=100_000)
-    result_no_cost = engine.run(strat, df)
-    result_with_cost = engine.run(strat, df, fee_rate=0.001, slippage=0.0005)
+    result_no_cost = engine.run(AlwaysLong(), df)
+    result_with_cost = engine.run(
+        AlwaysLong(), df, fee_rate=0.001, slippage=0.0005
+    )
     assert result_with_cost["total_return"] < result_no_cost["total_return"]
 
 
