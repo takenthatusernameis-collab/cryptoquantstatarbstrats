@@ -226,7 +226,12 @@ class ExecutionSimulator:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         iceberg = self._iceberg
-        visible_qty = float(getattr(iceberg, "visible_qty", None) or getattr(iceberg, "display_qty", None) or self.iceberg_visible_qty or 1.0)
+        visible_qty = float(
+            getattr(iceberg, "visible_qty", None)
+            or getattr(iceberg, "display_qty", None)
+            or self.iceberg_visible_qty
+            or 1.0
+        )
         try:
             if not np.isfinite(visible_qty) or visible_qty <= 0.0:
                 visible_qty = 1.0
@@ -240,8 +245,18 @@ class ExecutionSimulator:
         except Exception:
             min_fill = 0.0
 
-        price_offset_bps = float(getattr(iceberg, "price_offset_bps", self.iceberg_price_offset_bps) or 0.0)
-        price_offset_abs = float(getattr(iceberg, "price_offset_absolute", getattr(iceberg, "price_offset", self.iceberg_price_offset_absolute)) or 0.0)
+        price_offset_bps = float(
+            getattr(iceberg, "price_offset_bps", self.iceberg_price_offset_bps)
+            or 0.0
+        )
+        price_offset_abs = float(
+            getattr(
+                iceberg,
+                "price_offset_absolute",
+                getattr(iceberg, "price_offset", self.iceberg_price_offset_absolute),
+            )
+            or 0.0
+        )
         try:
             if not np.isfinite(price_offset_bps):
                 price_offset_bps = 0.0
@@ -267,12 +282,22 @@ class ExecutionSimulator:
 
         if fillable < abs(q) - 1e-12:
             if min_fill > 0.0 and fillable < min_fill - 1e-12:
-                return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
+                return {
+                    "filled_qty": 0.0,
+                    "avg_price": 0.0,
+                    "status": "unfilled",
+                    "remaining_qty": q,
+                }
         elif fillable >= abs(q) - 1e-12:
             fillable = abs(q)
         else:
             if min_fill > 0.0 and fillable < min_fill - 1e-12 and fillable < abs(q) - 1e-12:
-                return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
+                return {
+                    "filled_qty": 0.0,
+                    "avg_price": 0.0,
+                    "status": "unfilled",
+                    "remaining_qty": q,
+                }
 
         if fillable <= 0.0:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "unfilled", "remaining_qty": q}
