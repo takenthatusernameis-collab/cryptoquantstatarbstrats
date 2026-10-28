@@ -179,15 +179,22 @@ def generate_paper_trading_report_html(
     html.append(f"<h1>{title}</h1>")
     html.append("<h2>Session Summary</h2>")
     html.append("<table><tr><th>Metric</th><th>Value</th></tr>")
-    html.append(f"<tr><td>Initial Capital</td><td>{session_summary.get('initial_capital', 0.0)}</td></tr>")
-    html.append(f"<tr><td>Realized PnL</td><td>{session_summary.get('realized_pnl', 0.0)}</td></tr>")
-    html.append(f"<tr><td>Portfolio Value</td><td>{session_summary.get('portfolio_value', 0.0)}</td></tr>")
-    html.append(f"<tr><td>Number of Fills</td><td>{len(fills) if isinstance(fills, list) else session_summary.get('num_fills', 0)}</td></tr>")
+    initial_capital = session_summary.get("initial_capital", 0.0)
+    html.append(f"<tr><td>Initial Capital</td><td>{initial_capital}</td></tr>")
+    realized_pnl = session_summary.get("realized_pnl", 0.0)
+    html.append(f"<tr><td>Realized PnL</td><td>{realized_pnl}</td></tr>")
+    portfolio_value = session_summary.get("portfolio_value", 0.0)
+    html.append(f"<tr><td>Portfolio Value</td><td>{portfolio_value}</td></tr>")
+    num_fills = len(fills) if isinstance(fills, list) else session_summary.get("num_fills", 0)
+    html.append(f"<tr><td>Number of Fills</td><td>{num_fills}</td></tr>")
     html.append("</table>")
 
     if positions:
         html.append("<h2>Positions</h2>")
-        html.append("<table><tr><th>Symbol</th><th>Quantity</th><th>Avg Cost</th><th>Unrealized PnL</th></tr>")
+        html.append(
+            "<table><tr><th>Symbol</th><th>Quantity</th><th>Avg Cost</th>"
+            "<th>Unrealized PnL</th></tr>"
+        )
         for sym, pos in positions.items():
             try:
                 if isinstance(pos, dict):
@@ -206,7 +213,10 @@ def generate_paper_trading_report_html(
     if monitoring:
         html.append("<h2>Monitoring</h2>")
         alerts = monitoring.get("alerts") or []
-        html.append(f"<p>Total Alerts: {len(alerts) if isinstance(alerts, list) else monitoring.get('total_alerts', 0)}</p>")
+        total_alerts = (
+            len(alerts) if isinstance(alerts, list) else monitoring.get("total_alerts", 0)
+        )
+        html.append(f"<p>Total Alerts: {total_alerts}</p>")
         if isinstance(alerts, list) and alerts:
             html.append("<table><tr><th>Level</th><th>Metric</th><th>Message</th><th>Timestamp</th></tr>")
             for a in alerts:
@@ -267,13 +277,16 @@ def save_paper_trading_artifacts(
     saved["equity_curve"] = str(equity_path)
 
     alerts_path = artifact_dir / f"{prefix}_alerts.json"
-    alerts_path.write_text(json.dumps((report_data.get("monitoring") or {}).get("alerts", []), indent=2, default=float))
+    alerts_payload = (report_data.get("monitoring") or {}).get("alerts", [])
+    alerts_path.write_text(json.dumps(alerts_payload, indent=2, default=float))
     saved["alerts"] = str(alerts_path)
 
     return saved
 
 
-def load_paper_trading_artifacts(artifact_dir: str | Path, prefix: str = "paper_trading") -> dict[str, Any]:
+def load_paper_trading_artifacts(
+    artifact_dir: str | Path, prefix: str = "paper_trading"
+) -> dict[str, Any]:
     """Load paper-trading artifacts from artifact_dir."""
     artifact_dir = Path(artifact_dir)
     report_path = artifact_dir / f"{prefix}_report.json"

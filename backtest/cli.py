@@ -534,7 +534,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         if report is None:
             report = {}
         if args.format == "json":
-            content = __import__("json").dumps(paper_report_to_dict(report), indent=2, default=float)
+            content = __import__("json").dumps(
+                paper_report_to_dict(report), indent=2, default=float
+            )
         elif args.format == "html":
             content = generate_paper_trading_report_html(report)
         else:
@@ -641,7 +643,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     }
                 )
                 realized_pnl += -fee
-        summary = {
+        summary: dict[str, Any] = {
             "fills": fills,
             "realized_pnl": realized_pnl,
             "num_fills": len(fills),
@@ -683,7 +685,10 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         # Build paper trading report
         try:
-            from backtest.paper_report import build_paper_trading_report, save_paper_trading_artifacts
+            from backtest.paper_report import (
+                build_paper_trading_report,
+                save_paper_trading_artifacts,
+            )
 
             equity_curve = summary.get("equity_curve") or []
             paper_report = build_paper_trading_report(
@@ -708,9 +713,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             print(content)
         # Persist artifacts if requested
-        if getattr(args, "artifact_dir", None) or getattr(args, "output_path", None) or getattr(args, "monitor", False):
+        should_persist = (
+            getattr(args, "artifact_dir", None)
+            or getattr(args, "output_path", None)
+            or getattr(args, "monitor", False)
+        )
+        if should_persist:
             try:
-                from backtest.paper_report import build_paper_trading_report, save_paper_trading_artifacts
+                from backtest.paper_report import (
+                    build_paper_trading_report,
+                    save_paper_trading_artifacts,
+                )
 
                 equity_curve = summary.get("equity_curve") or []
                 paper_report = summary.get("paper_report") or build_paper_trading_report(
