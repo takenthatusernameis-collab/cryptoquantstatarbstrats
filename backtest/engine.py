@@ -406,6 +406,135 @@ class BacktestEngine:
 
         return portfolio_returns, cost
 
+    @staticmethod
+    def _align_optimizer_result(
+        w_opt: Any, train_data: pd.DataFrame, train_index: pd.Index
+    ) -> pd.DataFrame:
+        """Align an optimizer result (Series or DataFrame) to a target window.
+
+        Used both for the out-of-sample test window and the in-sample train
+        window in :meth:`walk_forward_portfolio`. A Series result is a single
+        target estimated from the training window and applied (forward-filled)
+        throughout the target window.
+        """
+        if isinstance(w_opt, pd.Series):
+            aligned = w_opt.reindex(train_data.columns).fillna(0.0)
+            return pd.DataFrame(
+                [aligned.to_numpy(dtype=float)],
+                columns=train_data.columns,
+                index=[train_index[0]],
+            )
+        if isinstance(w_opt, pd.DataFrame):
+            if w_opt.empty:
+                raise ValueError("Optimizer returned an empty weights DataFrame.")
+            w_df = w_opt.reindex(columns=train_data.columns, fill_value=0.0)
+            return w_df.reindex(index=train_index, method="ffill").fillna(0.0)
+        raise TypeError(
+            "Optimizer must return a pandas Series or DataFrame of weights."
+        )
+
+    def _evaluate_in_sample(
+        self,
+        strategy: Strategy | None,
+        weights: pd.DataFrame | None,
+        train_data: pd.DataFrame,
+        volume: pd.DataFrame | None,
+        high: pd.DataFrame | None,
+        low: pd.DataFrame | None,
+        reoptimize: bool,
+        optimizer: Any,
+        fee_rate: float,
+        slippage: float,
+        cost_model: Any,
+        risk_manager: Any,
+        execution_simulator: Any,
+        regime_signal: Any,
+        regime_mode: str | None,
+        regime_lookback: int | None,
+        regime_vol_mode: str | None,
+        benchmark_weights: pd.DataFrame | None,
+        factor_returns: pd.DataFrame | None,
+    ) -> dict[str, float]:
+        """Evaluate in-sample (train-window) performance, returning IS metrics.
+
+        Returns a dict with ``is_total_return``, ``is_sharpe_ratio`` and
+        ``is_max_drawdown``. Falls back to zeros if evaluation fails so that
+        out-of-sample reporting is never broken by an IS computation.
+        """
+        out = {
+            "is_total_return": 0.0,
+            "is_sharpe_ratio": 0.0,
+            "is_max_drawdown": 0.0,
+        }
+        try:
+            train_index = train_data.index
+            train_volume = volume.loc[train_index] if volume is not None else None
+            train_high = high.loc[train_index] if high is not None else None
+            train_low = low.loc[train_index] if low is not None else None
+
+            if strategy is not None:
+                # Strategy-based walk-forward: run the (already fit) strategy on
+                # the train window to measure in-sample fit.
+                is_result = self.run(
+                    strategy,
+                    train_data,
+                    fee_rate=fee_rate,
+                    slippage=slippage,
+                    cost_model=cost_model,
+                    risk_manager=risk_manager,
+                    execution_simulator=execution_simulator,
+                    volume=train_volume,
+                    high=train_high,
+                    low=train_low,
+                    regime_signal=regime_signal,
+                    regime_mode=regime_mode,
+                    regime_lookback=regime_lookback,
+                    regime_vol_mode=regime_vol_mode,
+                    benchmark_weights=benchmark_weights,
+                    factor_returns=factor_returns,
+                )
+            else:
+                # Portfolio walk-forward: use the optimizer result on the train
+                # window (when reoptimizing) or the supplied weights sliced to
+                # the train window. Weights are treated as held positions, not
+                # fresh targets, mirroring the out-of-sample run.
+                if reoptimize and optimizer is not None:
+                    w_opt = optimizer(train_data)
+                    is_weights = self._align_optimizer_result(
+                        w_opt, train_data, train_index
+                    )
+                else:
+                    is_weights = (
+                        weights.reindex(index=train_index).fillna(0.0)
+                        if weights is not None
+                        else pd.DataFrame(0.0, index=train_index, columns=train_data.columns)
+                    )
+                is_result = self.run_portfolio(
+                    is_weights,
+                    train_data,
+                    fee_rate=fee_rate,
+                    slippage=slippage,
+                    cost_model=cost_model,
+                    risk_manager=risk_manager,
+                    execution_simulator=execution_simulator,
+                    volume=train_volume,
+                    high=train_high,
+                    low=train_low,
+                    regime_signal=regime_signal,
+                    regime_mode=regime_mode,
+                    regime_lookback=regime_lookback,
+                    regime_vol_mode=regime_vol_mode,
+                    benchmark_weights=benchmark_weights,
+                    factor_returns=factor_returns,
+                    weights_are_targets=False,
+                )
+            out["is_total_return"] = float(is_result.get("total_return", 0.0))
+            out["is_sharpe_ratio"] = float(is_result.get("sharpe_ratio", 0.0))
+            out["is_max_drawdown"] = float(is_result.get("max_drawdown", 0.0))
+        except Exception:
+            pass
+        return out
+
     def _signals_to_weights(
         self, signals: pd.DataFrame, data: pd.DataFrame
     ) -> pd.DataFrame:
@@ -683,6 +812,32 @@ class BacktestEngine:
                 factor_returns=factor_returns,
                 weights_are_targets=False,
             )
+            # In-sample (train-window) performance for IS/OOS comparison.
+            is_metrics = self._evaluate_in_sample(
+                strategy=strategy,
+                weights=None,
+                train_data=train_data,
+                volume=volume,
+                high=high,
+                low=low,
+                reoptimize=False,
+                optimizer=None,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+                risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
+                regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
+            )
+            result["is_total_return"] = is_metrics["is_total_return"]
+            result["is_sharpe_ratio"] = is_metrics["is_sharpe_ratio"]
+            result["is_max_drawdown"] = is_metrics["is_max_drawdown"]
+            result["oos_total_return"] = result["total_return"]
             results.append(result)
             i += test_period
 
@@ -727,6 +882,22 @@ class BacktestEngine:
                 agg["total_periods"] = int(arr.size)
         except Exception:
             pass
+        # Aggregate in-sample vs out-of-sample performance across windows.
+        is_returns = [
+            float((r or {}).get("is_total_return", 0.0)) for r in results
+        ]
+        if is_returns:
+            try:
+                is_arr = _np.array(is_returns, dtype=float)
+                oos_arr = _np.array(returns_list, dtype=float)
+                agg["is_mean_return"] = float(_np.mean(is_arr))
+                agg["oos_mean_return"] = float(_np.mean(oos_arr))
+                if _np.mean(is_arr) != 0:
+                    agg["oos_is_ratio"] = float(_np.mean(oos_arr) / _np.mean(is_arr))
+                else:
+                    agg["oos_is_ratio"] = 0.0
+            except Exception:
+                pass
         return agg
 
     def walk_forward_portfolio(
@@ -785,31 +956,7 @@ class BacktestEngine:
                 # Reoptimization failures must be explicit: silently reverting
                 # to stale weights would make the reported run misleading.
                 w_opt = optimizer(train_data)
-                if isinstance(w_opt, pd.Series):
-                    aligned = w_opt.reindex(test_data.columns).fillna(0.0)
-                    w_opt_df = pd.DataFrame(
-                        [aligned.to_numpy(dtype=float)],
-                        columns=test_data.columns,
-                        index=[test_index[0]],
-                    )
-                elif isinstance(w_opt, pd.DataFrame):
-                    if w_opt.empty:
-                        raise ValueError("Optimizer returned an empty weights DataFrame.")
-                    w_opt_df = w_opt.reindex(
-                        columns=test_data.columns, fill_value=0.0
-                    )
-                    w_opt_df = w_opt_df.reindex(
-                        index=test_index, method="ffill"
-                    ).fillna(0.0)
-                else:
-                    raise TypeError(
-                        "Optimizer must return a pandas Series or DataFrame of weights."
-                    )
-                # A Series optimizer result is a single target estimated from
-                # the training window, applied throughout the next test window.
-                w_test = w_opt_df.reindex(
-                    index=test_index, method="ffill"
-                ).fillna(0.0)
+                w_test = self._align_optimizer_result(w_opt, test_data, test_index)
             test_volume = volume.loc[test_data.index] if (volume is not None) else None
             test_high = high.loc[test_data.index] if (high is not None) else None
             test_low = low.loc[test_data.index] if (low is not None) else None
@@ -832,6 +979,32 @@ class BacktestEngine:
                 factor_returns=factor_returns,
                 weights_are_targets=not (reoptimize and optimizer is not None),
             )
+            # In-sample (train-window) performance for IS/OOS comparison.
+            is_metrics = self._evaluate_in_sample(
+                strategy=None,
+                weights=w,
+                train_data=train_data,
+                volume=volume,
+                high=high,
+                low=low,
+                reoptimize=reoptimize,
+                optimizer=optimizer,
+                fee_rate=fee_rate,
+                slippage=slippage,
+                cost_model=cost_model,
+                risk_manager=risk_manager,
+                execution_simulator=execution_simulator,
+                regime_signal=regime_signal,
+                regime_mode=regime_mode,
+                regime_lookback=regime_lookback,
+                regime_vol_mode=regime_vol_mode,
+                benchmark_weights=benchmark_weights,
+                factor_returns=factor_returns,
+            )
+            result["is_total_return"] = is_metrics["is_total_return"]
+            result["is_sharpe_ratio"] = is_metrics["is_sharpe_ratio"]
+            result["is_max_drawdown"] = is_metrics["is_max_drawdown"]
+            result["oos_total_return"] = result["total_return"]
             results.append(result)
             i += test_period
 
@@ -869,4 +1042,20 @@ class BacktestEngine:
                 agg["total_periods"] = int(arr.size)
         except Exception:
             pass
+        # Aggregate in-sample vs out-of-sample performance across windows.
+        is_returns = [
+            float((r or {}).get("is_total_return", 0.0)) for r in results
+        ]
+        if is_returns:
+            try:
+                is_arr = _np.array(is_returns, dtype=float)
+                oos_arr = _np.array(returns_list, dtype=float)
+                agg["is_mean_return"] = float(_np.mean(is_arr))
+                agg["oos_mean_return"] = float(_np.mean(oos_arr))
+                if _np.mean(is_arr) != 0:
+                    agg["oos_is_ratio"] = float(_np.mean(oos_arr) / _np.mean(is_arr))
+                else:
+                    agg["oos_is_ratio"] = 0.0
+            except Exception:
+                pass
         return agg

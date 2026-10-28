@@ -816,6 +816,11 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
     wf_result = wf_result or {}
     results = wf_result.get("results", []) or []
 
+    try:
+        import numpy as _np
+    except Exception:
+        _np = None  # type: ignore[assignment]
+
     rows: list[dict[str, Any]] = []
     equity_segments: list[pd.Series] = []
     cumulative_before = 1.0
@@ -823,18 +828,24 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
     for i, res in enumerate(results):
         res = res or {}
         total_return = float(res.get("total_return", 0.0))
-        rows.append(
-            {
-                "window": i,
-                "total_return": total_return,
-                "sharpe_ratio": float(res.get("sharpe_ratio", 0.0)),
-                "sortino_ratio": float(res.get("sortino_ratio", 0.0)),
-                "max_drawdown": float(res.get("max_drawdown", 0.0)),
-                "calmar_ratio": float(res.get("calmar_ratio", 0.0)),
-                "start_equity": float(cumulative_before),
-                "end_equity": float(cumulative_before * (1.0 + total_return)),
-            }
-        )
+        row: dict[str, Any] = {
+            "window": i,
+            "total_return": total_return,
+            "sharpe_ratio": float(res.get("sharpe_ratio", 0.0)),
+            "sortino_ratio": float(res.get("sortino_ratio", 0.0)),
+            "max_drawdown": float(res.get("max_drawdown", 0.0)),
+            "calmar_ratio": float(res.get("calmar_ratio", 0.0)),
+            "start_equity": float(cumulative_before),
+            "end_equity": float(cumulative_before * (1.0 + total_return)),
+        }
+        # In-sample vs out-of-sample metrics (when the engine attached them).
+        if "is_total_return" in res:
+            row["is_total_return"] = float(res.get("is_total_return", 0.0))
+            row["is_sharpe_ratio"] = float(res.get("is_sharpe_ratio", 0.0))
+            row["is_max_drawdown"] = float(res.get("is_max_drawdown", 0.0))
+        if "oos_total_return" in res:
+            row["oos_total_return"] = float(res.get("oos_total_return", total_return))
+        rows.append(row)
 
         ec = res.get("equity_curve")
         if ec is not None:
@@ -863,6 +874,48 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
     for key in ("mean_return", "std_return", "positive_periods", "total_periods"):
         if key in wf_result:
             report[key] = wf_result[key]
+
+    # Aggregate in-sample vs out-of-sample performance across windows when the
+    # engine attached IS metrics to each window result.
+    is_returns = [float(r.get("is_total_return", 0.0)) for r in rows if "is_total_return" in r]
+    oos_returns = [float(r.get("oos_total_return", r.get("total_return", 0.0))) for r in rows if "is_total_return" in r]
+    if is_returns and _np is not None:
+        try:
+            is_arr = _np.array(is_returns, dtype=float)
+            oos_arr = _np.array(oos_returns, dtype=float)
+            is_mean = float(_np.mean(is_arr))
+            oos_mean = float(_np.mean(oos_arr))
+            report["is_vs_oos"] = {
+                "is_mean_return": is_mean,
+                "oos_mean_return": oos_mean,
+                "oos_is_ratio": (oos_mean / is_mean) if is_mean != 0 else 0.0,
+                "is_mean_sharpe": float(
+                    _np.mean(_np.array(
+                        [float(r.get("is_sharpe_ratio", 0.0)) for r in rows if "is_total_return" in r],
+                        dtype=float,
+                    ))
+                ),
+                "oos_mean_sharpe": float(
+                    _np.mean(_np.array(
+                        [float(r.get("sharpe_ratio", 0.0)) for r in rows if "is_total_return" in r],
+                        dtype=float,
+                    ))
+                ),
+                "is_mean_max_drawdown": float(
+                    _np.mean(_np.array(
+                        [float(r.get("is_max_drawdown", 0.0)) for r in rows if "is_total_return" in r],
+                        dtype=float,
+                    ))
+                ),
+                "oos_mean_max_drawdown": float(
+                    _np.mean(_np.array(
+                        [float(r.get("max_drawdown", 0.0)) for r in rows if "is_total_return" in r],
+                        dtype=float,
+                    ))
+                ),
+            }
+        except Exception:
+            pass
 
     # Aggregate attribution across windows when present.
     brinsons_raw = [(r or {}).get("brinson") for r in results]
@@ -960,6 +1013,12 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
                 out[key] = wf_report[key]
             except Exception:
                 pass
+    is_vs_oos = wf_report.get("is_vs_oos")
+    if isinstance(is_vs_oos, dict):
+        try:
+            out["is_vs_oos"] = dict(is_vs_oos)
+        except Exception:
+            pass
     brinson = wf_report.get("brinson")
     factor = wf_report.get("factor")
     if isinstance(brinson, dict) or isinstance(factor, dict):
@@ -991,6 +1050,34 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
         lines.append(summary.to_string(index=False))
     else:
         lines.append("No walk-forward windows.")
+
+    # In-Sample vs Out-of-Sample comparison (when IS metrics are present).
+    is_vs_oos = wf_report.get("is_vs_oos")
+    if isinstance(is_vs_oos, dict):
+        lines.append("")
+        lines.append("In-Sample vs Out-of-Sample")
+        lines.append("============================")
+        lines.append(
+            f"  Mean IS Return:        {_fmt_pct(is_vs_oos.get('is_mean_return', 0.0))}"
+        )
+        lines.append(
+            f"  Mean OOS Return:       {_fmt_pct(is_vs_oos.get('oos_mean_return', 0.0))}"
+        )
+        lines.append(
+            f"  OOS/IS Ratio:          {_fmt_num(is_vs_oos.get('oos_is_ratio', 0.0))}"
+        )
+        lines.append(
+            f"  Mean IS Sharpe:        {_fmt_num(is_vs_oos.get('is_mean_sharpe', 0.0))}"
+        )
+        lines.append(
+            f"  Mean OOS Sharpe:       {_fmt_num(is_vs_oos.get('oos_mean_sharpe', 0.0))}"
+        )
+        lines.append(
+            f"  Mean IS Max Drawdown:  {_fmt_pct(is_vs_oos.get('is_mean_max_drawdown', 0.0))}"
+        )
+        lines.append(
+            f"  Mean OOS Max Drawdown: {_fmt_pct(is_vs_oos.get('oos_mean_max_drawdown', 0.0))}"
+        )
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report)
@@ -1080,6 +1167,29 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
         html.append("</div>")
     else:
         html.append("<h2>Equity Curve</h2>")
+
+    # In-Sample vs Out-of-Sample comparison (when IS metrics are present).
+    is_vs_oos = wf_report.get("is_vs_oos")
+    if isinstance(is_vs_oos, dict):
+        html.append("<h2>In-Sample vs Out-of-Sample</h2>")
+        html.append("<table>")
+        html.append("<tr><th>Metric</th><th>In-Sample</th><th>Out-of-Sample</th></tr>")
+        html.append(
+            f"<tr><td>Mean Return</td><td>{_fmt_pct(is_vs_oos.get('is_mean_return', 0.0))}</td>"
+            f"<td>{_fmt_pct(is_vs_oos.get('oos_mean_return', 0.0))}</td></tr>"
+        )
+        html.append(
+            f"<tr><td>Mean Sharpe</td><td>{_fmt_num(is_vs_oos.get('is_mean_sharpe', 0.0))}</td>"
+            f"<td>{_fmt_num(is_vs_oos.get('oos_mean_sharpe', 0.0))}</td></tr>"
+        )
+        html.append(
+            f"<tr><td>Mean Max Drawdown</td><td>{_fmt_pct(is_vs_oos.get('is_mean_max_drawdown', 0.0))}</td>"
+            f"<td>{_fmt_pct(is_vs_oos.get('oos_mean_max_drawdown', 0.0))}</td></tr>"
+        )
+        html.append(
+            f"<tr><td>OOS/IS Ratio</td><td colspan=2>{_fmt_num(is_vs_oos.get('oos_is_ratio', 0.0))}</td></tr>"
+        )
+        html.append("</table>")
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report or {})
@@ -1189,6 +1299,35 @@ def generate_walk_forward_pdf_report(
                 except Exception:
                     pass
 
+            # Page 3: In-Sample vs Out-of-Sample comparison (when present).
+            is_vs_oos = wf_report.get("is_vs_oos")
+            if isinstance(is_vs_oos, dict):
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("In-Sample vs Out-of-Sample", fontsize=12, pad=20)
+                    rows_is = [
+                        ["Metric", "In-Sample", "Out-of-Sample"],
+                        ["Mean Return", _fmt_pct(is_vs_oos.get("is_mean_return", 0.0)), _fmt_pct(is_vs_oos.get("oos_mean_return", 0.0))],
+                        ["Mean Sharpe", _fmt_num(is_vs_oos.get("is_mean_sharpe", 0.0)), _fmt_num(is_vs_oos.get("oos_mean_sharpe", 0.0))],
+                        ["Mean Max Drawdown", _fmt_pct(is_vs_oos.get("is_mean_max_drawdown", 0.0)), _fmt_pct(is_vs_oos.get("oos_mean_max_drawdown", 0.0))],
+                        ["OOS/IS Ratio", _fmt_num(is_vs_oos.get("oos_is_ratio", 0.0)), ""],
+                    ]
+                    table = ax.table(
+                        cellText=rows_is[1:],
+                        colLabels=rows_is[0],
+                        loc="center",
+                        cellLoc="center",
+                        bbox=cast(Any, (0.05, 0.35, 0.9, 0.45)),
+                    )
+                    table.auto_set_font_size(False)
+                    table.set_fontsize(9)
+                    table.scale(1.0, 1.2)
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+
             # Attribution (if available)
             brinson, factor = _get_attribution(wf_report or {})
             if brinson is not None or factor is not None:
@@ -1264,13 +1403,6 @@ def generate_walk_forward_pdf_report(
                     pass
         return output_path
     except Exception:
-        try:
-            html = generate_walk_forward_html_report(wf_report, title=title)
-            html_path = output_path.replace(".pdf", ".html")
-            Path(html_path).write_text(html)
-            return html_path
-        except Exception:
-            return output_path
         try:
             html = generate_walk_forward_html_report(wf_report, title=title)
             html_path = output_path.replace(".pdf", ".html")
