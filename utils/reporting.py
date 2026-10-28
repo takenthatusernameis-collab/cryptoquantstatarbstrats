@@ -878,7 +878,11 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
     # Aggregate in-sample vs out-of-sample performance across windows when the
     # engine attached IS metrics to each window result.
     is_returns = [float(r.get("is_total_return", 0.0)) for r in rows if "is_total_return" in r]
-    oos_returns = [float(r.get("oos_total_return", r.get("total_return", 0.0))) for r in rows if "is_total_return" in r]
+    oos_returns = [
+        float(r.get("oos_total_return", r.get("total_return", 0.0)))
+        for r in rows
+        if "is_total_return" in r
+    ]
     if is_returns and _np is not None:
         try:
             is_arr = _np.array(is_returns, dtype=float)
@@ -891,25 +895,33 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
                 "oos_is_ratio": (oos_mean / is_mean) if is_mean != 0 else 0.0,
                 "is_mean_sharpe": float(
                     _np.mean(_np.array(
-                        [float(r.get("is_sharpe_ratio", 0.0)) for r in rows if "is_total_return" in r],
+                        [float(r.get("is_sharpe_ratio", 0.0))
+                        for r in rows
+                        if "is_total_return" in r],
                         dtype=float,
                     ))
                 ),
                 "oos_mean_sharpe": float(
                     _np.mean(_np.array(
-                        [float(r.get("sharpe_ratio", 0.0)) for r in rows if "is_total_return" in r],
+                        [float(r.get("sharpe_ratio", 0.0))
+                        for r in rows
+                        if "is_total_return" in r],
                         dtype=float,
                     ))
                 ),
                 "is_mean_max_drawdown": float(
                     _np.mean(_np.array(
-                        [float(r.get("is_max_drawdown", 0.0)) for r in rows if "is_total_return" in r],
+                        [float(r.get("is_max_drawdown", 0.0))
+                        for r in rows
+                        if "is_total_return" in r],
                         dtype=float,
                     ))
                 ),
                 "oos_mean_max_drawdown": float(
                     _np.mean(_np.array(
-                        [float(r.get("max_drawdown", 0.0)) for r in rows if "is_total_return" in r],
+                        [float(r.get("max_drawdown", 0.0))
+                        for r in rows
+                        if "is_total_return" in r],
                         dtype=float,
                     ))
                 ),
@@ -1183,11 +1195,13 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
             f"<td>{_fmt_num(is_vs_oos.get('oos_mean_sharpe', 0.0))}</td></tr>"
         )
         html.append(
-            f"<tr><td>Mean Max Drawdown</td><td>{_fmt_pct(is_vs_oos.get('is_mean_max_drawdown', 0.0))}</td>"
+            f"<tr><td>Mean Max Drawdown</td>"
+            f"<td>{_fmt_pct(is_vs_oos.get('is_mean_max_drawdown', 0.0))}</td>"
             f"<td>{_fmt_pct(is_vs_oos.get('oos_mean_max_drawdown', 0.0))}</td></tr>"
         )
         html.append(
-            f"<tr><td>OOS/IS Ratio</td><td colspan=2>{_fmt_num(is_vs_oos.get('oos_is_ratio', 0.0))}</td></tr>"
+            f"<tr><td>OOS/IS Ratio</td>"
+            f"<td colspan=2>{_fmt_num(is_vs_oos.get('oos_is_ratio', 0.0))}</td></tr>"
         )
         html.append("</table>")
 
@@ -1308,9 +1322,15 @@ def generate_walk_forward_pdf_report(
                     ax.set_title("In-Sample vs Out-of-Sample", fontsize=12, pad=20)
                     rows_is = [
                         ["Metric", "In-Sample", "Out-of-Sample"],
-                        ["Mean Return", _fmt_pct(is_vs_oos.get("is_mean_return", 0.0)), _fmt_pct(is_vs_oos.get("oos_mean_return", 0.0))],
-                        ["Mean Sharpe", _fmt_num(is_vs_oos.get("is_mean_sharpe", 0.0)), _fmt_num(is_vs_oos.get("oos_mean_sharpe", 0.0))],
-                        ["Mean Max Drawdown", _fmt_pct(is_vs_oos.get("is_mean_max_drawdown", 0.0)), _fmt_pct(is_vs_oos.get("oos_mean_max_drawdown", 0.0))],
+                        ["Mean Return",
+                         _fmt_pct(is_vs_oos.get("is_mean_return", 0.0)),
+                         _fmt_pct(is_vs_oos.get("oos_mean_return", 0.0))],
+                        ["Mean Sharpe",
+                         _fmt_num(is_vs_oos.get("is_mean_sharpe", 0.0)),
+                         _fmt_num(is_vs_oos.get("oos_mean_sharpe", 0.0))],
+                        ["Mean Max Drawdown",
+                         _fmt_pct(is_vs_oos.get("is_mean_max_drawdown", 0.0)),
+                         _fmt_pct(is_vs_oos.get("oos_mean_max_drawdown", 0.0))],
                         ["OOS/IS Ratio", _fmt_num(is_vs_oos.get("oos_is_ratio", 0.0)), ""],
                     ]
                     table = ax.table(
