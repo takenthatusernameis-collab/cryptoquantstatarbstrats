@@ -357,7 +357,7 @@ def _build_strategy(name: str, args: argparse.Namespace):
         return MeanReversionStrategy(**kwargs)
     if name == "pairs":
         pair = getattr(args, "pair", None) or ["BTC", "ETH"]
-        kwargs: dict[str, Any] = {"pair": tuple(pair)}
+        kwargs_pairs: dict[str, Any] = {"pair": tuple(pair)}
         for key in (
             "lookback",
             "entry_threshold",
@@ -367,8 +367,8 @@ def _build_strategy(name: str, args: argparse.Namespace):
         ):
             value = getattr(args, key, None)
             if value is not None:
-                kwargs[key] = value
-        return CointegrationPairsStrategy(**kwargs)
+                kwargs_pairs[key] = value
+        return CointegrationPairsStrategy(**kwargs_pairs)
     if name == "term_structure":
         asset = getattr(args, "asset", None) or "BTC"
         kwargs = {"asset": asset}
@@ -713,185 +713,151 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(content)
         return 0
 
-    sub = _argv[1:]
-    p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
-    p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
-    p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="binance")
-    p.add_argument("--data-csv", default=None)
-    p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
-    p.add_argument("--asset", default="BTC")
-    p.add_argument("--start", default="2024-01-01")
-    p.add_argument("--end", default="2024-02-01")
-    p.add_argument("--freq", default="1h")
-    p.add_argument("--initial-capital", type=float, default=100_000.0)
-    p.add_argument("--fee-rate", type=float, default=0.0)
-    p.add_argument("--slippage", type=float, default=0.0)
-    p.add_argument("--output-path", default=None)
-    p.add_argument("--artifact-dir", default=None)
-    p.add_argument(
-        "--monitor",
-        action="store_true",
-        default=False,
-        help="Enable real-time monitoring and alerting during the session",
-    )
-    p.add_argument(
-        "--alert-config",
-        default=None,
-        help="Path to JSON alert configuration file (used with --monitor)",
-    )
-    p.add_argument("--max-position", type=float, default=None)
-    p.add_argument("--risk-limits", default=None)
-    p.add_argument(
-        "--position-sizing",
-        default="fixed",
-        choices=["fixed", "kelly", "volatility"],
-        help="Position sizing method",
-    )
-    args = p.parse_args(sub)
+    if _argv and _argv[0] == "paper-trade":
+        sub = _argv[1:]
+        p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
+        p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
+        p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="binance")
+        p.add_argument("--data-csv", default=None)
+        p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
+        p.add_argument("--asset", default="BTC")
+        p.add_argument("--start", default="2024-01-01")
+        p.add_argument("--end", default="2024-02-01")
+        p.add_argument("--freq", default="1h")
+        p.add_argument("--initial-capital", type=float, default=100_000.0)
+        p.add_argument("--fee-rate", type=float, default=0.0)
+        p.add_argument("--slippage", type=float, default=0.0)
+        p.add_argument("--output-path", default=None)
+        p.add_argument("--artifact-dir", default=None)
+        p.add_argument(
+            "--monitor",
+            action="store_true",
+            default=False,
+            help="Enable real-time monitoring and alerting during the session",
+        )
+        p.add_argument(
+            "--alert-config",
+            default=None,
+            help="Path to JSON alert configuration file (used with --monitor)",
+        )
+        p.add_argument("--max-position", type=float, default=None)
+        p.add_argument("--risk-limits", default=None)
+        p.add_argument(
+            "--position-sizing",
+            default="fixed",
+            choices=["fixed", "kelly", "volatility"],
+            help="Position sizing method",
+        )
+        args = p.parse_args(sub)
 
-    loader = DataLoader()
-    if args.data_source == "binance":
-        data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
-    elif args.data_source == "synthetic":
-        data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
-    elif args.data_source == "csv":
-        if not args.data_csv:
-            raise ValueError("--data-source csv requires --data-csv")
-        data = DataLoader.load_csv(args.data_csv)
-    else:
-        raise ValueError(f"Unsupported data source: {args.data_source!r}")
-    data = loader.clean_data(data)
-    strategy = _build_strategy(args.strategy, args)
-    sim = ExecutionSimulator(
-        participation_rate=0.1,
-        slippage_bps=float(args.slippage) * 10000.0,
-    )
-    signals = strategy.generate_signals(data)
-    fills = []
-    realized_pnl = 0.0
-    order_counter = 0
-    equity_curve: list[dict[str, Any]] = []
-    for ts in data.index:
-        for sym in data.columns:
-            try:
-                sig = float(signals.loc[ts, sym]) if sym in signals.columns else 0.0
-            except Exception:
-                sig = 0.0
-            if sig == 0.0:
-                continue
-            side = "buy" if sig > 0 else "sell"
-            qty = abs(sig)
-            price = float(data.loc[ts, sym])
-            order_counter += 1
-            res = sim.simulate_order(
-                "market",
-                side,
-                qty,
-                price,
-                bar_volume=0.0,
-                order_id=order_counter,
-                symbol=sym,
-                timestamp=str(ts),
-                fee_rate=float(args.fee_rate),
-            )
-            fee = abs(res["filled_qty"]) * price * float(args.fee_rate)
-            fills.append(
+        loader = DataLoader()
+        if args.data_source == "binance":
+            data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
+        elif args.data_source == "synthetic":
+            data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+        elif args.data_source == "csv":
+            if not args.data_csv:
+                raise ValueError("--data-source csv requires --data-csv")
+            data = DataLoader.load_csv(args.data_csv)
+        else:
+            raise ValueError(f"Unsupported data source: {args.data_source!r}")
+        data = loader.clean_data(data)
+        strategy = _build_strategy(args.strategy, args)
+        sim = ExecutionSimulator(
+            participation_rate=0.1,
+            slippage_bps=float(args.slippage) * 10000.0,
+        )
+        signals = strategy.generate_signals(data)
+        fills = []
+        realized_pnl = 0.0
+        order_counter = 0
+        equity_curve: list[dict[str, Any]] = []
+        for ts in data.index:
+            for sym in data.columns:
+                try:
+                    sig = float(signals.loc[ts, sym]) if sym in signals.columns else 0.0
+                except Exception:
+                    sig = 0.0
+                if sig == 0.0:
+                    continue
+                side = "buy" if sig > 0 else "sell"
+                qty = abs(sig)
+                price = float(data.loc[ts, sym])
+                order_counter += 1
+                res = sim.simulate_order(
+                    "market",
+                    side,
+                    qty,
+                    price,
+                    bar_volume=0.0,
+                    order_id=order_counter,
+                    symbol=sym,
+                    timestamp=str(ts),
+                    fee_rate=float(args.fee_rate),
+                )
+                fee = abs(res["filled_qty"]) * price * float(args.fee_rate)
+                fills.append(
+                    {
+                        "order_id": order_counter,
+                        "symbol": sym,
+                        "side": side,
+                        "quantity": res["filled_qty"],
+                        "price": res["avg_price"],
+                        "fee": fee,
+                        "timestamp": str(ts),
+                        "status": res["status"],
+                    }
+                )
+                realized_pnl += -fee
+            equity_curve.append(
                 {
-                    "order_id": order_counter,
-                    "symbol": sym,
-                    "side": side,
-                    "quantity": res["filled_qty"],
-                    "price": res["avg_price"],
-                    "fee": fee,
                     "timestamp": str(ts),
-                    "status": res["status"],
+                    "equity": sim.get_portfolio_value(float(args.initial_capital)),
                 }
             )
-            realized_pnl += -fee
-        equity_curve.append(
-            {
-                "timestamp": str(ts),
-                "equity": sim.get_portfolio_value(float(args.initial_capital)),
-            }
-        )
-    summary: dict[str, Any] = {
-        "fills": fills,
-        "realized_pnl": realized_pnl,
-        "num_fills": len(fills),
-        "initial_capital": float(args.initial_capital),
-        "equity_curve": equity_curve,
-        "positions": {
-            k: {
-                "quantity": v.quantity,
-                "avg_cost": v.avg_cost,
-                "unrealized_pnl": v.unrealized_pnl,
-            }
-            for k, v in sim.get_positions().items()
-        },
-        "risk_metrics": sim.get_risk_metrics(),
-        "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
-    }
-    if getattr(args, "monitor", False):
-        from backtest.monitoring import PaperTradingMonitor, load_alert_config
-
-        alert_config = None
-        if args.alert_config:
-            try:
-                alert_config = load_alert_config(args.alert_config)
-            except Exception:
-                alert_config = None
-        monitor = PaperTradingMonitor(
-            config=alert_config, initial_capital=float(args.initial_capital)
-        )
-        mon_alerts = monitor.update(
-            equity=float(cast(Any, summary["portfolio_value"])),
-            positions=cast(dict[str, Any] | None, summary.get("positions", {})),
-        )
-        summary["monitoring"] = {
-            "alerts": [a.to_dict() for a in mon_alerts],
-            "total_alerts": len(mon_alerts),
-            "drawdown": monitor.get_drawdown(),
-            "equity": summary["portfolio_value"],
-            "equity_history": monitor.equity_history,
-        }
-    import json as _json
-
-    # Build paper trading report
-    try:
-        from backtest.paper_report import (
-            build_paper_trading_report,
-            save_paper_trading_artifacts,
-        )
-
-        equity_curve = summary.get("equity_curve") or []
-        paper_report = build_paper_trading_report(
-            session_summary=summary,
-            fills=summary.get("fills"),
-            equity_curve=equity_curve,
-            positions=summary.get("positions"),
-            monitoring=summary.get("monitoring"),
-            metadata={
-                "initial_capital": float(args.initial_capital),
-                "symbols": getattr(args, "symbols", None),
-                "strategy": getattr(args, "strategy", None),
+        summary: dict[str, Any] = {
+            "fills": fills,
+            "realized_pnl": realized_pnl,
+            "num_fills": len(fills),
+            "initial_capital": float(args.initial_capital),
+            "equity_curve": equity_curve,
+            "positions": {
+                k: {
+                    "quantity": v.quantity,
+                    "avg_cost": v.avg_cost,
+                    "unrealized_pnl": v.unrealized_pnl,
+                }
+                for k, v in sim.get_positions().items()
             },
-        )
-        summary["paper_report"] = paper_report
-    except Exception:
-        pass
+            "risk_metrics": sim.get_risk_metrics(),
+            "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
+        }
+        if getattr(args, "monitor", False):
+            from backtest.monitoring import PaperTradingMonitor, load_alert_config
 
-    content = _json.dumps(summary, indent=2, default=float)
-    if args.output_path:
-        Path(args.output_path).write_text(content)
-    else:
-        print(content)
-    # Persist artifacts if requested
-    should_persist = (
-        getattr(args, "artifact_dir", None)
-        or getattr(args, "output_path", None)
-        or getattr(args, "monitor", False)
-    )
-    if should_persist:
+            alert_config = None
+            if args.alert_config:
+                try:
+                    alert_config = load_alert_config(args.alert_config)
+                except Exception:
+                    alert_config = None
+            monitor = PaperTradingMonitor(
+                config=alert_config, initial_capital=float(args.initial_capital)
+            )
+            mon_alerts = monitor.update(
+                equity=float(cast(Any, summary["portfolio_value"])),
+                positions=cast(dict[str, Any] | None, summary.get("positions", {})),
+            )
+            summary["monitoring"] = {
+                "alerts": [a.to_dict() for a in mon_alerts],
+                "total_alerts": len(mon_alerts),
+                "drawdown": monitor.get_drawdown(),
+                "equity": summary["portfolio_value"],
+                "equity_history": monitor.equity_history,
+            }
+        import json as _json
+
+        # Build paper trading report
         try:
             from backtest.paper_report import (
                 build_paper_trading_report,
@@ -899,7 +865,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
 
             equity_curve = summary.get("equity_curve") or []
-            paper_report = summary.get("paper_report") or build_paper_trading_report(
+            paper_report = build_paper_trading_report(
                 session_summary=summary,
                 fills=summary.get("fills"),
                 equity_curve=equity_curve,
@@ -911,16 +877,51 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "strategy": getattr(args, "strategy", None),
                 },
             )
-            artifact_dir = args.artifact_dir
-            if not artifact_dir and args.output_path:
-                # Save alongside output
-                out_path = Path(args.output_path)
-                artifact_dir = str(out_path.parent)
-            if artifact_dir:
-                save_paper_trading_artifacts(paper_report, artifact_dir)
+            summary["paper_report"] = paper_report
         except Exception:
             pass
-    return 0
+
+        content = _json.dumps(summary, indent=2, default=float)
+        if args.output_path:
+            Path(args.output_path).write_text(content)
+        else:
+            print(content)
+        # Persist artifacts if requested
+        should_persist = (
+            getattr(args, "artifact_dir", None)
+            or getattr(args, "output_path", None)
+            or getattr(args, "monitor", False)
+        )
+        if should_persist:
+            try:
+                from backtest.paper_report import (
+                    build_paper_trading_report,
+                    save_paper_trading_artifacts,
+                )
+
+                equity_curve = summary.get("equity_curve") or []
+                paper_report = summary.get("paper_report") or build_paper_trading_report(
+                    session_summary=summary,
+                    fills=summary.get("fills"),
+                    equity_curve=equity_curve,
+                    positions=summary.get("positions"),
+                    monitoring=summary.get("monitoring"),
+                    metadata={
+                        "initial_capital": float(args.initial_capital),
+                        "symbols": getattr(args, "symbols", None),
+                        "strategy": getattr(args, "strategy", None),
+                    },
+                )
+                artifact_dir = args.artifact_dir
+                if not artifact_dir and args.output_path:
+                    # Save alongside output
+                    out_path = Path(args.output_path)
+                    artifact_dir = str(out_path.parent)
+                if artifact_dir:
+                    save_paper_trading_artifacts(paper_report, artifact_dir)
+            except Exception:
+                pass
+        return 0
 
     parser = build_parser()
     args = parser.parse_args(argv)

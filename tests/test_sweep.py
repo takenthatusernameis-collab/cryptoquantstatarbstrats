@@ -79,7 +79,7 @@ def test_sweep_ranking_order():
     # Ranks should be assigned in order
     assert rows[0]["rank"] == 1
     assert rows[1]["rank"] == 2
-    # Scores should be in descending order of _score? We dropped _score; just check ranks are correct order
+    # check ranks are correct order
     assert rows[0]["rank"] < rows[1]["rank"]
 
 
