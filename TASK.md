@@ -1,36 +1,25 @@
 # Task for Next Agent
 
 ## Handoff from Previous Agent
-All requirements from the previous task have been completed and verified:
-- Buy-and-hold benchmark, mypy config, position sizing, extended metrics, RiskManager enhancements, pluggable transaction cost models.
-- Portfolio optimization (`utils/optimization.py`), portfolio risk metrics (`utils/portfolio_risk.py`), `BacktestEngine.run_portfolio()` and `walk_forward_portfolio()`.
-- Duplicate `walk_forward` definition in `backtest/engine.py` removed; ruff and mypy clean.
-- 117 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+All requirements from the previous task (add in-sample vs out-of-sample performance comparison to walk-forward reports) have been completed and verified:
+- `backtest/engine.py`: `walk_forward`/`walk_forward_portfolio` evaluate in-sample performance on the train window per window via `_evaluate_in_sample`, attaching `is_total_return`, `is_sharpe_ratio`, `is_max_drawdown` and `oos_total_return` (mirroring `total_return`) to each per-window result. Aggregates `is_mean_return`, `oos_mean_return`, `oos_is_ratio` (mean OOS return / mean IS return) into the walk-forward result dict.
+- `utils/reporting.py`: `generate_walk_forward_report` includes IS/OOS columns in the summary DataFrame and an `is_vs_oos` aggregate; `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` render an "In-Sample vs Out-of-Sample" section when IS data is present.
+- `backtest/cli.py`: walk-forward runs surface IS/OOS comparison through the report generators (text/json/html/pdf/output-path paths all route through `generate_walk_forward_report`).
+- `tests/test_walk_forward_is_oos.py`: 11 tests covering per-window IS/OOS columns, aggregate ratios, text/HTML/PDF rendering, serialization, backward compatibility when IS data absent, and CLI integration (text + JSON).
+- Verified: 326 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
 ## Current State
-- 136 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
-- Objective complete: portfolio optimization + portfolio-level risk metrics + walk-forward portfolio robustness.
-- Execution simulation module `backtest/execution.py` (ExecutionSimulator) added with market/limit orders, partial fills, and volume participation constraints.
-- Regime detection utilities `utils/regime.py` (rolling volatility regimes, trend detection) already present with tests.
-- `BacktestEngine._evaluate_weights` now integrates `execution_simulator` (slippage applied per fill) when provided; legacy `fee_rate`/`slippage`/`cost_model` path unchanged when not provided.
-- CLI entry point added: `backtest/cli.py` (`main`) and `backtest/__main__.py` (`python -m backtest`), plus `cryptoquant` console script in `pyproject.toml`. Runs a backtest and emits a text or JSON report reusing `utils.reporting` (`generate_report` / `report_to_dict` / `generate_risk_report`).
-- Engine execution-simulation integration now accepts an optional `volume` DataFrame (per-asset bar volume) passed through `run` / `run_portfolio` / `walk_forward` / `walk_forward_portfolio` to `_simulate_execution`, so volume participation constraints produce real partial fills in-engine. Legacy behavior unchanged when `volume` is not provided.
-- Comprehensive tests in `tests/test_cli.py` covering CLI output (text/json/full/risk) and volume-tied partial fills (low volume forces partial fills; high volume/absent volume gives full fills).
-- Verified: `python3 -m pytest tests/ -q` (136 passed), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-- Config-driven backtest runs verified end-to-end: `backtest/config.py` (`load_config` for YAML/TOML/JSON) wired to `backtest/cli.py` (`--config`, `_apply_config`) and the `cryptoquant` console script; YAML and TOML configs drive symbols, dates, strategy, fee/slippage, output format/report kind, and output path.
-- Fixed `tests/test_cli.py::test_cli_parser_defaults` (parser now declares defaults matching `main()`'s applied defaults) and removed unused `# type: ignore` comments in `backtest/config.py` (superseded by `ignore_missing_imports`).
+- 326 tests pass, ruff clean, mypy clean on backtest/strategies/utils/.
+- Objective complete: in-sample vs out-of-sample walk-forward comparison surfaced across text/HTML/PDF reports and JSON serialization.
 
 ## Objective
-COMPLETED — Extend the framework with portfolio-level risk/optimization utilities, execution simulation, regime detection, walk-forward robustness, CLI reporting, and volume-tied partial fills, with tests and type checking passing.
+COMPLETED — Add in-sample vs out-of-sample performance comparison to walk-forward reports.
 
 ## Background
-Good next steps: config-driven backtest runs (YAML/TOML config file driving symbols, dates, strategy, costs), more execution models (VWAP/TWAP, limit-order books), scheduled/rebalancing runs, or notebook/report artifacts.
+Good next steps: Monte Carlo / bootstrap confidence intervals on walk-forward results, multi-horizon walk-forward (expanding vs rolling windows), cost-model sensitivity sweeps, live/paper trading integration, or strategy benchmark registry.
 
 ## Tasks
-- [x] Task 1: Add a CLI entry point (`cli.py` / `__main__.py`) that runs a backtest and emits a text or JSON report, reusing `utils.reporting` (generate_report / report_to_dict / generate_risk_report).
-- [x] Task 2: Extend the engine's execution-simulation integration to accept bar volume (e.g. via an optional `volume` DataFrame or per-asset volume column) so volume participation constraints produce real partial fills in-engine.
-- [x] Task 3: Add comprehensive tests in `tests/test_cli.py` covering the CLI output and volume-tied partial fills.
-- [x] Task 4: Verify quality - all tests pass, ruff and mypy clean.
+- [x] Task 1: Add in-sample vs out-of-sample performance comparison to walk-forward reports.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -47,143 +36,27 @@ python3 -m mypy backtest/ strategies/ utils/
 
 ## Status
 - [x] All previous tasks complete and verified.
-- [x] Execution simulation module + engine integration + tests complete.
-- [x] CLI entry point + volume-tied partial fills + test_cli.py complete and verified.
-- [x] Config-driven backtest runs (YAML/TOML/JSON config -> `cryptoquant` CLI) complete and verified end-to-end.
-- [x] Scheduled/rebalancing backtest runs (`create_rebalanced_weights`, engine `run`/`run_portfolio` `rebalance_frequency`/`rebalance_offset` params, CLI flags, config mapping, `tests/test_rebalancing.py`) complete and verified end-to-end.
-- [x] VWAP/TWAP execution models complete and verified.
-- [x] OHLC (high/low) passthrough end-to-end for walk-forward VWAP/TWAP.
-- [x] VWAP/TWAP + OHLC wired through CLI/config layer (`--volume-csv`/`--high-csv`/`--low-csv`, `--order-type`).
-- [x] Jupyter notebooks in `notebooks/`: `vwap_twap_execution.ipynb`, `walk_forward_analysis.ipynb`, `portfolio_optimization.ipynb`, `quickstart_report.ipynb`.
-- [x] HTML/PDF report artifact generation from CLI (`--output html|pdf`, `--title`, `--output-path`); PDF defaults to `reports/` when no path given.
-- [x] **PDF report layout refined**: tighter spacing (`pad_inches=0.4`), sans-serif fonts, weights rendered as a bar chart, trades rendered as a matplotlib table paginated across multiple pages (50 rows/page). Verified end-to-end; `notebooks/quickstart_report.ipynb` updated to demonstrate.
-
-### Latest task (completed)
-Refined PDF report layout in `utils/reporting.py::generate_pdf_report`:
-- Page 1 (metrics): tighter `pad_inches=0.4`, sans-serif font, `linespacing=1.15`.
-- Page 2 (equity/drawdown): smaller tick labels, `pad=1.2`.
-- Page 3 (weights): bar chart with positive/negative colors, value labels, zero baseline.
-- Page 4 (trades): matplotlib `ax.table` with headers, centered cells, header shading; multi-page for long trade lists (50 rows/page).
-
-Tests added in `tests/test_reporting.py`:
-- `test_generate_pdf_report_multi_page_trades` (120 trades -> multiple pages)
-- `test_generate_pdf_report_weights_bar_chart`
-- `test_generate_pdf_report_tighter_layout`
-
-Verified: 165 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-## Next task for the next agent
-VWAP/TWAP execution models are complete and verified:
-
-- `backtest/execution.py` `ExecutionSimulator.simulate_order` supports `order_type` in `{"market", "limit", "vwap", "twap"}`. VWAP fills at `(high + low + close) / 3`, TWAP at `(high + low) / 2`, both honoring the bar-volume participation cap for partial fills.
-- `BacktestEngine._simulate_execution` reads `order_type` from the simulator and passes `bar_volume` through to `simulate_order`, so VWAP/TWAP are consumable end-to-end via `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`. Public API unchanged.
-- `tests/test_execution_vwap_twap.py` covers VWAP/TWAP fill prices, partial-fill participation, divergence from market fills, and end-to-end engine runs.
-- Verified: 147 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Suggested next task (completed)
-Wired `bar_high`/`bar_low` (OHLC) passthrough end-to-end: `walk_forward`/`walk_forward_portfolio` now slice `volume`/`high`/`low` to each test window (fixing index alignment), so VWAP/TWAP use real bar highs/lows in walk-forward runs. Verified: 148 tests pass, ruff clean, mypy clean.
-
-### Suggested next task (completed)
-VWAP/TWAP and OHLC (high/low) support added to the CLI/config layer: `--volume-csv`/`--high-csv`/`--low-csv` flags and config keys wired end-to-end through `backtest/cli.py` to `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`. Tests in `tests/test_cli.py` (`test_cli_vwap_order_type_runs`, `test_cli_twap_order_type_runs`, `test_cli_high_low_csv_drives_vwap_fills`, `test_cli_config_drives_vwap_and_ohlc`) cover the CLI path. Verified: 152 tests pass, ruff clean, mypy clean.
-
-### Suggested next task (completed)
-Created Jupyter notebooks in `notebooks/`: `vwap_twap_execution.ipynb`, `walk_forward_analysis.ipynb`, `portfolio_optimization.ipynb`.
-
-### Suggested next task (completed)
-Add optional HTML/PDF report artifact generation from CLI backtest results (e.g. `--output html` / `--output pdf` leveraging `utils.reporting`), plus notebook/report artifact storage under `reports/`.
-
-### Suggested next task (completed)
-Created Jupyter notebooks in `notebooks/`: `quickstart_report.ipynb` added to demonstrate HTML/PDF report generation.
-
-### Latest task (completed)
-Added GitHub Actions CI workflow `.github/workflows/ci.yml`:
-- Triggers on `push` and `pull_request` for all branches.
-- Three jobs: `lint` (ruff), `typecheck` (mypy), `test` (pytest matrixed on Python 3.10/3.11/3.12).
-- Installs dependencies via `pip install -e ".[dev]"`.
-
-Verified: 180 tests pass, `ruff check` clean, `mypy backtest/ strategies/ utils/` clean, workflow YAML valid.
-
-### Latest task (completed)
-Enhanced the LOB execution model with per-level liquidity and queue position effects (`backtest/execution.py` `LimitOrderBookExecution` / `_simulate_lob` / `ExecutionSimulator`):
-- `level_liquidity` (per-level quantities) and `queue_position` (fraction 0-1) fields on `LimitOrderBookExecution` and `lob_level_liquidity` / `lob_queue_position` on `ExecutionSimulator`, passed through cleanly.
-- `_simulate_lob` consumes liquidity level-by-level up to `depth_levels`, applying `market_impact_bps` per level walked; queue position reduces the fillable portion at the first level.
-- Falls back to the volume-proxy logic when `level_liquidity` is not provided (backward compatible).
-- Tests in `tests/test_execution_lob_enhanced.py` cover per-level liquidity enforcement, multi-level consumption, queue position reductions, and backward compatibility.
-
-Verified: 201 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Regime detection integration with the backtest engine:
-- `backtest/engine.py`: `_apply_regime_gating` gates weights by `regime_signal` (boolean Series/DataFrame/scalar) or `regime_mode="trend"` (detected trend regimes) across `run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio`.
-- `backtest/cli.py`: `--regime-mode` and `--regime-lookback` flags wired through all engine paths.
-- `backtest/config.py`: `regime_mode`/`regime_lookback` config keys mapped in `_apply_config`.
-- `tests/test_regime_integration.py`: 10 tests covering regime gating of signals, no-op when disabled, scalar/DataFrame/Series regime_signal, trend-mode on flat vs trending data, run_portfolio, walk_forward, walk_forward_portfolio, and backward compatibility.
-- Verified: 211 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Extended regime-aware gating to support volatility-based regimes:
-- `BacktestEngine.run`/`run_portfolio`/`walk_forward`/`walk_forward_portfolio` accept `regime_vol_mode` (e.g. `"low_vol"`) gating trading to low-volatility regimes via `utils.regime.volatility_regime` (already present in `_apply_regime_gating`).
-- CLI: added `--regime-vol-mode` flag to `backtest/cli.py` `build_parser()`; already wired through `main()` and `_apply_config` config mapping (`regime_vol_mode` / `regimeVolMode`).
-- Config layer: `regime_vol_mode`/`regimeVolMode` already mapped in `backtest/cli.py::_apply_config`.
-- Tests added in `tests/test_regime_integration.py`:
-  - `test_regime_vol_mode_low_vol_gates_weights` (low-vol gating zeros high-vol periods)
-  - `test_regime_vol_mode_combined_with_trend` (trend + vol combined gating)
-  - `test_regime_vol_mode_none_backward_compatible` (None matches legacy behavior)
-- Verified: 214 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Config schema validation for config-driven backtest runs:
-- `backtest/config.py`: added `ConfigValidationError`, `CONFIG_SCHEMA` (every CLI key + alias with type/choice/range validators), and `validate_config(config)` that collects all errors and raises a single `ConfigValidationError`.
-- `backtest/cli.py`: `_apply_config` now calls `validate_config` on the loaded dict and surfaces errors via `parser.error` (exit code 2) instead of silently ignoring unknown keys or bad values.
-- `tests/test_config_validation.py`: 21 tests covering valid dicts, camelCase/snake aliases, unknown keys, wrong types, out-of-range numerics (incl. bool-as-numeric rejection), invalid enum choices, non-dict input, and CLI integration paths.
-- Verified: 235 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Volatility term-structure / calendar spread mean-reversion strategy:
-- `strategies/term_structure.py`: `TermStructureStrategy(Strategy)` trades mean-reversion between near-term and long-term IV (spread = far - near). When the rolling z-score of the spread widens beyond `entry_threshold`, takes a spread trade expecting convergence (short on widening, long on narrowing); flattens when the z-score reverts inside `exit_threshold`. Configurable `near_tenor`/`far_tenor`/`lookback`/`entry_threshold`/`exit_threshold`. Robust column resolution (exact, case-insensitive, IV-like fallback) and raises an informative `ValueError` when fewer than two IV columns are present. Emits a per-asset weight column (`BTC`) so auxiliary IV columns are not mistaken for tradable assets by the engine.
-- Exported from `strategies/__init__.py`.
-- `tests/test_term_structure.py`: 5 tests covering signal generation columns, position sizes, end-to-end `BacktestEngine.run`, missing-column error path, and custom tenor aliases.
-- Verified: 243 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Walk-forward portfolio reoptimization:
-- `BacktestEngine.walk_forward_portfolio` `reoptimize`/`optimizer` path exercised end-to-end with per-window weight reindexing/alignment.
-- Optimizer callables in `utils/optimization.py` (`equal_weight`, `inverse_volatility`, `risk_parity`, `min_variance`, `mean_variance` via `get_optimizer`).
-- CLI flags `--reoptimize`/`--optimizer` wired through `backtest/cli.py` to `walk_forward_portfolio`; config keys `reoptimize`/`optimizer` in `CONFIG_SCHEMA`/`validate_config`.
-- Tests in `tests/test_walk_forward_reoptimize.py` (12 tests): optimizers, backward compatibility, weight alignment, CLI/config driving.
-- Fixed 11 E501 line-too-long ruff errors introduced by the reoptimization code.
-- Verified: 278 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Make `--reoptimize`/`--optimizer` effective with `--walk-forward` without requiring `--rebalance-frequency`:
-- `backtest/cli.py`: when `--walk-forward` and `--reoptimize` are set, signal-derived weights are built and `engine.walk_forward_portfolio(..., reoptimize=True, optimizer=opt_fn)` is called regardless of `--rebalance-frequency`. Existing `rebalance_freq` branch (rebalanced weights + reoptimize) unchanged. `--walk-forward` without `--reoptimize` keeps strategy-based `engine.walk_forward` path (backward compatible).
-- Tests in `tests/test_walk_forward_reoptimize.py`: `test_cli_walk_forward_reoptimize_without_rebalance_frequency`, `test_cli_walk_forward_reoptimize_optimizer_applied_differs`, `test_cli_config_drives_reoptimize_without_rebalance_frequency`.
-- Verified: 281 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-
-### Latest task (completed)
-Add attribution support to walk-forward reports:
-- `backtest/engine.py`: `walk_forward`/`walk_forward_portfolio` pass `benchmark_weights`/`factor_returns` through `run_portfolio` to `_evaluate_weights`, which computes per-window `result["brinson"]` and `result["factor"]`.
-- `utils/reporting.py`: `generate_walk_forward_report` aggregates Brinson/factor attribution across windows into `report["brinson"]`/`report["factor"]`; `walk_forward_report_to_dict` serializes it; text/HTML/PDF walk-forward generators render attribution sections.
-- `backtest/cli.py`: walk-forward paths flow attribution inputs and route results through walk-forward report generators; attribution renders for `--report attribution`/`full`/`risk`.
-- Tests in `tests/test_walk_forward_attribution.py` (11 tests) cover aggregation, text/HTML/PDF rendering, CLI integration, and backward compatibility.
-- Verified: 315 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+- [x] IS/OOS walk-forward comparison complete and verified.
 
 ## Next task for the next agent
 
-### Add in-sample vs out-of-sample performance comparison to walk-forward reports
+### Add Monte Carlo / bootstrap confidence intervals to walk-forward reports
 
-The framework runs walk-forward validation across train/test windows and reports per-window out-of-sample performance, but there is no in-sample (train-window) baseline for comparison. Users cannot tell whether out-of-sample performance has decayed relative to in-sample fit (a sign of overfitting). Add an IS/OOS comparison to walk-forward reporting.
+The framework reports point estimates (mean return, Sharpe, OOS/IS ratio) across walk-forward windows, but provides no uncertainty quantification. Users cannot tell whether an observed OOS mean return is statistically distinguishable from zero or from the in-sample mean.
+
+Add bootstrap / Monte Carlo confidence intervals to walk-forward reporting.
 
 ### Objective
-Surface in-sample vs out-of-sample performance per walk-forward window and in aggregate, rendered in walk-forward text/HTML/PDF reports.
+Surface bootstrap confidence intervals (e.g. 5th–95th percentile, or 95% CI) for walk-forward aggregates (`mean_return`, `oos_mean_return`, `oos_is_ratio`) and render them in walk-forward text/HTML/PDF reports.
 
 ### Requirements
-1. `backtest/engine.py`: In `walk_forward` and `walk_forward_portfolio`, for each window also evaluate in-sample performance on the train window and attach `is_total_return`, `is_sharpe_ratio`, `is_max_drawdown` to the per-window result dict (with `oos_total_return` mirroring `total_return`). Aggregate `is_mean_return`, `oos_mean_return`, `oos_is_ratio` (mean OOS return / mean IS return) into the walk-forward result dict.
-2. `utils/reporting.py`: Extend `generate_walk_forward_report` to include IS/OOS columns in the summary DataFrame and an `is_vs_oos` aggregate; extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render an "In-Sample vs Out-of-Sample" section when IS data is present.
-3. `backtest/cli.py`: Ensure walk-forward runs surface IS/OOS comparison through the report generators (benchmark/factor inputs already flow).
-4. Add tests in `tests/test_walk_forward_is_oos.py`: IS/OOS columns present per window, aggregate ratios computed, text/HTML/PDF rendering, backward compatibility when IS data absent.
-5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
-6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
+1. `utils/reporting.py`: Add a `bootstrap_walk_forward_intervals(wf_result, n_iterations=1000, seed=42, confidence=0.95)` helper that resamples the per-window returns with replacement, recomputes the aggregates, and returns a dict of `(low, high)` intervals for `mean_return`, `oos_mean_return`, and `oos_is_ratio`.
+2. `utils/reporting.py`: `generate_walk_forward_report` attaches the intervals under a `confidence_intervals` key when the per-window returns list is non-empty.
+3. `utils/reporting.py`: Extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render a "Confidence Intervals (bootstrap)" section when intervals are present.
+4. `backtest/cli.py`: No changes required — walk-forward results already flow through `generate_walk_forward_report`, which now carries the intervals.
+5. Add tests in `tests/test_walk_forward_bootstrap.py`: intervals present with correct shape, coverage of the point estimate within the interval, deterministic with a fixed seed, backward compatibility when intervals absent, text/HTML/PDF rendering.
+6. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
+7. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
 ### Verification
 ```bash
@@ -193,3 +66,5 @@ python3 -m mypy backtest/ strategies/ utils/
 ```
 
 **Ready for next agent.**
+
+(End of file - total 96 lines)
