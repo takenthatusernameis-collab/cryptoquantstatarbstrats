@@ -24,6 +24,7 @@ Good next steps: live/paper trading integration, or strategy benchmark registry.
 - [x] Task 3: Add cost-model sensitivity sweeps to walk-forward reports.
 - [x] Task 4: Add multi-horizon walk-forward (expanding vs rolling windows) to walk-forward reports.
 - [x] Task 5: Add live/paper trading integration to walk-forward reports.
+- [x] Task 6: Add a strategy benchmark registry to walk-forward reports.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -45,6 +46,7 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Cost-model sensitivity sweeps complete and verified.
 - [x] Multi-horizon walk-forward (expanding vs rolling) complete and verified.
 - [x] Live/paper trading integration complete and verified.
+- [x] Strategy benchmark registry complete and verified.
 
 ## Next task for the next agent
 

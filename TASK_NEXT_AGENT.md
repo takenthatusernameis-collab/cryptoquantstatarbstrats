@@ -25,6 +25,7 @@ Good next steps: live/paper trading integration, or strategy benchmark registry.
 - [x] Task 3: Add cost-model sensitivity sweeps to walk-forward reports.
 - [x] Task 4: Add multi-horizon walk-forward (expanding vs rolling windows) to walk-forward reports.
 - [x] Task 5: Add live/paper trading integration to walk-forward reports.
+- [x] Task 6: Add a strategy benchmark registry to walk-forward reports.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -46,29 +47,10 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Cost-model sensitivity sweeps complete and verified.
 - [x] Multi-horizon walk-forward (expanding vs rolling) complete and verified.
 - [x] Live/paper trading integration complete and verified.
+- [x] Strategy benchmark registry complete and verified.
 
 ## Next task for the next agent
 
-### Add a strategy benchmark registry to walk-forward reports
+All planned walk-forward report enhancements (IS/OOS comparison, bootstrap confidence intervals, cost-model sensitivity sweeps, multi-horizon walk-forward, live/paper trading integration, and strategy benchmark registry) are complete and verified.
 
-Walk-forward reports evaluate a single strategy against its own history, but users cannot compare expected walk-forward performance against a registry of reference strategies/benchmarks (e.g. buy-and-hold, momentum, mean-reversion baselines) to contextualize stat-arb alpha.
-
-### Objective
-Add an optional strategy benchmark registry that can be attached to walk-forward reports, rendering per-benchmark comparison columns (walk-forward OOS mean return / max drawdown vs benchmark mean return / max drawdown) in walk-forward text/HTML/PDF reports.
-
-### Requirements
-1. `utils/reporting.py`: Add a benchmark registry data structure and extend `generate_walk_forward_report` to accept/attach benchmarks under a `benchmarks` key; compute per-benchmark comparison aggregates vs walk-forward OOS.
-2. `utils/reporting.py`: Extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render a "Strategy Benchmarks" section when benchmark data is present.
-3. `backtest/cli.py`: Optional `--benchmarks-csv` flag to load benchmark returns/metadata and attach them to the walk-forward report.
-4. Add tests in `tests/test_walk_forward_benchmarks.py`: benchmarks attach correctly, comparison columns render in text/HTML/PDF, backward compat when absent.
-5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
-6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
-
-### Verification
-```bash
-python3 -m pytest tests/ -q
-python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
-python3 -m mypy backtest/ strategies/ utils/
-```
-
-**Ready for next agent.**
+Good next steps: deployment/paper-trading execution integration, or a strategy performance benchmark registry UI/dashboard.

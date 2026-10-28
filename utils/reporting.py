@@ -1994,7 +1994,35 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
     benchmarks = wf_report.get("benchmarks")
     if isinstance(benchmarks, dict) and benchmarks.get("benchmarks"):
         html.append("<h2>Strategy Benchmarks</h2>")
-        html.append("<p>Walk-forward OOS vs benchmark comparison.</p>")
+        html.append(
+            "<table>"
+            "<tr><th>Benchmark</th><th>WF OOS Mean Return</th>"
+            "<th>Bench Mean Return</th><th>WF OOS Max Drawdown</th>"
+            "<th>Bench Max Drawdown</th></tr>"
+        )
+        import html as _html_mod
+
+        for row in benchmarks["benchmarks"]:
+            html.append(
+                "<tr>"
+                f"<td>{_html_mod.escape(str(row.get('name', '')))}</td>"
+                f"<td>{_fmt_pct(row.get('wf_oos_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('benchmark_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('wf_oos_max_drawdown', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('benchmark_max_drawdown', 0.0))}</td>"
+                "</tr>"
+            )
+        html.append("</table>")
+        html.append("<p><em>")
+        html.append(
+            "Aggregate: WF OOS Mean Return="
+            f"{_fmt_pct(benchmarks.get('wf_oos_mean_return', 0.0))}, "
+            f"WF OOS Max Drawdown={_fmt_pct(benchmarks.get('wf_oos_max_drawdown', 0.0))}. "
+        )
+        html.append(
+            f"Benchmark count={int(benchmarks.get('benchmark_count', 0))}."
+        )
+        html.append("</em></p>")
 
     # Live vs Walk-Forward comparison when present.
     live_trading = wf_report.get("live_trading")
@@ -2310,6 +2338,33 @@ def generate_walk_forward_pdf_report(
                     fig, ax = plt.subplots(figsize=(11, 4.5))
                     ax.axis("off")
                     ax.set_title("Strategy Benchmarks", fontsize=12, pad=20)
+                    rows_bm = [
+                        [
+                            "Benchmark",
+                            "WF OOS Mean Return",
+                            "Bench Mean Return",
+                            "WF OOS Max Drawdown",
+                            "Bench Max Drawdown",
+                        ]
+                    ]
+                    for row in benchmarks["benchmarks"]:
+                        rows_bm.append([
+                            str(row.get("name", "")),
+                            _fmt_pct(row.get("wf_oos_mean_return", 0.0)),
+                            _fmt_pct(row.get("benchmark_mean_return", 0.0)),
+                            _fmt_pct(row.get("wf_oos_max_drawdown", 0.0)),
+                            _fmt_pct(row.get("benchmark_max_drawdown", 0.0)),
+                        ])
+                    table = ax.table(
+                        cellText=rows_bm[1:],
+                        colLabels=rows_bm[0],
+                        loc="center",
+                        cellLoc="center",
+                        bbox=cast(Any, (0.05, 0.35, 0.9, 0.45)),
+                    )
+                    table.auto_set_font_size(False)
+                    table.set_fontsize(9)
+                    table.scale(1.0, 1.2)
                     pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
                 except Exception:
