@@ -8,6 +8,7 @@ backtest/engine.py
 backtest/execution.py
 backtest/monitoring.py
 backtest/paper_report.py
+backtest/sweep.py
 cryptoquantstatarbstrats.egg-info/PKG-INFO
 cryptoquantstatarbstrats.egg-info/SOURCES.txt
 cryptoquantstatarbstrats.egg-info/dependency_links.txt
@@ -49,12 +50,18 @@ tests/test_regime_integration.py
 tests/test_reporting.py
 tests/test_sizing.py
 tests/test_strategies.py
+tests/test_sweep.py
+tests/test_sweep_api.py
+tests/test_sweep_api_enhanced.py
 tests/test_term_structure.py
 tests/test_volatility_surface.py
+tests/test_walk_forward_anchor.py
 tests/test_walk_forward_attribution.py
 tests/test_walk_forward_benchmarks.py
 tests/test_walk_forward_bootstrap.py
 tests/test_walk_forward_compare.py
+tests/test_walk_forward_config.py
+tests/test_walk_forward_config_portfolio.py
 tests/test_walk_forward_cost_sensitivity.py
 tests/test_walk_forward_is_oos.py
 tests/test_walk_forward_live.py
