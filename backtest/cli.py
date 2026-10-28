@@ -417,6 +417,8 @@ def _apply_config_from_dict(
         ("benchmark_weights_csv", ("benchmark_weights_csv", "benchmark_weights",
                                    "benchmark_weights_path")),
         ("factor_returns_csv", ("factor_returns_csv", "factor_returns", "factor_returns_path")),
+        ("live_results_csv", ("live_results_csv", "live_results", "live_results_path")),
+        ("benchmarks_csv", ("benchmarks_csv", "benchmarks", "benchmarks_path")),
         ("execution_simulator", ("execution_simulator", "use_execution_simulator")),
         ("order_type", ("order_type",)),
         ("participation_rate", ("participation_rate",)),
@@ -477,10 +479,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         args = p.parse_args(sub)
         from utils.reporting import (
             generate_benchmark_dashboard_html,
-            load_benchmarks_csv,
+            load_benchmarks_csv as _load_benchmarks_csv,
         )
 
-        benchmarks = load_benchmarks_csv(args.benchmarks_csv)
+        benchmarks = _load_benchmarks_csv(args.benchmarks_csv)
         html = generate_benchmark_dashboard_html(benchmarks)
         if args.output is not None:
             Path(args.output).write_text(html)
