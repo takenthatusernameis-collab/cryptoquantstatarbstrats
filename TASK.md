@@ -19,46 +19,19 @@ All assigned tasks from the task chain are complete and verified:
 COMPLETED - No pending task from the task chain.
 
 ## Next Agent Task (suggested)
-Add a `cryptoquant sweep` CLI subcommand for out-of-sample parameter grid search with walk-forward validation.
+
+Extract the `cryptoquant sweep` grid-search/walk-forward logic out of `backtest/cli.py` into a reusable Python API module so it is callable programmatically (not just via the CLI).
 
 Scope:
-- Register a `sweep` subcommand in `backtest/cli.py:main()` alongside `benchmarks-dashboard`/`paper-report`/`paper-trade`.
-- Accept `--strategy`, `--asset`/`--pair`, `--start`, `--end`, `--freq`, `--data-source`, a parameter grid (`--grid` JSON mapping param name -> list of values, e.g. `{"lookback":[20,30],"entry_threshold":[1.5,2.0]}`), `--train-period`, `--test-period`, `--metric` (ranking: `calmar_ratio`|`sharpe_ratio`|`total_return`, default `calmar_ratio`), `--fee-rate`, `--slippage`, `--output` (json|csv|text), `--output-path`.
-- For each grid combination run `engine.walk_forward` on Binance/synthetic data, capture out-of-sample metrics per window, aggregate (`oos_mean_return`, mean `max_drawdown`, `oos_is_ratio`), and rank by `--metric`.
-- Write a results table (one row per parameter set: params + aggregated OOS metrics + rank) to stdout or `--output-path` in the requested format. Include a stderr warning that results are in-sample/optimization output and not evidence of alpha; recommend chronological OOS validation and realistic costs.
-- Add tests in `tests/test_sweep.py` covering: empty grid, single combination, ranking order, output format selection, and invalid metric handling.
-- Keep `ruff`, `mypy`, and the full test suite clean. Update `README.md` with a sweep usage example.
+- Create `backtest/sweep.py` (or `utils/sweep.py`) exposing a function such as `run_parameter_sweep(strategy, data, grid, train_period, test_period, fee_rate, slippage, metric) -> list[dict]` that performs per-combo walk-forward runs, OOS aggregation (`oos_mean_return`, `mean_max_drawdown`, `oos_is_ratio`, `oos_periods`), ranking by `--metric`, and returns ranked rows.
+- Refactor `backtest/cli.py:main()` sweep branch (lines 566-714) to call the new module instead of inline logic; keep CLI behavior, output formats (json/csv/text), `--output-path`, and the stderr alpha-warning unchanged.
+- Add unit tests in `tests/test_sweep_api.py` covering: empty grid, single combination, ranking order, invalid metric, and deterministic output; keep the existing `tests/test_sweep.py` CLI tests passing.
+- Keep `ruff`, `mypy`, and the full test suite clean. Add an example script (e.g. `examples/sweep_api.py`) demonstrating programmatic usage.
+- Update `README.md` sweep section to mention the programmatic API alongside the CLI example.
 
-## Sweep Task Status: COMPLETE
-The `cryptoquant sweep` subcommand is implemented in `backtest/cli.py:566-714` (dispatch at `backtest/cli.py:566`). All scope items are done:
-- `sweep` subcommand registered in `main()` with all required arguments.
-- Per-combo walk-forward runs, OOS aggregation (`oos_mean_return`, `mean_max_drawdown`, `oos_is_ratio`, `oos_periods`, `oos_returns`), ranking by `--metric`.
-- Output formats: json/csv/text; `--output-path` writes to file. Stderr warning printed.
-- Tests in `tests/test_sweep.py` cover empty grid, single combination, ranking order, csv/text format selection, invalid metric.
-- README.md updated with sweep usage example (lines 72-89).
-
-## Verification
+Verification:
 ```bash
 python3 -m pytest tests/ -q
 python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python3 -m mypy backtest/ strategies/ utils/
 ```
-
-**Ready.** No further action required from this chain.
-
-Verification re-run at 2026-10-28T16:48Z: 427 passed, 1 skipped; ruff clean; mypy clean (30 files). Sweep CLI verified end-to-end: `cryptoquant sweep --grid '{"lookback":[20,30,50],"entry_threshold":[1.5,2.0]}'` produces ranked results with json/csv/text output and `--output-path`.
-
-**Ready.** No further action required from this chain.
-
-## Next Agent Task (suggested)
-Add a `cryptoquant sweep` CLI subcommand for out-of-sample parameter grid search with walk-forward validation.
-
-Scope:
-- Register a `sweep` subcommand in `backtest/cli.py:main()` alongside `benchmarks-dashboard`/`paper-report`/`paper-trade`.
-- Accept `--strategy`, `--asset`/`--pair`, `--start`, `--end`, `--freq`, `--data-source`, a parameter grid (`--grid` JSON mapping param name -> list of values, e.g. `{"lookback":[20,30],"entry_threshold":[1.5,2.0]}`), `--train-period`, `--test-period`, `--metric` (ranking: `calmar_ratio`|`sharpe_ratio`|`total_return`, default `calmar_ratio`), `--fee-rate`, `--slippage`, `--output` (json|csv|text), `--output-path`.
-- For each grid combination run `engine.walk_forward` on Binance/synthetic data, capture out-of-sample metrics per window, aggregate (`oos_mean_return`, mean `max_drawdown`, `oos_is_ratio`), and rank by `--metric`.
-- Write a results table (one row per parameter set: params + aggregated OOS metrics + rank) to stdout or `--output-path` in the requested format. Include a stderr warning that results are in-sample/optimization output and not evidence of alpha; recommend chronological OOS validation and realistic costs.
-- Add tests in `tests/test_sweep.py` covering: empty grid, single combination, ranking order, output format selection, and invalid metric handling.
-- Keep `ruff`, `mypy`, and the full test suite clean. Update `README.md` with a sweep usage example.
-
-(End of file - total 61 lines)
