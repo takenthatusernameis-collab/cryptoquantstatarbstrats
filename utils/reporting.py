@@ -943,6 +943,90 @@ def load_live_results_csv(path: str) -> list[dict[str, Any]]:
     return schemes
 
 
+def load_benchmarks_csv(path: str) -> list[dict[str, Any]]:
+    """Load benchmark strategy registry from a CSV.
+
+    Expected columns: ``name`` (benchmark name), ``mean_return``, ``max_drawdown``
+    (plus optional ``total_return`` and ``sharpe_ratio``). Values are decimals.
+    Returns one dict per benchmark.
+    """
+    import csv
+
+    benchmarks: list[dict[str, Any]] = []
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            name = (row.get("name") or row.get("benchmark") or "").strip()
+            if not name:
+                continue
+            benchmarks.append(
+                {
+                    "name": name,
+                    "mean_return": _safe_float(row.get("mean_return")),
+                    "max_drawdown": _safe_float(row.get("max_drawdown")),
+                    "total_return": _safe_float(row.get("total_return", 0.0)),
+                    "sharpe_ratio": _safe_float(row.get("sharpe_ratio", 0.0)),
+                }
+            )
+    return benchmarks
+
+
+def _benchmarks_section(benchmarks: Any, wf_result: dict) -> dict[str, Any]:
+    """Build the ``benchmarks`` report section from a benchmark registry.
+
+    Compares each benchmark's metrics against the walk-forward out-of-sample
+    baseline (mean return / max drawdown).
+    """
+    benchmarks_in: list[dict[str, Any]] = []
+    if isinstance(benchmarks, dict):
+        candidate = benchmarks.get("benchmarks")
+        if isinstance(candidate, list):
+            benchmarks_in = [b for b in candidate if isinstance(b, dict)]
+        elif "name" in benchmarks:
+            benchmarks_in = [benchmarks]
+    elif isinstance(benchmarks, list):
+        benchmarks_in = [b for b in benchmarks if isinstance(b, dict)]
+
+    results = wf_result.get("results", []) or []
+    oos_returns: list[float] = []
+    oos_drawdowns: list[float] = []
+    for res in results:
+        res = res or {}
+        if "oos_total_return" in res:
+            oos_returns.append(_safe_float(res.get("oos_total_return")))
+        elif "total_return" in res:
+            oos_returns.append(_safe_float(res.get("total_return")))
+        oos_drawdowns.append(_safe_float(res.get("max_drawdown", 0.0)))
+
+    def _mean(vals: list[float]) -> float:
+        return sum(vals) / len(vals) if vals else 0.0
+
+    wf_oos_mean_return = _mean(oos_returns)
+    wf_oos_max_drawdown = _mean(oos_drawdowns)
+
+    items: list[dict[str, Any]] = []
+    for b in benchmarks_in:
+        name = str(b.get("name", "") or "")
+        items.append(
+            {
+                "name": name,
+                "wf_oos_mean_return": wf_oos_mean_return,
+                "wf_oos_max_drawdown": wf_oos_max_drawdown,
+                "benchmark_mean_return": _safe_float(b.get("mean_return")),
+                "benchmark_max_drawdown": _safe_float(b.get("max_drawdown")),
+                "benchmark_total_return": _safe_float(b.get("total_return", 0.0)),
+                "benchmark_sharpe_ratio": _safe_float(b.get("sharpe_ratio", 0.0)),
+            }
+        )
+
+    return {
+        "benchmarks": items,
+        "wf_oos_mean_return": wf_oos_mean_return,
+        "wf_oos_max_drawdown": wf_oos_max_drawdown,
+        "benchmark_count": len(items),
+    }
+
+
 def _live_trading_section(live_results: Any, wf_result: dict) -> dict[str, Any]:
     """Build the ``live_trading`` report section from live/paper results.
 
@@ -1007,7 +1091,8 @@ def _live_trading_section(live_results: Any, wf_result: dict) -> dict[str, Any]:
 
 
 def generate_walk_forward_report(
-    wf_result: dict, multi_horizon: Any = None, live_results: Any = None
+    wf_result: dict, multi_horizon: Any = None, live_results: Any = None,
+    benchmarks: Any = None,
 ) -> dict:
     """Aggregate walk-forward per-window results into a summary table + equity curve.
 
@@ -1283,6 +1368,15 @@ def generate_walk_forward_report(
         except Exception:
             pass
 
+    benchmarks_param = (
+        benchmarks if benchmarks is not None else wf_result.get("benchmarks")
+    )
+    if benchmarks_param is not None:
+        try:
+            report["benchmarks"] = _benchmarks_section(benchmarks_param, wf_result)
+        except Exception:
+            pass
+
     # Aggregate attribution across windows when present.
     brinsons_raw = [(r or {}).get("brinson") for r in results]
     brinsons: list[dict[str, Any]] = [
@@ -1424,6 +1518,21 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
                 "live_mean_return": float(live_trading.get("live_mean_return", 0.0)),
                 "live_max_drawdown": float(live_trading.get("live_max_drawdown", 0.0)),
                 "scheme_count": int(live_trading.get("scheme_count", 0)),
+            }
+        except Exception:
+            pass
+    benchmarks = wf_report.get("benchmarks")
+    if isinstance(benchmarks, dict) and benchmarks:
+        try:
+            out["benchmarks"] = {
+                "benchmarks": [
+                    {str(k): v for k, v in b.items() if k != "result"}
+                    for b in benchmarks.get("benchmarks", [])
+                    if isinstance(b, dict)
+                ],
+                "wf_oos_mean_return": float(benchmarks.get("wf_oos_mean_return", 0.0)),
+                "wf_oos_max_drawdown": float(benchmarks.get("wf_oos_max_drawdown", 0.0)),
+                "benchmark_count": int(benchmarks.get("benchmark_count", 0)),
             }
         except Exception:
             pass
@@ -1638,6 +1747,40 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
             f"Live Max Drawdown={_fmt_pct(live_trading.get('live_max_drawdown', 0.0))}"
         )
 
+    # Strategy Benchmarks (when benchmark registry is present).
+    benchmarks = wf_report.get("benchmarks")
+    if isinstance(benchmarks, dict) and benchmarks.get("benchmarks"):
+        lines.append("")
+        lines.append("Strategy Benchmarks")
+        lines.append("===================")
+        header = (
+            "  "
+            + "  ".join(
+                f"{c:>20}"
+                for c in [
+                    "benchmark",
+                    "wf_oos_mean_return",
+                    "bench_mean_return",
+                    "wf_oos_max_drawdown",
+                    "bench_max_drawdown",
+                ]
+            )
+        )
+        lines.append(header)
+        for row in benchmarks["benchmarks"]:
+            lines.append(
+                "  "
+                + "  ".join(
+                    [
+                        f"{str(row.get('name', '')):>20}",
+                        f"{_fmt_pct(row.get('wf_oos_mean_return', 0.0)):>20}",
+                        f"{_fmt_pct(row.get('benchmark_mean_return', 0.0)):>20}",
+                        f"{_fmt_pct(row.get('wf_oos_max_drawdown', 0.0)):>20}",
+                        f"{_fmt_pct(row.get('benchmark_max_drawdown', 0.0)):>20}",
+                    ]
+                )
+            )
+
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report)
     if brinson is not None or factor is not None:
@@ -1846,6 +1989,12 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
                     "</tr>"
                 )
             html.append("</table>")
+
+    # Strategy Benchmarks when present.
+    benchmarks = wf_report.get("benchmarks")
+    if isinstance(benchmarks, dict) and benchmarks.get("benchmarks"):
+        html.append("<h2>Strategy Benchmarks</h2>")
+        html.append("<p>Walk-forward OOS vs benchmark comparison.</p>")
 
     # Live vs Walk-Forward comparison when present.
     live_trading = wf_report.get("live_trading")
@@ -2150,6 +2299,18 @@ def generate_walk_forward_pdf_report(
                         table.set_fontsize(9)
                         table.scale(1.0, 1.2)
                         pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page: Strategy Benchmarks when present.
+            benchmarks = wf_report.get("benchmarks")
+            if isinstance(benchmarks, dict) and benchmarks.get("benchmarks"):
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Strategy Benchmarks", fontsize=12, pad=20)
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
                 except Exception:
                     pass

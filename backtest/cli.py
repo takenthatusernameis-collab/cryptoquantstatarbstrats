@@ -30,7 +30,7 @@ from strategies.term_structure import TermStructureStrategy
 from utils.monte_carlo import monte_carlo_analysis
 from utils.optimization import get_optimizer
 from utils.rebalance import create_rebalanced_weights
-from utils.reporting import load_live_results_csv
+from utils.reporting import load_benchmarks_csv, load_live_results_csv
 
 STRATEGIES = {
     "mean_reversion": MeanReversionStrategy,
@@ -212,6 +212,12 @@ def build_parser() -> argparse.ArgumentParser:
         help=("Path to CSV with realized live/paper trading results per scheme "
               "(scheme, live_mean_return, live_max_drawdown, optional "
               "live_total_return, live_sharpe_ratio)."),
+    )
+    parser.add_argument(
+        "--benchmarks-csv",
+        default=None,
+        help=("Path to CSV with benchmark strategy registry "
+              "(name, mean_return, max_drawdown, optional total_return, sharpe_ratio)."),
     )
     parser.add_argument(
         "--execution-simulator",
@@ -596,6 +602,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             live_results = load_live_results_csv(live_csv)
         except Exception:
             live_results = None
+    benchmarks = None
+    benchmarks_csv = getattr(args, "benchmarks_csv", None)
+    if benchmarks_csv:
+        try:
+            benchmarks = load_benchmarks_csv(benchmarks_csv)
+        except Exception:
+            benchmarks = None
     train_period = getattr(args, "train_period", None)
     test_period = getattr(args, "test_period", None)
     regime_mode = getattr(args, "regime_mode", None)
@@ -746,7 +759,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 generate_walk_forward_report,
             )
 
-            wf_rep = generate_walk_forward_report(result, live_results=live_results)
+            wf_rep = generate_walk_forward_report(
+                result, live_results=live_results, benchmarks=benchmarks
+            )
             artifact_dir = getattr(args, "artifact_dir", None)
             out_path_base = getattr(args, "output_path", None)
             out_path_base = None if out_path_base is None else str(out_path_base)
@@ -864,7 +879,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     # surfaced alongside the summary table and equity curve.
     if walk_forward:
         try:
-            wf_report = generate_walk_forward_report(result, live_results=live_results)
+            wf_report = generate_walk_forward_report(
+                result, live_results=live_results, benchmarks=benchmarks
+            )
         except Exception:
             wf_report = result
         result_for_report = wf_report
