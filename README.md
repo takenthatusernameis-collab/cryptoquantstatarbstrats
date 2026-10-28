@@ -68,3 +68,22 @@ and 3.12.
 This software is for educational and research purposes only. It does not
 provide investment advice and is not intended for live trading without
 independent validation.
+
+## Parameter sweep (walk-forward)
+
+Run an out-of-sample parameter grid search with walk-forward validation:
+
+```bash
+cryptoquant sweep \
+  --strategy mean_reversion \
+  --asset BTC \
+  --grid '{"lookback":[20,30,50],"entry_threshold":[1.5,2.0]}' \
+  --train-period 60 \
+  --test-period 20 \
+  --metric calmar_ratio \
+  --data-source synthetic \
+  --output json \
+  --output-path sweep_results.json
+```
+
+Sweep results are in-sample/optimization output (not evidence of alpha). Use chronological out-of-sample validation with realistic costs.
