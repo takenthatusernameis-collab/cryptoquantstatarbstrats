@@ -158,3 +158,43 @@ These options are also available in a config file passed via `--config`
 (`anchor`, `n_splits`/`nSplits`, `mode`, `train_period`/`trainPeriod`,
 `test_period`/`testPeriod`). The CLI also accepts them directly; config values
 are applied when not overridden by CLI flags.
+
+## Replay best sweep combo (full-dataset confirmation)
+
+After a walk-forward sweep ranks parameter combos, `--replay-best` re-runs the
+#1-ranked combo over the full dataset (single backtest via `engine.run`) and
+attaches a `replay` block to the top-ranked row so you can confirm the chosen
+parameters:
+
+```bash
+cryptoquant sweep \
+  --strategy mean_reversion \
+  --grid '{"lookback":[20,30,50]}' \
+  --walk-forward \
+  --train-period 60 \
+  --test-period 20 \
+  --replay-best \
+  --output json \
+  --output-path sweep_replay.json
+```
+
+The `replay` block on the top-ranked row contains the params used plus full
+metrics: `total_return`, `sharpe_ratio`, `max_drawdown`, `calmar_ratio`, and
+`final_equity`. Enable via config with `replay_best: true`; the
+`--replay-best` CLI flag overrides the config value.
+
+```yaml
+# config/sweep_replay.yaml
+strategy: mean_reversion
+asset: BTC
+data_source: synthetic
+start: "2024-01-01"
+end: "2024-02-01"
+freq: 1h
+walk_forward: true
+train_period: 60
+test_period: 20
+replay_best: true
+output: json
+output_path: sweep_replay.json
+```

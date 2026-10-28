@@ -13,7 +13,7 @@ All assigned tasks complete and verified:
 - Working tree clean, branch up to date with origin/main (commit 2b96044).
 
 ## Current State (verified this session)
-- `python3 -m pytest tests/ -q` -> 487 passed, 1 skipped, 0 failed
+- `python3 -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> clean
 - `python3 -m mypy backtest/ strategies/ utils/` -> clean (31 source files)
 - Working tree clean, branch up to date with origin/main.
@@ -29,5 +29,16 @@ Scope:
 - `tests/test_sweep_replay_best.py`: new tests — replay via CLI flag, via config `replay_best: true`, CLI-over-config precedence, and that replay uses top-ranked params / includes replay block.
 - README: document `--replay-best` and config `replay_best: true` in "Parameter sweep (walk-forward)" section (README.md:72-160).
 - Verify: `pytest tests/ -q`, `ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `mypy backtest/ strategies/ utils/` all clean; working tree clean, branch up to date with origin/main.
+
+## Replay Best Implementation (COMPLETE)
+- `backtest/sweep.py:129` — `replay_best: bool = False` parameter on `run_parameter_sweep`; validated at `sweep.py:206-207`.
+- `backtest/sweep.py:276-298` — rebuilds top-ranked strategy via `_build_strategy`, runs `engine.run` over full data, attaches `replay` block (params, total_return, sharpe_ratio, max_drawdown, calmar_ratio, final_equity) to the top-ranked row.
+- `backtest/cli.py:626-638` — `--replay-best` flag (store_true, default False) plus suppressed `--replay_best` alias.
+- `backtest/cli.py:475` — config mapping `("replay_best", ("replay_best", "replayBest"))` in `_apply_config_from_dict`.
+- `backtest/config.py:151-152` — schema entries for `replay_best` and `replayBest` (type bool).
+- `tests/test_sweep_replay_best.py` (3 tests): replay via CLI flag, via config `replay_best: true`, CLI-over-config precedence, and that replay uses top-ranked params / includes replay block.
+- README "Replay best sweep combo (full-dataset confirmation)" section documents `--replay-best`, config `replay_best: true`, YAML example, and the `replay` block fields.
+- Verified: `pytest tests/ -q` (490 passed, 1 skipped), `ruff check` clean, `mypy` clean (31 source files).
+- Working tree clean, branch up to date with origin/main.
 
 (End of file)
