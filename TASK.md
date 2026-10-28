@@ -26,4 +26,15 @@ python3 -m mypy backtest/ strategies/ utils/
 
 **Ready.** No further action required from this chain.
 
-Verification re-run at 2026-10-28T14:12Z: 421 passed, 1 skipped; ruff clean; mypy clean (30 files). Working tree clean.
+Verification re-run at 2026-10-28T14:16Z: 421 passed, 1 skipped; ruff clean; mypy clean (30 files). Working tree clean, branch `main` up to date with origin/main.
+
+## Next Agent Task (suggested)
+Add a `cryptoquant sweep` CLI subcommand for out-of-sample parameter grid search with walk-forward validation.
+
+Scope:
+- Register a `sweep` subcommand in `backtest/cli.py:main()` alongside `benchmarks-dashboard`/`paper-report`/`paper-trade`.
+- Accept `--strategy`, `--asset`/`--pair`, `--start`, `--end`, `--freq`, `--data-source`, a parameter grid (`--grid` JSON mapping param name -> list of values, e.g. `{"lookback":[20,30],"entry_threshold":[1.5,2.0]}`), `--train-period`, `--test-period`, `--metric` (ranking: `calmar_ratio`|`sharpe_ratio`|`total_return`, default `calmar_ratio`), `--fee-rate`, `--slippage`, `--output` (json|csv|text), `--output-path`.
+- For each grid combination run `engine.walk_forward` on Binance/synthetic data, capture out-of-sample metrics per window, aggregate (`oos_mean_return`, mean `max_drawdown`, `oos_is_ratio`), and rank by `--metric`.
+- Write a results table (one row per parameter set: params + aggregated OOS metrics + rank) to stdout or `--output-path` in the requested format. Include a stderr warning that results are in-sample/optimization output and not evidence of alpha; recommend chronological OOS validation and realistic costs.
+- Add tests in `tests/test_sweep.py` covering: empty grid, single combination, ranking order, output format selection, and invalid metric handling.
+- Keep `ruff`, `mypy`, and the full test suite clean. Update `README.md` with a sweep usage example.
