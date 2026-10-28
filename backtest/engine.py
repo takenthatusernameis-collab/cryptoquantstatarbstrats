@@ -770,6 +770,7 @@ class BacktestEngine:
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
         mode: str = "rolling",
+        anchor: Any = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation.
 
@@ -779,7 +780,18 @@ class BacktestEngine:
         """
         results = []
         total = len(data)
-        i = 0
+        if anchor is None:
+            i = 0
+        elif isinstance(anchor, (int,)):
+            i = int(anchor)
+        else:
+            try:
+                ts = pd.Timestamp(anchor)
+                i = int(data.index.searchsorted(ts))
+            except Exception:
+                i = 0
+        if i < 0:
+            i = 0
         while i + train_period + test_period <= total:
             if mode == "expanding":
                 train_start = 0
@@ -937,6 +949,7 @@ class BacktestEngine:
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
         mode: str = "rolling",
+        anchor: Any = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation using portfolio weights.
 

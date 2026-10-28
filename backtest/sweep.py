@@ -125,6 +125,7 @@ def run_parameter_sweep(
     show_progress: bool = False,
     mode: str = "rolling",
     n_splits: int | None = None,
+    anchor: Any = None,
 ) -> List[Dict[str, Any]]:
     """
     Run a parameter grid search with walk-forward validation.
@@ -220,6 +221,7 @@ def run_parameter_sweep(
                 fee_rate=float(fee_rate),
                 slippage=float(slippage),
                 mode=mode,
+                anchor=anchor,
             )
         except Exception:
             res = {}

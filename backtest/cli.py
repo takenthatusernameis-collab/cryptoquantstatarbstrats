@@ -591,6 +591,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--slippage", type=float, default=0.0)
         p.add_argument("--mode", choices=["rolling", "expanding"], default="rolling")
         p.add_argument("--n-splits", type=int, default=None)
+        p.add_argument("--anchor", default=None)
         p.add_argument("--output", choices=["json", "csv", "text"], default="text")
         p.add_argument("--output-path", default=None)
         args = p.parse_args(sub)
@@ -645,6 +646,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             engine=engine,
             mode=str(args.mode),
             n_splits=args.n_splits,
+            anchor=args.anchor,
         )
 
         print(
