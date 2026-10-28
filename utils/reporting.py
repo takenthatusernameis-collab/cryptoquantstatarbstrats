@@ -915,7 +915,100 @@ def sweep_cost_sensitivity(
     return results
 
 
-def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> dict:
+def load_live_results_csv(path: str) -> list[dict[str, Any]]:
+    """Load live/paper trading results from a CSV.
+
+    Expected columns: ``scheme``, ``live_mean_return``, ``live_max_drawdown``
+    (plus optional ``live_total_return`` and ``live_sharpe_ratio``). Values are
+    decimals (e.g. ``0.05`` for 5%). Returns one dict per scheme.
+    """
+    import csv
+
+    schemes: list[dict[str, Any]] = []
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            scheme = (row.get("scheme") or "").strip()
+            if not scheme:
+                continue
+            schemes.append(
+                {
+                    "scheme": scheme,
+                    "live_mean_return": _safe_float(row.get("live_mean_return")),
+                    "live_max_drawdown": _safe_float(row.get("live_max_drawdown")),
+                    "live_total_return": _safe_float(row.get("live_total_return", 0.0)),
+                    "live_sharpe_ratio": _safe_float(row.get("live_sharpe_ratio", 0.0)),
+                }
+            )
+    return schemes
+
+
+def _live_trading_section(live_results: Any, wf_result: dict) -> dict[str, Any]:
+    """Build the ``live_trading`` report section from live/paper results.
+
+    Compares each live scheme's realized metrics against the walk-forward
+    out-of-sample baseline (expected performance).
+    """
+    schemes_in: list[dict[str, Any]] = []
+    if isinstance(live_results, dict):
+        candidate = live_results.get("schemes")
+        if isinstance(candidate, list):
+            schemes_in = [r for r in candidate if isinstance(r, dict)]
+        elif "scheme" in live_results:
+            schemes_in = [live_results]
+    elif isinstance(live_results, list):
+        schemes_in = [r for r in live_results if isinstance(r, dict)]
+
+    results = wf_result.get("results", []) or []
+    oos_returns: list[float] = []
+    oos_drawdowns: list[float] = []
+    for res in results:
+        res = res or {}
+        if "oos_total_return" in res:
+            oos_returns.append(_safe_float(res.get("oos_total_return")))
+        elif "total_return" in res:
+            oos_returns.append(_safe_float(res.get("total_return")))
+        oos_drawdowns.append(_safe_float(res.get("max_drawdown", 0.0)))
+
+    def _mean(vals: list[float]) -> float:
+        return sum(vals) / len(vals) if vals else 0.0
+
+    wf_oos_mean_return = _mean(oos_returns)
+    wf_oos_max_drawdown = _mean(oos_drawdowns)
+
+    schemes_out: list[dict[str, Any]] = []
+    for s in schemes_in:
+        scheme = str(s.get("scheme", "") or "")
+        live_mean_return = _safe_float(s.get("live_mean_return"))
+        live_max_drawdown = _safe_float(s.get("live_max_drawdown"))
+        schemes_out.append(
+            {
+                "scheme": scheme,
+                "oos_mean_return": wf_oos_mean_return,
+                "live_mean_return": live_mean_return,
+                "oos_max_drawdown": wf_oos_max_drawdown,
+                "live_max_drawdown": live_max_drawdown,
+                "live_total_return": _safe_float(s.get("live_total_return", 0.0)),
+                "live_sharpe_ratio": _safe_float(s.get("live_sharpe_ratio", 0.0)),
+            }
+        )
+
+    live_means = [s["live_mean_return"] for s in schemes_out]
+    live_drawdowns = [s["live_max_drawdown"] for s in schemes_out]
+
+    return {
+        "schemes": schemes_out,
+        "oos_mean_return": wf_oos_mean_return,
+        "oos_max_drawdown": wf_oos_max_drawdown,
+        "live_mean_return": _mean(live_means),
+        "live_max_drawdown": _mean(live_drawdowns),
+        "scheme_count": len(schemes_out),
+    }
+
+
+def generate_walk_forward_report(
+    wf_result: dict, multi_horizon: Any = None, live_results: Any = None
+) -> dict:
     """Aggregate walk-forward per-window results into a summary table + equity curve.
 
     ``wf_result`` is the dict returned by
@@ -1172,10 +1265,21 @@ def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> 
                     processed.append(mh_res)
             report["multi_horizon"] = processed if processed else multi_horizon_data
         except Exception:
-            report["multi_horizon"] = multi_horizon_data
+            pass
     elif isinstance(multi_horizon_data, list) and multi_horizon_data:
         try:
             report["multi_horizon"] = multi_horizon_data
+        except Exception:
+            pass
+
+    # Live/paper trading results attached for comparison against walk-forward
+    # out-of-sample (expected) performance.
+    live_results_param = (
+        live_results if live_results is not None else wf_result.get("live_results")
+    )
+    if live_results_param is not None:
+        try:
+            report["live_trading"] = _live_trading_section(live_results_param, wf_result)
         except Exception:
             pass
 
@@ -1304,6 +1408,23 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
     if multi_horizon is not None:
         try:
             out["multi_horizon"] = multi_horizon
+        except Exception:
+            pass
+    live_trading = wf_report.get("live_trading")
+    if isinstance(live_trading, dict) and live_trading:
+        try:
+            out["live_trading"] = {
+                "schemes": [
+                    {str(k): v for k, v in s.items() if k != "result"}
+                    for s in live_trading.get("schemes", [])
+                    if isinstance(s, dict)
+                ],
+                "oos_mean_return": float(live_trading.get("oos_mean_return", 0.0)),
+                "oos_max_drawdown": float(live_trading.get("oos_max_drawdown", 0.0)),
+                "live_mean_return": float(live_trading.get("live_mean_return", 0.0)),
+                "live_max_drawdown": float(live_trading.get("live_max_drawdown", 0.0)),
+                "scheme_count": int(live_trading.get("scheme_count", 0)),
+            }
         except Exception:
             pass
     brinson = wf_report.get("brinson")
@@ -1474,6 +1595,48 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
                         ]
                     )
                 )
+
+    # Live vs Walk-Forward comparison (when live/paper results are present).
+    live_trading = wf_report.get("live_trading")
+    if isinstance(live_trading, dict) and live_trading.get("schemes"):
+        lines.append("")
+        lines.append("Live vs Walk-Forward")
+        lines.append("====================")
+        header = (
+            "  "
+            + "  ".join(
+                f"{c:>16}"
+                for c in [
+                    "scheme",
+                    "oos_mean_return",
+                    "live_mean_return",
+                    "oos_max_drawdown",
+                    "live_max_drawdown",
+                ]
+            )
+        )
+        lines.append(header)
+        for row in live_trading["schemes"]:
+            lines.append(
+                "  "
+                + "  ".join(
+                    [
+                        f"{str(row.get('scheme', '')):>16}",
+                        f"{_fmt_pct(row.get('oos_mean_return', 0.0)):>16}",
+                        f"{_fmt_pct(row.get('live_mean_return', 0.0)):>16}",
+                        f"{_fmt_pct(row.get('oos_max_drawdown', 0.0)):>16}",
+                        f"{_fmt_pct(row.get('live_max_drawdown', 0.0)):>16}",
+                    ]
+                )
+            )
+        lines.append("")
+        lines.append(
+            "  Aggregate: OOS Mean Return="
+            f"{_fmt_pct(live_trading.get('oos_mean_return', 0.0))}, "
+            f"Live Mean Return={_fmt_pct(live_trading.get('live_mean_return', 0.0))}, "
+            f"OOS Max Drawdown={_fmt_pct(live_trading.get('oos_max_drawdown', 0.0))}, "
+            f"Live Max Drawdown={_fmt_pct(live_trading.get('live_max_drawdown', 0.0))}"
+        )
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report)
@@ -1683,6 +1846,41 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
                     "</tr>"
                 )
             html.append("</table>")
+
+    # Live vs Walk-Forward comparison when present.
+    live_trading = wf_report.get("live_trading")
+    if isinstance(live_trading, dict) and live_trading.get("schemes"):
+        html.append("<h2>Live vs Walk-Forward</h2>")
+        html.append("<table>")
+        html.append(
+            "<tr><th>Scheme</th><th>OOS Mean Return</th>"
+            "<th>Live Mean Return</th><th>OOS Max Drawdown</th>"
+            "<th>Live Max Drawdown</th></tr>"
+        )
+        import html as _html_mod
+
+        for row in live_trading["schemes"]:
+            html.append(
+                "<tr>"
+                f"<td>{_html_mod.escape(str(row.get('scheme', '')))}</td>"
+                f"<td>{_fmt_pct(row.get('oos_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('live_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('oos_max_drawdown', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('live_max_drawdown', 0.0))}</td>"
+                "</tr>"
+            )
+        html.append("</table>")
+        html.append("<p><em>")
+        html.append(
+            "Aggregate: OOS Mean Return="
+            f"{_fmt_pct(live_trading.get('oos_mean_return', 0.0))}, "
+            f"Live Mean Return={_fmt_pct(live_trading.get('live_mean_return', 0.0))}. "
+        )
+        html.append(
+            f"OOS Max Drawdown={_fmt_pct(live_trading.get('oos_max_drawdown', 0.0))}, "
+            f"Live Max Drawdown={_fmt_pct(live_trading.get('live_max_drawdown', 0.0))}."
+        )
+        html.append("</em></p>")
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report or {})
@@ -1952,6 +2150,45 @@ def generate_walk_forward_pdf_report(
                         table.set_fontsize(9)
                         table.scale(1.0, 1.2)
                         pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page: Live vs Walk-Forward when present.
+            live_trading = wf_report.get("live_trading")
+            if isinstance(live_trading, dict) and live_trading.get("schemes"):
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Live vs Walk-Forward", fontsize=12, pad=20)
+                    rows_lt = [
+                        [
+                            "Scheme",
+                            "OOS Mean Return",
+                            "Live Mean Return",
+                            "OOS Max Drawdown",
+                            "Live Max Drawdown",
+                        ]
+                    ]
+                    for row in live_trading["schemes"]:
+                        rows_lt.append([
+                            str(row.get("scheme", "")),
+                            _fmt_pct(row.get("oos_mean_return", 0.0)),
+                            _fmt_pct(row.get("live_mean_return", 0.0)),
+                            _fmt_pct(row.get("oos_max_drawdown", 0.0)),
+                            _fmt_pct(row.get("live_max_drawdown", 0.0)),
+                        ])
+                    table = ax.table(
+                        cellText=rows_lt[1:],
+                        colLabels=rows_lt[0],
+                        loc="center",
+                        cellLoc="center",
+                        bbox=cast(Any, (0.05, 0.35, 0.9, 0.45)),
+                    )
+                    table.auto_set_font_size(False)
+                    table.set_fontsize(9)
+                    table.scale(1.0, 1.2)
+                    pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
                 except Exception:
                     pass

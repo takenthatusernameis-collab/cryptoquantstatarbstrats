@@ -30,6 +30,7 @@ from strategies.term_structure import TermStructureStrategy
 from utils.monte_carlo import monte_carlo_analysis
 from utils.optimization import get_optimizer
 from utils.rebalance import create_rebalanced_weights
+from utils.reporting import load_live_results_csv
 
 STRATEGIES = {
     "mean_reversion": MeanReversionStrategy,
@@ -204,6 +205,13 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help=("Path to CSV with factor returns (timestamp/index + factor "
               "columns) for factor attribution."),
+    )
+    parser.add_argument(
+        "--live-results-csv",
+        default=None,
+        help=("Path to CSV with realized live/paper trading results per scheme "
+              "(scheme, live_mean_return, live_max_drawdown, optional "
+              "live_total_return, live_sharpe_ratio)."),
     )
     parser.add_argument(
         "--execution-simulator",
@@ -581,6 +589,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     walk_forward = getattr(args, "walk_forward", False) or getattr(
         args, "walk_forward_report", False
     )
+    live_results = None
+    live_csv = getattr(args, "live_results_csv", None)
+    if live_csv:
+        try:
+            live_results = load_live_results_csv(live_csv)
+        except Exception:
+            live_results = None
     train_period = getattr(args, "train_period", None)
     test_period = getattr(args, "test_period", None)
     regime_mode = getattr(args, "regime_mode", None)
@@ -731,7 +746,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 generate_walk_forward_report,
             )
 
-            wf_rep = generate_walk_forward_report(result)
+            wf_rep = generate_walk_forward_report(result, live_results=live_results)
             artifact_dir = getattr(args, "artifact_dir", None)
             out_path_base = getattr(args, "output_path", None)
             out_path_base = None if out_path_base is None else str(out_path_base)
@@ -849,7 +864,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     # surfaced alongside the summary table and equity curve.
     if walk_forward:
         try:
-            wf_report = generate_walk_forward_report(result)
+            wf_report = generate_walk_forward_report(result, live_results=live_results)
         except Exception:
             wf_report = result
         result_for_report = wf_report
