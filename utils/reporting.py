@@ -1920,7 +1920,13 @@ def generate_walk_forward_pdf_report(
                         )
                     elif isinstance(multi_horizon, list):
                         rows_mh = [
-                            ["Mode", "Mean Return", "OOS Mean Return", "OOS/IS Ratio", "Max Drawdown"]
+                            [
+                                "Mode",
+                                "Mean Return",
+                                "OOS Mean Return",
+                                "OOS/IS Ratio",
+                                "Max Drawdown",
+                            ]
                         ]
                         for row in multi_horizon:
                             if not isinstance(row, dict):
