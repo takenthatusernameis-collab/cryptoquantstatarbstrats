@@ -123,6 +123,8 @@ def run_parameter_sweep(
         [int, int, Dict[str, Any], Dict[str, Any]], None
     ] | None = None,
     show_progress: bool = False,
+    mode: str = "rolling",
+    n_splits: int | None = None,
 ) -> List[Dict[str, Any]]:
     """
     Run a parameter grid search with walk-forward validation.
@@ -183,6 +185,16 @@ def run_parameter_sweep(
             f"Invalid metric: {metric!r}; allowed: {_ALLOWED_METRICS}"
         )
 
+    if mode not in ("rolling", "expanding"):
+        raise ValueError(f"Invalid mode: {mode!r}; allowed: ('rolling', 'expanding')")
+    if n_splits is not None:
+        try:
+            n_splits = int(n_splits)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"n_splits must be an integer > 0: {exc}") from exc
+        if n_splits <= 0:
+            raise ValueError(f"n_splits must be > 0, got {n_splits}")
+
     from backtest.engine import BacktestEngine
 
     if engine is None:
@@ -207,11 +219,14 @@ def run_parameter_sweep(
                 test_period=test_period,
                 fee_rate=float(fee_rate),
                 slippage=float(slippage),
+                mode=mode,
             )
         except Exception:
             res = {}
 
         results_list = res.get("results", []) or []
+        if n_splits is not None:
+            results_list = results_list[:n_splits]
         oos_returns = [float((r or {}).get("total_return", 0.0)) for r in results_list]
         oos_mean = float(res.get("oos_mean_return", res.get("mean_return", 0.0)) or 0.0)
         mdds = [float((r or {}).get("max_drawdown", 0.0)) for r in results_list]

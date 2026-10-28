@@ -589,6 +589,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
+        p.add_argument("--mode", choices=["rolling", "expanding"], default="rolling")
+        p.add_argument("--n-splits", type=int, default=None)
         p.add_argument("--output", choices=["json", "csv", "text"], default="text")
         p.add_argument("--output-path", default=None)
         args = p.parse_args(sub)
@@ -641,6 +643,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             slippage=float(args.slippage),
             metric=str(args.metric),
             engine=engine,
+            mode=str(args.mode),
+            n_splits=args.n_splits,
         )
 
         print(
@@ -691,6 +695,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--initial-capital", type=float, default=100_000.0)
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
+        p.add_argument("--mode", choices=["rolling", "expanding"], default="rolling")
+        p.add_argument("--n-splits", type=int, default=None)
         p.add_argument("--output-path", default=None)
         p.add_argument("--artifact-dir", default=None)
         p.add_argument(
