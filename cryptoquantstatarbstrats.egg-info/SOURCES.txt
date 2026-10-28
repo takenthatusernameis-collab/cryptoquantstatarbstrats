@@ -6,6 +6,8 @@ backtest/cli.py
 backtest/config.py
 backtest/engine.py
 backtest/execution.py
+backtest/monitoring.py
+backtest/paper_report.py
 cryptoquantstatarbstrats.egg-info/PKG-INFO
 cryptoquantstatarbstrats.egg-info/SOURCES.txt
 cryptoquantstatarbstrats.egg-info/dependency_links.txt
@@ -23,6 +25,7 @@ strategies/term_structure.py
 strategies/volatility_surface.py
 tests/test_attribution.py
 tests/test_attribution_reporting.py
+tests/test_benchmark_dashboard.py
 tests/test_binance_loader.py
 tests/test_cli.py
 tests/test_config_validation.py
@@ -35,6 +38,10 @@ tests/test_execution_vwap_twap.py
 tests/test_metrics.py
 tests/test_monte_carlo.py
 tests/test_optimization.py
+tests/test_paper_trading.py
+tests/test_paper_trading_advanced.py
+tests/test_paper_trading_monitoring.py
+tests/test_paper_trading_report.py
 tests/test_portfolio_risk.py
 tests/test_rebalancing.py
 tests/test_regime.py
@@ -44,6 +51,14 @@ tests/test_sizing.py
 tests/test_strategies.py
 tests/test_term_structure.py
 tests/test_volatility_surface.py
+tests/test_walk_forward_attribution.py
+tests/test_walk_forward_benchmarks.py
+tests/test_walk_forward_bootstrap.py
+tests/test_walk_forward_compare.py
+tests/test_walk_forward_cost_sensitivity.py
+tests/test_walk_forward_is_oos.py
+tests/test_walk_forward_live.py
+tests/test_walk_forward_multi_horizon.py
 tests/test_walk_forward_reoptimize.py
 utils/__init__.py
 utils/attribution.py

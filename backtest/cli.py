@@ -349,25 +349,40 @@ def build_parser() -> argparse.ArgumentParser:
 def _build_strategy(name: str, args: argparse.Namespace):
     if name == "mean_reversion":
         asset = getattr(args, "asset", None) or "BTC"
-        return MeanReversionStrategy(asset=asset)
+        kwargs: dict[str, Any] = {"asset": asset}
+        for key in ("lookback", "entry_threshold", "exit_threshold"):
+            value = getattr(args, key, None)
+            if value is not None:
+                kwargs[key] = value
+        return MeanReversionStrategy(**kwargs)
     if name == "pairs":
         pair = getattr(args, "pair", None) or ["BTC", "ETH"]
-        return CointegrationPairsStrategy(pair=tuple(pair))
+        kwargs: dict[str, Any] = {"pair": tuple(pair)}
+        for key in (
+            "lookback",
+            "entry_threshold",
+            "exit_threshold",
+            "cointegration_pvalue",
+            "cointegration_check_interval",
+        ):
+            value = getattr(args, key, None)
+            if value is not None:
+                kwargs[key] = value
+        return CointegrationPairsStrategy(**kwargs)
     if name == "term_structure":
         asset = getattr(args, "asset", None) or "BTC"
-        near_tenor = getattr(args, "near_tenor", None) or "iv_30d"
-        far_tenor = getattr(args, "far_tenor", None) or "iv_90d"
-        lookback = getattr(args, "lookback", None) or 30
-        entry_threshold = getattr(args, "entry_threshold", None) or 2.0
-        exit_threshold = getattr(args, "exit_threshold", None) or 0.5
-        return TermStructureStrategy(
-            asset=asset,
-            near_tenor=near_tenor,
-            far_tenor=far_tenor,
-            lookback=int(lookback),
-            entry_threshold=float(entry_threshold),
-            exit_threshold=float(exit_threshold),
-        )
+        kwargs = {"asset": asset}
+        for key in (
+            "near_tenor",
+            "far_tenor",
+            "lookback",
+            "entry_threshold",
+            "exit_threshold",
+        ):
+            value = getattr(args, key, None)
+            if value is not None:
+                kwargs[key] = value
+        return TermStructureStrategy(**kwargs)
     raise ValueError(f"Unknown strategy: {name}")
 
 
@@ -558,12 +573,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--start", default="2024-01-01")
         p.add_argument("--end", default="2024-02-01")
         p.add_argument("--freq", default="1h")
-        p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="synthetic")
+        p.add_argument(
+            "--data-source",
+            choices=["binance", "csv", "synthetic"],
+            default="synthetic",
+        )
         p.add_argument("--data-csv", default=None)
         p.add_argument("--grid", required=True)
         p.add_argument("--train-period", type=int, default=60)
         p.add_argument("--test-period", type=int, default=20)
-        p.add_argument("--metric", choices=["calmar_ratio", "sharpe_ratio", "total_return"], default="calmar_ratio")
+        p.add_argument(
+            "--metric",
+            choices=["calmar_ratio", "sharpe_ratio", "total_return"],
+            default="calmar_ratio",
+        )
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
         p.add_argument("--output", choices=["json", "csv", "text"], default="text")
@@ -574,8 +597,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         grid = json.loads(args.grid)
         if not isinstance(grid, dict) or not grid:
-            print("empty grid", file=sys.stderr)
-        # expand grid
+            p.error("--grid must be a non-empty JSON object mapping param names to value lists")
+
+        # Expand the grid into individual parameter combinations.
         keys = list(grid.keys())
         values = [grid[k] if isinstance(grid[k], list) else [grid[k]] for k in keys]
         combos = list(itertools.product(*values)) if values else []
@@ -611,8 +635,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             except Exception:
                 res = {}
-            oos_mean = float(res.get("oos_mean_return", res.get("mean_return", 0.0)) or 0.0)
             results_list = res.get("results", []) or []
+            oos_returns = [float((r or {}).get("total_return", 0.0)) for r in results_list]
+            oos_mean = float(res.get("oos_mean_return", res.get("mean_return", 0.0)) or 0.0)
             mdds = [float((r or {}).get("max_drawdown", 0.0)) for r in results_list]
             mean_mdd = float(sum(mdds) / len(mdds)) if mdds else 0.0
             oos_is = float(res.get("oos_is_ratio", 0.0) or 0.0)
@@ -622,41 +647,37 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "oos_mean_return": oos_mean,
                     "mean_max_drawdown": mean_mdd,
                     "oos_is_ratio": oos_is,
+                    "oos_periods": len(results_list),
+                    "oos_returns": oos_returns,
                 }
             )
             rows.append(row)
 
-        # ranking
-        def _score(r):
-            if args.metric == "sharpe_ratio":
-                std = 0.0
-                try:
-                    import numpy as np
-
-                    arr = np.array([float((x or {}).get("total_return", 0.0)) for x in (res.get("results", []) or [])])
-                    std = float(np.std(arr, ddof=1)) if arr.size > 1 else 1.0
-                except Exception:
-                    std = 1.0
-                return oos_mean / (std if std else 1.0)
-            if args.metric == "total_return":
-                return oos_mean
-            # calmar
-            return oos_mean / abs(mean_mdd) if mean_mdd else oos_mean
-
-        # recompute score per row properly
+        # Rank parameter sets by the requested metric.
         for r in rows:
             om = r["oos_mean_return"]
             mm = r["mean_max_drawdown"]
             if args.metric == "sharpe_ratio":
-                r["_score"] = om
+                # Approximate Sharpe from the per-window OOS returns when
+                # available; otherwise fall back to the mean return.
+                std = 0.0
+                try:
+                    import numpy as _np
+
+                    arr = _np.array(r.get("oos_returns", []) or [], dtype=float)
+                    std = float(_np.std(arr, ddof=1)) if arr.size > 1 else 0.0
+                except Exception:
+                    std = 0.0
+                r["_score"] = om / (std if std else 1.0)
             elif args.metric == "total_return":
                 r["_score"] = om
-            else:
+            else:  # calmar_ratio
                 r["_score"] = om / abs(mm) if mm else om
         rows.sort(key=lambda r: r["_score"], reverse=True)
         for i, r in enumerate(rows, 1):
             r["rank"] = i
             r.pop("_score", None)
+            r.pop("oos_returns", None)
 
         print(
             "WARNING: sweep results are in-sample/optimization output and not "
@@ -673,7 +694,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 import io as _io
 
                 buf = _io.StringIO()
-                w = _csv.DictWriter(buf, fieldnames=list(rows[0].keys()))
+                fieldnames = list(rows[0].keys())
+                w = _csv.DictWriter(buf, fieldnames=fieldnames)
                 w.writeheader()
                 for r in rows:
                     w.writerow(r)
@@ -691,150 +713,185 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(content)
         return 0
 
-        sub = _argv[1:]
-        p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
-        p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
-        p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="binance")
-        p.add_argument("--data-csv", default=None)
-        p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
-        p.add_argument("--asset", default="BTC")
-        p.add_argument("--start", default="2024-01-01")
-        p.add_argument("--end", default="2024-02-01")
-        p.add_argument("--freq", default="1h")
-        p.add_argument("--initial-capital", type=float, default=100_000.0)
-        p.add_argument("--fee-rate", type=float, default=0.0)
-        p.add_argument("--slippage", type=float, default=0.0)
-        p.add_argument("--output-path", default=None)
-        p.add_argument("--artifact-dir", default=None)
-        p.add_argument(
-            "--monitor",
-            action="store_true",
-            default=False,
-            help="Enable real-time monitoring and alerting during the session",
-        )
-        p.add_argument(
-            "--alert-config",
-            default=None,
-            help="Path to JSON alert configuration file (used with --monitor)",
-        )
-        p.add_argument("--max-position", type=float, default=None)
-        p.add_argument("--risk-limits", default=None)
-        p.add_argument(
-            "--position-sizing",
-            default="fixed",
-            choices=["fixed", "kelly", "volatility"],
-            help="Position sizing method",
-        )
-        args = p.parse_args(sub)
+    sub = _argv[1:]
+    p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
+    p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
+    p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="binance")
+    p.add_argument("--data-csv", default=None)
+    p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
+    p.add_argument("--asset", default="BTC")
+    p.add_argument("--start", default="2024-01-01")
+    p.add_argument("--end", default="2024-02-01")
+    p.add_argument("--freq", default="1h")
+    p.add_argument("--initial-capital", type=float, default=100_000.0)
+    p.add_argument("--fee-rate", type=float, default=0.0)
+    p.add_argument("--slippage", type=float, default=0.0)
+    p.add_argument("--output-path", default=None)
+    p.add_argument("--artifact-dir", default=None)
+    p.add_argument(
+        "--monitor",
+        action="store_true",
+        default=False,
+        help="Enable real-time monitoring and alerting during the session",
+    )
+    p.add_argument(
+        "--alert-config",
+        default=None,
+        help="Path to JSON alert configuration file (used with --monitor)",
+    )
+    p.add_argument("--max-position", type=float, default=None)
+    p.add_argument("--risk-limits", default=None)
+    p.add_argument(
+        "--position-sizing",
+        default="fixed",
+        choices=["fixed", "kelly", "volatility"],
+        help="Position sizing method",
+    )
+    args = p.parse_args(sub)
 
-        loader = DataLoader()
-        if args.data_source == "binance":
-            data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
-        elif args.data_source == "synthetic":
-            data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
-        elif args.data_source == "csv":
-            if not args.data_csv:
-                raise ValueError("--data-source csv requires --data-csv")
-            data = DataLoader.load_csv(args.data_csv)
-        else:
-            raise ValueError(f"Unsupported data source: {args.data_source!r}")
-        data = loader.clean_data(data)
-        strategy = _build_strategy(args.strategy, args)
-        sim = ExecutionSimulator(
-            participation_rate=0.1,
-            slippage_bps=float(args.slippage) * 10000.0,
-        )
-        signals = strategy.generate_signals(data)
-        fills = []
-        realized_pnl = 0.0
-        order_counter = 0
-        equity_curve: list[dict[str, Any]] = []
-        for ts in data.index:
-            for sym in data.columns:
-                try:
-                    sig = float(signals.loc[ts, sym]) if sym in signals.columns else 0.0
-                except Exception:
-                    sig = 0.0
-                if sig == 0.0:
-                    continue
-                side = "buy" if sig > 0 else "sell"
-                qty = abs(sig)
-                price = float(data.loc[ts, sym])
-                order_counter += 1
-                res = sim.simulate_order(
-                    "market",
-                    side,
-                    qty,
-                    price,
-                    bar_volume=0.0,
-                    order_id=order_counter,
-                    symbol=sym,
-                    timestamp=str(ts),
-                    fee_rate=float(args.fee_rate),
-                )
-                fee = abs(res["filled_qty"]) * price * float(args.fee_rate)
-                fills.append(
-                    {
-                        "order_id": order_counter,
-                        "symbol": sym,
-                        "side": side,
-                        "quantity": res["filled_qty"],
-                        "price": res["avg_price"],
-                        "fee": fee,
-                        "timestamp": str(ts),
-                        "status": res["status"],
-                    }
-                )
-                realized_pnl += -fee
-            equity_curve.append(
+    loader = DataLoader()
+    if args.data_source == "binance":
+        data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
+    elif args.data_source == "synthetic":
+        data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+    elif args.data_source == "csv":
+        if not args.data_csv:
+            raise ValueError("--data-source csv requires --data-csv")
+        data = DataLoader.load_csv(args.data_csv)
+    else:
+        raise ValueError(f"Unsupported data source: {args.data_source!r}")
+    data = loader.clean_data(data)
+    strategy = _build_strategy(args.strategy, args)
+    sim = ExecutionSimulator(
+        participation_rate=0.1,
+        slippage_bps=float(args.slippage) * 10000.0,
+    )
+    signals = strategy.generate_signals(data)
+    fills = []
+    realized_pnl = 0.0
+    order_counter = 0
+    equity_curve: list[dict[str, Any]] = []
+    for ts in data.index:
+        for sym in data.columns:
+            try:
+                sig = float(signals.loc[ts, sym]) if sym in signals.columns else 0.0
+            except Exception:
+                sig = 0.0
+            if sig == 0.0:
+                continue
+            side = "buy" if sig > 0 else "sell"
+            qty = abs(sig)
+            price = float(data.loc[ts, sym])
+            order_counter += 1
+            res = sim.simulate_order(
+                "market",
+                side,
+                qty,
+                price,
+                bar_volume=0.0,
+                order_id=order_counter,
+                symbol=sym,
+                timestamp=str(ts),
+                fee_rate=float(args.fee_rate),
+            )
+            fee = abs(res["filled_qty"]) * price * float(args.fee_rate)
+            fills.append(
                 {
+                    "order_id": order_counter,
+                    "symbol": sym,
+                    "side": side,
+                    "quantity": res["filled_qty"],
+                    "price": res["avg_price"],
+                    "fee": fee,
                     "timestamp": str(ts),
-                    "equity": sim.get_portfolio_value(float(args.initial_capital)),
+                    "status": res["status"],
                 }
             )
-        summary: dict[str, Any] = {
-            "fills": fills,
-            "realized_pnl": realized_pnl,
-            "num_fills": len(fills),
-            "initial_capital": float(args.initial_capital),
-            "equity_curve": equity_curve,
-            "positions": {
-                k: {
-                    "quantity": v.quantity,
-                    "avg_cost": v.avg_cost,
-                    "unrealized_pnl": v.unrealized_pnl,
-                }
-                for k, v in sim.get_positions().items()
-            },
-            "risk_metrics": sim.get_risk_metrics(),
-            "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
-        }
-        if getattr(args, "monitor", False):
-            from backtest.monitoring import PaperTradingMonitor, load_alert_config
-
-            alert_config = None
-            if args.alert_config:
-                try:
-                    alert_config = load_alert_config(args.alert_config)
-                except Exception:
-                    alert_config = None
-            monitor = PaperTradingMonitor(
-                config=alert_config, initial_capital=float(args.initial_capital)
-            )
-            mon_alerts = monitor.update(
-                equity=float(cast(Any, summary["portfolio_value"])),
-                positions=cast(dict[str, Any] | None, summary.get("positions", {})),
-            )
-            summary["monitoring"] = {
-                "alerts": [a.to_dict() for a in mon_alerts],
-                "total_alerts": len(mon_alerts),
-                "drawdown": monitor.get_drawdown(),
-                "equity": summary["portfolio_value"],
-                "equity_history": monitor.equity_history,
+            realized_pnl += -fee
+        equity_curve.append(
+            {
+                "timestamp": str(ts),
+                "equity": sim.get_portfolio_value(float(args.initial_capital)),
             }
-        import json as _json
+        )
+    summary: dict[str, Any] = {
+        "fills": fills,
+        "realized_pnl": realized_pnl,
+        "num_fills": len(fills),
+        "initial_capital": float(args.initial_capital),
+        "equity_curve": equity_curve,
+        "positions": {
+            k: {
+                "quantity": v.quantity,
+                "avg_cost": v.avg_cost,
+                "unrealized_pnl": v.unrealized_pnl,
+            }
+            for k, v in sim.get_positions().items()
+        },
+        "risk_metrics": sim.get_risk_metrics(),
+        "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
+    }
+    if getattr(args, "monitor", False):
+        from backtest.monitoring import PaperTradingMonitor, load_alert_config
 
-        # Build paper trading report
+        alert_config = None
+        if args.alert_config:
+            try:
+                alert_config = load_alert_config(args.alert_config)
+            except Exception:
+                alert_config = None
+        monitor = PaperTradingMonitor(
+            config=alert_config, initial_capital=float(args.initial_capital)
+        )
+        mon_alerts = monitor.update(
+            equity=float(cast(Any, summary["portfolio_value"])),
+            positions=cast(dict[str, Any] | None, summary.get("positions", {})),
+        )
+        summary["monitoring"] = {
+            "alerts": [a.to_dict() for a in mon_alerts],
+            "total_alerts": len(mon_alerts),
+            "drawdown": monitor.get_drawdown(),
+            "equity": summary["portfolio_value"],
+            "equity_history": monitor.equity_history,
+        }
+    import json as _json
+
+    # Build paper trading report
+    try:
+        from backtest.paper_report import (
+            build_paper_trading_report,
+            save_paper_trading_artifacts,
+        )
+
+        equity_curve = summary.get("equity_curve") or []
+        paper_report = build_paper_trading_report(
+            session_summary=summary,
+            fills=summary.get("fills"),
+            equity_curve=equity_curve,
+            positions=summary.get("positions"),
+            monitoring=summary.get("monitoring"),
+            metadata={
+                "initial_capital": float(args.initial_capital),
+                "symbols": getattr(args, "symbols", None),
+                "strategy": getattr(args, "strategy", None),
+            },
+        )
+        summary["paper_report"] = paper_report
+    except Exception:
+        pass
+
+    content = _json.dumps(summary, indent=2, default=float)
+    if args.output_path:
+        Path(args.output_path).write_text(content)
+    else:
+        print(content)
+    # Persist artifacts if requested
+    should_persist = (
+        getattr(args, "artifact_dir", None)
+        or getattr(args, "output_path", None)
+        or getattr(args, "monitor", False)
+    )
+    if should_persist:
         try:
             from backtest.paper_report import (
                 build_paper_trading_report,
@@ -842,7 +899,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
 
             equity_curve = summary.get("equity_curve") or []
-            paper_report = build_paper_trading_report(
+            paper_report = summary.get("paper_report") or build_paper_trading_report(
                 session_summary=summary,
                 fills=summary.get("fills"),
                 equity_curve=equity_curve,
@@ -854,51 +911,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "strategy": getattr(args, "strategy", None),
                 },
             )
-            summary["paper_report"] = paper_report
+            artifact_dir = args.artifact_dir
+            if not artifact_dir and args.output_path:
+                # Save alongside output
+                out_path = Path(args.output_path)
+                artifact_dir = str(out_path.parent)
+            if artifact_dir:
+                save_paper_trading_artifacts(paper_report, artifact_dir)
         except Exception:
             pass
-
-        content = _json.dumps(summary, indent=2, default=float)
-        if args.output_path:
-            Path(args.output_path).write_text(content)
-        else:
-            print(content)
-        # Persist artifacts if requested
-        should_persist = (
-            getattr(args, "artifact_dir", None)
-            or getattr(args, "output_path", None)
-            or getattr(args, "monitor", False)
-        )
-        if should_persist:
-            try:
-                from backtest.paper_report import (
-                    build_paper_trading_report,
-                    save_paper_trading_artifacts,
-                )
-
-                equity_curve = summary.get("equity_curve") or []
-                paper_report = summary.get("paper_report") or build_paper_trading_report(
-                    session_summary=summary,
-                    fills=summary.get("fills"),
-                    equity_curve=equity_curve,
-                    positions=summary.get("positions"),
-                    monitoring=summary.get("monitoring"),
-                    metadata={
-                        "initial_capital": float(args.initial_capital),
-                        "symbols": getattr(args, "symbols", None),
-                        "strategy": getattr(args, "strategy", None),
-                    },
-                )
-                artifact_dir = args.artifact_dir
-                if not artifact_dir and args.output_path:
-                    # Save alongside output
-                    out_path = Path(args.output_path)
-                    artifact_dir = str(out_path.parent)
-                if artifact_dir:
-                    save_paper_trading_artifacts(paper_report, artifact_dir)
-            except Exception:
-                pass
-        return 0
+    return 0
 
     parser = build_parser()
     args = parser.parse_args(argv)
