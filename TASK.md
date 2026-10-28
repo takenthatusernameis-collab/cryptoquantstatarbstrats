@@ -11,25 +11,23 @@ All assigned tasks from the task chain are complete and verified:
 - Sweep API extracted to `backtest/sweep.py` with programmatic `run_parameter_sweep`, CLI refactored to use it, API tests added, example added.
 
 ## Current State
-- `python3 -m pytest tests/ -q` -> 432 passed, 1 skipped, 0 failed
+- `python3 -m pytest tests/ -q` -> 443 passed, 1 skipped, 0 failed
 - `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> clean
-- `python3 -m mypy backtest/ strategies/ utils/` -> no issues (30 source files)
+- `python3 -m mypy backtest/ strategies/ utils/` -> no issues (31 source files)
 - Working tree clean, branch up to date with origin/main.
 
 ## Objective
-COMPLETED - No pending task from the task chain.
+COMPLETED - `backtest/sweep.py` API enhanced (validation, strategy factory/`strategy_kwargs`, JSON-serializable rows, progress callback); `tests/test_sweep_api_enhanced.py` added; `examples/sweep_api.py` updated with factory usage.
 
 ## Next Agent Task (suggested)
 
-Enhance `backtest/sweep.py` API with better validation, serialization safety, and progress reporting so programmatic users can rely on it robustly.
+Add walk-forward `mode` ("rolling" | "expanding") and `n_splits`/anchoring control to `run_parameter_sweep` in `backtest/sweep.py`, exposed through the CLI (`cryptoquant sweep`).
 
 Scope:
-- Improve input validation in `run_parameter_sweep`: validate `train_period`/`test_period` > 0, handle missing/empty `grid` values more clearly, validate `metric` against allowed set with clear errors (already partially done; make consistent).
-- Add support for passing `strategy_kwargs` or allow strategy factory/callable to be passed (e.g. `strategy_factory(combo) -> Strategy`) in addition to class/instance, to avoid mutating instances; update tests accordingly if needed.
-- Make returned rows JSON-serializable by default (convert numpy scalars to Python types) without losing precision where reasonable; ensure `oos_returns` not leaked in public API (already popped) and floats are native Python types.
-- Add optional `progress_callback(completed, total, current_combo, row)` and/or `show_progress: bool = False` for long sweeps.
-- Add `tests/test_sweep_api_enhanced.py` covering factory pattern, validation errors (bad periods/metric), JSON serializability, and progress callback.
-- Update `examples/sweep_api.py` to show factory usage.
+- Thread a `mode` parameter through `run_parameter_sweep` to `engine.walk_forward(mode=...)` ("rolling" default, "expanding" optional).
+- Add `n_splits` to cap the number of walk-forward windows evaluated per combo (useful for long sweeps).
+- Add CLI flags `--mode` and `--n-splits` to `cryptoquant sweep`.
+- Add tests in `tests/test_sweep_api_enhanced.py` covering expanding mode, n_splits cap, and CLI flag propagation.
 - Keep `ruff`, `mypy`, and the full test suite clean.
 
 Verification:
