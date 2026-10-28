@@ -8,7 +8,7 @@ the backtesting engine for more realistic fill simulation.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -191,6 +191,10 @@ class ExecutionSimulator:
         bar_high: float | None = None,
         bar_low: float | None = None,
         limit_price: float | None = None,
+        order_id: Any = None,
+        symbol: Any = None,
+        timestamp: Any = None,
+        fee_rate: float = 0.0,
     ) -> dict[str, Any]:
         """Simulate a single order.
 
@@ -220,23 +224,53 @@ class ExecutionSimulator:
             try:
                 lp = float(lp)
             except (TypeError, ValueError):
-                return {"filled_qty": 0.0, "avg_price": 0.0,
-                        "status": "rejected", "remaining_qty": qty}
+                return {
+                    "filled_qty": 0.0,
+                    "avg_price": 0.0,
+                    "status": "rejected",
+                    "remaining_qty": qty,
+                }
             if side == "buy" and px > lp:
-                return {"filled_qty": 0.0, "avg_price": 0.0,
-                        "status": "unfilled", "remaining_qty": qty}
+                return {
+                    "filled_qty": 0.0,
+                    "avg_price": 0.0,
+                    "status": "unfilled",
+                    "remaining_qty": qty,
+                }
             if side == "sell" and px < lp:
-                return {"filled_qty": 0.0, "avg_price": 0.0,
-                        "status": "unfilled", "remaining_qty": qty}
+                return {
+                    "filled_qty": 0.0,
+                    "avg_price": 0.0,
+                    "status": "unfilled",
+                    "remaining_qty": qty,
+                }
 
         if order_type == "iceberg":
             return self._simulate_iceberg(
-                side, qty, px, bar_volume, bar_high, bar_low
+                side,
+                qty,
+                px,
+                bar_volume,
+                bar_high,
+                bar_low,
+                order_id=order_id,
+                symbol=symbol,
+                timestamp=timestamp,
+                fee_rate=fee_rate,
             )
 
         if order_type == "lob":
             return self._simulate_lob(
-                side, qty, px, bar_volume, bar_high, bar_low
+                side,
+                qty,
+                px,
+                bar_volume,
+                bar_high,
+                bar_low,
+                order_id=order_id,
+                symbol=symbol,
+                timestamp=timestamp,
+                fee_rate=fee_rate,
             )
 
         # Volume participation cap
@@ -292,7 +326,20 @@ class ExecutionSimulator:
             "status": status,
             "remaining_qty": qty - signed_filled,
         }
-        self._fills.append({"order_id": order_id, "symbol": symbol, "timestamp": timestamp, "fee_rate": fee_rate, "order_type": order_type, "side": side, **result, "fee": abs(filled_qty if False else result["filled_qty"]) * float(price) * float(fee_rate or 0.0)})
+        self._fills.append(
+            {
+                "order_id": order_id,
+                "symbol": symbol,
+                "timestamp": timestamp,
+                "fee_rate": fee_rate,
+                "order_type": order_type,
+                "side": side,
+                **result,
+                "fee": abs(cast(float, result["filled_qty"]))
+                * float(price)
+                * float(fee_rate or 0.0),
+            }
+        )
         return result
 
     def _simulate_iceberg(
@@ -303,6 +350,10 @@ class ExecutionSimulator:
         bar_volume: float = 0.0,
         bar_high: float | None = None,
         bar_low: float | None = None,
+        order_id: Any = None,
+        symbol: Any = None,
+        timestamp: Any = None,
+        fee_rate: float = 0.0,
     ) -> dict[str, Any]:
         try:
             q = float(qty)
@@ -332,8 +383,7 @@ class ExecutionSimulator:
             min_fill = 0.0
 
         price_offset_bps = float(
-            getattr(iceberg, "price_offset_bps", self.iceberg_price_offset_bps)
-            or 0.0
+            getattr(iceberg, "price_offset_bps", self.iceberg_price_offset_bps) or 0.0
         )
         price_offset_abs = float(
             getattr(
@@ -427,7 +477,20 @@ class ExecutionSimulator:
             "status": status,
             "remaining_qty": q - signed_filled,
         }
-        self._fills.append({"order_id": order_id, "symbol": symbol, "timestamp": timestamp, "fee_rate": fee_rate, "order_type": "iceberg", "side": side, **result, "fee": abs(result["filled_qty"]) * float(price) * float(fee_rate or 0.0)})
+        self._fills.append(
+            {
+                "order_id": order_id,
+                "symbol": symbol,
+                "timestamp": timestamp,
+                "fee_rate": fee_rate,
+                "order_type": "iceberg",
+                "side": side,
+                **result,
+                "fee": abs(cast(float, result["filled_qty"]))
+                * float(price)
+                * float(fee_rate or 0.0),
+            }
+        )
         return result
 
     def _simulate_lob(
@@ -438,6 +501,10 @@ class ExecutionSimulator:
         bar_volume: float = 0.0,
         bar_high: float | None = None,
         bar_low: float | None = None,
+        order_id: Any = None,
+        symbol: Any = None,
+        timestamp: Any = None,
+        fee_rate: float = 0.0,
     ) -> dict[str, Any]:
         try:
             q = float(qty)
@@ -453,17 +520,13 @@ class ExecutionSimulator:
             return {"filled_qty": 0.0, "avg_price": 0.0, "status": "rejected", "remaining_qty": qty}
 
         lob = self._lob
-        depth_levels = int(
-            getattr(lob, "depth_levels", None) or self.lob_depth_levels or 1
-        )
+        depth_levels = int(getattr(lob, "depth_levels", None) or self.lob_depth_levels or 1)
         if depth_levels < 1:
             depth_levels = 1
         market_impact_bps = float(
             getattr(lob, "market_impact_bps", None) or self.lob_market_impact_bps or 0.0
         )
-        slippage_bps = float(
-            getattr(lob, "slippage_bps", None) or self.lob_slippage_bps or 0.0
-        )
+        slippage_bps = float(getattr(lob, "slippage_bps", None) or self.lob_slippage_bps or 0.0)
         participation_rate = float(
             getattr(lob, "participation_rate", None) or self.participation_rate or 0.1
         )
@@ -579,7 +642,20 @@ class ExecutionSimulator:
             "status": status,
             "remaining_qty": qty - signed_filled,
         }
-        self._fills.append({"order_type": "lob", "side": side, **result})
+        self._fills.append(
+            {
+                "order_id": order_id,
+                "symbol": symbol,
+                "timestamp": timestamp,
+                "fee_rate": fee_rate,
+                "order_type": "lob",
+                "side": side,
+                **result,
+                "fee": abs(cast(float, result["filled_qty"]))
+                * float(price)
+                * float(fee_rate or 0.0),
+            }
+        )
         return result
 
     def fills(self) -> list[dict[str, Any]]:

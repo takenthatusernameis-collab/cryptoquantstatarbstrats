@@ -197,27 +197,35 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--benchmark-weights-csv",
         default=None,
-        help=("Path to CSV with benchmark weights (timestamp/index + asset "
-              "columns) for Brinson attribution."),
+        help=(
+            "Path to CSV with benchmark weights (timestamp/index + asset "
+            "columns) for Brinson attribution."
+        ),
     )
     parser.add_argument(
         "--factor-returns-csv",
         default=None,
-        help=("Path to CSV with factor returns (timestamp/index + factor "
-              "columns) for factor attribution."),
+        help=(
+            "Path to CSV with factor returns (timestamp/index + factor "
+            "columns) for factor attribution."
+        ),
     )
     parser.add_argument(
         "--live-results-csv",
         default=None,
-        help=("Path to CSV with realized live/paper trading results per scheme "
-              "(scheme, live_mean_return, live_max_drawdown, optional "
-              "live_total_return, live_sharpe_ratio)."),
+        help=(
+            "Path to CSV with realized live/paper trading results per scheme "
+            "(scheme, live_mean_return, live_max_drawdown, optional "
+            "live_total_return, live_sharpe_ratio)."
+        ),
     )
     parser.add_argument(
         "--benchmarks-csv",
         default=None,
-        help=("Path to CSV with benchmark strategy registry "
-              "(name, mean_return, max_drawdown, optional total_return, sharpe_ratio)."),
+        help=(
+            "Path to CSV with benchmark strategy registry "
+            "(name, mean_return, max_drawdown, optional total_return, sharpe_ratio)."
+        ),
     )
     parser.add_argument(
         "--execution-simulator",
@@ -338,7 +346,6 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-
 def _build_strategy(name: str, args: argparse.Namespace):
     if name == "mean_reversion":
         asset = getattr(args, "asset", None) or "BTC"
@@ -414,8 +421,10 @@ def _apply_config_from_dict(
         ("volume_csv", ("volume_csv", "volume", "volume_path")),
         ("high_csv", ("high_csv", "high", "high_path")),
         ("low_csv", ("low_csv", "low", "low_path")),
-        ("benchmark_weights_csv", ("benchmark_weights_csv", "benchmark_weights",
-                                   "benchmark_weights_path")),
+        (
+            "benchmark_weights_csv",
+            ("benchmark_weights_csv", "benchmark_weights", "benchmark_weights_path"),
+        ),
         ("factor_returns_csv", ("factor_returns_csv", "factor_returns", "factor_returns_path")),
         ("live_results_csv", ("live_results_csv", "live_results", "live_results_path")),
         ("benchmarks_csv", ("benchmarks_csv", "benchmarks", "benchmarks_path")),
@@ -492,6 +501,97 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(html)
         return 0
 
+    _argv = list(argv) if argv is not None else list(sys.argv[1:])
+    if _argv and _argv[0] == "paper-trade":
+        sub = _argv[1:]
+        p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
+        p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
+        p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="binance")
+        p.add_argument("--data-csv", default=None)
+        p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
+        p.add_argument("--asset", default="BTC")
+        p.add_argument("--start", default="2024-01-01")
+        p.add_argument("--end", default="2024-02-01")
+        p.add_argument("--freq", default="1h")
+        p.add_argument("--initial-capital", type=float, default=100_000.0)
+        p.add_argument("--fee-rate", type=float, default=0.0)
+        p.add_argument("--slippage", type=float, default=0.0)
+        p.add_argument("--output-path", default=None)
+        args = p.parse_args(sub)
+
+        loader = DataLoader()
+        if args.data_source == "binance":
+            data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
+        elif args.data_source == "synthetic":
+            data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+        elif args.data_source == "csv":
+            if not args.data_csv:
+                raise ValueError("--data-source csv requires --data-csv")
+            data = DataLoader.load_csv(args.data_csv)
+        else:
+            raise ValueError(f"Unsupported data source: {args.data_source!r}")
+        data = loader.clean_data(data)
+        strategy = _build_strategy(args.strategy, args)
+        sim = ExecutionSimulator(
+            participation_rate=0.1,
+            slippage_bps=float(args.slippage) * 10000.0,
+        )
+        signals = strategy.generate_signals(data)
+        fills = []
+        realized_pnl = 0.0
+        order_counter = 0
+        for ts in data.index:
+            for sym in data.columns:
+                try:
+                    sig = float(signals.loc[ts, sym]) if sym in signals.columns else 0.0
+                except Exception:
+                    sig = 0.0
+                if sig == 0.0:
+                    continue
+                side = "buy" if sig > 0 else "sell"
+                qty = abs(sig)
+                price = float(data.loc[ts, sym])
+                order_counter += 1
+                res = sim.simulate_order(
+                    "market",
+                    side,
+                    qty,
+                    price,
+                    bar_volume=0.0,
+                    order_id=order_counter,
+                    symbol=sym,
+                    timestamp=str(ts),
+                    fee_rate=float(args.fee_rate),
+                )
+                fee = abs(res["filled_qty"]) * price * float(args.fee_rate)
+                fills.append(
+                    {
+                        "order_id": order_counter,
+                        "symbol": sym,
+                        "side": side,
+                        "quantity": res["filled_qty"],
+                        "price": res["avg_price"],
+                        "fee": fee,
+                        "timestamp": str(ts),
+                        "status": res["status"],
+                    }
+                )
+                realized_pnl += -fee
+        summary = {
+            "fills": fills,
+            "realized_pnl": realized_pnl,
+            "num_fills": len(fills),
+            "initial_capital": float(args.initial_capital),
+        }
+        import json as _json
+
+        content = _json.dumps(summary, indent=2, default=float)
+        if args.output_path:
+            Path(args.output_path).write_text(content)
+        else:
+            print(content)
+        return 0
+
     parser = build_parser()
     args = parser.parse_args(argv)
     args = _apply_config(args, parser)
@@ -499,9 +599,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     # Handle walk-forward comparison mode
     if getattr(args, "wf_compare", False):
         report_paths = (
-            getattr(args, "report_paths", None)
-            or getattr(args, "compare_report", None)
-            or []
+            getattr(args, "report_paths", None) or getattr(args, "compare_report", None) or []
         )
         if isinstance(report_paths, str):
             report_paths = [report_paths]
@@ -528,7 +626,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             print(html)
         return 0
-
 
     # Apply defaults if still missing
     if args.symbols is None:
@@ -560,9 +657,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     loader = DataLoader()
     if args.data_source == "binance":
-        data = loader.load_binance_data(
-            args.symbols, args.start, args.end, interval=args.freq
-        )
+        data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
     elif args.data_source == "synthetic":
         print(
             "WARNING: using synthetic demonstration prices; results are not evidence "
@@ -629,11 +724,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         try:
             benchmark_weights_df = DataLoader.load_csv(bw_path)
             benchmark_weights_df = loader.clean_data(benchmark_weights_df)
-            benchmark_weights_df = benchmark_weights_df.reindex(
-                index=data.index).ffill().fillna(0.0)
+            benchmark_weights_df = (
+                benchmark_weights_df.reindex(index=data.index).ffill().fillna(0.0)
+            )
             if isinstance(data, pd.DataFrame):
                 benchmark_weights_df = benchmark_weights_df.reindex(
-                    columns=data.columns, fill_value=0.0)
+                    columns=data.columns, fill_value=0.0
+                )
         except Exception:
             benchmark_weights_df = None
 
