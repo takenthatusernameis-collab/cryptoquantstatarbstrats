@@ -2491,3 +2491,177 @@ def generate_walk_forward_pdf_report(
             return html_path
         except Exception:
             return output_path
+
+
+def compare_walk_forward_reports(reports: list[dict]) -> dict:
+    """Compare multiple walk-forward reports and return a comparison structure."""
+    reports = reports or []
+    comparison: dict[str, Any] = {
+        "reports": [],
+        "benchmarks": [],
+    }
+    for idx, rep in enumerate(reports):
+        rep = rep or {}
+        summary = rep.get("summary")
+        total_windows = 0
+        if isinstance(summary, pd.DataFrame):
+            total_windows = len(summary)
+        elif summary is not None:
+            try:
+                total_windows = len(summary)
+            except Exception:
+                total_windows = 0
+
+        oos_mean_return = rep.get("oos_mean_return")
+        mean_return = rep.get("mean_return")
+        if oos_mean_return is None and mean_return is not None:
+            oos_mean_return = mean_return
+
+        max_drawdown = None
+        try:
+            if isinstance(summary, pd.DataFrame) and len(summary) > 0 and "max_drawdown" in summary.columns:
+                max_drawdown = float(summary["max_drawdown"].mean())
+            elif isinstance(summary, list) and summary:
+                dds = [_safe_float(r.get("max_drawdown", 0.0)) for r in summary if isinstance(r, dict)]
+                if dds:
+                    max_drawdown = float(sum(dds) / len(dds))
+        except Exception:
+            pass
+
+        sharpe_ratio = None
+        try:
+            if isinstance(summary, pd.DataFrame) and len(summary) > 0 and "sharpe_ratio" in summary.columns:
+                sharpe_ratio = float(summary["sharpe_ratio"].mean())
+            elif isinstance(summary, list) and summary:
+                srs = [_safe_float(r.get("sharpe_ratio", 0.0)) for r in summary if isinstance(r, dict)]
+                if srs:
+                    sharpe_ratio = float(sum(srs) / len(srs))
+        except Exception:
+            pass
+
+        is_vs_oos = rep.get("is_vs_oos") or {}
+        oos_is_ratio = is_vs_oos.get("oos_is_ratio") if isinstance(is_vs_oos, dict) else None
+
+        entry = {
+            "index": idx,
+            "name": rep.get("name") or f"Report {idx + 1}",
+            "total_windows": total_windows,
+            "mean_return": mean_return,
+            "oos_mean_return": oos_mean_return,
+            "max_drawdown": max_drawdown,
+            "sharpe_ratio": sharpe_ratio,
+            "oos_is_ratio": oos_is_ratio,
+        }
+        comparison["reports"].append(entry)
+
+        benchmarks = rep.get("benchmarks") or {}
+        if isinstance(benchmarks, dict):
+            bm_list = benchmarks.get("benchmarks") or []
+            if isinstance(bm_list, list):
+                for b in bm_list:
+                    if not isinstance(b, dict):
+                        continue
+                    comparison["benchmarks"].append(
+                        {
+                            "report_index": idx,
+                            "report_name": entry["name"],
+                            "benchmark_name": b.get("name", ""),
+                            "wf_oos_mean_return": b.get("wf_oos_mean_return"),
+                            "benchmark_mean_return": b.get("benchmark_mean_return"),
+                            "wf_oos_max_drawdown": b.get("wf_oos_max_drawdown"),
+                            "benchmark_max_drawdown": b.get("benchmark_max_drawdown"),
+                            "delta_mean_return": (
+                                _safe_float(b.get("wf_oos_mean_return"))
+                                - _safe_float(b.get("benchmark_mean_return"))
+                            ),
+                            "delta_max_drawdown": (
+                                _safe_float(b.get("wf_oos_max_drawdown"))
+                                - _safe_float(b.get("benchmark_max_drawdown"))
+                            ),
+                        }
+                    )
+
+    return comparison
+
+
+def generate_walk_forward_comparison_html(comparison: dict, title: str = "Walk-Forward Comparison Dashboard") -> str:
+    """Generate HTML for walk-forward comparison dashboard."""
+    comparison = comparison or {}
+    reports = comparison.get("reports") or []
+    benchmarks = comparison.get("benchmarks") or []
+
+    def _html_escape(s: str) -> str:
+        try:
+            import html as _html_mod
+
+            return _html_mod.escape(s)
+        except Exception:
+            return s
+
+    html = [
+        "<!DOCTYPE html>",
+        '<html lang="en">',
+        "<head>",
+        '<meta charset="utf-8" />',
+        f"<title>{title}</title>",
+        "<style>",
+        "body{font-family:Arial,Helvetica,sans-serif;margin:40px;background:#fff;color:#222}",
+        "h1{font-size:22px;margin-bottom:10px}",
+        "table{border-collapse:collapse;width:100%;max-width:1000px;margin-bottom:20px}",
+        "th,td{border:1px solid #ddd;padding:6px 8px;font-size:12px;text-align:right}",
+        "th{background:#f5f5f5;text-align:right}",
+        "td:first-child,th:first-child{text-align:left}",
+        "</style>",
+        "</head>",
+        "<body>",
+        f"<h1>{title}</h1>",
+    ]
+
+    if reports:
+        html.append("<h2>Reports Comparison</h2>")
+        html.append("<table>")
+        html.append(
+            "<tr><th>Report</th><th>Windows</th><th>OOS Mean Return</th>"
+            "<th>Mean Return</th><th>Sharpe Ratio</th><th>Max Drawdown</th><th>OOS/IS Ratio</th></tr>"
+        )
+        for r in reports:
+            html.append(
+                "<tr>"
+                f"<td>{_html_escape(str(r.get('name', '')))}</td>"
+                f"<td>{r.get('total_windows', 0)}</td>"
+                f"<td>{_fmt_pct(r.get('oos_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(r.get('mean_return', 0.0))}</td>"
+                f"<td>{_fmt_num(r.get('sharpe_ratio', 0.0))}</td>"
+                f"<td>{_fmt_pct(r.get('max_drawdown', 0.0))}</td>"
+                f"<td>{_fmt_num(r.get('oos_is_ratio', 0.0))}</td>"
+                "</tr>"
+            )
+        html.append("</table>")
+    else:
+        html.append("<p>No reports provided.</p>")
+
+    if benchmarks:
+        html.append("<h2>Benchmark vs Walk-Forward Deltas</h2>")
+        html.append("<table>")
+        html.append(
+            "<tr><th>Report</th><th>Benchmark</th><th>WF OOS Mean Return</th>"
+            "<th>Bench Mean Return</th><th>Delta Mean Return</th><th>WF OOS Max DD</th>"
+            "<th>Bench Max DD</th><th>Delta Max DD</th></tr>"
+        )
+        for b in benchmarks:
+            html.append(
+                "<tr>"
+                f"<td>{_html_escape(str(b.get('report_name', '')))}</td>"
+                f"<td>{_html_escape(str(b.get('benchmark_name', '')))}</td>"
+                f"<td>{_fmt_pct(b.get('wf_oos_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(b.get('benchmark_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(b.get('delta_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(b.get('wf_oos_max_drawdown', 0.0))}</td>"
+                f"<td>{_fmt_pct(b.get('benchmark_max_drawdown', 0.0))}</td>"
+                f"<td>{_fmt_pct(b.get('delta_max_drawdown', 0.0))}</td>"
+                "</tr>"
+            )
+        html.append("</table>")
+
+    html.extend(["</body>", "</html>"])
+    return "\n".join(html)
