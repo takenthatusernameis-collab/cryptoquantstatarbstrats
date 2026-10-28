@@ -16,7 +16,7 @@ import sys
 from datetime import datetime
 from importlib.metadata import version as _pkg_version
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, cast, Sequence
 
 import pandas as pd
 
@@ -517,6 +517,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
         p.add_argument("--output-path", default=None)
+        p.add_argument(
+            "--monitor",
+            action="store_true",
+            default=False,
+            help="Enable real-time monitoring and alerting during the session",
+        )
+        p.add_argument(
+            "--alert-config",
+            default=None,
+            help="Path to JSON alert configuration file (used with --monitor)",
+        )
         p.add_argument("--max-position", type=float, default=None)
         p.add_argument("--risk-limits", default=None)
         p.add_argument("--position-sizing", default="fixed", choices=["fixed", "kelly", "volatility"], help="Position sizing method")
@@ -590,6 +601,28 @@ def main(argv: Sequence[str] | None = None) -> int:
             "risk_metrics": sim.get_risk_metrics(),
             "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
         }
+        if getattr(args, "monitor", False):
+            from backtest.monitoring import PaperTradingMonitor, load_alert_config
+
+            alert_config = None
+            if args.alert_config:
+                try:
+                    alert_config = load_alert_config(args.alert_config)
+                except Exception:
+                    alert_config = None
+            monitor = PaperTradingMonitor(
+                config=alert_config, initial_capital=float(args.initial_capital)
+            )
+            mon_alerts = monitor.update(
+                equity=float(cast(Any, summary["portfolio_value"])),
+                positions=cast(dict[str, Any] | None, summary.get("positions", {})),
+            )
+            summary["monitoring"] = {
+                "alerts": [a.to_dict() for a in mon_alerts],
+                "total_alerts": len(mon_alerts),
+                "drawdown": monitor.get_drawdown(),
+                "equity": summary["portfolio_value"],
+            }
         import json as _json
 
         content = _json.dumps(summary, indent=2, default=float)

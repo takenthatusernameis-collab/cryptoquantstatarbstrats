@@ -8,7 +8,6 @@ the backtesting engine for more realistic fill simulation.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
 from typing import Any, cast
 
 import numpy as np
@@ -763,7 +762,6 @@ class ExecutionSimulator:
         filled_qty = res.get("filled_qty", 0.0)
         # Update order status
         try:
-            abs_filled = abs(float(filled_qty))
             if res.get("status") == "filled":
                 order.status = "filled"
                 order.filled_qty = float(filled_qty)
