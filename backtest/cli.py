@@ -548,7 +548,149 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     _argv = list(argv) if argv is not None else list(sys.argv[1:])
-    if _argv and _argv[0] == "paper-trade":
+    if _argv and _argv[0] == "sweep":
+        sub = _argv[1:]
+        p = argparse.ArgumentParser(prog="cryptoquant sweep")
+        p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
+        p.add_argument("--asset", default="BTC")
+        p.add_argument("--pair", nargs=2, default=None)
+        p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
+        p.add_argument("--start", default="2024-01-01")
+        p.add_argument("--end", default="2024-02-01")
+        p.add_argument("--freq", default="1h")
+        p.add_argument("--data-source", choices=["binance", "csv", "synthetic"], default="synthetic")
+        p.add_argument("--data-csv", default=None)
+        p.add_argument("--grid", required=True)
+        p.add_argument("--train-period", type=int, default=60)
+        p.add_argument("--test-period", type=int, default=20)
+        p.add_argument("--metric", choices=["calmar_ratio", "sharpe_ratio", "total_return"], default="calmar_ratio")
+        p.add_argument("--fee-rate", type=float, default=0.0)
+        p.add_argument("--slippage", type=float, default=0.0)
+        p.add_argument("--output", choices=["json", "csv", "text"], default="text")
+        p.add_argument("--output-path", default=None)
+        args = p.parse_args(sub)
+
+        import itertools
+
+        grid = json.loads(args.grid)
+        if not isinstance(grid, dict) or not grid:
+            print("empty grid", file=sys.stderr)
+        # expand grid
+        keys = list(grid.keys())
+        values = [grid[k] if isinstance(grid[k], list) else [grid[k]] for k in keys]
+        combos = list(itertools.product(*values)) if values else []
+
+        loader = DataLoader()
+        if args.data_source == "binance":
+            data = loader.load_binance_data(args.symbols, args.start, args.end, interval=args.freq)
+        elif args.data_source == "synthetic":
+            data = loader.load_data(args.symbols, args.start, args.end, freq=args.freq)
+        elif args.data_source == "csv":
+            if not args.data_csv:
+                raise ValueError("--data-source csv requires --data-csv")
+            data = DataLoader.load_csv(args.data_csv)
+        else:
+            raise ValueError(f"Unsupported data source: {args.data_source!r}")
+        data = loader.clean_data(data)
+
+        engine = BacktestEngine(initial_capital=100_000.0)
+        rows = []
+        for combo in combos:
+            combo_args = argparse.Namespace(**vars(args))
+            for k, v in zip(keys, combo):
+                setattr(combo_args, k, v)
+            strategy = _build_strategy(args.strategy, combo_args)
+            try:
+                res = engine.walk_forward(
+                    strategy,
+                    data,
+                    train_period=int(args.train_period),
+                    test_period=int(args.test_period),
+                    fee_rate=float(args.fee_rate),
+                    slippage=float(args.slippage),
+                )
+            except Exception:
+                res = {}
+            oos_mean = float(res.get("oos_mean_return", res.get("mean_return", 0.0)) or 0.0)
+            results_list = res.get("results", []) or []
+            mdds = [float((r or {}).get("max_drawdown", 0.0)) for r in results_list]
+            mean_mdd = float(sum(mdds) / len(mdds)) if mdds else 0.0
+            oos_is = float(res.get("oos_is_ratio", 0.0) or 0.0)
+            row = {k: combo[i] for i, k in enumerate(keys)}
+            row.update(
+                {
+                    "oos_mean_return": oos_mean,
+                    "mean_max_drawdown": mean_mdd,
+                    "oos_is_ratio": oos_is,
+                }
+            )
+            rows.append(row)
+
+        # ranking
+        def _score(r):
+            if args.metric == "sharpe_ratio":
+                std = 0.0
+                try:
+                    import numpy as np
+
+                    arr = np.array([float((x or {}).get("total_return", 0.0)) for x in (res.get("results", []) or [])])
+                    std = float(np.std(arr, ddof=1)) if arr.size > 1 else 1.0
+                except Exception:
+                    std = 1.0
+                return oos_mean / (std if std else 1.0)
+            if args.metric == "total_return":
+                return oos_mean
+            # calmar
+            return oos_mean / abs(mean_mdd) if mean_mdd else oos_mean
+
+        # recompute score per row properly
+        for r in rows:
+            om = r["oos_mean_return"]
+            mm = r["mean_max_drawdown"]
+            if args.metric == "sharpe_ratio":
+                r["_score"] = om
+            elif args.metric == "total_return":
+                r["_score"] = om
+            else:
+                r["_score"] = om / abs(mm) if mm else om
+        rows.sort(key=lambda r: r["_score"], reverse=True)
+        for i, r in enumerate(rows, 1):
+            r["rank"] = i
+            r.pop("_score", None)
+
+        print(
+            "WARNING: sweep results are in-sample/optimization output and not "
+            "evidence of alpha; recommend chronological OOS validation and "
+            "realistic costs.",
+            file=sys.stderr,
+        )
+
+        if args.output == "json":
+            content = json.dumps(rows, indent=2, default=float)
+        elif args.output == "csv":
+            if rows:
+                import csv as _csv
+                import io as _io
+
+                buf = _io.StringIO()
+                w = _csv.DictWriter(buf, fieldnames=list(rows[0].keys()))
+                w.writeheader()
+                for r in rows:
+                    w.writerow(r)
+                content = buf.getvalue()
+            else:
+                content = ""
+        else:
+            lines = []
+            for r in rows:
+                lines.append(str(r))
+            content = "\n".join(lines)
+        if args.output_path:
+            Path(args.output_path).write_text(content)
+        else:
+            print(content)
+        return 0
+
         sub = _argv[1:]
         p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
         p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
