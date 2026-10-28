@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, Callable, cast
 
 import pandas as pd
 
@@ -860,6 +860,61 @@ def bootstrap_walk_forward_intervals(
     return intervals
 
 
+def sweep_cost_sensitivity(
+    walk_forward_fn: Callable[..., dict[str, Any]],
+    cost_grid: list[tuple[float, float]],
+    **wf_kwargs: Any,
+) -> list[dict[str, Any]]:
+    """Run walk-forward across a grid of (fee_rate, slippage) cost assumptions.
+
+    For each ``(fee_rate, slippage)`` pair in ``cost_grid``, calls
+    ``walk_forward_fn`` with the supplied keyword arguments (overriding
+    ``fee_rate`` and ``slippage`` per config) and records the resulting
+    walk-forward aggregates.
+
+    ``walk_forward_fn`` should be a callable (e.g. a lambda wrapping
+    ``engine.walk_forward`` or ``engine.walk_forward_portfolio``) that accepts
+    ``fee_rate`` and ``slippage`` keyword arguments and returns the
+    walk-forward result dict (the same shape returned by
+    :meth:`backtest.engine.BacktestEngine.walk_forward`).
+
+    Returns a list of dicts, one per config (in grid order), with keys:
+    ``fee_rate``, ``slippage``, ``mean_return``, ``oos_mean_return``,
+    ``oos_is_ratio``, ``max_drawdown`` (mean per-window drawdown), plus the
+    original ``walk_forward`` result under ``"result"`` when available.
+    """
+    results: list[dict[str, Any]] = []
+    for fee_rate, slippage in cost_grid:
+        try:
+            wf = walk_forward_fn(fee_rate=float(fee_rate), slippage=float(slippage), **wf_kwargs)
+        except Exception:
+            continue
+        if not isinstance(wf, dict):
+            continue
+        row: dict[str, Any] = {
+            "fee_rate": float(fee_rate),
+            "slippage": float(slippage),
+            "mean_return": _safe_float(wf.get("mean_return", 0.0)),
+            "oos_mean_return": _safe_float(wf.get("oos_mean_return", 0.0)),
+            "oos_is_ratio": _safe_float(wf.get("oos_is_ratio", 0.0)),
+        }
+        # Aggregate max drawdown across per-window results (mean of window DDs).
+        per_window = wf.get("results", []) or []
+        try:
+            import numpy as _np
+
+            dds = [
+                _safe_float((r or {}).get("max_drawdown", 0.0))
+                for r in per_window
+            ]
+            row["max_drawdown"] = float(_np.mean(dds)) if dds else 0.0
+        except Exception:
+            row["max_drawdown"] = 0.0
+        row["result"] = wf
+        results.append(row)
+    return results
+
+
 def generate_walk_forward_report(wf_result: dict) -> dict:
     """Aggregate walk-forward per-window results into a summary table + equity curve.
 
@@ -1005,6 +1060,17 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
         except Exception:
             pass
 
+    # Cost-model sensitivity sweep results (when the caller attached a
+    # precomputed sweep via the ``cost_sensitivity`` key on the wf_result).
+    cost_sensitivity = wf_result.get("cost_sensitivity")
+    if isinstance(cost_sensitivity, list) and cost_sensitivity:
+        try:
+            report["cost_sensitivity"] = [
+                {k: v for k, v in row.items() if k != "result"} for row in cost_sensitivity
+            ]
+        except Exception:
+            pass
+
     # Aggregate attribution across windows when present.
     brinsons_raw = [(r or {}).get("brinson") for r in results]
     brinsons: list[dict[str, Any]] = [
@@ -1117,6 +1183,15 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
             }
         except Exception:
             pass
+    cost_sensitivity = wf_report.get("cost_sensitivity")
+    if isinstance(cost_sensitivity, list) and cost_sensitivity:
+        try:
+            out["cost_sensitivity"] = [
+                {str(k): v for k, v in row.items() if k != "result"}
+                for row in cost_sensitivity
+            ]
+        except Exception:
+            pass
     brinson = wf_report.get("brinson")
     factor = wf_report.get("factor")
     if isinstance(brinson, dict) or isinstance(factor, dict):
@@ -1190,6 +1265,54 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
                 label = key.replace("_", " ").title()
                 fmt = _fmt_pct if "return" in key else _fmt_num
                 lines.append(f"  {label}: [{fmt(low)}, {fmt(high)}]")
+
+    # Cost-model sensitivity sweep when present.
+    cost_sensitivity = wf_report.get("cost_sensitivity")
+    if isinstance(cost_sensitivity, list) and cost_sensitivity:
+        lines.append("")
+        lines.append("Cost-Model Sensitivity")
+        lines.append("=======================")
+        header = (
+            "  "
+            + "  ".join(
+                f"{c:>12}"
+                for c in ["fee_rate", "slippage", "mean_return", "oos_mean_return", "oos_is_ratio", "max_drawdown"]
+            )
+        )
+        lines.append(header)
+        for row in cost_sensitivity:
+            lines.append(
+                "  "
+                + "  ".join(
+                    [
+                        f"{_fmt_pct(row.get('fee_rate', 0.0)):>12}",
+                        f"{_fmt_pct(row.get('slippage', 0.0)):>12}",
+                        f"{_fmt_pct(row.get('mean_return', 0.0)):>12}",
+                        f"{_fmt_pct(row.get('oos_mean_return', 0.0)):>12}",
+                        f"{_fmt_num(row.get('oos_is_ratio', 0.0)):>12}",
+                        f"{_fmt_pct(row.get('max_drawdown', 0.0)):>12}",
+                    ]
+                )
+            )
+        # Identify best/worst cost configs by OOS mean return.
+        try:
+            valid = [r for r in cost_sensitivity if isinstance(r, dict)]
+            if valid:
+                best = max(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+                worst = min(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+                lines.append("")
+                lines.append(
+                    f"  Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
+                    f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
+                    f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}"
+                )
+                lines.append(
+                    f"  Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
+                    f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
+                    f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}"
+                )
+        except Exception:
+            pass
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report)
@@ -1321,6 +1444,47 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
                     f"<tr><td>{label}</td><td>{fmt(low)}</td><td>{fmt(high)}</td></tr>"
                 )
         html.append("</table>")
+
+    # Cost-model sensitivity sweep when present.
+    cost_sensitivity = wf_report.get("cost_sensitivity")
+    if isinstance(cost_sensitivity, list) and cost_sensitivity:
+        html.append("<h2>Cost-Model Sensitivity</h2>")
+        html.append("<table>")
+        html.append(
+            "<tr><th>Fee Rate</th><th>Slippage</th><th>Mean Return</th>"
+            "<th>OOS Mean Return</th><th>OOS/IS Ratio</th><th>Max Drawdown</th></tr>"
+        )
+        for row in cost_sensitivity:
+            html.append(
+                "<tr>"
+                f"<td>{_fmt_pct(row.get('fee_rate', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('slippage', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('mean_return', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('oos_mean_return', 0.0))}</td>"
+                f"<td>{_fmt_num(row.get('oos_is_ratio', 0.0))}</td>"
+                f"<td>{_fmt_pct(row.get('max_drawdown', 0.0))}</td>"
+                "</tr>"
+            )
+        html.append("</table>")
+        try:
+            valid = [r for r in cost_sensitivity if isinstance(r, dict)]
+            if valid:
+                best = max(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+                worst = min(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+                html.append("<p><em>")
+                html.append(
+                    f"Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
+                    f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
+                    f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}. "
+                )
+                html.append(
+                    f"Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
+                    f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
+                    f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}."
+                )
+                html.append("</em></p>")
+        except Exception:
+            pass
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report or {})
@@ -1490,6 +1654,39 @@ def generate_walk_forward_pdf_report(
                         )
                         table.auto_set_font_size(False)
                         table.set_fontsize(9)
+                        table.scale(1.0, 1.2)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page 5: Cost-model sensitivity sweep when present.
+            cost_sensitivity = wf_report.get("cost_sensitivity")
+            if isinstance(cost_sensitivity, list) and cost_sensitivity:
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Cost-Model Sensitivity", fontsize=12, pad=20)
+                    rows_cs = [["Fee Rate", "Slippage", "Mean Return", "OOS Mean Return", "OOS/IS Ratio", "Max Drawdown"]]
+                    for row in cost_sensitivity:
+                        rows_cs.append([
+                            _fmt_pct(row.get("fee_rate", 0.0)),
+                            _fmt_pct(row.get("slippage", 0.0)),
+                            _fmt_pct(row.get("mean_return", 0.0)),
+                            _fmt_pct(row.get("oos_mean_return", 0.0)),
+                            _fmt_num(row.get("oos_is_ratio", 0.0)),
+                            _fmt_pct(row.get("max_drawdown", 0.0)),
+                        ])
+                    if len(rows_cs) > 1:
+                        table = ax.table(
+                            cellText=rows_cs[1:],
+                            colLabels=rows_cs[0],
+                            loc="center",
+                            cellLoc="center",
+                            bbox=cast(Any, (0.02, 0.35, 0.96, 0.45)),
+                        )
+                        table.auto_set_font_size(False)
+                        table.set_fontsize(8)
                         table.scale(1.0, 1.2)
                         pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
