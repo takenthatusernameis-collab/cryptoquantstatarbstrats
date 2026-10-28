@@ -280,15 +280,20 @@ def run_parameter_sweep(
         run_result = engine.run(
             replay_strat, data, fee_rate=float(fee_rate), slippage=float(slippage)
         )
+        equity_curve = run_result.get("equity_curve") or []
+        final_equity = None
+        if equity_curve:
+            try:
+                final_equity = float(engine.initial_capital) * float(equity_curve[-1])
+            except (TypeError, ValueError, IndexError):
+                final_equity = None
         replay_block = {
             "params": _to_json_safe(replay_params),
             "total_return": _to_json_safe(run_result.get("total_return")),
             "sharpe_ratio": _to_json_safe(run_result.get("sharpe_ratio")),
             "max_drawdown": _to_json_safe(run_result.get("max_drawdown")),
             "calmar_ratio": _to_json_safe(run_result.get("calmar_ratio")),
-            "final_equity": _to_json_safe(
-                run_result.get("final_equity", run_result.get("final_value"))
-            ),
+            "final_equity": _to_json_safe(final_equity),
         }
         top["replay"] = replay_block
 
