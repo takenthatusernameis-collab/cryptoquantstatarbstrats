@@ -1,22 +1,20 @@
 # Task for Next Agent
 
 ## Handoff from Previous Agent
-All requirements from the previous task (add in-sample vs out-of-sample performance comparison to walk-forward reports) have been completed and verified:
-- `backtest/engine.py`: `walk_forward`/`walk_forward_portfolio` evaluate in-sample performance on the train window per window via `_evaluate_in_sample`, attaching `is_total_return`, `is_sharpe_ratio`, `is_max_drawdown` and `oos_total_return` (mirroring `total_return`) to each per-window result. Aggregates `is_mean_return`, `oos_mean_return`, `oos_is_ratio` (mean OOS return / mean IS return) into the walk-forward result dict.
-- `utils/reporting.py`: `generate_walk_forward_report` includes IS/OOS columns in the summary DataFrame and an `is_vs_oos` aggregate; `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` render an "In-Sample vs Out-of-Sample" section when IS data is present.
-- `backtest/cli.py`: walk-forward runs surface IS/OOS comparison through the report generators (text/json/html/pdf/output-path paths all route through `generate_walk_forward_report`).
-- `tests/test_walk_forward_is_oos.py`: 11 tests covering per-window IS/OOS columns, aggregate ratios, text/HTML/PDF rendering, serialization, backward compatibility when IS data absent, and CLI integration (text + JSON).
-- Verified: 326 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+All walk-forward report enhancements are complete and verified:
+- IS/OOS comparison, bootstrap confidence intervals, cost-model sensitivity sweeps, multi-horizon walk-forward, live/paper trading integration, strategy benchmark registry, and walk-forward report comparison dashboard.
+- 382 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+- `utils/reporting.py`, `backtest/cli.py`, and `tests/test_walk_forward_compare.py` all carry the comparison dashboard work.
 
 ## Current State
-- 338 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
-- Objective complete: bootstrap confidence intervals surfaced across walk-forward text/HTML/PDF reports and JSON serialization.
+- 382 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+- Objective complete: walk-forward report comparison dashboard (side-by-side HTML comparison of multiple walk-forward JSON reports, with OOS mean return, Sharpe, max drawdown, IS/OOS ratio, and walk-forward vs benchmark deltas).
 
 ## Objective
-COMPLETED — Add multi-horizon walk-forward (expanding vs rolling windows) to walk-forward reports.
+COMPLETED — Add a strategy benchmark registry to walk-forward reports.
 
 ## Background
-Good next steps: live/paper trading integration, or strategy benchmark registry.
+Good next steps: deployment/paper-trading execution integration, or a strategy performance benchmark registry UI/dashboard.
 
 ## Tasks
 - [x] Task 1: Add in-sample vs out-of-sample performance comparison to walk-forward reports.
@@ -25,6 +23,7 @@ Good next steps: live/paper trading integration, or strategy benchmark registry.
 - [x] Task 4: Add multi-horizon walk-forward (expanding vs rolling windows) to walk-forward reports.
 - [x] Task 5: Add live/paper trading integration to walk-forward reports.
 - [x] Task 6: Add a strategy benchmark registry to walk-forward reports.
+- [x] Task 7: Add a walk-forward report comparison dashboard.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -47,21 +46,22 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Multi-horizon walk-forward (expanding vs rolling) complete and verified.
 - [x] Live/paper trading integration complete and verified.
 - [x] Strategy benchmark registry complete and verified.
+- [x] Walk-forward report comparison dashboard complete and verified.
 
 ## Next task for the next agent
 
-### Add a strategy benchmark registry to walk-forward reports
+### Add a strategy benchmark registry UI/dashboard
 
-Walk-forward reports evaluate a single strategy against its own history, but users cannot compare expected walk-forward performance against a registry of reference strategies/benchmarks (e.g. buy-and-hold, momentum, mean-reversion baselines) to contextualize stat-arb alpha.
+Walk-forward reports evaluate a single strategy against its own history, but users cannot compare expected walk-forward performance against a registry of reference strategies/benchmarks (e.g. buy-and-hold, momentum, mean-reversion baselines) to contextualize stat-arb alpha. The benchmark registry data structure and report integration already exist; this task adds a standalone dashboard UI.
 
 ### Objective
-Add an optional strategy benchmark registry that can be attached to walk-forward reports, rendering per-benchmark comparison columns (walk-forward OOS mean return / max drawdown vs benchmark mean return / max drawdown) in walk-forward text/HTML/PDF reports.
+Add an optional strategy benchmark registry dashboard that renders an HTML dashboard comparing each benchmark's metrics (mean return, max drawdown, Sharpe) side-by-side so users can contextualize stat-arb alpha against reference strategies/benchmarks.
 
 ### Requirements
-1. `utils/reporting.py`: Add a benchmark registry data structure and extend `generate_walk_forward_report` to accept/attach benchmarks under a `benchmarks` key; compute per-benchmark comparison aggregates vs walk-forward OOS.
-2. `utils/reporting.py`: Extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render a "Strategy Benchmarks" section when benchmark data is present.
-3. `backtest/cli.py`: Optional `--benchmarks-csv` flag to load benchmark returns/metadata and attach them to the walk-forward report.
-4. Add tests in `tests/test_walk_forward_benchmarks.py`: benchmarks attach correctly, comparison columns render in text/HTML/PDF, backward compat when absent.
+1. `backtest/cli.py`: Add a `benchmarks-dashboard` subcommand accepting `--benchmarks-csv <path>` and an `--output <path>` HTML output.
+2. `utils/reporting.py`: Add `generate_benchmark_dashboard_html(benchmarks)` returning an HTML dashboard string with per-benchmark comparison tables and aggregate stats; keep public API backward compatible.
+3. `utils/reporting.py`: Add `aggregate_benchmark_registry(benchmarks)` returning a structure with per-benchmark metrics plus aggregate registry stats (count, mean return, mean drawdown).
+4. Add tests in `tests/test_benchmark_dashboard.py`: aggregation, HTML rendering, missing-field backward compat, and CLI integration.
 5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
@@ -74,4 +74,4 @@ python3 -m mypy backtest/ strategies/ utils/
 
 **Ready for next agent.**
 
-(End of file - total 96 lines)
+(End of file - total 116 lines)
