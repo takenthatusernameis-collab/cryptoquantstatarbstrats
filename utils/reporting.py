@@ -795,6 +795,71 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
             return html
 
 
+def bootstrap_walk_forward_intervals(
+    wf_result: dict,
+    n_iterations: int = 1000,
+    seed: int = 42,
+    confidence: float = 0.95,
+) -> dict[str, tuple[float, float]]:
+    """Bootstrap confidence intervals for walk-forward aggregates.
+
+    Resamples the per-window out-of-sample returns with replacement,
+    recomputes the walk-forward aggregates for each resample, and returns
+    ``(low, high)`` percentile intervals for ``mean_return``,
+    ``oos_mean_return`` and ``oos_is_ratio``.
+    """
+    wf_result = wf_result or {}
+    results = wf_result.get("results", []) or []
+    oos_returns = [
+        float(r.get("oos_total_return", r.get("total_return", 0.0)))
+        for r in results
+    ]
+    is_returns = [
+        float(r.get("is_total_return", 0.0))
+        for r in results
+        if "is_total_return" in r
+    ]
+    if not oos_returns:
+        return {}
+
+    try:
+        import numpy as _np
+    except Exception:
+        return {}
+
+    rng = _np.random.default_rng(seed)
+    n = len(oos_returns)
+    oos_arr = _np.array(oos_returns, dtype=float)
+    is_arr = _np.array(is_returns, dtype=float) if len(is_returns) == n else None
+
+    def _percentiles(values: list[float]) -> tuple[float, float]:
+        arr = _np.array(values, dtype=float)
+        tail = 100.0 * ((1.0 - float(confidence)) / 2.0)
+        low = float(_np.percentile(arr, tail))
+        high = float(_np.percentile(arr, 100.0 - tail))
+        return (low, high)
+
+    mean_bs: list[float] = []
+    ratio_bs: list[float] = []
+    for _ in range(max(1, int(n_iterations))):
+        idx = rng.integers(0, n, size=n)
+        sample = oos_arr[idx]
+        m = float(_np.mean(sample))
+        mean_bs.append(m)
+        if is_arr is not None:
+            is_sample = is_arr[idx]
+            im = float(_np.mean(is_sample))
+            ratio_bs.append(m / im if im != 0 else 0.0)
+
+    intervals: dict[str, tuple[float, float]] = {}
+    if mean_bs:
+        intervals["mean_return"] = _percentiles(mean_bs)
+        intervals["oos_mean_return"] = _percentiles(mean_bs)
+    if ratio_bs:
+        intervals["oos_is_ratio"] = _percentiles(ratio_bs)
+    return intervals
+
+
 def generate_walk_forward_report(wf_result: dict) -> dict:
     """Aggregate walk-forward per-window results into a summary table + equity curve.
 
@@ -929,6 +994,17 @@ def generate_walk_forward_report(wf_result: dict) -> dict:
         except Exception:
             pass
 
+    # Bootstrap confidence intervals for walk-forward aggregates when
+    # per-window returns are available.
+    returns_list = wf_result.get("returns", []) or []
+    if returns_list:
+        try:
+            report["confidence_intervals"] = bootstrap_walk_forward_intervals(
+                wf_result,
+            )
+        except Exception:
+            pass
+
     # Aggregate attribution across windows when present.
     brinsons_raw = [(r or {}).get("brinson") for r in results]
     brinsons: list[dict[str, Any]] = [
@@ -1031,6 +1107,16 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
             out["is_vs_oos"] = dict(is_vs_oos)
         except Exception:
             pass
+    confidence_intervals = wf_report.get("confidence_intervals")
+    if isinstance(confidence_intervals, dict) and confidence_intervals:
+        try:
+            out["confidence_intervals"] = {
+                str(k): [float(v[0]), float(v[1])]
+                for k, v in confidence_intervals.items()
+                if isinstance(v, (list, tuple)) and len(v) == 2
+            }
+        except Exception:
+            pass
     brinson = wf_report.get("brinson")
     factor = wf_report.get("factor")
     if isinstance(brinson, dict) or isinstance(factor, dict):
@@ -1090,6 +1176,20 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
         lines.append(
             f"  Mean OOS Max Drawdown: {_fmt_pct(is_vs_oos.get('oos_mean_max_drawdown', 0.0))}"
         )
+
+    # Confidence intervals (bootstrap) when present.
+    confidence_intervals = wf_report.get("confidence_intervals")
+    if isinstance(confidence_intervals, dict) and confidence_intervals:
+        lines.append("")
+        lines.append("Confidence Intervals (bootstrap)")
+        lines.append("================================")
+        for key in ("mean_return", "oos_mean_return", "oos_is_ratio"):
+            ci = confidence_intervals.get(key)
+            if isinstance(ci, (list, tuple)) and len(ci) == 2:
+                low, high = float(ci[0]), float(ci[1])
+                label = key.replace("_", " ").title()
+                fmt = _fmt_pct if "return" in key else _fmt_num
+                lines.append(f"  {label}: [{fmt(low)}, {fmt(high)}]")
 
     # Attribution (if available)
     brinson, factor = _get_attribution(wf_report)
@@ -1203,6 +1303,23 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
             f"<tr><td>OOS/IS Ratio</td>"
             f"<td colspan=2>{_fmt_num(is_vs_oos.get('oos_is_ratio', 0.0))}</td></tr>"
         )
+        html.append("</table>")
+
+    # Confidence intervals (bootstrap) when present.
+    confidence_intervals = wf_report.get("confidence_intervals")
+    if isinstance(confidence_intervals, dict) and confidence_intervals:
+        html.append("<h2>Confidence Intervals (bootstrap)</h2>")
+        html.append("<table>")
+        html.append("<tr><th>Metric</th><th>Lower</th><th>Upper</th></tr>")
+        for key in ("mean_return", "oos_mean_return", "oos_is_ratio"):
+            ci = confidence_intervals.get(key)
+            if isinstance(ci, (list, tuple)) and len(ci) == 2:
+                low, high = float(ci[0]), float(ci[1])
+                label = key.replace("_", " ").title()
+                fmt = _fmt_pct if "return" in key else _fmt_num
+                html.append(
+                    f"<tr><td>{label}</td><td>{fmt(low)}</td><td>{fmt(high)}</td></tr>"
+                )
         html.append("</table>")
 
     # Attribution (if available)
@@ -1344,6 +1461,37 @@ def generate_walk_forward_pdf_report(
                     table.set_fontsize(9)
                     table.scale(1.0, 1.2)
                     pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
+                    plt.close(fig)
+                except Exception:
+                    pass
+
+            # Page 4: Confidence intervals (bootstrap) when present.
+            confidence_intervals = wf_report.get("confidence_intervals")
+            if isinstance(confidence_intervals, dict) and confidence_intervals:
+                try:
+                    fig, ax = plt.subplots(figsize=(11, 4.5))
+                    ax.axis("off")
+                    ax.set_title("Confidence Intervals (bootstrap)", fontsize=12, pad=20)
+                    rows_ci = [["Metric", "Lower", "Upper"]]
+                    for key in ("mean_return", "oos_mean_return", "oos_is_ratio"):
+                        ci = confidence_intervals.get(key)
+                        if isinstance(ci, (list, tuple)) and len(ci) == 2:
+                            low, high = float(ci[0]), float(ci[1])
+                            label = key.replace("_", " ").title()
+                            fmt = _fmt_pct if "return" in key else _fmt_num
+                            rows_ci.append([label, fmt(low), fmt(high)])
+                    if len(rows_ci) > 1:
+                        table = ax.table(
+                            cellText=rows_ci[1:],
+                            colLabels=rows_ci[0],
+                            loc="center",
+                            cellLoc="center",
+                            bbox=cast(Any, (0.05, 0.35, 0.9, 0.45)),
+                        )
+                        table.auto_set_font_size(False)
+                        table.set_fontsize(9)
+                        table.scale(1.0, 1.2)
+                        pdf.savefig(fig, bbox_inches="tight", pad_inches=0.5)
                     plt.close(fig)
                 except Exception:
                     pass
