@@ -8,6 +8,7 @@ the backtesting engine for more realistic fill simulation.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, cast
 
 import numpy as np
@@ -126,6 +127,46 @@ class LimitOrderBookExecution:
 
 
 @dataclass
+class Order:
+    """Represents an order in the order management system."""
+
+    order_id: Any
+    symbol: str
+    side: str  # 'buy' or 'sell'
+    quantity: float
+    order_type: str = "market"
+    limit_price: float | None = None
+    timestamp: Any = None
+    status: str = "open"  # open, filled, partial, cancelled, rejected
+    filled_qty: float = 0.0
+    avg_fill_price: float = 0.0
+    fee_rate: float = 0.0
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class Position:
+    """Represents a position in a symbol."""
+
+    symbol: str
+    quantity: float = 0.0  # positive = long, negative = short
+    avg_cost: float = 0.0
+    unrealized_pnl: float = 0.0
+    realized_pnl: float = 0.0
+    last_price: float = 0.0
+
+    def market_value(self) -> float:
+        return self.quantity * self.last_price
+
+    def update_price(self, price: float) -> None:
+        self.last_price = float(price)
+        if self.quantity != 0.0 and self.avg_cost != 0.0:
+            self.unrealized_pnl = self.quantity * (self.last_price - self.avg_cost)
+        else:
+            self.unrealized_pnl = 0.0
+
+
+@dataclass
 class ExecutionSimulator:
     """Simulate order execution with volume participation limits."""
 
@@ -145,6 +186,9 @@ class ExecutionSimulator:
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
     _iceberg: IcebergExecution | None = field(default=None, repr=False)
     _lob: LimitOrderBookExecution | None = field(default=None, repr=False)
+    _orders: dict[Any, Order] = field(default_factory=dict, repr=False)
+    _positions: dict[str, Position] = field(default_factory=dict, repr=False)
+    _order_counter: int = field(default=0, repr=False)
 
     def __post_init__(self) -> None:
         try:
@@ -663,3 +707,191 @@ class ExecutionSimulator:
 
     def reset(self) -> None:
         self._fills.clear()
+
+    # Order management methods
+    def create_order(
+        self,
+        symbol: str,
+        side: str,
+        quantity: float,
+        order_type: str = "market",
+        limit_price: float | None = None,
+        timestamp: Any = None,
+        fee_rate: float = 0.0,
+        order_id: Any = None,
+    ) -> Order:
+        """Create a new order and add it to the order book."""
+        if order_id is None:
+            self._order_counter += 1
+            order_id = self._order_counter
+        side = str(side).lower()
+        if side not in ("buy", "sell"):
+            raise ValueError("side must be 'buy' or 'sell'")
+        order_type = str(order_type).lower()
+        order = Order(
+            order_id=order_id,
+            symbol=str(symbol),
+            side=side,
+            quantity=float(quantity),
+            order_type=order_type,
+            limit_price=limit_price,
+            timestamp=timestamp,
+            status="open",
+            fee_rate=float(fee_rate or 0.0),
+        )
+        self._orders[order_id] = order
+        return order
+
+    def submit_order(self, order: Order, **kwargs: Any) -> dict[str, Any]:
+        """Submit an order for execution."""
+        if order.order_id not in self._orders:
+            self._orders[order.order_id] = order
+        res = self.simulate_order(
+            order.order_type,
+            order.side,
+            order.quantity,
+            kwargs.get("price", order.limit_price or 0.0),
+            bar_volume=kwargs.get("bar_volume", 0.0),
+            bar_high=kwargs.get("bar_high"),
+            bar_low=kwargs.get("bar_low"),
+            limit_price=order.limit_price,
+            order_id=order.order_id,
+            symbol=order.symbol,
+            timestamp=order.timestamp,
+            fee_rate=order.fee_rate,
+        )
+        filled_qty = res.get("filled_qty", 0.0)
+        # Update order status
+        try:
+            abs_filled = abs(float(filled_qty))
+            if res.get("status") == "filled":
+                order.status = "filled"
+                order.filled_qty = float(filled_qty)
+                order.avg_fill_price = float(res.get("avg_price", 0.0))
+            elif res.get("status") == "partial":
+                order.status = "partial"
+                order.filled_qty = float(filled_qty)
+                order.avg_fill_price = float(res.get("avg_price", 0.0))
+            elif res.get("status") == "rejected":
+                order.status = "rejected"
+            else:
+                order.status = res.get("status", "open")
+        except Exception:
+            pass
+        self._update_position_from_fill(order.symbol, filled_qty, res.get("avg_price", 0.0))
+        return res
+
+    def cancel_order(self, order_id: Any) -> bool:
+        """Cancel an open order."""
+        if order_id in self._orders:
+            order = self._orders[order_id]
+            if order.status in ("open", "partial"):
+                order.status = "cancelled"
+                return True
+        return False
+
+    def get_order(self, order_id: Any) -> Order | None:
+        """Get an order by ID."""
+        return self._orders.get(order_id)
+
+    def get_open_orders(self, symbol: str | None = None) -> list[Order]:
+        """Get all open orders, optionally filtered by symbol."""
+        result = []
+        for order in self._orders.values():
+            if order.status in ("open", "partial"):
+                if symbol is None or order.symbol == symbol:
+                    result.append(order)
+        return result
+
+    def get_all_orders(self) -> list[Order]:
+        """Get all orders."""
+        return list(self._orders.values())
+
+    def clear_orders(self) -> None:
+        """Clear all orders."""
+        self._orders.clear()
+
+    def _update_position_from_fill(self, symbol: str, filled_qty: float, price: float) -> None:
+        """Update position based on a fill."""
+        if symbol not in self._positions:
+            self._positions[symbol] = Position(symbol=symbol)
+        pos = self._positions[symbol]
+        try:
+            fq = float(filled_qty)
+            px = float(price)
+        except Exception:
+            return
+        if fq == 0.0:
+            return
+        # Simple position tracking
+        if pos.quantity == 0.0:
+            pos.quantity = fq
+            pos.avg_cost = px
+        else:
+            # Update average cost
+            new_qty = pos.quantity + fq
+            if (pos.quantity > 0 and fq > 0) or (pos.quantity < 0 and fq < 0):
+                # Same direction
+                total_cost = pos.quantity * pos.avg_cost + fq * px
+                pos.avg_cost = total_cost / new_qty if new_qty != 0 else px
+            else:
+                # Closing or flipping
+                if abs(fq) >= abs(pos.quantity):
+                    # Flip or close completely
+                    pos.avg_cost = px
+                else:
+                    # Partial close - avg cost remains the same
+                    pass
+            pos.quantity = new_qty
+        pos.last_price = px
+        pos.update_price(px)
+
+    def get_position(self, symbol: str) -> Position | None:
+        """Get position for a symbol."""
+        return self._positions.get(symbol)
+
+    def get_positions(self) -> dict[str, Position]:
+        """Get all positions."""
+        return dict(self._positions)
+
+    def get_portfolio_value(self, initial_capital: float = 0.0) -> float:
+        """Calculate total portfolio value."""
+        total = float(initial_capital)
+        for pos in self._positions.values():
+            total += pos.quantity * pos.last_price
+        return total
+
+    def get_realized_pnl(self) -> float:
+        """Calculate total realized PnL from fills."""
+        total = 0.0
+        for fill in self._fills:
+            fee = fill.get("fee", 0.0)
+            try:
+                total -= float(fee)
+            except Exception:
+                pass
+        return total
+
+    def get_unrealized_pnl(self) -> float:
+        """Calculate total unrealized PnL."""
+        total = 0.0
+        for pos in self._positions.values():
+            total += float(pos.unrealized_pnl)
+        return total
+
+    def get_risk_metrics(self) -> dict[str, Any]:
+        """Get portfolio risk metrics."""
+        positions = list(self._positions.values())
+        long_exposure = sum(p.quantity * p.last_price for p in positions if p.quantity > 0)
+        short_exposure = sum(abs(p.quantity) * p.last_price for p in positions if p.quantity < 0)
+        net_exposure = long_exposure - short_exposure
+        gross_exposure = long_exposure + short_exposure
+        return {
+            "num_positions": len([p for p in positions if abs(p.quantity) > 1e-9]),
+            "long_exposure": long_exposure,
+            "short_exposure": short_exposure,
+            "net_exposure": net_exposure,
+            "gross_exposure": gross_exposure,
+            "realized_pnl": self.get_realized_pnl(),
+            "unrealized_pnl": self.get_unrealized_pnl(),
+        }

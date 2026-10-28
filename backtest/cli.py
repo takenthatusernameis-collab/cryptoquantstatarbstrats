@@ -517,6 +517,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
         p.add_argument("--output-path", default=None)
+        p.add_argument("--max-position", type=float, default=None)
+        p.add_argument("--risk-limits", default=None)
+        p.add_argument("--position-sizing", default="fixed", choices=["fixed", "kelly", "volatility"], help="Position sizing method")
         args = p.parse_args(sub)
 
         loader = DataLoader()
@@ -582,6 +585,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             "realized_pnl": realized_pnl,
             "num_fills": len(fills),
             "initial_capital": float(args.initial_capital),
+            "positions": {k: {"quantity": v.quantity, "avg_cost": v.avg_cost, "unrealized_pnl": v.unrealized_pnl}
+                          for k, v in sim.get_positions().items()},
+            "risk_metrics": sim.get_risk_metrics(),
+            "portfolio_value": sim.get_portfolio_value(float(args.initial_capital)),
         }
         import json as _json
 
