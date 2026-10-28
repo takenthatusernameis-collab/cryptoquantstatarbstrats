@@ -915,7 +915,7 @@ def sweep_cost_sensitivity(
     return results
 
 
-def generate_walk_forward_report(wf_result: dict) -> dict:
+def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> dict:
     """Aggregate walk-forward per-window results into a summary table + equity curve.
 
     ``wf_result`` is the dict returned by
