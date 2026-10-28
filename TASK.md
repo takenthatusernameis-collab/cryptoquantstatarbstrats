@@ -47,23 +47,23 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] Live/paper trading integration complete and verified.
 - [x] Strategy benchmark registry complete and verified.
 - [x] Walk-forward report comparison dashboard complete and verified.
+- [x] Strategy benchmark registry UI/dashboard complete and verified.
 
 ## Next task for the next agent
 
-### Add a strategy benchmark registry UI/dashboard
+### Add deployment / paper-trading execution integration
 
-Walk-forward reports evaluate a single strategy against its own history, but users cannot compare expected walk-forward performance against a registry of reference strategies/benchmarks (e.g. buy-and-hold, momentum, mean-reversion baselines) to contextualize stat-arb alpha. The benchmark registry data structure and report integration already exist; this task adds a standalone dashboard UI.
+The backtest engine supports execution simulation (VWAP/TWAP/participation) and live/paper results can be attached to walk-forward reports, but there is no end-to-end deployment path: paper-trading execution against live market data with order management, fill reporting, and a CLI entry point to run a paper-trading session.
 
 ### Objective
-Add an optional strategy benchmark registry dashboard that renders an HTML dashboard comparing each benchmark's metrics (mean return, max drawdown, Sharpe) side-by-side so users can contextualize stat-arb alpha against reference strategies/benchmarks.
+Add a paper-trading execution mode that loads live market data, runs strategy signals, simulates order fills (respecting participation/slippage), records fills and realized P&L, and emits a paper-trading report.
 
 ### Requirements
-1. `backtest/cli.py`: Add a `benchmarks-dashboard` subcommand accepting `--benchmarks-csv <path>` and an `--output <path>` HTML output.
-2. `utils/reporting.py`: Add `generate_benchmark_dashboard_html(benchmarks)` returning an HTML dashboard string with per-benchmark comparison tables and aggregate stats; keep public API backward compatible.
-3. `utils/reporting.py`: Add `aggregate_benchmark_registry(benchmarks)` returning a structure with per-benchmark metrics plus aggregate registry stats (count, mean return, mean drawdown).
-4. Add tests in `tests/test_benchmark_dashboard.py`: aggregation, HTML rendering, missing-field backward compat, and CLI integration.
-5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
-6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
+1. `backtest/cli.py`: Add a `paper-trade` subcommand accepting `--symbols`, `--data-source`, `--strategy`, `--initial-capital`, `--fee-rate`, `--slippage`, and `--output-path` for the execution log.
+2. `backtest/execution.py`: Extend `ExecutionSimulator` (or add a paper trader) to emit per-order fill records (order id, symbol, side, quantity, price, fee, timestamp) and a realized P&L summary.
+3. Add tests in `tests/test_paper_trading.py`: fill simulation, P&L summary, missing-data backward compat, and CLI integration.
+4. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
+5. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
 ### Verification
 ```bash
