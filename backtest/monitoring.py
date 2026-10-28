@@ -357,7 +357,7 @@ class PaperTradingMonitor:
 
         if (
             self.config.min_pnl_pct is not None
-            and pnl_pct <= self.config.min_pnl_pct
+            and (pnl_pct <= self.config.min_pnl_pct or total_pnl <= self.config.min_pnl_pct)
         ):
             emitted.append(
                 self._emit(
