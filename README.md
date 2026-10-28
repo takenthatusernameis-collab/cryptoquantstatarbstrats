@@ -78,15 +78,19 @@ cryptoquant sweep \
   --strategy mean_reversion \
   --asset BTC \
   --grid '{"lookback":[20,30,50],"entry_threshold":[1.5,2.0]}' \
+  --walk-forward \
   --train-period 60 \
   --test-period 20 \
+  --n-splits 3 \
+  --anchor 40 \
+  --mode expanding \
   --metric calmar_ratio \
   --data-source synthetic \
   --output json \
   --output-path sweep_results.json
 ```
 
-Sweep parameters can also be supplied through a config file passed via `--config` (YAML, TOML, or JSON). Config values fill in any sweep argument not overridden on the CLI, so CLI flags always win:
+Sweep parameters can also be supplied through a config file passed via `--config` (YAML, TOML, or JSON). Config values fill in any sweep argument not overridden on the CLI, so CLI flags always win. Walk-forward can be enabled via `walk_forward: true` in the config alongside `train_period`, `test_period`, `n_splits`, `anchor`, and `mode`:
 
 ```yaml
 # config/sweep.yaml
@@ -96,12 +100,13 @@ data_source: synthetic
 start: "2024-01-01"
 end: "2024-02-01"
 freq: 1h
+walk_forward: true
 train_period: 60
 test_period: 20
-metric: calmar_ratio
 anchor: 40
 n_splits: 3
 mode: expanding
+metric: calmar_ratio
 output: json
 output_path: sweep_results.json
 ```

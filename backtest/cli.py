@@ -606,6 +606,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         p.add_argument("--data-csv", default=None)
         p.add_argument("--grid", required=True)
+        p.add_argument(
+            "--walk-forward",
+            action="store_true",
+            default=False,
+            help="Run sweep with walk-forward validation (enabled by default in behavior; flag for parity).",
+        )
+        p.add_argument(
+            "--walk_forward",
+            dest="walk_forward",
+            action="store_true",
+            default=False,
+            help=argparse.SUPPRESS,
+        )
         p.add_argument("--train-period", type=int, default=60)
         p.add_argument("--test-period", type=int, default=20)
         p.add_argument(
