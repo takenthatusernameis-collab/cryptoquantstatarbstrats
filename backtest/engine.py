@@ -769,13 +769,24 @@ class BacktestEngine:
         regime_vol_mode: str | None = None,
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
+        mode: str = "rolling",
     ) -> dict[str, Any]:
-        """Perform walk-forward validation."""
+        """Perform walk-forward validation.
+
+        ``mode`` selects the window scheme: ``"rolling"`` (fixed-size train
+        window sliding forward, default) or ``"expanding"`` (train window grows
+        from ``train_period`` as the origin slides forward).
+        """
         results = []
         total = len(data)
         i = 0
         while i + train_period + test_period <= total:
-            train_data = data.iloc[i : i + train_period]
+            if mode == "expanding":
+                train_start = 0
+                train_end = i + train_period
+                train_data = data.iloc[train_start:train_end]
+            else:
+                train_data = data.iloc[i : i + train_period]
             test_data = data.iloc[i + train_period : i + train_period + test_period]
             # Train the strategy if it has a fit method
             if hasattr(strategy, "fit"):
@@ -785,7 +796,10 @@ class BacktestEngine:
                     pass
             # Generate signals with both the training history and test bars
             # available. The strategy must still use causal rolling features.
-            full_window = data.iloc[i : i + train_period + test_period]
+            if mode == "expanding":
+                full_window = data.iloc[0 : i + train_period + test_period]
+            else:
+                full_window = data.iloc[i : i + train_period + test_period]
             signals = strategy.generate_signals(full_window)
             target_weights = self._signals_to_weights(signals, full_window)
             executed_weights = target_weights.shift(1).fillna(0.0)
@@ -922,6 +936,7 @@ class BacktestEngine:
         regime_vol_mode: str | None = None,
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
+        mode: str = "rolling",
     ) -> dict[str, Any]:
         """Perform walk-forward validation using portfolio weights.
 
@@ -948,7 +963,10 @@ class BacktestEngine:
             w = w.reindex(columns=data.columns, fill_value=0.0)
 
         while i + train_period + test_period <= total:
-            train_data = data.iloc[i : i + train_period]
+            if mode == "expanding":
+                train_data = data.iloc[0 : i + train_period]
+            else:
+                train_data = data.iloc[i : i + train_period]
             test_data = data.iloc[i + train_period : i + train_period + test_period]
             test_index = test_data.index
             w_test = w.reindex(index=test_index)
