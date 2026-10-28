@@ -25,27 +25,29 @@ CONTINUE - Build on paper-trading/paper execution capabilities or extend reporti
 - [x] Task 8: Add a strategy benchmark registry UI/dashboard.
 - [x] Task 9: Add deployment / paper-trading execution integration.
 - [x] Task 10: Extend paper-trading with order management, position tracking, and risk controls.
+- [x] Task 11: Add real-time monitoring and alerts for paper trading.
 
 ## Next task for the next agent
 
-### Add real-time monitoring and alerts for paper trading
+### Paper trading session reporting & artifact persistence
 
-Extend the paper-trading system with real-time monitoring capabilities including alerts, performance tracking, and dashboard integration.
+The paper-trade CLI emits a JSON summary with fills, positions, risk metrics, and monitoring alerts, but there is no structured paper-trading report, no persistence of session artifacts (fills, equity curve, alerts), and no way to view or summarize past paper-trading sessions from the CLI.
 
 ### Objective
-Add monitoring and alerting for paper trading sessions with configurable thresholds and reporting.
+Add paper-trading session reporting and artifact persistence so a paper-trading session can be saved, reviewed, and compared across runs.
 
 ### Requirements
-1. Create `backtest/monitoring.py` with alerting system (email/webhook/console alerts) for drawdowns, PnL thresholds, risk limits
-2. Add monitoring integration to `backtest/cli.py` paper-trade command with `--monitor`, `--alert-config` options
-3. Add position/risk monitoring with real-time metrics tracking
-4. Create tests in `tests/test_paper_trading_monitoring.py`
-5. Keep public API backward compatible; all existing tests must still pass
-6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions)
+1. Create `backtest/paper_report.py` with functions to build a serializable paper-trading session report (session summary, fills, equity curve, positions, monitoring summary/alerts) and render it to JSON/text/HTML.
+2. Extend `backtest/cli.py` `paper-trade` to persist session artifacts (fills, equity curve, alerts, report) to `--artifact-dir` when `--monitor` or `--output-path` is used; add a `paper-report` subcommand to generate/view a paper-trading report from saved artifacts.
+3. Add tests in `tests/test_paper_trading_report.py`: report generation, artifact persistence, missing-data backward compat, and CLI integration.
+4. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
+5. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
 ### Verification
 ```bash
 python3 -m pytest tests/ -q
+python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+python3 -m mypy backtest/ strategies/ utils/
 ```
 
 **Ready for next agent.**
