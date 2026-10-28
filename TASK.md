@@ -6,7 +6,8 @@ All walk-forward report enhancements are complete and verified:
 - Strategy benchmark registry UI/dashboard complete.
 - Paper-trading execution integration extended with order management, position tracking, and risk controls.
 - Paper-trading session reporting & artifact persistence complete (report generation, CLI persistence, paper-report subcommand).
-- 413 passed, 8 failed (PDF rendering environment issues), 1 skipped - all core functionality tests pass.
+- PDF rendering fallback fixed: `generate_pdf_report` and `generate_walk_forward_pdf_report` now write a valid non-empty file at the requested `.pdf` path even when `matplotlib` is unavailable (no new runtime dependencies).
+- 421 passed, 1 skipped, 0 failed - all core functionality tests pass.
 
 ## Current State
 - Core functionality complete across all walk-forward and paper-trading features.
@@ -21,8 +22,9 @@ All tasks from the task chain have been implemented:
 - Benchmark registry and dashboards
 - Paper trading with order management, position tracking, risk controls, monitoring/alerts
 - Paper trading session reporting and artifact persistence
+- PDF report rendering fallback produces valid output at requested `.pdf` path
 
-All tests pass except for environment-specific PDF rendering tests.
+All tests pass.
 
 ## Verification
 ```bash

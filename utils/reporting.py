@@ -547,6 +547,62 @@ def generate_html_report(result: dict, title: str = "Backtest Report") -> str:
     return "\n".join(html)
 
 
+def _pdf_escape(text: str) -> str:
+    return text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+
+def _write_minimal_pdf(output_path: str, title: str, lines: list[str]) -> str:
+    """Write a minimal valid PDF-1.4 document at output_path (no external deps)."""
+    buf = bytearray()
+    offsets: dict[int, int] = {}
+
+    def obj(num: int, content: bytes) -> None:
+        nonlocal buf
+        offsets[num] = len(buf)
+        buf += f"{num} 0 obj\n".encode("ascii")
+        buf += content
+        buf += b"\nendobj\n"
+
+    buf += b"%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"
+
+    stream_parts = [
+        b"BT",
+        b"/F1 12 Tf",
+        b"50 740 Td",
+        f"({_pdf_escape(title)}) Tj".encode("latin-1", errors="replace"),
+    ]
+    for line in lines:
+        stream_parts.append(b"0 -16 Td")
+        stream_parts.append(f"({_pdf_escape(line)}) Tj".encode("latin-1", errors="replace"))
+    stream_parts.append(b"ET")
+    stream = b"\n".join(stream_parts) + b"\n"
+
+    obj(1, b"<< /Type /Catalog /Pages 2 0 R >>")
+    obj(2, b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>")
+    obj(3, b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792]"
+           b" /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>")
+    obj(4, b"<< /Length "
+           + str(len(stream)).encode("ascii")
+           + b" >>\nstream\n"
+           + stream
+           + b"\nendstream")
+    obj(5, b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+
+    xref_offset = len(buf)
+    buf += b"xref\n"
+    count = len(offsets) + 1
+    buf += f"0 {count}\n".encode("ascii")
+    buf += b"0000000000 65535 f\r\n"
+    for num in sorted(offsets):
+        buf += f"{offsets[num]:010d} 00000 n\r\n".encode("ascii")
+    buf += b"trailer\n<< /Size " + str(count).encode("ascii") + b" /Root 1 0 R >>\n"
+    buf += b"startxref\n"
+    buf += f"{xref_offset}\n".encode("ascii")
+    buf += b"%%EOF\n"
+    Path(output_path).write_bytes(buf)
+    return output_path
+
+
 def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest Report") -> str:
     """Generate a PDF report from a backtest result.
 
@@ -558,13 +614,16 @@ def generate_pdf_report(result: dict, output_path: str, title: str = "Backtest R
         import matplotlib.pyplot as plt
         from matplotlib.backends.backend_pdf import PdfPages
     except Exception:
-        # Fallback: write HTML alongside if requested as .html, else write HTML content
+        lines = [title]
+        if isinstance(result, dict):
+            total_return = result.get("total_return")
+            if total_return is not None:
+                try:
+                    lines.append(f"Total Return: {float(total_return):.4%}")
+                except Exception:
+                    pass
         try:
-            html_path = output_path
-            if html_path.lower().endswith(".pdf"):
-                html_path = output_path.rsplit(".", 1)[0] + ".html"
-            Path(html_path).write_text(html)
-            return html_path
+            return _write_minimal_pdf(output_path, title, lines)
         except Exception:
             return html
 
@@ -2096,10 +2155,16 @@ def generate_walk_forward_pdf_report(
         from matplotlib.backends.backend_pdf import PdfPages
     except Exception:
         html = generate_walk_forward_html_report(wf_report, title=title)
-        html_path = output_path.replace(".pdf", ".html")
+        lines = [title]
+        if isinstance(wf_report, dict):
+            summary = wf_report.get("summary")
+            if summary is not None:
+                try:
+                    lines.extend(str(c) for c in summary.columns)
+                except Exception:
+                    pass
         try:
-            Path(html_path).write_text(html)
-            return html_path
+            return _write_minimal_pdf(output_path, title, lines)
         except Exception:
             return html
 
