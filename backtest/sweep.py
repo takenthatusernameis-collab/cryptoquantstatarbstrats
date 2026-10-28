@@ -196,7 +196,12 @@ def run_parameter_sweep(
         if n_splits <= 0:
             raise ValueError(f"n_splits must be > 0, got {n_splits}")
 
-    from backtest.engine import BacktestEngine
+    from backtest.engine import BacktestEngine, _resolve_anchor_index
+
+    if anchor is not None:
+        # Validate anchor up front so invalid values surface before any combo
+        # is evaluated (walk_forward swallows per-combo errors).
+        _resolve_anchor_index(anchor, data)
 
     if engine is None:
         engine = BacktestEngine(initial_capital=100_000.0)

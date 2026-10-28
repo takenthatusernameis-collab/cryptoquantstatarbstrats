@@ -31,6 +31,39 @@ def _infer_periods_per_year(index: pd.Index) -> int:
     return int(max(1, min(round(seconds_per_year / median_seconds), 525600)))
 
 
+def _resolve_anchor_index(anchor: Any, data: pd.DataFrame) -> int:
+    """Resolve ``anchor`` to the starting row index for walk-forward windows.
+
+    ``anchor`` may be ``None`` (start of the data), an integer row offset, or a
+    timestamp string / ``pandas.Timestamp`` located via ``index.searchsorted``.
+    Booleans, non-integral floats, and unparseable timestamp strings are
+    rejected outright instead of being silently coeried to the origin.
+    """
+    if anchor is None:
+        return 0
+    if isinstance(anchor, bool):
+        raise ValueError(
+            "anchor must be None, an integer row offset, or a timestamp string; got bool"
+        )
+    if isinstance(anchor, (int, np.integer)):
+        i = int(anchor)
+    elif isinstance(anchor, float):
+        if not anchor.is_integer():
+            raise ValueError("anchor must be an integer row offset or a timestamp string")
+        i = int(anchor)
+    else:
+        try:
+            ts = pd.Timestamp(anchor)
+            i = int(data.index.searchsorted(ts))
+        except Exception as exc:
+            raise ValueError(
+                f"anchor could not be parsed as a timestamp: {anchor!r}"
+            ) from exc
+    if i < 0:
+        return 0
+    return i
+
+
 class BacktestEngine:
     """Backtesting engine for trading strategies."""
 
@@ -800,18 +833,7 @@ class BacktestEngine:
 
         results = []
         total = len(data)
-        if anchor is None:
-            i = 0
-        elif isinstance(anchor, (int,)):
-            i = int(anchor)
-        else:
-            try:
-                ts = pd.Timestamp(anchor)
-                i = int(data.index.searchsorted(ts))
-            except Exception:
-                i = 0
-        if i < 0:
-            i = 0
+        i = _resolve_anchor_index(anchor, data)
         while i + train_period + test_period <= total:
             if mode == "expanding":
                 train_start = 0
@@ -1004,18 +1026,7 @@ class BacktestEngine:
 
         results = []
         total = len(data)
-        if anchor is None:
-            i = 0
-        elif isinstance(anchor, (int,)):
-            i = int(anchor)
-        else:
-            try:
-                ts = pd.Timestamp(anchor)
-                i = int(data.index.searchsorted(ts))
-            except Exception:
-                i = 0
-        if i < 0:
-            i = 0
+        i = _resolve_anchor_index(anchor, data)
         w = weights.copy() if hasattr(weights, "copy") else weights
         # Align
         if isinstance(w, pd.Series):
