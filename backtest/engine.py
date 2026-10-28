@@ -771,13 +771,33 @@ class BacktestEngine:
         factor_returns: pd.DataFrame | None = None,
         mode: str = "rolling",
         anchor: Any = None,
+        n_splits: int | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation.
 
         ``mode`` selects the window scheme: ``"rolling"`` (fixed-size train
         window sliding forward, default) or ``"expanding"`` (train window grows
         from ``train_period`` as the origin slides forward).
+
+        ``anchor`` optionally sets the origin index for the first window: an
+        integer row offset, a timestamp string/pandas Timestamp, or None for
+        the start of the data. ``n_splits`` optionally caps the number of
+        forward-test windows evaluated.
         """
+        if train_period < 1 or test_period < 1:
+            raise ValueError("train_period and test_period must be positive.")
+        if mode not in ("rolling", "expanding"):
+            raise ValueError(
+                f"Invalid mode: {mode!r}; allowed: ('rolling', 'expanding')"
+            )
+        if n_splits is not None:
+            try:
+                n_splits = int(n_splits)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"n_splits must be an integer > 0: {exc}") from exc
+            if n_splits <= 0:
+                raise ValueError(f"n_splits must be > 0, got {n_splits}")
+
         results = []
         total = len(data)
         if anchor is None:
@@ -866,6 +886,8 @@ class BacktestEngine:
             result["oos_total_return"] = result["total_return"]
             results.append(result)
             i += test_period
+            if n_splits is not None and len(results) >= n_splits:
+                break
 
         if not results:
             # If not enough data for walk-forward, run on all data
@@ -950,6 +972,7 @@ class BacktestEngine:
         factor_returns: pd.DataFrame | None = None,
         mode: str = "rolling",
         anchor: Any = None,
+        n_splits: int | None = None,
     ) -> dict[str, Any]:
         """Perform walk-forward validation using portfolio weights.
 
@@ -957,15 +980,42 @@ class BacktestEngine:
         are recomputed on each train window (optimizer should accept
         ``train_data`` and return a weights DataFrame/Series aligned to
         assets).
+
+        ``anchor`` optionally sets the origin index for the first window: an
+        integer row offset, a timestamp string/pandas Timestamp, or None for
+        the start of the data. ``n_splits`` optionally caps the number of
+        forward-test windows evaluated.
         """
         if train_period < 1 or test_period < 1:
             raise ValueError("train_period and test_period must be positive.")
         if reoptimize and optimizer is None:
             raise ValueError("optimizer is required when reoptimize=True.")
+        if mode not in ("rolling", "expanding"):
+            raise ValueError(
+                f"Invalid mode: {mode!r}; allowed: ('rolling', 'expanding')"
+            )
+        if n_splits is not None:
+            try:
+                n_splits = int(n_splits)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"n_splits must be an integer > 0: {exc}") from exc
+            if n_splits <= 0:
+                raise ValueError(f"n_splits must be > 0, got {n_splits}")
 
         results = []
         total = len(data)
-        i = 0
+        if anchor is None:
+            i = 0
+        elif isinstance(anchor, (int,)):
+            i = int(anchor)
+        else:
+            try:
+                ts = pd.Timestamp(anchor)
+                i = int(data.index.searchsorted(ts))
+            except Exception:
+                i = 0
+        if i < 0:
+            i = 0
         w = weights.copy() if hasattr(weights, "copy") else weights
         # Align
         if isinstance(w, pd.Series):
@@ -1038,6 +1088,8 @@ class BacktestEngine:
             result["oos_total_return"] = result["total_return"]
             results.append(result)
             i += test_period
+            if n_splits is not None and len(results) >= n_splits:
+                break
 
         if not results:
             result = self.run_portfolio(

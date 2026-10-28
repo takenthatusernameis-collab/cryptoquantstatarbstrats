@@ -169,6 +169,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Walk-forward test period.",
     )
     parser.add_argument(
+        "--anchor",
+        default=None,
+        help="Walk-forward anchor: integer row offset or timestamp (YYYY-MM-DD[ HH:MM]).",
+    )
+    parser.add_argument(
+        "--n-splits",
+        type=int,
+        default=None,
+        dest="n_splits",
+        help="Cap on the number of walk-forward test windows to evaluate.",
+    )
+    parser.add_argument(
         "--rebalance-frequency",
         "--rebalance_freq",
         default=None,
@@ -456,6 +468,8 @@ def _apply_config_from_dict(
         ("walk_forward", ("walk_forward",)),
         ("train_period", ("train_period", "trainPeriod")),
         ("test_period", ("test_period", "testPeriod")),
+        ("anchor", ("anchor",)),
+        ("n_splits", ("n_splits", "nSplits", "n_splits")),
         ("reoptimize", ("reoptimize", "reOptimize", "reoptimize_portfolio")),
         ("optimizer", ("optimizer", "opt", "optimization", "optimizer_name")),
     ]
@@ -1135,6 +1149,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 reoptimize=reopt,
                 optimizer=opt_fn,
+                mode=str(getattr(args, "mode", "rolling")),
+                anchor=getattr(args, "anchor", None),
+                n_splits=getattr(args, "n_splits", None),
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
@@ -1153,6 +1170,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 volume=volume_df,
                 high=high_df,
                 low=low_df,
+                mode=str(getattr(args, "mode", "rolling")),
+                anchor=getattr(args, "anchor", None),
+                n_splits=getattr(args, "n_splits", None),
                 regime_mode=regime_mode,
                 regime_lookback=regime_lookback,
                 regime_vol_mode=regime_vol_mode,
