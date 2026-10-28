@@ -6,7 +6,6 @@ import contextlib
 import io
 import json
 
-import numpy as np
 import pandas as pd
 
 from backtest.cli import main
@@ -16,6 +15,7 @@ from utils.reporting import (
     compare_walk_forward_reports,
     generate_walk_forward_comparison_html,
     generate_walk_forward_report,
+    walk_forward_report_to_dict,
 )
 
 
@@ -36,7 +36,9 @@ def _run_walk_forward():
 def test_compare_walk_forward_reports_aggregation():
     res = _run_walk_forward()
     wf_rep1 = generate_walk_forward_report(res)
-    wf_rep2 = generate_walk_forward_report(res, benchmarks=[{"name": "BM1", "mean_return": 0.02, "max_drawdown": 0.05}])
+    wf_rep2 = generate_walk_forward_report(
+        res, benchmarks=[{"name": "BM1", "mean_return": 0.02, "max_drawdown": 0.05}]
+    )
     comparison = compare_walk_forward_reports([wf_rep1, wf_rep2])
     assert isinstance(comparison, dict)
     assert "reports" in comparison
@@ -65,7 +67,9 @@ def test_compare_walk_forward_reports_missing_fields_backward_compat():
 
 def test_compare_walk_forward_reports_with_benchmarks_deltas():
     res = _run_walk_forward()
-    wf_rep = generate_walk_forward_report(res, benchmarks=[{"name": "BuyAndHold", "mean_return": 0.04, "max_drawdown": 0.10}])
+    wf_rep = generate_walk_forward_report(
+        res, benchmarks=[{"name": "BuyAndHold", "mean_return": 0.04, "max_drawdown": 0.10}]
+    )
     comparison = compare_walk_forward_reports([wf_rep])
     assert isinstance(comparison, dict)
     assert "benchmarks" in comparison
@@ -85,10 +89,20 @@ def test_walk_forward_cli_compare_integration(tmp_path):
     wf_rep2 = generate_walk_forward_report(res)
     p1 = tmp_path / "wf1.json"
     p2 = tmp_path / "wf2.json"
-    p1.write_text(json.dumps(wf_rep1, default=float))
-    p2.write_text(json.dumps(wf_rep2, default=float))
+    p1.write_text(json.dumps(walk_forward_report_to_dict(wf_rep1), default=float))
+    p2.write_text(json.dumps(walk_forward_report_to_dict(wf_rep2), default=float))
     out_path = tmp_path / "compare.html"
-    out = _run_cli(["--wf-compare", "--report-path", str(p1), "--report-path", str(p2), "--output-path", str(out_path)])
+    _run_cli(
+        [
+            "--wf-compare",
+            "--report-path",
+            str(p1),
+            "--report-path",
+            str(p2),
+            "--output-path",
+            str(out_path),
+        ]
+    )
     assert out_path.exists()
     content = out_path.read_text()
     assert "html" in content.lower() or "<table" in content

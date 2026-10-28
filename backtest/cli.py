@@ -335,13 +335,6 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Path to a walk-forward JSON report (can be specified multiple times).",
     )
-    parser.add_argument(
-        "--report",
-        dest="compare_report",
-        action="append",
-        default=None,
-        help=argparse.SUPPRESS,
-    )
     return parser
 
 
@@ -479,7 +472,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     # Handle walk-forward comparison mode
     if getattr(args, "wf_compare", False):
-        report_paths = getattr(args, "report_paths", None) or getattr(args, "compare_report", None) or []
+        report_paths = (
+            getattr(args, "report_paths", None)
+            or getattr(args, "compare_report", None)
+            or []
+        )
         if isinstance(report_paths, str):
             report_paths = [report_paths]
         if not report_paths:
@@ -491,11 +488,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                     reports.append(json.load(f))
             except Exception as exc:
                 raise ValueError(f"Failed to load report {rp}: {exc}")
-        from utils.reporting import compare_walk_forward_reports, generate_walk_forward_comparison_html
+        from utils.reporting import (  # noqa: I001
+            compare_walk_forward_reports,
+            generate_walk_forward_comparison_html,
+        )
 
         comparison = compare_walk_forward_reports(reports)
         output_path = getattr(args, "output_path", None)
-        html = generate_walk_forward_comparison_html(comparison, title=getattr(args, "title") or "Walk-Forward Comparison Dashboard")
+        title = getattr(args, "title") or "Walk-Forward Comparison Dashboard"
+        html = generate_walk_forward_comparison_html(comparison, title=title)
         if output_path is not None:
             Path(output_path).write_text(html)
         else:

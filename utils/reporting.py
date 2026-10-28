@@ -2519,10 +2519,18 @@ def compare_walk_forward_reports(reports: list[dict]) -> dict:
 
         max_drawdown = None
         try:
-            if isinstance(summary, pd.DataFrame) and len(summary) > 0 and "max_drawdown" in summary.columns:
+            if (
+                isinstance(summary, pd.DataFrame)
+                and len(summary) > 0
+                and "max_drawdown" in summary.columns
+            ):
                 max_drawdown = float(summary["max_drawdown"].mean())
             elif isinstance(summary, list) and summary:
-                dds = [_safe_float(r.get("max_drawdown", 0.0)) for r in summary if isinstance(r, dict)]
+                dds = [
+                    _safe_float(r.get("max_drawdown", 0.0))
+                    for r in summary
+                    if isinstance(r, dict)
+                ]
                 if dds:
                     max_drawdown = float(sum(dds) / len(dds))
         except Exception:
@@ -2530,10 +2538,18 @@ def compare_walk_forward_reports(reports: list[dict]) -> dict:
 
         sharpe_ratio = None
         try:
-            if isinstance(summary, pd.DataFrame) and len(summary) > 0 and "sharpe_ratio" in summary.columns:
+            if (
+                isinstance(summary, pd.DataFrame)
+                and len(summary) > 0
+                and "sharpe_ratio" in summary.columns
+            ):
                 sharpe_ratio = float(summary["sharpe_ratio"].mean())
             elif isinstance(summary, list) and summary:
-                srs = [_safe_float(r.get("sharpe_ratio", 0.0)) for r in summary if isinstance(r, dict)]
+                srs = [
+                    _safe_float(r.get("sharpe_ratio", 0.0))
+                    for r in summary
+                    if isinstance(r, dict)
+                ]
                 if srs:
                     sharpe_ratio = float(sum(srs) / len(srs))
         except Exception:
@@ -2584,7 +2600,9 @@ def compare_walk_forward_reports(reports: list[dict]) -> dict:
     return comparison
 
 
-def generate_walk_forward_comparison_html(comparison: dict, title: str = "Walk-Forward Comparison Dashboard") -> str:
+def generate_walk_forward_comparison_html(
+    comparison: dict, title: str = "Walk-Forward Comparison Dashboard"
+) -> str:
     """Generate HTML for walk-forward comparison dashboard."""
     comparison = comparison or {}
     reports = comparison.get("reports") or []
@@ -2622,7 +2640,8 @@ def generate_walk_forward_comparison_html(comparison: dict, title: str = "Walk-F
         html.append("<table>")
         html.append(
             "<tr><th>Report</th><th>Windows</th><th>OOS Mean Return</th>"
-            "<th>Mean Return</th><th>Sharpe Ratio</th><th>Max Drawdown</th><th>OOS/IS Ratio</th></tr>"
+            "<th>Mean Return</th><th>Sharpe Ratio</th>"
+            "<th>Max Drawdown</th><th>OOS/IS Ratio</th></tr>"
         )
         for r in reports:
             html.append(
