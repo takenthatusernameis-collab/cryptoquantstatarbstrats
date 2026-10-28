@@ -154,6 +154,10 @@ CONFIG_SCHEMA: dict[str, tuple] = {
     "trainPeriod": ("range", 1, float("inf")),
     "test_period": ("range", 1, float("inf")),
     "testPeriod": ("range", 1, float("inf")),
+    "anchor": ("type", (int, str, float)),
+    "n_splits": ("range", 1, float("inf")),
+    "nSplits": ("range", 1, float("inf")),
+    "mode": ("choice", {"rolling", "expanding"}),
     "reoptimize": ("type", bool),
     "reOptimize": ("type", bool),
     "reoptimize_portfolio": ("type", bool),
@@ -195,6 +199,12 @@ def validate_config(config: dict[str, Any]) -> dict[str, Any]:
         kind = spec[0]
         if kind == "type":
             expected = spec[1]
+            if key == "anchor" and isinstance(value, bool):
+                errors.append(
+                    f"Config field '{key}' must be an integer, float, or string, "
+                    f"got {type(value).__name__}"
+                )
+                continue
             if not isinstance(value, expected):
                 errors.append(
                     f"Config field '{key}' must be {getattr(expected, '__name__', expected)}, "

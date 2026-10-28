@@ -112,4 +112,15 @@ rows = run_parameter_sweep(
 )
 ```
 
-See `examples/sweep_api.py` for a runnable example. Sweep results are in-sample/optimization output (not evidence of alpha). Use chronological out-of-sample validation with realistic costs.
+Walk-forward options for `cryptoquant sweep`:
+
+- `--anchor`: origin index for the first walk-forward window (integer row offset,
+  timestamp string `YYYY-MM-DD[ HH:MM]`, or `None` for the start of the data).
+  Negative offsets are clamped to 0.
+- `--n-splits`: number of walk-forward splits (rolling/expanding).
+- `--mode`: `rolling` (default) or `expanding` training window.
+- `--train-period` / `--test-period`: sizes of train/test windows.
+
+These options are also available in a config file passed via `--config`
+(`anchor`, `n_splits`/`nSplits`, `mode`, `train_period`/`trainPeriod`,
+`test_period`/`testPeriod`).

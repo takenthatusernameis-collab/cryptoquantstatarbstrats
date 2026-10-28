@@ -470,6 +470,7 @@ def _apply_config_from_dict(
         ("test_period", ("test_period", "testPeriod")),
         ("anchor", ("anchor",)),
         ("n_splits", ("n_splits", "nSplits", "n_splits")),
+        ("mode", ("mode",)),
         ("reoptimize", ("reoptimize", "reOptimize", "reoptimize_portfolio")),
         ("optimizer", ("optimizer", "opt", "optimization", "optimizer_name")),
     ]

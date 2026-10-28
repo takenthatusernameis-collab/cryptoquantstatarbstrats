@@ -167,10 +167,24 @@ def test_cli_rejects_unknown_config_key(tmp_path):
         main(["--config", str(cfg_path)])
 
 
-def test_cli_rejects_bad_range_in_config(tmp_path):
-    from backtest.cli import main
+def test_apply_config_from_dict_walk_forward():
+    import argparse
 
+    from backtest.cli import _apply_config_from_dict
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--anchor", default=None)
+    parser.add_argument("--n-splits", type=int, default=None, dest="n_splits")
+    parser.add_argument("--mode", choices=["rolling", "expanding"], default="rolling")
+    args = parser.parse_args([])
+    cfg = {"anchor": 40, "n_splits": 3, "mode": "expanding"}
+    out = _apply_config_from_dict(args, parser, cfg)
+    assert out.anchor == 40
+    assert out.n_splits == 3
+    assert out.mode == "expanding"
+def test_cli_rejects_bad_range_in_config(tmp_path):
     cfg_path = tmp_path / "range.yaml"
     cfg_path.write_text("fee_rate: 5.0\n")
+    from backtest.cli import main
     with pytest.raises(SystemExit):
         main(["--config", str(cfg_path)])
