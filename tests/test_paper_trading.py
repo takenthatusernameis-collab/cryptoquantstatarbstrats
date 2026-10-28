@@ -6,9 +6,6 @@ import contextlib
 import io
 import json
 
-import numpy as np
-import pandas as pd
-
 from backtest.cli import main
 from backtest.execution import ExecutionSimulator
 
@@ -81,7 +78,7 @@ def test_paper_trading_missing_data_backward_compat():
 
 def test_paper_trade_cli_integration_synthetic(tmp_path):
     out = tmp_path / "paper.json"
-    content = _run_cli(
+    _run_cli(
         [
             "paper-trade",
             "--symbols",
