@@ -160,20 +160,28 @@ Make `--reoptimize`/`--optimizer` effective with `--walk-forward` without requir
 - Tests in `tests/test_walk_forward_reoptimize.py`: `test_cli_walk_forward_reoptimize_without_rebalance_frequency`, `test_cli_walk_forward_reoptimize_optimizer_applied_differs`, `test_cli_config_drives_reoptimize_without_rebalance_frequency`.
 - Verified: 281 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
 
+### Latest task (completed)
+Add attribution support to walk-forward reports:
+- `backtest/engine.py`: `walk_forward`/`walk_forward_portfolio` pass `benchmark_weights`/`factor_returns` through `run_portfolio` to `_evaluate_weights`, which computes per-window `result["brinson"]` and `result["factor"]`.
+- `utils/reporting.py`: `generate_walk_forward_report` aggregates Brinson/factor attribution across windows into `report["brinson"]`/`report["factor"]`; `walk_forward_report_to_dict` serializes it; text/HTML/PDF walk-forward generators render attribution sections.
+- `backtest/cli.py`: walk-forward paths flow attribution inputs and route results through walk-forward report generators; attribution renders for `--report attribution`/`full`/`risk`.
+- Tests in `tests/test_walk_forward_attribution.py` (11 tests) cover aggregation, text/HTML/PDF rendering, CLI integration, and backward compatibility.
+- Verified: 315 tests pass (1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean.
+
 ## Next task for the next agent
 
-### Add Brinson attribution to the CLI/report layer
+### Add in-sample vs out-of-sample performance comparison to walk-forward reports
 
-The framework already supports Brinson attribution and factor attribution via `utils/attribution.py` (passed into the engine in `backtest/cli.py` as `benchmark_weights_df` / `factor_returns_df`), but the CLI currently only passes these DataFrames into the engine and never renders an attribution report. Make attribution a first-class report output.
+The framework runs walk-forward validation across train/test windows and reports per-window out-of-sample performance, but there is no in-sample (train-window) baseline for comparison. Users cannot tell whether out-of-sample performance has decayed relative to in-sample fit (a sign of overfitting). Add an IS/OOS comparison to walk-forward reporting.
 
 ### Objective
-Surface Brinson (and factor) attribution results from a backtest run through the CLI and the report generators (`utils/reporting.py`), so a user can run `cryptoquant ... --benchmark-weights-csv weights.csv --report attribution` (or `--report full` with attribution included) and get an attribution breakdown in the text/JSON/HTML/PDF output.
+Surface in-sample vs out-of-sample performance per walk-forward window and in aggregate, rendered in walk-forward text/HTML/PDF reports.
 
 ### Requirements
-1. `utils/reporting.py`: add `generate_attribution_report(...)` (text) and `attribution_report_to_dict(...)` (JSON-serializable) that consume the attribution result dict already produced by the engine (keys like `brinson_attribution`, `factor_attribution` if present) and render a readable breakdown.
-2. `backtest/cli.py`: when `--report attribution` is set and benchmark-weights / factor-returns CSVs are provided, render the attribution report. Keep `--report full`/`--report risk` behavior unchanged when attribution inputs are absent.
-3. `backtest/config.py`: add `report` choice `"attribution"` (and alias) to `CONFIG_SCHEMA`/`validate_config` if not already present.
-4. Add tests in `tests/test_attribution_reporting.py` covering: text report renders allocation/interaction/select effect rows; JSON dict is serializable and contains expected keys; HTML/PDF paths include attribution when inputs present; backward compatibility when no attribution inputs provided.
+1. `backtest/engine.py`: In `walk_forward` and `walk_forward_portfolio`, for each window also evaluate in-sample performance on the train window and attach `is_total_return`, `is_sharpe_ratio`, `is_max_drawdown` to the per-window result dict (with `oos_total_return` mirroring `total_return`). Aggregate `is_mean_return`, `oos_mean_return`, `oos_is_ratio` (mean OOS return / mean IS return) into the walk-forward result dict.
+2. `utils/reporting.py`: Extend `generate_walk_forward_report` to include IS/OOS columns in the summary DataFrame and an `is_vs_oos` aggregate; extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render an "In-Sample vs Out-of-Sample" section when IS data is present.
+3. `backtest/cli.py`: Ensure walk-forward runs surface IS/OOS comparison through the report generators (benchmark/factor inputs already flow).
+4. Add tests in `tests/test_walk_forward_is_oos.py`: IS/OOS columns present per window, aggregate ratios computed, text/HTML/PDF rendering, backward compatibility when IS data absent.
 5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 
