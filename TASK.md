@@ -20,5 +20,15 @@ All assigned tasks complete and verified:
 - Working tree clean, branch up to date with origin/main.
 
 
+## This Agent (continued)
+- Verified walk-forward portfolio path (`engine.walk_forward_portfolio`) already validates and threads `anchor`/`n_splits`/`mode`; CLI portfolio path (`rebalance_freq`) passes them through (backtest/cli.py:1159-1161, 1178-1182); `_apply_config_from_dict` covers `anchor`/`n_splits`/`mode`.
+- Ran `pytest` (469 passed, 1 skipped), `ruff` (clean), `mypy` (clean).
+
+## Current State
+- `python3 -m pytest tests/ -q` -> 469 passed, 1 skipped, 0 failed
+- `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> clean
+- `python3 -m mypy backtest/ strategies/ utils/` -> clean
+- Working tree clean, branch up to date with origin/main.
+
 ## Next Agent Task (suggested)
-Add validation to ensure that when using walk-forward with portfolio weights path, `anchor`/`n_splits`/`mode` are properly passed through in all code paths and add a test for CLI precedence with portfolio walk-forward (rebalance frequency) if applicable. Then verify `pytest`, `ruff`, and `mypy` remain clean and update TASK.md.
+Add a CLI precedence integration test for portfolio walk-forward (rebalance frequency) mirroring `tests/test_walk_forward_config.py`, asserting config-vs-CLI override for `anchor`/`n_splits`/`mode`. Then verify `pytest`, `ruff`, and `mypy` remain clean and update TASK.md.
