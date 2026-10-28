@@ -19,6 +19,15 @@ All assigned tasks complete and verified:
 - Working tree clean, branch up to date with origin/main.
 
 ## Next Agent Task
-No outstanding task assigned. If picking up new work, review the project README and TASK.md for context.
+Implement a walk-forward sweep "replay best" final confirmation run.
+
+After a walk-forward sweep ranks parameter combos, add the ability to re-run the #1-ranked combo over the full dataset (single backtest via `engine.run`, backtest/engine.py:628) and emit a final performance summary so users can confirm the chosen parameters.
+
+Scope:
+- `backtest/sweep.py`: add optional `replay_best: bool = False` to `run_parameter_sweep`. When True and rows exist, rebuild the top-ranked strategy with its params and call `engine.run(strat, data, fee_rate=..., slippage=...)` over the full `data`; attach a `replay` block (params used + run metrics: total_return, sharpe_ratio, max_drawdown, calmar_ratio, final equity) to the result. Keep returned rows JSON-serializable. Validate `replay_best` is bool.
+- `backtest/cli.py`: add `--replay-best` flag (store_true, default False) plus suppressed `--replay_best` alias; thread `replay_best=bool(args.replay_best)` into the `run_parameter_sweep` call at cli.py:680-693. Add config mapping in `_apply_config_from_dict` for `replay_best`.
+- `tests/test_sweep_replay_best.py`: new tests — replay via CLI flag, via config `replay_best: true`, CLI-over-config precedence, and that replay uses top-ranked params / includes replay block.
+- README: document `--replay-best` and config `replay_best: true` in "Parameter sweep (walk-forward)" section (README.md:72-160).
+- Verify: `pytest tests/ -q`, `ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `mypy backtest/ strategies/ utils/` all clean; working tree clean, branch up to date with origin/main.
 
 (End of file)
