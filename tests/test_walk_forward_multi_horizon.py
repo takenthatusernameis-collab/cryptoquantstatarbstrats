@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import contextlib
 import io
-import json
 
 import numpy as np
 import pandas as pd
@@ -54,8 +53,12 @@ def test_expanding_vs_rolling_run_correctly():
     data = _make_data()
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
-    res_roll = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="rolling")
-    res_exp = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="expanding")
+    res_roll = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="rolling"
+    )
+    res_exp = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="expanding"
+    )
     assert isinstance(res_roll, dict)
     assert isinstance(res_exp, dict)
     assert "results" in res_roll
@@ -66,9 +69,15 @@ def test_multi_horizon_return_correct_shape():
     data = _make_data()
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
-    res_roll = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="rolling")
-    res_exp = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="expanding")
-    wf_rep = generate_walk_forward_report(res_roll, multi_horizon={"rolling": res_roll, "expanding": res_exp})
+    res_roll = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="rolling"
+    )
+    res_exp = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="expanding"
+    )
+    wf_rep = generate_walk_forward_report(
+        res_roll, multi_horizon={"rolling": res_roll, "expanding": res_exp}
+    )
     assert "multi_horizon" in wf_rep
     mh = wf_rep["multi_horizon"]
     assert isinstance(mh, list)
@@ -85,9 +94,15 @@ def test_multi_horizon_text_html_pdf_rendering(tmp_path):
     data = _make_data()
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
-    res_roll = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="rolling")
-    res_exp = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="expanding")
-    wf_rep = generate_walk_forward_report(res_roll, multi_horizon={"rolling": res_roll, "expanding": res_exp})
+    res_roll = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="rolling"
+    )
+    res_exp = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="expanding"
+    )
+    wf_rep = generate_walk_forward_report(
+        res_roll, multi_horizon={"rolling": res_roll, "expanding": res_exp}
+    )
     text = generate_walk_forward_text_report(wf_rep)
     assert "Multi-Horizon Walk-Forward" in text
     html = generate_walk_forward_html_report(wf_rep)
@@ -117,8 +132,12 @@ def test_multi_horizon_via_wf_result_key():
     data = _make_data()
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
-    res_roll = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="rolling")
-    res_exp = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10, mode="expanding")
+    res_roll = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="rolling"
+    )
+    res_exp = engine.walk_forward_portfolio(
+        w, data, train_period=40, test_period=10, mode="expanding"
+    )
     res_roll["multi_horizon"] = {"rolling": res_roll, "expanding": res_exp}
     wf_rep = generate_walk_forward_report(res_roll)
     assert "multi_horizon" in wf_rep

@@ -1072,7 +1072,9 @@ def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> 
             pass
 
     # Multi-horizon walk-forward results (expanding vs rolling windows).
-    multi_horizon_data = multi_horizon if multi_horizon is not None else wf_result.get("multi_horizon")
+    multi_horizon_data = (
+        multi_horizon if multi_horizon is not None else wf_result.get("multi_horizon")
+    )
     if isinstance(multi_horizon_data, dict) and multi_horizon_data:
         try:
             # If values are wf_result dicts, compute aggregates
@@ -1087,7 +1089,9 @@ def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> 
                     if "oos_mean_return" in mh_res:
                         agg["oos_mean_return"] = mh_res["oos_mean_return"]
                     elif "mean_return" in mh_res:
-                        agg["oos_mean_return"] = mh_res.get("oos_mean_return", mh_res["mean_return"])
+                        agg["oos_mean_return"] = mh_res.get(
+                            "oos_mean_return", mh_res["mean_return"]
+                        )
                     # compute from results if needed
                     results_mh = mh_res.get("results") or []
                     if "oos_mean_return" not in agg and results_mh:
@@ -1118,11 +1122,19 @@ def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> 
                     if "oos_is_ratio" in mh_res:
                         agg["oos_is_ratio"] = mh_res["oos_is_ratio"]
                     else:
-                        is_m = agg.get("mean_return") if "is_mean_return" in mh_res or "is_mean_return" in agg else mh_res.get("is_mean_return")
+                        is_m = (
+                            agg.get("mean_return")
+                            if "is_mean_return" in mh_res or "is_mean_return" in agg
+                            else mh_res.get("is_mean_return")
+                        )
                         # look for is_mean_return
                         if is_m is None and results_mh:
                             try:
-                                is_list = [float((r or {}).get("is_total_return", 0.0)) for r in results_mh if "is_total_return" in (r or {})]
+                                is_list = [
+                                    float((r or {}).get("is_total_return", 0.0))
+                                    for r in results_mh
+                                    if "is_total_return" in (r or {})
+                                ]
                                 if is_list:
                                     import numpy as _np2
 
@@ -1140,13 +1152,20 @@ def generate_walk_forward_report(wf_result: dict, multi_horizon: Any = None) -> 
                             try:
                                 import numpy as _np2
 
-                                dds = [float((r or {}).get("max_drawdown", 0.0)) for r in results_mh]
+                                dds = [
+                                    float((r or {}).get("max_drawdown", 0.0))
+                                    for r in results_mh
+                                ]
                                 if dds:
                                     agg["max_drawdown"] = float(_np2.mean(dds))
                             except Exception:
                                 pass
                     # copy if they came from aggregate keys
-                    if "is_mean_return" in mh_res and "oos_mean_return" not in agg and "is_vs_oos" not in agg:
+                    if (
+                        "is_mean_return" in mh_res
+                        and "oos_mean_return" not in agg
+                        and "is_vs_oos" not in agg
+                    ):
                         pass
                     processed.append(agg)
                 else:
@@ -1635,32 +1654,28 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
         if isinstance(multi_horizon, dict):
             html.append("<table>")
             html.append("<tr><th>Parameter</th><th>Value</th></tr>")
-            try:
-                import html as _html_mod
+            import html as _html_mod
 
-                _html = _html_mod
-            except Exception:
-                _html = html
             for key, val in multi_horizon.items():
                 html.append(
-                    f"<tr><td>{_html.escape(str(key))}</td><td>{_html.escape(str(val))}</td></tr>"
+                    f"<tr><td>{_html_mod.escape(str(key))}</td><td>{_html_mod.escape(str(val))}</td></tr>"
                 )
             html.append("</table>")
         elif isinstance(multi_horizon, list):
             html.append("<table>")
-            html.append("<tr><th>Mode</th><th>Mean Return</th><th>OOS Mean Return</th><th>OOS/IS Ratio</th><th>Max Drawdown</th></tr>")
-            try:
-                import html as _html_mod
+            html.append(
+                "<tr><th>Mode</th><th>Mean Return</th>"
+                "<th>OOS Mean Return</th><th>OOS/IS Ratio</th>"
+                "<th>Max Drawdown</th></tr>"
+            )
+            import html as _html_mod
 
-                _html = _html_mod
-            except Exception:
-                _html = html
             for row in multi_horizon:
                 if not isinstance(row, dict):
                     continue
                 html.append(
                     "<tr>"
-                    f"<td>{_html.escape(str(row.get('mode', '')))}</td>"
+                    f"<td>{_html_mod.escape(str(row.get('mode', '')))}</td>"
                     f"<td>{_fmt_pct(row.get('mean_return', 0.0))}</td>"
                     f"<td>{_fmt_pct(row.get('oos_mean_return', 0.0))}</td>"
                     f"<td>{_fmt_num(row.get('oos_is_ratio', 0.0))}</td>"
@@ -1904,7 +1919,9 @@ def generate_walk_forward_pdf_report(
                             bbox=cast(Any, (0.1, 0.25, 0.8, 0.5)),
                         )
                     elif isinstance(multi_horizon, list):
-                        rows_mh = [["Mode", "Mean Return", "OOS Mean Return", "OOS/IS Ratio", "Max Drawdown"]]
+                        rows_mh = [
+                            ["Mode", "Mean Return", "OOS Mean Return", "OOS/IS Ratio", "Max Drawdown"]
+                        ]
                         for row in multi_horizon:
                             if not isinstance(row, dict):
                                 continue
@@ -1923,7 +1940,7 @@ def generate_walk_forward_pdf_report(
                             bbox=cast(Any, (0.05, 0.35, 0.9, 0.45)),
                         )
                     else:
-                        table = None
+                        table = cast(Any, None)
                     if "table" in locals() and table is not None:
                         table.auto_set_font_size(False)
                         table.set_fontsize(9)
