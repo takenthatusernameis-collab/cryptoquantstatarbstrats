@@ -13,14 +13,15 @@ All requirements from the previous task (add in-sample vs out-of-sample performa
 - Objective complete: bootstrap confidence intervals surfaced across walk-forward text/HTML/PDF reports and JSON serialization.
 
 ## Objective
-COMPLETED — Add Monte Carlo / bootstrap confidence intervals to walk-forward reports.
+COMPLETED — Add cost-model sensitivity sweeps to walk-forward reports.
 
 ## Background
-Good next steps: multi-horizon walk-forward (expanding vs rolling windows), cost-model sensitivity sweeps, live/paper trading integration, or strategy benchmark registry.
+Good next steps: multi-horizon walk-forward (expanding vs rolling windows), live/paper trading integration, or strategy benchmark registry.
 
 ## Tasks
 - [x] Task 1: Add in-sample vs out-of-sample performance comparison to walk-forward reports.
 - [x] Task 2: Add Monte Carlo / bootstrap confidence intervals to walk-forward reports.
+- [x] Task 3: Add cost-model sensitivity sweeps to walk-forward reports.
 
 ## Constraints
 - Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions).
@@ -39,23 +40,22 @@ python3 -m mypy backtest/ strategies/ utils/
 - [x] All previous tasks complete and verified.
 - [x] IS/OOS walk-forward comparison complete and verified.
 - [x] Bootstrap confidence intervals complete and verified.
+- [x] Cost-model sensitivity sweeps complete and verified.
 
 ## Next task for the next agent
 
-### Add cost-model sensitivity sweeps to walk-forward reports
+### Add multi-horizon walk-forward (expanding vs rolling windows) to walk-forward reports
 
-Walk-forward reports currently use a single fee/slippage assumption. Users cannot tell how sensitive an observed OOS mean return or OOS/IS ratio is to transaction-cost assumptions, which is critical for stat-arb strategies where costs can erase alpha.
-
-Run walk-forward across a grid of cost assumptions and surface the sensitivity in reports.
+Walk-forward currently uses a single fixed train/test window scheme (rolling walk-forward with `train_period`/`test_period`). Users cannot compare how results differ between expanding windows (growing train set, fixed or growing test set) and rolling windows (fixed-size train set sliding forward), which matters for assessing the stability of stat-arb alpha across different amounts of training data.
 
 ### Objective
-Add a cost-model sensitivity sweep to walk-forward reporting: for a grid of (fee_rate, slippage) pairs, run walk-forward and report how `mean_return`, `oos_mean_return`, `oos_is_ratio`, and `max_drawdown` vary, rendered in walk-forward text/HTML/PDF reports.
+Add multi-horizon walk-forward support so reports can contrast expanding vs rolling window schemes, exposing per-scheme aggregates (`mean_return`, `oos_mean_return`, `oos_is_ratio`, `max_drawdown`) rendered in walk-forward text/HTML/PDF reports.
 
 ### Requirements
-1. `backtest/engine.py` or `utils/reporting.py`: Add a helper `sweep_cost_sensitivity(engine_or_fn, cost_grid, ...)` that runs walk-forward for each (fee_rate, slippage) pair in the grid and returns per-config aggregates (`mean_return`, `oos_mean_return`, `oos_is_ratio`, `max_drawdown`, plus the config used).
-2. `utils/reporting.py`: `generate_walk_forward_report` attaches the sweep results under a `cost_sensitivity` key when a sweep is requested/present.
-3. `utils/reporting.py`: Extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render a "Cost-Model Sensitivity" section when sweep data is present.
-4. Add tests in `tests/test_walk_forward_cost_sensitivity.py`: sweep runs across the grid, returns correct shape, identifies best/worst cost configs, text/HTML/PDF rendering, backward compat when absent.
+1. `backtest/engine.py`: Add an option (e.g. `mode="rolling"`/`mode="expanding"`) to `walk_forward`/`walk_forward_portfolio` supporting expanding windows where the train window grows from a minimum size rather than staying fixed.
+2. `utils/reporting.py`: Extend `generate_walk_forward_report` to accept/attach multi-horizon results under a `multi_horizon` key when requested.
+3. `utils/reporting.py`: Extend `generate_walk_forward_text_report`, `generate_walk_forward_html_report`, and `generate_walk_forward_pdf_report` to render a "Multi-Horizon Walk-Forward" section when multi-horizon data is present.
+4. Add tests in `tests/test_walk_forward_multi_horizon.py`: expanding vs rolling run correctly, return correct shape, text/HTML/PDF rendering, backward compat when absent.
 5. Keep public API backward compatible; all existing tests must still pass; ruff and mypy clean.
 6. Follow existing code style (4-space indent, `from __future__ import annotations`, type hints on public functions); no `# type: ignore` for real bugs.
 

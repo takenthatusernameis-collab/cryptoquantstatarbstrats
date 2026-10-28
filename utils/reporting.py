@@ -1276,7 +1276,14 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
             "  "
             + "  ".join(
                 f"{c:>12}"
-                for c in ["fee_rate", "slippage", "mean_return", "oos_mean_return", "oos_is_ratio", "max_drawdown"]
+                for c in [
+                    "fee_rate",
+                    "slippage",
+                    "mean_return",
+                    "oos_mean_return",
+                    "oos_is_ratio",
+                    "max_drawdown",
+                ]
             )
         )
         lines.append(header)
@@ -1667,7 +1674,16 @@ def generate_walk_forward_pdf_report(
                     fig, ax = plt.subplots(figsize=(11, 4.5))
                     ax.axis("off")
                     ax.set_title("Cost-Model Sensitivity", fontsize=12, pad=20)
-                    rows_cs = [["Fee Rate", "Slippage", "Mean Return", "OOS Mean Return", "OOS/IS Ratio", "Max Drawdown"]]
+                    rows_cs = [
+                        [
+                            "Fee Rate",
+                            "Slippage",
+                            "Mean Return",
+                            "OOS Mean Return",
+                            "OOS/IS Ratio",
+                            "Max Drawdown",
+                        ]
+                    ]
                     for row in cost_sensitivity:
                         rows_cs.append([
                             _fmt_pct(row.get("fee_rate", 0.0)),
