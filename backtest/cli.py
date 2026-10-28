@@ -606,6 +606,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         fills = []
         realized_pnl = 0.0
         order_counter = 0
+        equity_curve: list[dict[str, Any]] = []
         for ts in data.index:
             for sym in data.columns:
                 try:
@@ -643,11 +644,18 @@ def main(argv: Sequence[str] | None = None) -> int:
                     }
                 )
                 realized_pnl += -fee
+            equity_curve.append(
+                {
+                    "timestamp": str(ts),
+                    "equity": sim.get_portfolio_value(float(args.initial_capital)),
+                }
+            )
         summary: dict[str, Any] = {
             "fills": fills,
             "realized_pnl": realized_pnl,
             "num_fills": len(fills),
             "initial_capital": float(args.initial_capital),
+            "equity_curve": equity_curve,
             "positions": {
                 k: {
                     "quantity": v.quantity,
@@ -680,6 +688,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "total_alerts": len(mon_alerts),
                 "drawdown": monitor.get_drawdown(),
                 "equity": summary["portfolio_value"],
+                "equity_history": monitor.equity_history,
             }
         import json as _json
 
