@@ -502,6 +502,50 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     _argv = list(argv) if argv is not None else list(sys.argv[1:])
+    if _argv and _argv[0] == "paper-report":
+        sub = _argv[1:]
+        p = argparse.ArgumentParser(prog="cryptoquant paper-report")
+        p.add_argument("--artifact-dir", required=False)
+        p.add_argument("--input", required=False)
+        p.add_argument("--prefix", default="paper_trading")
+        p.add_argument("--output-path", default=None)
+        p.add_argument("--format", choices=["json", "text", "html"], default="text")
+        args = p.parse_args(sub)
+        from backtest.paper_report import (
+            generate_paper_trading_report_html,
+            generate_paper_trading_report_text,
+            load_paper_trading_artifacts,
+            paper_report_to_dict,
+        )
+
+        report = None
+        if args.artifact_dir:
+            report = load_paper_trading_artifacts(args.artifact_dir, prefix=args.prefix)
+        elif args.input:
+            try:
+                with open(args.input, "r", encoding="utf-8") as f:
+                    import json as _json
+
+                    report = _json.load(f)
+            except Exception:
+                report = {}
+        else:
+            report = {}
+        if report is None:
+            report = {}
+        if args.format == "json":
+            content = __import__("json").dumps(paper_report_to_dict(report), indent=2, default=float)
+        elif args.format == "html":
+            content = generate_paper_trading_report_html(report)
+        else:
+            content = generate_paper_trading_report_text(report)
+        if args.output_path:
+            Path(args.output_path).write_text(content)
+        else:
+            print(content)
+        return 0
+
+    _argv = list(argv) if argv is not None else list(sys.argv[1:])
     if _argv and _argv[0] == "paper-trade":
         sub = _argv[1:]
         p = argparse.ArgumentParser(prog="cryptoquant paper-trade")
@@ -517,6 +561,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--fee-rate", type=float, default=0.0)
         p.add_argument("--slippage", type=float, default=0.0)
         p.add_argument("--output-path", default=None)
+        p.add_argument("--artifact-dir", default=None)
         p.add_argument(
             "--monitor",
             action="store_true",
@@ -636,11 +681,59 @@ def main(argv: Sequence[str] | None = None) -> int:
             }
         import json as _json
 
+        # Build paper trading report
+        try:
+            from backtest.paper_report import build_paper_trading_report, save_paper_trading_artifacts
+
+            equity_curve = summary.get("equity_curve") or []
+            paper_report = build_paper_trading_report(
+                session_summary=summary,
+                fills=summary.get("fills"),
+                equity_curve=equity_curve,
+                positions=summary.get("positions"),
+                monitoring=summary.get("monitoring"),
+                metadata={
+                    "initial_capital": float(args.initial_capital),
+                    "symbols": getattr(args, "symbols", None),
+                    "strategy": getattr(args, "strategy", None),
+                },
+            )
+            summary["paper_report"] = paper_report
+        except Exception:
+            pass
+
         content = _json.dumps(summary, indent=2, default=float)
         if args.output_path:
             Path(args.output_path).write_text(content)
         else:
             print(content)
+        # Persist artifacts if requested
+        if getattr(args, "artifact_dir", None) or getattr(args, "output_path", None) or getattr(args, "monitor", False):
+            try:
+                from backtest.paper_report import build_paper_trading_report, save_paper_trading_artifacts
+
+                equity_curve = summary.get("equity_curve") or []
+                paper_report = summary.get("paper_report") or build_paper_trading_report(
+                    session_summary=summary,
+                    fills=summary.get("fills"),
+                    equity_curve=equity_curve,
+                    positions=summary.get("positions"),
+                    monitoring=summary.get("monitoring"),
+                    metadata={
+                        "initial_capital": float(args.initial_capital),
+                        "symbols": getattr(args, "symbols", None),
+                        "strategy": getattr(args, "strategy", None),
+                    },
+                )
+                artifact_dir = args.artifact_dir
+                if not artifact_dir and args.output_path:
+                    # Save alongside output
+                    out_path = Path(args.output_path)
+                    artifact_dir = str(out_path.parent)
+                if artifact_dir:
+                    save_paper_trading_artifacts(paper_report, artifact_dir)
+            except Exception:
+                pass
         return 0
 
     parser = build_parser()
