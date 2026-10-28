@@ -2706,14 +2706,27 @@ def aggregate_benchmark_registry(benchmarks: Any) -> dict[str, Any]:
         tr = _safe_float(b.get("total_return", 0.0))
         sr = _safe_float(b.get("sharpe_ratio", 0.0))
         name = str(b.get("name") or b.get("benchmark") or "")
-        items.append({"name": name, "mean_return": mr, "max_drawdown": md, "total_return": tr, "sharpe_ratio": sr})
+        items.append(
+            {
+                "name": name,
+                "mean_return": mr,
+                "max_drawdown": md,
+                "total_return": tr,
+                "sharpe_ratio": sr,
+            }
+        )
         returns.append(mr)
         drawdowns.append(md)
 
     count = len(items)
     mean_return = (sum(returns) / count) if count else 0.0
     mean_drawdown = (sum(drawdowns) / count) if count else 0.0
-    return {"benchmarks": items, "count": count, "mean_return": mean_return, "mean_drawdown": mean_drawdown}
+    return {
+        "benchmarks": items,
+        "count": count,
+        "mean_return": mean_return,
+        "mean_drawdown": mean_drawdown,
+    }
 
 
 def generate_benchmark_dashboard_html(benchmarks: Any) -> str:

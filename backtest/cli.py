@@ -479,6 +479,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         args = p.parse_args(sub)
         from utils.reporting import (
             generate_benchmark_dashboard_html,
+        )
+        from utils.reporting import (
             load_benchmarks_csv as _load_benchmarks_csv,
         )
 
@@ -675,13 +677,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             live_results = load_live_results_csv(live_csv)
         except Exception:
             live_results = None
-    benchmarks = None
+    benchmarks_registry: list[dict[str, Any]] | None = None
     benchmarks_csv = getattr(args, "benchmarks_csv", None)
     if benchmarks_csv:
         try:
-            benchmarks = load_benchmarks_csv(benchmarks_csv)
+            benchmarks_registry = load_benchmarks_csv(benchmarks_csv)
         except Exception:
-            benchmarks = None
+            benchmarks_registry = None
     train_period = getattr(args, "train_period", None)
     test_period = getattr(args, "test_period", None)
     regime_mode = getattr(args, "regime_mode", None)
@@ -833,7 +835,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
 
             wf_rep = generate_walk_forward_report(
-                result, live_results=live_results, benchmarks=benchmarks
+                result, live_results=live_results, benchmarks=benchmarks_registry
             )
             artifact_dir = getattr(args, "artifact_dir", None)
             out_path_base = getattr(args, "output_path", None)
@@ -953,7 +955,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if walk_forward:
         try:
             wf_report = generate_walk_forward_report(
-                result, live_results=live_results, benchmarks=benchmarks
+                result, live_results=live_results, benchmarks=benchmarks_registry
             )
         except Exception:
             wf_report = result
