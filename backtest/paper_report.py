@@ -44,7 +44,7 @@ def build_paper_trading_report(
             continue
 
     # Build session summary
-    summary = {}
+    summary: dict[str, Any] = {}
     summary["initial_capital"] = _to_float(
         session_summary.get("initial_capital", metadata.get("initial_capital") if metadata else 0.0)
     )
@@ -93,7 +93,8 @@ def generate_paper_trading_report_text(report: dict[str, Any] | None) -> str:
     lines.append(f"Initial Capital:     {session_summary.get('initial_capital', 0.0)}")
     lines.append(f"Realized PnL:        {session_summary.get('realized_pnl', 0.0)}")
     lines.append(f"Portfolio Value:     {session_summary.get('portfolio_value', 0.0)}")
-    lines.append(f"Number of Fills:     {len(fills) if isinstance(fills, list) else session_summary.get('num_fills', 0)}")
+    num_fills = len(fills) if isinstance(fills, list) else session_summary.get("num_fills", 0)
+    lines.append(f"Number of Fills:     {num_fills}")
     lines.append("")
 
     if positions:
@@ -118,7 +119,10 @@ def generate_paper_trading_report_text(report: dict[str, Any] | None) -> str:
         lines.append("Monitoring")
         lines.append("----------")
         alerts = monitoring.get("alerts") or []
-        lines.append(f"Total Alerts: {len(alerts) if isinstance(alerts, list) else monitoring.get('total_alerts', 0)}")
+        total_alerts = (
+            len(alerts) if isinstance(alerts, list) else monitoring.get("total_alerts", 0)
+        )
+        lines.append(f"Total Alerts: {total_alerts}")
         for a in alerts[:10] if isinstance(alerts, list) else []:
             try:
                 if isinstance(a, dict):
@@ -135,10 +139,13 @@ def generate_paper_trading_report_text(report: dict[str, Any] | None) -> str:
         for f in (fills if isinstance(fills, list) else [])[:10]:
             try:
                 if isinstance(f, dict):
-                    lines.append(
-                        f"{f.get('timestamp','')} {f.get('symbol','')} {f.get('side','')} "
-                        f"qty={f.get('quantity','')} price={f.get('price','')} fee={f.get('fee','')}"
-                    )
+                    ts = f.get("timestamp", "")
+                    sym = f.get("symbol", "")
+                    side = f.get("side", "")
+                    qty = f.get("quantity", "")
+                    price = f.get("price", "")
+                    fee = f.get("fee", "")
+                    lines.append(f"{ts} {sym} {side} qty={qty} price={price} fee={fee}")
                 else:
                     lines.append(str(f))
             except Exception:
@@ -148,7 +155,9 @@ def generate_paper_trading_report_text(report: dict[str, Any] | None) -> str:
     return "\n".join(lines)
 
 
-def generate_paper_trading_report_html(report: dict[str, Any] | None, title: str = "Paper Trading Report") -> str:
+def generate_paper_trading_report_html(
+    report: dict[str, Any] | None, title: str = "Paper Trading Report"
+) -> str:
     """Generate HTML report for a paper-trading session."""
     report = report or {}
     session_summary = report.get("session_summary") or {}
