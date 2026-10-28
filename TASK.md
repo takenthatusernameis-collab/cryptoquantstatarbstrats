@@ -9,14 +9,16 @@ All assigned tasks complete and verified:
 - Added config-file (`--config`) walk-forward tests exercising `anchor`/`n_splits` through `_apply_config_from_dict` in `tests/test_config_validation.py` (`test_apply_config_from_dict_walk_forward`, `test_apply_config_from_dict_walk_forward_anchor_and_n_splits_via_config_file`).
 
 ## This Agent
-- Added end-to-end CLI `--config` walk-forward integration test `tests/test_walk_forward_config.py` (6 tests): runs `main(["--config", ...])` with `--walk-forward`, `anchor`, `n_splits`, `mode` through `_apply_config_from_dict`, asserting exit code 0 and that returned window counts reflect anchor/n_splits (default None -> 3, anchor=40 -> 2, n_splits=2 cap -> 2, combined -> 1, mode=expanding runs, invalid anchor raises).
+- Added end-to-end CLI `--config` walk-forward integration test `tests/test_walk_forward_config.py` (7 tests): runs `main(["--config", ...])` with `--walk-forward`, `anchor`, `n_splits`, `mode` through `_apply_config_from_dict`, asserting exit code 0 and that returned window counts reflect anchor/n_splits; added config-vs-CLI precedence test verifying CLI `--anchor`/`--n-splits`/`--mode` override config values.
+- Added `--mode` to main CLI parser; normalized None mode handling in CLI; improved anchor parsing to accept numeric strings (e.g., `"0"`).
 - Verified `pytest`, `ruff`, and `mypy` remain clean.
 
 ## Current State
-- `python3 -m pytest tests/ -q` -> 468 passed, 1 skipped, 0 failed
+- `python3 -m pytest tests/ -q` -> 469 passed, 1 skipped, 0 failed
 - `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> clean
 - `python3 -m mypy backtest/ strategies/ utils/` -> clean
 - Working tree clean, branch up to date with origin/main.
 
+
 ## Next Agent Task (suggested)
-Add an end-to-end CLI test asserting config-vs-CLI precedence: an explicit CLI `--anchor`/`--n-splits`/`--mode` overrides the config-file value through `_apply_config_from_dict` (run `main(["--config", ..., "--anchor", ...])`), asserting exit code 0 and that the returned window counts reflect the CLI override, not the config value. Then verify `pytest`, `ruff`, and `mypy` remain clean and update TASK.md.
+Add validation to ensure that when using walk-forward with portfolio weights path, `anchor`/`n_splits`/`mode` are properly passed through in all code paths and add a test for CLI precedence with portfolio walk-forward (rebalance frequency) if applicable. Then verify `pytest`, `ruff`, and `mypy` remain clean and update TASK.md.

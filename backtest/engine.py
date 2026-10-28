@@ -51,6 +51,31 @@ def _resolve_anchor_index(anchor: Any, data: pd.DataFrame) -> int:
         if not anchor.is_integer():
             raise ValueError("anchor must be an integer row offset or a timestamp string")
         i = int(anchor)
+    elif isinstance(anchor, str):
+        # Try to parse as integer first (for CLI numeric strings like "0", "40")
+        s = anchor.strip()
+        # Check if it's all digits possibly with sign
+        try:
+            # Try int conversion
+            # Avoid treating timestamps like "2024-01-01" as ints
+            if s.lstrip('-+').isdigit():
+                i = int(s)
+            else:
+                try:
+                    ts = pd.Timestamp(anchor)
+                    i = int(data.index.searchsorted(ts))
+                except Exception as exc:
+                    raise ValueError(
+                        f"anchor could not be parsed as a timestamp: {anchor!r}"
+                    ) from exc
+        except ValueError:
+            try:
+                ts = pd.Timestamp(anchor)
+                i = int(data.index.searchsorted(ts))
+            except Exception as exc:
+                raise ValueError(
+                    f"anchor could not be parsed as a timestamp: {anchor!r}"
+                ) from exc
     else:
         try:
             ts = pd.Timestamp(anchor)
@@ -62,6 +87,7 @@ def _resolve_anchor_index(anchor: Any, data: pd.DataFrame) -> int:
     if i < 0:
         return 0
     return i
+
 
 
 class BacktestEngine:

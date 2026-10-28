@@ -96,3 +96,32 @@ def test_walk_forward_config_invalid_anchor_raises(tmp_path):
     cfg_path = _write_config(tmp_path, "config_bad.json", cfg)
     with pytest.raises(ValueError):
         main(["--config", cfg_path])
+
+
+def test_walk_forward_config_cli_overrides_config(tmp_path):
+    # Config sets anchor=40 (would give 2 windows). CLI overrides anchor to 0
+    cfg = _base_config()
+    cfg["anchor"] = 40
+    cfg_path = _write_config(tmp_path, "config.json", cfg)
+    code, out = _run_cli(["--config", cfg_path, "--anchor", "0"])
+    assert code == 0, out
+    data = json.loads(out)
+    assert len(data.get("summary", [])) == 3
+
+    # Config sets n_splits=1, CLI overrides to larger value
+    cfg2 = _base_config()
+    cfg2["n_splits"] = 1
+    cfg_path2 = _write_config(tmp_path, "config2.json", cfg2)
+    code, out = _run_cli(["--config", cfg_path2, "--n-splits", "3"])
+    assert code == 0, out
+    data = json.loads(out)
+    assert len(data.get("summary", [])) == 3
+
+    # Config sets mode=rolling, CLI overrides to expanding
+    cfg3 = _base_config()
+    cfg3["mode"] = "rolling"
+    cfg_path3 = _write_config(tmp_path, "config3.json", cfg3)
+    code, out = _run_cli(["--config", cfg_path3, "--mode", "expanding"])
+    assert code == 0, out
+    data = json.loads(out)
+    assert len(data.get("summary", [])) >= 1

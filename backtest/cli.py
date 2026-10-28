@@ -181,6 +181,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Cap on the number of walk-forward test windows to evaluate.",
     )
     parser.add_argument(
+        "--mode",
+        choices=["rolling", "expanding"],
+        default=None,
+        help="Walk-forward windowing mode (rolling or expanding).",
+    )
+    parser.add_argument(
         "--rebalance-frequency",
         "--rebalance_freq",
         default=None,
@@ -1150,7 +1156,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 low=low_df,
                 reoptimize=reopt,
                 optimizer=opt_fn,
-                mode=str(getattr(args, "mode", "rolling")),
+                mode=str(getattr(args, "mode", "rolling") or "rolling"),
                 anchor=getattr(args, "anchor", None),
                 n_splits=getattr(args, "n_splits", None),
                 regime_mode=regime_mode,
@@ -1171,7 +1177,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 volume=volume_df,
                 high=high_df,
                 low=low_df,
-                mode=str(getattr(args, "mode", "rolling")),
+                mode=str(getattr(args, "mode", "rolling") or "rolling"),
                 anchor=getattr(args, "anchor", None),
                 n_splits=getattr(args, "n_splits", None),
                 regime_mode=regime_mode,
