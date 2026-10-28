@@ -472,6 +472,7 @@ def _apply_config_from_dict(
         ("rebalance_benchmark", ("rebalance_benchmark", "rebalanceBenchmark")),
         ("walk_forward_report", ("walk_forward_report", "walkForwardReport")),
         ("walk_forward", ("walk_forward",)),
+        ("replay_best", ("replay_best", "replayBest")),
         ("train_period", ("train_period", "trainPeriod")),
         ("test_period", ("test_period", "testPeriod")),
         ("anchor", ("anchor",)),
@@ -622,6 +623,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             default=False,
             help=argparse.SUPPRESS,
         )
+        p.add_argument(
+            "--replay-best",
+            action="store_true",
+            default=False,
+            help="Re-run the top-ranked combo over the full dataset and attach a replay block.",
+        )
+        p.add_argument(
+            "--replay_best",
+            dest="replay_best",
+            action="store_true",
+            default=False,
+            help=argparse.SUPPRESS,
+        )
         p.add_argument("--train-period", type=int, default=60)
         p.add_argument("--test-period", type=int, default=20)
         p.add_argument(
@@ -690,6 +704,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             mode=str(args.mode),
             n_splits=args.n_splits,
             anchor=args.anchor,
+            replay_best=bool(args.replay_best),
         )
 
         print(

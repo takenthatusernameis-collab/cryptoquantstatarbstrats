@@ -126,6 +126,7 @@ def run_parameter_sweep(
     mode: str = "rolling",
     n_splits: int | None = None,
     anchor: Any = None,
+    replay_best: bool = False,
 ) -> List[Dict[str, Any]]:
     """
     Run a parameter grid search with walk-forward validation.
@@ -202,6 +203,8 @@ def run_parameter_sweep(
         # Validate anchor up front so invalid values surface before any combo
         # is evaluated (walk_forward swallows per-combo errors).
         _resolve_anchor_index(anchor, data)
+    if not isinstance(replay_best, bool):
+        raise ValueError(f"replay_best must be a bool, got {type(replay_best).__name__}")
 
     if engine is None:
         engine = BacktestEngine(initial_capital=100_000.0)
@@ -269,5 +272,24 @@ def run_parameter_sweep(
     for i, r in enumerate(ranked, 1):
         r["rank"] = i
         r.pop("_score", None)
+
+    if replay_best and ranked:
+        top = ranked[0]
+        replay_params = {k: top.get(k) for k in keys}
+        replay_strat = _build_strategy(strategy, replay_params, strategy_kwargs)
+        run_result = engine.run(
+            replay_strat, data, fee_rate=float(fee_rate), slippage=float(slippage)
+        )
+        replay_block = {
+            "params": _to_json_safe(replay_params),
+            "total_return": _to_json_safe(run_result.get("total_return")),
+            "sharpe_ratio": _to_json_safe(run_result.get("sharpe_ratio")),
+            "max_drawdown": _to_json_safe(run_result.get("max_drawdown")),
+            "calmar_ratio": _to_json_safe(run_result.get("calmar_ratio")),
+            "final_equity": _to_json_safe(
+                run_result.get("final_equity", run_result.get("final_value"))
+            ),
+        }
+        top["replay"] = replay_block
 
     return ranked
