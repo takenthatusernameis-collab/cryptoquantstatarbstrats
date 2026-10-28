@@ -610,7 +610,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             "--walk-forward",
             action="store_true",
             default=False,
-            help="Run sweep with walk-forward validation (enabled by default in behavior; flag for parity).",
+            help=(
+                "Run sweep with walk-forward validation (enabled by default in "
+                "behavior; flag for parity)."
+            ),
         )
         p.add_argument(
             "--walk_forward",
