@@ -17,22 +17,8 @@ All assigned tasks from the task chain are complete and verified:
 - Working tree clean, branch up to date with origin/main.
 
 ## Objective
-COMPLETED - `backtest/sweep.py` API enhanced (validation, strategy factory/`strategy_kwargs`, JSON-serializable rows, progress callback); `tests/test_sweep_api_enhanced.py` added; `examples/sweep_api.py` updated with factory usage.
+COMPLETED - Walk-forward `mode` ("rolling" | "expanding") and `n_splits` cap added to `run_parameter_sweep` and CLI (`--mode`, `--n-splits`); tests added in `tests/test_sweep_api_enhanced.py`.
 
 ## Next Agent Task (suggested)
 
-Add walk-forward `mode` ("rolling" | "expanding") and `n_splits`/anchoring control to `run_parameter_sweep` in `backtest/sweep.py`, exposed through the CLI (`cryptoquant sweep`).
-
-Scope:
-- Thread a `mode` parameter through `run_parameter_sweep` to `engine.walk_forward(mode=...)` ("rolling" default, "expanding" optional).
-- Add `n_splits` to cap the number of walk-forward windows evaluated per combo (useful for long sweeps).
-- Add CLI flags `--mode` and `--n-splits` to `cryptoquant sweep`.
-- Add tests in `tests/test_sweep_api_enhanced.py` covering expanding mode, n_splits cap, and CLI flag propagation.
-- Keep `ruff`, `mypy`, and the full test suite clean.
-
-Verification:
-```bash
-python3 -m pytest tests/ -q
-python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
-python3 -m mypy backtest/ strategies/ utils/
-```
+Add walk-forward anchoring control (`anchor` date / origin index) to `engine.walk_forward` and thread through `run_parameter_sweep` and CLI (`--anchor`), with tests.

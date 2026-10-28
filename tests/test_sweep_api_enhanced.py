@@ -234,6 +234,90 @@ def test_sweep_progress_callback_invoked():
     assert "oos_returns" not in events[0][3]
 
 
+def test_sweep_expanding_mode_runs():
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100_000.0)
+    rows = run_parameter_sweep(
+        MeanReversionStrategy("BTC"),
+        data,
+        {"lookback": [20]},
+        train_period=30,
+        test_period=10,
+        engine=engine,
+        mode="expanding",
+        **_base_kwargs(),
+    )
+    assert len(rows) == 1
+    assert rows[0]["oos_periods"] >= 1
+
+
+def test_sweep_rolling_mode_default():
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100_000.0)
+    rows = run_parameter_sweep(
+        MeanReversionStrategy("BTC"),
+        data,
+        {"lookback": [20]},
+        train_period=30,
+        test_period=10,
+        engine=engine,
+        **_base_kwargs(),
+    )
+    assert len(rows) == 1
+
+
+def test_sweep_n_splits_caps_windows():
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100_000.0)
+    full = run_parameter_sweep(
+        MeanReversionStrategy("BTC"),
+        data,
+        {"lookback": [20]},
+        train_period=30,
+        test_period=10,
+        engine=engine,
+        **_base_kwargs(),
+    )
+    capped = run_parameter_sweep(
+        MeanReversionStrategy("BTC"),
+        data,
+        {"lookback": [20]},
+        train_period=30,
+        test_period=10,
+        engine=engine,
+        n_splits=1,
+        **_base_kwargs(),
+    )
+    assert capped[0]["oos_periods"] <= full[0]["oos_periods"]
+    assert capped[0]["oos_periods"] == 1
+
+
+def test_sweep_validation_bad_mode():
+    data = _make_data()
+    with pytest.raises(ValueError, match="Invalid mode"):
+        run_parameter_sweep(
+            MeanReversionStrategy("BTC"),
+            data,
+            {"lookback": [20]},
+            train_period=30,
+            test_period=10,
+            mode="bogus",
+            **_base_kwargs(),
+        )
+
+
+def test_sweep_validation_bad_n_splits():
+    data = _make_data()
+    with pytest.raises(ValueError, match="n_splits"):
+        run_parameter_sweep(
+            MeanReversionStrategy("BTC"),
+            data,
+            {"lookback": [20]},
+            train_period=30,
+            test_period=10,
+            n_splits=0,
+            **_base_kwargs(),
+        )
 def test_sweep_deterministic_output():
     data = _make_data()
     rows1 = run_parameter_sweep(
