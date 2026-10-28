@@ -148,6 +148,8 @@ CONFIG_SCHEMA: dict[str, tuple] = {
     "rebalance_benchmark": ("type", bool),
     "rebalanceBenchmark": ("type", bool),
     "walk_forward": ("type", bool),
+    "replay_best": ("type", bool),
+    "replayBest": ("type", bool),
     "walk_forward_report": ("type", bool),
     "walkForwardReport": ("type", bool),
     "train_period": ("range", 1, float("inf")),
