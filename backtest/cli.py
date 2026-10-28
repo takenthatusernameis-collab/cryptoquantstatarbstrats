@@ -466,6 +466,28 @@ def _apply_config_from_dict(
 
 def main(argv: Sequence[str] | None = None) -> int:
     """Run a backtest and print a report. Returns the process exit code."""
+    if argv is None:
+        argv = sys.argv[1:]
+    _argv = list(argv)
+    if _argv and _argv[0] == "benchmarks-dashboard":
+        sub = _argv[1:]
+        p = argparse.ArgumentParser(prog="cryptoquant benchmarks-dashboard")
+        p.add_argument("--benchmarks-csv", required=True)
+        p.add_argument("--output", default=None)
+        args = p.parse_args(sub)
+        from utils.reporting import (
+            generate_benchmark_dashboard_html,
+            load_benchmarks_csv,
+        )
+
+        benchmarks = load_benchmarks_csv(args.benchmarks_csv)
+        html = generate_benchmark_dashboard_html(benchmarks)
+        if args.output is not None:
+            Path(args.output).write_text(html)
+        else:
+            print(html)
+        return 0
+
     parser = build_parser()
     args = parser.parse_args(argv)
     args = _apply_config(args, parser)

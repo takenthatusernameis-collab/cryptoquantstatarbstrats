@@ -2684,3 +2684,82 @@ def generate_walk_forward_comparison_html(
 
     html.extend(["</body>", "</html>"])
     return "\n".join(html)
+
+
+def aggregate_benchmark_registry(benchmarks: Any) -> dict[str, Any]:
+    benchmarks_in: list[dict[str, Any]] = []
+    if isinstance(benchmarks, dict):
+        candidate = benchmarks.get("benchmarks")
+        if isinstance(candidate, list):
+            benchmarks_in = [b for b in candidate if isinstance(b, dict)]
+        elif "name" in benchmarks:
+            benchmarks_in = [benchmarks]
+    elif isinstance(benchmarks, list):
+        benchmarks_in = [b for b in benchmarks if isinstance(b, dict)]
+
+    items: list[dict[str, Any]] = []
+    returns: list[float] = []
+    drawdowns: list[float] = []
+    for b in benchmarks_in:
+        mr = _safe_float(b.get("mean_return", 0.0))
+        md = _safe_float(b.get("max_drawdown", 0.0))
+        tr = _safe_float(b.get("total_return", 0.0))
+        sr = _safe_float(b.get("sharpe_ratio", 0.0))
+        name = str(b.get("name") or b.get("benchmark") or "")
+        items.append({"name": name, "mean_return": mr, "max_drawdown": md, "total_return": tr, "sharpe_ratio": sr})
+        returns.append(mr)
+        drawdowns.append(md)
+
+    count = len(items)
+    mean_return = (sum(returns) / count) if count else 0.0
+    mean_drawdown = (sum(drawdowns) / count) if count else 0.0
+    return {"benchmarks": items, "count": count, "mean_return": mean_return, "mean_drawdown": mean_drawdown}
+
+
+def generate_benchmark_dashboard_html(benchmarks: Any) -> str:
+    agg = aggregate_benchmark_registry(benchmarks)
+    items = agg["benchmarks"]
+
+    def _html_escape(s: str) -> str:
+        try:
+            import html as _html_mod
+
+            return _html_mod.escape(s)
+        except Exception:
+            return s
+
+    html = [
+        "<!DOCTYPE html>",
+        '<html lang="en">',
+        "<head>",
+        '<meta charset="utf-8" />',
+        "<title>Benchmark Registry Dashboard</title>",
+        "<style>",
+        "body{font-family:Arial,Helvetica,sans-serif;margin:40px;background:#fff;color:#222}",
+        "table{border-collapse:collapse;width:100%;max-width:1000px;margin-bottom:20px}",
+        "th,td{border:1px solid #ddd;padding:6px 8px;font-size:12px;text-align:right}",
+        "th{background:#f5f5f5;text-align:right}",
+        "td:first-child,th:first-child{text-align:left}",
+        "</style>",
+        "</head>",
+        "<body>",
+        "<h1>Benchmark Registry Dashboard</h1>",
+        f"<p>Count: {agg['count']} | Mean Return: {_fmt_pct(agg['mean_return'])} | "
+        f"Mean Drawdown: {_fmt_pct(agg['mean_drawdown'])}</p>",
+        "<table>",
+        "<tr><th>Benchmark</th><th>Mean Return</th><th>Max Drawdown</th>"
+        "<th>Total Return</th><th>Sharpe Ratio</th></tr>",
+    ]
+    for b in items:
+        html.append(
+            "<tr>"
+            f"<td>{_html_escape(str(b.get('name', '')))}</td>"
+            f"<td>{_fmt_pct(b.get('mean_return', 0.0))}</td>"
+            f"<td>{_fmt_pct(b.get('max_drawdown', 0.0))}</td>"
+            f"<td>{_fmt_pct(b.get('total_return', 0.0))}</td>"
+            f"<td>{_fmt_num(b.get('sharpe_ratio', 0.0))}</td>"
+            "</tr>"
+        )
+    html.append("</table>")
+    html.extend(["</body>", "</html>"])
+    return "\n".join(html)
