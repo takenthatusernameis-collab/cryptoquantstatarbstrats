@@ -9,15 +9,18 @@ All assigned tasks complete and verified:
 - `backtest/config.py:151-152` — schema entries for `replay_best` and `replayBest`.
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents `--replay-best`, config `replay_best: true`, YAML example, and replay block fields.
-- Verified: `python -m pytest tests/ -q` (490 passed, 1 skipped), `ruff check` clean, `mypy backtest/ strategies/ utils/` clean (31 source files).
-- Working tree clean, branch up to date with origin/main (commit 9f3aa5a).
 
-## Current State (verified this session)
+## Current State (verified this session by the current agent)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m pytest tests/test_sweep_replay_best.py -v` -> 3 passed
-- `ruff check` clean
-- `mypy backtest/ strategies/ utils/` -> clean
-- Working tree clean, branch up to date with origin/main
+- `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
+- `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
+- Working tree clean, branch up to date with origin/main (commit 0268fac).
+
+Note: `ruff check` with no path argument also surfaces pre-existing lint issues in
+`notebooks/*.ipynb` (import sorting, unused imports, long lines, whitespace) and two
+notebooks that are not valid JSON. These are out of scope for the source tree and were
+not touched.
 
 ## Next Agent Task
 No outstanding tasks from the previous handoff. The codebase is in a clean, verified state with all tests passing. If the user provides new requirements, follow existing patterns in the codebase (CLI flags with suppressed aliases, config mapping via `_apply_config_from_dict`, schema updates in `config.py`, tests in `tests/`, docs in README).
