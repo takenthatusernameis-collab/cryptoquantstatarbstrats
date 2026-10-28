@@ -86,6 +86,31 @@ cryptoquant sweep \
   --output-path sweep_results.json
 ```
 
+Sweep parameters can also be supplied through a config file passed via `--config` (YAML, TOML, or JSON). Config values fill in any sweep argument not overridden on the CLI, so CLI flags always win:
+
+```yaml
+# config/sweep.yaml
+strategy: mean_reversion
+asset: BTC
+data_source: synthetic
+start: "2024-01-01"
+end: "2024-02-01"
+freq: 1h
+train_period: 60
+test_period: 20
+metric: calmar_ratio
+anchor: 40
+n_splits: 3
+mode: expanding
+output: json
+output_path: sweep_results.json
+```
+
+```bash
+cryptoquant sweep --config config/sweep.yaml \
+  --grid '{"lookback":[20,30,50],"entry_threshold":[1.5,2.0]}'
+```
+
 Programmatic API is also available via `backtest.sweep.run_parameter_sweep`:
 
 ```python

@@ -477,6 +477,7 @@ def _apply_config_from_dict(
         ("anchor", ("anchor",)),
         ("n_splits", ("n_splits", "nSplits", "n_splits")),
         ("mode", ("mode",)),
+        ("metric", ("metric",)),
         ("reoptimize", ("reoptimize", "reOptimize", "reoptimize_portfolio")),
         ("optimizer", ("optimizer", "opt", "optimization", "optimizer_name")),
     ]
@@ -588,6 +589,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         sub = _argv[1:]
         p = argparse.ArgumentParser(prog="cryptoquant sweep")
         p.add_argument("--strategy", choices=sorted(STRATEGIES), default="mean_reversion")
+        p.add_argument(
+            "--config",
+            help="Path to a YAML/TOML/JSON config file specifying sweep parameters.",
+        )
         p.add_argument("--asset", default="BTC")
         p.add_argument("--pair", nargs=2, default=None)
         p.add_argument("--symbols", nargs="+", default=["BTC", "ETH", "SOL"])
@@ -616,6 +621,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--output", choices=["json", "csv", "text"], default="text")
         p.add_argument("--output-path", default=None)
         args = p.parse_args(sub)
+        args = _apply_config(args, p)
 
         grid = json.loads(args.grid)
         if not isinstance(grid, dict) or not grid:

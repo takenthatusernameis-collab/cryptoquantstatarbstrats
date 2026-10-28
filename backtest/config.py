@@ -158,6 +158,7 @@ CONFIG_SCHEMA: dict[str, tuple] = {
     "n_splits": ("range", 1, float("inf")),
     "nSplits": ("range", 1, float("inf")),
     "mode": ("choice", {"rolling", "expanding"}),
+    "metric": ("choice", {"calmar_ratio", "sharpe_ratio", "total_return"}),
     "reoptimize": ("type", bool),
     "reOptimize": ("type", bool),
     "reoptimize_portfolio": ("type", bool),
