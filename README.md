@@ -109,6 +109,9 @@ rows = run_parameter_sweep(
     slippage=0.0,
     metric="calmar_ratio",
     engine=engine,
+    mode="rolling",  # or "expanding"
+    n_splits=3,
+    anchor=None,  # int offset, timestamp string, or None
 )
 ```
 
@@ -123,4 +126,5 @@ Walk-forward options for `cryptoquant sweep`:
 
 These options are also available in a config file passed via `--config`
 (`anchor`, `n_splits`/`nSplits`, `mode`, `train_period`/`trainPeriod`,
-`test_period`/`testPeriod`).
+`test_period`/`testPeriod`). The CLI also accepts them directly; config values
+are applied when not overridden by CLI flags.

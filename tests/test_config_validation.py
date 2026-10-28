@@ -182,6 +182,29 @@ def test_apply_config_from_dict_walk_forward():
     assert out.anchor == 40
     assert out.n_splits == 3
     assert out.mode == "expanding"
+
+
+def test_apply_config_from_dict_walk_forward_anchor_and_n_splits_via_config_file(tmp_path):
+    import argparse
+    import json
+
+    from backtest.cli import _apply_config_from_dict
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--anchor", default=None)
+    parser.add_argument("--n-splits", type=int, default=None, dest="n_splits")
+    parser.add_argument("--mode", choices=["rolling", "expanding"], default="rolling")
+    args = parser.parse_args([])
+    cfg_path = tmp_path / "walk_forward.json"
+    cfg_path.write_text(json.dumps({"anchor": 10, "n_splits": 4, "mode": "rolling"}))
+    with open(cfg_path, "r", encoding="utf-8") as f:
+        cfg = json.load(f)
+    out = _apply_config_from_dict(args, parser, cfg)
+    assert out.anchor == 10
+    assert out.n_splits == 4
+    assert out.mode == "rolling"
+
+
 def test_cli_rejects_bad_range_in_config(tmp_path):
     cfg_path = tmp_path / "range.yaml"
     cfg_path.write_text("fee_rate: 5.0\n")
