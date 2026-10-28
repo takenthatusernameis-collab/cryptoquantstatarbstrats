@@ -25,3 +25,5 @@ python3 -m mypy backtest/ strategies/ utils/
 ```
 
 **Ready.** No further action required from this chain.
+
+Verification re-run at 2026-10-28T14:10Z: 421 passed, 1 skipped; ruff clean; mypy clean (30 files). Working tree clean.
