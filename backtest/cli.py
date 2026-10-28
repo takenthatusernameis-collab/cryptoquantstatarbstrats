@@ -593,16 +593,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         p.add_argument("--output-path", default=None)
         args = p.parse_args(sub)
 
-        import itertools
-
         grid = json.loads(args.grid)
         if not isinstance(grid, dict) or not grid:
             p.error("--grid must be a non-empty JSON object mapping param names to value lists")
-
-        # Expand the grid into individual parameter combinations.
-        keys = list(grid.keys())
-        values = [grid[k] if isinstance(grid[k], list) else [grid[k]] for k in keys]
-        combos = list(itertools.product(*values)) if values else []
 
         loader = DataLoader()
         if args.data_source == "binance":
@@ -617,67 +610,38 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise ValueError(f"Unsupported data source: {args.data_source!r}")
         data = loader.clean_data(data)
 
-        engine = BacktestEngine(initial_capital=100_000.0)
-        rows = []
-        for combo in combos:
+        from backtest.sweep import run_parameter_sweep
+
+        def _strategy_factory(combo_args):
+            return _build_strategy(args.strategy, combo_args)
+
+        # Build a strategy instance template by using first combo for structure
+        import itertools as _itertools
+
+        keys = list(grid.keys())
+        values = [grid[k] if isinstance(grid[k], list) else [grid[k]] for k in keys]
+        combos = list(_itertools.product(*values)) if values else []
+        if combos:
+            first_combo = combos[0]
             combo_args = argparse.Namespace(**vars(args))
-            for k, v in zip(keys, combo):
+            for k, v in zip(keys, first_combo):
                 setattr(combo_args, k, v)
-            strategy = _build_strategy(args.strategy, combo_args)
-            try:
-                res = engine.walk_forward(
-                    strategy,
-                    data,
-                    train_period=int(args.train_period),
-                    test_period=int(args.test_period),
-                    fee_rate=float(args.fee_rate),
-                    slippage=float(args.slippage),
-                )
-            except Exception:
-                res = {}
-            results_list = res.get("results", []) or []
-            oos_returns = [float((r or {}).get("total_return", 0.0)) for r in results_list]
-            oos_mean = float(res.get("oos_mean_return", res.get("mean_return", 0.0)) or 0.0)
-            mdds = [float((r or {}).get("max_drawdown", 0.0)) for r in results_list]
-            mean_mdd = float(sum(mdds) / len(mdds)) if mdds else 0.0
-            oos_is = float(res.get("oos_is_ratio", 0.0) or 0.0)
-            row = {k: combo[i] for i, k in enumerate(keys)}
-            row.update(
-                {
-                    "oos_mean_return": oos_mean,
-                    "mean_max_drawdown": mean_mdd,
-                    "oos_is_ratio": oos_is,
-                    "oos_periods": len(results_list),
-                    "oos_returns": oos_returns,
-                }
-            )
-            rows.append(row)
+            strategy_template = _build_strategy(args.strategy, combo_args)
+        else:
+            strategy_template = _build_strategy(args.strategy, args)
 
-        # Rank parameter sets by the requested metric.
-        for r in rows:
-            om = r["oos_mean_return"]
-            mm = r["mean_max_drawdown"]
-            if args.metric == "sharpe_ratio":
-                # Approximate Sharpe from the per-window OOS returns when
-                # available; otherwise fall back to the mean return.
-                std = 0.0
-                try:
-                    import numpy as _np
-
-                    arr = _np.array(r.get("oos_returns", []) or [], dtype=float)
-                    std = float(_np.std(arr, ddof=1)) if arr.size > 1 else 0.0
-                except Exception:
-                    std = 0.0
-                r["_score"] = om / (std if std else 1.0)
-            elif args.metric == "total_return":
-                r["_score"] = om
-            else:  # calmar_ratio
-                r["_score"] = om / abs(mm) if mm else om
-        rows.sort(key=lambda r: r["_score"], reverse=True)
-        for i, r in enumerate(rows, 1):
-            r["rank"] = i
-            r.pop("_score", None)
-            r.pop("oos_returns", None)
+        engine = BacktestEngine(initial_capital=100_000.0)
+        rows = run_parameter_sweep(
+            strategy_template,
+            data,
+            grid,
+            train_period=int(args.train_period),
+            test_period=int(args.test_period),
+            fee_rate=float(args.fee_rate),
+            slippage=float(args.slippage),
+            metric=str(args.metric),
+            engine=engine,
+        )
 
         print(
             "WARNING: sweep results are in-sample/optimization output and not "
