@@ -292,7 +292,7 @@ class ExecutionSimulator:
             "status": status,
             "remaining_qty": qty - signed_filled,
         }
-        self._fills.append({"order_type": order_type, "side": side, **result})
+        self._fills.append({"order_id": order_id, "symbol": symbol, "timestamp": timestamp, "fee_rate": fee_rate, "order_type": order_type, "side": side, **result, "fee": abs(filled_qty if False else result["filled_qty"]) * float(price) * float(fee_rate or 0.0)})
         return result
 
     def _simulate_iceberg(
@@ -427,7 +427,7 @@ class ExecutionSimulator:
             "status": status,
             "remaining_qty": q - signed_filled,
         }
-        self._fills.append({"order_type": "iceberg", "side": side, **result})
+        self._fills.append({"order_id": order_id, "symbol": symbol, "timestamp": timestamp, "fee_rate": fee_rate, "order_type": "iceberg", "side": side, **result, "fee": abs(result["filled_qty"]) * float(price) * float(fee_rate or 0.0)})
         return result
 
     def _simulate_lob(
