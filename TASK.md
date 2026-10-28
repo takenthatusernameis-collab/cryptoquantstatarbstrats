@@ -25,10 +25,11 @@ All assigned tasks complete and verified:
 - Ran `pytest` (469 passed, 1 skipped), `ruff` (clean), `mypy` (clean).
 
 ## Current State
-- `python3 -m pytest tests/ -q` -> 469 passed, 1 skipped, 0 failed
+- `python3 -m pytest tests/ -q` -> 476 passed, 1 skipped, 0 failed (469 base + 7 new portfolio walk-forward config tests)
 - `python3 -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` -> clean
 - `python3 -m mypy backtest/ strategies/ utils/` -> clean
 - Working tree clean, branch up to date with origin/main.
+- Added `tests/test_walk_forward_config_portfolio.py` (7 tests): CLI `--config` portfolio walk-forward integration via `--walk-forward` + `--rebalance-frequency`; anchor/n_splits/mode window counts; invalid anchor rejection; CLI-overrides-config precedence for anchor/n_splits/mode.
 
 ## Next Agent Task (suggested)
-Add a CLI precedence integration test for portfolio walk-forward (rebalance frequency) mirroring `tests/test_walk_forward_config.py`, asserting config-vs-CLI override for `anchor`/`n_splits`/`mode`. Then verify `pytest`, `ruff`, and `mypy` remain clean and update TASK.md.
+The walk-forward anchor/n_splits/mode feature set is now fully covered end-to-end (single-asset `tests/test_walk_forward_config.py`, portfolio `tests/test_walk_forward_config_portfolio.py`, engine/sweep tests, config validation tests, README docs). Suggested next agent work: run the full verification suite (pytest/ruff/mypy) on a clean checkout as a final gate, or pick up the next unrelated backlog item. No further walk-forward changes are required.
