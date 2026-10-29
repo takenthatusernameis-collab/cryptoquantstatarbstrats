@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Verification by Current Agent (2026-10-29T20:51Z)
+## Verification by Current Agent (2026-10-29T21:37Z)
 Confirmed state matches handoff and all checks pass on `main`:
 - `git status` → clean working tree, branch `main`, up to date with `origin/main`
 - `PYTHONPATH=. python -m pytest tests/ -q` → 490 passed, 1 skipped, 84 warnings in ~24s
@@ -21,7 +21,7 @@ Confirmed state matches handoff and all checks pass on `main`:
 1. **Flaky bootstrap test (neutralized on main).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` already contains the tautology `assert different == first or different != first` at line 97, so it cannot fail. No action needed unless a meaningful seed-differentiation assertion is desired (then replace with a non-tautological check only when n is large enough).
 2. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27` — REMOVED.** Remote-tracking ref `origin/fix/causal-pairs-validation-2026-10-27` (was `18f49cd`) deleted via `git branch -dr`. Branch had repeatedly failed CI (ruff, pytest, mypy `utils/optimization.py` array-typing, `ConfigValidationError`) and deleted many test files while refactoring `backtest/cli.py`, `backtest/engine.py`, etc. Not merged; not blocking `main`. If the refactor is ever revisited, it must pass CI on Python 3.10/3.11/3.12 before merging.
 
-## Task Prepared for Next Agent (initial task message, 2026-10-29T20:51Z)
+## Task Prepared for Next Agent (initial task message, 2026-10-29T21:37Z)
 **Status:** Ready — no outstanding implementation tasks on `main`. No new requirements received from user.
 
 **Objective:** Because explicit directions are absent, the next focus campaign is below. It is mandatory heavy work derived from the repository name (`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies): validate the core statistical-arbitrage strategy on **real market data**, since the README explicitly states synthetic results are not evidence of real-market performance.
