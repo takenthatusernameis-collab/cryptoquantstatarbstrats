@@ -10,11 +10,11 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Current State (re-verified 2026-10-29T13:53Z)
+## Current State (re-verified 2026-10-29T14:45Z)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch `main` at `1877825`
+- Working tree clean, branch `main` at `a861bdf`
 
 ## Known Flaky Test (pre-existing, not blocking)
 - `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` asserts two different seeds produce different intervals. With small window counts this is probabilistic and can occasionally fail. Passes on repeated runs; not related to any change in this repo. Consider loosening to `assert different == first or different != first` (always true) or comparing seeds only when n is large enough.
@@ -23,6 +23,13 @@ All assigned tasks complete and verified:
 **Status:** Ready - No outstanding implementation tasks.
 
 **Objective:** Await new requirements from user. If no new requirements are provided, perform no code changes.
+
+**Verification commands (run before declaring done):**
+```bash
+python -m pytest tests/ -q
+python -m ruff check backtest/ strategies/ utils/ tests/
+python -m mypy backtest/ strategies/ utils/
+```
 
 **Guidelines (follow existing patterns):**
 - CLI flags with suppressed aliases
