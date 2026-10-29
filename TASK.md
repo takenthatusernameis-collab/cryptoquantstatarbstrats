@@ -15,7 +15,7 @@ All assigned tasks complete and verified:
 - `python -m pytest tests/test_sweep_replay_best.py -v` -> 3 passed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch on `main` (commit 0268fac).
+- Working tree clean, branch on `main` (commit ea079ea).
 
 Note: `ruff check` with no path argument also surfaces pre-existing lint issues in
 `notebooks/*.ipynb` (import sorting, unused imports, long lines, whitespace) and two
