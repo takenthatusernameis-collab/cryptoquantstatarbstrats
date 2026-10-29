@@ -96,6 +96,17 @@ class DataLoader:
         if end_ms < start_ms:
             raise ValueError("end_date must not precede start_date.")
 
+        # Binance public spot klines. api.binance.com may be blocked (e.g. HTTP 451)
+        # in some environments; www.binance.com serves the same public endpoint, so
+        # try a ordered list of hosts and fall back until one succeeds.
+        _binance_hosts = [
+            "https://api.binance.com",
+            "https://www.binance.com",
+            "https://api1.binance.com",
+            "https://api2.binance.com",
+            "https://api3.binance.com",
+        ]
+
         series_by_symbol: dict[str, pd.Series] = {}
         for requested_symbol in symbols:
             output_name = str(requested_symbol)
@@ -105,6 +116,7 @@ class DataLoader:
 
             cursor_ms = start_ms
             candles: list[tuple[int, float]] = []
+            last_error: str | None = None
             while cursor_ms <= end_ms:
                 query = urlencode({
                     "symbol": market_symbol,
@@ -113,14 +125,24 @@ class DataLoader:
                     "endTime": end_ms,
                     "limit": 1000,
                 })
-                url = f"https://api.binance.com/api/v3/klines?{query}"
-                try:
-                    with urlopen(url, timeout=timeout) as response:
-                        payload = json.loads(response.read().decode("utf-8"))
-                except (HTTPError, URLError, TimeoutError, OSError) as exc:
+
+                payload = None
+                fetch_error: str | None = None
+                for host in _binance_hosts:
+                    url = f"{host}/api/v3/klines?{query}"
+                    try:
+                        with urlopen(url, timeout=timeout) as response:
+                            payload = json.loads(response.read().decode("utf-8"))
+                        fetch_error = None
+                        break
+                    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+                        fetch_error = f"{host}: {exc}"
+                        payload = None
+                        continue
+                if fetch_error is not None:
                     raise RuntimeError(
-                        f"Could not fetch Binance candles for {market_symbol}: {exc}"
-                    ) from exc
+                        f"Could not fetch Binance candles for {market_symbol}: {fetch_error}"
+                    ) from None
                 if not isinstance(payload, list):
                     raise RuntimeError(
                         f"Unexpected Binance response for {market_symbol}: {payload!r}"
