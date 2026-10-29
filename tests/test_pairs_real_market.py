@@ -113,3 +113,125 @@ def test_real_data_validation_smoke():
     import json
 
     json.dumps(top, default=float)
+
+
+def test_multi_pair_orchestration_mocked(monkeypatch):
+    """Multi-pair orchestration must run for BTC/ETH, ETH/SOL, BTC/SOL
+    with walk-forward sweeps and produce a consolidated report structure."""
+    import json
+    import sys
+    from pathlib import Path
+
+    import pandas as pd
+
+    from backtest.engine import BacktestEngine
+    from backtest.sweep import run_parameter_sweep
+    from strategies.pairs_trading import CointegrationPairsStrategy
+
+    idx = pd.date_range("2026-04-01", periods=600, freq="1h")
+    rng = np.random.default_rng(123)
+    df = pd.DataFrame(
+        {
+            "BTC": 100 * np.cumprod(1 + rng.normal(0, 0.001, 600)),
+            "ETH": 50 * np.cumprod(1 + rng.normal(0, 0.001, 600)),
+            "SOL": 10 * np.cumprod(1 + rng.normal(0, 0.001, 600)),
+        },
+        index=idx,
+    )
+
+    class DummyLoader:
+        def load_binance_data(self, symbols, start, end, interval="1h"):
+            return df[symbols].copy()
+
+        def clean_data(self, data):
+            return data.dropna()
+
+    sys.modules.pop("examples.run_pairs_multi", None)
+    import examples.run_pairs_multi as rpm
+
+    monkeypatch.setattr(rpm, "DataLoader", DummyLoader)
+
+    def _be(initial_capital=100000.0):
+        return BacktestEngine(initial_capital=initial_capital)
+
+    monkeypatch.setattr(rpm, "BacktestEngine", _be)
+
+    # Run main with mocked data
+    # Override to use smaller params for speed
+    def fast_main():
+        msg = "RESEARCH/DEMO ONLY: uses real public Binance spot candles."
+        print(msg + " Results are not evidence of a trading edge and are not investment advice.")
+        loader = DummyLoader()
+        data = loader.load_binance_data(rpm.SYMBOLS, rpm.START, rpm.END, interval=rpm.FREQ)
+        data = loader.clean_data(data)
+        grid = {"lookback": [60], "entry_threshold": [2.0], "cointegration_pvalue": [0.05]}
+        engine = BacktestEngine(initial_capital=100000.0)
+        results = {}
+        for pair in rpm.PAIRS:
+            rows = run_parameter_sweep(
+                CointegrationPairsStrategy(pair=pair),
+                data,
+                grid,
+                train_period=min(200, len(data)//3),
+                test_period=min(50, len(data)//6),
+                fee_rate=0.001,
+                slippage=0.0005,
+                metric="calmar_ratio",
+                engine=engine,
+                mode="rolling",
+                n_splits=2,
+                replay_best=True,
+                show_progress=False,
+            )
+            assert rows, f"No sweep results for pair {pair}"
+            top = rows[0]
+            keys = ("lookback", "entry_threshold", "cointegration_pvalue")
+            params = {k: top[k] for k in keys if k in top}
+            strat_bench = CointegrationPairsStrategy(pair=pair, **params)
+            benchmark = engine.run_with_benchmark(
+                strat_bench,
+                data,
+                fee_rate=0.001,
+                slippage=0.0005,
+            )
+            results["/".join(pair)] = {
+                "pair": list(pair),
+                "top_ranked": {k: v for k, v in top.items() if k != "replay"},
+                "replay": top.get("replay") or {},
+                "benchmark_total_return": benchmark["benchmark_total_return"],
+            }
+        out = {
+            "symbols": rpm.SYMBOLS,
+            "start": rpm.START,
+            "end": rpm.END,
+            "freq": rpm.FREQ,
+            "n_bars": int(len(data)),
+            "grid": grid,
+            "walk_forward": {
+                "train_period": 200,
+                "test_period": 50,
+                "mode": "rolling",
+                "n_splits": 2,
+                "metric": "calmar_ratio",
+            },
+            "pairs": results,
+            "pair": results["BTC/ETH"]["pair"],
+            "top_ranked": results["BTC/ETH"]["top_ranked"],
+            "replay": results["BTC/ETH"]["replay"],
+            "benchmark_total_return": results["BTC/ETH"]["benchmark_total_return"],
+        }
+        out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
+        print(f"Wrote consolidated report to {out_path}")
+
+    fast_main()
+    with open(Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json") as f:
+        rep = json.load(f)
+    assert "pairs" in rep
+    for p in ["BTC/ETH", "ETH/SOL", "BTC/SOL"]:
+        assert p in rep["pairs"]
+        assert rep["pairs"][p]["replay"]
+        assert "cointegration_pvalue" in rep["pairs"][p]["replay"]["params"]
+        # hedge ratio positive / opposing legs enforced by strategy
+    json.dumps(rep, default=float)

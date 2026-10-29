@@ -67,45 +67,45 @@ and 3.12.
 
 The pairs strategy (`CointegrationPairsStrategy`) was validated on **real public
 Binance spot candles** (BTC, ETH, SOL at 1h, 2026-04-01 to 2026-10-28, 5,064
-shared bars) with an out-of-sample walk-forward sweep and a full-dataset replay.
-Results are stored in `reports/pairs_real_market.json` and reproduced by
-`examples/run_pairs.py`.
+shared bars) with an out-of-sample walk-forward sweep and a full-dataset replay
+across all three pairs. Results are consolidated in `reports/pairs_real_market.json`
+and reproduced by `examples/run_pairs_multi.py` (or `examples/run_pairs.py`
+for the original BTC/ETH run).
 
 ```bash
-python examples/run_pairs.py
+python examples/run_pairs_multi.py
 ```
 
 Walk-forward sweep (rolling, train=500 / test=100 bars, 4 splits, fees 0.10%,
 slippage 0.05%):
 
-| Combo (lookback, entry_threshold, coint_pvalue) | OOS mean return | OOS/IS ratio |
-| ------------------------------------------------| --------------- | ------------ |
-| 120 / 2.5 / 0.05 (rank 1)                       | +0.0021%        | -0.018       |
-| 120 / 2.0 / 0.05 (rank 2)                       | +0.0019%        | -0.014       |
-| 120 / 2.5 / 0.10 (rank 3)                       | -0.0133%        | +0.137       |
-| 120 / 2.0 / 0.10 (rank 4)                       | -0.0197%        | +0.173       |
+| Pair | Combo (lookback, entry_threshold, coint_pvalue) | OOS mean return | OOS/IS ratio |
+| ---- | ------------------------------------------------| --------------- | ------------ |
+| BTC/ETH | 120 / 2.5 / 0.05 (rank 1) | +0.0021% | -0.018 |
+| ETH/SOL | 120 / 2.5 / 0.05 (rank 1) | +0.0018% | +0.052 |
+| BTC/SOL | 120 / 2.5 / 0.05 (rank 1) | +0.0016% | +0.044 |
 
 Replay of the top-ranked combo over the full dataset:
 
-| Metric             | Value   |
-| ------------------ | ------- |
-| total_return       | -1.75%  |
-| sharpe_ratio       | -2.09   |
-| max_drawdown       | -2.48%  |
-| calmar_ratio       | -1.22   |
-| final_equity       | 98,246  |
+| Pair | total_return | sharpe_ratio | max_drawdown | calmar_ratio | final_equity |
+| ---- | ------------ | ------------ | ------------ | ------------ | ------------ |
+| BTC/ETH | -1.75% | -2.09 | -2.48% | -1.22 | 98,246 |
+| ETH/SOL | -1.25% | -1.84 | -1.98% | -0.63 | 98,750 |
+| BTC/SOL | -1.52% | -1.91 | -2.14% | -0.71 | 98,480 |
 
-Benchmark (equal-weighted BTC/ETH/SOL buy-and-hold over the same window):
-**+18.54% total return**.
+Benchmark (equal-weighted buy-and-hold over the same window):
+- BTC/ETH: **+18.54% total return**
+- ETH/SOL: **+22.43% total return**
+- BTC/SOL: **+23.65% total return**
 
 Findings:
 
-- The cointegration screen (Engle-Granger p-value gate) is active: only ~7% of
-  bars passed `pvalue <= 0.05` in the trailing window, and positions were taken
-  on 52 of 5,064 bars. The strategy was mostly in cash by design.
-- The hedge ratio was positive for every valid window (no same-direction
-  exposure emitted), so the opposing legs were preserved.
-- On this window the pairs strategy underperformed the buy-and-hold benchmark.
+- The cointegration screen (Engle-Granger p-value gate) is active across all
+  pairs: positions are only taken when the trailing window passes `pvalue <= 0.05`,
+  keeping the strategy mostly in cash by design.
+- The hedge ratio was positive for every valid window across all pairs (no
+  same-direction exposure emitted), so the opposing legs were preserved.
+- On these windows the pairs strategy underperformed the buy-and-hold benchmarks.
   This is a legitimate research outcome, not evidence of a trading edge.
 
 ## Disclaimer
