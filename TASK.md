@@ -10,12 +10,11 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents `--replay-best`, config `replay_best: true`, YAML example, and replay block fields.
 
-## Current State (verified this session by the current agent)
+## Current State (verified this session)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
-- `python -m pytest tests/test_sweep_replay_best.py -v` -> 3 passed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch on `main` (commit 86f5d01).
+- Working tree clean, branch on `main`.
 
 Note: `ruff check` with no path argument also surfaces pre-existing lint issues in
 `notebooks/*.ipynb` (import sorting, unused imports, long lines, whitespace) and two
@@ -23,4 +22,11 @@ notebooks that are not valid JSON. These are out of scope for the source tree an
 not touched.
 
 ## Next Agent Task
-No outstanding tasks from this handoff. The codebase is in a clean, verified state with all tests passing. If the user provides new requirements, follow existing patterns in the codebase (CLI flags with suppressed aliases, config mapping via `_apply_config_from_dict`, schema updates in `config.py`, tests in `tests/`, docs in README).
+No outstanding tasks from this handoff. The codebase is in a clean, verified state with all tests passing.
+
+If the user provides new requirements, follow existing patterns in the codebase:
+- CLI flags with suppressed aliases (e.g. `--replay-best` + suppressed `--replay_best`).
+- Config mapping via `_apply_config_from_dict` in `backtest/cli.py`.
+- Schema updates in `backtest/config.py`.
+- Tests in `tests/`, docs in `README.md`.
+- Run `python -m pytest tests/ -q`, `python -m ruff check backtest/ strategies/ utils/ tests/`, `python -m mypy backtest/ strategies/ utils/` before declaring done.
