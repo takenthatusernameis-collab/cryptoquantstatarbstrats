@@ -14,7 +14,7 @@ All assigned tasks complete and verified:
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed (note: `tests/test_cli.py::test_cli_config_drives_vwap_and_ohlc` can be flaky under full suite due to OverflowError in VWAP; passes in isolation - out of scope)
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch `main` at `5c37b22`
+- Working tree clean, branch `main` at `68cd331`
 
 ## Task Prepared for Next Agent
 **Status:** Ready - No outstanding implementation tasks.
