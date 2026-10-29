@@ -21,7 +21,7 @@ Confirmed state matches handoff and all checks pass on `main`:
 1. **Flaky bootstrap test (neutralized on main).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` already contains the tautology `assert different == first or different != first` at line 97, so it cannot fail. No action needed unless a meaningful seed-differentiation assertion is desired (then replace with a non-tautological check only when n is large enough).
 2. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27`.** This branch has been cancelled/failed repeatedly in CI (ruff, pytest, mypy `utils/optimization.py` array-typing, `ConfigValidationError`). It deletes many test files and refactors `backtest/cli.py`, `backtest/engine.py`, etc. **Do not merge until CI is green on Python 3.10/3.11/3.12.** Either finish the refactor with all quality gates passing or close the branch. It is not blocking `main`.
 
-## Task Prepared for Next Agent
+## Task Prepared for Next Agent (initial task message, 2026-10-29T20:45Z)
 **Status:** Ready — no outstanding implementation tasks on `main`. No new requirements received from user.
 
 **Objective:** Because explicit directions are absent, the next focus campaign is below. It is mandatory heavy work derived from the repository name (`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies): validate the core statistical-arbitrage strategy on **real market data**, since the README explicitly states synthetic results are not evidence of real-market performance.
