@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Verification by Current Agent (2026-10-29T20:40Z)
+## Verification by Current Agent (2026-10-29T20:43Z)
 Confirmed state matches handoff and all checks pass on `main`:
 - `git status` → clean working tree, branch `main`, up to date with `origin/main`
 - `PYTHONPATH=. python -m pytest tests/ -q` → 490 passed, 1 skipped, 83 warnings in ~25s
