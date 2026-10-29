@@ -13,7 +13,7 @@ All assigned tasks complete and verified:
 ## Verification by Current Agent (2026-10-29T20:43Z)
 Confirmed state matches handoff and all checks pass on `main`:
 - `git status` → clean working tree, branch `main`, up to date with `origin/main`
-- `PYTHONPATH=. python -m pytest tests/ -q` → 490 passed, 1 skipped, 83 warnings in ~25s
+- `PYTHONPATH=. python -m pytest tests/ -q` → 490 passed, 1 skipped, 84 warnings in ~24s
 - `python -m ruff check backtest/ strategies/ utils/ tests/` → All checks passed
 - `python -m mypy backtest/ strategies/ utils/` → Success: no issues found in 31 source files
 
