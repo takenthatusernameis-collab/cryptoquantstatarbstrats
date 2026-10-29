@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Current State (re-verified 2026-10-29T15:44Z)
+## Current State (re-verified 2026-10-29T15:48Z)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
@@ -37,3 +37,5 @@ python -m mypy backtest/ strategies/ utils/
 - Schema updates in `backtest/config.py`
 - Tests in `tests/`, docs in `README.md`
 - Run `python -m pytest tests/ -q`, `python -m ruff check backtest/ strategies/ utils/ tests/`, `python -m mypy backtest/ strategies/ utils/` before declaring done.
+
+(End of file)
