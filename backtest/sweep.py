@@ -9,6 +9,8 @@ import itertools
 import sys
 from typing import Any, Callable, Dict, List, Mapping
 
+import pandas as pd
+
 _ALLOWED_METRICS = ("calmar_ratio", "sharpe_ratio", "total_return")
 
 
@@ -280,9 +282,13 @@ def run_parameter_sweep(
         run_result = engine.run(
             replay_strat, data, fee_rate=float(fee_rate), slippage=float(slippage)
         )
-        equity_curve = run_result.get("equity_curve") or []
+        equity_curve = run_result.get("equity_curve")
+        if isinstance(equity_curve, pd.Series):
+            equity_curve = equity_curve.to_numpy()
+        elif not isinstance(equity_curve, (list, tuple)):
+            equity_curve = [] if equity_curve is None else [equity_curve]
         final_equity = None
-        if equity_curve:
+        if len(equity_curve):
             try:
                 final_equity = float(engine.initial_capital) * float(equity_curve[-1])
             except (TypeError, ValueError, IndexError):

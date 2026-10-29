@@ -1,0 +1,59 @@
+{
+  "pair": [
+    "BTC",
+    "ETH"
+  ],
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "grid": {
+    "lookback": [
+      60,
+      120
+    ],
+    "entry_threshold": [
+      2.0,
+      2.5
+    ],
+    "cointegration_pvalue": [
+      0.05,
+      0.1
+    ]
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "mode": "rolling",
+    "n_splits": 4,
+    "metric": "calmar_ratio"
+  },
+  "top_ranked": {
+    "lookback": 120,
+    "entry_threshold": 2.5,
+    "cointegration_pvalue": 0.05,
+    "oos_mean_return": 2.1360886009705008e-05,
+    "mean_max_drawdown": 0.0,
+    "oos_is_ratio": -0.018013151834526744,
+    "oos_periods": 4,
+    "rank": 1
+  },
+  "replay": {
+    "params": {
+      "lookback": 120,
+      "entry_threshold": 2.5,
+      "cointegration_pvalue": 0.05
+    },
+    "total_return": -0.017541126683653485,
+    "sharpe_ratio": -2.0860580894368077,
+    "max_drawdown": -0.024810442995640725,
+    "calmar_ratio": -1.2162343198132546,
+    "final_equity": 98245.88733163466
+  },
+  "benchmark_total_return": 0.18541747199287895
+}

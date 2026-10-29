@@ -63,6 +63,51 @@ python -m mypy backtest/ strategies/ utils/
 GitHub Actions runs Ruff, mypy, and the test suite across Python 3.10, 3.11,
 and 3.12.
 
+## Real-market validation
+
+The pairs strategy (`CointegrationPairsStrategy`) was validated on **real public
+Binance spot candles** (BTC, ETH, SOL at 1h, 2026-04-01 to 2026-10-28, 5,064
+shared bars) with an out-of-sample walk-forward sweep and a full-dataset replay.
+Results are stored in `reports/pairs_real_market.json` and reproduced by
+`examples/run_pairs.py`.
+
+```bash
+python examples/run_pairs.py
+```
+
+Walk-forward sweep (rolling, train=500 / test=100 bars, 4 splits, fees 0.10%,
+slippage 0.05%):
+
+| Combo (lookback, entry_threshold, coint_pvalue) | OOS mean return | OOS/IS ratio |
+| ------------------------------------------------| --------------- | ------------ |
+| 120 / 2.5 / 0.05 (rank 1)                       | +0.0021%        | -0.018       |
+| 120 / 2.0 / 0.05 (rank 2)                       | +0.0019%        | -0.014       |
+| 120 / 2.5 / 0.10 (rank 3)                       | -0.0133%        | +0.137       |
+| 120 / 2.0 / 0.10 (rank 4)                       | -0.0197%        | +0.173       |
+
+Replay of the top-ranked combo over the full dataset:
+
+| Metric             | Value   |
+| ------------------ | ------- |
+| total_return       | -1.75%  |
+| sharpe_ratio       | -2.09   |
+| max_drawdown       | -2.48%  |
+| calmar_ratio       | -1.22   |
+| final_equity       | 98,246  |
+
+Benchmark (equal-weighted BTC/ETH/SOL buy-and-hold over the same window):
+**+18.54% total return**.
+
+Findings:
+
+- The cointegration screen (Engle-Granger p-value gate) is active: only ~7% of
+  bars passed `pvalue <= 0.05` in the trailing window, and positions were taken
+  on 52 of 5,064 bars. The strategy was mostly in cash by design.
+- The hedge ratio was positive for every valid window (no same-direction
+  exposure emitted), so the opposing legs were preserved.
+- On this window the pairs strategy underperformed the buy-and-hold benchmark.
+  This is a legitimate research outcome, not evidence of a trading edge.
+
 ## Disclaimer
 
 This software is for educational and research purposes only. It does not
