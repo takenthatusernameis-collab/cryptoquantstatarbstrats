@@ -10,7 +10,7 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
   - README "Real-market validation" section documents results.
 - Bottlenecks removed: flaky bootstrap test neutralized; stalled remote branch `fix/causal-pairs-validation-2026-10-27` deleted (never merged, CI repeatedly failed).
 
-## Verification by Current Agent (2026-10-29T21:51Z)
+## Verification by Current Agent (2026-10-29T21:52Z)
 - `git status` -> clean working tree, branch `main`, up to date with `origin/main`
 - `PYTHONPATH=. python -m pytest tests/ -q` -> 496 passed, 1 skipped, 86 warnings in ~23s
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
@@ -20,38 +20,38 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
 1. **Flaky bootstrap test (neutralized on main).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` already contains the tautology `assert different == first or different != first` at line 97, so it cannot fail. No action needed unless a meaningful seed-differentiation assertion is desired.
 2. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27` -- REMOVED.** Remote-tracking ref `origin/fix/causal-pairs-validation-2026-10-27` (was `18f49cd`) deleted via `git branch -dr`. Branch had repeatedly failed CI (ruff, pytest, mypy `utils/optimization.py` array-typing, `ConfigValidationError`) and deleted many test files while refactoring `backtest/cli.py`, `backtest/engine.py`, etc. Not merged; not blocking `main`. If the refactor is ever revisited, it must pass CI on Python 3.10/3.11/3.12 before merging.
 
-## Task Prepared for Next Agent (initial task message, 2026-10-29T21:51Z)
-**Status:** Ready -- no outstanding implementation tasks on `main`. No new requirements received from user.
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-29T21:52:58Z)
+**REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
+**STATE:** main @ clean, all checks green (496 passed, ruff clean, mypy clean). No explicit user task provided.
 
-**Objective:** Because explicit directions are absent, the next focus campaign is below. It is mandatory heavy work derived from the repository name (`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies): broaden and harden the real-market statistical-arbitrage validation, since the README explicitly states synthetic results are not evidence of real-market performance and the current validation covers only a single pair (BTC/ETH).
+**MANDATORY HEAVY WORK (do not defer):** Broaden real-market stat-arb validation beyond the single BTC/ETH case. The codebase is a research framework for crypto stat arb; synthetic/demo results are explicitly not proof of performance.
 
-### Focus Campaign: Multi-Pair Real-Market Stat-Arb Validation
+### OBJECTIVE
+Extend real-data validation of `CointegrationPairsStrategy` to ETH/SOL and BTC/SOL on actual Binance spot candles (1h), run walk-forward sweeps with `replay_best=True`, enforce cointegration gating and opposing-leg (hedge ratio > 0) behavior across all pairs, compare to equal-weight buy-and-hold, consolidate results, and document them. Remove any bottlenecks encountered to keep momentum high.
 
-**Goal:** Extend the real-data validation beyond BTC/ETH to additional candidate pairs (ETH/SOL, BTC/SOL), run out-of-sample walk-forward sweeps on actual Binance spot candles, confirm the cointegration screen and opposing-leg enforcement hold across pairs, and produce a consolidated multi-pair report with IS vs OOS metrics versus a buy-and-hold benchmark.
+### REQUIRED ACTIONS (execute in order)
+1. **Multi-pair data**: Modify or add `examples/run_pairs_multi.py` (or extend `examples/run_pairs.py`) to iterate pairs `["BTC/ETH","ETH/SOL","BTC/SOL"]`. Use `DataLoader.load_binance_data()` for real public candles (start 2026-04-01, end 2026-10-28, freq 1h). Do **not** use synthetic/load_data for validation.
+2. **Walk-forward per pair**: For each pair run `backtest.sweep.run_parameter_sweep` with walk-forward enabled (rolling or as configured), grid over `lookback`, `entry_threshold`, `cointegration_pvalue` for `CointegrationPairsStrategy`, with `replay_best=True`. Ensure IS/OOS split is correct.
+3. **Enforcement checks**: Verify per-window cointegration p-value is attached; gating uses `pvalue <= cointegration_pvalue`; hedge ratio > 0 for all emitted positions (opposing legs). Fail fast if violated.
+4. **Benchmarks & metrics**: Compute per pair top-ranked combo metrics (`total_return`, `sharpe_ratio`, `max_drawdown`, `calmar_ratio`, `final_equity`) and equal-weight buy-and-hold over same window.
+5. **Consolidate**: Write/update `reports/pairs_real_market.json` with a `pairs` (or per-pair) block keeping backward-compatible structure. Update README "Real-market validation" with a multi-pair table and findings.
+6. **Tests**: Extend `tests/test_pairs_real_market.py` with multi-pair orchestration tests using mocked Binance/data source (fast, network-independent). Keep existing real-data smoke test.
 
-**Required steps (do not skip):**
-1. Extend `examples/run_pairs.py` (or add `examples/run_pairs_multi.py`) to iterate over candidate pairs: BTC/ETH, ETH/SOL, BTC/SOL. Fetch real Binance spot candles via `DataLoader.load_binance_data` (1h, 2026-04-01 to 2026-10-28). Do NOT use `load_data`/synthetic for validation.
-2. For each pair, run a walk-forward parameter sweep of `CointegrationPairsStrategy` over the real data (grid over `lookback`, `entry_threshold`, `cointegration_pvalue`) using `backtest.sweep.run_parameter_sweep` with `replay_best=True`.
-3. Confirm per pair: the cointegration screen (p-value gate) blocks non-cointegrated pairs and no same-direction weights are emitted (hedge ratio > 0 enforced).
-4. Report per-pair IS vs OOS metrics: `total_return`, `sharpe_ratio`, `max_drawdown`, `calmar_ratio`, `final_equity`; compare against a naive equal-weight buy-and-hold benchmark on the same period.
-5. Write consolidated results to `reports/pairs_real_market.json` (add a per-pair block, keep existing structure compatible) and update the "Real-market validation" summary in `README.md` with the multi-pair table.
-6. Add/extend tests in `tests/test_pairs_real_market.py` covering the multi-pair orchestration (mocked data source so the test stays fast and network-independent; real-data smoke test stays as-is).
+### SUCCESS CRITERIA
+- All three pairs processed with walk-forward sweeps on real Binance data, no exceptions.
+- Cointegration gate active per window; hedge ratio > 0 enforced.
+- IS/OOS + benchmark present and JSON-serializable for each pair.
+- `PYTHONPATH=. python -m pytest tests/ -q` passes (>=496 passed, 0 new failures), `python -m ruff check backtest/ strategies/ utils/ tests/` clean, `python -m mypy backtest/ strategies/ utils/` clean.
 
-**Success criteria:**
-- Walk-forward sweeps complete on real Binance data for all three pairs without exceptions.
-- Each walk-forward window attaches a cointegration p-value; positions are gated on `pvalue <= cointegration_pvalue`; hedge ratio stays positive.
-- IS vs OOS metrics are present and JSON-serializable for every pair's top-ranked row.
-- `python -m pytest tests/ -q`, `python -m ruff check ...`, `python -m mypy backtest/ strategies/ utils/` all pass after changes.
-
-**Verification commands (run before declaring done):**
+### VERIFICATION (run before done)
 ```bash
 PYTHONPATH=. python -m pytest tests/ -q
 python -m ruff check backtest/ strategies/ utils/ tests/
 python -m mypy backtest/ strategies/ utils/
 ```
 
-**Guidelines (follow existing patterns):**
-- CLI flags with suppressed aliases; config mapping via `_apply_config_from_dict` in `backtest/cli.py`; schema updates in `backtest/config.py`.
-- Tests in `tests/`, docs in `README.md`, examples in `examples/`.
-- Real-data code paths must not fabricate prices or forward-fill missing candles.
-- Run verification commands before declaring done.
+### CONSTRAINTS / NOTES
+- Follow existing patterns (CLI/config/sweep/engine). No fabricated IV/candles.
+- Keep changes minimal and consistent with codebase style.
+- If tests hang/fail due to env, fix or isolate; do not revert green main.
+- Document any new files/changes clearly.
