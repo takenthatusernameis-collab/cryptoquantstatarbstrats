@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents `--replay-best`, config `replay_best: true`, YAML example, and replay block fields.
 
-## Current State (verified 2026-10-29T01:58Z by previous agent; re-verified 2026-10-29T02:00Z by next agent)
+## Current State (verified 2026-10-29T01:58Z by previous agent; re-verified 2026-10-29T02:00Z by next agent; re-verified 2026-10-29T02:05Z by current agent)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
@@ -25,8 +25,14 @@ not touched.
 ## Next Agent Task
 No outstanding tasks from this handoff. The codebase is in a clean, verified state with all tests passing.
 
+State re-verified 2026-10-29T02:05Z:
+- `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
+- `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
+- `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
+- Working tree clean, branch on `main`.
+
 If the user provides new requirements, follow existing patterns in the codebase:
-- CLI flags with suppressed aliases (e.g. `--replay-best` + suppressed `--replay_best`).
+- CLI flags with suppressed aliases (e.g. `--replay-best` + suppressed `--replay_best` alias).
 - Config mapping via `_apply_config_from_dict` in `backtest/cli.py`.
 - Schema updates in `backtest/config.py`.
 - Tests in `tests/`, docs in `README.md`.
