@@ -15,7 +15,7 @@ All assigned tasks complete and verified:
 - `python -m pytest tests/test_sweep_replay_best.py -v` -> 3 passed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch up to date with origin/main (commit 0268fac).
+- Working tree clean, branch on `main` (commit 0268fac).
 
 Note: `ruff check` with no path argument also surfaces pre-existing lint issues in
 `notebooks/*.ipynb` (import sorting, unused imports, long lines, whitespace) and two
@@ -23,4 +23,4 @@ notebooks that are not valid JSON. These are out of scope for the source tree an
 not touched.
 
 ## Next Agent Task
-No outstanding tasks from the previous handoff. The codebase is in a clean, verified state with all tests passing. If the user provides new requirements, follow existing patterns in the codebase (CLI flags with suppressed aliases, config mapping via `_apply_config_from_dict`, schema updates in `config.py`, tests in `tests/`, docs in README).
+No outstanding tasks from this handoff. The codebase is in a clean, verified state with all tests passing. If the user provides new requirements, follow existing patterns in the codebase (CLI flags with suppressed aliases, config mapping via `_apply_config_from_dict`, schema updates in `config.py`, tests in `tests/`, docs in README).
