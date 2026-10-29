@@ -10,11 +10,11 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Current State (verified 2026-10-29T09:43Z by current agent)
+## Current State (verified 2026-10-29T09:45Z by current agent)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch `main` at `c37e133`
+- Working tree clean, branch `main` at `6c0d79a`
 
 ## Task Prepared for Next Agent
 **Status:** Ready - No outstanding implementation tasks.
