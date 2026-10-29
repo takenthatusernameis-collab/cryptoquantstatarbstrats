@@ -36,3 +36,5 @@ python -m pytest tests/ -q
 python -m ruff check backtest/ strategies/ utils/ tests/
 python -m mypy backtest/ strategies/ utils/
 ```
+
+(End of file - total 38 lines)
