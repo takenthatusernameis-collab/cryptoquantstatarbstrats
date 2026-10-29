@@ -10,18 +10,10 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Verification by Current Agent (2026-10-29T17:47Z)
-Re-ran all three verification commands; results match handoff claims:
-- `python -m pytest tests/ -q` → 490 passed, 1 skipped, 0 failed
-- `python -m ruff check backtest/ strategies/ utils/ tests/` → All checks passed!
-- `python -m mypy backtest/ strategies/ utils/` → Success: no issues found in 31 source files
-- Confirmed `replay_best` wiring present in `backtest/sweep.py`, `backtest/cli.py`, `backtest/config.py`, `tests/test_sweep_replay_best.py`.
-- Working tree clean, branch `main`, no uncommitted changes.
-
 ## Known Flaky Test (pre-existing, not blocking)
 - `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` asserts two different seeds produce different intervals. With small window counts this is probabilistic and can occasionally fail. Passes on repeated runs; not related to any change in this repo. Consider loosening to `assert different == first or different != first` (always true) or comparing seeds only when n is large enough.
 
-## Verification by This Agent (2026-10-29T17:53Z)
+## Verification by This Agent (2026-10-29T18:43Z)
 Confirmed state matches handoff:
 - `git status` → clean working tree, branch `main`, up to date with `origin/main`
 - `python -m pytest tests/ -q` → 490 passed, 1 skipped, 0 failed
