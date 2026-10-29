@@ -1,6 +1,6 @@
 # Task for Next Agent
 
-## Handoff from Previous Agent
+## Handoff from Previous Agent (executed)
 All assigned tasks complete and verified:
 - Implemented walk-forward sweep "replay best" final confirmation run.
 - `backtest/sweep.py:129` — `replay_best: bool = False` parameter on `run_parameter_sweep`; validated at `sweep.py:206-207`.
@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Current State (verified 2026-10-29T02:09Z)
+## Current State (verified 2026-10-29T02:51Z)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
@@ -18,10 +18,21 @@ All assigned tasks complete and verified:
 
 Note: `ruff check` without paths also surfaces pre-existing lint issues in `notebooks/*.ipynb` (not valid JSON / style) — out of scope.
 
-## Next Agent Task
-No outstanding tasks. Codebase is clean and verified. If user provides new requirements, follow existing patterns:
+## Task Prepared for Next Agent
+**Status:** Ready - No outstanding implementation tasks.
+
+**Objective:** Await new requirements from user. If no new requirements are provided, perform no code changes.
+
+**Guidelines (follow existing patterns):**
 - CLI flags with suppressed aliases
 - Config mapping via `_apply_config_from_dict` in `backtest/cli.py`
 - Schema updates in `backtest/config.py`
 - Tests in `tests/`, docs in `README.md`
 - Run `python -m pytest tests/ -q`, `python -m ruff check backtest/ strategies/ utils/ tests/`, `python -m mypy backtest/ strategies/ utils/` before declaring done.
+
+**Verification commands:**
+```bash
+python -m pytest tests/ -q
+python -m ruff check backtest/ strategies/ utils/ tests/
+python -m mypy backtest/ strategies/ utils/
+```
