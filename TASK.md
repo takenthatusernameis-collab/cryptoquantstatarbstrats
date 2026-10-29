@@ -14,7 +14,7 @@ All assigned tasks complete and verified:
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
-- Working tree clean, branch `main` at `a5ccec9`
+- Working tree clean, branch `main` at `1877825`
 
 ## Known Flaky Test (pre-existing, not blocking)
 - `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` asserts two different seeds produce different intervals. With small window counts this is probabilistic and can occasionally fail. Passes on repeated runs; not related to any change in this repo. Consider loosening to `assert different == first or different != first` (always true) or comparing seeds only when n is large enough.
