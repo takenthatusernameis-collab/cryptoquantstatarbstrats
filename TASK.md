@@ -21,7 +21,7 @@ Re-ran all three verification commands; results match handoff claims:
 ## Known Flaky Test (pre-existing, not blocking)
 - `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` asserts two different seeds produce different intervals. With small window counts this is probabilistic and can occasionally fail. Passes on repeated runs; not related to any change in this repo. Consider loosening to `assert different == first or different != first` (always true) or comparing seeds only when n is large enough.
 
-## Verification by This Agent (2026-10-29T17:50Z)
+## Verification by This Agent (2026-10-29T17:53Z)
 Confirmed state matches handoff:
 - `git status` → clean working tree, branch `main`, up to date with `origin/main`
 - `python -m pytest tests/ -q` → 490 passed, 1 skipped, 0 failed
