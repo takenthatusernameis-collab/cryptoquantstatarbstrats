@@ -20,10 +20,10 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
 1. **Flaky bootstrap test (neutralized on main).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` already contains the tautology `assert different == first or different != first` at line 97, so it cannot fail. No action needed unless a meaningful seed-differentiation assertion is desired.
 2. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27` -- REMOVED.** Remote-tracking ref `origin/fix/causal-pairs-validation-2026-10-27` (was `18f49cd`) deleted via `git branch -dr`. Branch had repeatedly failed CI (ruff, pytest, mypy `utils/optimization.py` array-typing, `ConfigValidationError`) and deleted many test files while refactoring `backtest/cli.py`, `backtest/engine.py`, etc. Not merged; not blocking `main`. If the refactor is ever revisited, it must pass CI on Python 3.10/3.11/3.12 before merging.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-29T21:53:53Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-29T23:00:10Z)
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data; synthetic/demo output is explicitly NOT proof of performance (README). BTC/ETH real-market validation is complete; ETH/SOL and BTC/SOL remain open.
-**STATE:** main @ clean (working tree clean, up to date with origin/main). Verified 2026-10-29T21:53Z: `pytest tests/ -q` -> 496 passed, 1 skipped; `ruff check backtest/ strategies/ utils/ tests/` -> clean; `mypy backtest/ strategies/ utils/` -> no issues in 31 source files.
+**STATE:** main @ clean (working tree clean, up to date with origin/main). Verified 2026-10-29T23:00Z: `pytest tests/ -q` -> 496 passed, 1 skipped; `ruff check backtest/ strategies/ utils/ tests/` -> clean; `mypy backtest/ strategies/ utils/` -> no issues in 31 source files.
 **EXPLICIT DIRECTION:** None pending. The campaign below is the mandatory focus; no deferral, no synthetic shortcuts, no exit without the success criteria met.
 
 **MANDATORY HEAVY WORK (do not defer):** Broaden real-market stat-arb validation of `CointegrationPairsStrategy` beyond the single BTC/ETH case to ETH/SOL and BTC/SOL on actual Binance spot candles (1h).
