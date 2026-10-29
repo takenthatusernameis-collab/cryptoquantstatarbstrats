@@ -10,7 +10,7 @@ All assigned tasks complete and verified:
 - `tests/test_sweep_replay_best.py` (3 tests): CLI flag, config `replay_best: true`, CLI-over-config precedence, replay uses top-ranked params and includes replay block.
 - README "Replay best sweep combo (full-dataset confirmation)" section documents usage.
 
-## Current State (verified 2026-10-29T06:51Z by current agent)
+## Current State (verified 2026-10-29T06:52Z by current agent)
 - `python -m pytest tests/ -q` -> 490 passed, 1 skipped, 0 failed (note: `tests/test_cli.py::test_cli_config_drives_vwap_and_ohlc` can be flaky under full suite due to OverflowError in VWAP; passes in isolation - out of scope)
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed!
 - `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
