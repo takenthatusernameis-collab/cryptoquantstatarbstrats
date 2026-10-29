@@ -53,6 +53,9 @@ tests/test_strategies.py
 tests/test_sweep.py
 tests/test_sweep_api.py
 tests/test_sweep_api_enhanced.py
+tests/test_sweep_config.py
+tests/test_sweep_replay_best.py
+tests/test_sweep_walk_forward.py
 tests/test_term_structure.py
 tests/test_volatility_surface.py
 tests/test_walk_forward_anchor.py
