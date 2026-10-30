@@ -304,6 +304,20 @@ def main() -> None:
     )
     port_res = engine.run_portfolio(combined_weights, data, fee_rate=0.001, slippage=0.0005)
 
+    # Extract equity curve early so it's available for risk metrics (fixes NameError)
+    eq_curve = port_res.get("equity_curve")
+    eq_curve_out = []
+    if hasattr(eq_curve, 'iloc'):
+        try:
+            eq_curve_out = [_to_float(x) for x in eq_curve.tail(1000).tolist()]
+        except Exception:
+            eq_curve_out = []
+    elif isinstance(eq_curve, (list, np.ndarray)):
+        try:
+            eq_curve_out = [_to_float(x) for x in list(eq_curve)[-1000:]]
+        except Exception:
+            eq_curve_out = []
+
     returns = data.pct_change().fillna(0.0)
     port_rets = (combined_weights.shift(1).fillna(0.0) * returns[SYMBOLS].fillna(0.0)).sum(axis=1)
     # periods per year
@@ -372,24 +386,89 @@ def main() -> None:
             "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
         })
 
-    eq_curve = port_res.get("equity_curve")
-    if hasattr(eq_curve, 'iloc'):
+    # Compute per-pair replay metrics for proper per-pair contributions
+    _pair_replays = {}
+    for pair in PAIRS:
+        pname = "/".join(pair)
+        if pname not in top_params:
+            continue
         try:
-            final_eq = _to_float(eq_curve.iloc[-1])
-            eq_curve_out = [_to_float(x) for x in eq_curve.tail(1000).tolist()]
+            strat = CointegrationPairsStrategy(pair=pair, **top_params[pname])
+            _pr = engine.run(strat, data, fee_rate=0.001, slippage=0.0005)
+            _pair_replays[pname] = {
+                "total_return": _to_float(_pr.get("total_return", 0.0)),
+                "sharpe_ratio": _to_float(_pr.get("sharpe_ratio", 0.0)),
+                "max_drawdown": _to_float(_pr.get("max_drawdown", 0.0)),
+                "calmar_ratio": _to_float(_pr.get("calmar_ratio", 0.0)),
+            }
         except Exception:
-            final_eq = 100000.0
-            eq_curve_out = []
-    elif isinstance(eq_curve, (list, np.ndarray)):
-        try:
-            final_eq = _to_float(eq_curve[-1])
-            eq_curve_out = [_to_float(x) for x in list(eq_curve)[-1000:]]
-        except Exception:
-            final_eq = 100000.0
-            eq_curve_out = []
-    else:
-        final_eq = 100000.0
-        eq_curve_out = []
+            _pair_replays[pname] = {"total_return": 0.0, "sharpe_ratio": 0.0, "max_drawdown": 0.0, "calmar_ratio": 0.0}
+
+    # Cost-stress slices: fee x slippage grid on portfolio
+    _cost_stress = []
+    for fee in (0.0, 0.0005, 0.001, 0.002):
+        for slip in (0.0, 0.0005, 0.001):
+            try:
+                _cr = engine.run_portfolio(combined_weights, data, fee_rate=fee, slippage=slip)
+                _cost_stress.append({
+                    "fee_rate": fee,
+                    "slippage": slip,
+                    "total_return": _to_float(_cr.get("total_return", 0.0)),
+                    "sharpe_ratio": _to_float(_cr.get("sharpe_ratio", 0.0)),
+                    "max_drawdown": _to_float(_cr.get("max_drawdown", 0.0)),
+                })
+            except Exception:
+                _cost_stress.append({
+                    "fee_rate": fee,
+                    "slippage": slip,
+                    "total_return": 0.0,
+                    "sharpe_ratio": 0.0,
+                    "max_drawdown": 0.0,
+                })
+
+    # Regime-conditioned performance
+    _regime_perf = {}
+    try:
+        regimes = detect_regimes(data)
+        btc_vol = regimes.get("BTC_vol_regime")
+        btc_trend = regimes.get("BTC_trend")
+        for label, mask in [("high_vol", btc_vol == btc_vol.max() if btc_vol is not None else None),
+                            ("low_vol", btc_vol == btc_vol.min() if btc_vol is not None else None),
+                            ("downtrend", btc_trend == -1 if btc_trend is not None else None),
+                            ("uptrend", btc_trend == 1 if btc_trend is not None else None)]:
+            if mask is None:
+                continue
+            try:
+                sub_rets = port_rets[mask.reindex(port_rets.index).fillna(False)]
+                if len(sub_rets) > 0:
+                    _regime_perf[label] = {
+                        "n_periods": int(len(sub_rets)),
+                        "total_return": _to_float((1.0 + sub_rets).prod() - 1.0),
+                        "mean_return": _to_float(sub_rets.mean()),
+                        "sharpe_ratio": _to_float(sub_rets.mean() / sub_rets.std()) * _to_float(np.sqrt(periods_per_year)) if sub_rets.std() > 0 else 0.0,
+                    }
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # Circuit breaker test on real history
+    _cb_test = {}
+    try:
+        from utils.risk import DrawdownCircuitBreaker
+        cb = DrawdownCircuitBreaker(max_drawdown=risk_ctrl.drawdown_circuit_breaker)
+        cb_result = engine.run_portfolio(
+            combined_weights, data, fee_rate=0.001, slippage=0.0005, circuit_breaker=cb
+        )
+        _cb_test = {
+            "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker,
+            "tripped": bool(getattr(cb, "tripped", False)),
+            "portfolio_total_return_with_cb": _to_float(cb_result.get("total_return", 0.0)),
+            "portfolio_total_return_without_cb": _to_float(port_res.get("total_return", 0.0)),
+            "max_drawdown_with_cb": _to_float(cb_result.get("max_drawdown", 0.0)),
+        }
+    except Exception as e:
+        _cb_test = {"error": str(e)[:100], "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker}
 
     artifact = {
         "type": "multi_asset_portfolio_real",
@@ -410,7 +489,7 @@ def main() -> None:
             "max_drawdown_duration": int(_to_float(port_res.get("max_drawdown_duration", 0)) or 0),
             "calmar_ratio": _to_float(port_res.get("calmar_ratio", 0.0)),
             "sortino_ratio": _to_float(port_res.get("sortino_ratio", 0.0)),
-            "final_equity": final_eq,
+            "final_equity": _to_float(100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))),
             "equity_curve": eq_curve_out,
         },
         "risk_metrics": {
@@ -424,7 +503,13 @@ def main() -> None:
         "correlation_matrix": corr_matrix,
         "per_asset_contribution": per_asset_contribution,
         "per_pair_contributions": {
-            pname: {"top_params": top_params.get(pname)} for pname in weights_by_strategy
+            pname: {
+                "top_params": top_params.get(pname),
+                "pair_total_return": _to_float(_pair_replays.get(pname, {}).get("total_return", 0.0)),
+                "pair_sharpe_ratio": _to_float(_pair_replays.get(pname, {}).get("sharpe_ratio", 0.0)),
+                "pair_max_drawdown": _to_float(_pair_replays.get(pname, {}).get("max_drawdown", 0.0)),
+            }
+            for pname in weights_by_strategy
         },
         "turnover": {
             "mean_turnover": mean_turnover,
@@ -460,6 +545,9 @@ def main() -> None:
             "walk_forward_splits": len(wf_splits),
             "signals_used": ["btc_vol_regime", "btc_trend"],
         },
+        "regime_conditioned_performance": _regime_perf,
+        "cost_stress_slices": _cost_stress,
+        "circuit_breaker_test": _cb_test,
         "funding_basis": {
             "attempts": funding_attempts,
             "funding_data_available": len(funding_data) > 0,

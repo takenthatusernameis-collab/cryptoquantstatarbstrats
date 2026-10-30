@@ -816,6 +816,7 @@ class BacktestEngine:
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
         weights_are_targets: bool = False,
+        circuit_breaker: Any = None,
     ) -> dict[str, Any]:
         """Run a backtest using pre-computed portfolio weights.
 
@@ -864,6 +865,7 @@ class BacktestEngine:
             benchmark_weights=benchmark_weights,
             factor_returns=factor_returns,
             weights_are_targets=weights_are_targets,
+            circuit_breaker=circuit_breaker,
         )
 
     def walk_forward(

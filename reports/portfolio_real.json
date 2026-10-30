@@ -38,20 +38,19 @@
   "start": "2026-04-01",
   "end": "2026-10-30",
   "freq": "1h",
-  "n_bars": 5099,
+  "n_bars": 5100,
   "real_data_only": true,
   "fabricated_data": false,
   "initial_capital": 100000.0,
   "portfolio": {
     "total_return": -0.0073709341998225986,
-    "sharpe_ratio": -1.3302005750534536,
+    "sharpe_ratio": -1.3300701305177174,
     "max_drawdown": -0.01326712961151133,
-    "max_drawdown_duration": 4145,
-    "calmar_ratio": -0.9527813725781752,
-    "sortino_ratio": -0.6621517259832284,
-    "final_equity": 0.9926290658001774,
+    "max_drawdown_duration": 4146,
+    "calmar_ratio": -0.9525957018350953,
+    "sortino_ratio": -0.6620218923114669,
+    "final_equity": 99262.90658001773,
     "equity_curve": [
-      0.9895040993519929,
       0.9895040993519929,
       0.9895040993519929,
       0.9895040993519929,
@@ -1050,13 +1049,14 @@
       0.9926290658001774,
       0.9926290658001774,
       0.9926290658001774,
+      0.9926290658001774,
       0.9926290658001774
     ]
   },
   "risk_metrics": {
-    "var_95": -8.021747038176528e-05,
+    "var_95": -8.020328751425148e-05,
     "cvar_95": -0.00021862517151727257,
-    "cvar_conditional_drawdown_at_risk_95": 0.01326712961151133,
+    "cvar_conditional_drawdown_at_risk_95": 0.0035018053550295303,
     "max_gross_exposure_limit": 1.5,
     "per_pair_cap": 0.4,
     "drawdown_circuit_breaker": -0.15
@@ -1064,50 +1064,50 @@
   "correlation_matrix": {
     "ADA": {
       "ADA": 1.0,
-      "BNB": 0.7012235685585835,
-      "BTC": 0.7128866373950201,
-      "ETH": 0.7282587976278267,
-      "SOL": 0.7696503365646311,
-      "XRP": 0.7819471333340282
+      "BNB": 0.7010807930133343,
+      "BTC": 0.7128603410268141,
+      "ETH": 0.728383709702194,
+      "SOL": 0.7696472591915312,
+      "XRP": 0.7819229583002959
     },
     "BNB": {
-      "ADA": 0.7012235685585835,
+      "ADA": 0.7010807930133343,
       "BNB": 1.0,
-      "BTC": 0.775642625120638,
-      "ETH": 0.7676819018259132,
-      "SOL": 0.7744714993068622,
-      "XRP": 0.7234056745160089
+      "BTC": 0.7756546517451789,
+      "ETH": 0.7675489930298455,
+      "SOL": 0.774441725875985,
+      "XRP": 0.7233853834694057
     },
     "BTC": {
-      "ADA": 0.7128866373950201,
-      "BNB": 0.775642625120638,
+      "ADA": 0.7128603410268141,
+      "BNB": 0.7756546517451789,
       "BTC": 1.0,
-      "ETH": 0.8797300590153351,
-      "SOL": 0.8283464867393581,
-      "XRP": 0.7636634925130925
+      "ETH": 0.8797706793344532,
+      "SOL": 0.8283551785161002,
+      "XRP": 0.7636805931618605
     },
     "ETH": {
-      "ADA": 0.7282587976278267,
-      "BNB": 0.7676819018259132,
-      "BTC": 0.8797300590153351,
+      "ADA": 0.728383709702194,
+      "BNB": 0.7675489930298455,
+      "BTC": 0.8797706793344532,
       "ETH": 1.0,
-      "SOL": 0.8388481281008675,
-      "XRP": 0.7642502512913305
+      "SOL": 0.8388801235127021,
+      "XRP": 0.7642766627727378
     },
     "SOL": {
-      "ADA": 0.7696503365646311,
-      "BNB": 0.7744714993068622,
-      "BTC": 0.8283464867393581,
-      "ETH": 0.8388481281008675,
+      "ADA": 0.7696472591915312,
+      "BNB": 0.774441725875985,
+      "BTC": 0.8283551785161002,
+      "ETH": 0.8388801235127021,
       "SOL": 1.0,
-      "XRP": 0.8042591710474266
+      "XRP": 0.8042714299696552
     },
     "XRP": {
-      "ADA": 0.7819471333340282,
-      "BNB": 0.7234056745160089,
-      "BTC": 0.7636634925130925,
-      "ETH": 0.7642502512913305,
-      "SOL": 0.8042591710474266,
+      "ADA": 0.7819229583002959,
+      "BNB": 0.7233853834694057,
+      "BTC": 0.7636805931618605,
+      "ETH": 0.7642766627727378,
+      "SOL": 0.8042714299696552,
       "XRP": 1.0
     }
   },
@@ -1125,52 +1125,70 @@
         "lookback": 120,
         "entry_threshold": 2.5,
         "cointegration_pvalue": 0.05
-      }
+      },
+      "pair_total_return": -0.02694880713818326,
+      "pair_sharpe_ratio": -3.6408048043754944,
+      "pair_max_drawdown": -0.02694880713818326
     },
     "ETH/SOL": {
       "top_params": {
         "lookback": 120,
         "entry_threshold": 2.5,
         "cointegration_pvalue": 0.05
-      }
+      },
+      "pair_total_return": -0.03996006159609189,
+      "pair_sharpe_ratio": -2.317775463455477,
+      "pair_max_drawdown": -0.04701118809497706
     },
     "BTC/SOL": {
       "top_params": {
         "lookback": 120,
         "entry_threshold": 2.0,
         "cointegration_pvalue": 0.1
-      }
+      },
+      "pair_total_return": 0.00877335781894173,
+      "pair_sharpe_ratio": 0.5171017793593113,
+      "pair_max_drawdown": -0.01743080022129695
     },
     "ADA/ETH": {
       "top_params": {
         "lookback": 60,
         "entry_threshold": 2.5,
         "cointegration_pvalue": 0.05
-      }
+      },
+      "pair_total_return": 0.03810954361783225,
+      "pair_sharpe_ratio": 1.53290581460208,
+      "pair_max_drawdown": -0.016328582366809008
     },
     "XRP/BTC": {
       "top_params": {
         "lookback": 120,
         "entry_threshold": 2.5,
         "cointegration_pvalue": 0.05
-      }
+      },
+      "pair_total_return": 0.012525189825537408,
+      "pair_sharpe_ratio": 0.6009547785262803,
+      "pair_max_drawdown": -0.021923029448213116
     },
     "BNB/ETH": {
       "top_params": {
         "lookback": 120,
         "entry_threshold": 2.0,
         "cointegration_pvalue": 0.05
-      }
+      },
+      "pair_total_return": -0.0114373014214596,
+      "pair_sharpe_ratio": -0.5344032185217328,
+      "pair_max_drawdown": -0.04887099793901295
     }
   },
   "turnover": {
-    "mean_turnover": 0.002299199724177986,
-    "annualized_turnover": 20.154784782144223
+    "mean_turnover": 0.002298748900702657,
+    "annualized_turnover": 20.150832863559494
   },
   "leverage_exposure_stats": {
-    "mean_gross_exposure": 0.021958602010357927,
+    "mean_gross_exposure": 0.021954296402120602,
     "max_gross_exposure": 0.23333333333333334,
-    "mean_net_exposure": 0.006010236508648943
+    "mean_net_exposure": 0.006009058030902149
   },
   "walk_forward_portfolio": {
     "train_period": 1000,
@@ -1307,6 +1325,125 @@
       "btc_vol_regime",
       "btc_trend"
     ]
+  },
+  "regime_conditioned_performance": {
+    "high_vol": {
+      "n_periods": 1693,
+      "total_return": -0.00020516909570600372,
+      "mean_return": -1.1812136704458332e-07,
+      "sharpe_ratio": -0.14091838551580663
+    },
+    "low_vol": {
+      "n_periods": 1694,
+      "total_return": 0.005673198501660703,
+      "mean_return": 3.3452604699930945e-06,
+      "sharpe_ratio": 2.9261967250218466
+    },
+    "downtrend": {
+      "n_periods": 2405,
+      "total_return": 0.007703804489382238,
+      "mean_return": 3.1941487751299137e-06,
+      "sharpe_ratio": 3.75215244072222
+    },
+    "uptrend": {
+      "n_periods": 2646,
+      "total_return": 0.0021765065413974494,
+      "mean_return": 8.292110763468013e-07,
+      "sharpe_ratio": 0.6320337036713639
+    }
+  },
+  "cost_stress_slices": [
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.0,
+      "total_return": 0.010240474376352449,
+      "sharpe_ratio": 1.8863372757544319,
+      "max_drawdown": -0.004826736129620146
+    },
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.0005,
+      "total_return": 0.004335866079684392,
+      "sharpe_ratio": 0.8021188184005229,
+      "max_drawdown": -0.0054715326652632346
+    },
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.001,
+      "total_return": -0.0015345379895866929,
+      "sharpe_ratio": -0.2761439396868757,
+      "max_drawdown": -0.009263844778152897
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.0,
+      "total_return": 0.004335866079684392,
+      "sharpe_ratio": 0.8021188184005229,
+      "max_drawdown": -0.0054715326652632346
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.0005,
+      "total_return": -0.0015345379895866929,
+      "sharpe_ratio": -0.2761439396868757,
+      "max_drawdown": -0.009263844778152897
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.001,
+      "total_return": -0.0073709341998225986,
+      "sharpe_ratio": -1.3300701305177174,
+      "max_drawdown": -0.01326712961151133
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.0,
+      "total_return": -0.0015345379895866929,
+      "sharpe_ratio": -0.2761439396868757,
+      "max_drawdown": -0.009263844778152897
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.0005,
+      "total_return": -0.0073709341998225986,
+      "sharpe_ratio": -1.3300701305177174,
+      "max_drawdown": -0.01326712961151133
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.001,
+      "total_return": -0.01317351780216125,
+      "sharpe_ratio": -2.3436102991428815,
+      "max_drawdown": -0.017254432795766106
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.0,
+      "total_return": -0.01317351780216125,
+      "sharpe_ratio": -2.3436102991428815,
+      "max_drawdown": -0.017254432795766106
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.0005,
+      "total_return": -0.018942482936800342,
+      "sharpe_ratio": -3.3040667293215216,
+      "max_drawdown": -0.02122581735976692
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.001,
+      "total_return": -0.02467802263924057,
+      "sharpe_ratio": -4.202551868728531,
+      "max_drawdown": -0.025186872485173484
+    }
+  ],
+  "circuit_breaker_test": {
+    "circuit_breaker_threshold": -0.15,
+    "tripped": false,
+    "portfolio_total_return_with_cb": -0.0073709341998225986,
+    "portfolio_total_return_without_cb": -0.0073709341998225986,
+    "max_drawdown_with_cb": -0.01326712961151133
   },
   "funding_basis": {
     "attempts": [

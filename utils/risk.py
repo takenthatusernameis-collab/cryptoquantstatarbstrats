@@ -10,6 +10,36 @@ import numpy as np
 import pandas as pd
 
 
+class DrawdownCircuitBreaker:
+    """Circuit breaker that forces full de-risking when trailing drawdown breaches threshold.
+
+    The engine calls ``breached(current_drawdown)`` per bar. When True, the engine
+    zeroes all subsequent weights. The breaker stays tripped once triggered.
+    """
+
+    def __init__(self, max_drawdown: float = -0.15):
+        if not isinstance(max_drawdown, (int, float)):
+            raise ValueError("max_drawdown must be a number")
+        self.max_drawdown = float(max_drawdown)
+        self.tripped = False
+
+    def breached(self, current_drawdown: float) -> bool:
+        """Return True when the trailing drawdown breaches the threshold.
+
+        ``current_drawdown`` is expected as a negative fraction (e.g. -0.15).
+        """
+        try:
+            dd = float(current_drawdown)
+        except (TypeError, ValueError):
+            return False
+        if not np.isfinite(dd):
+            return False
+        if dd <= self.max_drawdown:
+            self.tripped = True
+            return True
+        return False
+
+
 class RiskManager:
     """Risk manager for position sizing and risk controls."""
 
