@@ -359,3 +359,165 @@ class DataLoader:
         data.columns = list(results.keys())
         data = data.sort_index()
         return data, provenance
+
+    def fetch_quote_volume(
+        self,
+        symbols: list[str],
+        start_date: str,
+        end_date: str,
+        interval: str = "1h",
+        quote_asset: str = "USDT",
+        *,
+        timeout: float = 20.0,
+        max_workers: int = 4,
+        retries: int = 3,
+        backoff_seconds: float = 1.5,
+    ) -> tuple[dict[str, pd.Series], dict[str, Any]]:
+        """Fetch real Binance quote-volume series (klines column 5) with provenance.
+
+        Returns ``(volume_by_symbol, provenance)``. Volume is fetched from the
+        same public klines endpoint as prices, so it is real market data. Every
+        host attempt, retry, and failure is logged with host/endpoint/status/
+        latency_ms so the campaign can prove it never fabricated volume. Symbols
+        that fail after all retries are recorded in ``provenance["excluded"]``
+        with a concrete reason; their series is an empty Series (never fabricated).
+        """
+        import time
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        def as_utc_millis(value: str, *, include_date: bool = False) -> int:
+            stamp = pd.Timestamp(value)
+            if include_date and isinstance(value, str) and len(value.strip()) == 10:
+                stamp = stamp + pd.Timedelta(days=1) - pd.Timedelta(milliseconds=1)
+            if stamp.tzinfo is None:
+                stamp = stamp.tz_localize("UTC")
+            else:
+                stamp = stamp.tz_convert("UTC")
+            return int(stamp.timestamp() * 1000)
+
+        start_ms = as_utc_millis(start_date)
+        end_ms = as_utc_millis(end_date, include_date=True)
+        hosts = [
+            "https://api.binance.com",
+            "https://www.binance.com",
+            "https://api1.binance.com",
+            "https://api2.binance.com",
+            "https://api3.binance.com",
+        ]
+        provenance: dict[str, Any] = {
+            "requested_symbols": list(symbols),
+            "start": start_date,
+            "end": end_date,
+            "interval": interval,
+            "quote_asset": quote_asset,
+            "hosts": hosts,
+            "retries": retries,
+            "backoff_seconds": backoff_seconds,
+            "per_symbol": {},
+            "excluded": [],
+        }
+
+        def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
+            local_attempts: list[dict[str, Any]] = []
+            last_err: str | None = None
+            for attempt in range(1, retries + 1):
+                cursor_ms = start_ms
+                ts_list: list[int] = []
+                vol_list: list[float] = []
+                host_used: str | None = None
+                for host in hosts:
+                    t0 = time.monotonic()
+                    try:
+                        while cursor_ms <= end_ms:
+                            query = urlencode({
+                                "symbol": sym,
+                                "interval": interval,
+                                "startTime": cursor_ms,
+                                "endTime": end_ms,
+                                "limit": 1000,
+                            })
+                            url = f"{host}/api/v3/klines?{query}"
+                            with urlopen(url, timeout=timeout) as resp:
+                                payload = json.loads(resp.read().decode("utf-8"))
+                            latency_ms = int((time.monotonic() - t0) * 1000)
+                            if not isinstance(payload, list):
+                                raise RuntimeError(f"unexpected payload type: {type(payload).__name__}")
+                            if not payload:
+                                break
+                            for candle in payload:
+                                open_ms = int(candle[0])
+                                if start_ms <= open_ms <= end_ms:
+                                    ts_list.append(open_ms)
+                                    vol_list.append(float(candle[5]))
+                            last_open_ms = int(payload[-1][0])
+                            if len(payload) < 1000 or last_open_ms >= end_ms:
+                                break
+                            next_cursor = last_open_ms + 1
+                            if next_cursor <= cursor_ms:
+                                raise RuntimeError("pagination stalled")
+                            cursor_ms = next_cursor
+                        host_used = host
+                        break
+                    except (HTTPError, URLError, TimeoutError, OSError, RuntimeError) as exc:
+                        local_attempts.append({
+                            "attempt": attempt,
+                            "host": host,
+                            "success": False,
+                            "error": str(exc)[:80],
+                            "latency_ms": int((time.monotonic() - t0) * 1000),
+                        })
+                        continue
+                if host_used is not None and ts_list:
+                    local_attempts.append({
+                        "attempt": attempt,
+                        "host": host_used,
+                        "success": True,
+                        "bars": len(ts_list),
+                        "latency_ms": int((time.monotonic() - t0) * 1000),
+                    })
+                    frame = pd.DataFrame({"timestamp": ts_list, sym: vol_list})
+                    frame["timestamp"] = pd.to_datetime(frame["timestamp"], unit="ms", utc=True)
+                    series = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()[sym]
+                    return sym, series, local_attempts
+                last_err = f"all_hosts_failed attempt={attempt}"
+                if attempt < retries:
+                    time.sleep(backoff_seconds * attempt)
+            return sym, None, local_attempts
+
+        results: dict[str, pd.Series] = {}
+        attempts_log: dict[str, list[dict[str, Any]]] = {}
+        with ThreadPoolExecutor(max_workers=max(1, max_workers)) as ex:
+            futures = {ex.submit(_fetch_one, s): s for s in symbols}
+            for fut in as_completed(futures):
+                sym = futures[fut]
+                try:
+                    name, series, local_attempts = fut.result()
+                except Exception as exc:
+                    attempts_log[sym] = [{"attempt": 0, "success": False, "error": str(exc)[:120]}]
+                    provenance["excluded"].append({
+                        "symbol": sym, "reason": "unexpected_exception",
+                        "error": str(exc)[:120],
+                    })
+                    continue
+                attempts_log[sym] = local_attempts
+                if series is None:
+                    provenance["excluded"].append({
+                        "symbol": sym, "reason": "all_retries_failed",
+                        "attempts": local_attempts,
+                    })
+                    continue
+                results[name] = series
+
+        provenance["per_symbol"] = {
+            sym: {
+                "status": "ok" if sym in results else "excluded",
+                "bars": int(series.notna().sum()) if sym in results else 0,
+                "attempts": attempts_log.get(sym, []),
+            }
+            for sym in symbols
+        }
+        provenance["excluded"] = provenance["excluded"] + [
+            {"symbol": s, "reason": "not_in_results", "attempts": attempts_log.get(s, [])}
+            for s in symbols if s not in results
+        ]
+        return results, provenance
