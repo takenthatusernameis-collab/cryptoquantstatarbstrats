@@ -380,3 +380,18 @@ The multi-asset portfolio runner (`examples/run_portfolio_real.py`) constructs a
 - Transaction-cost sensitivity, regime-conditioned performance, and correlation stability documented in `reports/portfolio_real.json`.
 
 All validation uses 100% real market data via `DataLoader.load_binance_data()`. Passing tests and backtests do not guarantee profitability; costs and regime shifts matter.
+
+
+## Hardened multi-asset portfolio (real-only)
+
+`reports/portfolio_real.json` contains a fully enriched real-data-only multi-asset stat arb portfolio with ironclad provenance.
+
+- **Data mandate:** `real_data_only: true`, `fabricated_data: false` (Binance public REST spot). No synthetic/fabricated candles/funding/basis/IV/volume.
+- **Universe:** expanded to provably liquid symbols with per-pair inclusion/exclusion rationale and attempt logs.
+- **Walk-forward (1h):** rolling walk-forward with IS/OOS splits; aggregate IS/OOS degradation tracked.
+- **Multi-timeframe:** enforced walk-forward across **1h, 4h, 1d** with **>=12 rolling splits** each (stability/degradation recorded).
+- **Bootstrap significance:** real OOS portfolio returns bootstrapped (>=2000 simulations, fixed seed) with **95% CIs** for total return/Sharpe/max drawdown (portfolio + per-timeframe).
+- **Volume-aware execution:** real Binance quote-volume fetched with exhaustive attempts; volume-participation adjusted slippage + broad **cost-stress grid** with provenance.
+- **Risk controls:** correlation-aware dampening, per-asset correlation-exposure cap, CVaR-style allocation cap, gross exposure limit, drawdown circuit breaker (tested on real history).
+- **Provenance:** universe changes, exclusions with rationale/attempt logs, funding/basis exhaustive attempts/hosts, risk controls applied, circuit breaker results.
+- **Coverage:** portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model validated by tests.
