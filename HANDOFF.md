@@ -1,11 +1,11 @@
-# Durable Handoff (2026-10-30T01:51:07Z)
+# Durable Handoff (2026-10-30T01:59:45Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
 
 ## Current verified state (green)
 - Branch: main, clean, up to date with origin/main (last commits are kilo checkpoints)
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 499 passed, 1 skipped, 86 warnings
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 501 passed, 1 skipped, 86 warnings
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 
@@ -42,7 +42,7 @@ Focus: extend real-market validation beyond current coverage while keeping the "
 ### Success criteria (must all pass)
 - [ ] Expanded real-market validation completed with results in `reports/` (JSON-serializable)
 - [ ] Benchmarks present and comparisons documented
-- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=497 passed, 0 new failures)
+- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` clean
 
@@ -58,27 +58,26 @@ python -m mypy backtest/ strategies/ utils/
 - If blocked, remove bottlenecks (env/network/mocking) without cutting corners on "real data" requirement.
 - Do not exit until all success criteria met.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:51:07Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:59:45Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and cost-sensitivity included; test/lint/typecheck green after this session's lint fixes.
 
-**MANDATORY HEAVY WORK (do not defer):** Broaden real-market validation coverage — expand the pairs universe, assess regime robustness, and/or add execution-realism checks — using ONLY real public Binance spot data (1h), with walk-forward sweeps + `replay_best=True` where applicable, compared to appropriate buy-and-hold benchmarks. Keep all results JSON-serializable and documented. Add network-independent tests; no fabricated candles/IV. Remove any bottleneck (network, mocking, lint, type) immediately so progress continues.
+**MANDATORY HEAVY WORK (do not defer):** Remaining real-market validation gap is execution realism beyond BTC/ETH (cost sensitivity for additional pairs/mean reversion) plus documentation/tests. Expanded pairs (`reports/pairs_real_market_expanded.json`) and regime robustness (`reports/regime_robustness_real.json`) artifacts already exist and are JSON-serializable. Continue with ONLY real public Binance spot data (1h); remove bottlenecks immediately.
 
 ### OBJECTIVE
-Go beyond current pairs/mean-reversion coverage: expand pair universe, assess regime robustness, and/or add execution-realism checks using ONLY real public Binance data. Produce consolidated artifacts under `reports/`, update README, ensure full test/lint/typecheck pass.
+Close execution-realism gap: add transaction-cost sensitivity beyond BTC/ETH (another pair or mean reversion), model slippage/fee grids, quantify degradation; document assumptions; add network-independent tests; update README. Keep all results JSON-serializable.
 
 ### REQUIRED ACTIONS (execute in order; do not skip)
-1. **Expand pairs universe (real only):** Add validation for additional pairs using `DataLoader.load_binance_data()` (real). For each, walk-forward sweep with `replay_best=True`, enforce cointegration gate, opposing legs/positive hedge ratio, pair-matched buy-and-hold benchmark. Consolidate to `reports/pairs_real_market_expanded.json`.
-2. **Regime robustness (real only):** Split the 2026-04-01 to 2026-10-28 window into subperiods and report stability (Sharpe/drawdown) for top configs of pairs and/or mean reversion. Document findings; write to `reports/regime_robustness_real.json`.
-3. **Execution realism checks:** Add transaction-cost sensitivity beyond BTC/ETH (e.g. another pair/mean reversion) or model slippage/fee grids; quantify degradation. Append/document results.
-4. **Documentation & tests:** Update README with new sections/findings; add network-independent tests for new paths; keep real-data smoke tests where appropriate.
-5. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green state.
+1. **Execution realism (real only):** Add transaction-cost sensitivity beyond BTC/ETH (e.g. ETH/SOL or mean reversion) using `DataLoader.load_binance_data()` (real). Model fee × slippage grids; quantify degradation vs base. Consolidate to `reports/cost_sensitivity_real.json` (or extend existing).
+2. **Documentation:** Update README with cost-sensitivity findings and any new artifacts.
+3. **Tests:** Add network-independent tests for new paths (mocked); keep real-data smoke tests where appropriate.
+4. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green state.
 
 ### SUCCESS CRITERIA (all must hold; none optional)
 - [ ] New real-market validation artifacts in `reports/` (JSON-serializable)
 - [ ] Benchmarks present; results documented in README
-- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=497 passed, 0 new failures)
+- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` clean
 
