@@ -612,7 +612,7 @@ def main() -> None:
             "max_correlation_exposure_limit": risk_ctrl.max_correlation_exposure,
             "max_cvar_allocation_limit": risk_ctrl.max_cvar_allocation,
             "drawdown_circuit_breaker": risk_ctrl.drawdown_circuit_breaker,
-            "max_asset_gross_exposure": _to_float(combined_weights.abs().max()),
+            "max_asset_gross_exposure": _to_float(combined_weights.abs().to_numpy().max()),
             "portfolio_cvar_95": _to_float(cvar95),
         },
         "correlation_matrix": corr_matrix,
