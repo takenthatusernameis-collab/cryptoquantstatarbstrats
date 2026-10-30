@@ -116,6 +116,51 @@ class PortfolioRiskController:
         return w.fillna(0.0)
 
 
+def fetch_funding_rates(symbols: list[str], days: int = 30):
+    """Exhaustively attempt real public Binance futures funding rates.
+
+    Returns ``(attempts, funding_data)``. Never fabricates rates; failures are
+    documented with host/error so data provenance is auditable.
+    """
+    funding_attempts = []
+    funding_data = {}
+    _hosts = ["https://fapi.binance.com", "https://www.binance.com"]
+    end_time = int(pd.Timestamp.now(tz="UTC").timestamp() * 1000)
+    start_time = int((pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=days)).timestamp() * 1000)
+    for sym in symbols:
+        market = f"{sym}USDT"
+        ok = False
+        for host in _hosts:
+            try:
+                query = urlencode({
+                    "symbol": market,
+                    "startTime": start_time,
+                    "endTime": end_time,
+                    "limit": 1000,
+                })
+                url = f"{host}/fapi/v1/fundingRate?{query}"
+                with urlopen(url, timeout=10) as resp:
+                    payload = json.loads(resp.read().decode("utf-8"))
+                if isinstance(payload, list) and payload:
+                    rates = [float(x.get("fundingRate", 0)) for x in payload]
+                    funding_data[sym] = rates
+                    funding_attempts.append({
+                        "symbol": sym, "host": host, "success": True, "count": len(rates),
+                    })
+                    ok = True
+                    break
+                else:
+                    funding_attempts.append({"symbol": sym, "host": host, "success": False})
+            except Exception as e:
+                funding_attempts.append({
+                    "symbol": sym, "host": host, "success": False,
+                    "error": str(e)[:80],
+                })
+        if not ok:
+            funding_attempts.append({"symbol": sym, "success": False, "note": "all_hosts_failed"})
+    return funding_attempts, funding_data
+
+
 def fetch_basis(symbols: list[str]):
     attempts = []
     basis_data = {}
