@@ -6,7 +6,6 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
@@ -18,14 +17,14 @@ import pandas as pd
 from backtest.engine import BacktestEngine
 from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
-from strategies.mean_reversion import MeanReversionStrategy
-from strategies.momentum import MomentumStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
 from utils.portfolio_risk import portfolio_cvar, portfolio_var
 from utils.regime import detect_regimes
 
-
-PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"), ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH")]
+PAIRS = [
+    ("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"),
+    ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH"),
+]
 SYMBOLS = ["BTC", "ETH", "SOL", "ADA", "XRP", "BNB"]
 START = "2026-04-01"
 END = "2026-10-30"
@@ -74,7 +73,11 @@ class PortfolioRiskController:
         self._peak_equity = 1.0
         self._circuit_breached = False
 
-    def apply(self, weights: pd.DataFrame, pair_map: dict[str, list[str]] | None = None) -> pd.DataFrame:
+    def apply(
+        self,
+        weights: pd.DataFrame,
+        pair_map: dict[str, list[str]] | None = None,
+    ) -> pd.DataFrame:
         w = weights.copy().fillna(0.0)
         if pair_map:
             for pair_name, assets in pair_map.items():
@@ -82,11 +85,15 @@ class PortfolioRiskController:
                 if not pair_assets:
                     continue
                 pair_abs = w[pair_assets].abs().sum(axis=1)
-                scale = (self.per_pair_cap / pair_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+                scale = (
+                    self.per_pair_cap / pair_abs.replace(0, np.nan)
+                ).clip(upper=1.0).fillna(1.0)
                 for a in pair_assets:
                     w[a] = w[a] * scale
         gross = w.abs().sum(axis=1)
-        scale_gross = (self.max_gross_exposure / gross.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+        scale_gross = (
+            self.max_gross_exposure / gross.replace(0, np.nan)
+        ).clip(upper=1.0).fillna(1.0)
         w = w.multiply(scale_gross, axis=0)
         return w.fillna(0.0)
 
@@ -102,20 +109,30 @@ def fetch_funding_rates(symbols: list[str], days: int = 30):
         ok = False
         for host in _hosts:
             try:
-                query = urlencode({"symbol": market, "startTime": start_time, "endTime": end_time, "limit": 1000})
+                query = urlencode({
+                    "symbol": market,
+                    "startTime": start_time,
+                    "endTime": end_time,
+                    "limit": 1000,
+                })
                 url = f"{host}/fapi/v1/fundingRate?{query}"
                 with urlopen(url, timeout=10) as resp:
                     payload = json.loads(resp.read().decode("utf-8"))
                 if isinstance(payload, list) and payload:
                     rates = [float(x.get("fundingRate", 0)) for x in payload]
                     funding_data[sym] = rates
-                    funding_attempts.append({"symbol": sym, "host": host, "success": True, "count": len(rates)})
+                    funding_attempts.append({
+                        "symbol": sym, "host": host, "success": True, "count": len(rates),
+                    })
                     ok = True
                     break
                 else:
                     funding_attempts.append({"symbol": sym, "host": host, "success": False})
             except Exception as e:
-                funding_attempts.append({"symbol": sym, "host": host, "success": False, "error": str(e)[:80]})
+                funding_attempts.append({
+                    "symbol": sym, "host": host, "success": False,
+                    "error": str(e)[:80],
+                })
         if not ok and sym not in [a["symbol"] for a in funding_attempts if a.get("success")]:
             funding_attempts.append({"symbol": sym, "success": False, "note": "all_hosts_failed"})
     return funding_attempts, funding_data
@@ -131,7 +148,10 @@ def regime_adaptive_meta_selector(weights_by_strategy: dict[str, pd.DataFrame], 
     combined = pd.DataFrame(0.0, index=data.index, columns=data.columns)
     if btc_vol_regime is None or len(weights_by_strategy) == 0:
         for k, w in weights_by_strategy.items():
-            combined = combined.add(w.reindex(index=data.index, columns=data.columns).fillna(0.0), fill_value=0.0)
+            combined = combined.add(
+                w.reindex(index=data.index, columns=data.columns).fillna(0.0),
+                fill_value=0.0,
+            )
         n = len(weights_by_strategy) if weights_by_strategy else 1
         return combined / n if n > 0 else combined
     try:
@@ -164,7 +184,11 @@ def main() -> None:
         return
 
     engine = BacktestEngine(initial_capital=100_000.0)
-    grid_pairs = {"lookback": [60, 120], "entry_threshold": [2.0, 2.5], "cointegration_pvalue": [0.05, 0.10]}
+    grid_pairs = {
+        "lookback": [60, 120],
+        "entry_threshold": [2.0, 2.5],
+        "cointegration_pvalue": [0.05, 0.10],
+    }
 
     top_params = {}
     for pair in PAIRS:
@@ -179,7 +203,10 @@ def main() -> None:
             if not rows:
                 continue
             top = rows[0]
-            params = {k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top}
+            params = {
+                k: top[k] for k in
+                ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
+            }
             top_params["/".join(pair)] = params
             print(f"  {params}")
         except Exception as e:
@@ -206,11 +233,15 @@ def main() -> None:
             continue
 
     combined_weights = regime_adaptive_meta_selector(weights_by_strategy, data)
-    risk_ctrl = PortfolioRiskController(max_gross_exposure=1.5, per_pair_cap=0.4, drawdown_circuit_breaker=-0.15)
+    risk_ctrl = PortfolioRiskController(
+        max_gross_exposure=1.5, per_pair_cap=0.4, drawdown_circuit_breaker=-0.15,
+    )
     combined_weights = risk_ctrl.apply(combined_weights, pair_map=pair_map)
 
     funding_attempts, funding_data = fetch_funding_rates(SYMBOLS, days=30)
-    print(f"Running walk-forward portfolio (train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})...")
+    print(
+        f"Running walk-forward portfolio (train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})..."
+    )
     wf_results = engine.walk_forward_portfolio(
         combined_weights, data, train_period=TRAIN_PERIOD, test_period=TEST_PERIOD,
         fee_rate=0.001, slippage=0.0005, mode="rolling", n_splits=N_SPLITS,
@@ -295,7 +326,9 @@ def main() -> None:
             "drawdown_circuit_breaker": risk_ctrl.drawdown_circuit_breaker,
         },
         "correlation_matrix": corr_matrix,
-        "per_pair_contributions": {pname: {"top_params": top_params.get(pname)} for pname in weights_by_strategy},
+        "per_pair_contributions": {
+            pname: {"top_params": top_params.get(pname)} for pname in weights_by_strategy
+        },
         "leverage_exposure_stats": {
             "mean_gross_exposure": _to_float(combined_weights.abs().sum(axis=1).mean()),
             "max_gross_exposure": _to_float(combined_weights.abs().sum(axis=1).max()),
@@ -318,16 +351,29 @@ def main() -> None:
         },
         "regime_adaptive_meta_selector": {
             "implemented": True,
-            "description": "Regime-adaptive blending of pair strategies with volatility-regime based de-risking using real data",
+            "description": (
+                "Regime-adaptive blending of pair strategies with volatility-regime based "
+                "de-risking using real data"
+            ),
             "validated_oos": True,
             "walk_forward_splits": len(wf_splits),
         },
         "funding_basis": {
             "attempts": funding_attempts,
             "funding_data_available": len(funding_data) > 0,
-            "funding_summary": {k: {"count": len(v), "mean": _to_float(np.mean(v)) if v else 0.0} for k, v in funding_data.items()},
-            "basis": {"attempted": False, "available": False, "note": "Binance spot/futures basis not fetched in this run; documented attempts below."},
-            "note": "Attempted real public Binance funding rates via REST endpoints; documented all attempts. No fabricated IV/candles used.",
+            "funding_summary": {
+                k: {"count": len(v), "mean": _to_float(np.mean(v)) if v else 0.0}
+                for k, v in funding_data.items()
+            },
+            "basis": {
+                "attempted": False,
+                "available": False,
+                "note": "Binance spot/futures basis not fetched in this run; documented attempts below.",
+            },
+            "note": (
+                "Attempted real public Binance funding rates via REST endpoints; "
+                "documented all attempts. No fabricated IV/candles used."
+            ),
         },
         "top_ranked_pair_params": top_params,
         "cost_assumptions": {"fee_rate": 0.001, "slippage": 0.0005},
@@ -336,7 +382,10 @@ def main() -> None:
     out_path = Path(__file__).resolve().parent.parent / "reports" / "portfolio_real.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(artifact, indent=2, default=float), encoding="utf-8")
-    print(f"Wrote {out_path}: total_return={artifact['portfolio']['total_return']:.4%} sharpe={artifact['portfolio']['sharpe_ratio']:.4f} max_dd={artifact['portfolio']['max_drawdown']:.4%}")
+    print(
+        f"Wrote {out_path}: total_return={artifact['portfolio']['total_return']:.4%} "
+        f"sharpe={artifact['portfolio']['sharpe_ratio']:.4f} max_dd={artifact['portfolio']['max_drawdown']:.4%}"
+    )
 
 
 if __name__ == "__main__":

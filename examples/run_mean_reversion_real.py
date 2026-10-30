@@ -23,7 +23,6 @@ from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 
-
 ASSETS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"
 END = "2026-10-28"

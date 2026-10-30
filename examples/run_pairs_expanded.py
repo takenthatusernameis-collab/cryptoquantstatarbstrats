@@ -21,7 +21,6 @@ from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
-
 PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL")]
 SYMBOLS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"

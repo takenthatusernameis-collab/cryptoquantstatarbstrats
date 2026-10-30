@@ -7,7 +7,6 @@ import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -16,7 +15,6 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
-
 
 SYMBOLS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"

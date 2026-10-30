@@ -10,17 +10,14 @@ import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from backtest.engine import BacktestEngine
-from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from strategies.pairs_trading import CointegrationPairsStrategy
-
 
 SYMBOLS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"
@@ -74,11 +71,17 @@ def main() -> None:
     }
 
     # Use top configs from existing reports
-    pairs_grid = {"lookback": [120], "entry_threshold": [2.5], "cointegration_pvalue": [0.05]}
+    pairs_grid = {
+        "lookback": [120],
+        "entry_threshold": [2.5],
+        "cointegration_pvalue": [0.05],
+    }
     # BTC/ETH as example
     try:
         pair = ("BTC", "ETH")
-        strat = CointegrationPairsStrategy(pair=pair, lookback=120, entry_threshold=2.5, cointegration_pvalue=0.05)
+        strat = CointegrationPairsStrategy(
+            pair=pair, lookback=120, entry_threshold=2.5, cointegration_pvalue=0.05,
+        )
         for p in periods:
             sub = data.iloc[p["start_idx"]:p["end_idx"]]
             if len(sub) < 100:
@@ -110,7 +113,9 @@ def main() -> None:
                     continue
                 try:
                     res = engine.run(strat, sub[[asset]], fee_rate=0.001, slippage=0.0005)
-                    bench = engine.run_with_benchmark(strat, sub[[asset]], fee_rate=0.001, slippage=0.0005)
+                    bench = engine.run_with_benchmark(
+                        strat, sub[[asset]], fee_rate=0.001, slippage=0.0005,
+                    )
                     out["mean_reversion"][f"{asset}_{p['name']}"] = {
                         "asset": asset,
                         "period": p["name"],

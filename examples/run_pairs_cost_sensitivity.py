@@ -25,7 +25,6 @@ from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 from utils.reporting import sweep_cost_sensitivity
 
-
 PAIR = ("BTC", "ETH")
 SYMBOLS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"

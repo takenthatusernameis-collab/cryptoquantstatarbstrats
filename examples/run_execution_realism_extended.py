@@ -13,7 +13,6 @@ from backtest.execution import ExecutionSimulator
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
-
 PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"), ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH")]
 SYMBOLS = ["BTC", "ETH", "SOL", "ADA", "XRP", "BNB"]
 START = "2026-04-01"

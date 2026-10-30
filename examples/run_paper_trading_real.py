@@ -15,15 +15,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import numpy as np
-import pandas as pd
 
 from backtest.engine import BacktestEngine
 from backtest.execution import ExecutionSimulator
 from backtest.paper_report import build_paper_trading_report
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
-
 
 PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL")]
 SYMBOLS = ["BTC", "ETH", "SOL"]

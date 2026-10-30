@@ -25,7 +25,6 @@ from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from utils.reporting import sweep_cost_sensitivity
 
-
 ASSET = "SOL"
 ASSETS = ["BTC", "ETH", "SOL"]
 START = "2026-04-01"
