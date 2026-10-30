@@ -232,6 +232,7 @@ def run_parameter_sweep(
                 slippage=float(slippage),
                 mode=mode,
                 anchor=anchor,
+                n_splits=n_splits,
             )
         except Exception:
             res = {}
