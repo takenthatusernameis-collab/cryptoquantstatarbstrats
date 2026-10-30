@@ -133,10 +133,17 @@ def main() -> None:
         "pairs": results,
         "metadata": {
             "expanded_universe": True,
-            "description": "Expanded real-market validation of cointegration pairs on public Binance spot candles",
+            "description": (
+                "Expanded real-market validation of cointegration pairs on "
+                "public Binance spot candles"
+            ),
         },
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_expanded.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent
+        / "reports"
+        / "pairs_real_market_expanded.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"\nWrote consolidated report to {out_path}")
