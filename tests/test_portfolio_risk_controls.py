@@ -115,7 +115,7 @@ def test_regime_adaptive_meta_selector_de_risks_in_high_vol():
     base = 0.5
     regimes = regime_adaptive_meta_selector.__globals__["detect_regimes"](data)
     vol_col = next(c for c in regimes.columns if c.startswith("BTC") and c.endswith("_vol_regime"))
-    trend_col = next(c for c in regimes.columns if c.startswith("BTC") and c.endswith("_trend"))
+    next(c for c in regimes.columns if c.startswith("BTC") and c.endswith("_trend"))
     high_vol = regimes[vol_col].max()
     mask_high = regimes[vol_col] == high_vol
     if mask_high.any():
