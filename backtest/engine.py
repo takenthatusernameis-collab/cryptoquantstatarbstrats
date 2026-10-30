@@ -207,6 +207,7 @@ class BacktestEngine:
         benchmark_weights: pd.DataFrame | None = None,
         factor_returns: pd.DataFrame | None = None,
         weights_are_targets: bool = True,
+        circuit_breaker: Any = None,
     ) -> dict[str, Any]:
         """Core backtest computation given a (pre-computed) weights DataFrame.
 
@@ -219,6 +220,11 @@ class BacktestEngine:
         selection / interaction attribution is computed against the benchmark.
         When ``factor_returns`` is provided, an OLS factor attribution
         (alpha / beta / residual) is computed on the portfolio returns.
+
+        When a ``circuit_breaker`` is supplied it is evaluated per bar against
+        the running equity curve computed so far, so it can force full
+        de-risking (zero weights) once the trailing drawdown breaches the
+        configured threshold.
         """
         returns = data.pct_change().fillna(0.0)
 
@@ -269,6 +275,55 @@ class BacktestEngine:
         portfolio_returns = portfolio_returns - cost
 
         cumulative_returns = (1.0 + portfolio_returns).cumprod()
+
+        # Per-bar dynamic drawdown circuit breaker. We recompute weights and
+        # costs bar-by-bar so the breaker can react to the equity path as it
+        # is being built. When the breaker trips, all subsequent weights are
+        # forced to zero (full de-risking) and the breaker stays tripped.
+        if circuit_breaker is not None:
+            try:
+                cb_weights = weights.copy()
+                cb_turnover = turnover.copy() if 'turnover' in locals() else None
+                cb_cost = cost.copy() if 'cost' in locals() else None
+                cb_returns = portfolio_returns.copy()
+                cb_equity = pd.Series(1.0, index=weights.index, dtype=float)
+                running_peak = 1.0
+                tripped = False
+                for i in range(len(weights)):
+                    if tripped:
+                        cb_weights.iloc[i] = 0.0
+                        if cb_turnover is not None:
+                            cb_turnover.iloc[i] = float(cb_weights.iloc[i].abs().sum())
+                    else:
+                        # Evaluate breaker against equity up to previous bar.
+                        prev_equity = cb_equity.iloc[i - 1] if i > 0 else 1.0
+                        running_peak = max(running_peak, prev_equity)
+                        if prev_equity > 0:
+                            dd = prev_equity / running_peak - 1.0
+                        else:
+                            dd = 0.0
+                        if circuit_breaker.breached(dd):
+                            tripped = True
+                            cb_weights.iloc[i] = 0.0
+                            if cb_turnover is not None:
+                                cb_turnover.iloc[i] = float(cb_weights.iloc[i].abs().sum())
+                    # Recompute this bar's return with possibly zeroed weights.
+                    if cb_turnover is not None and cb_cost is not None:
+                        if cost_model is not None:
+                            cb_cost.iloc[i] = float(cost_model.compute_cost_series(
+                                cb_turnover.iloc[[i]], self.capital
+                            ))
+                        else:
+                            cb_cost.iloc[i] = float(cb_turnover.iloc[i] * (fee_rate + slippage))
+                        cb_returns.iloc[i] = float((cb_weights.iloc[i] * returns.iloc[i]).sum()) - float(cb_cost.iloc[i])
+                    else:
+                        cb_returns.iloc[i] = float((cb_weights.iloc[i] * returns.iloc[i]).sum())
+                    cb_equity.iloc[i] = float(cb_equity.iloc[i - 1] * (1.0 + cb_returns.iloc[i])) if i > 0 else float(1.0 + cb_returns.iloc[i])
+                portfolio_returns = cb_returns
+                cumulative_returns = cb_equity
+                weights = cb_weights
+            except Exception:
+                pass
 
         total_return = float(cumulative_returns.iloc[-1] - 1.0)
         periods_per_year = _infer_periods_per_year(data.index)
