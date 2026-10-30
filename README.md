@@ -114,6 +114,11 @@ Findings:
 
 **Transaction-cost sensitivity (pairs, ETH/SOL):** `reports/cost_sensitivity_real.json` includes a `cost_sensitivity` block (fees × slippage grid) replaying the top-ranked ETH/SOL combo (`lookback=120`, `entry_threshold=2.5`, `cointegration_pvalue=0.05`) with `replay_best`-style evaluation over the full dataset (2026-04-01 to 2026-10-28). At zero costs the strategy is unprofitable on this window; increasing fees/slippage degrades performance further (total return falls from -3.02% at zero costs to -4.96% under higher costs), confirming sensitivity to transaction costs.
 
+**Transaction-cost sensitivity (pairs portfolio):** `reports/cost_sensitivity_real_portfolio.json` aggregates the top-ranked combos for BTC/ETH, ETH/SOL, BTC/SOL into a combined pairs portfolio on real Binance spot candles (2026-04-01 to 2026-10-28). At zero costs the portfolio is unprofitable on this window (-2.82% total return); performance degrades further with higher fees/slippage (e.g. -6.29% at 0.10% fee/0.05% slippage, -9.64% at 0.20% fee/0.10% slippage), confirming strong sensitivity to transaction costs.
+
+**Regime/cost stress (extended):** `reports/regime_robustness_real.json` includes `cost_stress` slices across periods and strategies at zero/realistic/high costs, showing marked degradation under higher cost regimes on this sample.
+
+
 ## Mean reversion real-market validation
 
 The single-asset `MeanReversionStrategy` was validated on **real public
@@ -303,6 +308,6 @@ Extended real-market validation artifacts consolidated in `reports/pairs_real_ma
 Period-split robustness analysis is recorded in `reports/regime_robustness_real.json` for top configurations across subperiods, reporting Sharpe/drawdown stability relative to buy-and-hold benchmarks on the same real windows.
 
 ### Execution realism
-Transaction-cost sensitivity is documented in `reports/pairs_real_market.json` (fees × slippage grid for BTC/ETH), `reports/cost_sensitivity_real.json` (fees × slippage grid for ETH/SOL), and `reports/cost_sensitivity_real_mean_reversion.json` (fees × slippage grid for mean reversion on SOL). Additional cost grids can be added following the same real-data-only pattern.
+Transaction-cost sensitivity is documented in `reports/pairs_real_market.json` (fees × slippage grid for BTC/ETH), `reports/cost_sensitivity_real.json` (fees × slippage grid for ETH/SOL), `reports/cost_sensitivity_real_mean_reversion.json` (fees × slippage grid for mean reversion on SOL), and `reports/cost_sensitivity_real_portfolio.json` (pairs portfolio across all three pairs). Extended regime/cost-stress slices are in `reports/regime_robustness_real.json`. Additional cost grids can be added following the same real-data-only pattern.
 
 *All new artifacts are JSON-serializable and produced from real public Binance candles without API keys or fabricated data.*

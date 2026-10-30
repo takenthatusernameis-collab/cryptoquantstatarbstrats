@@ -1,0 +1,144 @@
+{
+  "type": "pairs_portfolio_cost_sensitivity",
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "pairs": [
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "top_ranked_params": {
+    "BTC/ETH": {
+      "lookback": 120,
+      "entry_threshold": 2.5,
+      "cointegration_pvalue": 0.05
+    },
+    "ETH/SOL": {
+      "lookback": 120,
+      "entry_threshold": 2.5,
+      "cointegration_pvalue": 0.05
+    },
+    "BTC/SOL": {
+      "lookback": 120,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.1
+    }
+  },
+  "grid": [
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.0
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.0
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.00025
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.0005
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.0005
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.001
+    }
+  ],
+  "rows": [
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.0,
+      "total_return": -0.0282302134668172,
+      "sharpe_ratio": -1.2070193880226812,
+      "max_drawdown": -0.04089462044999814,
+      "max_drawdown_duration": 3271.0,
+      "calmar_ratio": -1.1828323425450051,
+      "sortino_ratio": -0.32058473364351464,
+      "var": 0.0,
+      "cvar": -4.513230553435189e-05,
+      "final_equity": 100000.0
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.0,
+      "total_return": -0.03993348136224073,
+      "sharpe_ratio": -1.7216364646108455,
+      "max_drawdown": -0.04807589717375094,
+      "max_drawdown_duration": 3271.0,
+      "calmar_ratio": -1.4170692647968355,
+      "sortino_ratio": -0.46836639132312446,
+      "var": 0.0,
+      "cvar": -4.6907407819166874e-05,
+      "final_equity": 100000.0
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.00025,
+      "total_return": -0.05723439102072159,
+      "sharpe_ratio": -2.4621974390968,
+      "max_drawdown": -0.06266209088591224,
+      "max_drawdown_duration": 4251.0,
+      "calmar_ratio": -1.548142456390867,
+      "sortino_ratio": -0.6628786816898729,
+      "var": 0.0,
+      "cvar": -5.013183613585433e-05,
+      "final_equity": 100000.0
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.0005,
+      "total_return": -0.06293438541828034,
+      "sharpe_ratio": -2.696946795585957,
+      "max_drawdown": -0.06798998282276425,
+      "max_drawdown_duration": 4251.0,
+      "calmar_ratio": -1.565545989008829,
+      "sortino_ratio": -0.7215932454344318,
+      "var": 0.0,
+      "cvar": -5.122295512671467e-05,
+      "final_equity": 100000.0
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.0005,
+      "total_return": -0.08540445662378315,
+      "sharpe_ratio": -3.55749915822362,
+      "max_drawdown": -0.08901244114721041,
+      "max_drawdown_duration": 4251.0,
+      "calmar_ratio": -1.6089152210905193,
+      "sortino_ratio": -0.9375617598798983,
+      "var": 0.0,
+      "cvar": -5.5735663149954215e-05,
+      "final_equity": 100000.0
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.001,
+      "total_return": -0.0964441232801343,
+      "sharpe_ratio": -3.9354345441193597,
+      "max_drawdown": -0.099352312832377,
+      "max_drawdown_duration": 4251.0,
+      "calmar_ratio": -1.6208995544960516,
+      "sortino_ratio": -1.0231064468406625,
+      "var": 0.0,
+      "cvar": -5.811518012133547e-05,
+      "final_equity": 100000.0
+    }
+  ],
+  "base": {
+    "zero_cost_total_return": -0.0282302134668172,
+    "zero_cost_final_equity": 100000.0
+  }
+}

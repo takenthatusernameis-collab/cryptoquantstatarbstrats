@@ -38,11 +38,38 @@
         "ETH"
       ],
       "period": "period_1",
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0,
-      "calmar_ratio": 0.0,
-      "benchmark_total_return": -0.16393669368950559
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": -0.16393669368950559,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        }
+      ]
     },
     "BTC/ETH_period_2": {
       "pair": [
@@ -50,11 +77,38 @@
         "ETH"
       ],
       "period": "period_2",
-      "total_return": 0.007182767212119634,
-      "sharpe_ratio": 2.0800104373184007,
-      "max_drawdown": -0.0037103565485119283,
-      "calmar_ratio": 10.211937210023525,
-      "benchmark_total_return": 0.1986791616404917
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": 0.1986791616404917,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.010395934472750223,
+          "sharpe_ratio": 3.093788323819957,
+          "max_drawdown": -0.003632946880755772,
+          "calmar_ratio": 15.197250170715893
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.007182767212119634,
+          "sharpe_ratio": 2.0800104373184007,
+          "max_drawdown": -0.0037103565485119283,
+          "calmar_ratio": 10.211937210023525
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.003975285822058305,
+          "sharpe_ratio": 1.0561302472257152,
+          "max_drawdown": -0.003787760990314637,
+          "calmar_ratio": 5.499138534074797
+        }
+      ]
     },
     "BTC/ETH_period_3": {
       "pair": [
@@ -62,40 +116,1275 @@
         "ETH"
       ],
       "period": "period_3",
-      "total_return": -0.004976237184782906,
-      "sharpe_ratio": -2.06817902547355,
-      "max_drawdown": -0.006269040311244867,
-      "calmar_ratio": -4.081806965352209,
-      "benchmark_total_return": 0.1576457551685051
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": 0.1576457551685051,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": -0.001766660643066409,
+          "sharpe_ratio": -0.8330319369354,
+          "max_drawdown": -0.005906235933423543,
+          "calmar_ratio": -1.548527784410901
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.004976237184782906,
+          "sharpe_ratio": -2.06817902547355,
+          "max_drawdown": -0.006269040311244867,
+          "calmar_ratio": -4.081806965352209
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.008179977212830036,
+          "sharpe_ratio": -2.7530353302431654,
+          "max_drawdown": -0.008179977212830036,
+          "calmar_ratio": -5.1078004391064455
+        }
+      ]
+    },
+    "ETH/SOL_period_1": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "period": "period_1",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": -0.2258456967832525,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        }
+      ]
+    },
+    "ETH/SOL_period_2": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "period": "period_2",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": 0.28628576027566766,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.01635485236925094,
+          "sharpe_ratio": 1.9382400614128361,
+          "max_drawdown": -0.018998966708838827,
+          "calmar_ratio": 4.629229861049813
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.00943536256521238,
+          "sharpe_ratio": 1.1302721366302468,
+          "max_drawdown": -0.019336650520872634,
+          "calmar_ratio": 2.5862015479596887
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0025539312830322736,
+          "sharpe_ratio": 0.31626938107710767,
+          "max_drawdown": -0.01967422464200186,
+          "calmar_ratio": 0.6781490980644297
+        }
+      ]
+    },
+    "ETH/SOL_period_3": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "period": "period_3",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05
+      },
+      "benchmark_total_return": 0.19148016418537273,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        }
+      ]
+    },
+    "BTC/SOL_period_1": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "period": "period_1",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.1
+      },
+      "benchmark_total_return": -0.16446286340740546,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.003098213932751337,
+          "sharpe_ratio": 0.5606812605390917,
+          "max_drawdown": -0.014821032175177495,
+          "calmar_ratio": 1.0933080610282049
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.004081534182181046,
+          "sharpe_ratio": -0.6933593924413118,
+          "max_drawdown": -0.015752862174506443,
+          "calmar_ratio": -1.3348471421714698
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.011218836676218036,
+          "sharpe_ratio": -1.8133799577271674,
+          "max_drawdown": -0.01888490090272077,
+          "calmar_ratio": -3.015081581094357
+        }
+      ]
+    },
+    "BTC/SOL_period_2": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "period": "period_2",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.1
+      },
+      "benchmark_total_return": 0.199848802798833,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.008837205882685994,
+          "sharpe_ratio": 1.746529202319203,
+          "max_drawdown": -0.011712678059653703,
+          "calmar_ratio": 3.9939131248759536
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0017493360466922514,
+          "sharpe_ratio": 0.356440216720494,
+          "max_drawdown": -0.014660316100354898,
+          "calmar_ratio": 0.6223150797260874
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.0052977376792813224,
+          "sharpe_ratio": -0.962752988459618,
+          "max_drawdown": -0.017894373388924523,
+          "calmar_ratio": -1.5213653181049214
+        }
+      ]
+    },
+    "BTC/SOL_period_3": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "period": "period_3",
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.1
+      },
+      "benchmark_total_return": 0.2226728352371472,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0
+        }
+      ]
     }
   },
   "mean_reversion": {
     "BTC_period_1": {
       "asset": "BTC",
       "period": "period_1",
-      "total_return": -0.13816903059328067,
-      "sharpe_ratio": -2.8529844714675954,
-      "max_drawdown": -0.19935358310664242,
-      "calmar_ratio": -2.6998006193677386,
-      "benchmark_total_return": -0.0985752584304983
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 1.5
+      },
+      "benchmark_total_return": -0.0985752584304983,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.007475893493674279,
+          "sharpe_ratio": 0.2791024336676638,
+          "max_drawdown": -0.16139052800262532,
+          "calmar_ratio": 0.24450300664999272
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.13816903059328067,
+          "sharpe_ratio": -2.8529844714675954,
+          "max_drawdown": -0.19935358310664242,
+          "calmar_ratio": -2.6998006193677386
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.2629319918038562,
+          "sharpe_ratio": -5.823960994169158,
+          "max_drawdown": -0.2995973840426126,
+          "calmar_ratio": -2.653895001896603
+        }
+      ]
     },
     "BTC_period_2": {
       "asset": "BTC",
       "period": "period_2",
-      "total_return": -0.09721803827226727,
-      "sharpe_ratio": -2.3031380613802623,
-      "max_drawdown": -0.13858271221112772,
-      "calmar_ratio": -2.9746912898116906,
-      "benchmark_total_return": 0.11735940406339829
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 1.5
+      },
+      "benchmark_total_return": 0.11735940406339829,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.08914368903021552,
+          "sharpe_ratio": 2.1598980324188304,
+          "max_drawdown": -0.06274074589873213,
+          "calmar_ratio": 8.901450103716302
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.09721803827226727,
+          "sharpe_ratio": -2.3031380613802623,
+          "max_drawdown": -0.13858271221112772,
+          "calmar_ratio": -2.9746912898116906
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.25190281736354214,
+          "sharpe_ratio": -6.442082312649519,
+          "max_drawdown": -0.2543680595424902,
+          "calmar_ratio": -3.06115485150325
+        }
+      ]
     },
     "BTC_period_3": {
       "asset": "BTC",
       "period": "period_3",
-      "total_return": -0.018645793525182808,
-      "sharpe_ratio": -0.42109587423891504,
-      "max_drawdown": -0.06637114293663782,
-      "calmar_ratio": -1.403796914151199,
-      "benchmark_total_return": 0.18631657700320403
+      "params": {
+        "lookback": 120,
+        "entry_threshold": 1.5
+      },
+      "benchmark_total_return": 0.18631657700320403,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.21624734156653558,
+          "sharpe_ratio": 5.53872385638849,
+          "max_drawdown": -0.04811376039157078,
+          "calmar_ratio": 36.696625417819895
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.018645793525182808,
+          "sharpe_ratio": -0.42109587423891504,
+          "max_drawdown": -0.06637114293663782,
+          "calmar_ratio": -1.403796914151199
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.2084294881718397,
+          "sharpe_ratio": -5.966309974130587,
+          "max_drawdown": -0.21548241355471265,
+          "calmar_ratio": -3.2631623416385396
+        }
+      ]
+    },
+    "ETH_period_1": {
+      "asset": "ETH",
+      "period": "period_1",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": -0.22560439916395592,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.03743334347270211,
+          "sharpe_ratio": 0.9565154415483016,
+          "max_drawdown": -0.06640908034944881,
+          "calmar_ratio": 3.1683920264822043
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.12045453317099442,
+          "sharpe_ratio": -2.8072542334640334,
+          "max_drawdown": -0.1742291412573318,
+          "calmar_ratio": -2.7935607769702324
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.2544983605749279,
+          "sharpe_ratio": -6.362471788222279,
+          "max_drawdown": -0.28117062948346216,
+          "calmar_ratio": -2.783439653370218
+        }
+      ]
+    },
+    "ETH_period_2": {
+      "asset": "ETH",
+      "period": "period_2",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": 0.2845555250595144,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": -0.007970437208146497,
+          "sharpe_ratio": -0.048566853983361885,
+          "max_drawdown": -0.10865642930196162,
+          "calmar_ratio": -0.37484481788239227
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.17762404677937071,
+          "sharpe_ratio": -4.051971818393308,
+          "max_drawdown": -0.19066620977073245,
+          "calmar_ratio": -3.3462505081786196
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.31845617489211364,
+          "sharpe_ratio": -7.850928869307041,
+          "max_drawdown": -0.31845617489211364,
+          "calmar_ratio": -2.711847904509196
+        }
+      ]
+    },
+    "ETH_period_3": {
+      "asset": "ETH",
+      "period": "period_3",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": 0.1275827235529181,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.06491445610981827,
+          "sharpe_ratio": 1.597197217711053,
+          "max_drawdown": -0.05253075738974777,
+          "calmar_ratio": 7.358387956677924
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.10540966736836055,
+          "sharpe_ratio": -2.444325678639508,
+          "max_drawdown": -0.13954350146674888,
+          "calmar_ratio": -3.149058326525448
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.24868894140659015,
+          "sharpe_ratio": -6.127351611152694,
+          "max_drawdown": -0.25237788961290997,
+          "calmar_ratio": -3.065538949020862
+        }
+      ]
+    },
+    "SOL_period_1": {
+      "asset": "SOL",
+      "period": "period_1",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": -0.2277787769784162,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.21777832384037343,
+          "sharpe_ratio": 4.663876742812326,
+          "max_drawdown": -0.057400860133081766,
+          "calmar_ratio": 31.07531757976389
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.024674390057176976,
+          "sharpe_ratio": -0.4634766304291218,
+          "max_drawdown": -0.14648319524543285,
+          "calmar_ratio": -0.8311385837518992
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.21911665717039885,
+          "sharpe_ratio": -5.4078967839792185,
+          "max_drawdown": -0.28153910967741413,
+          "calmar_ratio": -2.5694400623258185
+        }
+      ]
+    },
+    "SOL_period_2": {
+      "asset": "SOL",
+      "period": "period_2",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": 0.28450330136769364,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.07425539176585239,
+          "sharpe_ratio": 1.7967719529142245,
+          "max_drawdown": -0.06878839195886899,
+          "calmar_ratio": 6.555065936474841
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.13839031663124846,
+          "sharpe_ratio": -3.3692940933215536,
+          "max_drawdown": -0.14329635920381922,
+          "calmar_ratio": -3.7602539815157603
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.3091724756509331,
+          "sharpe_ratio": -8.206488324569419,
+          "max_drawdown": -0.3100017209374818,
+          "calmar_ratio": -2.7537609678060972
+        }
+      ]
+    },
+    "SOL_period_3": {
+      "asset": "SOL",
+      "period": "period_3",
+      "params": {
+        "lookback": 50,
+        "entry_threshold": 2.0
+      },
+      "benchmark_total_return": 0.253816376562884,
+      "cost_stress_slices": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.04870060803939169,
+          "sharpe_ratio": 1.0358220696978735,
+          "max_drawdown": -0.11482489847078448,
+          "calmar_ratio": 2.4410520023428472
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.14755629817967786,
+          "sharpe_ratio": -2.84050784369798,
+          "max_drawdown": -0.2027944392856863,
+          "calmar_ratio": -2.779961730261479
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.3073009740009265,
+          "sharpe_ratio": -6.500482611708378,
+          "max_drawdown": -0.3161741933858152,
+          "calmar_ratio": -2.6934489008329066
+        }
+      ]
+    }
+  },
+  "cost_stress": {
+    "grid": [
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.0
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.0005
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.001
+      }
+    ],
+    "pairs": {
+      "BTC/ETH_period_1": {
+        "pair": [
+          "BTC",
+          "ETH"
+        ],
+        "period": "period_1",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": -0.16393669368950559,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          }
+        ]
+      },
+      "BTC/ETH_period_2": {
+        "pair": [
+          "BTC",
+          "ETH"
+        ],
+        "period": "period_2",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": 0.1986791616404917,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.010395934472750223,
+            "sharpe_ratio": 3.093788323819957,
+            "max_drawdown": -0.003632946880755772,
+            "calmar_ratio": 15.197250170715893
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.007182767212119634,
+            "sharpe_ratio": 2.0800104373184007,
+            "max_drawdown": -0.0037103565485119283,
+            "calmar_ratio": 10.211937210023525
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.003975285822058305,
+            "sharpe_ratio": 1.0561302472257152,
+            "max_drawdown": -0.003787760990314637,
+            "calmar_ratio": 5.499138534074797
+          }
+        ]
+      },
+      "BTC/ETH_period_3": {
+        "pair": [
+          "BTC",
+          "ETH"
+        ],
+        "period": "period_3",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": 0.1576457551685051,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": -0.001766660643066409,
+            "sharpe_ratio": -0.8330319369354,
+            "max_drawdown": -0.005906235933423543,
+            "calmar_ratio": -1.548527784410901
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.004976237184782906,
+            "sharpe_ratio": -2.06817902547355,
+            "max_drawdown": -0.006269040311244867,
+            "calmar_ratio": -4.081806965352209
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.008179977212830036,
+            "sharpe_ratio": -2.7530353302431654,
+            "max_drawdown": -0.008179977212830036,
+            "calmar_ratio": -5.1078004391064455
+          }
+        ]
+      },
+      "ETH/SOL_period_1": {
+        "pair": [
+          "ETH",
+          "SOL"
+        ],
+        "period": "period_1",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": -0.2258456967832525,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          }
+        ]
+      },
+      "ETH/SOL_period_2": {
+        "pair": [
+          "ETH",
+          "SOL"
+        ],
+        "period": "period_2",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": 0.28628576027566766,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.01635485236925094,
+            "sharpe_ratio": 1.9382400614128361,
+            "max_drawdown": -0.018998966708838827,
+            "calmar_ratio": 4.629229861049813
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.00943536256521238,
+            "sharpe_ratio": 1.1302721366302468,
+            "max_drawdown": -0.019336650520872634,
+            "calmar_ratio": 2.5862015479596887
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.0025539312830322736,
+            "sharpe_ratio": 0.31626938107710767,
+            "max_drawdown": -0.01967422464200186,
+            "calmar_ratio": 0.6781490980644297
+          }
+        ]
+      },
+      "ETH/SOL_period_3": {
+        "pair": [
+          "ETH",
+          "SOL"
+        ],
+        "period": "period_3",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "benchmark_total_return": 0.19148016418537273,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          }
+        ]
+      },
+      "BTC/SOL_period_1": {
+        "pair": [
+          "BTC",
+          "SOL"
+        ],
+        "period": "period_1",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.1
+        },
+        "benchmark_total_return": -0.16446286340740546,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.003098213932751337,
+            "sharpe_ratio": 0.5606812605390917,
+            "max_drawdown": -0.014821032175177495,
+            "calmar_ratio": 1.0933080610282049
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.004081534182181046,
+            "sharpe_ratio": -0.6933593924413118,
+            "max_drawdown": -0.015752862174506443,
+            "calmar_ratio": -1.3348471421714698
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.011218836676218036,
+            "sharpe_ratio": -1.8133799577271674,
+            "max_drawdown": -0.01888490090272077,
+            "calmar_ratio": -3.015081581094357
+          }
+        ]
+      },
+      "BTC/SOL_period_2": {
+        "pair": [
+          "BTC",
+          "SOL"
+        ],
+        "period": "period_2",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.1
+        },
+        "benchmark_total_return": 0.199848802798833,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.008837205882685994,
+            "sharpe_ratio": 1.746529202319203,
+            "max_drawdown": -0.011712678059653703,
+            "calmar_ratio": 3.9939131248759536
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.0017493360466922514,
+            "sharpe_ratio": 0.356440216720494,
+            "max_drawdown": -0.014660316100354898,
+            "calmar_ratio": 0.6223150797260874
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.0052977376792813224,
+            "sharpe_ratio": -0.962752988459618,
+            "max_drawdown": -0.017894373388924523,
+            "calmar_ratio": -1.5213653181049214
+          }
+        ]
+      },
+      "BTC/SOL_period_3": {
+        "pair": [
+          "BTC",
+          "SOL"
+        ],
+        "period": "period_3",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.1
+        },
+        "benchmark_total_return": 0.2226728352371472,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "calmar_ratio": 0.0
+          }
+        ]
+      }
+    },
+    "mean_reversion": {
+      "BTC_period_1": {
+        "asset": "BTC",
+        "period": "period_1",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 1.5
+        },
+        "benchmark_total_return": -0.0985752584304983,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.007475893493674279,
+            "sharpe_ratio": 0.2791024336676638,
+            "max_drawdown": -0.16139052800262532,
+            "calmar_ratio": 0.24450300664999272
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.13816903059328067,
+            "sharpe_ratio": -2.8529844714675954,
+            "max_drawdown": -0.19935358310664242,
+            "calmar_ratio": -2.6998006193677386
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.2629319918038562,
+            "sharpe_ratio": -5.823960994169158,
+            "max_drawdown": -0.2995973840426126,
+            "calmar_ratio": -2.653895001896603
+          }
+        ]
+      },
+      "BTC_period_2": {
+        "asset": "BTC",
+        "period": "period_2",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 1.5
+        },
+        "benchmark_total_return": 0.11735940406339829,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.08914368903021552,
+            "sharpe_ratio": 2.1598980324188304,
+            "max_drawdown": -0.06274074589873213,
+            "calmar_ratio": 8.901450103716302
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.09721803827226727,
+            "sharpe_ratio": -2.3031380613802623,
+            "max_drawdown": -0.13858271221112772,
+            "calmar_ratio": -2.9746912898116906
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.25190281736354214,
+            "sharpe_ratio": -6.442082312649519,
+            "max_drawdown": -0.2543680595424902,
+            "calmar_ratio": -3.06115485150325
+          }
+        ]
+      },
+      "BTC_period_3": {
+        "asset": "BTC",
+        "period": "period_3",
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 1.5
+        },
+        "benchmark_total_return": 0.18631657700320403,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.21624734156653558,
+            "sharpe_ratio": 5.53872385638849,
+            "max_drawdown": -0.04811376039157078,
+            "calmar_ratio": 36.696625417819895
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.018645793525182808,
+            "sharpe_ratio": -0.42109587423891504,
+            "max_drawdown": -0.06637114293663782,
+            "calmar_ratio": -1.403796914151199
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.2084294881718397,
+            "sharpe_ratio": -5.966309974130587,
+            "max_drawdown": -0.21548241355471265,
+            "calmar_ratio": -3.2631623416385396
+          }
+        ]
+      },
+      "ETH_period_1": {
+        "asset": "ETH",
+        "period": "period_1",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": -0.22560439916395592,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.03743334347270211,
+            "sharpe_ratio": 0.9565154415483016,
+            "max_drawdown": -0.06640908034944881,
+            "calmar_ratio": 3.1683920264822043
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.12045453317099442,
+            "sharpe_ratio": -2.8072542334640334,
+            "max_drawdown": -0.1742291412573318,
+            "calmar_ratio": -2.7935607769702324
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.2544983605749279,
+            "sharpe_ratio": -6.362471788222279,
+            "max_drawdown": -0.28117062948346216,
+            "calmar_ratio": -2.783439653370218
+          }
+        ]
+      },
+      "ETH_period_2": {
+        "asset": "ETH",
+        "period": "period_2",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": 0.2845555250595144,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": -0.007970437208146497,
+            "sharpe_ratio": -0.048566853983361885,
+            "max_drawdown": -0.10865642930196162,
+            "calmar_ratio": -0.37484481788239227
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.17762404677937071,
+            "sharpe_ratio": -4.051971818393308,
+            "max_drawdown": -0.19066620977073245,
+            "calmar_ratio": -3.3462505081786196
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.31845617489211364,
+            "sharpe_ratio": -7.850928869307041,
+            "max_drawdown": -0.31845617489211364,
+            "calmar_ratio": -2.711847904509196
+          }
+        ]
+      },
+      "ETH_period_3": {
+        "asset": "ETH",
+        "period": "period_3",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": 0.1275827235529181,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.06491445610981827,
+            "sharpe_ratio": 1.597197217711053,
+            "max_drawdown": -0.05253075738974777,
+            "calmar_ratio": 7.358387956677924
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.10540966736836055,
+            "sharpe_ratio": -2.444325678639508,
+            "max_drawdown": -0.13954350146674888,
+            "calmar_ratio": -3.149058326525448
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.24868894140659015,
+            "sharpe_ratio": -6.127351611152694,
+            "max_drawdown": -0.25237788961290997,
+            "calmar_ratio": -3.065538949020862
+          }
+        ]
+      },
+      "SOL_period_1": {
+        "asset": "SOL",
+        "period": "period_1",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": -0.2277787769784162,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.21777832384037343,
+            "sharpe_ratio": 4.663876742812326,
+            "max_drawdown": -0.057400860133081766,
+            "calmar_ratio": 31.07531757976389
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.024674390057176976,
+            "sharpe_ratio": -0.4634766304291218,
+            "max_drawdown": -0.14648319524543285,
+            "calmar_ratio": -0.8311385837518992
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.21911665717039885,
+            "sharpe_ratio": -5.4078967839792185,
+            "max_drawdown": -0.28153910967741413,
+            "calmar_ratio": -2.5694400623258185
+          }
+        ]
+      },
+      "SOL_period_2": {
+        "asset": "SOL",
+        "period": "period_2",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": 0.28450330136769364,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.07425539176585239,
+            "sharpe_ratio": 1.7967719529142245,
+            "max_drawdown": -0.06878839195886899,
+            "calmar_ratio": 6.555065936474841
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.13839031663124846,
+            "sharpe_ratio": -3.3692940933215536,
+            "max_drawdown": -0.14329635920381922,
+            "calmar_ratio": -3.7602539815157603
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.3091724756509331,
+            "sharpe_ratio": -8.206488324569419,
+            "max_drawdown": -0.3100017209374818,
+            "calmar_ratio": -2.7537609678060972
+          }
+        ]
+      },
+      "SOL_period_3": {
+        "asset": "SOL",
+        "period": "period_3",
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "benchmark_total_return": 0.253816376562884,
+        "cost_stress_slices": [
+          {
+            "fee_rate": 0.0,
+            "slippage": 0.0,
+            "total_return": 0.04870060803939169,
+            "sharpe_ratio": 1.0358220696978735,
+            "max_drawdown": -0.11482489847078448,
+            "calmar_ratio": 2.4410520023428472
+          },
+          {
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "total_return": -0.14755629817967786,
+            "sharpe_ratio": -2.84050784369798,
+            "max_drawdown": -0.2027944392856863,
+            "calmar_ratio": -2.779961730261479
+          },
+          {
+            "fee_rate": 0.002,
+            "slippage": 0.001,
+            "total_return": -0.3073009740009265,
+            "sharpe_ratio": -6.500482611708378,
+            "max_drawdown": -0.3161741933858152,
+            "calmar_ratio": -2.6934489008329066
+          }
+        ]
+      }
     }
   }
 }
