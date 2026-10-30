@@ -1,7 +1,7 @@
-# Durable Handoff (2026-10-30T01:45:26Z)
+# Durable Handoff (2026-10-30T01:46:18Z)
 
 ## Repo
-cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles.
+cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
 
 ## Current verified state (green)
 - Branch: main, clean, up to date with origin/main (last commits are kilo checkpoints)
@@ -9,15 +9,14 @@ cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research o
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 
-## Completed (from previous agent)
+## Completed (from previous agents)
 - Walk-forward sweep `replay_best` support (CLI/config/sweep)
 - Real-market pairs validation complete for BTC/ETH, ETH/SOL, BTC/SOL on Binance spot 1h (2026-04-01 to 2026-10-28)
 - Mean reversion real-market validation complete for BTC, ETH, SOL (same window) via `examples/run_mean_reversion_real.py`
-- Pairs transaction-cost sensitivity sweep added to `reports/pairs_real_market.json` (BTC/ETH, fees × slippage grid) showing sensitivity to costs
+- Pairs transaction-cost sensitivity sweep added to `reports/pairs_real_market.json` (BTC/ETH, fees × slippage grid)
 - Fixed benchmark bug in `backtest/engine.run_with_benchmark` (pair symbols only)
 - README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity note
-- Bottlenecks removed (zeroed JSON, benchmark mismatch, flaky bootstrap neutralized, stalled branch deleted)
-- Bottlenecks removed this session: fixed 2 lint errors in newly added test files (`tests/test_mean_reversion_real_market.py` unused `import sys`; `tests/test_pairs_cost_sensitivity.py` line-too-long) so lint is clean again
+- Bottlenecks removed (zeroed JSON, benchmark mismatch, flaky bootstrap neutralized, stalled branch deleted, lint errors fixed in newly added test files)
 
 ## MANDATORY NEXT CAMPAIGN (heavy work - do not defer)
 Focus: extend real-market validation beyond current coverage while keeping the "real data only for validation" constraint. Remove bottlenecks immediately if encountered.
@@ -59,8 +58,7 @@ python -m mypy backtest/ strategies/ utils/
 - If blocked, remove bottlenecks (env/network/mocking) without cutting corners on "real data" requirement.
 - Do not exit until all success criteria met.
 
-
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:45:26Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:46:18Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and cost-sensitivity included; test/lint/typecheck green after this session's lint fixes.
