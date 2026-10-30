@@ -1,4 +1,4 @@
-# Durable Handoff (2026-10-30T00:50:37Z)
+# Durable Handoff (2026-10-30T00:50:57Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation.
@@ -93,7 +93,7 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
 3. **Flaky bootstrap test (neutralized).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` contains a tautology; cannot fail. No action needed unless a meaningful assertion is desired.
 4. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27` (REMOVED).** Repeatedly failed CI; not merged; not blocking `main`.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T00:50:37Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T00:50:57Z)
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data; synthetic/demo output is explicitly NOT proof of performance (README). Pairs real-market validation (BTC/ETH, ETH/SOL, BTC/SOL) is COMPLETE. Explicit directions: none pending — the campaign below is the mandatory focus; no deferral, no synthetic shortcuts, no exit without the success criteria met.
 
