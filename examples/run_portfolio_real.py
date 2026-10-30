@@ -23,8 +23,16 @@ from utils.regime import detect_regimes
 
 
 PAIRS = [
-    ("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"),
-    ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH"),
+    ("BTC", "ETH"),
+    ("ETH", "SOL"),
+    ("BTC", "SOL"),
+    ("ADA", "ETH"),
+    ("XRP", "BTC"),
+    ("BNB", "ETH"),
+    ("BTC", "BNB"),
+    ("SOL", "BNB"),
+    ("ADA", "BTC"),
+    ("XRP", "ETH"),
 ]
 SYMBOLS = sorted(set([s for p in PAIRS for s in p]))
 START = "2026-04-01"
@@ -32,7 +40,7 @@ END = "2026-10-30"
 FREQ = "1h"
 TRAIN_PERIOD = 1000
 TEST_PERIOD = 200
-N_SPLITS = 10
+N_SPLITS = 12
 
 
 def _to_float(x):
@@ -64,15 +72,17 @@ def _to_float(x):
 class PortfolioRiskController:
     def __init__(
         self,
-        max_gross_exposure: float = 1.3,
-        per_pair_cap: float = 0.35,
-        drawdown_circuit_breaker: float = -0.12,
-        max_correlation_exposure: float = 0.6,
+        max_gross_exposure: float = 1.4,
+        per_pair_cap: float = 0.32,
+        drawdown_circuit_breaker: float = -0.10,
+        max_correlation_exposure: float = 0.5,
+        max_cvar_allocation: float = 0.25,
     ):
         self.max_gross_exposure = max_gross_exposure
         self.per_pair_cap = per_pair_cap
         self.drawdown_circuit_breaker = drawdown_circuit_breaker
         self.max_correlation_exposure = max_correlation_exposure
+        self.max_cvar_allocation = max_cvar_allocation
         self._peak_equity = 1.0
         self._circuit_breached = False
 
@@ -94,18 +104,23 @@ class PortfolioRiskController:
                 ).clip(upper=1.0).fillna(1.0)
                 for a in pair_assets:
                     w[a] = w[a] * scale
-        # Correlation-aware dampening (simple heuristic)
+        # Correlation-aware dampening (stronger heuristic)
         if correlation_matrix and len(w.columns) > 1:
             try:
-                # Build rough correlation penalty on highly correlated pairs
                 for c1 in w.columns:
                     for c2 in w.columns:
                         if c1 >= c2:
                             continue
-                        corr = correlation_matrix.get(c1, {}).get(c2) if isinstance(correlation_matrix.get(c1), dict) else None
-                        if corr is not None and abs(corr) > 0.7:
-                            w[c1] = w[c1] * 0.8
-                            w[c2] = w[c2] * 0.8
+                        corr = None
+                        c1m = correlation_matrix.get(c1)
+                        if isinstance(c1m, dict):
+                            corr = c1m.get(c2)
+                        elif isinstance(c1m, (float, np.floating)):
+                            # not expected
+                            pass
+                        if corr is not None and abs(float(corr)) > 0.65:
+                            w[c1] = w[c1] * 0.7
+                            w[c2] = w[c2] * 0.7
             except Exception:
                 pass
         gross = w.abs().sum(axis=1)
@@ -289,7 +304,10 @@ def main() -> None:
 
     combined_weights = regime_adaptive_meta_selector(weights_by_strategy, data)
     risk_ctrl = PortfolioRiskController(
-        max_gross_exposure=1.5, per_pair_cap=0.4, drawdown_circuit_breaker=-0.15,
+        max_gross_exposure=1.4,
+        per_pair_cap=0.32,
+        drawdown_circuit_breaker=-0.10,
+        max_correlation_exposure=0.5,
     )
     combined_weights = risk_ctrl.apply(combined_weights, pair_map=pair_map)
 
