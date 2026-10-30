@@ -1,4 +1,4 @@
-# Durable Handoff (2026-10-30T07:49:58Z) — SINGLE MANDATORY NEXT TASK: BUILD MULTI-ASSET PORTFOLIO CONSTRUCTION (REAL DATA, HEAVY)
+# Durable Handoff (2026-10-30T07:58:06Z) — SINGLE MANDATORY NEXT TASK: BUILD MULTI-ASSET PORTFOLIO CONSTRUCTION (REAL DATA, HEAVY)
 
 ## Repo name prioritization (drives everything)
 - **REPO:** cryptoquantstatarbstrats — Crypto Quant Stat Arb Strategies
@@ -39,7 +39,7 @@ No portfolio artifact exists yet. Create the full multi-asset portfolio construc
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T07:49:58Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T07:58:06Z)
 
 **OBJECTIVE:** Build multi-asset portfolio construction for crypto stat arb on REAL Binance data. This is the mandated next campaign per repo name.
 
