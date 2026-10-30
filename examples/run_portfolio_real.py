@@ -91,6 +91,8 @@ class PortfolioRiskController:
         weights: pd.DataFrame,
         pair_map: dict[str, list[str]] | None = None,
         correlation_matrix: dict | None = None,
+        returns: pd.DataFrame | None = None,
+        confidence: float = 0.95,
     ) -> pd.DataFrame:
         w = weights.copy().fillna(0.0)
         if pair_map:
@@ -121,6 +123,34 @@ class PortfolioRiskController:
                         if corr is not None and abs(float(corr)) > 0.65:
                             w[c1] = w[c1] * 0.7
                             w[c2] = w[c2] * 0.7
+            except Exception:
+                pass
+        # Enforce per-asset correlation exposure cap: no single asset's gross
+        # weight may exceed ``max_correlation_exposure``. This is the control
+        # that prevents a highly-correlated asset from dominating the book.
+        if self.max_correlation_exposure is not None and self.max_correlation_exposure > 0.0 and len(w.columns) > 0:
+            asset_abs = w.abs()  # rows x assets
+            scale = (self.max_correlation_exposure / asset_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+            w = w.multiply(scale, axis=1)
+        # Enforce CVaR-based allocation cap: if portfolio tail risk (CVaR at
+        # ``confidence``) exceeds ``max_cvar_allocation``, scale all weights
+        # down proportionally until the cap is satisfied (or a floor is hit).
+        if (
+            self.max_cvar_allocation is not None
+            and self.max_cvar_allocation > 0.0
+            and returns is not None
+            and len(w.columns) > 0
+        ):
+            try:
+                cols = [c for c in w.columns if c in returns.columns]
+                if cols:
+                    rets = returns[cols].reindex(w.index).fillna(0.0)
+                    for _ in range(6):
+                        port_rets = (w[cols].shift(1).fillna(0.0) * rets).sum(axis=1)
+                        cvar = float(portfolio_cvar(port_rets, confidence=confidence))
+                        if not np.isfinite(cvar) or abs(cvar) <= self.max_cvar_allocation:
+                            break
+                        w[cols] = w[cols] * (self.max_cvar_allocation / abs(cvar))
             except Exception:
                 pass
         gross = w.abs().sum(axis=1)
@@ -308,8 +338,11 @@ def main() -> None:
         per_pair_cap=0.32,
         drawdown_circuit_breaker=-0.10,
         max_correlation_exposure=0.5,
+        max_cvar_allocation=0.25,
     )
-    combined_weights = risk_ctrl.apply(combined_weights, pair_map=pair_map)
+    combined_weights = risk_ctrl.apply(
+        combined_weights, pair_map=pair_map, returns=data
+    )
 
     funding_attempts, funding_data = fetch_funding_rates(SYMBOLS, days=30)
     basis_attempts, basis_data = fetch_basis(SYMBOLS)
@@ -516,7 +549,11 @@ def main() -> None:
             "cvar_conditional_drawdown_at_risk_95": _to_float(cdar95),
             "max_gross_exposure_limit": risk_ctrl.max_gross_exposure,
             "per_pair_cap": risk_ctrl.per_pair_cap,
+            "max_correlation_exposure_limit": risk_ctrl.max_correlation_exposure,
+            "max_cvar_allocation_limit": risk_ctrl.max_cvar_allocation,
             "drawdown_circuit_breaker": risk_ctrl.drawdown_circuit_breaker,
+            "max_asset_gross_exposure": _to_float(combined_weights.abs().max()),
+            "portfolio_cvar_95": _to_float(cvar95),
         },
         "correlation_matrix": corr_matrix,
         "per_asset_contribution": per_asset_contribution,
