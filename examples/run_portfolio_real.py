@@ -746,11 +746,68 @@ def main() -> None:
     except Exception:
         pass
 
+    # Multi-timeframe walk-forward (1h done; attempt 4h, 1d) - enforce >=12 splits
+    multi_timeframe = {}
+    for tf in ["1h", "4h", "1d"]:
+        try:
+            if tf == "1h":
+                data_tf = data
+            else:
+                data_tf = loader.load_binance_data(SYMBOLS, START, END, interval=tf)
+            if data_tf is None or len(data_tf) < 100:  # be more permissive for longer TFs
+                multi_timeframe[tf] = {"status": "insufficient_real_data", "n_bars": int(len(data_tf)) if data_tf is not None else 0}
+                continue
+            w_tf = combined_weights.reindex(data_tf.index, method="ffill").fillna(0.0)
+            w_tf = w_tf.reindex(columns=SYMBOLS, fill_value=0.0)
+            if tf == "1h":
+                tp, tsp, ns = TRAIN_PERIOD, TEST_PERIOD, N_SPLITS
+            elif tf == "4h":
+                tp = min(500, max(150, len(data_tf) // 6))
+                tsp = min(100, max(40, len(data_tf) // 30))
+                ns = max(12, N_SPLITS)
+            else:  # 1d
+                tp = min(50, max(20, len(data_tf) // 25))
+                tsp = 1
+                ns_candidate = int((len(data_tf) - tp) / max(1, tsp))
+                ns = max(12, min(100, ns_candidate))
+            wf_tf = engine.walk_forward_portfolio(w_tf, data_tf, train_period=tp, test_period=tsp, fee_rate=0.001, slippage=0.0005, mode="rolling", n_splits=ns)
+            p_tf = engine.run_portfolio(w_tf, data_tf, fee_rate=0.001, slippage=0.0005)
+            wf_splits_tf = []
+            for i, r in enumerate(wf_tf.get("results", [])):
+                wf_splits_tf.append({
+                    "split": i + 1,
+                    "oos_total_return": _to_float(r.get("total_return", r.get("oos_total_return", 0.0))),
+                    "oos_sharpe_ratio": _to_float(r.get("sharpe_ratio", 0.0)),
+                    "oos_max_drawdown": _to_float(r.get("max_drawdown", 0.0)),
+                    "is_total_return": _to_float(r.get("is_total_return", 0.0)),
+                    "is_sharpe_ratio": _to_float(r.get("is_sharpe_ratio", 0.0)),
+                    "is_max_drawdown": _to_float(r.get("is_max_drawdown", 0.0)),
+                })
+            multi_timeframe[tf] = {
+                "status": "ok",
+                "n_bars": int(len(data_tf)),
+                "train_period": tp,
+                "test_period": tsp,
+                "n_splits": len(wf_splits_tf),
+                "portfolio": {"total_return": _to_float(p_tf.get("total_return", 0.0)), "sharpe_ratio": _to_float(p_tf.get("sharpe_ratio", 0.0)), "max_drawdown": _to_float(p_tf.get("max_drawdown", 0.0))},
+                "walk_forward": {
+                    "n_splits": len(wf_splits_tf),
+                    "splits": wf_splits_tf,
+                    "mean_oos_return": _to_float(wf_tf.get("mean_return", wf_tf.get("oos_mean_return", 0.0))),
+                    "oos_is_ratio": _to_float(wf_tf.get("oos_is_ratio", 0.0)),
+                    "is_mean_return": _to_float(wf_tf.get("is_mean_return", 0.0)),
+                    "oos_mean_return": _to_float(wf_tf.get("oos_mean_return", 0.0)),
+                    "degradation": _to_float(wf_tf.get("oos_is_ratio", 0.0)),
+                    "stability": {"std_oos_return": _to_float(wf_tf.get("std_return", 0.0)), "positive_periods": int(wf_tf.get("positive_periods", 0)), "total_periods": int(wf_tf.get("total_periods", 0))},
+                },
+            }
+        except Exception as e:
+            multi_timeframe[tf] = {"status": "error", "error": str(e)[:120]}
+
     # Bootstrap CI on portfolio OOS returns
     bootstrap_ci = {}
     try:
         oos_rets = port_rets[1:] if len(port_rets) > 1 else port_rets
-        # Use trade/period returns for bootstrap
         bres = bootstrap_trade_returns(oos_rets, n_simulations=2000, method="bootstrap", seed=12345, compute_risk_of_ruin=True)
         bootstrap_ci = {
             "method": "bootstrap",
@@ -762,34 +819,44 @@ def main() -> None:
             "sharpe_ratio": bres.get("sharpe_ratio"),
             "risk_of_ruin": bres.get("risk_of_ruin"),
             "risk_of_ruin_threshold": bres.get("risk_of_ruin_threshold"),
-            "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication)."
+            "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",
         }
+        try:
+            fe = np.array(bres.get("final_equities", []))
+            if len(fe) > 0:
+                rets_sims = fe - 1.0
+                bootstrap_ci["ci95_total_return"] = [float(np.percentile(rets_sims, 2.5)), float(np.percentile(rets_sims, 97.5))]
+            sh = np.array(bres.get("sharpes", []))
+            if len(sh) > 0:
+                bootstrap_ci["ci95_sharpe_ratio"] = [float(np.percentile(sh, 2.5)), float(np.percentile(sh, 97.5))]
+            mdd = np.array(bres.get("max_drawdowns", []))
+            if len(mdd) > 0:
+                bootstrap_ci["ci95_max_drawdown"] = [float(np.percentile(mdd, 2.5)), float(np.percentile(mdd, 97.5))]
+        except Exception:
+            pass
+        bootstrap_ci["per_timeframe"] = {}
+        for tf, mtf in multi_timeframe.items():
+            if isinstance(mtf, dict) and mtf.get("status") == "ok":
+                try:
+                    data_tf_b = data if tf == "1h" else loader.load_binance_data(SYMBOLS, START, END, interval=tf)
+                    w_tf_b = combined_weights.reindex(data_tf_b.index, method="ffill").fillna(0.0)
+                    w_tf_b = w_tf_b.reindex(columns=SYMBOLS, fill_value=0.0)
+                    pr_tf = (w_tf_b.shift(1).fillna(0.0) * data_tf_b.pct_change().fillna(0.0)[SYMBOLS].fillna(0.0)).sum(axis=1)
+                    bres_tf = bootstrap_trade_returns(pr_tf[1:] if len(pr_tf) > 1 else pr_tf, n_simulations=2000, method="bootstrap", seed=12345 + (hash(tf) % 10000), compute_risk_of_ruin=False)
+                    fe_tf = np.array(bres_tf.get("final_equities", []))
+                    rets_tf = fe_tf - 1.0 if len(fe_tf) > 0 else np.array([0.0])
+                    sh_tf = np.array(bres_tf.get("sharpes", []))
+                    mdd_tf = np.array(bres_tf.get("max_drawdowns", []))
+                    bootstrap_ci["per_timeframe"][tf] = {
+                        "n_simulations": 2000,
+                        "ci95_total_return": [float(np.percentile(rets_tf, 2.5)), float(np.percentile(rets_tf, 97.5))] if len(rets_tf) > 0 else [0.0, 0.0],
+                        "ci95_sharpe_ratio": [float(np.percentile(sh_tf, 2.5)), float(np.percentile(sh_tf, 97.5))] if len(sh_tf) > 0 else [0.0, 0.0],
+                        "ci95_max_drawdown": [float(np.percentile(mdd_tf, 2.5)), float(np.percentile(mdd_tf, 97.5))] if len(mdd_tf) > 0 else [0.0, 0.0],
+                    }
+                except Exception as e:
+                    bootstrap_ci["per_timeframe"][tf] = {"error": str(e)[:80]}
     except Exception as e:
         bootstrap_ci = {"error": str(e)[:80]}
-
-    # Multi-timeframe walk-forward (1h done; attempt 4h, 1d) - skip heavy if needed
-    multi_timeframe = {}
-    for tf in ["4h", "1d"]:
-        try:
-            data_tf = DataLoader.load_binance_data(SYMBOLS, START, END, interval=tf)
-            if data_tf is None or len(data_tf) < 400:
-                multi_timeframe[tf] = {"status": "insufficient_real_data", "n_bars": int(len(data_tf)) if data_tf is not None else 0}
-                continue
-            w_tf = combined_weights.reindex(data_tf.index, method="ffill").fillna(0.0)
-            w_tf = w_tf.reindex(columns=SYMBOLS, fill_value=0.0)
-            tp = min(300, max(150, len(data_tf)//10))
-            tsp = min(60, max(30, len(data_tf)//40))
-            ns = min(6, N_SPLITS)
-            wf_tf = engine.walk_forward_portfolio(w_tf, data_tf, train_period=tp, test_period=tsp, fee_rate=0.001, slippage=0.0005, mode="rolling", n_splits=ns)
-            p_tf = engine.run_portfolio(w_tf, data_tf, fee_rate=0.001, slippage=0.0005)
-            multi_timeframe[tf] = {
-                "status": "ok",
-                "n_bars": int(len(data_tf)),
-                "portfolio": {"total_return": _to_float(p_tf.get("total_return", 0.0)), "sharpe_ratio": _to_float(p_tf.get("sharpe_ratio", 0.0)), "max_drawdown": _to_float(p_tf.get("max_drawdown", 0.0))},
-                "walk_forward": {"n_splits": len(wf_tf.get("results", [])), "mean_oos_return": _to_float(wf_tf.get("mean_return", 0.0)), "oos_is_ratio": _to_float(wf_tf.get("oos_is_ratio", 0.0))},
-            }
-        except Exception as e:
-            multi_timeframe[tf] = {"status": "error", "error": str(e)[:100]}
 
     artifact = {
         "type": "multi_asset_portfolio_real",
