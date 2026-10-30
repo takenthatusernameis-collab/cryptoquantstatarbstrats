@@ -105,10 +105,7 @@ def main() -> None:
                     signals[asset].reindex(data.index).fillna(0.0), fill_value=0.0
                 )
 
-    # Normalize to gross leverage of 1.0 (scale so |weights| sum appropriately)
-    # For pairs each is market-neutral-ish; sum across pairs gives combined exposure
-    gross = combined_weights.abs().sum(axis=1).replace(0.0, np.nan)
-    # Keep as-is but ensure finite; engine will handle
+    # Retain summed pair weights; report cost sensitivity on the unscaled book.
     combined_weights = combined_weights.fillna(0.0)
 
     def eval_at_cost(fee_rate: float, slippage: float) -> dict:
