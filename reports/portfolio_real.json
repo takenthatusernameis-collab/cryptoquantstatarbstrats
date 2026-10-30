@@ -54,20 +54,117 @@
   "start": "2026-04-01",
   "end": "2026-10-30",
   "freq": "1h",
-  "n_bars": 5104,
+  "n_bars": 5105,
   "real_data_only": true,
   "fabricated_data": false,
   "initial_capital": 100000.0,
+  "universe_changes": [
+    {
+      "action": "include",
+      "pair": "BTC/ETH",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "ETH/SOL",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "BTC/SOL",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "ADA/ETH",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "XRP/BTC",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "BNB/ETH",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "BTC/BNB",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "SOL/BNB",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "ADA/BTC",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    },
+    {
+      "action": "include",
+      "pair": "XRP/ETH",
+      "rationale": "Sufficient overlapping real Binance history and liquidity."
+    }
+  ],
+  "exclusions_with_rationale": [
+    {
+      "candidate": "DOT/USDT",
+      "action": "excluded_insufficient_history",
+      "rationale": "Insufficient overlapping real history on requested window."
+    },
+    {
+      "candidate": "MATIC/USDT",
+      "action": "excluded_insufficient_history",
+      "rationale": "Insufficient overlapping real history on requested window."
+    },
+    {
+      "candidate": "AVAX/USDT",
+      "action": "excluded_insufficient_history",
+      "rationale": "Insufficient overlapping real history on requested window."
+    },
+    {
+      "candidate": "LINK/USDT",
+      "action": "excluded_insufficient_history",
+      "rationale": "Insufficient overlapping real history on requested window."
+    }
+  ],
+  "correlation_stability_context": {
+    "window": 168,
+    "pairs": {
+      "BTC/ETH": {
+        "mean": 0.8815433602759145,
+        "std": 0.034448945477343465,
+        "min": 0.7555330070496693,
+        "max": 0.9681717301453998
+      },
+      "ETH/SOL": {
+        "mean": 0.8462962582913939,
+        "std": 0.06974897320315296,
+        "min": 0.6297729676820161,
+        "max": 0.9404559588189635
+      },
+      "BTC/SOL": {
+        "mean": 0.8289450413926349,
+        "std": 0.06842114623628415,
+        "min": 0.6433538577590435,
+        "max": 0.9288330238359817
+      }
+    },
+    "note": "Rolling correlation stability from real hourly returns."
+  },
   "portfolio": {
     "total_return": -0.007672144263299541,
-    "sharpe_ratio": -0.3246906281919644,
+    "sharpe_ratio": -0.32465882501519006,
     "max_drawdown": -0.04147405839147511,
-    "max_drawdown_duration": 4150,
-    "calmar_ratio": -0.3168967176984741,
-    "sortino_ratio": -0.21041174838113436,
+    "max_drawdown_duration": 4151,
+    "calmar_ratio": -0.31683503951347297,
+    "sortino_ratio": -0.21037053158419391,
     "final_equity": 99232.78557367004,
     "equity_curve": [
-      0.9737925797917587,
       0.9737925797917587,
       0.9737925797917587,
       0.9737925797917587,
@@ -1066,11 +1163,12 @@
       0.9923278557367005,
       0.9923278557367005,
       0.9923278557367005,
+      0.9923278557367005,
       0.9923278557367005
     ]
   },
   "risk_metrics": {
-    "var_95": -0.0004828385000508071,
+    "var_95": -0.00048273711823033265,
     "cvar_95": -0.0009151454838179206,
     "cvar_conditional_drawdown_at_risk_95": 0.007966907616609405,
     "max_gross_exposure_limit": 1.4,
@@ -1084,60 +1182,84 @@
   "correlation_matrix": {
     "ADA": {
       "ADA": 1.0,
-      "BNB": 0.7011403399248021,
-      "BTC": 0.7129932936599254,
-      "ETH": 0.7284195292662979,
-      "SOL": 0.7693900481584475,
-      "XRP": 0.7819540575956396
+      "BNB": 0.701141584048474,
+      "BTC": 0.712966967717024,
+      "ETH": 0.7284003554170883,
+      "SOL": 0.7693563055344034,
+      "XRP": 0.7818735727930138
     },
     "BNB": {
-      "ADA": 0.7011403399248021,
+      "ADA": 0.701141584048474,
       "BNB": 1.0,
-      "BTC": 0.7757210716644944,
-      "ETH": 0.7673622672318379,
-      "SOL": 0.7741368255350142,
-      "XRP": 0.7234837579250977
+      "BTC": 0.7756924624573217,
+      "ETH": 0.7673672763440388,
+      "SOL": 0.7741509515763982,
+      "XRP": 0.7234187742206669
     },
     "BTC": {
-      "ADA": 0.7129932936599254,
-      "BNB": 0.7757210716644944,
+      "ADA": 0.712966967717024,
+      "BNB": 0.7756924624573217,
       "BTC": 1.0,
-      "ETH": 0.8794136274476236,
-      "SOL": 0.828017710970201,
-      "XRP": 0.7638592968666412
+      "ETH": 0.8792880980146476,
+      "SOL": 0.8279910309943429,
+      "XRP": 0.7638834198147256
     },
     "ETH": {
-      "ADA": 0.7284195292662979,
-      "BNB": 0.7673622672318379,
-      "BTC": 0.8794136274476236,
+      "ADA": 0.7284003554170883,
+      "BNB": 0.7673672763440388,
+      "BTC": 0.8792880980146476,
       "ETH": 1.0,
-      "SOL": 0.8380505865173241,
-      "XRP": 0.7639660369008209
+      "SOL": 0.837995600953216,
+      "XRP": 0.7637343851490122
     },
     "SOL": {
-      "ADA": 0.7693900481584475,
-      "BNB": 0.7741368255350142,
-      "BTC": 0.828017710970201,
-      "ETH": 0.8380505865173241,
+      "ADA": 0.7693563055344034,
+      "BNB": 0.7741509515763982,
+      "BTC": 0.8279910309943429,
+      "ETH": 0.837995600953216,
       "SOL": 1.0,
-      "XRP": 0.8039098366300806
+      "XRP": 0.803833534018877
     },
     "XRP": {
-      "ADA": 0.7819540575956396,
-      "BNB": 0.7234837579250977,
-      "BTC": 0.7638592968666412,
-      "ETH": 0.7639660369008209,
-      "SOL": 0.8039098366300806,
+      "ADA": 0.7818735727930138,
+      "BNB": 0.7234187742206669,
+      "BTC": 0.7638834198147256,
+      "ETH": 0.7637343851490122,
+      "SOL": 0.803833534018877,
       "XRP": 1.0
     }
   },
   "per_asset_contribution": {
-    "ADA": 0.036049803768383126,
-    "BNB": 0.001078047996940998,
-    "BTC": -0.00845170052187402,
-    "ETH": -0.01417627537023371,
-    "SOL": 0.04347182240579542,
-    "XRP": 0.014286143124194907
+    "ADA": {
+      "total_return": 0.036049803768383126,
+      "mean_period_return": 7.061665772455069e-06,
+      "share_of_portfolio_return": 0.4989050747755007
+    },
+    "BNB": {
+      "total_return": 0.001078047996940998,
+      "mean_period_return": 2.1117492594338845e-07,
+      "share_of_portfolio_return": 0.014919460310547767
+    },
+    "BTC": {
+      "total_return": -0.00845170052187402,
+      "mean_period_return": -1.6555730699067618e-06,
+      "share_of_portfolio_return": -0.1169658594520226
+    },
+    "ETH": {
+      "total_return": -0.01417627537023371,
+      "mean_period_return": -2.7769393477441156e-06,
+      "share_of_portfolio_return": -0.19619013099392948
+    },
+    "SOL": {
+      "total_return": 0.04347182240579542,
+      "mean_period_return": 8.515538179391855e-06,
+      "share_of_portfolio_return": 0.6016208284332472
+    },
+    "XRP": {
+      "total_return": 0.014286143124194907,
+      "mean_period_return": 2.798460944994105e-06,
+      "share_of_portfolio_return": 0.1977106269266563
+    }
   },
   "per_pair_contributions": {
     "BTC/ETH": {
@@ -1147,7 +1269,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": -0.02694880713818326,
-      "pair_sharpe_ratio": -3.6393757206495567,
+      "pair_sharpe_ratio": -3.6390187125822444,
       "pair_max_drawdown": -0.02694880713818326
     },
     "ETH/SOL": {
@@ -1157,7 +1279,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": -0.03996006159609189,
-      "pair_sharpe_ratio": -2.316866509850352,
+      "pair_sharpe_ratio": -2.316639438491051,
       "pair_max_drawdown": -0.04701118809497706
     },
     "BTC/SOL": {
@@ -1167,7 +1289,7 @@
         "cointegration_pvalue": 0.1
       },
       "pair_total_return": 0.00877335781894173,
-      "pair_sharpe_ratio": 0.5168991073767926,
+      "pair_sharpe_ratio": 0.5168484766053337,
       "pair_max_drawdown": -0.01743080022129695
     },
     "ADA/ETH": {
@@ -1177,7 +1299,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": 0.03810954361783225,
-      "pair_sharpe_ratio": 1.5323048674963669,
+      "pair_sharpe_ratio": 1.5321547411203336,
       "pair_max_drawdown": -0.016328582366809008
     },
     "XRP/BTC": {
@@ -1187,7 +1309,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": 0.012525189825537408,
-      "pair_sharpe_ratio": 0.6007192388258955,
+      "pair_sharpe_ratio": 0.60066039716215,
       "pair_max_drawdown": -0.021923029448213116
     },
     "BNB/ETH": {
@@ -1197,7 +1319,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": -0.0114373014214596,
-      "pair_sharpe_ratio": -0.5341937650084689,
+      "pair_sharpe_ratio": -0.5341414400999475,
       "pair_max_drawdown": -0.04887099793901295
     },
     "BTC/BNB": {
@@ -1207,7 +1329,7 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": -7.011440491799803e-05,
-      "pair_sharpe_ratio": 0.012218783513971659,
+      "pair_sharpe_ratio": 0.012217586708667644,
       "pair_max_drawdown": -0.031432483467975225
     },
     "SOL/BNB": {
@@ -1217,7 +1339,7 @@
         "cointegration_pvalue": 0.1
       },
       "pair_total_return": 0.022877779912750862,
-      "pair_sharpe_ratio": 0.6807288019993764,
+      "pair_sharpe_ratio": 0.6806621224574501,
       "pair_max_drawdown": -0.033682506564096104
     },
     "ADA/BTC": {
@@ -1227,7 +1349,7 @@
         "cointegration_pvalue": 0.1
       },
       "pair_total_return": -0.01485261209736466,
-      "pair_sharpe_ratio": -0.5059439902664143,
+      "pair_sharpe_ratio": -0.505894432622693,
       "pair_max_drawdown": -0.0638217930839301
     },
     "XRP/ETH": {
@@ -1237,18 +1359,18 @@
         "cointegration_pvalue": 0.05
       },
       "pair_total_return": -0.002231518746296346,
-      "pair_sharpe_ratio": -0.07596323426636133,
+      "pair_sharpe_ratio": -0.07595579381536512,
       "pair_max_drawdown": -0.02584178784198088
     }
   },
   "turnover": {
-    "mean_turnover": 0.009965366317345018,
-    "annualized_turnover": 87.35640113784643
+    "mean_turnover": 0.009963414237752983,
+    "annualized_turnover": 87.33928920814265
   },
   "leverage_exposure_stats": {
-    "mean_gross_exposure": 0.11628934943421597,
+    "mean_gross_exposure": 0.11626656993383709,
     "max_gross_exposure": 0.6400000000000001,
-    "mean_net_exposure": 0.023999980532575082
+    "mean_net_exposure": 0.023995279263126976
   },
   "walk_forward_portfolio": {
     "train_period": 1000,
@@ -1422,10 +1544,10 @@
       "sharpe_ratio": 4.6783008460116
     },
     "downtrend": {
-      "n_periods": 2409,
+      "n_periods": 2410,
       "total_return": 0.014428391535231011,
-      "mean_return": 6.009373069508863e-06,
-      "sharpe_ratio": 1.5874057855083101
+      "mean_return": 6.006879553712386e-06,
+      "sharpe_ratio": 1.5870764560869837
     },
     "uptrend": {
       "n_periods": 2646,
@@ -1439,84 +1561,84 @@
       "fee_rate": 0.0,
       "slippage": 0.0,
       "total_return": 0.07101499379554,
-      "sharpe_ratio": 3.1338975851928685,
+      "sharpe_ratio": 3.1335902823616832,
       "max_drawdown": -0.01539705037722372
     },
     {
       "fee_rate": 0.0,
       "slippage": 0.0005,
       "total_return": 0.04411984023296878,
-      "sharpe_ratio": 1.9764405760690855,
+      "sharpe_ratio": 1.976246901433147,
       "max_drawdown": -0.016148216461919218
     },
     {
       "fee_rate": 0.0,
       "slippage": 0.001,
       "total_return": 0.017896354652439106,
-      "sharpe_ratio": 0.818792367095629,
+      "sharpe_ratio": 0.818712161896467,
       "max_drawdown": -0.021760295591350065
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.0,
       "total_return": 0.04411984023296878,
-      "sharpe_ratio": 1.9764405760690855,
+      "sharpe_ratio": 1.976246901433147,
       "max_drawdown": -0.016148216461919218
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.0005,
       "total_return": 0.017896354652439106,
-      "sharpe_ratio": 0.818792367095629,
+      "sharpe_ratio": 0.818712161896467,
       "max_drawdown": -0.021760295591350065
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.001,
       "total_return": -0.007672144263299541,
-      "sharpe_ratio": -0.3246906281919644,
+      "sharpe_ratio": -0.32465882501519006,
       "max_drawdown": -0.04147405839147511
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.0,
       "total_return": 0.017896354652439106,
-      "sharpe_ratio": 0.818792367095629,
+      "sharpe_ratio": 0.818712161896467,
       "max_drawdown": -0.021760295591350065
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.0005,
       "total_return": -0.007672144263299541,
-      "sharpe_ratio": -0.3246906281919644,
+      "sharpe_ratio": -0.32465882501519006,
       "max_drawdown": -0.04147405839147511
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.001,
       "total_return": -0.032601925834484846,
-      "sharpe_ratio": -1.4407978050319459,
+      "sharpe_ratio": -1.4406566483683216,
       "max_drawdown": -0.060793278112505345
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.0,
       "total_return": -0.032601925834484846,
-      "sharpe_ratio": -1.4407978050319459,
+      "sharpe_ratio": -1.4406566483683216,
       "max_drawdown": -0.060793278112505345
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.0005,
       "total_return": -0.05690885750344621,
-      "sharpe_ratio": -2.5181441411094365,
+      "sharpe_ratio": -2.5178973155620574,
       "max_drawdown": -0.0797257964463669
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.001,
       "total_return": -0.08060841470641089,
-      "sharpe_ratio": -3.54760848312774,
+      "sharpe_ratio": -3.5472605031956657,
       "max_drawdown": -0.09827930030835264
     }
   ],

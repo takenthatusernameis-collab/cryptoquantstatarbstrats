@@ -431,6 +431,21 @@ def main() -> None:
 
     returns = data.pct_change().fillna(0.0)
     port_rets = (combined_weights.shift(1).fillna(0.0) * returns[SYMBOLS].fillna(0.0)).sum(axis=1)
+    # Per-asset contribution to portfolio return (lagged weights x realized returns).
+    weighted_asset_rets = combined_weights.shift(1).fillna(0.0) * returns[SYMBOLS].fillna(0.0)
+    _port_ret_total = float(port_rets.sum())
+    per_asset_contribution = {
+        sym: {
+            "total_return": _to_float(weighted_asset_rets[sym].sum()),
+            "mean_period_return": _to_float(weighted_asset_rets[sym].mean()),
+            "share_of_portfolio_return": (
+                _to_float(weighted_asset_rets[sym].sum() / _port_ret_total)
+                if _port_ret_total != 0
+                else 0.0
+            ),
+        }
+        for sym in SYMBOLS
+    }
     # periods per year
     try:
         if hasattr(data.index, 'to_series'):
@@ -446,6 +461,12 @@ def main() -> None:
             periods_per_year = 24 * 365
     except Exception:
         periods_per_year = 24 * 365
+    # Turnover statistics from final combined weights (initial entry counted once).
+    turnover_series = combined_weights.diff().abs().sum(axis=1).fillna(0.0)
+    if len(turnover_series) > 0:
+        turnover_series.iloc[0] = float(combined_weights.iloc[0].abs().sum())
+    mean_turnover = _to_float(turnover_series.mean())
+    annualized_turnover = _to_float(mean_turnover * periods_per_year)
     try:
         var95 = portfolio_var(port_rets, confidence=0.95)
         cvar95 = portfolio_cvar(port_rets, confidence=0.95)
