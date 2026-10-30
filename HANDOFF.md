@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-30T07:59:25Z) — SINGLE MANDATORY NEXT TASK: MULTI-ASSET PORTFOLIO CONSTRUCTION (REAL DATA, HEAVY)
+# DURABLE HANDOFF (2026-10-30T08:57:36Z) — SINGLE MANDATORY NEXT TASK: MULTI-ASSET PORTFOLIO CONSTRUCTION (REAL DATA, HEAVY)
 
 ## REPO NAME PRIORITIZATION (DRIVES ALL DECISIONS)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -10,6 +10,7 @@
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files**
 - **Data access:** Public Binance reachable; `DataLoader.load_binance_data()` works. **NEVER substitute synthetic/fabricated data for real candles or implied volatility.**
+- **Bottleneck removal:** Prior sessions aborted on malformed `edit` tool calls and missing-module envs. Future sessions MUST use unique surrounding context for edits (or `write` for full-file replacement) and run inside the repo's installed environment (`pip install -r requirements.txt` if needed). Do not retry malformed edits; switch to `write`.
 
 ## BOTTLENECKS / BLOCKERS
 - **NONE ACTIVE.** Working tree clean. All prior campaigns (OOS, wider universe, longer walk-forward, execution realism, regime/cost-stress, paper trading, Monte Carlo) are complete. No open blockers.
@@ -42,7 +43,7 @@ No portfolio artifact exists yet. You **MUST** build a complete multi-asset port
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` → clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T07:59:25Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T08:57:36Z)
 
 **OBJECTIVE:** Build multi-asset portfolio construction for crypto stat arb on **REAL Binance data**. This is mandated by repo name `cryptoquantstatarbstrats`. **Do heavy work. Do not coast. Do not stop early.**
 
