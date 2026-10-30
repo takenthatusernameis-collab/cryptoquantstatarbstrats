@@ -34,6 +34,14 @@ PAIRS = [
     ("SOL", "BNB"),
     ("ADA", "BTC"),
     ("XRP", "ETH"),
+    # Expanded universe (real-only)
+    ("BNB", "BTC"),
+    ("DOT", "BTC"),
+    ("DOT", "ETH"),
+    ("POL", "BTC"),
+    ("AVAX", "BTC"),
+    ("LINK", "BTC"),
+    ("LTC", "BTC"),
 ]
 SYMBOLS = sorted(set([s for p in PAIRS for s in p]))
 START = "2026-04-01"
