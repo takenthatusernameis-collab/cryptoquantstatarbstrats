@@ -38,7 +38,11 @@ for pair in PAIRS:
 combined = regime_adaptive_meta_selector(
     weights_by_strategy, data
 )
-print(f"after meta-selector: gross max={combined.abs().sum(axis=1).max():.6f} mean={combined.abs().sum(axis=1).mean():.6f}")
+print(
+    "after meta-selector: "
+    f"gross max={combined.abs().sum(axis=1).max():.6f} "
+    f"mean={combined.abs().sum(axis=1).mean():.6f}"
+)
 print(f"  meta-selector nonzero bars: {(combined.abs().sum(axis=1)>1e-9).sum()}/{len(combined)}")
 
 returns = data.pct_change().fillna(0.0)
