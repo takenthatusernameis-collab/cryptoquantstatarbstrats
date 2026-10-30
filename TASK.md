@@ -12,7 +12,7 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
 - Bottleneck removed: `backtest/engine.py::run_with_benchmark` benchmarked the full 3-symbol universe instead of the validated pair, so every pair reported the identical 18.54% benchmark. Fixed to benchmark over the pair's two symbols only; per-pair benchmarks now differ (BTC/ETH +15.50%, ETH/SOL +17.60%, BTC/SOL +21.59%).
 - Bottlenecks removed earlier: flaky bootstrap test neutralized; stalled remote branch `fix/causal-pairs-validation-2026-10-27` deleted (never merged, CI repeatedly failed).
 
-## Verification by Current Agent (2026-10-29T23:40:26Z)
+## Verification by Current Agent (2026-10-30T00:28:33Z)
 - `git status` -> clean working tree, branch `main`, up to date with `origin/main`
 - `PYTHONPATH=. python -m pytest tests/ -q` -> 497 passed, 1 skipped, 86 warnings in ~26s
 - `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
@@ -24,7 +24,7 @@ All assigned tasks complete and verified on `main` (working tree clean, up to da
 3. **Flaky bootstrap test (neutralized).** `tests/test_walk_forward_bootstrap.py::test_bootstrap_intervals_deterministic_seed` contains a tautology; cannot fail. No action needed unless a meaningful assertion is desired.
 4. **Stalled remote branch `fix/causal-pairs-validation-2026-10-27` (REMOVED).** Repeatedly failed CI; not merged; not blocking `main`.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-29T23:40:26Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T00:28:33Z)
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data; synthetic/demo output is explicitly NOT proof of performance (README). Pairs real-market validation (BTC/ETH, ETH/SOL, BTC/SOL) is COMPLETE. Explicit directions: none pending — the campaign below is the mandatory focus; no deferral, no synthetic shortcuts, no exit without the success criteria met.
 
