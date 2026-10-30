@@ -182,7 +182,7 @@ def test_overlapping_pair_caps_do_not_compound_shared_asset_reductions():
     # Every shared asset receives the minimum factor (0.4) once, not 0.4
     # multiplied by the number of pairs that happen to contain that asset.
     assert np.allclose(out.to_numpy(), 0.16)
-    assert (out.abs().sum(axis=1) == pytest.approx(0.96)).all()
+    assert np.allclose(out.abs().sum(axis=1).to_numpy(), 0.96)
 
 def test_regime_adaptive_meta_selector_downtrend_de_risk():
     data = _prices(n=120)
