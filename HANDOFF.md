@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-30T21:15:25Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP (FORCE HEAVY WORK)
+# DURABLE HANDOFF (2026-10-30T21:16:00Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP (OPTIMIZED FOR HEAVY EXECUTION)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,7 +7,7 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs. Future agents cannot avoid heavy validation.
 
 ## VERIFIED GREEN STATE (PRESERVE)
-- **Branch:** `main` (clean)
+- **Branch:** `main` (clean merge state in progress)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **527 passed, 1 skipped** (GREEN)
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files** (GREEN)
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed!** (GREEN)
@@ -17,19 +17,20 @@
 These are the known friction points blocking scale. Fix them before expanding the universe:
 
 - **I/O:** Run all long jobs with `python -u`. Add explicit `flush=True` where logs are critical.
-- **Network:** Enforce exponential backoff + retries on all Binance calls. Log **every** attempt (host, endpoint, status, ms). Treat partial pages as failures if not fully accounted for.
-- **Parallelism:** Batch independent fetches/sweeps safely with deterministic ordering. No cross-contamination of state between symbols/pairs.
-- **Data Completeness:** If overlapping real history is insufficient for the window/TF, **EXCLUDE** with a full rationale + attempt log. Never backfill or interpolate.
+- **Network:** Enforce exponential backoff + retries on all Binance calls. Log **every** attempt (host, endpoint, status, ms). Treat partial pages as failures if not fully accounted for. Do **one bounded Binance connectivity preflight** per material network-state change. Treat permanent HTTP 451/403/404 as a blocked route; do not repeat identical requests or exhaustively retry permanent responses.
+- **Parallelism:** Batch independent fetches/sweeps safely with deterministic ordering and bounded concurrency. No cross-contamination of state between symbols/pairs. Persist each completed symbol/timeframe shard so restarts skip verified work.
+- **Data Completeness:** If overlapping real history is insufficient for the window/TF, **EXCLUDE** with a full rationale + attempt log. Never backfill or interpolate. If not supported, label affected timeframe/symbol BLOCKED/INSUFFICIENT_HISTORY rather than waiting, inventing bars, or silently reducing standards.
 - **Determinism:** Fix seeds for all stochastic code paths (bootstrap/MC). Log seeds + config in artifacts.
 - **Observability:** Per-pair/per-symbol/per-TF/per-split logging (bar counts, date ranges, gaps, NaNs). No silent passes/failures.
+- **Scheduling:** Convert work into a dependency-aware task graph. Start independent, network-independent work (tests/schema validation, cached-data analysis, bootstrap/risk/execution modeling) while data sources are blocked. Profile long phases and checkpoint intermediates. Run affected tests after each logical change; full gates once after coherent batch and at final acceptance.
 - **Regressions:** If lint/type/test break at any point, fix immediately. Do not proceed until green.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-30T21:15:25Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-30T21:16:00Z)
 
 **START NOW. DO NOT STOP EARLY. HEAVY WORK IS MANDATORY.**
 
 ### PRIMARY OBJECTIVE
-Harden and scale this real-data stat arb system to be **un-coastable**. Aggressively expand the universe with provable liquidity/overlap, enforce >=12 rolling splits across 1h/4h/1d, add bootstrap significance (95% CIs), model volume-aware execution + cost stress, and emit a fully schema-enriched `portfolio_real` artifact with ironclad provenance. Every step must leave verifiable artifacts and tests.
+Harden and scale this real-data stat arb system to be **un-coastable**. Aggressively expand the universe with provable liquidity/overlap, enforce >=12 rolling splits across 1h/4h/1d, add bootstrap significance (95% CIs), model volume-aware execution + cost stress, and emit a fully schema-enriched `portfolio_real` artifact with ironclad provenance. Every step must leave verifiable artifacts and tests. Remove avoidable serial waiting while maintaining the same data/statistical standards.
 
 ### MANDATORY SEQUENCE (IN ORDER, NO SKIPPING)
 
@@ -50,7 +51,7 @@ Read and attack:
 - `utils/portfolio_risk.py`, `utils/regime.py`, `utils/monte_carlo.py`
 - `data/loader.py`, `strategies/pairs_trading.py`, `backtest/sweep.py`
 
-Eliminate any code path that could mask missing real data. Fix bottlenecks on contact.
+Eliminate any code path that could mask missing real data. Fix bottlenecks on contact. Identify independent workstreams to parallelize.
 
 #### 2. UNIVERSE EXPANSION (REAL-ONLY, PROVEN)
 Aggressively attempt expansion: **BNB/USDT, DOT/USDT, MATIC/USDT, AVAX/USDT, LINK/USDT, LTC/USDT, BCH/USDT, ETC/USDT, NEAR/USDT, ARB/USDT, OP/USDT, INJ/USDT** and others only if provably liquid with full overlap.
@@ -122,9 +123,10 @@ All deliverables must be present and valid. Commit only if explicitly requested.
 - **NO SHORTCUTS** — Omit+document if unavailable after exhaustive attempts with full provenance (hosts, endpoints, errors, counts).
 - **PRESERVE GREEN** — Zero regressions. Restore green before proceeding.
 - **HEAVY MANDATE** — Complete the full campaign. Do not stop early.
-- **BOTTLENECK REMOVAL** — Eliminate inefficiencies immediately (parallelize, retry, log, unbuffer).
+- **BOTTLENECK REMOVAL** — Eliminate inefficiencies immediately (parallelize, retry, log, unbuffer, checkpoint shards).
 - **IMPOSSIBLE TO COAST** — Structure work so future agents cannot avoid heavy validation; every step must produce a checkable artifact/test/provenance.
 - **UNBUFFERED OUTPUT** — Use `python -u` for all long-running real-data jobs.
 - **REPRODUCIBILITY** — Seeds for stochastic parts; log all config.
+- **NO ALTERATION OF LIVE/PAPER BOUNDARIES** — Do not change trading boundaries or commit policy.
 
 **CAMPAIGN COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
