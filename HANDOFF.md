@@ -1,4 +1,4 @@
-# Durable Handoff (2026-10-30T01:44:34Z)
+# Durable Handoff (2026-10-30T01:45:26Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles.
@@ -60,7 +60,7 @@ python -m mypy backtest/ strategies/ utils/
 - Do not exit until all success criteria met.
 
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:44:34Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:45:26Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
 **PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and cost-sensitivity included; test/lint/typecheck green after this session's lint fixes.
