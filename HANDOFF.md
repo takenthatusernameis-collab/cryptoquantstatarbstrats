@@ -1,82 +1,76 @@
-# DURABLE HANDOFF (2026-10-30T13:42:23Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB REAL-DATA MAXIMUM HARDENING
+# DURABLE HANDOFF (2026-10-30T13:42:58Z) — SINGLE MANDATORY NEXT TASK: CRYPTOQUANTSTATARBSTRATS MAXIMUM REAL-DATA HEAVY VALIDATION
 
-## REPO NAME PRIORITIZATION (NON-NEGOTIABLE)
+## REPO NAME PRIORITIZATION (ABSOLUTE)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
-- **INFERRED MANDATE:** Continuously validate crypto statistical-arbitrage strategies on **REAL market data only** (public Binance spot, no API keys, no fabricated candles/IV/funding/basis).
-- **PRIORITY:** The repository name IS the directive. Every action must serve real-data stat arb validation. Coasting is forbidden. Heavy validation must never stop. If uncertain, choose the heavier real-data validation path.
+- **INFERRED MANDATE (NON-NEGOTIABLE):** This repository exists to build, harden, and relentlessly validate crypto statistical-arbitrage strategies using **ONLY REAL market data**. Every subsequent agentic session MUST treat real-data validation as the primary objective with no dilution.
+- **PRIORITY DIRECTIVE:** The repository name IS the law. If there is any ambiguity between convenience and heavier real-data work, ALWAYS choose the heavier real-data path. Coasting is categorically forbidden. Heavy validation must never cease.
 
-## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T13:42:23Z
+## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS) — re-confirmed 2026-10-30T13:42:58Z
 - **Branch:** `main` (clean working tree)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files**
-- **Data access:** Public Binance reachable via `DataLoader.load_binance_data()`. **REAL DATA ONLY. NEVER FABRICATE.**
-- **Key deliverables present:** `examples/run_portfolio_real.py`, `reports/portfolio_real.json`, `tests/test_portfolio_real.py`, `tests/test_portfolio_risk_controls.py`
+- **Data access:** Public Binance reachable via `DataLoader.load_binance_data()` — **REAL DATA ONLY. NEVER FABRICATE CANDLES, IV, FUNDING, OR BASIS.**
+- **Key deliverables:** `examples/run_portfolio_real.py`, `reports/portfolio_real.json`, `tests/test_portfolio_real.py`, `tests/test_portfolio_risk_controls.py`
 
-## BOTTLENECKS / BLOCKERS — NONE (ELIMINATE IMMEDIATELY IF THEY APPEAR)
-- No known blockers. If any inefficiency emerges (slow paths, redundant work, unclear schemas), **remove it before adding features**. Do not work around bottlenecks.
+## BOTTLENECK ELIMINATION (MANDATORY)
+- **NO BLOCKERS TOLERATED:** If any path is slow, redundant, unclear, or bottlenecking throughput/insight, **ELIMINATE IT IMMEDIATELY** before adding features. Do not work around inefficiencies.
+- **REMOVE FRICTION:** Tighten schemas, harden tests, improve clarity, and remove anything that could allow a future agent to take an easy shortcut.
+- **FORCE HEAVY WORK:** Design every step so that future agents cannot avoid substantial, measurable validation work.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T13:42:23Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T13:42:58Z)
 
-**OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. This repo demands maximum intensity. **Do not coast. Do not stop early. Future agents must not be able to avoid this work.**
+**OBJECTIVE:** Conduct a **MAXIMUM-INTENSITY, NO-COAST** hardening campaign for the multi-asset crypto stat arb portfolio using **100% REAL Binance data**. Future agents MUST be unable to avoid heavy working.
 
-**MANDATORY SEQUENCE (EXECUTE IN ORDER):**
+**MANDATORY EXECUTION SEQUENCE (DO NOT SKIP, DO IN ORDER):**
 
-1. **AUDIT (HEAVY)**
-   - Review `examples/run_portfolio_real.py`, `reports/portfolio_real.json`, `tests/test_portfolio_real.py`, `tests/test_portfolio_risk_controls.py`, `backtest/engine.py` (walk_forward_portfolio), `utils/portfolio_risk.py`, `utils/regime.py`.
-   - Identify concrete gaps vs the requirements below. Fix bottlenecks immediately.
+1. **DEEP AUDIT (BRUTALLY HONEST)**
+   - Read `examples/run_portfolio_real.py`, `reports/portfolio_real.json`, `tests/test_portfolio_real.py`, `tests/test_portfolio_risk_controls.py`, `backtest/engine.py` (focus `walk_forward_portfolio`), `utils/portfolio_risk.py`, `utils/regime.py`, `data/loader.py`.
+   - Find EVERY gap vs the enrichment requirements below. Fix bottlenecks on contact.
 
 2. **VERIFY GREEN (NON-NEGOTIABLE)**
-   - Run `PYTHONPATH=. python -m pytest tests/ -q`, `python -m ruff check backtest/ strategies/ utils/ tests/`, `python -m mypy backtest/ strategies/ utils/`.
-   - **Preserve green.** If anything breaks, fix before proceeding.
+   - `PYTHONPATH=. python -m pytest tests/ -q`
+   - `python -m ruff check backtest/ strategies/ utils/ tests/`
+   - `python -m mypy backtest/ strategies/ utils/`
+   - If red for any reason, restore green before proceeding. Zero regressions.
 
-3. **EXPAND UNIVERSE (REAL-ONLY)**
-   - Attempt to add real pairs (prioritize additional BNB/USDT-quoted pairs and others with sufficient history) using only `DataLoader.load_binance_data()`.
-   - Only include pairs with adequate overlapping real history. **Omit and document exclusions** if insufficient/unstable.
-   - Update artifacts/tests if schema changes.
+3. **UNIVERSE EXPANSION (REAL-ONLY, DOCUMENTED)**
+   - Aggressively attempt additional real pairs (prioritize BNB/USDT-quoted + liquid majors) via ONLY `DataLoader.load_binance_data()`.
+   - Include only pairs with sufficient overlapping real history. **Explicitly list omissions with rationale**. Never fabricate data.
 
-4. **HARDEN WALK-FORWARD (RIGOROUS)**
-   - Enforce >= **12 splits**, train=1000/test=200 where feasible.
-   - Produce full IS/OOS series, stability metrics, degradation analysis, and regime-splits. Make them inspectable in the enriched artifact.
+4. **WALK-FORWARD RIGOR (>=12 SPLITS)**
+   - Enforce >= 12 splits with train≈1000/test≈200 where feasible. Capture full IS/OOS per split, stability metrics, degradation curves, and regime-split performance. Make all inspectable in artifact.
 
-5. **STRENGTHEN META-SELECTOR & RISK CONTROLS (REAL-DRIVEN)**
-   - Harden regime-adaptive multi-signal meta-selector using **multiple real regime signals** (vol, trend/mean-reversion) derived from real data. Validate OOS.
-   - Strengthen correlation-aware and CVaR-aware limits, enforce hard caps (e.g. no asset gross exposure > correlation cap), and test circuit breaker logic on real history.
-   - Keep deterministic and fully testable.
+5. **META-SELECTOR + RISK CONTROLS (REAL-DRIVEN HARDENING)**
+   - Strengthen regime-adaptive multi-signal meta-selector using multiple real signals (vol/trend/mean-reversion) derived from real data; validate OOS.
+   - Harden correlation-aware + CVaR-aware limits; enforce hard caps (asset gross exposure <= correlation cap). Test circuit breaker thoroughly on real history.
 
-6. **EXHAUSTIVE REAL FUNDING/BASIS (NO FABRICATION)**
-   - Attempt real public Binance funding rates and spot/futures basis from **multiple public endpoints/hosts** with timestamps of attempts.
-   - If valid and sensible, integrate into costs/tilts with provenance. If not retrievable after exhaustive attempts, **document comprehensively with hosts/timestamps/reasoning**. **Never fabricate.**
+6. **EXHAUSTIVE FUNDING/BASIS (NO FABRICATION)**
+   - Attempt real public Binance funding/basis from multiple public endpoints/hosts with full attempt timestamps/hosts/errors.
+   - If retrievable and sensible → integrate with provenance; else **comprehensively document**. **Never fabricate.**
 
 7. **EXECUTION REALISM (GROUNDED)**
-   - Extend with volume-aware/slippage/cost realism using real data characteristics where possible. Explicitly document assumptions.
+   - Add volume-aware/slippage/cost realism using real characteristics where possible; document assumptions explicitly.
 
-8. **ENRICH ARTIFACT (COMPLETE & VALID)**
-   - Update `reports/portfolio_real.json` to include (all JSON-serializable): **per-asset contribution**, **turnover**, **leverage/gross/net exposure**, **correlation matrix + correlation stability context**, **tail metrics (VaR/CVaR/CDaR)**, **regime-conditioned performance**, **cost-stress slices**, **funding/basis provenance**, **universe changes + exclusions with rationale**, **walk-forward IS/OOS per split + stability/degradation**.
-   - Schema must remain valid and backward compatible or tests updated accordingly.
+8. **ARTIFACT ENRICHMENT (COMPLETE, VALID)**
+   - Enrich `reports/portfolio_real.json` with ALL: per-asset contribution, turnover, leverage/gross/net exposure, correlation matrix + correlation stability context, tail metrics (VaR/CVaR/CDaR), regime-conditioned performance, cost-stress slices, funding/basis provenance (full attempts), universe changes + exclusions with rationale, walk-forward IS/OOS per split + stability/degradation.
+   - JSON-serializable, schema valid, backward compatible or tests updated.
 
-9. **EXPAND TESTS & DOCS (HARDEN COVERAGE)**
-   - Add **network-independent** stress tests for portfolio logic, risk controls, meta-selector, artifact schema, and edge cases.
-   - Update `README.md` with hardened findings, **concrete numbers from real data**, explicit **real-data-only provenance**, and a clear summary of coverage.
+9. **TESTS + DOCS (HARDEN COVERAGE)**
+   - Add **network-independent** stress tests for portfolio logic, risk controls, meta-selector, artifact schema, edge cases.
+   - Update `README.md` with hardened findings, **concrete real-data numbers**, explicit **real-data-only provenance**, coverage summary. Make it impossible to miss the real-data mandate.
 
 10. **VERIFY & DELIVER (ZERO REGRESSIONS)**
    - Regenerate `reports/portfolio_real.json` using **real data only**.
-   - Run full verification: `PYTHONPATH=. python -m pytest tests/ -q` (>= 526 passed, 0 new failures), `python -m ruff check backtest/ strategies/ utils/ tests/` (clean), `python -m mypy backtest/ strategies/ utils/` (clean).
-   - Ensure all required deliverables exist and are JSON-serializable.
+   - Final checks: `PYTHONPATH=. python -m pytest tests/ -q` (>=526 passed, 0 new failures), `python -m ruff check backtest/ strategies/ utils/ tests/` (clean), `python -m mypy backtest/ strategies/ utils/` (clean).
+   - All deliverables present and valid.
 
 **HARD CONSTRAINTS:**
-- **REAL DATA ONLY.** No synthetic/fabricated candles/IV/funding/basis.
-- **NO SHORTCUTS.** Omit and document if unavailable after exhaustive attempts.
-- **PRESERVE GREEN STATE.** Never introduce regressions.
-- **HEAVY WORK MANDATE.** Substantial hardening required. Complete the full campaign.
-- **REMOVE BOTTLENECKS.** Eliminate any inefficiencies blocking progress immediately.
+- **REAL DATA ONLY.** No synthetic/fabricated data of any kind.
+- **NO SHORTCUTS.** Omit+document if unavailable after exhaustive attempts.
+- **PRESERVE GREEN.** Never introduce regressions.
+- **HEAVY MANDATE.** Substantial hardening required - complete the full campaign.
+- **BOTTLENECK REMOVAL.** Eliminate inefficiencies blocking progress immediately.
+- **IMPOSSIBLE TO AVOID:** Structure work so next agents cannot coast.
 
-**CAMPAIGN COMPLETE ONLY WHEN:**
-- `reports/portfolio_real.json` enriched with **every** metric above
-- `tests/test_portfolio_real.py` (and related tests) cover new logic with **network-independent** tests
-- `README.md` documents hardened findings with **concrete real-data numbers** and explicit provenance
-- `PYTHONPATH=. python -m pytest tests/ -q` → >= 526 passed, 0 new failures
-- `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
-- `python -m mypy backtest/ strategies/ utils/` → clean
-
-**START IMMEDIATELY. EXECUTE THE FULL CAMPAIGN WITHOUT EARLY STOP.**
+**CAMPAIGN COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY. EXECUTE FULL CAMPAIGN WITHOUT EARLY STOP.**
