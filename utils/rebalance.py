@@ -23,9 +23,9 @@ def generate_rebalance_dates(
     else:
         idx = index
 
-    # Normalize deprecated lowercase weekly frequency to uppercase (pandas 2.x)
+    # Normalize deprecated lowercase frequency aliases to uppercase (pandas 2.x)
     if isinstance(freq, str):
-        freq = freq.replace("w", "W")
+        freq = freq.replace("d", "D").replace("w", "W")
 
     if len(idx) == 0:
         return pd.DatetimeIndex([])
