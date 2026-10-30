@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-30T19:08:33Z) — SINGLE MANDATORY NEXT TASK: MAX-INTENSITY REAL-DATA EXPANSION CAMPAIGN
+# DURABLE HANDOFF (2026-10-30T19:09:28Z) — SINGLE MANDATORY NEXT TASK: MAX-INTENSITY REAL-DATA EXPANSION CAMPAIGN
 
 ## REPO NAME IS THE LAW
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -12,7 +12,7 @@
 - `examples/run_portfolio_real.py` hardened: regime-adaptive meta-selector, correlation-aware + CVaR-style risk controls, circuit breaker tested, funding/basis exhaustively attempted (no fabrication), cost-stress slices, per-asset contribution, turnover, leverage/exposure, correlation stability, regime-conditioned performance.
 - `tests/test_portfolio_real.py` + `tests/test_portfolio_risk_controls.py` added (network-independent).
 
-## VERIFIED GREEN STATE (MUST PRESERVE) — 2026-10-30T19:08:33Z (re-verified this session)
+## VERIFIED GREEN STATE (MUST PRESERVE) — 2026-10-30T19:09:28Z (re-verified this session)
 - **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **527 passed, 1 skipped**
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
@@ -28,9 +28,9 @@
 - **NO WORKAROUNDS:** Omit+document only after EXHAUSTIVE attempts with full provenance.
 - **NETWORK IS NOT AN EXCUSE:** Public Binance endpoints are available; retry with backoff, document every attempt.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-30T19:08:33Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-30T19:09:28Z)
 
-**THIS SESSION (2026-10-30T19:08:33Z):** Verified green state on `main` — 527 passed / 1 skipped, ruff clean, mypy clean (31 files). Working tree clean; nothing is blocked. The campaign below is the **STANDING MANDATORY FOCUS**. Run it immediately, in order, without early stop. **Coasting is FORBIDDEN.**
+**THIS SESSION (2026-10-30T19:09:28Z):** Verified green state on `main` — 527 passed / 1 skipped, ruff clean, mypy clean (31 files). Working tree clean; nothing is blocked. The campaign below is the **STANDING MANDATORY FOCUS**. Run it immediately, in order, without early stop. **Coasting is FORBIDDEN.**
 
 **OBJECTIVE:** Execute a **MAX-INTENSITY NO-COAST REAL-DATA EXPANSION CAMPAIGN** on the multi-asset crypto stat arb portfolio using **100% REAL Binance data**. Expand the universe to the full liquid majors, extend walk-forward to multi-timeframe/longer horizon, attach statistical-significance (bootstrap CI) to OOS portfolio performance, add volume-aware execution realism, and make it **IMPOSSIBLE** for subsequent agents to avoid substantial real-data validation.
 
