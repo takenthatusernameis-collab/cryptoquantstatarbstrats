@@ -108,6 +108,51 @@ Findings:
 - On these windows the pairs strategy underperformed the buy-and-hold benchmarks.
   This is a legitimate research outcome, not evidence of a trading edge.
 
+**Transaction-cost sensitivity (pairs, BTC/ETH):** `reports/pairs_real_market.json` includes a `cost_sensitivity` block (fees × slippage grid) replaying the top-ranked BTC/ETH combo with `replay_best`-style evaluation over the full dataset. Even at zero costs the strategy remains unprofitable relative to buy-and-hold on this window; increasing fees/slippage degrades performance further, confirming sensitivity to transaction costs.
+
+## Mean reversion real-market validation
+
+The single-asset `MeanReversionStrategy` was validated on **real public
+Binance spot candles** (BTC, ETH, SOL at 1h, 2026-04-01 to 2026-10-28, 5,064
+shared bars) with walk-forward sweeps and full-dataset replays. Results are
+consolidated in `reports/mean_reversion_real_market.json` and reproduced by
+`examples/run_mean_reversion_real.py`.
+
+```bash
+python examples/run_mean_reversion_real.py
+```
+
+Walk-forward sweep (rolling, train=500 / test=100 bars, 4 splits, fees 0.10%,
+slippage 0.05%, metric calmar_ratio):
+
+| Asset | Combo (lookback, entry_threshold) | OOS mean return | OOS/IS ratio |
+| ----- | --------------------------------- | --------------- | ------------ |
+| BTC | 120 / 1.5 (rank 1) | -0.7779% | 0.259 |
+| ETH | 50 / 2.0 (rank 1) | -0.9261% | 0.218 |
+| SOL | 50 / 2.0 (rank 1) | -0.7499% | 0.205 |
+
+Replay of the top-ranked combo over the full dataset:
+
+| Asset | total_return | sharpe_ratio | max_drawdown | calmar_ratio | final_equity |
+| ----- | ------------ | ------------ | ------------ | ------------ | ------------ |
+| BTC | -33.27% | -2.77 | -34.94% | -1.44 | 66,727 |
+| ETH | -39.97% | -3.43 | -40.76% | -1.44 | 60,028 |
+| SOL | -30.00% | -2.34 | -35.87% | -1.28 | 70,000 |
+
+Benchmark (equal-weighted buy-and-hold over the same window):
+- BTC: **+18.87% total return**
+- ETH: **+11.42% total return**
+- SOL: **+22.65% total return**
+
+Findings:
+
+- On these real windows the mean-reversion strategy underperformed the
+  buy-and-hold benchmarks across all three assets, with negative Sharpe ratios
+  in replay.
+- Results are from walk-forward selection with `replay_best=True` on actual
+  Binance spot data (no synthetic/fabricated candles). This remains a
+  research outcome, not evidence of a trading edge.
+
 ## Disclaimer
 
 This software is for educational and research purposes only. It does not
