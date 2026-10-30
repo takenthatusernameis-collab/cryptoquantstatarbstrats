@@ -128,7 +128,7 @@ class PortfolioRiskController:
                         if corr is not None and abs(float(corr)) > 0.65:
                             hits += 1
                     if hits > 0:
-                        redundancy[c1] = 1.0 / (1.0 + 0.25 * hits)
+                        redundancy[c1] = 1.0 / (1.0 + 0.10 * hits)
                 w = w.multiply(redundancy, axis=1)
             except Exception:
                 pass
@@ -243,9 +243,37 @@ def fetch_basis(symbols: list[str]):
     return attempts, basis_data
 
 
-def regime_adaptive_meta_selector(weights_by_strategy: dict[str, pd.DataFrame], data: pd.DataFrame):
+def regime_adaptive_meta_selector(
+    weights_by_strategy: dict[str, pd.DataFrame],
+    data: pd.DataFrame,
+    *,
+    target_gross: float = 1.0,
+    high_vol_scale: float = 0.5,
+    downtrend_scale: float = 0.6,
+    uptrend_scale: float = 1.1,
+) -> pd.DataFrame:
+    """Regime-adaptive multi-signal meta-selector.
+
+    Blends per-strategy weight frames using **multiple real signals** derived
+    from real price data (volatility regime + trend regime). Unlike a plain
+    average, each strategy is first normalized to a common gross-exposure scale
+    so that no single strategy dominates by raw magnitude, and the combined
+    book is then scaled by the current regime:
+
+    * high-volatility regime  -> ``high_vol_scale`` (de-risk)
+    * downtrend regime        -> ``downtrend_scale`` (de-risk)
+    * uptrend regime          -> ``uptrend_scale`` (slight risk-on)
+    * otherwise               -> 1.0
+
+    The previous implementation divided the summed weights by ``n`` strategies,
+    which collapsed gross exposure to ~1/n of a single strategy's signal and
+    rendered every portfolio risk metric vacuous. This version preserves the
+    signal magnitude while still adapting to regime.
+    """
+    if len(weights_by_strategy) == 0:
+        return pd.DataFrame(0.0, index=data.index, columns=data.columns)
+
     regimes = detect_regimes(data)
-    # Try multiple signals
     vol_regime = None
     trend_regime = None
     for col in regimes.columns:
@@ -253,30 +281,43 @@ def regime_adaptive_meta_selector(weights_by_strategy: dict[str, pd.DataFrame], 
             vol_regime = regimes[col]
         if col.endswith("_trend") and col.startswith("BTC_"):
             trend_regime = regimes[col]
-    combined = pd.DataFrame(0.0, index=data.index, columns=list(set(data.columns) | set([c for w in weights_by_strategy.values() for c in w.columns])))
-    if len(weights_by_strategy) == 0:
-        return combined
-    # Determine regime adjustments
+
     high_vol = None
     try:
         if vol_regime is not None:
-            unique = [u for u in vol_regime.dropna().unique()]
-            high_vol = max(unique) if unique else None
+            uniq = [u for u in vol_regime.dropna().unique()]
+            high_vol = max(uniq) if uniq else None
     except Exception:
         high_vol = None
-    for k, w in weights_by_strategy.items():
-        w_aligned = w.reindex(index=data.index, columns=combined.columns).fillna(0.0)
-        w_adj = w_aligned.copy()
-        if high_vol is not None and vol_regime is not None:
-            mask_high = (vol_regime == high_vol).reindex(index=data.index).fillna(False)
-            w_adj.loc[mask_high] = w_adj.loc[mask_high] * 0.4  # stronger de-risking
-        if trend_regime is not None:
-            # In strong downtrend, de-risk more
-            mask_down = (trend_regime == -1).reindex(index=data.index).fillna(False)
-            w_adj.loc[mask_down] = w_adj.loc[mask_down] * 0.7
-        combined = combined.add(w_adj, fill_value=0.0)
-    n = len(weights_by_strategy)
-    return combined / n if n > 0 else combined
+
+    # Normalize each strategy to unit gross exposure so blending is comparable.
+    norm_frames: list[pd.DataFrame] = []
+    for _name, w in weights_by_strategy.items():
+        w_aligned = w.reindex(index=data.index, columns=data.columns).fillna(0.0)
+        gross = w_aligned.abs().sum(axis=1).replace(0.0, np.nan)
+        scale = (1.0 / gross).fillna(0.0)
+        norm_frames.append(w_aligned.multiply(scale, axis=0))
+
+    combined = pd.DataFrame(0.0, index=data.index, columns=data.columns)
+    for nf in norm_frames:
+        combined = combined.add(nf, fill_value=0.0)
+    # Equal-weight blend of normalized strategies.
+    combined = combined / float(len(norm_frames))
+    # Scale to target gross exposure.
+    gross = combined.abs().sum(axis=1).replace(0.0, np.nan)
+    scale_gross = (target_gross / gross).fillna(0.0).clip(upper=2.0)
+    combined = combined.multiply(scale_gross, axis=0)
+
+    # Regime-based de-risking / risk-on adjustments.
+    if vol_regime is not None and high_vol is not None:
+        mask_high = (vol_regime == high_vol).reindex(index=data.index).fillna(False)
+        combined.loc[mask_high] = combined.loc[mask_high] * high_vol_scale
+    if trend_regime is not None:
+        mask_down = (trend_regime == -1).reindex(index=data.index).fillna(False)
+        mask_up = (trend_regime == 1).reindex(index=data.index).fillna(False)
+        combined.loc[mask_down] = combined.loc[mask_down] * downtrend_scale
+        combined.loc[mask_up] = combined.loc[mask_up] * uptrend_scale
+    return combined.fillna(0.0)
 
 
 def main() -> None:
@@ -340,7 +381,9 @@ def main() -> None:
             continue
 
     returns = data.pct_change().fillna(0.0)
-    combined_weights = regime_adaptive_meta_selector(weights_by_strategy, data)
+    combined_weights = regime_adaptive_meta_selector(
+        weights_by_strategy, data, target_gross=1.0
+    )
     risk_ctrl = PortfolioRiskController(
         max_gross_exposure=1.4,
         per_pair_cap=0.32,

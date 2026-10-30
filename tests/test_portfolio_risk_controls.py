@@ -109,14 +109,28 @@ def test_regime_adaptive_meta_selector_de_risks_in_high_vol():
     # Two strategies with identical weights; high-vol bars should be scaled down.
     w = pd.DataFrame(0.5, index=data.index, columns=["BTC", "ETH"])
     combined = regime_adaptive_meta_selector({"s1": w, "s2": w}, data)
+    # Each strategy is normalized to unit gross (0.5+0.5=1.0 -> unchanged),
+    # then equal-weight blended: base weight = 0.5 before regime adjustment.
+    base = 0.5
     regimes = regime_adaptive_meta_selector.__globals__["detect_regimes"](data)
     vol_col = next(c for c in regimes.columns if c.startswith("BTC") and c.endswith("_vol_regime"))
     high_vol = regimes[vol_col].max()
     mask_high = regimes[vol_col] == high_vol
     if mask_high.any():
-        base = 0.5 / 2.0  # average of two identical strategies
         scaled = combined.loc[mask_high, "BTC"].mean()
         assert scaled < base
+        # Non-high-vol bars must remain at the base weight (no adjustment).
+        non_high = combined.loc[~mask_high, "BTC"].mean()
+        assert non_high == pytest.approx(base, abs=1e-9)
+
+
+def test_regime_adaptive_meta_selector_preserves_signal_magnitude():
+    data = _prices(n=120)
+    w = pd.DataFrame(0.5, index=data.index, columns=["BTC", "ETH"])
+    combined = regime_adaptive_meta_selector({"s1": w}, data)
+    # Single strategy: normalized gross = 1.0, blended weight = 0.5, target 1.0.
+    assert combined["BTC"].abs().max() == pytest.approx(0.5, abs=1e-9)
+    assert combined["ETH"].abs().max() == pytest.approx(0.5, abs=1e-9)
 
 
 def test_regime_adaptive_meta_selector_empty_input_returns_zeros():
