@@ -1,0 +1,145 @@
+{
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "ADA",
+    "XRP",
+    "BNB"
+  ],
+  "pairs": [
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL",
+    "ADA/ETH",
+    "XRP/BTC",
+    "BNB/ETH"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "freq": "1h",
+  "data_source": "binance_public",
+  "oos_extended": true,
+  "wider_universe": true,
+  "cost_stress": {
+    "BTC/ETH": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "ETH/SOL": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "BTC/SOL": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "ADA/ETH": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "XRP/BTC": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "BNB/ETH": {
+      "fee_0.0_slip_0.0": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.0005_slip_0.00025": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.001_slip_0.0005": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "fee_0.002_slip_0.001": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    }
+  },
+  "regime_slices": {
+    "full": {
+      "BTC/ETH": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "ETH/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "BTC/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "early": {
+      "BTC/ETH": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "ETH/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "BTC/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    },
+    "late": {
+      "BTC/ETH": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "ETH/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      },
+      "BTC/SOL": {
+        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+      }
+    }
+  }
+}

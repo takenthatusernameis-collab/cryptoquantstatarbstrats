@@ -1,0 +1,125 @@
+{
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "freq": "1h",
+  "n_bars": 5096,
+  "grid": {
+    "lookback": [
+      60,
+      120
+    ],
+    "entry_threshold": [
+      2.0,
+      2.5
+    ],
+    "cointegration_pvalue": [
+      0.05,
+      0.1
+    ]
+  },
+  "walk_forward": {
+    "train_period": 1000,
+    "test_period": 200,
+    "mode": "rolling",
+    "n_splits": 6,
+    "metric": "calmar_ratio"
+  },
+  "pairs": {
+    "BTC/ETH": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": 0.0,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": 0.0,
+        "oos_periods": 6,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": -0.017541126683653485,
+        "sharpe_ratio": -2.0794949009426724,
+        "max_drawdown": -0.024810442995640725,
+        "calmar_ratio": -1.2087112609134358,
+        "final_equity": 98245.88733163466
+      },
+      "oos_is_ratio": 0.0,
+      "oos_mean_return": 0.0
+    },
+    "ETH/SOL": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": 0.0005892749640111384,
+        "mean_max_drawdown": -0.002662039780136997,
+        "oos_is_ratio": -0.2698517205291566,
+        "oos_periods": 6,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": -0.022683375938103323,
+        "sharpe_ratio": -1.3597559085978526,
+        "max_drawdown": -0.036663421234055305,
+        "calmar_ratio": -1.0557493277908419,
+        "final_equity": 97731.66240618967
+      },
+      "oos_is_ratio": -0.2698517205291566,
+      "oos_mean_return": 0.0005892749640111384
+    },
+    "BTC/SOL": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.1,
+        "oos_mean_return": 0.001797891686454195,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": 0.3711145166715316,
+        "oos_periods": 6,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.1
+        },
+        "total_return": 0.04421656922340689,
+        "sharpe_ratio": 2.280335076302337,
+        "max_drawdown": -0.013458478627724535,
+        "calmar_ratio": 5.742250729974166,
+        "final_equity": 104421.65692234068
+      },
+      "oos_is_ratio": 0.3711145166715316,
+      "oos_mean_return": 0.001797891686454195
+    }
+  },
+  "longer_horizon": true
+}

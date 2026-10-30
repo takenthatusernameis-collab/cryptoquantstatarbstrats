@@ -326,3 +326,24 @@ python examples/run_paper_trading_real.py
 python examples/run_execution_realism_real.py
 python examples/run_monte_carlo_real.py
 ```
+
+### Extended real-market OOS and robustness (beyond 2026-10-28)
+
+Out-of-sample validation extended to 2026-10-30 on real public Binance spot candles with wider universe, longer-horizon walk-forward, and hardened execution/regime stress:
+
+- `reports/pairs_real_market_oos.json` – OOS pairs validation for BTC/ETH, ETH/SOL, BTC/SOL (extended window).
+- `reports/mean_reversion_real_oos.json` – OOS mean reversion validation for BTC, ETH, SOL (extended window).
+- `reports/pairs_real_market_wider_universe.json` – Wider universe pairs validation (>=2 additional pairs: ADA/ETH, XRP/BTC, BNB/ETH) with walk-forward sweeps and benchmarks.
+- `reports/pairs_real_market_longer_walkforward.json` – Longer-horizon walk-forward (train=1000/test=200, 6+ splits) reporting OOS/IS stability.
+- `reports/execution_realism_extended.json` – Extended execution realism (VWAP/TWAP/LOB) across wider universe/OOS window with slippage/impact quantification vs naive fills.
+- `reports/regime_cost_stress_extended.json` – Extended regime/cost-stress slices (zero/realistic/high fees × slippage) across pairs/regimes.
+
+Reproduce with:
+```bash
+python examples/run_pairs_real_oos.py
+python examples/run_mean_reversion_real_oos.py
+python examples/run_pairs_real_wider_universe_fast.py
+python examples/run_pairs_longer_walkforward_oos.py
+python examples/run_execution_realism_extended.py
+python examples/run_regime_cost_stress_extended.py
+```

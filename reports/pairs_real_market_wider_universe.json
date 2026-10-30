@@ -1,0 +1,212 @@
+{
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "ADA",
+    "XRP",
+    "BNB"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "freq": "1h",
+  "n_bars": 5095,
+  "grid": {
+    "lookback": [
+      60,
+      120
+    ],
+    "entry_threshold": [
+      2.0,
+      2.5
+    ],
+    "cointegration_pvalue": [
+      0.05,
+      0.1
+    ]
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "mode": "rolling",
+    "n_splits": 4,
+    "metric": "calmar_ratio"
+  },
+  "pairs": {
+    "BTC/ETH": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": 2.1360886009705008e-05,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": -0.018013151834526744,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": -0.017541126683653485,
+        "sharpe_ratio": -2.0796990637295103,
+        "max_drawdown": -0.024810442995640725,
+        "calmar_ratio": -1.2089449475939669,
+        "final_equity": 98245.88733163466
+      },
+      "benchmark_total_return": 0.10775804551737722
+    },
+    "ETH/SOL": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": -6.648177798343171e-05,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": -0.26348147878074324,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": -0.0031751543366403956,
+        "sharpe_ratio": -1.0692766066344623,
+        "max_drawdown": -0.0036882948295049456,
+        "calmar_ratio": -1.4797361946868697,
+        "final_equity": 99682.48456633596
+      },
+      "benchmark_total_return": 0.12410320197212243
+    },
+    "BTC/SOL": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.1,
+        "oos_mean_return": 0.000996939789492991,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": 0.5604055369100907,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.1
+        },
+        "total_return": 0.04421656922340689,
+        "sharpe_ratio": 2.2805589797378274,
+        "max_drawdown": -0.013458478627724535,
+        "calmar_ratio": 5.743420473919012,
+        "final_equity": 104421.65692234068
+      },
+      "benchmark_total_return": 0.16929168280622808
+    },
+    "ADA/ETH": {
+      "pair": [
+        "ADA",
+        "ETH"
+      ],
+      "top_ranked": {
+        "lookback": 60,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": 0.0011873225052567715,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": 0.5728638661568651,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 60,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": 0.03810954361783225,
+        "sharpe_ratio": 1.5336579937130201,
+        "max_drawdown": -0.016328582366809008,
+        "calmar_ratio": 4.071288428616197,
+        "final_equity": 103810.95436178322
+      },
+      "benchmark_total_return": -0.06585301802788346
+    },
+    "XRP/BTC": {
+      "pair": [
+        "XRP",
+        "BTC"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.5,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": -0.00016600268685023313,
+        "mean_max_drawdown": -0.0006472699724451025,
+        "oos_is_ratio": 0.17732701602031964,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": -0.02973769364963974,
+        "sharpe_ratio": -2.271892464744204,
+        "max_drawdown": -0.0330307148513288,
+        "calmar_ratio": -1.5326349280621228,
+        "final_equity": 97026.23063503603
+      },
+      "benchmark_total_return": 0.04848205613866474
+    },
+    "BNB/ETH": {
+      "pair": [
+        "BNB",
+        "ETH"
+      ],
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05,
+        "oos_mean_return": 6.2335118799924e-05,
+        "mean_max_drawdown": 0.0,
+        "oos_is_ratio": -0.06928803615939105,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "total_return": 0.018251867321440907,
+        "sharpe_ratio": 1.0575594425784847,
+        "max_drawdown": -0.020907506038181367,
+        "calmar_ratio": 1.512134482319915,
+        "final_equity": 101825.1867321441
+      },
+      "benchmark_total_return": 0.11361966822685221
+    }
+  },
+  "wider_universe": true
+}
