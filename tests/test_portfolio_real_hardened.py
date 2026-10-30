@@ -77,6 +77,7 @@ def test_portfolio_real_artifact_hardened_schema():
         cand = e.get("candidate", "")
         base = cand.split("/")[0] if cand else ""
         if base and base in included_assets:
-            assert e.get("action") not in ("excluded_insufficient_history", "excluded_unavailable"), (
+            bad_actions = ("excluded_insufficient_history", "excluded_unavailable")
+            assert e.get("action") not in bad_actions, (
                 f"Contradiction: {cand} excluded as unavailable but asset {base} is included"
             )
