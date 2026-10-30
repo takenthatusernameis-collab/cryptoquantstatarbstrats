@@ -107,6 +107,21 @@ def main() -> None:
 
     # Replay the top-ranked combo at each cost config to report full-dataset
     # metrics (total_return / sharpe / max_drawdown / final_equity).
+    # Only scalar metrics are kept: the engine also returns equity_curve,
+    # weights, portfolio_returns, and returns (Series/DataFrame) which are not
+    # JSON-serializable and are not needed for this report. final_equity is
+    # derived from the equity curve (initial_capital * last equity multiple),
+    # matching the replay block produced by backtest.sweep.
+    SCALAR_KEYS = (
+        "total_return",
+        "sharpe_ratio",
+        "max_drawdown",
+        "max_drawdown_duration",
+        "calmar_ratio",
+        "sortino_ratio",
+        "var",
+        "cvar",
+    )
     for row in sweep:
         replay = engine.run(
             strat,
@@ -114,14 +129,18 @@ def main() -> None:
             fee_rate=row["fee_rate"],
             slippage=row["slippage"],
         )
-        row["replay"] = {
+        replay_block = {
             "params": dict(params),
-            "total_return": replay.get("total_return"),
-            "sharpe_ratio": replay.get("sharpe_ratio"),
-            "max_drawdown": replay.get("max_drawdown"),
-            "calmar_ratio": replay.get("calmar_ratio"),
-            "final_equity": replay.get("final_equity"),
+            **{k: replay.get(k) for k in SCALAR_KEYS if k in replay},
         }
+        equity_curve = replay.get("equity_curve")
+        try:
+            replay_block["final_equity"] = float(
+                engine.initial_capital
+            ) * float(equity_curve.iloc[-1])
+        except Exception:
+            replay_block["final_equity"] = None
+        row["replay"] = replay_block
         print(
             f"  costs fee={row['fee_rate']:.4f} slip={row['slippage']:.4f} -> "
             f"OOS return={row['oos_mean_return']:.6f} "
@@ -132,10 +151,17 @@ def main() -> None:
         Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
     )
     report = json.loads(out_path.read_text(encoding="utf-8"))
+    # Strip the raw walk-forward result objects (they contain pandas
+    # Series/DataFrame) before serializing; only the scalar aggregates and
+    # the per-config replay block are kept.
+    clean_rows = []
+    for row in sweep:
+        clean = {k: v for k, v in row.items() if k != "result"}
+        clean_rows.append(clean)
     report["cost_sensitivity"] = {
         "pair": list(PAIR),
         "grid": [{"fee_rate": f, "slippage": s} for f, s in COST_GRID],
-        "rows": sweep,
+        "rows": clean_rows,
     }
     out_path.write_text(
         json.dumps(report, indent=2, default=float), encoding="utf-8"
