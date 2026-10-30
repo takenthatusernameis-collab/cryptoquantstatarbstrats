@@ -1,11 +1,11 @@
-# Durable Handoff (2026-10-30T00:51:21Z)
+# Durable Handoff (2026-10-30T01:42:58Z)
 
 ## Repo
-cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation.
+cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles.
 
 ## Current verified state (green)
 - Branch: main, clean, up to date with origin/main (last commits are kilo checkpoints)
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 497 passed, 1 skipped, 86 warnings
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 499 passed, 1 skipped, 86 warnings
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 
@@ -17,22 +17,22 @@ cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research o
 - Fixed benchmark bug in `backtest/engine.run_with_benchmark` (pair symbols only)
 - README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity note
 - Bottlenecks removed (zeroed JSON, benchmark mismatch, flaky bootstrap neutralized, stalled branch deleted)
+- Bottlenecks removed this session: fixed 2 lint errors in newly added test files (`tests/test_mean_reversion_real_market.py` unused `import sys`; `tests/test_pairs_cost_sensitivity.py` line-too-long) so lint is clean again
 
 ## MANDATORY NEXT CAMPAIGN (heavy work - do not defer)
 Focus: extend real-market validation beyond current coverage while keeping the "real data only for validation" constraint. Remove bottlenecks immediately if encountered.
 
 ### Objectives
 1. **Cointegration robustness / pair universe expansion**
-   - Expand pairs validation to additional crypto pairs (e.g. ETH/BTC already done; consider SOL/BTC variants, or cross-quote consistency). Use real Binance spot candles only.
-   - For each new pair, run walk-forward sweep with `replay_best=True`, enforce cointegration gate, ensure opposing legs/positive hedge ratio, compare to pair-matched buy-and-hold benchmark.
+   - Expand pairs validation to additional crypto pairs (e.g. SOL/BTC, cross-quote variants) using real Binance spot candles only. For each new pair, run walk-forward sweep with `replay_best=True`, enforce cointegration gate, ensure opposing legs/positive hedge ratio, compare to pair-matched buy-and-hold benchmark.
    - Write consolidated results to `reports/pairs_real_market_expanded.json` (or extend existing) with full metadata.
 
 2. **Regime/period robustness**
-   - Test sensitivity to regime changes: split real window into subperiods (e.g. bull/bear/sideways) or run rolling-window replays for both strategies and report drawdown/Sharpe stability.
-   - Document regime sensitivity in README and add JSON artifacts under `reports/`.
+   - Test sensitivity to regime changes: split the real window into subperiods (e.g. bull/bear/sideways) or run rolling-window replays for both strategies and report drawdown/Sharpe stability.
+   - Document regime sensitivity in README and add JSON artifacts under `reports/` (e.g. `reports/regime_robustness_real.json`).
 
 3. **Execution realism**
-   - Add funding/borrow assumptions if applicable (document assumptions explicitly), or model latency/slippage more explicitly; do not fabricate data.
+   - Add transaction-cost sensitivity beyond BTC/ETH (e.g. another pair or mean reversion) or model slippage/fee grids; quantify degradation. Document assumptions explicitly; do not fabricate data.
    - If strategy logic needs adjustment for realistic sizing, follow existing patterns and keep tests passing.
 
 4. **Documentation & tests**
@@ -60,12 +60,12 @@ python -m mypy backtest/ strategies/ utils/
 - Do not exit until all success criteria met.
 
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T00:51:21Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:42:58Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
-**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data. All previously mandated campaigns are COMPLETE and verified (pairs + mean reversion on real Binance 1h data; benchmarks and cost-sensitivity included). Explicit directions: broaden validation with real data, remove bottlenecks, heavy work required.
+**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and cost-sensitivity included; test/lint/typecheck green after this session's lint fixes.
 
-**MANDATORY HEAVY WORK (do not defer):** Expand real-market validation coverage (pairs universe/regimes/execution realism) on actual Binance spot candles (1h), with walk-forward sweeps + `replay_best=True` where applicable, compared to appropriate benchmarks. Keep all results JSON-serializable and documented. Add network-independent tests; no fabricated candles/IV.
+**MANDATORY HEAVY WORK (do not defer):** Broaden real-market validation coverage — expand the pairs universe, assess regime robustness, and/or add execution-realism checks — using ONLY real public Binance spot data (1h), with walk-forward sweeps + `replay_best=True` where applicable, compared to appropriate buy-and-hold benchmarks. Keep all results JSON-serializable and documented. Add network-independent tests; no fabricated candles/IV. Remove any bottleneck (network, mocking, lint, type) immediately so progress continues.
 
 ### OBJECTIVE
 Go beyond current pairs/mean-reversion coverage: expand pair universe, assess regime robustness, and/or add execution-realism checks using ONLY real public Binance data. Produce consolidated artifacts under `reports/`, update README, ensure full test/lint/typecheck pass.

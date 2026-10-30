@@ -27,7 +27,12 @@ def test_pairs_cost_sensitivity_replay_over_grid() -> None:
     data = _make_cointegrated_pair(2000)
     engine = BacktestEngine(initial_capital=100_000.0)
     pair = ("BTC", "ETH")
-    strat = CointegrationPairsStrategy(pair=pair, lookback=120, entry_threshold=2.5, cointegration_pvalue=0.05)
+    strat = CointegrationPairsStrategy(
+        pair=pair,
+        lookback=120,
+        entry_threshold=2.5,
+        cointegration_pvalue=0.05,
+    )
 
     grid = [
         {"fee_rate": 0.0, "slippage": 0.0},
