@@ -1,0 +1,67 @@
+{
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "pairs": [
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "fee_rate": 0.001,
+  "data_source": "binance_public",
+  "models": {
+    "naive_market": {
+      "order_type": "market",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": 1.0
+    },
+    "vwap": {
+      "order_type": "vwap",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": null
+    },
+    "twap": {
+      "order_type": "twap",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": null
+    },
+    "lob_depth3": {
+      "order_type": "lob",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": null
+    },
+    "lob_depth5": {
+      "order_type": "lob",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": null
+    },
+    "lob_with_levels": {
+      "order_type": "lob",
+      "fills": 0,
+      "total_fees": 0.0,
+      "total_slippage_cost": 0.0,
+      "avg_slippage_cost_per_fill": 0.0,
+      "vs_naive_slippage_ratio": null
+    }
+  }
+}

@@ -311,3 +311,18 @@ Period-split robustness analysis is recorded in `reports/regime_robustness_real.
 Transaction-cost sensitivity is documented in `reports/pairs_real_market.json` (fees × slippage grid for BTC/ETH), `reports/cost_sensitivity_real.json` (fees × slippage grid for ETH/SOL), `reports/cost_sensitivity_real_mean_reversion.json` (fees × slippage grid for mean reversion on SOL), and `reports/cost_sensitivity_real_portfolio.json` (pairs portfolio across all three pairs). Extended regime/cost-stress slices are in `reports/regime_robustness_real.json`. Additional cost grids can be added following the same real-data-only pattern.
 
 *All new artifacts are JSON-serializable and produced from real public Binance candles without API keys or fabricated data.*
+
+
+### Paper trading, execution realism, and Monte Carlo (real data)
+End-to-end real-data paper trading simulation, extended execution models (VWAP/TWAP/LOB), and Monte Carlo robustness are available as JSON-serializable artifacts produced from public Binance spot candles (2026-04-01 to 2026-10-28), no API keys or fabricated data:
+
+- `reports/paper_trading_real.json` – Real-data paper-trading run for top-ranked pairs combos with equity curve summary, fills, slippage, fees, positions/risk metrics, and drawdown.
+- `reports/execution_realism_real.json` – VWAP/TWAP/LOB execution impact vs naive market fills with depth/impact/queue/level-liquidity variants and slippage-cost quantification.
+- `reports/monte_carlo_real.json` – Bootstrap/shuffle Monte Carlo resampling of real-data returns with confidence intervals for total return, Sharpe ratio, and max drawdown (per pair and portfolio).
+
+Reproduce with:
+```bash
+python examples/run_paper_trading_real.py
+python examples/run_execution_realism_real.py
+python examples/run_monte_carlo_real.py
+```
