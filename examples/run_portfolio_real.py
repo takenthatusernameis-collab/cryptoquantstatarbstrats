@@ -194,13 +194,13 @@ def fetch_binance_volume(symbols: list[str], start: str, end: str, interval: str
             symbols, start, end, interval=interval
         )
     except Exception as e:
-        return [{"symbol": s, "error": str(e)[:80]} for s in symbols], {}
+        return [{"symbol": s, "error": str(e)[:80]} for s in symbols], {}, {}
     attempts: list[dict[str, Any]] = []
     for sym, prov in provenance.get("per_symbol", {}).items():
         for a in prov.get("attempts", []):
             attempts.append({**a, "symbol": sym})
     volume_by_symbol = {s: series for s, series in series_by_symbol.items()}
-    return attempts, volume_by_symbol
+    return attempts, volume_by_symbol, provenance
 
 
 def fetch_funding_rates(symbols: list[str], days: int = 30):
@@ -798,9 +798,11 @@ def main() -> None:
     # slippage model: slippage = base_slippage * (1 + participation_penalty),
     # where participation_penalty scales with the fraction of symbol volume the
     # book trades. Every host attempt is logged; nothing is fabricated.
-    vol_attempts, vol_data = fetch_binance_volume(SYMBOLS, START, END, interval=FREQ)
+    vol_attempts, vol_data, vol_provenance = fetch_binance_volume(SYMBOLS, START, END, interval=FREQ)
     volume_aware_execution = {
         "real_volume_attempts": vol_attempts,
+        "blocked_routes": vol_provenance.get("blocked_routes", []),
+        "volume_fetch_status": vol_provenance.get("blocked_routes") and not vol_data,
         "avg_quote_volume_usdt": {k: _to_float(v.mean()) if hasattr(v, "mean") else _to_float(v) for k, v in vol_data.items()},
         "median_quote_volume_usdt": {k: _to_float(v.median()) if hasattr(v, "median") else _to_float(v) for k, v in vol_data.items()},
         "bars_fetched": {k: int(v.notna().sum()) if hasattr(v, "notna") else 0 for k, v in vol_data.items()},
@@ -808,6 +810,12 @@ def main() -> None:
             "model": "volume_participation_adjusted_slippage",
             "base_slippage": 0.0005,
             "participation_factor": "inverse_of_relative_volume",
+            "fallback_note": (
+                "If real quote-volume is unavailable (blocked routes), the model "
+                "falls back to a uniform participation assumption with slippage "
+                "set to base_slippage. Nothing is fabricated; the failure is "
+                "documented in blocked_routes and volume_fetch_status."
+            ),
             "note": (
                 "Slippage scales with participation using real Binance quote volumes "
                 "where available; no fabrication."

@@ -404,6 +404,12 @@ class DataLoader:
             "https://api2.binance.com",
             "https://api3.binance.com",
         ]
+        # Permanent HTTP errors (451/403/404) identify blocked routes. Once a
+        # host is blocked for one symbol it is blocked for all symbols on this
+        # call, so we skip it instead of repeating the same failed request for
+        # every symbol (this previously burned 165 attempts on a single blocked
+        # host across 33 symbols x 5 hosts x 1 retry).
+        blocked_hosts: set[str] = set()
         provenance: dict[str, Any] = {
             "requested_symbols": list(symbols),
             "start": start_date,
@@ -415,6 +421,7 @@ class DataLoader:
             "backoff_seconds": backoff_seconds,
             "per_symbol": {},
             "excluded": [],
+            "blocked_routes": [],
         }
 
         def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
@@ -425,7 +432,9 @@ class DataLoader:
                 ts_list: list[int] = []
                 vol_list: list[float] = []
                 host_used: str | None = None
-                for host in hosts:
+                for host in list(hosts):
+                    if host in blocked_hosts:
+                        continue
                     t0 = time.monotonic()
                     try:
                         while cursor_ms <= end_ms:
@@ -459,13 +468,18 @@ class DataLoader:
                         host_used = host
                         break
                     except (HTTPError, URLError, TimeoutError, OSError, RuntimeError) as exc:
+                        err = str(exc)[:120]
                         local_attempts.append({
                             "attempt": attempt,
                             "host": host,
                             "success": False,
-                            "error": str(exc)[:80],
+                            "error": err,
                             "latency_ms": int((time.monotonic() - t0) * 1000),
                         })
+                        # Permanent HTTP errors identify a blocked route: skip it
+                        # for every remaining symbol instead of retrying it.
+                        if any(code in err for code in ("HTTP Error 451", "HTTP Error 403", "HTTP Error 404")):
+                            blocked_hosts.add(host)
                         continue
                 if host_used is not None and ts_list:
                     local_attempts.append({
@@ -511,7 +525,7 @@ class DataLoader:
         provenance["per_symbol"] = {
             sym: {
                 "status": "ok" if sym in results else "excluded",
-                "bars": int(series.notna().sum()) if sym in results else 0,
+                "bars": int(results[sym].notna().sum()) if sym in results else 0,
                 "attempts": attempts_log.get(sym, []),
             }
             for sym in symbols
@@ -520,4 +534,5 @@ class DataLoader:
             {"symbol": s, "reason": "not_in_results", "attempts": attempts_log.get(s, [])}
             for s in symbols if s not in results
         ]
+        provenance["blocked_routes"] = sorted(blocked_hosts)
         return results, provenance
