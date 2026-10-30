@@ -39,7 +39,11 @@ def regime_adaptive_meta_selector(weights_by_strategy, data):
             vol_regime = regimes[col]
         if col.endswith("_trend") and col.startswith("BTC_"):
             trend_regime = regimes[col]
-    strategy_columns = {column for weights in weights_by_strategy.values() for column in weights.columns}
+    strategy_columns = {
+        column
+        for weights in weights_by_strategy.values()
+        for column in weights.columns
+    }
     columns = sorted(set(data.columns) | strategy_columns)
     combined = pd.DataFrame(0.0, index=data.index, columns=columns)
     if not weights_by_strategy:
@@ -83,6 +87,11 @@ out = ctrl.apply(
     returns=returns,
 )
 gross = out.abs().sum(axis=1)
-print(f"FIXED apply(): gross max={gross.max():.6f} mean={gross.mean():.6f} per-asset max={out.abs().max().max():.6f}")
+print(
+    "FIXED apply(): "
+    f"gross max={gross.max():.6f} "
+    f"mean={gross.mean():.6f} "
+    f"per-asset max={out.abs().max().max():.6f}"
+)
 print(f"  nonzero bars={(gross>1e-9).sum()}/{len(out)}")
 print("  PASS" if gross.max() > 0.01 else "  FAIL")
