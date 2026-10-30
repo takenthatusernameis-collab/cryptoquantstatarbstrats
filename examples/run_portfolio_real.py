@@ -144,9 +144,15 @@ class PortfolioRiskController:
         # Enforce per-asset correlation exposure cap: no single asset's gross
         # weight may exceed ``max_correlation_exposure``. This is the control
         # that prevents a highly-correlated asset from dominating the book.
-        if self.max_correlation_exposure is not None and self.max_correlation_exposure > 0.0 and len(w.columns) > 0:
+        if (
+            self.max_correlation_exposure is not None
+            and self.max_correlation_exposure > 0.0
+            and len(w.columns) > 0
+        ):
             asset_abs = w.abs()  # rows x assets
-            scale = (self.max_correlation_exposure / asset_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+            scale = (
+                self.max_correlation_exposure / asset_abs.replace(0, np.nan)
+            ).clip(upper=1.0).fillna(1.0)
             w = w.multiply(scale, axis=1)
         # Enforce CVaR-based allocation cap: if portfolio tail risk (CVaR at
         # ``confidence``) exceeds ``max_cvar_allocation``, scale all weights
@@ -241,12 +247,34 @@ def fetch_basis(symbols: list[str]):
                         "indexPrice": payload.get("indexPrice"),
                         "lastFundingRate": payload.get("lastFundingRate"),
                     }
-                    attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": True})
+                    attempts.append(
+                        {
+                            "symbol": sym,
+                            "host": host,
+                            "endpoint": "premiumIndex",
+                            "success": True,
+                        }
+                    )
                     ok = True
                     break
-                attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": False})
+                attempts.append(
+                    {
+                        "symbol": sym,
+                        "host": host,
+                        "endpoint": "premiumIndex",
+                        "success": False,
+                    }
+                )
             except Exception as e:
-                attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": False, "error": str(e)[:80]})
+                attempts.append(
+                    {
+                        "symbol": sym,
+                        "host": host,
+                        "endpoint": "premiumIndex",
+                        "success": False,
+                        "error": str(e)[:80],
+                    }
+                )
         if not ok:
             attempts.append({"symbol": sym, "success": False, "note": "basis_fetch_failed"})
     return attempts, basis_data
@@ -416,7 +444,10 @@ def main() -> None:
     funding_attempts, funding_data = fetch_funding_rates(SYMBOLS, days=30)
     basis_attempts, basis_data = fetch_basis(SYMBOLS)
     print(
-        f"Running walk-forward portfolio (train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})..."
+        (
+            "Running walk-forward portfolio "
+            f"(train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})..."
+        )
     )
     wf_results = engine.walk_forward_portfolio(
         combined_weights, data, train_period=TRAIN_PERIOD, test_period=TEST_PERIOD,
@@ -517,12 +548,18 @@ def main() -> None:
         candidates = [("DOT","USDT"),("MATIC","USDT"),("AVAX","USDT"),("LINK","USDT")]
         for c in candidates:
             try:
-                _d = DataLoader.load_binance_data(c[0], c[1], interval="1h", start_date=START, end_date=END)
+                _d = DataLoader.load_binance_data(
+                    c[0], c[1], interval="1h", start_date=START, end_date=END
+                )
                 if _d is not None and len(_d) > 5000:
                     exclusions_with_rationale.append({
                         "candidate": "/".join(c),
                         "action": "excluded_pending_validation",
-                        "rationale": "Considered but deferred to stricter coverage after confirming existing pairs fully validated; will include if passes cointegration/stability on full window."
+                        "rationale": (
+                            "Considered but deferred to stricter coverage after confirming "
+                            "existing pairs fully validated; include only if it passes "
+                            "cointegration and stability checks on the full window."
+                        )
                     })
                 else:
                     exclusions_with_rationale.append({
@@ -570,7 +607,12 @@ def main() -> None:
                 "calmar_ratio": _to_float(_pr.get("calmar_ratio", 0.0)),
             }
         except Exception:
-            _pair_replays[pname] = {"total_return": 0.0, "sharpe_ratio": 0.0, "max_drawdown": 0.0, "calmar_ratio": 0.0}
+            _pair_replays[pname] = {
+                "total_return": 0.0,
+                "sharpe_ratio": 0.0,
+                "max_drawdown": 0.0,
+                "calmar_ratio": 0.0,
+            }
 
     # Cost-stress slices: fee x slippage grid on portfolio
     _cost_stress = []
@@ -594,6 +636,19 @@ def main() -> None:
                     "max_drawdown": 0.0,
                 })
 
+    # Portfolio attribution and turnover metrics (using executed target weights).
+    asset_contrib = (
+        combined_weights.shift(1).fillna(0.0) * returns[SYMBOLS].fillna(0.0)
+    ).sum()
+    per_asset_contribution = {
+        symbol: _to_float(value) for symbol, value in asset_contrib.to_dict().items()
+    }
+    turnover_series = combined_weights.diff().abs().sum(axis=1).fillna(0.0)
+    if len(turnover_series) > 0:
+        turnover_series.iloc[0] = float(combined_weights.iloc[0].abs().sum())
+    mean_turnover = _to_float(turnover_series.mean()) if len(turnover_series) else 0.0
+    annualized_turnover = _to_float(mean_turnover * periods_per_year)
+
     # Regime-conditioned performance
     _regime_perf = {}
     try:
@@ -613,7 +668,12 @@ def main() -> None:
                         "n_periods": int(len(sub_rets)),
                         "total_return": _to_float((1.0 + sub_rets).prod() - 1.0),
                         "mean_return": _to_float(sub_rets.mean()),
-                        "sharpe_ratio": _to_float(sub_rets.mean() / sub_rets.std()) * _to_float(np.sqrt(periods_per_year)) if sub_rets.std() > 0 else 0.0,
+                        "sharpe_ratio": (
+                            _to_float(sub_rets.mean() / sub_rets.std())
+                            * _to_float(np.sqrt(periods_per_year))
+                            if sub_rets.std() > 0
+                            else 0.0
+                        ),
                     }
             except Exception:
                 pass
@@ -636,7 +696,10 @@ def main() -> None:
             "max_drawdown_with_cb": _to_float(cb_result.get("max_drawdown", 0.0)),
         }
     except Exception as e:
-        _cb_test = {"error": str(e)[:100], "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker}
+        _cb_test = {
+            "error": str(e)[:100],
+            "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker,
+        }
 
     artifact = {
         "type": "multi_asset_portfolio_real",
@@ -660,7 +723,9 @@ def main() -> None:
             "max_drawdown_duration": int(_to_float(port_res.get("max_drawdown_duration", 0)) or 0),
             "calmar_ratio": _to_float(port_res.get("calmar_ratio", 0.0)),
             "sortino_ratio": _to_float(port_res.get("sortino_ratio", 0.0)),
-            "final_equity": _to_float(100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))),
+            "final_equity": _to_float(
+                100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))
+            ),
             "equity_curve": eq_curve_out,
         },
         "risk_metrics": {
@@ -680,9 +745,15 @@ def main() -> None:
         "per_pair_contributions": {
             pname: {
                 "top_params": top_params.get(pname),
-                "pair_total_return": _to_float(_pair_replays.get(pname, {}).get("total_return", 0.0)),
-                "pair_sharpe_ratio": _to_float(_pair_replays.get(pname, {}).get("sharpe_ratio", 0.0)),
-                "pair_max_drawdown": _to_float(_pair_replays.get(pname, {}).get("max_drawdown", 0.0)),
+                "pair_total_return": _to_float(
+                    _pair_replays.get(pname, {}).get("total_return", 0.0)
+                ),
+                "pair_sharpe_ratio": _to_float(
+                    _pair_replays.get(pname, {}).get("sharpe_ratio", 0.0)
+                ),
+                "pair_max_drawdown": _to_float(
+                    _pair_replays.get(pname, {}).get("max_drawdown", 0.0)
+                ),
             }
             for pname in weights_by_strategy
         },
@@ -756,7 +827,10 @@ def main() -> None:
     out_path.write_text(json.dumps(artifact, indent=2, default=float), encoding="utf-8")
     print(
         f"Wrote {out_path}: total_return={artifact['portfolio']['total_return']:.4%} "
-        f"sharpe={artifact['portfolio']['sharpe_ratio']:.4f} max_dd={artifact['portfolio']['max_drawdown']:.4%}"
+        (
+            f"sharpe={artifact['portfolio']['sharpe_ratio']:.4f} "
+            f"max_dd={artifact['portfolio']['max_drawdown']:.4%}"
+        )
     )
 
 
