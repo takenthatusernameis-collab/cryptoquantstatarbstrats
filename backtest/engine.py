@@ -315,10 +315,19 @@ class BacktestEngine:
                             ))
                         else:
                             cb_cost.iloc[i] = float(cb_turnover.iloc[i] * (fee_rate + slippage))
-                        cb_returns.iloc[i] = float((cb_weights.iloc[i] * returns.iloc[i]).sum()) - float(cb_cost.iloc[i])
+                        cb_returns.iloc[i] = (
+                            float((cb_weights.iloc[i] * returns.iloc[i]).sum())
+                            - float(cb_cost.iloc[i])
+                        )
                     else:
-                        cb_returns.iloc[i] = float((cb_weights.iloc[i] * returns.iloc[i]).sum())
-                    cb_equity.iloc[i] = float(cb_equity.iloc[i - 1] * (1.0 + cb_returns.iloc[i])) if i > 0 else float(1.0 + cb_returns.iloc[i])
+                        cb_returns.iloc[i] = float(
+                            (cb_weights.iloc[i] * returns.iloc[i]).sum()
+                        )
+                    cb_equity.iloc[i] = (
+                        float(cb_equity.iloc[i - 1] * (1.0 + cb_returns.iloc[i]))
+                        if i > 0
+                        else float(1.0 + cb_returns.iloc[i])
+                    )
                 portfolio_returns = cb_returns
                 cumulative_returns = cb_equity
                 weights = cb_weights
