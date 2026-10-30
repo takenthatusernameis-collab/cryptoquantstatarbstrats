@@ -13,7 +13,14 @@ from backtest.execution import ExecutionSimulator
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
-PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"), ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH")]
+PAIRS = [
+    ("BTC", "ETH"),
+    ("ETH", "SOL"),
+    ("BTC", "SOL"),
+    ("ADA", "ETH"),
+    ("XRP", "BTC"),
+    ("BNB", "ETH"),
+]
 SYMBOLS = ["BTC", "ETH", "SOL", "ADA", "XRP", "BNB"]
 START = "2026-04-01"
 END = "2026-10-30"
@@ -55,7 +62,15 @@ def run_exec_model(order_type: str, lob_config: dict | None = None):
     total_slippage_cost = 0.0
     fills = 0
     for pair in PAIRS:
-        strat = CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05}))
+        params = top_params.get(
+            pair,
+            {
+                "lookback": 120,
+                "entry_threshold": 2.5,
+                "cointegration_pvalue": 0.05,
+            },
+        )
+        strat = CointegrationPairsStrategy(pair=pair, **params)
         signals = strat.generate_signals(data)
         # Skip the strategy warmup window (rolling lookback/cointegration needs
         # history); sample the tail where weights can actually be nonzero.
@@ -95,9 +110,13 @@ def run_exec_model(order_type: str, lob_config: dict | None = None):
                     total_fees += fee
                     avg_price = res.get("avg_price", price)
                     if side == "buy":
-                        total_slippage_cost += abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
+                        total_slippage_cost += (
+                            abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
+                        )
                     else:
-                        total_slippage_cost += abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
+                        total_slippage_cost += (
+                            abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
+                        )
 
     return {
         "order_type": order_type,
@@ -130,8 +149,12 @@ def main() -> None:
     results["models"]["naive_market"] = run_exec_model("market")
     results["models"]["vwap"] = run_exec_model("vwap")
     results["models"]["twap"] = run_exec_model("twap")
-    results["models"]["lob_depth3"] = run_exec_model("lob", {"depth_levels": 3, "market_impact_bps": 5.0})
-    results["models"]["lob_depth5"] = run_exec_model("lob", {"depth_levels": 5, "market_impact_bps": 3.0})
+    results["models"]["lob_depth3"] = run_exec_model(
+        "lob", {"depth_levels": 3, "market_impact_bps": 5.0}
+    )
+    results["models"]["lob_depth5"] = run_exec_model(
+        "lob", {"depth_levels": 5, "market_impact_bps": 3.0}
+    )
     results["models"]["lob_with_levels"] = run_exec_model(
         "lob",
         {
@@ -152,7 +175,11 @@ def main() -> None:
                 float(m["avg_slippage_cost_per_fill"] / naive_slip) if naive_slip > 0 else None
             )
 
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "execution_realism_extended.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent
+        / "reports"
+        / "execution_realism_extended.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(results, indent=2, default=float), encoding="utf-8")
     print(f"Wrote {out_path}")
