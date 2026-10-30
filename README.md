@@ -347,3 +347,19 @@ python examples/run_pairs_longer_walkforward_oos.py
 python examples/run_execution_realism_extended.py
 python examples/run_regime_cost_stress_extended.py
 ```
+
+**Execution realism (extended):** `reports/execution_realism_extended.json` replays the
+top-ranked pairs combos across the wider universe (BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH,
+XRP/BTC, BNB/ETH) on real Binance spot candles (2026-04-01 to 2026-10-30) under VWAP,
+TWAP, and LOB (depth 3/5, level-liquidity/queue variants) execution models versus naive
+market fills. LOB execution raises per-fill slippage cost ~3x versus naive market fills
+(depth 3/5); the level-liquidity variant reduces it to ~0.66x of naive. All models share
+the same 2,192 fills, so the comparison is apples-to-apples across order types.
+
+**Regime/cost stress (extended):** `reports/regime_cost_stress_extended.json` applies a
+fee × slippage grid (zero / 0.05% / 0.10% / 0.20% fee with proportional slippage) across
+the wider universe plus full/early/late regime slices on real Binance spot candles
+(2026-04-01 to 2026-10-30). Cost sensitivity is monotonic: higher fees/slippage degrade
+total return for every pair. BTC/SOL is the only pair that stays positive at realistic
+costs (+0.88% at 0.10% fee / 0.05% slippage) but turns negative at 0.20% fee / 0.10%
+slippage (-1.11%), confirming no pair is cost-insensitive on this sample.

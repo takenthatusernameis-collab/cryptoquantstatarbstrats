@@ -56,49 +56,49 @@ def run_exec_model(order_type: str, lob_config: dict | None = None):
     total_slippage_cost = 0.0
     fills = 0
     for pair in PAIRS:
-        try:
-            strat = CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05}))
-            signals = strat.generate_signals(data)
-            for ts in data.index[:300]:  # sample
-                try:
-                    w_a = float(signals.loc[ts, pair[0]]) if pair[0] in signals.columns else 0.0
-                    w_b = float(signals.loc[ts, pair[1]]) if pair[1] in signals.columns else 0.0
-                except Exception:
+        strat = CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05}))
+        signals = strat.generate_signals(data)
+        # Skip the strategy warmup window (rolling lookback/cointegration needs
+        # history); sample the tail where weights can actually be nonzero.
+        active = signals.index[300:]
+        for ts in active:
+            try:
+                w_a = float(signals.loc[ts, pair[0]]) if pair[0] in signals.columns else 0.0
+                w_b = float(signals.loc[ts, pair[1]]) if pair[1] in signals.columns else 0.0
+            except Exception:
+                continue
+            for sym, w in [(pair[0], w_a), (pair[1], w_b)]:
+                if abs(w) < 1e-12:
                     continue
-                for sym, w in [(pair[0], w_a), (pair[1], w_b)]:
-                    if abs(w) < 1e-12:
-                        continue
-                    side = "buy" if w > 0 else "sell"
-                    qty = abs(w) * 1000.0
-                    price = float(data.loc[ts, sym])
-                    try:
-                        vol = float(data[sym].pct_change().abs().rolling(20).mean().iloc[-1]) * 1e6
-                    except Exception:
-                        vol = 1000.0
-                    res = sim.simulate_order(
-                        order_type,
-                        side,
-                        qty,
-                        price,
-                        bar_volume=vol,
-                        bar_high=price * 1.001,
-                        bar_low=price * 0.999,
-                        order_id=fills + 1,
-                        symbol=sym,
-                        timestamp=str(ts),
-                        fee_rate=FEE_RATE,
-                    )
-                    if res.get("status") in ("filled", "partial"):
-                        fills += 1
-                        fee = abs(res.get("filled_qty", 0.0)) * price * FEE_RATE
-                        total_fees += fee
-                        avg_price = res.get("avg_price", price)
-                        if side == "buy":
-                            total_slippage_cost += abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
-                        else:
-                            total_slippage_cost += abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
-        except Exception:
-            continue
+                side = "buy" if w > 0 else "sell"
+                qty = abs(w) * 1000.0
+                price = float(data.loc[ts, sym])
+                try:
+                    vol = float(data[sym].pct_change().abs().rolling(20).mean().loc[ts]) * 1e6
+                except Exception:
+                    vol = 1000.0
+                res = sim.simulate_order(
+                    order_type,
+                    side,
+                    qty,
+                    price,
+                    bar_volume=vol,
+                    bar_high=price * 1.001,
+                    bar_low=price * 0.999,
+                    order_id=fills + 1,
+                    symbol=sym,
+                    timestamp=str(ts),
+                    fee_rate=FEE_RATE,
+                )
+                if res.get("status") in ("filled", "partial"):
+                    fills += 1
+                    fee = abs(res.get("filled_qty", 0.0)) * price * FEE_RATE
+                    total_fees += fee
+                    avg_price = res.get("avg_price", price)
+                    if side == "buy":
+                        total_slippage_cost += abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
+                    else:
+                        total_slippage_cost += abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
 
     return {
         "order_type": order_type,

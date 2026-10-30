@@ -53,7 +53,7 @@ def main() -> None:
         cost_stress["/".join(pair)] = {}
         for fee, slip in fee_slip_grid:
             try:
-                res = engine.run_backtest(
+                res = engine.run(
                     CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05})),
                     data,
                     fee_rate=fee,
@@ -83,7 +83,7 @@ def main() -> None:
         dreg = data.loc[mask]
         for pair in PAIRS[:3]:
             try:
-                res = engine.run_backtest(
+                res = engine.run(
                     CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05})),
                     dreg,
                     fee_rate=0.001,

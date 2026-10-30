@@ -24,121 +24,244 @@
   "cost_stress": {
     "BTC/ETH": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.02064624565948825,
+        "sharpe_ratio": -2.9469496550671916,
+        "max_drawdown": -0.021053821268722905,
+        "calmar_ratio": -1.6746298029798432,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.023801511486542193,
+        "sharpe_ratio": -3.3448447862056505,
+        "max_drawdown": -0.023801511486542193,
+        "calmar_ratio": -1.705724622221934,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.02694880713818326,
+        "sharpe_ratio": -3.6422355729114053,
+        "max_drawdown": -0.02694880713818326,
+        "calmar_ratio": -1.7037645193767834,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.03321954710787833,
+        "sharpe_ratio": -3.9556440425251056,
+        "max_drawdown": -0.03321954710787833,
+        "calmar_ratio": -1.6998556637487146,
+        "final_equity": null
       }
     },
     "ETH/SOL": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.03023612009998433,
+        "sharpe_ratio": -1.802012306681474,
+        "max_drawdown": -0.03921712163491031,
+        "calmar_ratio": -1.3120108268428612,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.03510870278962219,
+        "sharpe_ratio": -2.071257806571792,
+        "max_drawdown": -0.043120736249784186,
+        "calmar_ratio": -1.3830550253525105,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.03996006159609189,
+        "sharpe_ratio": -2.3186854877033656,
+        "max_drawdown": -0.04701118809497706,
+        "calmar_ratio": -1.4413213316090596,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.049599422241811464,
+        "sharpe_ratio": -2.7399828675265194,
+        "max_drawdown": -0.0547527456984519,
+        "calmar_ratio": -1.5305959201554398,
+        "final_equity": null
       }
     },
     "BTC/SOL": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.029022203570981064,
+        "sharpe_ratio": 1.6974120067239495,
+        "max_drawdown": -0.014821032175177495,
+        "calmar_ratio": 3.404194152556259,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.018850924605268604,
+        "sharpe_ratio": 1.1080095226278377,
+        "max_drawdown": -0.014896038055567606,
+        "calmar_ratio": 2.1920650279754508,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.00877335781894173,
+        "sharpe_ratio": 0.5173046899270937,
+        "max_drawdown": -0.01743080022129695,
+        "calmar_ratio": 0.8687106917294929,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.011103838386800624,
+        "sharpe_ratio": -0.5834193400057324,
+        "max_drawdown": -0.02658805395464403,
+        "calmar_ratio": -0.7156510166230776,
+        "final_equity": null
       }
     },
     "ADA/ETH": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.037161976838812394,
+        "sharpe_ratio": -0.8403412434069152,
+        "max_drawdown": -0.08142228033092924,
+        "calmar_ratio": -0.7747091035367359,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.04962887896493118,
+        "sharpe_ratio": -1.1403071410124253,
+        "max_drawdown": -0.0885252147733917,
+        "calmar_ratio": -0.9472237424560787,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.06194182325058539,
+        "sharpe_ratio": -1.4357582265712692,
+        "max_drawdown": -0.09596479784843137,
+        "calmar_ratio": -1.0856002925909016,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.08611306189297341,
+        "sharpe_ratio": -2.0051476105481094,
+        "max_drawdown": -0.11302137962882697,
+        "calmar_ratio": -1.2698854785873608,
+        "final_equity": null
       }
     },
     "XRP/BTC": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.027624183387048307,
+        "sharpe_ratio": 1.3134886399351324,
+        "max_drawdown": -0.018694942407006865,
+        "calmar_ratio": 2.5675109560608114,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.02004906044507271,
+        "sharpe_ratio": 0.9574154236424919,
+        "max_drawdown": -0.020309762471426573,
+        "calmar_ratio": 1.7106699130591307,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.012525189825537408,
+        "sharpe_ratio": 0.6011905955067416,
+        "max_drawdown": -0.021923029448213116,
+        "calmar_ratio": 0.9874020018777134,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.002370060348368952,
+        "sharpe_ratio": -0.08809709542398766,
+        "max_drawdown": -0.03286609028783072,
+        "calmar_ratio": -0.12396457219382574,
+        "final_equity": null
       }
     },
     "BNB/ETH": {
       "fee_0.0_slip_0.0": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.006057914898237149,
+        "sharpe_ratio": 0.311694776973492,
+        "max_drawdown": -0.0387646269345423,
+        "calmar_ratio": 0.2694579950236547,
+        "final_equity": null
       },
       "fee_0.0005_slip_0.00025": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.0027252392107446344,
+        "sharpe_ratio": -0.11479922454824557,
+        "max_drawdown": -0.043829545195728015,
+        "calmar_ratio": -0.10687305957217258,
+        "final_equity": null
       },
       "fee_0.001_slip_0.0005": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.0114373014214596,
+        "sharpe_ratio": -0.534612918603984,
+        "max_drawdown": -0.04887099793901295,
+        "calmar_ratio": -0.4009909537389413,
+        "final_equity": null
       },
       "fee_0.002_slip_0.001": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.028650271673091643,
+        "sharpe_ratio": -1.320155289978101,
+        "max_drawdown": -0.05888388438295511,
+        "calmar_ratio": -0.8284600017432447,
+        "final_equity": null
       }
     }
   },
   "regime_slices": {
     "full": {
       "BTC/ETH": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.02694880713818326,
+        "sharpe_ratio": -3.6422355729114053,
+        "max_drawdown": -0.02694880713818326,
+        "calmar_ratio": -1.7037645193767834
       },
       "ETH/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.03996006159609189,
+        "sharpe_ratio": -2.3186854877033656,
+        "max_drawdown": -0.04701118809497706,
+        "calmar_ratio": -1.4413213316090596
       },
       "BTC/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.00877335781894173,
+        "sharpe_ratio": 0.5173046899270937,
+        "max_drawdown": -0.01743080022129695,
+        "calmar_ratio": 0.8687106917294929
       }
     },
     "early": {
       "BTC/ETH": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0
       },
       "ETH/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.024293881288504626,
+        "sharpe_ratio": -2.127365076760825,
+        "max_drawdown": -0.038282592566621254,
+        "calmar_ratio": -2.119256732544294
       },
       "BTC/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.01876009893559094,
+        "sharpe_ratio": 1.639741033004541,
+        "max_drawdown": -0.015752862174506443,
+        "calmar_ratio": 4.19174227996917
       }
     },
     "late": {
       "BTC/ETH": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.005075901002912664,
+        "sharpe_ratio": -1.2393574132101355,
+        "max_drawdown": -0.008325012417763289,
+        "calmar_ratio": -2.0854881291610248
       },
       "ETH/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0
       },
       "BTC/SOL": {
-        "error": "'BacktestEngine' object has no attribute 'run_backtest'"
+        "total_return": -0.006815253673257193,
+        "sharpe_ratio": -2.5311266515246293,
+        "max_drawdown": -0.0073678218166152165,
+        "calmar_ratio": -3.1571756283505326
       }
     }
   }

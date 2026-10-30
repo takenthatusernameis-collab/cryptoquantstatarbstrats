@@ -25,51 +25,51 @@
   "models": {
     "naive_market": {
       "order_type": "market",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
+      "fills": 2192,
+      "total_fees": 10418525.388197029,
+      "total_slippage_cost": 5209262.694097939,
+      "avg_slippage_cost_per_fill": 2376.488455336651,
       "vs_naive_slippage_ratio": 1.0
     },
     "vwap": {
       "order_type": "vwap",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
-      "vs_naive_slippage_ratio": null
+      "fills": 2192,
+      "total_fees": 10418525.388197029,
+      "total_slippage_cost": 5209262.694097931,
+      "avg_slippage_cost_per_fill": 2376.4884553366473,
+      "vs_naive_slippage_ratio": 0.9999999999999984
     },
     "twap": {
       "order_type": "twap",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
-      "vs_naive_slippage_ratio": null
+      "fills": 2192,
+      "total_fees": 10418525.388197029,
+      "total_slippage_cost": 5209262.694097945,
+      "avg_slippage_cost_per_fill": 2376.4884553366537,
+      "vs_naive_slippage_ratio": 1.000000000000001
     },
     "lob_depth3": {
       "order_type": "lob",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
-      "vs_naive_slippage_ratio": null
+      "fills": 2192,
+      "total_fees": 10418525.388197029,
+      "total_slippage_cost": 15627788.082295492,
+      "avg_slippage_cost_per_fill": 7129.465366010717,
+      "vs_naive_slippage_ratio": 3.0000000000003215
     },
     "lob_depth5": {
       "order_type": "lob",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
-      "vs_naive_slippage_ratio": null
+      "fills": 2192,
+      "total_fees": 10418525.388197029,
+      "total_slippage_cost": 15627788.082295492,
+      "avg_slippage_cost_per_fill": 7129.465366010717,
+      "vs_naive_slippage_ratio": 3.0000000000003215
     },
     "lob_with_levels": {
       "order_type": "lob",
-      "fills": 0,
-      "total_fees": 0.0,
-      "total_slippage_cost": 0.0,
-      "avg_slippage_cost_per_fill": 0.0,
-      "vs_naive_slippage_ratio": null
+      "fills": 2192,
+      "total_fees": 2298702.3754764404,
+      "total_slippage_cost": 3447999.3896170678,
+      "avg_slippage_cost_per_fill": 1572.9924222705602,
+      "vs_naive_slippage_ratio": 0.6618977755764993
     }
   }
 }
