@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """Verify the fixed PortfolioRiskController.apply() on real data."""
 from __future__ import annotations
+
 import json
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import pandas as pd
+
 from data.loader import DataLoader
+from examples.run_portfolio_real import PAIRS, SYMBOLS, PortfolioRiskController
 from strategies.pairs_trading import CointegrationPairsStrategy
 from utils.regime import detect_regimes
-from examples.run_portfolio_real import PortfolioRiskController, PAIRS, SYMBOLS
 
 START, END, FREQ = "2026-04-01", "2026-10-30", "1h"
 top_params = json.loads((Path("reports/portfolio_real.json")).read_text())["top_ranked_pair_params"]
