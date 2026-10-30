@@ -95,17 +95,26 @@ class PortfolioRiskController:
         confidence: float = 0.95,
     ) -> pd.DataFrame:
         w = weights.copy().fillna(0.0)
-        if pair_map:
+        if pair_map and self.per_pair_cap is not None and self.per_pair_cap > 0.0:
+            # Calculate every pair constraint from the same pre-cap weights.
+            # Assets can belong to several pairs, so applying pair factors
+            # sequentially compounds reductions on shared assets and can
+            # collapse the book. Apply only the most restrictive factor per
+            # asset once; every member of a constrained pair is then scaled by
+            # no more than that pair's own cap factor.
+            original_abs = w.abs()
+            pair_scales = pd.DataFrame(1.0, index=w.index, columns=w.columns)
             for pair_name, assets in pair_map.items():
                 pair_assets = [a for a in assets if a in w.columns]
                 if not pair_assets:
                     continue
-                pair_abs = w[pair_assets].abs().sum(axis=1)
+                pair_abs = original_abs[pair_assets].sum(axis=1)
                 scale = (
                     self.per_pair_cap / pair_abs.replace(0, np.nan)
                 ).clip(upper=1.0).fillna(1.0)
-                for a in pair_assets:
-                    w[a] = w[a] * scale
+                for asset in pair_assets:
+                    pair_scales[asset] = np.minimum(pair_scales[asset], scale)
+            w = w.multiply(pair_scales, axis=1)
         # Correlation-aware dampening (single pass, non-compounding).
         # Assets highly correlated with many held assets carry redundant book
         # risk, so a bounded per-asset redundancy scale is applied ONCE. The
