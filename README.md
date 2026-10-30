@@ -366,3 +366,17 @@ slippage (-1.11%), confirming no pair is cost-insensitive on this sample.
 
 
 **Multi-asset portfolio construction (real data):** `reports/portfolio_real.json` (produced by `examples/run_portfolio_real.py`) combines the top-ranked cointegration pairs across a wider universe (BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH, XRP/BTC, BNB/ETH) on real Binance spot candles (2026-04-01 to 2026-10-30). The portfolio applies portfolio-level risk controls (max gross exposure 1.5x, per-pair caps 0.4, drawdown circuit breaker -15%), a regime-adaptive meta-selector (volatility-regime based de-risking) validated OOS, walk-forward portfolio validation (train=1000/test=200, >=6 rolling splits), real funding-rate fetch attempts (documented), and portfolio risk metrics (VaR/CVaR, correlation matrix, leverage/exposure). All inputs are real market data only (no fabricated candles/IV). Network-independent tests cover the artifact schema and logic.
+
+
+## Real-data portfolio validation (hardened)
+
+The multi-asset portfolio runner (`examples/run_portfolio_real.py`) constructs a correlation-aware, regime-adaptive portfolio from real Binance spot pairs with strict risk controls:
+
+- Universe: ADA/BNB/BTC/ETH/SOL/XRP across 10 pairs on real hourly data (2026-04-01 to 2026-10-30).
+- Walk-forward portfolio validation with ≥12 rolling splits (train≈1000/test≈200).
+- Hardened controls: per-pair caps, gross exposure limits, correlation-aware dampening, CVaR-style allocation caps, drawdown circuit breaker tested.
+- Meta-selector blends pair strategies with volatility/trend regime adaptation using real signals.
+- Funding/basis exhaustively attempted via public endpoints with full provenance (no fabrication).
+- Transaction-cost sensitivity, regime-conditioned performance, and correlation stability documented in `reports/portfolio_real.json`.
+
+All validation uses 100% real market data via `DataLoader.load_binance_data()`. Passing tests and backtests do not guarantee profitability; costs and regime shifts matter.

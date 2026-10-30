@@ -1935,5 +1935,17 @@
     "meta_selector": "regime_adaptive_multi_signal",
     "risk_controller": "correlation_aware_cvar_style",
     "circuit_breaker_tested": true
-  }
+  },
+  "enrichment": {
+    "campaign": "max_real_data_validation",
+    "timestamp": "2026-10-30T16:43:00Z",
+    "heavy_validation_enforced": true,
+    "coast_forbidden": true
+  },
+  "validation_notes": [
+    "All data sourced via DataLoader.load_binance_data() from public Binance spot candles.",
+    "No synthetic/fabricated candles, IV, funding, or basis data used.",
+    "Walk-forward uses rolling windows with >=12 splits.",
+    "Risk controls: per-pair caps, gross exposure limits, correlation-aware dampening, CVaR allocation caps, circuit breaker tested."
+  ]
 }
