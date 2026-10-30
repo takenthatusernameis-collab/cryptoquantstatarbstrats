@@ -332,6 +332,7 @@ def main() -> None:
             print(f"skip {pname}: {e}")
             continue
 
+    returns = data.pct_change().fillna(0.0)
     combined_weights = regime_adaptive_meta_selector(weights_by_strategy, data)
     risk_ctrl = PortfolioRiskController(
         max_gross_exposure=1.4,
@@ -341,7 +342,7 @@ def main() -> None:
         max_cvar_allocation=0.25,
     )
     combined_weights = risk_ctrl.apply(
-        combined_weights, pair_map=pair_map, returns=data
+        combined_weights, pair_map=pair_map, returns=returns
     )
 
     funding_attempts, funding_data = fetch_funding_rates(SYMBOLS, days=30)
