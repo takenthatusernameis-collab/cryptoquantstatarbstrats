@@ -106,23 +106,30 @@ class PortfolioRiskController:
                 ).clip(upper=1.0).fillna(1.0)
                 for a in pair_assets:
                     w[a] = w[a] * scale
-        # Correlation-aware dampening (stronger heuristic)
+        # Correlation-aware dampening (single pass, non-compounding).
+        # Assets highly correlated with many held assets carry redundant book
+        # risk, so a bounded per-asset redundancy scale is applied ONCE. The
+        # previous per-pair 0.7 multiplier compounded across every correlated
+        # pair (0.7 ** n_pairs per asset); with 6 mutually-correlated crypto
+        # assets that collapsed gross exposure to near zero and rendered every
+        # portfolio risk metric (VaR/CVaR/turnover/regime/cost-stress) vacuous.
         if correlation_matrix and len(w.columns) > 1:
             try:
+                redundancy = pd.Series(1.0, index=w.columns, dtype=float)
                 for c1 in w.columns:
+                    c1m = correlation_matrix.get(c1)
+                    if not isinstance(c1m, dict):
+                        continue
+                    hits = 0
                     for c2 in w.columns:
-                        if c1 >= c2:
+                        if c1 == c2:
                             continue
-                        corr = None
-                        c1m = correlation_matrix.get(c1)
-                        if isinstance(c1m, dict):
-                            corr = c1m.get(c2)
-                        elif isinstance(c1m, (float, np.floating)):
-                            # not expected
-                            pass
+                        corr = c1m.get(c2)
                         if corr is not None and abs(float(corr)) > 0.65:
-                            w[c1] = w[c1] * 0.7
-                            w[c2] = w[c2] * 0.7
+                            hits += 1
+                    if hits > 0:
+                        redundancy[c1] = 1.0 / (1.0 + 0.25 * hits)
+                w = w.multiply(redundancy, axis=1)
             except Exception:
                 pass
         # Enforce per-asset correlation exposure cap: no single asset's gross
