@@ -363,3 +363,6 @@ the wider universe plus full/early/late regime slices on real Binance spot candl
 total return for every pair. BTC/SOL is the only pair that stays positive at realistic
 costs (+0.88% at 0.10% fee / 0.05% slippage) but turns negative at 0.20% fee / 0.10%
 slippage (-1.11%), confirming no pair is cost-insensitive on this sample.
+
+
+**Multi-asset portfolio construction (real data):** `reports/portfolio_real.json` (produced by `examples/run_portfolio_real.py`) combines the top-ranked cointegration pairs across a wider universe (BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH, XRP/BTC, BNB/ETH) on real Binance spot candles (2026-04-01 to 2026-10-30). The portfolio applies portfolio-level risk controls (max gross exposure 1.5x, per-pair caps 0.4, drawdown circuit breaker -15%), a regime-adaptive meta-selector (volatility-regime based de-risking) validated OOS, walk-forward portfolio validation (train=1000/test=200, >=6 rolling splits), real funding-rate fetch attempts (documented), and portfolio risk metrics (VaR/CVaR, correlation matrix, leverage/exposure). All inputs are real market data only (no fabricated candles/IV). Network-independent tests cover the artifact schema and logic.
