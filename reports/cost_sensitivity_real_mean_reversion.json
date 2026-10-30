@@ -1,0 +1,180 @@
+{
+  "asset": "SOL",
+  "assets": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "cost_sensitivity": {
+    "asset": "SOL",
+    "grid": [
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.0
+      },
+      {
+        "fee_rate": 0.0005,
+        "slippage": 0.0
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.00025
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.0005
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.0005
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.001
+      }
+    ],
+    "rows": [
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.0,
+        "mean_return": 0.006510339971280837,
+        "oos_mean_return": 0.006510339971280837,
+        "oos_is_ratio": 0.15135336665833088,
+        "max_drawdown": -0.01794420932204796,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": 0.36278749641654384,
+          "sharpe_ratio": 2.275972568770173,
+          "max_drawdown": -0.13276745759479347,
+          "max_drawdown_duration": 2394,
+          "calmar_ratio": 5.340304599702778,
+          "sortino_ratio": 0.7779683614842251,
+          "var": -0.0005689683893992917,
+          "cvar": -0.005814516031569361,
+          "final_equity": 136278.74964165437
+        }
+      },
+      {
+        "fee_rate": 0.0005,
+        "slippage": 0.0,
+        "mean_return": 0.0027128296755729586,
+        "oos_mean_return": 0.0027128296755729586,
+        "oos_is_ratio": 0.10461815827316374,
+        "max_drawdown": -0.019043106131254428,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": 0.09150265993153717,
+          "sharpe_ratio": 0.7333295513817893,
+          "max_drawdown": -0.19423503674386056,
+          "max_drawdown_duration": 2401,
+          "calmar_ratio": 0.8427176880859426,
+          "sortino_ratio": 0.3330804512507695,
+          "var": -0.0008483823647493337,
+          "cvar": -0.0059869299228117725,
+          "final_equity": 109150.26599315372
+        }
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.00025,
+        "mean_return": -0.002951261079863904,
+        "oos_mean_return": -0.002951261079863904,
+        "oos_is_ratio": -3.6097088326011524,
+        "max_drawdown": -0.020687813486571366,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": -0.21777921081107576,
+          "sharpe_ratio": -1.5754909942606983,
+          "max_drawdown": -0.2943622146386312,
+          "max_drawdown_duration": 4687,
+          "calmar_ratio": -1.1767812273616738,
+          "sortino_ratio": -0.7061644333033794,
+          "var": -0.00125,
+          "cvar": -0.003995183407567929,
+          "final_equity": 78222.07891889242
+        }
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.0005,
+        "mean_return": -0.004830753501793766,
+        "oos_mean_return": -0.004830753501793766,
+        "oos_is_ratio": 0.6511239065687923,
+        "max_drawdown": -0.021235080994353617,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": -0.3000397137476518,
+          "sharpe_ratio": -2.3372885826246166,
+          "max_drawdown": -0.35870191825782494,
+          "max_drawdown_duration": 4687,
+          "calmar_ratio": -1.2845885116341598,
+          "sortino_ratio": -1.0405683737624192,
+          "var": -0.0015,
+          "cvar": -0.004210482614454379,
+          "final_equity": 69996.02862523482
+        }
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.0005,
+        "mean_return": -0.012306312887300136,
+        "oos_mean_return": -0.012306312887300136,
+        "oos_is_ratio": 0.3099202120629912,
+        "max_drawdown": -0.026311882623311467,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": -0.5513282487645889,
+          "sharpe_ratio": -5.305673114733459,
+          "max_drawdown": -0.5651601692555142,
+          "max_drawdown_duration": 4952,
+          "calmar_ratio": -1.327653118959127,
+          "sortino_ratio": -2.3055280647868766,
+          "var": -0.0025,
+          "cvar": -0.005112246965478953,
+          "final_equity": 44867.175123541114
+        }
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.001,
+        "mean_return": -0.016018791889141265,
+        "oos_mean_return": -0.016018791889141265,
+        "oos_is_ratio": 0.2888092734432693,
+        "max_drawdown": -0.028864983860887233,
+        "replay": {
+          "params": {
+            "lookback": 50,
+            "entry_threshold": 2.0
+          },
+          "total_return": -0.6408434500951914,
+          "sharpe_ratio": -6.7244987777759295,
+          "max_drawdown": -0.6455827364987513,
+          "max_drawdown_duration": 4952,
+          "calmar_ratio": -1.2859169302846027,
+          "sortino_ratio": -2.9072327103828157,
+          "var": -0.003,
+          "cvar": -0.005553697129498211,
+          "final_equity": 35915.654990480856
+        }
+      }
+    ]
+  }
+}
