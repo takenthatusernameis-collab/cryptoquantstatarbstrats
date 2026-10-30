@@ -1,11 +1,11 @@
-# DURABLE HANDOFF (2026-10-30T13:42:58Z) — SINGLE MANDATORY NEXT TASK: CRYPTOQUANTSTATARBSTRATS MAXIMUM REAL-DATA HEAVY VALIDATION
+# DURABLE HANDOFF (2026-10-30T13:46:09Z) — SINGLE MANDATORY NEXT TASK: CRYPTOQUANTSTATARBSTRATS MAXIMUM REAL-DATA HEAVY VALIDATION
 
 ## REPO NAME PRIORITIZATION (ABSOLUTE)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
 - **INFERRED MANDATE (NON-NEGOTIABLE):** This repository exists to build, harden, and relentlessly validate crypto statistical-arbitrage strategies using **ONLY REAL market data**. Every subsequent agentic session MUST treat real-data validation as the primary objective with no dilution.
 - **PRIORITY DIRECTIVE:** The repository name IS the law. If there is any ambiguity between convenience and heavier real-data work, ALWAYS choose the heavier real-data path. Coasting is categorically forbidden. Heavy validation must never cease.
 
-## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS) — re-confirmed 2026-10-30T13:42:58Z
+## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS) — re-confirmed 2026-10-30T13:46:09Z
 - **Branch:** `main` (clean working tree)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
@@ -18,7 +18,7 @@
 - **REMOVE FRICTION:** Tighten schemas, harden tests, improve clarity, and remove anything that could allow a future agent to take an easy shortcut.
 - **FORCE HEAVY WORK:** Design every step so that future agents cannot avoid substantial, measurable validation work.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T13:42:58Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T13:46:09Z)
 
 **OBJECTIVE:** Conduct a **MAXIMUM-INTENSITY, NO-COAST** hardening campaign for the multi-asset crypto stat arb portfolio using **100% REAL Binance data**. Future agents MUST be unable to avoid heavy working.
 
