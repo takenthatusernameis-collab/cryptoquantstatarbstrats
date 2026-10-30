@@ -70,12 +70,7 @@ def main() -> None:
         "mean_reversion": {},
     }
 
-    # Use top configs from existing reports
-    pairs_grid = {
-        "lookback": [120],
-        "entry_threshold": [2.5],
-        "cointegration_pvalue": [0.05],
-    }
+    # The BTC/ETH configuration is frozen explicitly in the block below.
     # BTC/ETH as example
     try:
         pair = ("BTC", "ETH")
