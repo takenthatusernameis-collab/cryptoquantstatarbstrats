@@ -1,10 +1,10 @@
-# DURABLE HANDOFF (2026-10-30T12:38:56Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
+# DURABLE HANDOFF (2026-10-30T12:41:56Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
 
 ## REPO NAME PRIORITIZATION (DRIVES ALL DECISIONS)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
 - **INFERRED MANDATE:** Continuously validate crypto statistical-arbitrage strategies on **REAL market data** (public Binance spot, no API keys, no fabricated candles/IV/funding/basis). **Coasting is forbidden. Heavy validation must never stop.** The repo name is the mandate: stat arb strategies must be proven on real data, not assumed.
 
-## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T12:38:56Z
+## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T12:41:56Z
 - **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
@@ -46,7 +46,7 @@ You must push this further with maximum intensity. No stopping early. Future age
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` → clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:38:56Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:41:56Z)
 
 **OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. Repo `cryptoquantstatarbstrats` demands maximum heavy validation. **Do not coast. Do not stop early. Remove bottlenecks.**
 
