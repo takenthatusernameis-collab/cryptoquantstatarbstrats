@@ -1,7 +1,7 @@
-# Durable Handoff (2026-10-30T06:44:04Z) — ALL CAMPAIGNS COMPLETE (GREEN)
+# Durable Handoff (2026-10-30T07:05:25Z) — ALL CAMPAIGNS COMPLETE (GREEN)
 
 ## Campaign status: ALL SUCCESS CRITERIA MET (green)
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 510 passed, 1 skipped, 86 warnings
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 516 passed, 1 skipped, 86 warnings
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 - Artifacts produced (all JSON-serializable, real public Binance spot candles, no API key, no fabricated data):
@@ -21,7 +21,7 @@ cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research o
 
 ## Current verified state (green) — as of 2026-10-30T06:44:04Z
 - Branch: main, clean, up to date with origin/main
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 510 passed, 1 skipped, 86 warnings
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 516 passed, 1 skipped, 86 warnings
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 - Dev deps: install with `python -m pip install -e ".[dev]"` before running verification locally
@@ -77,10 +77,10 @@ python -m ruff check backtest/ strategies/ utils/ tests/
 python -m mypy backtest/ strategies/ utils/
 ```
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T06:44:04Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T07:05:25Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
-**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). Current state is GREEN (510 passed, 1 skipped; ruff/mypy clean). All campaigns complete through real-data paper trading, execution realism, and Monte Carlo robustness (artifacts in `reports/`, tested, documented).
+**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). Current state is GREEN (516 passed, 1 skipped; ruff/mypy clean). All campaigns complete through real-data paper trading, execution realism, and Monte Carlo robustness (artifacts in `reports/`, tested, documented).
 
 **MANDATORY HEAVY WORK (do not defer):** Extend real-market validation coverage — out-of-sample window beyond 2026-10-28, wider universe (2+ additional spot pairs), longer-horizon walk-forward sweeps, execution-realism hardening across the universe/OOS window, and extended regime/cost-stress slices — all on real Binance spot data, no fabricated data. Remove bottlenecks immediately if real-data fetching is blocked. Do heavy validation work; do not coast on green tests.
 
