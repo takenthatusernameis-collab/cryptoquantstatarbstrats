@@ -1,0 +1,101 @@
+{
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "periods": [
+    {
+      "name": "period_1",
+      "start_idx": 0,
+      "end_idx": 1688,
+      "start_date": "2026-04-01",
+      "end_date": "2026-06-10"
+    },
+    {
+      "name": "period_2",
+      "start_idx": 1688,
+      "end_idx": 3376,
+      "start_date": "2026-06-10",
+      "end_date": "2026-08-19"
+    },
+    {
+      "name": "period_3",
+      "start_idx": 3376,
+      "end_idx": 5064,
+      "start_date": "2026-08-19",
+      "end_date": "2026-10-28"
+    }
+  ],
+  "pairs": {
+    "BTC/ETH_period_1": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "period": "period_1",
+      "total_return": 0.0,
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0.0,
+      "calmar_ratio": 0.0,
+      "benchmark_total_return": -0.16393669368950559
+    },
+    "BTC/ETH_period_2": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "period": "period_2",
+      "total_return": 0.007182767212119634,
+      "sharpe_ratio": 2.0800104373184007,
+      "max_drawdown": -0.0037103565485119283,
+      "calmar_ratio": 10.211937210023525,
+      "benchmark_total_return": 0.1986791616404917
+    },
+    "BTC/ETH_period_3": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "period": "period_3",
+      "total_return": -0.004976237184782906,
+      "sharpe_ratio": -2.06817902547355,
+      "max_drawdown": -0.006269040311244867,
+      "calmar_ratio": -4.081806965352209,
+      "benchmark_total_return": 0.1576457551685051
+    }
+  },
+  "mean_reversion": {
+    "BTC_period_1": {
+      "asset": "BTC",
+      "period": "period_1",
+      "total_return": -0.13816903059328067,
+      "sharpe_ratio": -2.8529844714675954,
+      "max_drawdown": -0.19935358310664242,
+      "calmar_ratio": -2.6998006193677386,
+      "benchmark_total_return": -0.0985752584304983
+    },
+    "BTC_period_2": {
+      "asset": "BTC",
+      "period": "period_2",
+      "total_return": -0.09721803827226727,
+      "sharpe_ratio": -2.3031380613802623,
+      "max_drawdown": -0.13858271221112772,
+      "calmar_ratio": -2.9746912898116906,
+      "benchmark_total_return": 0.11735940406339829
+    },
+    "BTC_period_3": {
+      "asset": "BTC",
+      "period": "period_3",
+      "total_return": -0.018645793525182808,
+      "sharpe_ratio": -0.42109587423891504,
+      "max_drawdown": -0.06637114293663782,
+      "calmar_ratio": -1.403796914151199,
+      "benchmark_total_return": 0.18631657700320403
+    }
+  }
+}

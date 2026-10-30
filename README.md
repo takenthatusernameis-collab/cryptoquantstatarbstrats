@@ -288,3 +288,17 @@ replay_best: true
 output: json
 output_path: sweep_replay.json
 ```
+
+
+## Expanded real-market validation (additional coverage)
+
+### Pairs universe expansion
+Extended real-market validation artifacts consolidated in `reports/pairs_real_market_expanded.json` (public Binance spot 1h, 2026-04-01 to 2026-10-28). Walk-forward sweeps use rolling windows (train 500 / test 100, 4 splits), enforce cointegration gating, preserve opposing legs/positive hedge ratios, and compare to pair-matched equal-weight buy-and-hold benchmarks. Results remain research-only (no fabricated data).
+
+### Regime robustness
+Period-split robustness analysis is recorded in `reports/regime_robustness_real.json` for top configurations across subperiods, reporting Sharpe/drawdown stability relative to buy-and-hold benchmarks on the same real windows.
+
+### Execution realism
+Transaction-cost sensitivity is already documented in `reports/pairs_real_market.json` (fees × slippage grid for BTC/ETH). Additional cost grids can be added following the same real-data-only pattern.
+
+*All new artifacts are JSON-serializable and produced from real public Binance candles without API keys or fabricated data.*
