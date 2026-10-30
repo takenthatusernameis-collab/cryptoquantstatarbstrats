@@ -1,13 +1,14 @@
-# Durable Handoff (2026-10-30T01:59:45Z)
+# Durable Handoff (2026-10-30T02:38:44Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
 
 ## Current verified state (green)
 - Branch: main, clean, up to date with origin/main (last commits are kilo checkpoints)
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 501 passed, 1 skipped, 86 warnings
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 501 passed, 1 skipped, 86 warnings (verified in prior session; source unchanged since)
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
+- Dev deps: install with `python -m pip install -e ".[dev]"` before running verification locally
 
 ## Completed (from previous agents)
 - Walk-forward sweep `replay_best` support (CLI/config/sweep)
@@ -16,31 +17,25 @@ cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research o
 - Pairs transaction-cost sensitivity sweep added to `reports/pairs_real_market.json` (BTC/ETH, fees × slippage grid)
 - Fixed benchmark bug in `backtest/engine.run_with_benchmark` (pair symbols only)
 - README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity note
-- Bottlenecks removed (zeroed JSON, benchmark mismatch, flaky bootstrap neutralized, stalled branch deleted, lint errors fixed in newly added test files)
+- Expanded pairs artifact: `reports/pairs_real_market_expanded.json` exists (JSON-serializable)
+- Regime robustness artifact: `reports/regime_robustness_real.json` exists (JSON-serializable)
+- Bottlenecks removed (stalled branch `fix/causal-pairs-validation-2026-10-27` deleted; env module-not-found / zeroed JSON / benchmark mismatch / flaky bootstrap / lint errors in new test files fixed)
 
 ## MANDATORY NEXT CAMPAIGN (heavy work - do not defer)
-Focus: extend real-market validation beyond current coverage while keeping the "real data only for validation" constraint. Remove bottlenecks immediately if encountered.
+Focus: close the execution-realism gap by extending transaction-cost sensitivity beyond BTC/ETH while keeping the "real data only for validation" constraint. Remove bottlenecks immediately if encountered.
 
 ### Objectives
-1. **Cointegration robustness / pair universe expansion**
-   - Expand pairs validation to additional crypto pairs (e.g. SOL/BTC, cross-quote variants) using real Binance spot candles only. For each new pair, run walk-forward sweep with `replay_best=True`, enforce cointegration gate, ensure opposing legs/positive hedge ratio, compare to pair-matched buy-and-hold benchmark.
-   - Write consolidated results to `reports/pairs_real_market_expanded.json` (or extend existing) with full metadata.
-
-2. **Regime/period robustness**
-   - Test sensitivity to regime changes: split the real window into subperiods (e.g. bull/bear/sideways) or run rolling-window replays for both strategies and report drawdown/Sharpe stability.
-   - Document regime sensitivity in README and add JSON artifacts under `reports/` (e.g. `reports/regime_robustness_real.json`).
-
-3. **Execution realism**
-   - Add transaction-cost sensitivity beyond BTC/ETH (e.g. another pair or mean reversion) or model slippage/fee grids; quantify degradation. Document assumptions explicitly; do not fabricate data.
-   - If strategy logic needs adjustment for realistic sizing, follow existing patterns and keep tests passing.
-
-4. **Documentation & tests**
-   - Update README with new findings
-   - Add network-independent tests for any new paths (mocked); keep real-data smoke tests where appropriate
-   - Follow existing patterns (sweep/engine/cli). No fabricated IV/candles.
+1. **Execution realism (real only)**
+   - Add transaction-cost sensitivity beyond BTC/ETH (e.g. ETH/SOL pair or mean reversion on SOL) using `DataLoader.load_binance_data()` (real public Binance spot candles only).
+   - Model fee × slippage grids; quantify degradation vs base (zero-cost / current-cost) replay.
+   - Consolidate to `reports/cost_sensitivity_real.json` (or extend existing) with full metadata; JSON-serializable.
+2. **Documentation & tests**
+   - Update README with cost-sensitivity findings and any new artifacts.
+   - Add network-independent tests for new paths (mocked); keep real-data smoke tests where appropriate.
+   - Follow existing patterns (CLI/config/sweep/engine). No fabricated IV/candles.
 
 ### Success criteria (must all pass)
-- [ ] Expanded real-market validation completed with results in `reports/` (JSON-serializable)
+- [ ] New real-market validation artifact(s) in `reports/` (JSON-serializable), beyond BTC/ETH
 - [ ] Benchmarks present and comparisons documented
 - [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
@@ -58,24 +53,24 @@ python -m mypy backtest/ strategies/ utils/
 - If blocked, remove bottlenecks (env/network/mocking) without cutting corners on "real data" requirement.
 - Do not exit until all success criteria met.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T01:59:45Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T02:38:44Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
-**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and cost-sensitivity included; test/lint/typecheck green after this session's lint fixes.
+**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and BTC/ETH cost-sensitivity included; expanded pairs (`reports/pairs_real_market_expanded.json`) and regime robustness (`reports/regime_robustness_real.json`) artifacts already exist and are JSON-serializable; test/lint/typecheck green.
 
-**MANDATORY HEAVY WORK (do not defer):** Remaining real-market validation gap is execution realism beyond BTC/ETH (cost sensitivity for additional pairs/mean reversion) plus documentation/tests. Expanded pairs (`reports/pairs_real_market_expanded.json`) and regime robustness (`reports/regime_robustness_real.json`) artifacts already exist and are JSON-serializable. Continue with ONLY real public Binance spot data (1h); remove bottlenecks immediately.
+**MANDATORY HEAVY WORK (do not defer):** The remaining real-market validation gap is execution realism beyond BTC/ETH — transaction-cost sensitivity for an additional pair or mean reversion, fee × slippage grids, degradation quantified vs base — plus documentation and tests. Continue with ONLY real public Binance spot data (1h); remove bottlenecks immediately. No fabricated data. Do not defer this campaign.
 
 ### OBJECTIVE
-Close execution-realism gap: add transaction-cost sensitivity beyond BTC/ETH (another pair or mean reversion), model slippage/fee grids, quantify degradation; document assumptions; add network-independent tests; update README. Keep all results JSON-serializable.
+Close execution-realism gap: add transaction-cost sensitivity beyond BTC/ETH (e.g. ETH/SOL pair or mean reversion on SOL) using `DataLoader.load_binance_data()` (real). Model fee × slippage grids; quantify degradation vs base. Consolidate to `reports/cost_sensitivity_real.json`. Update README. Add network-independent tests. Verify everything stays green.
 
 ### REQUIRED ACTIONS (execute in order; do not skip)
-1. **Execution realism (real only):** Add transaction-cost sensitivity beyond BTC/ETH (e.g. ETH/SOL or mean reversion) using `DataLoader.load_binance_data()` (real). Model fee × slippage grids; quantify degradation vs base. Consolidate to `reports/cost_sensitivity_real.json` (or extend existing).
+1. **Execution realism (real only):** Add transaction-cost sensitivity beyond BTC/ETH (e.g. ETH/SOL or mean reversion on SOL) using `DataLoader.load_binance_data()` (real). Model fee × slippage grids; quantify degradation vs base replay. Consolidate to `reports/cost_sensitivity_real.json` (JSON-serializable). Follow the pattern in `examples/run_pairs_cost_sensitivity.py`.
 2. **Documentation:** Update README with cost-sensitivity findings and any new artifacts.
-3. **Tests:** Add network-independent tests for new paths (mocked); keep real-data smoke tests where appropriate.
-4. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green state.
+3. **Tests:** Add network-independent tests for new paths (mocked); keep real-data smoke tests where appropriate. Keep `PYTHONPATH=. python -m pytest tests/ -q` at >=501 passed, 0 new failures.
+4. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green main.
 
 ### SUCCESS CRITERIA (all must hold; none optional)
-- [ ] New real-market validation artifacts in `reports/` (JSON-serializable)
+- [ ] New real-market validation artifacts in `reports/` (JSON-serializable), beyond BTC/ETH
 - [ ] Benchmarks present; results documented in README
 - [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
