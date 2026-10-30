@@ -1,3 +1,19 @@
+# DELAY-ELIMINATION OVERRIDE — 2026-10-30
+
+The current handoff mandates a large serial campaign (universe expansion, 12+ splits across three timeframes, bootstrap, volume execution, report enrichment, and full test gates). Preserve the evidence requirements, but remove avoidable serial waiting and repeated data discovery:
+
+1. Convert the work into a dependency-aware task graph. Start independent, network-independent work (test additions, result-schema validation, cached-data analysis, bootstrap implementation, risk/execution modelling) while any data source is blocked.
+2. Do one bounded Binance connectivity preflight per material network-state change. Treat permanent HTTP 451/403/404 as a blocked route; do not repeat identical requests or exhaustively retry permanent responses. Use only documented, free fallback sources; never fabricate data.
+3. Batch independent symbol fetches with deterministic ordering and bounded concurrency. Persist each completed symbol/timeframe shard so restarts skip verified work. Do not rerun completed windows or all pairs when only one new symbol arrives.
+4. Profile long inference/backtest phases and checkpoint intermediates. Run affected tests after each logical change; full Ruff/mypy/pytest gates once after a coherent batch and at final acceptance, not for every small edit.
+5. Preserve the >=12-split standard where history supports it. If not supported, label the affected timeframe/symbol BLOCKED/INSUFFICIENT_HISTORY rather than waiting, inventing bars, or silently reducing the standard.
+6. Remove the “heavy work every activation” / “no session may stop early” pressure. Success is verified progress on the highest-value available dependency, not arbitrary command volume. A no-change activation should not rewrite the handoff or create a timestamp-only checkpoint.
+7. Do not alter live/paper trading boundaries or commit policy. Keep all evidence real-data-only with source attempts, date coverage, gaps, costs, seeds and provenance.
+
+The goal is to reduce wall-clock time and duplicated work while keeping the same data and statistical standards.
+
+---
+
 # DURABLE HANDOFF (2026-10-30T20:39:02Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP (FORCE HEAVY WORK)
 
 ## REPO IDENTITY (LAW)
