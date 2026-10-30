@@ -1,4 +1,66 @@
-# Durable Handoff (2026-10-30T05:44:46Z)
+# Durable Handoff (2026-10-30T05:55:47Z) — CAMPAIGN COMPLETE
+
+## Campaign status: ALL SUCCESS CRITERIA MET (green)
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 508 passed, 1 skipped, 86 warnings
+- Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
+- Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
+- Artifacts produced (all JSON-serializable):
+  - `reports/paper_trading_real.json` — real-data paper trading, top-ranked pairs combos (BTC/ETH, ETH/SOL, BTC/SOL), equity curve summary, fills, slippage, fees, positions/risk, drawdown. Produced by `examples/run_paper_trading_real.py`.
+  - `reports/execution_realism_real.json` — VWAP/TWAP/LOB execution models vs naive fills, depth/impact/queue/level-liquidity variants, slippage-cost quantification. Produced by `examples/run_execution_realism_real.py`.
+  - `reports/monte_carlo_real.json` — bootstrap/shuffle Monte Carlo on real-data returns, confidence intervals for total return, Sharpe, max drawdown (per pair + portfolio). Produced by `examples/run_monte_carlo_real.py`.
+- Tests added: `tests/test_real_data_paper_trading_execution_monte_carlo.py` (network-independent, validates existence/JSON-serializability/required schema keys) — passes.
+- README updated (lines 319-327) documenting all three new artifacts and example commands.
+- No regressions; working tree clean.
+
+## Prior handoff (2026-10-30T05:44:46Z) — archived below
+
+## Repo
+cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
+
+## Current verified state (green) — as of 2026-10-30T05:44:46Z
+- Branch: main, clean, up to date with origin/main
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 505 passed, 1 skipped, 86 warnings
+- Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
+- Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
+- Dev deps: install with `python -m pip install -e ".[dev]"` before running verification locally
+
+## Completed (from previous agents)
+- Walk-forward sweep `replay_best` support (CLI/config/sweep)
+- Real-market pairs validation complete for BTC/ETH, ETH/SOL, BTC/SOL on Binance spot 1h (2026-04-01 to 2026-10-28)
+- Mean reversion real-market validation complete for BTC, ETH, SOL (same window) via `examples/run_mean_reversion_real.py`
+- Pairs transaction-cost sensitivity sweep added to `reports/pairs_real_market.json` (BTC/ETH, fees × slippage grid)
+- Fixed benchmark bug in `backtest/engine.run_with_benchmark` (pair symbols only)
+- README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity notes
+- Expanded pairs artifact: `reports/pairs_real_market_expanded.json` (JSON-serializable)
+- Regime robustness artifact: `reports/regime_robustness_real.json` (JSON-serializable)
+- Execution realism beyond BTC/ETH: `reports/cost_sensitivity_real.json` exists with ETH/SOL pair fee × slippage grid (JSON-serializable), produced by `examples/run_cost_sensitivity_real.py`
+- Mean reversion SOL cost-sensitivity: `reports/cost_sensitivity_real_mean_reversion.json` with fee × slippage grid, degradation vs base (JSON-serializable)
+- Portfolio pairs cost-sensitivity: `reports/cost_sensitivity_real_portfolio.json` (JSON-serializable) aggregating top-ranked combos across BTC/ETH, ETH/SOL, BTC/SOL; tested by `tests/test_cost_sensitivity_real_portfolio.py`
+- Extended regime/cost-stress slices present in `reports/regime_robustness_real.json`; tested by `tests/test_regime_robustness_real_extended.py`
+- Bottlenecks removed (stalled branch deleted; env/module issues fixed; network: api.binance.com HTTP 451 blocked in this env, www.binance.com HTTP 200 works — DataLoader host fallback verified live, real-data fetching unblocked)
+
+## MANDATORY NEXT CAMPAIGN (heavy work - do not defer) — COMPLETED 2026-10-30T05:55:47Z
+Focus: end-to-end real-data paper-trading simulation with execution realism and Monte Carlo robustness on real Binance spot candles (no fabricated candles), harden robustness reporting, and close any remaining gaps without regressing green tests.
+
+### Objectives (all delivered)
+1. **Real-data paper trading** — DONE: `reports/paper_trading_real.json` via `examples/run_paper_trading_real.py`
+2. **Execution realism** — DONE: `reports/execution_realism_real.json` via `examples/run_execution_realism_real.py`
+3. **Monte Carlo robustness** — DONE: `reports/monte_carlo_real.json` via `examples/run_monte_carlo_real.py`
+4. **Tests & docs** — DONE: `tests/test_real_data_paper_trading_execution_monte_carlo.py`; README updated
+5. **Verify** — DONE: 508 passed, 1 skipped; ruff clean; mypy clean
+
+### Commands to verify
+```bash
+PYTHONPATH=. python -m pytest tests/ -q
+python -m ruff check backtest/ strategies/ utils/ tests/
+python -m mypy backtest/ strategies/ utils/
+```
+
+### Notes
+- This repo's core is crypto stat-arb validation on real data. Prioritize heavy validation work.
+- Follow existing patterns (CLI/config/sweep/engine/DataLoader). No fabricated IV/candles.
+- If blocked, remove bottlenecks (env/network/mocking) without cutting corners on "real data" requirement.
+- Do not exit until all success criteria met.
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
