@@ -15,6 +15,7 @@ cryptoquantstatarbstrats.egg-info/dependency_links.txt
 cryptoquantstatarbstrats.egg-info/entry_points.txt
 cryptoquantstatarbstrats.egg-info/requires.txt
 cryptoquantstatarbstrats.egg-info/top_level.txt
+data/cache.py
 data/loader.py
 strategies/__init__.py
 strategies/base.py
@@ -51,7 +52,9 @@ tests/test_paper_trading.py
 tests/test_paper_trading_advanced.py
 tests/test_paper_trading_monitoring.py
 tests/test_paper_trading_report.py
+tests/test_portfolio_real.py
 tests/test_portfolio_risk.py
+tests/test_portfolio_risk_controls.py
 tests/test_real_data_extended_validation.py
 tests/test_real_data_paper_trading_execution_monte_carlo.py
 tests/test_rebalancing.py
