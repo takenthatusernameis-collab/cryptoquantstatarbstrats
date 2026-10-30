@@ -1,11 +1,11 @@
-# DURABLE HANDOFF (2026-10-30T12:50:27Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
+# DURABLE HANDOFF (2026-10-30T12:50:50Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
 
 ## REPO NAME PRIORITIZATION (DRIVES ALL DECISIONS)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
 - **INFERRED MANDATE:** Continuously validate crypto statistical-arbitrage strategies on **REAL market data** (public Binance spot, no API keys, no fabricated candles/IV/funding/basis). **Coasting is forbidden. Heavy validation must never stop.** The repo name is the mandate: stat arb strategies must be proven on real data, not assumed.
 - **PRIORITY:** Every action must serve stat arb validation on real data. If uncertain, do the heavier real-data validation.
 
-## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T12:50:27Z
+## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T12:50:50Z
 - **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
@@ -47,12 +47,12 @@ You must push this further with maximum intensity. No stopping early. Future age
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` → clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:50:27Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:50:50Z)
 
-**OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. Repo `cryptoquantstatarbstrats` demands maximum heavy validation. **Do not coast. Do not stop early. Remove bottlenecks.**
+**OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. Repo `cryptoquantstatarbstrats` demands maximum heavy validation. **Do not coast. Do not stop early. Remove bottlenecks. Future agents must not be able to avoid this work.**
 
 **CONTEXT:**
-- Repo: `cryptoquantstatarbstrats`
+- Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies. Inferred mandate: validate crypto statistical-arbitrage strategies on REAL market data (public Binance spot, no API keys, no fabricated candles/IV/funding). Coasting is forbidden.
 - State: GREEN (tests/lint/types clean). Prior portfolio campaign substantially complete; artifacts and tests present and passing.
 - Mandate: Extend validation aggressively with real data only; never fabricate.
 
@@ -73,5 +73,7 @@ You must push this further with maximum intensity. No stopping early. Future age
 - **PRESERVE GREEN.** Never break tests/lint/types.
 - **HEAVY WORK MANDATE.** Substantial hardening required. Complete fully.
 - **REMOVE BOTTLENECKS.** Fix any inefficiencies blocking progress.
+
+**CAMPAIGN IS NOT COMPLETE UNTIL:** `reports/portfolio_real.json` is enriched with every required metric, `tests/test_portfolio_real.py` covers all new logic, `README.md` documents hardened findings with concrete real-data numbers, and pytest/ruff/mypy are all green with >= 526 passed and 0 new failures.
 
 **START IMMEDIATELY. EXECUTE THE FULL CAMPAIGN.**
