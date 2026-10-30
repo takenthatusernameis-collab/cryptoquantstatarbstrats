@@ -1,4 +1,4 @@
-# Durable Handoff (2026-10-30T02:38:44Z)
+# Durable Handoff (2026-10-30T02:45:00Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
