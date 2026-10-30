@@ -255,20 +255,25 @@ def regime_adaptive_meta_selector(
     """Regime-adaptive multi-signal meta-selector.
 
     Blends per-strategy weight frames using **multiple real signals** derived
-    from real price data (volatility regime + trend regime). Unlike a plain
-    average, each strategy is first normalized to a common gross-exposure scale
-    so that no single strategy dominates by raw magnitude, and the combined
-    book is then scaled by the current regime:
+    from real price data (volatility regime + trend regime). Each strategy is
+    first normalized to a common gross-exposure scale (unit gross when active)
+    so that no single strategy dominates by raw magnitude, the normalized
+    strategies are summed, and the combined book is then scaled to the target
+    gross exposure. The combined book is then scaled by the current regime:
 
     * high-volatility regime  -> ``high_vol_scale`` (de-risk)
     * downtrend regime        -> ``downtrend_scale`` (de-risk)
     * uptrend regime          -> ``uptrend_scale`` (slight risk-on)
     * otherwise               -> 1.0
 
-    The previous implementation divided the summed weights by ``n`` strategies,
-    which collapsed gross exposure to ~1/n of a single strategy's signal and
-    rendered every portfolio risk metric vacuous. This version preserves the
-    signal magnitude while still adapting to regime.
+    The previous implementation divided the summed weights by ``n`` strategies
+    and then clipped the rescale factor to ``upper=2.0``. Because most bars have
+    only a few active strategies, that combination throttled gross exposure to
+    ~0.2 on single-active bars and collapsed the entire book, rendering every
+    portfolio risk metric (VaR/CVaR/turnover/regime/cost-stress) vacuous and
+    producing a total_return near 1e-7. The normalization + sum + target-gross
+    rescale preserves signal magnitude: a bar with k active strategies lands at
+    gross = k * (target/k) = target.
     """
     if len(weights_by_strategy) == 0:
         return pd.DataFrame(0.0, index=data.index, columns=data.columns)
@@ -298,14 +303,18 @@ def regime_adaptive_meta_selector(
         scale = (1.0 / gross).fillna(0.0)
         norm_frames.append(w_aligned.multiply(scale, axis=0))
 
+    # Sum normalized strategies (each at unit gross when active) and scale to
+    # the target gross. No division by n strategies and no upper clip: dividing
+    # by n then rescaling is a no-op that only exists to trip the ``clip(upper=2)``
+    # cap, which throttled single-active bars to ~0.2 gross and collapsed the
+    # entire book (every VaR/CVaR/turnover/regime/cost-stress metric became
+    # vacuous, total_return ~1e-7). With the clip removed, a bar where k
+    # strategies are active lands at gross = k * (target/k) = target.
     combined = pd.DataFrame(0.0, index=data.index, columns=data.columns)
     for nf in norm_frames:
         combined = combined.add(nf, fill_value=0.0)
-    # Equal-weight blend of normalized strategies.
-    combined = combined / float(len(norm_frames))
-    # Scale to target gross exposure.
     gross = combined.abs().sum(axis=1).replace(0.0, np.nan)
-    scale_gross = (target_gross / gross).fillna(0.0).clip(upper=2.0)
+    scale_gross = (target_gross / gross).fillna(0.0)
     combined = combined.multiply(scale_gross, axis=0)
 
     # Regime-based de-risking / risk-on adjustments.

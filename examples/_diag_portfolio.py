@@ -1,87 +1,92 @@
 #!/usr/bin/env python3
-"""Diagnostic: trace portfolio weight collapse in run_portfolio_real.py."""
+"""Diagnostic: trace why portfolio weights collapse to ~1e-6 gross exposure."""
+
 from __future__ import annotations
-import json, sys
+
+import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import numpy as np, pandas as pd
+
+import numpy as np
+import pandas as pd
+
 from backtest.engine import BacktestEngine
+from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
-from utils.regime import detect_regimes
-from examples.run_portfolio_real import PortfolioRiskController, regime_adaptive_meta_selector, PAIRS, SYMBOLS
 
-START, END, FREQ = "2026-04-01", "2026-10-30", "1h"
-top_params = json.loads((Path("reports/portfolio_real.json")).read_text())["top_ranked_pair_params"]
+PAIRS = [
+    ("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"),
+    ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH"),
+    ("BTC", "BNB"), ("SOL", "BNB"), ("ADA", "BTC"), ("XRP", "ETH"),
+]
+SYMBOLS = sorted(set([s for p in PAIRS for s in p]))
+START = "2026-04-01"
+END = "2026-10-30"
+FREQ = "1h"
 
 loader = DataLoader()
 data = loader.load_binance_data(SYMBOLS, START, END, interval=FREQ)
 data = loader.clean_data(data)
-print(f"data shape: {data.shape}")
+print(f"Loaded {len(data)} bars; columns={list(data.columns)}")
 
-weights_by_strategy, pair_map = {}, {}
+engine = BacktestEngine(initial_capital=100_000.0)
+grid_pairs = {
+    "lookback": [60, 120],
+    "entry_threshold": [2.0, 2.5],
+    "cointegration_pvalue": [0.05, 0.10],
+}
+
+top_params = {}
 for pair in PAIRS:
     pname = "/".join(pair)
-    if pname not in top_params: continue
+    try:
+        rows = run_parameter_sweep(
+            CointegrationPairsStrategy(pair=pair), data, grid_pairs,
+            train_period=500, test_period=100, fee_rate=0.001, slippage=0.0005,
+            metric="calmar_ratio", engine=engine, mode="rolling", n_splits=4,
+            replay_best=True, show_progress=False,
+        )
+        if not rows:
+            print(f"  {pname}: no rows")
+            continue
+        top = rows[0]
+        params = {k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top}
+        top_params[pname] = params
+        print(f"  {pname}: {params}  oos_calmar={top.get('calmar_ratio')}")
+    except Exception as e:
+        print(f"  {pname}: failed {e!r}")
+
+weights_by_strategy = {}
+for pair in PAIRS:
+    pname = "/".join(pair)
+    if pname not in top_params:
+        continue
     strat = CointegrationPairsStrategy(pair=pair, **top_params[pname])
     signals = strat.generate_signals(data)
     w = pd.DataFrame(0.0, index=data.index, columns=SYMBOLS)
     for asset in pair:
         if asset in signals.columns:
             w[asset] = signals[asset].reindex(data.index).fillna(0.0)
+    gross = w.abs().sum(axis=1).replace(0.0, np.nan)
+    print(f"  raw {pname}: gross_mean={gross.mean():.6f} gross_max={gross.max():.6f} nonzero={int((gross>0).sum())}")
     weights_by_strategy[pname] = w
-    pair_map[pname] = list(pair)
-    print(f"{pname}: raw gross max={w.abs().sum(axis=1).max():.4f} mean={w.abs().sum(axis=1).mean():.6f} nonzeros={(w.abs().sum(axis=1)>1e-9).sum()}/{len(w)}")
 
-combined = regime_adaptive_meta_selector(weights_by_strategy, data)
-print(f"\nafter meta-selector: gross max={combined.abs().sum(axis=1).max():.6f} mean={combined.abs().sum(axis=1).mean():.6f}")
+# Reproduce regime_adaptive_meta_selector manually
+from utils.regime import detect_regimes
+from examples.run_portfolio_real import regime_adaptive_meta_selector, PortfolioRiskController
+
+combined = regime_adaptive_meta_selector(weights_by_strategy, data, target_gross=1.0)
+print(f"\nAfter meta-selector: gross_mean={combined.abs().sum(axis=1).mean():.6f} gross_max={combined.abs().sum(axis=1).max():.6f}")
 
 returns = data.pct_change().fillna(0.0)
-ctrl = PortfolioRiskController(max_gross_exposure=1.4, per_pair_cap=0.32, drawdown_circuit_breaker=-0.10,
-                               max_correlation_exposure=0.5, max_cvar_allocation=0.25)
-
-# Trace each control
-w = combined.copy().fillna(0.0)
-print(f"\n-- per_pair_cap --")
-for pname, assets in pair_map.items():
-    pa = [a for a in assets if a in w.columns]
-    pair_abs = w[pa].abs().sum(axis=1)
-    scale = (ctrl.per_pair_cap / pair_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
-    for a in pa: w[a] = w[a] * scale
-print(f"after per_pair_cap: gross max={w.abs().sum(axis=1).max():.6f}")
-
-print(f"\n-- correlation dampening (corr>0.65) --")
-corr = returns[SYMBOLS].corr()
-for c1 in w.columns:
-    for c2 in w.columns:
-        if c1 >= c2: continue
-        c = corr.loc[c1, c2]
-        if abs(c) > 0.65:
-            w[c1] = w[c1]*0.7; w[c2] = w[c2]*0.7
-print(f"after corr dampening: gross max={w.abs().sum(axis=1).max():.6f}")
-
-print(f"\n-- max_correlation_exposure={ctrl.max_correlation_exposure} --")
-asset_abs = w.abs()
-scale = (ctrl.max_correlation_exposure / asset_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
-w = w.multiply(scale, axis=1)
-print(f"after corr-exposure cap: gross max={w.abs().sum(axis=1).max():.6f} per-asset max={w.abs().max().max():.6f}")
-
-print(f"\n-- CVaR cap (max={ctrl.max_cvar_allocation}) --")
-cols = [c for c in w.columns if c in returns.columns]
-rets = returns[cols].reindex(w.index).fillna(0.0)
-from utils.portfolio_risk import portfolio_cvar
-for it in range(6):
-    port_rets = (w[cols].shift(1).fillna(0.0) * rets).sum(axis=1)
-    cvar = float(portfolio_cvar(port_rets, confidence=0.95))
-    print(f"  iter {it}: cvar={cvar:.8f} abs(cvar)={abs(cvar):.8f} <= cap? {abs(cvar) <= ctrl.max_cvar_allocation}")
-    if not np.isfinite(cvar) or abs(cvar) <= ctrl.max_cvar_allocation:
-        break
-    w[cols] = w[cols] * (ctrl.max_cvar_allocation / abs(cvar))
-print(f"after CVaR cap: gross max={w.abs().sum(axis=1).max():.6f}")
-
-print(f"\n-- gross exposure cap (max={ctrl.max_gross_exposure}) --")
-gross = w.abs().sum(axis=1)
-scale_gross = (ctrl.max_gross_exposure / gross.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
-print(f"  gross max before={gross.max():.8f} scale_gross max={scale_gross.max():.6f}")
-w = w.multiply(scale_gross, axis=0)
-print(f"after gross cap: gross max={w.abs().sum(axis=1).max():.8f} mean={w.abs().sum(axis=1).mean():.8f}")
+risk_ctrl = PortfolioRiskController(
+    max_gross_exposure=1.4, per_pair_cap=0.32,
+    drawdown_circuit_breaker=-0.10, max_correlation_exposure=0.5,
+    max_cvar_allocation=0.25,
+)
+pair_map = {"/".join(p): list(p) for p in PAIRS if "/".join(p) in top_params}
+corr_matrix = returns[SYMBOLS].corr().to_dict()
+controlled = risk_ctrl.apply(combined, pair_map=pair_map, correlation_matrix=corr_matrix, returns=returns)
+print(f"After risk controller: gross_mean={controlled.abs().sum(axis=1).mean():.6f} gross_max={controlled.abs().sum(axis=1).max():.6f}")
