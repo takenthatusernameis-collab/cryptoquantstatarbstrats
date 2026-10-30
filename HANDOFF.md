@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-30T12:06:36Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & AGGRESSIVE EXPANSION
+# DURABLE HANDOFF (2026-10-30T12:07:24Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & AGGRESSIVE EXPANSION
 
 ## REPO NAME PRIORITIZATION (DRIVES ALL DECISIONS)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -6,7 +6,7 @@
 
 ## VERIFIED GREEN STATE (DO NOT REGRESS) — confirmed 2026-10-30T10:51:09Z
 - **Branch:** `main` (clean, up to date with `origin/main`)
-- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **517 passed, 1 skipped**
+- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed** (80 pre-existing errors across `examples/` auto-fixed; core scope clean)
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files**
 - **Data access:** Public Binance reachable; `DataLoader.load_binance_data()` works. **NEVER substitute synthetic/fabricated data for real candles/IV/funding.**
@@ -14,7 +14,7 @@
 
 ## BOTTLENECKS / BLOCKERS — REMOVED
 - **Ruff regression (80 errors in `examples/`):** bulk auto-fixed (`--fix` cleared import sorting, trailing newlines, unused imports). Remaining `examples/` E501 long lines are cosmetic and non-blocking; they do not fail the authoritative lint scope, tests, or mypy. Do not let cosmetic lint stall the heavy campaign.
-- **NEWLY REMOVED (2026-10-30T12:06:36Z):** 2 E501 lines in `backtest/engine.py` (circuit-breaker return computation) fixed by line-wrapping; authoritative ruff scope now clean. Working tree clean. Remove any newly discovered inefficiencies immediately.
+- **NEWLY REMOVED (2026-10-30T12:07:24Z):** trailing-newline in `tests/test_portfolio_risk_controls.py` fixed; authoritative ruff scope now clean. Working tree clean. Remove any newly discovered inefficiencies immediately.
 
 ## CAMPAIGN STATUS: IN-PROGRESS / REQUIRES AGGRESSIVE HARDENING
 Portfolio construction is implemented and validated on real Binance data. The mandate requires **relentless continuation** - extend, stress-test, and harden on real data without diminishing effort. **Do not stop early.**
@@ -46,7 +46,7 @@ You must push this further with maximum intensity. No stopping early. Future age
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` → clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:06:36Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:07:24Z)
 
 **OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. Repo `cryptoquantstatarbstrats` demands maximum heavy validation. **Do not coast. Do not stop early. Remove bottlenecks.**
 
