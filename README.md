@@ -82,21 +82,21 @@ slippage 0.05%):
 | Pair | Combo (lookback, entry_threshold, coint_pvalue) | OOS mean return | OOS/IS ratio |
 | ---- | ------------------------------------------------| --------------- | ------------ |
 | BTC/ETH | 120 / 2.5 / 0.05 (rank 1) | +0.0021% | -0.018 |
-| ETH/SOL | 120 / 2.5 / 0.05 (rank 1) | +0.0018% | +0.052 |
-| BTC/SOL | 120 / 2.5 / 0.05 (rank 1) | +0.0016% | +0.044 |
+| ETH/SOL | 120 / 2.5 / 0.05 (rank 1) | -0.0066% | -0.263 |
+| BTC/SOL | 120 / 2.0 / 0.1 (rank 1) | +0.0997% | +0.560 |
 
 Replay of the top-ranked combo over the full dataset:
 
 | Pair | total_return | sharpe_ratio | max_drawdown | calmar_ratio | final_equity |
 | ---- | ------------ | ------------ | ------------ | ------------ | ------------ |
 | BTC/ETH | -1.75% | -2.09 | -2.48% | -1.22 | 98,246 |
-| ETH/SOL | -1.25% | -1.84 | -1.98% | -0.63 | 98,750 |
-| BTC/SOL | -1.52% | -1.91 | -2.14% | -0.71 | 98,480 |
+| ETH/SOL | -0.32% | -1.07 | -0.37% | -1.49 | 99,682 |
+| BTC/SOL | +4.42% | +2.29 | -1.35% | +5.78 | 104,422 |
 
 Benchmark (equal-weighted buy-and-hold over the same window):
-- BTC/ETH: **+18.54% total return**
-- ETH/SOL: **+22.43% total return**
-- BTC/SOL: **+23.65% total return**
+- BTC/ETH: **+15.50% total return**
+- ETH/SOL: **+17.60% total return**
+- BTC/SOL: **+21.59% total return**
 
 Findings:
 

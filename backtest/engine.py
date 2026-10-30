@@ -712,8 +712,11 @@ class BacktestEngine:
             benchmark_weights=benchmark_weights,
             factor_returns=factor_returns,
         )
-        returns = data.pct_change().fillna(0.0)
-        n = data.shape[1]
+        pair_cols = list(getattr(strategy, "pair", None) or data.columns)
+        pair_cols = [c for c in pair_cols if c in data.columns] or list(data.columns)
+        pair_data = data[pair_cols]
+        returns = pair_data.pct_change().fillna(0.0)
+        n = pair_data.shape[1]
         if n == 0:
             bench_returns = pd.Series(0.0, index=data.index)
         else:
