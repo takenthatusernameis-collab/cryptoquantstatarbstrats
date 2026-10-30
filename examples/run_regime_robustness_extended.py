@@ -129,7 +129,9 @@ def main() -> None:
             if len(sub) < 100:
                 continue
             try:
-                bench = engine.run_with_benchmark(strat, sub[[asset]], fee_rate=0.001, slippage=0.0005)
+                bench = engine.run_with_benchmark(
+                    strat, sub[[asset]], fee_rate=0.001, slippage=0.0005
+                )
                 base = {
                     "asset": asset,
                     "period": p["name"],

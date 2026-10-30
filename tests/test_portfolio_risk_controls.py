@@ -155,6 +155,35 @@ def test_regime_adaptive_meta_selector_empty_input_returns_zeros():
     assert (combined == 0.0).all().all()
 
 
+
+def test_overlapping_pair_caps_do_not_compound_shared_asset_reductions():
+    """Every pair cap uses the same pre-cap book; shared assets are scaled once."""
+    data = _prices(n=30)
+    assets = list(data.columns) + ["ADA", "XRP", "BNB"]
+    weights = pd.DataFrame(0.4, index=data.index, columns=assets)
+    pairs = {
+        f"{left}/{right}": [left, right]
+        for i, left in enumerate(assets)
+        for right in assets[i + 1 :]
+    }
+    ctrl = PortfolioRiskController(
+        max_gross_exposure=10.0,
+        per_pair_cap=0.32,
+        max_correlation_exposure=0.0,
+        max_cvar_allocation=0.0,
+    )
+
+    out = ctrl.apply(weights, pair_map=pairs)
+
+    for pair_assets in pairs.values():
+        pair_gross = out[pair_assets].abs().sum(axis=1)
+        assert (pair_gross <= 0.32 + 1e-12).all()
+    # Each initial pair has gross 0.8, so its cap factor is 0.4.
+    # Every shared asset receives the minimum factor (0.4) once, not 0.4
+    # multiplied by the number of pairs that happen to contain that asset.
+    assert np.allclose(out.to_numpy(), 0.16)
+    assert np.allclose(out.abs().sum(axis=1).to_numpy(), 0.96)
+
 def test_regime_adaptive_meta_selector_downtrend_de_risk():
     data = _prices(n=120)
     w = pd.DataFrame(0.5, index=data.index, columns=["BTC", "ETH"])

@@ -116,7 +116,6 @@ class DataLoader:
 
             cursor_ms = start_ms
             candles: list[tuple[int, float]] = []
-            last_error: str | None = None
             while cursor_ms <= end_ms:
                 query = urlencode({
                     "symbol": market_symbol,

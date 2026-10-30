@@ -94,9 +94,13 @@ def run_exec_model(order_type: str, lob_config: dict | None = None):
                     total_fees += fee
                     avg_price = res.get("avg_price", price)
                     if side == "buy":
-                        total_slippage_cost += abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
+                        total_slippage_cost += (
+                            abs(avg_price - price) * abs(res.get("filled_qty", 0.0))
+                        )
                     else:
-                        total_slippage_cost += abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
+                        total_slippage_cost += (
+                            abs(price - avg_price) * abs(res.get("filled_qty", 0.0))
+                        )
 
     return {
         "order_type": order_type,
@@ -132,8 +136,12 @@ def main() -> None:
     results["models"]["twap"] = run_exec_model("twap")
 
     # LOB with different depths
-    results["models"]["lob_depth3"] = run_exec_model("lob", {"depth_levels": 3, "market_impact_bps": 5.0})
-    results["models"]["lob_depth5"] = run_exec_model("lob", {"depth_levels": 5, "market_impact_bps": 3.0})
+    results["models"]["lob_depth3"] = run_exec_model(
+        "lob", {"depth_levels": 3, "market_impact_bps": 5.0}
+    )
+    results["models"]["lob_depth5"] = run_exec_model(
+        "lob", {"depth_levels": 5, "market_impact_bps": 3.0}
+    )
     results["models"]["lob_with_levels"] = run_exec_model(
         "lob",
         {

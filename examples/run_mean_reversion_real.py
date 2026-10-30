@@ -131,7 +131,11 @@ def main() -> None:
         },
         "assets_results": results,
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "mean_reversion_real_market.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent
+        / "reports"
+        / "mean_reversion_real_market.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"\nWrote consolidated report to {out_path}")
