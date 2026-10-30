@@ -5,6 +5,8 @@ Data loader for cryptocurrency market data
 from __future__ import annotations
 
 import json
+import time
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import urlopen
@@ -214,3 +216,146 @@ class DataLoader:
     def clean_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """Clean and preprocess data."""
         return _clean_data(data)
+
+    def fetch_with_provenance(
+        self,
+        symbols: list[str],
+        start_date: str,
+        end_date: str,
+        interval: str = "1h",
+        quote_asset: str = "USDT",
+        *,
+        max_workers: int = 4,
+        retries: int = 3,
+        backoff_seconds: float = 1.5,
+        use_cache: bool = True,
+    ) -> tuple[pd.DataFrame, dict[str, Any]]:
+        """Fetch real Binance data with retry/backoff and parallel symbols.
+
+        Returns ``(data, provenance)`` where ``provenance`` records every host
+        attempt, retry, failure, and the final bar count per symbol.  Symbols
+        that fail after all retries are excluded with a documented reason; the
+        returned frame only contains symbols that succeeded.  Nothing is ever
+        fabricated.
+        """
+        from data.cache import load_cached
+
+        provenance: dict[str, Any] = {
+            "requested_symbols": list(symbols),
+            "start": start_date,
+            "end": end_date,
+            "interval": interval,
+            "quote_asset": quote_asset,
+            "max_workers": max_workers,
+            "retries": retries,
+            "backoff_seconds": backoff_seconds,
+            "per_symbol": {},
+            "excluded": [],
+            "cache": {},
+        }
+
+        try:
+            data, cache_prov = load_cached(
+                self,
+                symbols,
+                start_date,
+                end_date,
+                interval=interval,
+                quote_asset=quote_asset,
+                use_cache=use_cache,
+            )
+            provenance["cache"] = cache_prov
+            for sym in list(data.columns):
+                provenance["per_symbol"][sym] = {
+                    "status": "ok",
+                    "bars": int(data[sym].notna().sum()),
+                    "first": str(data.index[0]) if len(data) else None,
+                    "last": str(data.index[-1]) if len(data) else None,
+                }
+            return data, provenance
+        except Exception as exc:
+            provenance["cache"]["error"] = str(exc)[:120]
+
+        # Fall back to a retry-capable per-symbol fetch so a single bad symbol
+        # does not take the whole request down.
+        import time
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        results: dict[str, pd.Series] = {}
+        attempts_log: dict[str, list[dict[str, Any]]] = {}
+
+        def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
+            local_attempts: list[dict[str, Any]] = []
+            last_err: str | None = None
+            for attempt in range(1, retries + 1):
+                try:
+                    single = self.load_binance_data(
+                        [sym], start_date, end_date, interval=interval, quote_asset=quote_asset
+                    )
+                    local_attempts.append(
+                        {"attempt": attempt, "success": True, "bars": int(len(single))}
+                    )
+                    return sym, single[sym], local_attempts
+                except Exception as exc:
+                    last_err = str(exc)[:120]
+                    local_attempts.append(
+                        {"attempt": attempt, "success": False, "error": last_err}
+                    )
+                    if attempt < retries:
+                        time.sleep(backoff_seconds * attempt)
+            return sym, None, local_attempts
+
+        with ThreadPoolExecutor(max_workers=max(1, max_workers)) as ex:
+            futures = {ex.submit(_fetch_one, s): s for s in symbols}
+            for fut in as_completed(futures):
+                sym = futures[fut]
+                try:
+                    name, series, local_attempts = fut.result()
+                except Exception as exc:
+                    attempts_log[sym] = [
+                        {"attempt": 0, "success": False, "error": str(exc)[:120]}
+                    ]
+                    provenance["excluded"].append(
+                        {
+                            "symbol": sym,
+                            "reason": "unexpected_exception",
+                            "error": str(exc)[:120],
+                        }
+                    )
+                    continue
+                attempts_log[sym] = local_attempts
+                if series is None:
+                    provenance["excluded"].append(
+                        {
+                            "symbol": sym,
+                            "reason": "all_retries_failed",
+                            "attempts": local_attempts,
+                        }
+                    )
+                    continue
+                results[name] = series
+
+        provenance["per_symbol"] = {
+            sym: {
+                "status": "ok",
+                "bars": int(series.notna().sum()),
+                "attempts": attempts_log.get(sym, []),
+            }
+            for sym, series in results.items()
+        }
+        provenance["excluded"] = provenance["excluded"] + [
+            {"symbol": s, "reason": "not_in_results", "attempts": attempts_log.get(s, [])}
+            for s in symbols
+            if s not in results
+        ]
+
+        if not results:
+            raise RuntimeError(
+                f"No real Binance data fetched for {symbols} "
+                f"between {start_date} and {end_date} after {retries} retries."
+            )
+
+        data = pd.concat(list(results.values()), axis=1)
+        data.columns = list(results.keys())
+        data = data.sort_index()
+        return data, provenance
