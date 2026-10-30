@@ -13,7 +13,14 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
-PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"), ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH")]
+PAIRS = [
+    ("BTC", "ETH"),
+    ("ETH", "SOL"),
+    ("BTC", "SOL"),
+    ("ADA", "ETH"),
+    ("XRP", "BTC"),
+    ("BNB", "ETH"),
+]
 SYMBOLS = ["BTC", "ETH", "SOL", "ADA", "XRP", "BNB"]
 START = "2026-04-01"
 END = "2026-10-30"
@@ -53,7 +60,17 @@ def main() -> None:
         for fee, slip in fee_slip_grid:
             try:
                 res = engine.run(
-                    CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05})),
+                    CointegrationPairsStrategy(
+                        pair=pair,
+                        **top_params.get(
+                            pair,
+                            {
+                                "lookback": 120,
+                                "entry_threshold": 2.5,
+                                "cointegration_pvalue": 0.05,
+                            },
+                        ),
+                    ),
                     data,
                     fee_rate=fee,
                     slippage=slip,
@@ -83,7 +100,17 @@ def main() -> None:
         for pair in PAIRS[:3]:
             try:
                 res = engine.run(
-                    CointegrationPairsStrategy(pair=pair, **top_params.get(pair, {"lookback": 120, "entry_threshold": 2.5, "cointegration_pvalue": 0.05})),
+                        CointegrationPairsStrategy(
+                        pair=pair,
+                        **top_params.get(
+                            pair,
+                            {
+                                "lookback": 120,
+                                "entry_threshold": 2.5,
+                                "cointegration_pvalue": 0.05,
+                            },
+                        ),
+                    ),
                     dreg,
                     fee_rate=0.001,
                     slippage=0.0005,
@@ -109,7 +136,11 @@ def main() -> None:
         "cost_stress": cost_stress,
         "regime_slices": regime_results,
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "regime_cost_stress_extended.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent
+        / "reports"
+        / "regime_cost_stress_extended.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"Wrote {out_path}")
