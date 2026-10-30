@@ -18,7 +18,7 @@ from backtest.engine import BacktestEngine
 from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
-from utils.portfolio_risk import portfolio_cvar, portfolio_var, conditional_drawdown_at_risk
+from utils.portfolio_risk import conditional_drawdown_at_risk, portfolio_cvar, portfolio_var
 from utils.regime import detect_regimes
 
 
