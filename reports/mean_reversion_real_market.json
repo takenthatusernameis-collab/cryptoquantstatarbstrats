@@ -1,0 +1,109 @@
+{
+  "assets": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "grid": {
+    "lookback": [
+      20,
+      30,
+      50,
+      120
+    ],
+    "entry_threshold": [
+      1.5,
+      2.0,
+      2.5
+    ]
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "mode": "rolling",
+    "n_splits": 4,
+    "metric": "calmar_ratio"
+  },
+  "costs": {
+    "fee_rate": 0.001,
+    "slippage": 0.0005
+  },
+  "assets_results": {
+    "BTC": {
+      "asset": "BTC",
+      "top_ranked": {
+        "lookback": 120,
+        "entry_threshold": 1.5,
+        "oos_mean_return": -0.007778607965212782,
+        "mean_max_drawdown": -0.020825081729998807,
+        "oos_is_ratio": 0.25858892277964085,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 120,
+          "entry_threshold": 1.5
+        },
+        "total_return": -0.3327332951184455,
+        "sharpe_ratio": -2.7729519453631184,
+        "max_drawdown": -0.3494220772999299,
+        "calmar_ratio": -1.4413578938095184,
+        "final_equity": 66726.67048815545
+      },
+      "benchmark_total_return": 0.18865203074751524
+    },
+    "ETH": {
+      "asset": "ETH",
+      "top_ranked": {
+        "lookback": 50,
+        "entry_threshold": 2.0,
+        "oos_mean_return": -0.009261327728921888,
+        "mean_max_drawdown": -0.020878767570286783,
+        "oos_is_ratio": 0.217985812018093,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "total_return": -0.3997217543938637,
+        "sharpe_ratio": -3.4325559822164706,
+        "max_drawdown": -0.4075957758880083,
+        "calmar_ratio": -1.4394683146343537,
+        "final_equity": 60027.824560613626
+      },
+      "benchmark_total_return": 0.11416191268819764
+    },
+    "SOL": {
+      "asset": "SOL",
+      "top_ranked": {
+        "lookback": 50,
+        "entry_threshold": 2.0,
+        "oos_mean_return": -0.007498987424238633,
+        "mean_max_drawdown": -0.021235080994353617,
+        "oos_is_ratio": 0.2051702900989754,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 50,
+          "entry_threshold": 2.0
+        },
+        "total_return": -0.3000397137476518,
+        "sharpe_ratio": -2.3372885826246166,
+        "max_drawdown": -0.35870191825782494,
+        "calmar_ratio": -1.2845885116341598,
+        "final_equity": 69996.02862523482
+      },
+      "benchmark_total_return": 0.22645491606715318
+    }
+  }
+}

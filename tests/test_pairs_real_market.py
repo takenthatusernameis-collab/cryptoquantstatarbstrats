@@ -115,7 +115,7 @@ def test_real_data_validation_smoke():
     json.dumps(top, default=float)
 
 
-def test_multi_pair_orchestration_mocked(monkeypatch):
+def test_multi_pair_orchestration_mocked(monkeypatch, tmp_path):
     """Multi-pair orchestration must run for BTC/ETH, ETH/SOL, BTC/SOL
     with walk-forward sweeps and produce a consolidated report structure."""
     import json
@@ -220,13 +220,15 @@ def test_multi_pair_orchestration_mocked(monkeypatch):
             "replay": results["BTC/ETH"]["replay"],
             "benchmark_total_return": results["BTC/ETH"]["benchmark_total_return"],
         }
-        out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
+        # Write to a throwaway path so the test can never clobber the real
+        # reports/pairs_real_market.json artifact with mocked data.
+        out_path = Path(tmp_path) / "pairs_real_market.json"
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
         print(f"Wrote consolidated report to {out_path}")
 
     fast_main()
-    with open(Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json") as f:
+    with open(Path(tmp_path) / "pairs_real_market.json") as f:
         rep = json.load(f)
     assert "pairs" in rep
     for p in ["BTC/ETH", "ETH/SOL", "BTC/SOL"]:
