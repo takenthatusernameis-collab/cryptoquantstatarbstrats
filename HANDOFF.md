@@ -1,28 +1,27 @@
-# DURABLE HANDOFF (2026-10-30T16:54:51Z) — SINGLE MANDATORY NEXT TASK: CRYPTOQUANTSTATARBSTRATS MAXIMUM REAL-DATA HEAVY VALIDATION
+# DURABLE HANDOFF (2026-10-30T16:56:15Z) — SINGLE MANDATORY NEXT TASK: CRYPTOQUANTSTATARBSTRATS MAXIMUM REAL-DATA HEAVY VALIDATION
 
 ## REPO NAME PRIORITIZATION (ABSOLUTE)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
 - **INFERRED MANDATE (NON-NEGOTIABLE):** This repository exists to build, harden, and relentlessly validate crypto statistical-arbitrage strategies using **ONLY REAL market data**. Every subsequent agentic session MUST treat real-data validation as the primary objective with no dilution.
 - **PRIORITY DIRECTIVE:** The repository name IS the law. If there is any ambiguity between convenience and heavier real-data work, ALWAYS choose the heavier real-data path. Coasting is categorically forbidden. Heavy validation must never cease.
 
-## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS) — re-confirmed 2026-10-30T16:54:51Z
+## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS) — re-confirmed 2026-10-30T16:56:15Z
 - **Branch:** `main` (clean working tree)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **527 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files**
-- **Data access:** Public Binance reachable via `DataLoader.load_binance_data()` (BTC/ETH/SOL 1h 2026-04-01..2026-10-28 → 5,064 shared bars, ~5s) — **REAL DATA ONLY. NEVER FABRICATE CANDLES, IV, FUNDING, OR BASIS.**
+- **Data access:** Public Binance reachable via `DataLoader.load_binance_data()` (real candles only) — **REAL DATA ONLY. NEVER FABRICATE CANDLES, IV, FUNDING, OR BASIS.**
 - **Key deliverables:** `examples/run_portfolio_real.py`, `reports/portfolio_real.json`, `tests/test_portfolio_real.py`, `tests/test_portfolio_risk_controls.py`
 
-## BOTTLENECK ELIMINATION (MANDATORY) — completed this session
-- **FIXED CRASH BLOCKER:** `examples/run_portfolio_real.py` referenced undefined `per_asset_contribution`, `mean_turnover`, `annualized_turnover` → `NameError` at artifact build. Now computed from real weights/returns before artifact assembly; script reaches artifact write.
-- **OBSERVABILITY:** Runs use unbuffered output (`python -u`) so long real-data jobs never appear hung; per-pair sweep progress prints retained.
+## BOTTLENECK ELIMINATION (MANDATORY)
+- **OBSERVABILITY:** Long real-data jobs must use unbuffered output (`python -u`). Keep progress printing explicit.
 - **NO BLOCKERS TOLERATED:** If any path is slow, redundant, unclear, or bottlenecking throughput/insight, **ELIMINATE IT IMMEDIATELY** before adding features. Do not work around inefficiencies.
 - **REMOVE FRICTION:** Tighten schemas, harden tests, improve clarity, and remove anything that could allow a future agent to take an easy shortcut.
 - **FORCE HEAVY WORK:** Design every step so that future agents cannot avoid substantial, measurable validation work.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T16:54:51Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T16:56:15Z)
 
-**OBJECTIVE:** Conduct a **MAXIMUM-INTENSITY, NO-COAST** hardening campaign for the multi-asset crypto stat arb portfolio using **100% REAL Binance data**. Future agents MUST be unable to avoid heavy working.
+**OBJECTIVE:** Conduct a **MAXIMUM-INTENSITY, NO-COAST** hardening campaign for the multi-asset crypto stat arb portfolio using **100% REAL Binance data**. Future agents MUST be unable to avoid heavy working. Every action must demonstrably increase real-data validation rigor.
 
 **MANDATORY EXECUTION SEQUENCE (DO NOT SKIP, DO IN ORDER):**
 
@@ -37,7 +36,7 @@
    - If red for any reason, restore green before proceeding. Zero regressions.
 
 3. **REGENERATE PORTFOLIO ARTIFACT FROM REAL DATA**
-   - Run `python -u examples/run_portfolio_real.py` (end-to-end on real Binance candles 2026-04-01..2026-10-30, 12 pairs, walk-forward 12 splits).
+   - Run `python -u examples/run_portfolio_real.py` (end-to-end on real Binance candles with >=12 walk-forward splits).
    - Confirm `reports/portfolio_real.json` is written, JSON-serializable, and `tests/test_portfolio_real.py` passes (n_splits >= 10, per-asset gross <= correlation cap, circuit breaker tested, risk_controller `correlation_aware_cvar_style`).
 
 4. **UNIVERSE EXPANSION (REAL-ONLY, DOCUMENTED)**
