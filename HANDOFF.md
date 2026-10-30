@@ -1,10 +1,10 @@
-# DURABLE HANDOFF (2026-10-30T12:36:53Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
+# DURABLE HANDOFF (2026-10-30T12:38:56Z) — SINGLE MANDATORY NEXT TASK: RELENTLESS REAL-DATA PORTFOLIO HARDENING & EXPANSION
 
 ## REPO NAME PRIORITIZATION (DRIVES ALL DECISIONS)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
 - **INFERRED MANDATE:** Continuously validate crypto statistical-arbitrage strategies on **REAL market data** (public Binance spot, no API keys, no fabricated candles/IV/funding/basis). **Coasting is forbidden. Heavy validation must never stop.** The repo name is the mandate: stat arb strategies must be proven on real data, not assumed.
 
-## VERIFIED GREEN STATE (DO NOT REGRESS) — confirmed 2026-10-30T12:36:53Z
+## VERIFIED GREEN STATE (DO NOT REGRESS) — re-confirmed 2026-10-30T12:38:56Z
 - **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **526 passed, 1 skipped**
 - **Lint (authoritative scope):** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed**
@@ -17,7 +17,7 @@
 - **No open blockers.** If any new inefficiency appears, remove it immediately before adding features.
 
 ## CAMPAIGN STATUS
-Portfolio construction (12 pairs across 6 symbols, train=1000/test=200, N_SPLITS>=12, regime-adaptive multi-signal meta-selector, correlation/CVaR-aware risk controls, per-asset correlation exposure cap enforced, CVaR allocation cap enforced, circuit breaker tested, funding/basis exhaustively attempted with provenance, cost-stress slices, regime-conditioned performance) is implemented, validated on real Binance data, and covered by network-independent tests. **The mandate requires relentless continuation — extend, stress-test, and harden on real data without diminishing effort. Do not stop early.**
+Portfolio construction (12 pairs across 6 symbols, train=1000/test=200, N_SPLITS=12, regime-adaptive multi-signal meta-selector, correlation/CVaR-aware risk controls, per-asset correlation exposure cap enforced, CVaR allocation cap enforced, circuit breaker tested, funding/basis exhaustively attempted with provenance, cost-stress slices, regime-conditioned performance) is implemented, validated on real Binance data, and covered by network-independent tests. **The mandate requires relentless continuation — extend, stress-test, and harden on real data without diminishing effort. Do not stop early.**
 
 ## MANDATORY HEAVY CAMPAIGN (HIGHEST PRIORITY - DO NOT DEFER)
 You must push this further with maximum intensity. No stopping early. Future agents must not be able to avoid this work: every deliverable below must exist, be JSON-serializable, and pass verification before the campaign is considered complete.
@@ -46,7 +46,7 @@ You must push this further with maximum intensity. No stopping early. Future age
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` → clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` → clean
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:36:53Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T12:38:56Z)
 
 **OBJECTIVE:** Relentlessly harden and expand the multi-asset crypto stat arb portfolio on **REAL Binance data**. Repo `cryptoquantstatarbstrats` demands maximum heavy validation. **Do not coast. Do not stop early. Remove bottlenecks.**
 
