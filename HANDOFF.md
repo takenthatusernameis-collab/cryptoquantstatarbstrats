@@ -1,11 +1,11 @@
-# Durable Handoff (2026-10-30T02:44:36Z)
+# Durable Handoff (2026-10-30T02:49:35Z)
 
 ## Repo
 cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research on crypto). Repo name prioritizes real-market validation on real public Binance spot candles. No API key required; no fabricated data for validation.
 
 ## Current verified state (green)
-- Branch: main, clean, up to date with origin/main (last commits are kilo checkpoints)
-- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 501 passed, 1 skipped, 86 warnings (verified in prior session; source unchanged since)
+- Branch: main, clean, up to date with origin/main
+- Tests: `PYTHONPATH=. python -m pytest tests/ -q` -> 503 passed, 1 skipped, 86 warnings
 - Lint: `python -m ruff check backtest/ strategies/ utils/ tests/` -> All checks passed
 - Types: `python -m mypy backtest/ strategies/ utils/` -> Success: no issues found in 31 source files
 - Dev deps: install with `python -m pip install -e ".[dev]"` before running verification locally
@@ -16,34 +16,34 @@ cryptoquantstatarbstrats - Crypto Quant Stat Arb Strategies (stat-arb research o
 - Mean reversion real-market validation complete for BTC, ETH, SOL (same window) via `examples/run_mean_reversion_real.py`
 - Pairs transaction-cost sensitivity sweep added to `reports/pairs_real_market.json` (BTC/ETH, fees × slippage grid)
 - Fixed benchmark bug in `backtest/engine.run_with_benchmark` (pair symbols only)
-- README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity note
-- Expanded pairs artifact: `reports/pairs_real_market_expanded.json` exists (JSON-serializable)
-- Regime robustness artifact: `reports/regime_robustness_real.json` exists (JSON-serializable)
-- Execution realism beyond BTC/ETH DONE: `reports/cost_sensitivity_real.json` exists with ETH/SOL pair fee × slippage grid (JSON-serializable), produced by `examples/run_cost_sensitivity_real.py`
-- Bottlenecks removed (stalled branch `fix/causal-pairs-validation-2026-10-27` deleted; env module-not-found / zeroed JSON / benchmark mismatch / flaky bootstrap / lint errors in new test files fixed)
+- README updated with Real-market validation (pairs + mean reversion) and cost-sensitivity notes
+- Expanded pairs artifact: `reports/pairs_real_market_expanded.json` (JSON-serializable)
+- Regime robustness artifact: `reports/regime_robustness_real.json` (JSON-serializable)
+- Execution realism beyond BTC/ETH: `reports/cost_sensitivity_real.json` exists with ETH/SOL pair fee × slippage grid (JSON-serializable), produced by `examples/run_cost_sensitivity_real.py`
+- Mean reversion SOL cost-sensitivity: `reports/cost_sensitivity_real_mean_reversion.json` with fee × slippage grid, degradation vs base (JSON-serializable)
+- Bottlenecks removed (stalled branch deleted; env/module issues fixed)
 
 ## MANDATORY NEXT CAMPAIGN (heavy work - do not defer)
-Focus: close remaining documentation and test gaps for the ETH/SOL cost-sensitivity artifact, then extend execution-realism coverage to mean reversion on SOL using real Binance spot data. Remove bottlenecks immediately if encountered.
+Focus: extend execution realism to a multi-asset portfolio setting on real Binance spot data (no fabricated candles), harden robustness reporting, and close any remaining gaps without regressing green tests.
 
 ### Objectives
-1. **Documentation gap**
-   - Update README to document `reports/cost_sensitivity_real.json` (ETH/SOL fee × slippage grid, degradation vs base replay) alongside the existing BTC/ETH cost-sensitivity note in `reports/pairs_real_market.json`.
-   - Document any new artifacts.
-2. **Test gap**
-   - Add a network-independent test validating `reports/cost_sensitivity_real.json` exists, is valid JSON, is JSON-serializable, and contains the ETH/SOL pair cost-sensitivity block (mirroring `test_expanded_validation_artifacts.py` pattern for the other two artifacts).
-   - Keep real-data smoke tests where appropriate.
-3. **Execution realism extension (mean reversion on SOL)**
-   - Add transaction-cost sensitivity for mean reversion on SOL using `DataLoader.load_binance_data()` (real public Binance spot candles only).
-   - Model fee × slippage grids; quantify degradation vs base (zero-cost / current-cost) replay.
-   - Consolidate to `reports/cost_sensitivity_real.json` (extend existing) or a new JSON-serializable artifact.
-4. **General**
-   - Follow existing patterns (CLI/config/sweep/engine). No fabricated IV/candles.
+1. **Portfolio cost-sensitivity (pairs)**
+   - Extend transaction-cost sensitivity to a portfolio of pairs using real Binance spot 1h candles (BTC/ETH, ETH/SOL, BTC/SOL) over 2026-04-01 to 2026-10-28.
+   - Model fee × slippage grids per pair and/or portfolio-level; quantify degradation vs base (zero-cost/current) across realistic cost regimes.
+   - Produce a JSON-serializable artifact in `reports/` (e.g. `reports/cost_sensitivity_real_portfolio.json`) following existing patterns.
+2. **Robustness under regime/cost stress**
+   - Build on `reports/regime_robustness_real.json` to add explicit cost-stress slices for both pairs and mean reversion where feasible (or extend that artifact) with JSON-serializable outputs.
+   - Document findings in README with concrete numbers.
+3. **Tests & docs**
+   - Add network-independent tests validating any new artifacts (existence, JSON-serializable, required schema keys) mirroring existing test patterns.
+   - Update README with new findings/artifacts.
+   - Keep all verification green.
 
 ### Success criteria (must all pass)
-- [ ] README documents `reports/cost_sensitivity_real.json` (ETH/SOL) cost-sensitivity findings
-- [ ] New test validates `reports/cost_sensitivity_real.json` exists and is JSON-serializable
-- [ ] (Optional heavy extension) Mean reversion on SOL cost-sensitivity artifact in `reports/` (JSON-serializable), benchmarks documented
-- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
+- [ ] Portfolio pairs cost-sensitivity artifact in `reports/` (JSON-serializable) with fee × slippage grids for relevant pairs/portfolio
+- [ ] README documents portfolio/extended cost-stress findings
+- [ ] New network-independent tests for new artifacts pass
+- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=503 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` clean
 
@@ -56,33 +56,35 @@ python -m mypy backtest/ strategies/ utils/
 
 ### Notes
 - This repo's core is crypto stat-arb validation on real data. Prioritize heavy validation work.
+- Follow existing patterns (CLI/config/sweep/engine/DataLoader). No fabricated IV/candles.
 - If blocked, remove bottlenecks (env/network/mocking) without cutting corners on "real data" requirement.
 - Do not exit until all success criteria met.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T02:44:36Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (2026-10-30T02:49:35Z)
 
 **REPO:** cryptoquantstatarbstrats (Crypto Quant Stat Arb Strategies)
-**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). All prior campaigns verified complete: pairs + mean reversion on real Binance 1h data (2026-04-01 to 2026-10-28), benchmarks and BTC/ETH cost-sensitivity included; expanded pairs (`reports/pairs_real_market_expanded.json`), regime robustness (`reports/regime_robustness_real.json`), and ETH/SOL cost sensitivity (`reports/cost_sensitivity_real.json`) artifacts already exist and are JSON-serializable; test/lint/typecheck green.
+**PRIORITIZATION:** Per repo name, core mission is crypto statistical-arbitrage validation on REAL market data (public Binance spot candles, no API key, no fabricated data). Current state is GREEN (503 passed, 1 skipped; ruff/mypy clean). All prior campaigns complete: pairs+mean reversion on real Binance 1h (2026-04-01 to 2026-10-28), expanded pairs, regime robustness, ETH/SOL pairs cost-sensitivity, and SOL mean reversion cost-sensitivity all present and tested.
 
-**MANDATORY HEAVY WORK (do not defer):** Close the documentation and test gaps for the existing ETH/SOL cost-sensitivity artifact (`reports/cost_sensitivity_real.json`), then extend execution-realism coverage to mean reversion on SOL cost sensitivity using real Binance spot data. Continue with ONLY real public Binance spot data (1h); remove bottlenecks immediately. No fabricated data. Do not defer this campaign.
+**MANDATORY HEAVY WORK (do not defer):** Extend execution realism to a multi-asset portfolio setting on real Binance spot data. Remove bottlenecks immediately. No fabricated data. Do heavy validation.
 
 ### OBJECTIVE
-1. Document `reports/cost_sensitivity_real.json` (ETH/SOL fee × slippage grid, degradation vs base) in README alongside the existing BTC/ETH cost-sensitivity note.
-2. Add a network-independent test validating `reports/cost_sensitivity_real.json` exists and is JSON-serializable (mirror `test_expanded_validation_artifacts.py`).
-3. (Heavy extension) Add mean reversion on SOL transaction-cost sensitivity using `DataLoader.load_binance_data()` (real), model fee × slippage grids, quantify degradation vs base, consolidate to a JSON-serializable artifact in `reports/`.
+1. Add portfolio-level transaction-cost sensitivity for pairs across BTC/ETH, ETH/SOL, BTC/SOL using `DataLoader.load_binance_data()` (real public Binance spot 1h, 2026-04-01 to 2026-10-28). Model fee × slippage grids; quantify degradation vs base (zero-cost/current) replay at portfolio level.
+2. Extend robustness reporting (build on `reports/regime_robustness_real.json`) with cost-stress slices where feasible; keep outputs JSON-serializable.
+3. Document findings in README and add network-independent tests mirroring existing patterns.
 4. Verify everything stays green.
 
 ### REQUIRED ACTIONS (execute in order; do not skip)
-1. **Documentation:** Update README with ETH/SOL cost-sensitivity findings from `reports/cost_sensitivity_real.json` and any new artifacts.
-2. **Tests:** Add network-independent test validating `reports/cost_sensitivity_real.json` exists and is JSON-serializable; keep `PYTHONPATH=. python -m pytest tests/ -q` at >=501 passed, 0 new failures.
-3. **Execution realism extension (mean reversion on SOL):** Add transaction-cost sensitivity for mean reversion on SOL using `DataLoader.load_binance_data()` (real). Model fee × slippage grids; quantify degradation vs base replay. Consolidate to a JSON-serializable artifact in `reports/`.
-4. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green main.
+1. **Portfolio cost-sensitivity:** Create/extend to produce `reports/cost_sensitivity_real_portfolio.json` (JSON-serializable) with portfolio-level metrics under fee × slippage grids using real data only.
+2. **Robustness extension:** Add cost-stress slices to robustness reporting (update `reports/regime_robustness_real.json` or add a complementary JSON-serializable artifact) with clear schema.
+3. **Docs:** Update README to document portfolio cost-sensitivity and any new robustness findings.
+4. **Tests:** Add network-independent tests for new artifacts (existence, JSON-serializable, required keys).
+5. **Verify:** Run full test/lint/typecheck and fix any issues without reverting green main.
 
 ### SUCCESS CRITERIA (all must hold; none optional)
-- [ ] README documents `reports/cost_sensitivity_real.json` (ETH/SOL) cost-sensitivity findings
-- [ ] New test validates `reports/cost_sensitivity_real.json` exists and is JSON-serializable
-- [ ] (Optional heavy extension) Mean reversion on SOL cost-sensitivity artifact in `reports/` (JSON-serializable), benchmarks documented
-- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=501 passed, 0 new failures)
+- [ ] Portfolio pairs cost-sensitivity artifact in `reports/` (JSON-serializable) with fee × slippage grids
+- [ ] README documents portfolio/extended cost-stress findings
+- [ ] New network-independent tests for new artifacts pass
+- [ ] `PYTHONPATH=. python -m pytest tests/ -q` passes (>=503 passed, 0 new failures)
 - [ ] `python -m ruff check backtest/ strategies/ utils/ tests/` clean
 - [ ] `python -m mypy backtest/ strategies/ utils/` clean
 
@@ -94,7 +96,7 @@ python -m mypy backtest/ strategies/ utils/
 ```
 
 ### CONSTRAINTS / NOTES
-- Follow existing patterns (CLI/config/sweep/engine). No fabricated IV/candles.
+- Follow existing patterns (CLI/config/sweep/engine/DataLoader). No fabricated IV/candles.
 - Keep changes minimal and consistent with codebase style.
 - If tests hang/fail due to env, fix or isolate; do not revert green main.
 - Document any new files/changes clearly.
