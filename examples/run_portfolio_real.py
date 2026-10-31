@@ -1308,10 +1308,10 @@ def main() -> None:
             bootstrap_ci["cost_impact"] = {
                 "mean_turnover_per_period": _to_float(_turn),
                 "cost_per_period_assumed": _to_float(_cost_per_period),
-                "fee_rate": 0.001,
-                "slippage": 0.0005,
-                "n_simulations": 2000,
-                "seed": 12346,
+            "fee_rate": 0.001,
+            "slippage": 0.0005,
+            "n_simulations": 3000,
+            "seed": 12346,
                 "ci95_total_return_net": (
                     [float(np.percentile(rets_net, 2.5)), float(np.percentile(rets_net, 97.5))]
                     if len(rets_net) > 0

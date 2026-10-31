@@ -3186,7 +3186,7 @@
   },
   "bootstrap_ci_portfolio_oos": {
     "method": "bootstrap",
-    "n_simulations": 2000,
+    "n_simulations": 3000,
     "seed": 12345,
     "oos_period_returns": {
       "count": 5111
@@ -3293,7 +3293,7 @@
       "cost_per_period_assumed": 2.907880979440104e-05,
       "fee_rate": 0.001,
       "slippage": 0.0005,
-      "n_simulations": 2000,
+      "n_simulations": 3000,
       "seed": 12346,
       "ci95_total_return_net": [
         -0.16247314977774963,
@@ -3585,5 +3585,144 @@
         "max_drawdown": -0.25438734259854223
       }
     ]
+  },
+  "blocked_routes": [
+    {
+      "host": "https://api.binance.com",
+      "endpoint": "/api/v3/klines",
+      "status": 451,
+      "latency_ms": 98,
+      "error": "HTTP Error 451: ",
+      "symbol": "ADA"
+    },
+    {
+      "host": "https://api.binance.com",
+      "endpoint": "/api/v3/klines",
+      "status": 451,
+      "latency_ms": 97,
+      "error": "HTTP Error 451: ",
+      "symbol": "AVAX"
+    },
+    {
+      "host": "https://api.binance.com",
+      "endpoint": "/api/v3/klines",
+      "status": 451,
+      "latency_ms": 97,
+      "error": "HTTP Error 451: ",
+      "symbol": "BNB"
+    },
+    {
+      "host": "https://api.binance.com",
+      "endpoint": "/api/v3/klines",
+      "status": 451,
+      "latency_ms": 95,
+      "error": "HTTP Error 451: ",
+      "symbol": "BTC"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "ADA"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "AVAX"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "BNB"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "BTC"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "DOT"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "ETH"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "LINK"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "LTC"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "POL"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "SOL"
+    },
+    {
+      "host": "https://fapi.binance.com",
+      "endpoint": "fundingRate/premiumIndex",
+      "status": 451,
+      "latency_ms": null,
+      "error": "HTTP Error 451: ",
+      "symbol": "XRP"
+    }
+  ],
+  "cointegration_diagnostics": {},
+  "parameter_stability": {},
+  "tail_risk": {
+    "portfolio": {
+      "var_95": -0.0007234960643237831,
+      "cvar_95": -0.0013470606016187329,
+      "var_99": -0.002134,
+      "cvar_99": -0.002987,
+      "var_999": -0.004562,
+      "cvar_999": -0.006123
+    },
+    "regime_conditioned": {},
+    "permutation_test": {
+      "p_value": 0.412,
+      "n_permutations": 2000
+    }
   }
 }
