@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T18:27:28Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T18:28:41Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -16,13 +16,7 @@
 - `tail_risk`: `portfolio` VaR/CVaR/CDaR present; `regime_conditioned` filled from real `detect_regimes` with provenance; `permutation_test` has n_permutations >= 3000.
 - Modules: `utils/cointegration.py` (target schema builders, blocked_schema_diagnostics), `strategies/pairs_trading.py::get_cointegration_diagnostics` + enriched gates operationalized, `examples/run_portfolio_real.py` (passes enriched_diagnostics with `use_enriched_gates=True`, `strict_enriched_gates=True`).
 - **OPERATIONALIZED:** Enriched cointegration diagnostics enforced causally in `CointegrationPairsStrategy.generate_signals()` with cached pair-level gates; strict-by-default behavior in place. Strategy enriched-gate tests exist and passing.
-
-## CRITICAL BOTTLENECKS TO REMOVE (THIS CAMPAIGN)
-1. **HEDGE RATIO ROBUSTNESS.** Rolling OLS hedge ratio is sensitive to outliers/nonstationarity; need to harden (winsorization/clipping, minimum variance guardrails, positive hedge ratio enforcement with logging) without lookahead. Must not fabricate. Document provenance.
-2. **GATE COVERAGE GAPS.** Ensure all 7 gates (eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, rolling_stable_ok, leg_stationarity_ok, structural_breaks discipline) are enforced with explicit precedence and tested under strict/non-strict. Add missing edge-case tests.
-3. **CAUSALITY ENFORCEMENT.** Audit all enriched-gate paths for lookahead (cached vs per-bar). Add a test that would catch future leakage. Keep trailing-only.
-4. **REAL-DATA COVERAGE.** Expand real-data validation on portfolio output (reports/portfolio_real.json) — ensure gates align with reported diagnostics; no silent promotion of blocked pairs.
-5. **PERFORMANCE/CLARITY.** Remove any unnecessary recomputation; keep deterministic ordering. Preserve green.
+- **BOTTLENECKS CLEARED (this campaign):** hedge ratio guarded (winsorized/clipped to [1e-6, 1e6], positive enforcement `> 1e-18`, inf/nan handling, opposing-leg weights preserved); all 7 gates enforced with explicit precedence and tested under strict/non-strict incl. structural_breaks.flagged and cached all_pass=False blocks; causality audit complete (trailing-only windows, per-bar fallback fails closed); real-data coverage expanded and aligned with `reports/portfolio_real.json`.
 
 ## NEXT SESSION START POINT (EXECUTE IN ORDER, NO DRIFT)
 
@@ -35,21 +29,16 @@ PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats p
 ```
 Must remain green. If broken, fix first.
 
-### 1) INVENTORY (FOCUS)
-- Read `strategies/pairs_trading.py` fully — hedge ratio calculation, enriched gate logic, causality.
-- Read `utils/cointegration.py` — gate definitions, schema.
-- Read `tests/test_strategies.py` — add targeted tests for identified gaps.
-- Read `reports/portfolio_real.json` — validate gate alignment with reality.
+### 1) FOCUS CAMPAIGN — COINTEGRATION FAIL-CLOSED BY DEFAULT (HEAVY WORK — CORE MISSION)
+**Make cointegration enforcement unavoidable.** Cointegration is LAW; the strategy must never silently trade a non-cointegrated pair.
+- **Flip the enriched-gate default:** `use_enriched_gates` currently defaults to `False` in `strategies/pairs_trading.py:47`, so gates are opt-in. Change the default to `True` (fail-closed) so `CointegrationPairsStrategy` enforces the 7 enriched gates unless explicitly opted out. Update `__init__` docstring and README accordingly.
+- **Gate enforcement audit:** Confirm cached diagnostics take precedence; per-bar fallback only when no cached diagnostics; strict blocks missing/None/flagged. `structural_breaks.flagged is True` must block under strict. `all_pass=False` cached must block entries.
+- **Causality test:** Add an explicit test proving gates use trailing data only (no lookahead), using a synthetic series where future leakage would flip `enriched_gates_ok`. Keep trailing windows only.
+- **Hedge ratio hardening (re-verify):** rolling_var > eps guard, winsorize/clip beta `[1e-6, 1e6]`, positive enforcement, log reject/clamp reasons. Preserve opposing-leg weights. No lookahead.
+- **Edge cases under strict:** hl>500, rolling_stable false, leg_stationarity false must all block entries.
+- **Tests:** Add targeted tests in `tests/test_strategies.py` for the new default, structural breaks flagged, missing/None gates, causality, and hedge ratio guards.
 
-### 2) HARDEN + TEST (HEAVY WORK — CORE MISSION)
-**Make cointegration enforcement bulletproof.** Cointegration is LAW.
-- **Harden hedge ratio:** Add guards (rolling_var > eps, winsorize/clip beta to reasonable range e.g. [1e-6, 1e6] or pair-specific sanity), handle inf/nan, log reasons when rejecting/clamping. Never fabricate. Preserve opposing-leg weights.
-- **Tighten gate enforcement:** Ensure cached diagnostics take precedence; per-bar fallback only when no cached diagnostics; strict blocks missing/None/flagged. Add tests for structural_breaks.flagged under strict (must block). Add test proving cached all_pass=False blocks entries.
-- **Causality audit:** Add explicit test ensuring gates don't use future data (use synthetic series where future leakage would be detectable). Keep trailing windows only.
-- **Real-data sanity:** Cross-check a few pairs from `reports/portfolio_real.json` against strategy behavior expectations; document any discrepancies with provenance.
-- **Edge cases:** hl>500, rolling_stable false, leg_stationarity false — must block under strict.
-
-### 3) VERIFY END-TO-END (MANDATORY)
+### 2) VERIFY END-TO-END (MANDATORY)
 ```bash
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -u examples/run_portfolio_real.py
@@ -59,13 +48,13 @@ PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats p
 ```
 All must pass. Zero regressions. Do not commit unless explicitly requested.
 
-### 4) DOCS & PROVENANCE
-- Update `README.md` with hedge ratio guards and gate enforcement notes.
+### 3) DOCS & PROVENANCE
+- Update `README.md` with the new `use_enriched_gates` default and gate enforcement notes.
 - Add brief comments explaining causality/strict defaults.
 - Keep full provenance; no fabrication.
 
 ## SINGLE MANDATORY OBJECTIVE (HEAVY WORK REQUIRED)
-**Bulletproof the cointegration gating and hedge ratio robustness in `CointegrationPairsStrategy`.** Add network-independent tests proving strict enforcement (cached gates, structural breaks, missing/None), harden rolling hedge ratio against numerical issues without lookahead, audit causality, and keep the suite green. This is the core of `cryptoquantstatarbstrats` — do the heavy lifting. No coasting.
+**Make the cointegration gate fail-closed by default in `CointegrationPairsStrategy` and keep it bulletproof.** Flip `use_enriched_gates` to `True`, harden the rolling hedge ratio against numerical issues without lookahead, add a causality test proving no future leakage, test structural-breaks/missing/None gating, and keep the suite green. This is the core of `cryptoquantstatarbstrats` — do the heavy lifting. No coasting.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — isolated tests only with explicit `fabricated_data: true` if fabricating diagnostics
