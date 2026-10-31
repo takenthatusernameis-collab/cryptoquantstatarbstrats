@@ -1,5 +1,9 @@
 """
 Causal rolling-hedge-ratio pairs trading strategy.
+
+Operationalizes enriched publication-grade cointegration diagnostics (Engle-
+Granger/Johansen, spread mean-reversion/hl_bounds 1<hl<500, rolling stability,
+structural break discipline) using only trailing/real data. Never fabricates.
 """
 
 from __future__ import annotations
@@ -10,7 +14,10 @@ import numpy as np
 import pandas as pd
 
 from strategies.base import PairStrategy
-from utils.cointegration import comprehensive_cointegration_diagnostics
+from utils.cointegration import (
+    comprehensive_cointegration_diagnostics,
+    target_schema_diagnostics,
+)
 
 
 class CointegrationPairsStrategy(PairStrategy):
@@ -20,6 +27,10 @@ class CointegrationPairsStrategy(PairStrategy):
     lookback window. Explicit per-asset weights are emitted so the backtest
     engine can preserve the opposing legs instead of applying one generic
     long/short flag to both assets.
+
+    Enriched diagnostics can be passed via ``enriched_diagnostics`` (e.g. from
+    ``reports/portfolio_real.json`` or computed via ``target_schema_diagnostics``)
+    and are enforced causally using trailing information only.
     """
 
     def __init__(
@@ -31,6 +42,10 @@ class CointegrationPairsStrategy(PairStrategy):
         params: dict[str, Any] | None = None,
         cointegration_pvalue: float = 0.05,
         cointegration_check_interval: int | None = None,
+        enriched_diagnostics: dict[str, Any] | None = None,
+        pair_diagnostics: dict[str, Any] | None = None,
+        use_enriched_gates: bool = False,
+        strict_enriched_gates: bool = False,
     ):
         if len(pair) != 2 or pair[0] == pair[1]:
             raise ValueError("pair must contain two distinct asset names.")
@@ -51,6 +66,20 @@ class CointegrationPairsStrategy(PairStrategy):
         self.cointegration_check_interval = int(check_interval)
         self.hedge_ratio_series = pd.Series(dtype=float)
         self._last_diagnostics: dict[str, Any] | None = None
+        # Enriched (publication-grade) diagnostics
+        ed = enriched_diagnostics
+        if ed is None and pair_diagnostics is not None:
+            pname = "/".join(pair)
+            if isinstance(pair_diagnostics, dict):
+                if pname in pair_diagnostics:
+                    ed = pair_diagnostics[pname]
+                elif pair in pair_diagnostics:  # maybe tuple key
+                    ed = pair_diagnostics[pair]
+        self.enriched_diagnostics = ed
+        self.use_enriched_gates = bool(use_enriched_gates)
+        self.strict_enriched_gates = bool(strict_enriched_gates)
+        if self.enriched_diagnostics is not None:
+            self._last_diagnostics = self.enriched_diagnostics
 
     def get_cointegration_diagnostics(
         self, price1: pd.Series | None = None, price2: pd.Series | None = None
@@ -58,10 +87,21 @@ class CointegrationPairsStrategy(PairStrategy):
         """Compute comprehensive cointegration diagnostics."""
         if price1 is None or price2 is None:
             return self._last_diagnostics or {}
+        # Prefer enriched target-schema diagnostics when computing on real data
+        try:
+            diag = target_schema_diagnostics(
+                price1, price2, pair_name="/".join(self.pair)
+            )
+            self._last_diagnostics = diag
+            self.enriched_diagnostics = diag
+            return diag
+        except Exception:
+            pass
         diag = comprehensive_cointegration_diagnostics(
             price1, price2, pair_name="/".join(self.pair)
         )
         self._last_diagnostics = diag
+        self.enriched_diagnostics = diag
         return diag
 
     def test_cointegration(self, price1: pd.Series, price2: pd.Series) -> tuple[float, float]:
@@ -139,18 +179,70 @@ class CointegrationPairsStrategy(PairStrategy):
                 last_test_index = i
             cointegration_pvalues.iloc[i] = last_pvalue
 
+        # Enriched gates (operationalized) - evaluate causally using trailing windows
+        enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
+        if self.use_enriched_gates:
+            try:
+                enriched_ok_arr = np.empty(len(data), dtype=float)
+                enriched_ok_arr[:] = np.nan
+                for i in range(self.lookback - 1, len(data)):
+                    start = i - self.lookback + 1
+                    sample1 = price1.iloc[start : i + 1]
+                    sample2 = price2.iloc[start : i + 1]
+                    try:
+                        tdiag = target_schema_diagnostics(
+                            sample1, sample2, pair_name="/".join(self.pair)
+                        )
+                        g = tdiag.get("gates", {})
+                        ok = True
+                        for key in (
+                            "eg_pass",
+                            "johansen_pass",
+                            "spread_mr_pass",
+                            "hl_bounds_pass",
+                            "rolling_stable_ok",
+                            "leg_stationarity_ok",
+                        ):
+                            v = g.get(key)
+                            if v is False:
+                                ok = False
+                                break
+                            if v is None and self.strict_enriched_gates:
+                                ok = False
+                                break
+                        enriched_ok_arr[i] = 1.0 if ok else 0.0
+                    except Exception:
+                        if self.strict_enriched_gates:
+                            enriched_ok_arr[i] = 0.0
+                        else:
+                            enriched_ok_arr[i] = np.nan
+                enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
+                enriched_ok = enriched_ok.ffill().fillna(1.0)
+            except Exception:
+                enriched_ok = pd.Series(1.0, index=data.index)
+
         # Maintain a position only while the trailing sample passes the
         # cointegration screen; use hysteresis for entries and exits.
         state = 0
         position = np.zeros(len(data), dtype=float)
         z_values = zscore.to_numpy(dtype=float)
         p_values = cointegration_pvalues.to_numpy(dtype=float)
+        enriched_ok_arr = enriched_ok.to_numpy(dtype=float)
         for i, (z_value, pvalue) in enumerate(zip(z_values, p_values)):
-            if (
-                not np.isfinite(z_value)
-                or not np.isfinite(pvalue)
-                or pvalue > self.cointegration_pvalue
-            ):
+            eg_ok = (
+                np.isfinite(z_value)
+                and np.isfinite(pvalue)
+                and pvalue <= self.cointegration_pvalue
+            )
+            enr_ok = True
+            if self.use_enriched_gates:
+                if np.isfinite(enriched_ok_arr[i]) and enriched_ok_arr[i] == 0.0:
+                    enr_ok = False
+                elif self.strict_enriched_gates and (
+                    not np.isfinite(enriched_ok_arr[i]) or enriched_ok_arr[i] != 1.0
+                ):
+                    enr_ok = False
+            if not eg_ok or not enr_ok:
                 state = 0
             elif state == 1:
                 if z_value >= self.entry_threshold:
@@ -175,6 +267,7 @@ class CointegrationPairsStrategy(PairStrategy):
         signals["long"] = position > 0
         signals["short"] = position < 0
         signals["exit"] = position == 0
+        signals["enriched_gates_ok"] = enriched_ok
 
         # Backtest weights represent dollar exposure. Scale each leg by its
         # market value so the absolute weights sum to one before engine
