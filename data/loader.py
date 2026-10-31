@@ -146,86 +146,97 @@ class DataLoader:
 
             symbol_attempts: list[dict[str, Any]] = []
             success = False
+            last_error = "all_hosts_unavailable"
             for attempt in range(1, retries + 1):
-                cursor_ms = start_ms
                 candles: list[tuple[int, float]] = []
                 attempt_ok = False
                 for host in _binance_hosts:
                     if host in self.last_fetch_provenance["blocked_hosts"]:
                         continue
-                    query = urlencode(
-                        {
-                            "symbol": market_symbol,
-                            "interval": interval,
-                            "startTime": cursor_ms,
-                            "endTime": end_ms,
-                            "limit": 1000,
-                        }
-                    )
-                    url = f"{host}/api/v3/klines?{query}"
-                    t0 = time.monotonic()
-                    try:
-                        with urlopen(url, timeout=timeout) as response:
-                            payload = json.loads(response.read().decode("utf-8"))
-                        latency_ms = int((time.monotonic() - t0) * 1000)
-                        if not isinstance(payload, list):
-                            raise RuntimeError(
-                                f"unexpected payload type: {type(payload).__name__}"
-                            )
-                        symbol_attempts.append(
+                    # Paginate fully on this host before moving to the next.
+                    # A 1000-bar page does not mean the window is done; the
+                    # cursor must advance or the remaining hosts are tried.
+                    cursor_ms = start_ms
+                    host_ok = True
+                    while cursor_ms <= end_ms:
+                        query = urlencode(
                             {
-                                "attempt": attempt,
-                                "host": host,
-                                "endpoint": "/api/v3/klines",
-                                "success": True,
-                                "latency_ms": latency_ms,
-                                "bars": len(payload),
+                                "symbol": market_symbol,
+                                "interval": interval,
+                                "startTime": cursor_ms,
+                                "endTime": end_ms,
+                                "limit": 1000,
                             }
                         )
-                        if not payload:
-                            attempt_ok = True
-                            break
-                        for candle in payload:
-                            open_ms = int(candle[0])
-                            if start_ms <= open_ms <= end_ms:
-                                candles.append((open_ms, float(candle[4])))
-                        last_open_ms = int(payload[-1][0])
-                        if len(payload) < 1000 or last_open_ms >= end_ms:
-                            attempt_ok = True
-                            break
-                        next_cursor = last_open_ms + 1
-                        if next_cursor <= cursor_ms:
-                            raise RuntimeError(
-                                f"Binance pagination stalled for {market_symbol} at {cursor_ms}."
+                        url = f"{host}/api/v3/klines?{query}"
+                        t0 = time.monotonic()
+                        try:
+                            with urlopen(url, timeout=timeout) as response:
+                                payload = json.loads(response.read().decode("utf-8"))
+                            latency_ms = int((time.monotonic() - t0) * 1000)
+                            if not isinstance(payload, list):
+                                raise RuntimeError(
+                                    f"unexpected payload type: {type(payload).__name__}"
+                                )
+                            symbol_attempts.append(
+                                {
+                                    "attempt": attempt,
+                                    "host": host,
+                                    "endpoint": "/api/v3/klines",
+                                    "success": True,
+                                    "latency_ms": latency_ms,
+                                    "bars": len(payload),
+                                    "cursor_ms": cursor_ms,
+                                }
                             )
-                        cursor_ms = next_cursor
-                    except (HTTPError, URLError, TimeoutError, OSError, RuntimeError) as exc:
-                        latency_ms = int((time.monotonic() - t0) * 1000)
-                        err = str(exc)[:120]
-                        symbol_attempts.append(
-                            {
-                                "attempt": attempt,
-                                "host": host,
-                                "endpoint": "/api/v3/klines",
-                                "success": False,
-                                "error": err,
-                                "latency_ms": latency_ms,
-                            }
-                        )
-                        blocked = err.startswith("HTTP Error ") and any(
-                            code in err for code in ("451", "403", "404")
-                        )
-                        if blocked:
-                            self.last_fetch_provenance["blocked_hosts"].append(host)
-                        continue
-                if attempt_ok:
-                    success = True
+                            if not payload:
+                                attempt_ok = True
+                                break
+                            for candle in payload:
+                                open_ms = int(candle[0])
+                                if start_ms <= open_ms <= end_ms:
+                                    candles.append((open_ms, float(candle[4])))
+                            last_open_ms = int(payload[-1][0])
+                            if len(payload) < 1000 or last_open_ms >= end_ms:
+                                attempt_ok = True
+                                break
+                            next_cursor = last_open_ms + 1
+                            if next_cursor <= cursor_ms:
+                                raise RuntimeError(
+                                    f"Binance pagination stalled for {market_symbol}."
+                                )
+                            cursor_ms = next_cursor
+                        except (HTTPError, URLError, TimeoutError, OSError, RuntimeError) as exc:
+                            latency_ms = int((time.monotonic() - t0) * 1000)
+                            err = str(exc)[:120]
+                            symbol_attempts.append(
+                                {
+                                    "attempt": attempt,
+                                    "host": host,
+                                    "endpoint": "/api/v3/klines",
+                                    "success": False,
+                                    "error": err,
+                                    "latency_ms": latency_ms,
+                                    "cursor_ms": cursor_ms,
+                                }
+                            )
+                            blocked = err.startswith("HTTP Error ") and any(
+                                code in err for code in ("451", "403", "404")
+                            )
+                            if blocked:
+                                self.last_fetch_provenance["blocked_hosts"].append(host)
+                            host_ok = False
+                            last_error = err
+                            break
+                    if host_ok and candles:
+                        success = True
+                        break
+                    if attempt_ok:
+                        # Host returned a complete (possibly empty) window.
+                        success = True
+                        break
+                if success:
                     break
-                last_error = (
-                    symbol_attempts[-1]["error"]
-                    if symbol_attempts and not symbol_attempts[-1]["success"]
-                    else "all_hosts_unavailable"
-                )
                 if attempt < retries:
                     time.sleep(min(30.0, backoff_seconds * attempt))
 

@@ -220,10 +220,9 @@ class CointegrationPairsStrategy(PairStrategy):
                         # Structural break discipline: flag as problematic if breaks are flagged
                         try:
                             if isinstance(sb, dict) and sb.get("flagged") is True:
-                                # Be strict but honest; in non-strict mode still consider as adverse
+                                # Be strict but honest; non-strict penalizes too
                                 if self.strict_enriched_gates:
                                     ok = False
-                                # In non-strict mode, still penalize by failing gate to enforce discipline
                                 else:
                                     ok = False
                         except Exception:
