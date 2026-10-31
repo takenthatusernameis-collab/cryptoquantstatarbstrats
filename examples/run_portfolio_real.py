@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -498,7 +499,7 @@ def main() -> None:
                     replay_best=True,
                     show_progress=False,
                     parallel=len(_pairs_to_screen) > 1,
-                    max_workers=min(4, len(_pairs_to_screen)),
+                    max_workers=min(4, os.cpu_count() or 1),
                 )
                 if not rows:
                     continue
@@ -1200,11 +1201,11 @@ def main() -> None:
     try:
         oos_rets = port_rets[1:] if len(port_rets) > 1 else port_rets
         bres = bootstrap_trade_returns(
-            oos_rets, n_simulations=2000, method="bootstrap", seed=12345, compute_risk_of_ruin=True
+            oos_rets, n_simulations=3000, method="bootstrap", seed=12345, compute_risk_of_ruin=True
         )
         bootstrap_ci = {
             "method": "bootstrap",
-            "n_simulations": 2000,
+            "n_simulations": 3000,
             "seed": 12345,
             "oos_period_returns": {"count": int(len(oos_rets))},
             "final_equity": bres.get("final_equity"),
@@ -1251,19 +1252,20 @@ def main() -> None:
                         w_tf_b.shift(1).fillna(0.0)
                         * data_tf_b.pct_change().fillna(0.0)[SYMBOLS].fillna(0.0)
                     ).sum(axis=1)
+                    oos_rets_tf = pr_tf[1:] if len(pr_tf) > 1 else pr_tf
                     bres_tf = bootstrap_trade_returns(
-                        pr_tf[1:] if len(pr_tf) > 1 else pr_tf,
-                        n_simulations=2000,
+                        oos_rets_tf,
+                        n_simulations=3000,
                         method="bootstrap",
-                        seed=12345 + (hash(tf) % 10000),
-                        compute_risk_of_ruin=False,
+                        seed=12345 + hash(tf) % 1000,
+                        compute_risk_of_ruin=True,
                     )
                     fe_tf = np.array(bres_tf.get("final_equities", []))
                     rets_tf = fe_tf - 1.0 if len(fe_tf) > 0 else np.array([0.0])
                     sh_tf = np.array(bres_tf.get("sharpes", []))
                     mdd_tf = np.array(bres_tf.get("max_drawdowns", []))
                     bootstrap_ci["per_timeframe"][tf] = {
-                        "n_simulations": 2000,
+                        "n_simulations": 3000,
                         "ci95_total_return": [
                             float(np.percentile(rets_tf, 2.5)),
                             float(np.percentile(rets_tf, 97.5)),
@@ -1294,13 +1296,12 @@ def main() -> None:
         try:
             _turn = float(turnover_series.mean()) if len(turnover_series) > 0 else 0.0
             _cost_per_period = _turn * (0.001 + 0.0005)
-            oos_net = oos_rets - _cost_per_period
             bres_net = bootstrap_trade_returns(
-                oos_net,
-                n_simulations=2000,
+                oos_rets - _cost_per_period,
+                n_simulations=3000,
                 method="bootstrap",
-                seed=12346,
-                compute_risk_of_ruin=False,
+                seed=54321,
+                compute_risk_of_ruin=True,
             )
             fe_net = np.array(bres_net.get("final_equities", []))
             rets_net = fe_net - 1.0 if len(fe_net) > 0 else np.array([0.0])
@@ -1462,6 +1463,7 @@ def main() -> None:
         "cointegration_diagnostics": pair_diagnostics,
         "parameter_stability": parameter_stability,
         "tail_risk": tail_risk,
+        "blocked_routes": volume_aware_execution.get("blocked_routes", []),
     }
 
     out_path = Path(__file__).resolve().parent.parent / "reports" / "portfolio_real.json"
