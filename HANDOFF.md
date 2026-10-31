@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T05:29:51Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
+# DURABLE HANDOFF (2026-10-31T06:23:05Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,21 +7,22 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T05:29:51Z
-- **Branch:** `main` (clean), up to date with `origin/main`.
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T06:23:05Z
+- **Branch:** `main` (clean), up to date with `origin/main`. Working tree clean.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped**
 - **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 32 source files.**
 - **Artifact:** `reports/portfolio_real.json` exists (real-only). Current schema is hardened but missing some fields the campaign requires (see below). Preserve provenance.
+- **Campaign start:** Phase 4b cointegration rigor has NOT started — no code changes since last checkpoint. Next session begins the campaign immediately.
 
 ## BOTTLENECKS TO ELIMINATE (ACTIVE)
-- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate.
-- **SERIAL SWEEPS:** Pairwise parameter sweeps are sequential in places. Parallelize with bounded concurrency (ProcessPoolExecutor) while keeping deterministic ordering and checkpointing.
+- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate. Run network-independent tests; skip live fetch if still blocked.
+- **SERIAL SWEEPS:** Pairwise parameter sweeps are sequential in places. Parallelize with bounded concurrency (ProcessPoolExecutor, max_workers=min(4, os.cpu_count())) while keeping deterministic ordering and checkpointing.
 - **DATA QUALITY GATES:** Insufficient overlap/gaps/dupes/NaNs → **EXCLUDE** with full rationale + attempt log. No interpolation/backfill/fabrication.
-- **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance.
+- **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance. Unbuffered logging everywhere (`python -u`, `flush=True`).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T05:29:51Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:23:05Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
