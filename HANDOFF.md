@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T17:07:45Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T17:09:15Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -7,7 +7,7 @@
 - **NETWORK (unblocked via www.binance.com).** `api.binance.com` (and `api1/2/3`, `fapi.binance.com`) returns HTTP 451 and is never relied upon as a primary path. The loader's host chain tries `www.binance.com` first. Where a series still cannot be reconstructed, mark `status: "blocked_or_insufficient_data"`, populate `blocked_routes[]`, add detailed rationale + full provenance, and MOVE ON. Never fabricate.
 - **Coasting = failure.** Every action must produce checkable artifacts, tests, provenance, and logs. No speculative "maybe later" without concrete next steps.
 
-## CURRENT VERIFIED STATE (2026-10-31T17:07:45Z)
+## CURRENT VERIFIED STATE (2026-10-31T17:09:15Z)
 - Branch: `main` (clean). Working tree clean.
 - **GREEN BASELINE (must remain):** `ruff check backtest/ strategies/ utils/ tests/ examples/` → all checks passed | `pytest tests/ -q` → **546 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → Success, no issues found.
 - Artifact: `reports/portfolio_real.json` (`real_data_only: true`, `fabricated_data: false`, `n_bars: 5112`).
