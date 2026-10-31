@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from strategies.base import PairStrategy
+from utils.cointegration import comprehensive_cointegration_diagnostics
 
 
 class CointegrationPairsStrategy(PairStrategy):
@@ -51,6 +52,15 @@ class CointegrationPairsStrategy(PairStrategy):
         self.cointegration_pvalue = float(cointegration_pvalue)
         self.cointegration_check_interval = int(check_interval)
         self.hedge_ratio_series = pd.Series(dtype=float)
+        self._last_diagnostics: dict[str, Any] | None = None
+
+    def get_cointegration_diagnostics(self, price1: pd.Series | None = None, price2: pd.Series | None = None) -> dict[str, Any]:
+        """Compute comprehensive cointegration diagnostics."""
+        if price1 is None or price2 is None:
+            return self._last_diagnostics or {}
+        diag = comprehensive_cointegration_diagnostics(price1, price2, pair_name="/".join(self.pair))
+        self._last_diagnostics = diag
+        return diag
 
     def test_cointegration(
         self, price1: pd.Series, price2: pd.Series
