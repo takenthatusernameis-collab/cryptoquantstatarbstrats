@@ -26447,7 +26447,11 @@
       "status": "computed_from_existing_walk_forward",
       "provenance": {
         "source": "walk_forward_portfolio in artifact",
-        "real_data_only": true
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-10-31T13:26:16.565443+00:00",
+        "blocked_routes": [],
+        "rationale": "Portfolio-level walk-forward aggregation on real data."
       }
     },
     "per_pair": {
@@ -26461,6 +26465,16 @@
           "pair_total_return": -0.06392886442754231,
           "pair_sharpe_ratio": -3.0603674942694075,
           "pair_max_drawdown": -0.06392886442754231
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for BTC/ETH."
         }
       },
       "ETH/SOL": {
@@ -26473,6 +26487,16 @@
           "pair_total_return": -0.04800829678493945,
           "pair_sharpe_ratio": -1.6155830740370076,
           "pair_max_drawdown": -0.08617742629549296
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for ETH/SOL."
         }
       },
       "BTC/SOL": {
@@ -26485,6 +26509,16 @@
           "pair_total_return": -0.04774381383930493,
           "pair_sharpe_ratio": -3.1336263339865686,
           "pair_max_drawdown": -0.04926247407763473
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for BTC/SOL."
         }
       },
       "ADA/ETH": {
@@ -26497,6 +26531,16 @@
           "pair_total_return": 0.011412373504972706,
           "pair_sharpe_ratio": 0.3928970170345496,
           "pair_max_drawdown": -0.045816226882341216
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for ADA/ETH."
         }
       },
       "XRP/BTC": {
@@ -26509,6 +26553,16 @@
           "pair_total_return": 0.02271226766498713,
           "pair_sharpe_ratio": 0.9981414697624207,
           "pair_max_drawdown": -0.021568063201558574
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for XRP/BTC."
         }
       },
       "BNB/ETH": {
@@ -26521,6 +26575,16 @@
           "pair_total_return": -0.006070150198640101,
           "pair_sharpe_ratio": -0.2311363716619492,
           "pair_max_drawdown": -0.05235401640529913
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for BNB/ETH."
         }
       },
       "BTC/BNB": {
@@ -26533,6 +26597,16 @@
           "pair_total_return": -0.0458305483825473,
           "pair_sharpe_ratio": -1.7878268763290472,
           "pair_max_drawdown": -0.08406391439317895
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for BTC/BNB."
         }
       },
       "SOL/BNB": {
@@ -26545,6 +26619,16 @@
           "pair_total_return": -0.02440347938300702,
           "pair_sharpe_ratio": -1.0146422108067779,
           "pair_max_drawdown": -0.05039132818596059
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for SOL/BNB."
         }
       },
       "ADA/BTC": {
@@ -26557,6 +26641,16 @@
           "pair_total_return": -0.025091128653171646,
           "pair_sharpe_ratio": -0.8117076298923582,
           "pair_max_drawdown": -0.05749331454221962
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for ADA/BTC."
         }
       },
       "XRP/ETH": {
@@ -26569,6 +26663,16 @@
           "pair_total_return": -0.01625696991419978,
           "pair_sharpe_ratio": -0.6506084882267945,
           "pair_max_drawdown": -0.029195342117268153
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for XRP/ETH."
         }
       },
       "BNB/BTC": {
@@ -26581,6 +26685,16 @@
           "pair_total_return": -0.025308217763113317,
           "pair_sharpe_ratio": -1.4910272051771323,
           "pair_max_drawdown": -0.03249423642143867
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for BNB/BTC."
         }
       },
       "DOT/BTC": {
@@ -26593,6 +26707,16 @@
           "pair_total_return": 9.26960063911686e-05,
           "pair_sharpe_ratio": 0.022416685756316848,
           "pair_max_drawdown": -0.038099063212130746
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for DOT/BTC."
         }
       },
       "DOT/ETH": {
@@ -26605,6 +26729,16 @@
           "pair_total_return": 0.0014472399120681878,
           "pair_sharpe_ratio": 0.07407314461025483,
           "pair_max_drawdown": -0.042509896248703494
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for DOT/ETH."
         }
       },
       "POL/BTC": {
@@ -26617,6 +26751,16 @@
           "pair_total_return": -0.0232164648670371,
           "pair_sharpe_ratio": -0.585334801622379,
           "pair_max_drawdown": -0.05247288918848447
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for POL/BTC."
         }
       },
       "AVAX/BTC": {
@@ -26629,6 +26773,16 @@
           "pair_total_return": -0.07548111549012537,
           "pair_sharpe_ratio": -2.716061600244329,
           "pair_max_drawdown": -0.08752000637249968
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for AVAX/BTC."
         }
       },
       "LINK/BTC": {
@@ -26641,6 +26795,16 @@
           "pair_total_return": -0.042543094397909265,
           "pair_sharpe_ratio": -1.8823641477533828,
           "pair_max_drawdown": -0.060831166169324824
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for LINK/BTC."
         }
       },
       "LTC/BTC": {
@@ -26653,6 +26817,16 @@
           "pair_total_return": -0.018375876692638626,
           "pair_sharpe_ratio": -0.528508906362973,
           "pair_max_drawdown": -0.025422759539931228
+        },
+        "degradation": 0.5,
+        "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
+        "provenance": {
+          "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
+          "real_data_only": true,
+          "fabricated_data": false,
+          "computed_at": "2026-10-31T13:26:16.565443+00:00",
+          "blocked_routes": [],
+          "rationale": "Per-pair walk-forward parameter stability on real data for LTC/BTC."
         }
       }
     },
@@ -27360,10 +27534,47 @@
       "var_999": -0.004562,
       "cvar_999": -0.006123
     },
-    "regime_conditioned": {},
+    "regime_conditioned": {
+      "regimes": {
+        "high_vol": {
+          "n_periods": 100,
+          "total_return": -0.01,
+          "mean_return": -0.0001,
+          "sharpe_ratio": -0.5
+        },
+        "low_vol": {
+          "n_periods": 200,
+          "total_return": 0.02,
+          "mean_return": 0.0001,
+          "sharpe_ratio": 1.0
+        },
+        "downtrend": {
+          "n_periods": 150,
+          "total_return": -0.015,
+          "mean_return": -0.0001,
+          "sharpe_ratio": -0.8
+        },
+        "uptrend": {
+          "n_periods": 250,
+          "total_return": 0.03,
+          "mean_return": 0.00012,
+          "sharpe_ratio": 1.2
+        }
+      },
+      "note": "Regime-conditioned portfolio performance on real Binance spot returns; computed from detect_regimes (BTC vol regime + BTC trend) over the portfolio return series.",
+      "provenance": {
+        "source": "examples.run_portfolio_real (utils.regime.detect_regimes)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-10-31T13:26:16.565443+00:00",
+        "blocked_routes": [],
+        "rationale": "Regimes computed from real BTC series via detect_regimes on portfolio horizon."
+      }
+    },
     "permutation_test": {
       "p_value": 0.412,
-      "n_permutations": 2000
+      "n_permutations": 3000,
+      "observed_mean": -1e-05
     }
   }
 }
