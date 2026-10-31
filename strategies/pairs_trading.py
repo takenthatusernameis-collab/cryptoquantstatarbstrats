@@ -274,9 +274,18 @@ class CointegrationPairsStrategy(PairStrategy):
                             else:
                                 enriched_ok_arr[i] = np.nan
                     enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
-                    enriched_ok = enriched_ok.ffill().fillna(1.0)
+                    # Fail closed under strict mode: never promote missing/
+                    # failed per-bar diagnostics into an "ok" signal.
+                    fill_val = 0.0 if self.strict_enriched_gates else 1.0
+                    enriched_ok = enriched_ok.ffill().fillna(fill_val)
             except Exception:
-                enriched_ok = pd.Series(1.0, index=data.index)
+                # Fail closed under strict mode; non-strict treats an
+                # unexpected error as permissive (documented fallback).
+                enriched_ok = pd.Series(
+                    1.0 if not self.strict_enriched_gates else 0.0,
+                    index=data.index,
+                    dtype=float,
+                )
 
         # Maintain a position only while the trailing sample passes the
         # cointegration screen; use hysteresis for entries and exits.

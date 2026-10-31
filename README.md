@@ -46,7 +46,11 @@ series when they are missing.
   bounds (1<hl<500), rolling stability, structural break discipline, and leg
   stationarity using trailing data only. Gates can be supplied via
   `enriched_diagnostics`/`pair_diagnostics` and are applied causally; failures
-  are never fabricated.
+  are never fabricated. `CointegrationPairsStrategy` defaults to
+  `strict_enriched_gates=True` (fail-closed): when `use_enriched_gates=True`,
+  any missing/None/false gate value blocks entries, and the per-bar fallback
+  path also fails closed under strict mode. Set `strict_enriched_gates=False`
+  explicitly to relax missing values to permissive (documented, non-default).
 - The default price loader is a free public data source, but this project is
   still a research framework. A successful backtest or passing unit tests do
   not establish a profitable strategy. Validate unseen periods, transaction

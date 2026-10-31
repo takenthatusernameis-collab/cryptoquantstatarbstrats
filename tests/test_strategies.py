@@ -455,3 +455,150 @@ def test_enriched_gates_structural_break_flagged_blocks():
     sig = strat.generate_signals(df)
     assert not sig["long"].any()
     assert not sig["short"].any()
+
+
+def test_enriched_gates_strict_default_is_true():
+    """strict_enriched_gates must default to True (fail closed)."""
+    strat = CointegrationPairsStrategy(("BTC", "ETH"))
+    assert strat.strict_enriched_gates is True
+    strat_relaxed = CointegrationPairsStrategy(
+        ("BTC", "ETH"), strict_enriched_gates=False
+    )
+    assert strat_relaxed.strict_enriched_gates is False
+
+
+def test_enriched_gates_non_strict_missing_does_not_block(monkeypatch):
+    """Non-strict mode treats missing diagnostics as permissive (documented)."""
+    df = make_data(n=200)
+    ed = {"gates": {}, "structural_breaks": {}}
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=False,
+    )
+    sig = strat.generate_signals(df)
+    # Non-strict: missing gate values do not block; entries follow z-score only.
+    assert sig["enriched_gates_ok"].eq(1.0).all()
+
+
+def test_enriched_gates_fallback_path_is_fail_closed_strict(monkeypatch):
+    """When no cached diagnostics exist, the per-bar fallback must fail closed
+    under strict mode. Uses fabricated diagnostics explicitly flagged."""
+    import strategies.pairs_trading as pt
+
+    df = make_data(n=200)
+
+    def fake_target_schema(p1, p2, pair_name=""):
+        # fabricated_data: true - isolated unit test only
+        return {
+            "gates": {
+                "eg_pass": False,
+                "johansen_pass": True,
+                "spread_mr_pass": True,
+                "hl_bounds_pass": True,
+                "rolling_stable_ok": True,
+                "leg_stationarity_ok": True,
+            },
+            "structural_breaks": {"flagged": False},
+            "provenance": {"fabricated_data": True},
+        }
+
+    monkeypatch.setattr(pt, "target_schema_diagnostics", fake_target_schema)
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        cointegration_check_interval=15,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_fallback_path_non_strict_propagates_failure(monkeypatch):
+    """Non-strict fallback must not promote a failing per-bar gate to ok."""
+    import strategies.pairs_trading as pt
+
+    df = make_data(n=200)
+
+    def fake_target_schema(p1, p2, pair_name=""):
+        # fabricated_data: true - isolated unit test only
+        return {
+            "gates": {
+                "eg_pass": False,
+                "johansen_pass": True,
+                "spread_mr_pass": True,
+                "hl_bounds_pass": True,
+                "rolling_stable_ok": True,
+                "leg_stationarity_ok": True,
+            },
+            "structural_breaks": {"flagged": False},
+            "provenance": {"fabricated_data": True},
+        }
+
+    monkeypatch.setattr(pt, "target_schema_diagnostics", fake_target_schema)
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        cointegration_check_interval=15,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=False,
+    )
+    sig = strat.generate_signals(df)
+    # Non-strict fallback: missing (NaN) values are filled permissive (1.0)
+    # until the first real diagnostic, but explicit gate failures remain 0.0
+    # and block entries once computed.
+    computed = sig["enriched_gates_ok"].iloc[30:]
+    assert (computed == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_partial_cached_gates_strict_blocks(monkeypatch):
+    """A cached diagnostics dict missing some gate keys blocks under strict."""
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            # leg_stationarity_ok intentionally absent
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_use_enriched_false_ignores_diagnostics():
+    """use_enriched_gates=False must leave gates inert (z-score only)."""
+    df = make_data(n=200)
+    ed = {
+        "gates": {"eg_pass": False},
+        "structural_breaks": {"flagged": True},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=False,
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 1.0).all()
