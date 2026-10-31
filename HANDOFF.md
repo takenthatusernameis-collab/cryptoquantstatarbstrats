@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T01:23:40Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - UNIVERSE EXPANSION + PRODUCTION HARDENING
+# DURABLE HANDOFF (2026-10-31T01:25:02Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - UNIVERSE EXPANSION + PRODUCTION HARDENING
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -22,7 +22,7 @@
 - **Observability:** Per-pair/per-symbol/per-TF/per-split logs (bars/ranges/gaps/NaNs/dupes). Structured file+console logs.
 - **Regression discipline:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T01:23:40Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T01:25:02Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST.**
 
