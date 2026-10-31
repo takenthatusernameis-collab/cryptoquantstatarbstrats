@@ -185,57 +185,95 @@ class CointegrationPairsStrategy(PairStrategy):
                 last_test_index = i
             cointegration_pvalues.iloc[i] = last_pvalue
 
-        # Enriched gates (operationalized) - evaluate causally using trailing windows only
+        # Enriched gates (operationalized) - use pre-computed publication-grade
+        # diagnostics from self.enriched_diagnostics when available; never
+        # recompute expensive per-bar diagnostics. Falls back to per-bar
+        # target_schema_diagnostics only when no cached diagnostics are provided.
         enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
         if self.use_enriched_gates:
             try:
-                enriched_ok_arr = np.empty(len(data), dtype=float)
-                enriched_ok_arr[:] = np.nan
-                for i in range(self.lookback - 1, len(data)):
-                    start = i - self.lookback + 1
-                    sample1 = price1.iloc[start : i + 1]
-                    sample2 = price2.iloc[start : i + 1]
-                    try:
-                        tdiag = target_schema_diagnostics(
-                            sample1, sample2, pair_name="/".join(self.pair)
-                        )
-                        g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
-                        sb = tdiag.get("structural_breaks", {}) if isinstance(tdiag, dict) else {}
+                if self.enriched_diagnostics is not None:
+                    ed = self.enriched_diagnostics
+                    if isinstance(ed, dict):
+                        gates = ed.get("gates", {})
+                        sb = ed.get("structural_breaks", {})
                         ok = True
-                        for key in (
-                            "eg_pass",
-                            "johansen_pass",
-                            "spread_mr_pass",
-                            "hl_bounds_pass",
-                            "rolling_stable_ok",
-                            "leg_stationarity_ok",
-                        ):
-                            v = g.get(key)
-                            if v is False:
-                                ok = False
-                                break
-                            if v is None and self.strict_enriched_gates:
-                                ok = False
-                                break
-                        # Structural break discipline: flag as problematic if breaks are flagged
-                        try:
-                            if isinstance(sb, dict) and sb.get("flagged") is True:
-                                # Be strict but honest; non-strict penalizes too
-                                if self.strict_enriched_gates:
+                        if not isinstance(gates, dict):
+                            ok = False
+                        else:
+                            for key in (
+                                "eg_pass",
+                                "johansen_pass",
+                                "spread_mr_pass",
+                                "hl_bounds_pass",
+                                "rolling_stable_ok",
+                                "leg_stationarity_ok",
+                            ):
+                                v = gates.get(key)
+                                if v is False:
                                     ok = False
-                                else:
+                                    break
+                                if v is None and self.strict_enriched_gates:
                                     ok = False
-                        except Exception:
+                                    break
+                        if ok and isinstance(sb, dict) and sb.get("flagged") is True:
                             if self.strict_enriched_gates:
                                 ok = False
-                        enriched_ok_arr[i] = 1.0 if ok else 0.0
-                    except Exception:
-                        if self.strict_enriched_gates:
-                            enriched_ok_arr[i] = 0.0
-                        else:
-                            enriched_ok_arr[i] = np.nan
-                enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
-                enriched_ok = enriched_ok.ffill().fillna(1.0)
+                            else:
+                                ok = False
+                        enriched_ok = pd.Series(
+                            1.0 if ok else 0.0, index=data.index, dtype=float
+                        )
+                else:
+                    enriched_ok_arr = np.empty(len(data), dtype=float)
+                    enriched_ok_arr[:] = np.nan
+                    for i in range(self.lookback - 1, len(data)):
+                        start = i - self.lookback + 1
+                        sample1 = price1.iloc[start : i + 1]
+                        sample2 = price2.iloc[start : i + 1]
+                        try:
+                            tdiag = target_schema_diagnostics(
+                                sample1, sample2, pair_name="/".join(self.pair)
+                            )
+                            g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
+                            sb = (
+                                tdiag.get("structural_breaks", {})
+                                if isinstance(tdiag, dict)
+                                else {}
+                            )
+                            ok = True
+                            for key in (
+                                "eg_pass",
+                                "johansen_pass",
+                                "spread_mr_pass",
+                                "hl_bounds_pass",
+                                "rolling_stable_ok",
+                                "leg_stationarity_ok",
+                            ):
+                                v = g.get(key)
+                                if v is False:
+                                    ok = False
+                                    break
+                                if v is None and self.strict_enriched_gates:
+                                    ok = False
+                                    break
+                            try:
+                                if isinstance(sb, dict) and sb.get("flagged") is True:
+                                    if self.strict_enriched_gates:
+                                        ok = False
+                                    else:
+                                        ok = False
+                            except Exception:
+                                if self.strict_enriched_gates:
+                                    ok = False
+                            enriched_ok_arr[i] = 1.0 if ok else 0.0
+                        except Exception:
+                            if self.strict_enriched_gates:
+                                enriched_ok_arr[i] = 0.0
+                            else:
+                                enriched_ok_arr[i] = np.nan
+                    enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
+                    enriched_ok = enriched_ok.ffill().fillna(1.0)
             except Exception:
                 enriched_ok = pd.Series(1.0, index=data.index)
 
