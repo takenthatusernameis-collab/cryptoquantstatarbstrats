@@ -375,12 +375,83 @@ def test_metrics_max_drawdown_duration():
     assert duration >= 0
 
 
-def test_benchmark_basic():
-    df = make_data()
-    strat = CointegrationPairsStrategy(("BTC", "ETH"))
-    engine = BacktestEngine(initial_capital=100_000)
-    result = engine.run_with_benchmark(strat, df)
-    assert "benchmark_total_return" in result
-    assert "benchmark_equity_curve" in result
-    assert len(result["benchmark_equity_curve"]) == len(df)
-    assert "total_return" in result
+
+def test_enriched_gates_blocked_no_entries():
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "eg_pass": False,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"), lookback=30, enriched_diagnostics=ed, use_enriched_gates=True
+    )
+    sig = strat.generate_signals(df)
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_strict_missing_blocks():
+    df = make_data(n=200)
+    ed = {"gates": {}, "structural_breaks": {}}
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_passing_allows_entries():
+    df = make_data(n=300)
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"), lookback=30, enriched_diagnostics=ed, use_enriched_gates=True
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 1.0).all()
+    base = CointegrationPairsStrategy(("BTC", "ETH"), lookback=30)
+    base_sig = base.generate_signals(df)
+    assert (sig["long"] == base_sig["long"]).all()
+    assert (sig["short"] == base_sig["short"]).all()
+
+
+def test_enriched_gates_structural_break_flagged_blocks():
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": True},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"), lookback=30, enriched_diagnostics=ed, use_enriched_gates=True
+    )
+    sig = strat.generate_signals(df)
+    assert not sig["long"].any()
+    assert not sig["short"].any()

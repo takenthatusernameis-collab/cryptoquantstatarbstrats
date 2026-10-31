@@ -552,7 +552,8 @@ def main() -> None:
                 **pparams,
                 enriched_diagnostics=ed if isinstance(ed, dict) and "gates" in ed else None,
                 use_enriched_gates=True,
-                strict_enriched_gates=False,
+                 strict_enriched_gates=True,
+
             )
             signals = strat.generate_signals(data)
             w = pd.DataFrame(0.0, index=data.index, columns=SYMBOLS)
