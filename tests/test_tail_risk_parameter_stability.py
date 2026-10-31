@@ -84,14 +84,14 @@ def test_parameter_stability_per_pair_provenance_and_degradation():
     data = _artifact()
     ps = data.get("parameter_stability", {})
     assert isinstance(ps, dict)
-    per_pair = ps.get("per_pair", {})
+    # Artifact stores pairs directly at top level with portfolio_level at the end
+    per_pair = {k: v for k, v in ps.items() if k != "portfolio_level"}
     assert isinstance(per_pair, dict)
     expected = {f"{a}/{b}" for a, b in PAIRS}
     assert set(per_pair.keys()) == expected, set(per_pair.keys())
     for pname, entry in per_pair.items():
         assert isinstance(entry, dict), f"{pname}: per_pair entry not a dict"
-        assert "top_params" in entry, f"{pname}: missing top_params"
-        assert "pair_metrics" in entry, f"{pname}: missing pair_metrics"
+        assert "selected_params" in entry, f"{pname}: missing selected_params"
         prov = entry.get("provenance", {})
         for k in PROVENANCE_KEYS:
             assert k in prov, f"{pname}: provenance missing {k}"
