@@ -1,8 +1,8 @@
-# DURABLE HANDOFF (2026-10-31T06:36:44Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
+# DURABLE HANDOFF (2026-10-31T07:24:18Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4c)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
-- **CORE PRIORITY (from repo name):** Crypto + Quant + Statistical Arbitrage. **Cointegration/pairs trading is THE CORE.** Everything must serve real-data cointegration rigor, falsifiability, cost-robustness, and regime-awareness over optics.
+- **CORE PRIORITY (from repo name):** Crypto + Quant + Statistical Arbitrage. **Cointegration/pairs trading is THE CORE.** Everything must serve real-data cointegration rigor, falsifiability, cost-robustness, and regime-awareness.
 - **MANDATE:** **REAL DATA ONLY** (Binance public REST). Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true` warnings. No silent fabrication.
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
@@ -12,27 +12,24 @@
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped**
 - **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 32 source files.**
-- **Artifact:** `reports/portfolio_real.json` exists (real-only, `real_data_only: true`, `fabricated_data: false`). Schema coverage:
-  - PRESENT: universe_changes, exclusions_with_rationale, multi_timeframe_walk_forward, volume_aware_execution, bootstrap_ci_portfolio_oos (n_simulations=2000, seed logged), walk_forward_portfolio, correlation_matrix, cost_stress_slices, regime_conditioned_performance, risk_metrics, circuit_breaker_test, funding_basis.
-  - MISSING (campaign requires): `cointegration_diagnostics`, `parameter_stability`, `tail_risk` (VaR/CVaR/CDaR at 95%/99%/99.9%), `blocked_routes`. Bootstrap must be raised to >=3000 sims (currently 2000).
-- **Cointegration module:** `utils/cointegration.py` already implements ADF/KPSS/Engle-Granger/Johansen/rolling-stability/half-life/Hurst/structural-break/comprehensive-diagnostics with gates; `strategies/pairs_trading.py` consumes it. Phase 4b = audit/harden these gates, extend the universe, and enrich the artifact — NOT starting from scratch.
-- **Network:** Binance public REST returns **451** (blocked). Live fetch unavailable. Log host/endpoint/status/latency_ms/error per attempt; bounded exponential backoff; do NOT spam retries. Preserve committed artifact; never fabricate. Run network-independent tests; skip live fetch if still blocked.
+- **Artifact:** `reports/portfolio_real.json` (real-only). Missing required blocks: `cointegration_diagnostics`, `parameter_stability`, `tail_risk`, `blocked_routes`. `bootstrap_ci_portfolio_oos.n_simulations` = 2000 (need >=3000).
+- **Modules:** `utils/cointegration.py`, `strategies/pairs_trading.py` exist (audit/harden, not rewrite).
+- **Network:** Binance public REST returns **451** (blocked). Log all attempts; bounded backoff; preserve artifact; never fabricate.
 
-## BOTTLENECKS TO ELIMINATE (ACTIVE)
-- **NETWORK BLOCK (ACTIVE):** 451 on Binance routes. Log every attempt (host/endpoint/status/latency_ms/error). Bounded exponential backoff. Do NOT retry blindly. Skip live fetch when blocked; preserve committed artifact; never fabricate.
-- **BOOTSTRAP COUNT:** `bootstrap_ci_portfolio_oos.n_simulations` = 2000; campaign requires >=3000 (fixed seed logged). Raise to >=3000 with block-bootstrap option.
-- **MISSING ARTIFACT FIELDS:** `cointegration_diagnostics`, `parameter_stability`, `tail_risk`, `blocked_routes` absent from `reports/portfolio_real.json`. Add schema-complete, backwards-compatible blocks.
-- **PARALLELIZATION HARDEN:** `examples/run_portfolio_real.py` already uses `ProcessPoolExecutor` + checkpoint/resume, but `max_workers=min(4, len(_pairs_to_screen))`. Harden to `max_workers=min(4, os.cpu_count())` with deterministic ordering and checkpointing already present.
-- **DATA QUALITY GATES:** Insufficient overlap/gaps/dupes/NaNs → **EXCLUDE** with full rationale + attempt log. No interpolation/backfill/fabrication.
-- **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance. Unbuffered logging everywhere (`python -u`, `flush=True`).
-- **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
+## BOTTLENECKS TO ELIMINATE (IMMEDIATE)
+1. **Network block (451):** Exhaustive logging (host/endpoint/status/latency_ms/error), bounded exponential backoff, skip live fetch if blocked, document in `blocked_routes`.
+2. **Bootstrap:** Raise from 2000 → **>=3000** with fixed seed logged; add block-bootstrap for dependence; network-independent.
+3. **Missing artifacts:** Add `cointegration_diagnostics`, `parameter_stability`, `tail_risk` (VaR/CVaR/CDaR 95%/99%/99.9%), `blocked_routes` - schema-complete, backwards compatible.
+4. **Parallelization:** `examples/run_portfolio_real.py` uses `ProcessPoolExecutor` with `max_workers=min(4, len(_pairs_to_screen))` → change to `max_workers=min(4, os.cpu_count())`, deterministic ordering, keep checkpoint/resume.
+5. **Data quality:** Strict gates (overlap/gaps/dupes/NaNs) → exclude with full rationale + attempt log; no interpolation/backfill/fabrication.
+6. **Observability/determinism:** Unbuffered (`python -u`, `flush=True`), fixed seeds, full provenance, structured logs.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:36:44Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T07:24:18Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
 ### PRIMARY OBJECTIVE
-Make this crypto stat arb system **publication-grade on cointegration rigor**. Go deeper on Engle-Granger/Johansen robustness, parameter stability, structural breaks, regime-conditional cointegration, and out-of-sample falsification. Prove edge survives strict costs/tails/regimes. **Real data only. Binance 451 is known - preserve committed artifact, run network-independent tests, never fabricate, log blocked routes exhaustively.**
+Make this crypto stat arb system **publication-grade on cointegration rigor**. Deepen Engle-Granger/Johansen, rolling stability, half-life/OU, structural breaks, regime-conditional cointegration, parameter stability, walk-forward robustness, tail risk, and cost-aware falsification. **Real data only.** Binance 451 known - preserve committed artifact, log blocked routes, run network-independent tests, never fabricate.
 
 ### MANDATORY SEQUENCE (IN ORDER, NO SHORTCUTS)
 
@@ -45,76 +42,68 @@ python -m mypy backtest/ strategies/ utils/
 ```
 Fix immediately if broken. **Do not proceed until green.**
 
-#### 1) ELIMINATE BOTTLENECKS - PARALLELIZE & OPTIMIZE (PRIORITY)
-- Harden `examples/run_portfolio_real.py` parallelization: `max_workers=min(4, os.cpu_count())`, deterministic ordering, checkpoint/resume already present — keep and verify.
-- Add/strengthen per-pair checkpoints/resume for sweeps.
-- Ensure unbuffered logging everywhere for long runs (`python -u`, `flush=True`).
-- Remove any hidden sleeps/polling. Log before/after timing with evidence.
-- Keep full provenance of parallel execution.
+#### 1) ELIMINATE BOTTLENECKS (PRIORITY - DO FIRST)
+- **Parallelization:** Harden `examples/run_portfolio_real.py`: `max_workers = min(4, os.cpu_count())` (deterministic order). Keep checkpoint/resume. Add timing/provenance logs.
+- **Logging:** Ensure unbuffered everywhere for long runs (`python -u`, `flush=True`). Remove hidden sleeps/polling.
+- **Network discipline:** For any Binance attempt log `(host, endpoint, status, latency_ms, error, ts)`. Bounded exponential backoff. On 451/blocks → record in `blocked_routes`, skip live fetch, never fabricate.
 
-#### 2) DEEP COINTEGRATION RIGOR (CORE - HEAVY WORK)
-Audit and harden `strategies/pairs_trading.py` and `utils/cointegration.py` (module already exists — harden gates, do not rewrite for optics):
-- **Engle-Granger**: unit root tests (ADF/KPSS) on legs and residuals, lag selection, strict p-value thresholds.
-- **Johansen** trace/max-eigenvalue where feasible. Log ranks, critical values, trace stats.
-- **Stability**: rolling cointegration (e.g., 90d/180d windows) - require stability across windows or penalize/exclude.
-- **Half-life / mean reversion**: estimate half-life of residual OU process; enforce reasonable bounds (1 < hl < 500), exclude if non-mean-reverting or extreme.
-- **Structural breaks**: check for breaks (CUSUM/Chow or rolling parameter stability). Flag/exclude unstable pairs.
-- **Spread quality**: ADF p-value on spread, Hurst/exponent, stationarity diagnostics. Full logs per pair.
-- Update pair selection to use these gates. Record every test result in provenance.
+#### 2) DEEP COINTEGRATION RIGOR (CORE)
+Audit/harden `utils/cointegration.py` and `strategies/pairs_trading.py`:
+- **EG:** ADF/KPSS on legs and residuals, lag selection, strict thresholds; log fully.
+- **Johansen:** trace/max-eigenvalue if feasible, ranks/critical values/stats.
+- **Rolling stability:** 90d/180d windows; require stability or penalize/exclude.
+- **Half-life/OU:** bounds 1 < hl < 500; exclude non-mean-reverting/extreme.
+- **Structural breaks:** CUSUM/Chow/rolling param stability; flag/exclude.
+- **Spread quality:** ADF on spread, Hurst/exponent, stationarity. Full per-pair logs + provenance.
 
-#### 3) EXPAND COINTEGRATION UNIVERSE WITH IRONCLAD GATES (REAL-ONLY)
-Candidates: ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, ATOM, UNI, AAVE, LINK, LTC, AVAX, DOGE (careful).
-For each: exhaustively attempt real Binance spot 1h+4h 2026-04-01→2026-10-30. Require ALL gates to pass. Only admit if all pass. Update PAIRS with justification. Record EVERY inclusion/exclusion in `universe_changes`/`exclusions_with_rationale` with attempt counts/hosts/endpoints/status/latency_ms/timestamps/reasons. If blocked (451), document blocked route and exclude with rationale - never fabricate.
+#### 3) UNIVERSE EXPANSION WITH IRONCLAD GATES (REAL-ONLY)
+Candidates: ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, ATOM, UNI, AAVE, LINK, LTC, AVAX, DOGE. Attempt real Binance spot 1h+4h 2026-04-01→2026-10-30 with ALL gates. Admit only if pass. Update PAIRS with justification. Record every inclusion/exclusion in `universe_changes`/`exclusions_with_rationale` with full attempt logs. If blocked (451) → document in `blocked_routes` and exclude with rationale.
 
-#### 4) PARAMETER STABILITY & WALK-FORWARD HARDENING
-- Per-pair walk-forward with >=16 splits where feasible. Show IS/OOS degradation per pair.
-- Parameter stability across regimes/time - test top params hold across different market regimes.
-- Add sensitivity analysis (grid around optimal) with stability metrics.
-- Enrich `multi_timeframe_walk_forward` with per-pair breakdowns and stability scores.
+#### 4) PARAMETER STABILITY & WALK-FORWARD
+- >=16 splits per pair where feasible; IS/OOS degradation + stability scores.
+- Regime-aware stability tests for top params.
+- Sensitivity grid around optimal with stability metrics.
+- Enrich `multi_timeframe_walk_forward` with per-pair breakdowns.
 
-#### 5) BOOTSTRAP TO >=3000 SIMS + TAIL RIGOR
-- Increase bootstrap to **>=3000 simulations** (fixed seeds logged). Add block bootstrap option for time-series dependence.
-- Richer tail metrics: VaR/CVaR/CDaR at 95%/99%/99.9%, expected shortfall profiles.
-- Regime-conditional bootstrap CIs.
-- Distinguishability from zero with permutation tests. Cost-impact across bootstrap (strengthen).
+#### 5) BOOTSTRAP >=3000 + TAIL RIGOR
+- Raise `bootstrap_ci_portfolio_oos.n_simulations` to **>=3000**, fixed seed logged; add block-bootstrap option.
+- Add `tail_risk`: VaR/CVaR/CDaR at 95%/99%/99.9%, expected shortfall, regime-conditioned.
+- Regime-conditional bootstrap CIs, permutation tests vs zero, cost-impact across bootstrap.
 - Network-independent.
 
 #### 6) ARTIFACT ENRICHMENT (SCHEMA-COMPLETE, BACKWARDS COMPATIBLE)
-Enrich `reports/portfolio_real.json` in-place if compatible. MUST include:
-- `cointegration_diagnostics`: per-pair (ADF on legs/residuals, Johansen if run, rolling stability, half-life, structural breaks, spread quality) with full provenance
-- `universe_changes` + `exclusions_with_rationale` (full attempt logs with hosts/endpoints/status/latency_ms) — already present, ensure complete
-- `parameter_stability`: per-pair stability across splits/regimes
-- `multi_timeframe_walk_forward` with >=12 splits each + per-pair breakdowns where feasible — already present, ensure complete
-- `bootstrap_ci_portfolio_oos` with >=3000 sims, 95%/99% CIs, seeds, block-bootstrap if added, regime-conditional CIs, permutation p-values
-- `volume_aware_execution` + full cost-stress grid + blocked_routes if applicable — add `blocked_routes`
-- `tail_risk`: VaR/CVaR/CDaR at multiple levels + regime-conditioned
-- All existing hardened fields preserved
+Update `reports/portfolio_real.json` in-place:
+- `cointegration_diagnostics` (per-pair EG/Johansen/rolling/hl/breaks/spread quality + provenance)
+- `parameter_stability` (splits/regimes/sensitivity)
+- `tail_risk` (VaR/CVaR/CDaR multiple levels, regime-conditioned)
+- `blocked_routes` (host/endpoint/status/latency_ms/error/timestamps)
+- Ensure `bootstrap_ci_portfolio_oos` >=3000 sims, seeds, block-bootstrap if added, regime-conditional CIs, permutation p-values
+- Preserve all existing hardened fields; keep `real_data_only: true`, `fabricated_data: false`.
 
-#### 7) TESTS + DOCS HARDEN (IMPOSSIBLE TO COAST)
-- Add network-independent tests for cointegration gates (ADF/Johansen logic, half-life bounds, stability checks)
-- Test parameter stability metrics and artifact schema extensions
-- Strengthen assertions around real-data-only and provenance completeness
-- Update `README.md` with cointegration rigor findings, pair selection rationale, reproduction commands
-- Add tests preventing fabricated cointegration results when data unavailable
+#### 7) TESTS + DOCS (IMPOSSIBLE TO COAST)
+- Network-independent tests for cointegration gates, half-life bounds, stability, artifact schema extensions
+- Tests preventing fabricated cointegration results when data unavailable
+- Strengthen assertions for real-data-only + provenance completeness
+- Update `README.md` with cointegration rigor, pair selection rationale, reproduction commands
 
 #### 8) VERIFY & DELIVER (ZERO REGRESSIONS)
 ```bash
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
-python -u examples/run_portfolio_real.py   # only if Binance access restored; else skip live fetch, preserve committed artifact
+python -u examples/run_portfolio_real.py   # skip if blocked; preserve artifact
 PYTHONPATH=. python -m pytest tests/ -q    # >=529 passed, 0 new failures
 python -m ruff check backtest/ strategies/ utils/ tests/ examples/  # clean
 python -m mypy backtest/ strategies/ utils/  # clean
 ```
-All deliverables present and valid. Do not commit unless explicitly requested.
+All deliverables present/valid. Do not commit unless explicitly requested.
 
 ## HARD CONSTRAINTS
-- **REAL DATA ONLY** — No synthetic/fabricated data. Ever. Only isolated unit tests may use fabricated data with explicit `fabricated_data: true` warnings.
-- **NO SHORTCUTS** — Omit+document if unavailable after exhaustive attempts with full provenance.
-- **PRESERVE GREEN** — Zero regressions. Restore green before proceeding.
-- **HEAVY MANDATE** — Complete the full campaign. Do not stop early.
-- **BOTTLENECK REMOVAL** — Eliminate inefficiencies immediately.
-- **IMPOSSIBLE TO COAST** — Structure work so future agents cannot avoid heavy validation; every step must produce checkable artifact/test/provenance.
-- **UNBUFFERED OUTPUT** — Use `python -u` for all long-running real-data jobs. Add `flush=True` for critical logs.
-- **REPRODUCIBILITY** — Seeds for stochastic parts; log all config. Deterministic ordering.
+- **REAL DATA ONLY** — no synthetic/fabricated data; isolated unit tests only with explicit `fabricated_data: true`.
+- **NO SHORTCUTS** — omit+document if unavailable with full provenance.
+- **PRESERVE GREEN** — zero regressions.
+- **HEAVY MANDATE** — complete full campaign.
+- **BOTTLENECK REMOVAL** — eliminate inefficiencies immediately.
+- **IMPOSSIBLE TO COAST** — every step must produce checkable artifact/test/provenance.
+- **UNBUFFERED** — `python -u`, `flush=True`.
+- **REPRODUCIBILITY** — fixed seeds, deterministic ordering, full config logged.
 
-**CAMPAIGN PHASE 4b COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
+**CAMPAIGN PHASE 4c COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
