@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T10:17:49Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T10:19:11Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
 - Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies
@@ -9,7 +9,7 @@
 
 ## CURRENT VERIFIED STATE (2026-10-31T10:17:49Z)
 - Branch: `main` (clean). Working tree clean.
-- Green baseline (re-verified 2026-10-31T10:17:49Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
+- Green baseline (re-verified 2026-10-31T10:19:11Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`.
 - `cointegration_diagnostics`: **17 pairs**, all in minimal form (`status: "computed_from_existing_results"`, EG/Johansen/rolling/half-life/structural breaks mostly missing/unpopulated). **This is THE bottleneck.**
 - Modules ready: `utils/cointegration.py`, `strategies/pairs_trading.py`, `examples/run_portfolio_real.py`.
