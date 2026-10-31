@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T09:23:27Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T09:23:43Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
 - Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies
@@ -9,10 +9,13 @@
 
 ## CURRENT VERIFIED STATE (2026-10-31T09:17:16Z)
 - Branch: `main` (clean). Working tree clean.
-- Green baseline: `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
+- Green baseline (re-verified 2026-10-31T09:23:43Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`.
 - **Cointegration_diagnostics incomplete:** 17 pairs all in minimal form (`status: "computed_from_existing_results"`, EG/Johansen/rolling/half-life/structural breaks mostly missing/unpopulated). This is the bottleneck.
 - Modules ready: `utils/cointegration.py`, `strategies/pairs_trading.py`, `examples/run_portfolio_real.py`.
+
+## NEXT SESSION START POINT (initial task message)
+The next agentic session MUST begin at Section 0) VERIFY GREEN (reuse the exact commands below), confirm >=529 passed / 0 new failures / mypy clean, then proceed immediately to Section 1) INVENTORY (read `reports/portfolio_real.json` cointegration_diagnostics for all 17 pairs vs the target schema) and Section 2) ENRICH COINTEGRATION DIAGNOSTICS. Do not drift to other features: cointegration is law and this campaign is the bottleneck. Network is blocked (HTTP 451 on api.binance.com) — work around via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes` + full provenance; never fabricate.
 
 ## SINGLE MANDATORY OBJECTIVE (HEAVY WORK REQUIRED)
 **Make cointegration diagnostics publication-grade for ALL 17 pairs in `reports/portfolio_real.json`.** Deepen EG/Johansen, per-leg ADF/KPSS, spread (hedge ratio, spread tests, half-life OU 1<hl<500, Hurst), rolling stability, structural breaks, tighten gates. Enrich parameter_stability/tail_risk. Harden tests against fabrication. All with full provenance. Work around Binance 451 via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes`.
