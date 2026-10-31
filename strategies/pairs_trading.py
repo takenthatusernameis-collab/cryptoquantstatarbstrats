@@ -68,13 +68,19 @@ class CointegrationPairsStrategy(PairStrategy):
         self._last_diagnostics: dict[str, Any] | None = None
         # Enriched (publication-grade) diagnostics
         ed = enriched_diagnostics
-        if ed is None and pair_diagnostics is not None:
+        if ed is None and pair_diagnostics is not None and isinstance(pair_diagnostics, dict):
             pname = "/".join(pair)
-            if isinstance(pair_diagnostics, dict):
-                if pname in pair_diagnostics:
-                    ed = pair_diagnostics[pname]
-                elif pair in pair_diagnostics:  # maybe tuple key
-                    ed = pair_diagnostics[pair]
+            if pname in pair_diagnostics:
+                ed = pair_diagnostics[pname]
+            else:
+                # try to find by tuple key safely
+                for k, v in pair_diagnostics.items():
+                    try:
+                        if isinstance(k, (tuple, list)) and tuple(k) == tuple(pair):
+                            ed = v
+                            break
+                    except Exception:
+                        continue
         self.enriched_diagnostics = ed
         self.use_enriched_gates = bool(use_enriched_gates)
         self.strict_enriched_gates = bool(strict_enriched_gates)
@@ -185,15 +191,26 @@ class CointegrationPairsStrategy(PairStrategy):
             try:
                 enriched_ok_arr = np.empty(len(data), dtype=float)
                 enriched_ok_arr[:] = np.nan
+                # If precomputed enriched diagnostics are provided (e.g. from artifact),
+                # use them to inform gate decisions causally where possible; otherwise
+                # compute target-schema diagnostics on trailing windows.
+                pre_enr = self.enriched_diagnostics
                 for i in range(self.lookback - 1, len(data)):
                     start = i - self.lookback + 1
                     sample1 = price1.iloc[start : i + 1]
                     sample2 = price2.iloc[start : i + 1]
                     try:
-                        tdiag = target_schema_diagnostics(
-                            sample1, sample2, pair_name="/".join(self.pair)
-                        )
-                        g = tdiag.get("gates", {})
+                        tdiag = None
+                        if isinstance(pre_enr, dict) and pre_enr:
+                            # Try to use precomputed gates if available
+                            gpre = pre_enr.get("gates", {})
+                            if isinstance(gpre, dict):
+                                tdiag = {"gates": gpre}
+                        if tdiag is None:
+                            tdiag = target_schema_diagnostics(
+                                sample1, sample2, pair_name="/".join(self.pair)
+                            )
+                        g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
                         ok = True
                         for key in (
                             "eg_pass",

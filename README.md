@@ -41,6 +41,12 @@ series when they are missing.
 - The pairs strategy estimates a rolling hedge ratio from trailing observations
   and emits explicit opposing legs. The engine does not overwrite explicit
   asset weights with generic long/short flags.
+- **Operationalized enriched cointegration gates** (publication-grade): the
+  strategy enforces Engle-Granger/Johansen, spread mean-reversion, half-life
+  bounds (1<hl<500), rolling stability, structural break discipline, and leg
+  stationarity using trailing data only. Gates can be supplied via
+  `enriched_diagnostics`/`pair_diagnostics` and are applied causally; failures
+  are never fabricated.
 - The default price loader is a free public data source, but this project is
   still a research framework. A successful backtest or passing unit tests do
   not establish a profitable strategy. Validate unseen periods, transaction

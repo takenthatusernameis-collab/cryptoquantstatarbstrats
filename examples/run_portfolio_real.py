@@ -545,7 +545,15 @@ def main() -> None:
         if pname not in top_params:
             continue
         try:
-            strat = CointegrationPairsStrategy(pair=pair, **top_params[pname])
+            pparams = dict(top_params[pname])
+            ed = pair_diagnostics.get(pname)
+            strat = CointegrationPairsStrategy(
+                pair=pair,
+                **pparams,
+                enriched_diagnostics=ed if isinstance(ed, dict) and "gates" in ed else None,
+                use_enriched_gates=True,
+                strict_enriched_gates=False,
+            )
             signals = strat.generate_signals(data)
             w = pd.DataFrame(0.0, index=data.index, columns=SYMBOLS)
             for asset in pair:
