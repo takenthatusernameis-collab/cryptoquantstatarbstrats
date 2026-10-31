@@ -1,35 +1,34 @@
-# DURABLE HANDOFF (2026-10-31T02:23:23Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - PRODUCTION HARDENING (PHASE 2)
+# DURABLE HANDOFF (2026-10-31T03:19:26Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - BATTLE-TESTED & PUBLICATION-GRADE (PHASE 3)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
-- **PRIORITY (from repo name):** Crypto + Quant + Statistical Arbitrage. Cointegration/pairs trading is the core. Favor real-data rigor, falsifiability, and cost/robustness over optics.
+- **CORE PRIORITY (from repo name):** Crypto + Quant + Statistical Arbitrage. **Cointegration/pairs trading is THE CORE.** Everything must serve real-data cointegration rigor, falsifiability, cost-robustness, and regime-awareness over optics.
 - **MANDATE:** **REAL DATA ONLY** (Binance public REST). Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true` warnings. No silent fabrication.
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T02:23:23Z
-- **Branch:** `main` (clean, recent commits)
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T03:19:26Z
+- **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings)
-- **Types/Lint:** Install dev deps if missing; keep clean (ruff/mypy per pyproject)
-- **Artifact:** `reports/portfolio_real.json` (real-only, committed). 11 symbols, 17 pairs, 1h 2026-04-01→2026-10-30 (5112 bars). Fully enriched: multi-TF walk-forward (1h/4h/1d), bootstrap CI (>=2000 sims), volume-aware execution with attempt logs, funding/basis attempted (451-blocked where applicable), risk controls/circuit breakers, regime meta-selector, cost-stress grid.
-- **Provenance:** All blocks logged; Binance 451 observed in environment (funding/basis/volume routes). **Preserve committed artifact as provenance. Never fabricate.**
+- **Lint/Type:** Must remain clean (`ruff`, `mypy` per pyproject)
+- **Artifact:** `reports/portfolio_real.json` (real-only, committed). Contains hardened blocks: multi-TF walk-forward (1h/4h/1d), bootstrap CI (>=2000 sims), volume-aware execution with attempt logs, regime meta-selector, risk controls/circuit breakers, cost-stress grid. **Preserve as provenance. Never fabricate.**
+- **Network:** Binance public REST returns **HTTP 451** in this environment (known). Treat as blocked routes, log exhaustively, preserve committed artifact.
 
-## BOTTLENECKS TO KILL (IMMEDIATE)
-- **NETWORK BLOCK (ACTIVE):** Binance public REST returns **HTTP 451** in this environment. Live fetches blocked.
-  - **Action:** Treat 451/403 as blocked routes. Log host/endpoint/status/latency_ms/error for every attempt. Do **NOT** spam retries blindly; use bounded exponential backoff + per-attempt logging.
-  - **Preserve:** Keep committed `reports/portfolio_real.json`. Tests must remain network-independent.
-- **I/O/STREAMING:** Use `python -u`, `flush=True` for critical logs. Never block on unbuffered output.
-- **PARALLELISM:** Bounded concurrency (semaphore), deterministic ordering, per-shard checkpoints/resume-safe. Identify independent streams and run in parallel.
+## BOTTLENECKS IDENTIFIED & REMEDIATED (PRE-EMPTIVE)
+- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries.
+- **I/O/STREAMING:** Use `python -u`, `flush=True` for critical logs.
+- **PARALLELISM:** Bounded concurrency (semaphore), deterministic ordering, per-shard checkpoints/resume-safe.
 - **DATA QUALITY GATES:** Insufficient overlap/gaps/dupes/NaNs → **EXCLUDE** with full rationale + attempt log. No interpolation/backfill/fabrication.
 - **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance (params/windows/bars/seeds/hashes).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
+- **AGENT TOOLING:** Edit operations must use correct schema (filePath/oldString/newString). Avoid invalid tool calls.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T02:23:23Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T03:19:26Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
 ### PRIMARY OBJECTIVE
-Push the real-data crypto stat arb system from "hardened" to **battle-tested and publication-grade**. Close remaining gaps, stress harder, prove robustness against costs/regimes, and make future agents unable to avoid heavy validation. Every step must leave verifiable artifacts, tests, provenance. **Binance 451 is known - preserve committed artifact, run network-independent tests, never fabricate, log blocked routes exhaustively.**
+Make this crypto stat arb system **battle-tested and publication-grade**. Close every remaining gap with ironclad provenance. Prove robustness to costs/regimes/tails. Make future agents unable to avoid heavy validation. **Real data only. Binance 451 is known - preserve committed artifact, run network-independent tests, never fabricate, log blocked routes exhaustively.**
 
 ### MANDATORY SEQUENCE (IN ORDER, NO SHORTCUTS)
 
@@ -43,30 +42,30 @@ python -m mypy backtest/ strategies/ utils/
 Fix immediately if broken. **Do not proceed until green.**
 
 #### 1) BRUTAL AUDIT + BOTTLENECK ELIMINATION (PARALLELIZE)
-Read with intent:
+Read with intent (build dependency graph, parallelize independent work):
 - `examples/run_portfolio_real.py`, `reports/portfolio_real.json`
 - `tests/test_portfolio_real*.py`, `tests/test_portfolio_risk_controls.py`
 - `backtest/engine.py`, `backtest/sweep.py`, `backtest/metrics.py`
 - `utils/portfolio_risk.py`, `utils/regime.py`, `utils/monte_carlo.py`, `utils/risk.py`
 - `data/loader.py`, `strategies/pairs_trading.py`
 
-Tasks:
-- Build dependency graph, identify independent streams, add/checkpointing where missing
-- Eliminate serial waits; parallelize independent I/O/computations with bounded concurrency
-- Remove any hidden sleeps/polling; use proper tooling
+Actions:
+- Eliminate serial waits, add bounded concurrency where safe/deterministic
+- Add/checkpointing for long runs, unbuffered logging
 - Log every bottleneck found + fix applied with before/after evidence
+- Remove hidden sleeps/polling
 
-#### 2) REAL-ONLY UNIVERSE EXPANSION WITH IRONCLAD PROVENANCE
-Candidates: ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, ATOM, UNI, AAVE, LINK (note LINK already present), LTC (present), AVAX (present).
-For each: attempt real Binance spot history (1h + 4h) for 2026-04-01→2026-10-30 via `python -u` with retries/backoff. Verify overlap/gaps/bar counts/dupes/NaNs. Cointegration/stability on real window.
+#### 2) REAL-ONLY UNIVERSE EXPANSION WITH IRONCLAD PROVENANCE (COINTEGRATION-FIRST)
+Candidates (prioritize liquid majors + high-quality alts): ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, ATOM, UNI, AAVE, LINK, LTC, AVAX, DOGE (careful), MATIC/POL already present.
+For each: attempt real Binance spot 1h + 4h for 2026-04-01→2026-10-30 via `python -u` with bounded retries/backoff. Verify overlap/gaps/bar counts/dupes/NaNs. Require cointegration on real window (Engle-Granger) with stability checks.
 **Only admit if ALL gates pass.** Update `PAIRS`/`SYMBOLS` in `examples/run_portfolio_real.py` with justification.
-Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts/endpoints, latency_ms, timestamps, concrete reasons. **If blocked (451), document blocked route and exclude with rationale — never fabricate.**
+Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts/endpoints, status/latency_ms, timestamps, concrete reasons. **If blocked (451), document blocked route and exclude with rationale — never fabricate.**
 
-#### 3) MULTI-TIMEFRAME RIGOR (>=12 SPLITS, HARDENED)
-Enforce rolling walk-forward on **1h, 4h, 1d** with **>=12 splits each**. For every split report IS/OOS/stability/degradation/regime/turnover/leverage, per-pair/per-TF breakdowns. If <12 splits possible, justify with hard data constraints (bars/gaps). Emit enriched `multi_timeframe_walk_forward` with full provenance (params/windows/bars/seeds/hashes).
+#### 3) MULTI-TIMEFRAME RIGOR (>=12 SPLITS, HARDENED) — PRIORITY
+Enforce rolling walk-forward on **1h, 4h, 1d** with **>=12 splits each**. Per split: IS/OOS returns/Sharpe/maxDD, stability/degradation, regime, turnover, leverage. If <12 splits possible, justify with hard data constraints (bars/gaps). Emit enriched `multi_timeframe_walk_forward` with full provenance (params/windows/bars/seeds/hashes). Ensure per-pair/per-TF breakdowns where feasible.
 
-#### 4) DEEP STATISTICAL SIGNIFICANCE (BOOTSTRAP HARDENED)
-Bootstrap/shuffle MC on real OOS portfolio returns: **>=3000 sims** (increase from 2000 if feasible without slowing unacceptably), fixed seeds logged, reproducible. 95%/99% CIs for total return/Sharpe/maxDD/CAGR/Calmar (portfolio + per-TF). Distinguishability from zero (p-values), risk-of-ruin. Block/condition by regime if sensible. Cost grid impact baked in. Network-independent. Attach as `bootstrap_ci_portfolio_oos` with full provenance.
+#### 4) DEEP STATISTICAL SIGNIFICANCE (BOOTSTRAP HARDENED) — PRIORITY
+Bootstrap/shuffle MC on real OOS portfolio returns: **>=3000 sims** (increase from 2000 if feasible without unacceptable slowdown), fixed seeds logged, reproducible. 95%/99% CIs for total return/Sharpe/maxDD/CAGR/Calmar (portfolio + per-TF). Distinguishability from zero (p-values), risk-of-ruin. Cost grid impact baked in. Network-independent. Attach as `bootstrap_ci_portfolio_oos` with full provenance.
 
 #### 5) VOLUME-AWARE EXECUTION + EXTREME COST-STRESS
 Fetch real Binance quote volume/turnover for full window with exhaustive attempts (log hosts/endpoints/status/errors/latency_ms/counts). Omit only with full rationale. Harden volume-aware slippage/participation + market impact heuristics grounded in real data; **no fabrication**. Extend cost-stress grid to extremes (fees/slippage/participation) with execution diagnostics (turnover/capacity/hit-rate/impact). If blocked (451), record `volume_fetch_status: blocked` + `blocked_routes` + attempt logs; do **not** zero-fill/fabricate. Attach as `volume_aware_execution`.
@@ -79,8 +78,8 @@ Enrich `reports/portfolio_real.json` in-place if compatible. **MUST** include:
 - `real_data_only: true`, `fabricated_data: false`
 - Expanded universe + `universe_changes` + `exclusions_with_rationale` (full attempt logs)
 - Per-TF IS/OOS per split + stability/degradation
-- `multi_timeframe_walk_forward` with >=12 splits each
-- `bootstrap_ci_portfolio_oos` with >=3000 sims, 95%/99% CIs, seeds, config
+- `multi_timeframe_walk_forward` with >=12 splits each + provenance
+- `bootstrap_ci_portfolio_oos` with >=3000 sims, 95%/99% CIs, seeds, config, distinguishability_from_zero, cost_impact
 - `volume_aware_execution` + full cost-stress grid + provenance + blocked_routes if applicable
 - Per-asset contribution, turnover, leverage/gross/net exposure, concentration
 - Correlation matrix + rolling stability by regime
@@ -90,7 +89,7 @@ Enrich `reports/portfolio_real.json` in-place if compatible. **MUST** include:
 - JSON-serializable, schema-validated by tests
 
 #### 8) TESTS + DOCS HARDEN (IMPOSSIBLE TO COAST)
-- Add network-independent stress tests: portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model, edge cases, data quality gates
+- Add network-independent stress tests: portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI (>=3000), execution model, edge cases, data quality gates
 - Strengthen assertions around `real_data_only`/`fabricated_data` and required hardened fields
 - Update `README.md` with hardened findings, concrete real-data numbers, explicit real-data-only provenance, coverage summary, reproduction commands
 - Add negative tests for exclusion paths
@@ -117,4 +116,4 @@ All deliverables present and valid. Do not commit unless explicitly requested.
 - **REPRODUCIBILITY** — Seeds for stochastic parts; log all config. Deterministic ordering.
 - **NO ALTERATION OF LIVE/PAPER BOUNDARIES** — Do not change trading boundaries or commit policy.
 
-**CAMPAIGN PHASE 2 COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
+**CAMPAIGN PHASE 3 COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
