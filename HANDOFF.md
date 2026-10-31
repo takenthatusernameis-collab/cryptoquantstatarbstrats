@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T08:15:45Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T08:18:15Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
 - **Repo:** `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies
@@ -9,18 +9,17 @@
 
 ## CURRENT STATE (VERIFIED)
 - **Branch:** `main` (clean), up to date with `origin/main`. Working tree clean.
-- **Green baseline:** `ruff check` all passed | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → **Success, 32 source files**
-- **Committed artifact:** `reports/portfolio_real.json` exists (committed 2026-10-31 00:29:13Z). Portfolio results computed from real data previously; currently **stale/incomplete** for enrichment fields.
-- **Key issue:** Binance public REST returns **451** (blocked). `data/loader.py` hardened with exhaustive per-attempt logging, bounded retries+backoff, permanent blocked-host skip, per-symbol isolation, early return with full provenance. `examples/run_portfolio_real.py` preserves artifact on failure.
-- **Known gaps in artifact:** `cointegration_diagnostics: {}`, `parameter_stability: {}`, `tail_risk.portfolio` partial, `bootstrap_ci_portfolio_oos.distinguishability_from_zero.n_simulations` is **2000** (must be >=3000), some bootstrap sub-blocks show 2000. `blocked_routes` present with 451 entries.
+- **Green baseline:** `ruff check` all passed (installed) | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → **to verify**
+- **Artifact:** `reports/portfolio_real.json` present. Cointegration diagnostics/parameter stability/tail risk already populated from existing results; bootstrap n_sim are 3000. Binance REST returning 451 (blocked) as noted in `blocked_routes`.
+- **Modules:** `utils/cointegration.py` comprehensive; `strategies/pairs_trading.py` exists. Network access blocked externally - must remain network-independent.
 
 ## BOTTLENECKS TO REMOVE (IMMEDIATE)
-1. **Network block (451)** - External; cannot unblock. **Fix:** make all enrichment logic network-independent. Compute `cointegration_diagnostics`, `parameter_stability`, `tail_risk` from existing `data`/results when present; if data unavailable, populate with structured `blocked` entries + full provenance (never fabricate). Loader already does this.
-2. **Artifact schema completeness** - Enrich in-place without breaking existing fields. Ensure all blocks present and consistent (all n_simulations >=3000 where bootstrap used).
-3. **Inconsistent simulation counts** - Harmonize `distinguishability_from_zero.n_simulations` to match (>=3000), ensure `cost_impact.n_simulations` consistent.
-4. **Empty enrichment blocks** - Populate `cointegration_diagnostics`, `parameter_stability` with real computations from available data/provenance.
+1. **Network block (451)** - External. Compute from existing data/provenance when network blocked; never fabricate. Preserve artifacts on failure.
+2. **Deepen cointegration rigor** - Enrich per-pair diagnostics with explicit EG/Johansen/ADF/KPSS on spread/legs, half-life/OU with bounds, Hurst, rolling stability, structural breaks, and concrete pass/fail gates with provenance.
+3. **Harmonize & complete artifact fields** - Ensure all enrichment blocks consistent, n_sim >=3000 everywhere used, tail_risk complete, and regimes/parameter stability have no gaps.
+4. **Tighten no-fabrication enforcement** - Add/strengthen tests preventing fabricated cointegration results when data insufficient; require structured `blocked_or_insufficient_data` with rationale.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T08:15:45Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T08:18:15Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST.**
 
@@ -32,44 +31,46 @@ Make the system publication-grade on **cointegration rigor**. Deepen Engle-Grang
 #### 0) VERIFY GREEN (BLOCKING)
 ```bash
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
-python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
-PYTHONPATH=. python -m pytest tests/ -q && \
-python -m mypy backtest/ strategies/ utils/
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m pytest tests/ -q && \
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m mypy backtest/ strategies/ utils/
 ```
 Fix immediately if broken. Do not proceed.
 
-#### 1) REMOVE BOTTLENECKS - ARTIFACT CONSISTENCY & ENRICHMENT
-- Harmonize all bootstrap simulation counts to >=3000: fix `bootstrap_ci_portfolio_oos.distinguishability_from_zero.n_simulations` to 3000 (or derive from actual array length). Ensure consistency across blocks.
-- Enrich `reports/portfolio_real.json` in-place (backwards compatible) with network-independent computations using existing portfolio/pair data:
-  - `cointegration_diagnostics`: per-pair EG/Johansen/ADF on spread/residuals, rolling stability (where feasible), half-life/OU bounds, Hurst, structural break flags. Use available pair results/provenance; if insufficient data, structured entries with `status: "blocked_or_insufficient_data"` + rationale.
-  - `parameter_stability`: from existing walk-forward/multi-timeframe results - splits, degradation, stability scores per pair/portfolio.
-  - `tail_risk`: ensure complete VaR/CVaR/CDaR at 95/99/99.9, regime-conditioned if possible, permutation test present. Fill gaps from existing returns.
-- Preserve `real_data_only: true`, `fabricated_data: false`. Never fabricate values.
+#### 1) DEEPEN COINTEGRATION DIAGNOSTICS (CORE)
+- For every pair in `reports/portfolio_real.json`, compute/enrich `cointegration_diagnostics[pair]` with:
+  - `engle_granger`: score/pvalue/critical values + pass/fail
+  - `johansen`: trace/max-eig stats/ranks/critical values + pass/fail
+  - `adf_leg1/adf_leg2`, `kpss_leg1/kpss_leg2`
+  - `spread`: hedge ratio, `adf_spread`, `kpss_spread`, `half_life_ou` (require 1 < hl < 500 and mean-reverting), `hurst_exponent` (<0.5 favors MR)
+  - `rolling_stability`: windows/frac_significant/stable flag
+  - `structural_breaks`: breaks flagged with rationale
+  - `gates`: all_pass + per-gate booleans
+  - `provenance`: source, real_data_only, fabricated_data=false, timestamps
+- If spread/series not reconstructible from artifact, use structured `status: "blocked_or_insufficient_data"` with explicit rationale and provenance (no fabrication). Use `utils.cointegration` functions.
 
-#### 2) HARDEN COINTEGRATION MODULES (CORE)
-Audit/harden `utils/cointegration.py` and `strategies/pairs_trading.py`:
-- EG: ADF/KPSS on legs and residuals, lag selection, strict logging
-- Johansen: trace/max-eigenvalue ranks/critical values
-- Rolling stability windows, half-life bounds (1 < hl < 500), OU checks
-- Structural breaks (CUSUM/Chow/rolling), Hurst, spread quality
-- Per-pair provenance, deterministic behavior
+#### 2) ENRICH PARAMETER STABILITY & TAIL RISK
+- Strengthen `parameter_stability` with per-pair stability scores, degradation metrics, and regime notes from existing walk-forward data.
+- Ensure `tail_risk.portfolio` complete (VaR/CVaR/CDaR at 95/99/99.9), add `regime_conditioned` if computable from existing returns, `permutation_test` present with provenance.
+- Harmonize all bootstrap `n_simulations` >=3000 across blocks.
 
-#### 3) TESTS FOR RIGOR & NO-FABRICATION
-- Add network-independent tests for cointegration gates, half-life bounds, stability checks
-- Add tests ensuring enrichment blocks are schema-valid and never emit fabricated cointegration results when data unavailable (must log blocked/insufficient with provenance)
-- Strengthen real-data-only assertions
-- Keep all existing tests passing (>=529 passed)
+#### 3) HARDEN MODULES & TESTS (NO-FABRICATION)
+- Audit/harden `utils/cointegration.py` and `strategies/pairs_trading.py` for strict gates, bounds, logging, deterministic behavior.
+- Add network-independent tests ensuring enrichment blocks are schema-valid and never emit fabricated cointegration results when data unavailable (must use `blocked_or_insufficient_data` + provenance).
+- Add tests for half-life bounds (1<hl<500), EG/Johansen gates, rolling stability, structural breaks.
+- Keep all existing tests passing (>=529 passed).
 
 #### 4) DOCS & REPRODUCIBILITY
-- Update `README.md` with cointegration rigor summary, gates, reproduction commands
-- Ensure provenance complete in artifacts
+- Update `README.md` with cointegration rigor summary, gates, reproduction commands.
+- Ensure full provenance in `reports/portfolio_real.json`.
 
 #### 5) VERIFY & DELIVER
 ```bash
-python -u examples/run_portfolio_real.py   # skip/regenerate if unblocked; must preserve artifact if blocked
-PYTHONPATH=. python -m pytest tests/ -q    # >=529 passed, 0 new failures
-python -m ruff check backtest/ strategies/ utils/ tests/ examples/  # clean
-python -m mypy backtest/ strategies/ utils/  # clean
+export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -u examples/run_portfolio_real.py   # preserve artifact if blocked
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m pytest tests/ -q    # >=529 passed, 0 new failures
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m ruff check backtest/ strategies/ utils/ tests/ examples/
+PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m mypy backtest/ strategies/ utils/
 ```
 All criteria met, zero regressions. Do not commit unless explicitly requested.
 
