@@ -417,3 +417,6 @@ All validation uses 100% real market data via `DataLoader.load_binance_data()`. 
 - **Risk controls:** correlation-aware dampening, per-asset correlation-exposure cap, CVaR-style allocation cap, gross exposure limit, drawdown circuit breaker (tested on real history).
 - **Provenance:** universe changes, exclusions with rationale/attempt logs, funding/basis exhaustive attempts/hosts, risk controls applied, circuit breaker results.
 - **Coverage:** portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model validated by tests.
+
+- **Parameter stability (real data):** `reports/portfolio_real.json` includes `parameter_stability` with per-pair walk-forward stability (selected params, OOS/IS returns across rolling splits, sensitivity grid, stability_score, degradation = OOS/IS mean, regime_notes) and `portfolio_level` with 12-split aggregates and provenance (all `real_data_only: true`, `fabricated_data: false`).
+- **Tail risk & regime conditioning:** `tail_risk.portfolio` provides VaR/CVaR/CDaR at 95/99/99.9; `tail_risk.regime_conditioned` is filled from real `detect_regimes` (BTC vol/trend) over the portfolio return series with provenance; `tail_risk.permutation_test` uses >=3000 permutations (publication-grade). Bootstrap CI for portfolio OOS uses >=3000 simulations with fixed seed.
