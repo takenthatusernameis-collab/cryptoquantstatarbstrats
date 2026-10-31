@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T10:20:05Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T10:22:01Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
 - Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies.
@@ -7,7 +7,7 @@
 - **Network BLOCKED (HTTP 451 on api.binance.com).** Adapt via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes` + full provenance. NEVER FABRICATE. Do not retry Binance to "fix" this; work around it.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, and logs.
 
-## CURRENT VERIFIED STATE (2026-10-31T10:20:05Z)
+## CURRENT VERIFIED STATE (2026-10-31T10:22:01Z)
 - Branch: `main` (clean). Working tree clean. Up to date with `origin/main`.
 - Green baseline (re-verified just now): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`.
