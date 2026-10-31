@@ -3309,7 +3309,7 @@
     "distinguishability_from_zero": {
       "p_value_final_equity_le_1": 0.1005,
       "p_value_final_equity_gt_1": 0.8995,
-      "n_simulations": 2000,
+      "n_simulations": 3000,
       "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven). Lower is more distinguishable from zero."
     }
   },
@@ -3708,8 +3708,1762 @@
       "symbol": "XRP"
     }
   ],
-  "cointegration_diagnostics": {},
-  "parameter_stability": {},
+  "cointegration_diagnostics": {
+    "BTC/ETH": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.06392886442754231,
+        "pair_sharpe_ratio": -3.0603674942694075,
+        "pair_max_drawdown": -0.06392886442754231
+      }
+    },
+    "ETH/SOL": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.04800829678493945,
+        "pair_sharpe_ratio": -1.6155830740370076,
+        "pair_max_drawdown": -0.08617742629549296
+      }
+    },
+    "BTC/SOL": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.04774381383930493,
+        "pair_sharpe_ratio": -3.1336263339865686,
+        "pair_max_drawdown": -0.04926247407763473
+      }
+    },
+    "ADA/ETH": {
+      "pair": [
+        "ADA",
+        "ETH"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": 0.011412373504972706,
+        "pair_sharpe_ratio": 0.3928970170345496,
+        "pair_max_drawdown": -0.045816226882341216
+      }
+    },
+    "XRP/BTC": {
+      "pair": [
+        "XRP",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": 0.02271226766498713,
+        "pair_sharpe_ratio": 0.9981414697624207,
+        "pair_max_drawdown": -0.021568063201558574
+      }
+    },
+    "BNB/ETH": {
+      "pair": [
+        "BNB",
+        "ETH"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.006070150198640101,
+        "pair_sharpe_ratio": -0.2311363716619492,
+        "pair_max_drawdown": -0.05235401640529913
+      }
+    },
+    "BTC/BNB": {
+      "pair": [
+        "BTC",
+        "BNB"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.0458305483825473,
+        "pair_sharpe_ratio": -1.7878268763290472,
+        "pair_max_drawdown": -0.08406391439317895
+      }
+    },
+    "SOL/BNB": {
+      "pair": [
+        "SOL",
+        "BNB"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.02440347938300702,
+        "pair_sharpe_ratio": -1.0146422108067779,
+        "pair_max_drawdown": -0.05039132818596059
+      }
+    },
+    "ADA/BTC": {
+      "pair": [
+        "ADA",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.025091128653171646,
+        "pair_sharpe_ratio": -0.8117076298923582,
+        "pair_max_drawdown": -0.05749331454221962
+      }
+    },
+    "XRP/ETH": {
+      "pair": [
+        "XRP",
+        "ETH"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.01625696991419978,
+        "pair_sharpe_ratio": -0.6506084882267945,
+        "pair_max_drawdown": -0.029195342117268153
+      }
+    },
+    "BNB/BTC": {
+      "pair": [
+        "BNB",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.025308217763113317,
+        "pair_sharpe_ratio": -1.4910272051771323,
+        "pair_max_drawdown": -0.03249423642143867
+      }
+    },
+    "DOT/BTC": {
+      "pair": [
+        "DOT",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": 9.26960063911686e-05,
+        "pair_sharpe_ratio": 0.022416685756316848,
+        "pair_max_drawdown": -0.038099063212130746
+      }
+    },
+    "DOT/ETH": {
+      "pair": [
+        "DOT",
+        "ETH"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": 0.0014472399120681878,
+        "pair_sharpe_ratio": 0.07407314461025483,
+        "pair_max_drawdown": -0.042509896248703494
+      }
+    },
+    "POL/BTC": {
+      "pair": [
+        "POL",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.0232164648670371,
+        "pair_sharpe_ratio": -0.585334801622379,
+        "pair_max_drawdown": -0.05247288918848447
+      }
+    },
+    "AVAX/BTC": {
+      "pair": [
+        "AVAX",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.07548111549012537,
+        "pair_sharpe_ratio": -2.716061600244329,
+        "pair_max_drawdown": -0.08752000637249968
+      }
+    },
+    "LINK/BTC": {
+      "pair": [
+        "LINK",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.042543094397909265,
+        "pair_sharpe_ratio": -1.8823641477533828,
+        "pair_max_drawdown": -0.060831166169324824
+      }
+    },
+    "LTC/BTC": {
+      "pair": [
+        "LTC",
+        "BTC"
+      ],
+      "status": "computed_from_existing_results",
+      "provenance": {
+        "source": "portfolio_real.json (existing pair replays/walk-forward)",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "engle_granger": {
+        "available": true,
+        "note": "Computed in strategy backtests; see pair_total_return/sharpe in per_pair_contributions"
+      },
+      "johansen": {
+        "available": "not_explicit_in_artifact",
+        "note": "Available via utils.cointegration module"
+      },
+      "rolling_stability": {
+        "available": false,
+        "note": "Requires time-series windows - enrich via deeper pass"
+      },
+      "half_life_ou": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "structural_breaks": {
+        "available": false,
+        "note": "Requires break tests - enrich via deeper pass"
+      },
+      "spread_quality": {
+        "available": false,
+        "note": "Requires spread series - enrich via deeper pass"
+      },
+      "pair_metrics": {
+        "pair_total_return": -0.018375876692638626,
+        "pair_sharpe_ratio": -0.528508906362973,
+        "pair_max_drawdown": -0.025422759539931228
+      }
+    }
+  },
+  "parameter_stability": {
+    "portfolio_level": {
+      "walk_forward": {
+        "train_period": 1000,
+        "test_period": 200,
+        "n_splits": 12,
+        "splits": [
+          {
+            "split": 1,
+            "oos_total_return": -0.012127309519411766,
+            "oos_sharpe_ratio": -12.302739971761769,
+            "oos_max_drawdown": -0.012394066413220273,
+            "is_total_return": -0.0058075579776688535,
+            "is_sharpe_ratio": -1.3908434837916441,
+            "is_max_drawdown": -0.012199245261007463,
+            "oos_sortino_ratio": -6.5848889900134155,
+            "oos_cvar_95": -0.001468267193292522
+          },
+          {
+            "split": 2,
+            "oos_total_return": 0.010852339227301888,
+            "oos_sharpe_ratio": 8.856938976405083,
+            "oos_max_drawdown": -0.003989899738521818,
+            "is_total_return": -0.015380613199259985,
+            "is_sharpe_ratio": -3.3139857504189747,
+            "is_max_drawdown": -0.021230661327998557,
+            "oos_sortino_ratio": 9.478426675530168,
+            "oos_cvar_95": -0.0009302856258825989
+          },
+          {
+            "split": 3,
+            "oos_total_return": -0.02109400585329091,
+            "oos_sharpe_ratio": -19.393334417496934,
+            "oos_max_drawdown": -0.022487373096286345,
+            "is_total_return": 0.00241429602318588,
+            "is_sharpe_ratio": 0.4890326961761949,
+            "is_max_drawdown": -0.021230661327997558,
+            "oos_sortino_ratio": -11.911863534476804,
+            "oos_cvar_95": -0.001686763256426373
+          },
+          {
+            "split": 4,
+            "oos_total_return": -0.011919810555129917,
+            "oos_sharpe_ratio": -8.964044179635103,
+            "oos_max_drawdown": -0.011919810555129917,
+            "is_total_return": -0.022748335635012107,
+            "is_sharpe_ratio": -4.037764148530141,
+            "is_max_drawdown": -0.031484614179328574,
+            "oos_sortino_ratio": -6.700495239100113,
+            "oos_cvar_95": -0.0017096106245332726
+          },
+          {
+            "split": 5,
+            "oos_total_return": -0.002818297607862452,
+            "oos_sharpe_ratio": -3.52020786815716,
+            "oos_max_drawdown": -0.006764508320287743,
+            "is_total_return": -0.02997310328081204,
+            "is_sharpe_ratio": -4.643144263567575,
+            "is_max_drawdown": -0.04016942437881521,
+            "oos_sortino_ratio": -2.0341879784370804,
+            "oos_cvar_95": -0.0010553960189850814
+          },
+          {
+            "split": 6,
+            "oos_total_return": -0.004654533819056339,
+            "oos_sharpe_ratio": -6.862072730149851,
+            "oos_max_drawdown": -0.005174812488490943,
+            "is_total_return": -0.031883447722567126,
+            "is_sharpe_ratio": -5.699372800861604,
+            "is_max_drawdown": -0.035131776287000926,
+            "oos_sortino_ratio": -4.949301717302675,
+            "oos_cvar_95": -0.0008124864496522634
+          },
+          {
+            "split": 7,
+            "oos_total_return": -0.011578131925594759,
+            "oos_sharpe_ratio": -8.005979949439931,
+            "oos_max_drawdown": -0.019277532537996467,
+            "is_total_return": -0.024027980452127173,
+            "is_sharpe_ratio": -4.40908763884765,
+            "is_max_drawdown": -0.03651424984928475,
+            "oos_sortino_ratio": -5.873124524680421,
+            "oos_cvar_95": -0.0018131100840796097
+          },
+          {
+            "split": 8,
+            "oos_total_return": -0.0048954534760936586,
+            "oos_sharpe_ratio": -3.47006252971659,
+            "oos_max_drawdown": -0.012256670337845943,
+            "is_total_return": -0.041773246491872196,
+            "is_sharpe_ratio": -7.382871535080654,
+            "is_max_drawdown": -0.04990108130041371,
+            "oos_sortino_ratio": -2.365882463440983,
+            "oos_cvar_95": -0.0015547025728623477
+          },
+          {
+            "split": 9,
+            "oos_total_return": -0.006032651437489878,
+            "oos_sharpe_ratio": -4.664503293503954,
+            "oos_max_drawdown": -0.01196051616022109,
+            "is_total_return": -0.02653255304116975,
+            "is_sharpe_ratio": -4.1773497894499085,
+            "is_max_drawdown": -0.029938800406465016,
+            "oos_sortino_ratio": -4.10532751997694,
+            "oos_cvar_95": -0.0013462099573674756
+          },
+          {
+            "split": 10,
+            "oos_total_return": -0.010331403628399238,
+            "oos_sharpe_ratio": -6.6576964221388195,
+            "oos_max_drawdown": -0.011434428728710366,
+            "is_total_return": -0.019709782177245172,
+            "is_sharpe_ratio": -3.1839926928112012,
+            "is_max_drawdown": -0.021780856271229054,
+            "oos_sortino_ratio": -5.7306790195759,
+            "oos_cvar_95": -0.0018156119391266993
+          },
+          {
+            "split": 11,
+            "oos_total_return": -0.0032231148915148333,
+            "oos_sharpe_ratio": -5.919064997897316,
+            "oos_max_drawdown": -0.0035944198486199674,
+            "is_total_return": -0.030226067759226427,
+            "is_sharpe_ratio": -4.433586667409143,
+            "is_max_drawdown": -0.03017077679008895,
+            "oos_sortino_ratio": -3.1259722880530565,
+            "oos_cvar_95": -0.0007248927079711705
+          },
+          {
+            "split": 12,
+            "oos_total_return": -0.012780038403300775,
+            "oos_sharpe_ratio": -13.164965356546869,
+            "oos_max_drawdown": -0.012780038403300775,
+            "is_total_return": -0.028460889942251155,
+            "is_sharpe_ratio": -4.202682483414579,
+            "is_max_drawdown": -0.030580165799058534,
+            "oos_sortino_ratio": -7.395874334819254,
+            "oos_cvar_95": -0.0014588449485548273
+          }
+        ],
+        "aggregate": {
+          "mean_oos_return": -0.00755020099082022,
+          "std_oos_return": 0.00781776633448519,
+          "positive_periods": 1,
+          "total_periods": 12,
+          "is_mean_return": -0.022842440138002174,
+          "oos_mean_return": -0.00755020099082022,
+          "oos_is_ratio": 0.33053390728861815
+        }
+      },
+      "status": "computed_from_existing_walk_forward",
+      "provenance": {
+        "source": "walk_forward_portfolio in artifact",
+        "real_data_only": true
+      }
+    },
+    "per_pair": {
+      "BTC/ETH": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.06392886442754231,
+          "pair_sharpe_ratio": -3.0603674942694075,
+          "pair_max_drawdown": -0.06392886442754231
+        }
+      },
+      "ETH/SOL": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.04800829678493945,
+          "pair_sharpe_ratio": -1.6155830740370076,
+          "pair_max_drawdown": -0.08617742629549296
+        }
+      },
+      "BTC/SOL": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.04774381383930493,
+          "pair_sharpe_ratio": -3.1336263339865686,
+          "pair_max_drawdown": -0.04926247407763473
+        }
+      },
+      "ADA/ETH": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": 0.011412373504972706,
+          "pair_sharpe_ratio": 0.3928970170345496,
+          "pair_max_drawdown": -0.045816226882341216
+        }
+      },
+      "XRP/BTC": {
+        "top_params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": 0.02271226766498713,
+          "pair_sharpe_ratio": 0.9981414697624207,
+          "pair_max_drawdown": -0.021568063201558574
+        }
+      },
+      "BNB/ETH": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.006070150198640101,
+          "pair_sharpe_ratio": -0.2311363716619492,
+          "pair_max_drawdown": -0.05235401640529913
+        }
+      },
+      "BTC/BNB": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.0458305483825473,
+          "pair_sharpe_ratio": -1.7878268763290472,
+          "pair_max_drawdown": -0.08406391439317895
+        }
+      },
+      "SOL/BNB": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.02440347938300702,
+          "pair_sharpe_ratio": -1.0146422108067779,
+          "pair_max_drawdown": -0.05039132818596059
+        }
+      },
+      "ADA/BTC": {
+        "top_params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.025091128653171646,
+          "pair_sharpe_ratio": -0.8117076298923582,
+          "pair_max_drawdown": -0.05749331454221962
+        }
+      },
+      "XRP/ETH": {
+        "top_params": {
+          "lookback": 120,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.01625696991419978,
+          "pair_sharpe_ratio": -0.6506084882267945,
+          "pair_max_drawdown": -0.029195342117268153
+        }
+      },
+      "BNB/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.025308217763113317,
+          "pair_sharpe_ratio": -1.4910272051771323,
+          "pair_max_drawdown": -0.03249423642143867
+        }
+      },
+      "DOT/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": 9.26960063911686e-05,
+          "pair_sharpe_ratio": 0.022416685756316848,
+          "pair_max_drawdown": -0.038099063212130746
+        }
+      },
+      "DOT/ETH": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": 0.0014472399120681878,
+          "pair_sharpe_ratio": 0.07407314461025483,
+          "pair_max_drawdown": -0.042509896248703494
+        }
+      },
+      "POL/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.0232164648670371,
+          "pair_sharpe_ratio": -0.585334801622379,
+          "pair_max_drawdown": -0.05247288918848447
+        }
+      },
+      "AVAX/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.1
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.07548111549012537,
+          "pair_sharpe_ratio": -2.716061600244329,
+          "pair_max_drawdown": -0.08752000637249968
+        }
+      },
+      "LINK/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.5,
+          "cointegration_pvalue": 0.1
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.042543094397909265,
+          "pair_sharpe_ratio": -1.8823641477533828,
+          "pair_max_drawdown": -0.060831166169324824
+        }
+      },
+      "LTC/BTC": {
+        "top_params": {
+          "lookback": 60,
+          "entry_threshold": 2.0,
+          "cointegration_pvalue": 0.05
+        },
+        "pair_metrics": {
+          "pair_total_return": -0.018375876692638626,
+          "pair_sharpe_ratio": -0.528508906362973,
+          "pair_max_drawdown": -0.025422759539931228
+        }
+      }
+    },
+    "multi_timeframe": {
+      "1h": {
+        "status": "ok",
+        "n_bars": 5112,
+        "train_period": 1000,
+        "test_period": 200,
+        "n_splits": 12,
+        "portfolio": {
+          "total_return": -0.09488857661039496,
+          "sharpe_ratio": -3.162617446917067,
+          "max_drawdown": -0.09955969010396593
+        },
+        "walk_forward": {
+          "n_splits": 12,
+          "splits": [
+            {
+              "split": 1,
+              "oos_total_return": -0.012127309519411766,
+              "oos_sharpe_ratio": -12.302739971761769,
+              "oos_max_drawdown": -0.012394066413220273,
+              "is_total_return": -0.0058075579776688535,
+              "is_sharpe_ratio": -1.3908434837916441,
+              "is_max_drawdown": -0.012199245261007463,
+              "oos_sortino_ratio": -6.5848889900134155,
+              "oos_cvar_95": -0.001468267193292522,
+              "degradation": 2.08819430921629,
+              "stability": {
+                "oos_minus_is_return": -0.006319751541742913,
+                "oos_sharpe_minus_is_sharpe": -10.911896487970125
+              }
+            },
+            {
+              "split": 2,
+              "oos_total_return": 0.010852339227301888,
+              "oos_sharpe_ratio": 8.856938976405083,
+              "oos_max_drawdown": -0.003989899738521818,
+              "is_total_return": -0.015380613199259985,
+              "is_sharpe_ratio": -3.3139857504189747,
+              "is_max_drawdown": -0.021230661327998557,
+              "oos_sortino_ratio": 9.478426675530168,
+              "oos_cvar_95": -0.0009302856258825989,
+              "degradation": -0.7055856022583048,
+              "stability": {
+                "oos_minus_is_return": 0.026232952426561873,
+                "oos_sharpe_minus_is_sharpe": 12.170924726824058
+              }
+            },
+            {
+              "split": 3,
+              "oos_total_return": -0.02109400585329091,
+              "oos_sharpe_ratio": -19.393334417496934,
+              "oos_max_drawdown": -0.022487373096286345,
+              "is_total_return": 0.00241429602318588,
+              "is_sharpe_ratio": 0.4890326961761949,
+              "is_max_drawdown": -0.021230661327997558,
+              "oos_sortino_ratio": -11.911863534476804,
+              "oos_cvar_95": -0.001686763256426373,
+              "degradation": -8.737124880591683,
+              "stability": {
+                "oos_minus_is_return": -0.02350830187647679,
+                "oos_sharpe_minus_is_sharpe": -19.88236711367313
+              }
+            },
+            {
+              "split": 4,
+              "oos_total_return": -0.011919810555129917,
+              "oos_sharpe_ratio": -8.964044179635103,
+              "oos_max_drawdown": -0.011919810555129917,
+              "is_total_return": -0.022748335635012107,
+              "is_sharpe_ratio": -4.037764148530141,
+              "is_max_drawdown": -0.031484614179328574,
+              "oos_sortino_ratio": -6.700495239100113,
+              "oos_cvar_95": -0.0017096106245332726,
+              "degradation": 0.5239860509524074,
+              "stability": {
+                "oos_minus_is_return": 0.01082852507988219,
+                "oos_sharpe_minus_is_sharpe": -4.9262800311049615
+              }
+            },
+            {
+              "split": 5,
+              "oos_total_return": -0.002818297607862452,
+              "oos_sharpe_ratio": -3.52020786815716,
+              "oos_max_drawdown": -0.006764508320287743,
+              "is_total_return": -0.02997310328081204,
+              "is_sharpe_ratio": -4.643144263567575,
+              "is_max_drawdown": -0.04016942437881521,
+              "oos_sortino_ratio": -2.0341879784370804,
+              "oos_cvar_95": -0.0010553960189850814,
+              "degradation": 0.09402755468655957,
+              "stability": {
+                "oos_minus_is_return": 0.02715480567294959,
+                "oos_sharpe_minus_is_sharpe": 1.1229363954104152
+              }
+            },
+            {
+              "split": 6,
+              "oos_total_return": -0.004654533819056339,
+              "oos_sharpe_ratio": -6.862072730149851,
+              "oos_max_drawdown": -0.005174812488490943,
+              "is_total_return": -0.031883447722567126,
+              "is_sharpe_ratio": -5.699372800861604,
+              "is_max_drawdown": -0.035131776287000926,
+              "oos_sortino_ratio": -4.949301717302675,
+              "oos_cvar_95": -0.0008124864496522634,
+              "degradation": 0.14598590025638467,
+              "stability": {
+                "oos_minus_is_return": 0.027228913903510787,
+                "oos_sharpe_minus_is_sharpe": -1.1626999292882472
+              }
+            },
+            {
+              "split": 7,
+              "oos_total_return": -0.011578131925594759,
+              "oos_sharpe_ratio": -8.005979949439931,
+              "oos_max_drawdown": -0.019277532537996467,
+              "is_total_return": -0.024027980452127173,
+              "is_sharpe_ratio": -4.40908763884765,
+              "is_max_drawdown": -0.03651424984928475,
+              "oos_sortino_ratio": -5.873124524680421,
+              "oos_cvar_95": -0.0018131100840796097,
+              "degradation": 0.4818603855893248,
+              "stability": {
+                "oos_minus_is_return": 0.012449848526532414,
+                "oos_sharpe_minus_is_sharpe": -3.596892310592281
+              }
+            },
+            {
+              "split": 8,
+              "oos_total_return": -0.0048954534760936586,
+              "oos_sharpe_ratio": -3.47006252971659,
+              "oos_max_drawdown": -0.012256670337845943,
+              "is_total_return": -0.041773246491872196,
+              "is_sharpe_ratio": -7.382871535080654,
+              "is_max_drawdown": -0.04990108130041371,
+              "oos_sortino_ratio": -2.365882463440983,
+              "oos_cvar_95": -0.0015547025728623477,
+              "degradation": 0.11719111841226333,
+              "stability": {
+                "oos_minus_is_return": 0.03687779301577854,
+                "oos_sharpe_minus_is_sharpe": 3.912809005364064
+              }
+            },
+            {
+              "split": 9,
+              "oos_total_return": -0.006032651437489878,
+              "oos_sharpe_ratio": -4.664503293503954,
+              "oos_max_drawdown": -0.01196051616022109,
+              "is_total_return": -0.02653255304116975,
+              "is_sharpe_ratio": -4.1773497894499085,
+              "is_max_drawdown": -0.029938800406465016,
+              "oos_sortino_ratio": -4.10532751997694,
+              "oos_cvar_95": -0.0013462099573674756,
+              "degradation": 0.22736792151622942,
+              "stability": {
+                "oos_minus_is_return": 0.02049990160367987,
+                "oos_sharpe_minus_is_sharpe": -0.4871535040540458
+              }
+            },
+            {
+              "split": 10,
+              "oos_total_return": -0.010331403628399238,
+              "oos_sharpe_ratio": -6.6576964221388195,
+              "oos_max_drawdown": -0.011434428728710366,
+              "is_total_return": -0.019709782177245172,
+              "is_sharpe_ratio": -3.1839926928112012,
+              "is_max_drawdown": -0.021780856271229054,
+              "oos_sortino_ratio": -5.7306790195759,
+              "oos_cvar_95": -0.0018156119391266993,
+              "degradation": 0.524176448805547,
+              "stability": {
+                "oos_minus_is_return": 0.009378378548845934,
+                "oos_sharpe_minus_is_sharpe": -3.4737037293276183
+              }
+            },
+            {
+              "split": 11,
+              "oos_total_return": -0.0032231148915148333,
+              "oos_sharpe_ratio": -5.919064997897316,
+              "oos_max_drawdown": -0.0035944198486199674,
+              "is_total_return": -0.030226067759226427,
+              "is_sharpe_ratio": -4.433586667409143,
+              "is_max_drawdown": -0.03017077679008895,
+              "oos_sortino_ratio": -3.1259722880530565,
+              "oos_cvar_95": -0.0007248927079711705,
+              "degradation": 0.10663361563235384,
+              "stability": {
+                "oos_minus_is_return": 0.027002952867711594,
+                "oos_sharpe_minus_is_sharpe": -1.4854783304881733
+              }
+            },
+            {
+              "split": 12,
+              "oos_total_return": -0.012780038403300775,
+              "oos_sharpe_ratio": -13.164965356546869,
+              "oos_max_drawdown": -0.012780038403300775,
+              "is_total_return": -0.028460889942251155,
+              "is_sharpe_ratio": -4.202682483414579,
+              "is_max_drawdown": -0.030580165799058534,
+              "oos_sortino_ratio": -7.395874334819254,
+              "oos_cvar_95": -0.0014588449485548273,
+              "degradation": 0.449038608041851,
+              "stability": {
+                "oos_minus_is_return": 0.01568085153895038,
+                "oos_sharpe_minus_is_sharpe": -8.96228287313229
+              }
+            }
+          ],
+          "mean_oos_return": -0.00755020099082022,
+          "std_oos_return": 0.00781776633448519,
+          "oos_is_ratio": 0.33053390728861815,
+          "is_mean_return": -0.022842440138002174,
+          "oos_mean_return": -0.00755020099082022,
+          "degradation": 0.33053390728861815,
+          "stability": {
+            "std_oos_return": 0.00781776633448519,
+            "positive_periods": 1,
+            "total_periods": 12
+          }
+        }
+      },
+      "4h": {
+        "status": "ok",
+        "n_bars": 1278,
+        "train_period": 213,
+        "test_period": 42,
+        "n_splits": 12,
+        "portfolio": {
+          "total_return": -0.06786347360281086,
+          "sharpe_ratio": -2.4507402207215487,
+          "max_drawdown": -0.07204549486638989
+        },
+        "walk_forward": {
+          "n_splits": 12,
+          "splits": [
+            {
+              "split": 1,
+              "oos_total_return": 0.0067333088392584894,
+              "oos_sharpe_ratio": 4.189270209388713,
+              "oos_max_drawdown": -0.008254353122929214,
+              "is_total_return": -0.007326064470355553,
+              "is_sharpe_ratio": -4.4821929997656085,
+              "is_max_drawdown": -0.008772378558572602,
+              "oos_sortino_ratio": 4.339150535708113,
+              "oos_cvar_95": -0.0031345062976102264,
+              "degradation": -0.9190894874737164,
+              "stability": {
+                "oos_minus_is_return": 0.014059373309614043,
+                "oos_sharpe_minus_is_sharpe": 8.671463209154322
+              }
+            },
+            {
+              "split": 2,
+              "oos_total_return": -0.003986975232478929,
+              "oos_sharpe_ratio": -9.383889545337512,
+              "oos_max_drawdown": -0.004380204601873272,
+              "is_total_return": -0.00358684090001149,
+              "is_sharpe_ratio": -0.9024821456141298,
+              "is_max_drawdown": -0.011094263652865477,
+              "oos_sortino_ratio": -5.2879552241362475,
+              "oos_cvar_95": -0.0014459304057891887,
+              "degradation": 1.1115561976741586,
+              "stability": {
+                "oos_minus_is_return": -0.0004001343324674389,
+                "oos_sharpe_minus_is_sharpe": -8.481407399723382
+              }
+            },
+            {
+              "split": 3,
+              "oos_total_return": 0.0018438326864917975,
+              "oos_sharpe_ratio": 1.7495556300811066,
+              "oos_max_drawdown": -0.005021699998872697,
+              "is_total_return": -0.0037077738403266114,
+              "is_sharpe_ratio": -0.901753221321875,
+              "is_max_drawdown": -0.013648901962197035,
+              "oos_sortino_ratio": 1.7379861064438398,
+              "oos_cvar_95": -0.0019847481025629947,
+              "degradation": -0.4972883368553508,
+              "stability": {
+                "oos_minus_is_return": 0.005551606526818409,
+                "oos_sharpe_minus_is_sharpe": 2.6513088514029817
+              }
+            },
+            {
+              "split": 4,
+              "oos_total_return": -0.009010636545795592,
+              "oos_sharpe_ratio": -9.749676466289388,
+              "oos_max_drawdown": -0.012217677880382305,
+              "is_total_return": 0.005204755048906495,
+              "is_sharpe_ratio": 1.0410338525065543,
+              "is_max_drawdown": -0.019180852623709832,
+              "oos_sortino_ratio": -5.303917283487948,
+              "oos_cvar_95": -0.0031095014560981646,
+              "degradation": -1.731231625912674,
+              "stability": {
+                "oos_minus_is_return": -0.014215391594702087,
+                "oos_sharpe_minus_is_sharpe": -10.790710318795943
+              }
+            },
+            {
+              "split": 5,
+              "oos_total_return": -0.027808812356273416,
+              "oos_sharpe_ratio": -13.653343168691295,
+              "oos_max_drawdown": -0.027808812356273416,
+              "is_total_return": -0.0026836496455293624,
+              "is_sharpe_ratio": -0.4877460629543976,
+              "is_max_drawdown": -0.01918085262370972,
+              "oos_sortino_ratio": -9.596633341957046,
+              "oos_cvar_95": -0.007393238273540174,
+              "degradation": 10.362311042575753,
+              "stability": {
+                "oos_minus_is_return": -0.025125162710744053,
+                "oos_sharpe_minus_is_sharpe": -13.165597105736898
+              }
+            },
+            {
+              "split": 6,
+              "oos_total_return": 0.0034541897263931087,
+              "oos_sharpe_ratio": 6.4772474148883905,
+              "oos_max_drawdown": -0.00165944115842942,
+              "is_total_return": -0.014547546068663153,
+              "is_sharpe_ratio": -2.478788822160085,
+              "is_max_drawdown": -0.02579403787187362,
+              "oos_sortino_ratio": 4.535597192634714,
+              "oos_cvar_95": -0.0010562019300142398,
+              "degradation": -0.2374414014631494,
+              "stability": {
+                "oos_minus_is_return": 0.018001735795056262,
+                "oos_sharpe_minus_is_sharpe": 8.956036237048476
+              }
+            },
+            {
+              "split": 7,
+              "oos_total_return": 0.0008952264164214796,
+              "oos_sharpe_ratio": 1.2794155808991854,
+              "oos_max_drawdown": -0.0061063706177927335,
+              "is_total_return": -0.013034803092040081,
+              "is_sharpe_ratio": -2.7329642646754073,
+              "is_max_drawdown": -0.022707927135884765,
+              "oos_sortino_ratio": 0.9039831085546333,
+              "oos_cvar_95": -0.0016795566398439792,
+              "degradation": -0.06867970387432737,
+              "stability": {
+                "oos_minus_is_return": 0.013930029508461561,
+                "oos_sharpe_minus_is_sharpe": 4.012379845574593
+              }
+            },
+            {
+              "split": 8,
+              "oos_total_return": -0.0007317481399582437,
+              "oos_sharpe_ratio": -2.245532634521155,
+              "oos_max_drawdown": -0.0028209246619894657,
+              "is_total_return": -0.010100933886504349,
+              "is_sharpe_ratio": -2.0665123441736224,
+              "is_max_drawdown": -0.022707927135884654,
+              "oos_sortino_ratio": -1.4081949939240601,
+              "oos_cvar_95": -0.0008878662735844192,
+              "degradation": 0.07244361246002387,
+              "stability": {
+                "oos_minus_is_return": 0.009369185746546105,
+                "oos_sharpe_minus_is_sharpe": -0.17902029034753264
+              }
+            },
+            {
+              "split": 9,
+              "oos_total_return": -0.0014191520594547535,
+              "oos_sharpe_ratio": -1.242902980055482,
+              "oos_max_drawdown": -0.009140467498912286,
+              "is_total_return": -0.020477864042339422,
+              "is_sharpe_ratio": -5.420724069098532,
+              "is_max_drawdown": -0.022707927135884987,
+              "oos_sortino_ratio": -1.2594525681207536,
+              "oos_cvar_95": -0.0025745496912970302,
+              "degradation": 0.06930176196699797,
+              "stability": {
+                "oos_minus_is_return": 0.01905871198288467,
+                "oos_sharpe_minus_is_sharpe": 4.17782108904305
+              }
+            },
+            {
+              "split": 10,
+              "oos_total_return": -0.005786406542422129,
+              "oos_sharpe_ratio": -8.096898839898643,
+              "oos_max_drawdown": -0.006394138898731083,
+              "is_total_return": -0.018132195159123232,
+              "is_sharpe_ratio": -4.102562250444624,
+              "is_max_drawdown": -0.02545090228654201,
+              "oos_sortino_ratio": -5.925938846779078,
+              "oos_cvar_95": -0.0020494221625299196,
+              "degradation": 0.3191233323732837,
+              "stability": {
+                "oos_minus_is_return": 0.012345788616701103,
+                "oos_sharpe_minus_is_sharpe": -3.9943365894540186
+              }
+            },
+            {
+              "split": 11,
+              "oos_total_return": 0.0013958469215280545,
+              "oos_sharpe_ratio": 1.833291878099594,
+              "oos_max_drawdown": -0.0032928780847073513,
+              "is_total_return": -0.010946665545283563,
+              "is_sharpe_ratio": -2.5892334118646025,
+              "is_max_drawdown": -0.018550726518788307,
+              "oos_sortino_ratio": 1.0843465518170698,
+              "oos_cvar_95": -0.0019510607030102489,
+              "degradation": -0.12751343463941525,
+              "stability": {
+                "oos_minus_is_return": 0.012342512466811617,
+                "oos_sharpe_minus_is_sharpe": 4.422525289964197
+              }
+            },
+            {
+              "split": 12,
+              "oos_total_return": -0.01602967558705115,
+              "oos_sharpe_ratio": -14.55164104077967,
+              "oos_max_drawdown": -0.01759920197530951,
+              "is_total_return": -0.017732977312108655,
+              "is_sharpe_ratio": -4.021586069955645,
+              "is_max_drawdown": -0.020018151089567282,
+              "oos_sortino_ratio": -10.951357794780936,
+              "oos_cvar_95": -0.0031210920203817104,
+              "degradation": 0.903947222450094,
+              "stability": {
+                "oos_minus_is_return": 0.0017033017250575044,
+                "oos_sharpe_minus_is_sharpe": -10.530054970824025
+              }
+            }
+          ],
+          "mean_oos_return": -0.004204250156111773,
+          "std_oos_return": 0.009604496178018389,
+          "oos_is_ratio": 0.43093789306057245,
+          "is_mean_return": -0.009756046576114915,
+          "oos_mean_return": -0.004204250156111773,
+          "degradation": 0.43093789306057245,
+          "stability": {
+            "std_oos_return": 0.009604496178018389,
+            "positive_periods": 5,
+            "total_periods": 12
+          }
+        }
+      },
+      "1d": {
+        "status": "ok",
+        "n_bars": 213,
+        "train_period": 36,
+        "test_period": 12,
+        "n_splits": 14,
+        "portfolio": {
+          "total_return": -0.032991403377765516,
+          "sharpe_ratio": -1.2829339074852184,
+          "max_drawdown": -0.04079220970270481
+        },
+        "walk_forward": {
+          "n_splits": 14,
+          "splits": [
+            {
+              "split": 1,
+              "oos_total_return": 0.012170076001825958,
+              "oos_sharpe_ratio": 6.064695416316205,
+              "oos_max_drawdown": -0.0012101699537300226,
+              "is_total_return": -0.004073906765566293,
+              "is_sharpe_ratio": -1.9190378582639809,
+              "is_max_drawdown": -0.005358681758477535,
+              "oos_sortino_ratio": 23.271006409673102,
+              "oos_cvar_95": -0.00121016995373006,
+              "degradation": -2.9873231524811925,
+              "stability": {
+                "oos_minus_is_return": 0.01624398276739225,
+                "oos_sharpe_minus_is_sharpe": 7.983733274580186
+              }
+            },
+            {
+              "split": 2,
+              "oos_total_return": -0.012967261459205681,
+              "oos_sharpe_ratio": -8.836691305354995,
+              "oos_max_drawdown": -0.014981504793831757,
+              "is_total_return": 0.005741921146142692,
+              "is_sharpe_ratio": 2.2236961619080184,
+              "is_max_drawdown": -0.004580846517745263,
+              "oos_sortino_ratio": -7.320977961415807,
+              "oos_cvar_95": -0.00579695294358286,
+              "degradation": -2.258348926981839,
+              "stability": {
+                "oos_minus_is_return": -0.018709182605348373,
+                "oos_sharpe_minus_is_sharpe": -11.060387467263013
+              }
+            },
+            {
+              "split": 3,
+              "oos_total_return": -0.0036646832362656756,
+              "oos_sharpe_ratio": -4.040885004070908,
+              "oos_max_drawdown": -0.0061077976839266634,
+              "is_total_return": 0.0029037787310406404,
+              "is_sharpe_ratio": 0.9105341658284698,
+              "is_max_drawdown": -0.0050173544257263725,
+              "oos_sortino_ratio": -2.5924701994463,
+              "oos_cvar_95": -0.0041610225222246935,
+              "degradation": -1.2620394236968415,
+              "stability": {
+                "oos_minus_is_return": -0.006568461967306316,
+                "oos_sharpe_minus_is_sharpe": -4.951419169899378
+              }
+            },
+            {
+              "split": 4,
+              "oos_total_return": -0.0007995643074332204,
+              "oos_sharpe_ratio": -0.6275802302832035,
+              "oos_max_drawdown": -0.005365421718948382,
+              "is_total_return": -0.006935549915207617,
+              "is_sharpe_ratio": -1.545380166598193,
+              "is_max_drawdown": -0.014833062990125767,
+              "oos_sortino_ratio": -0.42587738293458266,
+              "oos_cvar_95": -0.004600334918504636,
+              "degradation": 0.11528491860176962,
+              "stability": {
+                "oos_minus_is_return": 0.006135985607774397,
+                "oos_sharpe_minus_is_sharpe": 0.9177999363149895
+              }
+            },
+            {
+              "split": 5,
+              "oos_total_return": -0.00339347994528183,
+              "oos_sharpe_ratio": -2.3985344243486666,
+              "oos_max_drawdown": -0.009947650494835147,
+              "is_total_return": -0.013367525397738111,
+              "is_sharpe_ratio": -3.0810350974993965,
+              "is_max_drawdown": -0.014833062990126211,
+              "oos_sortino_ratio": -1.7552177068473656,
+              "oos_cvar_95": -0.006247233243638833,
+              "degradation": 0.25385999609591414,
+              "stability": {
+                "oos_minus_is_return": 0.009974045452456282,
+                "oos_sharpe_minus_is_sharpe": 0.6825006731507299
+              }
+            },
+            {
+              "split": 6,
+              "oos_total_return": -0.007784371216539632,
+              "oos_sharpe_ratio": -3.5267556045325206,
+              "oos_max_drawdown": -0.012499391596879295,
+              "is_total_return": -0.012754790754476275,
+              "is_sharpe_ratio": -3.391661702027098,
+              "is_max_drawdown": -0.014257482238916652,
+              "oos_sortino_ratio": -2.6173466197888797,
+              "oos_cvar_95": -0.008347800900869019,
+              "degradation": 0.6103095978903236,
+              "stability": {
+                "oos_minus_is_return": 0.004970419537936643,
+                "oos_sharpe_minus_is_sharpe": -0.13509390250542275
+              }
+            },
+            {
+              "split": 7,
+              "oos_total_return": 0.0015468223667218783,
+              "oos_sharpe_ratio": 0.5878427652138787,
+              "oos_max_drawdown": -0.008951410472688326,
+              "is_total_return": -0.00341422300265648,
+              "is_sharpe_ratio": -0.766361624207015,
+              "is_max_drawdown": -0.011940579629369674,
+              "oos_sortino_ratio": 1.0747578632685653,
+              "oos_cvar_95": -0.006165610742857612,
+              "degradation": -0.45305252923384126,
+              "stability": {
+                "oos_minus_is_return": 0.0049610453693783585,
+                "oos_sharpe_minus_is_sharpe": 1.3542043894208937
+              }
+            },
+            {
+              "split": 8,
+              "oos_total_return": -0.021491038017891984,
+              "oos_sharpe_ratio": -11.827178322968232,
+              "oos_max_drawdown": -0.021491038017891984,
+              "is_total_return": -0.01850728064976548,
+              "is_sharpe_ratio": -3.993873636268194,
+              "is_max_drawdown": -0.01812132823052648,
+              "oos_sortino_ratio": -8.210827733535734,
+              "oos_cvar_95": -0.010600182407444066,
+              "degradation": 1.1612207338609908,
+              "stability": {
+                "oos_minus_is_return": -0.002983757368126505,
+                "oos_sharpe_minus_is_sharpe": -7.833304686700037
+              }
+            },
+            {
+              "split": 9,
+              "oos_total_return": -0.030988637054240598,
+              "oos_sharpe_ratio": -6.477886164687011,
+              "oos_max_drawdown": -0.03138881727536946,
+              "is_total_return": -0.015648537056074385,
+              "is_sharpe_ratio": -3.5079326113054154,
+              "is_max_drawdown": -0.02326263862232536,
+              "oos_sortino_ratio": -3.9606344943901703,
+              "oos_cvar_95": -0.027809845534295163,
+              "degradation": 1.9802897193007287,
+              "stability": {
+                "oos_minus_is_return": -0.015340099998166212,
+                "oos_sharpe_minus_is_sharpe": -2.969953553381596
+              }
+            },
+            {
+              "split": 10,
+              "oos_total_return": -0.0022534156008906514,
+              "oos_sharpe_ratio": -1.3778873498854027,
+              "oos_max_drawdown": -0.008465518076476775,
+              "is_total_return": -0.014747352881695597,
+              "is_sharpe_ratio": -3.485872930344515,
+              "is_max_drawdown": -0.022687199785101475,
+              "oos_sortino_ratio": -1.2180180060758792,
+              "oos_cvar_95": -0.004125435231831001,
+              "degradation": 0.15280136163877853,
+              "stability": {
+                "oos_minus_is_return": 0.012493937280804945,
+                "oos_sharpe_minus_is_sharpe": 2.107985580459112
+              }
+            },
+            {
+              "split": 11,
+              "oos_total_return": -0.011224148536745027,
+              "oos_sharpe_ratio": -8.272321555383348,
+              "oos_max_drawdown": -0.011224148536745027,
+              "is_total_return": -0.0026304263331792255,
+              "is_sharpe_ratio": -0.5918548277031198,
+              "is_max_drawdown": -0.0117697335084328,
+              "oos_sortino_ratio": -6.461410938079201,
+              "oos_cvar_95": -0.005376824294567316,
+              "degradation": 4.267045381643183,
+              "stability": {
+                "oos_minus_is_return": -0.008593722203565801,
+                "oos_sharpe_minus_is_sharpe": -7.680466727680228
+              }
+            },
+            {
+              "split": 12,
+              "oos_total_return": 0.004135785944445303,
+              "oos_sharpe_ratio": 1.9166896268071634,
+              "oos_max_drawdown": -0.007174433100515021,
+              "is_total_return": 0.000999253008411305,
+              "is_sharpe_ratio": 0.270156608571619,
+              "is_max_drawdown": -0.008423278004649926,
+              "oos_sortino_ratio": 1.8958639729022873,
+              "oos_cvar_95": -0.006697647971541319,
+              "degradation": 4.138877651237415,
+              "stability": {
+                "oos_minus_is_return": 0.0031365329360339977,
+                "oos_sharpe_minus_is_sharpe": 1.6465330182355444
+              }
+            },
+            {
+              "split": 13,
+              "oos_total_return": -0.00999714652121475,
+              "oos_sharpe_ratio": -13.06858810390465,
+              "oos_max_drawdown": -0.00999714652121475,
+              "is_total_return": 0.005536597423632994,
+              "is_sharpe_ratio": 1.1763319437389883,
+              "is_max_drawdown": -0.006548696279758293,
+              "oos_sortino_ratio": -8.34049131058129,
+              "oos_cvar_95": -0.003518867215883944,
+              "degradation": -1.8056480824381198,
+              "stability": {
+                "oos_minus_is_return": -0.015533743944847744,
+                "oos_sharpe_minus_is_sharpe": -14.244920047643639
+              }
+            },
+            {
+              "split": 14,
+              "oos_total_return": -0.004225967933061514,
+              "oos_sharpe_ratio": -7.811266810290199,
+              "oos_max_drawdown": -0.0046472431945556725,
+              "is_total_return": 0.018615581092700895,
+              "is_sharpe_ratio": 3.4033194531235362,
+              "is_max_drawdown": -0.006548696279758404,
+              "oos_sortino_ratio": -4.865838894372441,
+              "oos_cvar_95": -0.0026893816295592114,
+              "degradation": -0.22701241030388794,
+              "stability": {
+                "oos_minus_is_return": -0.02284154902576241,
+                "oos_sharpe_minus_is_sharpe": -11.214586263413736
+              }
+            }
+          ],
+          "mean_oos_return": -0.006495502108269816,
+          "std_oos_return": 0.0107498807240018,
+          "oos_is_ratio": 1.5602812132927175,
+          "is_mean_return": -0.004163032953887924,
+          "oos_mean_return": -0.006495502108269816,
+          "degradation": 1.5602812132927175,
+          "stability": {
+            "std_oos_return": 0.0107498807240018,
+            "positive_periods": 3,
+            "total_periods": 14
+          }
+        }
+      }
+    }
+  },
   "tail_risk": {
     "portfolio": {
       "var_95": -0.0007234960643237831,
