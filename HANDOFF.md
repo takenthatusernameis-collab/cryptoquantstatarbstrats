@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T01:29:26Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - PRODUCTION HARDENING
+# DURABLE HANDOFF (2026-10-31T01:31:00Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - PRODUCTION HARDENING
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -6,7 +6,7 @@
 - **MANDATE:** **REAL DATA ONLY** (Binance public REST). Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true` warnings. No silent fabrication.
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T01:29:26Z
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T01:31:00Z
 - **Branch:** `main` (clean)
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped**
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files**
@@ -23,7 +23,7 @@
 - **Observability:** Per-pair/per-symbol/per-TF/per-split logs (bars/ranges/gaps/NaNs/dupes). Structured logs.
 - **Regression discipline:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T01:29:26Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T01:31:00Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
