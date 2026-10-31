@@ -211,7 +211,7 @@ def fetch_funding_rates(symbols: list[str], days: int = 30):
     """
     funding_attempts = []
     funding_data = {}
-    _hosts = ["https://fapi.binance.com", "https://www.binance.com"]
+    _hosts = ["https://www.binance.com", "https://fapi.binance.com"]
     end_time = int(pd.Timestamp.now(tz="UTC").timestamp() * 1000)
     start_time = int((pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=days)).timestamp() * 1000)
     for sym in symbols:
@@ -251,7 +251,7 @@ def fetch_funding_rates(symbols: list[str], days: int = 30):
 def fetch_basis(symbols: list[str]):
     attempts = []
     basis_data = {}
-    _hosts = ["https://fapi.binance.com", "https://dapi.binance.com"]
+    _hosts = ["https://www.binance.com", "https://fapi.binance.com"]
     for sym in symbols:
         market = f"{sym}USDT"
         ok = False
@@ -662,7 +662,7 @@ def main() -> None:
             if sym in SYMBOLS:
                 continue
             try:
-                _d = DataLoader.load_binance_data(
+                _d = DataLoader().load_binance_data(
                     [sym], START, END, interval="1h", quote_asset="USDT"
                 )
                 if _d is None or len(_d) < 5000:

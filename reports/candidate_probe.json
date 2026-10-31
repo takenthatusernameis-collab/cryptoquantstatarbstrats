@@ -1,0 +1,230 @@
+{
+  "probe_time_utc": "2026-10-31T00:43:58.705969+00:00",
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "interval": "1h",
+  "min_bars": 5000,
+  "results": {
+    "ARB": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 2.63
+    },
+    "OP": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 3.09
+    },
+    "NEAR": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.67
+    },
+    "INJ": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.56
+    },
+    "APT": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.69
+    },
+    "SUI": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.67
+    },
+    "TIA": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.32
+    },
+    "SEI": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.99
+    },
+    "BCH": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.57
+    },
+    "ETC": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.22
+    },
+    "MATIC": {
+      "status": "error",
+      "error": "No Binance spot candles returned for MATICUSDT between 2026-04-01 and 2026-10-30.",
+      "latency_s": 0.14
+    },
+    "BTC": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.99
+    },
+    "ETH": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.1
+    },
+    "SOL": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.99
+    },
+    "BNB": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.2
+    },
+    "ADA": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.99
+    },
+    "XRP": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.9
+    },
+    "DOT": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 1.1
+    },
+    "POL": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.88
+    },
+    "AVAX": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.87
+    },
+    "LINK": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.87
+    },
+    "LTC": {
+      "status": "ok",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "nulls": 0,
+      "meets_min_bars": true,
+      "latency_s": 0.98
+    }
+  },
+  "admitted": [
+    "ADA",
+    "APT",
+    "ARB",
+    "AVAX",
+    "BCH",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETC",
+    "ETH",
+    "INJ",
+    "LINK",
+    "LTC",
+    "NEAR",
+    "OP",
+    "POL",
+    "SEI",
+    "SOL",
+    "SUI",
+    "TIA",
+    "XRP"
+  ],
+  "excluded_insufficient": [],
+  "excluded_unavailable": [
+    "MATIC"
+  ]
+}

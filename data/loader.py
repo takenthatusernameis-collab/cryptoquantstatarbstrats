@@ -102,8 +102,8 @@ class DataLoader:
         # in some environments; www.binance.com serves the same public endpoint, so
         # try a ordered list of hosts and fall back until one succeeds.
         _binance_hosts = [
-            "https://api.binance.com",
             "https://www.binance.com",
+            "https://api.binance.com",
             "https://api1.binance.com",
             "https://api2.binance.com",
             "https://api3.binance.com",
@@ -398,8 +398,8 @@ class DataLoader:
         start_ms = as_utc_millis(start_date)
         end_ms = as_utc_millis(end_date, include_date=True)
         hosts = [
-            "https://api.binance.com",
             "https://www.binance.com",
+            "https://api.binance.com",
             "https://api1.binance.com",
             "https://api2.binance.com",
             "https://api3.binance.com",
