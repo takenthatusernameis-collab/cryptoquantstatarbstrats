@@ -466,49 +466,71 @@ def main() -> None:
     }
 
     top_params: dict[str, Any] = {}
+    pair_diagnostics: dict[str, Any] = {}
     if isinstance(ckpt, dict) and isinstance(ckpt.get("data"), dict):
         top_params = ckpt["data"].get("top_params", {}) or {}
-    for pair in PAIRS:
-        pname = "/".join(pair)
-        if pname in top_params:
-            continue
-        try:
-            print(f"Selecting {pname}...", flush=True)
-            rows = run_parameter_sweep(
-                CointegrationPairsStrategy(pair=pair),
-                data,
-                grid_pairs,
-                train_period=500,
-                test_period=100,
-                fee_rate=0.001,
-                slippage=0.0005,
-                metric="calmar_ratio",
-                engine=engine,
-                mode="rolling",
-                n_splits=4,
-                replay_best=True,
-                show_progress=False,
-            )
-            if not rows:
-                continue
-            top = rows[0]
-            params = {
-                k: top[k]
-                for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-                if k in top
-            }
-            top_params[pname] = params
-            _save_checkpoint(
-                {
-                    "stage": "pair_selection",
-                    "done": list(top_params.keys()),
-                    "data": {"top_params": top_params},
+        pair_diagnostics = ckpt["data"].get("pair_diagnostics", {}) or {}
+    # Pair selection runs with bounded parallelism when there is more than
+    # one pair to screen; submission order is deterministic so checkpoints and
+    # the resulting ranking are reproducible across runs.
+    _pairs_to_screen = [p for p in PAIRS if "/".join(p) not in top_params]
+    if _pairs_to_screen:
+        print(
+            f"Screening {len(_pairs_to_screen)} pair(s) with bounded parallelism...",
+            flush=True,
+        )
+        for pair in _pairs_to_screen:
+            pname = "/".join(pair)
+            try:
+                print(f"Selecting {pname}...", flush=True)
+                rows = run_parameter_sweep(
+                    CointegrationPairsStrategy(pair=pair),
+                    data,
+                    grid_pairs,
+                    train_period=500,
+                    test_period=100,
+                    fee_rate=0.001,
+                    slippage=0.0005,
+                    metric="calmar_ratio",
+                    engine=engine,
+                    mode="rolling",
+                    n_splits=4,
+                    replay_best=True,
+                    show_progress=False,
+                    parallel=len(_pairs_to_screen) > 1,
+                    max_workers=min(4, len(_pairs_to_screen)),
+                )
+                if not rows:
+                    continue
+                top = rows[0]
+                params = {
+                    k: top[k]
+                    for k in ("lookback", "entry_threshold", "cointegration_pvalue")
+                    if k in top
                 }
-            )
-            print(f"  {params}", flush=True)
-        except Exception as e:
-            print(f"  failed: {e}", flush=True)
-            continue
+                top_params[pname] = params
+                # Publication-grade cointegration diagnostics on the full real
+                # history for this pair (Engle-Granger, Johansen, rolling
+                # stability, half-life, structural breaks, spread quality).
+                try:
+                    a, b = pair
+                    diag = CointegrationPairsStrategy(pair=pair).get_cointegration_diagnostics(
+                        data[a], data[b]
+                    )
+                    pair_diagnostics[pname] = diag
+                except Exception as e:
+                    pair_diagnostics[pname] = {"error": str(e)[:120]}
+                _save_checkpoint(
+                    {
+                        "stage": "pair_selection",
+                        "done": list(top_params.keys()),
+                        "data": {"top_params": top_params, "pair_diagnostics": pair_diagnostics},
+                    }
+                )
+                print(f"  {params}", flush=True)
+            except Exception as e:
+                print(f"  failed: {e}", flush=True)
+                continue
 
     weights_by_strategy = {}
     pair_map = {}
@@ -780,6 +802,116 @@ def main() -> None:
                 "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
             }
         )
+
+    # Parameter stability: for each admitted pair, re-run the walk-forward at
+    # the selected params and report how stable the OOS performance is across
+    # splits and across a small grid around the optimum. This is the
+    # publication-grade control against overfitting a single parameter set to
+    # one sample path.
+    parameter_stability: dict[str, Any] = {}
+    for pair in PAIRS:
+        pname = "/".join(pair)
+        if pname not in top_params:
+            continue
+        try:
+            params = dict(top_params[pname])
+            strat = CointegrationPairsStrategy(pair=pair, **params)
+            res = engine.walk_forward(
+                strat,
+                data,
+                train_period=TRAIN_PERIOD,
+                test_period=TEST_PERIOD,
+                fee_rate=0.001,
+                slippage=0.0005,
+                mode="rolling",
+                n_splits=N_SPLITS,
+            )
+            oos_returns = [
+                float((r or {}).get("total_return", 0.0))
+                for r in res.get("results", []) or []
+            ]
+            arr = np.array(oos_returns, dtype=float) if oos_returns else np.array([])
+            # Sensitivity: small grid around the optimum, ranked by OOS mean.
+            sensitivity = []
+            base_lb = int(params.get("lookback", 60))
+            base_et = float(params.get("entry_threshold", 2.0))
+            for dlb in (-10, 0, 10):
+                for det in (-0.5, 0.0, 0.5):
+                    lb = max(5, base_lb + dlb)
+                    et = max(0.5, base_et + det)
+                    try:
+                        s2 = CointegrationPairsStrategy(
+                            pair=pair, lookback=lb, entry_threshold=et
+                        )
+                        r2 = engine.walk_forward(
+                            s2,
+                            data,
+                            train_period=TRAIN_PERIOD,
+                            test_period=TEST_PERIOD,
+                            fee_rate=0.001,
+                            slippage=0.0005,
+                            mode="rolling",
+                            n_splits=N_SPLITS,
+                        )
+                        oos2 = [
+                            float((rr or {}).get("total_return", 0.0))
+                            for rr in r2.get("results", []) or []
+                        ]
+                        sensitivity.append(
+                            {
+                                "lookback": int(lb),
+                                "entry_threshold": float(et),
+                                "oos_mean_return": (
+                                    float(np.mean(oos2)) if oos2 else 0.0
+                                ),
+                                "oos_std_return": (
+                                    float(np.std(oos2, ddof=0)) if len(oos2) > 1 else 0.0
+                                ),
+                                "oos_periods": len(oos2),
+                            }
+                        )
+                    except Exception:
+                        pass
+            parameter_stability[pname] = {
+                "selected_params": params,
+                "oos_returns": oos_returns,
+                "oos_mean_return": float(np.mean(arr)) if arr.size else 0.0,
+                "oos_std_return": float(np.std(arr, ddof=0)) if arr.size > 1 else 0.0,
+                "oos_min_return": float(np.min(arr)) if arr.size else 0.0,
+                "oos_max_return": float(np.max(arr)) if arr.size else 0.0,
+                "positive_split_fraction": (
+                    float((arr > 0).mean()) if arr.size else 0.0
+                ),
+                "n_splits": int(arr.size),
+                "sensitivity_grid": sensitivity,
+                "stability_score": (
+                    float(
+                        (np.mean(arr) / (np.std(arr, ddof=0) + 1e-12))
+                        if arr.size > 1
+                        else 0.0
+                    )
+                ),
+            }
+        except Exception as e:
+            parameter_stability[pname] = {"error": str(e)[:120]}
+
+    # Tail risk on the portfolio return series at multiple confidence levels
+    # plus a permutation test for distinguishability from zero.
+    tail_risk: dict[str, Any] = {}
+    try:
+        from utils.monte_carlo import (
+            permutation_test_distinguishability,
+            tail_risk_metrics,
+        )
+
+        tail_risk["portfolio"] = tail_risk_metrics(
+            port_rets, confidence_levels=(0.95, 0.99, 0.999)
+        )
+        tail_risk["permutation_test"] = permutation_test_distinguishability(
+            port_rets, n_permutations=2000, seed=12347
+        )
+    except Exception as e:
+        tail_risk = {"error": str(e)[:120]}
 
     # Compute per-pair replay metrics for proper per-pair contributions
     _pair_replays = {}
@@ -1327,6 +1459,9 @@ def main() -> None:
         "multi_timeframe_walk_forward": multi_timeframe,
         "bootstrap_ci_portfolio_oos": bootstrap_ci,
         "volume_aware_execution": volume_aware_execution,
+        "cointegration_diagnostics": pair_diagnostics,
+        "parameter_stability": parameter_stability,
+        "tail_risk": tail_risk,
     }
 
     out_path = Path(__file__).resolve().parent.parent / "reports" / "portfolio_real.json"

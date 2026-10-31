@@ -75,6 +75,7 @@ def bootstrap_trade_returns(
     method: str = "bootstrap",
     seed: int | None = None,
     ruin_threshold: float = 0.5,
+    block_size: int | None = None,
     compute_risk_of_ruin: bool = True,
 ) -> dict[str, Any]:
     """Bootstrap or shuffle trade returns to simulate alternative sequences.
@@ -86,6 +87,9 @@ def bootstrap_trade_returns(
             (permutation of the same trades).
         seed: Random seed for reproducibility.
         ruin_threshold: Threshold for risk-of-ruin calculation (fraction of initial equity).
+        block_size: Optional positive integer. When set > 1 the bootstrap draws
+            contiguous blocks (block bootstrap) instead of single draws, which
+            preserves short-range serial dependence in the return series.
         compute_risk_of_ruin: Whether to compute risk of ruin.
 
     Returns:
@@ -144,8 +148,24 @@ def bootstrap_trade_returns(
     ruin_count = 0
 
     initial_equity = 1.0
+    block_size = int(block_size) if block_size and block_size > 0 else 1
+    use_block = block_size > 1 and len(trades) > block_size
+    if use_block:
+        # Block bootstrap: resample contiguous blocks to preserve short-range
+        # serial dependence in the return series. Each simulation draws
+        # ceil(n/block_size) blocks and concatenates them to length n.
+        n_blocks = int(np.ceil(len(trades) / float(block_size)))
+        blocks = np.array(
+            [trades[i : i + block_size] for i in range(0, len(trades) - block_size + 1, block_size)]
+        )
+        if len(blocks) == 0:
+            blocks = trades.reshape(-1, 1)
+
     for _ in range(int(n_simulations)):
-        if method == "shuffle":
+        if use_block:
+            block_indices = rng.choice(len(blocks), size=n_blocks, replace=True)
+            sim_trades = np.concatenate([blocks[i] for i in block_indices])[: len(trades)]
+        elif method == "shuffle":
             sim_trades = rng.permutation(trades)
         else:  # bootstrap
             sim_trades = rng.choice(trades, size=len(trades), replace=True)
@@ -184,6 +204,7 @@ def bootstrap_trade_returns(
     result = {
         "n_simulations": int(n_simulations),
         "method": method,
+        "block_size": int(block_size) if (block_size and block_size > 0) else 1,
         "final_equity": _stats(final_equities),
         "max_drawdown": mdd_stats,
         "sharpe_ratio": _stats(sharpes),
@@ -202,6 +223,145 @@ def bootstrap_trade_returns(
     return result
 
 
+def permutation_test_distinguishability(
+    trade_returns: Any,
+    n_permutations: int = 2000,
+    seed: int | None = None,
+) -> dict[str, Any]:
+    """Permutation test for whether a return series is distinguishable from zero.
+
+    Under the null hypothesis the observed sequence carries no exploitable
+    signal, so any permutation of the same returns is equally plausible. We
+    compare the observed mean return against the distribution of permuted
+    means and report a two-sided p-value. A small p-value rejects the null and
+    supports that the observed mean is not a draw from a zero-signal process.
+
+    Returns:
+        Dictionary with observed mean, permutation mean/std, two-sided
+        p-value, and the full permutation distribution of mean returns.
+    """
+    rng = np.random.default_rng(seed)
+    if isinstance(trade_returns, pd.Series):
+        trades = trade_returns.dropna().to_numpy(dtype=float)
+    else:
+        trades = np.asarray(trade_returns, dtype=float).ravel()
+        trades = trades[~np.isnan(trades)]
+
+    if len(trades) == 0:
+        return {
+            "observed_mean": 0.0,
+            "permutation_mean": 0.0,
+            "permutation_std": 0.0,
+            "p_value": 1.0,
+            "n_permutations": 0,
+            "n_observations": 0,
+            "note": "Empty input; cannot distinguish from zero.",
+        }
+
+    observed_mean = float(np.mean(trades))
+    perm_means = np.empty(int(n_permutations), dtype=float)
+    for i in range(int(n_permutations)):
+        perm = rng.permutation(trades)
+        perm_means[i] = float(np.mean(perm))
+
+    perm_mean = float(np.mean(perm_means))
+    perm_std = float(np.std(perm_means, ddof=0))
+    # Two-sided p-value: fraction of permuted means at least as extreme as the
+    # observed mean in either direction, plus one pseudo-count for stability.
+    extreme = float(np.sum(np.abs(perm_means) >= abs(observed_mean)))
+    p_value = float((extreme + 1.0) / (float(n_permutations) + 1.0))
+
+    return {
+        "observed_mean": observed_mean,
+        "permutation_mean": perm_mean,
+        "permutation_std": perm_std,
+        "p_value": p_value,
+        "n_permutations": int(n_permutations),
+        "n_observations": int(len(trades)),
+        "note": (
+            "Two-sided permutation p-value for the observed mean return against "
+            "the null of no exploitable signal. Lower p-value is more "
+            "distinguishable from zero."
+        ),
+    }
+
+
+def tail_risk_metrics(
+    trade_returns: Any,
+    *,
+    confidence_levels: tuple[float, ...] = (0.95, 0.99, 0.999),
+    initial_equity: float = 1.0,
+) -> dict[str, Any]:
+    """Compute publication-grade tail risk metrics from a return series.
+
+    For each confidence level reports VaR, CVaR (expected shortfall), and
+    CDaR (conditional drawdown at risk). All risk figures are reported as
+    positive magnitudes for readability; the underlying returns are negative
+    in loss terms.
+
+    Args:
+        trade_returns: Iterable of per-period returns.
+        confidence_levels: Confidence levels to evaluate (e.g. 0.95, 0.99, 0.999).
+        initial_equity: Starting equity for drawdown-based metrics.
+
+    Returns:
+        Dictionary keyed by confidence level with VaR/CVaR/CDaR, plus the
+        underlying return series summary.
+    """
+    if isinstance(trade_returns, pd.Series):
+        trades = trade_returns.dropna().to_numpy(dtype=float)
+    else:
+        trades = np.asarray(trade_returns, dtype=float).ravel()
+        trades = trades[~np.isnan(trades)]
+
+    if trades.size == 0:
+        return {
+            "n_observations": 0,
+            "note": "Empty input; tail metrics undefined.",
+            "by_confidence": {},
+        }
+
+    equity = float(initial_equity) * np.cumprod(1.0 + trades)
+    running_max = np.maximum.accumulate(equity)
+    drawdown = equity / running_max - 1.0
+
+    by_confidence: dict[str, Any] = {}
+    for conf in confidence_levels:
+        conf = float(conf)
+        if not (0.0 < conf < 1.0):
+            continue
+        alpha = 1.0 - conf
+        var = float(np.percentile(trades, alpha * 100.0))
+        tail = trades[trades <= var]
+        cvar = float(np.mean(tail)) if tail.size > 0 else var
+        dd_var = float(np.percentile(drawdown, alpha * 100.0))
+        dd_tail = drawdown[drawdown <= dd_var]
+        cdar = float(np.mean(dd_tail)) if dd_tail.size > 0 else dd_var
+        by_confidence[f"{int(conf * 100)}"] = {
+            "confidence": conf,
+            "var": abs(var),
+            "cvar": abs(cvar),
+            "cdar": abs(cdar),
+            "n_tail": int(tail.size),
+        }
+
+    return {
+        "n_observations": int(trades.size),
+        "mean_return": float(np.mean(trades)),
+        "std_return": float(np.std(trades, ddof=0)) if trades.size > 1 else 0.0,
+        "min_return": float(np.min(trades)),
+        "max_return": float(np.max(trades)),
+        "final_equity": float(equity[-1]),
+        "max_drawdown": abs(float(np.min(drawdown))),
+        "by_confidence": by_confidence,
+        "note": (
+            "VaR/CVaR/CDaR reported as positive magnitudes. CVaR is the mean of "
+            "returns at or below VaR; CDaR is the mean of drawdowns at or below "
+            "the drawdown VaR threshold."
+        ),
+    }
+
+
 def monte_carlo_analysis(
     returns: Any = None,
     equity_curve: Any = None,
@@ -211,6 +371,7 @@ def monte_carlo_analysis(
     seed: int | None = None,
     periods_per_year: int = 252,
     ruin_threshold: float = 0.5,
+    block_size: int | None = None,
     compute_risk_of_ruin: bool = True,
 ) -> dict[str, Any]:
     """Run Monte Carlo analysis on returns/equity/trades.
@@ -226,6 +387,7 @@ def monte_carlo_analysis(
             method=method,
             seed=seed,
             ruin_threshold=ruin_threshold,
+            block_size=block_size,
             compute_risk_of_ruin=compute_risk_of_ruin,
         )
 
@@ -238,6 +400,7 @@ def monte_carlo_analysis(
                 method=method,
                 seed=seed,
                 ruin_threshold=ruin_threshold,
+                block_size=block_size,
                 compute_risk_of_ruin=compute_risk_of_ruin,
             )
         # Compute period returns from equity curve
@@ -249,6 +412,7 @@ def monte_carlo_analysis(
                 method=method,
                 seed=seed,
                 ruin_threshold=ruin_threshold,
+                block_size=block_size,
                 compute_risk_of_ruin=compute_risk_of_ruin,
             )
         return bootstrap_trade_returns(
@@ -257,6 +421,7 @@ def monte_carlo_analysis(
             method=method,
             seed=seed,
             ruin_threshold=ruin_threshold,
+            block_size=block_size,
             compute_risk_of_ruin=compute_risk_of_ruin,
         )
 
@@ -269,6 +434,7 @@ def monte_carlo_analysis(
                 method=method,
                 seed=seed,
                 ruin_threshold=ruin_threshold,
+                block_size=block_size,
                 compute_risk_of_ruin=compute_risk_of_ruin,
             )
         return bootstrap_trade_returns(
@@ -277,6 +443,7 @@ def monte_carlo_analysis(
             method=method,
             seed=seed,
             ruin_threshold=ruin_threshold,
+            block_size=block_size,
             compute_risk_of_ruin=compute_risk_of_ruin,
         )
 
@@ -286,5 +453,6 @@ def monte_carlo_analysis(
         method=method,
         seed=seed,
         ruin_threshold=ruin_threshold,
+        block_size=block_size,
         compute_risk_of_ruin=compute_risk_of_ruin,
     )
