@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T20:03:58Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T20:19:43Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -6,7 +6,7 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action produces checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-10-31T20:03:58Z)
+## CURRENT VERIFIED STATE (2026-10-31T20:19:43Z)
 - Branch: `main` (clean), up to date with `origin/main`. Last commit `dd32c7c chore(kilo): checkpoint agent session`.
 - `use_enriched_gates` default flipped to `True` (fail-closed) in `strategies/pairs_trading.py`.
 - Enriched gate tests present (structural breaks flagged, missing/None, causality, hedge ratio guards).
@@ -17,7 +17,7 @@
 ## BOTTLENACKS REMOVED (so progress can continue)
 - Abandoned the repeatedly failing/cancelled `fix/causal-pairs-validation-2026-10-27` branch (Ruff failures + `ModuleNotFoundError: numpy/sklearn/yaml` + cancelled CI loops across 3 Python versions). Do **not** resurrect it; all work lands on `main`.
 - Environment dependency gap closed (dev stack installed). Next session starts from a runnable env.
-- No in-flight PRs/branches to reconcile; working tree clean.
+- `fix/noncompounding-overlap-pair-caps-20261030` remote branch is a destructive sidetrack (deletes data cache, tests, utils) — do NOT merge; all work lands on `main`.
 
 ## SINGLE MANDATORY OBJECTIVE (HEAVY WORK REQUIRED — UNAVOIDABLE)
 **Close the cointegration rigor loop on real data.** Make every pair either (a) pass all 7 enriched gates on real Binance data, or (b) be honestly marked `blocked_or_insufficient_data` with full provenance. This is the focus campaign; future agents must not defer it.
