@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T10:31:12Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T11:18:14Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -7,9 +7,9 @@
 - **NETWORK BLOCKED (HTTP 451 on api.binance.com).** You CANNOT rely on live Binance fetches. Adapt via existing artifacts (`reports/portfolio_real.json`) + `utils/cointegration.py` functions on series already embedded/reconstructible from artifacts; where series are unreconstructible, mark `status: "blocked_or_insufficient_data"`, populate `blocked_routes[]`, add detailed rationale + full provenance, and MOVE ON. Never fabricate. Do not waste turns retrying blocked hosts.
 - **Coasting = failure.** Every action must produce checkable artifacts, tests, provenance, and logs. No speculative "maybe later" without concrete next steps.
 
-## CURRENT VERIFIED STATE (2026-10-31T10:29:27Z)
+## CURRENT VERIFIED STATE (2026-10-31T11:18:14Z)
 - Branch: `main` (clean). Working tree clean. Up to date with `origin/main`.
-- **GREEN BASELINE (verified):** `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
+- **GREEN BASELINE (verified just now):** `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`, `n_bars: 5112`.
 - `cointegration_diagnostics`: **17 pairs**, all currently minimal (`status: "computed_from_existing_results"`, many fields missing/unpopulated). **THIS IS THE BOTTLENECK.**
 - Modules ready: `utils/cointegration.py` (full diagnostics API), `strategies/pairs_trading.py:get_cointegration_diagnostics`, `examples/run_portfolio_real.py`.
@@ -17,7 +17,7 @@
 
 ## BOTTLENECK REMOVAL (MANDATORY BEFORE/WHILE WORKING)
 1. **Remove network dependency.** Network to api.binance.com returns HTTP 451. Do NOT attempt live fetches as primary path. Reuse existing artifacts + `utils.cointegration` on whatever series exist in artifacts/replays. If impossible to reconstruct full series, use `blocked_or_insufficient_data` with `blocked_routes` + full provenance.
-2. **Single session, single focus.** Do not split into parallel campaigns. One agent session must complete the cointegration campaign end-to-end.
+2. **Single session, single focus.** Do not split into parallel campaigns. One agent session must complete the cointegration campaign end-to-end. Previous sessions checkpointed without finishing; this session closes the loop.
 3. **Preserve green always.** Every change must keep `ruff` clean, `pytest >= 529 passed / 0 new failures`, `mypy` clean. Run gates after meaningful changes.
 4. **Eliminate inefficiencies.** If you find blocked/inefficient paths, fix them or route around them explicitly with documentation.
 
