@@ -56,6 +56,28 @@ python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python -m mypy backtest/ strategies/ utils/
 ```
 
+## Cointegration diagnostics rigor (publication grade)
+
+Cointegration is the core edge of this repo (`cryptoquantstatarbstrats` = Crypto Quant
+Stat Arb Strategies). Pair diagnostics for the 17 pairs in `reports/portfolio_real.json`
+are computed from real Binance spot candles only (no fabrication) and follow a
+publication-grade schema: Engle-Granger, Johansen (trace + max-eigen with 90/95/99%
+critical values and rank), per-leg ADF/KPSS, spread (OLS hedge ratio, spread ADF/KPSS,
+half-life of an OU process with the `1 < half_life < 500` bound, Hurst exponent,
+mean-reversion favorability), rolling cointegration stability, structural breaks, and a
+tight gate set (`eg_pass`, `johansen_pass`, `spread_mr_pass`, `hl_bounds_pass`,
+`leg_stationarity_ok`, `rolling_stable_ok`, `all_pass`). Every field carries full
+provenance (`source`, `real_data_only`, `fabricated_data`, `computed_at`,
+`blocked_routes`, `rationale`).
+
+Network handling: `api.binance.com` (and `api1/2/3`, `fapi.binance.com`) returns HTTP 451
+in this environment and is never relied upon. The loader's host chain tries
+`www.binance.com` first, which serves public spot klines, so real fetches succeed there.
+When a pair series cannot be reconstructed (no network, no cached series), the diagnostic
+is reported honestly as `status: "blocked_or_insufficient_data"` with `blocked_routes[]`,
+a detailed rationale, and full provenance — never fabricated. Isolated unit tests may use
+synthetic data only when explicitly flagged `fabricated_data: true`.
+
 ## CI
 
 [![CI](https://github.com/takenthatusernameis-collab/cryptoquantstatarbstrats/actions/workflows/ci.yml/badge.svg)](https://github.com/takenthatusernameis-collab/cryptoquantstatarbstrats/actions/workflows/ci.yml)

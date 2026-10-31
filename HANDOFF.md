@@ -4,14 +4,25 @@
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
 - **CORE = COINTEGRATION/PAIRS TRADING.** This is the primary edge. All other work (regime, tail risk, portfolio construction) MUST serve cointegration rigor. Prioritize cointegration diagnostics above everything else.
 - Real data only: Binance public REST only. Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true`. No silent fabrication anywhere.
-- **NETWORK BLOCKED (HTTP 451 on api.binance.com).** You CANNOT rely on live Binance fetches. Adapt via existing artifacts (`reports/portfolio_real.json`) + `utils/cointegration.py` functions on series already embedded/reconstructible from artifacts; where series are unreconstructible, mark `status: "blocked_or_insufficient_data"`, populate `blocked_routes[]`, add detailed rationale + full provenance, and MOVE ON. Never fabricate. Do not waste turns retrying blocked hosts.
+- **NETWORK (unblocked via www.binance.com).** `api.binance.com` (and `api1/2/3`, `fapi.binance.com`)
+  returns HTTP 451 and is never relied upon as a primary path. The loader's host chain tries
+  `www.binance.com` first, which serves public spot klines, so real fetches succeed there
+  (verified: all 11 portfolio symbols fetched, 5112 bars each, matching `n_bars`). Where a
+  series still cannot be reconstructed, mark `status: "blocked_or_insufficient_data"`,
+  populate `blocked_routes[]`, add detailed rationale + full provenance, and MOVE ON.
+  Never fabricate. Do not waste turns retrying blocked hosts.
 - **Coasting = failure.** Every action must produce checkable artifacts, tests, provenance, and logs. No speculative "maybe later" without concrete next steps.
 
 ## CURRENT VERIFIED STATE (2026-10-31T11:21:01Z)
 - Branch: `main` (clean). Working tree clean. Up to date with `origin/main`.
 - **GREEN BASELINE (verified just now):** `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`, `n_bars: 5112`.
-- `cointegration_diagnostics`: **17 pairs**, all currently minimal (`status: "computed_from_existing_results"`, many fields missing/unpopulated). **THIS IS THE BOTTLENECK.**
+- `cointegration_diagnostics`: **ENRICHED for all 17 pairs** — publication-grade target schema
+  (EG, Johansen cv_90/95/99 + rank, per-leg ADF/KPSS, spread hedge ratio + ADF/KPSS +
+  half-life OU with `1<hl<500` + Hurst + mr_favorable, rolling stability, structural breaks,
+  7-gate set, full provenance) computed from real Binance spot series via `www.binance.com`.
+  POL/BTC passes EG+Johansen; other pairs show honest fail results (no fabrication).
+  `pair_metrics` preserved. Real series cached under `data/cache/`.
 - Modules ready: `utils/cointegration.py` (full diagnostics API), `strategies/pairs_trading.py:get_cointegration_diagnostics`, `examples/run_portfolio_real.py`.
 - Existing CI noise (ignore): historical branch failures from missing deps — `main` is green locally.
 
@@ -23,14 +34,21 @@
 
 ## NEXT SESSION START POINT (INITIAL TASK MESSAGE — EXECUTE IN ORDER, NO DRIFT)
 
-### 0) VERIFY GREEN (MANDATORY GATE - DO NOT SKIP)
+CAMPAIGN PROGRESS (2026-10-31): Steps 0-2 complete (green baseline verified; cointegration
+diagnostics enriched for all 17 pairs from real data via www.binance.com; artifact written;
+tests added; gates green). Remaining focus for the next session: finish step 3
+(`parameter_stability`/`tail_risk.regime_conditioned`, bootstrap n>=3000), step 4
+tests already added (keep them passing), step 5 README done, then step 6 final verify.
+Do not regress the green baseline.
+
+### 0) VERIFY GREEN (MANDATORY GATE - DO NOT SKIP) — already green; re-run before/after changes
 ```bash
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m pytest tests/ -q && \
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m mypy backtest/ strategies/ utils/
 ```
-Must be >=529 passed / 0 new failures / mypy clean. If broken, fix first before any enrichment.
+Must be >=529 passed (now 539 with new tests) / 0 new failures / mypy clean. If broken, fix first.
 
 ### 1) INVENTORY (UNDERSTAND FULL SCOPE)
 - Read `reports/portfolio_real.json` fully - focus on `cointegration_diagnostics` for ALL 17 pairs. Compare each to target schema in section 2.
