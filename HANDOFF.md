@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T03:19:26Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - BATTLE-TESTED & PUBLICATION-GRADE (PHASE 3)
+# DURABLE HANDOFF (2026-10-31T03:23:35Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - BATTLE-TESTED & PUBLICATION-GRADE (PHASE 3)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,15 +7,16 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T03:19:26Z
-- **Branch:** `main` (clean)
-- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings)
-- **Lint/Type:** Must remain clean (`ruff`, `mypy` per pyproject)
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T03:23:35Z
+- **Branch:** `main` (clean), up to date with `origin/main`.
+- **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
+- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings, none failing).
+- **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files.**
 - **Artifact:** `reports/portfolio_real.json` (real-only, committed). Contains hardened blocks: multi-TF walk-forward (1h/4h/1d), bootstrap CI (>=2000 sims), volume-aware execution with attempt logs, regime meta-selector, risk controls/circuit breakers, cost-stress grid. **Preserve as provenance. Never fabricate.**
 - **Network:** Binance public REST returns **HTTP 451** in this environment (known). Treat as blocked routes, log exhaustively, preserve committed artifact.
 
 ## BOTTLENECKS IDENTIFIED & REMEDIATED (PRE-EMPTIVE)
-- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries.
+- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate.
 - **I/O/STREAMING:** Use `python -u`, `flush=True` for critical logs.
 - **PARALLELISM:** Bounded concurrency (semaphore), deterministic ordering, per-shard checkpoints/resume-safe.
 - **DATA QUALITY GATES:** Insufficient overlap/gaps/dupes/NaNs → **EXCLUDE** with full rationale + attempt log. No interpolation/backfill/fabrication.
@@ -23,7 +24,7 @@
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 - **AGENT TOOLING:** Edit operations must use correct schema (filePath/oldString/newString). Avoid invalid tool calls.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T03:19:26Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T03:23:35Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
@@ -39,7 +40,7 @@ python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
 PYTHONPATH=. python -m pytest tests/ -q && \
 python -m mypy backtest/ strategies/ utils/
 ```
-Fix immediately if broken. **Do not proceed until green.**
+Fix immediately if broken. **Do not proceed until green.** (Already green as of 2026-10-31T03:23:35Z — confirm before proceeding.)
 
 #### 1) BRUTAL AUDIT + BOTTLENECK ELIMINATION (PARALLELIZE)
 Read with intent (build dependency graph, parallelize independent work):
