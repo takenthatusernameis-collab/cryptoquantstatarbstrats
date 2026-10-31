@@ -1,15 +1,15 @@
-# DURABLE HANDOFF | 2026-10-31T10:19:50Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T10:20:05Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
-- Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies
+- Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies.
 - **CORE = COINTEGRATION/PAIRS TRADING.** Everything else supports it. Prioritize cointegration rigor above all else.
 - Real data only: Binance public REST only. Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true`. No silent fabrication.
-- Coasting = failure. Every action must produce checkable artifacts, tests, provenance, and logs.
 - **Network BLOCKED (HTTP 451 on api.binance.com).** Adapt via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes` + full provenance. NEVER FABRICATE. Do not retry Binance to "fix" this; work around it.
+- Coasting = failure. Every action must produce checkable artifacts, tests, provenance, and logs.
 
-## CURRENT VERIFIED STATE (2026-10-31T10:17:49Z)
-- Branch: `main` (clean). Working tree clean.
-- Green baseline (re-verified 2026-10-31T10:19:11Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
+## CURRENT VERIFIED STATE (2026-10-31T10:20:05Z)
+- Branch: `main` (clean). Working tree clean. Up to date with `origin/main`.
+- Green baseline (re-verified just now): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`.
 - `cointegration_diagnostics`: **17 pairs**, all in minimal form (`status: "computed_from_existing_results"`, EG/Johansen/rolling/half-life/structural breaks mostly missing/unpopulated). **This is THE bottleneck.**
 - Modules ready: `utils/cointegration.py`, `strategies/pairs_trading.py`, `examples/run_portfolio_real.py`.
