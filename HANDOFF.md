@@ -1,19 +1,20 @@
-# DURABLE HANDOFF (2026-10-31T00:37:39Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP v2 (UN-COASTABLE, HEAVY EXECUTION)
+# DURABLE HANDOFF (2026-10-31T01:19:19Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - PRODUCTION HARDENING & UNIVERSE VALIDATION
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
-- **PRIORITY:** Pure real-data crypto statistical arbitrage. Market microstructure, pair stability, and falsifiability take absolute precedence.
+- **PRIORITY:** Pure real-data crypto statistical arbitrage. Market microstructure, pair stability, cointegration, and falsifiability take absolute precedence.
 - **MANDATE:** **ONLY REAL market data** (Binance public REST). Never fabricate candles, funding, basis, IV, volume, or returns. Synthetic data is strictly limited to isolated unit tests with explicit `fabricated_data: true` warnings.
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs. Future agents cannot avoid heavy validation.
 
-## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS)
+## CURRENT VERIFIED STATE (PRESERVE AT ALL COSTS)
 - **Branch:** `main` (clean)
-- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (GREEN) — +1 since last handoff
+- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (GREEN)
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files** (GREEN)
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed!** (GREEN)
-- **Baseline:** `reports/portfolio_real.json` (real-only). Hardened risk controls, multi-TF walk-forward (≥12 splits), bootstrap CIs, volume-aware execution, full provenance. Current universe includes 11 symbols across 17 pairs (BTC/ETH/SOL/BNB/ADA/XRP/DOT/POL/AVAX/LINK/LTC).
+- **Baseline Artifact:** `reports/portfolio_real.json` (real-only). Hardened risk controls, multi-TF walk-forward (≥12 splits), bootstrap CIs, volume-aware execution, full provenance. Current universe includes 11 symbols across 17 pairs.
 
-## BOTTLENECKS TO ELIMINATE (DO FIRST - REMOVE ALL FRICTION)
+## CRITICAL BOTTLENECKS TO ELIMINATE (DO FIRST - REMOVE ALL FRICTION)
+
 Kill these immediately to maximize throughput without cutting corners:
 
 - **I/O:** Run all long jobs with `python -u`. Add `flush=True` for critical logs. Never buffer indefinitely.
@@ -25,12 +26,12 @@ Kill these immediately to maximize throughput without cutting corners:
 - **Scheduling:** Dependency-aware task graph. Do independent network-free work (tests/schema/analysis/bootstrap/risk/execution/validation) while data sources blocked. Profile hot paths, checkpoint shards, run affected tests after logical change, full gates after batch and at acceptance.
 - **Regressions:** If lint/type/test break at any point → fix immediately. Do NOT proceed until green. Treat any new warnings as potential issues to resolve.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T00:37:39Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T01:19:19Z)
 
 **START NOW. DO NOT STOP EARLY. HEAVY WORK IS MANDATORY. COASTING IS UNACCEPTABLE.**
 
 ### PRIMARY OBJECTIVE
-Aggressively scale and harden the real-data crypto stat arb system to be maximally un-coastable. Prove every inclusion with ironclad evidence, enforce rigorous multi-TF validation (>=12 splits), add deeper tail/bootstrap/stress analysis, harden execution realism under extreme cost stress, and emit a schema-enriched, fully auditable `portfolio_real` artifact with complete provenance. Every step must leave verifiable artifacts, tests, and logs.
+Aggressively scale, validate, and harden the real-data crypto stat arb system to production-grade quality. Focus on expanding the tradable universe with ironclad proof, stress-testing under extreme costs, deepening statistical rigor, and eliminating any remaining validation gaps. Every step must leave verifiable artifacts, tests, and provenance.
 
 ### MANDATORY SEQUENCE (IN ORDER - NO SKIPPING)
 
@@ -42,33 +43,34 @@ python -m mypy backtest/ strategies/ utils/
 ```
 Do not proceed until ALL pass (currently 529 passed, 1 skipped). Fix immediately if broken.
 
-#### 1. BRUTAL AUDIT (MAP & ELIMINATE BOTTLENECKS)
-Read and attack with intent to speed up without cutting corners:
+#### 1. BRUTAL AUDIT (MAP BOTTLENECKS & FIX)
+Read and attack with intent:
 - `examples/run_portfolio_real.py` (flow, risk, provenance, parallelization)
-- `reports/portfolio_real.json` (current state, schema gaps)
+- `reports/portfolio_real.json` (current state, schema gaps, missing fields)
 - `tests/test_portfolio_real.py`, `tests/test_portfolio_real_hardened.py`, `tests/test_portfolio_risk_controls.py`
 - `backtest/engine.py` (walk_forward_portfolio/run_portfolio), `backtest/sweep.py`
 - `utils/portfolio_risk.py`, `utils/regime.py`, `utils/monte_carlo.py`, `utils/risk.py`
 - `data/loader.py`, `strategies/pairs_trading.py`
 
-Identify independent workstreams to parallelize. Remove serial waits, add checkpointing, fix paths that could mask missing real data. Log bottlenecks found + fixes applied.
+Identify independent workstreams to parallelize. Remove serial waits, add checkpointing, fix paths that could mask missing real data. Log all bottlenecks found + concrete fixes applied.
 
 #### 2. AGGRESSIVE REAL-ONLY UNIVERSE EXPANSION (PROVEN LIQUIDITY + OVERLAP)
-Attempt expansion beyond current 11 symbols. Priority candidates with full rigor: **ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, MATIC/POL variants, ATOM, UNI, AAVE** and others ONLY if provably liquid with full overlap.
+Attempt expansion beyond current 11 symbols. Priority candidates with full rigor: **ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, ATOM, UNI, AAVE, LINK (verify), LTC (verify), AVAX (verify)** and others ONLY if provably liquid with full overlap.
 
 For EVERY candidate symbol/pair:
 - Fetch real Binance spot history for required windows/TFs via `python -u` with retries, exponential backoff, full attempt logs (host/endpoint/status/latency_ms/errors/timestamps)
-- Verify overlap, gap count, bar count, duplicates, NaNs/malformed data
-- Only admit if passes cointegration/stability on full real window with complete provenance
+- Verify overlap, gap count, bar count, duplicates, NaNs/malformed data across all relevant TFs
+- Run full cointegration/stability tests on real window with complete provenance
+- Only admit if passes ALL quality gates. Never guess, interpolate, or fabricate.
 - Update `PAIRS`/`SYMBOLS` in `examples/run_portfolio_real.py` with justification
 
-Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts/endpoints, and concrete reasons. **NEVER FABRICATE.** Target meaningful expansion while maintaining strict quality gates.
+Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts/endpoints, and concrete reasons.
 
 #### 3. MAXIMIZE MULTI-TIMEFRAME RIGOR (>=12 SPLITS, DEEPER ANALYSIS)
 Enforce true rolling walk-forward on **1h, 4h, 1d** with >=12 splits each:
-- Sensible train/test lengths per TF with documented rationale (no arbitrary inflation)
+- Sensible train/test lengths per TF with documented rationale
 - Per-split IS/OOS, stability, degradation, regime-split, turnover/leverage
-- Per-pair/per-TF/per-split breakdowns + aggregate
+- Per-pair/per-TF/per-split breakdowns + aggregate statistics
 - Full provenance (params, windows, bar counts, seeds, data hashes)
 - If splits < 12 for any TF with sufficient data → increase to >=12 with justification
 
@@ -76,7 +78,7 @@ Emit under `multi_timeframe_walk_forward` with complete per-split detail and sum
 
 #### 4. DEEP STATISTICAL SIGNIFICANCE (BOOTSTRAP + ROBUSTNESS)
 Bootstrap/shuffle Monte Carlo on real OOS portfolio returns:
-- >= 3000 simulations (increase from baseline), fixed seeds (log all), fully reproducible
+- >= 3000 simulations (increase if possible), fixed seeds (log all), fully reproducible
 - 95% CIs for total return, Sharpe, max drawdown, CAGR, Calmar (portfolio + per-TF)
 - Distinguishability from zero, p-values where meaningful
 - Block bootstrap by regime/time where sensible
