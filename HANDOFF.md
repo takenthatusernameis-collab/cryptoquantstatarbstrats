@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-10-31T22:04:13Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-10-31T22:17:07Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -6,7 +6,7 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-10-31T22:04:13Z)
+## CURRENT VERIFIED STATE (2026-10-31T22:17:07Z)
 - Branch: `main`, working tree clean. `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`.
 - Causality tested explicitly (`test_enriched_gates_causality_trailing_only_no_lookahead_explicit` passes).
 - Cointegration diagnostics schema tests pass (10/10). Strategy tests healthy (56 passed in the two key files; full suite target >=555 passed, 0 failures).
@@ -65,6 +65,7 @@ python -u examples/run_portfolio_real.py  # refresh reports/portfolio_real.json
 - All previous sidetracks removed. Focus is singular: cointegration rigor.
 - No network assumptions that block real data path via www.binance.com.
 - Causality already proven; gates are fail-closed.
+- **Env bottleneck removed:** CI failures were caused by missing numpy/pandas in conda env and ruff lint; local venv has deps installed; run `python -m pip install -r requirements.txt` before tests if ModuleNotFoundError.
 - **No ambiguity left:** the first action is the POL/BTC deep dive. If you are unsure where to start, start there. Nothing else is permitted until that is resolved honestly.
 
 **START NOW. Focus on POL/BTC rolling stability first — it's the only pair close to passing. Heavy work required. No coasting.**
