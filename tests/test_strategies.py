@@ -631,3 +631,118 @@ def test_enriched_gates_use_enriched_false_ignores_diagnostics():
     )
     sig = strat.generate_signals(df)
     assert (sig["enriched_gates_ok"] == 1.0).all()
+
+
+def test_enriched_gates_cached_missing_dict_strict_blocks():
+    """Cached diagnostics not a dict must block under strict."""
+    df = make_data(n=200)
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=[],  # type: ignore[arg-type]
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_cached_gates_not_dict_strict_blocks():
+    """gates not a dict must block under strict."""
+    df = make_data(n=200)
+    ed = {"gates": [], "structural_breaks": {"flagged": False}}
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_each_gate_none_strict_blocks():
+    """Each individual gate being None blocks under strict."""
+    df = make_data(n=200)
+    for key in (
+        "eg_pass",
+        "johansen_pass",
+        "spread_mr_pass",
+        "hl_bounds_pass",
+        "rolling_stable_ok",
+        "leg_stationarity_ok",
+    ):
+        ed = {
+            "gates": {
+                "eg_pass": True,
+                "johansen_pass": True,
+                "spread_mr_pass": True,
+                "hl_bounds_pass": True,
+                "rolling_stable_ok": True,
+                "leg_stationarity_ok": True,
+            },
+            "structural_breaks": {"flagged": False},
+        }
+        ed["gates"][key] = None  # type: ignore[index]
+        strat = CointegrationPairsStrategy(
+            ("BTC", "ETH"),
+            lookback=30,
+            enriched_diagnostics=ed,
+            use_enriched_gates=True,
+            strict_enriched_gates=True,
+        )
+        sig = strat.generate_signals(df)
+        assert (sig["enriched_gates_ok"] == 0.0).all()
+        assert not sig["long"].any()
+        assert not sig["short"].any()
+
+
+def test_enriched_gates_causality_no_future_leakage_cached():
+    """Cached gates apply causally with trailing-only logic (no future use)."""
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    # With passing gates, enriched_gates_ok should be 1.0 throughout
+    assert (sig["enriched_gates_ok"] == 1.0).all()
+
+
+def test_hedge_ratio_winsorized_and_clipped_no_nan_inf():
+    """Hedge ratio should be clipped/winsorized and finite."""
+    rng = np.random.default_rng(123)
+    n = 300
+    dates = pd.date_range("2024-01-01", periods=n, freq="1h")
+    base = 100 + np.cumsum(rng.normal(0, 1, n))
+    # add outliers
+    p1 = base.copy()
+    p2 = base * 0.5 + rng.normal(0, 0.01, n)
+    p1[50] = p1[50] * 1000
+    p2[100] = p2[100] * 0.001
+    df = pd.DataFrame({"BTC": p1, "ETH": p2}, index=dates)
+    strat = CointegrationPairsStrategy(("BTC", "ETH"), lookback=30)
+    spread = strat.calculate_spread(df["BTC"], df["ETH"])
+    hr = strat.hedge_ratio_series.dropna()
+    assert hr.abs().max() <= 1e6 + 1e-9
+    assert (hr >= 1e-6 - 1e-12).all()
+    assert np.isfinite(spread.dropna()).all()

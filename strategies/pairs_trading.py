@@ -226,10 +226,15 @@ class CointegrationPairsStrategy(PairStrategy):
                         if ok and isinstance(sb, dict) and sb.get("flagged") is True:
                             if self.strict_enriched_gates:
                                 ok = False
-                            else:
-                                ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
+                        )
+                    else:
+                        # Cached diagnostics provided but not a dict - fail closed under strict
+                        enriched_ok = pd.Series(
+                            0.0 if self.strict_enriched_gates else 1.0,
+                            index=data.index,
+                            dtype=float,
                         )
                 else:
                     enriched_ok_arr = np.empty(len(data), dtype=float)

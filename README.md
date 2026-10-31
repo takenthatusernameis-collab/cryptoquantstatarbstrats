@@ -51,6 +51,11 @@ series when they are missing.
   any missing/None/false gate value blocks entries, and the per-bar fallback
   path also fails closed under strict mode. Set `strict_enriched_gates=False`
   explicitly to relax missing values to permissive (documented, non-default).
+- The rolling hedge ratio is estimated causally from trailing windows, guarded
+  against division by zero/inf/NaN, forced positive (`> 1e-18`) and clipped to a
+  reasonable range `[1e-6, 1e6]` (winsorized) to avoid numerical instability;
+  opposing-leg weights are normalized using absolute market values and never
+  fabricated.
 - The default price loader is a free public data source, but this project is
   still a research framework. A successful backtest or passing unit tests do
   not establish a profitable strategy. Validate unseen periods, transaction
