@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-30T23:34:22Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP (UN-COASTABLE, HEAVY EXECUTION)
+# DURABLE HANDOFF (2026-10-31T00:31:26Z) — SINGLE MANDATORY NEXT TASK: CRYPTO STAT ARB SCALE-UP v2 (UN-COASTABLE, HEAVY EXECUTION)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -8,29 +8,29 @@
 
 ## VERIFIED GREEN STATE (PRESERVE AT ALL COSTS)
 - **Branch:** `main` (clean)
-- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **528 passed, 1 skipped** (GREEN)
+- **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (GREEN) — +1 since last handoff
 - **Types:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files** (GREEN)
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/` → **All checks passed!** (GREEN)
-- **Baseline:** `reports/portfolio_real.json` (real-only). Expanded universe with hardened risk controls, multi-TF walk-forward (≥12 splits), bootstrap CIs, volume-aware execution, full provenance.
+- **Baseline:** `reports/portfolio_real.json` (real-only). Hardened risk controls, multi-TF walk-forward (≥12 splits), bootstrap CIs, volume-aware execution, full provenance. Current universe includes 11 symbols across 17 pairs (BTC/ETH/SOL/BNB/ADA/XRP/DOT/POL/AVAX/LINK/LTC).
 
 ## BOTTLENECKS TO ELIMINATE (DO FIRST - REMOVE ALL FRICTION)
-These block scale and must be killed immediately:
+Kill these immediately to maximize throughput without cutting corners:
 
 - **I/O:** Run all long jobs with `python -u`. Add `flush=True` for critical logs. Never buffer indefinitely.
-- **Network:** Exponential backoff + retries on ALL Binance calls. Log every attempt (host, endpoint, status, latency_ms). Treat partial pages as failures unless fully accounted for. Do **one bounded preflight** per material network-state change. Permanent HTTP 451/403/404 are blocked routes - do NOT repeat exhaustively.
-- **Parallelism:** Batch independent fetches/sweeps with deterministic ordering and bounded concurrency. Zero cross-contamination between symbols/pairs. Persist each completed shard so restarts skip verified work.
-- **Data Completeness:** If overlapping real history insufficient for window/TF → **EXCLUDE** with full rationale + attempt log. Never backfill/interpolate. Label BLOCKED/INSUFFICIENT_HISTORY with concrete evidence.
-- **Determinism:** Fix seeds for ALL stochastic paths (bootstrap/MC/splits). Log seeds + full config in artifacts.
-- **Observability:** Per-pair/per-symbol/per-TF/per-split logging (bars, ranges, gaps, NaNs). No silent passes/failures.
-- **Scheduling:** Dependency-aware task graph. Do independent network-free work (tests/schema/analysis/bootstrap/risk/execution) while data sources blocked. Profile, checkpoint, run affected tests after logical change, full gates after batch and at acceptance.
-- **Regressions:** If lint/type/test break at any point → fix immediately. Do NOT proceed until green.
+- **Network:** Exponential backoff + retries on ALL Binance calls. Log every attempt (host, endpoint, status, latency_ms, error class). Treat partial pages as failures unless fully accounted for. Do **one bounded preflight** per material network-state change. Permanent HTTP 451/403/404 are blocked routes — do NOT repeat exhaustively.
+- **Parallelism:** Batch independent fetches/sweeps with deterministic ordering and bounded concurrency (semaphore). Zero cross-contamination between symbols/pairs. Persist each completed shard (checkpoint) so restarts skip verified work. Use dependency graph to parallelize independent workstreams.
+- **Data Completeness:** If overlapping real history insufficient for window/TF → **EXCLUDE** with full rationale + attempt log. Never backfill/interpolate. Label BLOCKED/INSUFFICIENT_HISTORY with concrete evidence (gap counts, bar counts, first/last timestamps).
+- **Determinism:** Fix seeds for ALL stochastic paths (bootstrap/MC/splits/selection). Log seeds + full config in artifacts with hashes where feasible.
+- **Observability:** Per-pair/per-symbol/per-TF/per-split logging (bars, ranges, gaps, NaNs, duplicates). Structured logs to files + console. No silent passes/failures.
+- **Scheduling:** Dependency-aware task graph. Do independent network-free work (tests/schema/analysis/bootstrap/risk/execution/validation) while data sources blocked. Profile hot paths, checkpoint shards, run affected tests after logical change, full gates after batch and at acceptance.
+- **Regressions:** If lint/type/test break at any point → fix immediately. Do NOT proceed until green. Treat any new warnings as potential issues to resolve.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-30T23:34:22Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T00:31:26Z)
 
 **START NOW. DO NOT STOP EARLY. HEAVY WORK IS MANDATORY. COASTING IS UNACCEPTABLE.**
 
 ### PRIMARY OBJECTIVE
-Make the real-data crypto stat arb system maximally un-coastable and aggressively scalable. Prove every inclusion with ironclad evidence, enforce rigorous multi-TF validation, add deeper tail/bootstrap analysis, harden execution realism under extreme cost stress, and emit a schema-enriched, fully auditable `portfolio_real` artifact with complete provenance. Every step must leave verifiable artifacts and tests.
+Aggressively scale and harden the real-data crypto stat arb system to be maximally un-coastable. Prove every inclusion with ironclad evidence, enforce rigorous multi-TF validation (>=12 splits), add deeper tail/bootstrap/stress analysis, harden execution realism under extreme cost stress, and emit a schema-enriched, fully auditable `portfolio_real` artifact with complete provenance. Every step must leave verifiable artifacts, tests, and logs.
 
 ### MANDATORY SEQUENCE (IN ORDER - NO SKIPPING)
 
@@ -40,95 +40,104 @@ python -m ruff check backtest/ strategies/ utils/ tests/ && \
 PYTHONPATH=. python -m pytest tests/ -q && \
 python -m mypy backtest/ strategies/ utils/
 ```
-Do not proceed until ALL pass. Fix immediately if broken.
+Do not proceed until ALL pass (currently 529 passed, 1 skipped). Fix immediately if broken.
 
 #### 1. BRUTAL AUDIT (MAP & ELIMINATE BOTTLENECKS)
-Read and attack these with intent to speed up without cutting corners:
-- `examples/run_portfolio_real.py` (flow, risk, provenance)
-- `reports/portfolio_real.json` (current state)
+Read and attack with intent to speed up without cutting corners:
+- `examples/run_portfolio_real.py` (flow, risk, provenance, parallelization)
+- `reports/portfolio_real.json` (current state, schema gaps)
 - `tests/test_portfolio_real.py`, `tests/test_portfolio_real_hardened.py`, `tests/test_portfolio_risk_controls.py`
-- `backtest/engine.py` (walk_forward_portfolio/run_portfolio)
+- `backtest/engine.py` (walk_forward_portfolio/run_portfolio), `backtest/sweep.py`
 - `utils/portfolio_risk.py`, `utils/regime.py`, `utils/monte_carlo.py`, `utils/risk.py`
-- `data/loader.py`, `strategies/pairs_trading.py`, `backtest/sweep.py`
+- `data/loader.py`, `strategies/pairs_trading.py`
 
-Identify independent workstreams to parallelize. Remove serial waits. Fix any paths that could mask missing real data.
+Identify independent workstreams to parallelize. Remove serial waits, add checkpointing, fix paths that could mask missing real data. Log bottlenecks found + fixes applied.
 
 #### 2. AGGRESSIVE REAL-ONLY UNIVERSE EXPANSION (PROVEN LIQUIDITY + OVERLAP)
-Attempt expansion beyond current set. Candidates to test with full rigor: **MATIC/POL variants, AVAX, LINK, LTC, BCH, ETC, NEAR, ARB, OP, INJ, APT, SUI, TIA, SEI** and others ONLY if provably liquid with full overlap on required windows/TFs.
+Attempt expansion beyond current 11 symbols. Priority candidates with full rigor: **ARB, OP, NEAR, INJ, APT, SUI, TIA, SEI, BCH, ETC, MATIC/POL variants, ATOM, UNI, AAVE** and others ONLY if provably liquid with full overlap.
 
-For EVERY candidate:
-- Fetch real Binance spot history for required windows/TFs via `python -u` with retries, exponential backoff, full attempt logs (host/endpoint/status/latency_ms/errors)
-- Verify overlap, gap count, bar count, data quality (no NaNs/malformed)
+For EVERY candidate symbol/pair:
+- Fetch real Binance spot history for required windows/TFs via `python -u` with retries, exponential backoff, full attempt logs (host/endpoint/status/latency_ms/errors/timestamps)
+- Verify overlap, gap count, bar count, duplicates, NaNs/malformed data
 - Only admit if passes cointegration/stability on full real window with complete provenance
-- Update `PAIRS`/`SYMBOLS` in `examples/run_portfolio_real.py`
+- Update `PAIRS`/`SYMBOLS` in `examples/run_portfolio_real.py` with justification
 
-Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts, and concrete reasons. **NEVER FABRICATE.**
+Record EVERY inclusion/exclusion in `universe_changes` and `exclusions_with_rationale` with attempt counts, hosts/endpoints, and concrete reasons. **NEVER FABRICATE.** Target meaningful expansion while maintaining strict quality gates.
 
 #### 3. MAXIMIZE MULTI-TIMEFRAME RIGOR (>=12 SPLITS, DEEPER ANALYSIS)
 Enforce true rolling walk-forward on **1h, 4h, 1d** with >=12 splits each:
-- Sensible train/test lengths per TF with documented rationale
-- Per-split IS/OOS, stability, degradation, regime-split
-- Per-pair/per-TF breakdowns + aggregate
-- Full provenance (params, windows, bar counts, seeds)
+- Sensible train/test lengths per TF with documented rationale (no arbitrary inflation)
+- Per-split IS/OOS, stability, degradation, regime-split, turnover/leverage
+- Per-pair/per-TF/per-split breakdowns + aggregate
+- Full provenance (params, windows, bar counts, seeds, data hashes)
+- If splits < 12 for any TF with sufficient data → increase to >=12 with justification
 
-Emit under `multi_timeframe_walk_forward` with complete per-split detail. If splits < 12 for any TF with sufficient data → increase to >=12.
+Emit under `multi_timeframe_walk_forward` with complete per-split detail and summary statistics.
 
 #### 4. DEEP STATISTICAL SIGNIFICANCE (BOOTSTRAP + ROBUSTNESS)
 Bootstrap/shuffle Monte Carlo on real OOS portfolio returns:
-- >= 2000 simulations, fixed seeds (log all), reproducible
-- 95% CIs for total return, Sharpe, max drawdown (portfolio + per-TF)
+- >= 3000 simulations (increase from baseline), fixed seeds (log all), fully reproducible
+- 95% CIs for total return, Sharpe, max drawdown, CAGR, Calmar (portfolio + per-TF)
 - Distinguishability from zero, p-values where meaningful
-- Impact of transaction costs across bootstrap
-- Network-independent execution
-- Attach under `bootstrap_ci_portfolio_oos` with full config
+- Block bootstrap by regime/time where sensible
+- Impact of transaction costs across bootstrap grid
+- Network-independent execution with full config
+- Attach under `bootstrap_ci_portfolio_oos` with full provenance
 
 #### 5. VOLUME-AWARE EXECUTION REALISM + EXTREME COST-STRESS
-- Fetch real Binance quote volume per symbol for full window (exhaustive attempts, log hosts/failures). Omit only with full rationale after exhaustive attempts.
-- Build volume-aware slippage/participation model (document assumptions, never fabricate)
-- Add broad **cost-stress grid** (fees × slippage × participation) integrated with provenance
-- Test extreme tails (wider fee/slippage ranges)
-- Include under `volume_aware_execution`
+- Fetch real Binance quote volume/turnover per symbol for full window (exhaustive attempts, log hosts/failures/endpoints). Omit only with full rationale after exhaustive attempts.
+- Build/extend volume-aware slippage/participation model (document assumptions, market impact heuristics grounded in real data, never fabricate)
+- Add broad **cost-stress grid** (fees × slippage × participation) integrated with provenance; test extreme tails
+- Include execution diagnostics (turnover, capacity constraints, hit-rate sensitivity)
+- Include under `volume_aware_execution` with full attempt logs
 
-#### 6. ARTIFACT ENRICHMENT (SCHEMA-COMPLETE, AUDITABLE)
+#### 6. TAILS, CORRELATIONS, REGIMES & CIRCUIT BREAKERS
+- Enrich tail metrics (VaR/CVaR/CDaR) at multiple confidence levels with methodology
+- Correlation matrix + rolling correlation stability (regime-aware)
+- Regime-conditioned performance with clear regime definitions
+- Strengthen circuit breaker coverage and log all trips/blocks with reasons
+- Per-asset contribution, gross/net/leverage, concentration metrics
+- Funding/basis provenance (full attempts/errors/hosts) — omit only after exhaustive attempts with rationale
+
+#### 7. ARTIFACT ENRICHMENT (SCHEMA-COMPLETE, AUDITABLE)
 Enrich `reports/portfolio_real.json` (update in-place if compatible). MUST include:
 - `real_data_only: true`, `fabricated_data: false`
+- Expanded universe with `universe_changes` and `exclusions_with_rationale` (full attempt logs)
 - Per-TF IS/OOS per split + stability/degradation
-- Bootstrap CI blocks (95% CIs) for return/Sharpe/maxDD (portfolio + per-TF)
-- Volume-aware execution + full cost-stress grid
-- Per-asset contribution, turnover, leverage/gross/net exposure
+- `multi_timeframe_walk_forward` with >=12 splits each
+- `bootstrap_ci_portfolio_oos` with >=3000 sims, 95% CIs, seeds, config
+- `volume_aware_execution` + full cost-stress grid + provenance
+- Per-asset contribution, turnover, leverage/gross/net exposure, concentration
 - Correlation matrix + rolling stability
-- Tail metrics (VaR/CVaR/CDaR)
-- Regime-conditioned performance
-- Funding/basis provenance (full attempts/errors/hosts) — omit only after exhaustive attempts with rationale
-- Universe changes + exclusions with rationale + attempt logs
-- Risk controls applied, circuit breaker results
-- Multi-timeframe results with >=12 splits each
-- All JSON-serializable, validated by tests
+- Tail metrics (VaR/CVaR/CDaR) + regime-conditioned performance
+- Funding/basis provenance (or explicit omission rationale)
+- Risk controls applied, circuit breaker results (with logs)
+- All JSON-serializable, schema-validated by tests
 
-#### 7. TESTS + DOCS HARDEN (IMPOSSIBLE TO COAST)
-- Add network-independent stress tests: portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model, edge cases
-- Strengthen assertions around `real_data_only`/`fabricated_data` and required hardened fields
-- Update `README.md` with hardened findings, concrete real-data numbers, explicit real-data-only provenance, coverage summary
-- Ensure new fields validated or explicitly tested
+#### 8. TESTS + DOCS HARDEN (IMPOSSIBLE TO COAST)
+- Add network-independent stress tests: portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model, edge cases, data quality gates
+- Strengthen assertions around `real_data_only`/`fabricated_data` and all required hardened fields
+- Update `README.md` with hardened findings, concrete real-data numbers, explicit real-data-only provenance, coverage summary, reproduction commands
+- Ensure new fields validated or explicitly tested; add negative tests for exclusion paths
 
-#### 8. VERIFY & DELIVER (ZERO REGRESSIONS)
+#### 9. VERIFY & DELIVER (ZERO REGRESSIONS)
 ```bash
 python -u examples/run_portfolio_real.py
-PYTHONPATH=. python -m pytest tests/ -q  # >=528 passed, 0 new failures
+PYTHONPATH=. python -m pytest tests/ -q  # >=529 passed, 0 new failures
 python -m ruff check backtest/ strategies/ utils/ tests/  # clean
 python -m mypy backtest/ strategies/ utils/  # clean
 ```
-All deliverables present and valid. Commit only if explicitly requested.
+All deliverables present and valid. Do not commit unless explicitly requested.
 
 ## HARD CONSTRAINTS
-- **REAL DATA ONLY** — No synthetic/fabricated data. Ever.
-- **NO SHORTCUTS** — Omit+document if unavailable after exhaustive attempts with full provenance (hosts, endpoints, errors, counts).
+- **REAL DATA ONLY** — No synthetic/fabricated data. Ever. Only isolated unit tests may use fabricated data with explicit `fabricated_data: true` warnings.
+- **NO SHORTCUTS** — Omit+document if unavailable after exhaustive attempts with full provenance (hosts, endpoints, errors, counts, timestamps).
 - **PRESERVE GREEN** — Zero regressions. Restore green before proceeding.
 - **HEAVY MANDATE** — Complete the full campaign. Do not stop early.
-- **BOTTLENECK REMOVAL** — Eliminate inefficiencies immediately (parallelize, retry, log, unbuffer, checkpoint shards).
+- **BOTTLENECK REMOVAL** — Eliminate inefficiencies immediately (parallelize, retry, log, unbuffer, checkpoint shards, dependency graph).
 - **IMPOSSIBLE TO COAST** — Structure work so future agents cannot avoid heavy validation; every step must produce checkable artifact/test/provenance.
-- **UNBUFFERED OUTPUT** — Use `python -u` for all long-running real-data jobs.
-- **REPRODUCIBILITY** — Seeds for stochastic parts; log all config.
+- **UNBUFFERED OUTPUT** — Use `python -u` for all long-running real-data jobs. Add `flush=True` for critical logs.
+- **REPRODUCIBILITY** — Seeds for stochastic parts; log all config. Deterministic ordering.
 - **NO ALTERATION OF LIVE/PAPER BOUNDARIES** — Do not change trading boundaries or commit policy.
 
 **CAMPAIGN COMPLETE ONLY WHEN ALL CRITERIA MET. START IMMEDIATELY.**
