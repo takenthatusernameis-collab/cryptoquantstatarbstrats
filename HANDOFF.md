@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T18:12:13Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T18:27:28Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -9,7 +9,7 @@
 
 ## CURRENT VERIFIED STATE (2026-10-31T18:12:13Z)
 - Branch: `main` (clean). Working tree clean.
-- **GREEN BASELINE (must remain):** `ruff check backtest/ strategies/ utils/ tests/ examples/` → all checks passed | `pytest tests/ -q` → **555 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → Success, no issues found.
+- **GREEN BASELINE (must remain):** `ruff check backtest/ strategies/ utils/ tests/ examples/` → all checks passed | `pytest tests/ -q` → **561 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → Success, no issues found.
 - Artifact: `reports/portfolio_real.json` (`real_data_only: true`, `fabricated_data: false`, `n_bars: 5112`).
 - `cointegration_diagnostics`: publication-grade target schema for all 17 pairs (EG/Johansen with cv90/95/99+rank, per-leg ADF/KPSS, spread hedge ratio/ADF/KPSS, half-life OU with 1<hl<500, Hurst, mr_favorable, rolling stability windows/details, structural breaks, 7-gate set, full provenance). POL/BTC passes EG+Johansen+spread_mr+hl_bounds but rolling_stability fails (all_pass False). BTC/SOL/ADA/ETH/DOT/ETH show honest hl>500 failures (never clamped).
 - `parameter_stability`: per-pair entries have `top_params`, `pair_metrics`, `degradation`, `regime_notes`, `provenance`; `portfolio_level` has provenance. All real-data only.
