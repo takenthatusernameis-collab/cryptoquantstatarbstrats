@@ -1,42 +1,43 @@
-# DURABLE HANDOFF | 2026-10-31T09:23:43Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T10:17:49Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW)
 - Repo: `cryptoquantstatarbstrats` — Crypto Quant Stat Arb Strategies
 - **CORE = COINTEGRATION/PAIRS TRADING.** Everything else supports it. Prioritize cointegration rigor above all else.
 - Real data only: Binance public REST only. Synthetic/fabricated data strictly limited to isolated unit tests with explicit `fabricated_data: true`. No silent fabrication.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, and logs.
-- **Network BLOCKED (HTTP 451 on api.binance.com).** Adapt via existing artifacts + `blocked_or_insufficient_data` + full provenance. NEVER FABRICATE.
+- **Network BLOCKED (HTTP 451 on api.binance.com).** Adapt via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes` + full provenance. NEVER FABRICATE. Do not retry Binance to "fix" this; work around it.
 
-## CURRENT VERIFIED STATE (2026-10-31T09:17:16Z)
+## CURRENT VERIFIED STATE (2026-10-31T10:17:49Z)
 - Branch: `main` (clean). Working tree clean.
-- Green baseline (re-verified 2026-10-31T09:23:43Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
+- Green baseline (re-verified 2026-10-31T10:17:49Z): `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`.
-- **Cointegration_diagnostics incomplete:** 17 pairs all in minimal form (`status: "computed_from_existing_results"`, EG/Johansen/rolling/half-life/structural breaks mostly missing/unpopulated). This is the bottleneck.
+- `cointegration_diagnostics`: **17 pairs**, all in minimal form (`status: "computed_from_existing_results"`, EG/Johansen/rolling/half-life/structural breaks mostly missing/unpopulated). **This is THE bottleneck.**
 - Modules ready: `utils/cointegration.py`, `strategies/pairs_trading.py`, `examples/run_portfolio_real.py`.
+- Existing CI noise (not your scope): historical `fix/causal-pairs-validation-2026-10-27` branch failures/cancellations from missing dev deps in CI — ignore; `main` is green locally.
+
+## BOTTLENECK REMOVAL (READ BEFORE ANY WORK)
+1. **Network 451 on api.binance.com is hard-blocked.** Do not attempt live Binance fetches as a primary path. Reuse `reports/portfolio_real.json` + `utils/cointegration.py` functions on the series already embedded in the artifact/replays; where series are unreconstructible, mark `status: "blocked_or_insufficient_data"`, list `blocked_routes`, add rationale + full provenance, and move on. This removes the bottleneck instead of stalling on it.
+2. **Single durable handoff = this file.** Do not spawn parallel competing sessions or split the campaign. One session, one focus: cointegration diagnostics for all 17 pairs.
+3. **Preserve green.** Every change must keep `ruff` clean, `pytest >= 529 passed / 0 new failures`, and `mypy` clean.
 
 ## NEXT SESSION START POINT (initial task message)
-The next agentic session MUST begin at Section 0) VERIFY GREEN (reuse the exact commands below), confirm >=529 passed / 0 new failures / mypy clean, then proceed immediately to Section 1) INVENTORY (read `reports/portfolio_real.json` cointegration_diagnostics for all 17 pairs vs the target schema) and Section 2) ENRICH COINTEGRATION DIAGNOSTICS. Do not drift to other features: cointegration is law and this campaign is the bottleneck. Network is blocked (HTTP 451 on api.binance.com) — work around via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes` + full provenance; never fabricate.
+The next agentic session MUST begin here, in order, without drift:
 
-## SINGLE MANDATORY OBJECTIVE (HEAVY WORK REQUIRED)
-**Make cointegration diagnostics publication-grade for ALL 17 pairs in `reports/portfolio_real.json`.** Deepen EG/Johansen, per-leg ADF/KPSS, spread (hedge ratio, spread tests, half-life OU 1<hl<500, Hurst), rolling stability, structural breaks, tighten gates. Enrich parameter_stability/tail_risk. Harden tests against fabrication. All with full provenance. Work around Binance 451 via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes`.
-
-## MANDATORY EXECUTION SEQUENCE (NO SKIPPING)
-
-### 0) VERIFY GREEN
+### 0) VERIFY GREEN (mandatory gate, do not skip)
 ```bash
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m pytest tests/ -q && \
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m mypy backtest/ strategies/ utils/
 ```
-If broken, fix first. Must stay >=529 passed.
+Must be >=529 passed / 0 new failures / mypy clean. If broken, fix first.
 
 ### 1) INVENTORY
-- Read `reports/portfolio_real.json` for all pairs vs full schema.
-- Read `utils/cointegration.py`, `strategies/pairs_trading.py`, `examples/run_portfolio_real.py`.
-- Confirm raw series unreconstructible (451, no cached CSVs). Plan changes.
+- Read `reports/portfolio_real.json` → `cointegration_diagnostics` for all 17 pairs vs the target schema (Section 2).
+- Read `utils/cointegration.py`, `strategies/pairs_trading.py:get_cointegration_diagnostics`, `examples/run_portfolio_real.py`.
+- Confirm raw price series are unreconstructible via Binance (451) — plan the enrich-from-existing-results + `blocked_or_insufficient_data` path.
 
-### 2) ENRICH COINTEGRATION DIAGNOSTICS (EVERY PAIR)
+### 2) ENRICH COINTEGRATION DIAGNOSTICS (EVERY PAIR — HEAVY, NO SKIPPING)
 Target schema per pair:
 ```json
 {
@@ -52,7 +53,7 @@ Target schema per pair:
   "provenance":{"source":string,"real_data_only":true,"fabricated_data":false,"computed_at":"ISO8601","blocked_routes":[],"rationale":string}
 }
 ```
-Rules: if unreconstructible → `status: "blocked_or_insufficient_data"`, include `blocked_routes` + rationale + full provenance. Never fabricate. Enforce `1 < half_life_ou < 500` if computed. Use `utils.cointegration` functions; extend if needed. Update `examples/run_portfolio_real.py` and `strategies/pairs_trading.py.get_cointegration_diagnostics`. Preserve pair_metrics.
+Rules: if unreconstructible → `status: "blocked_or_insufficient_data"`, include `blocked_routes` + rationale + full provenance. Never fabricate. Enforce `1 < half_life_ou < 500` if computed. Use `utils.cointegration` functions; extend if needed. Update `examples/run_portfolio_real.py` and `strategies/pairs_trading.py.get_cointegration_diagnostics`. Preserve `pair_metrics`.
 
 ### 3) ENRICH PARAMETER STABILITY & TAIL RISK
 - `parameter_stability`: per-pair + portfolio with scores/degradation/regime notes + provenance.
@@ -77,6 +78,9 @@ PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats p
 PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats python -m mypy backtest/ strategies/ utils/
 ```
 All must pass. Zero regressions. Do not commit unless explicitly requested.
+
+## SINGLE MANDATORY OBJECTIVE (HEAVY WORK REQUIRED)
+**Make cointegration diagnostics publication-grade for ALL 17 pairs in `reports/portfolio_real.json`.** Deepen EG/Johansen, per-leg ADF/KPSS, spread (hedge ratio, spread tests, half-life OU 1<hl<500, Hurst), rolling stability, structural breaks, tighten gates. Enrich `parameter_stability`/`tail_risk`. Harden tests against fabrication. All with full provenance. Work around Binance 451 via existing artifacts + `blocked_or_insufficient_data` + `blocked_routes`.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — isolated tests only with explicit `fabricated_data: true`
