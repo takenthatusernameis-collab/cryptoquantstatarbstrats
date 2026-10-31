@@ -743,6 +743,82 @@ def test_enriched_gates_causality_no_future_leakage_cached():
     assert (sig2["enriched_gates_ok"] == 1.0).all()
 
 
+def test_enriched_gates_causality_trailing_only_no_lookahead_explicit():
+    """Explicit causality proof: cached gates are constant across time and insensitive to future data/shuffles."""
+    df = make_data(n=250)
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=40,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    gates_series = sig["enriched_gates_ok"].copy()
+    # Must be fully determined by cached diagnostics (no trailing recompute path)
+    assert (gates_series == 1.0).all()
+    # Shuffle future part - gates must remain identical (no lookahead)
+    df_future_shuffled = df.copy()
+    future = df_future_shuffled.iloc[150:, :].copy()
+    rng = np.random.default_rng(12345)
+    future_shuffled = future.sample(frac=1.0, random_state=rng).values
+    df_future_shuffled.iloc[150:, :] = future_shuffled
+    strat2 = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=40,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig2 = strat2.generate_signals(df_future_shuffled)
+    # Past (first 150) must be identical; all gates must remain 1.0
+    assert (sig2["enriched_gates_ok"].iloc[:150] == gates_series.iloc[:150]).all()
+    assert (sig2["enriched_gates_ok"] == 1.0).all()
+    # Blocked gates must also be constant and insensitive to future
+    ed_blocked = {
+        "gates": {
+            "eg_pass": False,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat3 = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=40,
+        enriched_diagnostics=ed_blocked,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig3 = strat3.generate_signals(df)
+    assert (sig3["enriched_gates_ok"] == 0.0).all()
+    df3 = df.copy()
+    df3.iloc[-80:, :] = df3.iloc[-80:, :] * 10.0
+    strat4 = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=40,
+        enriched_diagnostics=ed_blocked,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig4 = strat4.generate_signals(df3)
+    assert (sig4["enriched_gates_ok"] == 0.0).all()
+
+
 def test_hedge_ratio_winsorized_and_clipped_no_nan_inf():
     """Hedge ratio should be clipped/winsorized and finite."""
     rng = np.random.default_rng(123)
