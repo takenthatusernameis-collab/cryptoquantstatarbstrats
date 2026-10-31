@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T03:23:35Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - BATTLE-TESTED & PUBLICATION-GRADE (PHASE 3)
+# DURABLE HANDOFF (2026-10-31T03:25:09Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - BATTLE-TESTED & PUBLICATION-GRADE (PHASE 3)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,7 +7,7 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T03:23:35Z
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T03:25:09Z
 - **Branch:** `main` (clean), up to date with `origin/main`.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings, none failing).
@@ -24,7 +24,7 @@
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 - **AGENT TOOLING:** Edit operations must use correct schema (filePath/oldString/newString). Avoid invalid tool calls.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T03:23:35Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T03:25:09Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
@@ -40,7 +40,7 @@ python -m ruff check backtest/ strategies/ utils/ tests/ examples/ && \
 PYTHONPATH=. python -m pytest tests/ -q && \
 python -m mypy backtest/ strategies/ utils/
 ```
-Fix immediately if broken. **Do not proceed until green.** (Already green as of 2026-10-31T03:23:35Z — confirm before proceeding.)
+Fix immediately if broken. **Do not proceed until green.** (Already green as of 2026-10-31T03:25:09Z — confirm before proceeding.)
 
 #### 1) BRUTAL AUDIT + BOTTLENECK ELIMINATION (PARALLELIZE)
 Read with intent (build dependency graph, parallelize independent work):
