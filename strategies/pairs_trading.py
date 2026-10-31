@@ -132,15 +132,21 @@ class CointegrationPairsStrategy(PairStrategy):
             price1_aligned
         )
         rolling_var = price2_aligned.rolling(self.lookback, min_periods=self.lookback).var()
-        hedge_ratio = rolling_cov.div(rolling_var.where(rolling_var > 0))
+        # Guard against numerical issues / division by zero
+        var_safe = rolling_var.where(rolling_var > 1e-18)
+        hedge_ratio = rolling_cov.div(var_safe)
         hedge_ratio = hedge_ratio.replace([np.inf, -np.inf], np.nan)
         # This long/short pairs implementation is intended for positively
         # related legs; a non-positive hedge ratio would create same-direction
         # exposures rather than a spread hedge.
-        hedge_ratio = hedge_ratio.where(hedge_ratio > 0)
+        hedge_ratio = hedge_ratio.where(hedge_ratio > 1e-18)
+        # Winsorize/clip to reasonable range to avoid extreme leverage
+        hedge_ratio = hedge_ratio.clip(lower=1e-6, upper=1e6)
         self.hedge_ratio_series = hedge_ratio
         valid = hedge_ratio.dropna()
         self.hedge_ratio = float(valid.iloc[-1]) if not valid.empty else 1.0
+        if not np.isfinite(self.hedge_ratio) or self.hedge_ratio <= 0:
+            self.hedge_ratio = 1.0
 
         return price1_aligned - hedge_ratio * price2_aligned
 

@@ -436,7 +436,35 @@ def test_enriched_gates_passing_allows_entries():
     assert (sig["short"] == base_sig["short"]).all()
 
 
-def test_enriched_gates_structural_break_flagged_blocks():
+def test_enriched_gates_cached_all_pass_false_blocks():
+    """Cached diagnostics with all_pass False must block entries under strict."""
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "all_pass": False,
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_structural_break_flagged_strict_blocks_all():
+    """Structural break flagged must block in strict mode even if other gates pass."""
     df = make_data(n=200)
     ed = {
         "gates": {
@@ -453,6 +481,7 @@ def test_enriched_gates_structural_break_flagged_blocks():
         ("BTC", "ETH"), lookback=30, enriched_diagnostics=ed, use_enriched_gates=True
     )
     sig = strat.generate_signals(df)
+    assert (sig["enriched_gates_ok"] == 0.0).all()
     assert not sig["long"].any()
     assert not sig["short"].any()
 
