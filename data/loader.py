@@ -61,6 +61,8 @@ class DataLoader:
         interval: str = "1h",
         quote_asset: str = "USDT",
         timeout: float = 20.0,
+        retries: int = 3,
+        backoff_seconds: float = 1.5,
     ) -> pd.DataFrame:
         """Load free public Binance spot closes without requiring an API key.
 
@@ -80,6 +82,32 @@ class DataLoader:
             )
         if not symbols:
             raise ValueError("At least one symbol is required.")
+
+        # Binance public spot klines. api.binance.com may be blocked (e.g. HTTP 451)
+        # in some environments; www.binance.com serves the same public endpoint, so
+        # try an ordered list of hosts and fall back until one succeeds.
+        _binance_hosts = [
+            "https://www.binance.com",
+            "https://api.binance.com",
+            "https://api1.binance.com",
+            "https://api2.binance.com",
+            "https://api3.binance.com",
+        ]
+
+        # Permanent HTTP errors identify a blocked route: skip that host for
+        # every remaining symbol instead of burning identical failed requests.
+        self.last_fetch_provenance: dict[str, Any] = {
+            "symbols": list(symbols),
+            "start": start_date,
+            "end": end_date,
+            "interval": interval,
+            "quote_asset": quote_asset,
+            "timeout": timeout,
+            "hosts": list(_binance_hosts),
+            "blocked_hosts": [],
+            "per_symbol": {},
+            "excluded": [],
+        }
 
         def as_utc_millis(value: str, *, include_date: bool = False) -> int:
             stamp = pd.Timestamp(value)
@@ -116,66 +144,134 @@ class DataLoader:
             if not market_symbol.endswith(quote_asset.upper()):
                 market_symbol = f"{market_symbol}{quote_asset.upper()}"
 
-            cursor_ms = start_ms
-            candles: list[tuple[int, float]] = []
-            last_error: str | None = None
-            while cursor_ms <= end_ms:
-                query = urlencode({
-                    "symbol": market_symbol,
-                    "interval": interval,
-                    "startTime": cursor_ms,
-                    "endTime": end_ms,
-                    "limit": 1000,
-                })
-
-                payload = None
-                fetch_error: str | None = None
+            symbol_attempts: list[dict[str, Any]] = []
+            success = False
+            for attempt in range(1, retries + 1):
+                cursor_ms = start_ms
+                candles: list[tuple[int, float]] = []
+                attempt_ok = False
                 for host in _binance_hosts:
+                    if host in self.last_fetch_provenance["blocked_hosts"]:
+                        continue
+                    query = urlencode(
+                        {
+                            "symbol": market_symbol,
+                            "interval": interval,
+                            "startTime": cursor_ms,
+                            "endTime": end_ms,
+                            "limit": 1000,
+                        }
+                    )
                     url = f"{host}/api/v3/klines?{query}"
+                    t0 = time.monotonic()
                     try:
                         with urlopen(url, timeout=timeout) as response:
                             payload = json.loads(response.read().decode("utf-8"))
-                        fetch_error = None
-                        break
-                    except (HTTPError, URLError, TimeoutError, OSError) as exc:
-                        fetch_error = f"{host}: {exc}"
-                        payload = None
+                        latency_ms = int((time.monotonic() - t0) * 1000)
+                        if not isinstance(payload, list):
+                            raise RuntimeError(
+                                f"unexpected payload type: {type(payload).__name__}"
+                            )
+                        symbol_attempts.append(
+                            {
+                                "attempt": attempt,
+                                "host": host,
+                                "endpoint": "/api/v3/klines",
+                                "success": True,
+                                "latency_ms": latency_ms,
+                                "bars": len(payload),
+                            }
+                        )
+                        if not payload:
+                            attempt_ok = True
+                            break
+                        for candle in payload:
+                            open_ms = int(candle[0])
+                            if start_ms <= open_ms <= end_ms:
+                                candles.append((open_ms, float(candle[4])))
+                        last_open_ms = int(payload[-1][0])
+                        if len(payload) < 1000 or last_open_ms >= end_ms:
+                            attempt_ok = True
+                            break
+                        next_cursor = last_open_ms + 1
+                        if next_cursor <= cursor_ms:
+                            raise RuntimeError(
+                                f"Binance pagination stalled for {market_symbol} at {cursor_ms}."
+                            )
+                        cursor_ms = next_cursor
+                    except (HTTPError, URLError, TimeoutError, OSError, RuntimeError) as exc:
+                        latency_ms = int((time.monotonic() - t0) * 1000)
+                        err = str(exc)[:120]
+                        symbol_attempts.append(
+                            {
+                                "attempt": attempt,
+                                "host": host,
+                                "endpoint": "/api/v3/klines",
+                                "success": False,
+                                "error": err,
+                                "latency_ms": latency_ms,
+                            }
+                        )
+                        blocked = err.startswith("HTTP Error ") and any(
+                            code in err for code in ("451", "403", "404")
+                        )
+                        if blocked:
+                            self.last_fetch_provenance["blocked_hosts"].append(host)
                         continue
-                if fetch_error is not None:
-                    raise RuntimeError(
-                        f"Could not fetch Binance candles for {market_symbol}: {fetch_error}"
-                    ) from None
-                if not isinstance(payload, list):
-                    raise RuntimeError(
-                        f"Unexpected Binance response for {market_symbol}: {payload!r}"
-                    )
-                if not payload:
+                if attempt_ok:
+                    success = True
                     break
-
-                for candle in payload:
-                    open_ms = int(candle[0])
-                    if start_ms <= open_ms <= end_ms:
-                        candles.append((open_ms, float(candle[4])))
-
-                last_open_ms = int(payload[-1][0])
-                if len(payload) < 1000 or last_open_ms >= end_ms:
-                    break
-                next_cursor = last_open_ms + 1
-                if next_cursor <= cursor_ms:
-                    raise RuntimeError(
-                        f"Binance pagination stalled for {market_symbol} at {cursor_ms}."
-                    )
-                cursor_ms = next_cursor
-
-            if not candles:
-                raise ValueError(
-                    f"No Binance spot candles returned for {market_symbol} "
-                    f"between {start_date} and {end_date}."
+                last_error = (
+                    symbol_attempts[-1]["error"]
+                    if symbol_attempts and not symbol_attempts[-1]["success"]
+                    else "all_hosts_unavailable"
                 )
-            frame = pd.DataFrame(candles, columns=["timestamp", output_name])
-            frame["timestamp"] = pd.to_datetime(frame["timestamp"], unit="ms", utc=True)
-            frame = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()
-            series_by_symbol[output_name] = frame[output_name]
+                if attempt < retries:
+                    time.sleep(min(30.0, backoff_seconds * attempt))
+
+            if success and candles:
+                frame = pd.DataFrame(candles, columns=["timestamp", output_name])
+                frame["timestamp"] = pd.to_datetime(frame["timestamp"], unit="ms", utc=True)
+                frame = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()
+                series_by_symbol[output_name] = frame[output_name]
+                self.last_fetch_provenance["per_symbol"][output_name] = {
+                    "status": "ok",
+                    "bars": int(len(candles)),
+                    "attempts": symbol_attempts,
+                }
+            else:
+                self.last_fetch_provenance["per_symbol"][output_name] = {
+                    "status": "excluded",
+                    "bars": 0,
+                    "attempts": symbol_attempts,
+                    "last_error": last_error,
+                }
+                self.last_fetch_provenance["excluded"].append(
+                    {
+                        "symbol": output_name,
+                        "market": market_symbol,
+                        "reason": "all_retries_failed",
+                        "last_error": last_error,
+                        "attempts": symbol_attempts,
+                    }
+                )
+                print(
+                    f"[loader] excluded {output_name} ({market_symbol}): {last_error}",
+                    flush=True,
+                )
+
+        if not series_by_symbol:
+            blocked = self.last_fetch_provenance["blocked_hosts"]
+            raise RuntimeError(
+                "No real Binance spot candles fetched for any symbol "
+                f"between {start_date} and {end_date}. "
+                f"Blocked hosts: {blocked}. "
+                f"Per-symbol errors: "
+                + "; ".join(
+                    f"{e['symbol']}: {e['last_error']}"
+                    for e in self.last_fetch_provenance["excluded"]
+                )
+            )
 
         # Keep only genuinely observed timestamps shared by every symbol.
         # Forward-filling a missing candle would manufacture flat returns and
