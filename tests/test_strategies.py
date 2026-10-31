@@ -744,7 +744,8 @@ def test_enriched_gates_causality_no_future_leakage_cached():
 
 
 def test_enriched_gates_causality_trailing_only_no_lookahead_explicit():
-    """Explicit causality proof: cached gates are constant across time and insensitive to future data/shuffles."""
+    """Explicit causality proof: cached gates are constant across time and
+    insensitive to future data/shuffles."""
     df = make_data(n=250)
     ed = {
         "gates": {
