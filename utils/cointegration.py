@@ -639,6 +639,58 @@ def target_schema_diagnostics(
         and rolling_stable_ok
     )
 
+    # Honest blocking: every failing gate is recorded with full provenance so no
+    # failing pair masquerades as computeable. Build blocked_routes from the
+    # specific gates that did not pass on real data.
+    gate_checks = [
+        ("engle_granger", eg_pass, eg_t),
+        ("johansen", joh_pass, joh_t),
+        ("spread_mean_reversion", spread_mr_pass, None),
+        ("half_life_bounds", hl_bounds_pass, hl_t),
+        ("leg_stationarity", leg_stationarity_ok, None),
+        ("rolling_stability", rolling_stable_ok, rs),
+    ]
+    blocked_routes = []
+    for gate_name, passed, detail in gate_checks:
+        if not passed:
+            route = {
+                "route": gate_name,
+                "gate": gate_name,
+                "passed": False,
+                "provenance": {
+                    "source": source,
+                    "real_data_only": True,
+                    "fabricated_data": False,
+                },
+            }
+            if isinstance(detail, dict):
+                if detail.get("error"):
+                    route["reason"] = detail.get("error")
+                if detail.get("pvalue") is not None:
+                    route["pvalue"] = detail.get("pvalue")
+                if detail.get("available") is not None:
+                    route["available"] = detail.get("available")
+                if gate_name == "rolling_stability":
+                    route["frac_significant"] = detail.get("frac_significant")
+                    route["n_windows"] = detail.get("n_windows")
+                    route["stable"] = detail.get("stable")
+            blocked_routes.append(route)
+
+    status = "computed_from_existing_results" if all_pass else "blocked_or_insufficient_data"
+    if not all_pass:
+        failing = [g for g, p, _ in gate_checks if not p]
+        rationale = (
+            f"Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all "
+            f"enriched cointegration gates: {', '.join(failing)}. "
+            f"Marked blocked_or_insufficient_data "
+            f"with full provenance; do not trade until all gates pass on real data."
+        )
+    else:
+        rationale = (
+            "Real Binance spot series (www.binance.com); all enriched cointegration "
+            "gates pass; no fabrication."
+        )
+
     adf_spread_stat = _opt_float(adf_spread.get("statistic"))
     kpss_spread_stat = _opt_float(kpss_spread.get("statistic"))
     kpss_spread_p = _opt_float(kpss_spread.get("pvalue"))
@@ -646,7 +698,7 @@ def target_schema_diagnostics(
     return _json_safe(
         {
             "pair": pair,
-            "status": "computed_from_existing_results",
+            "status": status,
             "engle_granger": eg_t,
             "johansen": joh_t,
             "adf_leg1": _stationarity_target(adf1, "adf"),
@@ -707,8 +759,8 @@ def target_schema_diagnostics(
                 "real_data_only": True,
                 "fabricated_data": False,
                 "computed_at": _now_iso(),
-                "blocked_routes": [],
-                "rationale": "Real Binance spot series (www.binance.com); no fabrication.",
+                "blocked_routes": blocked_routes,
+                "rationale": rationale,
             },
         }
     )

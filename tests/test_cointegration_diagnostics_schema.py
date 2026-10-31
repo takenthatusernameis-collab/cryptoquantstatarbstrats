@@ -206,10 +206,24 @@ def test_blocked_case_requires_status_blocked_routes_provenance():
 def test_target_schema_diagnostics_on_synthetic_series():
     df = _synthetic_cointegrated()
     diag = target_schema_diagnostics(df["A"], df["B"], "A/B", source="isolated_test")
-    assert diag["status"] == "computed_from_existing_results"
     assert diag["pair"] == ["A", "B"]
     assert diag["provenance"]["fabricated_data"] is False
     assert diag["provenance"]["real_data_only"] is True
+    # Honest-blocking invariant: status reflects whether all gates pass on real
+    # (here synthetic, isolated) data; failing pairs are blocked with provenance.
+    assert diag["status"] in (
+        "computed_from_existing_results",
+        "blocked_or_insufficient_data",
+    )
+    if not diag["gates"]["all_pass"]:
+        assert diag["status"] == "blocked_or_insufficient_data"
+        br = diag["provenance"]["blocked_routes"]
+        assert isinstance(br, list) and len(br) > 0
+        assert br, "failing pair must have non-empty blocked_routes"
+        assert isinstance(diag["provenance"]["rationale"], str) and diag["provenance"]["rationale"]
+    else:
+        assert diag["status"] == "computed_from_existing_results"
+        assert diag["provenance"]["blocked_routes"] == []
     # Round-trips through strict JSON (no NaN/Inf leakage).
     json.dumps(diag, default=float)
     # Gates are booleans once series are available.
