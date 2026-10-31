@@ -37,9 +37,7 @@ class CointegrationPairsStrategy(PairStrategy):
         if lookback < 2:
             raise ValueError("lookback must be at least 2.")
         if entry_threshold <= 0 or exit_threshold < 0 or exit_threshold >= entry_threshold:
-            raise ValueError(
-                "Thresholds must satisfy entry_threshold > exit_threshold >= 0."
-            )
+            raise ValueError("Thresholds must satisfy entry_threshold > exit_threshold >= 0.")
         if not 0.0 < cointegration_pvalue < 1.0:
             raise ValueError("cointegration_pvalue must be strictly between 0 and 1.")
         check_interval = cointegration_check_interval or lookback
@@ -54,17 +52,19 @@ class CointegrationPairsStrategy(PairStrategy):
         self.hedge_ratio_series = pd.Series(dtype=float)
         self._last_diagnostics: dict[str, Any] | None = None
 
-    def get_cointegration_diagnostics(self, price1: pd.Series | None = None, price2: pd.Series | None = None) -> dict[str, Any]:
+    def get_cointegration_diagnostics(
+        self, price1: pd.Series | None = None, price2: pd.Series | None = None
+    ) -> dict[str, Any]:
         """Compute comprehensive cointegration diagnostics."""
         if price1 is None or price2 is None:
             return self._last_diagnostics or {}
-        diag = comprehensive_cointegration_diagnostics(price1, price2, pair_name="/".join(self.pair))
+        diag = comprehensive_cointegration_diagnostics(
+            price1, price2, pair_name="/".join(self.pair)
+        )
         self._last_diagnostics = diag
         return diag
 
-    def test_cointegration(
-        self, price1: pd.Series, price2: pd.Series
-    ) -> tuple[float, float]:
+    def test_cointegration(self, price1: pd.Series, price2: pd.Series) -> tuple[float, float]:
         """Test cointegration on the explicitly supplied sample only."""
         from statsmodels.tsa.stattools import coint
 
@@ -81,12 +81,10 @@ class CointegrationPairsStrategy(PairStrategy):
         price1_aligned = aligned["price1"].astype(float)
         price2_aligned = aligned["price2"].astype(float)
 
-        rolling_cov = price2_aligned.rolling(
-            self.lookback, min_periods=self.lookback
-        ).cov(price1_aligned)
-        rolling_var = price2_aligned.rolling(
-            self.lookback, min_periods=self.lookback
-        ).var()
+        rolling_cov = price2_aligned.rolling(self.lookback, min_periods=self.lookback).cov(
+            price1_aligned
+        )
+        rolling_var = price2_aligned.rolling(self.lookback, min_periods=self.lookback).var()
         hedge_ratio = rolling_cov.div(rolling_var.where(rolling_var > 0))
         hedge_ratio = hedge_ratio.replace([np.inf, -np.inf], np.nan)
         # This long/short pairs implementation is intended for positively
@@ -121,8 +119,7 @@ class CointegrationPairsStrategy(PairStrategy):
         last_test_index = -1
         for i in range(self.lookback - 1, len(data)):
             should_test = (
-                last_test_index < 0
-                or i - last_test_index >= self.cointegration_check_interval
+                last_test_index < 0 or i - last_test_index >= self.cointegration_check_interval
             )
             if should_test:
                 start = i - self.lookback + 1
@@ -193,12 +190,9 @@ class CointegrationPairsStrategy(PairStrategy):
         leg1 = pd.Series(0.0, index=data.index, dtype=float)
         leg2 = pd.Series(0.0, index=data.index, dtype=float)
         direction = pd.Series(position, index=data.index)
-        leg1.loc[valid] = (
-            direction.loc[valid] * price1.loc[valid] / gross_value.loc[valid]
-        )
+        leg1.loc[valid] = direction.loc[valid] * price1.loc[valid] / gross_value.loc[valid]
         leg2.loc[valid] = (
-            -direction.loc[valid] * beta.loc[valid] * price2.loc[valid]
-            / gross_value.loc[valid]
+            -direction.loc[valid] * beta.loc[valid] * price2.loc[valid] / gross_value.loc[valid]
         )
         signals[asset1] = leg1
         signals[asset2] = leg2

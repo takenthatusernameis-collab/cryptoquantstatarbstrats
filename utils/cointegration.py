@@ -3,13 +3,13 @@ Publication-grade cointegration and stationarity diagnostics.
 
 All functions work on real data only. No fabrication.
 """
+
 from __future__ import annotations
 
 from typing import Any
 
 import numpy as np
 import pandas as pd
-from scipy import stats
 from statsmodels.tsa.stattools import adfuller, coint, kpss
 from statsmodels.tsa.vector_ar.vecm import coint_johansen
 
@@ -25,9 +25,17 @@ def adf_test(series: pd.Series, regression: str = "c") -> dict[str, Any]:
     """Augmented Dickey-Fuller test on a series."""
     s = series.dropna().astype(float)
     if len(s) < 10:
-        return {"statistic": float("nan"), "pvalue": float("nan"), "used_lag": None, "nobs": int(len(s)), "critical_values": {}}
+        return {
+            "statistic": float("nan"),
+            "pvalue": float("nan"),
+            "used_lag": None,
+            "nobs": int(len(s)),
+            "critical_values": {},
+        }
     try:
-        stat, pval, usedlag, nobs, crit_vals, _ = adfuller(s.values, regression=regression, autolag="AIC")
+        stat, pval, usedlag, nobs, crit_vals, _ = adfuller(
+            s.values, regression=regression, autolag="AIC"
+        )
         return {
             "statistic": float(stat),
             "pvalue": float(pval),
@@ -36,14 +44,24 @@ def adf_test(series: pd.Series, regression: str = "c") -> dict[str, Any]:
             "critical_values": {k: float(v) for k, v in crit_vals.items()},
         }
     except Exception as e:
-        return {"statistic": float("nan"), "pvalue": float("nan"), "error": str(e)[:80], "nobs": int(len(s))}
+        return {
+            "statistic": float("nan"),
+            "pvalue": float("nan"),
+            "error": str(e)[:80],
+            "nobs": int(len(s)),
+        }
 
 
 def kpss_test(series: pd.Series, regression: str = "c", nlags: str = "auto") -> dict[str, Any]:
     """KPSS stationarity test (null: stationary)."""
     s = series.dropna().astype(float)
     if len(s) < 10:
-        return {"statistic": float("nan"), "pvalue": float("nan"), "nobs": int(len(s)), "critical_values": {}}
+        return {
+            "statistic": float("nan"),
+            "pvalue": float("nan"),
+            "nobs": int(len(s)),
+            "critical_values": {},
+        }
     try:
         stat, pval, lags, crit_vals = kpss(s.values, regression=regression, nlags=nlags)
         return {
@@ -54,7 +72,12 @@ def kpss_test(series: pd.Series, regression: str = "c", nlags: str = "auto") -> 
             "critical_values": {k: float(v) for k, v in crit_vals.items()},
         }
     except Exception as e:
-        return {"statistic": float("nan"), "pvalue": float("nan"), "error": str(e)[:80], "nobs": int(len(s))}
+        return {
+            "statistic": float("nan"),
+            "pvalue": float("nan"),
+            "error": str(e)[:80],
+            "nobs": int(len(s)),
+        }
 
 
 def engle_granger_test(price1: pd.Series, price2: pd.Series) -> dict[str, Any]:
@@ -65,7 +88,9 @@ def engle_granger_test(price1: pd.Series, price2: pd.Series) -> dict[str, Any]:
         return {
             "score": float(score),
             "pvalue": float(pvalue),
-            "critical_values": {f"cv{int(k*100)}": float(v) for k, v in zip([0.01, 0.05, 0.10], crit_vals)},
+            "critical_values": {
+                f"cv{int(k * 100)}": float(v) for k, v in zip([0.01, 0.05, 0.10], crit_vals)
+            },
         }
     except Exception as e:
         return {"score": float("nan"), "pvalue": float("nan"), "error": str(e)[:80]}
@@ -124,7 +149,12 @@ def half_life_ou(series: pd.Series) -> dict[str, Any]:
             return {"half_life": float("inf"), "beta": float(beta), "is_mean_reverting": False}
         return {"half_life": float(hl), "beta": float(beta), "is_mean_reverting": True}
     except Exception as e:
-        return {"half_life": float("nan"), "beta": float("nan"), "is_mean_reverting": False, "error": str(e)[:80]}
+        return {
+            "half_life": float("nan"),
+            "beta": float("nan"),
+            "is_mean_reverting": False,
+            "error": str(e)[:80],
+        }
 
 
 def hurst_exponent(ts: pd.Series, max_lag: int = 20) -> float:
@@ -148,7 +178,9 @@ def hurst_exponent(ts: pd.Series, max_lag: int = 20) -> float:
         return float("nan")
 
 
-def johansen_test(price1: pd.Series, price2: pd.Series, det_order: int = 0, k_ar_diff: int = 1) -> dict[str, Any]:
+def johansen_test(
+    price1: pd.Series, price2: pd.Series, det_order: int = 0, k_ar_diff: int = 1
+) -> dict[str, Any]:
     """Johansen cointegration test for bivariate case."""
     try:
         p1, p2 = _to_clean_pair(price1, price2)
@@ -166,20 +198,29 @@ def johansen_test(price1: pd.Series, price2: pd.Series, det_order: int = 0, k_ar
             "max_eig_stat": [float(x) for x in max_eig_stat],
             "critical_values_trace_95": [float(x) for x in cvt[:, 1]],
             "critical_values_max_95": [float(x) for x in cve[:, 1]],
-            "rank_trace_95": r_0_trace + (int(trace_stat[1] > cvt[1, 1]) if len(trace_stat) > 1 else 0),
-            "rank_maxeig_95": r_0_max + (int(max_eig_stat[1] > cve[1, 1]) if len(max_eig_stat) > 1 else 0),
+            "rank_trace_95": r_0_trace
+            + (int(trace_stat[1] > cvt[1, 1]) if len(trace_stat) > 1 else 0),
+            "rank_maxeig_95": r_0_max
+            + (int(max_eig_stat[1] > cve[1, 1]) if len(max_eig_stat) > 1 else 0),
             "eigenvalues": [float(x) for x in result.eig],
         }
     except Exception as e:
         return {"error": str(e)[:120], "rank_trace_95": 0, "rank_maxeig_95": 0}
 
 
-def rolling_cointegration_stability(price1: pd.Series, price2: pd.Series, window: int = 720, step: int = 24) -> dict[str, Any]:
+def rolling_cointegration_stability(
+    price1: pd.Series, price2: pd.Series, window: int = 720, step: int = 24
+) -> dict[str, Any]:
     """Test rolling cointegration stability over time windows."""
     try:
         p1, p2 = _to_clean_pair(price1, price2)
         if len(p1) < window * 1.5:
-            return {"stable": False, "reason": "insufficient_data", "pvalues": [], "frac_significant": 0.0}
+            return {
+                "stable": False,
+                "reason": "insufficient_data",
+                "pvalues": [],
+                "frac_significant": 0.0,
+            }
         pvalues = []
         for start in range(0, len(p1) - window + 1, step):
             end = start + window
@@ -206,7 +247,9 @@ def rolling_cointegration_stability(price1: pd.Series, price2: pd.Series, window
         return {"stable": False, "error": str(e)[:80], "pvalues": [], "frac_significant_0_05": 0.0}
 
 
-def structural_break_check(price1: pd.Series, price2: pd.Series, min_seg: int = 200) -> dict[str, Any]:
+def structural_break_check(
+    price1: pd.Series, price2: pd.Series, min_seg: int = 200
+) -> dict[str, Any]:
     """Simple structural break check via rolling hedge ratio instability (Chow-like heuristic)."""
     try:
         p1, p2 = _to_clean_pair(price1, price2)
@@ -230,7 +273,9 @@ def structural_break_check(price1: pd.Series, price2: pd.Series, min_seg: int = 
         return {"has_break": False, "error": str(e)[:80]}
 
 
-def comprehensive_cointegration_diagnostics(price1: pd.Series, price2: pd.Series, pair_name: str = "") -> dict[str, Any]:
+def comprehensive_cointegration_diagnostics(
+    price1: pd.Series, price2: pd.Series, pair_name: str = ""
+) -> dict[str, Any]:
     """Full cointegration diagnostics for publication-grade rigor."""
     diag: dict[str, Any] = {"pair": pair_name}
     try:
@@ -264,7 +309,11 @@ def comprehensive_cointegration_diagnostics(price1: pd.Series, price2: pd.Series
         # Gates
         eg_ok = bool(np.isfinite(eg.get("pvalue")) and eg["pvalue"] < 0.05)
         joh_ok = bool(joh.get("rank_trace_95", 0) >= 1 or joh.get("rank_maxeig_95", 0) >= 1)
-        hl_ok = bool(diag["half_life"].get("is_mean_reverting") and np.isfinite(diag["half_life"].get("half_life")) and 1 < diag["half_life"]["half_life"] < 500)
+        hl_ok = bool(
+            diag["half_life"].get("is_mean_reverting")
+            and np.isfinite(diag["half_life"].get("half_life"))
+            and 1 < diag["half_life"]["half_life"] < 500
+        )
         stable_ok = bool(diag["rolling_stability"].get("stable", False))
         break_ok = not bool(diag["structural_break"].get("has_break", False))
         diag["gates"] = {

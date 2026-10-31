@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T04:20:18Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR & PUBLICATION-GRADE (PHASE 4)
+# DURABLE HANDOFF (2026-10-31T04:23:17Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR & PUBLICATION-GRADE (PHASE 4)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -11,11 +11,15 @@
 - **Branch:** `main` (clean), up to date with `origin/main`.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings, none failing).
-- **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 31 source files.**
+- **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 32 source files.**
 - **Artifact:** `reports/portfolio_real.json` (real-only, committed). Hardened with multi-TF walk-forward (>=12 splits), bootstrap CI (2000 sims), volume-aware execution with attempt logs, regime meta-selector, risk controls/circuit breakers, cost-stress grid. **Preserve as provenance. Never fabricate.** Missing: `cointegration_diagnostics`; bootstrap at 2000 (needs >=3000).
 - **Network:** Binance public REST returns **HTTP 451** in parts; www.binance.com paths work for some endpoints. Treat as blocked routes, log exhaustively, preserve committed artifact.
 
 ## BOTTLENECKS TO ELIMINATE (ACTIVE)
+
+### RESOLVED (this session)
+- **RUFF REGRESSION (RESOLVED):** 18 lint errors (E501 line-length + F401 unused `scipy.stats` import) in `utils/cointegration.py` and `strategies/pairs_trading.py` broke the green baseline. Fixed via `ruff check --fix` + `ruff format`; `ruff check backtest/ strategies/ utils/ tests/ examples/` now **All checks passed!**. Tests 529 passed/1 skipped; mypy clean (32 files). Green restored — do not regress.
+
 - **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate.
 - **SERIAL SWEEPS (PRIORITY):** Pairwise parameter sweeps are sequential in `examples/run_portfolio_real.py`. Parallelize with bounded concurrency (ProcessPoolExecutor/threading with semaphore) while keeping deterministic ordering and checkpointing.
 - **I/O/STREAMING:** Use `python -u`, `flush=True` for critical logs.
@@ -23,7 +27,7 @@
 - **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance (params/windows/bars/seeds/hashes).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T04:20:18Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T04:23:17Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
