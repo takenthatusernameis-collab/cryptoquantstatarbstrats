@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T06:23:05Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
+# DURABLE HANDOFF (2026-10-31T06:25:04Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,7 +7,7 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T06:23:05Z
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T06:25:04Z
 - **Branch:** `main` (clean), up to date with `origin/main`. Working tree clean.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped**
@@ -22,7 +22,7 @@
 - **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance. Unbuffered logging everywhere (`python -u`, `flush=True`).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:23:05Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:25:04Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
