@@ -69,3 +69,35 @@ def test_binance_loader_rejects_unsupported_interval():
         DataLoader().load_binance_data(
             ["BTC"], "2024-01-01", "2024-01-02", interval="10h"
         )
+
+
+def test_fetch_quote_volume_uses_full_market_symbol(monkeypatch):
+    """Regression: fetch_quote_volume must send the full trading symbol
+    (e.g. ADAUSDT), not the bare base asset. Sending "ADA" returns HTTP 400
+    on every host that actually serves the endpoint, which silently broke the
+    entire volume-aware execution block across all symbols.
+    """
+    rows = [
+        [0, "100", "101", "99", "100.5", "1000", 3_599_999, "1000"],
+        [3_600_000, "100.5", "102", "100", "101.5", "1100", 7_199_999, "1200"],
+    ]
+    seen_urls = []
+
+    def fake_urlopen(url, timeout=20.0):
+        seen_urls.append(url)
+        return io.BytesIO(json.dumps(rows).encode("utf-8"))
+
+    monkeypatch.setattr("data.loader.urlopen", fake_urlopen)
+    series, prov = DataLoader().fetch_quote_volume(
+        ["ADA", "BTC/USDT"], "1970-01-01T00:00:00Z", "1970-01-01T01:00:00Z",
+        interval="1h",
+    )
+
+    assert set(series.keys()) == {"ADA", "BTC/USDT"}
+    assert series["ADA"].tolist() == [1000.0, 1100.0]
+    assert series["BTC/USDT"].tolist() == [1000.0, 1100.0]
+    # Every request must carry the full USDT-quoted market symbol.
+    for url in seen_urls:
+        assert "symbol=ADAUSDT" in url or "symbol=BTCUSDT" in url, url
+    assert prov.get("blocked_routes") == []
+    assert not prov.get("excluded")

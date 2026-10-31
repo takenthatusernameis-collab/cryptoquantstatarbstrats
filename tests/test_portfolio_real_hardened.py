@@ -57,6 +57,14 @@ def test_portfolio_real_artifact_hardened_schema():
     assert isinstance(vae.get("avg_quote_volume_usdt"), dict)
     assert isinstance(vae.get("cost_stress_grid_volume_aware"), list)
     assert len(vae["cost_stress_grid_volume_aware"]) > 0
+    # Real volume fetch must have actually succeeded for at least one symbol
+    # (not a silent zero-fill / all-failed fallback). This is the control that
+    # prevents the volume-aware block from being vacuously present.
+    assert len(vae["avg_quote_volume_usdt"]) > 0, "no real quote volume fetched"
+    assert all(
+        isinstance(v, (int, float)) and v > 0
+        for v in vae["avg_quote_volume_usdt"].values()
+    )
     # Real volume fetch must have attempted at least one host per symbol with
     # a logged endpoint; it must NOT be a silent zero-fill.
     hosts = {a.get("host") for a in vae["real_volume_attempts"]}

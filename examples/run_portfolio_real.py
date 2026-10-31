@@ -802,7 +802,10 @@ def main() -> None:
     volume_aware_execution = {
         "real_volume_attempts": vol_attempts,
         "blocked_routes": vol_provenance.get("blocked_routes", []),
-        "volume_fetch_status": vol_provenance.get("blocked_routes") and not vol_data,
+        "volume_fetch_succeeded": bool(vol_data),
+        "volume_fetch_status": (
+            "ok" if vol_data else "blocked_routes_only_or_all_failed"
+        ),
         "avg_quote_volume_usdt": {k: _to_float(v.mean()) if hasattr(v, "mean") else _to_float(v) for k, v in vol_data.items()},
         "median_quote_volume_usdt": {k: _to_float(v.median()) if hasattr(v, "median") else _to_float(v) for k, v in vol_data.items()},
         "bars_fetched": {k: int(v.notna().sum()) if hasattr(v, "notna") else 0 for k, v in vol_data.items()},

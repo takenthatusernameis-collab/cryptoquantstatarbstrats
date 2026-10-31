@@ -424,9 +424,20 @@ class DataLoader:
             "blocked_routes": [],
         }
 
+        def _market_symbol(sym: str) -> str:
+            # Binance klines require the full trading symbol (e.g. ADAUSDT),
+            # not the bare base asset. Sending "ADA" returns HTTP 400 on every
+            # host that actually serves the endpoint, which silently broke the
+            # entire volume-aware execution block (all 33 symbols "failed").
+            base = sym.upper().replace("/", "").replace("-", "")
+            if not base.endswith(quote_asset.upper()):
+                base = f"{base}{quote_asset.upper()}"
+            return base
+
         def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
             local_attempts: list[dict[str, Any]] = []
             last_err: str | None = None
+            market_sym = _market_symbol(sym)
             for attempt in range(1, retries + 1):
                 cursor_ms = start_ms
                 ts_list: list[int] = []
@@ -439,7 +450,7 @@ class DataLoader:
                     try:
                         while cursor_ms <= end_ms:
                             query = urlencode({
-                                "symbol": sym,
+                                "symbol": market_sym,
                                 "interval": interval,
                                 "startTime": cursor_ms,
                                 "endTime": end_ms,

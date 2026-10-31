@@ -290,20 +290,20 @@
     "window": 168,
     "pairs": {
       "BTC/ETH": {
-        "mean": 0.8815694447559894,
-        "std": 0.03443143431552518,
+        "mean": 0.8815694060935001,
+        "std": 0.0344314169103759,
         "min": 0.7555330070496693,
         "max": 0.9681717301453998
       },
       "ETH/SOL": {
-        "mean": 0.8463209248208323,
-        "std": 0.06970276745740474,
+        "mean": 0.846321122889773,
+        "std": 0.06970280254183156,
         "min": 0.6297729676820161,
         "max": 0.9404559588189635
       },
       "BTC/SOL": {
-        "mean": 0.829052128359265,
-        "std": 0.0684319487134767,
+        "mean": 0.8290523216032399,
+        "std": 0.06843215072285798,
         "min": 0.6433538577590435,
         "max": 0.9288330238359817
       }
@@ -311,13 +311,13 @@
     "note": "Rolling correlation stability from real hourly returns."
   },
   "portfolio": {
-    "total_return": -0.09346705797288957,
-    "sharpe_ratio": -3.111772443410754,
+    "total_return": -0.09488857661039496,
+    "sharpe_ratio": -3.162617446917067,
     "max_drawdown": -0.09955969010396593,
     "max_drawdown_duration": 4158,
-    "calmar_ratio": -1.55586109983324,
-    "sortino_ratio": -2.101230710501665,
-    "final_equity": 90653.29420271104,
+    "calmar_ratio": -1.578677386871884,
+    "sortino_ratio": -2.1355686321957257,
+    "final_equity": 90511.1423389605,
     "equity_curve": [
       0.9135618690828454,
       0.913137278531807,
@@ -1318,13 +1318,13 @@
       0.9086399952635223,
       0.9055427034278042,
       0.9056436498401382,
-      0.9065329420271104
+      0.905111423389605
     ]
   },
   "risk_metrics": {
     "var_95": -0.0007234960643237831,
     "cvar_95": -0.0013470606016187329,
-    "cvar_conditional_drawdown_at_risk_95": 0.01805649105211784,
+    "cvar_conditional_drawdown_at_risk_95": 0.018087055033566335,
     "max_gross_exposure_limit": 1.4,
     "per_pair_cap": 0.32,
     "max_correlation_exposure_limit": 0.5,
@@ -1336,145 +1336,145 @@
   "correlation_matrix": {
     "ADA": {
       "ADA": 1.0,
-      "AVAX": 0.7346518762017402,
-      "BNB": 0.701082068114021,
-      "BTC": 0.7129431130793396,
-      "DOT": 0.7147511785321368,
-      "ETH": 0.728305632305212,
-      "LINK": 0.7638253232676,
-      "LTC": 0.6817074310181162,
-      "POL": 0.5259420628130982,
-      "SOL": 0.7693881078721753,
-      "XRP": 0.7818686995517219
+      "AVAX": 0.7346623679558876,
+      "BNB": 0.7010934658632135,
+      "BTC": 0.7129451880439623,
+      "DOT": 0.7147611700871973,
+      "ETH": 0.7283205947345145,
+      "LINK": 0.7638167274076535,
+      "LTC": 0.6816907991231882,
+      "POL": 0.5259969052374786,
+      "SOL": 0.7694005465545347,
+      "XRP": 0.7818814978035392
     },
     "AVAX": {
-      "ADA": 0.7346518762017402,
+      "ADA": 0.7346623679558876,
       "AVAX": 1.0,
-      "BNB": 0.6767169268036836,
-      "BTC": 0.6946306518460621,
-      "DOT": 0.6887310945233668,
-      "ETH": 0.7243477677515517,
-      "LINK": 0.7677279266352485,
-      "LTC": 0.6511807786977177,
-      "POL": 0.4988633463707034,
-      "SOL": 0.7459569496391197,
-      "XRP": 0.7013408050733285
+      "BNB": 0.6767682546803452,
+      "BTC": 0.6946799342337685,
+      "DOT": 0.6887325463110798,
+      "ETH": 0.7243668715939381,
+      "LINK": 0.7677648696921137,
+      "LTC": 0.6512396866252663,
+      "POL": 0.49897547858070734,
+      "SOL": 0.7460124985769767,
+      "XRP": 0.701368632314472
     },
     "BNB": {
-      "ADA": 0.701082068114021,
-      "AVAX": 0.6767169268036836,
+      "ADA": 0.7010934658632135,
+      "AVAX": 0.6767682546803452,
       "BNB": 1.0,
-      "BTC": 0.7756421577494558,
-      "DOT": 0.6276160845879317,
-      "ETH": 0.7670476993877489,
-      "LINK": 0.7375965662248863,
-      "LTC": 0.6575552374941186,
-      "POL": 0.49141662163445643,
-      "SOL": 0.773896838954031,
-      "XRP": 0.7231856567182373
+      "BTC": 0.7756926109965651,
+      "DOT": 0.6276140583117159,
+      "ETH": 0.7670573872001814,
+      "LINK": 0.737657864825935,
+      "LTC": 0.6576402637577656,
+      "POL": 0.4915685782977025,
+      "SOL": 0.7739709140907551,
+      "XRP": 0.7232178525275488
     },
     "BTC": {
-      "ADA": 0.7129431130793396,
-      "AVAX": 0.6946306518460621,
-      "BNB": 0.7756421577494558,
+      "ADA": 0.7129451880439623,
+      "AVAX": 0.6946799342337685,
+      "BNB": 0.7756926109965651,
       "BTC": 1.0,
-      "DOT": 0.6288531346125384,
-      "ETH": 0.8788813388965351,
-      "LINK": 0.7701629497335598,
-      "LTC": 0.6615416082663622,
-      "POL": 0.5001550424449118,
-      "SOL": 0.8277283809375956,
-      "XRP": 0.763804657279617
+      "DOT": 0.628850495100899,
+      "ETH": 0.8788758749837373,
+      "LINK": 0.7702145057022689,
+      "LTC": 0.6616298559530946,
+      "POL": 0.5002674058346211,
+      "SOL": 0.8277711066726251,
+      "XRP": 0.7638139150037178
     },
     "DOT": {
-      "ADA": 0.7147511785321368,
-      "AVAX": 0.6887310945233668,
-      "BNB": 0.6276160845879317,
-      "BTC": 0.6288531346125384,
+      "ADA": 0.7147611700871973,
+      "AVAX": 0.6887325463110798,
+      "BNB": 0.6276140583117159,
+      "BTC": 0.628850495100899,
       "DOT": 1.0,
-      "ETH": 0.655539978612906,
-      "LINK": 0.696401780007725,
-      "LTC": 0.6461930078060583,
-      "POL": 0.5144409733149583,
-      "SOL": 0.6844069299823098,
-      "XRP": 0.6606083199733533
+      "ETH": 0.6555493905940978,
+      "LINK": 0.6963871185457329,
+      "LTC": 0.6461597938481354,
+      "POL": 0.5145093294646588,
+      "SOL": 0.6844267356514914,
+      "XRP": 0.6606294194221906
     },
     "ETH": {
-      "ADA": 0.728305632305212,
-      "AVAX": 0.7243477677515517,
-      "BNB": 0.7670476993877489,
-      "BTC": 0.8788813388965351,
-      "DOT": 0.655539978612906,
+      "ADA": 0.7283205947345145,
+      "AVAX": 0.7243668715939381,
+      "BNB": 0.7670573872001814,
+      "BTC": 0.8788758749837373,
+      "DOT": 0.6555493905940978,
       "ETH": 1.0,
-      "LINK": 0.820564817529786,
-      "LTC": 0.6713857101562571,
-      "POL": 0.5108151143842753,
-      "SOL": 0.8375147313843588,
-      "XRP": 0.7635109496563803
+      "LINK": 0.8205640542743452,
+      "LTC": 0.6713908190645009,
+      "POL": 0.5109096241122828,
+      "SOL": 0.8375458810062504,
+      "XRP": 0.7635370678637297
     },
     "LINK": {
-      "ADA": 0.7638253232676,
-      "AVAX": 0.7677279266352485,
-      "BNB": 0.7375965662248863,
-      "BTC": 0.7701629497335598,
-      "DOT": 0.696401780007725,
-      "ETH": 0.820564817529786,
+      "ADA": 0.7638167274076535,
+      "AVAX": 0.7677648696921137,
+      "BNB": 0.737657864825935,
+      "BTC": 0.7702145057022689,
+      "DOT": 0.6963871185457329,
+      "ETH": 0.8205640542743452,
       "LINK": 1.0,
-      "LTC": 0.6829257746423462,
-      "POL": 0.5327027835696175,
-      "SOL": 0.8082997254315551,
-      "XRP": 0.755804784664544
+      "LTC": 0.683015147534504,
+      "POL": 0.5328117440096894,
+      "SOL": 0.808344723189764,
+      "XRP": 0.7558109324531597
     },
     "LTC": {
-      "ADA": 0.6817074310181162,
-      "AVAX": 0.6511807786977177,
-      "BNB": 0.6575552374941186,
-      "BTC": 0.6615416082663622,
-      "DOT": 0.6461930078060583,
-      "ETH": 0.6713857101562571,
-      "LINK": 0.6829257746423462,
+      "ADA": 0.6816907991231882,
+      "AVAX": 0.6512396866252663,
+      "BNB": 0.6576402637577656,
+      "BTC": 0.6616298559530946,
+      "DOT": 0.6461597938481354,
+      "ETH": 0.6713908190645009,
+      "LINK": 0.683015147534504,
       "LTC": 1.0,
-      "POL": 0.4836774800847067,
-      "SOL": 0.6936030653973377,
-      "XRP": 0.6616351667743471
+      "POL": 0.48381666386373473,
+      "SOL": 0.693677531047312,
+      "XRP": 0.6616431774684455
     },
     "POL": {
-      "ADA": 0.5259420628130982,
-      "AVAX": 0.4988633463707034,
-      "BNB": 0.49141662163445643,
-      "BTC": 0.5001550424449118,
-      "DOT": 0.5144409733149583,
-      "ETH": 0.5108151143842753,
-      "LINK": 0.5327027835696175,
-      "LTC": 0.4836774800847067,
+      "ADA": 0.5259969052374786,
+      "AVAX": 0.49897547858070734,
+      "BNB": 0.4915685782977025,
+      "BTC": 0.5002674058346211,
+      "DOT": 0.5145093294646588,
+      "ETH": 0.5109096241122828,
+      "LINK": 0.5328117440096894,
+      "LTC": 0.48381666386373473,
       "POL": 1.0,
-      "SOL": 0.5461871704482553,
-      "XRP": 0.529917697498426
+      "SOL": 0.5462301422520154,
+      "XRP": 0.5299475285892928
     },
     "SOL": {
-      "ADA": 0.7693881078721753,
-      "AVAX": 0.7459569496391197,
-      "BNB": 0.773896838954031,
-      "BTC": 0.8277283809375956,
-      "DOT": 0.6844069299823098,
-      "ETH": 0.8375147313843588,
-      "LINK": 0.8082997254315551,
-      "LTC": 0.6936030653973377,
-      "POL": 0.5461871704482553,
+      "ADA": 0.7694005465545347,
+      "AVAX": 0.7460124985769767,
+      "BNB": 0.7739709140907551,
+      "BTC": 0.8277711066726251,
+      "DOT": 0.6844267356514914,
+      "ETH": 0.8375458810062504,
+      "LINK": 0.808344723189764,
+      "LTC": 0.693677531047312,
+      "POL": 0.5462301422520154,
       "SOL": 1.0,
-      "XRP": 0.8037380954821187
+      "XRP": 0.8037420564923188
     },
     "XRP": {
-      "ADA": 0.7818686995517219,
-      "AVAX": 0.7013408050733285,
-      "BNB": 0.7231856567182373,
-      "BTC": 0.763804657279617,
-      "DOT": 0.6606083199733533,
-      "ETH": 0.7635109496563803,
-      "LINK": 0.755804784664544,
-      "LTC": 0.6616351667743471,
-      "POL": 0.529917697498426,
-      "SOL": 0.8037380954821187,
+      "ADA": 0.7818814978035392,
+      "AVAX": 0.701368632314472,
+      "BNB": 0.7232178525275488,
+      "BTC": 0.7638139150037178,
+      "DOT": 0.6606294194221906,
+      "ETH": 0.7635370678637297,
+      "LINK": 0.7558109324531597,
+      "LTC": 0.6616431774684455,
+      "POL": 0.5299475285892928,
+      "SOL": 0.8037420564923188,
       "XRP": 1.0
     }
   },
@@ -1482,57 +1482,57 @@
     "ADA": {
       "total_return": 0.025257932722077752,
       "mean_period_return": 4.940910156900969e-06,
-      "share_of_portfolio_return": 0.5017909369305211
+      "share_of_portfolio_return": 0.5159397988861815
     },
     "AVAX": {
       "total_return": -0.004635965865333769,
       "mean_period_return": -9.068790816380612e-07,
-      "share_of_portfolio_return": -0.09210118978226427
+      "share_of_portfolio_return": -0.09469814186783326
     },
     "BNB": {
       "total_return": 0.016898995346864662,
       "mean_period_return": 3.305750263471178e-06,
-      "share_of_portfolio_return": 0.3357267121420291
+      "share_of_portfolio_return": 0.3451931065212943
     },
     "BTC": {
-      "total_return": -0.03317231348213679,
-      "mean_period_return": -6.489106706208292e-06,
-      "share_of_portfolio_return": -0.6590233035106877
+      "total_return": -0.033038698734565004,
+      "mean_period_return": -6.462969236026018e-06,
+      "share_of_portfolio_return": -0.6748762762232261
     },
     "DOT": {
       "total_return": 0.014009842085154673,
       "mean_period_return": 2.740579437628066e-06,
-      "share_of_portfolio_return": 0.2783288665589616
+      "share_of_portfolio_return": 0.286176829567834
     },
     "ETH": {
       "total_return": -0.02997577410368346,
       "mean_period_return": -5.863805575837923e-06,
-      "share_of_portfolio_return": -0.5955187203249322
+      "share_of_portfolio_return": -0.612310398981846
     },
     "LINK": {
       "total_return": 0.0024420354320949245,
       "mean_period_return": 4.777064616774109e-07,
-      "share_of_portfolio_return": 0.04851510458008852
+      "share_of_portfolio_return": 0.049883071729250376
     },
     "LTC": {
       "total_return": -0.001219403514184609,
       "mean_period_return": -2.3853746365113633e-07,
-      "share_of_portfolio_return": -0.024225483479264343
+      "share_of_portfolio_return": -0.024908562818349144
     },
     "POL": {
-      "total_return": 0.01703694034826499,
-      "mean_period_return": 3.332734809910992e-06,
-      "share_of_portfolio_return": 0.33846721954060366
+      "total_return": 0.015522949382674777,
+      "mean_period_return": 3.036570693011498e-06,
+      "share_of_portfolio_return": 0.3170848331390589
     },
     "SOL": {
       "total_return": 0.029018095064342476,
       "mean_period_return": 5.676466170646024e-06,
-      "share_of_portfolio_return": 0.5764928298168945
+      "share_of_portfolio_return": 0.5927480406371662
     },
     "XRP": {
       "total_return": 0.014675185749010137,
       "mean_period_return": 2.8707327365043302e-06,
-      "share_of_portfolio_return": 0.2915470275280496
+      "share_of_portfolio_return": 0.29976769941046877
     }
   },
   "per_pair_contributions": {
@@ -1672,8 +1672,8 @@
         "entry_threshold": 2.0,
         "cointegration_pvalue": 0.05
       },
-      "pair_total_return": -0.01871525929712703,
-      "pair_sharpe_ratio": -0.4636210834499137,
+      "pair_total_return": -0.0232164648670371,
+      "pair_sharpe_ratio": -0.585334801622379,
       "pair_max_drawdown": -0.05247288918848447
     },
     "AVAX/BTC": {
@@ -1708,13 +1708,13 @@
     }
   },
   "turnover": {
-    "mean_turnover": 0.019385616263566975,
-    "annualized_turnover": 169.9343121664281
+    "mean_turnover": 0.019385873196267358,
+    "annualized_turnover": 169.93656443847965
   },
   "leverage_exposure_stats": {
     "mean_gross_exposure": 0.172704549570587,
     "max_gross_exposure": 0.8283990861001882,
-    "mean_net_exposure": 0.0353328325773795
+    "mean_net_exposure": 0.03533308951007988
   },
   "walk_forward_portfolio": {
     "train_period": 1000,
@@ -1889,9 +1889,9 @@
     },
     "downtrend": {
       "n_periods": 2417,
-      "total_return": 0.012005343295651949,
-      "mean_return": 5.060673347564867e-06,
-      "sharpe_ratio": 0.9543207746547894
+      "total_return": 0.010609740632846476,
+      "mean_return": 4.489561962368992e-06,
+      "sharpe_ratio": 0.8471514994686716
     },
     "uptrend": {
       "n_periods": 2646,
@@ -1904,93 +1904,93 @@
     {
       "fee_rate": 0.0,
       "slippage": 0.0,
-      "total_return": 0.05186456252307625,
-      "sharpe_ratio": 1.6861086002759405,
+      "total_return": 0.05021730352811726,
+      "sharpe_ratio": 1.6350269454665458,
       "max_drawdown": -0.018111840620005926
     },
     {
       "fee_rate": 0.0,
       "slippage": 0.0005,
-      "total_return": 0.001008076808477476,
-      "sharpe_ratio": 0.05916756721135866,
+      "total_return": -0.0005602215557714008,
+      "sharpe_ratio": 0.007920094647588737,
       "max_drawdown": -0.035453946129349045
     },
     {
       "fee_rate": 0.0,
       "slippage": 0.001,
-      "total_return": -0.047396504315246,
-      "sharpe_ratio": -1.5464201882073114,
+      "total_return": -0.048889615836623546,
+      "sharpe_ratio": -1.5975867736737297,
       "max_drawdown": -0.06479155271908255
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.0,
-      "total_return": 0.001008076808477476,
-      "sharpe_ratio": 0.05916756721135866,
+      "total_return": -0.0005602215557714008,
+      "sharpe_ratio": 0.007920094647588737,
       "max_drawdown": -0.035453946129349045
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.0005,
-      "total_return": -0.047396504315246,
-      "sharpe_ratio": -1.5464201882073114,
+      "total_return": -0.048889615836623546,
+      "sharpe_ratio": -1.5975867736737297,
       "max_drawdown": -0.06479155271908255
     },
     {
       "fee_rate": 0.0005,
       "slippage": 0.001,
-      "total_return": -0.09346705797288957,
-      "sharpe_ratio": -3.111772443410754,
+      "total_return": -0.09488857661039496,
+      "sharpe_ratio": -3.162617446917067,
       "max_drawdown": -0.09955969010396593
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.0,
-      "total_return": -0.047396504315246,
-      "sharpe_ratio": -1.5464201882073114,
+      "total_return": -0.048889615836623546,
+      "sharpe_ratio": -1.5975867736737297,
       "max_drawdown": -0.06479155271908255
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.0005,
-      "total_return": -0.09346705797288957,
-      "sharpe_ratio": -3.111772443410754,
+      "total_return": -0.09488857661039496,
+      "sharpe_ratio": -3.162617446917067,
       "max_drawdown": -0.09955969010396593
     },
     {
       "fee_rate": 0.001,
       "slippage": 0.001,
-      "total_return": -0.13731581032847773,
-      "sharpe_ratio": -4.620595662289556,
-      "max_drawdown": -0.13823382280117924
+      "total_return": -0.13866915875610786,
+      "sharpe_ratio": -4.670894158538658,
+      "max_drawdown": -0.13866915875610786
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.0,
-      "total_return": -0.13731581032847773,
-      "sharpe_ratio": -4.620595662289556,
-      "max_drawdown": -0.13823382280117924
+      "total_return": -0.13866915875610786,
+      "sharpe_ratio": -4.670894158538658,
+      "max_drawdown": -0.13866915875610786
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.0005,
-      "total_return": -0.17904960671969972,
-      "sharpe_ratio": -6.059848280011347,
-      "max_drawdown": -0.17990005618830984
+      "total_return": -0.18033804446556734,
+      "sharpe_ratio": -6.109398959513061,
+      "max_drawdown": -0.18033804446556734
     },
     {
       "fee_rate": 0.002,
       "slippage": 0.001,
-      "total_return": -0.2187701689156868,
-      "sharpe_ratio": -7.4200241657841834,
-      "max_drawdown": -0.21955743720629428
+      "total_return": -0.21999680011553058,
+      "sharpe_ratio": -7.468654672088679,
+      "max_drawdown": -0.21999680011553058
     }
   ],
   "circuit_breaker_test": {
     "circuit_breaker_threshold": -0.1,
     "tripped": false,
-    "portfolio_total_return_with_cb": -0.09346705797288957,
-    "portfolio_total_return_without_cb": -0.09346705797288957,
+    "portfolio_total_return_with_cb": -0.09488857661039496,
+    "portfolio_total_return_without_cb": -0.09488857661039496,
     "max_drawdown_with_cb": -0.09955969010396593
   },
   "funding_basis": {
@@ -2132,47 +2132,47 @@
     "funding_summary": {
       "ADA": {
         "count": 90,
-        "mean": 2.7376888888888886e-05
+        "mean": 2.7952888888888886e-05
       },
       "AVAX": {
         "count": 90,
-        "mean": 2.6111666666666666e-05
+        "mean": 2.5039111111111108e-05
       },
       "BNB": {
         "count": 90,
-        "mean": 2.141777777777778e-05
+        "mean": 2.0245888888888886e-05
       },
       "BTC": {
         "count": 90,
-        "mean": 4.168e-05
+        "mean": 4.1904333333333325e-05
       },
       "DOT": {
         "count": 90,
-        "mean": 1.994088888888889e-05
+        "mean": 1.9222666666666668e-05
       },
       "ETH": {
         "count": 90,
-        "mean": 3.421288888888889e-05
+        "mean": 3.2071666666666667e-05
       },
       "LINK": {
         "count": 90,
-        "mean": 3.667822222222222e-05
+        "mean": 3.5840444444444446e-05
       },
       "LTC": {
         "count": 90,
-        "mean": 3.7489888888888886e-05
+        "mean": 3.677133333333333e-05
       },
       "POL": {
         "count": 180,
-        "mean": -1.9078833333333334e-05
+        "mean": -1.9013055555555557e-05
       },
       "SOL": {
         "count": 90,
-        "mean": 3.9211333333333335e-05
+        "mean": 3.920266666666666e-05
       },
       "XRP": {
         "count": 90,
-        "mean": 3.704666666666666e-05
+        "mean": 3.772455555555555e-05
       }
     },
     "basis": {
@@ -2498,8 +2498,8 @@
       "test_period": 200,
       "n_splits": 12,
       "portfolio": {
-        "total_return": -0.09346705797288957,
-        "sharpe_ratio": -3.111772443410754,
+        "total_return": -0.09488857661039496,
+        "sharpe_ratio": -3.162617446917067,
         "max_drawdown": -0.09955969010396593
       },
       "walk_forward": {
@@ -2718,8 +2718,8 @@
       "test_period": 42,
       "n_splits": 12,
       "portfolio": {
-        "total_return": -0.06661458240193463,
-        "sharpe_ratio": -2.4126277336514117,
+        "total_return": -0.06786347360281086,
+        "sharpe_ratio": -2.4507402207215487,
         "max_drawdown": -0.07204549486638989
       },
       "walk_forward": {
@@ -3192,123 +3192,123 @@
       "count": 5111
     },
     "final_equity": {
-      "mean": 1.0520227719860735,
-      "std": 0.040735918088651096,
-      "p5": 0.9858229360019662,
-      "p25": 1.0249088538603575,
-      "p50": 1.0514173669500102,
-      "p75": 1.0779516784771843,
-      "p95": 1.1229296354082332
+      "mean": 1.0505601799712434,
+      "std": 0.04069250634885876,
+      "p5": 0.9839951420789785,
+      "p25": 1.023223787127361,
+      "p50": 1.0499422435912296,
+      "p75": 1.0768462298542465,
+      "p95": 1.1217043104148672
     },
     "max_drawdown": {
-      "mean": 0.031905498664289655,
-      "std": 0.012420860479315675,
-      "p5": 0.017130591111195036,
-      "p25": 0.023085419570289145,
-      "p50": 0.02910270859955899,
-      "p75": 0.03743554781269798,
-      "p95": 0.05468323425932129,
+      "mean": 0.032190419439377393,
+      "std": 0.01258844884763907,
+      "p5": 0.01728694590285822,
+      "p25": 0.02324498000586786,
+      "p50": 0.02947407544940228,
+      "p75": 0.037856129652902026,
+      "p95": 0.05482049233895479,
       "ci95": [
-        0.015698987235538468,
-        0.06283648146500623
+        0.01593520877579405,
+        0.06412313263139899
       ],
       "ci99": [
-        0.013621185906792494,
-        0.08027879574739843
+        0.013645333339108601,
+        0.08157002501761838
       ]
     },
     "sharpe_ratio": {
-      "mean": 0.28823554863890843,
-      "std": 0.218927746549259,
-      "p5": -0.07777127679176296,
-      "p25": 0.1467094638994464,
-      "p50": 0.28844243451653273,
-      "p75": 0.43084297327090515,
-      "p95": 0.6587621139444676
+      "mean": 0.280378925098992,
+      "std": 0.21904093104637468,
+      "p5": -0.08888023795399867,
+      "p25": 0.13480225173616228,
+      "p50": 0.2789173135078581,
+      "p75": 0.4213685680689484,
+      "p95": 0.6508425723922497
     },
     "risk_of_ruin": 0.0,
     "risk_of_ruin_threshold": 0.5,
     "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",
     "ci95_total_return": [
-      -0.024325387808259914,
-      0.1334447349772082
+      -0.026580661082662178,
+      0.13112551714139672
     ],
     "ci95_sharpe_ratio": [
-      -0.1364758945414542,
-      0.7140902525468573
+      -0.14888282100575603,
+      0.7066573024108102
     ],
     "ci95_max_drawdown": [
-      0.015698987235538468,
-      0.06283648146500623
+      0.01593520877579405,
+      0.06412313263139899
     ],
     "per_timeframe": {
       "1h": {
         "n_simulations": 2000,
         "ci95_total_return": [
-          -0.029160442547473315,
-          0.1329309140755482
+          -0.027770587684326227,
+          0.1342749926716247
         ],
         "ci95_sharpe_ratio": [
-          -0.16900631848892134,
-          0.718285177921129
+          -0.15732902465699486,
+          0.7280997730209574
         ],
         "ci95_max_drawdown": [
-          0.015866428318492897,
-          0.06277337074576034
+          0.015639316103730677,
+          0.062066160419620986
         ]
       },
       "4h": {
         "n_simulations": 2000,
         "ci95_total_return": [
-          -0.025328100029894694,
-          0.13062064129649853
+          -0.021933133394113066,
+          0.12379901840376616
         ],
         "ci95_sharpe_ratio": [
-          -0.2894415796876704,
-          1.4845873166611
+          -0.274909837351169,
+          1.4260167154025747
         ],
         "ci95_max_drawdown": [
-          0.01370112832945387,
-          0.058994202891091835
+          0.014351384434503714,
+          0.05837632752679208
         ]
       },
       "1d": {
         "n_simulations": 2000,
         "ci95_total_return": [
-          -0.1071640863012835,
-          0.07082554564487671
+          -0.10678309538415312,
+          0.07763049701430941
         ],
         "ci95_sharpe_ratio": [
-          -2.2875546550364323,
-          1.7957503313257075
+          -2.340702383435113,
+          1.868760617685146
         ],
         "ci95_max_drawdown": [
-          0.019106719855417825,
-          0.1214721057134166
+          0.018332391760558137,
+          0.12161053094010114
         ]
       }
     },
     "cost_impact": {
-      "mean_turnover_per_period": 0.019385616263566975,
-      "cost_per_period_assumed": 2.9078424395350465e-05,
+      "mean_turnover_per_period": 0.019385873196267358,
+      "cost_per_period_assumed": 2.907880979440104e-05,
       "fee_rate": 0.001,
       "slippage": 0.0005,
       "n_simulations": 2000,
       "seed": 12346,
       "ci95_total_return_net": [
-        -0.16085539442562372,
-        -0.022263429516481338
+        -0.16247314977774963,
+        -0.022660971231368402
       ],
       "ci95_total_return_zero_cost": [
-        -0.024325387808259914,
-        0.1334447349772082
+        -0.026580661082662178,
+        0.13112551714139672
       ],
-      "shift_in_total_return": -0.1446281746302997,
+      "shift_in_total_return": -0.14449867379162135,
       "note": "Bootstrap CI of portfolio OOS returns net of realistic transaction costs (turnover x fee+slippage)."
     },
     "distinguishability_from_zero": {
-      "p_value_final_equity_le_1": 0.0965,
-      "p_value_final_equity_gt_1": 0.9035,
+      "p_value_final_equity_le_1": 0.1005,
+      "p_value_final_equity_gt_1": 0.8995,
       "n_simulations": 2000,
       "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven). Lower is more distinguishable from zero."
     }
@@ -3320,55 +3320,15 @@
         "host": "https://api.binance.com",
         "success": false,
         "error": "HTTP Error 451: ",
-        "latency_ms": 27,
+        "latency_ms": 98,
         "symbol": "ADA"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 144,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api1.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 500,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api2.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 445,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api3.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 486,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 132,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 134,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 2139,
         "symbol": "ADA"
       },
       {
@@ -3376,55 +3336,15 @@
         "host": "https://api.binance.com",
         "success": false,
         "error": "HTTP Error 451: ",
-        "latency_ms": 26,
+        "latency_ms": 97,
         "symbol": "AVAX"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 131,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api1.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 476,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api2.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 471,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api3.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 498,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 132,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 248,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1985,
         "symbol": "AVAX"
       },
       {
@@ -3432,55 +3352,15 @@
         "host": "https://api.binance.com",
         "success": false,
         "error": "HTTP Error 451: ",
-        "latency_ms": 24,
+        "latency_ms": 97,
         "symbol": "BNB"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 146,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api1.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 499,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api2.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 447,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api3.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 486,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 133,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 129,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 2496,
         "symbol": "BNB"
       },
       {
@@ -3488,236 +3368,118 @@
         "host": "https://api.binance.com",
         "success": false,
         "error": "HTTP Error 451: ",
-        "latency_ms": 25,
+        "latency_ms": 95,
         "symbol": "BTC"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 247,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api1.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 454,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api2.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 461,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 1,
-        "host": "https://api3.binance.com",
-        "success": false,
-        "error": "HTTP Error 451: ",
-        "latency_ms": 451,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 157,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 133,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1974,
         "symbol": "BTC"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 360,
-        "symbol": "DOT"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 134,
-        "symbol": "DOT"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 132,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1322,
         "symbol": "DOT"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 130,
-        "symbol": "ETH"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 159,
-        "symbol": "ETH"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 158,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1053,
         "symbol": "ETH"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 361,
-        "symbol": "LINK"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 130,
-        "symbol": "LINK"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 364,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1131,
         "symbol": "LINK"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 134,
-        "symbol": "LTC"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 152,
-        "symbol": "LTC"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 359,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1777,
         "symbol": "LTC"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 159,
-        "symbol": "POL"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 131,
-        "symbol": "POL"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 131,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1545,
         "symbol": "POL"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 150,
-        "symbol": "SOL"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 145,
-        "symbol": "SOL"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 129,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1263,
         "symbol": "SOL"
       },
       {
         "attempt": 1,
         "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 128,
-        "symbol": "XRP"
-      },
-      {
-        "attempt": 2,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 132,
-        "symbol": "XRP"
-      },
-      {
-        "attempt": 3,
-        "host": "https://www.binance.com",
-        "success": false,
-        "error": "HTTP Error 400: Bad Request",
-        "latency_ms": 133,
+        "success": true,
+        "bars": 5112,
+        "latency_ms": 1130,
         "symbol": "XRP"
       }
     ],
     "blocked_routes": [
-      "https://api.binance.com",
-      "https://api1.binance.com",
-      "https://api2.binance.com",
-      "https://api3.binance.com"
+      "https://api.binance.com"
     ],
-    "volume_fetch_status": true,
-    "avg_quote_volume_usdt": {},
-    "median_quote_volume_usdt": {},
-    "bars_fetched": {},
+    "volume_fetch_succeeded": true,
+    "volume_fetch_status": "ok",
+    "avg_quote_volume_usdt": {
+      "BTC": 666.9768025586854,
+      "AVAX": 109422.83624608764,
+      "ADA": 5769417.674471831,
+      "BNB": 5614.118801643193,
+      "ETH": 11694.506923591549,
+      "LINK": 99055.52171948356,
+      "DOT": 307587.4359741785,
+      "LTC": 13462.508230633803,
+      "XRP": 4370975.614143193,
+      "SOL": 97126.11692449139,
+      "POL": 2342549.7656885763
+    },
+    "median_quote_volume_usdt": {
+      "BTC": 493.29346499999997,
+      "AVAX": 72175.4,
+      "ADA": 4074803.3,
+      "BNB": 3893.733,
+      "ETH": 8241.3118,
+      "LINK": 67907.54999999999,
+      "DOT": 221735.775,
+      "LTC": 9952.867999999999,
+      "XRP": 3070746.5999999996,
+      "SOL": 71583.407,
+      "POL": 1549460.35
+    },
+    "bars_fetched": {
+      "BTC": 5112,
+      "AVAX": 5112,
+      "ADA": 5112,
+      "BNB": 5112,
+      "ETH": 5112,
+      "LINK": 5112,
+      "DOT": 5112,
+      "LTC": 5112,
+      "XRP": 5112,
+      "SOL": 5112,
+      "POL": 5112
+    },
     "assumptions": {
       "model": "volume_participation_adjusted_slippage",
       "base_slippage": 0.0005,
@@ -3730,97 +3492,97 @@
         "fee_rate": 0.0,
         "slippage_base": 0.0003,
         "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": 0.007342023977777723,
-        "sharpe_ratio": 0.26546330170105586,
+        "total_return": 0.005763889514770915,
+        "sharpe_ratio": 0.21422322369121,
         "max_drawdown": -0.03223135008242084
       },
       {
         "fee_rate": 0.0,
         "slippage_base": 0.0005,
         "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": -0.021290741093130006,
-        "sharpe_ratio": -0.6744767375608733,
+        "total_return": -0.022824406806748243,
+        "sharpe_ratio": -0.7257179083171406,
         "max_drawdown": -0.0469941660666654
       },
       {
         "fee_rate": 0.0,
         "slippage_base": 0.001,
         "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": -0.0893722827565373,
-        "sharpe_ratio": -2.971580659145751,
+        "total_return": -0.09080016589099815,
+        "sharpe_ratio": -3.022464491942227,
         "max_drawdown": -0.09645288730562995
       },
       {
         "fee_rate": 0.0005,
         "slippage_base": 0.0003,
         "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": -0.04136795014833927,
-        "sharpe_ratio": -1.34393489871637,
+        "total_return": -0.04287042763831861,
+        "sharpe_ratio": -1.395125373270664,
         "max_drawdown": -0.06027165793317357
       },
       {
         "fee_rate": 0.0005,
         "slippage_base": 0.0005,
         "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": -0.06862013385651622,
-        "sharpe_ratio": -2.263980650208035,
+        "total_return": -0.07008026811466139,
+        "sharpe_ratio": -2.315030161276049,
         "max_drawdown": -0.08075798550733604
       },
       {
         "fee_rate": 0.0005,
         "slippage_base": 0.001,
         "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": -0.13341852298086132,
-        "sharpe_ratio": -4.486133814127055,
-        "max_drawdown": -0.13434290441507668
+        "total_return": -0.1347779316143105,
+        "sharpe_ratio": -4.536490712571401,
+        "max_drawdown": -0.1347779316143105
       },
       {
         "fee_rate": 0.001,
         "slippage_base": 0.0003,
         "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": -0.08772921388829724,
-        "sharpe_ratio": -2.915375008572102,
+        "total_return": -0.08915965076839016,
+        "sharpe_ratio": -2.9662738477117037,
         "max_drawdown": -0.09520717867047102
       },
       {
         "fee_rate": 0.001,
         "slippage_base": 0.0005,
         "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": -0.11366719503594469,
-        "sharpe_ratio": -3.8054733444815225,
-        "max_drawdown": -0.11532669439932441
+        "total_return": -0.11505731290642407,
+        "sharpe_ratio": -3.856096554833307,
+        "max_drawdown": -0.11575965655475062
       },
       {
         "fee_rate": 0.001,
         "slippage_base": 0.001,
         "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": -0.1753403095218815,
-        "sharpe_ratio": -5.932157468501758,
-        "max_drawdown": -0.17619671590700403
+        "total_return": -0.17663451768782146,
+        "sharpe_ratio": -5.981783715654267,
+        "max_drawdown": -0.17663451768782146
       },
       {
         "fee_rate": 0.002,
         "slippage_base": 0.0003,
         "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": -0.17385191612689943,
-        "sharpe_ratio": -5.880898802541503,
-        "max_drawdown": -0.17471071546130723
+        "total_return": -0.17514843966813487,
+        "sharpe_ratio": -5.930554872211356,
+        "max_drawdown": -0.17514843966813487
       },
       {
         "fee_rate": 0.002,
         "slippage_base": 0.0005,
         "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": -0.19734805084931162,
-        "sharpe_ratio": -6.688353518460201,
-        "max_drawdown": -0.19816925469687663
+        "total_return": -0.1986080189638021,
+        "sharpe_ratio": -6.7375054351279084,
+        "max_drawdown": -0.1986080189638021
       },
       {
         "fee_rate": 0.002,
         "slippage_base": 0.001,
         "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": -0.2532143301754819,
-        "sharpe_ratio": -8.582789605938569,
-        "max_drawdown": -0.253947740107626
+        "total_return": -0.25438734259854223,
+        "sharpe_ratio": -8.630460640139345,
+        "max_drawdown": -0.25438734259854223
       }
     ]
   }
