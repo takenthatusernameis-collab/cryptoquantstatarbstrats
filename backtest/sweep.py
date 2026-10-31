@@ -7,8 +7,8 @@ from __future__ import annotations
 import copy
 import itertools
 import sys
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-from typing import Any, Callable, Dict, List, Mapping, Sequence
+from concurrent.futures import ProcessPoolExecutor
+from typing import Any, Callable, Dict, List, Mapping
 
 import pandas as pd
 
@@ -121,7 +121,6 @@ def _evaluate_combo(
     underlying OOS returns so callers can rank and checkpoint without
     re-running the sweep.
     """
-    from backtest.engine import BacktestEngine
 
     strategy = payload["strategy"]
     params = payload["params"]

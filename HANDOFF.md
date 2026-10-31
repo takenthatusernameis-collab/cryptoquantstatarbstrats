@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T04:35:36Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR & PUBLICATION-GRADE (PHASE 4)
+# DURABLE HANDOFF (2026-10-31T05:22:31Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR & PUBLICATION-GRADE (PHASE 4)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,7 +7,7 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T04:20:18Z, re-confirmed green 2026-10-31T04:35:36Z (ruff clean, tests 529 passed/1 skipped, mypy clean)
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T04:20:18Z, re-confirmed green 2026-10-31T04:35:36Z and 2026-10-31T05:22:31Z (ruff clean after fixing 3 F401 unused-import errors in `backtest/sweep.py`, tests 529 passed/1 skipped, mypy clean)
 - **Branch:** `main` (clean), up to date with `origin/main`.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped** (77 warnings, none failing).
@@ -18,7 +18,10 @@
 ## BOTTLENECKS TO ELIMINATE (ACTIVE)
 
 ### RESOLVED (this session)
-- **RUFF REGRESSION (RESOLVED):** 18 lint errors (E501 line-length + F401 unused `scipy.stats` import) in `utils/cointegration.py` and `strategies/pairs_trading.py` broke the green baseline. Fixed via `ruff check --fix` + `ruff format`; `ruff check backtest/ strategies/ utils/ tests/ examples/` now **All checks passed!**. Tests 529 passed/1 skipped; mypy clean (32 files). Green restored — do not regress.
+- **RUFF REGRESSION (RESOLVED):** 3 F401 unused-import errors (`concurrent.futures.ThreadPoolExecutor`, `typing.Sequence`, `backtest.engine.BacktestEngine`) in `backtest/sweep.py` broke the green baseline. Fixed via `python -m ruff check --fix backtest/sweep.py`; `ruff check backtest/ strategies/ utils/ tests/ examples/` now **All checks passed!**. Tests 529 passed/1 skipped; mypy clean (32 files). Green restored — do not regress.
+- **RUFF REGRESSION (PRIOR SESSION, RESOLVED):** 18 lint errors (E501 line-length + F401 unused `scipy.stats` import) in `utils/cointegration.py` and `strategies/pairs_trading.py` broke the green baseline. Fixed via `ruff check --fix` + `ruff format`. Do not regress.
+- **DEPENDENCY BLOCKS (PRIOR SESSIONS, RESOLVED LOCALLY):** `numpy`, `sklearn`, `yaml`, `scipy` missing in some CI/session envs broke pytest/mypy. Locally installed: numpy 2.5.4, sklearn 1.9.1, yaml 6.0.1, scipy 1.18.1, Python 3.12.3. Pin `requirements.txt`/`pyproject.toml` dev deps so future sessions never hit missing-module failures.
+- **EDIT-TOOL ERRORS (PRIOR SESSIONS):** invalid `filePath` arguments and `oldString not found` failures wasted sessions. **Rule:** always `Read` the file before `Edit`; match exact whitespace/indentation/line endings; never guess file content.
 
 - **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate.
 - **SERIAL SWEEPS (PRIORITY):** Pairwise parameter sweeps are sequential in `examples/run_portfolio_real.py`. Parallelize with bounded concurrency (ProcessPoolExecutor/threading with semaphore) while keeping deterministic ordering and checkpointing.
@@ -27,7 +30,7 @@
 - **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance (params/windows/bars/seeds/hashes).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T04:35:36Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T05:22:31Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
