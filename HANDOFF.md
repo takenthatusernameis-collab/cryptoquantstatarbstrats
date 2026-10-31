@@ -1,4 +1,4 @@
-# DURABLE HANDOFF (2026-10-31T06:25:04Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
+# DURABLE HANDOFF (2026-10-31T06:25:21Z) — SINGLE MANDATORY NEXT TASK: CRYPTO QUANT STAT ARB - COINTEGRATION RIGOR MAXIMIZATION (PHASE 4b)
 
 ## REPO IDENTITY (LAW)
 - **REPO:** `cryptoquantstatarbstrats` — *Crypto Quant Stat Arb Strategies*
@@ -7,22 +7,27 @@
 - **COASTING = FAILURE.** Every action must produce checkable artifacts, tests, provenance, and logs.
 - **HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
-## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T06:25:04Z
+## VERIFIED GREEN BASELINE (DO NOT REGRESS) — verified 2026-10-31T06:25:21Z
 - **Branch:** `main` (clean), up to date with `origin/main`. Working tree clean.
 - **Lint:** `python -m ruff check backtest/ strategies/ utils/ tests/ examples/` → **All checks passed!**
 - **Tests:** `PYTHONPATH=. python -m pytest tests/ -q` → **529 passed, 1 skipped**
 - **Type:** `python -m mypy backtest/ strategies/ utils/` → **Success: no issues found in 32 source files.**
-- **Artifact:** `reports/portfolio_real.json` exists (real-only). Current schema is hardened but missing some fields the campaign requires (see below). Preserve provenance.
-- **Campaign start:** Phase 4b cointegration rigor has NOT started — no code changes since last checkpoint. Next session begins the campaign immediately.
+- **Artifact:** `reports/portfolio_real.json` exists (real-only, `real_data_only: true`, `fabricated_data: false`). Schema coverage:
+  - PRESENT: universe_changes, exclusions_with_rationale, multi_timeframe_walk_forward, volume_aware_execution, bootstrap_ci_portfolio_oos (n_simulations=2000, seed logged), walk_forward_portfolio, correlation_matrix, cost_stress_slices, regime_conditioned_performance, risk_metrics, circuit_breaker_test, funding_basis.
+  - MISSING (campaign requires): `cointegration_diagnostics`, `parameter_stability`, `tail_risk` (VaR/CVaR/CDaR at 95%/99%/99.9%), `blocked_routes`. Bootstrap must be raised to >=3000 sims (currently 2000).
+- **Cointegration module:** `utils/cointegration.py` already implements ADF/KPSS/Engle-Granger/Johansen/rolling-stability/half-life/Hurst/structural-break/comprehensive-diagnostics with gates; `strategies/pairs_trading.py` consumes it. Phase 4b = audit/harden these gates, extend the universe, and enrich the artifact — NOT starting from scratch.
+- **Network:** Binance public REST returns **451** (blocked). Live fetch unavailable. Log host/endpoint/status/latency_ms/error per attempt; bounded exponential backoff; do NOT spam retries. Preserve committed artifact; never fabricate. Run network-independent tests; skip live fetch if still blocked.
 
 ## BOTTLENECKS TO ELIMINATE (ACTIVE)
-- **NETWORK BLOCK (ACTIVE):** 451/403 on Binance routes. Log host/endpoint/status/latency_ms/error per attempt. Bounded exponential backoff. **Do NOT** spam retries. Preserve committed artifact; never fabricate. Run network-independent tests; skip live fetch if still blocked.
-- **SERIAL SWEEPS:** Pairwise parameter sweeps are sequential in places. Parallelize with bounded concurrency (ProcessPoolExecutor, max_workers=min(4, os.cpu_count())) while keeping deterministic ordering and checkpointing.
+- **NETWORK BLOCK (ACTIVE):** 451 on Binance routes. Log every attempt (host/endpoint/status/latency_ms/error). Bounded exponential backoff. Do NOT retry blindly. Skip live fetch when blocked; preserve committed artifact; never fabricate.
+- **BOOTSTRAP COUNT:** `bootstrap_ci_portfolio_oos.n_simulations` = 2000; campaign requires >=3000 (fixed seed logged). Raise to >=3000 with block-bootstrap option.
+- **MISSING ARTIFACT FIELDS:** `cointegration_diagnostics`, `parameter_stability`, `tail_risk`, `blocked_routes` absent from `reports/portfolio_real.json`. Add schema-complete, backwards-compatible blocks.
+- **PARALLELIZATION HARDEN:** `examples/run_portfolio_real.py` already uses `ProcessPoolExecutor` + checkpoint/resume, but `max_workers=min(4, len(_pairs_to_screen))`. Harden to `max_workers=min(4, os.cpu_count())` with deterministic ordering and checkpointing already present.
 - **DATA QUALITY GATES:** Insufficient overlap/gaps/dupes/NaNs → **EXCLUDE** with full rationale + attempt log. No interpolation/backfill/fabrication.
 - **DETERMINISM/OBSERVABILITY:** Fixed seeds logged, structured per-pair/per-symbol/per-TF logs, full provenance. Unbuffered logging everywhere (`python -u`, `flush=True`).
 - **REGRESSION DISCIPLINE:** Lint/type/test break → fix immediately before proceeding.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:25:04Z)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (TIMESTAMP: 2026-10-31T06:25:21Z)
 
 **START NOW. HEAVY WORK MANDATORY. DO NOT COAST. IMPOSSIBLE TO COAST.**
 
@@ -41,14 +46,14 @@ python -m mypy backtest/ strategies/ utils/
 Fix immediately if broken. **Do not proceed until green.**
 
 #### 1) ELIMINATE BOTTLENECKS - PARALLELIZE & OPTIMIZE (PRIORITY)
-- Parallelize pairwise sweeps in `examples/run_portfolio_real.py` with bounded concurrency (max_workers=min(4, os.cpu_count())) preserving deterministic order. Already partially implemented - harden it.
+- Harden `examples/run_portfolio_real.py` parallelization: `max_workers=min(4, os.cpu_count())`, deterministic ordering, checkpoint/resume already present — keep and verify.
 - Add/strengthen per-pair checkpoints/resume for sweeps.
 - Ensure unbuffered logging everywhere for long runs (`python -u`, `flush=True`).
 - Remove any hidden sleeps/polling. Log before/after timing with evidence.
 - Keep full provenance of parallel execution.
 
 #### 2) DEEP COINTEGRATION RIGOR (CORE - HEAVY WORK)
-Audit and harden `strategies/pairs_trading.py` and `utils/cointegration.py`:
+Audit and harden `strategies/pairs_trading.py` and `utils/cointegration.py` (module already exists — harden gates, do not rewrite for optics):
 - **Engle-Granger**: unit root tests (ADF/KPSS) on legs and residuals, lag selection, strict p-value thresholds.
 - **Johansen** trace/max-eigenvalue where feasible. Log ranks, critical values, trace stats.
 - **Stability**: rolling cointegration (e.g., 90d/180d windows) - require stability across windows or penalize/exclude.
@@ -77,12 +82,12 @@ For each: exhaustively attempt real Binance spot 1h+4h 2026-04-01→2026-10-30. 
 #### 6) ARTIFACT ENRICHMENT (SCHEMA-COMPLETE, BACKWARDS COMPATIBLE)
 Enrich `reports/portfolio_real.json` in-place if compatible. MUST include:
 - `cointegration_diagnostics`: per-pair (ADF on legs/residuals, Johansen if run, rolling stability, half-life, structural breaks, spread quality) with full provenance
-- `universe_changes` + `exclusions_with_rationale` (full attempt logs with hosts/endpoints/status/latency_ms)
-- `parameter_stability`: per-pair stability across splits/regimes (already partially present - ensure complete)
-- `multi_timeframe_walk_forward` with >=12 splits each + per-pair breakdowns where feasible
+- `universe_changes` + `exclusions_with_rationale` (full attempt logs with hosts/endpoints/status/latency_ms) — already present, ensure complete
+- `parameter_stability`: per-pair stability across splits/regimes
+- `multi_timeframe_walk_forward` with >=12 splits each + per-pair breakdowns where feasible — already present, ensure complete
 - `bootstrap_ci_portfolio_oos` with >=3000 sims, 95%/99% CIs, seeds, block-bootstrap if added, regime-conditional CIs, permutation p-values
-- `volume_aware_execution` + full cost-stress grid + blocked_routes if applicable
-- `tail_risk`: VaR/CVaR/CDaR at multiple levels + regime-conditioned (already partially present - enrich)
+- `volume_aware_execution` + full cost-stress grid + blocked_routes if applicable — add `blocked_routes`
+- `tail_risk`: VaR/CVaR/CDaR at multiple levels + regime-conditioned
 - All existing hardened fields preserved
 
 #### 7) TESTS + DOCS HARDEN (IMPOSSIBLE TO COAST)
