@@ -185,32 +185,22 @@ class CointegrationPairsStrategy(PairStrategy):
                 last_test_index = i
             cointegration_pvalues.iloc[i] = last_pvalue
 
-        # Enriched gates (operationalized) - evaluate causally using trailing windows
+        # Enriched gates (operationalized) - evaluate causally using trailing windows only
         enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
         if self.use_enriched_gates:
             try:
                 enriched_ok_arr = np.empty(len(data), dtype=float)
                 enriched_ok_arr[:] = np.nan
-                # If precomputed enriched diagnostics are provided (e.g. from artifact),
-                # use them to inform gate decisions causally where possible; otherwise
-                # compute target-schema diagnostics on trailing windows.
-                pre_enr = self.enriched_diagnostics
                 for i in range(self.lookback - 1, len(data)):
                     start = i - self.lookback + 1
                     sample1 = price1.iloc[start : i + 1]
                     sample2 = price2.iloc[start : i + 1]
                     try:
-                        tdiag = None
-                        if isinstance(pre_enr, dict) and pre_enr:
-                            # Try to use precomputed gates if available
-                            gpre = pre_enr.get("gates", {})
-                            if isinstance(gpre, dict):
-                                tdiag = {"gates": gpre}
-                        if tdiag is None:
-                            tdiag = target_schema_diagnostics(
-                                sample1, sample2, pair_name="/".join(self.pair)
-                            )
+                        tdiag = target_schema_diagnostics(
+                            sample1, sample2, pair_name="/".join(self.pair)
+                        )
                         g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
+                        sb = tdiag.get("structural_breaks", {}) if isinstance(tdiag, dict) else {}
                         ok = True
                         for key in (
                             "eg_pass",
@@ -227,6 +217,18 @@ class CointegrationPairsStrategy(PairStrategy):
                             if v is None and self.strict_enriched_gates:
                                 ok = False
                                 break
+                        # Structural break discipline: flag as problematic if breaks are flagged
+                        try:
+                            if isinstance(sb, dict) and sb.get("flagged") is True:
+                                # Be strict but honest; in non-strict mode still consider as adverse
+                                if self.strict_enriched_gates:
+                                    ok = False
+                                # In non-strict mode, still penalize by failing gate to enforce discipline
+                                else:
+                                    ok = False
+                        except Exception:
+                            if self.strict_enriched_gates:
+                                ok = False
                         enriched_ok_arr[i] = 1.0 if ok else 0.0
                     except Exception:
                         if self.strict_enriched_gates:
