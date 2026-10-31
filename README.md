@@ -47,10 +47,12 @@ series when they are missing.
   stationarity using trailing data only. Gates can be supplied via
   `enriched_diagnostics`/`pair_diagnostics` and are applied causally; failures
   are never fabricated. `CointegrationPairsStrategy` defaults to
-  `strict_enriched_gates=True` (fail-closed): when `use_enriched_gates=True`,
-  any missing/None/false gate value blocks entries, and the per-bar fallback
-  path also fails closed under strict mode. Set `strict_enriched_gates=False`
-  explicitly to relax missing values to permissive (documented, non-default).
+  `use_enriched_gates=True`, `strict_enriched_gates=True` (fail-closed): when
+  `use_enriched_gates=True`, any missing/None/false gate value blocks entries,
+  and the per-bar fallback path also fails closed under strict mode. Set
+  `use_enriched_gates=False` to explicitly opt out (not recommended) or
+  `strict_enriched_gates=False` to relax missing values to permissive
+  (documented, non-default).
 - The rolling hedge ratio is estimated causally from trailing windows, guarded
   against division by zero/inf/NaN, forced positive (`> 1e-18`) and clipped to a
   reasonable range `[1e-6, 1e6]` (winsorized) to avoid numerical instability;

@@ -727,6 +727,21 @@ def test_enriched_gates_causality_no_future_leakage_cached():
     # With passing gates, enriched_gates_ok should be 1.0 throughout
     assert (sig["enriched_gates_ok"] == 1.0).all()
 
+    # Future leakage would flip results if gates used future info; cached gates
+    # are applied per-bar from stored diagnostics (causal), so altering future
+    # doesn't change past - we verify by reusing same cached dict.
+    df2 = df.copy()
+    df2.iloc[-50:, :] *= 5.0
+    strat2 = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig2 = strat2.generate_signals(df2)
+    assert (sig2["enriched_gates_ok"] == 1.0).all()
+
 
 def test_hedge_ratio_winsorized_and_clipped_no_nan_inf():
     """Hedge ratio should be clipped/winsorized and finite."""

@@ -44,8 +44,8 @@ class CointegrationPairsStrategy(PairStrategy):
         cointegration_check_interval: int | None = None,
         enriched_diagnostics: dict[str, Any] | None = None,
         pair_diagnostics: dict[str, Any] | None = None,
-         use_enriched_gates: bool = False,
-         strict_enriched_gates: bool = True,
+        use_enriched_gates: bool = True,
+        strict_enriched_gates: bool = True,
 
     ):
         if len(pair) != 2 or pair[0] == pair[1]:
