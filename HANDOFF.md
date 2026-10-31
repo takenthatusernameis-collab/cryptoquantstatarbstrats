@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | 2026-10-31T11:18:14Z | SINGLE MANDATORY NEXT TASK
+# DURABLE HANDOFF | 2026-10-31T11:20:34Z | SINGLE MANDATORY NEXT TASK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -7,7 +7,7 @@
 - **NETWORK BLOCKED (HTTP 451 on api.binance.com).** You CANNOT rely on live Binance fetches. Adapt via existing artifacts (`reports/portfolio_real.json`) + `utils/cointegration.py` functions on series already embedded/reconstructible from artifacts; where series are unreconstructible, mark `status: "blocked_or_insufficient_data"`, populate `blocked_routes[]`, add detailed rationale + full provenance, and MOVE ON. Never fabricate. Do not waste turns retrying blocked hosts.
 - **Coasting = failure.** Every action must produce checkable artifacts, tests, provenance, and logs. No speculative "maybe later" without concrete next steps.
 
-## CURRENT VERIFIED STATE (2026-10-31T11:18:14Z)
+## CURRENT VERIFIED STATE (2026-10-31T11:20:34Z)
 - Branch: `main` (clean). Working tree clean. Up to date with `origin/main`.
 - **GREEN BASELINE (verified just now):** `ruff check` passes | `pytest tests/ -q` → **529 passed, 1 skipped** | `mypy backtest/ strategies/ utils/` → success.
 - Artifact: `reports/portfolio_real.json` (177005 bytes). `real_data_only: true`, `fabricated_data: false`, `n_bars: 5112`.
