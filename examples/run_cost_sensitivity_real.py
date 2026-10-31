@@ -78,9 +78,7 @@ def main() -> None:
     )
     top = rows[0]
     params = {
-        k: top[k]
-        for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-        if k in top
+        k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
     }
     print(
         f"Top-ranked combo: lookback={params.get('lookback')} "
@@ -134,9 +132,9 @@ def main() -> None:
         }
         equity_curve = replay.get("equity_curve")
         try:
-            replay_block["final_equity"] = float(
-                engine.initial_capital
-            ) * float(equity_curve.iloc[-1])
+            replay_block["final_equity"] = float(engine.initial_capital) * float(
+                equity_curve.iloc[-1]
+            )
         except Exception:
             replay_block["final_equity"] = None
         row["replay"] = replay_block
@@ -146,9 +144,7 @@ def main() -> None:
             f"replay total_return={row['replay']['total_return']:.4%}"
         )
 
-    out_path = (
-        Path(__file__).resolve().parent.parent / "reports" / "cost_sensitivity_real.json"
-    )
+    out_path = Path(__file__).resolve().parent.parent / "reports" / "cost_sensitivity_real.json"
     clean_rows = []
     for row in sweep:
         clean = {k: v for k, v in row.items() if k != "result"}
@@ -165,9 +161,7 @@ def main() -> None:
             "rows": clean_rows,
         },
     }
-    out_path.write_text(
-        json.dumps(report, indent=2, default=float), encoding="utf-8"
-    )
+    out_path.write_text(json.dumps(report, indent=2, default=float), encoding="utf-8")
     print(f"\nAppended cost sensitivity to {out_path}")
 
 

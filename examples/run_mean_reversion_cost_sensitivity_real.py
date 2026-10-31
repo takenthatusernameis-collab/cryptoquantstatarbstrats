@@ -123,9 +123,9 @@ def main() -> None:
         }
         equity_curve = replay.get("equity_curve")
         try:
-            replay_block["final_equity"] = float(
-                engine.initial_capital
-            ) * float(equity_curve.iloc[-1])
+            replay_block["final_equity"] = float(engine.initial_capital) * float(
+                equity_curve.iloc[-1]
+            )
         except Exception:
             replay_block["final_equity"] = None
         row["replay"] = replay_block
@@ -156,9 +156,7 @@ def main() -> None:
             "rows": clean_rows,
         },
     }
-    out_path.write_text(
-        json.dumps(report, indent=2, default=float), encoding="utf-8"
-    )
+    out_path.write_text(json.dumps(report, indent=2, default=float), encoding="utf-8")
     print(f"\nWrote cost sensitivity to {out_path}")
 
 

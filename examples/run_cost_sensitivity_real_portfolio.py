@@ -18,7 +18,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import numpy as np
 import pandas as pd
 
 from backtest.engine import BacktestEngine
@@ -85,9 +84,7 @@ def main() -> None:
             raise RuntimeError(f"No sweep results for pair {pair}")
         top = rows[0]
         params = {
-            k: top[k]
-            for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-            if k in top
+            k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
         }
         top_params["/".join(pair)] = params
         print(f"  Top: {params}")
@@ -107,7 +104,6 @@ def main() -> None:
 
     # Normalize to gross leverage of 1.0 (scale so |weights| sum appropriately)
     # For pairs each is market-neutral-ish; sum across pairs gives combined exposure
-    gross = combined_weights.abs().sum(axis=1).replace(0.0, np.nan)
     # Keep as-is but ensure finite; engine will handle
     combined_weights = combined_weights.fillna(0.0)
 
@@ -160,9 +156,7 @@ def main() -> None:
         "grid": [{"fee_rate": f, "slippage": s} for f, s in COST_GRID],
         "rows": results_rows,
         "base": {
-            "zero_cost_total_return": float(base_res.get("total_return", 0.0))
-            if base_res
-            else 0.0,
+            "zero_cost_total_return": float(base_res.get("total_return", 0.0)) if base_res else 0.0,
             "zero_cost_final_equity": float(base_res.get("final_equity", engine.initial_capital))
             if base_res
             else float(engine.initial_capital),
@@ -170,9 +164,7 @@ def main() -> None:
     }
 
     out_path = (
-        Path(__file__).resolve().parent.parent
-        / "reports"
-        / "cost_sensitivity_real_portfolio.json"
+        Path(__file__).resolve().parent.parent / "reports" / "cost_sensitivity_real_portfolio.json"
     )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")

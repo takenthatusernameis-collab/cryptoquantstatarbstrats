@@ -37,13 +37,15 @@ def split_periods(df: pd.DataFrame):
     ]
     periods = []
     for i, (s, e) in enumerate(thirds):
-        periods.append({
-            "name": f"period_{i + 1}",
-            "start_idx": int(s),
-            "end_idx": int(e),
-            "start_date": str(df.index[s].date()) if s < len(df) else None,
-            "end_date": str(df.index[min(e - 1, len(df) - 1)].date()) if e > 0 else None,
-        })
+        periods.append(
+            {
+                "name": f"period_{i + 1}",
+                "start_idx": int(s),
+                "end_idx": int(e),
+                "start_date": str(df.index[s].date()) if s < len(df) else None,
+                "end_date": str(df.index[min(e - 1, len(df) - 1)].date()) if e > 0 else None,
+            }
+        )
     return periods
 
 
@@ -86,7 +88,7 @@ def main() -> None:
     for pair, pparams in pairs_configs:
         strat = CointegrationPairsStrategy(pair=pair, **pparams)
         for p in periods:
-            sub = data.iloc[p["start_idx"]:p["end_idx"]]
+            sub = data.iloc[p["start_idx"] : p["end_idx"]]
             if len(sub) < 100:
                 continue
             try:
@@ -100,14 +102,16 @@ def main() -> None:
                 slices = []
                 for fee_rate, slippage in COST_STRESS:
                     res = engine.run(strat, sub, fee_rate=fee_rate, slippage=slippage)
-                    slices.append({
-                        "fee_rate": fee_rate,
-                        "slippage": slippage,
-                        "total_return": res["total_return"],
-                        "sharpe_ratio": res["sharpe_ratio"],
-                        "max_drawdown": res["max_drawdown"],
-                        "calmar_ratio": res["calmar_ratio"],
-                    })
+                    slices.append(
+                        {
+                            "fee_rate": fee_rate,
+                            "slippage": slippage,
+                            "total_return": res["total_return"],
+                            "sharpe_ratio": res["sharpe_ratio"],
+                            "max_drawdown": res["max_drawdown"],
+                            "calmar_ratio": res["calmar_ratio"],
+                        }
+                    )
                 base["cost_stress_slices"] = slices
                 out["pairs"][f"{pair[0]}/{pair[1]}_{p['name']}"] = base
                 out["cost_stress"]["pairs"][f"{pair[0]}/{pair[1]}_{p['name']}"] = base
@@ -125,11 +129,13 @@ def main() -> None:
     for asset, mparams in mr_configs:
         strat = MeanReversionStrategy(asset=asset, **mparams)
         for p in periods:
-            sub = data.iloc[p["start_idx"]:p["end_idx"]]
+            sub = data.iloc[p["start_idx"] : p["end_idx"]]
             if len(sub) < 100:
                 continue
             try:
-                bench = engine.run_with_benchmark(strat, sub[[asset]], fee_rate=0.001, slippage=0.0005)
+                bench = engine.run_with_benchmark(
+                    strat, sub[[asset]], fee_rate=0.001, slippage=0.0005
+                )
                 base = {
                     "asset": asset,
                     "period": p["name"],
@@ -139,14 +145,16 @@ def main() -> None:
                 slices = []
                 for fee_rate, slippage in COST_STRESS:
                     res = engine.run(strat, sub[[asset]], fee_rate=fee_rate, slippage=slippage)
-                    slices.append({
-                        "fee_rate": fee_rate,
-                        "slippage": slippage,
-                        "total_return": res["total_return"],
-                        "sharpe_ratio": res["sharpe_ratio"],
-                        "max_drawdown": res["max_drawdown"],
-                        "calmar_ratio": res["calmar_ratio"],
-                    })
+                    slices.append(
+                        {
+                            "fee_rate": fee_rate,
+                            "slippage": slippage,
+                            "total_return": res["total_return"],
+                            "sharpe_ratio": res["sharpe_ratio"],
+                            "max_drawdown": res["max_drawdown"],
+                            "calmar_ratio": res["calmar_ratio"],
+                        }
+                    )
                 base["cost_stress_slices"] = slices
                 out["mean_reversion"][f"{asset}_{p['name']}"] = base
                 out["cost_stress"]["mean_reversion"][f"{asset}_{p['name']}"] = base

@@ -5,6 +5,7 @@ Runs with `python -u` (unbuffered). Records every host attempt with
 host/endpoint/status/latency_ms/errors/timestamps. Never fabricates.
 Exits 0 on success; a non-zero exit means at least one symbol was fetched.
 """
+
 from __future__ import annotations
 
 import json
@@ -23,10 +24,29 @@ INTERVAL = "1h"
 MIN_BARS = 5000
 
 CANDIDATES = [
-    "ARB", "OP", "NEAR", "INJ", "APT", "SUI", "TIA", "SEI",
-    "BCH", "ETC", "MATIC",
+    "ARB",
+    "OP",
+    "NEAR",
+    "INJ",
+    "APT",
+    "SUI",
+    "TIA",
+    "SEI",
+    "BCH",
+    "ETC",
+    "MATIC",
     # already-included assets for cross-check
-    "BTC", "ETH", "SOL", "BNB", "ADA", "XRP", "DOT", "POL", "AVAX", "LINK", "LTC",
+    "BTC",
+    "ETH",
+    "SOL",
+    "BNB",
+    "ADA",
+    "XRP",
+    "DOT",
+    "POL",
+    "AVAX",
+    "LINK",
+    "LTC",
 ]
 
 
@@ -68,8 +88,7 @@ def main() -> int:
                 "latency_s": round(time.monotonic() - t0, 2),
             }
             print(
-                f"[{_now()}] {sym}: ERROR {str(e)[:120]} "
-                f"latency={results[sym]['latency_s']}s",
+                f"[{_now()}] {sym}: ERROR {str(e)[:120]} latency={results[sym]['latency_s']}s",
                 flush=True,
             )
         # small courtesy delay between symbols to avoid rate limiting
@@ -83,16 +102,12 @@ def main() -> int:
         "min_bars": MIN_BARS,
         "results": results,
         "admitted": sorted(
-            s for s, r in results.items()
-            if r.get("status") == "ok" and r.get("meets_min_bars")
+            s for s, r in results.items() if r.get("status") == "ok" and r.get("meets_min_bars")
         ),
         "excluded_insufficient": sorted(
-            s for s, r in results.items()
-            if r.get("status") == "ok" and not r.get("meets_min_bars")
+            s for s, r in results.items() if r.get("status") == "ok" and not r.get("meets_min_bars")
         ),
-        "excluded_unavailable": sorted(
-            s for s, r in results.items() if r.get("status") != "ok"
-        ),
+        "excluded_unavailable": sorted(s for s, r in results.items() if r.get("status") != "ok"),
     }
     out_path = Path(__file__).resolve().parent.parent / "reports" / "candidate_probe.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)

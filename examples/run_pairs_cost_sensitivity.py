@@ -78,9 +78,7 @@ def main() -> None:
     )
     top = rows[0]
     params = {
-        k: top[k]
-        for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-        if k in top
+        k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
     }
     print(
         f"Top-ranked combo: lookback={params.get('lookback')} "
@@ -134,9 +132,9 @@ def main() -> None:
         }
         equity_curve = replay.get("equity_curve")
         try:
-            replay_block["final_equity"] = float(
-                engine.initial_capital
-            ) * float(equity_curve.iloc[-1])
+            replay_block["final_equity"] = float(engine.initial_capital) * float(
+                equity_curve.iloc[-1]
+            )
         except Exception:
             replay_block["final_equity"] = None
         row["replay"] = replay_block
@@ -146,9 +144,7 @@ def main() -> None:
             f"replay total_return={row['replay']['total_return']:.4%}"
         )
 
-    out_path = (
-        Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
-    )
+    out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
     report = json.loads(out_path.read_text(encoding="utf-8"))
     # Strip the raw walk-forward result objects (they contain pandas
     # Series/DataFrame) before serializing; only the scalar aggregates and
@@ -162,9 +158,7 @@ def main() -> None:
         "grid": [{"fee_rate": f, "slippage": s} for f, s in COST_GRID],
         "rows": clean_rows,
     }
-    out_path.write_text(
-        json.dumps(report, indent=2, default=float), encoding="utf-8"
-    )
+    out_path.write_text(json.dumps(report, indent=2, default=float), encoding="utf-8")
     print(f"\nAppended cost sensitivity to {out_path}")
 
 

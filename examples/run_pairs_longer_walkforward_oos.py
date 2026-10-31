@@ -82,7 +82,11 @@ def main() -> None:
         "pairs": results,
         "longer_horizon": True,
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_longer_walkforward.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent
+        / "reports"
+        / "pairs_real_market_longer_walkforward.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"Wrote {out_path}")

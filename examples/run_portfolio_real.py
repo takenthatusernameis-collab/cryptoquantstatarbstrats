@@ -19,10 +19,9 @@ from backtest.engine import BacktestEngine
 from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
-from utils.portfolio_risk import portfolio_cvar, portfolio_var, conditional_drawdown_at_risk
-from utils.regime import detect_regimes
 from utils.monte_carlo import bootstrap_trade_returns
-
+from utils.portfolio_risk import conditional_drawdown_at_risk, portfolio_cvar, portfolio_var
+from utils.regime import detect_regimes
 
 PAIRS = [
     ("BTC", "ETH"),
@@ -71,7 +70,7 @@ def _to_float(x):
         if isinstance(x, int):
             return x
         # pandas scalar
-        if hasattr(x, 'item'):
+        if hasattr(x, "item"):
             v = x.item()
             return _to_float(v)
         return float(x)
@@ -112,8 +111,8 @@ class PortfolioRiskController:
                     continue
                 pair_abs = w[pair_assets].abs().sum(axis=1)
                 scale = (
-                    self.per_pair_cap / pair_abs.replace(0, np.nan)
-                ).clip(upper=1.0).fillna(1.0)
+                    (self.per_pair_cap / pair_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+                )
                 for a in pair_assets:
                     w[a] = w[a] * scale
         # Correlation-aware dampening (single pass, non-compounding).
@@ -145,9 +144,17 @@ class PortfolioRiskController:
         # Enforce per-asset correlation exposure cap: no single asset's gross
         # weight may exceed ``max_correlation_exposure``. This is the control
         # that prevents a highly-correlated asset from dominating the book.
-        if self.max_correlation_exposure is not None and self.max_correlation_exposure > 0.0 and len(w.columns) > 0:
+        if (
+            self.max_correlation_exposure is not None
+            and self.max_correlation_exposure > 0.0
+            and len(w.columns) > 0
+        ):
             asset_abs = w.abs()  # rows x assets
-            scale = (self.max_correlation_exposure / asset_abs.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+            scale = (
+                (self.max_correlation_exposure / asset_abs.replace(0, np.nan))
+                .clip(upper=1.0)
+                .fillna(1.0)
+            )
             w = w.multiply(scale, axis=1)
         # Enforce CVaR-based allocation cap: if portfolio tail risk (CVaR at
         # ``confidence``) exceeds ``max_cvar_allocation``, scale all weights
@@ -172,12 +179,10 @@ class PortfolioRiskController:
                 pass
         gross = w.abs().sum(axis=1)
         scale_gross = (
-            self.max_gross_exposure / gross.replace(0, np.nan)
-        ).clip(upper=1.0).fillna(1.0)
+            (self.max_gross_exposure / gross.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
+        )
         w = w.multiply(scale_gross, axis=0)
         return w.fillna(0.0)
-
-
 
 
 def fetch_binance_volume(symbols: list[str], start: str, end: str, interval: str = "1h"):
@@ -219,30 +224,41 @@ def fetch_funding_rates(symbols: list[str], days: int = 30):
         ok = False
         for host in _hosts:
             try:
-                query = urlencode({
-                    "symbol": market,
-                    "startTime": start_time,
-                    "endTime": end_time,
-                    "limit": 1000,
-                })
+                query = urlencode(
+                    {
+                        "symbol": market,
+                        "startTime": start_time,
+                        "endTime": end_time,
+                        "limit": 1000,
+                    }
+                )
                 url = f"{host}/fapi/v1/fundingRate?{query}"
                 with urlopen(url, timeout=10) as resp:
                     payload = json.loads(resp.read().decode("utf-8"))
                 if isinstance(payload, list) and payload:
                     rates = [float(x.get("fundingRate", 0)) for x in payload]
                     funding_data[sym] = rates
-                    funding_attempts.append({
-                        "symbol": sym, "host": host, "success": True, "count": len(rates),
-                    })
+                    funding_attempts.append(
+                        {
+                            "symbol": sym,
+                            "host": host,
+                            "success": True,
+                            "count": len(rates),
+                        }
+                    )
                     ok = True
                     break
                 else:
                     funding_attempts.append({"symbol": sym, "host": host, "success": False})
             except Exception as e:
-                funding_attempts.append({
-                    "symbol": sym, "host": host, "success": False,
-                    "error": str(e)[:80],
-                })
+                funding_attempts.append(
+                    {
+                        "symbol": sym,
+                        "host": host,
+                        "success": False,
+                        "error": str(e)[:80],
+                    }
+                )
         if not ok:
             funding_attempts.append({"symbol": sym, "success": False, "note": "all_hosts_failed"})
     return funding_attempts, funding_data
@@ -267,12 +283,24 @@ def fetch_basis(symbols: list[str]):
                         "indexPrice": payload.get("indexPrice"),
                         "lastFundingRate": payload.get("lastFundingRate"),
                     }
-                    attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": True})
+                    attempts.append(
+                        {"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": True}
+                    )
                     ok = True
                     break
-                attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": False})
+                attempts.append(
+                    {"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": False}
+                )
             except Exception as e:
-                attempts.append({"symbol": sym, "host": host, "endpoint": "premiumIndex", "success": False, "error": str(e)[:80]})
+                attempts.append(
+                    {
+                        "symbol": sym,
+                        "host": host,
+                        "endpoint": "premiumIndex",
+                        "success": False,
+                        "error": str(e)[:80],
+                    }
+                )
         if not ok:
             attempts.append({"symbol": sym, "success": False, "note": "basis_fetch_failed"})
     return attempts, basis_data
@@ -384,6 +412,7 @@ def _save_checkpoint(state: dict[str, Any]) -> None:
             fh.flush()
             try:
                 import os
+
                 os.fsync(fh.fileno())
             except Exception:
                 pass
@@ -446,21 +475,36 @@ def main() -> None:
         try:
             print(f"Selecting {pname}...", flush=True)
             rows = run_parameter_sweep(
-                CointegrationPairsStrategy(pair=pair), data, grid_pairs,
-                train_period=500, test_period=100, fee_rate=0.001, slippage=0.0005,
-                metric="calmar_ratio", engine=engine, mode="rolling", n_splits=4,
-                replay_best=True, show_progress=False,
+                CointegrationPairsStrategy(pair=pair),
+                data,
+                grid_pairs,
+                train_period=500,
+                test_period=100,
+                fee_rate=0.001,
+                slippage=0.0005,
+                metric="calmar_ratio",
+                engine=engine,
+                mode="rolling",
+                n_splits=4,
+                replay_best=True,
+                show_progress=False,
             )
             if not rows:
                 continue
             top = rows[0]
             params = {
-                k: top[k] for k in
-                ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
+                k: top[k]
+                for k in ("lookback", "entry_threshold", "cointegration_pvalue")
+                if k in top
             }
             top_params[pname] = params
-            _save_checkpoint({"stage": "pair_selection", "done": list(top_params.keys()),
-                              "data": {"top_params": top_params}})
+            _save_checkpoint(
+                {
+                    "stage": "pair_selection",
+                    "done": list(top_params.keys()),
+                    "data": {"top_params": top_params},
+                }
+            )
             print(f"  {params}", flush=True)
         except Exception as e:
             print(f"  failed: {e}", flush=True)
@@ -486,9 +530,7 @@ def main() -> None:
             continue
 
     returns = data.pct_change().fillna(0.0)
-    combined_weights = regime_adaptive_meta_selector(
-        weights_by_strategy, data, target_gross=1.0
-    )
+    combined_weights = regime_adaptive_meta_selector(weights_by_strategy, data, target_gross=1.0)
     risk_ctrl = PortfolioRiskController(
         max_gross_exposure=1.4,
         per_pair_cap=0.32,
@@ -496,25 +538,30 @@ def main() -> None:
         max_correlation_exposure=0.5,
         max_cvar_allocation=0.25,
     )
-    combined_weights = risk_ctrl.apply(
-        combined_weights, pair_map=pair_map, returns=returns
-    )
+    combined_weights = risk_ctrl.apply(combined_weights, pair_map=pair_map, returns=returns)
 
     funding_attempts, funding_data = fetch_funding_rates(SYMBOLS, days=30)
     basis_attempts, basis_data = fetch_basis(SYMBOLS)
     print(
-        f"Running walk-forward portfolio (train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})..."
+        f"Running walk-forward portfolio "
+        f"(train={TRAIN_PERIOD}, test={TEST_PERIOD}, n_splits>={N_SPLITS})..."
     )
     wf_results = engine.walk_forward_portfolio(
-        combined_weights, data, train_period=TRAIN_PERIOD, test_period=TEST_PERIOD,
-        fee_rate=0.001, slippage=0.0005, mode="rolling", n_splits=N_SPLITS,
+        combined_weights,
+        data,
+        train_period=TRAIN_PERIOD,
+        test_period=TEST_PERIOD,
+        fee_rate=0.001,
+        slippage=0.0005,
+        mode="rolling",
+        n_splits=N_SPLITS,
     )
     port_res = engine.run_portfolio(combined_weights, data, fee_rate=0.001, slippage=0.0005)
 
     # Extract equity curve early so it's available for risk metrics (fixes NameError)
     eq_curve = port_res.get("equity_curve")
     eq_curve_out = []
-    if hasattr(eq_curve, 'iloc'):
+    if hasattr(eq_curve, "iloc"):
         try:
             eq_curve_out = [_to_float(x) for x in eq_curve.tail(1000).tolist()]
         except Exception:
@@ -544,7 +591,7 @@ def main() -> None:
     }
     # periods per year
     try:
-        if hasattr(data.index, 'to_series'):
+        if hasattr(data.index, "to_series"):
             secs = data.index.to_series().diff().dt.total_seconds().dropna()
             secs = secs[secs > 0]
             if len(secs) > 0:
@@ -591,7 +638,7 @@ def main() -> None:
         # get pairwise stability
         corr_stab = {}
         # sample a few pairs
-        for p in [("BTC","ETH"),("ETH","SOL"),("BTC","SOL")]:
+        for p in [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL")]:
             try:
                 c = roll_corr.xs(p[0], level=1).xs(p[1], axis=1).dropna()
                 corr_stab[f"{p[0]}/{p[1]}"] = {
@@ -605,7 +652,7 @@ def main() -> None:
         correlation_stability_context = {
             "window": 168,
             "pairs": corr_stab,
-            "note": "Rolling correlation stability from real hourly returns."
+            "note": "Rolling correlation stability from real hourly returns.",
         }
     except Exception:
         correlation_stability_context = {"window": 168, "pairs": {}, "note": "Computation failed."}
@@ -620,27 +667,31 @@ def main() -> None:
             a, b = pair
             if a in data.columns and b in data.columns:
                 shared = int(data[[a, b]].dropna().shape[0])
-                universe_changes.append({
-                    "action": "include",
-                    "pair": "/".join(pair),
-                    "shared_bars": shared,
-                    "first_bar": str(data.index[0]) if len(data) else None,
-                    "last_bar": str(data.index[-1]) if len(data) else None,
-                    "rationale": (
-                        f"Real Binance spot history present for both legs; "
-                        f"{shared} overlapping bars on the requested window."
-                    ),
-                })
+                universe_changes.append(
+                    {
+                        "action": "include",
+                        "pair": "/".join(pair),
+                        "shared_bars": shared,
+                        "first_bar": str(data.index[0]) if len(data) else None,
+                        "last_bar": str(data.index[-1]) if len(data) else None,
+                        "rationale": (
+                            f"Real Binance spot history present for both legs; "
+                            f"{shared} overlapping bars on the requested window."
+                        ),
+                    }
+                )
             else:
-                exclusions_with_rationale.append({
-                    "candidate": "/".join(pair),
-                    "action": "excluded_missing_real_data",
-                    "rationale": (
-                        f"One or both legs ({a}/{b}) absent from the fetched real frame; "
-                        "no synthetic backfill."
-                    ),
-                })
-    except Exception as e:
+                exclusions_with_rationale.append(
+                    {
+                        "candidate": "/".join(pair),
+                        "action": "excluded_missing_real_data",
+                        "rationale": (
+                            f"One or both legs ({a}/{b}) absent from the fetched real frame; "
+                            "no synthetic backfill."
+                        ),
+                    }
+                )
+    except Exception:
         universe_changes = [
             {"action": "include", "pair": "/".join(p), "rationale": "Included in portfolio sweep."}
             for p in PAIRS
@@ -651,10 +702,21 @@ def main() -> None:
     # cointegration/stability screen). Never fabricated.
     try:
         candidate_pairs = [
-            ("DOT", "USDT"), ("MATIC", "USDT"), ("AVAX", "USDT"), ("LINK", "USDT"),
-            ("NEAR", "USDT"), ("ARB", "USDT"), ("OP", "USDT"), ("INJ", "USDT"),
-            ("APT", "USDT"), ("SUI", "USDT"), ("TIA", "USDT"), ("SEI", "USDT"),
-            ("LTC", "USDT"), ("BCH", "USDT"), ("ETC", "USDT"),
+            ("DOT", "USDT"),
+            ("MATIC", "USDT"),
+            ("AVAX", "USDT"),
+            ("LINK", "USDT"),
+            ("NEAR", "USDT"),
+            ("ARB", "USDT"),
+            ("OP", "USDT"),
+            ("INJ", "USDT"),
+            ("APT", "USDT"),
+            ("SUI", "USDT"),
+            ("TIA", "USDT"),
+            ("SEI", "USDT"),
+            ("LTC", "USDT"),
+            ("BCH", "USDT"),
+            ("ETC", "USDT"),
         ]
         for c in candidate_pairs:
             sym = c[0]
@@ -666,48 +728,58 @@ def main() -> None:
                     [sym], START, END, interval="1h", quote_asset="USDT"
                 )
                 if _d is None or len(_d) < 5000:
-                    exclusions_with_rationale.append({
-                        "candidate": f"{sym}/USDT",
-                        "action": "excluded_insufficient_history",
-                        "bars_fetched": int(len(_d)) if _d is not None else 0,
-                        "rationale": (
-                            f"Insufficient overlapping real history on requested window "
-                            f"(need >=5000 bars, got {int(len(_d)) if _d is not None else 0})."
-                        ),
-                    })
+                    exclusions_with_rationale.append(
+                        {
+                            "candidate": f"{sym}/USDT",
+                            "action": "excluded_insufficient_history",
+                            "bars_fetched": int(len(_d)) if _d is not None else 0,
+                            "rationale": (
+                                f"Insufficient overlapping real history on requested window "
+                                f"(need >=5000 bars, got {int(len(_d)) if _d is not None else 0})."
+                            ),
+                        }
+                    )
                 else:
-                    exclusions_with_rationale.append({
-                        "candidate": f"{sym}/USDT",
-                        "action": "excluded_pending_pair_screen",
-                        "bars_fetched": int(len(_d)),
-                        "rationale": (
-                            "Single-leg real data present; deferred to a full pair "
-                            "cointegration/stability screen before any inclusion."
-                        ),
-                    })
+                    exclusions_with_rationale.append(
+                        {
+                            "candidate": f"{sym}/USDT",
+                            "action": "excluded_pending_pair_screen",
+                            "bars_fetched": int(len(_d)),
+                            "rationale": (
+                                "Single-leg real data present; deferred to a full pair "
+                                "cointegration/stability screen before any inclusion."
+                            ),
+                        }
+                    )
             except Exception as e:
-                exclusions_with_rationale.append({
-                    "candidate": f"{sym}/USDT",
-                    "action": "excluded_unavailable",
-                    "rationale": f"Real data unavailable via DataLoader: {str(e)[:80]}",
-                })
+                exclusions_with_rationale.append(
+                    {
+                        "candidate": f"{sym}/USDT",
+                        "action": "excluded_unavailable",
+                        "rationale": f"Real data unavailable via DataLoader: {str(e)[:80]}",
+                    }
+                )
     except Exception:
         pass
 
     # Build splits
     wf_splits = []
     for i, r in enumerate(wf_results.get("results", [])):
-        wf_splits.append({
-            "split": i + 1,
-            "oos_total_return": _to_float(r.get("total_return", r.get("oos_total_return", 0.0))),
-            "oos_sharpe_ratio": _to_float(r.get("sharpe_ratio", 0.0)),
-            "oos_max_drawdown": _to_float(r.get("max_drawdown", 0.0)),
-            "is_total_return": _to_float(r.get("is_total_return", 0.0)),
-            "is_sharpe_ratio": _to_float(r.get("is_sharpe_ratio", 0.0)),
-            "is_max_drawdown": _to_float(r.get("is_max_drawdown", 0.0)),
-            "oos_sortino_ratio": _to_float(r.get("sortino_ratio", 0.0)),
-            "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
-        })
+        wf_splits.append(
+            {
+                "split": i + 1,
+                "oos_total_return": _to_float(
+                    r.get("total_return", r.get("oos_total_return", 0.0))
+                ),
+                "oos_sharpe_ratio": _to_float(r.get("sharpe_ratio", 0.0)),
+                "oos_max_drawdown": _to_float(r.get("max_drawdown", 0.0)),
+                "is_total_return": _to_float(r.get("is_total_return", 0.0)),
+                "is_sharpe_ratio": _to_float(r.get("is_sharpe_ratio", 0.0)),
+                "is_max_drawdown": _to_float(r.get("is_max_drawdown", 0.0)),
+                "oos_sortino_ratio": _to_float(r.get("sortino_ratio", 0.0)),
+                "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
+            }
+        )
 
     # Compute per-pair replay metrics for proper per-pair contributions
     _pair_replays = {}
@@ -725,7 +797,12 @@ def main() -> None:
                 "calmar_ratio": _to_float(_pr.get("calmar_ratio", 0.0)),
             }
         except Exception:
-            _pair_replays[pname] = {"total_return": 0.0, "sharpe_ratio": 0.0, "max_drawdown": 0.0, "calmar_ratio": 0.0}
+            _pair_replays[pname] = {
+                "total_return": 0.0,
+                "sharpe_ratio": 0.0,
+                "max_drawdown": 0.0,
+                "calmar_ratio": 0.0,
+            }
 
     # Cost-stress slices: fee x slippage grid on portfolio
     _cost_stress = []
@@ -733,21 +810,25 @@ def main() -> None:
         for slip in (0.0, 0.0005, 0.001):
             try:
                 _cr = engine.run_portfolio(combined_weights, data, fee_rate=fee, slippage=slip)
-                _cost_stress.append({
-                    "fee_rate": fee,
-                    "slippage": slip,
-                    "total_return": _to_float(_cr.get("total_return", 0.0)),
-                    "sharpe_ratio": _to_float(_cr.get("sharpe_ratio", 0.0)),
-                    "max_drawdown": _to_float(_cr.get("max_drawdown", 0.0)),
-                })
+                _cost_stress.append(
+                    {
+                        "fee_rate": fee,
+                        "slippage": slip,
+                        "total_return": _to_float(_cr.get("total_return", 0.0)),
+                        "sharpe_ratio": _to_float(_cr.get("sharpe_ratio", 0.0)),
+                        "max_drawdown": _to_float(_cr.get("max_drawdown", 0.0)),
+                    }
+                )
             except Exception:
-                _cost_stress.append({
-                    "fee_rate": fee,
-                    "slippage": slip,
-                    "total_return": 0.0,
-                    "sharpe_ratio": 0.0,
-                    "max_drawdown": 0.0,
-                })
+                _cost_stress.append(
+                    {
+                        "fee_rate": fee,
+                        "slippage": slip,
+                        "total_return": 0.0,
+                        "sharpe_ratio": 0.0,
+                        "max_drawdown": 0.0,
+                    }
+                )
 
     # Regime-conditioned performance
     _regime_perf = {}
@@ -755,10 +836,12 @@ def main() -> None:
         regimes = detect_regimes(data)
         btc_vol = regimes.get("BTC_vol_regime")
         btc_trend = regimes.get("BTC_trend")
-        for label, mask in [("high_vol", btc_vol == btc_vol.max() if btc_vol is not None else None),
-                            ("low_vol", btc_vol == btc_vol.min() if btc_vol is not None else None),
-                            ("downtrend", btc_trend == -1 if btc_trend is not None else None),
-                            ("uptrend", btc_trend == 1 if btc_trend is not None else None)]:
+        for label, mask in [
+            ("high_vol", btc_vol == btc_vol.max() if btc_vol is not None else None),
+            ("low_vol", btc_vol == btc_vol.min() if btc_vol is not None else None),
+            ("downtrend", btc_trend == -1 if btc_trend is not None else None),
+            ("uptrend", btc_trend == 1 if btc_trend is not None else None),
+        ]:
             if mask is None:
                 continue
             try:
@@ -768,7 +851,10 @@ def main() -> None:
                         "n_periods": int(len(sub_rets)),
                         "total_return": _to_float((1.0 + sub_rets).prod() - 1.0),
                         "mean_return": _to_float(sub_rets.mean()),
-                        "sharpe_ratio": _to_float(sub_rets.mean() / sub_rets.std()) * _to_float(np.sqrt(periods_per_year)) if sub_rets.std() > 0 else 0.0,
+                        "sharpe_ratio": _to_float(sub_rets.mean() / sub_rets.std())
+                        * _to_float(np.sqrt(periods_per_year))
+                        if sub_rets.std() > 0
+                        else 0.0,
                     }
             except Exception:
                 pass
@@ -779,6 +865,7 @@ def main() -> None:
     _cb_test = {}
     try:
         from utils.risk import DrawdownCircuitBreaker
+
         cb = DrawdownCircuitBreaker(max_drawdown=risk_ctrl.drawdown_circuit_breaker)
         cb_result = engine.run_portfolio(
             combined_weights, data, fee_rate=0.001, slippage=0.0005, circuit_breaker=cb
@@ -791,24 +878,35 @@ def main() -> None:
             "max_drawdown_with_cb": _to_float(cb_result.get("max_drawdown", 0.0)),
         }
     except Exception as e:
-        _cb_test = {"error": str(e)[:100], "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker}
+        _cb_test = {
+            "error": str(e)[:100],
+            "circuit_breaker_threshold": risk_ctrl.drawdown_circuit_breaker,
+        }
 
     # Volume-aware execution realism (real data).
     # Fetch real per-symbol quote-volume series and build a participation-based
     # slippage model: slippage = base_slippage * (1 + participation_penalty),
     # where participation_penalty scales with the fraction of symbol volume the
     # book trades. Every host attempt is logged; nothing is fabricated.
-    vol_attempts, vol_data, vol_provenance = fetch_binance_volume(SYMBOLS, START, END, interval=FREQ)
+    vol_attempts, vol_data, vol_provenance = fetch_binance_volume(
+        SYMBOLS, START, END, interval=FREQ
+    )
     volume_aware_execution = {
         "real_volume_attempts": vol_attempts,
         "blocked_routes": vol_provenance.get("blocked_routes", []),
         "volume_fetch_succeeded": bool(vol_data),
-        "volume_fetch_status": (
-            "ok" if vol_data else "blocked_routes_only_or_all_failed"
-        ),
-        "avg_quote_volume_usdt": {k: _to_float(v.mean()) if hasattr(v, "mean") else _to_float(v) for k, v in vol_data.items()},
-        "median_quote_volume_usdt": {k: _to_float(v.median()) if hasattr(v, "median") else _to_float(v) for k, v in vol_data.items()},
-        "bars_fetched": {k: int(v.notna().sum()) if hasattr(v, "notna") else 0 for k, v in vol_data.items()},
+        "volume_fetch_status": ("ok" if vol_data else "blocked_routes_only_or_all_failed"),
+        "avg_quote_volume_usdt": {
+            k: _to_float(v.mean()) if hasattr(v, "mean") else _to_float(v)
+            for k, v in vol_data.items()
+        },
+        "median_quote_volume_usdt": {
+            k: _to_float(v.median()) if hasattr(v, "median") else _to_float(v)
+            for k, v in vol_data.items()
+        },
+        "bars_fetched": {
+            k: int(v.notna().sum()) if hasattr(v, "notna") else 0 for k, v in vol_data.items()
+        },
         "assumptions": {
             "model": "volume_participation_adjusted_slippage",
             "base_slippage": 0.0005,
@@ -824,12 +922,19 @@ def main() -> None:
                 "where available; no fabrication."
             ),
         },
-        "cost_stress_grid_volume_aware": []
+        "cost_stress_grid_volume_aware": [],
     }
     try:
         # Per-symbol average quote volume drives a participation-adjusted
         # slippage: larger-liquid symbols trade closer to base slippage.
-        vols = np.array([vol_data.get(s, 0.0).mean() if s in vol_data and hasattr(vol_data[s], "mean") else 0.0 for s in SYMBOLS])
+        vols = np.array(
+            [
+                vol_data.get(s, 0.0).mean()
+                if s in vol_data and hasattr(vol_data[s], "mean")
+                else 0.0
+                for s in SYMBOLS
+            ]
+        )
         total_vol = float(vols.sum())
         if total_vol > 0:
             rel_vol = vols / total_vol
@@ -841,15 +946,19 @@ def main() -> None:
                 # (low rel_vol) pay a penalty proportional to 1/rel_vol.
                 adj_slip = float(slip_base * (1.0 + (1.0 - rel_vol.mean()) * 0.5))
                 try:
-                    _cr = engine.run_portfolio(combined_weights, data, fee_rate=fee, slippage=adj_slip)
-                    volume_aware_execution["cost_stress_grid_volume_aware"].append({
-                        "fee_rate": fee,
-                        "slippage_base": slip_base,
-                        "slippage_adjusted_mean": adj_slip,
-                        "total_return": _to_float(_cr.get("total_return", 0.0)),
-                        "sharpe_ratio": _to_float(_cr.get("sharpe_ratio", 0.0)),
-                        "max_drawdown": _to_float(_cr.get("max_drawdown", 0.0)),
-                    })
+                    _cr = engine.run_portfolio(
+                        combined_weights, data, fee_rate=fee, slippage=adj_slip
+                    )
+                    volume_aware_execution["cost_stress_grid_volume_aware"].append(
+                        {
+                            "fee_rate": fee,
+                            "slippage_base": slip_base,
+                            "slippage_adjusted_mean": adj_slip,
+                            "total_return": _to_float(_cr.get("total_return", 0.0)),
+                            "sharpe_ratio": _to_float(_cr.get("sharpe_ratio", 0.0)),
+                            "max_drawdown": _to_float(_cr.get("max_drawdown", 0.0)),
+                        }
+                    )
                 except Exception:
                     pass
     except Exception:
@@ -867,7 +976,10 @@ def main() -> None:
             else:
                 data_tf = loader.load_binance_data(SYMBOLS, START, END, interval=tf)
             if data_tf is None or len(data_tf) < 100:
-                multi_timeframe[tf] = {"status": "insufficient_real_data", "n_bars": int(len(data_tf)) if data_tf is not None else 0}
+                multi_timeframe[tf] = {
+                    "status": "insufficient_real_data",
+                    "n_bars": int(len(data_tf)) if data_tf is not None else 0,
+                }
                 continue
             w_tf = combined_weights.reindex(data_tf.index, method="ffill").fillna(0.0)
             w_tf = w_tf.reindex(columns=SYMBOLS, fill_value=0.0)
@@ -882,7 +994,16 @@ def main() -> None:
                 tsp = 12
                 ns_candidate = int((len(data_tf) - tp) // tsp)
                 ns = max(12, min(100, ns_candidate))
-            wf_tf = engine.walk_forward_portfolio(w_tf, data_tf, train_period=tp, test_period=tsp, fee_rate=0.001, slippage=0.0005, mode="rolling", n_splits=ns)
+            wf_tf = engine.walk_forward_portfolio(
+                w_tf,
+                data_tf,
+                train_period=tp,
+                test_period=tsp,
+                fee_rate=0.001,
+                slippage=0.0005,
+                mode="rolling",
+                n_splits=ns,
+            )
             p_tf = engine.run_portfolio(w_tf, data_tf, fee_rate=0.001, slippage=0.0005)
             wf_splits_tf = []
             for i, r in enumerate(wf_tf.get("results", [])):
@@ -892,39 +1013,51 @@ def main() -> None:
                 is_sharpe = _to_float(r.get("is_sharpe_ratio", 0.0))
                 oos_dd = _to_float(r.get("max_drawdown", 0.0))
                 is_dd = _to_float(r.get("is_max_drawdown", 0.0))
-                wf_splits_tf.append({
-                    "split": i + 1,
-                    "oos_total_return": oos_ret,
-                    "oos_sharpe_ratio": oos_sharpe,
-                    "oos_max_drawdown": oos_dd,
-                    "is_total_return": is_ret,
-                    "is_sharpe_ratio": is_sharpe,
-                    "is_max_drawdown": is_dd,
-                    "oos_sortino_ratio": _to_float(r.get("sortino_ratio", 0.0)),
-                    "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
-                    "degradation": _to_float(oos_ret / is_ret) if abs(is_ret) > 1e-9 else None,
-                    "stability": {
-                        "oos_minus_is_return": _to_float(oos_ret - is_ret),
-                        "oos_sharpe_minus_is_sharpe": _to_float(oos_sharpe - is_sharpe),
-                    },
-                })
+                wf_splits_tf.append(
+                    {
+                        "split": i + 1,
+                        "oos_total_return": oos_ret,
+                        "oos_sharpe_ratio": oos_sharpe,
+                        "oos_max_drawdown": oos_dd,
+                        "is_total_return": is_ret,
+                        "is_sharpe_ratio": is_sharpe,
+                        "is_max_drawdown": is_dd,
+                        "oos_sortino_ratio": _to_float(r.get("sortino_ratio", 0.0)),
+                        "oos_cvar_95": _to_float(r.get("cvar", 0.0)),
+                        "degradation": _to_float(oos_ret / is_ret) if abs(is_ret) > 1e-9 else None,
+                        "stability": {
+                            "oos_minus_is_return": _to_float(oos_ret - is_ret),
+                            "oos_sharpe_minus_is_sharpe": _to_float(oos_sharpe - is_sharpe),
+                        },
+                    }
+                )
             multi_timeframe[tf] = {
                 "status": "ok",
                 "n_bars": int(len(data_tf)),
                 "train_period": tp,
                 "test_period": tsp,
                 "n_splits": len(wf_splits_tf),
-                "portfolio": {"total_return": _to_float(p_tf.get("total_return", 0.0)), "sharpe_ratio": _to_float(p_tf.get("sharpe_ratio", 0.0)), "max_drawdown": _to_float(p_tf.get("max_drawdown", 0.0))},
+                "portfolio": {
+                    "total_return": _to_float(p_tf.get("total_return", 0.0)),
+                    "sharpe_ratio": _to_float(p_tf.get("sharpe_ratio", 0.0)),
+                    "max_drawdown": _to_float(p_tf.get("max_drawdown", 0.0)),
+                },
                 "walk_forward": {
                     "n_splits": len(wf_splits_tf),
                     "splits": wf_splits_tf,
-                    "mean_oos_return": _to_float(wf_tf.get("mean_return", wf_tf.get("oos_mean_return", 0.0))),
+                    "mean_oos_return": _to_float(
+                        wf_tf.get("mean_return", wf_tf.get("oos_mean_return", 0.0))
+                    ),
                     "std_oos_return": _to_float(wf_tf.get("std_return", 0.0)),
                     "oos_is_ratio": _to_float(wf_tf.get("oos_is_ratio", 0.0)),
                     "is_mean_return": _to_float(wf_tf.get("is_mean_return", 0.0)),
                     "oos_mean_return": _to_float(wf_tf.get("oos_mean_return", 0.0)),
                     "degradation": _to_float(wf_tf.get("oos_is_ratio", 0.0)),
-                    "stability": {"std_oos_return": _to_float(wf_tf.get("std_return", 0.0)), "positive_periods": int(wf_tf.get("positive_periods", 0)), "total_periods": int(wf_tf.get("total_periods", 0))},
+                    "stability": {
+                        "std_oos_return": _to_float(wf_tf.get("std_return", 0.0)),
+                        "positive_periods": int(wf_tf.get("positive_periods", 0)),
+                        "total_periods": int(wf_tf.get("total_periods", 0)),
+                    },
                 },
             }
         except Exception as e:
@@ -934,7 +1067,9 @@ def main() -> None:
     bootstrap_ci = {}
     try:
         oos_rets = port_rets[1:] if len(port_rets) > 1 else port_rets
-        bres = bootstrap_trade_returns(oos_rets, n_simulations=2000, method="bootstrap", seed=12345, compute_risk_of_ruin=True)
+        bres = bootstrap_trade_returns(
+            oos_rets, n_simulations=2000, method="bootstrap", seed=12345, compute_risk_of_ruin=True
+        )
         bootstrap_ci = {
             "method": "bootstrap",
             "n_simulations": 2000,
@@ -945,39 +1080,76 @@ def main() -> None:
             "sharpe_ratio": bres.get("sharpe_ratio"),
             "risk_of_ruin": bres.get("risk_of_ruin"),
             "risk_of_ruin_threshold": bres.get("risk_of_ruin_threshold"),
-            "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",
+            "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",  # noqa: E501
         }
         try:
             fe = np.array(bres.get("final_equities", []))
             if len(fe) > 0:
                 rets_sims = fe - 1.0
-                bootstrap_ci["ci95_total_return"] = [float(np.percentile(rets_sims, 2.5)), float(np.percentile(rets_sims, 97.5))]
+                bootstrap_ci["ci95_total_return"] = [
+                    float(np.percentile(rets_sims, 2.5)),
+                    float(np.percentile(rets_sims, 97.5)),
+                ]
             sh = np.array(bres.get("sharpes", []))
             if len(sh) > 0:
-                bootstrap_ci["ci95_sharpe_ratio"] = [float(np.percentile(sh, 2.5)), float(np.percentile(sh, 97.5))]
+                bootstrap_ci["ci95_sharpe_ratio"] = [
+                    float(np.percentile(sh, 2.5)),
+                    float(np.percentile(sh, 97.5)),
+                ]
             mdd = np.array(bres.get("max_drawdowns", []))
             if len(mdd) > 0:
-                bootstrap_ci["ci95_max_drawdown"] = [float(np.percentile(mdd, 2.5)), float(np.percentile(mdd, 97.5))]
+                bootstrap_ci["ci95_max_drawdown"] = [
+                    float(np.percentile(mdd, 2.5)),
+                    float(np.percentile(mdd, 97.5)),
+                ]
         except Exception:
             pass
         bootstrap_ci["per_timeframe"] = {}
         for tf, mtf in multi_timeframe.items():
             if isinstance(mtf, dict) and mtf.get("status") == "ok":
                 try:
-                    data_tf_b = data if tf == "1h" else loader.load_binance_data(SYMBOLS, START, END, interval=tf)
+                    data_tf_b = (
+                        data
+                        if tf == "1h"
+                        else loader.load_binance_data(SYMBOLS, START, END, interval=tf)
+                    )
                     w_tf_b = combined_weights.reindex(data_tf_b.index, method="ffill").fillna(0.0)
                     w_tf_b = w_tf_b.reindex(columns=SYMBOLS, fill_value=0.0)
-                    pr_tf = (w_tf_b.shift(1).fillna(0.0) * data_tf_b.pct_change().fillna(0.0)[SYMBOLS].fillna(0.0)).sum(axis=1)
-                    bres_tf = bootstrap_trade_returns(pr_tf[1:] if len(pr_tf) > 1 else pr_tf, n_simulations=2000, method="bootstrap", seed=12345 + (hash(tf) % 10000), compute_risk_of_ruin=False)
+                    pr_tf = (
+                        w_tf_b.shift(1).fillna(0.0)
+                        * data_tf_b.pct_change().fillna(0.0)[SYMBOLS].fillna(0.0)
+                    ).sum(axis=1)
+                    bres_tf = bootstrap_trade_returns(
+                        pr_tf[1:] if len(pr_tf) > 1 else pr_tf,
+                        n_simulations=2000,
+                        method="bootstrap",
+                        seed=12345 + (hash(tf) % 10000),
+                        compute_risk_of_ruin=False,
+                    )
                     fe_tf = np.array(bres_tf.get("final_equities", []))
                     rets_tf = fe_tf - 1.0 if len(fe_tf) > 0 else np.array([0.0])
                     sh_tf = np.array(bres_tf.get("sharpes", []))
                     mdd_tf = np.array(bres_tf.get("max_drawdowns", []))
                     bootstrap_ci["per_timeframe"][tf] = {
                         "n_simulations": 2000,
-                        "ci95_total_return": [float(np.percentile(rets_tf, 2.5)), float(np.percentile(rets_tf, 97.5))] if len(rets_tf) > 0 else [0.0, 0.0],
-                        "ci95_sharpe_ratio": [float(np.percentile(sh_tf, 2.5)), float(np.percentile(sh_tf, 97.5))] if len(sh_tf) > 0 else [0.0, 0.0],
-                        "ci95_max_drawdown": [float(np.percentile(mdd_tf, 2.5)), float(np.percentile(mdd_tf, 97.5))] if len(mdd_tf) > 0 else [0.0, 0.0],
+                        "ci95_total_return": [
+                            float(np.percentile(rets_tf, 2.5)),
+                            float(np.percentile(rets_tf, 97.5)),
+                        ]
+                        if len(rets_tf) > 0
+                        else [0.0, 0.0],
+                        "ci95_sharpe_ratio": [
+                            float(np.percentile(sh_tf, 2.5)),
+                            float(np.percentile(sh_tf, 97.5)),
+                        ]
+                        if len(sh_tf) > 0
+                        else [0.0, 0.0],
+                        "ci95_max_drawdown": [
+                            float(np.percentile(mdd_tf, 2.5)),
+                            float(np.percentile(mdd_tf, 97.5)),
+                        ]
+                        if len(mdd_tf) > 0
+                        else [0.0, 0.0],
                     }
                 except Exception as e:
                     bootstrap_ci["per_timeframe"][tf] = {"error": str(e)[:80]}
@@ -991,7 +1163,13 @@ def main() -> None:
             _turn = float(turnover_series.mean()) if len(turnover_series) > 0 else 0.0
             _cost_per_period = _turn * (0.001 + 0.0005)
             oos_net = oos_rets - _cost_per_period
-            bres_net = bootstrap_trade_returns(oos_net, n_simulations=2000, method="bootstrap", seed=12346, compute_risk_of_ruin=False)
+            bres_net = bootstrap_trade_returns(
+                oos_net,
+                n_simulations=2000,
+                method="bootstrap",
+                seed=12346,
+                compute_risk_of_ruin=False,
+            )
             fe_net = np.array(bres_net.get("final_equities", []))
             rets_net = fe_net - 1.0 if len(fe_net) > 0 else np.array([0.0])
             bootstrap_ci["cost_impact"] = {
@@ -1003,14 +1181,16 @@ def main() -> None:
                 "seed": 12346,
                 "ci95_total_return_net": (
                     [float(np.percentile(rets_net, 2.5)), float(np.percentile(rets_net, 97.5))]
-                    if len(rets_net) > 0 else [0.0, 0.0]
+                    if len(rets_net) > 0
+                    else [0.0, 0.0]
                 ),
                 "ci95_total_return_zero_cost": bootstrap_ci.get("ci95_total_return"),
                 "shift_in_total_return": _to_float(
                     (float(np.percentile(rets_net, 50)) - float(np.percentile(rets_sims, 50)))
-                    if (len(rets_net) > 0 and len(rets_sims) > 0) else 0.0
+                    if (len(rets_net) > 0 and len(rets_sims) > 0)
+                    else 0.0
                 ),
-                "note": "Bootstrap CI of portfolio OOS returns net of realistic transaction costs (turnover x fee+slippage).",
+                "note": "Bootstrap CI of portfolio OOS returns net of realistic transaction costs (turnover x fee+slippage).",  # noqa: E501
             }
             fe_all = np.array(bres.get("final_equities", []))
             if len(fe_all) > 0:
@@ -1018,7 +1198,7 @@ def main() -> None:
                     "p_value_final_equity_le_1": _to_float(float((fe_all <= 1.0).mean())),
                     "p_value_final_equity_gt_1": _to_float(float((fe_all > 1.0).mean())),
                     "n_simulations": int(len(fe_all)),
-                    "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven). Lower is more distinguishable from zero.",
+                    "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven). Lower is more distinguishable from zero.",  # noqa: E501
                 }
         except Exception as e:
             bootstrap_ci["cost_impact"] = {"error": str(e)[:80]}
@@ -1047,7 +1227,9 @@ def main() -> None:
             "max_drawdown_duration": int(_to_float(port_res.get("max_drawdown_duration", 0)) or 0),
             "calmar_ratio": _to_float(port_res.get("calmar_ratio", 0.0)),
             "sortino_ratio": _to_float(port_res.get("sortino_ratio", 0.0)),
-            "final_equity": _to_float(100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))),
+            "final_equity": _to_float(
+                100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))
+            ),
             "equity_curve": eq_curve_out,
         },
         "risk_metrics": {
@@ -1067,9 +1249,15 @@ def main() -> None:
         "per_pair_contributions": {
             pname: {
                 "top_params": top_params.get(pname),
-                "pair_total_return": _to_float(_pair_replays.get(pname, {}).get("total_return", 0.0)),
-                "pair_sharpe_ratio": _to_float(_pair_replays.get(pname, {}).get("sharpe_ratio", 0.0)),
-                "pair_max_drawdown": _to_float(_pair_replays.get(pname, {}).get("max_drawdown", 0.0)),
+                "pair_total_return": _to_float(
+                    _pair_replays.get(pname, {}).get("total_return", 0.0)
+                ),
+                "pair_sharpe_ratio": _to_float(
+                    _pair_replays.get(pname, {}).get("sharpe_ratio", 0.0)
+                ),
+                "pair_max_drawdown": _to_float(
+                    _pair_replays.get(pname, {}).get("max_drawdown", 0.0)
+                ),
             }
             for pname in weights_by_strategy
         },
@@ -1146,7 +1334,8 @@ def main() -> None:
     out_path.write_text(json.dumps(artifact, indent=2, default=float), encoding="utf-8")
     print(
         f"Wrote {out_path}: total_return={artifact['portfolio']['total_return']:.4%} "
-        f"sharpe={artifact['portfolio']['sharpe_ratio']:.4f} max_dd={artifact['portfolio']['max_drawdown']:.4%}",
+        f"sharpe={artifact['portfolio']['sharpe_ratio']:.4f} "
+        f"max_dd={artifact['portfolio']['max_drawdown']:.4%}",
         flush=True,
     )
     _clear_checkpoint()

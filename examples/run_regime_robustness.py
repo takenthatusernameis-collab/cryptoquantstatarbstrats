@@ -35,13 +35,15 @@ def split_periods(df: pd.DataFrame):
     ]
     periods = []
     for i, (s, e) in enumerate(thirds):
-        periods.append({
-            "name": f"period_{i + 1}",
-            "start_idx": int(s),
-            "end_idx": int(e),
-            "start_date": str(df.index[s].date()) if s < len(df) else None,
-            "end_date": str(df.index[min(e - 1, len(df) - 1)].date()) if e > 0 else None,
-        })
+        periods.append(
+            {
+                "name": f"period_{i + 1}",
+                "start_idx": int(s),
+                "end_idx": int(e),
+                "start_date": str(df.index[s].date()) if s < len(df) else None,
+                "end_date": str(df.index[min(e - 1, len(df) - 1)].date()) if e > 0 else None,
+            }
+        )
     return periods
 
 
@@ -70,20 +72,17 @@ def main() -> None:
         "mean_reversion": {},
     }
 
-    # Use top configs from existing reports
-    pairs_grid = {
-        "lookback": [120],
-        "entry_threshold": [2.5],
-        "cointegration_pvalue": [0.05],
-    }
     # BTC/ETH as example
     try:
         pair = ("BTC", "ETH")
         strat = CointegrationPairsStrategy(
-            pair=pair, lookback=120, entry_threshold=2.5, cointegration_pvalue=0.05,
+            pair=pair,
+            lookback=120,
+            entry_threshold=2.5,
+            cointegration_pvalue=0.05,
         )
         for p in periods:
-            sub = data.iloc[p["start_idx"]:p["end_idx"]]
+            sub = data.iloc[p["start_idx"] : p["end_idx"]]
             if len(sub) < 100:
                 continue
             try:
@@ -108,13 +107,16 @@ def main() -> None:
         for asset in ["BTC"]:
             strat = MeanReversionStrategy(asset=asset, lookback=120, entry_threshold=1.5)
             for p in periods:
-                sub = data.iloc[p["start_idx"]:p["end_idx"]]
+                sub = data.iloc[p["start_idx"] : p["end_idx"]]
                 if len(sub) < 100:
                     continue
                 try:
                     res = engine.run(strat, sub[[asset]], fee_rate=0.001, slippage=0.0005)
                     bench = engine.run_with_benchmark(
-                        strat, sub[[asset]], fee_rate=0.001, slippage=0.0005,
+                        strat,
+                        sub[[asset]],
+                        fee_rate=0.001,
+                        slippage=0.0005,
                     )
                     out["mean_reversion"][f"{asset}_{p['name']}"] = {
                         "asset": asset,

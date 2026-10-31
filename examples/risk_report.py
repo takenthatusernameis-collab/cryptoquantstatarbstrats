@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate a risk report from a quick backtest."""
+
 from __future__ import annotations
 
 import sys

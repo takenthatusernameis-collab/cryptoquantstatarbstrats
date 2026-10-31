@@ -138,7 +138,10 @@ def main() -> None:
                 all_fills.append(f)
                 realized_pnl_total -= fee
         equity_curve.append(
-            {"timestamp": str(data.index[-1]), "equity": sim.get_portfolio_value(engine.initial_capital)}
+            {
+                "timestamp": str(data.index[-1]),
+                "equity": sim.get_portfolio_value(engine.initial_capital),
+            }
         )
 
     # Compute drawdown

@@ -40,8 +40,10 @@ def main() -> None:
     loader = DataLoader()
     data = loader.load_binance_data(symbols, start, end, interval=freq)
     data = loader.clean_data(data)
-    print(f"Loaded {len(data)} hourly bars for {', '.join(symbols)} "
-          f"({data.index.min().date()} -> {data.index.max().date()})")
+    print(
+        f"Loaded {len(data)} hourly bars for {', '.join(symbols)} "
+        f"({data.index.min().date()} -> {data.index.max().date()})"
+    )
 
     grid = {
         "lookback": [60, 120],
@@ -69,21 +71,28 @@ def main() -> None:
     top = rows[0]
     replay = top.get("replay") or {}
     print("\nTop-ranked combo (out-of-sample walk-forward):")
-    print(f"  lookback={top['lookback']} entry_threshold={top['entry_threshold']} "
-          f"cointegration_pvalue={top['cointegration_pvalue']}")
-    print(f"  OOS mean return={top['oos_mean_return']:.6f} "
-          f"OOS/IS ratio={top['oos_is_ratio']:.4f} "
-          f"OOS periods={top['oos_periods']}")
+    print(
+        f"  lookback={top['lookback']} entry_threshold={top['entry_threshold']} "
+        f"cointegration_pvalue={top['cointegration_pvalue']}"
+    )
+    print(
+        f"  OOS mean return={top['oos_mean_return']:.6f} "
+        f"OOS/IS ratio={top['oos_is_ratio']:.4f} "
+        f"OOS periods={top['oos_periods']}"
+    )
 
     print("\nReplay over full dataset:")
-    print(f"  total_return={replay.get('total_return', 0.0):.4%} "
-          f"sharpe_ratio={replay.get('sharpe_ratio', 0.0):.4f} "
-          f"max_drawdown={replay.get('max_drawdown', 0.0):.4%} "
-          f"calmar_ratio={replay.get('calmar_ratio', 0.0):.4f} "
-          f"final_equity={replay.get('final_equity', 0.0):,.2f}")
+    print(
+        f"  total_return={replay.get('total_return', 0.0):.4%} "
+        f"sharpe_ratio={replay.get('sharpe_ratio', 0.0):.4f} "
+        f"max_drawdown={replay.get('max_drawdown', 0.0):.4%} "
+        f"calmar_ratio={replay.get('calmar_ratio', 0.0):.4f} "
+        f"final_equity={replay.get('final_equity', 0.0):,.2f}"
+    )
 
-    params = {k: v for k, v in top.items()
-              if k in ("lookback", "entry_threshold", "cointegration_pvalue")}
+    params = {
+        k: v for k, v in top.items() if k in ("lookback", "entry_threshold", "cointegration_pvalue")
+    }
     benchmark = engine.run_with_benchmark(
         CointegrationPairsStrategy(pair=pair, **params),
         data,

@@ -14,7 +14,14 @@ from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
-PAIRS = [("BTC", "ETH"), ("ETH", "SOL"), ("BTC", "SOL"), ("ADA", "ETH"), ("XRP", "BTC"), ("BNB", "ETH")]
+PAIRS = [
+    ("BTC", "ETH"),
+    ("ETH", "SOL"),
+    ("BTC", "SOL"),
+    ("ADA", "ETH"),
+    ("XRP", "BTC"),
+    ("BNB", "ETH"),
+]
 SYMBOLS = ["BTC", "ETH", "SOL", "ADA", "XRP", "BNB"]
 START = "2026-04-01"
 END = "2026-10-30"
@@ -41,9 +48,7 @@ def run_for_pair(pair: tuple[str, str], data, grid, engine: BacktestEngine):
         raise RuntimeError(f"No sweep results for pair {pair}")
     top = rows[0]
     params = {
-        k: top[k]
-        for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-        if k in top
+        k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
     }
     benchmark = engine.run_with_benchmark(
         CointegrationPairsStrategy(pair=pair, **params),
@@ -108,7 +113,9 @@ def main() -> None:
         "pairs": results,
         "wider_universe": True,
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_wider_universe.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_wider_universe.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"\nWrote consolidated report to {out_path}")

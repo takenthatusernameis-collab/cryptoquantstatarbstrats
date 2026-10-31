@@ -47,9 +47,7 @@ def run_for_pair(pair: tuple[str, str], data, grid, engine: BacktestEngine):
         raise RuntimeError(f"No sweep results for pair {pair}")
     top = rows[0]
     params = {
-        k: top[k]
-        for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-        if k in top
+        k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
     }
     benchmark = engine.run_with_benchmark(
         CointegrationPairsStrategy(pair=pair, **params),

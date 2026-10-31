@@ -48,9 +48,7 @@ def run_for_pair(pair: tuple[str, str], data, grid, engine: BacktestEngine):
         raise RuntimeError(f"No sweep results for pair {pair}")
     top = rows[0]
     params = {
-        k: top[k]
-        for k in ("lookback", "entry_threshold", "cointegration_pvalue")
-        if k in top
+        k: top[k] for k in ("lookback", "entry_threshold", "cointegration_pvalue") if k in top
     }
     benchmark = engine.run_with_benchmark(
         CointegrationPairsStrategy(pair=pair, **params),
@@ -133,10 +131,15 @@ def main() -> None:
         "pairs": results,
         "metadata": {
             "expanded_universe": True,
-            "description": "Expanded real-market validation of cointegration pairs on public Binance spot candles",
+            "description": (
+                "Expanded real-market validation of cointegration pairs "
+                "on public Binance spot candles"
+            ),
         },
     }
-    out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_expanded.json"
+    out_path = (
+        Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market_expanded.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
     print(f"\nWrote consolidated report to {out_path}")
