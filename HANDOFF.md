@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:59:04Z | CAMPAIGN 15 COMPLETE (END-TO-END PIPELINE VERIFICATION + STRESS GATING) | CAMPAIGN 16 ACTIVE / NOT STARTED (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | BOTTLENECK: CAMPAIGN 16 GENERATOR MISSING — CREATE IT FIRST | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T22:53:45Z | CAMPAIGN 16 COMPLETE (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | CAMPAIGN 17 ACTIVE / NOT STARTED (OOS COINTEGRATION-GATED PORTFOLIO EXECUTION + PERFORMANCE VALIDATION) | BOTTLENOCKS REMOVED — GENERATOR + ARTIFACTS + TESTS PRODUCED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,31 +8,31 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T21:59:04Z
+**TIMESTAMP:** 2026-11-01T22:53:45Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
 1. **Verify integrity (BLOCKING):** Run the verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
-3. **Confirm Campaign 15 complete:** `reports/end_to_end_pipeline_verification_mt.json`, `reports/stress_gating_mt.json` exist; `tests/test_end_to_end_pipeline_verification_gating.py` and `tests/test_stress_gating_schema.py` pass (see CAMPAIGN 15 COMPLETED evidence below).
-4. **Campaign 16 is the sole work now.** Do not pivot to unrelated tasks.
+3. **Confirm Campaign 16 complete:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json` exist; `tests/test_oos_cointegration_validation_gating.py` and `tests/test_walkforward_gate_stability_schema.py` pass; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) (see CAMPAIGN 16 COMPLETED evidence below).
+4. **Campaign 17 is the sole work now.** Do not pivot to unrelated tasks.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
-> **OBJECTIVE (HEAVY, CAMPAIGN 16 - MANDATORY, COINTEGRATION-FIRST):** Out-of-sample (OOS) cointegration validation + walk-forward gate stability across all 17 pairs, real Binance spot data only, cointegration-gated (fail-closed). No threshold weakening. No fabrication. Every gated block remains blocked. Gates enforced causally (trailing windows only); no lookahead.
+> **OBJECTIVE (HEAVY, CAMPAIGN 17 - MANDATORY, COINTEGRATION-FIRST):** Out-of-sample (OOS) cointegration-gated portfolio execution + performance validation across the eligible set, real Binance spot data only, cointegration-gated (fail-closed). Validate that the fail-closed gating (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) holds end-to-end in an OOS portfolio backtest: blocked pairs receive zero weight/fills/capacity/position limits; only POL/BTC (4h) may carry exposure; execution realism (fees/slippage) applied; no threshold weakening; no fabrication; every gated block remains blocked. Gates enforced causally (trailing windows only); no lookahead.
 >
-> **REQUIRED ARTIFACTS:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json`
-> **REQUIRED TESTS:** `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py`
-> **REQUIRED GENERATOR:** `scripts/generate_campaign16_artifacts.py` (does not exist yet — CREATING IT IS THE FIRST UNBLOCKING STEP).
+> **REQUIRED ARTIFACTS:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json`
+> **REQUIRED TESTS:** `tests/test_oos_portfolio_execution_gating.py`, `tests/test_oos_portfolio_performance_schema.py`
+> **REQUIRED GENERATOR:** `scripts/generate_campaign17_artifacts.py` (does not exist yet — CREATING IT IS THE FIRST UNBLOCKING STEP).
 >
 > **REQUIREMENTS (HARD):**
-> - **OOS cointegration validation:** Validate the 17 pairs in `reports/portfolio_real.json` on OOS (post-sample) real Binance spot candles per timeframe (1h, 4h, 1d). Re-run Engle-Granger/Johansen, spread ADF/KPSS, half-life (1<hl<500), Hurst, rolling stability on trailing windows only. Report `status: pass_or_block` per pair/timeframe with `blocked_routes`, rationale, full provenance (`real_data_only=true`, `fabricated_data=false`, `computed_at`, `source`). Fail-closed: any failed/insufficient gate blocks the pair; never fabricate a pass.
-> - **Walk-forward gate stability:** Rolling re-validation of cointegration gates across expanding/rolling OOS windows; gates must remain stable (no flip from pass to block without evidence). Record per-window gate decisions, drift vs. in-sample, and `gate_stability_ok` flag. Fail-closed on instability.
-> - **Gating invariants preserved:** eligible sets equal to `reports/portfolio_gating_mt.json` (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs zeroed with `rejection_log`/`blocked_routes`; fail-closed; no auto-lift; linked to all prior MT artifacts.
+> - **OOS cointegration-gated portfolio execution:** Replay the gated portfolio on OOS (post-sample) real Binance spot candles per timeframe (1h, 4h, 1d). Only pairs eligible in `reports/portfolio_gating_mt.json` may receive allocation; all blocked pairs zeroed with `rejection_log`/`blocked_routes`/`orders_allowed=false`/`fills_allowed=false`. Enforce position sizing, capacity, order routing, kill-switch, pre-trade enforcement, portfolio guardrails — all fail-closed, none lift gating blocks. Report `status: pass_or_block` per pair/timeframe with full provenance (`real_data_only=true`, `fabricated_data=false`, `computed_at`, `source`).
+> - **OOS portfolio performance validation:** Compute OOS portfolio metrics (total return, Sharpe, max drawdown, Calmar, VaR/CVaR, turnover, cost-adjusted return) on real data; compare to pair-matched equal-weight buy-and-hold benchmarks; record `real_data_only=true`, `fabricated_data=false`; bootstrap CI (>=2000 sims, fixed seed) optional but encouraged. Fail-closed: if any execution stage violates gating, the run is `block`.
+> - **Gating invariants preserved:** eligible sets equal to `reports/portfolio_gating_mt.json` (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs zeroed; fail-closed; no auto-lift; linked to all prior MT artifacts including `reports/oos_cointegration_validation_mt.json` and `reports/walkforward_gate_stability_mt.json`.
 > - **Schema/provenance/monotonicity:** `real_data_only=true`, `fabricated_data=false`, `computed_at` (UTC ISO8601), `source`, `gating_context`, `blocked_routes`/rationale. Causal only. No synthetic fabrication.
 > - **Remove bottlenecks:** If any path blocks efficient progress (missing generator, import errors, schema gaps, missing OOS data), fix/remove bottlenecks with artifacts/tests in the same campaign. Do not create new bottlenecks. Coasting = failure.
 >
-> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence (Campaign 16 COMPLETED section). Do not stop until done.
+> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence (Campaign 17 COMPLETED section). Do not stop until done.
 
 ## CURRENT VERIFIED STATE (2026-11-01T21:59:04Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
@@ -46,15 +46,18 @@
 - **Campaign 13 DONE:** Live execution integration + position sizing enforcement + real-time monitoring (artifacts/tests present and green).
 - **Campaign 14 DONE:** Real-time monitoring gating test + hardening (artifacts/tests present and green).
 - **Campaign 15 DONE:** End-to-end production pipeline verification + stress gating (artifacts/tests present and green).
-- **Campaign 16 ACTIVE / NOT STARTED:** OOS cointegration validation + walk-forward gate stability (sole focus). **NOTHING PRODUCED YET:** no `scripts/generate_campaign16_artifacts.py`, no `reports/oos_cointegration_validation_mt.json`, no `reports/walkforward_gate_stability_mt.json`, no tests. First action: create the generator following Campaign 15 patterns.
+- **Campaign 16 DONE:** OOS cointegration validation + walk-forward gate stability (artifacts + tests present and green; gating invariants intact).
+- **Campaign 17 ACTIVE / NOT STARTED:** OOS cointegration-gated portfolio execution + performance validation (sole focus). **NOTHING PRODUCED YET:** no `scripts/generate_campaign17_artifacts.py`, no `reports/oos_portfolio_execution_mt.json`, no `reports/oos_portfolio_performance_mt.json`, no tests. First action: create the generator following Campaign 16 patterns.
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_oos_mt_4h.json` etc., real data only). Real data only.
 - Integrity: Campaign 15 artifacts/tests verified present; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Handoff is single durable source of truth.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
-- **BOTTLENOCK IDENTIFIED — Campaign 16 generator missing:** `scripts/generate_campaign16_artifacts.py` does not exist. Remove by creating it following `scripts/generate_campaign15_artifacts.py` patterns (load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, OOS real Binance spot data; enforce 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
-- **BOTTLENOCK IDENTIFIED — No Campaign 16 artifacts/tests:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json`, `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py` all missing. Remove by generating them in this campaign.
+- **BOTTLENOCK REMOVED — Campaign 16 generator created:** `scripts/generate_campaign16_artifacts.py` exists following `scripts/generate_campaign15_artifacts.py` patterns; loads `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, OOS real Binance spot data (cached 1h resampled causally to 4h/1d); enforces gating invariants (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
+- **BOTTLENOCK REMOVED — Campaign 16 artifacts/tests produced:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json`, `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py` all present and green.
+- **BOTTLENOCK IDENTIFIED — Campaign 17 generator missing:** `scripts/generate_campaign17_artifacts.py` does not exist. Remove by creating it following `scripts/generate_campaign16_artifacts.py` patterns (load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, OOS real Binance spot data; enforce fail-closed gating).
+- **BOTTLENOCK IDENTIFIED — No Campaign 17 artifacts/tests:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json`, `tests/test_oos_portfolio_execution_gating.py`, `tests/test_oos_portfolio_performance_schema.py` all missing. Remove by generating them in this campaign.
 - **Ambiguity removed:** Explicit boot sequence + copy/paste initial task message + hard completion criteria.
-- **Focus enforced:** Campaign 16 is the ONLY permitted focus until its artifacts/tests exist and pass.
+- **Focus enforced:** Campaign 17 is the ONLY permitted focus until its artifacts/tests exist and pass.
 - **Gating enforced:** Fail-closed invariants codified; no auto-lift paths.
 - **Execution path unblocked:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_gating.py`) — do not invent new parallel tracks.
 
@@ -66,7 +69,8 @@
 - Campaign 13 DONE: Live execution integration + position sizing enforcement + real-time monitoring.
 - Campaign 14 DONE: Real-time monitoring gating test + hardening.
 - **Campaign 15 DONE:** End-to-end production pipeline verification + stress gating.
-- **Campaign 16 (ACTIVE - NOT STARTED, HEAVY, DO NOT SKIP):** OOS cointegration validation + walk-forward gate stability across all 17 pairs. Produce `oos_cointegration_validation_mt.json`, `walkforward_gate_stability_mt.json` + `test_oos_cointegration_validation_gating.py`, `test_walkforward_gate_stability_schema.py`. Preserve honest blocking.
+- **Campaign 16 DONE:** OOS cointegration validation + walk-forward gate stability across all 17 pairs. `oos_cointegration_validation_mt.json`, `walkforward_gate_stability_mt.json` + `test_oos_cointegration_validation_gating.py`, `test_walkforward_gate_stability_schema.py` produced; gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); honest blocking preserved.
+- **Campaign 17 (ACTIVE - NOT STARTED, HEAVY, DO NOT SKIP):** OOS cointegration-gated portfolio execution + performance validation. Produce `oos_portfolio_execution_mt.json`, `oos_portfolio_performance_mt.json` + `test_oos_portfolio_execution_gating.py`, `test_oos_portfolio_performance_schema.py`. Preserve fail-closed gating; no auto-lift of blocks.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
@@ -80,7 +84,7 @@
 ## VERIFICATION COMMANDS (RUN OFTEN)
 ```bash
 python -m ruff check backtest/ strategies/ utils/ tests/ examples/ scripts/
-python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_cointegration_threshold_invariance.py tests/test_portfolio_gating_mt.py tests/test_execution_gating_consistency.py tests/test_execution_realism_schema.py tests/test_execution_capacity_gating.py tests/test_order_routing_schema.py tests/test_live_deployment_bridge_gating.py tests/test_kill_switch_schema.py tests/test_operational_risk_controls_gating.py tests/test_portfolio_guardrails_schema.py tests/test_live_execution_integration_gating.py tests/test_position_sizing_enforcement_schema.py tests/test_realtime_monitoring_gating.py tests/test_end_to_end_pipeline_verification_gating.py tests/test_stress_gating_schema.py -v
+python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_cointegration_threshold_invariance.py tests/test_portfolio_gating_mt.py tests/test_execution_gating_consistency.py tests/test_execution_realism_schema.py tests/test_execution_capacity_gating.py tests/test_order_routing_schema.py tests/test_live_deployment_bridge_gating.py tests/test_kill_switch_schema.py tests/test_operational_risk_controls_gating.py tests/test_portfolio_guardrails_schema.py tests/test_live_execution_integration_gating.py tests/test_position_sizing_enforcement_schema.py tests/test_realtime_monitoring_gating.py tests/test_end_to_end_pipeline_verification_gating.py tests/test_stress_gating_schema.py tests/test_oos_cointegration_validation_gating.py tests/test_walkforward_gate_stability_schema.py -v
 ```
 
 ## CAMPAIGN 11 COMPLETED (2026-11-01T19:52:00Z) - EVIDENCE
@@ -130,10 +134,21 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **VERIFICATION:** Campaign 15 artifacts generated via `scripts/generate_campaign15_artifacts.py`; gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across both artifacts; 44 targeted tests green; ruff clean on campaign files.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
 
-## CAMPAIGN 16 (ACTIVE / NOT STARTED) — EXECUTION PLAN
-1. **Create generator:** `scripts/generate_campaign16_artifacts.py` following Campaign 15 patterns. Load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, and OOS real Binance spot data. Enforce gating invariants explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **This unblocks everything.**
-2. **Generate artifacts:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
-3. **Write tests:** `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py` mirroring prior gating tests.
-4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 16 COMPLETED evidence.
+## CAMPAIGN 16 COMPLETED (2026-11-01T22:53:45Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/oos_cointegration_validation_mt.json` (OOS cointegration validation across all 17 pairs × 3 timeframes on real Binance spot candles; trailing post-sample OOS window; Engle-Granger/Johansen, spread ADF/KPSS, half-life (1<hl<500), Hurst, rolling stability on trailing windows only; status pass_or_block per pair/timeframe; all 51 blocked per fail-closed honesty; full provenance; linked to portfolio_gating_mt.json + portfolio_real.json)
+  - `reports/walkforward_gate_stability_mt.json` (rolling re-validation of cointegration gates across trailing OOS sub-windows; per-window gate decisions, drift vs. in-sample, gate_stability_ok flag; all 51 stable, 0 unstable; fail-closed, no auto-lift; linked to all prior MT artifacts)
+- **TESTS PRODUCED:**
+  - `tests/test_oos_cointegration_validation_gating.py` (PASSED) - preserves gating invariants, eligible sets match, fail-closed, no auto-lift, full provenance
+  - `tests/test_walkforward_gate_stability_schema.py` (PASSED) - walk-forward schema/invariants, stable gates, no flips, gating_context linked
+- **GENERATOR:** `scripts/generate_campaign16_artifacts.py` (real-data-only OOS computation from `data/cache`, causal resampling 1h→4h/1d, fail-closed).
+- **VERIFICATION:** Campaign 16 artifacts generated via `scripts/generate_campaign16_artifacts.py`; gating invariants verified programmatically (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across both artifacts; ruff clean; 7 targeted tests green.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
+
+## CAMPAIGN 17 (ACTIVE / NOT STARTED) — EXECUTION PLAN
+1. **Create generator:** `scripts/generate_campaign17_artifacts.py` following Campaign 16 patterns. Load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, and OOS real Binance spot data. Enforce fail-closed gating explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **This unblocks everything.**
+2. **Generate artifacts:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
+3. **Write tests:** `tests/test_oos_portfolio_execution_gating.py`, `tests/test_oos_portfolio_performance_schema.py` mirroring prior gating tests.
+4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 17 COMPLETED evidence.
 
 (End of file - total 547 lines)
