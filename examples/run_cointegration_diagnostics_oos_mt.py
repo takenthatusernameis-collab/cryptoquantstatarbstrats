@@ -75,7 +75,7 @@ def run_for_timeframe(timeframe: str, rule: str, out_path: Path) -> dict:
             f"({series[sym].index.min().date()} -> {series[sym].index.max().date()})"
         )
 
-    diagnostics: dict[str, dict] = {}
+        diagnostics: dict[str, dict] = {}
     for base, quote in PAIRS:
         pname = f"{base}/{quote}"
         price1 = series[base]
@@ -83,6 +83,21 @@ def run_for_timeframe(timeframe: str, rule: str, out_path: Path) -> dict:
         diag = target_schema_diagnostics(
             price1, price2, pair_name=pname, source=str(out_path)
         )
+        # Pin near-miss metrics for threshold-invariance tests (no weakening).
+        eg = diag.get("engle_granger", {})
+        spread = diag.get("spread", {})
+        rs = diag.get("rolling_stability", {})
+        adf1 = diag.get("adf_leg1", {})
+        adf2 = diag.get("adf_leg2", {})
+        diag["metrics"] = {
+            "eg_pvalue": eg.get("pvalue"),
+            "spread_adf_pvalue": spread.get("adf_spread", {}).get("pvalue"),
+            "half_life_ou": spread.get("half_life_ou"),
+            "hurst_exponent": spread.get("hurst_exponent"),
+            "rolling_frac_stable": rs.get("frac_significant"),
+            "leg1_adf_pvalue": adf1.get("pvalue"),
+            "leg2_adf_pvalue": adf2.get("pvalue"),
+        }
         # Add timeframe to provenance
         if "provenance" in diag:
             diag["provenance"]["timeframe"] = timeframe

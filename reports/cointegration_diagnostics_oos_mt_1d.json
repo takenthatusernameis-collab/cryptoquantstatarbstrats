@@ -233,7 +233,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.010413+00:00",
+        "computed_at": "2026-11-01T13:27:36.485931+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -273,6 +273,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.5186171637734507,
+        "spread_adf_pvalue": 0.2798406827490131,
+        "half_life_ou": 21.34791824295917,
+        "hurst_exponent": 0.5118371035740884,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.639822545168874,
+        "leg2_adf_pvalue": 0.657578215368391
       }
     },
     "ETH/SOL": {
@@ -484,7 +493,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.044311+00:00",
+        "computed_at": "2026-11-01T13:27:36.520102+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -535,6 +544,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.5350376007420039,
+        "spread_adf_pvalue": 0.2932326364191388,
+        "half_life_ou": 19.687972307787597,
+        "hurst_exponent": 0.4482448717168755,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.657578215368391,
+        "leg2_adf_pvalue": 0.6677361105320168
       }
     },
     "BTC/SOL": {
@@ -746,7 +764,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.075437+00:00",
+        "computed_at": "2026-11-01T13:27:36.550728+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -797,6 +815,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.6050804153896872,
+        "spread_adf_pvalue": 0.35817216296074295,
+        "half_life_ou": 28.097992504998775,
+        "hurst_exponent": 0.49453144482254263,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.639822545168874,
+        "leg2_adf_pvalue": 0.6677361105320168
       }
     },
     "ADA/ETH": {
@@ -1008,7 +1035,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.103192+00:00",
+        "computed_at": "2026-11-01T13:27:36.578213+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -1059,6 +1086,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.5472057092404105,
+        "spread_adf_pvalue": 0.3054216990086554,
+        "half_life_ou": 27.306967105250468,
+        "hurst_exponent": 0.43712925198383656,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.4085165380040904,
+        "leg2_adf_pvalue": 0.657578215368391
       }
     },
     "XRP/BTC": {
@@ -1270,7 +1306,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.130898+00:00",
+        "computed_at": "2026-11-01T13:27:36.605829+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -1311,6 +1347,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.14047303881428314,
+        "spread_adf_pvalue": 0.04868499567028264,
+        "half_life_ou": 12.117727808401034,
+        "hurst_exponent": 0.33457147968338774,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.3226213013850222,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "BNB/ETH": {
@@ -1522,7 +1567,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.158813+00:00",
+        "computed_at": "2026-11-01T13:27:36.634388+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -1573,6 +1618,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.4301158750455228,
+        "spread_adf_pvalue": 0.21214153511006767,
+        "half_life_ou": 15.601208667812124,
+        "hurst_exponent": 0.35061700454815303,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.5847771596491143,
+        "leg2_adf_pvalue": 0.657578215368391
       }
     },
     "BTC/BNB": {
@@ -1784,7 +1838,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.186864+00:00",
+        "computed_at": "2026-11-01T13:27:36.662220+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -1835,6 +1889,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.5214557003293935,
+        "spread_adf_pvalue": 0.28205861336029114,
+        "half_life_ou": 17.841578656482646,
+        "hurst_exponent": 0.5019208806538157,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.639822545168874,
+        "leg2_adf_pvalue": 0.5847771596491143
       }
     },
     "SOL/BNB": {
@@ -2046,7 +2109,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.214662+00:00",
+        "computed_at": "2026-11-01T13:27:36.690348+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2097,6 +2160,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.17307328360472046,
+        "spread_adf_pvalue": 0.06139969879414016,
+        "half_life_ou": 9.698795841033895,
+        "hurst_exponent": 0.4536163415876036,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.6677361105320168,
+        "leg2_adf_pvalue": 0.5847771596491143
       }
     },
     "ADA/BTC": {
@@ -2308,7 +2380,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.243409+00:00",
+        "computed_at": "2026-11-01T13:27:36.718273+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2359,6 +2431,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.30900018965642484,
+        "spread_adf_pvalue": 0.1846719187879226,
+        "half_life_ou": 20.40623961373891,
+        "hurst_exponent": 0.43862479623904227,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.4085165380040904,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "XRP/ETH": {
@@ -2570,7 +2651,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.271371+00:00",
+        "computed_at": "2026-11-01T13:27:36.746162+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2621,6 +2702,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.39326717758785973,
+        "spread_adf_pvalue": 0.18812115947607116,
+        "half_life_ou": 14.946579161361349,
+        "hurst_exponent": 0.3184005098838168,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.3226213013850222,
+        "leg2_adf_pvalue": 0.657578215368391
       }
     },
     "BNB/BTC": {
@@ -2832,7 +2922,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.299199+00:00",
+        "computed_at": "2026-11-01T13:27:36.774302+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2883,6 +2973,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.4675696145737027,
+        "spread_adf_pvalue": 0.2393349134098734,
+        "half_life_ou": 16.340775295088253,
+        "hurst_exponent": 0.4130304511687882,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.5847771596491143,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "DOT/BTC": {
@@ -3094,7 +3193,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.327524+00:00",
+        "computed_at": "2026-11-01T13:27:36.802907+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -3145,6 +3244,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.4092222766387588,
+        "spread_adf_pvalue": 0.19731996235340876,
+        "half_life_ou": 18.709008865157646,
+        "hurst_exponent": 0.3232326781901613,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.42261281153897734,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "DOT/ETH": {
@@ -3356,7 +3464,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.355946+00:00",
+        "computed_at": "2026-11-01T13:27:36.830926+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -3396,6 +3504,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.6206492519810819,
+        "spread_adf_pvalue": 0.3736621870839166,
+        "half_life_ou": 25.71557616880953,
+        "hurst_exponent": 0.35026812978438693,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.42261281153897734,
+        "leg2_adf_pvalue": 0.657578215368391
       }
     },
     "POL/BTC": {
@@ -3607,7 +3724,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.383768+00:00",
+        "computed_at": "2026-11-01T13:27:36.858912+00:00",
         "blocked_routes": [
           {
             "route": "rolling_stability",
@@ -3625,6 +3742,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.0005295700649368938,
+        "spread_adf_pvalue": 8.094989733553295e-05,
+        "half_life_ou": 5.295930077366517,
+        "hurst_exponent": 0.28163627496612614,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.23247448229876821,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "AVAX/BTC": {
@@ -3836,7 +3962,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.411652+00:00",
+        "computed_at": "2026-11-01T13:27:36.886652+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -3887,6 +4013,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.18149848042866457,
+        "spread_adf_pvalue": 0.06589804561675877,
+        "half_life_ou": 11.892175992373593,
+        "hurst_exponent": 0.4825327118025491,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.49754195132232426,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "LINK/BTC": {
@@ -4098,7 +4233,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.439295+00:00",
+        "computed_at": "2026-11-01T13:27:36.914650+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -4149,6 +4284,15 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.535209218822126,
+        "spread_adf_pvalue": 0.2929732667175322,
+        "half_life_ou": 18.34960690633724,
+        "hurst_exponent": 0.36789607099497224,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.6601439146467577,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     },
     "LTC/BTC": {
@@ -4360,7 +4504,7 @@
         "source": "reports/cointegration_diagnostics_oos_mt_1d.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T13:23:43.467145+00:00",
+        "computed_at": "2026-11-01T13:27:36.942504+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -4401,8 +4545,17 @@
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data.",
         "timeframe": "1d"
+      },
+      "metrics": {
+        "eg_pvalue": 0.13364014107844535,
+        "spread_adf_pvalue": 0.044539043795491486,
+        "half_life_ou": 10.001402360784002,
+        "hurst_exponent": 0.4835531624237939,
+        "rolling_frac_stable": null,
+        "leg1_adf_pvalue": 0.6050512047640761,
+        "leg2_adf_pvalue": 0.639822545168874
       }
     }
   },
-  "computed_at": "2026-11-01T13:23:43.467229+00:00"
+  "computed_at": "2026-11-01T13:27:36.942592+00:00"
 }
