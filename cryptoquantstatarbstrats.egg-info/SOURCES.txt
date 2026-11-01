@@ -30,6 +30,8 @@ tests/test_attribution_reporting.py
 tests/test_benchmark_dashboard.py
 tests/test_binance_loader.py
 tests/test_cli.py
+tests/test_cointegration_diagnostics_schema.py
+tests/test_cointegration_threshold_invariance.py
 tests/test_config_validation.py
 tests/test_cost_sensitivity_real.py
 tests/test_cost_sensitivity_real_mean_reversion.py
@@ -71,6 +73,7 @@ tests/test_sweep_api_enhanced.py
 tests/test_sweep_config.py
 tests/test_sweep_replay_best.py
 tests/test_sweep_walk_forward.py
+tests/test_tail_risk_parameter_stability.py
 tests/test_term_structure.py
 tests/test_volatility_surface.py
 tests/test_walk_forward_anchor.py
@@ -87,6 +90,7 @@ tests/test_walk_forward_multi_horizon.py
 tests/test_walk_forward_reoptimize.py
 utils/__init__.py
 utils/attribution.py
+utils/cointegration.py
 utils/costs.py
 utils/data_utils.py
 utils/metrics.py

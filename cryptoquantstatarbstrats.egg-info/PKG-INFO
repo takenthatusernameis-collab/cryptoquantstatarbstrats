@@ -60,6 +60,23 @@ series when they are missing.
 - The pairs strategy estimates a rolling hedge ratio from trailing observations
   and emits explicit opposing legs. The engine does not overwrite explicit
   asset weights with generic long/short flags.
+- **Operationalized enriched cointegration gates** (publication-grade): the
+  strategy enforces Engle-Granger/Johansen, spread mean-reversion, half-life
+  bounds (1<hl<500), rolling stability, structural break discipline, and leg
+  stationarity using trailing data only. Gates can be supplied via
+  `enriched_diagnostics`/`pair_diagnostics` and are applied causally; failures
+  are never fabricated. `CointegrationPairsStrategy` defaults to
+  `use_enriched_gates=True`, `strict_enriched_gates=True` (fail-closed): when
+  `use_enriched_gates=True`, any missing/None/false gate value blocks entries,
+  and the per-bar fallback path also fails closed under strict mode. Set
+  `use_enriched_gates=False` to explicitly opt out (not recommended) or
+  `strict_enriched_gates=False` to relax missing values to permissive
+  (documented, non-default).
+- The rolling hedge ratio is estimated causally from trailing windows, guarded
+  against division by zero/inf/NaN, forced positive (`> 1e-18`) and clipped to a
+  reasonable range `[1e-6, 1e6]` (winsorized) to avoid numerical instability;
+  opposing-leg weights are normalized using absolute market values and never
+  fabricated.
 - The default price loader is a free public data source, but this project is
   still a research framework. A successful backtest or passing unit tests do
   not establish a profitable strategy. Validate unseen periods, transaction
@@ -74,6 +91,28 @@ python -m pytest tests/ -v
 python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python -m mypy backtest/ strategies/ utils/
 ```
+
+## Cointegration diagnostics rigor (publication grade)
+
+Cointegration is the core edge of this repo (`cryptoquantstatarbstrats` = Crypto Quant
+Stat Arb Strategies). Pair diagnostics for the 17 pairs in `reports/portfolio_real.json`
+are computed from real Binance spot candles only (no fabrication) and follow a
+publication-grade schema: Engle-Granger, Johansen (trace + max-eigen with 90/95/99%
+critical values and rank), per-leg ADF/KPSS, spread (OLS hedge ratio, spread ADF/KPSS,
+half-life of an OU process with the `1 < half_life < 500` bound, Hurst exponent,
+mean-reversion favorability), rolling cointegration stability, structural breaks, and a
+tight gate set (`eg_pass`, `johansen_pass`, `spread_mr_pass`, `hl_bounds_pass`,
+`leg_stationarity_ok`, `rolling_stable_ok`, `all_pass`). Every field carries full
+provenance (`source`, `real_data_only`, `fabricated_data`, `computed_at`,
+`blocked_routes`, `rationale`).
+
+Network handling: `api.binance.com` (and `api1/2/3`, `fapi.binance.com`) returns HTTP 451
+in this environment and is never relied upon. The loader's host chain tries
+`www.binance.com` first, which serves public spot klines, so real fetches succeed there.
+When a pair series cannot be reconstructed (no network, no cached series), the diagnostic
+is reported honestly as `status: "blocked_or_insufficient_data"` with `blocked_routes[]`,
+a detailed rationale, and full provenance — never fabricated. Isolated unit tests may use
+synthetic data only when explicitly flagged `fabricated_data: true`.
 
 ## CI
 
@@ -414,3 +453,6 @@ All validation uses 100% real market data via `DataLoader.load_binance_data()`. 
 - **Risk controls:** correlation-aware dampening, per-asset correlation-exposure cap, CVaR-style allocation cap, gross exposure limit, drawdown circuit breaker (tested on real history).
 - **Provenance:** universe changes, exclusions with rationale/attempt logs, funding/basis exhaustive attempts/hosts, risk controls applied, circuit breaker results.
 - **Coverage:** portfolio logic, risk controls, meta-selector, artifact schema, bootstrap CI, execution model validated by tests.
+
+- **Parameter stability (real data):** `reports/portfolio_real.json` includes `parameter_stability` with per-pair walk-forward stability (selected params, OOS/IS returns across rolling splits, sensitivity grid, stability_score, degradation = OOS/IS mean, regime_notes) and `portfolio_level` with 12-split aggregates and provenance (all `real_data_only: true`, `fabricated_data: false`).
+- **Tail risk & regime conditioning:** `tail_risk.portfolio` provides VaR/CVaR/CDaR at 95/99/99.9; `tail_risk.regime_conditioned` is filled from real `detect_regimes` (BTC vol/trend) over the portfolio return series with provenance; `tail_risk.permutation_test` uses >=3000 permutations (publication-grade). Bootstrap CI for portfolio OOS uses >=3000 simulations with fixed seed.
