@@ -97,7 +97,11 @@ def main() -> None:
         "real_data_only": True,
         "fabricated_data": False,
         "symbols": SYMBOLS,
-        "oos_window": {"start_frac": OOS_START_FRAC, "end_frac": OOS_END_FRAC, "n_bars": end - start},
+        "oos_window": {
+            "start_frac": OOS_START_FRAC,
+            "end_frac": OOS_END_FRAC,
+            "n_bars": end - start,
+        },
         "source": "data/cache (real public Binance spot, www.binance.com) - different window",
         "n_pairs": len(PAIRS),
         "n_pass_all_gates": n_pass,
