@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T18:11:33Z | CAMPAIGN 9 ACTIVE (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T18:12:03Z | CAMPAIGN 9 DONE | CAMPAIGN 10 ACTIVE (LIVE PAPER-TRADING DEPLOYMENT + DRIFT MONITORING + COINTEGRATION-GATED ALERTING) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -46,7 +46,8 @@
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation (4h: 1/17 pass all gates [POL/BTC passes honestly]; 1d: 0/17). MT blocking matrix + structural breaks populated. Threshold invariance green.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT (fail-closed, no blocked pair gets weight). Walk-forward MT + risk/cost stress MT artifacts created with provenance. Tests passing.
 - **Campaign 8 DONE:** Execution realism MT (fills/slippage/fees/latency/partial/rejects, fail-closed), turnover/implementation shortfall MT, execution stress grid MT, tests added and passing. All provenance linked.
-- **Campaign 9 PENDING (ACTIVE GAP - SOLE FOCUS):** Artifacts `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json` and tests `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py` do **NOT** exist yet. This is the **ONLY** work to do now.
+- **Campaign 9 DONE:** Live-ready execution hardening + cointegration-gated capacity constraints. Artifacts `execution_capacity_mt.json`, `order_routing_realism_mt.json`, `live_readiness_checklist_mt.json` + tests `test_execution_capacity_gating.py`, `test_order_routing_schema.py` exist and pass (4 tests). Gating preserved: 17 blocked at 1h/1d, POL/BTC only eligible at 4h.
+- **Campaign 10 (ACTIVE - HEAVY):** Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting. Sole focus.
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
 - Integrity: `ruff` clean, targeted pytest passing (31 passed).
 
@@ -68,7 +69,8 @@
 - Campaign 6 (DONE): Multi-timeframe (4h/1d) rolling stability + structural-break re-validation across all 17 pairs
 - Campaign 7 (DONE): Portfolio-level cointegration gating integration + walk-forward portfolio re-validation + risk-control stress on mt timeframes (1h/4h/1d)
 - Campaign 8 (DONE): Execution realism + cointegration-driven execution validation (execution_realism_mt, turnover_slippage_mt, execution_stress_grid_mt + tests)
-- **Campaign 9 (ACTIVE - HEAVY, DO NOT SKIP): LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS** - Sole focus. Produce `execution_capacity_mt.json`, `order_routing_realism_mt.json`, `live_readiness_checklist_mt.json` + `test_execution_capacity_gating.py`, `test_order_routing_schema.py`. Preserve honest blocking: 17 pairs blocked at 1h/1d, POL/BTC only eligible at 4h.
+- **Campaign 9 (DONE):** Live-ready execution hardening + cointegration-gated capacity constraints (execution_capacity_mt, order_routing_realism_mt, live_readiness_checklist_mt + tests).
+- **Campaign 10 (ACTIVE - HEAVY, DO NOT SKIP):** Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting. Produce `paper_trading_bridge_mt.json`, `drift_monitor_mt.json`, `alerting_rules_mt.json` + `test_paper_trading_bridge_gating.py`, `test_drift_monitor_schema.py`. Preserve honest blocking.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
