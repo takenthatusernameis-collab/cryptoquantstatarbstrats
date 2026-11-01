@@ -69,7 +69,8 @@ def main() -> None:
         pname = f"{base}/{quote}"
         stats = rolling_stability_stats(series_full[base], series_full[quote])
         results[pname] = stats
-        print(f"{pname}: n={stats['n_windows']} frac={stats['frac_significant']} stable={stats['stable']}")
+        print(f"{pname}: n={stats['n_windows']} frac={stats['frac_significant']} "
+              f"stable={stats['stable']}")
 
     out = {
         "type": "pol_btc_rolling_stability_deepdive",

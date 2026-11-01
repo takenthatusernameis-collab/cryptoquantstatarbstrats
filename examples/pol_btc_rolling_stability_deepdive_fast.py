@@ -34,7 +34,7 @@ def load_symbol(symbol: str) -> pd.Series:
     return series.sort_index()
 
 
-def rolling_stability_stats(price1: pd.Series, price2: pd.Series, window: int = 168, step: int = 24):
+def rolling_stability_stats(price1, price2, window=168, step=24):
     df = pd.concat([price1, price2], axis=1).dropna()
     if len(df) < window + 50:
         return {"n_windows": 0, "frac_significant": None, "values": [], "stable": False}
@@ -71,7 +71,7 @@ def main() -> None:
         pname = f"{base}/{quote}"
         stats = rolling_stability_stats(series_full[base], series_full[quote])
         results[pname] = stats
-        print(f"{pname}: n={stats['n_windows']} frac={stats['frac_significant']} stable={stats['stable']}")
+        print(pname, stats["n_windows"], stats["frac_significant"], stats["stable"])
 
     out = {
         "type": "pol_btc_rolling_stability_deepdive",

@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T12:50:00Z | CAMPAIGN 5 READY — DIFFERENT-WINDOW OOS v2 + THRESHOLD LOCK-IN
+# SINGLE DURABLE HANDOFF | 2026-11-01T13:19:59Z | CAMPAIGN 5 IN PROGRESS — BOTTLENECKS REMOVED (RUFF CLEAN)
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## CURRENT VERIFIED STATE (2026-11-01T12:50:00Z)
-- Branch: `main`. Up to date with `origin/main`. HEAD = `415900a` (chore(kilo): checkpoint agent session).
+- Branch: `main`. Up to date with `origin/main`. HEAD = `7a09e82` (chore(kilo): checkpoint agent session).
 - Campaign 3 + 4 artifacts present: `examples/run_cointegration_diagnostics_oos.py`, `examples/run_cointegration_diagnostics_oos_full.py`, `reports/cointegration_diagnostics_oos.json`.
 - `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Enriched gates enforced strictly.
 - **Campaign 4 DONE:** OOS re-validation on cached window (`2026-04-01`→`2026-10-30`, split) shows **0/17 pass all gates**. `POL/BTC` blocked solely on `rolling_stable_ok=False`; all other gates pass. Blocking confirmed window-robust from prior runs.

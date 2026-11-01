@@ -106,7 +106,7 @@ def main() -> None:
             "start_idx": start,
             "end_idx": end,
         },
-        "source": "data/cache (real public Binance spot, www.binance.com) - different window (middle slice)",
+        "source": "data/cache (real Binance spot) - different window (middle slice)",
         "n_pairs": len(PAIRS),
         "n_pass_all_gates": n_pass,
         "cointegration_diagnostics": diagnostics,

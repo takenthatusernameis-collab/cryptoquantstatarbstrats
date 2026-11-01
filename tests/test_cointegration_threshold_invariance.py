@@ -25,8 +25,6 @@ def test_threshold_invariance_near_misses(report_path: Path):
     MAX_HALF_LIFE = 30.0
     MIN_HALF_LIFE = 1.0
     MAX_HURST = 0.5
-    EG_PVAL_MAX = 0.05
-    SPREAD_ADF_PVAL_MAX = 0.05
     LEG_ADF_PVAL_MAX = 0.05
 
     for pair_name, diag in diags.items():
@@ -58,7 +56,7 @@ def test_threshold_invariance_near_misses(report_path: Path):
         if "rolling_frac_stable" in metrics:
             rf = metrics["rolling_frac_stable"]
             assert isinstance(rf, (int, float))
-            # Invariant: passing requires >= MIN_ROLLING_FRAC_STABLE; recorded value must be consistent
+            # Invariant: passing requires >= MIN_ROLLING_FRAC_STABLE
             if gates.get("rolling_stable_ok"):
                 assert rf >= MIN_ROLLING_FRAC_STABLE - 1e-12
         # Leg ADF pvalues
