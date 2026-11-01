@@ -348,3 +348,125 @@ def test_real_diag_no_pair_passes_all_gates_on_this_window():
     cd = data["cointegration_diagnostics"]
     for pname, diag in cd.items():
         assert diag["gates"]["all_pass"] is False, f"{pname} unexpectedly passes all gates"
+
+
+def test_real_diag_near_miss_audit_present_for_all_pairs():
+    """Every pair carries a near-miss audit block with concrete gate margins."""
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname, diag in cd.items():
+        prov = diag["provenance"]
+        assert "near_miss_audit" in prov, f"{pname}: missing near_miss_audit"
+        audit = prov["near_miss_audit"]
+        for key in (
+            "eg_pvalue",
+            "spread_adf_pvalue",
+            "half_life_ou",
+            "hurst_exponent",
+            "rolling_frac_significant",
+            "rolling_required",
+            "near_miss_gates",
+            "all_gates_pass",
+        ):
+            assert key in audit, f"{pname}: near_miss_audit missing {key}"
+        assert audit["rolling_required"] == 0.6, f"{pname}: rolling_required weakened"
+        assert audit["all_gates_pass"] is False
+
+
+def test_real_diag_rolling_stability_none_pass_honest_blocking():
+    """No pair passes rolling_stability; all remain blocked with non-empty routes."""
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname, diag in cd.items():
+        rs = diag["rolling_stability"]
+        frac = rs.get("frac_significant")
+        assert frac is None or frac < 0.6, f"{pname}: rolling frac {frac} reaches required 0.6"
+        routes = prov_blocked_routes(diag)
+        assert len(routes) > 0, f"{pname}: blocked_routes must be non-empty"
+
+
+def prov_blocked_routes(diag: dict) -> list:
+    return diag["provenance"].get("blocked_routes", []) or []
+
+
+def test_real_diag_thresholds_not_weakened():
+    """Gate thresholds are unchanged: EG 0.05, rolling 0.6, half-life (1, 500).
+    Only failing gates are checked against the threshold (a passing gate is
+    allowed to be below 0.05 by design)."""
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname, diag in cd.items():
+        gates = diag["gates"]
+        audit = diag["provenance"]["near_miss_audit"]
+        eg_p = audit["eg_pvalue"]
+        sp_p = audit["spread_adf_pvalue"]
+        if eg_p is not None and not gates.get("eg_pass"):
+            assert eg_p >= 0.05, (
+                f"{pname}: failing EG p-value {eg_p} below 0.05 (threshold weakened?)"
+            )
+        if sp_p is not None and not gates.get("spread_mr_pass"):
+            assert sp_p >= 0.05, (
+                f"{pname}: failing spread ADF p-value {sp_p} below 0.05 (threshold weakened?)"
+            )
+
+
+def test_real_diag_near_miss_pairs_documented():
+    """Concrete near-miss pairs carry their borderline numbers in the audit."""
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+
+    # LTC/BTC: spread ADF borderline just above 0.05; EG closest to significant.
+    ltc = cd["LTC/BTC"]["provenance"]["near_miss_audit"]
+    assert ltc["spread_adf_pvalue"] is not None and ltc["spread_adf_pvalue"] > 0.05
+    assert ltc["eg_pvalue"] is not None and ltc["eg_pvalue"] < 0.20
+
+    # SOL/BNB: spread ADF borderline, lowest rolling frac.
+    sol = cd["SOL/BNB"]["provenance"]["near_miss_audit"]
+    assert sol["spread_adf_pvalue"] is not None and sol["spread_adf_pvalue"] > 0.05
+    assert sol["rolling_frac_significant"] is not None and sol["rolling_frac_significant"] < 0.05
+
+    # AVAX/BTC: highest rolling frac but still far below 0.6 required.
+    avax = cd["AVAX/BTC"]["provenance"]["near_miss_audit"]
+    assert avax["rolling_frac_significant"] is not None
+    assert avax["rolling_frac_significant"] >= 0.30
+    assert avax["rolling_frac_significant"] < 0.6
+
+    # BTC/BNB and LINK/BTC: half-life near the 500 upper bound (edge, not weakened).
+    for pname in ("BTC/BNB", "LINK/BTC"):
+        hl = cd[pname]["provenance"]["near_miss_audit"]["half_life_ou"]
+        assert hl is not None and hl > 0
+        if hl >= 450.0:
+            assert hl < 500.0, f"{pname}: half_life {hl} at or above bound"
+
+
+def test_real_diag_pol_btc_deep_dive_locked():
+    """POL/BTC deep dive is locked: blocked solely on rolling_stability, no causal filter."""
+    data = _real_diag()
+    diag = data["cointegration_diagnostics"]["POL/BTC"]
+    prov = diag["provenance"]
+    assert "deep_dive" in prov, "POL/BTC deep_dive evidence missing"
+    dd = prov["deep_dive"]
+    assert dd["n_pass"] == 9
+    assert dd["n_fail"] == 175
+    assert abs(dd["frac_pass"] - 0.04891304347826087) < 1e-9
+    assert dd["best_precision"] < 1.0, "no filter should perfectly isolate passing windows"
+    assert dd["false_positive"] > 0 or dd["false_negative"] > 0
+    assert "No trailing-only causal filter" in dd["conclusion"]
+    assert "rolling_stability" in prov["rationale"].lower()
+
+
+def test_real_diag_blocked_routes_non_empty_for_failing_pairs():
+    """Honest blocking: every failing pair has non-empty blocked_routes with rationale."""
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname, diag in cd.items():
+        prov = diag["provenance"]
+        routes = prov.get("blocked_routes", []) or []
+        assert len(routes) > 0, f"{pname}: missing blocked_routes"
+        assert isinstance(prov.get("rationale"), str) and prov["rationale"]
+        for r in routes:
+            assert r.get("route")
+            assert r.get("passed") is False
+            assert "provenance" in r
+            assert r["provenance"].get("real_data_only") is True
+            assert r["provenance"].get("fabricated_data") is False

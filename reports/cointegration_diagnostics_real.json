@@ -1380,7 +1380,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.518571; spread_adf_p=0.277833; hl=440.9; hurst=0.4581; rolling_frac=0.1848/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.5185709758015115,
+          "spread_adf_pvalue": 0.277833357277096,
+          "half_life_ou": 440.8840104778641,
+          "hurst_exponent": 0.4581228073578978,
+          "rolling_frac_significant": 0.18478260869565216,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.4152,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.5185709758015115,
+              "threshold": 0.05,
+              "margin_x": 10.37,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.277833357277096,
+              "threshold": 0.05,
+              "margin_x": 5.56,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.18478260869565216,
+              "threshold": 0.6,
+              "gap": 0.4152,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.4581228073578978,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "ETH/SOL": {
@@ -2755,7 +2795,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.602911; spread_adf_p=0.353849; hl=493.3; hurst=0.505; rolling_frac=0.1141/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.6029110794107174,
+          "spread_adf_pvalue": 0.35384919737867704,
+          "half_life_ou": 493.2744540297886,
+          "hurst_exponent": 0.5049931576016623,
+          "rolling_frac_significant": 0.11413043478260869,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.4859,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.6029110794107174,
+              "threshold": 0.05,
+              "margin_x": 12.06,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.35384919737867704,
+              "threshold": 0.05,
+              "margin_x": 7.08,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.11413043478260869,
+              "threshold": 0.6,
+              "gap": 0.4859,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 493.2744540297886,
+              "threshold": 500.0,
+              "note": "half_life within 50 of upper bound (edge)",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "BTC/SOL": {
@@ -4134,7 +4214,53 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.708862; spread_adf_p=0.468495; hl=611.8; hurst=0.4812; rolling_frac=0.0707/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.7088623524510671,
+          "spread_adf_pvalue": 0.46849534626857237,
+          "half_life_ou": 611.796202713664,
+          "hurst_exponent": 0.4812211311298151,
+          "rolling_frac_significant": 0.07065217391304347,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5293,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.7088623524510671,
+              "threshold": 0.05,
+              "margin_x": 14.18,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.46849534626857237,
+              "threshold": 0.05,
+              "margin_x": 9.37,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.07065217391304347,
+              "threshold": 0.6,
+              "gap": 0.5293,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 611.796202713664,
+              "threshold": 500.0,
+              "note": "half_life above 500 upper bound"
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.4812211311298151,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "ADA/ETH": {
@@ -5520,7 +5646,53 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.595357; spread_adf_p=0.346107; hl=556.7; hurst=0.4876; rolling_frac=0.0924/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.5953573596282998,
+          "spread_adf_pvalue": 0.34610662263236114,
+          "half_life_ou": 556.6905829706069,
+          "hurst_exponent": 0.48756212746575295,
+          "rolling_frac_significant": 0.09239130434782608,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5076,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.5953573596282998,
+              "threshold": 0.05,
+              "margin_x": 11.91,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.34610662263236114,
+              "threshold": 0.05,
+              "margin_x": 6.92,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.09239130434782608,
+              "threshold": 0.6,
+              "gap": 0.5076,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 556.6905829706069,
+              "threshold": 500.0,
+              "note": "half_life above 500 upper bound"
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.48756212746575295,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "XRP/BTC": {
@@ -6888,7 +7060,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.211299; spread_adf_p=0.07952; hl=173.6; hurst=0.4268; rolling_frac=0.0924/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.21129935788433235,
+          "spread_adf_pvalue": 0.07952003917450462,
+          "half_life_ou": 173.5759628637149,
+          "hurst_exponent": 0.42684253678861095,
+          "rolling_frac_significant": 0.09239130434782608,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5076,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.21129935788433235,
+              "threshold": 0.05,
+              "margin_x": 4.23,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.07952003917450462,
+              "threshold": 0.05,
+              "margin_x": 1.59,
+              "near": true
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.09239130434782608,
+              "threshold": 0.6,
+              "gap": 0.5076,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.42684253678861095,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "BNB/ETH": {
@@ -8263,7 +8475,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.457177; spread_adf_p=0.230224; hl=491.0; hurst=0.5372; rolling_frac=0.0815/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.45717727230892935,
+          "spread_adf_pvalue": 0.2302236855616019,
+          "half_life_ou": 490.96360986007636,
+          "hurst_exponent": 0.5372492226061117,
+          "rolling_frac_significant": 0.08152173913043478,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5185,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.45717727230892935,
+              "threshold": 0.05,
+              "margin_x": 9.14,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.2302236855616019,
+              "threshold": 0.05,
+              "margin_x": 4.6,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.08152173913043478,
+              "threshold": 0.6,
+              "gap": 0.5185,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 490.96360986007636,
+              "threshold": 500.0,
+              "note": "half_life within 50 of upper bound (edge)",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "BTC/BNB": {
@@ -9631,7 +9883,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.489462; spread_adf_p=0.25471; hl=498.5; hurst=0.5263; rolling_frac=0.087/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.489461613643462,
+          "spread_adf_pvalue": 0.25470980264603743,
+          "half_life_ou": 498.48794564788824,
+          "hurst_exponent": 0.5262556172727475,
+          "rolling_frac_significant": 0.08695652173913043,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.513,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.489461613643462,
+              "threshold": 0.05,
+              "margin_x": 9.79,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.25470980264603743,
+              "threshold": 0.05,
+              "margin_x": 5.09,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.08695652173913043,
+              "threshold": 0.6,
+              "gap": 0.513,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 498.48794564788824,
+              "threshold": 500.0,
+              "note": "half_life within 50 of upper bound (edge)",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "SOL/BNB": {
@@ -10999,7 +11291,40 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.19316; spread_adf_p=0.070965; hl=276.5; hurst=0.5317; rolling_frac=0.0217/req 0.6. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.1931596946470452,
+          "spread_adf_pvalue": 0.07096507310186964,
+          "half_life_ou": 276.5031591662644,
+          "hurst_exponent": 0.5316503548335727,
+          "rolling_frac_significant": 0.021739130434782608,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5783,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.1931596946470452,
+              "threshold": 0.05,
+              "margin_x": 3.86,
+              "near": true
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.07096507310186964,
+              "threshold": 0.05,
+              "margin_x": 1.42,
+              "near": true
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.021739130434782608,
+              "threshold": 0.6,
+              "gap": 0.5783,
+              "near": false
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "ADA/BTC": {
@@ -12374,7 +12699,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.393955; spread_adf_p=0.185483; hl=410.5; hurst=0.4646; rolling_frac=0.0652/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.3939546364893661,
+          "spread_adf_pvalue": 0.18548269854129723,
+          "half_life_ou": 410.4947960113658,
+          "hurst_exponent": 0.46464822932720967,
+          "rolling_frac_significant": 0.06521739130434782,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5348,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.3939546364893661,
+              "threshold": 0.05,
+              "margin_x": 7.88,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.18548269854129723,
+              "threshold": 0.05,
+              "margin_x": 3.71,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.06521739130434782,
+              "threshold": 0.6,
+              "gap": 0.5348,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.46464822932720967,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "XRP/ETH": {
@@ -13742,7 +14107,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.329879; spread_adf_p=0.144813; hl=236.4; hurst=0.4536; rolling_frac=0.1033/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.3298786871309937,
+          "spread_adf_pvalue": 0.14481264966148155,
+          "half_life_ou": 236.4439003261321,
+          "hurst_exponent": 0.4536063440958397,
+          "rolling_frac_significant": 0.10326086956521739,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.4967,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.3298786871309937,
+              "threshold": 0.05,
+              "margin_x": 6.6,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.14481264966148155,
+              "threshold": 0.05,
+              "margin_x": 2.9,
+              "near": true
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.10326086956521739,
+              "threshold": 0.6,
+              "gap": 0.4967,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.4536063440958397,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "BNB/BTC": {
@@ -15117,7 +15522,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.541961; spread_adf_p=0.298215; hl=457.6; hurst=0.5274; rolling_frac=0.0761/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.5419607363611392,
+          "spread_adf_pvalue": 0.29821465596383523,
+          "half_life_ou": 457.61438172502267,
+          "hurst_exponent": 0.5273847843083045,
+          "rolling_frac_significant": 0.07608695652173914,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5239,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.5419607363611392,
+              "threshold": 0.05,
+              "margin_x": 10.84,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.29821465596383523,
+              "threshold": 0.05,
+              "margin_x": 5.96,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.07608695652173914,
+              "threshold": 0.6,
+              "gap": 0.5239,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 457.61438172502267,
+              "threshold": 500.0,
+              "note": "half_life within 50 of upper bound (edge)",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "DOT/BTC": {
@@ -16485,7 +16930,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.462915; spread_adf_p=0.232835; hl=442.9; hurst=0.4947; rolling_frac=0.0652/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.4629150206302012,
+          "spread_adf_pvalue": 0.2328349996597494,
+          "half_life_ou": 442.9298433910514,
+          "hurst_exponent": 0.49472571698100587,
+          "rolling_frac_significant": 0.06521739130434782,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5348,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.4629150206302012,
+              "threshold": 0.05,
+              "margin_x": 9.26,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.2328349996597494,
+              "threshold": 0.05,
+              "margin_x": 4.66,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.06521739130434782,
+              "threshold": 0.6,
+              "gap": 0.5348,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.49472571698100587,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "DOT/ETH": {
@@ -17864,7 +18349,53 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.659029; spread_adf_p=0.410486; hl=579.1; hurst=0.4952; rolling_frac=0.0761/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.6590290411763075,
+          "spread_adf_pvalue": 0.41048630106786915,
+          "half_life_ou": 579.0710448611932,
+          "hurst_exponent": 0.4952048124370858,
+          "rolling_frac_significant": 0.07608695652173914,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5239,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.6590290411763075,
+              "threshold": 0.05,
+              "margin_x": 13.18,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.41048630106786915,
+              "threshold": 0.05,
+              "margin_x": 8.21,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.07608695652173914,
+              "threshold": 0.6,
+              "gap": 0.5239,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 579.0710448611932,
+              "threshold": 500.0,
+              "note": "half_life above 500 upper bound"
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.4952048124370858,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "POL/BTC": {
@@ -19199,7 +19730,56 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. POL/BTC passes eg, johansen, spread_mean_reversion, hl_bounds, leg_stationarity but fails rolling_stability (frac_significant 0.04891304347826087 < 0.6). Deep dive: 9/184 trailing windows (frac 0.0489) pass EG, scattered with no robust trailing-only causal boundary. Candidate trailing-only filters tested (corr, vol_ratio, half-life, hurst, spread ADF); best filter 'hl_lt_30' achieved precision 0.4166666666666667 / recall 0.5555555555555556 with 7 false positives and 4 false negatives \u2014 not robust. No lookahead filter added. Kept blocked_or_insufficient_data solely on rolling_stability. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.0005785755152727209,
+          "spread_adf_pvalue": 8.647255027558303e-05,
+          "half_life_ou": 107.69153510930273,
+          "hurst_exponent": 0.4980849926073744,
+          "rolling_frac_significant": 0.04891304347826087,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5511,
+          "near_miss_gates": [
+            {
+              "gate": "rolling_stability",
+              "value": 0.04891304347826087,
+              "threshold": 0.6,
+              "gap": 0.5511,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.4980849926073744,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        },
+        "deep_dive": {
+          "source": "reports/pol_btc_deep_dive.json",
+          "n_pass": 9,
+          "n_fail": 175,
+          "frac_pass": 0.04891304347826087,
+          "passing_start_bars": [
+            168,
+            1536,
+            1560,
+            2736,
+            2856,
+            2880,
+            2904,
+            3528,
+            4368
+          ],
+          "best_filter": "hl_lt_30",
+          "best_precision": 0.4166666666666667,
+          "best_recall": 0.5555555555555556,
+          "false_positive": 7,
+          "false_negative": 4,
+          "conclusion": "No trailing-only causal filter isolates the 9 EG-significant windows robustly. All candidates produce substantial false positives and/or false negatives; the significant windows are scattered with no stable trailing boundary. POL/BTC remains blocked_or_insufficient_data solely on rolling_stability."
+        }
       }
     },
     "AVAX/BTC": {
@@ -20567,7 +21147,40 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.296234; spread_adf_p=0.124341; hl=341.4; hurst=0.5158; rolling_frac=0.3696/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'rolling_stability']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.29623394833033834,
+          "spread_adf_pvalue": 0.12434113586162027,
+          "half_life_ou": 341.38599582066655,
+          "hurst_exponent": 0.5158458395901475,
+          "rolling_frac_significant": 0.3695652173913043,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.2304,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.29623394833033834,
+              "threshold": 0.05,
+              "margin_x": 5.92,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.12434113586162027,
+              "threshold": 0.05,
+              "margin_x": 2.49,
+              "near": true
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.3695652173913043,
+              "threshold": 0.6,
+              "gap": 0.2304,
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "LINK/BTC": {
@@ -21942,7 +22555,54 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.607268; spread_adf_p=0.358022; hl=475.6; hurst=0.4934; rolling_frac=0.1467/req 0.6. Near-miss gates (close but failing): ['half_life_bounds', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.6072675498448601,
+          "spread_adf_pvalue": 0.35802234479307393,
+          "half_life_ou": 475.60512989337616,
+          "hurst_exponent": 0.49344432188786436,
+          "rolling_frac_significant": 0.14673913043478262,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.4533,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.6072675498448601,
+              "threshold": 0.05,
+              "margin_x": 12.15,
+              "near": false
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.35802234479307393,
+              "threshold": 0.05,
+              "margin_x": 7.16,
+              "near": false
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.14673913043478262,
+              "threshold": 0.6,
+              "gap": 0.4533,
+              "near": false
+            },
+            {
+              "gate": "half_life_bounds",
+              "value": 475.60512989337616,
+              "threshold": 500.0,
+              "note": "half_life within 50 of upper bound (edge)",
+              "near": true
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.49344432188786436,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     },
     "LTC/BTC": {
@@ -23310,7 +23970,47 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.168384; spread_adf_p=0.059207; hl=204.4; hurst=0.4656; rolling_frac=0.0978/req 0.6. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "near_miss_audit": {
+          "eg_pvalue": 0.1683835618279763,
+          "spread_adf_pvalue": 0.05920665694052233,
+          "half_life_ou": 204.44091016454018,
+          "hurst_exponent": 0.46558094462380506,
+          "rolling_frac_significant": 0.09782608695652174,
+          "rolling_required": 0.6,
+          "rolling_gap": 0.5022,
+          "near_miss_gates": [
+            {
+              "gate": "engle_granger",
+              "value": 0.1683835618279763,
+              "threshold": 0.05,
+              "margin_x": 3.37,
+              "near": true
+            },
+            {
+              "gate": "spread_mean_reversion",
+              "value": 0.05920665694052233,
+              "threshold": 0.05,
+              "margin_x": 1.18,
+              "near": true
+            },
+            {
+              "gate": "rolling_stability",
+              "value": 0.09782608695652174,
+              "threshold": 0.6,
+              "gap": 0.5022,
+              "near": false
+            },
+            {
+              "gate": "hurst_mean_reversion_hint",
+              "value": 0.46558094462380506,
+              "threshold": 0.5,
+              "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
+              "near": true
+            }
+          ],
+          "all_gates_pass": false
+        }
       }
     }
   }
