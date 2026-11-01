@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:00:00Z | CAMPAIGN 13 ACTIVE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT + REAL-TIME MONITORING) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T20:54:30Z | CAMPAIGN 13 ACTIVE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT + REAL-TIME MONITORING) | BOTTLENOCKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,12 +8,12 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T21:00:00Z
+**TIMESTAMP:** 2026-11-01T20:54:30Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
-1. **Verify integrity (BLOCKING):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
+1. **Verify integrity (BLOCKING):** Run the verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
 3. **Confirm Campaign 12 complete:** `reports/operational_risk_controls_mt.json`, `reports/pre_trade_enforcement_mt.json`, `reports/portfolio_guardrails_mt.json` exist; `tests/test_operational_risk_controls_gating.py` and `tests/test_portfolio_guardrails_schema.py` pass (see CAMPAIGN 12 COMPLETED evidence below).
 4. **Campaign 13 artifacts/tests do NOT exist yet — sole work now.** Do not pivot to unrelated tasks.
@@ -33,7 +33,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING):** All three artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence. Do not stop until done.
 
-## CURRENT VERIFIED STATE (2026-11-01T21:00:00Z)
+## CURRENT VERIFIED STATE (2026-11-01T20:54:30Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT.
@@ -46,11 +46,11 @@
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
 - Integrity: Campaign 12 artifacts/tests verified present; gating invariants intact.
 
-## BOTTLENECKS (REMOVED / PREVENTED)
-Bottlenecks removed across campaigns; gating invariants tested. Handoff is single durable source of truth. Next-agent boot sequence explicit and unambiguous.
+## BOTTLENOCKS (REMOVED / PREVENTED)
+Bottlenecks removed across campaigns; gating invariants tested. Handoff is single durable source of truth. Next-agent boot sequence explicit and unambiguous. No session may start without running the boot sequence; Campaign 13 is the only permitted focus until its artifacts/tests exist and pass.
 
 ## FOCUS CAMPAIGNS (HISTORY)
-- Campaign 1-9 DONE as above.
+- Campaign 1-9 DONE (cointegration stability, structural breaks, portfolio gating MT, execution realism MT, live-ready execution hardening).
 - Campaign 10 DONE: Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting.
 - Campaign 11 DONE: Production live-deployment hardening + post-trade reconciliation + kill-switch.
 - Campaign 12 DONE: Operational risk controls + pre-trade enforcement + portfolio guardrails.
@@ -68,7 +68,7 @@ Bottlenecks removed across campaigns; gating invariants tested. Handoff is singl
 ## VERIFICATION COMMANDS (RUN OFTEN)
 ```bash
 python -m ruff check backtest/ strategies/ utils/ tests/ examples/ scripts/
-python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_cointegration_threshold_invariance.py tests/test_portfolio_gating_mt.py tests/test_execution_gating_consistency.py tests/test_execution_realism_schema.py tests/test_execution_capacity_gating.py tests/test_order_routing_schema.py -v
+python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_cointegration_threshold_invariance.py tests/test_portfolio_gating_mt.py tests/test_execution_gating_consistency.py tests/test_execution_realism_schema.py tests/test_execution_capacity_gating.py tests/test_order_routing_schema.py tests/test_live_deployment_bridge_gating.py tests/test_kill_switch_schema.py tests/test_operational_risk_controls_gating.py tests/test_portfolio_guardrails_schema.py -v
 ```
 
 ## CAMPAIGN 11 COMPLETED (2026-11-01T19:52:00Z) - EVIDENCE
