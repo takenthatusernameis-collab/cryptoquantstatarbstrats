@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T08:56:54Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-11-01T09:08:08Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -6,14 +6,14 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-11-01T08:56:54Z)
+## CURRENT VERIFIED STATE (2026-11-01T09:08:08Z)
 - Branch: `main`, working tree clean. Up to date with `origin/main`.
 - `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Enriched gates enforced strictly.
 - `reports/portfolio_real.json` exists (~664KB) with all 17 pairs marked `blocked_or_insufficient_data`. **Gates dicts are empty for every pair** — the detailed per-pair diagnostics are **not persisted on disk** and must be recomputed from real data.
 - `reports/.portfolio_real_checkpoint.json` is **0 bytes** (empty). No `reports/portfolio_real_regen.log` exists.
 - **REGEN IS NOT RUNNING.** No `run_portfolio_real.py` process. **BOTTLECLOSED: do not wait for a regen that is not running.** Do not block on full portfolio regeneration. Use targeted fast diagnostics instead.
 - Real Binance 1h candles (2026-04-01 to 2026-10-30) are **cached locally** in `data/cache/` for all 11 symbols (ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP) — no network required to recompute diagnostics.
-- POL/BTC **recomputed and confirmed** (2026-11-01T08:56:54Z): `eg_pass=true`, `johansen_pass=true`, `spread_mr_pass=true`, `hl_bounds_pass=true`, `leg_stationarity_ok=true`, `rolling_stable_ok=false`. `frac_significant_0_05=0.0489` (9/184 significant windows at p<0.05, window=720 step=24). Status `blocked_or_insufficient_data`, blocked **only** on `rolling_stability`. All other gates pass on real data.
+- POL/BTC **recomputed and confirmed** (2026-11-01T09:08:08Z): `eg_pass=true`, `johansen_pass=true`, `spread_mr_pass=true`, `hl_bounds_pass=true`, `leg_stationarity_ok=true`, `rolling_stable_ok=false`. `frac_significant_0_05=0.0489` (9/184 significant windows at p<0.05, window=720 step=24). Status `blocked_or_insufficient_data`, blocked **only** on `rolling_stability`. All other gates pass on real data.
 
 ## BOTTLENECKS REMOVED
 1. **Regen not running** — resolved by not waiting. Do not attempt to resume/interrupt `run_portfolio_real.py`. Run a fast targeted cointegration diagnostic sweep over the 17 pairs on real cached data and write per-pair provenance. Full portfolio/bootstrap can be revisited only after the cointegration rigor loop is closed per pair.
