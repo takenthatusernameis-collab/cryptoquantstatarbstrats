@@ -1,0 +1,40 @@
+{
+  "type": "real_binance_quote_volume_1h",
+  "source": "www.binance.com public klines column 5",
+  "symbols": [
+    "ADA",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "LINK",
+    "LTC",
+    "POL",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "MATIC",
+    "TRX",
+    "SHIB",
+    "UNI",
+    "AAVE"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "excluded": [
+    {
+      "symbol": "MATIC",
+      "reason": "all_retries_failed",
+      "attempts": []
+    },
+    {
+      "symbol": "MATIC",
+      "reason": "not_in_results",
+      "attempts": []
+    }
+  ],
+  "blocked_routes": []
+}

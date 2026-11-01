@@ -253,6 +253,7 @@ def main():
 
         weights_by_strategy = {}
         pair_map = {}
+        pair_weights = {}
         for pair in eligible_pairs:
             pname = "/".join(pair)
             try:
@@ -272,6 +273,17 @@ def main():
                         w[asset] = signals[asset].reindex(data.index).fillna(0.0)
                 weights_by_strategy[pname] = w
                 pair_map[pname] = list(pair)
+                # Carry the REAL per-asset weight series so downstream execution
+                # realism / capacity campaigns can size orders. Without this the
+                # pair_map was name-only and every eligible pair produced zero fills.
+                pair_weights[pname] = {
+                    "assets": list(pair),
+                    "index": [str(t) for t in w.index],
+                    "weights": {
+                        asset: [float(x) for x in w[asset].fillna(0.0).tolist()]
+                        for asset in pair
+                    },
+                }
             except Exception as e:
                 print(f"  skip {pname}: {e}")
                 continue
@@ -289,6 +301,7 @@ def main():
                 "n_eligible": len(eligible_pairs),
                 "n_excluded": len(excluded),
                 "pair_map": {},
+                "pair_weights": {},
                 "weights_summary": {
                     "mean_gross_exposure": 0.0,
                     "max_gross_exposure": 0.0,
@@ -398,11 +411,13 @@ def main():
             "excluded": excluded,
             "n_eligible": len(eligible_pairs),
             "n_excluded": len(excluded),
-            "pair_map": pair_map,
+"pair_map": pair_map,
+            "pair_weights": pair_weights,
             "weights_summary": {
                 "mean_gross_exposure": _to_float(combined_weights.abs().sum(axis=1).mean()),
                 "max_gross_exposure": _to_float(combined_weights.abs().sum(axis=1).max()),
                 "mean_net_exposure": _to_float(combined_weights.sum(axis=1).abs().mean()),
+                "n_weighted_bars": int((combined_weights.abs().sum(axis=1) > 1e-12).sum()),
             },
             "portfolio": {
                 "total_return": _to_float(port_res.get("total_return")),
