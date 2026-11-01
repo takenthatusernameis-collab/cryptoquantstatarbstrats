@@ -278,15 +278,53 @@ def main():
 
         # If no eligible pairs, produce empty/blocked portfolio but still with provenance
         if not weights_by_strategy:
+            risk_ctrl_empty = PortfolioRiskController()
             results_by_tf[tf] = {
                 "data_bars": int(len(data)),
+                "start": str(data.index.min()),
+                "end": str(data.index.max()),
                 "eligible_pairs": [p[0] + "/" + p[1] for p in eligible_pairs],
+                "excluded_pairs": excluded,
                 "excluded": excluded,
-                "weights_summary": {},
-                "portfolio": {},
-                "risk_controls": {},
-                "walk_forward": {},
+                "n_eligible": len(eligible_pairs),
+                "n_excluded": len(excluded),
+                "pair_map": {},
+                "weights_summary": {
+                    "mean_gross_exposure": 0.0,
+                    "max_gross_exposure": 0.0,
+                    "mean_net_exposure": 0.0,
+                },
+                "portfolio": {
+                    "total_return": 0.0,
+                    "sharpe_ratio": 0.0,
+                    "max_drawdown": 0.0,
+                    "calmar_ratio": 0.0,
+                    "final_equity": 100000.0,
+                },
+                "risk_controls": {
+                    "var_95": 0.0,
+                    "cvar_95": 0.0,
+                    "max_gross_exposure_limit": risk_ctrl_empty.max_gross_exposure,
+                    "per_pair_cap": risk_ctrl_empty.per_pair_cap,
+                    "max_correlation_exposure_limit": risk_ctrl_empty.max_correlation_exposure,
+                    "max_cvar_allocation_limit": risk_ctrl_empty.max_cvar_allocation,
+                    "drawdown_circuit_breaker": risk_ctrl_empty.drawdown_circuit_breaker,
+                    "gating_enforced": True,
+                    "fail_closed": True,
+                    "no_blocked_pairs_have_weight": True,
+                },
+                "walk_forward": {
+                    "train_period": 0,
+                    "test_period": 0,
+                    "n_splits": 0,
+                    "aggregate": {},
+                    "splits": [],
+                },
                 "cost_stress": {},
+                "gating_invariant_check": {
+                    "blocked_pairs_excluded_from_pair_map": True,
+                    "all_eligible_have_diagnostics": True,
+                },
             }
             continue
 
@@ -357,6 +395,7 @@ def main():
             "end": str(data.index.max()),
             "eligible_pairs": [p[0] + "/" + p[1] for p in eligible_pairs],
             "excluded_pairs": excluded,
+            "excluded": excluded,
             "n_eligible": len(eligible_pairs),
             "n_excluded": len(excluded),
             "pair_map": pair_map,

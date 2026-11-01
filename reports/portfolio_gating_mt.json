@@ -1,10 +1,10 @@
 {
   "type": "portfolio_gating_mt",
-  "mandate": "cryptoquantstatarbstrats - portfolio-level cointegration gating (real data only)",
+  "mandate": "cryptoquantstatarbstrats - portfolio cointegration gating (real data only)",
   "real_data_only": true,
   "fabricated_data": false,
-  "computed_at": "2026-11-01T14:20:57.247778+00:00",
-  "source": "data/cache + reports/cointegration_diagnostics_* (real public Binance spot; causal resample)",
+  "computed_at": "2026-11-01T15:05:16.217346+00:00",
+  "source": "data/cache + reports/cointegration_diagnostics_* (real Binance; causal)",
   "pairs": [
     [
       "BTC",
@@ -96,8 +96,10 @@
   "results_by_timeframe": {
     "1h": {
       "data_bars": 5112,
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-10-30 23:00:00+00:00",
       "eligible_pairs": [],
-      "excluded": {
+      "excluded_pairs": {
         "BTC/ETH": {
           "all_pass": false,
           "blocked_routes": [
@@ -972,16 +974,7 @@
           "status": "blocked_or_insufficient_data"
         }
       },
-      "weights_summary": {},
-      "portfolio": {},
-      "risk_controls": {
-        "gating_enforced": true,
-        "fail_closed": true,
-        "no_blocked_pairs_have_weight": true
-      },
-      "walk_forward": {},
-      "cost_stress": {},
-      "excluded_pairs": {
+      "excluded": {
         "BTC/ETH": {
           "all_pass": false,
           "blocked_routes": [
@@ -1859,6 +1852,38 @@
       "n_eligible": 0,
       "n_excluded": 17,
       "pair_map": {},
+      "weights_summary": {
+        "mean_gross_exposure": 0.0,
+        "max_gross_exposure": 0.0,
+        "mean_net_exposure": 0.0
+      },
+      "portfolio": {
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0,
+        "final_equity": 100000.0
+      },
+      "risk_controls": {
+        "var_95": 0.0,
+        "cvar_95": 0.0,
+        "max_gross_exposure_limit": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure_limit": 0.5,
+        "max_cvar_allocation_limit": 0.25,
+        "drawdown_circuit_breaker": -0.1,
+        "gating_enforced": true,
+        "fail_closed": true,
+        "no_blocked_pairs_have_weight": true
+      },
+      "walk_forward": {
+        "train_period": 0,
+        "test_period": 0,
+        "n_splits": 0,
+        "aggregate": {},
+        "splits": []
+      },
+      "cost_stress": {},
       "gating_invariant_check": {
         "blocked_pairs_excluded_from_pair_map": true,
         "all_eligible_have_diagnostics": true
@@ -1872,6 +1897,799 @@
         "POL/BTC"
       ],
       "excluded_pairs": {
+        "BTC/ETH": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5859514229140772,
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "ETH/SOL": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.497920266310841,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "BTC/SOL": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5797882256617055,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "ADA/ETH": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.623995121144626,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "XRP/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.13008407805187988,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "BNB/ETH": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.42385389994704564,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "BTC/BNB": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5541070485475704,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "SOL/BNB": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.13794555640907624,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "ADA/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.4311250068133495,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "XRP/ETH": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.30000624184044655,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "BNB/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5186129683226186,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "DOT/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.40111986498081387,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "DOT/ETH": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5822553450328296,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "AVAX/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.25066289107352313,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "LINK/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.6039717519548984,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        },
+        "LTC/BTC": {
+          "all_pass": false,
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.07094680796572513,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_oos_mt_4h.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 24,
+              "stable": false
+            }
+          ],
+          "status": "blocked_or_insufficient_data"
+        }
+      },
+      "excluded": {
         "BTC/ETH": {
           "all_pass": false,
           "blocked_routes": [
@@ -2740,8 +3558,10 @@
     },
     "1d": {
       "data_bars": 213,
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-10-30 00:00:00+00:00",
       "eligible_pairs": [],
-      "excluded": {
+      "excluded_pairs": {
         "BTC/ETH": {
           "all_pass": false,
           "blocked_routes": [
@@ -3552,16 +4372,7 @@
           "status": "blocked_or_insufficient_data"
         }
       },
-      "weights_summary": {},
-      "portfolio": {},
-      "risk_controls": {
-        "gating_enforced": true,
-        "fail_closed": true,
-        "no_blocked_pairs_have_weight": true
-      },
-      "walk_forward": {},
-      "cost_stress": {},
-      "excluded_pairs": {
+      "excluded": {
         "BTC/ETH": {
           "all_pass": false,
           "blocked_routes": [
@@ -4375,6 +5186,38 @@
       "n_eligible": 0,
       "n_excluded": 17,
       "pair_map": {},
+      "weights_summary": {
+        "mean_gross_exposure": 0.0,
+        "max_gross_exposure": 0.0,
+        "mean_net_exposure": 0.0
+      },
+      "portfolio": {
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0,
+        "final_equity": 100000.0
+      },
+      "risk_controls": {
+        "var_95": 0.0,
+        "cvar_95": 0.0,
+        "max_gross_exposure_limit": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure_limit": 0.5,
+        "max_cvar_allocation_limit": 0.25,
+        "drawdown_circuit_breaker": -0.1,
+        "gating_enforced": true,
+        "fail_closed": true,
+        "no_blocked_pairs_have_weight": true
+      },
+      "walk_forward": {
+        "train_period": 0,
+        "test_period": 0,
+        "n_splits": 0,
+        "aggregate": {},
+        "splits": []
+      },
+      "cost_stress": {},
       "gating_invariant_check": {
         "blocked_pairs_excluded_from_pair_map": true,
         "all_eligible_have_diagnostics": true
@@ -4388,12 +5231,18 @@
       "1d": 0
     },
     "excluded_counts": {
-      "1h": 0,
+      "1h": 17,
       "4h": 16,
-      "1d": 0
+      "1d": 17
     },
     "portfolio_performance": {
-      "1h": {},
+      "1h": {
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0,
+        "final_equity": 100000.0
+      },
       "4h": {
         "total_return": 0.0,
         "sharpe_ratio": 0.0,
@@ -4401,7 +5250,13 @@
         "calmar_ratio": 0.0,
         "final_equity": 100000.0
       },
-      "1d": {}
+      "1d": {
+        "total_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0,
+        "final_equity": 100000.0
+      }
     },
     "walkforward_aggregate": {
       "1h": {},

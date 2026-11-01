@@ -27,7 +27,7 @@ def test_portfolio_gating_mt_schema_and_gating():
         pair_map = r.get("pair_map") or {}
         excluded = r.get("excluded_pairs") or {}
         for ep in excluded:
-            # if pair_map contains excluded pair name, it must not have weight - but structure shows pair_map built from eligible
+            # excluded pair must not appear in pair_map (built from eligible only)
             assert ep not in pair_map
         # Gating enforced
         rc = r.get("risk_controls") or {}
