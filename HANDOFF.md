@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T09:30:21Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-11-01T09:30:34Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -6,7 +6,7 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-11-01T09:30:21Z)
+## CURRENT VERIFIED STATE (2026-11-01T09:30:34Z)
 - Branch: `main`, working tree clean. Up to date with `origin/main`.
 - `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Enriched gates enforced strictly.
 - **CAMPAIGN 1 DONE:** `reports/cointegration_diagnostics_real.json` written (2026-11-01T09:08:32Z) via `examples/run_cointegration_diagnostics_real.py`. Real cached 1h Binance candles (2026-04-01 to 2026-10-30, 5112 bars, all 11 symbols) — no network used. All 17 pairs diagnosed with full gates + `blocked_routes[]` + rationale + provenance.
