@@ -1,0 +1,186 @@
+{
+  "type": "live_readiness_checklist_mt",
+  "mandate": "cryptoquantstatarbstrats - live-readiness checklist MT (machine-checkable, real data only)",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T17:22:38.714631+00:00",
+  "source": "reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json + reports/portfolio_gating_mt.json",
+  "universe_pairs": [
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL",
+    "ADA/ETH",
+    "XRP/BTC",
+    "BNB/ETH",
+    "BTC/BNB",
+    "SOL/BNB",
+    "ADA/BTC",
+    "XRP/ETH",
+    "BNB/BTC",
+    "DOT/BTC",
+    "DOT/ETH",
+    "POL/BTC",
+    "AVAX/BTC",
+    "LINK/BTC",
+    "LTC/BTC"
+  ],
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "gating_state": {
+    "eligible_counts": {
+      "1h": 0,
+      "4h": 1,
+      "1d": 0
+    },
+    "blocked_counts": {
+      "1h": 17,
+      "4h": 16,
+      "1d": 17
+    }
+  },
+  "eligible_pairs_by_timeframe": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "blocked_pairs_by_timeframe": {
+    "1h": [
+      "BTC/ETH",
+      "ETH/SOL",
+      "BTC/SOL",
+      "ADA/ETH",
+      "XRP/BTC",
+      "BNB/ETH",
+      "BTC/BNB",
+      "SOL/BNB",
+      "ADA/BTC",
+      "XRP/ETH",
+      "BNB/BTC",
+      "DOT/BTC",
+      "DOT/ETH",
+      "POL/BTC",
+      "AVAX/BTC",
+      "LINK/BTC",
+      "LTC/BTC"
+    ],
+    "4h": [
+      "BTC/ETH",
+      "ETH/SOL",
+      "BTC/SOL",
+      "ADA/ETH",
+      "XRP/BTC",
+      "BNB/ETH",
+      "BTC/BNB",
+      "SOL/BNB",
+      "ADA/BTC",
+      "XRP/ETH",
+      "BNB/BTC",
+      "DOT/BTC",
+      "DOT/ETH",
+      "AVAX/BTC",
+      "LINK/BTC",
+      "LTC/BTC"
+    ],
+    "1d": [
+      "BTC/ETH",
+      "ETH/SOL",
+      "BTC/SOL",
+      "ADA/ETH",
+      "XRP/BTC",
+      "BNB/ETH",
+      "BTC/BNB",
+      "SOL/BNB",
+      "ADA/BTC",
+      "XRP/ETH",
+      "BNB/BTC",
+      "DOT/BTC",
+      "DOT/ETH",
+      "POL/BTC",
+      "AVAX/BTC",
+      "LINK/BTC",
+      "LTC/BTC"
+    ]
+  },
+  "capacity_summary": {
+    "capacity_never_lifts_gating": true,
+    "blocked_pairs_zero_allocation": true,
+    "eligible_only_pol_btc_4h": true
+  },
+  "routing_summary": {
+    "fail_closed": true,
+    "only_gated_eligible_feasible": true,
+    "blocked_pairs_have_rejection_log": true
+  },
+  "checklist": [
+    {
+      "id": "LR-01",
+      "category": "gating",
+      "check": "Fail-closed: no weight/fills/capacity allocated to cointegration-blocked pairs",
+      "status": "pass",
+      "evidence": "reports/execution_capacity_mt.json",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-02",
+      "category": "gating",
+      "check": "Capacity constraints never lift gating blocks",
+      "status": "pass",
+      "evidence": "reports/execution_capacity_mt.json (capacity_invariant)",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-03",
+      "category": "routing",
+      "check": "Only gated-eligible pairs are feasible for order routing",
+      "status": "pass",
+      "evidence": "reports/order_routing_realism_mt.json (routing_invariant)",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-04",
+      "category": "routing",
+      "check": "Blocked pairs carry rejection_log + blocked_routes with provenance",
+      "status": "pass",
+      "evidence": "reports/order_routing_realism_mt.json",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-05",
+      "category": "capacity",
+      "check": "Per (timeframe,pair) capacity derived from real volume (ADV) with provenance",
+      "status": "pass",
+      "evidence": "reports/execution_capacity_mt.json (capacity_by_pair)",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-06",
+      "category": "data",
+      "check": "Real data only; no fabricated data in any artifact",
+      "status": "pass",
+      "evidence": "reports/*.json real_data_only=true / fabricated_data=false",
+      "machine_checkable": true
+    },
+    {
+      "id": "LR-07",
+      "category": "tests",
+      "check": "Campaign 9 gating + routing schema tests present and passing",
+      "status": "pass",
+      "evidence": "tests/test_execution_capacity_gating.py, tests/test_order_routing_schema.py",
+      "machine_checkable": true
+    }
+  ],
+  "all_checks_pass": true,
+  "blockers": [],
+  "provenance_links": {
+    "portfolio_gating_mt": "reports/portfolio_gating_mt.json",
+    "execution_capacity_mt": "reports/execution_capacity_mt.json",
+    "order_routing_realism_mt": "reports/order_routing_realism_mt.json",
+    "test_execution_capacity_gating": "tests/test_execution_capacity_gating.py",
+    "test_order_routing_schema": "tests/test_order_routing_schema.py"
+  }
+}
