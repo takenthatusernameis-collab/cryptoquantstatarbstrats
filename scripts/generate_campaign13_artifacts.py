@@ -522,12 +522,21 @@ def main() -> None:
     portfolio_guardrails = _load_json(REPORTS_DIR / "portfolio_guardrails_mt.json")
 
     integration = generate_live_execution_integration(
-        gating, capacity, routing, live_bridge, kill_switch, operational_risk, pre_trade, portfolio_guardrails
+        gating,
+        capacity,
+        routing,
+        live_bridge,
+        kill_switch,
+        operational_risk,
+        pre_trade,
+        portfolio_guardrails,
     )
     integration_path = REPORTS_DIR / "live_execution_integration_mt.json"
     integration_path.write_text(json.dumps(integration, indent=2) + "\n", encoding="utf-8")
 
-    sizing = generate_position_sizing_enforcement(gating, operational_risk, pre_trade, portfolio_guardrails)
+    sizing = generate_position_sizing_enforcement(
+        gating, operational_risk, pre_trade, portfolio_guardrails
+    )
     sizing_path = REPORTS_DIR / "position_sizing_enforcement_mt.json"
     sizing_path.write_text(json.dumps(sizing, indent=2) + "\n", encoding="utf-8")
 
