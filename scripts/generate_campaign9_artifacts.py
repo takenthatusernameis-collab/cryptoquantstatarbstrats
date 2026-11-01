@@ -159,7 +159,7 @@ def _capacity_limits(adv: float) -> dict[str, Any]:
         "max_notional_per_order_usdt": round(max_notional, 6),
         "adv_quote_usdt": round(adv, 6),
         "short_available": False,
-        "short_rationale": "no real borrow/shortability data; short capacity unavailable (fail-closed)",
+        "short_rationale": "no real borrow/shortability data; short capacity unavailable (fail-closed)",  # noqa: E501
         "short_borrow_fee_bps_annual": 5.0,
         "borrow_source": "none_available_real_data_only",
     }
@@ -274,11 +274,11 @@ def generate_execution_capacity(
         }
     return {
         "type": "execution_capacity_mt",
-        "mandate": "cryptoquantstatarbstrats - execution capacity MT linked to cointegration gating (real data only)",
+        "mandate": "cryptoquantstatarbstrats - execution capacity MT linked to cointegration gating (real data only)",  # noqa: E501
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "data/cache (real Binance spot 1h + volume_1h_full) + reports/portfolio_gating_mt.json",
+        "source": "data/cache (real Binance spot 1h + volume_1h_full) + reports/portfolio_gating_mt.json",  # noqa: E501
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "assumptions": {
@@ -440,7 +440,7 @@ def generate_order_routing(gating: dict[str, Any]) -> dict[str, Any]:
         }
     return {
         "type": "order_routing_realism_mt",
-        "mandate": "cryptoquantstatarbstrats - order routing realism MT linked to cointegration gating (real data only)",
+        "mandate": "cryptoquantstatarbstrats - order routing realism MT linked to cointegration gating (real data only)",  # noqa: E501
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
@@ -511,7 +511,7 @@ def generate_live_readiness(
         {
             "id": "LR-01",
             "category": "gating",
-            "check": "Fail-closed: no weight/fills/capacity allocated to cointegration-blocked pairs",
+            "check": "Fail-closed: no weight/fills/capacity allocated to cointegration-blocked pairs",  # noqa: E501
             "status": "pass" if all_blocked_zero_allocation else "fail",
             "evidence": "reports/execution_capacity_mt.json",
             "machine_checkable": True,
@@ -561,7 +561,7 @@ def generate_live_readiness(
             "category": "tests",
             "check": "Campaign 9 gating + routing schema tests present and passing",
             "status": "pass",
-            "evidence": "tests/test_execution_capacity_gating.py, tests/test_order_routing_schema.py",
+            "evidence": "tests/test_execution_capacity_gating.py, tests/test_order_routing_schema.py",  # noqa: E501
             "machine_checkable": True,
         },
     ]
@@ -569,11 +569,11 @@ def generate_live_readiness(
 
     return {
         "type": "live_readiness_checklist_mt",
-        "mandate": "cryptoquantstatarbstrats - live-readiness checklist MT (machine-checkable, real data only)",
+        "mandate": "cryptoquantstatarbstrats - live-readiness checklist MT (machine-checkable, real data only)",  # noqa: E501
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json + reports/portfolio_gating_mt.json",
+        "source": "reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json + reports/portfolio_gating_mt.json",  # noqa: E501
         "universe_pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "gating_state": {

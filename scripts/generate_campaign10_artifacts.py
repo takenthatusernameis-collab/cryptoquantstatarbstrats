@@ -1,4 +1,4 @@
-"""Generate Campaign 10 artifacts: paper trading bridge + drift monitoring + cointegration-gated alerting.
+"""Generate Campaign 10 artifacts: paper trading bridge + drift monitoring + alerting.
 
 Produces:
   reports/paper_trading_bridge_mt.json
@@ -75,7 +75,7 @@ def _gating_blocked_routes(gating_tf: dict[str, Any], pair: str) -> list[dict[st
     return out
 
 
-def generate_paper_trading_bridge(gating: dict[str, Any], capacity: dict[str, Any], routing: dict[str, Any]) -> dict[str, Any]:
+def generate_paper_trading_bridge(gating: dict[str, Any], capacity: dict[str, Any], routing: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
     g_res = gating.get("results_by_timeframe") or {}
     c_res = capacity.get("results_by_timeframe") or {}
     r_res = routing.get("results_by_timeframe") or {}
@@ -86,8 +86,8 @@ def generate_paper_trading_bridge(gating: dict[str, Any], capacity: dict[str, An
 
     for tf in TIMEFRAMES:
         g_tf = g_res.get(tf) or {}
-        c_tf = c_res.get(tf) or {}
-        r_tf = r_res.get(tf) or {}
+        _ = c_res.get(tf) or {}
+        _ = r_res.get(tf) or {}
         eligible = list(g_tf.get("eligible_pairs") or [])
         for p in eligible:
             eligible_all.add(p)
@@ -190,11 +190,11 @@ def generate_paper_trading_bridge(gating: dict[str, Any], capacity: dict[str, An
 
     return {
         "type": "paper_trading_bridge_mt",
-        "mandate": "cryptoquantstatarbstrats - live paper-trading deployment bridge linked to cointegration gating (real data only)",
+        "mandate": "cryptoquantstatarbstrats - live paper-trading deployment bridge linked to cointegration gating (real data only)",  # noqa: E501
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/portfolio_gating_mt.json + reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json (real Binance; causal; fail-closed)",
+        "source": "reports/portfolio_gating_mt.json + reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json (real Binance; causal; fail-closed)",  # noqa: E501
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "results_by_timeframe": bridge_by_tf,
@@ -235,7 +235,7 @@ def generate_drift_monitor(gating: dict[str, Any]) -> dict[str, Any]:
                     },
                     "regime_change_detected": False,
                     "threshold_drift_detected": False,
-                    "execution_drift_vs_mt": {"status": "within_expectation", "trailing_only": True},
+                    "execution_drift_vs_mt": {"status": "within_expectation", "trailing_only": True},  # noqa: E501
                     "auto_lift_blocks": False,
                     "drift_alerts": [],
                     "gating_context": {
@@ -296,11 +296,11 @@ def generate_drift_monitor(gating: dict[str, Any]) -> dict[str, Any]:
 
     return {
         "type": "drift_monitor_mt",
-        "mandate": "cryptoquantstatarbstrats - drift monitoring for cointegration/pairs (real data only; never auto-lift gates)",
+        "mandate": "cryptoquantstatarbstrats - drift monitoring for cointegration/pairs (real data only; never auto-lift gates)",  # noqa: E501
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/portfolio_gating_mt.json + cointegration diagnostics (real Binance; causal; trailing only)",
+        "source": "reports/portfolio_gating_mt.json + cointegration diagnostics (real Binance; causal; trailing only)",  # noqa: E501
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "results_by_timeframe": drift_by_tf,
