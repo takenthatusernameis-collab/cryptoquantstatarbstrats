@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T16:04:30Z | CAMPAIGN 7 COMPLETE (PORTFOLIO GATING + WALK-FORWARD + RISK STRESS) | NEXT: CAMPAIGN 8 (EXECUTION REALISM + LIVE-READY COINTEGRATION VALIDATION)
+# SINGLE DURABLE HANDOFF | 2026-11-01T17:06:05Z | CAMPAIGN 8 COMPLETE (EXECUTION REALISM + COINTEGRATION-DRIVEN VALIDATION) | NEXT: CAMPAIGN 9 (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS)
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T16:04:30Z
+**TIMESTAMP:** 2026-11-01T17:06:05Z
 **TARGET SESSION:** Next agentic work session (immediate)
 **MISSION:** Continue enforcing cointegration law with heavy, verifiable work. Preserve all green state. Remove any remaining friction. Build forward only with evidence.
 
@@ -19,7 +19,7 @@
 4. **Do not speculate blindly:** Only extend if new real data/windows appear OR if explicitly needed to close a concrete gap that would violate cointegration rigor. Otherwise execute Campaign 8 as specified.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE WORK)
-> **OBJECTIVE (HEAVY):** Extend cointegration-driven pairs trading validation to execution realism using ONLY real data. Enforce fail-closed gating end-to-end. Every eligible allocation must remain traceable to passing enriched gates per (pair, timeframe). No threshold weakening. No fabrication. Produce artifacts, tests, provenance, and logs for every step. Coasting = failure.
+> **OBJECTIVE (HEAVY, CAMPAIGN 9):** Harden execution realism for live-readiness while strictly preserving cointegration gating (fail-closed). Only real data/causal logic. No threshold weakening. No fabrication. Produce artifacts `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json`, tests `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py`, provenance, logs. Coasting = failure.
 
 ## CURRENT VERIFIED STATE (2026-11-01T15:07:00Z)
 - Branch: `main`. Up to date with `origin/main`. HEAD = `50a2e87` (chore(kilo): checkpoint agent session). Working tree clean.
