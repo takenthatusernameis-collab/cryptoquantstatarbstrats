@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T08:10:00Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-11-01T08:31:09Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -6,7 +6,7 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-11-01T08:10:00Z)
+## CURRENT VERIFIED STATE (2026-11-01T08:31:09Z)
 - Branch: `main`, working tree clean. Up to date with `origin/main`.
 - `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Enriched gates enforced strictly.
 - `reports/portfolio_real.json` exists (~664KB) with all 17 pairs marked `blocked_or_insufficient_data`. **Gates dicts are empty for every pair** — the detailed per-pair diagnostics (EG/Johansen/rolling_stability etc.) referenced in the prior handoff are **not persisted on disk** and must be recomputed from real data.
