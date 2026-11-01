@@ -9,6 +9,8 @@ REPORTS = [
     Path("reports/cointegration_diagnostics_real.json"),
     Path("reports/cointegration_diagnostics_oos.json"),
     Path("reports/cointegration_diagnostics_oos_v2.json"),
+    Path("reports/cointegration_diagnostics_oos_mt_4h.json"),
+    Path("reports/cointegration_diagnostics_oos_mt_1d.json"),
 ]
 
 

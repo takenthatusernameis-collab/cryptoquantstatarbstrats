@@ -1,0 +1,335 @@
+{
+  "type": "mt_structural_breaks_summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T13:25:09.910621+00:00",
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "pairs": {
+    "ADA/BTC": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 5.699286746969877e-06,
+            "beta_second_half": 3.0853301755667313e-06,
+            "relative_change": 0.2975606784510819
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 5.710288004237053e-06,
+            "beta_second_half": 3.0815535929313776e-06,
+            "relative_change": 0.2989970169790146
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "ADA/ETH": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.00015132226873003439,
+            "beta_second_half": 8.242864316467171e-05,
+            "relative_change": 0.2947309381894337
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.00015150013657204878,
+            "beta_second_half": 8.237545279048704e-05,
+            "relative_change": 0.29556177269278716
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "AVAX/BTC": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "BNB/BTC": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.004172949690872946,
+            "beta_second_half": 0.008940055359974873,
+            "relative_change": 0.36354029077367817
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.004171971285015325,
+            "beta_second_half": 0.008946776371702261,
+            "relative_change": 0.363968056374798
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "BNB/ETH": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.0881377167559,
+            "beta_second_half": 0.23635478364570492,
+            "relative_change": 0.4567657702608397
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.08804900224933346,
+            "beta_second_half": 0.2366960990165543,
+            "relative_change": 0.45773468541259016
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "BTC/BNB": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "BTC/ETH": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "BTC/SOL": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "DOT/BTC": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "DOT/ETH": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "ETH/SOL": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 31.033476379295006,
+            "beta_second_half": 18.424807172543286,
+            "relative_change": 0.2549354385405693
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 31.036053205992665,
+            "beta_second_half": 18.43738133556717,
+            "relative_change": 0.2546552910096036
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "LINK/BTC": {
+      "1h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.00012018928833890132,
+            "beta_second_half": 0.00023257165880717227,
+            "relative_change": 0.31857939881801767
+          }
+        ]
+      },
+      "4h": {
+        "flagged": true,
+        "breaks": [
+          {
+            "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+            "beta_first_half": 0.00012032531874963295,
+            "beta_second_half": 0.0002327766135745571,
+            "relative_change": 0.31846694829661826
+          }
+        ]
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "LTC/BTC": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "POL/BTC": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "SOL/BNB": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "XRP/BTC": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    },
+    "XRP/ETH": {
+      "1h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "4h": {
+        "flagged": false,
+        "breaks": []
+      },
+      "1d": {
+        "flagged": null,
+        "breaks": []
+      }
+    }
+  }
+}
