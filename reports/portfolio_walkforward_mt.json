@@ -1,0 +1,94 @@
+{
+  "type": "portfolio_walkforward_mt",
+  "mandate": "cryptoquantstatarbstrats - walk-forward portfolio re-validation (real data only, mt timeframes)",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T15:05:16.217346+00:00",
+  "source": "data/cache + reports/cointegration_diagnostics_* (real Binance; causal)",
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "results_by_timeframe": {
+    "1h": {
+      "data_bars": 5112,
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-10-30 23:00:00+00:00",
+      "eligible_pairs": [],
+      "walk_forward": {
+        "train_period": 0,
+        "test_period": 0,
+        "n_splits": 0,
+        "aggregate": {},
+        "splits": []
+      },
+      "benchmarks": {
+        "type": "pair_matched_equal_weight_buy_and_hold",
+        "description": "Equal-weight buy-and-hold across eligible pairs per timeframe (honest comparison)",
+        "note": "Benchmarks computed in context of gated book; see portfolio_gating_mt for details"
+      },
+      "degradation": {
+        "oos_is_ratio": null,
+        "honest": true,
+        "recorded_not_hidden": true
+      }
+    },
+    "4h": {
+      "data_bars": 1278,
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-10-30 20:00:00+00:00",
+      "eligible_pairs": [
+        "POL/BTC"
+      ],
+      "walk_forward": {
+        "train_period": 213,
+        "test_period": 106,
+        "n_splits": 0,
+        "aggregate": {
+          "mean_oos_return": 0.0,
+          "std_oos_return": 0.0,
+          "positive_periods": 0,
+          "total_periods": 4,
+          "is_mean_return": 0.0,
+          "oos_mean_return": 0.0,
+          "oos_is_ratio": 0.0
+        },
+        "splits": []
+      },
+      "benchmarks": {
+        "type": "pair_matched_equal_weight_buy_and_hold",
+        "description": "Equal-weight buy-and-hold across eligible pairs per timeframe (honest comparison)",
+        "note": "Benchmarks computed in context of gated book; see portfolio_gating_mt for details"
+      },
+      "degradation": {
+        "oos_is_ratio": 0.0,
+        "honest": true,
+        "recorded_not_hidden": true
+      }
+    },
+    "1d": {
+      "data_bars": 213,
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-10-30 00:00:00+00:00",
+      "eligible_pairs": [],
+      "walk_forward": {
+        "train_period": 0,
+        "test_period": 0,
+        "n_splits": 0,
+        "aggregate": {},
+        "splits": []
+      },
+      "benchmarks": {
+        "type": "pair_matched_equal_weight_buy_and_hold",
+        "description": "Equal-weight buy-and-hold across eligible pairs per timeframe (honest comparison)",
+        "note": "Benchmarks computed in context of gated book; see portfolio_gating_mt for details"
+      },
+      "degradation": {
+        "oos_is_ratio": null,
+        "honest": true,
+        "recorded_not_hidden": true
+      }
+    }
+  }
+}

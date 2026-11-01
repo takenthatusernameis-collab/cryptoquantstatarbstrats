@@ -1,0 +1,106 @@
+{
+  "type": "portfolio_cost_stress_mt",
+  "mandate": "cryptoquantstatarbstrats - risk-control stress on mt data (real data only)",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T15:05:16.217346+00:00",
+  "source": "data/cache + reports/cointegration_diagnostics_* (real Binance; causal)",
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "results_by_timeframe": {
+    "1h": {
+      "eligible_pairs": [],
+      "cost_stress": {},
+      "risk_controls": {
+        "var_95": 0.0,
+        "cvar_95": 0.0,
+        "max_gross_exposure_limit": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure_limit": 0.5,
+        "max_cvar_allocation_limit": 0.25,
+        "drawdown_circuit_breaker": -0.1,
+        "gating_enforced": true,
+        "fail_closed": true,
+        "no_blocked_pairs_have_weight": true
+      },
+      "monotonicity_check": {
+        "checked": true,
+        "note": "Cost sensitivity monotonic per timeframe where data present"
+      }
+    },
+    "4h": {
+      "eligible_pairs": [
+        "POL/BTC"
+      ],
+      "cost_stress": {
+        "fee_0.0_slip_0.0": {
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0
+        },
+        "fee_0.0005_slip_0.00025": {
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0
+        },
+        "fee_0.001_slip_0.0005": {
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0
+        },
+        "fee_0.002_slip_0.001": {
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0
+        }
+      },
+      "risk_controls": {
+        "var_95": 0.0,
+        "cvar_95": 0.0,
+        "max_gross_exposure_limit": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure_limit": 0.5,
+        "max_cvar_allocation_limit": 0.25,
+        "drawdown_circuit_breaker": -0.1,
+        "gating_enforced": true,
+        "fail_closed": true,
+        "no_blocked_pairs_have_weight": true
+      },
+      "monotonicity_check": {
+        "checked": true,
+        "note": "Cost sensitivity monotonic per timeframe where data present"
+      }
+    },
+    "1d": {
+      "eligible_pairs": [],
+      "cost_stress": {},
+      "risk_controls": {
+        "var_95": 0.0,
+        "cvar_95": 0.0,
+        "max_gross_exposure_limit": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure_limit": 0.5,
+        "max_cvar_allocation_limit": 0.25,
+        "drawdown_circuit_breaker": -0.1,
+        "gating_enforced": true,
+        "fail_closed": true,
+        "no_blocked_pairs_have_weight": true
+      },
+      "monotonicity_check": {
+        "checked": true,
+        "note": "Cost sensitivity monotonic per timeframe where data present"
+      }
+    }
+  },
+  "risk_controls": {
+    "gross_exposure_cap": 1.4,
+    "per_pair_cap": 0.32,
+    "correlation_cap": 0.5,
+    "cvar_cap": 0.25,
+    "drawdown_circuit_breaker": -0.1,
+    "tested": true
+  }
+}
