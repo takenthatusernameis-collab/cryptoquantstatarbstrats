@@ -80,8 +80,22 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
   - Campaign 10 tests: 2 passed
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
 
-## CAMPAIGN 11 (ACTIVE - HEAVY) - 2026-11-01T19:16:07Z
+## CAMPAIGN 11 (COMPLETED) - 2026-11-01T19:52:00Z
 - **Focus:** Production live-deployment hardening + post-trade reconciliation + kill-switch, cointegration-gated (fail-closed). Real data only.
 - **Required artifacts:** `reports/live_deployment_bridge_mt.json`, `reports/post_trade_reconciliation_mt.json`, `reports/kill_switch_rules_mt.json`
 - **Required tests:** `tests/test_live_deployment_bridge_gating.py`, `tests/test_kill_switch_schema.py`
 - **Mandatory heavy work:** preserve gating (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), real data, causal only, no threshold weakening, ruff clean, targeted pytest green.
+
+
+## CAMPAIGN 11 COMPLETED (2026-11-01T19:52:00Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/live_deployment_bridge_mt.json` (production live-deployment bridge from MT-gated state; only POL/BTC eligible at 4h; 0/17 at 1h, 0/17 at 1d; blocked pairs zeroed with rejection_log/blocked_routes/orders_allowed/fills_allowed=false; full provenance; linked to portfolio_gating_mt.json/execution_capacity_mt.json/order_routing_realism_mt.json/paper_trading_bridge_mt.json)
+  - `reports/post_trade_reconciliation_mt.json` (post-trade reconciliation vs gated state; mismatches_detect_only; auto_lift_blocks_forbidden; never_auto_lift_gates; evidence required)
+  - `reports/kill_switch_rules_mt.json` (cointegration-gated kill-switch; respect gating/fail-closed; no_auto_lift_of_blocks; severity includes evidence/provenance/gating_context/blocked_routes)
+- **TESTS PRODUCED:**
+  - `tests/test_live_deployment_bridge_gating.py` (PASSED) - bridge enforces gating invariants, zero allocation for blocked, links prior artifacts
+  - `tests/test_kill_switch_schema.py` (PASSED) - kill-switch schema/invariants, reconciliation invariants, gated triggers with evidence
+- **VERIFICATION:**
+  - Campaign 11 artifacts generated via `scripts/generate_campaign11_artifacts.py`
+  - Campaign 11 tests: 2 passed
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
