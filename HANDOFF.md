@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T17:08:17Z | CAMPAIGN 8 COMPLETE | NEXT: CAMPAIGN 9 (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T17:17:43Z | CAMPAIGN 9 ACTIVE (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T17:08:17Z
+**TIMESTAMP:** 2026-11-01T17:17:43Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -17,6 +17,12 @@
 2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
 3. **Audit existing state:** Confirm Campaign 8 artifacts exist: `reports/execution_realism_mt.json`, `reports/turnover_slippage_mt.json`, `reports/execution_stress_grid_mt.json`. Confirm gating artifacts exist: `reports/portfolio_gating_mt.json`, `reports/portfolio_walkforward_mt.json`, `reports/portfolio_cost_stress_mt.json`, `reports/mt_blocking_matrix.json`, `reports/mt_structural_breaks_summary.json`. Confirm all cointegration-gating tests pass.
 4. **Identify the gap (BLOCKING):** Campaign 9 artifacts/tests do **NOT** exist yet. This is the **ONLY** work to do now. Do not pivot to unrelated tasks.
+
+### CONCRETE GATING STATE (DO NOT WEAKEN — from reports/portfolio_gating_mt.json)
+- Universe: 17 pairs (BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH, XRP/BTC, BNB/ETH, BTC/BNB, SOL/BNB, ADA/BTC, XRP/ETH, BNB/BTC, DOT/BTC, DOT/ETH, POL/BTC, AVAX/BTC, LINK/BTC, LTC/BTC).
+- 1h: 0 eligible / 17 blocked. 4h: 1 eligible (POL/BTC) / 16 blocked. 1d: 0 eligible / 17 blocked.
+- Only gated-eligible pairs may receive weight/fills/capacity. Blocked pairs = zero allocation, full provenance, honest blocking.
+- Campaign 9 must **preserve** this exactly: capacity/routing constraints never lift gating blocks.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY)
 > **OBJECTIVE (HEAVY, CAMPAIGN 9 - MANDATORY, COINTEGRATION-FIRST):** Harden execution realism for live-readiness while strictly preserving cointegration gating (fail-closed). Only real data/causal logic. No threshold weakening. No fabrication. Every gated block must remain blocked.
@@ -35,13 +41,13 @@
 >
 > **COMPLETION:** Update this handoff with concrete evidence (artifact paths, test results) on completion. Do not stop until all required artifacts/tests exist and verification passes.
 
-## CURRENT VERIFIED STATE (2026-11-01T17:08:17Z)
+## CURRENT VERIFIED STATE (2026-11-01T17:17:43Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation (4h: 1/17 pass all gates [POL/BTC passes honestly]; 1d: 0/17). MT blocking matrix + structural breaks populated. Threshold invariance green.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT (fail-closed, no blocked pair gets weight). Walk-forward MT + risk/cost stress MT artifacts created with provenance. Tests passing.
 - **Campaign 8 DONE:** Execution realism MT (fills/slippage/fees/latency/partial/rejects, fail-closed), turnover/implementation shortfall MT, execution stress grid MT, tests added and passing. All provenance linked.
 - **Campaign 9 PENDING (ACTIVE GAP):** Artifacts `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json` and tests `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py` do **NOT** exist yet. This is the **ONLY** work to do now.
-- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 12 symbols; offline-capable. Real data only.
+- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 1. MT blocking matrix + structural-breaks summary empty → populated (Campaign 6).
@@ -61,7 +67,7 @@
 - Campaign 6 (DONE): Multi-timeframe (4h/1d) rolling stability + structural-break re-validation across all 17 pairs
 - Campaign 7 (DONE): Portfolio-level cointegration gating integration + walk-forward portfolio re-validation + risk-control stress on mt timeframes (1h/4h/1d)
 - Campaign 8 (DONE): Execution realism + cointegration-driven execution validation (execution_realism_mt, turnover_slippage_mt, execution_stress_grid_mt + tests)
-- **Campaign 9 (ACTIVE - HEAVY, DO NOT SKIP): LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS** - See NEXT AGENT START HERE.
+- **Campaign 9 (ACTIVE - HEAVY, DO NOT SKIP): LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS** - See NEXT AGENT START HERE. Produce `execution_capacity_mt.json`, `order_routing_realism_mt.json`, `live_readiness_checklist_mt.json` + `test_execution_capacity_gating.py`, `test_order_routing_schema.py`. Preserve honest blocking: 17 pairs blocked at 1h/1d, POL/BTC only eligible at 4h.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
