@@ -259,3 +259,92 @@ def test_adf_eg_johansen_functions_on_synthetic_series():
     assert "trace_stat" in joh and "rank_trace_95" in joh
     adf = adf_test(df["A"])
     assert "statistic" in adf and "pvalue" in adf
+
+
+REAL_DIAG_ARTIFACT = Path("reports/cointegration_diagnostics_real.json")
+
+
+def _real_diag() -> dict:
+    return json.loads(REAL_DIAG_ARTIFACT.read_text(encoding="utf-8"))
+
+
+def test_real_diag_artifact_exists_and_is_real_data_only():
+    msg = "reports/cointegration_diagnostics_real.json must be regenerated from real data"
+    assert REAL_DIAG_ARTIFACT.exists(), msg
+    data = _real_diag()
+    assert data.get("real_data_only") is True
+    assert data.get("fabricated_data") is False
+
+
+def test_real_diag_has_all_17_pairs():
+    data = _real_diag()
+    cd = data.get("cointegration_diagnostics", {})
+    assert isinstance(cd, dict)
+    assert set(cd.keys()) == {f"{a}/{b}" for a, b in PAIRS}, set(cd.keys())
+
+
+def test_real_diag_each_pair_full_schema_and_provenance():
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname in cd.keys():
+        diag = cd[pname]
+        assert list(diag["pair"]) == list(pname.split("/")), pname
+        assert diag["status"] in (
+            "computed_from_existing_results",
+            "blocked_or_insufficient_data",
+        ), pname
+        prov = diag["provenance"]
+        for k in PROVENANCE_KEYS:
+            assert k in prov, f"{pname}: provenance missing {k}"
+        assert prov["real_data_only"] is True
+        assert prov["fabricated_data"] is False
+        assert isinstance(prov["blocked_routes"], list)
+        assert isinstance(prov["computed_at"], str) and prov["computed_at"]
+        assert isinstance(prov["rationale"], str) and prov["rationale"]
+        gates = diag["gates"]
+        for k in GATES_KEYS:
+            assert k in gates, f"{pname}: gates missing {k}"
+        # Gates are booleans once series are available (real data present).
+        for g in (
+            "eg_pass",
+            "johansen_pass",
+            "spread_mr_pass",
+            "hl_bounds_pass",
+            "rolling_stable_ok",
+            "leg_stationarity_ok",
+        ):
+            assert diag["gates"][g] in (True, False), f"{pname}: {g}={diag['gates'][g]}"
+        # Honest blocking invariant: all_pass True => no blocked_routes;
+        # False => non-empty blocked_routes.
+        if gates["all_pass"]:
+            assert prov["blocked_routes"] == [], pname
+            assert diag["status"] == "computed_from_existing_results"
+        else:
+            msg = f"{pname}: failing pair needs non-empty blocked_routes"
+            assert len(prov["blocked_routes"]) > 0, msg
+            assert diag["status"] == "blocked_or_insufficient_data"
+        # Round-trips through strict JSON (no NaN/Inf leakage).
+        json.dumps(diag, default=float)
+
+
+def test_real_diag_pol_btc_blocked_only_on_rolling_stability():
+    data = _real_diag()
+    diag = data["cointegration_diagnostics"]["POL/BTC"]
+    gates = diag["gates"]
+    assert gates["eg_pass"] is True
+    assert gates["johansen_pass"] is True
+    assert gates["spread_mr_pass"] is True
+    assert gates["hl_bounds_pass"] is True
+    assert gates["leg_stationarity_ok"] is True
+    assert gates["rolling_stable_ok"] is False
+    assert gates["all_pass"] is False
+    routes = {r["route"] for r in diag["provenance"]["blocked_routes"]}
+    assert routes == {"rolling_stability"}, routes
+    assert diag["status"] == "blocked_or_insufficient_data"
+
+
+def test_real_diag_no_pair_passes_all_gates_on_this_window():
+    data = _real_diag()
+    cd = data["cointegration_diagnostics"]
+    for pname, diag in cd.items():
+        assert diag["gates"]["all_pass"] is False, f"{pname} unexpectedly passes all gates"
