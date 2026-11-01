@@ -75,7 +75,12 @@ def _gating_blocked_routes(gating_tf: dict[str, Any], pair: str) -> list[dict[st
     return out
 
 
-def generate_live_deployment_bridge(gating: dict[str, Any], capacity: dict[str, Any], routing: dict[str, Any], paper: dict[str, Any]) -> dict[str, Any]:
+def generate_live_deployment_bridge(
+    gating: dict[str, Any],
+    capacity: dict[str, Any],
+    routing: dict[str, Any],
+    paper: dict[str, Any],
+) -> dict[str, Any]:
     g_res = gating.get("results_by_timeframe") or {}
     bridge_by_tf: dict[str, Any] = {}
 
@@ -198,11 +203,20 @@ def generate_live_deployment_bridge(gating: dict[str, Any], capacity: dict[str, 
 
     return {
         "type": "live_deployment_bridge_mt",
-        "mandate": "cryptoquantstatarbstrats - production live-deployment hardening bridge linked to cointegration gating (real data only)",
+        "mandate": (
+            "cryptoquantstatarbstrats - production live-deployment hardening bridge "
+            "linked to cointegration gating (real data only)"
+        ),
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/portfolio_gating_mt.json + reports/execution_capacity_mt.json + reports/order_routing_realism_mt.json + reports/paper_trading_bridge_mt.json (real Binance; causal; fail-closed)",
+        "source": (
+            "reports/portfolio_gating_mt.json + "
+            "reports/execution_capacity_mt.json + "
+            "reports/order_routing_realism_mt.json + "
+            "reports/paper_trading_bridge_mt.json "
+            "(real Binance; causal; fail-closed)"
+        ),
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "results_by_timeframe": bridge_by_tf,
@@ -220,9 +234,11 @@ def generate_live_deployment_bridge(gating: dict[str, Any], capacity: dict[str, 
     }
 
 
-def generate_post_trade_reconciliation(gating: dict[str, Any], live_bridge: dict[str, Any]) -> dict[str, Any]:
+def generate_post_trade_reconciliation(
+    gating: dict[str, Any],
+    live_bridge: dict[str, Any],
+) -> dict[str, Any]:
     g_res = gating.get("results_by_timeframe") or {}
-    l_res = live_bridge.get("results_by_timeframe") or {}
     recon_by_tf: dict[str, Any] = {}
 
     for tf in TIMEFRAMES:
