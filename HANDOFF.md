@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:53:26Z | CAMPAIGN 13 COMPLETE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT) | CAMPAIGN 14 ACTIVE (REAL-TIME MONITORING GATING) | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T21:55:00Z | CAMPAIGN 14 COMPLETE (REAL-TIME MONITORING GATING) | CAMPAIGN 15 ACTIVE (END-TO-END PRODUCTION PIPELINE VERIFICATION + STRESS GATING) | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -43,7 +43,8 @@
 - **Campaign 11 DONE:** Production live-deployment hardening + post-trade reconciliation + kill-switch complete.
 - **Campaign 12 DONE:** Operational risk controls + pre-trade enforcement + portfolio guardrails complete.
 - **Campaign 13 DONE:** Live execution integration + position sizing enforcement + real-time monitoring (artifacts/tests present).
-- **Campaign 14 ACTIVE:** Real-time monitoring gating test + hardening (sole focus).
+- **Campaign 14 DONE:** Real-time monitoring gating test + hardening (artifacts/tests present and green).
+- **Campaign 15 ACTIVE:** End-to-end production pipeline verification + stress gating (sole focus).
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
 - Integrity: Campaign 12 artifacts/tests verified present; gating invariants intact. Handoff is single durable source of truth.
 
@@ -103,3 +104,19 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 2. **Generate artifacts:** `reports/live_execution_integration_mt.json`, `reports/position_sizing_enforcement_mt.json`, `reports/realtime_monitoring_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
 3. **Write tests:** `tests/test_live_execution_integration_gating.py`, `tests/test_position_sizing_enforcement_schema.py` mirroring Campaign 12 gating tests (eligible sets equal to gating, blocked zeroed, rejection logs present, provenance/gating_context correct).
 4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 13 COMPLETED evidence.
+
+## CAMPAIGN 14 COMPLETED (2026-11-01T21:55:00Z) - EVIDENCE
+- **ARTIFACTS/TESTS:** `reports/realtime_monitoring_mt.json`, `tests/test_realtime_monitoring_gating.py` (PASSED).
+- **INVARIANTS PRESERVED:** gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no auto-lift.
+
+## CAMPAIGN 15 (ACTIVE) — EXECUTION PLAN
+1. **Create generator:** `scripts/generate_campaign15_artifacts.py` following Campaign 13/14 patterns. Load all prior MT artifacts. Enforce gating invariants explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
+2. **Generate artifacts:** `reports/end_to_end_pipeline_verification_mt.json`, `reports/stress_gating_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
+3. **Write tests:** `tests/test_end_to_end_pipeline_verification_gating.py`, `tests/test_stress_gating_schema.py` mirroring prior gating tests.
+4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 15 COMPLETED evidence.
+
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE - MANDATORY, HEAVY)
+> **OBJECTIVE (HEAVY, CAMPAIGN 15 - MANDATORY, COINTEGRATION-FIRST):** End-to-end production pipeline verification + stress gating, cointegration-gated (fail-closed). Real data only. No threshold weakening. No fabrication. Every gated block remains blocked.
+> **REQUIRED ARTIFACTS:** `reports/end_to_end_pipeline_verification_mt.json`, `reports/stress_gating_mt.json`
+> **REQUIRED TESTS:** `tests/test_end_to_end_pipeline_verification_gating.py`, `tests/test_stress_gating_schema.py`
+> **COMPLETION CRITERIA (BLOCKING):** All artifacts and tests exist, schemas consistent, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence.
