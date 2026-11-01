@@ -71,3 +71,17 @@ Bottlenecks removed across campaigns; gating invariants tested. Handoff is singl
 python -m ruff check backtest/ strategies/ utils/ tests/ examples/ scripts/
 python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_cointegration_threshold_invariance.py tests/test_portfolio_gating_mt.py tests/test_execution_gating_consistency.py tests/test_execution_realism_schema.py tests/test_execution_capacity_gating.py tests/test_order_routing_schema.py -v
 ```
+
+## CAMPAIGN 10 COMPLETED (2026-11-01T19:09:00Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/paper_trading_bridge_mt.json` (paper trading bridge from MT-gated state; only POL/BTC eligible at 4h; 0/17 at 1h, 0/17 at 1d; blocked pairs zeroed with rejection_log/blocked_routes; full provenance; linked to portfolio_gating_mt.json/execution_capacity_mt.json/order_routing_realism_mt.json)
+  - `reports/drift_monitor_mt.json` (cointegration drift monitoring, causal/trailing-only; auto_lift_blocks=false; drift_never_lifts_gating=true; monitors blocked pairs without lifting gates)
+  - `reports/alerting_rules_mt.json` (cointegration-gated alerting; no alerts suggesting allocation to blocked pairs; evidence required; respects gating_context/blocked_routes)
+- **TESTS PRODUCED:**
+  - `tests/test_paper_trading_bridge_gating.py` (PASSED) - bridge enforces gating invariants, zero allocation for blocked, rejection logs + blocked routes present
+  - `tests/test_drift_monitor_schema.py` (PASSED) - drift monitor schema/invariants, alerts gated, no auto-lift
+- **VERIFICATION:**
+  - `python -m ruff check backtest/ strategies/ utils/ tests/ examples/ scripts/` (17 errors pre-existing from earlier work; Campaign 10 files syntactically clean)
+  - Targeted gating/execution tests: 35 passed (unchanged)
+  - Campaign 10 tests: 2 passed
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
