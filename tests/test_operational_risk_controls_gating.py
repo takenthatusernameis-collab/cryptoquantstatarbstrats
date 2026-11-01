@@ -14,8 +14,16 @@ def test_operational_risk_controls_preserves_gating():
     if not risk_path.exists() or not gating_path.exists():
         pytest.skip("Missing artifacts")
     risk = json.loads(risk_path.read_text(encoding="utf-8"))
-    pretrade = json.loads(pretrade_path.read_text(encoding="utf-8")) if pretrade_path.exists() else {}
-    guard = json.loads(guard_path.read_text(encoding="utf-8")) if guard_path.exists() else {}
+    pretrade = (
+        json.loads(pretrade_path.read_text(encoding="utf-8"))
+        if pretrade_path.exists()
+        else {}
+    )
+    guard = (
+        json.loads(guard_path.read_text(encoding="utf-8"))
+        if guard_path.exists()
+        else {}
+    )
     gating = json.loads(gating_path.read_text(encoding="utf-8"))
 
     assert risk.get("real_data_only") is True

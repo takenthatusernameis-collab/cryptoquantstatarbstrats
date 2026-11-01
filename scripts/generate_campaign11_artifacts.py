@@ -257,7 +257,10 @@ def generate_post_trade_reconciliation(
                     "mismatches": [],
                     "fills_allowed": True,
                     "auto_lift_blocks": False,
-                    "gating_context": {"source_gating": "reports/portfolio_gating_mt.json", "timeframe": tf},
+                    "gating_context": {
+                        "source_gating": "reports/portfolio_gating_mt.json",
+                        "timeframe": tf,
+                    },
                     "blocked_routes": [],
                     "provenance": {
                         "source_gating": "reports/portfolio_gating_mt.json",
@@ -318,15 +321,25 @@ def generate_post_trade_reconciliation(
 
     return {
         "type": "post_trade_reconciliation_mt",
-        "mandate": "cryptoquantstatarbstrats - post-trade reconciliation vs cointegration-gated state (real data only; never auto-lift blocks)",
+        "mandate": (
+            "cryptoquantstatarbstrats - post-trade reconciliation vs cointegration-gated state "
+            "(real data only; never auto-lift blocks)"
+        ),
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/portfolio_gating_mt.json + reports/live_deployment_bridge_mt.json (real Binance; causal; fail-closed)",
+        "source": (
+            "reports/portfolio_gating_mt.json + reports/live_deployment_bridge_mt.json "
+            "(real Binance; causal; fail-closed)"
+        ),
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "results_by_timeframe": recon_by_tf,
-        "recon_summary": {"auto_lift_blocks": False, "mismatches_detect_only": True, "fail_closed": True},
+        "recon_summary": {
+            "auto_lift_blocks": False,
+            "mismatches_detect_only": True,
+            "fail_closed": True,
+        },
         "provenance_links": {
             "portfolio_gating_mt": "reports/portfolio_gating_mt.json",
             "live_deployment_bridge_mt": "reports/live_deployment_bridge_mt.json",
@@ -334,7 +347,9 @@ def generate_post_trade_reconciliation(
     }
 
 
-def generate_kill_switch_rules(gating: dict[str, Any], live_bridge: dict[str, Any], recon: dict[str, Any]) -> dict[str, Any]:
+def generate_kill_switch_rules(
+    gating: dict[str, Any], live_bridge: dict[str, Any], recon: dict[str, Any]
+) -> dict[str, Any]:
     g_res = gating.get("results_by_timeframe") or {}
     rules_by_tf: dict[str, Any] = {}
 
@@ -370,7 +385,10 @@ def generate_kill_switch_rules(gating: dict[str, Any], live_bridge: dict[str, An
                             "provenance": {"real_data_only": True, "fabricated_data": False},
                         },
                     ],
-                    "gating_context": {"source_gating": "reports/portfolio_gating_mt.json", "timeframe": tf},
+                    "gating_context": {
+                        "source_gating": "reports/portfolio_gating_mt.json",
+                        "timeframe": tf,
+                    },
                     "blocked_routes": [],
                     "provenance": {
                         "source_gating": "reports/portfolio_gating_mt.json",
@@ -444,11 +462,18 @@ def generate_kill_switch_rules(gating: dict[str, Any], live_bridge: dict[str, An
 
     return {
         "type": "kill_switch_rules_mt",
-        "mandate": "cryptoquantstatarbstrats - cointegration-gated kill-switch rules (real data only; fail-closed)",
+        "mandate": (
+            "cryptoquantstatarbstrats - cointegration-gated kill-switch rules "
+            "(real data only; fail-closed)"
+        ),
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
-        "source": "reports/portfolio_gating_mt.json + reports/live_deployment_bridge_mt.json + reports/post_trade_reconciliation_mt.json (real Binance; causal; fail-closed)",
+        "source": (
+            "reports/portfolio_gating_mt.json + reports/live_deployment_bridge_mt.json "
+            "+ reports/post_trade_reconciliation_mt.json "
+            "(real Binance; causal; fail-closed)"
+        ),
         "pairs": list(PAIRS),
         "timeframes": list(TIMEFRAMES),
         "results_by_timeframe": rules_by_tf,

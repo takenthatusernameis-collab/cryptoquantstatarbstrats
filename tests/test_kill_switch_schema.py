@@ -51,7 +51,11 @@ def test_kill_switch_preserves_gating_and_schema():
                 assert isinstance(triggers, list) and len(triggers) >= 1
                 for t in triggers:
                     assert t.get("evidence_required") is True
-                    assert t.get("auto_lift_blocks_forbidden") is True or t.get("gating_aware") is True or t.get("respect_gating") is True
+                    assert (
+                        t.get("auto_lift_blocks_forbidden") is True
+                        or t.get("gating_aware") is True
+                        or t.get("respect_gating") is True
+                    )
             else:
                 assert kinfo.get("eligible") is True
             prov = kinfo.get("provenance") or {}
