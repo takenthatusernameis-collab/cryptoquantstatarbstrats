@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:55:00Z | CAMPAIGN 15 COMPLETE (END-TO-END PIPELINE VERIFICATION + STRESS GATING) | CAMPAIGN 16 ACTIVE (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T21:58:47Z | CAMPAIGN 15 COMPLETE (END-TO-END PIPELINE VERIFICATION + STRESS GATING) | CAMPAIGN 16 ACTIVE (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T21:55:00Z
+**TIMESTAMP:** 2026-11-01T21:58:47Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -33,7 +33,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence (Campaign 16 COMPLETED section). Do not stop until done.
 
-## CURRENT VERIFIED STATE (2026-11-01T21:55:00Z)
+## CURRENT VERIFIED STATE (2026-11-01T21:58:47Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT.
