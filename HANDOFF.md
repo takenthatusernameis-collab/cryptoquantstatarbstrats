@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T18:14:07Z | CAMPAIGN 10 ACTIVE (LIVE PAPER-TRADING DEPLOYMENT BRIDGE + DRIFT MONITORING + COINTEGRATION-GATED ALERTING) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T19:15:46Z | CAMPAIGN 11 ACTIVE (PRODUCTION LIVE-DEPLOYMENT HARDENING + POST-TRADE RECONCILIATION + KILL-SWITCH) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -86,8 +86,34 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
   - Campaign 10 tests: 2 passed
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
 
-## CAMPAIGN 11 (ACTIVE - HEAVY) - 2026-11-01T19:15:04Z
+## CAMPAIGN 11 (ACTIVE - HEAVY) - 2026-11-01T19:15:46Z
 - **Focus:** Production live-deployment hardening + post-trade reconciliation + kill-switch, cointegration-gated (fail-closed). Real data only.
 - **Required artifacts:** `reports/live_deployment_bridge_mt.json`, `reports/post_trade_reconciliation_mt.json`, `reports/kill_switch_rules_mt.json`
 - **Required tests:** `tests/test_live_deployment_bridge_gating.py`, `tests/test_kill_switch_schema.py`
 - **Mandatory heavy work:** preserve gating (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), real data, causal only, no threshold weakening, ruff clean, targeted pytest green.
+
+### NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
+**TIMESTAMP:** 2026-11-01T19:15:46Z
+**TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
+**PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.**
+
+#### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
+1. Verify integrity: ruff clean, targeted pytest green.
+2. Read this handoff fully.
+3. Confirm Campaign 10 artifacts/tests exist and pass.
+4. Campaign 11 artifacts/tests do NOT exist yet — sole work now.
+
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
+> **OBJECTIVE (HEAVY, CAMPAIGN 11 - MANDATORY, COINTEGRATION-FIRST):** Build production live-deployment hardening + post-trade reconciliation + kill-switch, cointegration-gated (fail-closed). Real data only. No threshold weakening. No fabrication. Every gated block remains blocked.
+>
+> **REQUIRED ARTIFACTS:** `reports/live_deployment_bridge_mt.json`, `reports/post_trade_reconciliation_mt.json`, `reports/kill_switch_rules_mt.json`
+> **REQUIRED TESTS:** `tests/test_live_deployment_bridge_gating.py`, `tests/test_kill_switch_schema.py`
+>
+> **REQUIREMENTS (HARD):**
+> - Live deployment bridge: deterministic mapping from MT-gated state to live execution; only gated-eligible pairs; blocked pairs zeroed with rejection_log/blocked_routes/provenance; fail-closed; link to prior artifacts.
+> - Post-trade reconciliation: reconcile fills/positions vs expected gated state; detect mismatches; never auto-lift blocks.
+> - Kill-switch: deterministic rules firing on policy violations/drift/gate breaches/reconciliation mismatches; respect gating; schema with severity/evidence/provenance/gating_context/blocked_routes.
+> - Schema/provenance/monotonicity; real_data_only=true, fabricated_data=false, computed_at, source.
+> - Remove bottlenecks; coasting=failure.
+>
+> **COMPLETION CRITERIA:** All three artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence.
