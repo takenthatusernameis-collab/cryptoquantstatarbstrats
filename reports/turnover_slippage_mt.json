@@ -1,0 +1,2031 @@
+{
+  "type": "turnover_slippage_mt",
+  "mandate": "cryptoquantstatarbstrats - turnover decomposition + implementation shortfall (real data only)",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T16:09:51.759986+00:00",
+  "source": "data/cache + portfolio_gating_mt.json + portfolio_walkforward_mt.json + execution_realism_mt.json",
+  "pairs": [
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL",
+    "ADA/ETH",
+    "XRP/BTC",
+    "BNB/ETH",
+    "BTC/BNB",
+    "SOL/BNB",
+    "ADA/BTC",
+    "XRP/ETH",
+    "BNB/BTC",
+    "DOT/BTC",
+    "DOT/ETH",
+    "POL/BTC",
+    "AVAX/BTC",
+    "LINK/BTC",
+    "LTC/BTC"
+  ],
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "provenance_links": {
+    "portfolio_gating_mt": "reports/portfolio_gating_mt.json",
+    "portfolio_walkforward_mt": "reports/portfolio_walkforward_mt.json",
+    "execution_realism_mt": "reports/execution_realism_mt.json"
+  },
+  "results_by_timeframe": {
+    "1h": {
+      "turnover_daily": [],
+      "turnover_rolling": [],
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "POL/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        }
+      },
+      "walk_forward_windows_linked": true,
+      "n_eligible": 0,
+      "linked_to_portfolio_walkforward_mt": true
+    },
+    "4h": {
+      "turnover_daily": [
+        {
+          "date": "2026-04-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-05-31",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-06-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-07-31",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-08-31",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-09-30",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-01",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-02",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-03",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-04",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-05",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-06",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-07",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-08",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-09",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-10",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-11",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-12",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-13",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-14",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-15",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-16",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-17",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-18",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-19",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-20",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-21",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-22",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-23",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-24",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-25",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-26",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-27",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-28",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-29",
+          "turnover": 0.0
+        },
+        {
+          "date": "2026-10-30",
+          "turnover": 0.0
+        }
+      ],
+      "turnover_rolling": [
+        {
+          "window": 0,
+          "turnover": 0.0
+        },
+        {
+          "window": 1,
+          "turnover": 0.0
+        },
+        {
+          "window": 2,
+          "turnover": 0.0
+        },
+        {
+          "window": 3,
+          "turnover": 0.0
+        },
+        {
+          "window": 4,
+          "turnover": 0.0
+        },
+        {
+          "window": 5,
+          "turnover": 0.0
+        },
+        {
+          "window": 6,
+          "turnover": 0.0
+        },
+        {
+          "window": 7,
+          "turnover": 0.0
+        },
+        {
+          "window": 8,
+          "turnover": 0.0
+        },
+        {
+          "window": 9,
+          "turnover": 0.0
+        }
+      ],
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "POL/BTC": {
+          "eligible": true,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0,
+              "latency_component_ms": 150
+            },
+            "total_is_bps": 0.0,
+            "decomposition": "causal_trailing_only"
+          },
+          "walk_forward_linked": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        }
+      },
+      "walk_forward_windows_linked": true,
+      "n_eligible": 1,
+      "linked_to_portfolio_walkforward_mt": true
+    },
+    "1d": {
+      "turnover_daily": [],
+      "turnover_rolling": [],
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "POL/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "turnover_estimate": 0.0,
+          "implementation_shortfall": {
+            "components": {
+              "market_impact": 0.0,
+              "timing_cost": 0.0,
+              "fees": 0.0,
+              "opportunity_cost": 0.0
+            },
+            "total_is_bps": 0.0
+          },
+          "walk_forward_linked": true,
+          "blocked_by_gating": true,
+          "provenance": {
+            "source_gating": "reports/portfolio_gating_mt.json",
+            "source_walkforward": "reports/portfolio_walkforward_mt.json",
+            "real_data_only": true,
+            "fail_closed": true
+          }
+        }
+      },
+      "walk_forward_windows_linked": true,
+      "n_eligible": 0,
+      "linked_to_portfolio_walkforward_mt": true
+    }
+  }
+}

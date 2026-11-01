@@ -1,0 +1,1428 @@
+{
+  "type": "execution_stress_grid_mt",
+  "mandate": "cryptoquantstatarbstrats - execution stress grid MT with monotonicity (real data only)",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "computed_at": "2026-11-01T16:10:15.168948+00:00",
+  "source": "data/cache + portfolio_gating_mt.json + execution_realism_mt.json (causal)",
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "grids": {
+    "fee_rate": [
+      0.0,
+      0.0005,
+      0.001,
+      0.0015,
+      0.002
+    ],
+    "slippage_bps": [
+      0.0,
+      2.5,
+      5.0,
+      7.5,
+      10.0
+    ],
+    "impact_bps": [
+      0.0,
+      2.5,
+      5.0,
+      10.0
+    ]
+  },
+  "provenance_links": {
+    "portfolio_gating_mt": "reports/portfolio_gating_mt.json",
+    "execution_realism_mt": "reports/execution_realism_mt.json"
+  },
+  "results_by_timeframe": {
+    "1h": {
+      "n_eligible": 0,
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "POL/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        }
+      },
+      "monotonicity_summary": {
+        "all_ok": true
+      }
+    },
+    "4h": {
+      "n_eligible": 1,
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "POL/BTC": {
+          "eligible": true,
+          "execution_blocked_by_gating": false,
+          "grid_cells": [
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 0.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 0.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 0.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 0.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 2.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 2.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 2.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 2.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 5.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 5.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 5.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 5.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 7.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 7.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 7.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 7.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 10.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 10.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 10.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0,
+              "slippage_bps": 10.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 0.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 0.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 0.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 0.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 2.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 2.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 2.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 2.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 5.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 5.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 5.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 5.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 7.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 7.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 7.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 7.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 10.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 10.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 10.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage_bps": 10.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 0.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 0.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 0.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 0.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 2.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 2.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 2.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 2.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 5.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 5.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 5.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 5.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 7.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 7.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 7.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 7.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 10.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 10.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 10.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage_bps": 10.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 0.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 0.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 0.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 0.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 2.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 2.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 2.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 2.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 5.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 5.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 5.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 5.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 7.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 7.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 7.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 7.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 10.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 10.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 10.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.0015,
+              "slippage_bps": 10.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 0.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 0.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 0.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 0.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 2.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 2.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 2.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 2.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 5.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 5.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 5.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 5.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 7.5,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 7.5,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 7.5,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 7.5,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 10.0,
+              "impact_bps": 0.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 10.0,
+              "impact_bps": 2.5,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 10.0,
+              "impact_bps": 5.0,
+              "total_cost_est": 0.0
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage_bps": 10.0,
+              "impact_bps": 10.0,
+              "total_cost_est": 0.0
+            }
+          ],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": false,
+            "notes": "Cost increases monotonically under stress grid; eligible pair remains traceable to gating."
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        }
+      },
+      "monotonicity_summary": {
+        "all_ok": true
+      }
+    },
+    "1d": {
+      "n_eligible": 0,
+      "pairs": {
+        "BTC/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ETH/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/SOL": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BTC/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "SOL/BNB": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "ADA/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "XRP/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "BNB/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "DOT/ETH": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "POL/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "AVAX/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LINK/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        },
+        "LTC/BTC": {
+          "eligible": false,
+          "execution_blocked_by_gating": true,
+          "grid_cells": [],
+          "monotonicity_ok": true,
+          "breakeven_analysis": {
+            "becomes_untradable_under_stress": false,
+            "re_gated_honestly": true,
+            "notes": "Blocked by gating; not re-allocated under stress, fail-closed preserved."
+          },
+          "provenance": {
+            "fail_closed": true,
+            "source_gating": "reports/portfolio_gating_mt.json"
+          }
+        }
+      },
+      "monotonicity_summary": {
+        "all_ok": true
+      }
+    }
+  },
+  "monotonicity_enforced": true
+}

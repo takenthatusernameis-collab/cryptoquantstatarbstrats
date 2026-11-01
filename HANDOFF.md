@@ -69,3 +69,14 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 ```
 
 **STATE: STABLE. Campaign 7 complete. Campaign 8 ready to execute with heavy mandate. No blocking issues.**
+
+
+## CAMPAIGN 8 COMPLETE (EXECUTION REALISM + COINTEGRATION-DRIVEN VALIDATION) | 2026-11-01T16:06:19Z
+
+- **Execution realism (MT):** `reports/execution_realism_mt.json` produced across 1h/4h/1d. Per (timeframe,pair): slippage/fee/tick/lot aware, latency assumptions grounded, partial fills modeled, rejection logic, borrow/fee realism. **Fail-closed:** only gated-eligible pairs may receive fills; blocked pairs have `execution_blocked_by_gating: true` with `blocked_routes` and rejection logs. Provenance linked to `portfolio_gating_mt.json`.
+- **Turnover & implementation shortfall:** `reports/turnover_slippage_mt.json` with daily/rolling turnover decomposition and implementation shortfall components, linked to walk-forward windows via `portfolio_walkforward_mt.json` provenance.
+- **Execution stress grid:** `reports/execution_stress_grid_mt.json` with expanded fee×slippage×impact grid across 1h/4h/1d; monotonicity enforced; breakeven analysis present; blocked pairs not re-allocated (fail-closed).
+- **Tests:** `tests/test_execution_gating_consistency.py` and `tests/test_execution_realism_schema.py` added and passing (fail-closed cross-checks, schema/provenance/monotonicity).
+- **State:** All required artifacts present with provenance. Gating invariant preserved. Real data only, no threshold weakening, causal only.
+
+**NEXT:** Campaign 9 (if needed) - continue to harden execution realism with live-like constraints while preserving strict cointegration gating; no coasting.
