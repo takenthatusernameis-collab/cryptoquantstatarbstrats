@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import os
 import pickle
 import sys
 from datetime import datetime, timezone
@@ -164,7 +163,11 @@ class PortfolioRiskController:
                 )
                 for a in pair_assets:
                     w[a] = w[a] * scale
-        if self.max_correlation_exposure is not None and self.max_correlation_exposure > 0.0 and len(w.columns) > 0:
+        if (
+            self.max_correlation_exposure is not None
+            and self.max_correlation_exposure > 0.0
+            and len(w.columns) > 0
+        ):
             asset_abs = w.abs()
             scale = (
                 (self.max_correlation_exposure / asset_abs.replace(0, np.nan))
@@ -199,17 +202,19 @@ class PortfolioRiskController:
 
 
 def main():
-    print("Campaign 7: Portfolio-level cointegration gating integration + walk-forward portfolio re-validation across mt timeframes")
+    print(
+        "Campaign 7: portfolio cointegration gating + walk-forward portfolio re-validation (mt)"
+    )
     print(f"Pairs: {len(PAIRS)}, Symbols: {len(SYMBOLS)}")
 
     timeframes = ["1h", "4h", "1d"]
     out = {
         "type": "portfolio_gating_mt",
-        "mandate": "cryptoquantstatarbstrats - portfolio-level cointegration gating (real data only)",
+        "mandate": "cryptoquantstatarbstrats - portfolio cointegration gating (real data only)",
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _now_iso(),
-        "source": "data/cache + reports/cointegration_diagnostics_* (real public Binance spot; causal resample)",
+        "source": "data/cache + reports/cointegration_diagnostics_* (real Binance; causal)",
         "pairs": PAIRS,
         "symbols": SYMBOLS,
         "timeframes": timeframes,
@@ -241,7 +246,9 @@ def main():
                     "status": d.get("status"),
                 }
 
-        print(f"Eligible pairs ({len(eligible_pairs)}): {[p[0]+'/'+p[1] for p in eligible_pairs]}")
+        print(
+            f"Eligible pairs ({len(eligible_pairs)}): {[p[0] + '/' + p[1] for p in eligible_pairs]}"
+        )
         print(f"Excluded pairs ({len(excluded)}): {sorted(excluded.keys())}")
 
         weights_by_strategy = {}
@@ -273,7 +280,7 @@ def main():
         if not weights_by_strategy:
             results_by_tf[tf] = {
                 "data_bars": int(len(data)),
-                "eligible_pairs": [p[0]+'/'+p[1] for p in eligible_pairs],
+                "eligible_pairs": [p[0] + "/" + p[1] for p in eligible_pairs],
                 "excluded": excluded,
                 "weights_summary": {},
                 "portfolio": {},
@@ -284,7 +291,6 @@ def main():
             continue
 
         combined_weights = pd.concat(weights_by_strategy.values(), axis=1)
-        # Simple equal aggregation per pair if multiple strategies; for gating test, use sum then normalize later via risk controller
         # Build combined by summing weights from all strategies
         combined_weights = pd.DataFrame(0.0, index=data.index, columns=SYMBOLS)
         for pname, w in weights_by_strategy.items():
@@ -314,12 +320,12 @@ def main():
         wf_results = engine.walk_forward_portfolio(
             combined_weights,
             data,
-            train_period=min(TRAIN_PERIOD, max(100, len(data)//6)),
-            test_period=min(TEST_PERIOD, max(50, len(data)//12)),
+            train_period=min(TRAIN_PERIOD, max(100, len(data) // 6)),
+            test_period=min(TEST_PERIOD, max(50, len(data) // 12)),
             fee_rate=0.001,
             slippage=0.0005,
             mode="rolling",
-            n_splits=min(N_SPLITS, max(2, len(data)//(TEST_PERIOD + 100))),
+            n_splits=min(N_SPLITS, max(2, len(data) // (TEST_PERIOD + 100))),
         )
 
         # Cost stress
@@ -349,7 +355,7 @@ def main():
             "data_bars": int(len(data)),
             "start": str(data.index.min()),
             "end": str(data.index.max()),
-            "eligible_pairs": [p[0]+'/'+p[1] for p in eligible_pairs],
+            "eligible_pairs": [p[0] + "/" + p[1] for p in eligible_pairs],
             "excluded_pairs": excluded,
             "n_eligible": len(eligible_pairs),
             "n_excluded": len(excluded),
@@ -364,7 +370,9 @@ def main():
                 "sharpe_ratio": _to_float(port_res.get("sharpe_ratio")),
                 "max_drawdown": _to_float(port_res.get("max_drawdown")),
                 "calmar_ratio": _to_float(port_res.get("calmar_ratio")),
-                "final_equity": _to_float(100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))),
+                "final_equity": _to_float(
+                    100000.0 * (1.0 + _to_float(port_res.get("total_return", 0.0)))
+                ),
             },
             "risk_controls": {
                 "var_95": var95,
@@ -379,8 +387,8 @@ def main():
                 "no_blocked_pairs_have_weight": True,
             },
             "walk_forward": {
-                "train_period": min(TRAIN_PERIOD, max(100, len(data)//6)),
-                "test_period": min(TEST_PERIOD, max(50, len(data)//12)),
+                "train_period": min(TRAIN_PERIOD, max(100, len(data) // 6)),
+                "test_period": min(TEST_PERIOD, max(50, len(data) // 12)),
                 "n_splits": len(wf_results.get("splits", [])),
                 "aggregate": {
                     "mean_oos_return": _to_float(wf_results.get("mean_return")),
@@ -396,7 +404,10 @@ def main():
             "cost_stress": cost_stress,
             "gating_invariant_check": {
                 "blocked_pairs_excluded_from_pair_map": all(ep not in pair_map for ep in excluded),
-                "all_eligible_have_diagnostics": all(("/".join(p) in diags and diags["/".join(p)].get("gates",{}).get("all_pass")) for p in eligible_pairs),
+                "all_eligible_have_diagnostics": all(
+                    ("/".join(p) in diags and diags["/".join(p)].get("gates", {}).get("all_pass"))
+                    for p in eligible_pairs
+                ),
             },
         }
 
@@ -407,7 +418,9 @@ def main():
         "eligible_counts": {tf: results_by_tf[tf].get("n_eligible", 0) for tf in timeframes},
         "excluded_counts": {tf: results_by_tf[tf].get("n_excluded", 0) for tf in timeframes},
         "portfolio_performance": {tf: results_by_tf[tf].get("portfolio", {}) for tf in timeframes},
-        "walkforward_aggregate": {tf: results_by_tf[tf].get("walk_forward", {}).get("aggregate", {}) for tf in timeframes},
+        "walkforward_aggregate": {
+            tf: results_by_tf[tf].get("walk_forward", {}).get("aggregate", {}) for tf in timeframes
+        },
     }
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -417,7 +430,8 @@ def main():
     # Quick sanity
     for tf in timeframes:
         r = results_by_tf[tf]
-        print(f"  {tf}: eligible={r.get('n_eligible')} excluded={r.get('n_excluded')} total_ret={r.get('portfolio',{}).get('total_return')}")
+        tr = r.get('portfolio', {}).get('total_return')
+        print(f"  {tf}: elig={r.get('n_eligible')} excl={r.get('n_excluded')} ret={tr}")
 
 
 if __name__ == "__main__":
