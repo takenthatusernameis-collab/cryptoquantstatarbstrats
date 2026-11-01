@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T18:07:52Z | CAMPAIGN 9 ACTIVE (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T18:11:33Z | CAMPAIGN 9 ACTIVE (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T18:07:52Z
+**TIMESTAMP:** 2026-11-01T18:11:33Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -41,7 +41,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING):** All three artifacts and both tests exist, follow schemas consistent with prior MT artifacts, preserve gating (17 blocked at 1h/1d, only POL/BTC eligible at 4h), verification commands pass (ruff + targeted pytest), and this handoff updated with concrete evidence (artifact paths, test results, counts). Do not stop until done.
 
-## CURRENT VERIFIED STATE (2026-11-01T18:07:52Z)
+## CURRENT VERIFIED STATE (2026-11-01T18:11:33Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation (4h: 1/17 pass all gates [POL/BTC passes honestly]; 1d: 0/17). MT blocking matrix + structural breaks populated. Threshold invariance green.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT (fail-closed, no blocked pair gets weight). Walk-forward MT + risk/cost stress MT artifacts created with provenance. Tests passing.

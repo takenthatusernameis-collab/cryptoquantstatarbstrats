@@ -27,9 +27,23 @@ CACHE_DIR = ROOT / "data" / "cache"
 REPORTS_DIR = ROOT / "reports"
 
 PAIRS = [
-    "BTC/ETH", "ETH/SOL", "BTC/SOL", "ADA/ETH", "XRP/BTC", "BNB/ETH",
-    "BTC/BNB", "SOL/BNB", "ADA/BTC", "XRP/ETH", "BNB/BTC", "DOT/BTC",
-    "DOT/ETH", "POL/BTC", "AVAX/BTC", "LINK/BTC", "LTC/BTC",
+    "BTC/ETH",
+    "ETH/SOL",
+    "BTC/SOL",
+    "ADA/ETH",
+    "XRP/BTC",
+    "BNB/ETH",
+    "BTC/BNB",
+    "SOL/BNB",
+    "ADA/BTC",
+    "XRP/ETH",
+    "BNB/BTC",
+    "DOT/BTC",
+    "DOT/ETH",
+    "POL/BTC",
+    "AVAX/BTC",
+    "LINK/BTC",
+    "LTC/BTC",
 ]
 TIMEFRAMES = ["1h", "4h", "1d"]
 START = "2026-04-01"
@@ -104,12 +118,14 @@ def _gating_blocked_routes(gating_tf: dict[str, Any], pair: str) -> list[dict[st
     routes = entry.get("blocked_routes") or []
     out = []
     for r in routes:
-        out.append({
-            "route": r.get("route"),
-            "gate": r.get("gate"),
-            "passed": bool(r.get("passed")),
-            "provenance": r.get("provenance") or {},
-        })
+        out.append(
+            {
+                "route": r.get("route"),
+                "gate": r.get("gate"),
+                "passed": bool(r.get("passed")),
+                "provenance": r.get("provenance") or {},
+            }
+        )
         for k in ("pvalue", "available", "frac_significant", "n_windows", "stable"):
             if k in r:
                 out[-1][k] = r[k]
@@ -143,14 +159,19 @@ def _capacity_limits(adv: float) -> dict[str, Any]:
         "max_notional_per_order_usdt": round(max_notional, 6),
         "adv_quote_usdt": round(adv, 6),
         "short_available": False,
-        "short_rationale": "no real borrow/shortability data from public Binance spot; short capacity treated as unavailable (fail-closed)",
+        "short_rationale": "no real borrow/shortability data; short capacity unavailable (fail-closed)",
         "short_borrow_fee_bps_annual": 5.0,
         "borrow_source": "none_available_real_data_only",
     }
 
 
-def _entry_blocked(pair: str, gating_tf: dict[str, Any], block_reason: str | None,
-                   capacity_info: dict[str, Any], tf: str) -> dict[str, Any]:
+def _entry_blocked(
+    pair: str,
+    gating_tf: dict[str, Any],
+    block_reason: str | None,
+    capacity_info: dict[str, Any],
+    tf: str,
+) -> dict[str, Any]:
     adv = capacity_info["adv_by_timeframe_quote_usdt"].get(tf, 0.0)
     limits = _capacity_limits(adv)
     blocked = block_reason is not None
@@ -162,19 +183,23 @@ def _entry_blocked(pair: str, gating_tf: dict[str, Any], block_reason: str | Non
         "capacity_blocked_by_gating": block_reason == BLOCK_REASON_GATING,
         "capacity_blocked": blocked,
         "blocked_routes": _gating_blocked_routes(gating_tf, pair) if blocked else [],
-        "rejection_log": ([
-            {
-                "reason": "order_blocked_by_cointegration_gating",
-                "block_reason": BLOCK_REASON_GATING,
-                "blocked_routes": _gating_blocked_routes(gating_tf, pair),
-                "fail_closed": True,
-                "provenance": {
-                    "source": "reports/portfolio_gating_mt.json",
-                    "real_data_only": True,
-                    "fabricated_data": False,
-                },
-            }
-        ] if blocked else []),
+        "rejection_log": (
+            [
+                {
+                    "reason": "order_blocked_by_cointegration_gating",
+                    "block_reason": BLOCK_REASON_GATING,
+                    "blocked_routes": _gating_blocked_routes(gating_tf, pair),
+                    "fail_closed": True,
+                    "provenance": {
+                        "source": "reports/portfolio_gating_mt.json",
+                        "real_data_only": True,
+                        "fabricated_data": False,
+                    },
+                }
+            ]
+            if blocked
+            else []
+        ),
         "allocation_usdt": 0.0 if blocked else round(limits["max_notional_per_order_usdt"], 6),
         "capacity_limits": limits,
         "feasible": False if blocked else True,
@@ -191,8 +216,9 @@ def _entry_blocked(pair: str, gating_tf: dict[str, Any], block_reason: str | Non
     }
 
 
-def _entry_eligible(pair: str, gating_tf: dict[str, Any], capacity_info: dict[str, Any],
-                    tf: str) -> dict[str, Any]:
+def _entry_eligible(
+    pair: str, gating_tf: dict[str, Any], capacity_info: dict[str, Any], tf: str
+) -> dict[str, Any]:
     adv = capacity_info["adv_by_timeframe_quote_usdt"].get(tf, 0.0)
     limits = _capacity_limits(adv)
     return {
@@ -220,7 +246,9 @@ def _entry_eligible(pair: str, gating_tf: dict[str, Any], capacity_info: dict[st
     }
 
 
-def generate_execution_capacity(gating: dict[str, Any], capacity_by_pair: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def generate_execution_capacity(
+    gating: dict[str, Any], capacity_by_pair: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
     results_by_tf: dict[str, Any] = {}
     for tf in TIMEFRAMES:
         gating_tf = _gating_for_timeframe(gating, tf)
@@ -257,7 +285,7 @@ def generate_execution_capacity(gating: dict[str, Any], capacity_by_pair: dict[s
             "participation_rate": PARTICIPATION_RATE,
             "max_notional_model": "limiting_leg_adv * participation_rate (quote USDT)",
             "short_available": False,
-            "short_rationale": "no real borrow/shortability data from public Binance spot; short capacity treated as unavailable (fail-closed)",
+            "short_rationale": "no real borrow/shortability data; short capacity unavailable (fail-closed)",
             "short_borrow_fee_bps_annual": 5.0,
             "real_data_only": True,
             "fabricated_data": False,
@@ -314,7 +342,9 @@ def _routing_entry_blocked(pair: str, gating_tf: dict[str, Any], tf: str) -> dic
             "order_submission_latency_ms": LATENCY_ORDER_SUBMISSION_MS,
             "market_data_latency_ms": LATENCY_MARKET_DATA_MS,
             "execution_latency_ms": LATENCY_EXECUTION_MS,
-            "total_latency_ms": LATENCY_ORDER_SUBMISSION_MS + LATENCY_MARKET_DATA_MS + LATENCY_EXECUTION_MS,
+            "total_latency_ms": LATENCY_ORDER_SUBMISSION_MS
+            + LATENCY_MARKET_DATA_MS
+            + LATENCY_EXECUTION_MS,
             "queue_position": QUEUE_POSITION_DEFAULT,
             "applied": False,
         },
@@ -358,7 +388,9 @@ def _routing_entry_eligible(pair: str, gating_tf: dict[str, Any], tf: str) -> di
             "order_submission_latency_ms": LATENCY_ORDER_SUBMISSION_MS,
             "market_data_latency_ms": LATENCY_MARKET_DATA_MS,
             "execution_latency_ms": LATENCY_EXECUTION_MS,
-            "total_latency_ms": LATENCY_ORDER_SUBMISSION_MS + LATENCY_MARKET_DATA_MS + LATENCY_EXECUTION_MS,
+            "total_latency_ms": LATENCY_ORDER_SUBMISSION_MS
+            + LATENCY_MARKET_DATA_MS
+            + LATENCY_EXECUTION_MS,
             "queue_position": QUEUE_POSITION_DEFAULT,
             "applied": True,
         },
@@ -449,8 +481,9 @@ def generate_order_routing(gating: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def generate_live_readiness(gating: dict[str, Any], capacity: dict[str, Any],
-                            routing: dict[str, Any]) -> dict[str, Any]:
+def generate_live_readiness(
+    gating: dict[str, Any], capacity: dict[str, Any], routing: dict[str, Any]
+) -> dict[str, Any]:
     summary = capacity.get("capacity_invariant", {})
     eligible_by_tf: dict[str, list[str]] = {}
     blocked_by_tf: dict[str, list[str]] = {}
@@ -465,7 +498,10 @@ def generate_live_readiness(gating: dict[str, Any], capacity: dict[str, Any],
     for tf in TIMEFRAMES:
         for pair in blocked_by_tf[tf]:
             pinfo = capacity["results_by_timeframe"][tf]["pairs"][pair]
-            if pinfo.get("allocation_usdt", 0.0) != 0.0 or pinfo.get("capacity_blocked") is not True:
+            if (
+                pinfo.get("allocation_usdt", 0.0) != 0.0
+                or pinfo.get("capacity_blocked") is not True
+            ):
                 all_blocked_zero_allocation = False
 
     checks: list[dict[str, Any]] = [
