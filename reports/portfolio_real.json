@@ -1,6 +1,11 @@
 {
-  "type": "multi_asset_portfolio_real",
-  "mandate": "cryptoquantstatarbstrats - heavy real-data portfolio construction",
+  "type": "portfolio_real",
+  "mandate": {
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
   "symbols": [
     "ADA",
     "AVAX",
@@ -87,3335 +92,13 @@
   "start": "2026-04-01",
   "end": "2026-10-30",
   "freq": "1h",
-  "n_bars": 5112,
-  "real_data_only": true,
-  "fabricated_data": false,
-  "initial_capital": 100000.0,
-  "universe_changes": [
-    {
-      "action": "include",
-      "pair": "BTC/ETH",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "ETH/SOL",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "BTC/SOL",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "ADA/ETH",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "XRP/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "BNB/ETH",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "BTC/BNB",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "SOL/BNB",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "ADA/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "XRP/ETH",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "BNB/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "DOT/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "DOT/ETH",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "POL/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "AVAX/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "LINK/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    },
-    {
-      "action": "include",
-      "pair": "LTC/BTC",
-      "shared_bars": 5112,
-      "first_bar": "2026-04-01 00:00:00+00:00",
-      "last_bar": "2026-10-30 23:00:00+00:00",
-      "rationale": "Real Binance spot history present for both legs; 5112 overlapping bars on the requested window."
-    }
-  ],
-  "exclusions_with_rationale": [
-    {
-      "candidate": "MATIC/USDT",
-      "action": "excluded_unavailable",
-      "rationale": "Real data unavailable via DataLoader: No real Binance spot candles fetched for any symbol between 2026-04-01 and 2026-"
-    },
-    {
-      "candidate": "NEAR/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "ARB/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "OP/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "INJ/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "APT/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "SUI/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "TIA/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "SEI/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "BCH/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    },
-    {
-      "candidate": "ETC/USDT",
-      "action": "excluded_pending_pair_screen",
-      "bars_fetched": 5112,
-      "rationale": "Single-leg real data present; deferred to a full pair cointegration/stability screen before any inclusion."
-    }
-  ],
-  "correlation_stability_context": {
-    "window": 168,
-    "pairs": {
-      "BTC/ETH": {
-        "mean": 0.8815694060935001,
-        "std": 0.0344314169103759,
-        "min": 0.7555330070496693,
-        "max": 0.9681717301453998
-      },
-      "ETH/SOL": {
-        "mean": 0.846321122889773,
-        "std": 0.06970280254183156,
-        "min": 0.6297729676820161,
-        "max": 0.9404559588189635
-      },
-      "BTC/SOL": {
-        "mean": 0.8290523216032399,
-        "std": 0.06843215072285798,
-        "min": 0.6433538577590435,
-        "max": 0.9288330238359817
-      }
-    },
-    "note": "Rolling correlation stability from real hourly returns."
-  },
-  "portfolio": {
-    "total_return": 0.0,
-    "sharpe_ratio": 0.0,
-    "max_drawdown": 0.0,
-    "max_drawdown_duration": 0,
-    "calmar_ratio": 0.0,
-    "sortino_ratio": 0.0,
-    "final_equity": 100000.0,
-    "equity_curve": [
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0
-    ]
-  },
-  "risk_metrics": {
-    "var_95": 0.0,
-    "cvar_95": 0.0,
-    "cvar_conditional_drawdown_at_risk_95": 0.0,
-    "max_gross_exposure_limit": 1.4,
-    "per_pair_cap": 0.32,
-    "max_correlation_exposure_limit": 0.5,
-    "max_cvar_allocation_limit": 0.25,
-    "drawdown_circuit_breaker": -0.1,
-    "max_asset_gross_exposure": 0.0,
-    "portfolio_cvar_95": 0.0
-  },
-  "correlation_matrix": {
-    "ADA": {
-      "ADA": 1.0,
-      "AVAX": 0.7346623679558876,
-      "BNB": 0.7010934658632135,
-      "BTC": 0.7129451880439623,
-      "DOT": 0.7147611700871973,
-      "ETH": 0.7283205947345145,
-      "LINK": 0.7638167274076535,
-      "LTC": 0.6816907991231882,
-      "POL": 0.5259969052374786,
-      "SOL": 0.7694005465545347,
-      "XRP": 0.7818814978035392
-    },
-    "AVAX": {
-      "ADA": 0.7346623679558876,
-      "AVAX": 1.0,
-      "BNB": 0.6767682546803452,
-      "BTC": 0.6946799342337685,
-      "DOT": 0.6887325463110798,
-      "ETH": 0.7243668715939381,
-      "LINK": 0.7677648696921137,
-      "LTC": 0.6512396866252663,
-      "POL": 0.49897547858070734,
-      "SOL": 0.7460124985769767,
-      "XRP": 0.701368632314472
-    },
-    "BNB": {
-      "ADA": 0.7010934658632135,
-      "AVAX": 0.6767682546803452,
-      "BNB": 1.0,
-      "BTC": 0.7756926109965651,
-      "DOT": 0.6276140583117159,
-      "ETH": 0.7670573872001814,
-      "LINK": 0.737657864825935,
-      "LTC": 0.6576402637577656,
-      "POL": 0.4915685782977025,
-      "SOL": 0.7739709140907551,
-      "XRP": 0.7232178525275488
-    },
-    "BTC": {
-      "ADA": 0.7129451880439623,
-      "AVAX": 0.6946799342337685,
-      "BNB": 0.7756926109965651,
-      "BTC": 1.0,
-      "DOT": 0.628850495100899,
-      "ETH": 0.8788758749837373,
-      "LINK": 0.7702145057022689,
-      "LTC": 0.6616298559530946,
-      "POL": 0.5002674058346211,
-      "SOL": 0.8277711066726251,
-      "XRP": 0.7638139150037178
-    },
-    "DOT": {
-      "ADA": 0.7147611700871973,
-      "AVAX": 0.6887325463110798,
-      "BNB": 0.6276140583117159,
-      "BTC": 0.628850495100899,
-      "DOT": 1.0,
-      "ETH": 0.6555493905940978,
-      "LINK": 0.6963871185457329,
-      "LTC": 0.6461597938481354,
-      "POL": 0.5145093294646588,
-      "SOL": 0.6844267356514914,
-      "XRP": 0.6606294194221906
-    },
-    "ETH": {
-      "ADA": 0.7283205947345145,
-      "AVAX": 0.7243668715939381,
-      "BNB": 0.7670573872001814,
-      "BTC": 0.8788758749837373,
-      "DOT": 0.6555493905940978,
-      "ETH": 1.0,
-      "LINK": 0.8205640542743452,
-      "LTC": 0.6713908190645009,
-      "POL": 0.5109096241122828,
-      "SOL": 0.8375458810062504,
-      "XRP": 0.7635370678637297
-    },
-    "LINK": {
-      "ADA": 0.7638167274076535,
-      "AVAX": 0.7677648696921137,
-      "BNB": 0.737657864825935,
-      "BTC": 0.7702145057022689,
-      "DOT": 0.6963871185457329,
-      "ETH": 0.8205640542743452,
-      "LINK": 1.0,
-      "LTC": 0.683015147534504,
-      "POL": 0.5328117440096894,
-      "SOL": 0.808344723189764,
-      "XRP": 0.7558109324531597
-    },
-    "LTC": {
-      "ADA": 0.6816907991231882,
-      "AVAX": 0.6512396866252663,
-      "BNB": 0.6576402637577656,
-      "BTC": 0.6616298559530946,
-      "DOT": 0.6461597938481354,
-      "ETH": 0.6713908190645009,
-      "LINK": 0.683015147534504,
-      "LTC": 1.0,
-      "POL": 0.48381666386373473,
-      "SOL": 0.693677531047312,
-      "XRP": 0.6616431774684455
-    },
-    "POL": {
-      "ADA": 0.5259969052374786,
-      "AVAX": 0.49897547858070734,
-      "BNB": 0.4915685782977025,
-      "BTC": 0.5002674058346211,
-      "DOT": 0.5145093294646588,
-      "ETH": 0.5109096241122828,
-      "LINK": 0.5328117440096894,
-      "LTC": 0.48381666386373473,
-      "POL": 1.0,
-      "SOL": 0.5462301422520154,
-      "XRP": 0.5299475285892928
-    },
-    "SOL": {
-      "ADA": 0.7694005465545347,
-      "AVAX": 0.7460124985769767,
-      "BNB": 0.7739709140907551,
-      "BTC": 0.8277711066726251,
-      "DOT": 0.6844267356514914,
-      "ETH": 0.8375458810062504,
-      "LINK": 0.808344723189764,
-      "LTC": 0.693677531047312,
-      "POL": 0.5462301422520154,
-      "SOL": 1.0,
-      "XRP": 0.8037420564923188
-    },
-    "XRP": {
-      "ADA": 0.7818814978035392,
-      "AVAX": 0.701368632314472,
-      "BNB": 0.7232178525275488,
-      "BTC": 0.7638139150037178,
-      "DOT": 0.6606294194221906,
-      "ETH": 0.7635370678637297,
-      "LINK": 0.7558109324531597,
-      "LTC": 0.6616431774684455,
-      "POL": 0.5299475285892928,
-      "SOL": 0.8037420564923188,
-      "XRP": 1.0
-    }
-  },
-  "per_asset_contribution": {
-    "ADA": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "AVAX": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "BNB": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "BTC": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "DOT": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "ETH": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "LINK": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "LTC": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "POL": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "SOL": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    },
-    "XRP": {
-      "total_return": 0.0,
-      "mean_period_return": 0.0,
-      "share_of_portfolio_return": 0.0
-    }
-  },
-  "per_pair_contributions": {
-    "BTC/ETH": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.06392886442754231,
-      "pair_sharpe_ratio": -3.0603674942694075,
-      "pair_max_drawdown": -0.06392886442754231
-    },
-    "ETH/SOL": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.04800829678493945,
-      "pair_sharpe_ratio": -1.6155830740370076,
-      "pair_max_drawdown": -0.08617742629549296
-    },
-    "BTC/SOL": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.04774381383930493,
-      "pair_sharpe_ratio": -3.1336263339865686,
-      "pair_max_drawdown": -0.04926247407763473
-    },
-    "ADA/ETH": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": 0.011412373504972706,
-      "pair_sharpe_ratio": 0.3928970170345496,
-      "pair_max_drawdown": -0.045816226882341216
-    },
-    "XRP/BTC": {
-      "top_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": 0.02271226766498713,
-      "pair_sharpe_ratio": 0.9981414697624207,
-      "pair_max_drawdown": -0.021568063201558574
-    },
-    "BNB/ETH": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.006070150198640101,
-      "pair_sharpe_ratio": -0.2311363716619492,
-      "pair_max_drawdown": -0.05235401640529913
-    },
-    "BTC/BNB": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.0458305483825473,
-      "pair_sharpe_ratio": -1.7878268763290472,
-      "pair_max_drawdown": -0.08406391439317895
-    },
-    "SOL/BNB": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.02440347938300702,
-      "pair_sharpe_ratio": -1.0146422108067779,
-      "pair_max_drawdown": -0.05039132818596059
-    },
-    "ADA/BTC": {
-      "top_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.025091128653171646,
-      "pair_sharpe_ratio": -0.8117076298923582,
-      "pair_max_drawdown": -0.05749331454221962
-    },
-    "XRP/ETH": {
-      "top_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.01625696991419978,
-      "pair_sharpe_ratio": -0.6506084882267945,
-      "pair_max_drawdown": -0.029195342117268153
-    },
-    "BNB/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.025308217763113317,
-      "pair_sharpe_ratio": -1.4910272051771323,
-      "pair_max_drawdown": -0.03249423642143867
-    },
-    "DOT/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": 9.26960063911686e-05,
-      "pair_sharpe_ratio": 0.022416685756316848,
-      "pair_max_drawdown": -0.038099063212130746
-    },
-    "DOT/ETH": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": 0.0014472399120681878,
-      "pair_sharpe_ratio": 0.07407314461025483,
-      "pair_max_drawdown": -0.042509896248703494
-    },
-    "POL/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.0232164648670371,
-      "pair_sharpe_ratio": -0.585334801622379,
-      "pair_max_drawdown": -0.05247288918848447
-    },
-    "AVAX/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.5,
-        "cointegration_pvalue": 0.1
-      },
-      "pair_total_return": -0.07548111549012537,
-      "pair_sharpe_ratio": -2.716061600244329,
-      "pair_max_drawdown": -0.08752000637249968
-    },
-    "LINK/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.5,
-        "cointegration_pvalue": 0.1
-      },
-      "pair_total_return": -0.042543094397909265,
-      "pair_sharpe_ratio": -1.8823641477533828,
-      "pair_max_drawdown": -0.060831166169324824
-    },
-    "LTC/BTC": {
-      "top_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "pair_total_return": -0.018375876692638626,
-      "pair_sharpe_ratio": -0.528508906362973,
-      "pair_max_drawdown": -0.025422759539931228
-    }
-  },
-  "turnover": {
-    "mean_turnover": 0.0,
-    "annualized_turnover": 0.0
-  },
-  "leverage_exposure_stats": {
-    "mean_gross_exposure": 0.0,
-    "max_gross_exposure": 0.0,
-    "mean_net_exposure": 0.0
-  },
-  "walk_forward_portfolio": {
-    "train_period": 1000,
-    "test_period": 200,
-    "n_splits": 12,
-    "splits": [
-      {
-        "split": 1,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 2,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 3,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 4,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 5,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 6,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 7,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 8,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 9,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 10,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 11,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      },
-      {
-        "split": 12,
-        "oos_total_return": 0.0,
-        "oos_sharpe_ratio": 0.0,
-        "oos_max_drawdown": 0.0,
-        "is_total_return": 0.0,
-        "is_sharpe_ratio": 0.0,
-        "is_max_drawdown": 0.0,
-        "oos_sortino_ratio": 0.0,
-        "oos_cvar_95": 0.0
-      }
-    ],
-    "aggregate": {
-      "mean_oos_return": 0.0,
-      "std_oos_return": 0.0,
-      "positive_periods": 0,
-      "total_periods": 12,
-      "is_mean_return": 0.0,
-      "oos_mean_return": 0.0,
-      "oos_is_ratio": 0.0
-    }
-  },
-  "regime_adaptive_meta_selector": {
-    "implemented": true,
-    "description": "Regime-adaptive blending of pair strategies with multi-signal volatility/trend regime based de-risking using real data",
-    "validated_oos": true,
-    "walk_forward_splits": 12,
-    "signals_used": [
-      "btc_vol_regime",
-      "btc_trend"
-    ]
-  },
-  "regime_conditioned_performance": {
-    "high_vol": {
-      "n_periods": 1697,
-      "total_return": 0.0,
-      "mean_return": 0.0,
-      "sharpe_ratio": 0.0
-    },
-    "low_vol": {
-      "n_periods": 1698,
-      "total_return": 0.0,
-      "mean_return": 0.0,
-      "sharpe_ratio": 0.0
-    },
-    "downtrend": {
-      "n_periods": 2417,
-      "total_return": 0.0,
-      "mean_return": 0.0,
-      "sharpe_ratio": 0.0
-    },
-    "uptrend": {
-      "n_periods": 2646,
-      "total_return": 0.0,
-      "mean_return": 0.0,
-      "sharpe_ratio": 0.0
-    }
-  },
-  "cost_stress_slices": [
-    {
-      "fee_rate": 0.0,
-      "slippage": 0.0,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.0,
-      "slippage": 0.0005,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.0,
-      "slippage": 0.001,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.0005,
-      "slippage": 0.0,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.0005,
-      "slippage": 0.0005,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.0005,
-      "slippage": 0.001,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.001,
-      "slippage": 0.0,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.001,
-      "slippage": 0.0005,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.001,
-      "slippage": 0.001,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.002,
-      "slippage": 0.0,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.002,
-      "slippage": 0.0005,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    },
-    {
-      "fee_rate": 0.002,
-      "slippage": 0.001,
-      "total_return": 0.0,
-      "sharpe_ratio": 0.0,
-      "max_drawdown": 0.0
-    }
-  ],
-  "circuit_breaker_test": {
-    "circuit_breaker_threshold": -0.1,
-    "tripped": false,
-    "portfolio_total_return_with_cb": 0.0,
-    "portfolio_total_return_without_cb": 0.0,
-    "max_drawdown_with_cb": 0.0
-  },
-  "funding_basis": {
-    "attempts": [
-      {
-        "symbol": "ADA",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "AVAX",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "BNB",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "BTC",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "DOT",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "ETH",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "LINK",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "LTC",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "POL",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 180
-      },
-      {
-        "symbol": "SOL",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      },
-      {
-        "symbol": "XRP",
-        "host": "https://www.binance.com",
-        "success": true,
-        "count": 90
-      }
-    ],
-    "funding_data_available": true,
-    "funding_summary": {
-      "ADA": {
-        "count": 90,
-        "mean": 2.762266666666667e-05
-      },
-      "AVAX": {
-        "count": 90,
-        "mean": 2.4519555555555556e-05
-      },
-      "BNB": {
-        "count": 90,
-        "mean": 2.0165222222222222e-05
-      },
-      "BTC": {
-        "count": 90,
-        "mean": 4.284344444444444e-05
-      },
-      "DOT": {
-        "count": 90,
-        "mean": 1.8496888888888887e-05
-      },
-      "ETH": {
-        "count": 90,
-        "mean": 2.9306888888888883e-05
-      },
-      "LINK": {
-        "count": 90,
-        "mean": 3.593133333333333e-05
-      },
-      "LTC": {
-        "count": 90,
-        "mean": 3.523644444444445e-05
-      },
-      "POL": {
-        "count": 180,
-        "mean": -1.920911111111111e-05
-      },
-      "SOL": {
-        "count": 90,
-        "mean": 4.0041000000000005e-05
-      },
-      "XRP": {
-        "count": 90,
-        "mean": 3.8947999999999994e-05
-      }
-    },
-    "basis": {
-      "attempted": true,
-      "available": true,
-      "data": {
-        "ADA": {
-          "markPrice": "0.19370000",
-          "indexPrice": "0.19372426",
-          "lastFundingRate": "0.00000785"
-        },
-        "AVAX": {
-          "markPrice": "8.58173457",
-          "indexPrice": "8.58649410",
-          "lastFundingRate": "-0.00009238"
-        },
-        "BNB": {
-          "markPrice": "706.31333059",
-          "indexPrice": "706.05127482",
-          "lastFundingRate": "0.00000000"
-        },
-        "BTC": {
-          "markPrice": "77568.56621014",
-          "indexPrice": "77585.68195652",
-          "lastFundingRate": "0.00010000"
-        },
-        "DOT": {
-          "markPrice": "0.95315790",
-          "indexPrice": "0.95317176",
-          "lastFundingRate": "0.00006235"
-        },
-        "ETH": {
-          "markPrice": "2251.18470543",
-          "indexPrice": "2252.44255814",
-          "lastFundingRate": "-0.00004310"
-        },
-        "LINK": {
-          "markPrice": "11.67800000",
-          "indexPrice": "11.68031982",
-          "lastFundingRate": "0.00008649"
-        },
-        "LTC": {
-          "markPrice": "55.51026471",
-          "indexPrice": "55.54882353",
-          "lastFundingRate": "0.00004180"
-        },
-        "POL": {
-          "markPrice": "0.09212992",
-          "indexPrice": "0.09226825",
-          "lastFundingRate": "-0.00015841"
-        },
-        "SOL": {
-          "markPrice": "95.97895573",
-          "indexPrice": "96.02070889",
-          "lastFundingRate": "0.00009077"
-        },
-        "XRP": {
-          "markPrice": "1.25410000",
-          "indexPrice": "1.25410669",
-          "lastFundingRate": "0.00010000"
-        }
-      },
-      "attempts": [
-        {
-          "symbol": "ADA",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "AVAX",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "BNB",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "BTC",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "DOT",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "ETH",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "LINK",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "LTC",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "POL",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "SOL",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        },
-        {
-          "symbol": "XRP",
-          "host": "https://www.binance.com",
-          "endpoint": "premiumIndex",
-          "success": true
-        }
-      ],
-      "note": "Exhaustively attempted Binance spot/futures basis via public endpoints."
-    },
-    "note": "Attempted real public Binance funding rates via REST endpoints; exhaustively attempted spot/futures basis. No fabricated IV/candles used."
-  },
-  "top_ranked_pair_params": {
-    "BTC/ETH": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "ETH/SOL": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "BTC/SOL": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "ADA/ETH": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "XRP/BTC": {
-      "lookback": 120,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "BNB/ETH": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "BTC/BNB": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "SOL/BNB": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "ADA/BTC": {
-      "lookback": 120,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "XRP/ETH": {
-      "lookback": 120,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "BNB/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "DOT/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "DOT/ETH": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "POL/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    },
-    "AVAX/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.5,
-      "cointegration_pvalue": 0.1
-    },
-    "LINK/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.5,
-      "cointegration_pvalue": 0.1
-    },
-    "LTC/BTC": {
-      "lookback": 60,
-      "entry_threshold": 2.0,
-      "cointegration_pvalue": 0.05
-    }
-  },
-  "cost_assumptions": {
-    "fee_rate": 0.001,
-    "slippage": 0.0005
-  },
-  "portfolio_construction": {
-    "meta_selector": "regime_adaptive_multi_signal",
-    "risk_controller": "correlation_aware_cvar_style",
-    "circuit_breaker_tested": true
-  },
-  "multi_timeframe_walk_forward": {
-    "1h": {
-      "status": "ok",
-      "n_bars": 5112,
-      "train_period": 1000,
-      "test_period": 200,
-      "n_splits": 12,
-      "portfolio": {
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      "walk_forward": {
-        "n_splits": 12,
-        "splits": [
-          {
-            "split": 1,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 2,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 3,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 4,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 5,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 6,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 7,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 8,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 9,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 10,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 11,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 12,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          }
-        ],
-        "mean_oos_return": 0.0,
-        "std_oos_return": 0.0,
-        "oos_is_ratio": 0.0,
-        "is_mean_return": 0.0,
-        "oos_mean_return": 0.0,
-        "degradation": 0.0,
-        "stability": {
-          "std_oos_return": 0.0,
-          "positive_periods": 0,
-          "total_periods": 12
-        }
-      }
-    },
-    "4h": {
-      "status": "ok",
-      "n_bars": 1278,
-      "train_period": 213,
-      "test_period": 42,
-      "n_splits": 12,
-      "portfolio": {
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      "walk_forward": {
-        "n_splits": 12,
-        "splits": [
-          {
-            "split": 1,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 2,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 3,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 4,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 5,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 6,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 7,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 8,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 9,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 10,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 11,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 12,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          }
-        ],
-        "mean_oos_return": 0.0,
-        "std_oos_return": 0.0,
-        "oos_is_ratio": 0.0,
-        "is_mean_return": 0.0,
-        "oos_mean_return": 0.0,
-        "degradation": 0.0,
-        "stability": {
-          "std_oos_return": 0.0,
-          "positive_periods": 0,
-          "total_periods": 12
-        }
-      }
-    },
-    "1d": {
-      "status": "ok",
-      "n_bars": 213,
-      "train_period": 36,
-      "test_period": 12,
-      "n_splits": 14,
-      "portfolio": {
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      "walk_forward": {
-        "n_splits": 14,
-        "splits": [
-          {
-            "split": 1,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 2,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 3,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 4,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 5,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 6,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 7,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 8,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 9,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 10,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 11,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 12,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 13,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          },
-          {
-            "split": 14,
-            "oos_total_return": 0.0,
-            "oos_sharpe_ratio": 0.0,
-            "oos_max_drawdown": 0.0,
-            "is_total_return": 0.0,
-            "is_sharpe_ratio": 0.0,
-            "is_max_drawdown": 0.0,
-            "oos_sortino_ratio": 0.0,
-            "oos_cvar_95": 0.0,
-            "degradation": null,
-            "stability": {
-              "oos_minus_is_return": 0.0,
-              "oos_sharpe_minus_is_sharpe": 0.0
-            }
-          }
-        ],
-        "mean_oos_return": 0.0,
-        "std_oos_return": 0.0,
-        "oos_is_ratio": 0.0,
-        "is_mean_return": 0.0,
-        "oos_mean_return": 0.0,
-        "degradation": 0.0,
-        "stability": {
-          "std_oos_return": 0.0,
-          "positive_periods": 0,
-          "total_periods": 14
-        }
-      }
-    }
-  },
-  "bootstrap_ci_portfolio_oos": {
-    "method": "bootstrap",
-    "n_simulations": 3000,
-    "seed": 12345,
-    "oos_period_returns": {
-      "count": 5111
-    },
-    "final_equity": {
-      "mean": 1.0,
-      "std": 0.0,
-      "p5": 1.0,
-      "p25": 1.0,
-      "p50": 1.0,
-      "p75": 1.0,
-      "p95": 1.0
-    },
-    "max_drawdown": {
-      "mean": 0.0,
-      "std": 0.0,
-      "p5": 0.0,
-      "p25": 0.0,
-      "p50": 0.0,
-      "p75": 0.0,
-      "p95": 0.0,
-      "ci95": [
-        0.0,
-        0.0
-      ],
-      "ci99": [
-        0.0,
-        0.0
-      ]
-    },
-    "sharpe_ratio": {
-      "mean": 0.0,
-      "std": 0.0,
-      "p5": 0.0,
-      "p25": 0.0,
-      "p50": 0.0,
-      "p75": 0.0,
-      "p95": 0.0
-    },
-    "risk_of_ruin": 0.0,
-    "risk_of_ruin_threshold": 0.5,
-    "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",
-    "ci95_total_return": [
-      0.0,
-      0.0
-    ],
-    "ci95_sharpe_ratio": [
-      0.0,
-      0.0
-    ],
-    "ci95_max_drawdown": [
-      0.0,
-      0.0
-    ],
-    "per_timeframe": {
-      "1h": {
-        "n_simulations": 3000,
-        "ci95_total_return": [
-          0.0,
-          0.0
-        ],
-        "ci95_sharpe_ratio": [
-          0.0,
-          0.0
-        ],
-        "ci95_max_drawdown": [
-          0.0,
-          0.0
-        ]
-      },
-      "4h": {
-        "n_simulations": 3000,
-        "ci95_total_return": [
-          0.0,
-          0.0
-        ],
-        "ci95_sharpe_ratio": [
-          0.0,
-          0.0
-        ],
-        "ci95_max_drawdown": [
-          0.0,
-          0.0
-        ]
-      },
-      "1d": {
-        "n_simulations": 3000,
-        "ci95_total_return": [
-          0.0,
-          0.0
-        ],
-        "ci95_sharpe_ratio": [
-          0.0,
-          0.0
-        ],
-        "ci95_max_drawdown": [
-          0.0,
-          0.0
-        ]
-      }
-    },
-    "cost_impact": {
-      "mean_turnover_per_period": 0.0,
-      "cost_per_period_assumed": 0.0,
-      "fee_rate": 0.001,
-      "slippage": 0.0005,
-      "n_simulations": 3000,
-      "seed": 12346,
-      "ci95_total_return_net": [
-        0.0,
-        0.0
-      ],
-      "ci95_total_return_zero_cost": [
-        0.0,
-        0.0
-      ],
-      "shift_in_total_return": 0.0,
-      "note": "Bootstrap CI of portfolio OOS returns net of realistic transaction costs (turnover x fee+slippage)."
-    },
-    "distinguishability_from_zero": {
-      "p_value_final_equity_le_1": 1.0,
-      "p_value_final_equity_gt_1": 0.0,
-      "n_simulations": 3000,
-      "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven). Lower is more distinguishable from zero."
-    }
-  },
-  "volume_aware_execution": {
-    "real_volume_attempts": [
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1664,
-        "symbol": "ADA"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1958,
-        "symbol": "AVAX"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 2436,
-        "symbol": "BNB"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 2021,
-        "symbol": "BTC"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1209,
-        "symbol": "DOT"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1628,
-        "symbol": "ETH"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1403,
-        "symbol": "LINK"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1390,
-        "symbol": "LTC"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 820,
-        "symbol": "POL"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 978,
-        "symbol": "SOL"
-      },
-      {
-        "attempt": 1,
-        "host": "https://www.binance.com",
-        "success": true,
-        "bars": 5112,
-        "latency_ms": 1187,
-        "symbol": "XRP"
-      }
-    ],
-    "blocked_routes": [],
-    "volume_fetch_succeeded": true,
-    "volume_fetch_status": "ok",
-    "avg_quote_volume_usdt": {
-      "ADA": 5769417.674471831,
-      "AVAX": 109422.83624608764,
-      "BTC": 666.9768025586854,
-      "BNB": 5614.118801643193,
-      "DOT": 307587.4359741785,
-      "LINK": 99055.52171948356,
-      "ETH": 11694.506923591549,
-      "POL": 2342549.7656885763,
-      "LTC": 13462.508230633803,
-      "SOL": 97126.11692449139,
-      "XRP": 4370975.614143193
-    },
-    "median_quote_volume_usdt": {
-      "ADA": 4074803.3,
-      "AVAX": 72175.4,
-      "BTC": 493.29346499999997,
-      "BNB": 3893.733,
-      "DOT": 221735.775,
-      "LINK": 67907.54999999999,
-      "ETH": 8241.3118,
-      "POL": 1549460.35,
-      "LTC": 9952.867999999999,
-      "SOL": 71583.407,
-      "XRP": 3070746.5999999996
-    },
-    "bars_fetched": {
-      "ADA": 5112,
-      "AVAX": 5112,
-      "BTC": 5112,
-      "BNB": 5112,
-      "DOT": 5112,
-      "LINK": 5112,
-      "ETH": 5112,
-      "POL": 5112,
-      "LTC": 5112,
-      "SOL": 5112,
-      "XRP": 5112
-    },
-    "assumptions": {
-      "model": "volume_participation_adjusted_slippage",
-      "base_slippage": 0.0005,
-      "participation_factor": "inverse_of_relative_volume",
-      "fallback_note": "If real quote-volume is unavailable (blocked routes), the model falls back to a uniform participation assumption with slippage set to base_slippage. Nothing is fabricated; the failure is documented in blocked_routes and volume_fetch_status.",
-      "note": "Slippage scales with participation using real Binance quote volumes where available; no fabrication."
-    },
-    "cost_stress_grid_volume_aware": [
-      {
-        "fee_rate": 0.0,
-        "slippage_base": 0.0003,
-        "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.0,
-        "slippage_base": 0.0005,
-        "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.0,
-        "slippage_base": 0.001,
-        "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.0005,
-        "slippage_base": 0.0003,
-        "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.0005,
-        "slippage_base": 0.0005,
-        "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.0005,
-        "slippage_base": 0.001,
-        "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.001,
-        "slippage_base": 0.0003,
-        "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.001,
-        "slippage_base": 0.0005,
-        "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.001,
-        "slippage_base": 0.001,
-        "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.002,
-        "slippage_base": 0.0003,
-        "slippage_adjusted_mean": 0.0004363636363636363,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.002,
-        "slippage_base": 0.0005,
-        "slippage_adjusted_mean": 0.0007272727272727273,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      },
-      {
-        "fee_rate": 0.002,
-        "slippage_base": 0.001,
-        "slippage_adjusted_mean": 0.0014545454545454547,
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0
-      }
-    ]
-  },
   "cointegration_diagnostics": {
     "BTC/ETH": {
       "pair": [
         "BTC",
         "ETH"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.0192253829041698,
@@ -4726,9 +1409,45 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:34:51.855487+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:15.620680+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.5185709758015115,
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "ETH/SOL": {
@@ -4736,7 +1455,7 @@
         "ETH",
         "SOL"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.8544620670690526,
@@ -6054,9 +2773,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:34:58.171712+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:19.830933+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.6029110794107174,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "BTC/SOL": {
@@ -6064,7 +2830,7 @@
         "BTC",
         "SOL"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.6281517875543978,
@@ -7375,9 +4141,67 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:04.990729+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:24.026962+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.7088623524510671,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "half_life_bounds",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "ADA/ETH": {
@@ -7385,7 +4209,7 @@
         "ADA",
         "ETH"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.869569113649907,
@@ -8703,9 +5527,67 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:11.833290+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:28.236899+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.5953573596282998,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "half_life_bounds",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "XRP/BTC": {
@@ -8713,7 +5595,7 @@
         "XRP",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.6679970065618366,
@@ -10024,9 +6906,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:18.635054+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:32.471514+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.21129935788433235,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "BNB/ETH": {
@@ -10034,7 +6963,7 @@
         "BNB",
         "ETH"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.1367529164719516,
@@ -11352,9 +8281,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:24.786769+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:36.755817+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.45717727230892935,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "BTC/BNB": {
@@ -11362,7 +8338,7 @@
         "BTC",
         "BNB"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.074957792736291,
@@ -12673,9 +9649,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:31.503746+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:40.961054+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.489461613643462,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "SOL/BNB": {
@@ -12683,7 +9706,7 @@
         "SOL",
         "BNB"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.718034053601497,
@@ -13994,9 +11017,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:38.262713+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:45.215161+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.1931596946470452,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "ADA/BTC": {
@@ -14004,7 +11074,7 @@
         "ADA",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.259444073853211,
@@ -15322,9 +12392,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:45.096402+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:49.432685+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.3939546364893661,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "XRP/ETH": {
@@ -15332,7 +12449,7 @@
         "XRP",
         "ETH"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.3894273058042006,
@@ -16643,9 +13760,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:51.925817+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:53.666189+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.3298786871309937,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "BNB/BTC": {
@@ -16653,7 +13817,7 @@
         "BNB",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.9741994161365777,
@@ -17971,9 +15135,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:35:58.683811+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:35:57.925169+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.5419607363611392,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "DOT/BTC": {
@@ -17981,7 +15192,7 @@
         "DOT",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.1257525597881393,
@@ -19292,9 +16503,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:04.835954+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:02.170061+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.4629150206302012,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "DOT/ETH": {
@@ -19302,7 +16560,7 @@
         "DOT",
         "ETH"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.7386203521341723,
@@ -20613,9 +17871,67 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:11.540448+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:06.396308+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.6590290411763075,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "half_life_bounds",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "POL/BTC": {
@@ -20623,7 +17939,7 @@
         "POL",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -4.693516312833145,
@@ -21934,9 +19250,23 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:18.284294+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:10.607716+00:00",
+        "blocked_routes": [
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "AVAX/BTC": {
@@ -21944,7 +19274,7 @@
         "AVAX",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.4616617161377463,
@@ -23255,9 +20585,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:24.991100+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:14.851893+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.29623394833033834,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "LINK/BTC": {
@@ -23265,7 +20642,7 @@
         "LINK",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -1.845705539193244,
@@ -24583,9 +21960,56 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:31.759844+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:19.218056+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.6072675498448601,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     },
     "LTC/BTC": {
@@ -24593,7 +22017,7 @@
         "LTC",
         "BTC"
       ],
-      "status": "computed_from_existing_results",
+      "status": "blocked_or_insufficient_data",
       "engle_granger": {
         "available": true,
         "stat": -2.791564112223628,
@@ -25904,1857 +23328,57 @@
         "source": "reports/portfolio_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-10-31T17:36:38.281464+00:00",
-        "blocked_routes": [],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication."
+        "computed_at": "2026-11-01T00:36:23.467366+00:00",
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "engle_granger",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.1683835618279763,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mean_reversion",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stability",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": null,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, rolling_stability. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
       }
     }
-  },
-  "parameter_stability": {
-    "BTC/ETH": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.001540990374450435,
-        0.0013881571905003387,
-        0.0,
-        -0.0006710992667710025,
-        0.0,
-        0.009006284821683419,
-        0.0,
-        0.0,
-        0.0,
-        -0.0037688073349417817,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": 0.0003677954196683782,
-      "oos_std_return": 0.0028642305440553443,
-      "oos_min_return": -0.0037688073349417817,
-      "oos_max_return": 0.009006284821683419,
-      "positive_split_fraction": 0.16666666666666666,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0008469291840824955,
-          "oos_std_return": 0.003164017023306011,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001097155779363775,
-          "oos_std_return": 0.0031474638240123623,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0005298372448055977,
-          "oos_std_return": 0.002234993445623191,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.00041869048102337786,
-          "oos_std_return": 0.002470663798066527,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0003677954196683782,
-          "oos_std_return": 0.0028642305440553443,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0005214929474712434,
-          "oos_std_return": 0.0013926815912350095,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0021496142075755342,
-          "oos_std_return": 0.006311831549700649,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.00036849073740870725,
-          "oos_std_return": 0.0015030105956190915,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.00013135458499678268,
-          "oos_std_return": 0.001759310912008244,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": 0.12840985174999991,
-      "degradation": -0.11817281469540446,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:37:36.952515+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "ETH/SOL": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        -0.00038215971058586096,
-        -0.0009259509734456106,
-        -0.023650004097242938,
-        -0.012668902625733836,
-        0.0,
-        0.0,
-        0.0,
-        -0.008567261871240905,
-        0.0,
-        -0.0007697733494056447,
-        0.0
-      ],
-      "oos_mean_return": -0.003913671052304567,
-      "oos_std_return": 0.007135684342920831,
-      "oos_min_return": -0.023650004097242938,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.001600450595590469,
-          "oos_std_return": 0.010553267834509815,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0007244215009004259,
-          "oos_std_return": 0.006109743885175885,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0010566536697008317,
-          "oos_std_return": 0.006455287414958045,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0030666251572973313,
-          "oos_std_return": 0.005928705054163556,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.003913671052304567,
-          "oos_std_return": 0.007135684342920831,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.001853649539521866,
-          "oos_std_return": 0.004039217808659282,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0011358726281662697,
-          "oos_std_return": 0.009508679836107075,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0008991250786926827,
-          "oos_std_return": 0.009638142512324144,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00020721214503721663,
-          "oos_std_return": 0.005166898335105964,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.548464711116149,
-      "degradation": 0.3961669399116007,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:38:09.989056+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "BTC/SOL": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.004070675512807043,
-        0.0,
-        0.0,
-        0.0,
-        0.0015393775741876503,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.00021094149488494937,
-      "oos_std_return": 0.001238484513269718,
-      "oos_min_return": -0.004070675512807043,
-      "oos_max_return": 0.0015393775741876503,
-      "positive_split_fraction": 0.08333333333333333,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0008814738622744586,
-          "oos_std_return": 0.004532121287487492,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0006801743186768128,
-          "oos_std_return": 0.0026691426487059143,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -5.10852954939874e-05,
-          "oos_std_return": 0.0023039836872493116,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 6.524762635788199e-05,
-          "oos_std_return": 0.0014325560557190916,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.00021094149488494937,
-          "oos_std_return": 0.001238484513269718,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.000267689940326545,
-          "oos_std_return": 0.0007234914672212979,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.0011387120849487193,
-          "oos_std_return": 0.004439574837203692,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0014347808477488955,
-          "oos_std_return": 0.00493480889724903,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0006714577013529066,
-          "oos_std_return": 0.004647895608609034,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.1703222708515921,
-      "degradation": 0.10568124629885252,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:38:42.941696+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "ADA/ETH": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.009433031690075255,
-        0.003917623866510844,
-        0.0,
-        -0.023668859399831765,
-        0.0,
-        0.0,
-        0.011973302042241674,
-        -0.004442549129259121,
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.001804459525867802,
-      "oos_std_return": 0.008106417639279762,
-      "oos_min_return": -0.023668859399831765,
-      "oos_max_return": 0.011973302042241674,
-      "positive_split_fraction": 0.16666666666666666,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.0005673553662653522,
-          "oos_std_return": 0.003957633651600286,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.00014982779759710926,
-          "oos_std_return": 0.0032522120329446934,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00014020907890778997,
-          "oos_std_return": 0.0030011300571457927,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.002807519514293829,
-          "oos_std_return": 0.011586799251720865,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001804459525867802,
-          "oos_std_return": 0.008106417639279762,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0008949658802326436,
-          "oos_std_return": 0.004728646821823113,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.0005304813036257442,
-          "oos_std_return": 0.003148054351149324,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 9.596482928263723e-05,
-          "oos_std_return": 0.002582756905540693,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0,
-          "oos_std_return": 0.0,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.22259641754721235,
-      "degradation": 0.40555393255666156,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:39:15.911843+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "XRP/BTC": {
-      "selected_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        0.0030610869722835776,
-        0.0,
-        0.007773567182824959,
-        0.0,
-        0.0,
-        -0.009488627721663256,
-        0.0,
-        -0.012674504004689946,
-        -0.0030526138083379895,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.001198424281631888,
-      "oos_std_return": 0.005103589504458212,
-      "oos_min_return": -0.012674504004689946,
-      "oos_max_return": 0.007773567182824959,
-      "positive_split_fraction": 0.16666666666666666,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 110,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0017300633466805677,
-          "oos_std_return": 0.006987970536542336,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0018459344659503922,
-          "oos_std_return": 0.00706813971517704,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.001322254753537792,
-          "oos_std_return": 0.00373048341432627,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0018587908004114213,
-          "oos_std_return": 0.005561070090905261,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001198424281631888,
-          "oos_std_return": 0.005103589504458212,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.001045661824326675,
-          "oos_std_return": 0.00458745829245562,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0022496525942759895,
-          "oos_std_return": 0.004168105652346155,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0020204092765536328,
-          "oos_std_return": 0.004065489514282518,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0022557511062497406,
-          "oos_std_return": 0.00554764555049048,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.2348198812522424,
-      "degradation": 0.36611386600253476,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:39:38.020760+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "BNB/ETH": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.0011906275076272177,
-        -0.0007663124017938117,
-        0.0,
-        -0.021977943335326988,
-        0.011394739926645858,
-        -0.003959699612210876,
-        0.005317600324971972,
-        0.0,
-        0.0,
-        0.023217924504977727,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": 0.0010029734916363886,
-      "oos_std_return": 0.009940789549714809,
-      "oos_min_return": -0.021977943335326988,
-      "oos_max_return": 0.023217924504977727,
-      "positive_split_fraction": 0.25,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0014334381488043113,
-          "oos_std_return": 0.003470879007455008,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0009009623763998886,
-          "oos_std_return": 0.0025744858646108604,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0007646681773876748,
-          "oos_std_return": 0.0022055253110660256,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0008082354873922467,
-          "oos_std_return": 0.010807207010935932,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0010029734916363886,
-          "oos_std_return": 0.009940789549714809,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0005229479640736593,
-          "oos_std_return": 0.0070285025073728025,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.0005680542384408627,
-          "oos_std_return": 0.0018840227694794224,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -2.092482385734895e-05,
-          "oos_std_return": 6.939978953910364e-05,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0001772651004559959,
-          "oos_std_return": 0.0005879218266371962,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": 0.10089475152044318,
-      "degradation": -0.45615073985888716,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:40:11.084750+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "BTC/BNB": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        0.0,
-        0.0,
-        -0.024675935294081075,
-        0.0,
-        -0.00669393522691597,
-        -0.022865157174323247,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.004519585641276691,
-      "oos_std_return": 0.008810061065056602,
-      "oos_min_return": -0.024675935294081075,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.00531114630494466,
-          "oos_std_return": 0.010446466116529949,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0033071800930224438,
-          "oos_std_return": 0.009966870879049907,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.003038918219841739,
-          "oos_std_return": 0.009300943826604952,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0045101663902602325,
-          "oos_std_return": 0.00863596825166529,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.004519585641276691,
-          "oos_std_return": 0.008810061065056602,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.002483612949274979,
-          "oos_std_return": 0.006503998780270706,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.003398083056050762,
-          "oos_std_return": 0.00602837521124843,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0015690022348287536,
-          "oos_std_return": 0.0051862725153000114,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0012532499733193352,
-          "oos_std_return": 0.004073416872098065,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.5130027598434871,
-      "degradation": 0.34800004532925966,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:40:44.105040+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "SOL/BNB": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        -0.010367725961389351,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -0.0032847816843175615,
-        0.0
-      ],
-      "oos_mean_return": -0.001137708970475576,
-      "oos_std_return": 0.0029261315746517587,
-      "oos_min_return": -0.010367725961389351,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0015118244132065934,
-          "oos_std_return": 0.007657076895004143,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.00016912877310203597,
-          "oos_std_return": 0.004474810822392783,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00033018944378789455,
-          "oos_std_return": 0.004729423568572618,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0016620914357312704,
-          "oos_std_return": 0.003749092017331025,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001137708970475576,
-          "oos_std_return": 0.0029261315746517587,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00042204562651743105,
-          "oos_std_return": 0.0037392212218949846,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 3.966885613559031e-05,
-          "oos_std_return": 0.006327472792016903,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0006774103615299343,
-          "oos_std_return": 0.0064738629802262825,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0006135834720351341,
-          "oos_std_return": 0.005826976591863158,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.3888099154331998,
-      "degradation": 0.1893557865730941,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:41:17.107120+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "ADA/BTC": {
-      "selected_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        0.004617003483521787,
-        -0.03464510698865264,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -0.0035289049361205693,
-        0.0,
-        0.0,
-        0.010856553546084058
-      ],
-      "oos_mean_return": -0.0018917045745972805,
-      "oos_std_return": 0.010444199067738429,
-      "oos_min_return": -0.03464510698865264,
-      "oos_max_return": 0.010856553546084058,
-      "positive_split_fraction": 0.16666666666666666,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 110,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0005491062101080727,
-          "oos_std_return": 0.0018211792689825353,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0014253965032981857,
-          "oos_std_return": 0.004727505378924665,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0010364832395080386,
-          "oos_std_return": 0.0034376260069402336,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0033077225966448485,
-          "oos_std_return": 0.015341610024526275,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0018917045745972805,
-          "oos_std_return": 0.010444199067738429,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00036105837860291495,
-          "oos_std_return": 0.006353208777411412,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.00816899206877266,
-          "oos_std_return": 0.02115919647224847,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.008425791314289907,
-          "oos_std_return": 0.02086309859608897,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.008105704190642474,
-          "oos_std_return": 0.01988402160133865,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.18112490600256073,
-      "degradation": 0.2585049855707618,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:41:39.250915+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "XRP/ETH": {
-      "selected_params": {
-        "lookback": 120,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        -0.005940227858192371,
-        0.0,
-        0.0,
-        0.0,
-        -0.004051895034971387,
-        0.0,
-        0.0,
-        0.0,
-        0.008209840805084134,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.00014852350733996858,
-      "oos_std_return": 0.00314696858950144,
-      "oos_min_return": -0.005940227858192371,
-      "oos_max_return": 0.008209840805084134,
-      "positive_split_fraction": 0.08333333333333333,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 110,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.00041002471317871936,
-          "oos_std_return": 0.0050109727221466435,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.00207402636817385,
-          "oos_std_return": 0.0032263930894507785,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 110,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0011176174535127055,
-          "oos_std_return": 0.0023863177016666885,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.000257486733523891,
-          "oos_std_return": 0.0037193277736099623,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.00014852350733996858,
-          "oos_std_return": 0.00314696858950144,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 120,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0005151455131229924,
-          "oos_std_return": 0.002504555671249858,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.005769487851103751,
-          "oos_std_return": 0.008912357793696892,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0027295302581582803,
-          "oos_std_return": 0.004381832742426515,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 130,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.002778335471966894,
-          "oos_std_return": 0.005280728604176088,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.04719573871447594,
-      "degradation": 0.0231084296345195,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:42:01.332532+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "BNB/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.0065682739064873985,
-        0.0,
-        0.0,
-        -0.017812177106287685,
-        0.0,
-        -0.004763033506177128,
-        0.010969430718013928,
-        0.0,
-        -0.0071445636004737745,
-        -0.006860631337243905,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.0026816040615546635,
-      "oos_std_return": 0.006552682790952282,
-      "oos_min_return": -0.017812177106287685,
-      "oos_max_return": 0.010969430718013928,
-      "positive_split_fraction": 0.08333333333333333,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.002276625117923231,
-          "oos_std_return": 0.00567136813065183,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.00012288022244250074,
-          "oos_std_return": 0.003580051334560036,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0008628657127940179,
-          "oos_std_return": 0.0018601307266722714,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0033707360529817896,
-          "oos_std_return": 0.007864099899330993,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0026816040615546635,
-          "oos_std_return": 0.006552682790952282,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0010457461474529712,
-          "oos_std_return": 0.00648045846807629,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.0005894440075730293,
-          "oos_std_return": 0.006700478800609078,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0016693155812209277,
-          "oos_std_return": 0.005054193580831377,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.00196531192596359,
-          "oos_std_return": 0.00501872133093087,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.40923758202489097,
-      "degradation": 0.43335495702950927,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:42:34.368649+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "DOT/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.00587287138577397,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -0.0012187446523478362,
-        0.0,
-        -0.0003120292630631738,
-        0.0,
-        -0.011811427002640817,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.0016012560253188164,
-      "oos_std_return": 0.0034738892306000932,
-      "oos_min_return": -0.011811427002640817,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0001260673986953805,
-          "oos_std_return": 0.007183457320543629,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0001655492980348431,
-          "oos_std_return": 0.007338118129722036,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0015230855833305486,
-          "oos_std_return": 0.007532235205704903,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.00330867375228087,
-          "oos_std_return": 0.006734990303717568,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0016012560253188164,
-          "oos_std_return": 0.0034738892306000932,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0004429789539779257,
-          "oos_std_return": 0.003967336604467795,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0005454309133728815,
-          "oos_std_return": 0.003634778791118448,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0006431456604652682,
-          "oos_std_return": 0.0020382514259855433,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0009474763731530574,
-          "oos_std_return": 0.0024291411595802714,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.46094043838619136,
-      "degradation": 2.074219371291137,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:43:07.334453+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "DOT/ETH": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        -0.006732876658754772,
-        0.0,
-        0.0,
-        -0.00018870471901966113,
-        0.0,
-        -0.002288545178689816,
-        0.0,
-        0.0,
-        0.0,
-        -0.01812768280987398,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.0022781507805281855,
-      "oos_std_return": 0.005139211263393083,
-      "oos_min_return": -0.01812768280987398,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.006356110594967185,
-          "oos_std_return": 0.012202499699757074,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.00477158352679551,
-          "oos_std_return": 0.009026475554371877,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0018927047606885812,
-          "oos_std_return": 0.005778030893313843,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0013581068936876957,
-          "oos_std_return": 0.007094061453693462,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0022781507805281855,
-          "oos_std_return": 0.005139211263393083,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0003091104319774644,
-          "oos_std_return": 0.0008417957529948805,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0010381181410019646,
-          "oos_std_return": 0.0024062417071818937,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.00038970928954594936,
-          "oos_std_return": 0.0012925194907398862,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00038970928954594936,
-          "oos_std_return": 0.0012925194907398862,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.44328801898305004,
-      "degradation": 0.5040687714697849,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:43:40.252420+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "POL/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        -0.008859755287253801,
-        0.0,
-        0.0,
-        -0.01802786510636034,
-        0.0,
-        -0.012575150070980423
-      ],
-      "oos_mean_return": -0.0032885642053828803,
-      "oos_std_return": 0.0059990119252793,
-      "oos_min_return": -0.01802786510636034,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.001385158922480793,
-          "oos_std_return": 0.0077638484655621265,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0012182097061830544,
-          "oos_std_return": 0.0074806805884470836,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0011987905362626228,
-          "oos_std_return": 0.0022603666176165636,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": 0.00010944525104599386,
-          "oos_std_return": 0.010946049625350094,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0032885642053828803,
-          "oos_std_return": 0.0059990119252793,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0013894032974277788,
-          "oos_std_return": 0.004608129420050508,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0018040946167899214,
-          "oos_std_return": 0.004955482183840803,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0013479205262921605,
-          "oos_std_return": 0.00466326416221819,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -9.515690716410674e-05,
-          "oos_std_return": 0.004096055541502116,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.548184308648726,
-      "degradation": 0.37686692325641613,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:44:13.225804+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "AVAX/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.5,
-        "cointegration_pvalue": 0.1
-      },
-      "oos_returns": [
-        -0.005149261335145483,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.0004291051112621236,
-      "oos_std_return": 0.0014231806496801712,
-      "oos_min_return": -0.005149261335145483,
-      "oos_max_return": 0.0,
-      "positive_split_fraction": 0.0,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": 0.0006731466179684398,
-          "oos_std_return": 0.0027493752563930805,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.00038515843884238493,
-          "oos_std_return": 0.0012774260264792378,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 3.0,
-          "oos_mean_return": -0.0003672415182402189,
-          "oos_std_return": 0.0012180023234432647,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0015174047946556561,
-          "oos_std_return": 0.003432395991430165,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0004291051112621236,
-          "oos_std_return": 0.0014231806496801712,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 3.0,
-          "oos_mean_return": 0.0,
-          "oos_std_return": 0.0,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -2.8061075638213806e-05,
-          "oos_std_return": 9.306805910573788e-05,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.00016100966276462922,
-          "oos_std_return": 0.000534008639011932,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 3.0,
-          "oos_mean_return": 0.0,
-          "oos_std_return": 0.0,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.3015113443659062,
-      "degradation": -0.06423141956064221,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:44:46.226055+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "LINK/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.5,
-        "cointegration_pvalue": 0.1
-      },
-      "oos_returns": [
-        0.0,
-        0.0,
-        0.00722627402363174,
-        0.0,
-        0.0,
-        0.009282221561520698,
-        0.0,
-        -0.0078027896202768066,
-        0.0,
-        -0.009530138047299075,
-        0.0,
-        -0.024749591862710862
-      ],
-      "oos_mean_return": -0.0021311686620945256,
-      "oos_std_return": 0.008406968683855327,
-      "oos_min_return": -0.024749591862710862,
-      "oos_max_return": 0.009282221561520698,
-      "positive_split_fraction": 0.16666666666666666,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001407269994784142,
-          "oos_std_return": 0.0037524936798210566,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0011420131475442519,
-          "oos_std_return": 0.002690210043568324,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 3.0,
-          "oos_mean_return": -0.001295768785901208,
-          "oos_std_return": 0.0031449445818787715,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.001334334898532417,
-          "oos_std_return": 0.002917740728409198,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0017156148723281677,
-          "oos_std_return": 0.003252928096205677,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 3.0,
-          "oos_mean_return": -0.0006982380807826297,
-          "oos_std_return": 0.002681705649884435,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0001723612203840356,
-          "oos_std_return": 0.0005716574964216029,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": 0.0,
-          "oos_std_return": 0.0,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 3.0,
-          "oos_mean_return": 0.0,
-          "oos_std_return": 0.0,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.25350024985030617,
-      "degradation": -4.75984024395973,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:45:19.263610+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "LTC/BTC": {
-      "selected_params": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05
-      },
-      "oos_returns": [
-        0.0,
-        -0.006474476197122159,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0008707719365410593,
-        0.0,
-        -0.014425380310221225,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "oos_mean_return": -0.0016690903809001938,
-      "oos_std_return": 0.004255764037276625,
-      "oos_min_return": -0.014425380310221225,
-      "oos_max_return": 0.0008707719365410593,
-      "positive_split_fraction": 0.08333333333333333,
-      "n_splits": 12,
-      "sensitivity_grid": [
-        {
-          "lookback": 50,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.0026337412117863703,
-          "oos_std_return": 0.005055817119836991,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0009588112530987588,
-          "oos_std_return": 0.0023438658724629874,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 50,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0007059359184672376,
-          "oos_std_return": 0.0023413245675907484,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.001984726764656821,
-          "oos_std_return": 0.004761611174519143,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0016690903809001938,
-          "oos_std_return": 0.004255764037276625,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 60,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.001603058609739481,
-          "oos_std_return": 0.0052779320976384025,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 1.5,
-          "oos_mean_return": -0.004455920841132406,
-          "oos_std_return": 0.009775955517387249,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.0,
-          "oos_mean_return": -0.0017083905886997968,
-          "oos_std_return": 0.008601943417684775,
-          "oos_periods": 12
-        },
-        {
-          "lookback": 70,
-          "entry_threshold": 2.5,
-          "oos_mean_return": -0.0019476003861933118,
-          "oos_std_return": 0.008500452812182318,
-          "oos_periods": 12
-        }
-      ],
-      "stability_score": -0.39219523589378635,
-      "degradation": 0.21830286770283308,
-      "regime_notes": "OOS stability assessed across 12 rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against regime_conditioned tail_risk for regime context.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:45:52.299250+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    },
-    "portfolio_level": {
-      "n_pairs": 17,
-      "n_splits": 12,
-      "oos_mean_return": -0.0016195993743597262,
-      "oos_std_return": 0.0014388571314939654,
-      "mean_degradation": 0.01770017085601772,
-      "std_degradation": 1.294827228199596,
-      "positive_split_fraction": 0.11764705882352941,
-      "degradation": 0.01770017085601772,
-      "regime_notes": "Aggregate OOS stability across all admitted pairs over 12 rolling walk-forward splits on real Binance spot data. Mean degradation = mean OOS/IS ratio; values below 1.0 indicate OOS underperforms in-sample.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (aggregate walk-forward on real Binance spot)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:45:52.299360+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    }
-  },
-  "tail_risk": {
-    "portfolio": {
-      "n_observations": 5112,
-      "mean_return": 0.0,
-      "std_return": 0.0,
-      "min_return": 0.0,
-      "max_return": 0.0,
-      "final_equity": 1.0,
-      "max_drawdown": 0.0,
-      "by_confidence": {
-        "95": {
-          "confidence": 0.95,
-          "var": 0.0,
-          "cvar": 0.0,
-          "cdar": 0.0,
-          "n_tail": 5112
-        },
-        "99": {
-          "confidence": 0.999,
-          "var": 0.0,
-          "cvar": 0.0,
-          "cdar": 0.0,
-          "n_tail": 5112
-        }
-      },
-      "note": "VaR/CVaR/CDaR reported as positive magnitudes. CVaR is the mean of returns at or below VaR; CDaR is the mean of drawdowns at or below the drawdown VaR threshold."
-    },
-    "permutation_test": {
-      "observed_mean": 0.0,
-      "permutation_mean": 0.0,
-      "permutation_std": 0.0,
-      "p_value": 1.0,
-      "n_permutations": 3000,
-      "n_observations": 5112,
-      "note": "Two-sided permutation p-value for the observed mean return against the null of no exploitable signal. Lower p-value is more distinguishable from zero."
-    },
-    "regime_conditioned": {
-      "regimes": {
-        "high_vol": {
-          "n_periods": 1697,
-          "total_return": 0.0,
-          "mean_return": 0.0,
-          "sharpe_ratio": 0.0
-        },
-        "low_vol": {
-          "n_periods": 1698,
-          "total_return": 0.0,
-          "mean_return": 0.0,
-          "sharpe_ratio": 0.0
-        },
-        "downtrend": {
-          "n_periods": 2417,
-          "total_return": 0.0,
-          "mean_return": 0.0,
-          "sharpe_ratio": 0.0
-        },
-        "uptrend": {
-          "n_periods": 2646,
-          "total_return": 0.0,
-          "mean_return": 0.0,
-          "sharpe_ratio": 0.0
-        }
-      },
-      "note": "Regime-conditioned portfolio performance on real Binance spot returns; computed from detect_regimes (BTC vol regime + BTC trend) over the portfolio return series.",
-      "provenance": {
-        "source": "examples.run_portfolio_real (utils.regime.detect_regimes)",
-        "real_data_only": true,
-        "fabricated_data": false,
-        "computed_at": "2026-10-31T17:46:02.550309+00:00",
-        "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot candles only; no fabrication. Host chain prefers www.binance.com; any blocked host is recorded in blocked_routes with rationale."
-      }
-    }
-  },
-  "blocked_routes": []
+  }
 }
