@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T17:06:30Z | CAMPAIGN 8 COMPLETE | NEXT: CAMPAIGN 9 (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS)
+# SINGLE DURABLE HANDOFF | 2026-11-01T17:08:17Z | CAMPAIGN 8 COMPLETE | NEXT: CAMPAIGN 9 (LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,29 +8,40 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T17:06:30Z
-**TARGET SESSION:** Next agentic work session (immediate)
-**MISSION:** Execute Campaign 9 with heavy, verifiable work. Enforce cointegration gating (fail-closed). Remove friction. Produce required artifacts/tests. No coasting.
+**TIMESTAMP:** 2026-11-01T17:08:17Z
+**TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
+**PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
-### IMMEDIATE BOOT SEQUENCE (MUST DO FIRST)
-1. **Verify integrity (blocking):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
-2. **Read the law:** Re-read this handoff fully. Treat HARD CONSTRAINTS as non-negotiable.
-3. **Audit existing state:** Confirm Campaign 8 artifacts exist: `reports/execution_realism_mt.json`, `reports/turnover_slippage_mt.json`, `reports/execution_stress_grid_mt.json`. Confirm gating artifacts exist: `reports/portfolio_gating_mt.json`, `reports/portfolio_walkforward_mt.json`, `reports/portfolio_cost_stress_mt.json`, `reports/mt_blocking_matrix.json`, `reports/mt_structural_breaks_summary.json`.
-4. **Identify the gap (blocking):** Campaign 9 artifacts/tests do **NOT** exist yet. This is the only work to do. Do not pivot to unrelated tasks.
+### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
+1. **Verify integrity (BLOCKING):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
+2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
+3. **Audit existing state:** Confirm Campaign 8 artifacts exist: `reports/execution_realism_mt.json`, `reports/turnover_slippage_mt.json`, `reports/execution_stress_grid_mt.json`. Confirm gating artifacts exist: `reports/portfolio_gating_mt.json`, `reports/portfolio_walkforward_mt.json`, `reports/portfolio_cost_stress_mt.json`, `reports/mt_blocking_matrix.json`, `reports/mt_structural_breaks_summary.json`. Confirm all cointegration-gating tests pass.
+4. **Identify the gap (BLOCKING):** Campaign 9 artifacts/tests do **NOT** exist yet. This is the **ONLY** work to do now. Do not pivot to unrelated tasks.
 
-### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE WORK)
-> **OBJECTIVE (HEAVY, CAMPAIGN 9 - MANDATORY):** Harden execution realism for live-readiness while strictly preserving cointegration gating (fail-closed). Only real data/causal logic. No threshold weakening. No fabrication.
-> **REQUIRED ARTIFACTS:** `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json`
-> **REQUIRED TESTS:** `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py`
-> **REQUIREMENTS:** Per (timeframe,pair) capacity constraints from real volume where available (max notional/ADV, borrow/shortability), order routing realism (maker/taker, queue/latency, partial fills, reject/replace) tied to gating, deterministic live-readiness checklist with evidence links. Blocked pairs must remain blocked (capacity never lifts gates). Full provenance, schema validation, monotonicity checks. Update this handoff with evidence on completion. Coasting = failure.
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY)
+> **OBJECTIVE (HEAVY, CAMPAIGN 9 - MANDATORY, COINTEGRATION-FIRST):** Harden execution realism for live-readiness while strictly preserving cointegration gating (fail-closed). Only real data/causal logic. No threshold weakening. No fabrication. Every gated block must remain blocked.
+>
+> **REQUIRED ARTIFACTS (MUST PRODUCE):** `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json`
+>
+> **REQUIRED TESTS (MUST PRODUCE):** `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py`
+>
+> **REQUIREMENTS (HARD):**
+> - **Capacity constraints:** Per (timeframe,pair) capacity from real volume where available (max notional/ADV, borrow/shortability). Derive from cached/real sources only; provenance required. Capacity constraints **NEVER** lift gating blocks. Blocked pairs remain blocked with zero allocation.
+> - **Order routing realism:** Model maker/taker, queue/latency, partial fills, reject/replace tied to gating. Deterministic behavior, causal only. Enforce fail-closed: only gated-eligible pairs feasible.
+> - **Live-readiness checklist:** Deterministic checklist with evidence links to artifacts/tests/gates; must show blocked pairs, capacity constraints, routing constraints, provenance.
+> - **Schema/monotonicity:** Full schema validation, monotonicity checks (worse cost/latency -> worse outcomes). No synthetic fabrication.
+> - **Provenance:** Every artifact must include `real_data_only`, `fabricated_data`, `computed_at`, `source`, `gating_context`, `blocked_routes`/rationale.
+> - **Remove bottlenecks:** If any existing path blocks efficient progress (tests/artifacts missing, gating gaps), fix/remove bottlenecks with artifacts/tests. Coasting = failure.
+>
+> **COMPLETION:** Update this handoff with concrete evidence (artifact paths, test results) on completion. Do not stop until all required artifacts/tests exist and verification passes.
 
-## CURRENT VERIFIED STATE (2026-11-01T17:06:30Z)
+## CURRENT VERIFIED STATE (2026-11-01T17:08:17Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation (4h: 1/17 pass all gates [POL/BTC passes honestly]; 1d: 0/17). MT blocking matrix + structural breaks populated. Threshold invariance green.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT (fail-closed, no blocked pair gets weight). Walk-forward MT + risk/cost stress MT artifacts created with provenance. Tests passing.
 - **Campaign 8 DONE:** Execution realism MT (fills/slippage/fees/latency/partial/rejects, fail-closed), turnover/implementation shortfall MT, execution stress grid MT, tests added and passing. All provenance linked.
-- **Campaign 9 PENDING:** Artifacts and tests do not exist. This is the next heavy work.
-- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 12 symbols; offline-capable.
+- **Campaign 9 PENDING (ACTIVE GAP):** Artifacts `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_readiness_checklist_mt.json` and tests `tests/test_execution_capacity_gating.py`, `tests/test_order_routing_schema.py` do **NOT** exist yet. This is the **ONLY** work to do now.
+- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 12 symbols; offline-capable. Real data only.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 1. MT blocking matrix + structural-breaks summary empty → populated (Campaign 6).
