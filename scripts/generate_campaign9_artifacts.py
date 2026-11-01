@@ -285,7 +285,10 @@ def generate_execution_capacity(
             "participation_rate": PARTICIPATION_RATE,
             "max_notional_model": "limiting_leg_adv * participation_rate (quote USDT)",
             "short_available": False,
-            "short_rationale": "no real borrow/shortability data; short capacity unavailable (fail-closed)",
+"short_rationale": (
+            "no real borrow/shortability data; short capacity "
+            "unavailable (fail-closed)"
+        ),
             "short_borrow_fee_bps_annual": 5.0,
             "real_data_only": True,
             "fabricated_data": False,
