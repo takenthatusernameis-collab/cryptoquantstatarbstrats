@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T09:30:34Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-11-01T09:48:23Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -10,7 +10,7 @@
 - Branch: `main`, working tree clean. Up to date with `origin/main`.
 - `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Enriched gates enforced strictly.
 - **CAMPAIGN 1 DONE:** `reports/cointegration_diagnostics_real.json` written (2026-11-01T09:08:32Z) via `examples/run_cointegration_diagnostics_real.py`. Real cached 1h Binance candles (2026-04-01 to 2026-10-30, 5112 bars, all 11 symbols) — no network used. All 17 pairs diagnosed with full gates + `blocked_routes[]` + rationale + provenance.
-- **POL/BTC confirmed:** `eg_pass=true`, `johansen_pass=true`, `spread_mr_pass=true`, `hl_bounds_pass=true`, `leg_stationarity_ok=true`, `rolling_stable_ok=false`. Blocked **only** on `rolling_stability` (`frac_significant_0_05≈0.0489`, ~9/184 windows at p<0.05, window=720 step=24). Passing window start bars: 168, 1536, 1560, 2736, 2856, 2880, 2904, 3528, 4368. All other gates pass on real data.
+- **POL/BTC concluded (Campaign 2):** NOT regime-filterable with a trailing-only causal filter. `reports/pol_btc_regime_analysis.json` (computed 2026-11-01T09:47:58Z, real cached data, 184 windows, 9 pass, frac 0.0489) — cointegration holds only in 9/184 sparse scattered windows; no robust trailing-causal regime boundary; hedge ratio eccentric; temporally unstable. **Keep `blocked_or_insufficient_data` with full provenance.** Do NOT weaken `rolling_stability`. No causal filter added.
 - **All other 16 pairs:** honestly `blocked_or_insufficient_data`. Every one fails `engle_granger` (no cointegration on this window) plus `rolling_stability`; several also fail `johansen`, `spread_mean_reversion`, `hl_bounds`. Non-empty `blocked_routes[]` recorded for each.
 - `reports/portfolio_real.json` (~664KB) still has all 17 pairs `blocked_or_insufficient_data` (gates present but stale); the recomputed artifact is `reports/cointegration_diagnostics_real.json`.
 - `reports/.portfolio_real_checkpoint.json` is **0 bytes** (empty). No `reports/portfolio_real_regen.log` exists.
@@ -24,7 +24,7 @@
 4. **Test-suite slowness** — mitigated: do not run the full suite in one session; run targeted verification commands. If compute becomes blocking, narrow scope to cointegration diagnostics only.
 
 ## SINGLE INITIAL TASK MESSAGE (START HERE — NO DEVIATION)
-**OBJECTIVE:** Close the cointegration rigor loop. Campaign 1 is complete. Next: **POL/BTC deep dive (Campaign 2)** — determine whether POL/BTC is regime-filterable with a **trailing-only, causal, no-lookahead** filter (tradeable) or fundamentally/temporally unstable (keep honestly blocked). No threshold weakening without ironclad evidence+tests. No fabrication. No coasting.
+**OBJECTIVE:** Close cointegration rigor loop. Campaigns 1 & 2 complete. Campaign 2 concluded POL/BTC is temporally unstable → keep blocked with provenance. Next: **Campaign 3 — Honest blocking audit + evidence lock-in** — ensure every blocked pair (all 17) carries non-empty `blocked_routes[]` + rationale + provenance in `reports/cointegration_diagnostics_real.json`, add tests locking the no-pass-all-gates invariant and POL/BTC blocked-only-on-rolling-stability-but-kept-blocked conclusion, verify targeted tests + ruff clean. Then expand rigor: re-examine remaining 16 pairs for any near-miss cointegration signal (rolling stability, EG p-values) and document; no threshold weakening. Heavy work, no coasting.
 
 **MANDATORY FIRST ACTIONS (IN ORDER):**
 1. **Load the facts** — Read `reports/cointegration_diagnostics_real.json` for POL/BTC in full (gates, rolling_stability details with passing window start bars 168,1536,1560,2736,2856,2880,2904,3528,4368, provenance). Read `strategies/pairs_trading.py` (enriched gates, fail-closed behavior) and `utils/cointegration.py` (rolling/eg/johansen).
