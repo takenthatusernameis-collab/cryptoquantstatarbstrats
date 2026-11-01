@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:58:47Z | CAMPAIGN 15 COMPLETE (END-TO-END PIPELINE VERIFICATION + STRESS GATING) | CAMPAIGN 16 ACTIVE (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T21:59:04Z | CAMPAIGN 15 COMPLETE (END-TO-END PIPELINE VERIFICATION + STRESS GATING) | CAMPAIGN 16 ACTIVE / NOT STARTED (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | BOTTLENECK: CAMPAIGN 16 GENERATOR MISSING — CREATE IT FIRST | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T21:58:47Z
+**TIMESTAMP:** 2026-11-01T21:59:04Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -23,6 +23,7 @@
 >
 > **REQUIRED ARTIFACTS:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json`
 > **REQUIRED TESTS:** `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py`
+> **REQUIRED GENERATOR:** `scripts/generate_campaign16_artifacts.py` (does not exist yet — CREATING IT IS THE FIRST UNBLOCKING STEP).
 >
 > **REQUIREMENTS (HARD):**
 > - **OOS cointegration validation:** Validate the 17 pairs in `reports/portfolio_real.json` on OOS (post-sample) real Binance spot candles per timeframe (1h, 4h, 1d). Re-run Engle-Granger/Johansen, spread ADF/KPSS, half-life (1<hl<500), Hurst, rolling stability on trailing windows only. Report `status: pass_or_block` per pair/timeframe with `blocked_routes`, rationale, full provenance (`real_data_only=true`, `fabricated_data=false`, `computed_at`, `source`). Fail-closed: any failed/insufficient gate blocks the pair; never fabricate a pass.
@@ -33,7 +34,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence (Campaign 16 COMPLETED section). Do not stop until done.
 
-## CURRENT VERIFIED STATE (2026-11-01T21:58:47Z)
+## CURRENT VERIFIED STATE (2026-11-01T21:59:04Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT.
@@ -45,13 +46,15 @@
 - **Campaign 13 DONE:** Live execution integration + position sizing enforcement + real-time monitoring (artifacts/tests present and green).
 - **Campaign 14 DONE:** Real-time monitoring gating test + hardening (artifacts/tests present and green).
 - **Campaign 15 DONE:** End-to-end production pipeline verification + stress gating (artifacts/tests present and green).
-- **Campaign 16 ACTIVE:** OOS cointegration validation + walk-forward gate stability (sole focus).
-- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
+- **Campaign 16 ACTIVE / NOT STARTED:** OOS cointegration validation + walk-forward gate stability (sole focus). **NOTHING PRODUCED YET:** no `scripts/generate_campaign16_artifacts.py`, no `reports/oos_cointegration_validation_mt.json`, no `reports/walkforward_gate_stability_mt.json`, no tests. First action: create the generator following Campaign 15 patterns.
+- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_oos_mt_4h.json` etc., real data only). Real data only.
 - Integrity: Campaign 15 artifacts/tests verified present; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Handoff is single durable source of truth.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
+- **BOTTLENOCK IDENTIFIED — Campaign 16 generator missing:** `scripts/generate_campaign16_artifacts.py` does not exist. Remove by creating it following `scripts/generate_campaign15_artifacts.py` patterns (load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, OOS real Binance spot data; enforce 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
+- **BOTTLENOCK IDENTIFIED — No Campaign 16 artifacts/tests:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json`, `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py` all missing. Remove by generating them in this campaign.
 - **Ambiguity removed:** Explicit boot sequence + copy/paste initial task message + hard completion criteria.
-- **Focus enforced:** Campaign 13 is the ONLY permitted focus until its artifacts/tests exist and pass.
+- **Focus enforced:** Campaign 16 is the ONLY permitted focus until its artifacts/tests exist and pass.
 - **Gating enforced:** Fail-closed invariants codified; no auto-lift paths.
 - **Execution path unblocked:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_gating.py`) — do not invent new parallel tracks.
 
@@ -63,7 +66,7 @@
 - Campaign 13 DONE: Live execution integration + position sizing enforcement + real-time monitoring.
 - Campaign 14 DONE: Real-time monitoring gating test + hardening.
 - **Campaign 15 DONE:** End-to-end production pipeline verification + stress gating.
-- **Campaign 16 (ACTIVE - HEAVY, DO NOT SKIP):** OOS cointegration validation + walk-forward gate stability across all 17 pairs. Produce `oos_cointegration_validation_mt.json`, `walkforward_gate_stability_mt.json` + `test_oos_cointegration_validation_gating.py`, `test_walkforward_gate_stability_schema.py`. Preserve honest blocking.
+- **Campaign 16 (ACTIVE - NOT STARTED, HEAVY, DO NOT SKIP):** OOS cointegration validation + walk-forward gate stability across all 17 pairs. Produce `oos_cointegration_validation_mt.json`, `walkforward_gate_stability_mt.json` + `test_oos_cointegration_validation_gating.py`, `test_walkforward_gate_stability_schema.py`. Preserve honest blocking.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
@@ -127,8 +130,10 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **VERIFICATION:** Campaign 15 artifacts generated via `scripts/generate_campaign15_artifacts.py`; gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across both artifacts; 44 targeted tests green; ruff clean on campaign files.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
 
-## CAMPAIGN 16 (ACTIVE) — EXECUTION PLAN
-1. **Create generator:** `scripts/generate_campaign16_artifacts.py` following Campaign 15 patterns. Load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, and OOS real Binance spot data. Enforce gating invariants explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
+## CAMPAIGN 16 (ACTIVE / NOT STARTED) — EXECUTION PLAN
+1. **Create generator:** `scripts/generate_campaign16_artifacts.py` following Campaign 15 patterns. Load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, and OOS real Binance spot data. Enforce gating invariants explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **This unblocks everything.**
 2. **Generate artifacts:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
 3. **Write tests:** `tests/test_oos_cointegration_validation_gating.py`, `tests/test_walkforward_gate_stability_schema.py` mirroring prior gating tests.
 4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 16 COMPLETED evidence.
+
+(End of file - total 547 lines)
