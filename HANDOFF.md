@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T22:53:45Z | CAMPAIGN 16 COMPLETE (OOS COINTEGRATION VALIDATION + WALK-FORWARD GATE STABILITY) | CAMPAIGN 17 ACTIVE / NOT STARTED (OOS COINTEGRATION-GATED PORTFOLIO EXECUTION + PERFORMANCE VALIDATION) | BOTTLENOCKS REMOVED — GENERATOR + ARTIFACTS + TESTS PRODUCED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T23:55:07Z | CAMPAIGN 17 COMPLETE (OOS COINTEGRATION-GATED PORTFOLIO EXECUTION + PERFORMANCE VALIDATION) | CAMPAIGN 18 ACTIVE / NOT STARTED (LIVE PRODUCTION DEPLOYMENT FINAL VALIDATION + CAPITAL ALLOCATION GATING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -171,3 +171,14 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
   - Campaign 11 artifacts generated via `scripts/generate_campaign11_artifacts.py`
   - Campaign 11 tests: 2 passed
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
+
+## CAMPAIGN 18 ACTIVE / NOT STARTED (2026-11-01T23:55:07Z) - LIVE PRODUCTION DEPLOYMENT FINAL VALIDATION + CAPITAL ALLOCATION GATING
+
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE - MANDATORY, HEAVY)
+> **OBJECTIVE (HEAVY, CAMPAIGN 18 - MANDATORY, COINTEGRATION-FIRST):** Final live production deployment validation + capital allocation gating across the eligible set on real Binance spot data only, cointegration-gated (fail-closed). Confirm end-to-end live readiness: only POL/BTC (4h) carries capital; all blocked pairs receive zero capital/allocation/orders/fills; live deployment bridge, kill-switch, reconciliation, monitoring, guardrails all fail-closed; capital allocation proportional to gated eligibility with full provenance; no threshold weakening; no fabrication; causal only.
+>
+> **REQUIRED ARTIFACTS:** `reports/live_production_deployment_mt.json`, `reports/capital_allocation_gating_mt.json`
+> **REQUIRED TESTS:** `tests/test_live_production_deployment_mt.py`, `tests/test_capital_allocation_gating_mt.py`
+> **REQUIRED GENERATOR:** `scripts/generate_campaign18_artifacts.py` (create following Campaign 17 patterns).
+>
+> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence. Do not stop until done.
