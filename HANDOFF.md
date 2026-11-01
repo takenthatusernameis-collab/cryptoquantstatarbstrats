@@ -15,24 +15,17 @@
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
 1. **Verify integrity (BLOCKING):** Run the verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
-3. **Confirm Campaign 16 complete:** `reports/oos_cointegration_validation_mt.json`, `reports/walkforward_gate_stability_mt.json` exist; `tests/test_oos_cointegration_validation_gating.py` and `tests/test_walkforward_gate_stability_schema.py` pass; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) (see CAMPAIGN 16 COMPLETED evidence below).
-4. **Campaign 17 is the sole work now.** Do not pivot to unrelated tasks.
+3. **Confirm Campaign 17 complete:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json` exist; `tests/test_oos_portfolio_execution_gating.py` and `tests/test_oos_portfolio_performance_schema.py` pass; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) (see CAMPAIGN 17 COMPLETED evidence below).
+4. **Campaign 18 is the sole work now.** Do not pivot to unrelated tasks.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
-> **OBJECTIVE (HEAVY, CAMPAIGN 17 - MANDATORY, COINTEGRATION-FIRST):** Out-of-sample (OOS) cointegration-gated portfolio execution + performance validation across the eligible set, real Binance spot data only, cointegration-gated (fail-closed). Validate that the fail-closed gating (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) holds end-to-end in an OOS portfolio backtest: blocked pairs receive zero weight/fills/capacity/position limits; only POL/BTC (4h) may carry exposure; execution realism (fees/slippage) applied; no threshold weakening; no fabrication; every gated block remains blocked. Gates enforced causally (trailing windows only); no lookahead.
+> **OBJECTIVE (HEAVY, CAMPAIGN 18 - MANDATORY, COINTEGRATION-FIRST):** Final live production deployment validation + capital allocation gating across the eligible set on real Binance spot data only, cointegration-gated (fail-closed). Confirm end-to-end live readiness: only POL/BTC (4h) carries capital; all blocked pairs receive zero capital/allocation/orders/fills; live deployment bridge, kill-switch, reconciliation, monitoring, guardrails all fail-closed; capital allocation proportional to gated eligibility with full provenance; no threshold weakening; no fabrication; causal only.
 >
-> **REQUIRED ARTIFACTS:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json`
-> **REQUIRED TESTS:** `tests/test_oos_portfolio_execution_gating.py`, `tests/test_oos_portfolio_performance_schema.py`
-> **REQUIRED GENERATOR:** `scripts/generate_campaign17_artifacts.py` (does not exist yet — CREATING IT IS THE FIRST UNBLOCKING STEP).
+> **REQUIRED ARTIFACTS:** `reports/live_production_deployment_mt.json`, `reports/capital_allocation_gating_mt.json`
+> **REQUIRED TESTS:** `tests/test_live_production_deployment_mt.py`, `tests/test_capital_allocation_gating_mt.py`
+> **REQUIRED GENERATOR:** `scripts/generate_campaign18_artifacts.py` (create following Campaign 17 patterns).
 >
-> **REQUIREMENTS (HARD):**
-> - **OOS cointegration-gated portfolio execution:** Replay the gated portfolio on OOS (post-sample) real Binance spot candles per timeframe (1h, 4h, 1d). Only pairs eligible in `reports/portfolio_gating_mt.json` may receive allocation; all blocked pairs zeroed with `rejection_log`/`blocked_routes`/`orders_allowed=false`/`fills_allowed=false`. Enforce position sizing, capacity, order routing, kill-switch, pre-trade enforcement, portfolio guardrails — all fail-closed, none lift gating blocks. Report `status: pass_or_block` per pair/timeframe with full provenance (`real_data_only=true`, `fabricated_data=false`, `computed_at`, `source`).
-> - **OOS portfolio performance validation:** Compute OOS portfolio metrics (total return, Sharpe, max drawdown, Calmar, VaR/CVaR, turnover, cost-adjusted return) on real data; compare to pair-matched equal-weight buy-and-hold benchmarks; record `real_data_only=true`, `fabricated_data=false`; bootstrap CI (>=2000 sims, fixed seed) optional but encouraged. Fail-closed: if any execution stage violates gating, the run is `block`.
-> - **Gating invariants preserved:** eligible sets equal to `reports/portfolio_gating_mt.json` (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs zeroed; fail-closed; no auto-lift; linked to all prior MT artifacts including `reports/oos_cointegration_validation_mt.json` and `reports/walkforward_gate_stability_mt.json`.
-> - **Schema/provenance/monotonicity:** `real_data_only=true`, `fabricated_data=false`, `computed_at` (UTC ISO8601), `source`, `gating_context`, `blocked_routes`/rationale. Causal only. No synthetic fabrication.
-> - **Remove bottlenecks:** If any path blocks efficient progress (missing generator, import errors, schema gaps, missing OOS data), fix/remove bottlenecks with artifacts/tests in the same campaign. Do not create new bottlenecks. Coasting = failure.
->
-> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence (Campaign 17 COMPLETED section). Do not stop until done.
+> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence. Do not stop until done.
 
 ## CURRENT VERIFIED STATE (2026-11-01T21:59:04Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
