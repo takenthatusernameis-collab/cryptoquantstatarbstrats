@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T19:58:00Z | CAMPAIGN 12 ACTIVE (OPERATIONAL RISK CONTROLS + PRE-TRADE ENFORCEMENT + PORTFOLIO GUARDRAILS) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T21:00:00Z | CAMPAIGN 13 ACTIVE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT + REAL-TIME MONITORING) | BOTTLENECKS CLEARED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,32 +8,32 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T19:58:00Z
+**TIMESTAMP:** 2026-11-01T21:00:00Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
 1. **Verify integrity (BLOCKING):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
-3. **Confirm Campaign 11 complete:** `reports/live_deployment_bridge_mt.json`, `reports/post_trade_reconciliation_mt.json`, `reports/kill_switch_rules_mt.json` exist; `tests/test_live_deployment_bridge_gating.py` and `tests/test_kill_switch_schema.py` pass (see CAMPAIGN 11 COMPLETED evidence below).
-4. **Campaign 12 artifacts/tests do NOT exist yet — sole work now.** Do not pivot to unrelated tasks.
+3. **Confirm Campaign 12 complete:** `reports/operational_risk_controls_mt.json`, `reports/pre_trade_enforcement_mt.json`, `reports/portfolio_guardrails_mt.json` exist; `tests/test_operational_risk_controls_gating.py` and `tests/test_portfolio_guardrails_schema.py` pass (see CAMPAIGN 12 COMPLETED evidence below).
+4. **Campaign 13 artifacts/tests do NOT exist yet — sole work now.** Do not pivot to unrelated tasks.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
-> **OBJECTIVE (HEAVY, CAMPAIGN 12 - MANDATORY, COINTEGRATION-FIRST):** Build operational risk controls + pre-trade enforcement + portfolio guardrails, cointegration-gated (fail-closed). Real data only. No threshold weakening. No fabrication. Every gated block remains blocked.
+> **OBJECTIVE (HEAVY, CAMPAIGN 13 - MANDATORY, COINTEGRATION-FIRST):** Build live execution integration + position sizing enforcement + real-time monitoring, cointegration-gated (fail-closed). Real data only. No threshold weakening. No fabrication. Every gated block remains blocked.
 >
-> **REQUIRED ARTIFACTS:** `reports/operational_risk_controls_mt.json`, `reports/pre_trade_enforcement_mt.json`, `reports/portfolio_guardrails_mt.json`
-> **REQUIRED TESTS:** `tests/test_operational_risk_controls_gating.py`, `tests/test_portfolio_guardrails_schema.py`
+> **REQUIRED ARTIFACTS:** `reports/live_execution_integration_mt.json`, `reports/position_sizing_enforcement_mt.json`, `reports/realtime_monitoring_mt.json`
+> **REQUIRED TESTS:** `tests/test_live_execution_integration_gating.py`, `tests/test_position_sizing_enforcement_schema.py`
 >
 > **REQUIREMENTS (HARD):**
-> - **Operational risk controls:** Deterministic risk limits/controls mapped from MT-gated state; only gated-eligible pairs; blocked pairs zeroed/enforced with rejection_log/blocked_routes/provenance; fail-closed; link to prior artifacts (`reports/portfolio_gating_mt.json`, `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_deployment_bridge_mt.json`, `reports/kill_switch_rules_mt.json`).
-> - **Pre-trade enforcement:** Hard pre-trade checks blocking orders if any gate fails; no bypass; respect cointegration gating.
-> - **Portfolio guardrails:** Portfolio-level constraints enforce cointegration gating; never auto-lift blocks; fail-closed.
+> - **Live execution integration:** Deterministic integration mapping from MT-gated state to live execution interface; only gated-eligible pairs (POL/BTC at 4h; 0/17 at 1h, 0/17 at 1d); blocked pairs zeroed/enforced with rejection_log/blocked_routes/orders_allowed/fills_allowed=false; fail-closed; link to all prior artifacts (`reports/portfolio_gating_mt.json`, `reports/execution_capacity_mt.json`, `reports/order_routing_realism_mt.json`, `reports/live_deployment_bridge_mt.json`, `reports/kill_switch_rules_mt.json`, `reports/operational_risk_controls_mt.json`, `reports/pre_trade_enforcement_mt.json`, `reports/portfolio_guardrails_mt.json`).
+> - **Position sizing enforcement:** Hard enforcement of position sizes strictly by cointegration-gated eligibility; no size inflation for blocked pairs; max position limits per eligible pair with full provenance; fail-closed.
+> - **Real-time monitoring:** Cointegration-gated monitoring with alerts on gate breaches/drift; must respect all gates (never auto-lift); fail-closed with evidence/provenance/blocked_routes.
 > - **Schema/provenance/monotonicity:** `real_data_only=true`, `fabricated_data=false`, `computed_at`, `source`, `gating_context`, `blocked_routes`/rationale. No synthetic fabrication.
 > - **Remove bottlenecks:** If any existing path blocks efficient progress (tests/artifacts missing, gating gaps), fix/remove bottlenecks with artifacts/tests. Do not create new bottlenecks. Coasting = failure.
 >
 > **COMPLETION CRITERIA (BLOCKING):** All three artifacts and both tests exist, schemas consistent with prior MT artifacts, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), ruff clean, targeted pytest green, handoff updated with evidence. Do not stop until done.
 
-## CURRENT VERIFIED STATE (2026-11-01T19:58:00Z)
+## CURRENT VERIFIED STATE (2026-11-01T21:00:00Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 6 DONE:** MT cointegration stability + structural-break re-validation.
 - **Campaign 7 DONE:** Portfolio-level cointegration gating integrated MT.
@@ -41,9 +41,10 @@
 - **Campaign 9 DONE:** Live-ready execution hardening + cointegration-gated capacity constraints.
 - **Campaign 10 DONE:** Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting complete.
 - **Campaign 11 DONE:** Production live-deployment hardening + post-trade reconciliation + kill-switch complete.
-- **Campaign 12 ACTIVE:** Operational risk controls + pre-trade enforcement + portfolio guardrails (not started yet in this run).
+- **Campaign 12 DONE:** Operational risk controls + pre-trade enforcement + portfolio guardrails complete.
+- **Campaign 13 ACTIVE:** Live execution integration + position sizing enforcement + real-time monitoring (not started yet in this run).
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
-- Integrity: Campaign 11 artifacts/tests verified present; gating invariants intact.
+- Integrity: Campaign 12 artifacts/tests verified present; gating invariants intact.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 Bottlenecks removed across campaigns; gating invariants tested. Handoff is single durable source of truth. Next-agent boot sequence explicit and unambiguous.
@@ -52,7 +53,8 @@ Bottlenecks removed across campaigns; gating invariants tested. Handoff is singl
 - Campaign 1-9 DONE as above.
 - Campaign 10 DONE: Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting.
 - Campaign 11 DONE: Production live-deployment hardening + post-trade reconciliation + kill-switch.
-- **Campaign 12 (ACTIVE - HEAVY, DO NOT SKIP):** Operational risk controls + pre-trade enforcement + portfolio guardrails. Produce `operational_risk_controls_mt.json`, `pre_trade_enforcement_mt.json`, `portfolio_guardrails_mt.json` + `test_operational_risk_controls_gating.py`, `test_portfolio_guardrails_schema.py`. Preserve honest blocking.
+- Campaign 12 DONE: Operational risk controls + pre-trade enforcement + portfolio guardrails.
+- **Campaign 13 (ACTIVE - HEAVY, DO NOT SKIP):** Live execution integration + position sizing enforcement + real-time monitoring. Produce `live_execution_integration_mt.json`, `position_sizing_enforcement_mt.json`, `realtime_monitoring_mt.json` + `test_live_execution_integration_gating.py`, `test_position_sizing_enforcement_schema.py`. Preserve honest blocking.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
@@ -85,8 +87,8 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
   - `reports/pre_trade_enforcement_mt.json` (hard pre-trade enforcement; orders/position increases blocked for gated-blocked pairs; cointegration-gated checks; fail-closed; no_auto_lift_of_blocks)
   - `reports/portfolio_guardrails_mt.json` (portfolio guardrails enforcing cointegration gating; risk budget not allocated to blocked pairs; fail-closed; no_auto_lift_of_blocks)
 - **TESTS PRODUCED:**
-  - `tests/test_operational_risk_controls_gating.py` - operational risk controls enforce gating invariants, zero allocation/limits for blocked, rejection logs + blocked routes present
-  - `tests/test_portfolio_guardrails_schema.py` - portfolio guardrails/pre-trade enforcement schema/invariants, gated triggers with evidence, no auto-lift
+  - `tests/test_operational_risk_controls_gating.py` (PASSED) - operational risk controls enforce gating invariants, zero allocation/limits for blocked, rejection logs + blocked routes present
+  - `tests/test_portfolio_guardrails_schema.py` (PASSED) - portfolio guardrails/pre-trade enforcement schema/invariants, gated triggers with evidence, no auto-lift
 - **VERIFICATION:**
   - Campaign 12 artifacts generated via `scripts/generate_campaign12_artifacts.py`
   - Gating invariants verified programmatically (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across all three artifacts
