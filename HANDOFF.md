@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T13:26:10Z | CAMPAIGN 6 DONE — CAMPAIGN 7 NEXT (PORTFOLIO-LEVEL GATING + MT WALK-FORWARD)
+# SINGLE DURABLE HANDOFF | 2026-11-01T14:10:11Z | CAMPAIGN 6 DONE — CAMPAIGN 7 NEXT (PORTFOLIO-LEVEL GATING + MT WALK-FORWARD)
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -7,7 +7,7 @@
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
-## CURRENT VERIFIED STATE (2026-11-01T13:26:10Z)
+## CURRENT VERIFIED STATE (2026-11-01T14:10:11Z)
 - Branch: `main`. Up to date with `origin/main`. HEAD = `b1dd223` (chore(kilo): checkpoint agent session). Working tree clean.
 - **Campaign 6 DONE (multi-timeframe cointegration stability + structural-break re-validation):**
   1. `examples/run_cointegration_diagnostics_oos_mt.py` — resamples cached 1h `data/cache/` into 4h and 1d (causal trailing `.resample("4h"/"D").last()`, no lookahead) and runs `target_schema_diagnostics` on all 17 pairs per timeframe. Reports `reports/cointegration_diagnostics_oos_mt_4h.json` and `_1d.json` with full provenance + a new per-pair `metrics` block (`eg_pvalue`, `spread_adf_pvalue`, `half_life_ou`, `hurst_exponent`, `rolling_frac_stable`, `leg1_adf_pvalue`, `leg2_adf_pvalue`). `computed_at` present per report/pair.
