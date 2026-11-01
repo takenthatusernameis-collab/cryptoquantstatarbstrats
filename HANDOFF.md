@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T05:15:05Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
+# SINGLE DURABLE HANDOFF | 2026-11-01T06:40:00Z | INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**
@@ -6,69 +6,63 @@
 - Real data only: Binance public REST via `www.binance.com`. Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 
-## CURRENT VERIFIED STATE (2026-11-01T05:15:05Z)
-- Branch: `main`, working tree clean (latest commits: 79be9ee, 4617928 checkpoints).
-- `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py:47`. Causality tested; cointegration diagnostics schema tests pass (10/10). Ruff clean.
-- `reports/portfolio_real.json` exists (767399 bytes), computed 2026-10-31T17:36:18Z, real_data_only=true, fabricated_data=false.
-- From current artifact diagnostics (17 pairs total): **ALL 17 pairs fail `all_pass`**.
-- **POL/BTC** passes EG (`p<0.001`), Johansen (rank>=1), spread MR, HL bounds (107.7, in range), leg stationarity tests pass, but **rolling_stable_ok=False** (`frac_significant_0_05~0.049`, only ~9/184 windows pass out of 184 windows of 720 bars with step 24). Marked `blocked_or_insufficient_data` with `blocked_routes` containing `rolling_stability` failure + provenance (empty blocked_routes bottleneck was fixed in code).
-- All other 16 pairs fail multiple gates (EG mostly false).
-- **BOTTLENECK:** Artifact was generated with old code path? The code now auto-blocks failing pairs with full `blocked_routes` and provenance (per HANDOFF/history), and current POL/BTC already shows blocked_routes populated. But need to **regenerate** to ensure consistency with latest code/state.
-- **PRIMARY TARGET:** POL/BTC rolling stability regime-dependence — only pair close to passing.
+## CURRENT VERIFIED STATE (2026-11-01T06:40:00Z)
+- Branch: `main`, working tree clean.
+- `use_enriched_gates` default `True` (fail-closed) in `strategies/pairs_trading.py`. Enriched gates enforced strictly.
+- Current `reports/portfolio_real.json` exists (643KB, Nov 1 02:12) with all 17 pairs marked `blocked_or_insufficient_data`. **All have non-empty `blocked_routes[]` with full provenance** - empty blocked_routes bottleneck appears resolved in current artifact.
+- **POL/BTC**: passes EG (p<0.001), Johansen (rank>=1), leg stationarity, half-life bounds ok, spread mean reversion ok. Fails only **rolling_stability**: `frac_significant_0_05~0.049` (9/184 windows pass at p<0.05) out of 184 windows (window=720, step=24). Passing windows at indices ~7,64,65,114,119,120,121,147,182 - highly regime-dependent/sporadic.
+- All other 16 pairs fail multiple gates.
+- **REGENERATION IN PROGRESS**: `examples/run_portfolio_real.py` running in background (slow due to full portfolio construction, walk-forward, bootstrap 3000 sims, multi-timeframe). May take long time.
+
+## BOTTLENECKS IDENTIFIED & REMOVAL PLAN
+1. **Slow regeneration** - Full `run_portfolio_real.py` does expensive operations (bootstrap 3000x, multi-timeframe 1h/4h/1d, walk-forward across all pairs). 
+   - **ACTION**: Either wait for completion, or create a faster regen script that focuses on cointegration diagnostics/artifact update without full portfolio optimization/bootstrap if not strictly needed. But must preserve schema.
+2. **POL/BTC rolling stability** - Only pair close to passing. Needs regime analysis.
+3. **All other pairs blocked** - Need systematic diagnosis; honest blocking preferred over weakening gates.
 
 ## IMMEDIATE INITIAL TASK (START HERE — NO DEVIATION)
-**OBJECTIVE:** Close the cointegration rigor loop on real data. For every pair, either (a) pass ALL 7 enriched gates on real Binance data, or (b) be honestly marked `blocked_or_insufficient_data` with full provenance. Do not weaken thresholds. Do not fabricate.
+**OBJECTIVE:** Close cointegration rigor loop. For every pair: pass ALL enriched gates on real data OR be honestly blocked with full provenance. No threshold weakening without ironclad evidence+tests. No fabrication.
 
-**MANDATORY FIRST ACTIONS (EXECUTE IN ORDER, NO SKIPPING):**
-1. **Regenerate `reports/portfolio_real.json` with honest blocking.** Run `python -u examples/run_portfolio_real.py`. Confirm every pair with `all_pass=False` has `status: "blocked_or_insufficient_data"`, non-empty `blocked_routes[]`, detailed `rationale` with full provenance (`source`, `real_data_only`, `fabricated_data:false`, `computed_at`). POL/BTC must remain blocked until proven stable. **Empty `blocked_routes` on a failing pair is a blocker itself.**
-2. **Deep dive POL/BTC regime-dependence.** Load full POL/BTC from real Binance via `data.loader.DataLoader.load_binance_data`. Analyze the 9 passing windows (indices ~7,64,65,114,119,120,121,147,182). Check hedge ratio stability, vol regimes, ADF/KPSS of spread per regime, structural breaks. Determine if regime-dependent or fundamentally unstable.
-3. **Test window sensitivity rigorously.** Try alternative `window`/`step` for `rolling_cointegration_stability` (e.g., 400,500,600,800,1000; steps 12,24) only to diagnose. **Do NOT change the pass criterion (>=60% significant at 5%) without ironclad evidence + tests.**
-4. **Decide honestly.** If fundamental instability with no regime passes strict bar → mark blocked with full provenance. If regime-dependent and tradeable only in specific regimes → design **causal regime filter (trailing-only, no lookahead)**, prove with tests, ensure strategy only enters in those regimes. Otherwise block.
-5. **Sweep remaining 16 pairs.** Diagnose each failing pair; fix if possible with real data only, else block honestly with provenance.
-6. **Verify green.** Run all verification commands. All tests must remain green (>=555 passed, 0 failures). Ruff clean. mypy clean.
+**MANDATORY FIRST ACTIONS (IN ORDER):**
+1. **Check regen status** - If still running, decide: wait or optimize. Check logs: `tail -30 reports/portfolio_real_regen.log`. If taking too long and blocking progress, consider interrupting and doing targeted updates.
+2. **Deep dive POL/BTC regime-dependence** (highest ROI). Analyze passing windows' characteristics - market regime, vol, hedge ratio stability, structural breaks. Determine if regime-filterable (trailing-only, no lookahead).
+3. **If regime-filterable**: Design causal regime filter, add to strategy with tests. Verify it only allows trading in passing regimes. Must be trailing-only.
+4. **If not regime-filterable/fundamentally unstable**: Keep blocked with full provenance (rationale must explain why). Do NOT weaken rolling_stability threshold.
+5. **Sweep remaining 16 pairs** - Quick diagnosis; honest blocking is correct if gates fail.
+6. **Verify**: Run tests (`pytest tests/ -q` >=555 passed, 0 failures), ruff clean, schema tests pass.
 
-## EXECUTION PLAN
-### 1) REGENERATE ARTIFACT (HIGHEST PRIORITY)
-- `python -u examples/run_portfolio_real.py`
-- Validate schema: every failing pair has non-empty `blocked_routes`, provenance complete.
+## FOCUS AREAS (HEAVY WORK REQUIRED)
+### POL/BTC Deep Dive
+- Files: `strategies/pairs_trading.py`, `utils/cointegration.py`, `data/loader.py`
+- Analyze: hedge ratio stability in passing vs failing windows, volatility regimes, correlation structure, ADF/KPSS of spread per regime
+- Passing windows: start bars 168,1536,1560,2736,2856,2880,2904,3528,4368 (720-bar windows, step 24)
+- Question: Is cointegration regime-dependent (tradeable in specific regimes with causal filter) or temporally unstable (fundamentally unfit)?
 
-### 2) POL/BTC DEEP DIVE
-- Files: `utils/cointegration.py`, `strategies/pairs_trading.py`, `data/loader.py`, `examples/run_portfolio_real.py`
-- Focus on rolling stability across regimes; hedge ratio stability critical.
+### Regime Filter Design (if viable)
+- Must be **trailing-only, no lookahead** - use only past data
+- Must be **causal** - no future information
+- Must have tests proving no lookahead
+- Must integrate cleanly with enriched gates (or as additional gate)
+- Example approaches: volatility regime, trend regime, correlation regime, hedge ratio stability - all computed from trailing windows only
 
-### 3) SYSTEMATIC PAIR SWEEP
-- Diagnose root causes per pair; honest blocking preferred over weakening gates.
-
-### 4) CAUSALITY & ENFORCEMENT
-- Enriched gates remain trailing-only/cached causally. Fail-closed default. No lookahead.
-
-### 5) QUALITY GATES
-- Lint/tests/schema must pass.
+### Bottleneck Removal
+- If regen blocks iteration: optimize `examples/run_portfolio_real.py` (reduce bootstrap sims for testing, skip expensive parts, use checkpointing better) or write fast targeted regen script
+- Parallelize where possible
+- Cache expensive computations
 
 ## HARD CONSTRAINTS
-- **REAL DATA ONLY** — isolated tests only with explicit `fabricated_data: true` marker
-- **NO SHORTCUTS / NO FABRICATION**
-- **PRESERVE GREEN** — >=555 passed, 0 new failures
-- **HEAVY MANDATE** — complete full campaign, no coasting
-- **COINTEGRATION IS LAW**
-- **CAUSAL ONLY** — no lookahead (trailing data only)
-- **UNBUFFERED** — use `python -u` for long runs
-- **HONEST BLOCKING** — if cannot pass all gates, mark `blocked_or_insufficient_data` with provenance
-- **NO EMPTY blocked_routes** on failing pair
+- **REAL DATA ONLY** — no fabrication
 - **NO WEAKENING THRESHOLDS** without ironclad justification + tests
+- **PRESERVE GREEN** — >=555 passed, 0 failures
+- **CAUSAL ONLY** — no lookahead
+- **HONEST BLOCKING** — if cannot pass all gates, mark `blocked_or_insufficient_data` with full provenance, non-empty `blocked_routes`
+- **HEAVY MANDATE** — no coasting, do the work
 
-## VERIFICATION COMMANDS (MUST RUN)
+## VERIFICATION COMMANDS
 ```bash
 python -m ruff check backtest/ strategies/ utils/ tests/ examples/
 python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_strategies.py -v
 python -m pytest tests/ -q  # >=555 passed, 0 failures
-python -u examples/run_portfolio_real.py  # refresh reports/portfolio_real.json
 ```
 
-## BOTTLENECK REMOVAL
-- Focus singular: cointegration rigor.
-- Code now auto-blocks failing pairs with provenance (empty blocked_routes fixed). Artifact needs regeneration.
-- POL/BTC is the only pair close to passing — deep dive required.
-- If regime filter needed, it must be causal and tested. Otherwise block honestly.
-
-**START NOW. Regenerate artifact with honest blocking, then attack POL/BTC rolling stability first. Heavy work required. No coasting.**
+**START NOW.** Focus on POL/BTC regime analysis first. If regen is blocking, remove that bottleneck.
