@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T14:10:11Z | CAMPAIGN 6 DONE — CAMPAIGN 7 NEXT (PORTFOLIO-LEVEL GATING + MT WALK-FORWARD)
+# SINGLE DURABLE HANDOFF | 2026-11-01T14:14:52Z | CAMPAIGN 6 DONE — CAMPAIGN 7 ACTIVE (PORTFOLIO-LEVEL GATING + MT WALK-FORWARD)
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## CURRENT VERIFIED STATE (2026-11-01T14:10:11Z)
-- Branch: `main`. Up to date with `origin/main`. HEAD = `b1dd223` (chore(kilo): checkpoint agent session). Working tree clean.
+- Branch: `main`. Up to date with `origin/main`. HEAD = `50a2e87` (chore(kilo): checkpoint agent session). Working tree clean.
 - **Campaign 6 DONE (multi-timeframe cointegration stability + structural-break re-validation):**
   1. `examples/run_cointegration_diagnostics_oos_mt.py` — resamples cached 1h `data/cache/` into 4h and 1d (causal trailing `.resample("4h"/"D").last()`, no lookahead) and runs `target_schema_diagnostics` on all 17 pairs per timeframe. Reports `reports/cointegration_diagnostics_oos_mt_4h.json` and `_1d.json` with full provenance + a new per-pair `metrics` block (`eg_pvalue`, `spread_adf_pvalue`, `half_life_ou`, `hurst_exponent`, `rolling_frac_stable`, `leg1_adf_pvalue`, `leg2_adf_pvalue`). `computed_at` present per report/pair.
   2. **Honest blocking result:** 4h = **1/17 pass all gates** (`POL/BTC` passes honestly: rolling frac 0.708 ≥ 0.6, hl 30.5 in (1,500), hurst 0.491 < 0.5, eg p 4.7e-4, spread adf p 6.9e-5, no structural break). **Blocking is NOT timeframe-robust for POL/BTC** — its 1h `rolling_stable_ok` block is a 1h-specific artifact, not a universal failure. 1d = **0/17 pass all gates** (all pairs blocked, non-empty `blocked_routes`). No thresholds changed; no forced blocking.
