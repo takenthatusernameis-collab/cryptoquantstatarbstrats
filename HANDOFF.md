@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T21:52:55Z | CAMPAIGN 13 COMPLETE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT) | CAMPAIGN 14 ACTIVE (REAL-TIME MONITORING GATING) | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-01T21:53:26Z | CAMPAIGN 13 COMPLETE (LIVE EXECUTION INTEGRATION + POSITION SIZING ENFORCEMENT) | CAMPAIGN 14 ACTIVE (REAL-TIME MONITORING GATING) | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -42,7 +42,8 @@
 - **Campaign 10 DONE:** Live paper-trading deployment bridge + drift monitoring + cointegration-gated alerting complete.
 - **Campaign 11 DONE:** Production live-deployment hardening + post-trade reconciliation + kill-switch complete.
 - **Campaign 12 DONE:** Operational risk controls + pre-trade enforcement + portfolio guardrails complete.
-- **Campaign 13 ACTIVE:** Live execution integration + position sizing enforcement + real-time monitoring (NOT STARTED — create generator + artifacts + tests now).
+- **Campaign 13 DONE:** Live execution integration + position sizing enforcement + real-time monitoring (artifacts/tests present).
+- **Campaign 14 ACTIVE:** Real-time monitoring gating test + hardening (sole focus).
 - Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Real data only.
 - Integrity: Campaign 12 artifacts/tests verified present; gating invariants intact. Handoff is single durable source of truth.
 
