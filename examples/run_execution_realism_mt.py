@@ -126,7 +126,8 @@ def main() -> None:
 
     out: dict[str, Any] = {
         "type": "execution_realism_mt",
-        "mandate": "cryptoquantstatarbstrats - execution realism MT linked to gating (real data only)",
+        "mandate": ("cryptoquantstatarbstrats - execution realism MT linked to gating "
+                   "(real data only)"),
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _now_iso(),
@@ -207,7 +208,9 @@ def main() -> None:
                         side = "buy" if w > 0 else "sell"
                         qty = abs(w) * 1000.0
                         try:
-                            vol_proxy = float(abs(df[sym].pct_change().rolling(10).mean().iloc[i]) * 1e6 + 1000.0)
+                            vol_proxy = float(
+                                abs(df[sym].pct_change().rolling(10).mean().iloc[i]) * 1e6 + 1000.0
+                            )
                         except Exception:
                             vol_proxy = 1000.0
                         res = sim.simulate_order(
@@ -255,13 +258,17 @@ def main() -> None:
                     "fills_count": fills_count,
                     "total_fees": float(total_fees),
                     "total_slippage_cost": float(total_slippage_cost),
-                    "avg_slippage_cost_per_fill": float(total_slippage_cost / fills_count) if fills_count > 0 else 0.0,
+                    "avg_slippage_cost_per_fill": (
+                        float(total_slippage_cost / fills_count) if fills_count > 0 else 0.0
+                    ),
                     "implementation_shortfall_components": {
                         "market_impact": float(total_slippage_cost * 0.7),
                         "timing_cost": float(total_slippage_cost * 0.2),
                         "fees": float(total_fees),
                         "opportunity_cost": float(total_slippage_cost * 0.1),
-                        "latency_component_ms": out["assumptions"]["latency_assumptions"]["execution_latency_ms"],
+                        "latency_component_ms": out["assumptions"]["latency_assumptions"][
+                            "execution_latency_ms"
+                        ],
                     },
                     "rejection_log": [],
                     "tick_lot_applied": {"tick_size": tick_size, "lot_size": lot_size},

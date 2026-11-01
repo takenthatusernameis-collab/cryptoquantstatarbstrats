@@ -97,7 +97,7 @@ def main() -> None:
                             slip_cost = base_slip * (sb / 5.0) if 5.0 > 0 else base_slip
                             impact_cost = slip_cost * (1.0 + ib / 10.0)
                             total_cost = fee_cost + slip_cost + impact_cost
-                            if total_cost < prev_cost - 1e-18:  # should not decrease as stress increases? monotonic in stress
+                            if total_cost < prev_cost - 1e-18:
                                 monotonic_ok = False
                             prev_cost = total_cost
                             cells.append({

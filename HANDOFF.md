@@ -80,3 +80,16 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **State:** All required artifacts present with provenance. Gating invariant preserved. Real data only, no threshold weakening, causal only.
 
 **NEXT:** Campaign 9 (if needed) - continue to harden execution realism with live-like constraints while preserving strict cointegration gating; no coasting.
+
+
+## CAMPAIGN 9 (NEXT - HEAVY, DO NOT SKIP): LIVE-READY EXECUTION HARDENING + COINTEGRATION-GATED CAPACITY CONSTRAINTS | 2026-11-01T16:16:14Z
+
+- **Goal:** Harden execution realism for live-readiness while strictly preserving cointegration gating (fail-closed). Only real data/causal logic. No threshold weakening. No fabrication.
+- **Required artifacts (must produce):**
+  1. `reports/execution_capacity_mt.json` - Per (timeframe,pair), volume-participation caps from real volume where available, max notional/adv limits, borrow/shortability constraints where applicable, capacity-feasible universe vs gated universe. Blocked pairs remain blocked.
+  2. `reports/order_routing_realism_mt.json` - Maker/taker mix, queue/latency sensitivity, partial fill probability curves, reject/replace logic tied to gating, full provenance to `execution_realism_mt.json` + `portfolio_gating_mt.json`.
+  3. `reports/live_readiness_checklist_mt.json` - Deterministic checklist (gating consistency, schema, provenance, monotonicity, tests, ruff/pytest) with pass/fail and evidence links.
+- **Required tests (must add/pass):**
+  1. `tests/test_execution_capacity_gating.py` - Fail-closed: capacity constraints never lift gating blocks; only gated-eligible pairs considered feasible.
+  2. `tests/test_order_routing_schema.py` - Schema, provenance, causal-only, monotonicity checks.
+- **Discipline:** Preserve all green tests. Keep ruff clean. Update this handoff with evidence on completion. Coasting = failure.

@@ -101,7 +101,10 @@ def main() -> None:
         "real_data_only": True,
         "fabricated_data": False,
         "computed_at": _now_iso(),
-        "source": "data/cache + portfolio_gating_mt.json + portfolio_walkforward_mt.json + execution_realism_mt.json"
+        "source": (
+            "data/cache + portfolio_gating_mt.json + portfolio_walkforward_mt.json "
+            "+ execution_realism_mt.json"
+        ),
         "pairs": ["/".join(p) for p in PAIRS],
         "timeframes": timeframes,
         "provenance_links": {
@@ -155,7 +158,11 @@ def main() -> None:
                 isc = ep.get("implementation_shortfall_components") or {}
                 pairs_is[pname] = {
                     "eligible": True,
-                    "turnover_estimate": (float(np.mean([t["turnover"] for t in turnover_daily])) if turnover_daily else 0.01),
+                    "turnover_estimate": (
+                        float(np.mean([t["turnover"] for t in turnover_daily]))
+                        if turnover_daily
+                        else 0.01
+                    ),
                     "implementation_shortfall": {
                         "components": isc,
                         "total_is_bps": float(0.0),
@@ -169,12 +176,17 @@ def main() -> None:
                     "eligible": False,
                     "turnover_estimate": 0.0,
                     "implementation_shortfall": {
-                        "components": {"mkt_impact": 0.0, "timing": 0.0, "fees": 0.0, "opp_cost": 0.0},
+                        "components": {
+                            "mkt_impact": 0.0,
+                            "timing": 0.0,
+                            "fees": 0.0,
+                            "opp_cost": 0.0,
+                        },
                         "total_is_bps": 0.0,
                     },
                     "walk_forward_linked": bool(wf_tf),
                     "blocked_by_gating": True,
-                    "prov":{"real_only":True},
+                    "prov": {"real_only": True},
                 }
 
         wf_has = wf_tf.get("walk_forward") is not None or "splits" in str(wf_tf)
