@@ -145,10 +145,29 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **VERIFICATION:** Campaign 16 artifacts generated via `scripts/generate_campaign16_artifacts.py`; gating invariants verified programmatically (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across both artifacts; ruff clean; 7 targeted tests green.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
 
-## CAMPAIGN 17 (ACTIVE / NOT STARTED) — EXECUTION PLAN
-1. **Create generator:** `scripts/generate_campaign17_artifacts.py` following Campaign 16 patterns. Load `reports/portfolio_gating_mt.json`, `reports/portfolio_real.json`, and OOS real Binance spot data. Enforce fail-closed gating explicitly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **This unblocks everything.**
-2. **Generate artifacts:** `reports/oos_portfolio_execution_mt.json`, `reports/oos_portfolio_performance_mt.json` with full provenance, blocked_routes, rejection_log, gating_context, linked_artifacts.
-3. **Write tests:** `tests/test_oos_portfolio_execution_gating.py`, `tests/test_oos_portfolio_performance_schema.py` mirroring prior gating tests.
-4. **Verify:** Run verification commands. Fix any gaps. Update this handoff with CAMPAIGN 17 COMPLETED evidence.
+## CAMPAIGN 17 COMPLETED (2026-11-01T22:59:59Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/oos_portfolio_execution_mt.json` (OOS cointegration-gated portfolio execution on real Binance spot candles; only POL/BTC eligible at 4h (1/17), 0/17 at 1h, 0/17 at 1d; blocked pairs zeroed with rejection_log/blocked_routes/orders_allowed=false/fills_allowed=false/allocation_usdt=0/position_limit_usdt=0/capacity_usdt=0; execution realism (fees/slippage) applied; pre-trade enforcement/kill-switch respected; fail-closed; full provenance; linked to all prior MT artifacts)
+  - `reports/oos_portfolio_performance_mt.json` (OOS portfolio performance validation on real data; pair-matched equal-weight buy-and-hold benchmarks; bootstrap CI (>=2000 sims, fixed seed); blocked pairs metrics zeroed with rejection_log/metrics_zeroed; fail-closed; full provenance; linked to execution + gating artifacts)
+- **TESTS PRODUCED:**
+  - `tests/test_oos_portfolio_execution_gating.py` (PASSED) - preserves gating invariants (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), blocked pairs zeroed, orders/fills blocked, fail-closed, no auto-lift, linked artifacts
+  - `tests/test_oos_portfolio_performance_schema.py` (PASSED) - schema/invariants, blocked pairs metrics zeroed, benchmarks/CI present, consistent with execution gating, fail-closed, no auto-lift
+- **GENERATOR:** `scripts/generate_campaign17_artifacts.py` (real-data-only OOS execution/performance from portfolio_gating_mt + oos_cointegration_validation_mt + walkforward_gate_stability_mt; causal; fail-closed).
+- **VERIFICATION:** Campaign 17 artifacts generated via generator; gating invariants verified programmatically (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17) across both artifacts; ruff clean on campaign files; targeted tests green (4/4). All bottlenecks removed.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, execution realism applied.
 
-(End of file - total 547 lines)
+(End of file - total 158 lines)
+
+
+## CAMPAIGN 11 COMPLETED (2026-11-01T19:52:00Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/live_deployment_bridge_mt.json` (production live-deployment bridge from MT-gated state; only POL/BTC eligible at 4h; 0/17 at 1h, 0/17 at 1d; blocked pairs zeroed with rejection_log/blocked_routes/orders_allowed/fills_allowed=false; full provenance; linked to portfolio_gating_mt.json/execution_capacity_mt.json/order_routing_realism_mt.json/paper_trading_bridge_mt.json)
+  - `reports/post_trade_reconciliation_mt.json` (post-trade reconciliation vs gated state; mismatches_detect_only; auto_lift_blocks_forbidden; never_auto_lift_gates; evidence required)
+  - `reports/kill_switch_rules_mt.json` (cointegration-gated kill-switch; respect gating/fail-closed; no_auto_lift_of_blocks; severity includes evidence/provenance/gating_context/blocked_routes)
+- **TESTS PRODUCED:**
+  - `tests/test_live_deployment_bridge_gating.py` (PASSED) - bridge enforces gating invariants, zero allocation for blocked, links prior artifacts
+  - `tests/test_kill_switch_schema.py` (PASSED) - kill-switch schema/invariants, reconciliation invariants, gated triggers with evidence
+- **VERIFICATION:**
+  - Campaign 11 artifacts generated via `scripts/generate_campaign11_artifacts.py`
+  - Campaign 11 tests: 2 passed
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
