@@ -121,3 +121,20 @@ for tf in ['1h','4h','1d']:
 - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only.
 - Bottleneck removed: generator previously had no `main()` and never emitted artifacts; now complete and verified.
 - No further campaign defined; tree is terminal/green.
+
+---
+
+# CAMPAIGN 28 KICKOFF | 2026-11-02T08:21:44Z | NEXT FOCUS (HEAVY, MANDATORY)
+
+## REPO IDENTITY (LAW)
+`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. CORE = COINTEGRATION/PAIRS TRADING.
+
+## BOTTLENECK REMOVED
+The 7 pre-existing failures in `tests/test_portfolio_real.py`, `tests/test_portfolio_real_hardened.py`, `tests/test_tail_risk_parameter_stability.py` are now the SOLE blocker to a fully green suite. They are enrichment gaps in `reports/portfolio_real.json` (tail_risk/parameter_stability/bootstrap). Removing this bottleneck makes all 648 tests pass.
+
+## NEXT FOCUS CAMPAIGN — CAMPAIGN 28: PORTFOLIO_REAL ENRICHMENT (HEAVY, NO ESCAPE)
+Future agents MUST NOT idle. Heavy work required: regenerate `reports/portfolio_real.json` with tail_risk.regime_conditioned, tail_risk.permutation_test (n>=3000), parameter_stability per-pair + portfolio_level provenance (source), bootstrap (n_simulations>=3000). Add generator `scripts/generate_campaign28_artifacts.py`, tests `tests/test_portfolio_real_enrichment_mt.py`. Preserve cointegration gating invariants (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Real data only. Fail-closed. No coasting.
+
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE)
+> **[START 2026-11-02T08:21:44Z] CAMPAIGN 28 — PORTFOLIO_REAL ENRICHMENT: TAIL RISK + PARAMETER STABILITY + BOOTSTRAP (COINTEGRATION-FIRST, REAL DATA ONLY)**
+> Fix all 7 pre-existing failures. Produce artifacts/tests/provenance. No escape. Heavy work mandatory.
