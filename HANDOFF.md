@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T04:02:49Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 NEXT (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T04:50:14Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 SOLE FOCUS — NOT STARTED (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T04:02:49Z
+**TIMESTAMP:** 2026-11-02T04:50:14Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -47,6 +47,7 @@
 - **Campaign 26 NOT STARTED:** No `end_to_end_pairs_execution_validation_mt.json`, `live_operational_readiness_signoff_mt.json`, tests, or generator on disk. This is the ONLY task now.
 - Data: `data/cache/` real Binance spot 1h for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_real.json`, `reports/cointegration_diagnostics_oos*.json`, real data only).
 - Integrity: All campaigns 1-25 artifacts/tests present; Campaign 26 artifacts/tests NOT present. Handoff is single durable source of truth.
+- State re-verified 2026-11-02T04:50:14Z: ruff 0.17.3 + pytest 9.2.0 available; gating invariants re-checked on disk in reports/portfolio_gating_mt.json (1h 0/17 eligible, 4h 1/17 POL/BTC sole eligible, 1d 0/17 eligible); Campaign 26 artifacts/tests/generator confirmed ABSENT on disk → Campaign 26 is the only unblocked, sole next task. No session may idle, pivot, or re-derive state.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 - **BOTTLENECK REMOVED — CI/env:** Install deps first (`python -m pip install -r requirements.txt`) before tests; prevent ModuleNotFoundError.
