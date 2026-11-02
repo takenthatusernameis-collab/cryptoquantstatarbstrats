@@ -142,3 +142,15 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **GENERATOR:** `scripts/generate_campaign20_artifacts.py` (mirrors Campaign 19 patterns; loads portfolio_gating_mt + production_go_nogo_certification_mt + operational_readiness_signoff_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance).
 - **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 19 tests still green (4/4); Campaign 20 tests green (4/4). Targeted ruff on touched files clean.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
+
+
+## CAMPAIGN 21 COMPLETED (2026-11-02T01:01:30Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/operational_drift_permanent_readiness_mt.json` (production operational drift/permanent readiness; only POL/BTC (4h) PERMANENTLY_READY (1/17), 0/17 at 1h, 0/17 at 1d; all blocked pairs NOT_READY_BLOCKED with zero capital/orders/fills/position limits/remediation; drift surveillance, permanent readiness, audit logging, circuit-breaker coverage all fail-closed with full chain provenance)
+  - `reports/reconciliation_audit_hardening_mt.json` (reconciliation + audit hardening; only POL/BTC (4h) RECONCILIATION_AUDIT_READY (1/17); blocked pairs RECONCILIATION_BLOCKED with zero capital/orders/fills/position limits; strict tolerances, auto-block on mismatch, immutable audit logs, full chain provenance)
+- **TESTS PRODUCED:**
+  - `tests/test_operational_drift_permanent_readiness_mt.py` (PASSED)
+  - `tests/test_reconciliation_audit_hardening_mt.py` (PASSED)
+- **GENERATOR:** `scripts/generate_campaign21_artifacts.py` (mirrors Campaign 20 patterns; loads portfolio_gating_mt + production_go_nogo_certification_mt + operational_readiness_signoff_mt + live_execution_validation_hardening_mt + continuous_monitoring_hardening_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance)
+- **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 20 tests still green (4/4); Campaign 21 tests green (4/4). Targeted ruff on touched files clean.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
