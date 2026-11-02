@@ -66,3 +66,15 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **GENERATOR:** `scripts/generate_campaign18_artifacts.py` (real-data-only from portfolio_gating_mt + prior MT artifacts; causal; fail-closed).
 - **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); ruff clean on campaign files; targeted tests green (4/4).
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks.
+
+
+## CAMPAIGN 19 COMPLETED (2026-11-02T00:04:30Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/production_go_nogo_certification_mt.json` (production go/no-go final certification across all MT; only POL/BTC (4h) GO-eligible (1/17), 0/17 at 1h, 0/17 at 1d; all blocked pairs HARD NO-GO with zero capital/orders/fills/position limits; full chain linked with complete provenance; fail-closed everywhere)
+  - `reports/operational_readiness_signoff_mt.json` (operational readiness signoff across all MT; only POL/BTC (4h) operationally ready (1/17); blocked pairs NOT_READY_BLOCKED with remediation enforcing zero capital/orders/fills; all readiness checks catalogued; full chain provenance)
+- **TESTS PRODUCED:**
+  - `tests/test_production_go_nogo_certification_mt.py` (PASSED)
+  - `tests/test_operational_readiness_signoff_mt.py` (PASSED)
+- **GENERATOR:** `scripts/generate_campaign19_artifacts.py` (mirrors Campaign 18 patterns; loads portfolio_gating_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance).
+- **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 18 tests still green (4/4); Campaign 19 tests green (4/4). Targeted ruff on touched files clean.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
