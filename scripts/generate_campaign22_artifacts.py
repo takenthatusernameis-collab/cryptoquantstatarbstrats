@@ -265,7 +265,9 @@ def generate_production_go_live_authorization(
                 "operational_readiness": "reports/operational_readiness_signoff_mt.json",
                 "execution_validation": "reports/live_execution_validation_hardening_mt.json",
                 "monitoring_hardening": "reports/continuous_monitoring_hardening_mt.json",
-                "drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json",
+                "drift_permanent_readiness": (
+                    "reports/operational_drift_permanent_readiness_mt.json"
+                ),
                 "reconciliation_audit": "reports/reconciliation_audit_hardening_mt.json",
             },
             "provenance": {
@@ -392,7 +394,10 @@ def generate_post_deployment_validation_remediation(
                         "capital_usdt": 0.0,
                         "allocation_usdt": 0.0,
                         "position_limit_usdt": 0.0,
-                        "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_auto_remediation_triggered_on_anomaly",
+                        "remediation": (
+                            "zero_capital_orders_fills_position_limits_no_auto_lift"
+                            "_auto_remediation_triggered_on_anomaly"
+                        ),
                         "provenance": {
                             "source": "reports/portfolio_gating_mt.json",
                             "real_data_only": True,
@@ -461,7 +466,9 @@ def generate_post_deployment_validation_remediation(
             "chain": {
                 "go_live_authorization": "reports/production_go_live_authorization_mt.json",
                 "reconciliation_audit": "reports/reconciliation_audit_hardening_mt.json",
-                "drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json",
+                "drift_permanent_readiness": (
+                    "reports/operational_drift_permanent_readiness_mt.json"
+                ),
             },
             "provenance": {
                 "source": "reports/portfolio_gating_mt.json",
