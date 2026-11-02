@@ -1,14 +1,14 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T03:52:39Z | CAMPAIGN 24 COMPLETE (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | CAMPAIGN 25 ACTIVE / NOT STARTED (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T03:53:59Z | CAMPAIGN 24 COMPLETE (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | CAMPAIGN 25 ACTIVE / NOT STARTED (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
 - **CORE = COINTEGRATION / PAIRS TRADING.** Every other line of work serves cointegration rigor. Cointegration is law.
-- Real data only: Binance public REST via `www.binance.com`. Never fabricate. Resampling cached 1h is allowed only if still from real data.
+- Real data only: Binance public REST via `www.binance.com` (cached 1h in `data/cache/` is real; resampling allowed only if still from real data). Never fabricate.
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T03:52:39Z
+**TIMESTAMP:** 2026-11-02T03:53:59Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -32,7 +32,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); drift vs. baseline logged per pair/timeframe with cause + containment + audit trail + remediation; blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; re-certification/re-gating fail-closed with explicit checks; ruff clean on all touched files; targeted pytest green (see verification below); handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion.
 
-## CURRENT VERIFIED STATE (2026-11-02T03:52:39Z)
+## CURRENT VERIFIED STATE (2026-11-02T03:53:59Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 24 DONE:** Permanent production certification + continuous improvement & auto-scaling hardening complete.
   - Artifacts: `reports/permanent_production_certification_mt.json` (1 permanently certified: POL/BTC @ 4h; 50 blocked), `reports/continuous_improvement_autoscaling_mt.json` (1 auto-scaling eligible: POL/BTC @ 4h; 50 blocked).
@@ -40,7 +40,7 @@
   - Generator: `scripts/generate_campaign24_artifacts.py` — ruff clean.
   - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only.
 - **Campaign 25 NOT STARTED:** No `cointegration_recertification_audit_mt.json`, `drift_triggered_regating_mt.json`, tests, or generator on disk. This is the ONLY task.
-- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_oos_mt_*.json`, real data only).
+- Data: `data/cache/` real Binance spot 1h for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_real.json`, `reports/cointegration_diagnostics_oos*.json`, real data only).
 - Integrity: All campaigns 1-24 artifacts/tests present; Campaign 25 artifacts/tests NOT present. Handoff is single durable source of truth.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
@@ -52,6 +52,7 @@
 - **BOTTLENECK REMOVED — Gating erosion:** Fail-closed invariants codified; no auto-lift paths.
 - **BOTTLENECK REMOVED — Execution path:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_mt.py`).
 - **BOTTLENECK REMOVED — Evidence gap:** Campaign 24 completion evidence recorded so no session re-derives state.
+- **BOTTLENECK REMOVED — Hidden state:** Campaign 25 deliverables enumerated upfront with exact filenames to prevent "done" without artifacts.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
