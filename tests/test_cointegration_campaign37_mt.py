@@ -7,6 +7,7 @@ accuracy (precision/recall/F1), fail-closed re-gating on predicted breach with n
 auto-lift, breach alerts drive halts. Real data only. Preserves gating invariants
 (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 """
+
 from __future__ import annotations
 
 import json
@@ -64,7 +65,11 @@ REQUIRED_TIMEFRAME_SECTIONS = [
     "baskets",
 ]
 
-REQUIRED_BASKET_SECTIONS = ["portfolio_basket_cointegration", "multi_asset_hedge_ratios", "portfolio_spreads"]
+REQUIRED_BASKET_SECTIONS = [
+    "portfolio_basket_cointegration",
+    "multi_asset_hedge_ratios",
+    "portfolio_spreads",
+]
 
 
 def _has_nan(value) -> bool:
@@ -151,7 +156,11 @@ def test_cointegration_campaign37_required_sections():
         for section in REQUIRED_TIMEFRAME_SECTIONS:
             assert section in r, f"{tf} missing {section}"
         # check provenance on key sections
-        for key in ["kill_switch_state", "execution_aware_capacity_allocation", "prediction_summary"]:
+        for key in [
+            "kill_switch_state",
+            "execution_aware_capacity_allocation",
+            "prediction_summary",
+        ]:
             sec = r.get(key) or {}
             if isinstance(sec, dict) and sec.get("available") is not False:
                 prov = sec.get("provenance") or {}
@@ -171,7 +180,9 @@ def test_cointegration_campaign37_regime_transition_probability_quantified():
             if p.get("available"):
                 assert "regime_transition_probability" in p
                 v = p["regime_transition_probability"]
-                assert v is None or (isinstance(v, (int, float)) and not math.isnan(v) and 0.0 <= float(v) <= 1.0)
+                assert v is None or (
+                    isinstance(v, (int, float)) and not math.isnan(v) and 0.0 <= float(v) <= 1.0
+                )
                 found = True
     assert found
 
@@ -200,7 +211,11 @@ def test_cointegration_campaign37_predictive_accuracy_precision_recall_f1():
         pa_all = r.get("backtested_predictive_accuracy") or {}
         ps = r.get("prediction_summary") or {}
         ppa = ps.get("portfolio_predictive_accuracy") or {}
-        if ppa.get("precision_mean") is not None or ppa.get("recall_mean") is not None or ppa.get("f1_mean") is not None:
+        if (
+            ppa.get("precision_mean") is not None
+            or ppa.get("recall_mean") is not None
+            or ppa.get("f1_mean") is not None
+        ):
             found = True
         for pname in PAIRS_FOR_CHECK:
             pa = pa_all.get(pname) or {}
@@ -259,7 +274,10 @@ def test_cointegration_campaign37_fail_closed_regime_transition_regating_no_auto
                 per_pair = cap.get("per_pair") or {}
                 pp = per_pair.get(pname) or {}
                 if pp.get("available") is not False and isinstance(pp, dict):
-                    ok_block = pp.get("allocated_weight") == 0.0 or pp.get("zero_capacity_on_block") is True
+                    ok_block = (
+                        pp.get("allocated_weight") == 0.0
+                        or pp.get("zero_capacity_on_block") is True
+                    )
                     assert ok_block
 
 

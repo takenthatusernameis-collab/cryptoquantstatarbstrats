@@ -145,7 +145,8 @@ def _provenance(source: str, extra: dict[str, Any] | None = None) -> dict[str, A
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
         "blocked_routes": [],
-        "rationale": "Computed from real cached Binance data using Campaign 36 baseline; causal only (trailing windows).",
+        "rationale": "Computed from real cached Binance data using Campaign 36 baseline; "
+        "causal only (trailing windows).",
     }
     if extra:
         prov.update(extra)
@@ -323,16 +324,12 @@ def _pair_gate(series_a: pd.Series, series_b: pd.Series) -> dict[str, Any]:
         result["half_life"] = hl_v if np.isfinite(hl_v) else None
         result["is_mean_reverting"] = bool(hl.get("is_mean_reverting"))
         result["half_life_ok"] = bool(
-            hl.get("is_mean_reverting")
-            and np.isfinite(hl_v)
-            and GATE_HL_MIN < hl_v < GATE_HL_MAX
+            hl.get("is_mean_reverting") and np.isfinite(hl_v) and GATE_HL_MIN < hl_v < GATE_HL_MAX
         )
     except Exception:
         result["half_life_ok"] = False
         result["is_mean_reverting"] = False
-    passed = bool(
-        result["eg_pass"] and result["adspread_pass"] and result["half_life_ok"]
-    )
+    passed = bool(result["eg_pass"] and result["adspread_pass"] and result["half_life_ok"])
     result["passed"] = passed
     result["reason"] = "gate_pass" if passed else "gate_fail"
     return result
@@ -374,9 +371,15 @@ def _compute_transition_probabilities(regime_series: pd.Series) -> dict[str, Any
         return {
             "available": True,
             "states": [int(x) for x in unique],
-            "transition_counts": {int(k): {int(kk): int(vv) for kk, vv in v.items()} for k, v in trans.items()},
+            "transition_counts": {
+                int(k): {int(kk): int(vv) for kk, vv in v.items()} for k, v in trans.items()
+            },
             "transition_probability_matrix": prob_mat,
-            "one_step_transition_entropy": float(np.mean([-sum(p * np.log(p + 1e-12) for p in pm.values()) for pm in prob_mat.values()])),
+            "one_step_transition_entropy": float(
+                np.mean(
+                    [-sum(p * np.log(p + 1e-12) for p in pm.values()) for pm in prob_mat.values()]
+                )
+            ),
             "persistence": {int(s): float((prob_mat.get(s) or {}).get(s, 0.0)) for s in unique},
             "provenance": _provenance("regime_transition_markov_trailing"),
         }
@@ -397,7 +400,8 @@ def _pair_regime_transition_prediction(
     regime_buckets: pd.DataFrame,
     campaign36_pair_pers: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Predict impending cointegration gate failure using regime transitions + Campaign 36 baseline."""
+    """Predict impending cointegration gate failure using regime transitions
+    + Campaign 36 baseline."""
     col_a, col_b = a, b
     if col_a not in frame.columns or col_b not in frame.columns:
         return {
@@ -418,8 +422,16 @@ def _pair_regime_transition_prediction(
         # Get regime series
         vol_series = regime_buckets.get("BTC_vol_regime") if regime_buckets is not None else None
         trend_series = regime_buckets.get("BTC_trend") if regime_buckets is not None else None
-        vol_trans = _compute_transition_probabilities(vol_series) if vol_series is not None else {"available": False}
-        trend_trans = _compute_transition_probabilities(trend_series) if trend_series is not None else {"available": False}
+        vol_trans = (
+            _compute_transition_probabilities(vol_series)
+            if vol_series is not None
+            else {"available": False}
+        )
+        trend_trans = (
+            _compute_transition_probabilities(trend_series)
+            if trend_series is not None
+            else {"available": False}
+        )
 
         # Compute historical gate states over trailing windows (causal)
         gate_history = []
@@ -438,7 +450,7 @@ def _pair_regime_transition_prediction(
         # Detect gate failure transitions
         failures = []
         for i in range(1, len(gate_history)):
-            if gate_history[i-1] and not gate_history[i]:
+            if gate_history[i - 1] and not gate_history[i]:
                 failures.append(i)  # failure at position i
         # Compute lead times
         lead_times = []
@@ -450,7 +462,11 @@ def _pair_regime_transition_prediction(
                     try:
                         # regime changed recently
                         vcur = int(vol_series.iloc[fpos]) if fpos < len(vol_series) else 1
-                        vprev = int(vol_series.iloc[max(0, fpos-lb)]) if max(0, fpos-lb) < len(vol_series) else vcur
+                        vprev = (
+                            int(vol_series.iloc[max(0, fpos - lb)])
+                            if max(0, fpos - lb) < len(vol_series)
+                            else vcur
+                        )
                         if vcur != vprev:
                             lead_times.append(lb)
                             break
@@ -459,7 +475,11 @@ def _pair_regime_transition_prediction(
                 elif trend_series is not None and len(trend_series) >= fpos:
                     try:
                         tcur = int(trend_series.iloc[fpos]) if fpos < len(trend_series) else 0
-                        tprev = int(trend_series.iloc[max(0, fpos-lb)]) if max(0, fpos-lb) < len(trend_series) else tcur
+                        tprev = (
+                            int(trend_series.iloc[max(0, fpos - lb)])
+                            if max(0, fpos - lb) < len(trend_series)
+                            else tcur
+                        )
                         if tcur != tprev:
                             lead_times.append(lb)
                             break
@@ -470,16 +490,32 @@ def _pair_regime_transition_prediction(
         curr_vol = None
         curr_trend = None
         try:
-            curr_vol = int(vol_series.iloc[-1]) if vol_series is not None and len(vol_series) > 0 else None
+            curr_vol = (
+                int(vol_series.iloc[-1]) if vol_series is not None and len(vol_series) > 0 else None
+            )
         except Exception:
             curr_vol = None
         try:
-            curr_trend = int(trend_series.iloc[-1]) if trend_series is not None and len(trend_series) > 0 else None
+            curr_trend = (
+                int(trend_series.iloc[-1])
+                if trend_series is not None and len(trend_series) > 0
+                else None
+            )
         except Exception:
             curr_trend = None
-        vol_trans_prob = 1.0 - float((vol_trans.get("persistence") or {}).get(curr_vol, 0.5)) if curr_vol is not None and vol_trans.get("available") else 0.5
-        trend_trans_prob = 1.0 - float((trend_trans.get("persistence") or {}).get(curr_trend, 0.5)) if curr_trend is not None and trend_trans.get("available") else 0.5
-        regime_transition_probability = float(np.clip((vol_trans_prob + trend_trans_prob) / 2.0, 0.0, 1.0))
+        vol_trans_prob = (
+            1.0 - float((vol_trans.get("persistence") or {}).get(curr_vol, 0.5))
+            if curr_vol is not None and vol_trans.get("available")
+            else 0.5
+        )
+        trend_trans_prob = (
+            1.0 - float((trend_trans.get("persistence") or {}).get(curr_trend, 0.5))
+            if curr_trend is not None and trend_trans.get("available")
+            else 0.5
+        )
+        regime_transition_probability = float(
+            np.clip((vol_trans_prob + trend_trans_prob) / 2.0, 0.0, 1.0)
+        )
 
         # Lead time estimation
         lead_time_stats = {
@@ -498,29 +534,37 @@ def _pair_regime_transition_prediction(
             lead_dist[f"<=_{b}_bars"] = int(sum(1 for x in lead_times if x <= b))
 
         # Predictive accuracy (backtested)
-        # Simple predictor: if regime_transition_probability > threshold, predict failure in next window
+        # Simple predictor: if regime_transition_probability > threshold,
+        # predict failure in next window
         predictions = []
         actuals = []
         # rolling backtest
         if len(gate_history) >= 20:
             for i in range(15, len(gate_history) - 1):  # causal
                 # use history up to i
-                gate_history[:i+1]
+                gate_history[: i + 1]
                 # predict based on regime transition prob at i
                 pred_fail = regime_transition_probability > PROACTIVE_RISK_THRESHOLD
                 predictions.append(1 if pred_fail else 0)
-                actuals.append(0 if gate_history[i+1] else 1)  # 1 if fails next
+                actuals.append(0 if gate_history[i + 1] else 1)  # 1 if fails next
         tp = sum(1 for p, a in zip(predictions, actuals) if p == 1 and a == 1)
         fp = sum(1 for p, a in zip(predictions, actuals) if p == 1 and a == 0)
         fn = sum(1 for p, a in zip(predictions, actuals) if p == 0 and a == 1)
         tn = sum(1 for p, a in zip(predictions, actuals) if p == 0 and a == 0)
         precision = float(tp / (tp + fp)) if (tp + fp) > 0 else 0.0
         recall = float(tp / (tp + fn)) if (tp + fn) > 0 else 0.0
-        f1 = float(2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+        f1 = (
+            float(2 * precision * recall / (precision + recall))
+            if (precision + recall) > 0
+            else 0.0
+        )
         predictive_accuracy = {
             "available": len(predictions) > 0,
             "n_predictions": len(predictions),
-            "tp": tp, "fp": fp, "fn": fn, "tn": tn,
+            "tp": tp,
+            "fp": fp,
+            "fn": fn,
+            "tn": tn,
             "precision": precision,
             "recall": recall,
             "f1": f1,
@@ -537,7 +581,11 @@ def _pair_regime_transition_prediction(
                 c36_decay_hl = campaign36_pair_pers.get("decay_half_life_bars")
 
         predicted_breach_imminent = bool(regime_transition_probability >= PROACTIVE_RISK_THRESHOLD)
-        if predicted_breach_imminent and lead_time_stats.get("mean_lead_time_bars") is not None and lead_time_stats["mean_lead_time_bars"] <= 8:
+        if (
+            predicted_breach_imminent
+            and lead_time_stats.get("mean_lead_time_bars") is not None
+            and lead_time_stats["mean_lead_time_bars"] <= 8
+        ):
             predicted_breach_imminent = True  # reinforce
 
         return {
@@ -557,11 +605,17 @@ def _pair_regime_transition_prediction(
             "campaign36_baseline": {
                 "persistence_half_life_bars": c36_pers_hl,
                 "decay_half_life_bars": c36_decay_hl,
-                "loaded_from_campaign36": campaign36_pair_pers is not None and isinstance(campaign36_pair_pers, dict) and campaign36_pair_pers.get("available") is True,
+                "loaded_from_campaign36": campaign36_pair_pers is not None
+                and isinstance(campaign36_pair_pers, dict)
+                and campaign36_pair_pers.get("available") is True,
             },
             "predicted_breach_imminent": predicted_breach_imminent,
-            "prediction_horizon_bars": int(np.clip(lead_time_stats.get("mean_lead_time_bars") or 4, 1, 64)),
-            "provenance": _provenance(f"campaign37_regime_transition_prediction_{pair_name}_real_data_only"),
+            "prediction_horizon_bars": int(
+                np.clip(lead_time_stats.get("mean_lead_time_bars") or 4, 1, 64)
+            ),
+            "provenance": _provenance(
+                f"campaign37_regime_transition_prediction_{pair_name}_real_data_only"
+            ),
         }
     except Exception as e:
         return {
@@ -575,11 +629,17 @@ def _pair_regime_transition_prediction(
 def _adaptive_gate_recalibration(pred_results: dict[str, Any]) -> dict[str, Any]:
     """Compute adaptive gate recalibration thresholds based on regime-transition risk."""
     try:
-        trans_prob = pred_results.get("regime_transition_probability", 0.5) if pred_results.get("available") else 0.5
+        trans_prob = (
+            pred_results.get("regime_transition_probability", 0.5)
+            if pred_results.get("available")
+            else 0.5
+        )
         risk_high = trans_prob >= PROACTIVE_RISK_THRESHOLD
         # Tighten when risk rises
         eg_p_tight = GATE_EG_P_MAX * (ADAPTIVE_TIGHTEN_FACTOR if risk_high else 1.0)
-        hl_min_tight = GATE_HL_MIN * (1.0 / ADAPTIVE_TIGHTEN_FACTOR if risk_high else 1.0)  # require faster mean reversion? tighten means stricter
+        hl_min_tight = GATE_HL_MIN * (
+            1.0 / ADAPTIVE_TIGHTEN_FACTOR if risk_high else 1.0
+        )  # require faster mean reversion? tighten means stricter
         hl_max_tight = GATE_HL_MAX * ADAPTIVE_TIGHTEN_FACTOR if risk_high else GATE_HL_MAX
         rolling_min_tight = min(0.95, GATE_ROLLING_MIN + (0.1 if risk_high else 0.0))
         return {
@@ -599,7 +659,9 @@ def _adaptive_gate_recalibration(pred_results: dict[str, Any]) -> dict[str, Any]
             "tightened": bool(risk_high),
             "regime_transition_risk": float(trans_prob),
             "tightening_factor": float(ADAPTIVE_TIGHTEN_FACTOR),
-            "rationale": "Tighten gates when regime-transition risk rises; fail-closed." if risk_high else "Baseline thresholds (no elevated regime-transition risk).",
+            "rationale": "Tighten gates when regime-transition risk rises; fail-closed."
+            if risk_high
+            else "Baseline thresholds (no elevated regime-transition risk).",
             "provenance": _provenance("adaptive_gate_recalibration_trailing"),
         }
     except Exception as e:
@@ -705,16 +767,24 @@ def _fail_closed_regime_transition_regating(
             "predicted_breach_imminent": imminent,
             "regime_transition_probability": float(trans_prob),
             "adaptive_gate_tightened": bool(recal.get("tightened")),
-            "proactive_derisking_applied": bool(derisk.get("available") and derisk.get("action") != "no_proactive_reduction"),
-            "zero_capacity_on_predicted_breach": bool(derisk.get("zero_capacity_on_predicted_breach")),
+            "proactive_derisking_applied": bool(
+                derisk.get("available") and derisk.get("action") != "no_proactive_reduction"
+            ),
+            "zero_capacity_on_predicted_breach": bool(
+                derisk.get("zero_capacity_on_predicted_breach")
+            ),
             "blocked_reasons": blocked_reasons,
-            "reclassification_action": "reclassify_to_blocked_fail_closed" if reclassified_blocked else "no_change",
+            "reclassification_action": "reclassify_to_blocked_fail_closed"
+            if reclassified_blocked
+            else "no_change",
             "fail_closed": True,
             "no_auto_lift": True,
             "cannot_auto_lift_blocks": True,
             "reentry_requires_fresh_cointegration_evidence": True,
             "reentry_requires_regime_stability_confirmation": True,
-            "provenance": _provenance(f"campaign37_regime_transition_fail_closed_regating_{pair_name}"),
+            "provenance": _provenance(
+                f"campaign37_regime_transition_fail_closed_regating_{pair_name}"
+            ),
         }
     except Exception as e:
         return {
@@ -730,7 +800,7 @@ def _fail_closed_regime_transition_regating(
 
 
 def _portfolio_basket_cointegration(bdf: pd.DataFrame, basket_name: str) -> dict[str, Any]:
-    """Basket-level cointegration summary (Johansen-like simplified via pairwise + spread checks)."""
+    """Basket-level cointegration summary via pairwise + spread checks."""
     try:
         cols = list(bdf.columns)
         if len(cols) < 2:
@@ -803,24 +873,26 @@ def _kill_switch_evaluation_campaign37(
 ) -> dict[str, Any]:
     try:
         n_pred_breach = sum(
-            1 for rg in re_gating.values()
+            1
+            for rg in re_gating.values()
             if rg.get("available") and rg.get("predicted_breach_imminent")
         )
         n_reclassified = sum(
-            1 for rg in re_gating.values()
-            if rg.get("available") and rg.get("reclassified_blocked")
+            1 for rg in re_gating.values() if rg.get("available") and rg.get("reclassified_blocked")
         )
         high_pred_risk = bool(pred_summary.get("n_pairs_high_transition_risk", 0) >= 2)
         triggered = bool(n_reclassified >= 1 or n_pred_breach >= 2 or high_pred_risk)
         alerts = []
         if n_reclassified >= 1:
-            alerts.append({
-                "type": "predicted_regime_transition_breach",
-                "severity": "high",
-                "count": n_reclassified,
-                "action": "fail_closed_halt",
-                "provenance": _provenance("breach_alert_predicted"),
-            })
+            alerts.append(
+                {
+                    "type": "predicted_regime_transition_breach",
+                    "severity": "high",
+                    "count": n_reclassified,
+                    "action": "fail_closed_halt",
+                    "provenance": _provenance("breach_alert_predicted"),
+                }
+            )
         return {
             "available": True,
             "timeframe": tf,
@@ -867,13 +939,15 @@ def _execution_aware_capacity_allocation_campaign37(
             pname = f"{a}/{b}"
             rg = re_gating.get(pname) or {}
             if rg.get("predicted_breach_imminent") or rg.get("reclassified_blocked"):
-                breach_alerts.append({
-                    "pair": pname,
-                    "type": "predicted_regime_transition_breach",
-                    "severity": "high",
-                    "action": "zero_capacity_weight_fail_closed",
-                    "provenance": _provenance(f"breach_alert_{pname}_{tf}"),
-                })
+                breach_alerts.append(
+                    {
+                        "pair": pname,
+                        "type": "predicted_regime_transition_breach",
+                        "severity": "high",
+                        "action": "zero_capacity_weight_fail_closed",
+                        "provenance": _provenance(f"breach_alert_{pname}_{tf}"),
+                    }
+                )
             base_elig = bool(rg.get("base_eligible", pname in EXPECTED_INVARIANTS[tf]))
             new_elig = bool(rg.get("new_eligible", base_elig))
             if kill_switch_triggered or (rg.get("zero_capacity_on_predicted_breach")):
@@ -887,9 +961,12 @@ def _execution_aware_capacity_allocation_campaign37(
                     "target_notional": 0.0,
                     "participation_cap": PARTICIPATION_CAP,
                     "zero_capacity_on_block": True,
-                    "zero_capacity_on_predicted_breach": bool(rg.get("zero_capacity_on_predicted_breach")),
+                    "zero_capacity_on_predicted_breach": bool(
+                        rg.get("zero_capacity_on_predicted_breach")
+                    ),
                     "kill_switch_active": bool(kill_switch_triggered),
-                    "blocked_reasons": rg.get("blocked_reasons") or ["predicted_breach_or_kill_switch"],
+                    "blocked_reasons": rg.get("blocked_reasons")
+                    or ["predicted_breach_or_kill_switch"],
                     "fail_closed": True,
                     "cannot_auto_lift": True,
                     "provenance": _provenance(f"capacity_{pname}_{tf}_predicted_breach"),
@@ -907,7 +984,8 @@ def _execution_aware_capacity_allocation_campaign37(
                     "participation_cap": PARTICIPATION_CAP,
                     "zero_capacity_on_block": True,
                     "kill_switch_active": bool(kill_switch_triggered),
-                    "blocked_reasons": rg.get("blocked_reasons") or ["regime_transition_regating_blocked"],
+                    "blocked_reasons": rg.get("blocked_reasons")
+                    or ["regime_transition_regating_blocked"],
                     "fail_closed": True,
                     "cannot_auto_lift": True,
                     "provenance": _provenance(f"capacity_{pname}_{tf}_blocked"),
@@ -955,7 +1033,11 @@ def _execution_aware_capacity_allocation_campaign37(
                     "cannot_auto_lift": True,
                     "provenance": _provenance(f"capacity_{pname}_{tf}_blocked"),
                 }
-        capacity_util = float(total_capacity / (PARTICIPATION_CAP * PORTFOLIO_VALUE)) if (PARTICIPATION_CAP * PORTFOLIO_VALUE) > 0 else 0.0
+        capacity_util = (
+            float(total_capacity / (PARTICIPATION_CAP * PORTFOLIO_VALUE))
+            if (PARTICIPATION_CAP * PORTFOLIO_VALUE) > 0
+            else 0.0
+        )
         return {
             "available": True,
             "timeframe": tf,
@@ -979,7 +1061,9 @@ def _execution_aware_capacity_allocation_campaign37(
             "total_target_notional": float(total_target),
             "capacity_utilization": float(capacity_util),
             "per_pair": per_pair,
-            "provenance": _provenance("campaign37_execution_aware_capacity_allocation_predicted_breach_real_data_only"),
+            "provenance": _provenance(
+                "campaign37_execution_aware_capacity_allocation_predicted_breach_real_data_only"
+            ),
         }
     except Exception as e:
         return {
@@ -1079,7 +1163,13 @@ def generate_campaign37() -> dict[str, Any]:
                 pair_recalibration[pname] = {"available": False}
                 pair_derisking[pname] = {"available": False}
                 base_elig = pname in eligible_g
-                pair_regating[pname] = _fail_closed_regime_transition_regating(pname, pair_predictions[pname], pair_recalibration[pname], pair_derisking[pname], base_elig)
+                pair_regating[pname] = _fail_closed_regime_transition_regating(
+                    pname,
+                    pair_predictions[pname],
+                    pair_recalibration[pname],
+                    pair_derisking[pname],
+                    base_elig,
+                )
                 continue
             # Get Campaign 36 baseline for this pair
             c36_pers = None
@@ -1087,7 +1177,9 @@ def generate_campaign37() -> dict[str, Any]:
             c36_pp = c36_tf.get("pair_persistence") or {}
             if isinstance(c36_pp, dict):
                 c36_pers = c36_pp.get(pname)
-            pred = _pair_regime_transition_prediction(tf_frame, pname, a, b, 60, regime_buckets, c36_pers)
+            pred = _pair_regime_transition_prediction(
+                tf_frame, pname, a, b, 60, regime_buckets, c36_pers
+            )
             pair_predictions[pname] = pred
             recal = _adaptive_gate_recalibration(pred)
             pair_recalibration[pname] = recal
@@ -1137,7 +1229,9 @@ def generate_campaign37() -> dict[str, Any]:
         pred_summary = {
             "available": True,
             "n_pairs_predicted": sum(1 for p in pair_predictions.values() if p.get("available")),
-            "mean_regime_transition_probability": float(np.mean(pred_probs)) if pred_probs else None,
+            "mean_regime_transition_probability": float(np.mean(pred_probs))
+            if pred_probs
+            else None,
             "max_regime_transition_probability": float(np.max(pred_probs)) if pred_probs else None,
             "n_pairs_high_transition_risk": high_risk_count,
             "n_pairs_predicted_breach_imminent": pred_breach_count,
@@ -1150,7 +1244,9 @@ def generate_campaign37() -> dict[str, Any]:
             },
             "portfolio_lead_time": {
                 "mean_lead_time_bars": float(np.mean(all_lead_times)) if all_lead_times else None,
-                "median_lead_time_bars": float(np.median(all_lead_times)) if all_lead_times else None,
+                "median_lead_time_bars": float(np.median(all_lead_times))
+                if all_lead_times
+                else None,
                 "n_pairs_quantified": len(all_lead_times),
                 "provenance": _provenance("portfolio_lead_time"),
             },
@@ -1170,14 +1266,18 @@ def generate_campaign37() -> dict[str, Any]:
             if best:
                 ppred = pair_predictions[best]
                 ppred["predicted_breach_imminent"] = True
-                ppred["regime_transition_probability"] = max(float(ppred.get("regime_transition_probability") or 0.7), 0.7)
+                ppred["regime_transition_probability"] = max(
+                    float(ppred.get("regime_transition_probability") or 0.7), 0.7
+                )
                 pred_breach_count += 1
                 # update regating
                 pred_b = ppred
                 recal_b = pair_recalibration.get(best) or _adaptive_gate_recalibration(pred_b)
                 derisk_b = pair_derisking.get(best) or _proactive_derisking(pred_b, recal_b)
                 base_elig_b = best in eligible_g
-                pair_regating[best] = _fail_closed_regime_transition_regating(best, pred_b, recal_b, derisk_b, base_elig_b)
+                pair_regating[best] = _fail_closed_regime_transition_regating(
+                    best, pred_b, recal_b, derisk_b, base_elig_b
+                )
         kill_switch = _kill_switch_evaluation_campaign37(tf, pair_regating, pred_summary)
         # Attach derisk factors to regating for capacity
         for pname in PNAMES:
@@ -1187,7 +1287,9 @@ def generate_campaign37() -> dict[str, Any]:
                     pair_regating[pname]["derisk_factor"] = d.get("weight_factor", 1.0)
                 else:
                     pair_regating[pname]["derisk_factor"] = 1.0
-        capacity = _execution_aware_capacity_allocation_campaign37(tf_frame, vol_by_tf.get(tf, {}), tf, pair_regating, bool(kill_switch.get("triggered")))
+        capacity = _execution_aware_capacity_allocation_campaign37(
+            tf_frame, vol_by_tf.get(tf, {}), tf, pair_regating, bool(kill_switch.get("triggered"))
+        )
 
         baskets_results: dict[str, Any] = {}
         for basket_name, basket in BASKETS.items():
@@ -1214,7 +1316,10 @@ def generate_campaign37() -> dict[str, Any]:
                 "trailing_windows_only": True,
                 "portfolio_basket_cointegration": basket_coint,
                 "multi_asset_hedge_ratios": basket_coint.get("hedge_ratios"),
-                "portfolio_spreads": {"available": basket_coint.get("available"), "numeraire": basket_coint.get("numeraire")},
+                "portfolio_spreads": {
+                    "available": basket_coint.get("available"),
+                    "numeraire": basket_coint.get("numeraire"),
+                },
                 "provenance": _provenance(f"campaign37_{basket_name}_{tf}_real_data_only"),
             }
 
@@ -1254,7 +1359,9 @@ def generate_campaign37() -> dict[str, Any]:
                 for pname in PNAMES
             },
             "gate_failure_lead_time_distributions": {
-                pname: (pair_predictions.get(pname) or {}).get("gate_failure_lead_time_distribution")
+                pname: (pair_predictions.get(pname) or {}).get(
+                    "gate_failure_lead_time_distribution"
+                )
                 for pname in PNAMES
             },
             "adaptive_gate_recalibration": pair_recalibration,
@@ -1265,7 +1372,9 @@ def generate_campaign37() -> dict[str, Any]:
             "proactive_de_risking": pair_derisking,
             "proactive_capacity_weight_zeroing": {
                 pname: {
-                    "zero_capacity_on_predicted_breach": bool((pair_derisking.get(pname) or {}).get("zero_capacity_on_predicted_breach")),
+                    "zero_capacity_on_predicted_breach": bool(
+                        (pair_derisking.get(pname) or {}).get("zero_capacity_on_predicted_breach")
+                    ),
                     "action": (pair_derisking.get(pname) or {}).get("action"),
                     "capacity_factor": (pair_derisking.get(pname) or {}).get("capacity_factor"),
                     "weight_factor": (pair_derisking.get(pname) or {}).get("weight_factor"),
@@ -1300,16 +1409,37 @@ def generate_campaign37() -> dict[str, Any]:
             "execution_aware_capacity_allocation": capacity,
             "baskets": baskets_results,
             "summary": {
-                "n_pairs_regime_transition_predicted": sum(1 for p in pair_predictions.values() if p.get("available")),
+                "n_pairs_regime_transition_predicted": sum(
+                    1 for p in pair_predictions.values() if p.get("available")
+                ),
                 "n_pairs_predicted_breach_imminent": pred_breach_count,
-                "n_pairs_reclassified_blocked": sum(1 for rg in pair_regating.values() if rg.get("available") and rg.get("reclassified_blocked")),
-                "n_pairs_new_eligible_after_regating": sum(1 for rg in pair_regating.values() if rg.get("available") and rg.get("new_eligible")),
+                "n_pairs_reclassified_blocked": sum(
+                    1
+                    for rg in pair_regating.values()
+                    if rg.get("available") and rg.get("reclassified_blocked")
+                ),
+                "n_pairs_new_eligible_after_regating": sum(
+                    1
+                    for rg in pair_regating.values()
+                    if rg.get("available") and rg.get("new_eligible")
+                ),
                 "kill_switch_triggered": bool(kill_switch.get("triggered")),
-                "breach_alerts_present": bool(capacity.get("breach_alerts_present") or kill_switch.get("breach_alerts_present")),
-                "mean_regime_transition_probability": pred_summary.get("mean_regime_transition_probability"),
-                "portfolio_precision_mean": (pred_summary.get("portfolio_predictive_accuracy") or {}).get("precision_mean"),
-                "portfolio_recall_mean": (pred_summary.get("portfolio_predictive_accuracy") or {}).get("recall_mean"),
-                "portfolio_f1_mean": (pred_summary.get("portfolio_predictive_accuracy") or {}).get("f1_mean"),
+                "breach_alerts_present": bool(
+                    capacity.get("breach_alerts_present")
+                    or kill_switch.get("breach_alerts_present")
+                ),
+                "mean_regime_transition_probability": pred_summary.get(
+                    "mean_regime_transition_probability"
+                ),
+                "portfolio_precision_mean": (
+                    pred_summary.get("portfolio_predictive_accuracy") or {}
+                ).get("precision_mean"),
+                "portfolio_recall_mean": (
+                    pred_summary.get("portfolio_predictive_accuracy") or {}
+                ).get("recall_mean"),
+                "portfolio_f1_mean": (pred_summary.get("portfolio_predictive_accuracy") or {}).get(
+                    "f1_mean"
+                ),
             },
             "provenance": _provenance(f"campaign37_{tf}_real_data_only"),
         }
@@ -1380,7 +1510,9 @@ def generate_campaign37() -> dict[str, Any]:
         "results_by_timeframe": results_by_tf,
         "portfolio": {
             "by_timeframe": portfolio_rollup,
-            "mean_regime_transition_probability_portfolio": float(np.mean(all_trans_probs)) if all_trans_probs else None,
+            "mean_regime_transition_probability_portfolio": float(np.mean(all_trans_probs))
+            if all_trans_probs
+            else None,
             "portfolio_predictive_accuracy_overall": {
                 "precision_mean": float(np.mean(all_prec)) if all_prec else None,
                 "recall_mean": float(np.mean(all_rec)) if all_rec else None,
