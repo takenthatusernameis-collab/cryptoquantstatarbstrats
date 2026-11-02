@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T06:54:26Z | CAMPAIGN 26 COMPLETE & ON-DISK VERIFIED | CAMPAIGN 27 SOLE FOCUS — NOT STARTED | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T06:59:24Z | CAMPAIGN 26 COMPLETE & ON-DISK VERIFIED | CAMPAIGN 27 SOLE FOCUS — NOT STARTED | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,30 +8,30 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T06:54:26Z
+**TIMESTAMP:** 2026-11-02T06:59:24Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
-**THIS SESSION (06:54:26Z) CONFIRMED ON DISK:** Campaign 26 complete & verified (5/5): `reports/end_to_end_pairs_execution_validation_mt.json`, `reports/live_operational_readiness_signoff_mt.json`, `tests/test_end_to_end_pairs_execution_validation_mt.py`, `tests/test_live_operational_readiness_signoff_mt.py`, `scripts/generate_campaign26_artifacts.py` — all present; tests 4/4 passing; ruff clean; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 26 is DONE — do not re-derive. **PRIOR HANDOFF CLAIMING CAMPAIGN 26 ABSENT/NOT-STARTED WAS STALE — CONTRADICTION REMOVED.**
+**THIS SESSION CONFIRMED ON DISK:** Campaign 26 complete & verified (5/5): `reports/end_to_end_pairs_execution_validation_mt.json`, `reports/live_operational_readiness_signoff_mt.json`, `tests/test_end_to_end_pairs_execution_validation_mt.py`, `tests/test_live_operational_readiness_signoff_mt.py`, `scripts/generate_campaign26_artifacts.py` — all present; tests 4/4 passing; ruff clean; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 26 is DONE — do not re-derive. **PRIOR HANDOFF CLAIMING CAMPAIGN 26 ABSENT/NOT-STARTED WAS STALE — CONTRADICTION REMOVED.**
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
-### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
-1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt`
+### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
+1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt` — prevent ModuleNotFoundError. Do this before any tests/imports.
 2. **Verify integrity (BLOCKING):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
 4. **Confirm Campaign 26 complete (verified on disk):** 5 artifacts present; `tests/test_end_to_end_pairs_execution_validation_mt.py` and `tests/test_live_operational_readiness_signoff_mt.py` pass (4/4); `scripts/generate_campaign26_artifacts.py` ruff clean; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 26 is DONE — do not re-derive.
-5. **Campaign 27 is the SOLE work now.** No pivot. No exploration. No tangential fixes. Execute the initial task below to completion. There is no other valid starting point.
+5. **Campaign 27 is the SOLE work now.** No pivot. No exploration. No tangential fixes. No refactors outside what is strictly necessary to satisfy Campaign 27. Execute the initial task below to completion. There is no other valid starting point.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
 > **OBJECTIVE (HEAVY, CAMPAIGN 27 - MANDATORY, COINTEGRATION-FIRST):** Execute a final live go-live authorization + post-deployment live trading readiness signoff across ALL multi-timeframe pairs (17 pairs × 1h/4h/1d = 51 slots) using ONLY real cached Binance spot data. Treat cointegration as law. Fail-closed at every step with zero auto-lift. Authorize go-live ONLY for gated-eligible pairs; the immutable baseline `reports/portfolio_gating_mt.json` shows POL/BTC (4h) is the SOLE gated-eligible pair. All other 50 slots MUST remain HARD BLOCKED with zero capital/orders/fills/position limits. Verify kill-switch, risk controls, pre/post-trade enforcement, reconciliation, monitoring, alerting, incident response, and post-deployment validation fire correctly on every breach. No lookahead; causal trailing windows only.
 >
-> **SCOPE (EXHAUSTIVE):** Validate go-live authorization decision logic, post-deployment validation, remediation tracking, kill-switch activation, risk-control enforcement, pre/post-trade rejection, reconciliation/audit trails, monitoring/alerting on breaches, live operations continuity, capital preservation/failover, and the hard gating boundary across all 51 (pair,timeframe) slots. Load `reports/portfolio_gating_mt.json` as the immutable baseline. Link the full chain to permanent certification, continuous improvement/auto-scaling, cointegration re-certification audit, drift-triggered re-gating, end-to-end pairs execution validation, live operational readiness, capital preservation/failover hardening, and monitoring/alerting. No orphaned logic.
+> **SCOPE (EXHAUSTIVE - DO NOT NARROW):** Validate go-live authorization decision logic, post-deployment validation, remediation tracking, kill-switch activation, risk-control enforcement, pre/post-trade rejection, reconciliation/audit trails, monitoring/alerting on breaches, live operations continuity, capital preservation/failover, and the hard gating boundary across all 51 (pair,timeframe) slots. Load `reports/portfolio_gating_mt.json` as the immutable baseline. Link the full chain to permanent certification, continuous improvement/auto-scaling, cointegration re-certification audit, drift-triggered re-gating, end-to_end_pairs_execution_validation, live_operational_readiness_signoff, capital preservation/failover hardening, and monitoring/alerting. Trace provenance end-to-end with no orphaned logic. Treat every blocked slot as a test case that MUST fail safely.
 >
 > **REQUIRED ARTIFACTS:** `reports/live_go_live_authorization_final_mt.json`, `reports/post_deployment_live_readiness_signoff_mt.json`
 > **REQUIRED TESTS:** `tests/test_live_go_live_authorization_final_mt.py`, `tests/test_post_deployment_live_readiness_signoff_mt.py`
-> **REQUIRED GENERATOR:** `scripts/generate_campaign27_artifacts.py` (must load baseline + all cointegration diagnostics + all prior MT artifacts incl. Campaigns 24-26, validate go-live authorization + post-deployment readiness per timeframe, compare to baseline, log every breach with cause+containment+audit trail, enforce fail-closed + zero auto-lift + real-data-only + causal-only, attach full provenance, assert zero capital/orders/fills on all blocked pairs with `blocked_routes` + rejection logs).
+> **REQUIRED GENERATOR:** `scripts/generate_campaign27_artifacts.py` (must load baseline + all cointegration diagnostics + all prior MT artifacts incl. Campaigns 24-26, validate go-live authorization + post-deployment readiness per timeframe, compare to baseline, log every breach with cause+containment+audit trail, enforce fail-closed + zero auto-lift + real-data-only + causal-only, attach full provenance, assert zero capital/orders/fills on all blocked pairs with `blocked_routes` + rejection logs, and be ruff clean).
 >
-> **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; go-live authorization fail-closed with explicit checks (only POL/BTC@4h eligible); ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion.
+> **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; go-live authorization fail-closed with explicit checks (only POL/BTC@4h eligible); ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion. If you feel tempted to stop early, do more verification/artifacts instead.
 
-## CURRENT VERIFIED STATE (2026-11-02T06:54:26Z)
+## CURRENT VERIFIED STATE (2026-11-02T06:59:24Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaign 26 COMPLETE & ON-DISK VERIFIED (2026-11-02T06:54:26Z):**
   - Artifacts: `reports/end_to_end_pairs_execution_validation_mt.json`, `reports/live_operational_readiness_signoff_mt.json` (generated 2026-11-02T05:56:45Z)
