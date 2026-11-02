@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T04:01:05Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 NEXT (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T04:02:49Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 NEXT (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T04:01:05Z
+**TIMESTAMP:** 2026-11-02T04:02:49Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -17,7 +17,7 @@
 2. **Verify integrity (BLOCKING):** Run verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
 3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
 4. **Confirm Campaign 25 complete (verified on disk):** `reports/cointegration_recertification_audit_mt.json` + `reports/drift_triggered_regating_mt.json` exist; `tests/test_cointegration_recertification_audit_mt.py` and `tests/test_drift_triggered_regating_mt.py` pass (4/4); `scripts/generate_campaign25_artifacts.py` ruff clean; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 25 is DONE — do not re-derive.
-5. **Campaign 26 is the SOLE work now.** No pivot. No exploration. No tangential fixes. Execute the initial task below to completion.
+5. **Campaign 26 is the SOLE work now.** No pivot. No exploration. No tangential fixes. Execute the initial task below to completion. There is no other valid starting point.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
 > **OBJECTIVE (HEAVY, CAMPAIGN 26 - MANDATORY, COINTEGRATION-FIRST):** Execute an end-to-end multi-timeframe pairs execution validation + live operational readiness signoff across ALL multi-timeframe pairs (17 pairs × 1h/4h/1d) using ONLY real cached Binance spot data. Treat cointegration as law. Fail-closed at every step with zero auto-lift. Verify the complete stat arb pipeline (real data → cointegration gate → pairs strategy → risk/execution → monitoring → reconciliation → alerting/kill-switch) is operational and gated correctly across all 51 (pair,timeframe) slots.
@@ -32,7 +32,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; end-to-end validation fail-closed with explicit checks; ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion.
 
-## CURRENT VERIFIED STATE (2026-11-02T04:01:05Z)
+## CURRENT VERIFIED STATE (2026-11-02T04:02:49Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
 - **Campaign 24 DONE:** Permanent production certification + continuous improvement & auto-scaling hardening complete.
   - Artifacts: `reports/permanent_production_certification_mt.json` (1 permanently certified: POL/BTC @ 4h; 50 blocked), `reports/continuous_improvement_autoscaling_mt.json` (1 auto-scaling eligible: POL/BTC @ 4h; 50 blocked).
@@ -74,7 +74,12 @@
 ```bash
 python -m pip install -r requirements.txt
 python -m ruff check scripts/generate_campaign26_artifacts.py tests/test_end_to_end_pairs_execution_validation_mt.py tests/test_live_operational_readiness_signoff_mt.py scripts/generate_campaign25_artifacts.py tests/test_cointegration_recertification_audit_mt.py tests/test_drift_triggered_regating_mt.py
-python -m pytest tests/test_live_operations_continuity_incident_response_mt.py tests/test_capital_preservation_failover_hardening_mt.py tests/test_permanent_production_certification_mt.py tests/test_continuous_improvement_autoscaling_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_drift_triggered_regating_mt.py tests/test_end_to_end_pairs_execution_validation_mt.py tests/test_live_operational_readiness_signoff_mt.py -v
+python -m pytest tests/test_live_operations_continuity_incident_response_mt.py tests/test_capital_preservation_failover_hardening_mt.py tests/test_permanent_production_certification_mt.py tests/test_continuous_improvement_autoscaling_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_drift_triggered_regating_mt.py -v
+```
+```bash
+# After creating Campaign 26 artifacts/tests
+python -m ruff check scripts/generate_campaign26_artifacts.py tests/test_end_to_end_pairs_execution_validation_mt.py tests/test_live_operational_readiness_signoff_mt.py
+python -m pytest tests/test_end_to_end_pairs_execution_validation_mt.py tests/test_live_operational_readiness_signoff_mt.py -v
 ```
 
 ## CAMPAIGN 25 COMPLETE (EVIDENCE - 2026-11-02T04:00:54Z)
@@ -84,5 +89,5 @@ python -m pytest tests/test_live_operations_continuity_incident_response_mt.py t
 - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only, cointegration law enforced.
 - Baseline diff logged against `reports/portfolio_gating_mt.json`; drift logs show none detected with cause/containment/audit trail; blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`.
 
-## CAMPAIGN 26 PENDING (NOT STARTED)
-No artifacts, tests, or generator exist for Campaign 26 on disk. The next session MUST produce them per the SINGLE INITIAL TASK MESSAGE above before any other work. This is the only allowed path to completion.
+## CAMPAIGN 26 PENDING (NOT STARTED) — MANDATORY NEXT FOCUS
+No artifacts, tests, or generator exist for Campaign 26 on disk. The next session **MUST** produce them per the SINGLE INITIAL TASK MESSAGE above before any other work. This is the only allowed path to completion. Follow existing patterns from Campaigns 24-25 exactly. Do heavy work. Leave verifiable evidence.
