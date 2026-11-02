@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T17:52:24Z | CAMPAIGN 34 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T17:54:41Z | CAMPAIGN 34 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T17:52:24Z
+**TIMESTAMP:** 2026-11-02T17:54:41Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-33 COMPLETE & ON-DISK VERIFIED. Full suite green (702 passed, 1 skipped, 0 failed). Campaign 33 deliverables verified: `scripts/generate_campaign33_artifacts.py`, `reports/cointegration_campaign33_mt.json`, `tests/test_cointegration_campaign33_mt.py` (11 tests, all pass). `ruff check` clean. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 34 — cointegration rigor phase 6: fail-closed kill-switch / circuit-breaker execution that halts capacity (zero weight/fills) when regime-transition stress degrades basket cointegration evidence beyond threshold; regime-transition stress amplification on multi-asset hedge-ratio stability across volatility/trend regime switches; multi-regime basket cointegration walk-forward OOS capacity/rebalancing robustness under stress regimes (high-vol, trend-breakdown) with a monotonic fee × slippage cost-stress grid per regime; breach-alert-driven execution halting (fail-closed, cannot lift gating blocks). Real Binance cached data only. Heavy artifacts/tests/provenance/logs mandatory. No coasting.
@@ -22,7 +22,7 @@
 4. **Follow existing patterns:** Mirror `scripts/generate_campaign33_artifacts.py`, `reports/cointegration_campaign33_mt.json`, and `tests/test_cointegration_campaign33_mt.py`. Do **not** re-derive Campaigns 26-33.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T17:52:24Z] CAMPAIGN 34 — COINTEGRATION RIGOR PHASE 6: FAIL-CLOSED KILL-SWITCH/CIRCUIT-BREAKER EXECUTION + REGIME-TRANSITION STRESS AMPLIFICATION ON HEDGE-RATIO STABILITY + MULTI-REGIME WALK-FORWARD OOS CAPACITY/REBALANCING UNDER STRESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T17:54:41Z] CAMPAIGN 34 — COINTEGRATION RIGOR PHASE 6: FAIL-CLOSED KILL-SWITCH/CIRCUIT-BREAKER EXECUTION + REGIME-TRANSITION STRESS AMPLIFICATION ON HEDGE-RATIO STABILITY + MULTI-REGIME WALK-FORWARD OOS CAPACITY/REBALANCING UNDER STRESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 33. Integrate a **fail-closed kill-switch / circuit-breaker** that halts execution (zero capacity/weight/fills) when regime-transition stress degrades basket cointegration evidence (rank, common stochastic trend, hedge-ratio stability) beyond threshold — blocks cannot auto-lift. Amplify **regime-transition stress on multi-asset hedge-ratio stability** across BTC volatility/trend regime switches via `utils.regime`. Demonstrate **multi-regime basket cointegration walk-forward OOS capacity/rebalancing robustness** under stress regimes (high-vol, trend-breakdown) with a **monotonic fee × slippage cost-stress grid per regime** on real Binance cached data. Quantify how regime transitions degrade hedge-ratio stability and tighten tradable capacity; breach alerts must drive execution halting. Exclusively use real Binance cached data (1h; resample allowed only if derived from real data). No fabrication.
 >
@@ -53,7 +53,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T17:52:24Z)
+## VERIFIED STATE (2026-11-02T17:54:41Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-33:** Complete & verified on disk. Full suite green (702 passed, 1 skipped, 0 failed). Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 33:** COMPLETE — generator `scripts/generate_campaign33_artifacts.py`, artifact `reports/cointegration_campaign33_mt.json`, tests `tests/test_cointegration_campaign33_mt.py` all verified green (11 tests), ruff clean.
