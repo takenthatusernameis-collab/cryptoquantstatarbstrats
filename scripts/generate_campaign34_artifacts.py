@@ -85,7 +85,7 @@ BREACH_ALERT_THRESHOLD = 0.8
 
 # Kill-switch thresholds - fail-closed
 KILL_SWITCH_THRESHOLDS = {
-    "regime_transition_degradation_rate": 0.7,  # If >70% of transitions degrade, kill switch triggers
+    "regime_transition_degradation_rate": 0.7,  # kill switch if >70% transitions degrade
     "hedge_ratio_stability_threshold": 0.5,  # If hedge ratio stability < 50%, stress too high
     "cointegration_rank_stability_min": 0.4,  # Minimum rank stability
     "cost_stress_monotonicity_required": True,
@@ -461,7 +461,11 @@ def _portfolio_basket_cointegration(
 
 
 def _regime_transition_stress_amplification(
-    spread: pd.Series | None, regimes: pd.DataFrame | None, basket_name: str, weights: list[float], assets: list[str]
+    spread: pd.Series | None,
+    regimes: pd.DataFrame | None,
+    basket_name: str,
+    weights: list[float],
+    assets: list[str],
 ) -> dict[str, Any]:
     """Campaign 34: Amplify regime-transition stress on multi-asset hedge-ratio stability."""
     if spread is None or regimes is None or regimes.empty:
@@ -509,7 +513,8 @@ def _regime_transition_stress_amplification(
                     hl_post = post_stats["half_life"]
                     if hl_pre and hl_post and hl_pre > 0:
                         # High degradation if half-life changes drastically
-                        hl_ratio = min(hl_pre, hl_post) / max(hl_pre, hl_post) if max(hl_pre, hl_post) > 0 else 0
+                        max_hl = max(hl_pre, hl_post)
+                        hl_ratio = min(hl_pre, hl_post) / max_hl if max_hl > 0 else 0
                         hedge_stability = float(hl_ratio)
                         hedge_ratio_stability_scores.append(hedge_stability)
 
@@ -540,18 +545,24 @@ def _regime_transition_stress_amplification(
 
     n_transitions = len(transition_results)
     n_degraded = sum(1 for t in transition_results if t.get("degradation"))
-    avg_hedge_stability = float(np.mean(hedge_ratio_stability_scores)) if hedge_ratio_stability_scores else None
+    avg_hedge_stability = (
+        float(np.mean(hedge_ratio_stability_scores)) if hedge_ratio_stability_scores else None
+    )
 
     stress_breached = False
     breach_reasons = []
     if n_transitions > 0:
         deg_rate = float(n_degraded) / float(n_transitions)
-        if deg_rate > KILL_SWITCH_THRESHOLDS["regime_transition_degradation_rate"]:
+        deg_threshold = KILL_SWITCH_THRESHOLDS["regime_transition_degradation_rate"]
+        if deg_rate > deg_threshold:
             stress_breached = True
-            breach_reasons.append(f"regime_transition_degradation_rate {deg_rate:.3f} > {KILL_SWITCH_THRESHOLDS['regime_transition_degradation_rate']}")
-    if avg_hedge_stability is not None and avg_hedge_stability < KILL_SWITCH_THRESHOLDS["hedge_ratio_stability_threshold"]:
+            breach_reasons.append(
+                f"regime_transition_degradation_rate {deg_rate:.3f} > {deg_threshold}"
+            )
+    hl_threshold = KILL_SWITCH_THRESHOLDS["hedge_ratio_stability_threshold"]
+    if avg_hedge_stability is not None and avg_hedge_stability < hl_threshold:
         stress_breached = True
-        breach_reasons.append(f"hedge_ratio_stability {avg_hedge_stability:.3f} < {KILL_SWITCH_THRESHOLDS['hedge_ratio_stability_threshold']}")
+        breach_reasons.append(f"hedge_ratio_stability {avg_hedge_stability:.3f} < {hl_threshold}")
 
     return {
         "available": True,
@@ -570,7 +581,7 @@ def _regime_transition_stress_amplification(
         "multi_asset_hedge_ratio_stability_across_switches": True,
         "stress_breached_threshold": stress_breached,
         "breach_reasons": breach_reasons,
-        "provenance": _provenance("regime_transition_stress_amplification_campaign34_causal_trailing"),
+        "provenance": _provenance("regime_transition_stress_amplification_campaign34"),
     }
 
 
@@ -627,7 +638,11 @@ def _walk_forward_portfolio_rebalancing_multiregime_stress(
                         pass
                 trend_reg = reg0.get("BTC_trend")
                 if trend_reg is not None:
-                    stress_regime = f"trend_{trend_reg}" if stress_regime == "normal" else f"{stress_regime}_trend_{trend_reg}"
+                    stress_regime = (
+                        f"trend_{trend_reg}"
+                        if stress_regime == "normal"
+                        else f"{stress_regime}_trend_{trend_reg}"
+                    )
         ret = pos.shift(1) * spread_te.diff().fillna(0.0)
         gross_return = float(ret.sum())
         turnover = float(pos.diff().abs().sum())
@@ -644,7 +659,9 @@ def _walk_forward_portfolio_rebalancing_multiregime_stress(
                 "stress_regime": stress_regime,
                 "hedge_ratios": [float(x) for x in w],
                 "hedge_assets": assets,
-                "provenance": _provenance("causal_walk_forward_portfolio_rebalancing_multiregime_stress"),
+                "provenance": _provenance(
+                    "causal_walk_forward_portfolio_rebalancing_multiregime_stress"
+                ),
             }
         )
     if not splits:
@@ -693,12 +710,19 @@ def _walk_forward_portfolio_rebalancing_multiregime_stress(
     )
     # Campaign 34: with kill switch, if triggered, capacity becomes zero (fail-closed)
     robustness_pass = bool(
-        frac_profitable_base >= 0.5 and n_splits >= 1 and eligible and monotonic and not kill_switch_triggered
+        frac_profitable_base >= 0.5
+        and n_splits >= 1
+        and eligible
+        and monotonic
+        and not kill_switch_triggered
     )
     n_de_risked = sum(1 for s in splits if s.get("regime_de_risked"))
     return {
         "available": True,
-        "method": "regime_conditioned_walk_forward_portfolio_rebalancing_oos_causal_multiregime_stress_campaign34",
+        "method": (
+            "regime_conditioned_walk_forward_portfolio_rebalancing_oos_causal_"
+            "multiregime_stress_campaign34"
+        ),
         "basket": basket_name,
         "train_period": WALK_FORWARD_TRAIN,
         "test_period": WALK_FORWARD_TEST,
@@ -719,7 +743,8 @@ def _walk_forward_portfolio_rebalancing_multiregime_stress(
         "trend_breakdown_stress_tested": True,
         "splits": splits,
         "provenance": _provenance(
-            "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress"
+            "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_"
+            "multiregime_stress"
         ),
     }
 
@@ -965,15 +990,19 @@ def generate_campaign34() -> dict[str, Any]:
                     kill_switch_triggered = True
                     kill_switch_details["triggered"] = True
                     kill_switch_details["triggers"].append("regime_transition_stress_threshold")
-                    kill_switch_details["breach_reasons"].extend(regime_transition_amp.get("breach_reasons", []))
-                if regime_transition_amp.get("avg_hedge_ratio_stability") is not None and \
-                   regime_transition_amp.get("avg_hedge_ratio_stability") < KILL_SWITCH_THRESHOLDS["hedge_ratio_stability_threshold"]:
+                    kill_switch_details["breach_reasons"].extend(
+                        regime_transition_amp.get("breach_reasons", [])
+                    )
+                avg_hl = regime_transition_amp.get("avg_hedge_ratio_stability")
+                if avg_hl is not None and avg_hl < KILL_SWITCH_THRESHOLDS[
+                    "hedge_ratio_stability_threshold"
+                ]:
                     if not kill_switch_triggered:
                         kill_switch_triggered = True
                         kill_switch_details["triggered"] = True
                         kill_switch_details["triggers"].append("hedge_ratio_stability_below_threshold")
                     kill_switch_details["breach_reasons"].append(
-                        f"hedge_ratio_stability_below_threshold"
+                        "hedge_ratio_stability_below_threshold"
                     )
 
             rebal = _walk_forward_portfolio_rebalancing_multiregime_stress(

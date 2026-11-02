@@ -209,7 +209,8 @@ def test_cointegration_campaign34_fail_closed_kill_switch():
                     assert sym.get("feasible") is False
                     assert sym.get("allocated_weight") == 0
                 alerts = cap.get("breach_alerts") or []
-                assert any(a.get("alert_type") == "kill_switch_circuit_breaker_halt" for a in alerts)
+                halt_types = [a.get("alert_type") for a in alerts]
+                assert "kill_switch_circuit_breaker_halt" in halt_types
             rb = b.get("multi_regime_basket_cointegration_walk_forward_oos") or {}
             if rb.get("available") is True:
                 assert rb.get("fail_closed_gating") is True
