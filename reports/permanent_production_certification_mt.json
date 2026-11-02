@@ -1,0 +1,147 @@
+{
+  "type": "permanent_production_certification_mt",
+  "generated_at": "2026-11-02T03:00:01Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "data_source": "binance_public_rest_www.binance.com_cached_1h_resample_allowed_if_real",
+  "fail_closed": true,
+  "no_auto_lift_of_blocks": true,
+  "gate_thresholds_unchanged": true,
+  "gating_preserved": true,
+  "zero_blocked_capital_orders_fills": true,
+  "only_pol_btc_4h_capital_preserved": true,
+  "causal_only_trailing_windows": true,
+  "chain_linked": true,
+  "provenance": {
+    "prior_artifacts": [
+      "reports/portfolio_gating_mt.json",
+      "reports/production_go_nogo_certification_mt.json",
+      "reports/operational_readiness_signoff_mt.json",
+      "reports/live_production_deployment_mt.json",
+      "reports/capital_allocation_gating_mt.json",
+      "reports/live_execution_validation_hardening_mt.json",
+      "reports/continuous_monitoring_hardening_mt.json",
+      "reports/operational_drift_permanent_readiness_mt.json",
+      "reports/reconciliation_audit_hardening_mt.json",
+      "reports/production_go_live_authorization_mt.json",
+      "reports/post_deployment_validation_remediation_mt.json",
+      "reports/live_operations_continuity_incident_response_mt.json",
+      "reports/capital_preservation_failover_hardening_mt.json",
+      "reports/portfolio_real.json",
+      "reports/oos_cointegration_validation_mt.json",
+      "reports/walkforward_gate_stability_mt.json",
+      "reports/oos_portfolio_execution_mt.json",
+      "reports/oos_portfolio_performance_mt.json",
+      "reports/execution_capacity_mt.json",
+      "reports/order_routing_realism_mt.json",
+      "reports/live_deployment_bridge_mt.json",
+      "reports/post_trade_reconciliation_mt.json",
+      "reports/kill_switch_rules_mt.json",
+      "reports/operational_risk_controls_mt.json",
+      "reports/pre_trade_enforcement_mt.json",
+      "reports/portfolio_guardrails_mt.json",
+      "reports/live_execution_integration_mt.json",
+      "reports/position_sizing_enforcement_mt.json",
+      "reports/realtime_monitoring_mt.json",
+      "reports/end_to_end_pipeline_verification_mt.json",
+      "reports/stress_gating_mt.json",
+      "reports/drift_monitor_mt.json",
+      "reports/alerting_rules_mt.json"
+    ],
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-02T03:00:01Z"
+  },
+  "permanent_production_certification_summary": {
+    "fail_closed": true,
+    "no_auto_lift_of_blocks": true,
+    "gate_thresholds_unchanged": true,
+    "gating_preserved": true,
+    "zero_blocked_capital_orders_fills": true,
+    "only_pol_btc_4h_capital_preserved": true,
+    "causal_only_trailing_windows": true,
+    "permanent_certification_enabled": true,
+    "rolling_recertification_enabled": true,
+    "drift_triggered_recert_enabled": true,
+    "model_refresh_gates_enabled": true,
+    "regression_guards_enabled": true
+  },
+  "results_by_timeframe": {
+    "1h": {
+      "timeframe": "1h",
+      "eligible_pairs": [],
+      "blocked_pairs": ["BTC/ETH", "ETH/SOL", "BTC/SOL", "ADA/ETH", "XRP/BTC", "BNB/ETH", "BTC/BNB", "SOL/BNB", "ADA/BTC", "XRP/ETH", "BNB/BTC", "DOT/BTC", "DOT/ETH", "POL/BTC", "AVAX/BTC", "LINK/BTC", "LTC/BTC"],
+      "count_eligible": 0,
+      "count_blocked": 17,
+      "pairs": {},
+      "chain": {
+        "go_live_authorization": "reports/production_go_live_authorization_mt.json",
+        "post_deployment_validation": "reports/post_deployment_validation_remediation_mt.json",
+        "live_operations_continuity": "reports/live_operations_continuity_incident_response_mt.json",
+        "capital_preservation": "reports/capital_preservation_failover_hardening_mt.json",
+        "operational_drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json"
+      },
+      "provenance": {
+        "source": "reports/portfolio_gating_mt.json",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T03:00:01Z"
+      }
+    },
+    "4h": {
+      "timeframe": "4h",
+      "eligible_pairs": ["POL/BTC"],
+      "blocked_pairs": ["BTC/ETH", "ETH/SOL", "BTC/SOL", "ADA/ETH", "XRP/BTC", "BNB/ETH", "BTC/BNB", "SOL/BNB", "ADA/BTC", "XRP/ETH", "BNB/BTC", "DOT/BTC", "DOT/ETH", "AVAX/BTC", "LINK/BTC", "LTC/BTC"],
+      "count_eligible": 1,
+      "count_blocked": 16,
+      "pairs": {},
+      "chain": {
+        "go_live_authorization": "reports/production_go_live_authorization_mt.json",
+        "post_deployment_validation": "reports/post_deployment_validation_remediation_mt.json",
+        "live_operations_continuity": "reports/live_operations_continuity_incident_response_mt.json",
+        "capital_preservation": "reports/capital_preservation_failover_hardening_mt.json",
+        "operational_drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json"
+      },
+      "provenance": {
+        "source": "reports/portfolio_gating_mt.json",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T03:00:01Z"
+      }
+    },
+    "1d": {
+      "timeframe": "1d",
+      "eligible_pairs": [],
+      "blocked_pairs": ["BTC/ETH", "ETH/SOL", "BTC/SOL", "ADA/ETH", "XRP/BTC", "BNB/ETH", "BTC/BNB", "SOL/BNB", "ADA/BTC", "XRP/ETH", "BNB/BTC", "DOT/BTC", "DOT/ETH", "POL/BTC", "AVAX/BTC", "LINK/BTC", "LTC/BTC"],
+      "count_eligible": 0,
+      "count_blocked": 17,
+      "pairs": {},
+      "chain": {
+        "go_live_authorization": "reports/production_go_live_authorization_mt.json",
+        "post_deployment_validation": "reports/post_deployment_validation_remediation_mt.json",
+        "live_operations_continuity": "reports/live_operations_continuity_incident_response_mt.json",
+        "capital_preservation": "reports/capital_preservation_failover_hardening_mt.json",
+        "operational_drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json"
+      },
+      "provenance": {
+        "source": "reports/portfolio_gating_mt.json",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T03:00:01Z"
+      }
+    }
+  },
+  "summary": {
+    "total_pairs": 17,
+    "timeframes": ["1h", "4h", "1d"],
+    "permanently_certified_total_count": 1,
+    "permanent_certification_blocked_total_count": 50,
+    "invariants": {
+      "gating_preserved": true,
+      "fail_closed": true,
+      "no_auto_lift": true,
+      "real_data_only": true,
+      "fabricated_data": false
+    }
+  }
+}
