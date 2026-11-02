@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T00:00:06Z | CAMPAIGN 18 COMPLETE (LIVE PRODUCTION DEPLOYMENT + CAPITAL ALLOCATION GATING) | CAMPAIGN 19 ACTIVE / NOT STARTED (PRODUCTION GO/NO-GO + OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T00:03:54Z | CAMPAIGN 18 COMPLETE (LIVE PRODUCTION DEPLOYMENT + CAPITAL ALLOCATION GATING) | CAMPAIGN 19 ACTIVE / NOT STARTED (PRODUCTION GO/NO-GO + OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T00:00:06Z
+**TIMESTAMP:** 2026-11-02T00:03:54Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -34,7 +34,8 @@
 - Integrity: All campaigns 1-18 artifacts/tests present; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Handoff is single durable source of truth.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
-- **BOTTLENECK REMOVED — Campaign 18:** generator/artifacts/tests created and passing. Gating preserved.
+- **BOTTLENECK REMOVED — CI env:** Install deps first (`python -m pip install -r requirements.txt`) before tests; missing numpy/pandas caused ModuleNotFoundError. ruff on touched files.
+- **BOTTLENECK REMOVED — Tooling:** Avoid malformed write/edit calls; provide full `content`/`oldString`/`newString` arguments.
 - **Ambiguity removed:** Explicit boot sequence + copy/paste initial task message + hard completion criteria.
 - **Focus enforced:** Campaign 19 is the ONLY permitted focus until its artifacts/tests exist and pass.
 - **Gating enforced:** Fail-closed invariants codified; no auto-lift paths.
