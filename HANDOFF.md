@@ -78,3 +78,67 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **GENERATOR:** `scripts/generate_campaign19_artifacts.py` (mirrors Campaign 18 patterns; loads portfolio_gating_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance).
 - **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 18 tests still green (4/4); Campaign 19 tests green (4/4). Targeted ruff on touched files clean.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
+
+
+## SINGLE DURABLE HANDOFF | 2026-11-02T00:55:48Z | CAMPAIGN 20 COMPLETE (LIVE DEPLOYMENT EXECUTION VALIDATION + CONTINUOUS MONITORING HARDENING) | CAMPAIGN 21 ACTIVE / NOT STARTED (PRODUCTION OPERATIONAL DRIFT/PERMANENT READINESS + RECONCILIATION HARDENING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+
+## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
+- Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
+- **CORE = COINTEGRATION / PAIRS TRADING.** Every other line of work serves cointegration rigor. Cointegration is law.
+- Real data only: Binance public REST via `www.binance.com`. Never fabricate. Resampling cached 1h is allowed only if still from real data.
+- Coasting = failure. Every action must produce checkable artifacts, tests, provenance, logs.
+- Working tree: `main` clean. Do **not** commit unless explicitly requested.
+
+## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
+**TIMESTAMP:** 2026-11-02T00:55:48Z
+**TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
+**PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
+
+### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
+1. **Verify integrity (BLOCKING):** Run the verification commands below. All must pass. If anything fails, fix as top priority with artifacts/tests before doing anything else.
+2. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable).
+3. **Confirm Campaign 20 complete:** `reports/live_execution_validation_hardening_mt.json`, `reports/continuous_monitoring_hardening_mt.json` exist; `tests/test_live_execution_validation_hardening_mt.py` and `tests/test_continuous_monitoring_hardening_mt.py` pass; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
+4. **Campaign 21 is the sole work now.** Do not pivot to unrelated tasks.
+
+### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
+> **OBJECTIVE (HEAVY, CAMPAIGN 21 - MANDATORY, COINTEGRATION-FIRST):** Production operational drift/permanent readiness + reconciliation hardening across ALL multi-timeframe artifacts on real Binance spot data only, cointegration-gated (fail-closed). Certify ONLY POL/BTC (4h) as permanently ready for gated operation; ALL blocked pairs remain HARD BLOCKED with zero capital/orders/fills/position limits, no auto-lift paths. Harden drift surveillance (model/params/gates/correlation/exposure), permanent readiness checks, post-trade reconciliation with strict tolerances, audit logging, and circuit-breaker coverage linked to full chain (go/no-go + operational readiness + execution validation + monitoring). Enforce causal-only trailing windows, fail-closed everywhere, complete provenance. Leave no gap untested.
+>
+> **REQUIRED ARTIFACTS:** `reports/operational_drift_permanent_readiness_mt.json`, `reports/reconciliation_audit_hardening_mt.json`
+> **REQUIRED TESTS:** `tests/test_operational_drift_permanent_readiness_mt.py`, `tests/test_reconciliation_audit_hardening_mt.py`
+> **REQUIRED GENERATOR:** `scripts/generate_campaign21_artifacts.py` (mirror Campaign 20 patterns: load `portfolio_gating_mt.json` + `production_go_nogo_certification_mt.json` + `operational_readiness_signoff_mt.json` + `live_execution_validation_hardening_mt.json` + `continuous_monitoring_hardening_mt.json` + all prior MT artifacts, enforce invariants, zero blocked pairs, full provenance).
+>
+> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs have zero capital/orders/fills with rejection logs + blocked_routes + remediation; drift surveillance/permanent readiness/reconciliation/audit/circuit-breakers all fail-closed with explicit checks; ruff clean on touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). Do not stop until ALL criteria met. No coasting.
+
+## CURRENT VERIFIED STATE (2026-11-02T00:55:48Z)
+- Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
+- **Campaign 20 DONE:** Live deployment execution validation + continuous monitoring hardening complete with artifacts/tests/generator.
+- Data: `data/cache/` real Binance spot 1h (2026-04-01→2026-10-30) for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_oos_mt_*.json`, real data only).
+- Integrity: All campaigns 1-20 artifacts/tests present; gating invariants intact (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Handoff is single durable source of truth.
+
+## BOTTLENECKS (REMOVED / PREVENTED)
+- **BOTTLENECK REMOVED — CI env:** Install deps first (`python -m pip install -r requirements.txt`) before tests; missing numpy/pandas caused ModuleNotFoundError. ruff on touched files.
+- **BOTTLENECK REMOVED — Tooling:** Avoid malformed write/edit calls; provide full `content`/`oldString`/`newString` arguments.
+- **Ambiguity removed:** Explicit boot sequence + copy/paste initial task message + hard completion criteria.
+- **Focus enforced:** Campaign 21 is the ONLY permitted focus until its artifacts/tests exist and pass.
+- **Gating enforced:** Fail-closed invariants codified; no auto-lift paths.
+- **Execution path unblocked:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_mt.py`).
+
+## HARD CONSTRAINTS
+- **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
+- **NO WEAKENING THRESHOLDS** without ironclad justification + tests. Gate thresholds unchanged: rolling ≥ 0.6, EG p ≤ 0.05, half-life (1, 500).
+- **PRESERVE GREEN** — all existing tests green; ruff clean.
+- **CAUSAL ONLY** — no lookahead. Trailing windows only.
+- **HONEST BLOCKING** — blocked pairs receive zero weight/fills/capacity allocation/position limits; full provenance; no forced blocking.
+- **FAIL-CLOSED** — capacity/routing/drift/alerting/kill-switch/risk constraints never lift gating blocks. Only gated-eligible pairs can be feasible.
+- **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
+
+## CAMPAIGN 20 COMPLETED (2026-11-02T00:55:48Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/live_execution_validation_hardening_mt.json` (live deployment execution validation across all MT; only POL/BTC (4h) EXECUTION_ELIGIBLE (1/17), 0/17 at 1h, 0/17 at 1d; all blocked pairs HARD_BLOCKED with zero capital/orders/fills/position limits; pre-trade/routing/capacity/bridge/position-sizing/integration/reconciliation/kill-switch/guards all fail-closed with full chain provenance)
+  - `reports/continuous_monitoring_hardening_mt.json` (continuous monitoring hardening across all MT; only POL/BTC (4h) MONITORING_ELIGIBLE (1/17); blocked pairs MONITORING_BLOCKED with zero capital/orders/fills/position limits; drift/alerting/reconciliation/kill-switch/guardrails/pipeline/stress all fail-closed with full chain provenance)
+- **TESTS PRODUCED:**
+  - `tests/test_live_execution_validation_hardening_mt.py` (PASSED)
+  - `tests/test_continuous_monitoring_hardening_mt.py` (PASSED)
+- **GENERATOR:** `scripts/generate_campaign20_artifacts.py` (mirrors Campaign 19 patterns; loads portfolio_gating_mt + production_go_nogo_certification_mt + operational_readiness_signoff_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance).
+- **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 19 tests still green (4/4); Campaign 20 tests green (4/4). Targeted ruff on touched files clean.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
