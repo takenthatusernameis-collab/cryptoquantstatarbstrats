@@ -326,7 +326,7 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 21 tests still green (4/4); Campaign 22 tests green (4/4). Targeted ruff on touched files clean.
 - **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
 
-## SINGLE DURABLE HANDOFF | 2026-11-02T02:47:09Z | CAMPAIGN 23 COMPLETE (LIVE OPERATIONS CONTINUITY + INCIDENT RESPONSE + CAPITAL PRESERVATION HARDENING) | CAMPAIGN 24 ACTIVE / NOT STARTED (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+## SINGLE DURABLE HANDOFF | 2026-11-02T02:49:04Z | CAMPAIGN 23 COMPLETE (LIVE OPERATIONS CONTINUITY + INCIDENT RESPONSE + CAPITAL PRESERVATION HARDENING) | CAMPAIGN 24 ACTIVE / NOT STARTED (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -336,7 +336,7 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T02:47:09Z
+**TIMESTAMP:** 2026-11-02T02:49:04Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -355,13 +355,25 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 >
 > **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs have zero capital/orders/fills with rejection logs + blocked_routes + remediation; permanent certification/continuous improvement/auto-scaling all fail-closed with explicit checks; ruff clean on touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). Do not stop until ALL criteria met. No coasting.
 
+## CAMPAIGN 23 COMPLETED (2026-11-02T02:47:09Z) - EVIDENCE
+- **ARTIFACTS PRODUCED (PRESERVING GATING - FAIL-CLOSED):**
+  - `reports/live_operations_continuity_incident_response_mt.json` (live operations continuity + incident response; only POL/BTC (4h) LIVE_OPERABLE (1/17), 0/17 at 1h, 0/17 at 1d; all blocked pairs HARD_BLOCKED with zero capital/orders/fills/position limits; incident response checks, live continuity, kill-switch integration all fail-closed with full chain provenance)
+  - `reports/capital_preservation_failover_hardening_mt.json` (capital preservation + failover hardening; only POL/BTC (4h) CAPITAL_PRESERVED (1/17), 0/17 at 1h, 0/17 at 1d; all blocked pairs HARD_BLOCKED with zero capital/orders/fills/position limits; max drawdown circuits, per-pair notional caps, breach auto-block, kill-switch coupling all fail-closed with full chain provenance)
+- **TESTS PRODUCED:**
+  - `tests/test_live_operations_continuity_incident_response_mt.py` (PASSED)
+  - `tests/test_capital_preservation_failover_hardening_mt.py` (PASSED)
+- **GENERATOR:** `scripts/generate_campaign23_artifacts.py` (mirrors Campaign 22 patterns; loads portfolio_gating_mt + all prior MT artifacts; enforces invariants; zero blocked pairs; full provenance)
+- **VERIFICATION:** Gating invariants verified (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); Campaign 22 tests still green; Campaign 23 tests green (4/4). Targeted ruff on touched files clean.
+- **INVARIANTS PRESERVED:** real_data_only=true, fabricated_data=false, gating unchanged (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), fail-closed, no threshold weakening, no auto-lift of blocks, causal-only trailing windows.
+
 ## BOTTLENECKS (REMOVED / PREVENTED)
 - **BOTTLENECK REMOVED — CI env:** Install deps first (`python -m pip install -r requirements.txt`) before tests; missing numpy/pandas caused ModuleNotFoundError. ruff on touched files.
 - **BOTTLENECK REMOVED — Tooling:** Avoid malformed write/edit calls; provide full `content`/`oldString`/`newString` arguments.
 - **Ambiguity removed:** Explicit boot sequence + copy/paste initial task message + hard completion criteria.
-- **Focus enforced:** Campaign 24 is the ONLY permitted focus until its artifacts/tests exist and pass.
+- **Focus enforced:** Campaign 24 is the ONLY permitted focus until its artifacts/tests exist and pass. No pivoting to unrelated work.
 - **Gating enforced:** Fail-closed invariants codified; no auto-lift paths.
 - **Execution path unblocked:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_mt.py`).
+- **No missing evidence:** Campaign 23 completion evidence recorded above so no session re-derives state.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
@@ -371,3 +383,10 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_coint
 - **HONEST BLOCKING** — blocked pairs receive zero weight/fills/capacity allocation/position limits; full provenance; no forced blocking.
 - **FAIL-CLOSED** — capacity/routing/drift/alerting/kill-switch/risk constraints never lift gating blocks. Only gated-eligible pairs can be feasible.
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
+
+## VERIFICATION COMMANDS (RUN OFTEN)
+```bash
+python -m pip install -r requirements.txt
+python -m ruff check backtest/ strategies/ utils/ tests/ examples/ scripts/
+python -m pytest tests/test_live_operations_continuity_incident_response_mt.py tests/test_capital_preservation_failover_hardening_mt.py -v
+```
