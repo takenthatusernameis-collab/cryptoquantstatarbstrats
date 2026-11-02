@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T22:07:13.000000+00:00 | CAMPAIGN 37 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T23:40:31.000000+00:00 | CAMPAIGN 37 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,16 +8,16 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T22:07:13.000000+00:00
+**TIMESTAMP:** 2026-11-02T23:40:31.000000+00:00
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-36 COMPLETE & ON-DISK VERIFIED. Full suite green (740 passed, 1 skipped). Campaign 36 deliverables verified: `scripts/generate_campaign36_artifacts.py`, `reports/cointegration_campaign36_mt.json`, `tests/test_cointegration_campaign36_mt.py` (16 tests all passing). `ruff check` clean on Campaign 36 files. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Regime-conditioned gate persistence/decay, forward-reliability/walk-forward gate stability, regime-conditioned failure rates, multi-regime convergence/divergence stress, fail-closed re-gating with no auto-lift, breach-alert-driven kill-switch halts implemented and tested (Campaign 36 = cointegration rigor phase 8, DONE).
 **CAMPAIGN 37 ACTIVE (cointegration rigor phase 9) — Deliverables ABSENT on disk:** `scripts/generate_campaign37_artifacts.py`, `reports/cointegration_campaign37_mt.json`, `tests/test_cointegration_campaign37_mt.py` — build from scratch following Campaigns 35-36 patterns. Do NOT re-derive Campaigns 26-36.
-**NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 37 — **cointegration regime-transition prediction & adaptive gate recalibration** across 1h/4h/1d on real Binance cached data. Using Campaign 36 persistence/decay outputs, build predictive models that flag impending cointegration gate failure before it occurs: regime-transition probability (vol/trend regime change likelihood), gate-failure lead-time estimation, adaptive gate recalibration thresholds (tighten gates when regime-transition risk rises), proactive de-risking (reduce capacity/weight ahead of predicted breaks), backtested predictive accuracy (precision/recall of gate failures), and fail-closed execution halts on predicted breach. Real Binance cached data only. Heavy artifacts/tests/provenance/logs mandatory. No coasting.
+**NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 37 — **cointegration regime-transition prediction & adaptive gate recalibration** across 1h/4h/1d on real Binance cached data. Using Campaign 36 persistence/decay outputs, build predictive models that flag impending cointegration gate failure before it occurs: regime-transition probability (vol/trend regime change likelihood), gate-failure lead-time estimation, adaptive gate recalibration thresholds (tighten EG/ADF/half-life thresholds when regime-transition risk rises), proactive de-risking (reduce capacity/weight ahead of predicted breaks), backtested predictive accuracy (precision/recall of gate failures), and fail-closed execution halts on predicted breach. Real Binance cached data only. Heavy artifacts/tests/provenance/logs mandatory. No coasting.
 
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ## SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T22:07:13.000000+00:00] CAMPAIGN 37 — COINTEGRATION RIGOR PHASE 9: REGIME-TRANSITION PREDICTION & ADAPTIVE GATE RECALIBRATION (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T23:40:31.000000+00:00] CAMPAIGN 37 — COINTEGRATION RIGOR PHASE 9: REGIME-TRANSITION PREDICTION & ADAPTIVE GATE RECALIBRATION (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 36 (phase 8). Using Campaign 36 gate persistence/decay and regime-conditioned failure-rate outputs, build **predictive cointegration regime-transition models** that flag impending gate failure before it occurs across 1h/4h/1d on real Binance cached data. Quantify: regime-transition probability (likelihood of vol/trend regime change), gate-failure lead-time estimation (bars until predicted gate breach), adaptive gate recalibration (tighten EG/ADF/half-life thresholds when regime-transition risk rises), proactive de-risking (zero capacity/weight ahead of predicted breaks), backtested predictive accuracy (precision/recall/F1 of predicted gate failures vs actual), and fail-closed execution halts on predicted breach. Blocks cannot auto-lift; re-entry requires fresh cointegration evidence + regime-stability confirmation. Exclusively use real Binance cached data (1h; resample allowed only if derived from real data). No fabrication.
 >
@@ -29,15 +29,17 @@
 > **CONSTRAINTS (NON-NEGOTIABLE):** REAL DATA ONLY. CAUSAL ONLY (trailing windows, no lookahead). PRESERVE GATING INVARIANTS (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). FAIL-CLOSED. REGIME-TRANSITION RE-GATING RECLASSIFIES PAIRS — NO AUTO-LIFT. RE-ENTRY REQUIRES FRESH COINTEGRATION EVIDENCE + REGIME STABILITY. PROVENANCE MANDATORY ON EVERY COMPUTED SECTION. NO AUTO-LIFT OF BLOCKS. NO FABRICATION. HEAVY MANDATE. BREACH ALERTS REQUIRED ON PREDICTED BREACH AND MUST DRIVE EXECUTION HALTS.
 >
 > **VERIFICATION (BLOCKING):** `ruff check` clean on touched files; `pytest tests/test_cointegration_campaign37_mt.py -v` passes; Campaign 35-36 tests still green; `pytest tests/ -q` remains green (0 failed).
+>
+> **RULE:** Do not stop until ALL deliverables exist on disk, all tests pass, and verification commands succeed. No exploration detours. No scope creep. This is the ONLY task.
 
 ## IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
 1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt` — prevent ModuleNotFoundError.
 2. **Verify baseline (BLOCKING):** `python -m pytest tests/test_cointegration_campaign36_mt.py -v && python -m pytest tests/ -q` — must remain green (0 failed). Confirm gating invariants: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
 3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS non-negotiable). Campaign 37 is the **ONLY** permitted focus until complete.
-4. **Mirror patterns:** Follow `scripts/generate_campaign35_artifacts.py`, `scripts/generate_campaign36_artifacts.py`, `reports/cointegration_campaign36_mt.json`, `tests/test_cointegration_campaign36_mt.py`. Do **not** re-derive Campaigns 26-36. Load Campaign 36 artifact as input baseline.
+4. **Mirror patterns:** Follow `scripts/generate_campaign35_artifacts.py`, `scripts/generate_campaign36_artifacts.py`, `reports/cointegration_campaign36_mt.json`, `tests/test_cointegration_campaign37_mt.py` patterns. Do **not** re-derive Campaigns 26-36. Load Campaign 36 artifact as input baseline.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
-- **BOTTLENECK REMOVED — Stale/ambiguous handoff:** Refreshed to 2026-11-02T22:07:13.000000+00:00 with true on-disk state; Campaign 36 verified complete, Campaign 37 explicitly targeted as the only active focus.
+- **BOTTLENECK REMOVED — Stale/ambiguous handoff:** Refreshed to 2026-11-02T23:40:31.000000+00:00 with true on-disk state; Campaign 36 verified complete, Campaign 37 explicitly targeted as the only active focus.
 - **BOTTLENECK REMOVED — Scope drift:** Campaign 37 is the **ONLY** permitted focus until complete. Campaigns 26-36 artifacts untouched; Campaign 36 phase 8 not re-derived.
 - **BOTTLENECK REMOVED — Gating erosion:** Invariants codified and asserted by tests. Fail-closed enforced; regime-transition re-gating reclassifies pairs, kill-switch halts on predicted breach, no auto-lift.
 - **BOTTLENECK REMOVED — Execution path:** Follow proven Campaigns 35-36 patterns (generator → artifact → tests), loading Campaign 36 artifact as baseline.
@@ -58,7 +60,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T22:07:13.000000+00:00)
+## VERIFIED STATE (2026-11-02T23:40:31.000000+00:00)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-36:** Complete & verified on disk. Full suite green (Campaign 36: 16/16 passed; full suite: 740 passed, 1 skipped). Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 36:** COMPLETE — generator `scripts/generate_campaign36_artifacts.py` (optimized with persistence stride), artifact `reports/cointegration_campaign36_mt.json`, tests `tests/test_cointegration_campaign36_mt.py` all verified green, ruff clean. Cointegration rigor phase 8 done (regime-conditioned gate persistence/decay, forward-reliability/walk-forward gate stability, regime-conditioned failure rates, multi-regime convergence/divergence stress, fail-closed re-gating with no auto-lift, breach-alert-driven kill-switch halts).
