@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T06:59:24Z | CAMPAIGN 26 COMPLETE & ON-DISK VERIFIED | CAMPAIGN 27 SOLE FOCUS — NOT STARTED | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T07:04:30Z | CAMPAIGN 26 COMPLETE & ON-DISK VERIFIED | CAMPAIGN 27 SOLE FOCUS — NOT STARTED | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T06:59:24Z
+**TIMESTAMP:** 2026-11-02T07:04:30Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **THIS SESSION CONFIRMED ON DISK:** Campaign 26 complete & verified (5/5): `reports/end_to_end_pairs_execution_validation_mt.json`, `reports/live_operational_readiness_signoff_mt.json`, `tests/test_end_to_end_pairs_execution_validation_mt.py`, `tests/test_live_operational_readiness_signoff_mt.py`, `scripts/generate_campaign26_artifacts.py` — all present; tests 4/4 passing; ruff clean; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 26 is DONE — do not re-derive. **PRIOR HANDOFF CLAIMING CAMPAIGN 26 ABSENT/NOT-STARTED WAS STALE — CONTRADICTION REMOVED.**
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -31,7 +31,7 @@
 >
 > **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; go-live authorization fail-closed with explicit checks (only POL/BTC@4h eligible); ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion. If you feel tempted to stop early, do more verification/artifacts instead.
 
-## CURRENT VERIFIED STATE (2026-11-02T06:59:24Z)
+## CURRENT VERIFIED STATE (2026-11-02T07:04:30Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaign 26 COMPLETE & ON-DISK VERIFIED (2026-11-02T06:54:26Z):**
   - Artifacts: `reports/end_to_end_pairs_execution_validation_mt.json`, `reports/live_operational_readiness_signoff_mt.json` (generated 2026-11-02T05:56:45Z)
@@ -54,6 +54,7 @@
 - **BOTTLENECK REMOVED — Execution path:** Follow existing patterns (`scripts/generate_campaign*_artifacts.py`, `reports/*_mt.json`, `tests/test_*_mt.py`).
 - **BOTTLENECK REMOVED — Evidence gap:** Campaign 26 completion evidence recorded so no session re-derives state.
 - **BOTTLENECK REMOVED — Hidden state:** Campaign 27 deliverables enumerated upfront with exact filenames to prevent "done" without artifacts.
+- **BOTTLENECK REMOVED — Duplicate handoffs:** Removed stale `.kilo/handoff/*_INITIAL_TASK.md` files; `HANDOFF.md` is now the single durable handoff.
 
 ## HARD CONSTRAINTS
 - **REAL DATA ONLY** — no fabrication. Resample of cached 1h is allowed (still real data).
