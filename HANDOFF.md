@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T13:07:35Z | CAMPAIGN 31 COMPLETE | CAMPAIGN 32 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T13:11:23Z | CAMPAIGN 31 COMPLETE | CAMPAIGN 32 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T13:07:35Z
+**TIMESTAMP:** 2026-11-02T13:11:23Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-31 COMPLETE & ON-DISK VERIFIED. Full suite green. Campaign 31 deliverables on disk: `scripts/generate_campaign31_artifacts.py`, `reports/cointegration_campaign31_mt.json`, `tests/test_cointegration_campaign31_mt.py` (7 tests, all pass). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 32 — cointegration rigor phase 4: multi-pair portfolio-level cointegration (basket cointegration, common stochastic trend, multi-asset hedge ratios), regime-conditioned portfolio rebalancing OOS robustness with cost stress, and execution-aware capacity allocation on real Binance cached data, with heavy artifacts/tests/provenance/logs. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -20,7 +20,7 @@
 4. **Do not re-derive Campaigns 26-31:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift. Campaign 32 artifacts do not exist yet — build them from scratch following existing patterns.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T13:07:35Z] CAMPAIGN 32 — COINTEGRATION RIGOR PHASE 4: MULTI-PAIR PORTFOLIO-LEVEL COINTEGRATION + REGIME-CONDITIONED REBALANCING OOS ROBUSTNESS WITH COST STRESS + EXECUTION-AWARE CAPACITY ALLOCATION (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T13:11:23Z] CAMPAIGN 32 — COINTEGRATION RIGOR PHASE 4: MULTI-PAIR PORTFOLIO-LEVEL COINTEGRATION + REGIME-CONDITIONED REBALANCING OOS ROBUSTNESS WITH COST STRESS + EXECUTION-AWARE CAPACITY ALLOCATION (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 31 gates: verify multi-pair portfolio-level cointegration (basket cointegration, common stochastic trend, multi-asset hedge ratios), regime-conditioned portfolio rebalancing out-of-sample robustness with transaction-cost stress (fee × slippage grid on real-data portfolio), and execution-aware capacity allocation on real Binance cached data, exclusively on real Binance cached data. Produce checkable artifacts, tests, provenance, logs. No coasting.
 >
@@ -52,7 +52,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T13:07:35Z)
+## VERIFIED STATE (2026-11-02T13:11:23Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-31:** Complete & verified on disk. Full suite green. Gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). `tests/test_cointegration_campaign31_mt.py` 7 passed.
 - **Campaign 31:** COMPLETE — generator `scripts/generate_campaign31_artifacts.py`, artifact `reports/cointegration_campaign31_mt.json`, tests `tests/test_cointegration_campaign31_mt.py` all verified green.
