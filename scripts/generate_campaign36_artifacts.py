@@ -88,6 +88,8 @@ PERSISTENCE_WINDOW_BARS = {"1h": 168, "4h": 72, "1d": 30}
 PERSISTENCE_HALF_LIFE_MIN = 24.0
 DECAY_HALF_LIFE_MIN = 24.0
 SURVIVAL_LAGS = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+# Subsample stride for per-bar gate evaluation (keeps metrics quantified while bounding runtime).
+PERSISTENCE_STRIDE = {"1h": 4, "4h": 2, "1d": 1}
 
 # Regime-conditioned stress thresholds
 HIGH_VOL_FAIL_MAX = 0.6
@@ -357,6 +359,7 @@ def _pair_persistence(
     b: str,
     window: int,
     regime_buckets: pd.Series,
+    stride: int = 1,
 ) -> dict[str, Any]:
     col_a, col_b = a, b
     if col_a not in frame.columns or col_b not in frame.columns:
@@ -378,7 +381,7 @@ def _pair_persistence(
         }
     gates: list[dict[str, Any]] = []
     passed_flags: list[bool] = []
-    for t in range(start, n):
+    for t in range(start, n, stride):
         win_a = frame[col_a].iloc[t - window : t + 1]
         win_b = frame[col_b].iloc[t - window : t + 1]
         gate = _pair_gate(win_a, win_b)
@@ -1176,6 +1179,7 @@ def _execution_aware_capacity_allocation(
         per_pair[pname] = {
             "pair": pname,
             "assets": [a, b],
+            "available": True,
             "base_eligible": base_eligible,
             "new_eligible": new_eligible,
             "last_price": last_price,
@@ -1215,6 +1219,7 @@ def _execution_aware_capacity_allocation(
         "kill_switch_triggered": bool(kill_switch_triggered),
         "kill_switch_active": bool(kill_switch_triggered),
         "execution_halted": bool(kill_switch_triggered),
+        "halts_execution_on_breach": bool(kill_switch_triggered),
         "zero_capacity_on_breach": True,
         "cannot_auto_lift": True,
         "fail_closed": True,
@@ -1312,7 +1317,10 @@ def generate_campaign36() -> dict[str, Any]:
                 pair_walk_forward[pname] = {"available": False, "reason": "insufficient_bars"}
                 pair_rolling_ok[pname] = False
                 continue
-            pers = _pair_persistence(tf_frame, pname, a, b, window, regime_buckets)
+            pers = _pair_persistence(
+                tf_frame, pname, a, b, window, regime_buckets,
+                stride=int(PERSISTENCE_STRIDE[tf]),
+            )
             pairs_persistence[pname] = pers
             all_pair_persistence[pname] = pers
             if pers.get("available"):
