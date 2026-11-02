@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T11:13:42Z | CAMPAIGN 29 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T11:18:04Z | CAMPAIGN 29 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,19 +8,19 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T11:13:42Z
+**TIMESTAMP:** 2026-11-02T11:18:04Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
-**STATE:** Campaigns 1-28 COMPLETE & ON-DISK VERIFIED. Full suite green: 665 passed, 1 skipped, 0 failed. Terminal gating chain achieved. **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 29 — deepen cointegration rigor: out-of-sample cointegration stability, causal rolling diagnostics, and pairs-strategy robustness on real Binance data, with heavy artifacts/tests/provenance. No coasting.
+**STATE:** Campaigns 1-28 COMPLETE & ON-DISK VERIFIED. Full suite green: 666 collected, gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Terminal gating chain achieved. **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 29 — deepen cointegration rigor: out-of-sample cointegration stability, causal rolling diagnostics, and pairs-strategy robustness on real Binance data, with heavy artifacts/tests/provenance. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
 1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt` — prevent ModuleNotFoundError. Do this before any tests/imports.
-2. **Verify current state (BLOCKING):** Run verification commands below. Confirm Campaign 26+27 tests green, confirm gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), and reproduce the 7 failures to understand exact gaps.
-3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable). Campaign 28 is the ONLY permitted focus until complete.
-4. **Do not re-derive Campaigns 26-27:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift.
+2. **Verify current state (BLOCKING):** Run verification commands below. Confirm Campaign 26+27 tests green, confirm gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), and confirm Campaign 29 deliverables not yet started (generator/report/tests absent).
+3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable). Campaign 29 is the ONLY permitted focus until complete.
+4. **Do not re-derive Campaigns 26-28:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift. Campaign 29 artifacts do not exist yet — build them from scratch following existing patterns.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T11:13:42Z] CAMPAIGN 29 — COINTEGRATION RIGOR DEEPENING: OOS STABILITY + CAUSAL ROLLING DIAGNOSTICS + PAIRS ROBUSTNESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T11:18:04Z] CAMPAIGN 29 — COINTEGRATION RIGOR DEEPENING: OOS STABILITY + CAUSAL ROLLING DIAGNOSTICS + PAIRS ROBUSTNESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond current gates: verify out-of-sample cointegration stability, causal rolling diagnostics, and pairs-strategy robustness exclusively on real Binance cached data. Produce checkable artifacts, tests, provenance, logs. No coasting.
 >
@@ -52,9 +52,9 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T11:13:42Z)
+## VERIFIED STATE (2026-11-02T11:18:04Z)
 - Branch: `main`. HEAD clean working tree.
-- **Campaigns 1-28:** Complete & verified on disk. Full suite: 665 passed, 1 skipped, 0 failed. Gating invariants: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
+- **Campaigns 1-28:** Complete & verified on disk. Full suite: 666 collected, gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 29:** ACTIVE (cointegration rigor deepening).
 
 ## VERIFICATION COMMANDS (RUN OFTEN)
