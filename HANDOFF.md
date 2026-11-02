@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T16:35:00Z | CAMPAIGN 31 COMPLETE | CAMPAIGN 32 COMPLETE | CAMPAIGN 33 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T16:49:49Z | CAMPAIGN 31 COMPLETE | CAMPAIGN 32 COMPLETE | CAMPAIGN 33 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T16:35:00Z
+**TIMESTAMP:** 2026-11-02T16:49:49Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-32 COMPLETE & ON-DISK VERIFIED. Full suite green (691 passed, 1 skipped, 0 failed). Campaign 32 deliverables on disk: `scripts/generate_campaign32_artifacts.py`, `reports/cointegration_campaign32_mt.json`, `tests/test_cointegration_campaign32_mt.py` (9 tests, all pass). `ruff check` clean on touched files. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 33 — cointegration rigor phase 5: portfolio-level cointegration stress testing across regime transitions (volatility/trend regime-switch stress), execution-aware capacity allocation tightened with real Binance quote-volume liquidity constraints and participation-cap breach alerts, and basket cointegration walk-forward OOS capacity/rebalancing robustness with a monotonic cost-stress grid and fail-closed execution. Real Binance cached data only. Heavy artifacts/tests/provenance/logs mandatory. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -20,7 +20,7 @@
 4. **Follow existing patterns:** Mirror `scripts/generate_campaign32_artifacts.py`, `reports/cointegration_campaign32_mt.json`, and `tests/test_cointegration_campaign32_mt.py`. Do **not** re-derive Campaigns 26-32.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T16:35:00Z] CAMPAIGN 33 — COINTEGRATION RIGOR PHASE 5: PORTFOLIO-LEVEL COINTEGRATION REGIME-TRANSITION STRESS + TIGHTENED EXECUTION-AWARE CAPACITY WITH REAL LIQUIDITY CONSTRAINTS + BASKET COINTEGRATION WALK-FORWARD OOS CAPACITY/REBALANCING ROBUSTNESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T16:49:49Z] CAMPAIGN 33 — COINTEGRATION RIGOR PHASE 5: PORTFOLIO-LEVEL COINTEGRATION REGIME-TRANSITION STRESS + TIGHTENED EXECUTION-AWARE CAPACITY WITH REAL LIQUIDITY CONSTRAINTS + BASKET COINTEGRATION WALK-FORWARD OOS CAPACITY/REBALANCING ROBUSTNESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 32. Stress-test the 17-pair portfolio basket cointegration across **volatility/trend regime transitions** (regime-switch stress on BTC vol/trend via `utils.regime`), tighten **execution-aware capacity allocation** with real Binance quote-volume liquidity constraints and participation-cap breach alerts (fail-closed, cannot lift gating blocks), and demonstrate **basket cointegration walk-forward OOS capacity/rebalancing robustness** with a **monotonic fee × slippage cost-stress grid** on real Binance cached data. Quantify how regime transitions degrade basket cointegration evidence (rank, common stochastic trend, hedge-ratio stability) and how that tightens tradable capacity. Exclusively use real Binance cached data (1h; resample allowed only if derived from real data). No fabrication.
 >
