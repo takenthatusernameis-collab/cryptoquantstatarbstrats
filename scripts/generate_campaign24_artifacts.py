@@ -143,7 +143,9 @@ def _block_reason(gating_tf: dict[str, Any], pair: str) -> list[dict[str, Any]]:
     ]
 
 
-def generate_permanent_production_certification(gating: dict[str, Any], prior: dict[str, Any]) -> dict[str, Any]:
+def generate_permanent_production_certification(
+    gating: dict[str, Any], prior: dict[str, Any]
+) -> dict[str, Any]:
     g_res = gating.get("results_by_timeframe") or {}
     results_by_tf: dict[str, Any] = {}
     cert_total = 0
@@ -210,7 +212,10 @@ def generate_permanent_production_certification(gating: dict[str, Any], prior: d
                         "capital_usdt": 0.0,
                         "allocation_usdt": 0.0,
                         "position_limit_usdt": 0.0,
-                        "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_no_permanent_certification",
+                        "remediation": (
+                            "zero_capital_orders_fills_position_limits_"
+                            "no_auto_lift_no_permanent_certification"
+                        ),
                         "provenance": {
                             "source": "reports/portfolio_gating_mt.json",
                             "real_data_only": True,
@@ -277,11 +282,21 @@ def generate_permanent_production_certification(gating: dict[str, Any], prior: d
             "count_blocked": len(blocked_pairs),
             "pairs": pairs_out,
             "chain": {
-                "go_live_authorization": "reports/production_go_live_authorization_mt.json",
-                "post_deployment_validation": "reports/post_deployment_validation_remediation_mt.json",
-                "live_operations_continuity": "reports/live_operations_continuity_incident_response_mt.json",
-                "capital_preservation": "reports/capital_preservation_failover_hardening_mt.json",
-                "operational_drift_permanent_readiness": "reports/operational_drift_permanent_readiness_mt.json",
+                "go_live_authorization": (
+                    "reports/production_go_live_authorization_mt.json"
+                ),
+                "post_deployment_validation": (
+                    "reports/post_deployment_validation_remediation_mt.json"
+                ),
+                "live_operations_continuity": (
+                    "reports/live_operations_continuity_incident_response_mt.json"
+                ),
+                "capital_preservation": (
+                    "reports/capital_preservation_failover_hardening_mt.json"
+                ),
+                "operational_drift_permanent_readiness": (
+                    "reports/operational_drift_permanent_readiness_mt.json"
+                ),
             },
             "provenance": {
                 "source": "reports/portfolio_gating_mt.json",
@@ -343,7 +358,9 @@ def generate_permanent_production_certification(gating: dict[str, Any], prior: d
     return artifact
 
 
-def generate_continuous_improvement_autoscaling(gating: dict[str, Any], prior: dict[str, Any]) -> dict[str, Any]:
+def generate_continuous_improvement_autoscaling(
+    gating: dict[str, Any], prior: dict[str, Any]
+) -> dict[str, Any]:
     g_res = gating.get("results_by_timeframe") or {}
     results_by_tf: dict[str, Any] = {}
     scale_total = 0
@@ -409,7 +426,11 @@ def generate_continuous_improvement_autoscaling(gating: dict[str, Any], prior: d
                         "capital_usdt": 0.0,
                         "allocation_usdt": 0.0,
                         "position_limit_usdt": 0.0,
-                        "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_no_autoscaling_without_sustained_gated_eligibility",
+                        "remediation": (
+                            "zero_capital_orders_fills_position_limits_"
+                            "no_auto_lift_no_autoscaling_without_sustained_"
+                            "gated_eligibility"
+                        ),
                         "provenance": {
                             "source": "reports/portfolio_gating_mt.json",
                             "real_data_only": True,
@@ -477,11 +498,21 @@ def generate_continuous_improvement_autoscaling(gating: dict[str, Any], prior: d
             "count_blocked": len(blocked_pairs),
             "pairs": pairs_out,
             "chain": {
-                "permanent_production_certification": "reports/permanent_production_certification_mt.json",
-                "live_operations_continuity": "reports/live_operations_continuity_incident_response_mt.json",
-                "capital_preservation": "reports/capital_preservation_failover_hardening_mt.json",
-                "go_live_authorization": "reports/production_go_live_authorization_mt.json",
-                "post_deployment_validation": "reports/post_deployment_validation_remediation_mt.json",
+                "permanent_production_certification": (
+                    "reports/permanent_production_certification_mt.json"
+                ),
+                "live_operations_continuity": (
+                    "reports/live_operations_continuity_incident_response_mt.json"
+                ),
+                "capital_preservation": (
+                    "reports/capital_preservation_failover_hardening_mt.json"
+                ),
+                "go_live_authorization": (
+                    "reports/production_go_live_authorization_mt.json"
+                ),
+                "post_deployment_validation": (
+                    "reports/post_deployment_validation_remediation_mt.json"
+                ),
             },
             "provenance": {
                 "source": "reports/portfolio_gating_mt.json",
