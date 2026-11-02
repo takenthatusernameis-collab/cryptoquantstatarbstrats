@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-01T23:56:30Z | CAMPAIGN 18 COMPLETE (LIVE PRODUCTION DEPLOYMENT + CAPITAL ALLOCATION GATING) | CAMPAIGN 19 ACTIVE / NOT STARTED (PRODUCTION GO/NO-GO + OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T00:00:06Z | CAMPAIGN 18 COMPLETE (LIVE PRODUCTION DEPLOYMENT + CAPITAL ALLOCATION GATING) | CAMPAIGN 19 ACTIVE / NOT STARTED (PRODUCTION GO/NO-GO + OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-01T23:56:30Z
+**TIMESTAMP:** 2026-11-02T00:00:06Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -19,13 +19,13 @@
 4. **Campaign 19 is the sole work now.** Do not pivot to unrelated tasks.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY)
-> **OBJECTIVE (HEAVY, CAMPAIGN 19 - MANDATORY, COINTEGRATION-FIRST):** Production go/no-go final certification + operational readiness signoff across all MT artifacts on real Binance spot data only, cointegration-gated (fail-closed). Certify only POL/BTC (4h) as go-eligible; all blocked pairs hard NO-GO with zero capital/orders/fills; verify full chain (diagnostics→gating→execution→deployment→monitoring→kill-switch→reconciliation→guardrails→allocation) linked with complete provenance; enforce fail-closed on every gate; no threshold weakening; no fabrication; causal only.
+> **OBJECTIVE (HEAVY, CAMPAIGN 19 - MANDATORY, COINTEGRATION-FIRST):** Production go/no-go final certification + operational readiness signoff across ALL multi-timeframe artifacts on real Binance spot data only, cointegration-gated (fail-closed). Certify ONLY POL/BTC (4h) as GO-eligible; ALL blocked pairs are HARD NO-GO with zero capital/orders/fills/position limits; verify the full chain (cointegration diagnostics → portfolio gating → walkforward/stability → OOS validation/performance → execution capacity/routing/realism → pre-trade enforcement → live deployment bridge → kill-switch → reconciliation → monitoring → guardrails → allocation → live production deployment) linked with complete provenance for every decision; enforce fail-closed on EVERY gate with no threshold weakening, no fabrication, causal-only trailing windows. Leave no gap untested.
 >
 > **REQUIRED ARTIFACTS:** `reports/production_go_nogo_certification_mt.json`, `reports/operational_readiness_signoff_mt.json`
 > **REQUIRED TESTS:** `tests/test_production_go_nogo_certification_mt.py`, `tests/test_operational_readiness_signoff_mt.py`
-> **REQUIRED GENERATOR:** `scripts/generate_campaign19_artifacts.py` (create following Campaign 18 patterns).
+> **REQUIRED GENERATOR:** `scripts/generate_campaign19_artifacts.py` (mirror Campaign 18 patterns: load `portfolio_gating_mt.json` + all prior MT artifacts, enforce invariants, zero blocked pairs, full provenance).
 >
-> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist, schemas consistent, gating preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), full artifact chain linked, ruff clean, targeted pytest green, handoff updated with evidence. Do not stop until done.
+> **COMPLETION CRITERIA (BLOCKING):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); blocked pairs have zero capital/orders/fills with rejection logs + blocked_routes; fail-closed invariants enforced everywhere; ruff clean on touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). Do not stop until ALL criteria met. No coasting.
 
 ## CURRENT VERIFIED STATE (2026-11-01T23:56:30Z)
 - Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
