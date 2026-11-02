@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T12:46:58Z | CAMPAIGN 30 COMPLETE | CAMPAIGN 31 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T13:07:06Z | CAMPAIGN 31 COMPLETE | CAMPAIGN 32 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,9 +8,9 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T12:46:58Z
+**TIMESTAMP:** 2026-11-02T13:07:06Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
-**STATE:** Campaigns 1-30 COMPLETE & ON-DISK VERIFIED. Full suite green: 675 passed, 1 skipped, 0 failed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 30 deliverables on disk: `scripts/generate_campaign30_artifacts.py`, `reports/cointegration_campaign30_mt.json`, `tests/test_cointegration_campaign30_mt.py` (7 tests, all pass). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 31 — cointegration rigor phase 3: cross-timeframe cointegration convergence/divergence (1h vs 4h vs 1d regime agreement), regime-conditioned cointegration persistence (volatility/trend regimes from real BTC vol), and execution-aware walk-forward OOS pairs-strategy robustness with transaction-cost stress (fee × slippage grid on top-ranked real-data pair), with heavy artifacts/tests/provenance/logs. No coasting.
+**STATE:** Campaigns 1-31 COMPLETE & ON-DISK VERIFIED. Full suite green. Campaign 31 deliverables on disk: `scripts/generate_campaign31_artifacts.py`, `reports/cointegration_campaign31_mt.json`, `tests/test_cointegration_campaign31_mt.py` (7 tests, all pass). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 32 — cointegration rigor phase 4: multi-pair portfolio-level cointegration (basket cointegration, common stochastic trend, multi-asset hedge ratios), regime-conditioned portfolio rebalancing OOS robustness with cost stress, and execution-aware capacity allocation on real Binance cached data, with heavy artifacts/tests/provenance/logs. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
