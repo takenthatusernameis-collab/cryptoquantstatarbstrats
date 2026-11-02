@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T03:55:39Z | CAMPAIGN 24 COMPLETE (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | CAMPAIGN 25 ACTIVE / NOT STARTED (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T04:00:54.152113Z | CAMPAIGN 24 COMPLETE (PERMANENT PRODUCTION CERTIFICATION + CONTINUOUS IMPROVEMENT & AUTO-SCALING HARDENING) | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -70,6 +70,14 @@ python -m pip install -r requirements.txt
 python -m ruff check scripts/generate_campaign25_artifacts.py tests/test_cointegration_recertification_audit_mt.py tests/test_drift_triggered_regating_mt.py
 python -m pytest tests/test_live_operations_continuity_incident_response_mt.py tests/test_capital_preservation_failover_hardening_mt.py tests/test_permanent_production_certification_mt.py tests/test_continuous_improvement_autoscaling_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_drift_triggered_regating_mt.py -v
 ```
+
+
+## CAMPAIGN 25 COMPLETE (EVIDENCE - 2026-11-02T04:00:54.152113Z)
+- Artifacts: `reports/cointegration_recertification_audit_mt.json`, `reports/drift_triggered_regating_mt.json`
+- Tests: `tests/test_cointegration_recertification_audit_mt.py`, `tests/test_drift_triggered_regating_mt.py` — passing (4/4)
+- Generator: `scripts/generate_campaign25_artifacts.py` — ruff clean
+- Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only, cointegration law enforced.
+- Baseline diff logged against `reports/portfolio_gating_mt.json`; drift logs show none detected with cause/containment/audit trail; blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`.
 
 ## CAMPAIGN 25 PENDING (NOT STARTED)
 No artifacts, tests, or generator exist for Campaign 25 on disk. The next session MUST produce them per the SINGLE INITIAL TASK MESSAGE above before any other work. This is the only allowed path to completion.
