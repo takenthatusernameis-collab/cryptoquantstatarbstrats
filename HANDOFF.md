@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T20:35:17.000000+00:00 | CAMPAIGN 36 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T20:38:32.000000+00:00 | CAMPAIGN 36 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T20:35:17.000000+00:00
+**TIMESTAMP:** 2026-11-02T20:38:32.000000+00:00
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-35 COMPLETE & ON-DISK VERIFIED. Full suite green. Campaign 35 deliverables verified: `scripts/generate_campaign35_artifacts.py`, `reports/cointegration_campaign35_mt.json`, `tests/test_cointegration_campaign35_mt.py` (12 tests all passing). `ruff check` clean on Campaign 35 files. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Structural-break detection, drift-triggered re-gating, fail-closed re-entry validation, cross-timeframe convergence/divergence stress implemented and tested (Campaign 35 = cointegration rigor phase 7, DONE).
 **CAMPAIGN 36 ACTIVE (cointegration rigor phase 8) — Deliverables ABSENT on disk:** `scripts/generate_campaign36_artifacts.py`, `reports/cointegration_campaign36_mt.json`, `tests/test_cointegration_campaign36_mt.py` — build from scratch following Campaigns 34-35 patterns. Do NOT re-derive Campaigns 26-35.
@@ -23,7 +23,7 @@
 4. **Mirror patterns:** Follow `scripts/generate_campaign34_artifacts.py`, `scripts/generate_campaign35_artifacts.py`, `reports/cointegration_campaign35_mt.json`, `tests/test_cointegration_campaign35_mt.py`. Do **not** re-derive Campaigns 26-35.
 
 ## SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T20:35:17.000000+00:00] CAMPAIGN 36 — COINTEGRATION RIGOR PHASE 8: REGIME-CONDITIONED COINTEGRATION GATE PERSISTENCE & FORWARD-RELIABILITY STRESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T20:38:32.000000+00:00] CAMPAIGN 36 — COINTEGRATION RIGOR PHASE 8: REGIME-CONDITIONED COINTEGRATION GATE PERSISTENCE & FORWARD-RELIABILITY STRESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 35 (phase 7). Quantify **cointegration gate persistence across volatility/trend regimes** via `utils.regime`: gate persistence/decay half-life, regime-conditioned gate failure rates under high-vol, trend-breakdown, and low-vol stress, forward-reliability of cointegration evidence (walk-forward OOS gate stability), and multi-regime convergence/divergence stress across 1h/4h/1d. Gates must be fail-closed: degraded persistence → blocked, zero capacity/weight, no auto-lift. Re-entry requires fresh cointegration evidence. Breach alerts must drive execution halts; blocks cannot auto-lift. Exclusively use real Binance cached data (1h; resample allowed only if derived from real data). No fabrication.
 >
@@ -37,7 +37,7 @@
 > **VERIFICATION (BLOCKING):** `ruff check` clean on touched files; `pytest tests/test_cointegration_campaign36_mt.py -v` passes; Campaign 34-35 tests still green; `pytest tests/ -q` remains green (0 failed).
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
-- **BOTTLENECK REMOVED — Stale/ambiguous handoff:** Refreshed to 2026-11-02T20:35:17.000000+00:00 with true on-disk state; Campaign 35 verified complete, Campaign 36 explicitly targeted as the only active focus.
+- **BOTTLENECK REMOVED — Stale/ambiguous handoff:** Refreshed to 2026-11-02T20:38:32.000000+00:00 with true on-disk state; Campaign 35 verified complete, Campaign 36 explicitly targeted as the only active focus.
 - **BOTTLENECK REMOVED — Scope drift:** Campaign 36 is the **ONLY** permitted focus until complete. Campaigns 26-35 artifacts untouched; Campaign 35 phase 7 not re-derived.
 - **BOTTLENECK REMOVED — Gating erosion:** Invariants codified and asserted by tests. Fail-closed enforced; regime-conditioned re-gating reclassifies pairs, kill-switch halts on stress breach, no auto-lift.
 - **BOTTLENECK REMOVED — Execution path:** Follow proven Campaigns 34-35 patterns (generator → artifact → tests).
@@ -56,7 +56,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T20:35:17.000000+00:00)
+## VERIFIED STATE (2026-11-02T20:38:32.000000+00:00)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-35:** Complete & verified on disk. Full suite green (Campaign 35: 12/12 passed). Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 35:** COMPLETE — generator `scripts/generate_campaign35_artifacts.py`, artifact `reports/cointegration_campaign35_mt.json`, tests `tests/test_cointegration_campaign35_mt.py` all verified green, ruff clean. Cointegration rigor phase 7 done (structural-break detection, drift-triggered re-gating, fail-closed re-entry validation, cross-timeframe convergence/divergence stress).
