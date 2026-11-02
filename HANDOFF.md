@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T04:51:46Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 SOLE FOCUS — NOT STARTED (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T04:58:15Z | CAMPAIGN 25 COMPLETE & ON-DISK VERIFIED (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 SOLE FOCUS — NOT STARTED (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,8 +8,9 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T04:51:46Z
+**TIMESTAMP:** 2026-11-02T04:58:15Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
+**THIS SESSION (04:58:15Z) CONFIRMED ON DISK:** Campaign 25 artifacts/tests/generator present (5/5); Campaign 26 deliverables absent (5/5); gating invariants re-verified — 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. No deviation from sole focus.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER)
@@ -32,8 +33,9 @@
 >
 > **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; end-to-end validation fail-closed with explicit checks; ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion.
 
-## CURRENT VERIFIED STATE (2026-11-02T04:51:46Z)
+## CURRENT VERIFIED STATE (2026-11-02T04:58:15Z)
 - Branch: `main`. HEAD clean working tree.
+- Re-verified on disk this session: Campaign 25 artifacts/tests present and complete; Campaign 26 artifacts/tests/generator ABSENT; gating invariants intact — 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17 (fail-closed, no auto-lift, real data only).
 - **Campaign 24 DONE:** Permanent production certification + continuous improvement & auto-scaling hardening complete.
   - Artifacts: `reports/permanent_production_certification_mt.json`, `reports/continuous_improvement_autoscaling_mt.json`
   - Tests: `tests/test_permanent_production_certification_mt.py`, `tests/test_continuous_improvement_autoscaling_mt.py` — passing.
