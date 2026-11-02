@@ -14,8 +14,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 ARTIFACT = Path("reports/portfolio_real.json")
 
 PAIRS = [
@@ -38,7 +36,14 @@ PAIRS = [
     "LTC/BTC",
 ]
 
-PROVENANCE_KEYS = ("source", "real_data_only", "fabricated_data", "computed_at", "blocked_routes", "rationale")
+PROVENANCE_KEYS = (
+    "source",
+    "real_data_only",
+    "fabricated_data",
+    "computed_at",
+    "blocked_routes",
+    "rationale",
+)
 
 BOOTSTRAP_KEYS = (
     "ci95_total_return",
@@ -87,7 +92,13 @@ def test_risk_metrics_block():
     data = _artifact()
     rm = data.get("risk_metrics")
     assert isinstance(rm, dict), "risk_metrics block must be present"
-    required = ("var_95", "cvar_95", "max_gross_exposure_limit", "per_pair_cap", "drawdown_circuit_breaker")
+    required = (
+        "var_95",
+        "cvar_95",
+        "max_gross_exposure_limit",
+        "per_pair_cap",
+        "drawdown_circuit_breaker",
+    )
     for k in required:
         assert k in rm, f"risk_metrics missing {k}"
     assert rm["max_correlation_exposure_limit"] > 0
@@ -261,7 +272,11 @@ def test_no_fabrication_anywhere_in_artifact():
     data = _artifact()
     assert data.get("fabricated_data") is False
     assert data.get("real_data_only") is True
-    for section in ("tail_risk", "parameter_stability", "bootstrap_ci_portfolio_oos"):
+    for section in (
+        "tail_risk",
+        "parameter_stability",
+        "bootstrap_ci_portfolio_oos",
+    ):
         val = data.get(section)
         if isinstance(val, dict):
             prov = val.get("provenance", {})

@@ -26,26 +26,27 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in __import__("sys").path:
     __import__("sys").path.insert(0, str(ROOT))
 
-from examples.run_portfolio_real import (  # noqa: E402
-    PortfolioRiskController,
-    regime_adaptive_meta_selector,
-    _to_float,
-)
-from data.loader import DataLoader  # noqa: E402
 from backtest.engine import BacktestEngine  # noqa: E402
 from backtest.sweep import run_parameter_sweep  # noqa: E402
+from data.loader import DataLoader  # noqa: E402
+from examples.run_portfolio_real import (  # noqa: E402
+    PortfolioRiskController,
+    _to_float,
+    fetch_binance_volume,
+    regime_adaptive_meta_selector,
+)
 from strategies.pairs_trading import CointegrationPairsStrategy  # noqa: E402
 from utils.monte_carlo import (  # noqa: E402
     bootstrap_trade_returns,
     permutation_test_distinguishability,
     tail_risk_metrics,
 )
-from utils.regime import detect_regimes  # noqa: E402
 from utils.portfolio_risk import (  # noqa: E402
     conditional_drawdown_at_risk,
     portfolio_cvar,
     portfolio_var,
 )
+from utils.regime import detect_regimes  # noqa: E402
 from utils.risk import DrawdownCircuitBreaker  # noqa: E402
 
 PAIRS = [
@@ -106,17 +107,11 @@ def _provenance(source: str, extra: dict[str, Any] | None = None) -> dict[str, A
         "fabricated_data": False,
         "computed_at": _utc_now_iso(),
         "blocked_routes": [],
-        "rationale": "Computed from real Binance public spot data only; no fabrication.",
+        "rationale": "Computed from real cached Binance data; causal only.",
     }
     if extra:
         prov.update(extra)
     return prov
-
-
-def _load_existing() -> dict[str, Any]:
-    if ARTIFACT_PATH.exists():
-        return json.loads(ARTIFACT_PATH.read_text(encoding="utf-8"))
-    return {}
 
 
 def _select_pair_params(data: pd.DataFrame, engine: BacktestEngine) -> dict[str, dict[str, Any]]:
@@ -251,7 +246,8 @@ def _walk_forward_splits(
                 "stability": {
                     "oos_minus_is_return": _to_float(oos_ret - is_ret),
                     "oos_sharpe_minus_is_sharpe": _to_float(
-                        _to_float(r.get("sharpe_ratio", 0.0)) - _to_float(r.get("is_sharpe_ratio", 0.0))
+                        _to_float(r.get("sharpe_ratio", 0.0))
+                        - _to_float(r.get("is_sharpe_ratio", 0.0))
                     ),
                 },
             }
@@ -263,8 +259,6 @@ def main() -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     engine = BacktestEngine(initial_capital=100_000.0)
     loader = DataLoader()
-
-    existing = _load_existing()
 
     # --- Real data (cached 1h Binance spot, no network) ---------------------
     _log(f"loading real spot data {SYMBOLS} {START} -> {END} @ {FREQ}")
@@ -392,7 +386,8 @@ def main() -> None:
                 "stability": {
                     "oos_minus_is_return": _to_float(oos_ret - is_ret),
                     "oos_sharpe_minus_is_sharpe": _to_float(
-                        _to_float(r.get("sharpe_ratio", 0.0)) - _to_float(r.get("is_sharpe_ratio", 0.0))
+                        _to_float(r.get("sharpe_ratio", 0.0))
+                        - _to_float(r.get("is_sharpe_ratio", 0.0))
                     ),
                 },
             }
@@ -478,7 +473,9 @@ def main() -> None:
                     else None,
                     "stability": {
                         "std_oos_return": _to_float(
-                            np.std([s["oos_total_return"] for s in wf_tf]) if len(wf_tf) > 1 else 0.0
+                            np.std([s["oos_total_return"] for s in wf_tf])
+                            if len(wf_tf) > 1
+                            else 0.0
                         ),
                         "positive_periods": int(
                             sum(1 for s in wf_tf if s["oos_total_return"] > 0)
