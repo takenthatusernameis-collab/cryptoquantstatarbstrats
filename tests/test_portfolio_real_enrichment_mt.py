@@ -48,6 +48,8 @@ BOOTSTRAP_KEYS = (
     "cost_impact",
     "distinguishability_from_zero",
 )
+BOOTSTRAP_N = 3000
+PERMUTATION_N = 3000
 
 
 def _artifact() -> dict:

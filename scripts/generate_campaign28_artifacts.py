@@ -154,7 +154,7 @@ def _select_pair_params(data: pd.DataFrame, engine: BacktestEngine) -> dict[str,
                 _log(f"swept {pname}: no rows, defaults")
         except Exception as exc:  # fail-closed: keep defaults, never fabricate params
             top_params[pname] = dict(DEFAULT_PARAMS)
-            _log(f"swept {pname}: failed {exc!s[:80]}, defaults")
+            _log(f"swept {pname}: failed {str(exc)[:80]}, defaults")
     return top_params
 
 
@@ -183,7 +183,7 @@ def _build_pair_weights(
             weights_by_strategy[pname] = w
             pair_map[pname] = list(pair)
         except Exception as exc:
-            _log(f"skip weights {pname}: {exc!s[:80]}")
+            _log(f"skip weights {pname}: {str(exc)[:80]}")
     return weights_by_strategy, pair_map
 
 
@@ -490,7 +490,7 @@ def main() -> None:
             _log(f"multi-timeframe {tf}: {len(wf_tf)} splits, {len(data_tf)} bars")
         except Exception as exc:
             multi_timeframe[tf] = {"status": "error", "error": str(exc)[:120]}
-            _log(f"multi-timeframe {tf}: failed {exc!s[:80]}")
+            _log(f"multi-timeframe {tf}: failed {str(exc)[:80]}")
 
     # --- Bootstrap CI on portfolio OOS returns --------------------------------
     bootstrap_ci: dict[str, Any] = {}
@@ -671,7 +671,7 @@ def main() -> None:
         }
     except Exception as exc:
         tail_risk = {"error": str(exc)[:120]}
-    _log(f"tail risk: permutation n={PERMUTATION_N}, regimes={list(tail_risk.get('regime_conditioned',{}).get('regimes',{}).keys())}")
+    _log(f"tail risk: permutation n={PERMUTATION_N}, regimes={len(tail_risk.get('regime_conditioned',{}).get('regimes',{}))}")
 
     # --- Parameter stability (all pairs, real data) --------------------------
     parameter_stability: dict[str, Any] = {}
@@ -767,7 +767,7 @@ def main() -> None:
                 "degradation": None,
                 "regime_notes": (
                     "Walk-forward stability could not be completed on real data for this pair; "
-                    f"entry recorded with default params for provenance traceability. {exc!s[:80]}"
+                    f"entry recorded with default params for provenance traceability. {str(exc)[:80]}"
                 ),
                 "provenance": _provenance(
                     "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)"

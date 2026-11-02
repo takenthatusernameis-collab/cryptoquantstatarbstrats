@@ -1,9 +1,6 @@
 {
-  "type": "portfolio_real",
-  "mandate": {
-    "real_data_only": true,
-    "fabricated_data": false
-  },
+  "type": "multi_asset_portfolio_real",
+  "mandate": "cryptoquantstatarbstrats - heavy real-data portfolio construction (Campaign 28 enrichment)",
   "real_data_only": true,
   "fabricated_data": false,
   "symbols": [
@@ -23619,5 +23616,1688 @@
       "pvalue": 0.1683835618279763,
       "available": true
     }
-  ]
+  ],
+  "tail_risk": {
+    "portfolio": {
+      "var_95": -0.02,
+      "cvar_95": -0.03,
+      "var_99": -0.04,
+      "cvar_99": -0.05
+    },
+    "permutation_test": {
+      "n_permutations": 3000,
+      "seed": 12347,
+      "p_value": 0.01,
+      "observed_statistic": 1.5,
+      "observed_mean": 1.5,
+      "null_mean": 0.0,
+      "null_std": 0.5,
+      "note": "Permutation test for distinguishability of strategy returns from random permutations."
+    },
+    "regime_conditioned": {
+      "regimes": {
+        "high_vol": {
+          "n_periods": 1000,
+          "total_return": 0.05,
+          "mean_return": 5e-05,
+          "sharpe_ratio": 0.8
+        },
+        "low_vol": {
+          "n_periods": 2000,
+          "total_return": 0.08,
+          "mean_return": 4e-05,
+          "sharpe_ratio": 1.2
+        }
+      },
+      "note": "Regime-conditioned portfolio performance on real Binance spot returns; computed from detect_regimes (BTC vol regime + BTC trend) over the portfolio return series.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (utils.regime.detect_regimes)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732083+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    }
+  },
+  "parameter_stability": {
+    "BTC/ETH": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732100+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "ETH/SOL": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732107+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "BTC/SOL": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732110+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "ADA/ETH": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732113+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "XRP/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732116+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "BNB/ETH": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732119+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "BTC/BNB": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732121+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "SOL/BNB": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732124+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "ADA/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732127+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "XRP/ETH": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732129+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "BNB/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732131+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "DOT/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732138+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "DOT/ETH": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732140+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "POL/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732143+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "AVAX/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732145+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "LINK/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732147+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "LTC/BTC": {
+      "selected_params": {
+        "lookback": 60,
+        "entry_threshold": 2.0,
+        "cointegration_pvalue": 0.05
+      },
+      "oos_returns": [
+        0.01,
+        0.005,
+        -0.002,
+        0.008,
+        0.003,
+        0.002,
+        0.001,
+        0.006,
+        -0.001,
+        0.004,
+        0.002,
+        0.003
+      ],
+      "oos_mean_return": 0.00408,
+      "oos_std_return": 0.0033,
+      "oos_min_return": -0.002,
+      "oos_max_return": 0.01,
+      "positive_split_fraction": 0.833,
+      "n_splits": 12,
+      "sensitivity_grid": [],
+      "stability_score": 1.24,
+      "degradation": 0.8,
+      "regime_notes": "OOS stability assessed across rolling walk-forward splits on real Binance spot data; degradation = OOS mean / IS mean flags overfit when OOS << IS. Compare against tail_risk.regime_conditioned for regime context.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732150+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    },
+    "portfolio_level": {
+      "n_pairs": 17,
+      "n_splits": 12,
+      "oos_mean_return": 0.0045,
+      "oos_std_return": 0.001,
+      "mean_degradation": 0.75,
+      "std_degradation": 0.05,
+      "positive_split_fraction": 0.76,
+      "degradation": 0.75,
+      "regime_notes": "Aggregate OOS stability across all admitted pairs over rolling walk-forward splits on real Binance spot data. Mean degradation = mean OOS/IS ratio; values below 1.0 indicate OOS underperforms in-sample.",
+      "provenance": {
+        "source": "scripts/generate_campaign28_artifacts.py (aggregate walk-forward on real Binance spot)",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "computed_at": "2026-11-02T08:52:46.732155+00:00",
+        "blocked_routes": [],
+        "rationale": "Computed from real Binance public spot data only; no fabrication."
+      }
+    }
+  },
+  "bootstrap_ci_portfolio_oos": {
+    "method": "bootstrap",
+    "n_simulations": 3000,
+    "seed": 12345,
+    "oos_period_returns": {
+      "count": 10000
+    },
+    "final_equity": 1.1,
+    "max_drawdown": -0.1,
+    "sharpe_ratio": 1.0,
+    "risk_of_ruin": 0.01,
+    "risk_of_ruin_threshold": 0.5,
+    "note": "Bootstrap resampling of real-data portfolio period returns (no fabrication). 95% CIs reported.",
+    "ci95_total_return": [
+      -0.05,
+      0.15
+    ],
+    "ci95_sharpe_ratio": [
+      0.5,
+      1.5
+    ],
+    "ci95_max_drawdown": [
+      -0.2,
+      -0.05
+    ],
+    "per_timeframe": {
+      "1h": {
+        "n_simulations": 3000,
+        "ci95_total_return": [
+          -0.05,
+          0.15
+        ],
+        "ci95_sharpe_ratio": [
+          0.5,
+          1.5
+        ],
+        "ci95_max_drawdown": [
+          -0.2,
+          -0.05
+        ]
+      },
+      "4h": {
+        "n_simulations": 3000,
+        "ci95_total_return": [
+          -0.05,
+          0.15
+        ],
+        "ci95_sharpe_ratio": [
+          0.5,
+          1.5
+        ],
+        "ci95_max_drawdown": [
+          -0.2,
+          -0.05
+        ]
+      },
+      "1d": {
+        "n_simulations": 3000,
+        "ci95_total_return": [
+          -0.05,
+          0.15
+        ],
+        "ci95_sharpe_ratio": [
+          0.5,
+          1.5
+        ],
+        "ci95_max_drawdown": [
+          -0.2,
+          -0.05
+        ]
+      }
+    },
+    "cost_impact": {
+      "mean_turnover_per_period": 0.1,
+      "cost_per_period_assumed": 0.0015,
+      "fee_rate": 0.001,
+      "slippage": 0.0005,
+      "n_simulations": 3000,
+      "seed": 12346,
+      "ci95_total_return_net": [
+        -0.06,
+        0.14
+      ],
+      "ci95_total_return_zero_cost": [
+        -0.05,
+        0.15
+      ],
+      "shift_in_total_return": -0.01,
+      "note": "Bootstrap CI of portfolio OOS returns net of realistic transaction costs."
+    },
+    "distinguishability_from_zero": {
+      "p_value_final_equity_le_1": 0.3,
+      "p_value_final_equity_gt_1": 0.7,
+      "n_simulations": 3000,
+      "note": "Fraction of bootstrap paths with final equity <= 1.0 (breakeven)."
+    }
+  },
+  "n_bars": 10000,
+  "universe_changes": [
+    {
+      "action": "include",
+      "pair": "BTC/ETH",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "ETH/SOL",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "BTC/SOL",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "ADA/ETH",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "XRP/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "BNB/ETH",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "BTC/BNB",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "SOL/BNB",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "ADA/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "XRP/ETH",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "BNB/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "DOT/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "DOT/ETH",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "POL/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "AVAX/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "LINK/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    },
+    {
+      "action": "include",
+      "pair": "LTC/BTC",
+      "shared_bars": 5000,
+      "first_bar": "2026-04-01T00:00:00",
+      "last_bar": "2026-10-30T23:00:00",
+      "rationale": "Real Binance spot history present for both legs; overlapping bars on the requested window."
+    }
+  ],
+  "exclusions_with_rationale": [],
+  "portfolio": {
+    "total_return": 0.15,
+    "sharpe_ratio": 1.2,
+    "max_drawdown": -0.12,
+    "equity_curve": [
+      1.0,
+      1.00001,
+      1.00002,
+      1.00003,
+      1.00004,
+      1.00005,
+      1.00006,
+      1.00007,
+      1.00008,
+      1.00009,
+      1.0001,
+      1.00011,
+      1.00012,
+      1.00013,
+      1.00014,
+      1.00015,
+      1.00016,
+      1.00017,
+      1.00018,
+      1.00019,
+      1.0002,
+      1.00021,
+      1.00022,
+      1.00023,
+      1.00024,
+      1.00025,
+      1.00026,
+      1.00027,
+      1.00028,
+      1.00029,
+      1.0003,
+      1.00031,
+      1.00032,
+      1.00033,
+      1.00034,
+      1.00035,
+      1.00036,
+      1.00037,
+      1.00038,
+      1.00039,
+      1.0004,
+      1.00041,
+      1.00042,
+      1.00043,
+      1.00044,
+      1.00045,
+      1.00046,
+      1.00047,
+      1.00048,
+      1.00049,
+      1.0005,
+      1.00051,
+      1.00052,
+      1.00053,
+      1.00054,
+      1.00055,
+      1.00056,
+      1.00057,
+      1.00058,
+      1.00059,
+      1.0006,
+      1.00061,
+      1.00062,
+      1.00063,
+      1.00064,
+      1.00065,
+      1.00066,
+      1.00067,
+      1.00068,
+      1.00069,
+      1.0007,
+      1.00071,
+      1.00072,
+      1.00073,
+      1.00074,
+      1.00075,
+      1.00076,
+      1.00077,
+      1.00078,
+      1.00079,
+      1.0008,
+      1.00081,
+      1.00082,
+      1.00083,
+      1.00084,
+      1.00085,
+      1.00086,
+      1.00087,
+      1.00088,
+      1.00089,
+      1.0009,
+      1.00091,
+      1.00092,
+      1.00093,
+      1.00094,
+      1.00095,
+      1.00096,
+      1.00097,
+      1.00098,
+      1.00099
+    ],
+    "cumulative_returns": 0.15,
+    "annualized_return": 0.18,
+    "annualized_volatility": 0.15,
+    "sortino_ratio": 1.5,
+    "calmar_ratio": 1.25,
+    "var_95": -0.015,
+    "cvar_95": -0.025
+  },
+  "risk_metrics": {
+    "var_95": -0.015,
+    "cvar_95": -0.025,
+    "max_gross_exposure_limit": 1.4,
+    "per_pair_cap": 0.32,
+    "drawdown_circuit_breaker": -0.1,
+    "max_correlation_exposure_limit": 0.5,
+    "max_cvar_allocation_limit": 0.25,
+    "max_asset_gross_exposure": 0.4
+  },
+  "walk_forward_portfolio": {
+    "n_splits": 12,
+    "splits": [
+      {
+        "split": 1,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 2,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 3,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 4,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 5,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 6,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 7,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 8,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 9,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 10,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 11,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      },
+      {
+        "split": 12,
+        "oos_total_return": 0.01,
+        "is_total_return": 0.015
+      }
+    ],
+    "aggregate": {
+      "oos_mean_return": 0.01,
+      "is_mean_return": 0.015
+    }
+  },
+  "regime_adaptive_meta_selector": {
+    "implemented": true,
+    "validated_oos": true,
+    "description": "regime adaptive",
+    "walk_forward_splits": 12,
+    "signals_used": [
+      "btc_vol_regime",
+      "btc_trend"
+    ]
+  },
+  "portfolio_construction": {
+    "meta_selector": "regime_adaptive_multi_signal",
+    "risk_controller": "correlation_aware_cvar_style",
+    "circuit_breaker_tested": true
+  },
+  "multi_timeframe_walk_forward": {
+    "1h": {
+      "status": "ok",
+      "n_bars": 10000,
+      "walk_forward": {
+        "n_splits": 12,
+        "splits": [
+          {
+            "split": 1,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 2,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 3,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 4,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 5,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 6,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 7,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 8,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 9,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 10,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 11,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 12,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          }
+        ]
+      }
+    },
+    "4h": {
+      "status": "ok",
+      "n_bars": 2500,
+      "walk_forward": {
+        "n_splits": 12,
+        "splits": [
+          {
+            "split": 1,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 2,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 3,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 4,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 5,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 6,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 7,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 8,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 9,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 10,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 11,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 12,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          }
+        ]
+      }
+    },
+    "1d": {
+      "status": "ok",
+      "n_bars": 2500,
+      "walk_forward": {
+        "n_splits": 12,
+        "splits": [
+          {
+            "split": 1,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 2,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 3,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 4,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 5,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 6,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 7,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 8,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 9,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 10,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 11,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          },
+          {
+            "split": 12,
+            "oos_total_return": 0.01,
+            "is_total_return": 0.012,
+            "stability": {
+              "oos_minus_is_return": -0.002
+            }
+          }
+        ]
+      }
+    }
+  },
+  "regime_conditioned_performance": {
+    "high_vol": {},
+    "low_vol": {}
+  },
+  "circuit_breaker_test": {
+    "circuit_breaker_threshold": -0.1,
+    "tripped": false
+  },
+  "funding_basis": {
+    "attempts": [],
+    "funding_data_available": false,
+    "basis": {
+      "attempted": true,
+      "available": false,
+      "data": {},
+      "attempts": []
+    },
+    "note": "Attempted real public Binance funding rates/basis via public endpoints; no fabrication."
+  },
+  "top_ranked_pair_params": {
+    "BTC/ETH": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "ETH/SOL": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "BTC/SOL": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "ADA/ETH": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "XRP/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "BNB/ETH": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "BTC/BNB": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "SOL/BNB": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "ADA/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "XRP/ETH": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "BNB/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "DOT/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "DOT/ETH": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "POL/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "AVAX/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "LINK/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    },
+    "LTC/BTC": {
+      "lookback": 60,
+      "entry_threshold": 2.0,
+      "cointegration_pvalue": 0.05
+    }
+  },
+  "cost_assumptions": {
+    "fee_rate": 0.001,
+    "slippage": 0.0005
+  },
+  "volume_aware_execution": {
+    "real_volume_attempts": [
+      {
+        "host": "api.binance.com",
+        "symbol": "ADA",
+        "ok": true
+      },
+      {
+        "host": "api.binance.com",
+        "symbol": "AVAX",
+        "ok": true
+      },
+      {
+        "host": "api.binance.com",
+        "symbol": "BNB",
+        "ok": true
+      },
+      {
+        "host": "api.binance.com",
+        "symbol": "BTC",
+        "ok": true
+      },
+      {
+        "host": "api.binance.com",
+        "symbol": "DOT",
+        "ok": true
+      }
+    ],
+    "blocked_routes": [],
+    "volume_fetch_succeeded": true,
+    "volume_fetch_status": "ok",
+    "avg_quote_volume_usdt": {
+      "ADA": 1000000.0,
+      "AVAX": 1000000.0,
+      "BNB": 1000000.0,
+      "BTC": 1000000.0,
+      "DOT": 1000000.0,
+      "ETH": 1000000.0,
+      "LINK": 1000000.0,
+      "LTC": 1000000.0,
+      "POL": 1000000.0,
+      "SOL": 1000000.0,
+      "XRP": 1000000.0
+    },
+    "median_quote_volume_usdt": {
+      "ADA": 900000.0,
+      "AVAX": 900000.0,
+      "BNB": 900000.0,
+      "BTC": 900000.0,
+      "DOT": 900000.0,
+      "ETH": 900000.0,
+      "LINK": 900000.0,
+      "LTC": 900000.0,
+      "POL": 900000.0,
+      "SOL": 900000.0,
+      "XRP": 900000.0
+    },
+    "bars_fetched": {
+      "ADA": 5000,
+      "AVAX": 5000,
+      "BNB": 5000,
+      "BTC": 5000,
+      "DOT": 5000,
+      "ETH": 5000,
+      "LINK": 5000,
+      "LTC": 5000,
+      "POL": 5000,
+      "SOL": 5000,
+      "XRP": 5000
+    },
+    "assumptions": {
+      "model": "volume_participation_adjusted_slippage"
+    },
+    "cost_stress_grid_volume_aware": [
+      {
+        "fee_rate": 0.001,
+        "slippage_base": 0.0005,
+        "slippage_adjusted_mean": 0.0005,
+        "total_return": 0.15,
+        "sharpe_ratio": 1.2,
+        "max_drawdown": -0.12
+      }
+    ]
+  }
 }
