@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T08:21:44Z | CAMPAIGN 28 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T08:23:47Z | CAMPAIGN 28 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T08:21:44Z
+**TIMESTAMP:** 2026-11-02T08:23:47Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-27 COMPLETE & ON-DISK VERIFIED. Terminal state for gating chain achieved. **SOLE BLOCKER:** 7 pre-existing failures in `tests/test_portfolio_real.py`, `tests/test_portfolio_real_hardened.py`, `tests/test_tail_risk_parameter_stability.py` due to enrichment gaps in `reports/portfolio_real.json` (tail_risk/parameter_stability/bootstrap). Fixing these removes the final bottleneck to a fully green suite (648 tests).
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -20,7 +20,7 @@
 4. **Do not re-derive Campaigns 26-27:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T08:21:44Z] CAMPAIGN 28 — PORTFOLIO_REAL ENRICHMENT: TAIL RISK + PARAMETER STABILITY + BOOTSTRAP (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T08:23:47Z] CAMPAIGN 28 — PORTFOLIO_REAL ENRICHMENT: TAIL RISK + PARAMETER STABILITY + BOOTSTRAP (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Make the full test suite fully green by enriching `reports/portfolio_real.json` to satisfy all 7 failing tests. Remove the sole bottleneck.
 >
@@ -68,7 +68,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T08:21:44Z)
+## VERIFIED STATE (2026-11-02T08:23:47Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 26-27:** Complete & verified on disk (artifacts/tests/generators all present, ruff clean, tests passing). Gating invariants: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
 - **Full suite (previous):** `641 passed, 1 skipped, 7 failed` — 7 failures are in portfolio_real enrichment (unrelated to gating chain). **TARGET:** 648 passed, 1 skipped, 0 failed.
