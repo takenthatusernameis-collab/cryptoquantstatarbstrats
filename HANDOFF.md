@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T04:51:27Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 SOLE FOCUS — NOT STARTED (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
+# SINGLE DURABLE HANDOFF | 2026-11-02T04:51:46Z | CAMPAIGN 25 COMPLETE (COINTEGRATION RE-CERTIFICATION GATE AUDIT + DRIFT-TRIGGERED RE-GATING) | CAMPAIGN 26 SOLE FOCUS — NOT STARTED (END-TO-END MT PAIRS EXECUTION VALIDATION & LIVE OPERATIONAL READINESS) | BOTTLENECKS REMOVED | MANDATORY HEAVY WORK
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T04:51:27Z
+**TIMESTAMP:** 2026-11-02T04:51:46Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
@@ -32,28 +32,26 @@
 >
 > **COMPLETION CRITERIA (BLOCKING - DO NOT STOP UNTIL ALL MET):** Both artifacts and both tests exist and pass; schemas internally consistent and linked to full chain; gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17); all blocked pairs have zero capital/orders/fills with rejection logs + `blocked_routes`; end-to-end validation fail-closed with explicit checks; ruff clean on all touched files; targeted pytest green; handoff updated with concrete evidence (files, counts, test results). No coasting. No partial completion.
 
-## CURRENT VERIFIED STATE (2026-11-02T04:02:49Z)
-- Branch: `main`. HEAD = recent checkpoint commits (clean working tree).
+## CURRENT VERIFIED STATE (2026-11-02T04:51:46Z)
+- Branch: `main`. HEAD clean working tree.
 - **Campaign 24 DONE:** Permanent production certification + continuous improvement & auto-scaling hardening complete.
-  - Artifacts: `reports/permanent_production_certification_mt.json` (1 permanently certified: POL/BTC @ 4h; 50 blocked), `reports/continuous_improvement_autoscaling_mt.json` (1 auto-scaling eligible: POL/BTC @ 4h; 50 blocked).
+  - Artifacts: `reports/permanent_production_certification_mt.json`, `reports/continuous_improvement_autoscaling_mt.json`
   - Tests: `tests/test_permanent_production_certification_mt.py`, `tests/test_continuous_improvement_autoscaling_mt.py` — passing.
   - Generator: `scripts/generate_campaign24_artifacts.py` — ruff clean.
   - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only.
 - **Campaign 25 DONE (VERIFIED ON DISK 2026-11-02T04:00:54Z):** Cointegration re-certification gate audit + drift-triggered re-gating complete.
-  - Artifacts: `reports/cointegration_recertification_audit_mt.json`, `reports/drift_triggered_regating_mt.json` — exist.
+  - Artifacts: `reports/cointegration_recertification_audit_mt.json`, `reports/drift_triggered_regating_mt.json`
   - Tests: `tests/test_cointegration_recertification_audit_mt.py`, `tests/test_drift_triggered_regating_mt.py` — passing (4/4).
   - Generator: `scripts/generate_campaign25_artifacts.py` — ruff clean.
-  - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only, cointegration law enforced. Baseline diff logged; drift none detected; blocked pairs zero capital/orders/fills with rejection logs + `blocked_routes`.
+  - Gating invariants preserved: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17. Fail-closed, no auto-lift, real data only, cointegration law enforced.
 - **Campaign 26 NOT STARTED:** No `end_to_end_pairs_execution_validation_mt.json`, `live_operational_readiness_signoff_mt.json`, tests, or generator on disk. This is the ONLY task now.
-- Data: `data/cache/` real Binance spot 1h for 14 symbols + `volume_1h_full`; offline-capable. Prior OOS diagnostics exist (`reports/cointegration_diagnostics_real.json`, `reports/cointegration_diagnostics_oos*.json`, real data only).
-- Integrity: All campaigns 1-25 artifacts/tests present; Campaign 26 artifacts/tests NOT present. Handoff is single durable source of truth.
-- State re-verified 2026-11-02T04:50:14Z: ruff 0.17.3 + pytest 9.2.0 available; gating invariants re-checked on disk in reports/portfolio_gating_mt.json (1h 0/17 eligible, 4h 1/17 POL/BTC sole eligible, 1d 0/17 eligible); Campaign 26 artifacts/tests/generator confirmed ABSENT on disk → Campaign 26 is the only unblocked, sole next task. No session may idle, pivot, or re-derive state.
+- Data: `data/cache/` real Binance spot 1h for symbols + offline-capable. Prior OOS diagnostics exist (real data only).
+- Integrity: All campaigns 1-25 artifacts/tests present; Campaign 26 artifacts/tests/generator ABSENT. Handoff is single durable source of truth.
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 - **BOTTLENECK REMOVED — CI/env:** Install deps first (`python -m pip install -r requirements.txt`) before tests; prevent ModuleNotFoundError.
 - **BOTTLENECK REMOVED — Tooling:** Provide full `content`/`oldString`/`newString` on edits/writes.
-- **BOTTLENECK REMOVED — Handoff contradiction:** Stale "Campaign 25 NOT STARTED / PENDING" text removed; Campaign 25 verified complete on disk; Campaign 26 enumerated as sole next focus so no session re-derives state or idles on ambiguity.
-- **BOTTLENECK REMOVED — Missing Campaign 24 artifact:** `reports/continuous_improvement_autoscaling_mt.json` generated via `scripts/generate_campaign24_artifacts.py`; tests pass; ruff clean.
+- **BOTTLENECK REMOVED — Handoff contradiction:** Stale text removed; Campaign 25 verified complete on disk; Campaign 26 enumerated as sole next focus so no session re-derives state or idles on ambiguity.
 - **BOTTLENECK REMOVED — Ambiguity:** Explicit boot sequence, copy/paste initial task message, hard completion criteria, and NO ESCAPE CLAUSE.
 - **BOTTLENECK REMOVED — Scope drift:** Campaign 26 is the ONLY permitted focus until its artifacts/tests exist and pass. No pivoting.
 - **BOTTLENECK REMOVED — Gating erosion:** Fail-closed invariants codified; no auto-lift paths.
