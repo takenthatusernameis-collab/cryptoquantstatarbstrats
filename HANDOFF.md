@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T23:42:19.000000+00:00 | CAMPAIGN 37 COMPLETE | CAMPAIGN 38 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T23:49:04.000000+00:00 | CAMPAIGN 37 COMPLETE | CAMPAIGN 38 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T23:42:19.000000+00:00
+**TIMESTAMP:** 2026-11-02T23:49:04.000000+00:00
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-36 COMPLETE & ON-DISK VERIFIED. Campaign 37 COMPLETE & ON-DISK VERIFIED: `scripts/generate_campaign37_artifacts.py` (ruff clean), `reports/cointegration_campaign37_mt.json`, `tests/test_cointegration_campaign37_mt.py` (14/14 tests all passing). `ruff check` clean on Campaign 37 files. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 37 = cointegration rigor phase 9 (regime-transition prediction, adaptive gate recalibration, proactive de-risking, backtested precision/recall/F1, fail-closed re-gating with no auto-lift, breach-alert-driven kill-switch halts) — DONE.
 
@@ -19,7 +19,7 @@
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ## SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T23:42:19.000000+00:00] CAMPAIGN 38 — COINTEGRATION RIGOR PHASE 10: CROSS-TIMEFRAME GATE SYNCHRONIZATION & PORTFOLIO-LEVEL REGIME-COUPLING STRESS TESTING (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-02T23:49:04.000000+00:00] CAMPAIGN 38 — COINTEGRATION RIGOR PHASE 10: CROSS-TIMEFRAME GATE SYNCHRONIZATION & PORTFOLIO-LEVEL REGIME-COUPLING STRESS TESTING (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 37 (phase 9). Using Campaign 37 regime-transition probability and gate-failure lead-time outputs, build **cross-timeframe cointegration gate synchronization models** that detect when gate failures couple across 1h/4h/1d and propagate through portfolio-level regime coupling. Quantify: cross-timeframe gate synchronization (do 1h/4h/1d gate failures co-occur per pair, or diverge?), portfolio-level regime-coupling stress (how does a regime transition on one pair propagate to correlated pairs in the same basket?), cross-timeframe adaptive gate recalibration (tighten EG/ADF/half-life thresholds on ALL timeframes when any timeframe shows elevated regime-transition risk), portfolio-level fail-closed re-gating (if any pair in a correlated basket is predicted to breach, block the entire basket — zero capacity/weight for all pairs in the basket), backtested cross-timeframe predictive accuracy (precision/recall/F1 of cross-timeframe gate failure prediction vs actual), and portfolio-level fail-closed execution halts on cross-timeframe predicted breach with no auto-lift. Blocks cannot auto-lift; re-entry requires fresh cointegration evidence across all timeframes + regime-stability confirmation. Exclusively use real Binance cached data (1h; resample allowed only if derived from real data). No fabrication.
 >
@@ -62,7 +62,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T23:42:19.000000+00:00)
+## VERIFIED STATE (2026-11-02T23:49:04.000000+00:00)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-36:** Complete & verified on disk. Campaign 36: 16/16 passed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 37:** COMPLETE — generator `scripts/generate_campaign37_artifacts.py` (ruff clean), artifact `reports/cointegration_campaign37_mt.json`, tests `tests/test_cointegration_campaign37_mt.py` (14/14 passed, ruff clean). Cointegration rigor phase 9 done (regime-transition prediction, adaptive gate recalibration, proactive de-risking, backtested precision/recall/F1, fail-closed re-gating with no auto-lift, breach-alert-driven kill-switch halts).
