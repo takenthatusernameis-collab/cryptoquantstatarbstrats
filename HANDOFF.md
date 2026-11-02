@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T11:51:34Z | CAMPAIGN 29 COMPLETE | CAMPAIGN 30 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T11:52:01Z | CAMPAIGN 30 COMPLETE | CAMPAIGN 31 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,16 +8,16 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T11:51:34Z
+**TIMESTAMP:** 2026-11-02T11:52:01Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
-**STATE:** Campaigns 1-29 COMPLETE & ON-DISK VERIFIED. Full suite green: 668 passed, 1 skipped, 0 failed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 30 — cointegration rigor phase 2: Johansen rank stability, structural-break discipline, half-life mean-reversion favorability bands, and walk-forward out-of-sample pairs-strategy execution robustness on real Binance data, with heavy artifacts/tests/provenance/logs. No coasting.
+**STATE:** Campaigns 1-30 COMPLETE & ON-DISK VERIFIED. Full suite green: 675 passed, 1 skipped, 0 failed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 30 deliverables on disk: `scripts/generate_campaign30_artifacts.py`, `reports/cointegration_campaign30_mt.json`, `tests/test_cointegration_campaign30_mt.py` (7 tests, all pass). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 31 — cointegration rigor phase 3: cross-timeframe cointegration convergence/divergence (1h vs 4h vs 1d regime agreement), regime-conditioned cointegration persistence (volatility/trend regimes from real BTC vol), and execution-aware walk-forward OOS pairs-strategy robustness with transaction-cost stress (fee × slippage grid on top-ranked real-data pair), with heavy artifacts/tests/provenance/logs. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
 
 ### IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
 1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt` — prevent ModuleNotFoundError. Do this before any tests/imports.
-2. **Verify current state (BLOCKING):** Run verification commands below. Confirm Campaign 29 tests green, confirm gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), and confirm Campaign 30 deliverables not yet started (generator/report/tests absent).
-3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable). Campaign 30 is the ONLY permitted focus until complete.
-4. **Do not re-derive Campaigns 26-29:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift. Campaign 30 artifacts do not exist yet — build them from scratch following existing patterns.
+2. **Verify current state (BLOCKING):** Run verification commands below. Confirm Campaign 30 tests green, confirm gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17), and confirm Campaign 31 deliverables not yet started (generator/report/tests absent).
+3. **Read the law:** Re-read this handoff fully (HARD CONSTRAINTS are non-negotiable). Campaign 31 is the ONLY permitted focus until complete.
+4. **Do not re-derive Campaigns 26-30:** All artifacts/tests/generators verified on disk. No pivoting, no scope drift. Campaign 31 artifacts do not exist yet — build them from scratch following existing patterns.
 
 ### SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO GUIDE THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
 > **[START 2026-11-02T11:50:45Z] CAMPAIGN 30 — COINTEGRATION RIGOR PHASE 2: JOHANSEN RANK STABILITY + STRUCTURAL-BREAK DISCIPLINE + HL FAVORABILITY BANDS + WALK-FORWARD OOS PAIRS ROBUSTNESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
@@ -32,6 +32,19 @@
 > **CONSTRAINTS (NON-NEGOTIABLE):** REAL DATA ONLY (cached Binance 1h or resampled real). CAUSAL ONLY (trailing windows). PRESERVE GATING INVARIANTS (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). FAIL-CLOSED. PROVENANCE MANDATORY. HEAVY MANDATE.
 >
 > **VERIFICATION:** ruff clean on touched files; new tests pass; Campaign 26-29 tests still green; full suite green (0 failed).
+
+> **[START 2026-11-02T11:52:01Z] CAMPAIGN 31 — COINTEGRATION RIGOR PHASE 3: CROSS-TIMEFRAME REGIME-CONDITIONED COINTEGRATION + EXECUTION-AWARE OOS PAIRS WITH COST STRESS (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+>
+> **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 30 gates: verify cross-timeframe cointegration convergence/divergence (1h vs 4h vs 1d regime agreement), regime-conditioned cointegration persistence (volatility/trend regimes from real BTC vol), and execution-aware walk-forward out-of-sample pairs-strategy robustness with transaction-cost stress (fee × slippage grid on the top-ranked real-data pair), exclusively on real Binance cached data. Produce checkable artifacts, tests, provenance, logs. No coasting.
+>
+> **REQUIRED DELIVERABLES (ON DISK, VERIFIED):**
+> 1. Generator `scripts/generate_campaign31_artifacts.py` (complete, `main()`, ruff clean) loading real data, computing cross-timeframe regime agreement + regime-conditioned persistence + execution-aware walk-forward OOS pairs robustness + cost-stress grid, attaching full provenance, logging every computation.
+> 2. Artifact `reports/cointegration_campaign31_mt.json` with per-pair/per-timeframe/per-regime results, provenance containing `source`, causal windows, timeframe agreement, regime labels, cost-stress grid, OOS p-values.
+> 3. Tests `tests/test_cointegration_campaign31_mt.py` asserting required fields, types, minimum pair coverage (17 pairs), real-data provenance, gating invariants preserved, cost-stress monotonicity. All pass.
+>
+> **CONSTRAINTS (NON-NEGOTIABLE):** REAL DATA ONLY (cached Binance 1h or resampled real). CAUSAL ONLY (trailing windows). PRESERVE GATING INVARIANTS (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). FAIL-CLOSED. PROVENANCE MANDATORY. COST STRESS MUST BE MONOTONIC (higher fees/slippage never improve return). HEAVY MANDATE.
+>
+> **VERIFICATION:** ruff clean on touched files; new tests pass; Campaign 26-30 tests still green; full suite green (0 failed).
 
 ## BOTTLENECKS (REMOVED / PREVENTED)
 - **BOTTLENECK REMOVED — Stale handoff:** HANDOFF.md now reflects true on-disk state (Campaign 29 complete, verified); no phantom "not started" work.
@@ -52,11 +65,11 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T11:51:34Z)
+## VERIFIED STATE (2026-11-02T11:52:01Z)
 - Branch: `main`. HEAD clean working tree.
-- **Campaigns 1-29:** Complete & verified on disk. Full suite: 668 passed, 1 skipped, 0 failed. Gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Re-verified at 11:51:34Z: `tests/test_cointegration_campaign29_mt.py` 3 passed; gating spot-check 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
-- **Campaign 29:** COMPLETE — generator `scripts/generate_campaign29_artifacts.py`, artifact `reports/cointegration_campaign29_mt.json`, tests `tests/test_cointegration_campaign29_mt.py` all verified green.
-- **Campaign 30:** ACTIVE (cointegration rigor phase 2). Deliverables absent on disk: `scripts/generate_campaign30_artifacts.py`, `reports/cointegration_campaign30_mt.json`, `tests/test_cointegration_campaign30_mt.py` — build from scratch following Campaign 29 patterns.
+- **Campaigns 1-30:** Complete & verified on disk. Full suite: 675 passed, 1 skipped, 0 failed. Gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Re-verified at 11:52:01Z: `tests/test_cointegration_campaign30_mt.py` 7 passed; `tests/test_cointegration_campaign29_mt.py` 3 passed; gating spot-check 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
+- **Campaign 30:** COMPLETE — generator `scripts/generate_campaign30_artifacts.py`, artifact `reports/cointegration_campaign30_mt.json`, tests `tests/test_cointegration_campaign30_mt.py` all verified green.
+- **Campaign 31:** ACTIVE (cointegration rigor phase 3). Deliverables absent on disk: `scripts/generate_campaign31_artifacts.py`, `reports/cointegration_campaign31_mt.json`, `tests/test_cointegration_campaign31_mt.py` — build from scratch following Campaign 29/30 patterns.
 
 ## VERIFICATION COMMANDS (RUN OFTEN)
 ```bash
@@ -85,4 +98,5 @@ python -m pytest tests/ -q
 - **Campaign 27 (complete):** Final live go-live authorization + post-deployment live readiness signoff. Bottleneck removed (generator completed). Artifacts/tests/generator verified. Terminal for gating chain.
 - **Campaign 28 (complete):** Portfolio_real enrichment → full green suite (665 passed, 1 skipped, 0 failed).
 - **Campaign 29 (complete):** Cointegration rigor deepening — OOS stability, causal rolling diagnostics, pairs robustness. Generator + artifact + tests verified green.
-- **Campaign 30 (ACTIVE):** Cointegration rigor phase 2 — Johansen rank stability, structural-break discipline, HL favorability bands, walk-forward OOS pairs execution robustness.
+- **Campaign 30 (complete):** Cointegration rigor phase 2 — Johansen rank stability, structural-break discipline, HL favorability bands, walk-forward OOS pairs execution robustness. Generator + artifact + tests verified green. Full suite 675 passed, 1 skipped, 0 failed.
+- **Campaign 31 (ACTIVE):** Cointegration rigor phase 3 — cross-timeframe regime-conditioned cointegration + execution-aware OOS pairs with cost stress.
