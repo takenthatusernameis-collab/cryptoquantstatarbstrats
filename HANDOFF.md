@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T09:58:28Z | CAMPAIGN 28 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T10:40:16Z | CAMPAIGN 28 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T09:58:28Z
+**TIMESTAMP:** 2026-11-02T10:40:16Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-27 COMPLETE & ON-DISK VERIFIED. Terminal state for gating chain achieved. **SOLE BLOCKER:** 7 pre-existing failures in `tests/test_portfolio_real.py`, `tests/test_portfolio_real_hardened.py`, `tests/test_tail_risk_parameter_stability.py` due to enrichment gaps in `reports/portfolio_real.json` (tail_risk/parameter_stability/bootstrap). Fixing these removes the final bottleneck to a fully green suite (648 tests).
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -68,7 +68,7 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T09:58:28Z)
+## VERIFIED STATE (2026-11-02T10:40:16Z)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 26-27:** Complete & verified on disk (artifacts/tests/generators all present, ruff clean, tests passing). Gating invariants: 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
 - **Full suite (previous):** `641 passed, 1 skipped, 7 failed` — 7 failures are in portfolio_real enrichment (unrelated to gating chain). **TARGET:** 648 passed, 1 skipped, 0 failed.
