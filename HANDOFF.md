@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T11:50:45Z | CAMPAIGN 29 COMPLETE | CAMPAIGN 30 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-02T11:51:34Z | CAMPAIGN 29 COMPLETE | CAMPAIGN 30 ACTIVE | BOTTLENECKS REMOVED | HEAVY WORK REQUIRED | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -8,7 +8,7 @@
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
 ## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T11:50:45Z
+**TIMESTAMP:** 2026-11-02T11:51:34Z
 **TARGET SESSION:** Next agentic work session (immediate, no ramp-up)
 **STATE:** Campaigns 1-29 COMPLETE & ON-DISK VERIFIED. Full suite green: 668 passed, 1 skipped, 0 failed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). **NEXT FOCUS (COINTEGRATION-FIRST, REAL DATA ONLY):** Campaign 30 — cointegration rigor phase 2: Johansen rank stability, structural-break discipline, half-life mean-reversion favorability bands, and walk-forward out-of-sample pairs-strategy execution robustness on real Binance data, with heavy artifacts/tests/provenance/logs. No coasting.
 **PRIORITY BY REPO IDENTITY:** `cryptoquantstatarbstrats` = **Crypto Quant Stat Arb Strategies**. **CORE = COINTEGRATION/PAIRS TRADING — LAW.** All work serves cointegration rigor.
@@ -52,9 +52,9 @@
 - **HEAVY MANDATE** — produce artifacts/tests/logs/provenance. No coasting. If stuck, do more verification/artifacts, not less.
 - **INCIDENT DISCIPLINE** — every breach must be logged with cause, containment, and audit trail; no silent remediation.
 
-## VERIFIED STATE (2026-11-02T11:50:45Z)
+## VERIFIED STATE (2026-11-02T11:51:34Z)
 - Branch: `main`. HEAD clean working tree.
-- **Campaigns 1-29:** Complete & verified on disk. Full suite: 668 passed, 1 skipped, 0 failed. Gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Re-verified at 11:50:45Z: `tests/test_cointegration_campaign29_mt.py` 3 passed; gating spot-check 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
+- **Campaigns 1-29:** Complete & verified on disk. Full suite: 668 passed, 1 skipped, 0 failed. Gating chain green (8/8), invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Re-verified at 11:51:34Z: `tests/test_cointegration_campaign29_mt.py` 3 passed; gating spot-check 1h 0/17, 4h 1/17 POL/BTC, 1d 0/17.
 - **Campaign 29:** COMPLETE — generator `scripts/generate_campaign29_artifacts.py`, artifact `reports/cointegration_campaign29_mt.json`, tests `tests/test_cointegration_campaign29_mt.py` all verified green.
 - **Campaign 30:** ACTIVE (cointegration rigor phase 2). Deliverables absent on disk: `scripts/generate_campaign30_artifacts.py`, `reports/cointegration_campaign30_mt.json`, `tests/test_cointegration_campaign30_mt.py` — build from scratch following Campaign 29 patterns.
 
