@@ -794,7 +794,11 @@ def _execution_aware_capacity_allocation(
         total_target_notional += float(target_notional)
     n_assets = len(per_symbol)
     n_feasible = sum(1 for v in per_symbol.values() if v.get("feasible"))
-    capacity_util = float(total_capacity_notional / total_target_notional) if total_target_notional > 0 else 0.0
+    capacity_util = (
+        float(total_capacity_notional / total_target_notional)
+        if total_target_notional > 0
+        else 0.0
+    )
     if capacity_util > BREACH_ALERT_THRESHOLD:
         breach_alerts.append({
             "asset": "PORTFOLIO",
@@ -823,7 +827,8 @@ def _execution_aware_capacity_allocation(
         "real_liquidity_constraints": True,
         "per_symbol": per_symbol,
         "provenance": _provenance(
-            "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts"
+            "real_binance_quote_volume + participation_cap + pair_gating_fail_closed"
+            " + breach_alerts"
         ),
     }
 
