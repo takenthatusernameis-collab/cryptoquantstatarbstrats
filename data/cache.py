@@ -18,7 +18,6 @@ from typing import Any
 
 import pandas as pd
 
-
 _CACHE_DIR = Path(os.environ.get("BINANCE_DATA_CACHE_DIR", "data/cache"))
 _CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -26,7 +25,13 @@ _lock = threading.Lock()
 _memory_cache: dict[str, tuple[pd.DataFrame, dict[str, Any]]] = {}
 
 
-def _cache_key(symbols: list[str], start_date: str, end_date: str, interval: str, quote_asset: str) -> str:
+def _cache_key(
+    symbols: list[str],
+    start_date: str,
+    end_date: str,
+    interval: str,
+    quote_asset: str,
+) -> str:
     raw = json.dumps(
         {
             "symbols": sorted(set(symbols)),
@@ -87,6 +92,19 @@ def load_cached(
                 provenance["cache_hit"] = True
                 provenance["memory_cache"] = True
                 provenance.update({k: v for k, v in meta.items() if k.startswith("fetch_")})
+                # Mirror the disk-cache branch: restore blocked routes under the
+                # canonical names so a memory HIT reports the same blocked routes
+                # as the cold fetch.  Without this, the fetch_* copies alone leave
+                # blocked_routes=[] and silently mask the blocked host.  The
+                # stored meta may be either the cold-fetch provenance dict (which
+                # carries canonical blocked_hosts/blocked_routes keys) or a
+                # disk-style meta dict (which carries fetch_blocked_hosts).
+                blocked_hosts = meta.get("fetch_blocked_hosts", meta.get("blocked_hosts"))
+                blocked_routes = meta.get("fetch_blocked_routes", meta.get("blocked_routes"))
+                if isinstance(blocked_hosts, list):
+                    provenance["blocked_hosts"] = blocked_hosts
+                if isinstance(blocked_routes, list):
+                    provenance["blocked_routes"] = blocked_routes
                 return data.copy(), provenance
             parquet_path = _cache_path(key)
             meta_path = _meta_path(key)
@@ -162,7 +180,9 @@ def load_cached(
                             "rows": int(len(data)),
                             "columns": list(data.columns),
                             "fetch_blocked_hosts": list(provenance.get("blocked_hosts", []) or []),
-                            "fetch_blocked_routes": list(provenance.get("blocked_routes", []) or []),
+                            "fetch_blocked_routes": list(
+                                provenance.get("blocked_routes", []) or []
+                            ),
                             "fetch_attempts": list(provenance.get("fetch_attempts", []) or []),
                             "fetch_errors": list(provenance.get("errors", []) or []),
                             "fetch_real_data_only": True,
