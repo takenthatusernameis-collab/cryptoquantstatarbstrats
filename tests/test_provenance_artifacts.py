@@ -46,6 +46,21 @@ def test_portfolio_real_provenance_mandate():
                 assert prov.get("real_data_only") is True, msg1
                 assert prov.get("fabricated_data") is False, msg2
 
+    # Funding/basis attempts must be logged with provenance (no fabrication).
+    funding_basis = data.get("funding_basis") or {}
+    assert isinstance(funding_basis, dict), "funding_basis must be a dict"
+    assert funding_basis.get("real_data_only") is True
+    assert funding_basis.get("fabricated_data") is False
+    fb_prov = funding_basis.get("provenance") or {}
+    for k in PROV_KEYS:
+        assert k in fb_prov, f"funding_basis.provenance missing {k}"
+    assert fb_prov.get("real_data_only") is True
+    assert fb_prov.get("fabricated_data") is False
+    assert isinstance(fb_prov.get("blocked_routes"), list)
+    assert isinstance(funding_basis.get("attempts"), list)
+    basis = funding_basis.get("basis") or {}
+    assert isinstance(basis.get("attempts"), list)
+
 
 def test_cointegration_diagnostics_real_provenance_per_pair():
     assert COINT_DIAG_ART.exists(), "reports/cointegration_diagnostics_real.json must exist"
