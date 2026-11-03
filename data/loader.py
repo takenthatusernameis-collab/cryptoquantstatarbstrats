@@ -274,17 +274,25 @@ class DataLoader:
                 )
 
         if not series_by_symbol:
-            blocked = self.last_fetch_provenance["blocked_hosts"]
-            raise RuntimeError(
+            blocked_hosts = self.last_fetch_provenance.get("blocked_hosts", []) or []
+            blocked_routes = sorted(set(blocked_hosts + self.last_fetch_provenance.get("blocked_routes", []) or []))
+            self.last_fetch_provenance["blocked_hosts"] = list(blocked_hosts)
+            self.last_fetch_provenance["blocked_routes"] = blocked_routes
+            err_obj = RuntimeError(
                 "No real Binance spot candles fetched for any symbol "
                 f"between {start_date} and {end_date}. "
-                f"Blocked hosts: {blocked}. "
+                f"Blocked hosts: {blocked_hosts}. "
                 f"Per-symbol errors: "
                 + "; ".join(
                     f"{e['symbol']}: {e['last_error']}"
-                    for e in self.last_fetch_provenance["excluded"]
+                    for e in self.last_fetch_provenance.get("excluded", [])
                 )
             )
+            try:
+                object.__setattr__(err_obj, "provenance", dict(self.last_fetch_provenance))
+            except Exception:
+                pass
+            raise err_obj  # type: ignore[misc]  # type: ignore[attr-defined]  # type: ignore[syntax]
 
         # Keep only genuinely observed timestamps shared by every symbol.
         # Forward-filling a missing candle would manufacture flat returns and
@@ -299,6 +307,7 @@ class DataLoader:
             )
         self.last_fetch_provenance["blocked_routes"] = sorted(
             set(self.last_fetch_provenance.get("blocked_hosts", []))
+            | set(self.last_fetch_provenance.get("blocked_routes", []))
         )
         return data
 
@@ -393,6 +402,24 @@ class DataLoader:
             return data, provenance
         except Exception as exc:
             provenance["cache"]["error"] = str(exc)[:120]
+            # Propagate blocked routes from loader/cache context if available
+            try:
+                loader_prov = getattr(self, "last_fetch_provenance", {}) or {}
+                if isinstance(loader_prov, dict):
+                    for key in ("blocked_hosts", "blocked_routes"):
+                        if key in loader_prov and loader_prov[key]:
+                            provenance[key] = list(loader_prov[key])
+                            if isinstance(provenance.get("cache"), dict):
+                                provenance["cache"].setdefault(key, list(loader_prov[key]))
+                # Also try to attach from exception if it has provenance
+                if hasattr(exc, "provenance") and isinstance(exc.provenance, dict):
+                    for key in ("blocked_hosts", "blocked_routes"):
+                        if key in exc.provenance and exc.provenance[key]:
+                            provenance.setdefault(key, list(exc.provenance[key]))
+                            if isinstance(provenance.get("cache"), dict):
+                                provenance["cache"].setdefault(key, list(exc.provenance[key]))
+            except Exception:
+                pass
 
         # Fall back to a retry-capable per-symbol fetch so a single bad symbol
         # does not take the whole request down.
@@ -489,10 +516,16 @@ class DataLoader:
         ]
 
         if not results:
-            raise RuntimeError(
+            err_obj = RuntimeError(
                 f"No real Binance data fetched for {symbols} "
-                f"between {start_date} and {end_date} after {retries} retries."
+                f"between {start_date} and {end_date} after {retries} retries. "
+                f"Blocked hosts: {blocked_hosts}."
             )
+            try:
+                object.__setattr__(err_obj, "provenance", dict(provenance))
+            except Exception:
+                pass
+            raise RuntimeError(str(err_obj)) from err_obj
 
         data = pd.concat(list(results.values()), axis=1)
         data.columns = list(results.keys())

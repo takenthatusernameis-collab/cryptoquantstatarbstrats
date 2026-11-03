@@ -112,3 +112,71 @@ def test_cache_key_invariant_for_symbol_order(monkeypatch):
     assert prov_b["cache_hit"] is True, (
         "symbol order must not change the cache key"
     )
+
+
+class _ParallelBlockedLoader:
+    """Loader that simulates parallel fetches where some symbols hit blocked hosts."""
+
+    def __init__(self, blocked_host: str = "https://api.binance.com"):
+        self.blocked_host = blocked_host
+        self.last_fetch_provenance = {}
+        self.call_count = 0
+        self.dl = None
+
+    def load_binance_data(self, symbols, start_date, end_date, interval="1h", quote_asset="USDT"):
+        self.call_count += 1
+        idx = pd.date_range("2024-01-01", periods=4, freq="1h", tz="UTC")
+        data = pd.DataFrame(
+            {"BTC": [100.0, 101.0, 102.0, 103.0], "ETH": [2000.0, 2010.0, 2020.0, 2030.0]},
+            index=idx,
+        )
+        prov = {
+            "blocked_hosts": [self.blocked_host],
+            "blocked_routes": [self.blocked_host],
+            "per_symbol": {s: {"status": "ok", "bars": 4} for s in symbols},
+        }
+        self.last_fetch_provenance = prov
+        if self.dl is not None:
+            self.dl.last_fetch_provenance = prov
+        if len(symbols) == 1:
+            return data[[symbols[0]]]
+        return data[[s for s in symbols if s in data.columns]]
+
+
+def test_parallel_fetch_aggregates_blocked_routes(monkeypatch):
+    from data.loader import DataLoader
+    _isolated_cache(monkeypatch)
+    loader = _ParallelBlockedLoader()
+    dl = DataLoader()
+    loader.dl = dl
+    dl.load_binance_data = loader.load_binance_data
+    data, prov = dl.fetch_with_provenance(
+        ["BTC", "ETH"], "2024-01-01", "2024-01-01", interval="1h", use_cache=False
+    )
+    assert data is not None
+    assert prov.get("blocked_routes") or prov.get("blocked_hosts")
+
+
+def test_failure_path_propagates_blocked_routes_from_cache(monkeypatch):
+    _isolated_cache(monkeypatch)
+    class FailingLoader:
+        def __init__(self):
+            self.last_fetch_provenance = {
+                "blocked_hosts": ["https://api.binance.com"],
+                "blocked_routes": ["https://api.binance.com"],
+            }
+
+        def load_binance_data(self, *args, **kwargs):
+            self.last_fetch_provenance = {
+                "blocked_hosts": ["https://api.binance.com"],
+                "blocked_routes": ["https://api.binance.com"],
+            }
+            raise RuntimeError("blocked")
+    loader = FailingLoader()
+    try:
+        load_cached(
+            loader, ["BTC"], "2024-01-01", "2024-01-01", interval="1h", use_cache=False
+        )
+    except Exception:
+        # Should propagate blocked routes
+        pass

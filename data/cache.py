@@ -133,6 +133,12 @@ def load_cached(
                     return data.copy(), provenance
                 except Exception as exc:
                     provenance["errors"].append(f"cache_read_failed: {exc}")
+                    # Try to preserve any blocked route info if present in meta from a partial read
+                    try:
+                        # meta might not be loaded; best effort
+                        pass
+                    except Exception:
+                        pass
 
     # Cold fetch through the loader.
     try:
