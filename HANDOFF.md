@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:03:30Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:04:52Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the product edge.**
 Everything else exists to support/gate/validate pairs. Treat it as publication-grade research code where fabrication is unacceptable.
 
-## GROUND TRUTH (VERIFIED 2026-11-03T05:03:30Z)
+## GROUND TRUTH (VERIFIED 2026-11-03T05:04:52Z)
 - Critical subset: **125 passed** (`tests/test_cointegration_campaign*_mt.py`, `test_cointegration_recertification_audit_mt.py`, `test_permanent_production_certification_mt.py`, `test_cointegration_diagnostics_schema.py`)
 - Full suite: **767 passed, 1 skipped** (`python -m pytest tests/`)
 - Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**
