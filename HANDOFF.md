@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T09:04:55Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T09:05:29Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
-## CURRENT STATE (RE-VERIFIED 2026-11-03T09:04:55Z)
+## CURRENT STATE (RE-VERIFIED 2026-11-03T09:05:29Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green, re-verified after fix).
 - Full suite: **771 passed, 1 skipped** (green). Corrects stale `767 passed` claim; 5 enriched-gates failures were a real bottleneck and are now removed.
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
@@ -37,7 +37,7 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 ```
 **Must be 127/127. If any fail → fix immediately.**
 
-## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T09:04:55Z)
+## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T09:05:29Z)
 **FOCUS: EXECUTION PARITY, REAL-DATA PROVENANCE & COST-STRESS HARDENING (NO AUDIT-ONLY)** — cointegration pairs edge only.
 
 Run the immediate mandatory action above (127/127). Then ship **one** material, verifiable hardening change from the campaign below before ending. No session may end on audit-only work.
