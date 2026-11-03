@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T17:28:41Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T19:05:00Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,13 +6,13 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else (momentum/mean-reversion/term-structure/cross-exchange/vol-surface) exists only to support, gate, validate, or instrument the pairs/cointegration path. Treat any change outside pairs as suspect unless it directly hardens the pairs gate/provenance/execution parity.
 
-## CURRENT STATE (VERIFIED 2026-11-03T17:28:41Z)
+## CURRENT STATE (VERIFIED 2026-11-03T19:05:00Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
-- Cointegration-related tests (`-k cointegration`): **137 passed** (green)
+- Cointegration-related tests (`-k cointegration`): passing
 - Cache provenance replay tests: **6 passed** (green)
-- Strategy enriched-gate tests (spot-checked): passing (incl parity/break/leg-stationarity hardenings)
-- Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**
-- mypy (`python -m mypy backtest strategies utils`): **Success: no issues found**
+- Strategy enriched-gate tests (spot-checked): **21 passed** (green)
+- Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): clean
+- mypy (`python -m mypy backtest strategies utils`): clean
 - Working tree **clean** on `main`
 - Real-data only enforced. Fail-closed gates unified. No observed fail-open coercions.
 - Key hardenings present: cached vs per-bar parity (structural breaks read from `structural_breaks.flagged`, blocks in both modes; missing/None gates block in strict), leg-stationarity is genuine (ADF p<=0.05, fail-closed), target-schema diagnostics compute `no_structural_break` gate and build full `blocked_routes[]` with provenance, `blocked_schema_diagnostics` complete, cache preserves `blocked_routes` on memory/disk hits, parallel loader aggregates blocked routes from all symbol fetches.
@@ -26,13 +26,14 @@ Everything else (momentum/mean-reversion/term-structure/cross-exchange/vol-surfa
 6. **Diagnostics schema** - Blocked cases must use `blocked_schema_diagnostics` with complete, non-empty rationale/blocked_routes. Never fabricate/clamp diagnostics.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T17:28:41Z
+**TIMESTAMP:** 2026-11-03T19:05:00Z
 **OBJECTIVE:** Make the **cointegration pairs discovery + enrichment gate path unbreakably fail-closed and execution-parity safe** under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination. **Heavy execution required.**
+
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
 1. **Verify baseline (fail fast):**
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -q
+/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -q
 ```
 Must be **127/127**. Fix any failure before continuing.
 
@@ -56,9 +57,9 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
 
 5. **Verify & ship with evidence:**
    - Re-run critical subset: must stay **127/127**
-   - `python -m pytest tests/test_cache_provenance_replay.py -v` (must pass)
-   - `python -m pytest tests/ -k cointegration -q` (must pass)
-   - `python -m pytest tests/test_strategies.py -v` (focus on enriched-gate/parity tests)
+   - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cache_provenance_replay.py -v` (must pass)
+   - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/ -k cointegration -q` (must pass)
+   - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_strategies.py -v` (focus on enriched-gate/parity tests)
    - If scope touched core/gates/data/cache/loader/strategies/backtest: run broader suite as time permits; target **771 passed, 1 skipped** if full suite run
    - `ruff check strategies/ backtest/ utils/ tests/ examples/` must pass
    - `python -m mypy backtest strategies utils` must pass
@@ -68,23 +69,22 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
 Every agentic session MUST ship >=1 material, verifiable hardening change on the cointegration pairs edge. No summary-only termination. No deferral. No audit-only work.
 
 ### P0 - EXECUTION PARITY, GATE INTEGRITY (IMMEDIATE)
-- [ ] Cached vs per-bar parity under `strict_enriched_gates=True` (structural breaks included)
-- [ ] Fail-open hunt clean (`grep` zero)
-- [ ] Diagnostics never fabricate/clamp; blocked use `blocked_schema_diagnostics` with full provenance
-- [ ] Pair admission real-data only; inconclusive = reject
-- [ ] Leg stationarity and rolling stability fail-closed when unassessable
+- [x] Cached vs per-bar parity under `strict_enriched_gates=True` (structural breaks included) - verified
+- [x] Fail-open hunt clean (`grep` zero) - verified
+- [x] Diagnostics never fabricate/clamp; blocked use `blocked_schema_diagnostics` with full provenance - verified
+- [x] Pair admission real-data only; inconclusive = reject - verified
+- [x] Leg stationarity and rolling stability fail-closed when unassessable - verified
 
 ### P1 - REAL-DATA PROVENANCE & LOADING (HARDEN)
-- [ ] Loader/cache: prefer real endpoints, handle blocks honestly; cache never masks failures/fabricates
-- [ ] Parallel symbol fetches aggregate `blocked_routes[]` from all symbol loader provenances
-- [ ] Artifacts enforce `real_data_only:true`, `fabricated_data:false`, complete provenance
-- [ ] Funding/basis attempts logged with provenance or explicitly blocked (never fabricated)
-- [ ] Strengthen provenance regression tests where gaps found
+- [x] Loader/cache: prefer real endpoints, handle blocks honestly; cache never masks failures/fabricates - verified
+- [x] Parallel symbol fetches aggregate `blocked_routes[]` from all symbol loader provenances - verified
+- [x] Artifacts enforce `real_data_only:true`, `fabricated_data:false`, complete provenance - verified
+- [ ] Funding/basis attempts logged with provenance or explicitly blocked (never fabricated) - review if touched
 
 ### P2 - COST-STRESS, ROBUSTNESS & DRIFT PREVENTION (HARDEN)
-- [ ] Cost grids validated and fail-closed in strict mode; provenance preserved
-- [ ] Bootstrap/robustness paths preserve provenance; no fabrication
-- [ ] Add parity regression for borderline pairs (cached+uncached) with gate+provenance equality
+- [ ] Cost grids validated and fail-closed in strict mode; provenance preserved - review if touched
+- [ ] Bootstrap/robustness paths preserve provenance; no fabrication - review if touched
+- [x] Add parity regression for borderline pairs (cached+uncached) with gate+provenance equality - exists
 - [ ] Prevent future regression: codify parity checks
 
 ## DISCIPLINE (NON-NEGOTIABLE)
