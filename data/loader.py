@@ -478,6 +478,8 @@ class DataLoader:
             for route in sym_prov.get("blocked_routes", []) or []:
                 if route not in blocked_routes:
                     blocked_routes.append(route)
+        if blocked_hosts and not blocked_routes:
+            blocked_routes = list(blocked_hosts)
         provenance["blocked_hosts"] = blocked_hosts
         provenance["blocked_routes"] = blocked_routes
         provenance["excluded"] = provenance["excluded"] + [

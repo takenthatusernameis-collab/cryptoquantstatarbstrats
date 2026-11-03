@@ -141,6 +141,21 @@ def load_cached(
         )
     except Exception as exc:
         provenance["errors"].append(f"loader_exception: {str(exc)[:120]}")
+        # Attach blocked-route provenance from the loader if available so the
+        # caller cannot lose which routes were blocked on a failed cold fetch.
+        try:
+            loader_prov = getattr(loader, "last_fetch_provenance", {}) or {}
+            if isinstance(loader_prov, dict):
+                blocked_hosts = loader_prov.get("blocked_hosts") or []
+                blocked_routes = loader_prov.get("blocked_routes") or []
+                if blocked_hosts:
+                    provenance["blocked_hosts"] = list(blocked_hosts)
+                if blocked_routes:
+                    provenance["blocked_routes"] = list(blocked_routes)
+                elif blocked_hosts:
+                    provenance["blocked_routes"] = list(blocked_hosts)
+        except Exception:
+            pass
         raise
 
     provenance["fetch_attempts"].append(
