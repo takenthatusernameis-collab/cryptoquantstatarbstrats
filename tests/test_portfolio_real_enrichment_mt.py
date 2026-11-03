@@ -287,7 +287,12 @@ def test_no_fabrication_anywhere_in_artifact():
 
 def test_enriched_blocks_have_complete_provenance():
     data = _artifact()
-    _assert_provenance(data.get("tail_risk", {}).get("regime_conditioned", {}).get("provenance", {}), "tail_risk.regime_conditioned")
+    _assert_provenance(
+        data.get("tail_risk", {}).get("regime_conditioned", {}).get(
+            "provenance", {}
+        ),
+        "tail_risk.regime_conditioned",
+    )
     pl = data.get("parameter_stability", {}).get("portfolio_level", {})
     _assert_provenance(pl.get("provenance", {}), "parameter_stability.portfolio_level")
     for pname in PAIRS:

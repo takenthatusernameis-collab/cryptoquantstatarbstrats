@@ -94,13 +94,21 @@ def test_live_production_deployment_summary_counts():
     orders_allowed = sum(
         1
         for tf in ("1h", "4h", "1d")
-        for p in (deployment.get("results_by_timeframe") or {}).get(tf, {}).get("pairs", {}).values()
+        for p in (
+            (deployment.get("results_by_timeframe") or {}).get(tf, {}).get(
+                "pairs", {}
+            ).values()
+        )
         if p.get("orders_allowed") is True
     )
     orders_blocked = sum(
         1
         for tf in ("1h", "4h", "1d")
-        for p in (deployment.get("results_by_timeframe") or {}).get(tf, {}).get("pairs", {}).values()
+        for p in (
+            (deployment.get("results_by_timeframe") or {}).get(tf, {}).get(
+                "pairs", {}
+            ).values()
+        )
         if p.get("orders_allowed") is False
     )
     assert summary.get("orders_allowed_total") == orders_allowed

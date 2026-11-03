@@ -85,13 +85,21 @@ def test_capital_allocation_gating_summary_counts():
     allocated = sum(
         1
         for tf in ("1h", "4h", "1d")
-        for p in (allocation.get("results_by_timeframe") or {}).get(tf, {}).get("pairs", {}).values()
+        for p in (
+            (allocation.get("results_by_timeframe") or {}).get(tf, {}).get(
+                "pairs", {}
+            ).values()
+        )
         if p.get("status") == "allocated"
     )
     blocked = sum(
         1
         for tf in ("1h", "4h", "1d")
-        for p in (allocation.get("results_by_timeframe") or {}).get(tf, {}).get("pairs", {}).values()
+        for p in (
+            (allocation.get("results_by_timeframe") or {}).get(tf, {}).get(
+                "pairs", {}
+            ).values()
+        )
         if p.get("status") == "blocked"
     )
     assert summary.get("allocated_pairs") == allocated

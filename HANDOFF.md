@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T01:43:28Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T01:55:00Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
 **KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY AND REGRESSION-FREE.**
@@ -6,12 +6,12 @@
 This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. The pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`) and real-data-only: no fabricated diagnostics, no synthetic evidence of real-market performance.
 
 ## CURRENT STATE SNAPSHOT (GROUND TRUTH, VERIFIED 2026-11-03)
-- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`)
+- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (suite is slow; `tests/test_pairs_cost_sensitivity.py::test_pairs_cost_sensitivity_replay_over_grid` alone takes ~105s because the pairs strategy computes enriched gates on every bar — see BOTTLENECKS below)
 - Cointegration campaign tests 29-38: **all pass** (102 passed)
 - Recertification audit, production certification, all gating/signoff/live-deployment bridge tests: **all pass** (38 passed)
 - Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes): **all pass**
 - Previous bottleneck (failing campaign/gating tests) is **REMOVED** - sessions were previously checkpointing on red tests; the suite is now green
-- Remaining lint debt: **5 ruff E501 line-too-long errors**, all in test files (line length > 100)
+- **Lint debt CLEARED** - 0 ruff E501 errors remain (`python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0). All 5 were in test files and were reflowed, not weakened.
 - mypy is not installed in this environment (skip until available)
 - Warnings only (non-failing): statsmodels `adfuller`/`kpss` result_object FutureWarning, pandas freq `'d'` deprecation, statsmodels ComplexWarning/CollinearityWarning/InterpolationWarning
 
@@ -19,22 +19,25 @@ This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the
 1. **Failing campaign/gating tests** - were the gate to production clearance; now all pass. Do not let them rot.
 2. **Checkpointing without closure** - recent git history is all "checkpoint agent session" commits. Stop checkpointing on red; fix failures until green, then commit.
 3. **Test sprawl** - many overlapping `_mt` gating/signoff tests. They all pass; treat them as regression guards, not optional.
+4. **Lint debt** - 5 ruff E501 errors cleared; `ruff check` now exits 0. Do not re-introduce long lines.
+
+## ACTIVE BOTTLENECKS (INVESTIGATE NEXT - unblock full-suite velocity)
+- **`tests/test_pairs_cost_sensitivity.py::test_pairs_cost_sensitivity_replay_over_grid`** is slow (~105s) because the pairs strategy computes enriched cointegration gates (Engle-Granger/Johansen/ADF/KPSS) on every bar of 2000 synthetic points, run 3x over a fee/slippage grid. It is NOT in the critical campaign/gating path and passes, but it makes `python -m pytest tests/` feel hung. Investigate: reduce fixture size, cache gate computations, or mark the test slow and run it separately in CI. Do not weaken the gates or fabricate results.
 
 ## NEXT FOCUS CAMPAIGN: "PRODUCTION CLEARANCE - REGRESSION PROOF & LINT CLEAN"
 
-**Goal:** Keep every cointegration/pairs test green, clear the 5 ruff E501 errors, and institutionalize the heavy-work discipline so the suite never silently turns red.
+**Goal:** Keep every cointegration/pairs test green, keep `ruff check` at 0 errors, and institutionalize the heavy-work discipline so the suite never silently turns red. Phase 1 (lint) is COMPLETE.
 
-### Phase 1: Clear lint debt (do first)
+### Phase 1: Clear lint debt (COMPLETE)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python -m ruff check strategies/ backtest/ utils/ tests/ examples/
-# Fix the 5 E501 line-too-long errors (all in test files, wrap long lines)
+# 0 errors. Reflow lines only; do not weaken assertions or gates.
 ```
-Do not weaken any assertion or gate to silence a lint error. Reflow lines only.
 
-### Phase 2: Regression-proof the suite
-1. Run `python -m pytest tests/` - must exit 0 (765 passed, 1 skipped)
-2. Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - must exit 0
+### Phase 2: Regression-proof the suite (next immediate work)
+1. Run `python -m pytest tests/` - must exit 0 (765 passed, 1 skipped). Allow ~3-5 min; the cost-sensitivity test is slow (see ACTIVE BOTTLENECKS).
+2. Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - must exit 0 (these are the critical gating path; 125 passed).
 3. Confirm `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` still show real_data_only provenance with no fabricated data
 4. If mypy becomes available: `python -m mypy backtest/ strategies/ utils/` must exit 0
 
@@ -47,16 +50,16 @@ Do not weaken any assertion or gate to silence a lint error. Reflow lines only.
 
 ## SUCCESS CRITERIA
 - [ ] `python -m pytest tests/` exits 0 (no new failures, no new skips beyond the existing 1)
-- [ ] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 (5 E501 errors cleared)
+- [ ] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 (0 E501 errors; lint debt cleared)
 - [ ] All `test_cointegration_campaign*_mt.py`, recertification, and production certification tests pass
 - [ ] No weakening of fail-closed gates or `real_data_only` provenance
 - [ ] No checkpointing-without-closure commits; every commit closes a failure or clears debt
 
 ## FILES MOST LIKELY TO NEED ATTENTION
-- Test files with the 5 E501 errors (run `python -m ruff check` to list exact lines)
+- `tests/test_pairs_cost_sensitivity.py` (slow test; see ACTIVE BOTTLENECKS)
 - `strategies/pairs_trading.py` (pairs strategy entry)
 - `utils/cointegration.py` (Engle-Granger/Johansen, spread MR, half-life, gates)
 - `backtest/engine.py` (backtest engine applying gates causally)
 - `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` (real-data provenance artifacts)
 
-**START NOW.** Run the ruff check, fix the 5 E501 errors, then run the full test suite. Do not write a summary and stop - fix it.
+**START NOW.** Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` (must exit 0), then run the full suite `python -m pytest tests/` (must exit 0; allow ~3-5 min). Do not write a summary and stop - fix it.
