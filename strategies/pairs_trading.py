@@ -203,7 +203,7 @@ class CointegrationPairsStrategy(PairStrategy):
                     ed = self.enriched_diagnostics
                     if isinstance(ed, dict):
                         gates = ed.get("gates", {})
-                        sb = ed.get("structural_breaks", {})
+                        sb = ed.get("structural_breaks")
                         ok = True
                         if not isinstance(gates, dict):
                             ok = False
@@ -238,16 +238,25 @@ class CointegrationPairsStrategy(PairStrategy):
                                 if v is None and self.strict_enriched_gates:
                                     ok = False
                                     break
-                            if ok and isinstance(sb, dict) and sb.get("flagged") is True:
-                                # A confirmed structural break is a hard failure
-                                # condition, not an "unassessable" state: it
-                                # blocks under BOTH strict and non-strict modes.
-                                # This matches the per-bar path (line 293) so
-                                # cached and per-bar diagnostics never disagree on
-                                # a flagged break. (Previously non-strict silently
-                                # allowed entries through a confirmed structural
-                                # break, a fail-open.)
-                                ok = False
+                            if ok:
+                                if isinstance(sb, dict):
+                                    if sb.get("flagged") is True:
+                                        # A confirmed structural break is a hard failure
+                                        # condition, not an "unassessable" state: it
+                                        # blocks under BOTH strict and non-strict modes.
+                                        # This matches the per-bar path (line 293) so
+                                        # cached and per-bar diagnostics never disagree on
+                                        # a flagged break.
+                                        ok = False
+                                    # If structural_breaks exists but flagged is None/unassessable
+                                    # in strict mode, be fail-closed for parity with per-bar
+                                    elif sb.get("flagged") is None and self.strict_enriched_gates:
+                                        ok = False
+                                elif self.strict_enriched_gates:
+                                    # Missing structural_breaks info in cached diagnostics
+                                    # under strict mode must fail closed to match per-bar
+                                    # path behavior (per-bar always computes structural breaks)
+                                    ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
                         )
@@ -320,9 +329,11 @@ class CointegrationPairsStrategy(PairStrategy):
                                     # non-strict modes. This matches the cached
                                     # path (line 233) so cached and per-bar
                                     # diagnostics never disagree on a flagged
-                                    # break. (Previously non-strict silently
-                                    # allowed entries through a confirmed
-                                    # structural break, a fail-open.)
+                                    # break.
+                                    ok = False
+                                elif isinstance(sb, dict) and sb.get("flagged") is None and self.strict_enriched_gates:
+                                    ok = False
+                                elif not isinstance(sb, dict) and self.strict_enriched_gates:
                                     ok = False
                             except Exception:
                                 if self.strict_enriched_gates:
