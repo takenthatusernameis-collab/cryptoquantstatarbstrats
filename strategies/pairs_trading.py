@@ -215,12 +215,20 @@ class CointegrationPairsStrategy(PairStrategy):
                                 "hl_bounds_pass",
                                 "rolling_stable_ok",
                                 "leg_stationarity_ok",
+                                "all_pass",
                             ):
                                 v = gates.get(key)
                                 if v is False:
                                     ok = False
                                     break
                                 if v is None and self.strict_enriched_gates:
+                                    ok = False
+                                    break
+                                if (
+                                    key == "all_pass"
+                                    and v is not True
+                                    and self.strict_enriched_gates
+                                ):
                                     ok = False
                                     break
                         if ok and isinstance(sb, dict) and sb.get("flagged") is True:
@@ -289,12 +297,20 @@ class CointegrationPairsStrategy(PairStrategy):
                                 "hl_bounds_pass",
                                 "rolling_stable_ok",
                                 "leg_stationarity_ok",
+                                "all_pass",
                             ):
                                 v = g.get(key)
                                 if v is False:
                                     ok = False
                                     break
                                 if v is None and self.strict_enriched_gates:
+                                    ok = False
+                                    break
+                                if (
+                                    key == "all_pass"
+                                    and v is not True
+                                    and self.strict_enriched_gates
+                                ):
                                     ok = False
                                     break
                             try:
