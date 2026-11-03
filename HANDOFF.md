@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T06:02:58Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T06:06:22Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,7 +6,7 @@
 This is publication-grade research code. Fabrication is categorically unacceptable. Everything else must exist only to support, gate, or validate the pairs/cointegration path.
 
 ## GROUND TRUTH (RE-VERIFIED 2026-11-03T06:02:58Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed** — verified this session.
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed** — verified this session (2026-11-03T06:06:22Z).
 - Full suite: **767 passed, 1 skipped** (verified 2026-11-03T05:35:28Z; tree clean on `main`).
 - Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**.
 - mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files** (mypy 1.8 target). Do not weaken gates/provenance.
