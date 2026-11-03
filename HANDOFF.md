@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T02:42:24Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T02:47:51Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
 **KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY AND REGRESSION-FREE.**
 
 This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. The pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`) and real-data-only: no fabricated diagnostics, no synthetic evidence of real-market performance.
 
-## CURRENT STATE SNAPSHOT (GROUND TRUTH, VERIFIED 2026-11-03T02:42:24Z)
+## CURRENT STATE SNAPSHOT (GROUND TRUTH, VERIFIED 2026-11-03T02:47:51Z)
 - Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (246.89s, ~4 min; cost-sensitivity test ~2.5s after perf fix 69b1f17; no active bottlenecks remain)
 - Cointegration campaign tests 29-38: **all pass** (102 passed)
 - Recertification audit, production certification, all gating/signoff/live-deployment bridge tests: **all pass** (125 passed in critical gating path)
@@ -39,7 +39,7 @@ python -m ruff check strategies/ backtest/ utils/ tests/ examples/
 ### Phase 2: Remove test bottleneck (COMPLETE - commit 69b1f17)
 - Cost-sensitivity test reduced from ~104s to ~2s. Full suite now runs in ~4 min.
 
-### Phase 3: Regression-proof the suite (COMPLETE - verified 2026-11-03T02:42:24Z)
+### Phase 3: Regression-proof the suite (COMPLETE - verified 2026-11-03T02:47:51Z)
 1. `python -m pytest tests/` - exits 0 (765 passed, 1 skipped). Allow ~4 min.
 2. `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - exits 0 (125 passed).
 3. Confirmed `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` show `real_data_only: True` with no fabricated data.
