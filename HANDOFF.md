@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T21:09:40Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T21:39:07Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,7 +6,7 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T21:09:16Z)
+## CURRENT STATE (VERIFIED 2026-11-03T21:39:07Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cointegration-related tests (`-k cointegration`): passing
 - Cache provenance replay tests: **6 passed** (green)
@@ -25,8 +25,8 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T21:16:41Z
-**OBJECTIVE:** Make the **cointegration pairs discovery + enrichment gate path unbreakably fail-closed and execution-parity safe** under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination. **Heavy execution required.**
+**TIMESTAMP:** 2026-11-03T21:39:07Z
+**OBJECTIVE:** Harden **cointegration pairs discovery + enriched gate path** for unbreakable fail-closed behavior and cached/uncached execution parity under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **Heavy execution required. No audit-only termination.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
 1. **Verify baseline (fail fast):**
@@ -43,16 +43,16 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
 **Zero tolerance.** If any match found, fix causally (do not weaken gates/provenance) with a regression test.
 
 3. **Enforce cached vs uncached parity + gate integrity (P0):**
-   - Trace `CointegrationPairsStrategy` enriched gate path (cached replay via `enriched_diagnostics` vs per-bar via `target_schema_diagnostics` in `strategies/pairs_trading.py`). Identify any branch that can diverge under `strict_enriched_gates=True`.
-   - Structural breaks: when `structural_breaks.flagged` is True -> block in BOTH modes. When unassessable/None in strict mode -> block. Missing `structural_breaks` in strict cached path must block (parity with per-bar).
-   - Individual gates missing/None must block in strict mode. `all_pass` is convenience only - explicit False blocks; missing `all_pass` is not sufficient if individuals missing/None under strict.
-   - If divergence exists, fix it. Add/strengthen tests forcing borderline pairs through cached+uncached paths asserting identical `enriched_gates_ok`, identical long/short behavior, and provenance.
+   - Trace `CointegrationPairsStrategy.enriched_diagnostics` (cached) vs per-bar `target_schema_diagnostics` in `strategies/pairs_trading.py`. Find any branch that diverges under `strict_enriched_gates=True`.
+   - Structural breaks: `structural_breaks.flagged is True` -> block in BOTH modes. `flagged is None/unassessable` in strict mode -> block. Missing `structural_breaks` in strict cached path must block (parity with per-bar).
+   - Individual gates missing/None must block in strict. `all_pass` alone insufficient; explicit False blocks; missing `all_pass` ok if individuals pass.
+   - Fix divergences; add/strengthen parity tests for borderline cases asserting identical `enriched_gates_ok`, identical long/short, and provenance.
 
 4. **Harden pair discovery + diagnostics (P0):**
    - Enforce real-data only, fail-closed on inconclusive diagnostics/tests.
    - Use `blocked_schema_diagnostics` for blocked cases with full provenance (`real_data_only`, `fabricated_data:false`, `blocked_routes[]`, `computed_at`, rationale).
    - Ensure `target_schema_diagnostics` always emits `gates.no_structural_break` and accurate `blocked_routes` on blocked pairs.
-   - Cost assumptions recorded when cost grids applied; in strict mode, missing cost assumptions must block.
+   - Cost assumptions recorded when cost grids applied; in strict mode missing cost assumptions must block.
    - Cache must never mask blocked routes/failures (preserve parity via `data/cache.py`).
 
 5. **Verify & ship with evidence:**
