@@ -214,9 +214,7 @@ def _resample_volume(vol: dict[str, pd.Series], tf: str) -> dict[str, pd.Series]
     return out
 
 
-def _compute_pair_metrics(
-    y: pd.Series, x: pd.Series, min_bars: int = MIN_BARS
-) -> dict[str, Any]:
+def _compute_pair_metrics(y: pd.Series, x: pd.Series, min_bars: int = MIN_BARS) -> dict[str, Any]:
     if len(y) < min_bars or len(x) < min_bars:
         return {"available": False, "reason": "insufficient_bars"}
     yv = y.astype(float).dropna()
@@ -333,15 +331,12 @@ def generate_campaign38() -> dict[str, Any]:
 
         # Get regimes
         try:
-            regime_res = detect_regimes(
-                frame_tf["BTC"].astype(float), volume=vol_tf.get("BTC")
-            )
-            regime_series = regime_res.regime
+            regime_res = detect_regimes(frame_tf["BTC"].astype(float), volume=vol_tf.get("BTC"))
             vol_regime = regime_res.vol_regime
             trend_regime = regime_res.trend_regime
         except Exception as e:
             logger.warning("regime detection failed for %s: %s", tf, e)
-            regime_series = pd.Series([0] * len(frame_tf), index=frame_tf.index)
+            pd.Series([0] * len(frame_tf), index=frame_tf.index)
             vol_regime = pd.Series([1] * len(frame_tf), index=frame_tf.index)
             trend_regime = pd.Series([0] * len(frame_tf), index=frame_tf.index)
 
@@ -386,7 +381,11 @@ def generate_campaign38() -> dict[str, Any]:
                 row[tf2] = prob2
             sync_matrix[pname] = row
             # compute sync score (co-occurrence of elevated risk)
-            elevated = sum(1 for tf2 in TIMEFRAMES if row.get(tf2) is not None and float(row.get(tf2)) >= PROACTIVE_RISK_THRESHOLD)
+            elevated = sum(
+                1
+                for tf2 in TIMEFRAMES
+                if row.get(tf2) is not None and float(row.get(tf2)) >= PROACTIVE_RISK_THRESHOLD
+            )
             cross_timeframe_sync["per_pair_sync"][pname] = {
                 "elevated_across_timeframes": int(elevated),
                 "sync_score": float(elevated / 3.0),
@@ -443,13 +442,26 @@ def generate_campaign38() -> dict[str, Any]:
                     corr_mat = df_ret.corr().fillna(0.0)
                     portfolio_regime_coupling["basket_correlation_structure"][basket_name] = {
                         "symbols": basket_syms,
-                        "correlation_matrix": {str(k): {str(kk): float(vv) for kk, vv in row.items()} for k, row in corr_mat.to_dict().items()},
-                        "mean_correlation": float(corr_mat.values[np.triu_indices_from(corr_mat.values, k=1)].mean()) if corr_mat.shape[0] >= 2 else 0.0,
+                        "correlation_matrix": {
+                            str(k): {str(kk): float(vv) for kk, vv in row.items()}
+                            for k, row in corr_mat.to_dict().items()
+                        },
+                        "mean_correlation": float(
+                            corr_mat.values[np.triu_indices_from(corr_mat.values, k=1)].mean()
+                        )
+                        if corr_mat.shape[0] >= 2
+                        else 0.0,
                     }
                 except Exception:
-                    portfolio_regime_coupling["basket_correlation_structure"][basket_name] = {"symbols": basket_syms, "available": False}
+                    portfolio_regime_coupling["basket_correlation_structure"][basket_name] = {
+                        "symbols": basket_syms,
+                        "available": False,
+                    }
             else:
-                portfolio_regime_coupling["basket_correlation_structure"][basket_name] = {"symbols": basket_syms, "available": False}
+                portfolio_regime_coupling["basket_correlation_structure"][basket_name] = {
+                    "symbols": basket_syms,
+                    "available": False,
+                }
         # propagation: if any pair in correlated basket elevated risk, propagate
         propagation = {}
         for basket_name, basket_syms in BASKETS.items():
@@ -462,10 +474,15 @@ def generate_campaign38() -> dict[str, Any]:
                         affected_pairs.append(pname)
             propagation[basket_name] = {
                 "basket_symbols": basket_syms,
-                "pairs_in_basket": [f"{a}/{b}" for a,b in PAIRS if a in basket_syms and b in basket_syms],
+                "pairs_in_basket": [
+                    f"{a}/{b}" for a, b in PAIRS if a in basket_syms and b in basket_syms
+                ],
                 "pairs_with_cross_timeframe_coupling": affected_pairs,
                 "propagation_risk": "elevated" if len(affected_pairs) >= 2 else "moderate",
-                "contagion_potential": float(len(affected_pairs) / max(1, len([1 for a,b in PAIRS if a in basket_syms and b in basket_syms]))),
+                "contagion_potential": float(
+                    len(affected_pairs)
+                    / max(1, len([1 for a, b in PAIRS if a in basket_syms and b in basket_syms]))
+                ),
             }
         portfolio_regime_coupling["propagation_matrices"] = propagation
 
@@ -474,7 +491,10 @@ def generate_campaign38() -> dict[str, Any]:
             "description": "Cross-timeframe adaptive gate recalibration",
             "threshold_schedules": {},
             "per_pair_recalibration": {},
-            "justification": "Tighten EG/ADF/half-life/stability thresholds on ALL timeframes when any timeframe shows elevated regime-transition risk.",
+            "justification": (
+                "Tighten EG/ADF/half-life/stability thresholds on ALL timeframes "
+                "when any timeframe shows elevated regime-transition risk."
+            ),
             "provenance": _provenance(f"adaptive_recalibration_{tf}"),
         }
         for pname in PNAMES:
@@ -495,7 +515,9 @@ def generate_campaign38() -> dict[str, Any]:
                 "adf_spread_p_max": max(0.001, GATE_EG_P_MAX * factor),
                 "half_life_min": GATE_HL_MIN,  # keep bounds but note tightening context
                 "half_life_max": GATE_HL_MAX,
-                "rolling_stability_min": min(0.99, GATE_ROLLING_MIN / factor if factor < 1 else GATE_ROLLING_MIN),
+                "rolling_stability_min": min(
+                    0.99, GATE_ROLLING_MIN / factor if factor < 1 else GATE_ROLLING_MIN
+                ),
             }
             adaptive_recalibration["per_pair_recalibration"][pname] = {
                 "available": True,
@@ -504,13 +526,19 @@ def generate_campaign38() -> dict[str, Any]:
                 "co_occurring_across_timeframes": bool(co_occ),
                 "any_timeframe_elevated": bool(any_elevated),
                 "adaptive_thresholds": adaptive_thresh,
-                "justification": "Cross-timeframe elevated regime-transition risk -> tighten thresholds (fail-closed).",
+                "justification": (
+                    "Cross-timeframe elevated regime-transition risk -> "
+                    "tighten thresholds (fail-closed)."
+                ),
                 "provenance": _provenance(f"adaptive_recal_{pname}_{tf}"),
             }
         adaptive_recalibration["threshold_schedules"] = {
             tf: {
                 "base": {"eg_p_max": GATE_EG_P_MAX, "rolling_stability_min": GATE_ROLLING_MIN},
-                "tightened_on_cross_timeframe_risk": {"eg_p_max": GATE_EG_P_MAX * ADAPTIVE_TIGHTEN_FACTOR, "rolling_stability_min": min(0.99, GATE_ROLLING_MIN / ADAPTIVE_TIGHTEN_FACTOR)},
+                "tightened_on_cross_timeframe_risk": {
+                    "eg_p_max": GATE_EG_P_MAX * ADAPTIVE_TIGHTEN_FACTOR,
+                    "rolling_stability_min": min(0.99, GATE_ROLLING_MIN / ADAPTIVE_TIGHTEN_FACTOR),
+                },
                 "applied_when_any_timeframe_elevated": True,
             }
             for tf in TIMEFRAMES
@@ -518,7 +546,10 @@ def generate_campaign38() -> dict[str, Any]:
 
         # Portfolio-level fail-closed re-gating with basket blocking
         portfolio_fail_closed_regating: dict[str, Any] = {
-            "description": "Portfolio-level fail-closed re-gating with basket blocking on predicted breach",
+            "description": (
+                "Portfolio-level fail-closed re-gating with basket blocking "
+                "on predicted breach"
+            ),
             "per_pair_regating": {},
             "basket_blocking": {},
             "no_auto_lift": True,
@@ -531,14 +562,20 @@ def generate_campaign38() -> dict[str, Any]:
         basket_blocked_pairs = set()
         for basket_name, basket_syms in BASKETS.items():
             # check if any pair in basket has predicted breach / cross-timeframe coupling
-            basket_pairs = [f"{a}/{b}" for a,b in PAIRS if a in basket_syms and b in basket_syms]
+            basket_pairs = [f"{a}/{b}" for a, b in PAIRS if a in basket_syms and b in basket_syms]
             should_block_basket = False
             breach_pairs = []
             for pname in basket_pairs:
                 cps = cross_timeframe_sync["per_pair_sync"].get(pname) or {}
                 p_pred = c37_preds.get(pname) or {}
-                prob = p_pred.get("regime_transition_probability") if p_pred.get("available") else None
-                if (prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD) or (cps.get("co_occuring")) or (cps.get("sync_score") or 0) >= 0.67:
+                prob = (
+                    p_pred.get("regime_transition_probability") if p_pred.get("available") else None
+                )
+                if (
+                    (prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD)
+                    or (cps.get("co_occuring"))
+                    or (cps.get("sync_score") or 0) >= 0.67
+                ):
                     should_block_basket = True
                     breach_pairs.append(pname)
             if should_block_basket:
@@ -551,14 +588,16 @@ def generate_campaign38() -> dict[str, Any]:
                 "capacity": 0.0 if should_block_basket else PARTICIPATION_CAP,
                 "weight": 0.0 if should_block_basket else 1.0,
                 "fail_closed": True,
-                "action": "block_basket_zero_capacity_weight" if should_block_basket else "allow_with_monitoring",
+                "action": "block_basket_zero_capacity_weight"
+                if should_block_basket
+                else "allow_with_monitoring",
             }
         # per pair
         for pname in PNAMES:
             base_eligible = pname in eligible_base
             p_pred = c37_preds.get(pname) or {}
             prob = p_pred.get("regime_transition_probability") if p_pred.get("available") else None
-            predicted_breach = (prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD)
+            predicted_breach = prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD
             basket_blocked = pname in basket_blocked_pairs
             new_eligible = base_eligible and not predicted_breach and not basket_blocked
             portfolio_fail_closed_regating["per_pair_regating"][pname] = {
@@ -567,7 +606,9 @@ def generate_campaign38() -> dict[str, Any]:
                 "predicted_breach_probability": prob,
                 "predicted_breach": bool(predicted_breach),
                 "basket_blocked": bool(basket_blocked),
-                "cross_timeframe_coupled": bool((cross_timeframe_sync["per_pair_sync"].get(pname) or {}).get("co_occuring")),
+                "cross_timeframe_coupled": bool(
+                    (cross_timeframe_sync["per_pair_sync"].get(pname) or {}).get("co_occuring")
+                ),
                 "reclassified_blocked": bool(base_eligible and not new_eligible),
                 "new_eligible": bool(new_eligible),
                 "capacity": 0.0 if (predicted_breach or basket_blocked) else PARTICIPATION_CAP,
@@ -592,20 +633,26 @@ def generate_campaign38() -> dict[str, Any]:
             actual_fail = m.get("available") and not bool(m.get("all_pass"))
             p_pred = c37_preds.get(pname) or {}
             prob = p_pred.get("regime_transition_probability") if p_pred.get("available") else None
-            pred_breach = (prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD)
+            pred_breach = prob is not None and float(prob) >= BREACH_ALERT_THRESHOLD
             tp = 1 if pred_breach and actual_fail else 0
             fp = 1 if pred_breach and not actual_fail else 0
             tn = 1 if (not pred_breach) and (not actual_fail) else 0
             fn = 1 if (not pred_breach) and actual_fail else 0
-            all_tp += tp; all_fp += fp; all_tn += tn; all_fn += fn
+            all_tp += tp
+            all_fp += fp
+            all_tn += tn
+            all_fn += fn
             prec = tp / (tp + fp) if (tp + fp) > 0 else (1.0 if tp == 0 and fp == 0 else 0.0)
             rec = tp / (tp + fn) if (tp + fn) > 0 else (1.0 if tp == 0 and fn == 0 else 0.0)
-            f1 = 2*prec*rec/(prec+rec) if (prec+rec)>0 else 0.0
+            f1 = 2 * prec * rec / (prec + rec) if (prec + rec) > 0 else 0.0
             per_pair_acc[pname] = {
                 "actual_gate_failure": bool(actual_fail),
                 "predicted_breach": bool(pred_breach),
                 "probability": prob,
-                "tp": tp, "fp": fp, "tn": tn, "fn": fn,
+                "tp": tp,
+                "fp": fp,
+                "tn": tn,
+                "fn": fn,
                 "precision": float(prec),
                 "recall": float(rec),
                 "f1": float(f1),
@@ -615,9 +662,12 @@ def generate_campaign38() -> dict[str, Any]:
         cross_timeframe_prediction_accuracy["per_pair_accuracy"] = per_pair_acc
         p_prec = all_tp / (all_tp + all_fp) if (all_tp + all_fp) > 0 else 0.0
         p_rec = all_tp / (all_tp + all_fn) if (all_tp + all_fn) > 0 else 0.0
-        p_f1 = 2*p_prec*p_rec/(p_prec+p_rec) if (p_prec+p_rec)>0 else 0.0
+        p_f1 = 2 * p_prec * p_rec / (p_prec + p_rec) if (p_prec + p_rec) > 0 else 0.0
         cross_timeframe_prediction_accuracy["portfolio_accuracy"] = {
-            "tp": all_tp, "fp": all_fp, "tn": all_tn, "fn": all_fn,
+            "tp": all_tp,
+            "fp": all_fp,
+            "tn": all_tn,
+            "fn": all_fn,
             "precision": float(p_prec),
             "recall": float(p_rec),
             "f1": float(p_f1),
@@ -625,16 +675,30 @@ def generate_campaign38() -> dict[str, Any]:
             "recall_mean": float(p_rec),
             "f1_mean": float(p_f1),
         }
-        cross_timeframe_prediction_accuracy["confusion_summary"] = cross_timeframe_prediction_accuracy["portfolio_accuracy"]
+        cross_timeframe_prediction_accuracy["confusion_summary"] = (
+            cross_timeframe_prediction_accuracy["portfolio_accuracy"]
+        )
 
         # Basket cointegration, multi-asset hedge ratios, portfolio spreads
         basket_cointegration = {}
         for basket_name, basket_syms in BASKETS.items():
             basket_cointegration[basket_name] = {
                 "symbols": basket_syms,
-                "pairs_in_basket": [f"{a}/{b}" for a,b in PAIRS if a in basket_syms and b in basket_syms],
-                "cross_timeframe_coupled_pairs": [pname for pname in [f"{a}/{b}" for a,b in PAIRS if a in basket_syms and b in basket_syms] if (cross_timeframe_sync["per_pair_sync"].get(pname) or {}).get("co_occuring")],
-                "blocked_on_predicted_breach": bool((portfolio_fail_closed_regating["basket_blocking"].get(basket_name) or {}).get("blocked")),
+                "pairs_in_basket": [
+                    f"{a}/{b}" for a, b in PAIRS if a in basket_syms and b in basket_syms
+                ],
+                "cross_timeframe_coupled_pairs": [
+                    pname
+                    for pname in [
+                        f"{a}/{b}" for a, b in PAIRS if a in basket_syms and b in basket_syms
+                    ]
+                    if (cross_timeframe_sync["per_pair_sync"].get(pname) or {}).get("co_occuring")
+                ],
+                "blocked_on_predicted_breach": bool(
+                    (portfolio_fail_closed_regating["basket_blocking"].get(basket_name) or {}).get(
+                        "blocked"
+                    )
+                ),
                 "provenance": _provenance(f"basket_coint_{basket_name}_{tf}"),
             }
         multi_asset_hedge_ratios = {}
@@ -642,32 +706,49 @@ def generate_campaign38() -> dict[str, Any]:
             hrs = {}
             for sym in basket_syms:
                 hrs[sym] = 1.0  # normalized representation
-            multi_asset_hedge_ratios[basket_name] = {"hedge_ratios": hrs, "normalized": True, "provenance": _provenance(f"multi_asset_hr_{basket_name}_{tf}")}
+            multi_asset_hedge_ratios[basket_name] = {
+                "hedge_ratios": hrs,
+                "normalized": True,
+                "provenance": _provenance(f"multi_asset_hr_{basket_name}_{tf}"),
+            }
         portfolio_spreads = {}
         for basket_name, basket_syms in BASKETS.items():
-            portfolio_spreads[basket_name] = {"basket": basket_syms, "spread_representation": "synthetic_portfolio_spread", "available": True, "provenance": _provenance(f"portfolio_spreads_{basket_name}_{tf}")}
+            portfolio_spreads[basket_name] = {
+                "basket": basket_syms,
+                "spread_representation": "synthetic_portfolio_spread",
+                "available": True,
+                "provenance": _provenance(f"portfolio_spreads_{basket_name}_{tf}"),
+            }
 
         # Execution aware capacity allocation with breach alerts driving halts
         breach_alerts = []
         for pname, pr in portfolio_fail_closed_regating["per_pair_regating"].items():
             if pr.get("predicted_breach") or pr.get("basket_blocked"):
-                breach_alerts.append({
-                    "pair": pname,
-                    "alert_type": "cross_timeframe_predicted_breach",
-                    "probability": pr.get("predicted_breach_probability"),
-                    "basket_blocked": pr.get("basket_blocked"),
-                    "action": "halt_execution",
-                    "fail_closed": True,
-                    "no_auto_lift": True,
-                })
+                breach_alerts.append(
+                    {
+                        "pair": pname,
+                        "alert_type": "cross_timeframe_predicted_breach",
+                        "probability": pr.get("predicted_breach_probability"),
+                        "basket_blocked": pr.get("basket_blocked"),
+                        "action": "halt_execution",
+                        "fail_closed": True,
+                        "no_auto_lift": True,
+                    }
+                )
         execution_aware_capacity_allocation = {
             "available": True,
             "breach_alerts": breach_alerts,
             "breach_alerts_present": len(breach_alerts) > 0,
             "breach_alerts_drive_halts": True,
             "halt_execution_on_predicted_breach": True,
-            "capacity_by_pair": {pname: pr.get("capacity") for pname, pr in portfolio_fail_closed_regating["per_pair_regating"].items()},
-            "weight_by_pair": {pname: pr.get("weight") for pname, pr in portfolio_fail_closed_regating["per_pair_regating"].items()},
+            "capacity_by_pair": {
+                pname: pr.get("capacity")
+                for pname, pr in portfolio_fail_closed_regating["per_pair_regating"].items()
+            },
+            "weight_by_pair": {
+                pname: pr.get("weight")
+                for pname, pr in portfolio_fail_closed_regating["per_pair_regating"].items()
+            },
             "provenance": _provenance(f"execution_capacity_{tf}"),
         }
 
@@ -677,7 +758,9 @@ def generate_campaign38() -> dict[str, Any]:
             "available": True,
             "triggered": bool(kill_switch_triggered),
             "triggers": ["cross_timeframe_predicted_breach"] if kill_switch_triggered else [],
-            "halted_states": list({a["pair"] for a in breach_alerts}) if kill_switch_triggered else [],
+            "halted_states": list({a["pair"] for a in breach_alerts})
+            if kill_switch_triggered
+            else [],
             "no_auto_lift": True,
             "cannot_auto_lift": True,
             "reentry_requirements": {
@@ -699,8 +782,12 @@ def generate_campaign38() -> dict[str, Any]:
             "expected_invariants": EXPECTED_INVARIANTS[tf],
             "regime_summary": {
                 "n_bars": int(len(frame_tf)),
-                "vol_regime_dist": vol_regime.value_counts().to_dict() if hasattr(vol_regime, "value_counts") else {},
-                "trend_regime_dist": trend_regime.value_counts().to_dict() if hasattr(trend_regime, "value_counts") else {},
+                "vol_regime_dist": vol_regime.value_counts().to_dict()
+                if hasattr(vol_regime, "value_counts")
+                else {},
+                "trend_regime_dist": trend_regime.value_counts().to_dict()
+                if hasattr(trend_regime, "value_counts")
+                else {},
             },
             "gate_thresholds": {
                 "eg_p_max": GATE_EG_P_MAX,
@@ -723,13 +810,29 @@ def generate_campaign38() -> dict[str, Any]:
             "breach_alerts": breach_alerts,
             "breach_alerts_present": len(breach_alerts) > 0,
             "summary": {
-                "n_pairs_cross_timeframe_coupled": sum(1 for p in cross_timeframe_sync["per_pair_sync"].values() if p.get("co_occuring")),
-                "n_baskets_blocked": sum(1 for b in portfolio_fail_closed_regating["basket_blocking"].values() if b.get("blocked")),
-                "n_pairs_reclassified_blocked": sum(1 for pr in portfolio_fail_closed_regating["per_pair_regating"].values() if pr.get("reclassified_blocked")),
+                "n_pairs_cross_timeframe_coupled": sum(
+                    1
+                    for p in cross_timeframe_sync["per_pair_sync"].values()
+                    if p.get("co_occuring")
+                ),
+                "n_baskets_blocked": sum(
+                    1
+                    for b in portfolio_fail_closed_regating["basket_blocking"].values()
+                    if b.get("blocked")
+                ),
+                "n_pairs_reclassified_blocked": sum(
+                    1
+                    for pr in portfolio_fail_closed_regating["per_pair_regating"].values()
+                    if pr.get("reclassified_blocked")
+                ),
                 "n_breach_alerts": len(breach_alerts),
                 "kill_switch_triggered": bool(kill_switch_triggered),
-                "portfolio_precision": cross_timeframe_prediction_accuracy["portfolio_accuracy"]["precision"],
-                "portfolio_recall": cross_timeframe_prediction_accuracy["portfolio_accuracy"]["recall"],
+                "portfolio_precision": cross_timeframe_prediction_accuracy["portfolio_accuracy"][
+                    "precision"
+                ],
+                "portfolio_recall": cross_timeframe_prediction_accuracy["portfolio_accuracy"][
+                    "recall"
+                ],
                 "portfolio_f1": cross_timeframe_prediction_accuracy["portfolio_accuracy"]["f1"],
             },
             "provenance": _provenance(f"campaign38_{tf}_real_data_only"),
