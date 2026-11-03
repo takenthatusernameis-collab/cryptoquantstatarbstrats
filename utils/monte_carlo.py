@@ -1,15 +1,57 @@
 """
 Monte Carlo robustness analysis for strategy equity curves.
+
+All Monte Carlo outputs are derived from real return series only. They never
+fabricate returns, costs, or risk metrics. Every result dict carries a
+``provenance`` block (``source``, ``real_data_only``, ``fabricated_data``,
+``computed_at``, ``rationale``) so downstream artifacts (e.g.
+``reports/monte_carlo_real.json``) can be traced to the cointegration pairs
+edge and never masquerade as computeable when the input series was empty or
+blocked.
 """
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any
 
 import numpy as np
 import pandas as pd
 
 from utils.metrics import max_drawdown, sharpe_ratio
+
+
+def _now_iso() -> str:
+    return datetime.now(tz=timezone.utc).isoformat()
+
+
+def _provenance(
+    source: str,
+    *,
+    blocked_routes: list[str] | None = None,
+    error: str | None = None,
+) -> dict[str, Any]:
+    """Build an honest, real-data-only provenance block.
+
+    ``blocked_routes`` records the specific downstream paths that could not be
+    computed from real data (e.g. an empty/blocked input series). It is never
+    fabricated: when the input is genuinely empty, ``blocked_routes`` lists the
+    affected metric families so no result masquerades as computeable.
+    """
+    prov: dict[str, Any] = {
+        "source": source,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "computed_at": _now_iso(),
+        "blocked_routes": list(blocked_routes or []),
+        "rationale": (
+            "Monte Carlo resampling of real return series only; no fabricated "
+            "returns, costs, or risk metrics."
+        ),
+    }
+    if error:
+        prov["error"] = error
+    return prov
 
 
 def _to_series(x: Any) -> pd.Series:
@@ -139,6 +181,16 @@ def bootstrap_trade_returns(
             },
             "risk_of_ruin": 0.0,
             "risk_of_ruin_threshold": float(ruin_threshold),
+            "provenance": _provenance(
+                "utils.monte_carlo.bootstrap_trade_returns",
+                blocked_routes=[
+                    "final_equity",
+                    "max_drawdown",
+                    "sharpe_ratio",
+                    "risk_of_ruin",
+                ],
+                error="empty_input_no_real_returns",
+            ),
         }
 
     method = method.lower()
@@ -211,6 +263,7 @@ def bootstrap_trade_returns(
         "final_equities": final_equities,
         "max_drawdowns": max_drawdowns,
         "sharpes": sharpes,
+        "provenance": _provenance("utils.monte_carlo.bootstrap_trade_returns"),
     }
     if compute_risk_of_ruin:
         result["risk_of_ruin"] = (
@@ -256,6 +309,11 @@ def permutation_test_distinguishability(
             "n_permutations": 0,
             "n_observations": 0,
             "note": "Empty input; cannot distinguish from zero.",
+            "provenance": _provenance(
+                "utils.monte_carlo.permutation_test_distinguishability",
+                blocked_routes=["observed_mean", "p_value"],
+                error="empty_input_no_real_returns",
+            ),
         }
 
     observed_mean = float(np.mean(trades))
@@ -282,6 +340,9 @@ def permutation_test_distinguishability(
             "Two-sided permutation p-value for the observed mean return against "
             "the null of no exploitable signal. Lower p-value is more "
             "distinguishable from zero."
+        ),
+        "provenance": _provenance(
+            "utils.monte_carlo.permutation_test_distinguishability"
         ),
     }
 
@@ -319,6 +380,11 @@ def tail_risk_metrics(
             "n_observations": 0,
             "note": "Empty input; tail metrics undefined.",
             "by_confidence": {},
+            "provenance": _provenance(
+                "utils.monte_carlo.tail_risk_metrics",
+                blocked_routes=["var", "cvar", "cdar", "by_confidence"],
+                error="empty_input_no_real_returns",
+            ),
         }
 
     equity = float(initial_equity) * np.cumprod(1.0 + trades)
@@ -359,6 +425,7 @@ def tail_risk_metrics(
             "returns at or below VaR; CDaR is the mean of drawdowns at or below "
             "the drawdown VaR threshold."
         ),
+        "provenance": _provenance("utils.monte_carlo.tail_risk_metrics"),
     }
 
 
@@ -447,12 +514,50 @@ def monte_carlo_analysis(
             compute_risk_of_ruin=compute_risk_of_ruin,
         )
 
-    return bootstrap_trade_returns(
-        [],
-        n_simulations=n_simulations,
-        method=method,
-        seed=seed,
-        ruin_threshold=ruin_threshold,
-        block_size=block_size,
-        compute_risk_of_ruin=compute_risk_of_ruin,
-    )
+    # No real input series provided: fail-closed with provenance so a
+    # downstream artifact can never report fabricated Monte Carlo intervals.
+    return {
+        "n_simulations": int(n_simulations),
+        "method": method,
+        "final_equity": {
+            "mean": 0.0,
+            "std": 0.0,
+            "p5": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p95": 0.0,
+        },
+        "max_drawdown": {
+            "mean": 0.0,
+            "std": 0.0,
+            "p5": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p95": 0.0,
+            "ci95": [0.0, 0.0],
+            "ci99": [0.0, 0.0],
+        },
+        "sharpe_ratio": {
+            "mean": 0.0,
+            "std": 0.0,
+            "p5": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p95": 0.0,
+        },
+        "risk_of_ruin": 0.0,
+        "risk_of_ruin_threshold": float(ruin_threshold),
+        "provenance": _provenance(
+            "utils.monte_carlo.monte_carlo_analysis",
+            blocked_routes=[
+                "final_equity",
+                "max_drawdown",
+                "sharpe_ratio",
+                "risk_of_ruin",
+            ],
+            error="no_real_input_series",
+        ),
+    }
