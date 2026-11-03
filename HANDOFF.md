@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:04:52Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:05:10Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY
 
 ## REPO SIGNAL (INFERRED)
@@ -12,6 +12,7 @@ Everything else exists to support/gate/validate pairs. Treat it as publication-g
 - mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files**
 - Working tree clean. Network: `www.binance.com` serves public klines; loader handles `api.binance.com` 451 honestly.
 - Reports verified: `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` contain `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` for blocked pairs.
+- P0 item 1 (fail-open coercion hunt): **no `or True` coercions found** in strategies/ utils/.
 
 ## IMMEDIATE INITIAL TASK (MUST DO FIRST TURN - NO EXPLORATION-ONLY)
 ```bash
