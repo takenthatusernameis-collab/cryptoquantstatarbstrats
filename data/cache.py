@@ -90,7 +90,7 @@ def load_cached(
                 return data.copy(), provenance
             parquet_path = _cache_path(key)
             meta_path = _meta_path(key)
-            if parquet_path.exists() and meta_path.exists():
+if parquet_path.exists() and meta_path.exists():
                 try:
                     with open(parquet_path, "rb") as fh:
                         data = pickle.load(fh)
@@ -98,7 +98,20 @@ def load_cached(
                     provenance["cache_hit"] = True
                     provenance["disk_cache"] = True
                     provenance.update({k: v for k, v in meta.items() if k.startswith("fetch_")})
-                    _memory_cache[key] = (data.copy(), meta)
+                    # Restore blocked-route provenance from the persisted cache
+                    # meta so a cached read reports the same blocked routes as
+                    # the original cold fetch (never masks a blocked route).
+                    blocked_hosts = meta.get("fetch_blocked_hosts")
+                    blocked_routes = meta.get("fetch_blocked_routes")
+                    if isinstance(blocked_hosts, list):
+                        provenance["blocked_hosts"] = blocked_hosts
+                    if isinstance(blocked_routes, list):
+                        provenance["blocked_routes"] = blocked_routes
+                    if isinstance(meta.get("fetch_attempts"), list):
+                        provenance["fetch_attempts"] = meta.get("fetch_attempts")
+                    if isinstance(meta.get("fetch_errors"), list):
+                        provenance["errors"] = list(meta.get("fetch_errors"))
+                    _memory_cache[key] = (data.copy(), provenance)
                     return data.copy(), provenance
                 except Exception as exc:
                     provenance["errors"].append(f"cache_read_failed: {exc}")
@@ -130,6 +143,12 @@ def load_cached(
                 meta_path = _meta_path(key)
                 with open(parquet_path, "wb") as fh:
                     pickle.dump(data, fh)
+                # Persist the FULL fetch provenance (including blocked routes and
+                # per-symbol attempts) so a later cache HIT can never mask the
+                # fact that the original fetch encountered blocked hosts. Without
+                # this, a blocked route observed on the cold fetch would silently
+                # disappear on every subsequent cached read, which is exactly the
+                # "cache masks failures" failure mode this campaign forbids.
                 meta_path.write_text(
                     json.dumps(
                         {
@@ -142,6 +161,12 @@ def load_cached(
                             "fetch_success": True,
                             "rows": int(len(data)),
                             "columns": list(data.columns),
+                            "fetch_blocked_hosts": list(provenance.get("blocked_hosts", []) or []),
+                            "fetch_blocked_routes": list(provenance.get("blocked_routes", []) or []),
+                            "fetch_attempts": list(provenance.get("fetch_attempts", []) or []),
+                            "fetch_errors": list(provenance.get("errors", []) or []),
+                            "fetch_real_data_only": True,
+                            "fetch_fabricated_data": False,
                         },
                         indent=2,
                     ),

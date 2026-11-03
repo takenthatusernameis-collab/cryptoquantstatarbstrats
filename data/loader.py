@@ -455,6 +455,25 @@ class DataLoader:
             }
             for sym, series in results.items()
         }
+        # Aggregate blocked-route provenance from every per-symbol fetch.
+        # Each load_binance_data call overwrites self.last_fetch_provenance, so
+        # the last call's blocked routes are the only ones visible unless we
+        # collect them here. A blocked host observed for one symbol must be
+        # reported for the whole call, never silently dropped.
+        blocked_hosts: list[str] = []
+        blocked_routes: list[str] = []
+        for sym in symbols:
+            sym_prov = getattr(self, "last_fetch_provenance", None)
+            if not isinstance(sym_prov, dict):
+                continue
+            for host in sym_prov.get("blocked_hosts", []) or []:
+                if host not in blocked_hosts:
+                    blocked_hosts.append(host)
+            for route in sym_prov.get("blocked_routes", []) or []:
+                if route not in blocked_routes:
+                    blocked_routes.append(route)
+        provenance["blocked_hosts"] = blocked_hosts
+        provenance["blocked_routes"] = blocked_routes
         provenance["excluded"] = provenance["excluded"] + [
             {"symbol": s, "reason": "not_in_results", "attempts": attempts_log.get(s, [])}
             for s in symbols
