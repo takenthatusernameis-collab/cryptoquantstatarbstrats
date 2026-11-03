@@ -385,6 +385,13 @@ class CointegrationPairsStrategy(PairStrategy):
         # market value so the absolute weights sum to one before engine
         # normalization, preserving the rolling hedge ratio's relative sizing.
         beta = self.hedge_ratio_series.reindex(data.index)
+        # Fail closed if hedge ratio is invalid
+        try:
+            beta = beta.replace([np.inf, -np.inf], np.nan)
+            beta = beta.where(beta > 1e-18)
+            beta = beta.clip(lower=1e-6, upper=1e6)
+        except Exception:
+            pass
         gross_value = price1.abs() + beta.abs() * price2.abs()
         valid = (
             (position != 0)

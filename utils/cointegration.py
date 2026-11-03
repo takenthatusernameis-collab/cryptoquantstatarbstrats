@@ -224,6 +224,10 @@ def rolling_cointegration_stability(
                 "reason": "insufficient_data",
                 "pvalues": [],
                 "frac_significant": 0.0,
+                "frac_significant_0_05": 0.0,
+                "n_windows": 0,
+                "window": int(window),
+                "step": int(step),
             }
         pvalues = []
         for start in range(0, len(p1) - window + 1, step):
@@ -236,19 +240,35 @@ def rolling_cointegration_stability(
             except Exception:
                 continue
         if not pvalues:
-            return {"stable": False, "pvalues": [], "frac_significant": 0.0}
+            return {
+                "stable": False,
+                "pvalues": [],
+                "frac_significant": 0.0,
+                "frac_significant_0_05": 0.0,
+                "n_windows": 0,
+                "window": int(window),
+                "step": int(step),
+            }
         frac_sig = float(np.mean([pv < 0.05 for pv in pvalues]))
         stable = frac_sig >= 0.6  # majority of windows cointegrated
         return {
             "stable": bool(stable),
             "pvalues": pvalues,
             "frac_significant_0_05": frac_sig,
+            "frac_significant": frac_sig,
             "n_windows": len(pvalues),
             "window": int(window),
             "step": int(step),
         }
     except Exception as e:
-        return {"stable": False, "error": str(e)[:80], "pvalues": [], "frac_significant_0_05": 0.0}
+        return {
+            "stable": False,
+            "error": str(e)[:80],
+            "pvalues": [],
+            "frac_significant_0_05": 0.0,
+            "frac_significant": 0.0,
+            "n_windows": 0,
+        }
 
 
 def structural_break_check(

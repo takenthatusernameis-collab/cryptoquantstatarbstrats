@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T07:39:45Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T07:53:58Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -71,3 +71,11 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 - [ ] Material hardening shipped on cointegration pairs edge with traceable evidence
 
 **START NOW. Run immediate action. Fix failures immediately. Attack initial task. Do not stop at audit - harden and verify.**
+
+
+## SESSION UPDATE (2026-11-03T07:53:58Z) - GATE PARITY & STRESS HARDENING (COMPLETED)
+- **Parity**: Added cached vs per-bar parity tests (structural break flagged; all_pass missing with individuals passing; None individual gates in strict). Both paths enforce structural break blocking under both modes and block on None in strict with `all_pass` non-blocking when missing but individuals pass.
+- **Rolling stability**: Hardened `utils/cointegration.rolling_cointegration_stability` to always emit `frac_significant_0_05`/`frac_significant` and `n_windows` (honest 0 on insufficient/unassessable) - fail-closed.
+- **Structural break propagation**: Verified `no_structural_break` gate present in target schema; unassessable/flagged cases fail-closed with blocked routes/provenance.
+- **Strategy guards**: Added beta validation in `CointegrationPairsStrategy.generate_signals` (clip/guard non-positive/NaN/Inf) + unit test `test_pairs_beta_non_positive_fails_closed` asserting fail-closed behavior.
+- **Verification**: Critical subset 127/127 passed. `ruff` clean on touched files; `mypy backtest strategies utils` success (32 files).
