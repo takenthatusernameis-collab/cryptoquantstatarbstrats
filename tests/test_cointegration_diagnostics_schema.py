@@ -257,7 +257,12 @@ def test_target_schema_structural_break_gate_is_consistent_with_flagged():
     y = np.empty(n)
     y[: n // 2] = 2.0 * x[: n // 2] + rng.normal(0, 0.5, n // 2)
     y[n // 2 :] = 4.0 * x[n // 2 :] + rng.normal(0, 0.5, n - n // 2)
-    diag = target_schema_diagnostics(pd.Series(y, index=idx), pd.Series(x, index=idx), "BREAK/Y", source="isolated_test")
+    diag = target_schema_diagnostics(
+        pd.Series(y, index=idx),
+        pd.Series(x, index=idx),
+        "BREAK/Y",
+        source="isolated_test",
+    )
     sb = diag["structural_breaks"]
     gate = diag["gates"]["no_structural_break"]
     assert gate is bool(sb.get("flagged") is not True), (
