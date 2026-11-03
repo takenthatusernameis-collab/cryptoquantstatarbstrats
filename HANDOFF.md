@@ -1,88 +1,61 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T03:09:54Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T03:10:46Z | REPO: cryptoquantstatarbstrats
+# PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY
 
-## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
-**KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY, REGRESSION-FREE, AND REAL-DATA ONLY.**
+## REPO SIGNAL (INFERRED)
+`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the product edge.**
+Everything else exists to support/gate/validate pairs. Treat it as publication-grade research code where fabrication is unacceptable.
 
-Repo `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. The cointegration/stat-arb edge IS the product. Everything else supports, gates, or validates it. Pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`). No fabricated diagnostics, no synthetic evidence of real-market performance. `real_data_only` + full provenance is mandatory.
+## GROUND TRUTH (VERIFIED)
+- Critical subset: **125 passed** (campaign 29-38 + recertification + permanent cert + diagnostics schema)
+- Full suite: **765 passed, 1 skipped** (verified previously)
+- Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**
+- mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files**
+- Working tree clean. Network: `www.binance.com` serves public klines; loader handles `api.binance.com` 451 honestly.
 
-## CURRENT STATE SNAPSHOT (GROUND TRUTH - VERIFIED 2026-11-03T03:07:35Z)
-- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (~4 min)
-- Critical gating: cointegration campaign tests 29-38 + loader, recertification audit, permanent production certification, all `_mt` gating/signoff/live-deployment bridge tests - **ALL PASS**
-- Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes) - **ALL PASS**
-- **Lint:** `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 ("All checks passed!")
-- **mypy:** `python -m mypy backtest strategies utils` exits 0 ("Success: no issues found in 32 source files")
-- Warnings only (non-failing): statsmodels FutureWarnings/ComplexWarning/CollinearityWarning/InterpolationWarning, pandas freq deprecation
-- **Working tree clean** - no uncommitted changes
-- Recent history: mostly checkpoint commits; **do not checkpoint on red - fix until green, then commit with purpose**
-
-## BOTTLENECK STATUS (RESOLVED - NO MULTI-SESSION BLOCKERS)
-- Board shows **one active session** (main, self). No sibling sessions are blocked or waiting. No cross-session coordination needed.
-- Historical CI noise on old branch `fix/causal-pairs-validation-2026-10-27` (ModuleNotFoundError numpy/yaml/sklearn, idle timeouts, Ruff failures, cancelled runs) is **resolved / not current**. `main` is green. Do not reopen that branch or chase those stale errors.
-- No network/data bottleneck blocks progress: `www.binance.com` serves public spot klines; loader host chain handles `api.binance.com` 451 honestly via `blocked_or_insufficient_data`. Real-data paths are operational.
-
-## INITIAL TASK (FIRST TURN — RUN THIS FIRST, MUST PASS)
-```
-cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
-```
-If ANY fail -> fix immediately. Then run full suite `python -m pytest tests/`. Only after green, proceed to hardenings below. Do not start with reading-only or summary-only turns.
-
-## IMMEDIATE MANDATE FOR NEXT AGENT (HEAVY WORK, NO EXPLORATION-ONLY)
-**You MUST make substantive progress on the pairs/cointegration path.** Do not stop at reading. Every turn must fix, harden, or verify something material. Gates are fail-closed - never weaken them.
-
-### Required verification (run first, must pass)
+## IMMEDIATE INITIAL TASK (MUST DO FIRST TURN - NO EXPLORATION-ONLY)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
 ```
-If ANY of these fail -> fix immediately. Then run full suite.
+**If ANY fail → fix before doing anything else.** Only proceed if all pass.
 
-### Campaign: "FORTIFY PAIRS GATES & REAL-DATA PROVENANCE"
-Focus on hardening the cointegration edge with zero regressions.
+## BOTTLENECK REMOVAL (APPLY NOW)
+- **Single session active** - no cross-session blockers. Do not wait on board; act.
+- **No stale CI branch to chase.** main is green.
+- **No data/network blocker.** Real-data paths operational.
 
-#### Priority 1: Enforce causal, fail-closed gate integrity (CRITICAL)
-- **Read & trace:** `strategies/pairs_trading.py` (defaults `use_enriched_gates=True`, `strict_enriched_gates=True`), `utils/cointegration.py` (EG/Johansen, spread MR, half-life bounds 1<hl<500, rolling stability, breaks, leg stationarity), `backtest/engine.py` (causal application).
-- **Harden:** Ensure missing/None/False enriched gate values block entries under strict mode. No fallthrough to permissive defaults. Verify trailing-only data usage.
-- **Verify:** All campaign/gating tests pass. No synthetic evidence injected into real-data paths.
+## NEXT FOCUS CAMPAIGN (HEAVY WORK - CANNOT BE AVOIDED)
+**Campaign: "FORTIFY & STRESS-TEST COINTEGRATION GATES"**
 
-#### Priority 2: Real-data provenance & diagnostics (CRITICAL)
-- **Audit:** `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` - must show `real_data_only: true`, `fabricated_data: false`, full provenance, `blocked_routes` when applicable.
-- **Harden loader:** `data/loader.py`, `data/cache.py`, `data/__init__.py` - keep `data.cache` import unambiguous (mypy/namespace). Network handling: prefer `www.binance.com` for public spot; never rely on api.binance.com returning data (451 possible). When reconstruction blocked -> honest `blocked_or_insufficient_data` with rationale, never fabricate.
-- **Verify:** `tests/test_cointegration_diagnostics_schema.py` passes.
+### P0 - Gate Integrity (CRITICAL)
+1. **Trace strict fail-closed path** in `strategies/pairs_trading.py` (`CointegrationPairsStrategy`: defaults `use_enriched_gates=True`, `strict_enriched_gates=True`). For every enriched gate (eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, all_pass), confirm: missing/None/False → entry blocked under strict mode. No permissive fallthrough.
+2. **Harden gate computation** in `utils/cointegration.py`. Enforce trailing-only data (no lookahead). Validate half-life bounds `1 < hl < 500`. Ensure EG/Johansen/spread MR/rolling stability/breaks/leg stationarity produce values that strict mode cannot misread as "ok".
+3. **Verify engine causality** in `backtest/engine.py` - gates applied before weights; opposing legs preserved; hedge ratio guarded (>1e-18, clipped [1e-6,1e6]).
+4. **Regression check:** run critical subset after changes.
 
-#### Priority 3: Regression guards & bottleneck prevention (HIGH)
-- **Keep fast:** Cost-sensitivity tests must stay fast (already optimized). Don't reintroduce per-bar recomputation.
-- **Lint/mypy:** Maintain `ruff` 0 errors, `mypy backtest strategies utils` 0 errors. Fix issues by reflowing/refactoring, never by weakening types/gates.
-- **Systematic fixes:** If pattern repeats across files, fix all at once.
+### P1 - Real-Data Provenance (CRITICAL)
+1. **Audit artifacts**: `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` must have `real_data_only: true`, `fabricated_data: false`, full provenance, `blocked_routes[]` when blocked. Fix if any artifact drifts.
+2. **Harden loader/cache**: `data/loader.py`, `data/cache.py`, `data/__init__.py`. Keep cache namespace clean (no mypy namespace issues). Prefer `www.binance.com` first; on 451/blocks write honest `blocked_or_insufficient_data` with rationale - **never fabricate**.
+3. **Test:** `tests/test_cointegration_diagnostics_schema.py` must pass.
 
-#### Priority 4: Heavy-work discipline (MANDATORY)
-- **Do not checkpoint on exploration.** Only commit after closing a concrete failure or clearing measurable debt with verification.
-- **Trace, don't guess.** Read source before changing. Understand schemas and causality.
-- **Verify before committing:** Run critical subset + `ruff check` + `mypy backtest strategies utils`. Full suite if touching gates/engine/strategy core.
-- **Publication-grade:** Treat as if results will be published. No fabrication. Evidence required.
+### P2 - Stress & Regression Guards (HIGH)
+1. **Tighten where weak.** Look for any code path that could coerce None/False to True, or that uses future data. Fix systematically.
+2. **Cost/perf.** Keep cost-sensitive tests fast; avoid per-bar recomputation.
+3. **Quality gates:** `ruff` clean, `mypy` clean on touched modules. Fix by refactoring/types, never weaken gates.
 
-### ANTI-AVOIDANCE RULE (NON-NEGOTIABLE)
-- Reading, listing, exploring, or summarizing is **not** progress and does **not** satisfy this turn. Every turn must fix, harden, or verify something material on the pairs/cointegration path.
-- You may not stop at "everything looks green" without attempting at least one hardening: trace a gate path for missing coverage, verify strict mode blocks None/False, confirm real-data provenance in artifacts, or tighten a gate.
-- If the critical subset is green, immediately pick a hardening from Priority 1-3 and close it with verification before stopping.
+## MANDATORY DISCIPLINE
+- **NO SUMMARY-ONLY TURNS.** Every turn must fix/harden/verify something material on pairs/cointegration.
+- **Trace before change.** Read source + relevant tests. Understand causality.
+- **Verify relentlessly.** Critical subset after changes; full suite if touching gates/engine/core; always `ruff` + `mypy` if code changes.
+- **Fail-closed always.** Never weaken `use_enriched_gates`, `strict_enriched_gates`, or provenance requirements.
+- **Publication-grade.** Real-data only. Evidence required.
 
-## SUCCESS CRITERIA (MUST MEET BEFORE STOPPING)
-- [ ] Critical subset passes: `tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py`
-- [ ] `python -m pytest tests/` exits 0 (765 passed, 1 skipped; no new failures/skips)
-- [ ] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0
-- [ ] `python -m mypy backtest strategies utils` exits 0
-- [ ] No weakening of `use_enriched_gates`/`strict_enriched_gates` or `real_data_only` provenance
-- [ ] Any fix is backed by traceable evidence from source/tests
-- [ ] If commit made, it closes a real issue (no "checkpoint agent session" style unless justified by completed milestone)
+## SUCCESS CRITERIA (BEFORE STOPPING)
+- [ ] Critical subset passes (125 tests)
+- [ ] `python -m pytest tests/` exits 0 (765 passed, 1 skipped)
+- [ ] `ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0
+- [ ] `mypy backtest strategies utils` exits 0
+- [ ] No gate/provenance weakening
+- [ ] Any changes verified with traceable evidence
 
-## FILES MOST LIKELY TO NEED ATTENTION
-- `strategies/pairs_trading.py` - pairs entry, gate defaults, fail-closed logic
-- `utils/cointegration.py` - EG/Johansen, spread MR, half-life, stability/breaks, gate computation
-- `backtest/engine.py` - causal application of gates/weights
-- `data/loader.py`, `data/cache.py`, `data/__init__.py` - provenance, cache namespace, network
-- `tests/test_cointegration_*_mt.py` - regression guards (treat as non-optional)
-- `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` - provenance artifacts
-
-**START NOW.** Run the critical subset first. If green, immediately look for hardenings: trace gate paths for any missing coverage, ensure strict mode blocks all None/False, verify real-data provenance in artifacts, and keep all gates tight. Do heavy work - no summary-only turn.
-
-(End of file - total 71 lines)
+**START NOW. Run the initial task. If green, pick P0 item 1 and trace gate paths - find and harden any gap. Do heavy work.**
