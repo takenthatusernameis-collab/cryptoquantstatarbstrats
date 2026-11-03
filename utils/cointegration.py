@@ -665,8 +665,13 @@ def target_schema_diagnostics(
     leg_stationarity_ok = bool(adf1_p is not None and adf2_p is not None)
     rolling_stable_ok = bool(rs.get("stable"))
 
-    eg_pass = bool(eg_t["pass/fail"])
-    joh_pass = bool(joh_t["pass/fail"])
+    eg_pass = bool(eg_t.get("pass/fail") is True)
+    joh_pass = bool(joh_t.get("pass/fail") is True)
+    # Fail-closed: treat None as failure when the gate is unassessable
+    spread_mr_pass = bool(spread_mr_pass is True)
+    hl_bounds_pass = bool(hl_bounds_pass is True)
+    leg_stationarity_ok = bool(leg_stationarity_ok is True)
+    rolling_stable_ok = bool(rolling_stable_ok is True)
     all_pass = bool(
         eg_pass
         and joh_pass
