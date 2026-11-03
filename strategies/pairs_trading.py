@@ -215,6 +215,7 @@ class CointegrationPairsStrategy(PairStrategy):
                                 "hl_bounds_pass",
                                 "rolling_stable_ok",
                                 "leg_stationarity_ok",
+                                "no_structural_break",
                                 "all_pass",
                             ):
                                 v = gates.get(key)
@@ -281,6 +282,7 @@ class CointegrationPairsStrategy(PairStrategy):
                                 "hl_bounds_pass",
                                 "rolling_stable_ok",
                                 "leg_stationarity_ok",
+                                "no_structural_break",
                                 "all_pass",
                             ):
                                 v = g.get(key)

@@ -79,6 +79,7 @@ GATES_KEYS = (
     "hl_bounds_pass",
     "leg_stationarity_ok",
     "rolling_stable_ok",
+    "no_structural_break",
 )
 
 PROVENANCE_KEYS = (
@@ -234,8 +235,56 @@ def test_target_schema_diagnostics_on_synthetic_series():
         "hl_bounds_pass",
         "rolling_stable_ok",
         "leg_stationarity_ok",
+        "no_structural_break",
     ):
         assert diag["gates"][g] in (True, False), f"{g}={diag['gates'][g]}"
+
+
+def test_target_schema_structural_break_gate_is_consistent_with_flagged():
+    """``no_structural_break`` must equal ``not flagged`` and a confirmed break
+    must appear in blocked_routes. This closes a fail-open where the artifact
+    gate model had no structural-break key at all while the strategy's cached
+    path blocked on ``structural_breaks.flagged`` -- the two paths disagreed on
+    6 real pairs (ETH/SOL, ADA/ETH, BNB/ETH, ADA/BTC, BNB/BTC, LINK/BTC).
+    """
+    rng = np.random.default_rng(11)
+    n = 900
+    idx = pd.date_range("2026-01-01", periods=n, freq="1h", tz="UTC")
+    # Strongly cointegrated legs with a late structural break: first half
+    # y = 2x, second half y = 4x. The half-sample Chow heuristic (25% rel diff)
+    # must flag it.
+    x = 100 + np.cumsum(rng.normal(0, 0.5, n))
+    y = np.empty(n)
+    y[: n // 2] = 2.0 * x[: n // 2] + rng.normal(0, 0.5, n // 2)
+    y[n // 2 :] = 4.0 * x[n // 2 :] + rng.normal(0, 0.5, n - n // 2)
+    diag = target_schema_diagnostics(pd.Series(y, index=idx), pd.Series(x, index=idx), "BREAK/Y", source="isolated_test")
+    sb = diag["structural_breaks"]
+    gate = diag["gates"]["no_structural_break"]
+    assert gate is bool(sb.get("flagged") is not True), (
+        f"no_structural_break={gate} must equal not flagged={sb.get('flagged')}"
+    )
+    if sb.get("flagged") is True:
+        routes = {r["route"] for r in diag["provenance"]["blocked_routes"]}
+        assert "structural_break" in routes, routes
+        assert gate is False
+        assert diag["gates"]["all_pass"] is False
+        assert diag["status"] == "blocked_or_insufficient_data"
+
+
+def test_target_schema_structural_break_gate_present_when_unassessable():
+    """On a short series the break check is unassessable; the gate must still
+    be present and False (fail-closed), never coerced to True, and the route
+    recorded with available=false."""
+    idx = pd.date_range("2026-01-01", periods=10, freq="1h", tz="UTC")
+    diag = target_schema_diagnostics(
+        pd.Series([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0], index=idx),
+        pd.Series([2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0], index=idx),
+        "SHORT/BREAK",
+        source="isolated_test",
+    )
+    assert "no_structural_break" in diag["gates"]
+    assert diag["gates"]["no_structural_break"] is False
+    json.dumps(diag, default=float)
 
 
 def test_target_schema_diagnostics_never_fabricates_unavailable():
@@ -312,8 +361,22 @@ def test_real_diag_each_pair_full_schema_and_provenance():
             "hl_bounds_pass",
             "rolling_stable_ok",
             "leg_stationarity_ok",
+            "no_structural_break",
         ):
             assert diag["gates"][g] in (True, False), f"{pname}: {g}={diag['gates'][g]}"
+        # Structural-break gate must be consistent with the flagged flag, and a
+        # confirmed break must be recorded in blocked_routes (fail-closed, never
+        # silently allowed through the gate model).
+        sb = diag["structural_breaks"]
+        assert gates["no_structural_break"] is bool(sb.get("flagged") is not True), (
+            f"{pname}: no_structural_break={gates['no_structural_break']} "
+            f"inconsistent with flagged={sb.get('flagged')}"
+        )
+        if sb.get("flagged") is True:
+            routes = {r["route"] for r in prov["blocked_routes"]}
+            assert "structural_break" in routes, (
+                f"{pname}: flagged break not recorded in blocked_routes: {routes}"
+            )
         # Honest blocking invariant: all_pass True => no blocked_routes;
         # False => non-empty blocked_routes.
         if gates["all_pass"]:

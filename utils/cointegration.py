@@ -729,6 +729,17 @@ def target_schema_diagnostics(
     hl_bounds_pass = bool(hl_bounds_pass is True)
     leg_stationarity_ok = bool(leg_stationarity_ok is True)
     rolling_stable_ok = bool(rolling_stable_ok is True)
+    sb_t = _structural_breaks_target(sb)
+    # Structural-break gate: a confirmed structural break is a hard failure
+    # condition, not an "unassessable" state. It must block under BOTH strict
+    # and non-strict modes, matching the strategy's cached path (which reads
+    # ``structural_breaks.flagged``) so cached and per-bar diagnostics never
+    # disagree on a flagged break. Previously this gate was absent from the
+    # target-schema gates dict entirely, so 6 real pairs with a confirmed break
+    # (ETH/SOL, ADA/ETH, BNB/ETH, ADA/BTC, BNB/BTC, LINK/BTC) were recorded
+    # with all_pass computed from the other six gates only -- the artifact's
+    # gate model never blocked the break even though the strategy did. Fail-open.
+    no_structural_break = bool(sb_t.get("flagged") is not True)
     all_pass = bool(
         eg_pass
         and joh_pass
@@ -736,6 +747,7 @@ def target_schema_diagnostics(
         and hl_bounds_pass
         and leg_stationarity_ok
         and rolling_stable_ok
+        and no_structural_break
     )
 
     leg_stationarity_detail = _leg_stationarity_detail(adf1, adf2)
@@ -750,6 +762,7 @@ def target_schema_diagnostics(
         ("half_life_bounds", hl_bounds_pass, hl_t),
         ("leg_stationarity", leg_stationarity_ok, None),
         ("rolling_stability", rolling_stable_ok, rs),
+        ("structural_break", no_structural_break, sb_t),
     ]
     blocked_routes = []
     for gate_name, passed, detail in gate_checks:
@@ -775,6 +788,13 @@ def target_schema_diagnostics(
                     route["frac_significant"] = detail.get("frac_significant")
                     route["n_windows"] = detail.get("n_windows")
                     route["stable"] = detail.get("stable")
+                if gate_name == "structural_break":
+                    route["flagged"] = detail.get("flagged")
+                    route["available"] = detail.get("available")
+                    route["relative_change"] = (
+                        detail.get("breaks", [{}])[0].get("relative_change")
+                        if detail.get("breaks") else None
+                    )
             blocked_routes.append(route)
 
     status = "computed_from_existing_results" if all_pass else "blocked_or_insufficient_data"
@@ -855,6 +875,7 @@ def target_schema_diagnostics(
                 "hl_bounds_pass": hl_bounds_pass,
                 "leg_stationarity_ok": leg_stationarity_ok,
                 "rolling_stable_ok": rolling_stable_ok,
+                "no_structural_break": no_structural_break,
             },
             "provenance": {
                 "source": source,
