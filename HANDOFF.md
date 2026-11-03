@@ -1,15 +1,15 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:35:28Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:56:53Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the product edge.**
 Treat this as publication-grade research code: fabrication is unacceptable. Everything else supports/gates/validates pairs.
 
-## GROUND TRUTH (VERIFIED 2026-11-03T05:35:28Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed**
-- Full suite: **767 passed, 1 skipped** (`python -m pytest tests/`)
-- Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**
-- mypy: `python -m mypy backtest strategies utils` → **32 source files checked;** one pre-existing `unused-ignore` in `utils/reporting.py:1179` flagged only by the newer mypy (mypy 2.x vs pyproject's 1.8 target) — **do not touch gate/provenance logic; do not weaken gates.** Re-run with the project's pinned mypy if available.
+## GROUND TRUTH (RE-VERIFIED 2026-11-03T05:56:53Z)
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed** — re-verified this session.
+- Full suite: **767 passed, 1 skipped** (verified 2026-11-03T05:35:28Z; tree unchanged since — tree clean, on `main`).
+- Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed** (re-verified this session).
+- mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files** (re-verified this session; project target mypy 1.8). Do not touch gate/provenance logic; do not weaken gates.
 - Working tree clean. On `main`. Network: `www.binance.com` serves public klines; `api.binance.com` returns 451 and is handled honestly.
 - Artifacts: `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` have `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` when blocked.
 - Gate-key reconciliation: `strategies/pairs_trading.py` only blocks on explicit `False` for individual gates; missing `all_pass` does not fail if the six individual gates pass. Cached (`enriched_diagnostics`) and per-bar paths are unified and fail-closed under `strict_enriched_gates=True`.
@@ -20,20 +20,20 @@ Treat this as publication-grade research code: fabrication is unacceptable. Ever
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
 ```
-**If ANY test fails, fix it before anything else.** All must pass.
+**If ANY test fails, fix it before anything else.** All must pass. Then proceed to P0.
 
 ## BOTTLENECKS REMOVED
 - Single session active - no cross-session blocking. Act directly.
-- `main` is green; working tree clean.
-- Stale remote branch `origin/fix/noncompounding-overlap-pair-caps-20261030` identified (unmerged, abandoned prior session) — it does not block `main`; ignore it unless explicitly re-opened. Do not chase stale CI branches/PRs from `fix/causal-pairs-validation-2026-10-27` (multiple failed/cancelled runs per `research_state/workflow_run_diagnostics.jsonl`).
+- `main` is green; working tree clean; no stash entries.
+- Stale remote branches `origin/fix/noncompounding-overlap-pair-caps-20261030` and `origin/pr2branch` identified (unmerged, abandoned prior sessions) — they do not block `main`; ignore them unless explicitly re-opened. Do not chase stale CI branches/PRs from `fix/causal-pairs-validation-2026-10-27` (multiple failed/cancelled runs per `research_state/workflow_run_diagnostics.jsonl`).
 - Real-data paths operational (www.binance.com first; 451 handled honestly).
 - Gate reconciliation already applied - no ambiguity blocking entries.
 - Analysis paralysis discouraged: trace → harden → verify with tests. No "audit only" turns.
 
-## NEXT FOCUS CAMPAIGN (HEAVY WORK - DO NOT AVOID / UNSKIPPABLE)
+## NEXT FOCUS CAMPAIGN (HEAVY WORK - UNSKIPPABLE - DO NOT AVOID)
 **Campaign: "FORTIFY & STRESS-TEST COINTEGRATION GATES"**
 
-This campaign is mandatory. Every session must ship at least one material gate-hardening or verification change on the cointegration pairs edge before ending. Summary-only turns are prohibited.
+This campaign is mandatory. **Every session must ship at least one material gate-hardening or verification change on the cointegration pairs edge before ending. Summary-only turns are prohibited.** Ship code, not status reports.
 
 ### P0 - Gate Integrity (CRITICAL - BLOCKS EVERYTHING ELSE)
 1. **Hunt fail-open coercions**: `grep -rn "or True\|if .* is None: .* True\|True if .* is None\|\.get(.*).*" strategies/ utils/ | grep -v __pycache__` - fix any found (fail-closed only). Zero tolerance.
