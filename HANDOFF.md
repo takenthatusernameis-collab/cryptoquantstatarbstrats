@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T03:07:35Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T03:09:54Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
 **KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY, REGRESSION-FREE, AND REAL-DATA ONLY.**
@@ -14,6 +14,18 @@ Repo `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. The cointegr
 - Warnings only (non-failing): statsmodels FutureWarnings/ComplexWarning/CollinearityWarning/InterpolationWarning, pandas freq deprecation
 - **Working tree clean** - no uncommitted changes
 - Recent history: mostly checkpoint commits; **do not checkpoint on red - fix until green, then commit with purpose**
+
+## BOTTLENECK STATUS (RESOLVED - NO MULTI-SESSION BLOCKERS)
+- Board shows **one active session** (main, self). No sibling sessions are blocked or waiting. No cross-session coordination needed.
+- Historical CI noise on old branch `fix/causal-pairs-validation-2026-10-27` (ModuleNotFoundError numpy/yaml/sklearn, idle timeouts, Ruff failures, cancelled runs) is **resolved / not current**. `main` is green. Do not reopen that branch or chase those stale errors.
+- No network/data bottleneck blocks progress: `www.binance.com` serves public spot klines; loader host chain handles `api.binance.com` 451 honestly via `blocked_or_insufficient_data`. Real-data paths are operational.
+
+## INITIAL TASK (FIRST TURN — RUN THIS FIRST, MUST PASS)
+```
+cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
+python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
+```
+If ANY fail -> fix immediately. Then run full suite `python -m pytest tests/`. Only after green, proceed to hardenings below. Do not start with reading-only or summary-only turns.
 
 ## IMMEDIATE MANDATE FOR NEXT AGENT (HEAVY WORK, NO EXPLORATION-ONLY)
 **You MUST make substantive progress on the pairs/cointegration path.** Do not stop at reading. Every turn must fix, harden, or verify something material. Gates are fail-closed - never weaken them.
@@ -48,6 +60,11 @@ Focus on hardening the cointegration edge with zero regressions.
 - **Trace, don't guess.** Read source before changing. Understand schemas and causality.
 - **Verify before committing:** Run critical subset + `ruff check` + `mypy backtest strategies utils`. Full suite if touching gates/engine/strategy core.
 - **Publication-grade:** Treat as if results will be published. No fabrication. Evidence required.
+
+### ANTI-AVOIDANCE RULE (NON-NEGOTIABLE)
+- Reading, listing, exploring, or summarizing is **not** progress and does **not** satisfy this turn. Every turn must fix, harden, or verify something material on the pairs/cointegration path.
+- You may not stop at "everything looks green" without attempting at least one hardening: trace a gate path for missing coverage, verify strict mode blocks None/False, confirm real-data provenance in artifacts, or tighten a gate.
+- If the critical subset is green, immediately pick a hardening from Priority 1-3 and close it with verification before stopping.
 
 ## SUCCESS CRITERIA (MUST MEET BEFORE STOPPING)
 - [ ] Critical subset passes: `tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py`
