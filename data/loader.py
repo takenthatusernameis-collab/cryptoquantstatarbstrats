@@ -292,7 +292,7 @@ class DataLoader:
                 object.__setattr__(err_obj, "provenance", dict(self.last_fetch_provenance))
             except Exception:
                 pass
-            raise err_obj  # type: ignore[misc]  # type: ignore[attr-defined]  # type: ignore[syntax]
+            raise err_obj
 
         # Keep only genuinely observed timestamps shared by every symbol.
         # Forward-filling a missing candle would manufacture flat returns and

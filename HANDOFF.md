@@ -1,28 +1,31 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T15:07:52Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T15:57:35Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T15:07:52Z)
+## CURRENT STATE (VERIFIED 2026-11-03T15:57:35Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green).
-- Full suite: **771 passed, 1 skipped** (green).
+- Cointegration-related tests (`-k cointegration`): **137 passed** (green).
+- Cache provenance replay tests: **6 passed** (green).
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
 - mypy (`python -m mypy backtest strategies utils`): **Success: no issues found**.
-- Working tree **clean** on `main`.
+- Working tree **clean** on `main` (mypy bottleneck in data/loader.py removed).
 - Real-data only enforced; fail-closed gates unified. No fail-open coercions found.
 - Bottlenecks removed: cache/loader provenance parity hardened. Single clean execution path.
+- Fail-open coercion hunt (`grep -rn "\bor True\b\|is None: .* True\|True if .* is None" strategies/ utils/ backtest/`): **zero matches**.
 
 ## BOTTLENECKS REMOVED / STATUS
 - **No blocked sessions. Single consolidated execution path.**
 - Cache/loader causality hardened (blocked routes propagate on cache miss exceptions; aggregation fills routes when only hosts present).
 - Provenance tests present and artifacts conforming.
 - Parallel volume loader corrected; cache HITs replay blocked routes.
+- mypy type-ignore bottleneck in data/loader.py:295 removed (multiple ignores on one line failed under mypy 2.4.1).
 - **Consolidated:** Single durable handoff established. No parallel handoff files competing for priority.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T15:07:52Z
+**TIMESTAMP:** 2026-11-03T15:57:35Z
 **OBJECTIVE:** Harden **cointegration pair discovery + gate integrity** to be unbreakable under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination. Heavy execution required.
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
