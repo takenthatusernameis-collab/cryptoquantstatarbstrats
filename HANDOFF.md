@@ -1,33 +1,31 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T20:18:00Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T21:09:40Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies.
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
-Everything else (momentum/mean-reversion/term-structure/cross-exchange/vol-surface) exists only to support, gate, validate, or instrument the pairs/cointegration path. Treat any change outside pairs as suspect unless it directly hardens the pairs gate/provenance/execution parity.
+Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T20:18:00Z)
+## CURRENT STATE (VERIFIED 2026-11-03T21:09:16Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cointegration-related tests (`-k cointegration`): passing
 - Cache provenance replay tests: **6 passed** (green)
-- Strategy enriched-gate tests (spot-checked): **21 passed** (green)
+- Strategy enriched-gate tests (cached vs per-bar parity): **all passing**
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): clean
 - mypy (`python -m mypy backtest strategies utils`): clean
 - Working tree **clean** on `main`
-- Real-data only enforced. Fail-closed gates unified. No observed fail-open coercions.
-- Key hardenings present: cached vs per-bar parity (structural breaks read from `structural_breaks.flagged`, blocks in both modes; missing/None gates block in strict), leg-stationarity is genuine (ADF p<=0.05, fail-closed), target-schema diagnostics compute `no_structural_break` gate and build full `blocked_routes[]` with provenance, `blocked_schema_diagnostics` complete, cache preserves `blocked_routes` on memory/disk hits, parallel loader aggregates blocked routes from all symbol fetches.
+- Fail-closed gates unified; real-data only enforced; no observed fail-open coercions.
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
-1. **Cached vs uncached execution parity** - Any divergence in gate outcomes/provenance between cached replay and live/per-bar paths is unacceptable under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes; individual gate None/missing blocks in strict.
-2. **Gate integrity** - Every enrichment gate must be evaluated causally from trailing data only. Missing/None/false must block in strict mode. No clamping, no fabrication, no coercion to True. `no_structural_break` must be present in target-schema gates.
-3. **Pair discovery discipline** - Only pairs that pass Engle-Granger/Johansen, spread mean-reversion, half-life bounds (1 < hl < 500), leg stationarity, rolling stability, and structural-break discipline with real data may be admitted. Inconclusive tests = reject.
-4. **Provenance completeness** - `real_data_only`, `fabricated_data:false`, full provenance keys, `blocked_routes[]` on any blocked path. Cache must never mask failures. Artifacts must include rationale/computed_at.
-5. **Cost-stress fail-closed** - Cost grids cannot be bypassed in strict mode; cost assumptions must be recorded in provenance.
-6. **Diagnostics schema** - Blocked cases must use `blocked_schema_diagnostics` with complete, non-empty rationale/blocked_routes. Never fabricate/clamp diagnostics.
-7. **Regression prevention** - Codify parity checks so future changes cannot reintroduce divergence.
+1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
+2. **Gate integrity** - No coercion (`or True`, `is None -> True`). All gates evaluated causally from trailing data only. `no_structural_break` must be in target schema gates.
+3. **Pair discovery discipline** - Only pairs passing Engle-Granger/Johansen, spread mean-reversion, hl_bounds (1<hl<500), leg-stationarity (genuine ADF p<=0.05), rolling stability, structural-break discipline with real data admitted. Inconclusive = reject.
+4. **Provenance completeness** - `real_data_only`, `fabricated_data:false`, full provenance keys, `blocked_routes[]` on any blocked path. Cache must never mask failures. Artifacts must include rationale/computed_at. Blocked cases must use `blocked_schema_diagnostics` with complete rationale/blocked_routes.
+5. **Cost-stress fail-closed** - Cost grids cannot be bypassed in strict mode; cost assumptions recorded in provenance.
+6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T20:18:00Z
+**TIMESTAMP:** 2026-11-03T21:09:40Z
 **OBJECTIVE:** Make the **cointegration pairs discovery + enrichment gate path unbreakably fail-closed and execution-parity safe** under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination. **Heavy execution required.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
@@ -45,16 +43,16 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
 **Zero tolerance.** If any match found, fix causally (do not weaken gates/provenance) with a regression test.
 
 3. **Enforce cached vs uncached parity + gate integrity (P0):**
-   - Trace `CointegrationPairsStrategy` enriched gate path (cached replay vs per-bar). Identify any branch that can diverge under `strict_enriched_gates=True`.
-   - Ensure structural breaks come from `structural_breaks.flagged` (or equivalent) and block in BOTH cached and per-bar paths.
-   - Ensure individual gates that are missing/None block in strict mode (and do not get clamped). `all_pass` is not a substitute for explicit gates.
-   - If divergence exists, fix it. Add/strengthen a test forcing borderline pairs through cached+uncached paths asserting identical gate outcomes and identical provenance.
+   - Trace `CointegrationPairsStrategy` enriched gate path (cached replay via `enriched_diagnostics` vs per-bar via `target_schema_diagnostics`). Identify any branch that can diverge under `strict_enriched_gates=True`.
+   - Structural breaks: read from `structural_breaks.flagged` (and/or `gates.no_structural_break` as appropriate). Must block in BOTH modes when flagged True; when unassessable/None in strict mode -> block.
+   - Individual gates missing/None must block in strict mode. `all_pass` is convenience only - explicit False blocks; missing `all_pass` must not pass if individuals missing/None under strict.
+   - If divergence exists, fix it. Add/strengthen tests forcing borderline pairs through cached+uncached paths asserting identical gate outcomes and identical provenance.
 
 4. **Harden pair discovery + diagnostics (P0):**
-   - Ensure pair admission is real-data only, fail-closed on inconclusive diagnostics/tests.
-   - Enforce use of `blocked_schema_diagnostics` for blocked cases with full provenance (`real_data_only`, `fabricated_data:false`, `blocked_routes[]`, `computed_at`, rationale).
+   - Enforce real-data only, fail-closed on inconclusive diagnostics/tests.
+   - Use `blocked_schema_diagnostics` for blocked cases with full provenance (`real_data_only`, `fabricated_data:false`, `blocked_routes[]`, `computed_at`, rationale).
    - Ensure `target_schema_diagnostics` always emits `gates.no_structural_break` and accurate `blocked_routes` on blocked pairs.
-   - Ensure cost assumptions recorded when cost grids applied; in strict mode, missing cost assumptions must block.
+   - Cost assumptions recorded when cost grids applied; in strict mode, missing cost assumptions must block.
 
 5. **Verify & ship with evidence:**
    - Re-run critical subset: must stay **127/127**
@@ -106,5 +104,3 @@ Every agentic session MUST ship >=1 material, verifiable hardening change on the
 - [ ] Material hardening shipped with traceable evidence
 - [ ] No gate/provenance/execution weakening detected
 - [ ] Cached vs uncached parity verified for affected paths
-
-(End of file - total 149 lines)
