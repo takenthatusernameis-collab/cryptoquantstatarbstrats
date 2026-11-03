@@ -77,6 +77,7 @@ def load_cached(
         "fetch_attempts": [],
         "hosts_tried": [],
         "errors": [],
+        "blocked_routes": [],
     }
 
     if use_cache:
@@ -114,6 +115,13 @@ def load_cached(
     provenance["fetch_attempts"].append(
         {"symbols": list(symbols), "interval": interval, "success": True, "rows": int(len(data))}
     )
+    # Propagate blocked routes from the loader for honest provenance parity.
+    try:
+        loader_prov = getattr(loader, "last_fetch_provenance", {}) or {}
+        provenance["blocked_routes"] = list(loader_prov.get("blocked_routes", []) or [])
+        provenance["blocked_hosts"] = list(loader_prov.get("blocked_hosts", []) or [])
+    except Exception:
+        pass
 
     if write_cache:
         try:

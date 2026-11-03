@@ -105,6 +105,7 @@ class DataLoader:
             "timeout": timeout,
             "hosts": list(_binance_hosts),
             "blocked_hosts": [],
+            "blocked_routes": [],
             "per_symbol": {},
             "excluded": [],
         }
@@ -225,6 +226,7 @@ class DataLoader:
                             )
                             if blocked:
                                 self.last_fetch_provenance["blocked_hosts"].append(host)
+                                self.last_fetch_provenance["blocked_routes"].append(host)
                             host_ok = False
                             last_error = err
                             break
@@ -295,6 +297,9 @@ class DataLoader:
                 "The requested symbols have no shared Binance candle timestamps "
                 "in the requested date range."
             )
+        self.last_fetch_provenance["blocked_routes"] = sorted(
+            set(self.last_fetch_provenance.get("blocked_hosts", []))
+        )
         return data
 
     def load_data(
