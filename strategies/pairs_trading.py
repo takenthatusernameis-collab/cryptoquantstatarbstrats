@@ -208,7 +208,7 @@ class CointegrationPairsStrategy(PairStrategy):
                         if not isinstance(gates, dict):
                             ok = False
                         else:
-                            # Also treat an explicit False on no_structural_break in gates as blocking
+                            # Block on explicit no_structural_break=False gate
                             if gates.get("no_structural_break") is False:
                                 ok = False
                             # Missing no_structural_break in strict mode should not be relied upon
@@ -278,7 +278,7 @@ class CointegrationPairsStrategy(PairStrategy):
                                 else {}
                             )
                             ok = True
-                            # Also treat an explicit False on no_structural_break in gates as blocking
+                            # Block on explicit no_structural_break=False gate
                             if isinstance(g, dict) and g.get("no_structural_break") is False:
                                 ok = False
                             if ok:
