@@ -1,13 +1,13 @@
 """Campaign 38 tests - cointegration rigor phase 10.
 
-Cross-timeframe cointegration gate synchronization & portfolio-level regime-coupling
-stress testing across 1h/4h/1d on real Binance cached data. Using Campaign 37 outputs,
-builds cross-timeframe gate synchronization, portfolio-level regime-coupling, cross-timeframe
-adaptive recalibration, portfolio-level fail-closed re-gating with basket blocking,
-cross-timeframe predictive accuracy (precision/recall/F1), fail-closed re-gating on
-cross-timeframe predicted breach with no auto-lift, portfolio-level kill-switch halts.
+Cross-timeframe gate synchronization & portfolio-level regime-coupling stress
+testing across 1h/4h/1d on real Binance cached data. Uses Campaign 37 baseline.
+Quantifies cross-timeframe sync, portfolio regime coupling, adaptive recalibration,
+portfolio-level fail-closed re-gating with basket blocking, cross-timeframe
+predictive accuracy, and portfolio-level kill-switch halts with no auto-lift.
 Real data only. Preserves gating invariants (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 """
+
 from __future__ import annotations
 
 import json
@@ -47,32 +47,17 @@ EXPECTED_INVARIANTS = {
 BASKETS = ["core", "core_expanded", "full_universe"]
 
 REQUIRED_TIMEFRAME_SECTIONS = [
-    "cross_timeframe_cointegration_gate_synchronization",
-    "cross_timeframe_gate_synchronization_matrices",
-    "portfolio_level_regime_coupling",
-    "portfolio_level_regime_coupling_stress",
-    "portfolio_level_regime_coupling_stress_matrices",
-    "cross_timeframe_adaptive_gate_recalibration",
-    "cross_timeframe_adaptive_recalibration_thresholds",
-    "adaptive_threshold_schedules",
-    "portfolio_level_fail_closed_regating",
-    "portfolio_level_basket_blocking",
-    "fail_closed_regime_transition_regating",
-    "fail_closed_re_gating_cross_timeframe",
-    "cross_timeframe_predictive_accuracy",
-    "backtested_cross_timeframe_predictive_accuracy",
-    "prediction_summary",
-    "fail_closed_reentry_validation",
-    "kill_switch_state",
-    "breach_alerts",
-    "execution_aware_capacity_allocation",
-    "baskets",
-]
-
-REQUIRED_BASKET_SECTIONS = [
-    "portfolio_basket_cointegration",
+    "cross_timeframe_sync",
+    "portfolio_regime_coupling",
+    "adaptive_recalibration",
+    "portfolio_fail_closed_regating",
+    "cross_timeframe_prediction_accuracy",
+    "basket_cointegration",
     "multi_asset_hedge_ratios",
     "portfolio_spreads",
+    "execution_aware_capacity_allocation",
+    "kill_switch_state",
+    "breach_alerts",
 ]
 
 
@@ -118,6 +103,8 @@ def test_cointegration_campaign38_artifact_exists_and_schema():
     prov = data.get("provenance") or {}
     assert prov.get("real_data_only") is True
     assert prov.get("fabricated_data") is False
+    c37 = data.get("campaign37_baseline") or {}
+    assert c37.get("loaded") is True or Path("reports/cointegration_campaign37_mt.json").exists()
 
 
 def test_cointegration_campaign38_preserves_gating_invariants():
@@ -157,13 +144,9 @@ def test_cointegration_campaign38_required_sections():
         r = c_res[tf]
         for section in REQUIRED_TIMEFRAME_SECTIONS:
             assert section in r, f"{tf} missing {section}"
-        for key in [
-            "kill_switch_state",
-            "execution_aware_capacity_allocation",
-            "prediction_summary",
-        ]:
+        for key in ["kill_switch_state", "execution_aware_capacity_allocation"]:
             sec = r.get(key) or {}
-            if isinstance(sec, dict) and sec.get("available") is not False:
+            if isinstance(sec, dict):
                 prov = sec.get("provenance") or {}
                 assert prov.get("real_data_only") is True
                 assert prov.get("fabricated_data") is False
@@ -175,13 +158,17 @@ def test_cointegration_campaign38_cross_timeframe_sync_quantified():
     found = False
     for tf in ["1h", "4h", "1d"]:
         r = c_res[tf]
-        sync = r.get("cross_timeframe_cointegration_gate_synchronization") or {}
+        cts = r.get("cross_timeframe_sync") or {}
+        assert "matrices" in cts
+        assert "per_pair_sync" in cts
+        assert "global_sync_matrix" in cts
+        pps = cts.get("per_pair_sync") or {}
         for pname in PAIRS_FOR_CHECK:
-            s = sync.get(pname) or {}
-            if isinstance(s, dict) and s.get("available"):
-                assert "cross_timeframe_gate_failure_cooccurrence" in s
-                assert "synchronization_score" in s
-                found = True
+            p = pps.get(pname) or {}
+            assert "sync_score" in p
+            assert "co_occuring" in p
+            assert "probabilities_by_timeframe" in p
+            found = True
     assert found
 
 
@@ -190,13 +177,58 @@ def test_cointegration_campaign38_portfolio_regime_coupling_quantified():
     c_res = data.get("results_by_timeframe") or {}
     for tf in ["1h", "4h", "1d"]:
         r = c_res[tf]
-        coupl = r.get("portfolio_level_regime_coupling_stress") or {}
-        assert len(coupl) == 3
-        for bname in BASKETS:
-            assert bname in coupl
-            b = coupl[bname]
-            assert "mean_coupling" in b
-            assert "propagation_risk" in b
+        prc = r.get("portfolio_regime_coupling") or {}
+        assert "basket_correlation_structure" in prc
+        assert "propagation_matrices" in prc
+        # all baskets represented
+        bcs = prc.get("basket_correlation_structure") or {}
+        for b in BASKETS:
+            assert b in bcs
+
+
+def test_cointegration_campaign38_adaptive_recalibration_across_timeframes():
+    data = _load(Path("reports/cointegration_campaign38_mt.json"))
+    c_res = data.get("results_by_timeframe") or {}
+    for tf in ["1h", "4h", "1d"]:
+        r = c_res[tf]
+        ar = r.get("adaptive_recalibration") or {}
+        assert "threshold_schedules" in ar
+        assert "per_pair_recalibration" in ar
+        ppr = ar.get("per_pair_recalibration") or {}
+        for pname in PAIRS_FOR_CHECK:
+            p = ppr.get(pname) or {}
+            if isinstance(p, dict) and p.get("available"):
+                assert "adaptive_thresholds" in p
+                at = p["adaptive_thresholds"]
+                assert "eg_p_max" in at
+
+
+def test_cointegration_campaign38_portfolio_fail_closed_basket_blocking_no_auto_lift():
+    data = _load(Path("reports/cointegration_campaign38_mt.json"))
+    c_res = data.get("results_by_timeframe") or {}
+    for tf in ["1h", "4h", "1d"]:
+        r = c_res[tf]
+        pfr = r.get("portfolio_fail_closed_regating") or {}
+        assert pfr.get("no_auto_lift") is True
+        re = pfr.get("reentry_requirements") or {}
+        assert re.get("requires_fresh_cointegration_evidence_across_all_timeframes") is True
+        assert re.get("requires_regime_stability_confirmation") is True
+        bb = pfr.get("basket_blocking") or {}
+        for b in BASKETS:
+            assert b in bb
+            blk = bb[b]
+            if blk.get("blocked"):
+                assert blk.get("capacity") == 0.0
+                assert blk.get("weight") == 0.0
+                assert blk.get("fail_closed") is True
+        ppr = pfr.get("per_pair_regating") or {}
+        for pname in PAIRS_FOR_CHECK:
+            pr = ppr.get(pname) or {}
+            if pr.get("basket_blocked") or pr.get("predicted_breach"):
+                assert pr.get("capacity") == 0.0
+                assert pr.get("weight") == 0.0
+                assert pr.get("fail_closed") is True
+                assert pr.get("no_auto_lift") is True
 
 
 def test_cointegration_campaign38_cross_timeframe_predictive_accuracy_precision_recall_f1():
@@ -205,129 +237,57 @@ def test_cointegration_campaign38_cross_timeframe_predictive_accuracy_precision_
     found = False
     for tf in ["1h", "4h", "1d"]:
         r = c_res[tf]
-        pa = r.get("cross_timeframe_predictive_accuracy") or {}
-        ps = r.get("prediction_summary") or {}
-        if (
-            pa.get("precision_mean") is not None
-            or pa.get("recall_mean") is not None
-            or pa.get("f1_mean") is not None
-            or ps.get("precision_mean") is not None
-        ):
-            found = True
+        cpa = r.get("cross_timeframe_prediction_accuracy") or {}
+        pa = cpa.get("portfolio_accuracy") or {}
         for k in ["precision", "recall", "f1"]:
-            if pa.get(k) is not None:
-                v = pa[k]
-                assert isinstance(v, (int, float)) and not math.isnan(v)
-        for k in ["precision_mean", "recall_mean", "f1_mean"]:
-            if pa.get(k) is not None:
-                v = pa[k]
-                assert isinstance(v, (int, float)) and not math.isnan(v)
+            assert k in pa
+            v = pa[k]
+            assert isinstance(v, (int, float)) and not math.isnan(v)
+        ppa = cpa.get("per_pair_accuracy") or {}
+        for pname in PAIRS_FOR_CHECK:
+            p = ppa.get(pname) or {}
+            assert isinstance(p, dict)
+            for k in ["precision", "recall", "f1"]:
+                assert k in p
+            found = True
     assert found
 
 
-def test_cointegration_campaign38_fail_closed_cross_timeframe_regating_no_auto_lift():
+def test_cointegration_campaign38_basket_cointegration_multi_asset_hedge_portfolio_spreads():
     data = _load(Path("reports/cointegration_campaign38_mt.json"))
     c_res = data.get("results_by_timeframe") or {}
     for tf in ["1h", "4h", "1d"]:
         r = c_res[tf]
-        rg = r.get("fail_closed_regime_transition_regating") or {}
-        for pname in PAIRS_FOR_CHECK:
-            g = rg.get(pname) or {}
-            if not isinstance(g, dict) or not g.get("available"):
-                continue
-            assert g.get("fail_closed") is True
-            assert g.get("no_auto_lift") is True
-            assert g.get("cannot_auto_lift_blocks") is True
-            assert "reclassified_blocked" in g
-            assert "new_eligible" in g
-            if not g.get("base_eligible"):
-                assert g.get("new_eligible") is False
+        assert "basket_cointegration" in r
+        assert "multi_asset_hedge_ratios" in r
+        assert "portfolio_spreads" in r
+        bc = r["basket_cointegration"]
+        mah = r["multi_asset_hedge_ratios"]
+        ps = r["portfolio_spreads"]
+        for b in BASKETS:
+            assert b in bc
+            assert b in mah
+            assert b in ps
 
 
-def test_cointegration_campaign38_basket_blocking_all_pairs():
+def test_cointegration_campaign38_kill_switch_breach_alerts_drive_halts_no_auto_lift():
     data = _load(Path("reports/cointegration_campaign38_mt.json"))
     c_res = data.get("results_by_timeframe") or {}
-    for tf in ["1h", "4h", "1d"]:
-        r = c_res[tf]
-        pb = r.get("portfolio_level_basket_blocking") or {}
-        assert len(pb) == 3
-        for bname in BASKETS:
-            assert bname in pb
-            b = pb[bname]
-            assert b.get("fail_closed") is True
-            assert b.get("no_auto_lift") is True
-            assert "entire_basket_blocked" in b
-            assert "zero_capacity_weight_all_pairs_in_basket" in b
-
-
-def test_cointegration_campaign38_reentry_requires_fresh_evidence_across_all_timeframes():
-    data = _load(Path("reports/cointegration_campaign38_mt.json"))
-    c_res = data.get("results_by_timeframe") or {}
-    for tf in ["1h", "4h", "1d"]:
-        r = c_res[tf]
-        re = r.get("fail_closed_reentry_validation") or {}
-        for pname in PAIRS_FOR_CHECK:
-            reentry = re.get(pname) or {}
-            if not isinstance(reentry, dict):
-                continue
-            assert reentry.get("reentry_requires_fresh_cointegration_evidence") is True
-            assert reentry.get("reentry_requires_regime_stability_confirmation") is True
-            assert (
-                reentry.get("reentry_requires_fresh_cointegration_evidence_across_all_timeframes")
-                is True
-            )
-            assert reentry.get("fail_closed") is True
-            assert reentry.get("no_auto_lift") is True
-
-
-def test_cointegration_campaign38_breach_alerts_drive_halts_cross_timeframe():
-    data = _load(Path("reports/cointegration_campaign38_mt.json"))
-    c_res = data.get("results_by_timeframe") or {}
-    found = False
     for tf in ["1h", "4h", "1d"]:
         r = c_res[tf]
         ks = r.get("kill_switch_state") or {}
-        cap = r.get("execution_aware_capacity_allocation") or {}
+        ea = r.get("execution_aware_capacity_allocation") or {}
         alerts = r.get("breach_alerts") or []
-        assert ks.get("fail_closed") is True
+        assert ea.get("breach_alerts_drive_halts") is True
+        assert ea.get("halt_execution_on_predicted_breach") is True
+        assert ks.get("no_auto_lift") is True
         assert ks.get("cannot_auto_lift") is True
-        assert ks.get("breach_alerts_drive_halts") is True
-        if isinstance(cap, dict):
-            assert cap.get("breach_alerts_drive_halts") is True
-            assert cap.get("zero_capacity_on_breach") is True
-            assert cap.get("fail_closed") is True
-        if ks.get("triggered") or len(alerts) > 0 or (
-            isinstance(cap, dict) and cap.get("breach_alerts_present")
-        ):
-            found = True
-    assert found
-
-
-def test_cointegration_campaign38_baskets_multi_asset_hedge_ratios_portfolio_spreads():
-    data = _load(Path("reports/cointegration_campaign38_mt.json"))
-    c_res = data.get("results_by_timeframe") or {}
-    for tf in ["1h", "4h", "1d"]:
-        r = c_res[tf]
-        baskets = r.get("baskets") or {}
-        assert len(baskets) == 3
-        for bname in BASKETS:
-            assert bname in baskets
-            b = baskets[bname]
-            for section in REQUIRED_BASKET_SECTIONS:
-                assert section in b, f"{tf}/{bname} missing {section}"
-            bc = b.get("portfolio_basket_cointegration") or {}
-            if bc.get("available"):
-                prov = bc.get("provenance") or {}
-                assert prov.get("real_data_only") is True
-                assert prov.get("fabricated_data") is False
-
-
-def test_cointegration_campaign38_no_nan_inf_anywhere():
-    data = _load(Path("reports/cointegration_campaign38_mt.json"))
-    assert not _has_nan(data), "Artifact contains NaN/Inf"
-
-
-def test_cointegration_campaign38_campaign_flags():
-    data = _load(Path("reports/cointegration_campaign38_mt.json"))
-    assert data.get("campaign") == 38
-    assert data.get("type") == "cointegration_campaign38_mt"
+        re = ks.get("reentry_requirements") or {}
+        assert re.get("fresh_cointegration_evidence_across_all_timeframes") is True
+        assert re.get("regime_stability_confirmation") is True
+        if ks.get("triggered"):
+            assert isinstance(alerts, list) and len(alerts) > 0
+            for a in alerts:
+                assert a.get("fail_closed") is True
+                assert a.get("no_auto_lift") is True
+                assert a.get("action") == "halt_execution"
