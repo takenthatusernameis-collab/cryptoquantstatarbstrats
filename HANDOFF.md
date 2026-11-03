@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T14:05:00Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T14:07:44Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T14:04:59Z)
+## CURRENT STATE (VERIFIED 2026-11-03T14:07:44Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green).
 - Full suite: **771 passed, 1 skipped** (green).
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
@@ -22,7 +22,7 @@ Everything else exists only to support, gate, or validate the pairs/cointegratio
 - **Just shipped:** `data/cache.py` now attaches loader blocked routes on cold-fetch exception; `data/loader.py` ensures `blocked_routes` populated from aggregated hosts.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T14:05:00Z
+**TIMESTAMP:** 2026-11-03T14:07:44Z
 **OBJECTIVE:** Extend cache+loader provenance parity to ALL failure/partial paths for cointegration pairs edge. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination. Heavy execution required.
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
