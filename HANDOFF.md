@@ -1,83 +1,71 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T02:54:00Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T03:07:35Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
-**KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY AND REGRESSION-FREE.**
+**KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY, REGRESSION-FREE, AND REAL-DATA ONLY.**
 
-This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. The pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`) and real-data-only: no fabricated diagnostics, no synthetic evidence of real-market performance.
+Repo `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. The cointegration/stat-arb edge IS the product. Everything else supports, gates, or validates it. Pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`). No fabricated diagnostics, no synthetic evidence of real-market performance. `real_data_only` + full provenance is mandatory.
 
-## CURRENT STATE SNAPSHOT (GROUND TRUTH, RE-VERIFIED 2026-11-03T02:54:00Z)
-- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (248.99s, ~4 min)
-- Cointegration campaign tests 29-38 + loader: **all pass** (130 passed in critical gating path)
-- Recertification audit, production certification, all gating/signoff/live-deployment bridge tests: **all pass**
-- Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes): **all pass**
-- **Lint debt CLEARED** - `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 ("All checks passed!"), 0 E501 errors
-- **mypy GREEN** - `python -m mypy backtest strategies utils` exits 0 ("Success: no issues found in 32 source files")
-- Warnings only (non-failing): statsmodels `adfuller`/`kpss` result_object FutureWarning, pandas freq `'d'` deprecation, statsmodels ComplexWarning/CollinearityWarning/InterpolationWarning
+## CURRENT STATE SNAPSHOT (GROUND TRUTH - VERIFIED 2026-11-03T03:07:35Z)
+- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (~4 min)
+- Critical gating: cointegration campaign tests 29-38 + loader, recertification audit, permanent production certification, all `_mt` gating/signoff/live-deployment bridge tests - **ALL PASS**
+- Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes) - **ALL PASS**
+- **Lint:** `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 ("All checks passed!")
+- **mypy:** `python -m mypy backtest strategies utils` exits 0 ("Success: no issues found in 32 source files")
+- Warnings only (non-failing): statsmodels FutureWarnings/ComplexWarning/CollinearityWarning/InterpolationWarning, pandas freq deprecation
 - **Working tree clean** - no uncommitted changes
+- Recent history: mostly checkpoint commits; **do not checkpoint on red - fix until green, then commit with purpose**
 
-## BOTTLENECKS REMOVED (DO NOT REINTRODUCE)
-1. **Failing campaign/gating tests** - were the gate to production clearance; now all pass. Do not let them rot.
-2. **Checkpointing without closure** - recent git history is all "checkpoint agent session" commits. Stop checkpointing on red; fix failures until green, then commit.
-3. **Test sprawl** - many overlapping `_mt` gating/signoff tests. They all pass; treat them as regression guards, not optional.
-4. **Lint debt** - 5 ruff E501 errors cleared; `ruff check` now exits 0. Do not re-introduce long lines.
-5. **Cost-sensitivity test slowness** - reduced from ~104s to ~2s in commit 69b1f17. Do not reintroduce per-bar gate recomputation.
+## IMMEDIATE MANDATE FOR NEXT AGENT (HEAVY WORK, NO EXPLORATION-ONLY)
+**You MUST make substantive progress on the pairs/cointegration path.** Do not stop at reading. Every turn must fix, harden, or verify something material. Gates are fail-closed - never weaken them.
 
-## ACTIVE BOTTLENECKS (INVESTIGATE NEXT - unblock full-suite velocity)
-- **None remaining.** Full suite now runs in ~4 min cleanly. Next: harden against regressions and keep gates green.
-
-## NEXT FOCUS CAMPAIGN: "REGRESSION-PROOF & HEAVY-WORK DISCIPLINE"
-**Goal:** Keep every cointegration/pairs test green, keep `ruff check` at 0 errors, keep `mypy` green, and institutionalize the heavy-work discipline so the suite never silently turns red. Phases 1-4 COMPLETE.
-
-### Phase 1: Clear lint debt (COMPLETE)
+### Required verification (run first, must pass)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python -m ruff check strategies/ backtest/ utils/ tests/ examples/
-# 0 errors. Reflow lines only; do not weaken assertions or gates.
+python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
 ```
+If ANY of these fail -> fix immediately. Then run full suite.
 
-### Phase 2: Remove test bottleneck (COMPLETE - commit 69b1f17)
-- Cost-sensitivity test reduced from ~104s to ~2s. Full suite now runs in ~4 min.
+### Campaign: "FORTIFY PAIRS GATES & REAL-DATA PROVENANCE"
+Focus on hardening the cointegration edge with zero regressions.
 
-### Phase 3: Regression-proof the suite (COMPLETE - verified 2026-11-03T02:54:00Z)
-1. `python -m pytest tests/` - exits 0 (765 passed, 1 skipped). Allow ~4 min.
-2. `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - exits 0 (125 passed).
-3. Confirmed `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` show `real_data_only: True` with no fabricated data.
-4. **mypy GREEN** - installed mypy 2.4.1; `python -m mypy backtest strategies utils` exits 0 ("Success: no issues found in 32 source files").
+#### Priority 1: Enforce causal, fail-closed gate integrity (CRITICAL)
+- **Read & trace:** `strategies/pairs_trading.py` (defaults `use_enriched_gates=True`, `strict_enriched_gates=True`), `utils/cointegration.py` (EG/Johansen, spread MR, half-life bounds 1<hl<500, rolling stability, breaks, leg stationarity), `backtest/engine.py` (causal application).
+- **Harden:** Ensure missing/None/False enriched gate values block entries under strict mode. No fallthrough to permissive defaults. Verify trailing-only data usage.
+- **Verify:** All campaign/gating tests pass. No synthetic evidence injected into real-data paths.
 
-### Phase 4: mypy gate institutionalized (COMPLETE - 2026-11-03T02:54:00Z)
-- mypy was NOT installed in this environment; the gate was effectively unenforced.
-- Installed `mypy>=1.8` (2.4.1). On first run it reported **1 real error**:
-  `data/loader.py:348: error: Module "data.cache" has no attribute "load_cached" [attr-defined]`
-- **Root cause:** the on-disk cache directory `data/cache/` (pickle files) shadows the
-  `data/cache.py` module in mypy's static namespace, even though runtime resolves
-  `data.cache` to the `.py` file correctly. mypy treats `data/cache/` as a package and
-  `data.cache` as its attribute, not the module.
-- **Fix:** added `data/__init__.py` declaring `data` as an explicit package and documenting
-  that `data/cache/` is a filesystem path, not a sub-package. Verified mypy now exits 0.
-- **No runtime change:** `import data.cache` still resolves to `data/cache.py` with
-  `load_cached` present; verified before and after.
+#### Priority 2: Real-data provenance & diagnostics (CRITICAL)
+- **Audit:** `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` - must show `real_data_only: true`, `fabricated_data: false`, full provenance, `blocked_routes` when applicable.
+- **Harden loader:** `data/loader.py`, `data/cache.py`, `data/__init__.py` - keep `data.cache` import unambiguous (mypy/namespace). Network handling: prefer `www.binance.com` for public spot; never rely on api.binance.com returning data (451 possible). When reconstruction blocked -> honest `blocked_or_insufficient_data` with rationale, never fabricate.
+- **Verify:** `tests/test_cointegration_diagnostics_schema.py` passes.
 
-### Phase 5: Heavy-work mandate (continuous)
-- **Do heavy lifting.** Read actual source (`strategies/pairs_trading.py`, `utils/cointegration.py`, `backtest/engine.py`, `data/loader.py`, `data/cache.py`), trace code paths, understand schemas. Don't guess.
-- **Don't stop at exploration.** Every turn must make progress: fix a type error, add a regression guard, or verify a gate.
-- **Remove bottlenecks systematically.** If you see a repeated pattern (e.g., long lines across test files), fix it across all affected files at once.
-- **Be persistent.** Gates are fail-closed and publication-grade. Don't weaken gates to make tests pass unless the test contradicts documented README behavior AND you have evidence it's a test bug.
-- **Verify with real data where specified.** Strict `real_data_only` and provenance rules. No fabrication.
-- **Run all four gates before any commit:** `pytest tests/`, `ruff check`, `mypy backtest strategies utils`, plus the critical-path subset.
+#### Priority 3: Regression guards & bottleneck prevention (HIGH)
+- **Keep fast:** Cost-sensitivity tests must stay fast (already optimized). Don't reintroduce per-bar recomputation.
+- **Lint/mypy:** Maintain `ruff` 0 errors, `mypy backtest strategies utils` 0 errors. Fix issues by reflowing/refactoring, never by weakening types/gates.
+- **Systematic fixes:** If pattern repeats across files, fix all at once.
 
-## SUCCESS CRITERIA
-- [x] `python -m pytest tests/` exits 0 (no new failures, no new skips beyond the existing 1)
-- [x] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 (0 E501 errors; lint debt cleared)
-- [x] All `test_cointegration_campaign*_mt.py`, recertification, and production certification tests pass
-- [x] No weakening of fail-closed gates or `real_data_only` provenance
-- [x] No checkpointing-without-closure commits; every commit closes a failure or clears debt
-- [x] `python -m mypy backtest strategies utils` exits 0 (mypy installed; 0 errors across 32 files)
+#### Priority 4: Heavy-work discipline (MANDATORY)
+- **Do not checkpoint on exploration.** Only commit after closing a concrete failure or clearing measurable debt with verification.
+- **Trace, don't guess.** Read source before changing. Understand schemas and causality.
+- **Verify before committing:** Run critical subset + `ruff check` + `mypy backtest strategies utils`. Full suite if touching gates/engine/strategy core.
+- **Publication-grade:** Treat as if results will be published. No fabrication. Evidence required.
+
+## SUCCESS CRITERIA (MUST MEET BEFORE STOPPING)
+- [ ] Critical subset passes: `tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py`
+- [ ] `python -m pytest tests/` exits 0 (765 passed, 1 skipped; no new failures/skips)
+- [ ] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0
+- [ ] `python -m mypy backtest strategies utils` exits 0
+- [ ] No weakening of `use_enriched_gates`/`strict_enriched_gates` or `real_data_only` provenance
+- [ ] Any fix is backed by traceable evidence from source/tests
+- [ ] If commit made, it closes a real issue (no "checkpoint agent session" style unless justified by completed milestone)
 
 ## FILES MOST LIKELY TO NEED ATTENTION
-- `strategies/pairs_trading.py` (pairs strategy entry)
-- `utils/cointegration.py` (Engle-Granger/Johansen, spread MR, half-life, gates)
-- `backtest/engine.py` (backtest engine applying gates causally)
-- `data/loader.py`, `data/cache.py`, `data/__init__.py` (data provenance + cache; `data.cache` import must stay unambiguous)
-- `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` (real-data provenance artifacts)
+- `strategies/pairs_trading.py` - pairs entry, gate defaults, fail-closed logic
+- `utils/cointegration.py` - EG/Johansen, spread MR, half-life, stability/breaks, gate computation
+- `backtest/engine.py` - causal application of gates/weights
+- `data/loader.py`, `data/cache.py`, `data/__init__.py` - provenance, cache namespace, network
+- `tests/test_cointegration_*_mt.py` - regression guards (treat as non-optional)
+- `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` - provenance artifacts
 
-**START NOW.** Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` (must exit 0), then run the full suite `python -m pytest tests/` (must exit 0; allow ~4 min). Do not write a summary and stop - fix it.
+**START NOW.** Run the critical subset first. If green, immediately look for hardenings: trace gate paths for any missing coverage, ensure strict mode blocks all None/False, verify real-data provenance in artifacts, and keep all gates tight. Do heavy work - no summary-only turn.
+
+(End of file - total 71 lines)
