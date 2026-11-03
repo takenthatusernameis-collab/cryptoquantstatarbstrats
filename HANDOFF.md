@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T22:23:56Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T23:07:07Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,16 +6,20 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T22:23:56Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
-- Cointegration-related tests (`-k cointegration`): passing
-- Cache provenance replay tests: **all passing** (29 passed incl. diagnostics schema)
+## CURRENT STATE (VERIFIED 2026-11-03T23:07:07Z)
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **133 passed** (green) — up from 127; +1 regression test added.
+- Cache provenance replay tests: **7 passed** (incl. new parallel-fetch aggregation regression test)
 - Strategy enriched-gate tests (cached vs per-bar parity): **all passing**
-- Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/ data/`): **clean** (data/ bottleneck removed — 9 lint errors fixed)
-- mypy (`python -m mypy backtest strategies utils`): clean
-- Working tree **clean** on `main`
-- Fail-closed gates unified; real-data only enforced; no observed fail-open coercions.
-- Bottleneck eliminated: `data/loader.py` unused vars + long lines + missing trailing newlines in `data/__init__.py`/`examples/__init__.py` fixed; ruff now clean across ALL directories.
+- Lint (`ruff check data/ tests/`): **clean** on touched files
+- mypy (`python -m mypy data strategies utils backtest`): **clean**
+- Full suite: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — fails identically on clean `main`, unrelated to this change; blocked-route key naming mismatch between `route` and `gate` in `reports/cost_sensitivity_real.json`)
+- **Material hardening shipped this session:** parallel symbol fetch blocked-route aggregation in `data/loader.py:fetch_with_provenance`
+- Working tree: **dirty** (2 files changed — see below). Commit pending.
+
+## SHIPPED THIS SESSION (2026-11-03T23:07:07Z)
+**P1 — Real-data provenance & loading (hardened).**
+- `data/loader.py` — `fetch_with_provenance` parallel path: `_fetch_one` now returns the per-symbol provenance captured *inside* the worker (right after each `load_binance_data` call) and stores it in `per_symbol_provenance[sym]`. Blocked routes are aggregated from *every* symbol's captured provenance instead of the single shared `self.last_fetch_provenance`, which only retains the last symbol's state under parallel execution. Previously a blocked host observed for N-1 symbols was silently dropped; only the last symbol's blocked host survived. Also: the all-blocked error now raises the original `err_obj` (carrying `.provenance`) instead of a fresh `RuntimeError(str(...))` that discarded it.
+- `tests/test_cache_provenance_replay.py` — added `test_parallel_fetch_aggregates_all_symbol_blocked_hosts`: 5 symbols each blocking a distinct host must yield 5 blocked_hosts, 5 blocked_routes, 5 excluded entries, and per_symbol provenance for every symbol.
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
 1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.

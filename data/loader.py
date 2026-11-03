@@ -429,10 +429,25 @@ class DataLoader:
 
         results: dict[str, pd.Series] = {}
         attempts_log: dict[str, list[dict[str, Any]]] = {}
+        per_symbol_provenance: dict[str, dict[str, Any]] = {}
 
-        def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
+        def _fetch_one(
+            sym: str,
+        ) -> tuple[str, pd.Series | None, list[dict[str, Any]], dict[str, Any]]:
+            """Fetch one symbol; returns (name, series|None, attempts, provenance).
+
+            The per-symbol ``provenance`` is captured from
+            ``self.last_fetch_provenance`` *immediately* after each
+            ``load_binance_data`` call.  ``load_binance_data`` overwrites
+            ``self.last_fetch_provenance`` on every invocation, so the only
+            safe way to aggregate blocked routes across parallel symbols is to
+            read it inside this function, right after the call that produced
+            it.  Reading it once at the end of the loop (as the old code did)
+            only ever saw the *last* symbol's state and silently dropped every
+            other symbol's blocked hosts/routes.
+            """
             local_attempts: list[dict[str, Any]] = []
-            last_err: str | None = None
+            sym_provenance: dict[str, Any] = {}
             for attempt in range(1, retries + 1):
                 try:
                     single = self.load_binance_data(
@@ -441,22 +456,29 @@ class DataLoader:
                     local_attempts.append(
                         {"attempt": attempt, "success": True, "bars": int(len(single))}
                     )
-                    return sym, single[sym], local_attempts
+                    sym_provenance = dict(getattr(self, "last_fetch_provenance", {}) or {})
+                    return sym, single[sym], local_attempts, sym_provenance
                 except Exception as exc:
                     last_err = str(exc)[:120]
                     local_attempts.append(
                         {"attempt": attempt, "success": False, "error": last_err}
                     )
+                    # Even on failure load_binance_data sets
+                    # self.last_fetch_provenance with the blocked hosts it
+                    # observed before raising; capture it so the caller can
+                    # aggregate blocked routes for a symbol that ultimately
+                    # failed after all retries.
+                    sym_provenance = dict(getattr(self, "last_fetch_provenance", {}) or {})
                     if attempt < retries:
                         time.sleep(backoff_seconds * attempt)
-            return sym, None, local_attempts
+            return sym, None, local_attempts, sym_provenance
 
         with ThreadPoolExecutor(max_workers=max(1, max_workers)) as ex:
             futures = {ex.submit(_fetch_one, s): s for s in symbols}
             for fut in as_completed(futures):
                 sym = futures[fut]
                 try:
-                    name, series, local_attempts = fut.result()
+                    name, series, local_attempts, sym_provenance = fut.result()
                 except Exception as exc:
                     attempts_log[sym] = [
                         {"attempt": 0, "success": False, "error": str(exc)[:120]}
@@ -469,6 +491,10 @@ class DataLoader:
                         }
                     )
                     continue
+                # Record the per-symbol provenance so blocked routes are never
+                # lost: a blocked host observed for one symbol must be reported
+                # for the whole call, never silently dropped.
+                per_symbol_provenance[sym] = sym_provenance
                 attempts_log[sym] = local_attempts
                 if series is None:
                     provenance["excluded"].append(
@@ -483,21 +509,21 @@ class DataLoader:
 
         provenance["per_symbol"] = {
             sym: {
-                "status": "ok",
-                "bars": int(series.notna().sum()),
+                "status": "ok" if sym in results else "excluded",
+                "bars": int(results[sym].notna().sum()) if sym in results else 0,
                 "attempts": attempts_log.get(sym, []),
             }
-            for sym, series in results.items()
+            for sym in symbols
         }
-        # Aggregate blocked-route provenance from every per-symbol fetch.
-        # Each load_binance_data call overwrites self.last_fetch_provenance, so
-        # the last call's blocked routes are the only ones visible unless we
-        # collect them here. A blocked host observed for one symbol must be
-        # reported for the whole call, never silently dropped.
+        # Aggregate blocked-route provenance from EVERY per-symbol fetch, using
+        # the provenance captured inside _fetch_one (not a single shared
+        # self.last_fetch_provenance, which only retains the last symbol's
+        # state under parallel execution). A blocked host observed for any
+        # symbol must be reported for the whole call, never silently dropped.
         blocked_hosts: list[str] = []
         blocked_routes: list[str] = []
         for sym in symbols:
-            sym_prov = getattr(self, "last_fetch_provenance", None)
+            sym_prov = per_symbol_provenance.get(sym) or {}
             if not isinstance(sym_prov, dict):
                 continue
             for host in sym_prov.get("blocked_hosts", []) or []:
@@ -517,6 +543,10 @@ class DataLoader:
         ]
 
         if not results:
+            # Attach the full provenance to the raised error so callers that
+            # only catch the exception can still inspect which hosts/routes
+            # were blocked.  Raising a fresh RuntimeError(str(err_obj))
+            # previously discarded the provenance attribute entirely.
             err_obj = RuntimeError(
                 f"No real Binance data fetched for {symbols} "
                 f"between {start_date} and {end_date} after {retries} retries. "
@@ -526,7 +556,7 @@ class DataLoader:
                 object.__setattr__(err_obj, "provenance", dict(provenance))
             except Exception:
                 pass
-            raise RuntimeError(str(err_obj)) from err_obj
+            raise err_obj
 
         data = pd.concat(list(results.values()), axis=1)
         data.columns = list(results.keys())

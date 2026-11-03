@@ -180,3 +180,110 @@ def test_failure_path_propagates_blocked_routes_from_cache(monkeypatch):
     except Exception:
         # Should propagate blocked routes
         pass
+
+
+class _ParallelBlockingLoader:
+    """A DataLoader subclass where every symbol blocks a DIFFERENT host.
+
+    Under the old fetch_with_provenance implementation the per-symbol
+    blocked hosts were aggregated from ``self.last_fetch_provenance`` AFTER
+    the parallel loop finished.  Because ``load_binance_data`` overwrites
+    ``self.last_fetch_provenance`` on every call, only the last symbol's
+    blocked host survived -- every other symbol's blocked route was silently
+    dropped.  This regression test pins the honest behaviour: every symbol's
+    blocked host must be reported for the whole call.
+    """
+
+    def __init__(self):
+        self.last_fetch_provenance: dict = {}
+
+    def load_binance_data(
+        self,
+        symbols,
+        start_date,
+        end_date,
+        interval="1h",
+        quote_asset="USDT",
+        **kwargs,
+    ):
+        sym = symbols[0]
+        host = f"https://blocked-{sym}.binance.com"
+        self.last_fetch_provenance = {
+            "symbols": list(symbols),
+            "blocked_hosts": [host],
+            "blocked_routes": [host],
+            "per_symbol": {sym: {"status": "excluded", "bars": 0}},
+            "excluded": [
+                {
+                    "symbol": sym,
+                    "reason": "all_retries_failed",
+                    "last_error": "HTTP Error 451",
+                }
+            ],
+        }
+        raise RuntimeError(f"blocked {sym}")
+
+
+def test_parallel_fetch_aggregates_all_symbol_blocked_hosts(monkeypatch):
+    from data.loader import DataLoader
+
+    _isolated_cache(monkeypatch)
+    # Subclass DataLoader so the parallel path's ``self.load_binance_data``
+    # calls set ``self.last_fetch_provenance`` on the same instance that
+    # ``load_cached`` later inspects.  Binding a foreign method onto a bare
+    # DataLoader instance would leave last_fetch_provenance empty and mask
+    # the very bug this test exists to catch.
+    class BlockingLoader(DataLoader):
+        def load_binance_data(
+            self,
+            symbols,
+            start_date,
+            end_date,
+            interval="1h",
+            quote_asset="USDT",
+            **kwargs,
+        ):
+            sym = symbols[0]
+            host = f"https://blocked-{sym}.binance.com"
+            self.last_fetch_provenance = {
+                "symbols": list(symbols),
+                "blocked_hosts": [host],
+                "blocked_routes": [host],
+                "per_symbol": {sym: {"status": "excluded", "bars": 0}},
+                "excluded": [
+                    {
+                        "symbol": sym,
+                        "reason": "all_retries_failed",
+                        "last_error": "HTTP Error 451",
+                    }
+                ],
+            }
+            raise RuntimeError(f"blocked {sym}")
+
+    dl = BlockingLoader()
+    symbols = ["BTC", "ETH", "SOL", "BNB", "ADA"]
+    try:
+        dl.fetch_with_provenance(
+            symbols,
+            "2024-01-01",
+            "2024-01-02",
+            interval="1h",
+            use_cache=False,
+            max_workers=4,
+        )
+    except Exception as exc:
+        prov = getattr(exc, "provenance", {}) or {}
+    else:
+        raise AssertionError("expected fetch_with_provenance to raise when all symbols block")
+
+    expected_hosts = {f"https://blocked-{s}.binance.com" for s in symbols}
+    assert set(prov.get("blocked_hosts", [])) == expected_hosts, prov.get("blocked_hosts")
+    assert set(prov.get("blocked_routes", [])) == expected_hosts, prov.get("blocked_routes")
+    # Every symbol must be recorded as excluded, not silently dropped.
+    excluded = {e["symbol"] for e in prov.get("excluded", [])}
+    assert excluded == set(symbols), excluded
+    # Per-symbol provenance must be present for every symbol so a caller can
+    # trace which host blocked which symbol.
+    for s in symbols:
+        assert s in prov.get("per_symbol", {}), s
+        assert prov["per_symbol"][s]["status"] == "excluded", s
