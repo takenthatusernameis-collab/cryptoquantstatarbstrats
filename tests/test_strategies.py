@@ -759,6 +759,68 @@ def test_enriched_gates_cached_vs_perbar_parity_missing_all_pass():
     assert (sig_perbar["enriched_gates_ok"] == 1.0).all()
 
 
+def test_enriched_gates_cached_vs_perbar_parity_all_pass_false():
+    """Cached and per-bar paths must agree when all_pass is explicitly False."""
+    import strategies.pairs_trading as pt
+    from strategies.pairs_trading import CointegrationPairsStrategy
+
+    df = make_data(n=200)
+    ed = {
+        "gates": {
+            "all_pass": False,
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat_cached = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig_cached = strat_cached.generate_signals(df)
+
+    def fake_target_schema(p1, p2, pair_name=""):
+        return {
+            "gates": {
+                "all_pass": False,
+                "eg_pass": True,
+                "johansen_pass": True,
+                "spread_mr_pass": True,
+                "hl_bounds_pass": True,
+                "rolling_stable_ok": True,
+                "leg_stationarity_ok": True,
+            },
+            "structural_breaks": {"flagged": False},
+            "provenance": {"fabricated_data": True},
+        }
+
+    strat_perbar = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    orig = pt.target_schema_diagnostics
+    try:
+        pt.target_schema_diagnostics = fake_target_schema
+        sig_perbar = strat_perbar.generate_signals(df)
+    finally:
+        pt.target_schema_diagnostics = orig
+
+    assert (sig_cached["enriched_gates_ok"] == 0.0).all()
+    assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
+    assert not sig_cached["long"].any() and not sig_cached["short"].any()
+    assert not sig_perbar["long"].any() and not sig_perbar["short"].any()
+
+
 def test_pairs_beta_non_positive_fails_closed():
     """If hedge ratio becomes non-positive/invalid, strategy fails closed (no entries)."""
     df = make_data(n=200)
