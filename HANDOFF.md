@@ -1,17 +1,17 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:05:10Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T05:05:36Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the product edge.**
 Everything else exists to support/gate/validate pairs. Treat it as publication-grade research code where fabrication is unacceptable.
 
-## GROUND TRUTH (VERIFIED 2026-11-03T05:04:52Z)
+## GROUND TRUTH (VERIFIED 2026-11-03T05:05:36Z)
 - Critical subset: **125 passed** (`tests/test_cointegration_campaign*_mt.py`, `test_cointegration_recertification_audit_mt.py`, `test_permanent_production_certification_mt.py`, `test_cointegration_diagnostics_schema.py`)
 - Full suite: **767 passed, 1 skipped** (`python -m pytest tests/`)
 - Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**
 - mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files**
 - Working tree clean. Network: `www.binance.com` serves public klines; loader handles `api.binance.com` 451 honestly.
-- Reports verified: `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` contain `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` for blocked pairs.
+- Reports verified: `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` contain `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` for blocked pairs.
 - P0 item 1 (fail-open coercion hunt): **no `or True` coercions found** in strategies/ utils/.
 
 ## IMMEDIATE INITIAL TASK (MUST DO FIRST TURN - NO EXPLORATION-ONLY)
@@ -61,3 +61,5 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 - [ ] Any changes verified with traceable evidence
 
 **START NOW. Run the initial task. Then do P0 item 1: search for fail-open coercions (`grep -rn "or True" strategies/ utils/ | grep -v __pycache__`) and fix any found. Heavy work required.**
+
+(End of file - total 63 lines)
