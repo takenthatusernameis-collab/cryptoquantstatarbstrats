@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T13:56:42Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T14:00:07Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T13:56:42Z)
+## CURRENT STATE (VERIFIED 2026-11-03T14:00:07Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green).
 - Full suite: **771 passed, 1 skipped** (green).
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
@@ -23,7 +23,7 @@ Everything else exists only to support, gate, or validate the pairs/cointegratio
 - Provenance tests present and artifacts conforming.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T13:56:42Z
+**TIMESTAMP:** 2026-11-03T14:00:07Z
 **OBJECTIVE:** Fortify real-data provenance/loading honesty for cointegration pairs edge. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). No audit-only termination.
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
