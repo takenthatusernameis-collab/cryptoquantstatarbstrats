@@ -1,4 +1,4 @@
-# SINGLE DURABLE HANDOFF | 2026-11-02T23:56:19.000000+00:00 | CAMPAIGN 37 COMPLETE | CAMPAIGN 38 ACTIVE | BOTTLENECKS ELIMINATED | HEAVY WORK MANDATORY | NO COASTING
+# SINGLE DURABLE HANDOFF | 2026-11-03T01:02:30.000000+00:00 | CAMPAIGN 37 COMPLETE | CAMPAIGN 38 ACTIVE | BOTTLENECKS ELIMINATED | HEAVY WORK MANDATORY | NO COASTING
 
 ## REPO IDENTITY (LAW) — PRIORITIZE BY REPO NAME
 - Repo: `cryptoquantstatarbstrats` — **Crypto Quant Stat Arb Strategies**.
@@ -7,15 +7,15 @@
 - Coasting = failure. Every action must produce checkable artifacts, tests, provenance, and logs.
 - Working tree: `main` clean. Do **not** commit unless explicitly requested.
 
-## NEXT AGENT START HERE (TIMESTAMPED, MANDATORY, NO DEVIATION)
-**TIMESTAMP:** 2026-11-02T23:56:19.000000+00:00
+## IMMEDIATE ACTION REQUIRED (TIMESTAMPED, MANDATORY, ZERO RAMP-UP)
+**TIMESTAMP (INFERRED/SET):** 2026-11-03T01:02:30.000000+00:00
 **TARGET SESSION:** Immediate next agentic work session (zero ramp-up)
+**PRIORITY SOURCE:** Repository name `cryptoquantstatarbstrats` → **Cointegration/Stat Arb is the ONLY strategic priority.**
 **STATE:** Campaigns 1-36 COMPLETE & ON-DISK VERIFIED. Campaign 37 COMPLETE & ON-DISK VERIFIED: `scripts/generate_campaign37_artifacts.py` (ruff clean), `reports/cointegration_campaign37_mt.json`, `tests/test_cointegration_campaign37_mt.py` (14/14 passing). `ruff check` clean. Gating invariants preserved exactly (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Campaign 37 = cointegration rigor phase 9 (regime-transition prediction, adaptive gate recalibration, proactive de-risking, backtested precision/recall/F1, fail-closed re-gating with no auto-lift, breach-alert-driven kill-switch halts) — DONE.
-
 **CAMPAIGN 38 ACTIVE (cointegration rigor phase 10) — DELIVERABLES ABSENT:** `scripts/generate_campaign38_artifacts.py`, `reports/cointegration_campaign38_mt.json`, `tests/test_cointegration_campaign38_mt.py`. Build from scratch following Campaigns 35-37 patterns. Do **NOT** re-derive Campaigns 26-37.
 
 ## SINGLE INITIAL TASK MESSAGE (COPY/PASTE TO THIS SESSION - MANDATORY, HEAVY, NO ESCAPE)
-> **[START 2026-11-02T23:56:19.000000+00:00] CAMPAIGN 38 — COINTEGRATION RIGOR PHASE 10: CROSS-TIMEFRAME GATE SYNCHRONIZATION & PORTFOLIO-LEVEL REGIME-COUPLING STRESS TESTING (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
+> **[START 2026-11-03T01:02:30.000000+00:00] CAMPAIGN 38 — COINTEGRATION RIGOR PHASE 10: CROSS-TIMEFRAME GATE SYNCHRONIZATION & PORTFOLIO-LEVEL REGIME-COUPLING STRESS TESTING (COINTEGRATION-FIRST, REAL DATA ONLY) — HEAVY WORK MANDATORY**
 >
 > **OBJECTIVE (BLOCKING):** Advance cointegration/pairs-trading rigor beyond Campaign 37 (phase 9). Using Campaign 37 regime-transition probability and gate-failure lead-time outputs, build **cross-timeframe cointegration gate synchronization models** that detect when gate failures couple across 1h/4h/1d and propagate via portfolio-level regime coupling. You must quantify:
 > 1) **Cross-timeframe gate synchronization** — do gate failures on 1h/4h/1d co-occur or diverge per pair?
@@ -34,7 +34,7 @@
 >
 > **VERIFICATION (BLOCKING):** `ruff check` clean on touched files; `pytest tests/test_cointegration_campaign38_mt.py -v` passes; Campaign 36-37 tests remain green; `pytest tests/ -q` remains green (0 failed).
 >
-> **RULE:** Do not stop until ALL deliverables exist on disk, all tests pass, and verification commands succeed. No exploration detours. No scope creep. Campaign 38 is the ONLY task.
+> **RULE:** Do not stop until ALL deliverables exist on disk, all tests pass, and verification commands succeed. No exploration detours. No scope creep. Campaign 38 is the **ONLY** task.
 
 ## IMMEDIATE BOOT SEQUENCE (BLOCKING - DO IN ORDER, NO SKIPPING)
 1. **Install deps (BLOCKING):** `python -m pip install -r requirements.txt` — prevent ModuleNotFoundError.
@@ -43,18 +43,18 @@
 4. **Mirror patterns:** Follow `scripts/generate_campaign36_artifacts.py`, `scripts/generate_campaign37_artifacts.py`, `reports/cointegration_campaign37_mt.json`, `tests/test_cointegration_campaign37_mt.py` patterns. Do **not** re-derive Campaigns 26-37. Load Campaign 37 artifact as your required baseline input.
 
 ## BOTTLENECKS (ELIMINATED / PREVENTED)
-- **Stale/ambiguous handoff:** Refreshed to 2026-11-02T23:56:19.000000+00:00 with true on-disk state. Campaign 37 verified complete, Campaign 38 explicitly targeted with no ambiguity.
+- **Stale/ambiguous handoff:** Refreshed to 2026-11-03T01:02:30.000000+00:00 with true on-disk state. Campaign 37 verified complete, Campaign 38 explicitly targeted with no ambiguity.
 - **Scope drift:** Campaign 38 is the **ONLY** permitted focus until complete. Campaigns 26-37 artifacts remain untouched.
 - **Gating erosion:** Invariants codified and must be asserted by tests. Fail-closed enforced. Cross-timeframe re-gating reclassifies baskets, kill-switch halts on cross-timeframe predicted breach, no auto-lift.
 - **Execution path:** Proven Campaign 36-37 generator→artifact→tests pattern, with Campaign 37 artifact loaded as baseline.
 - **CI/env:** Dependencies installed first, baseline verification enforced before coding.
-- **Coasting:** Heavy mandate, explicit deliverables, blocking verification, no escape clause.
-- **Ambiguous start:** Single copy/paste initial task message provided above. No ramp-up or exploration detours.
+- **Coasting:** Heavy mandate, explicit deliverables, blocking verification, no escape clause. **NO EXPLORATION, NO REFACTORING DETOURS, NO OPTIMIZATION SIDE-QUESTS.**
+- **Ambiguous start:** Single copy/paste initial task message provided above (timestamped). No ramp-up or exploration detours.
 - **Missing Campaign 38 deliverables:** Targets are explicit: `scripts/generate_campaign38_artifacts.py`, `reports/cointegration_campaign38_mt.json`, `tests/test_cointegration_campaign38_mt.py`.
 - **Blocked/inefficient sessions:** Bottlenecks removed. Next agent proceeds directly to heavy cointegration work.
 - **Runtime discipline:** Follow Campaign 36 optimization discipline (per-bar persistence subsampling) to stay efficient without cutting corners.
 
-## VERIFIED STATE (2026-11-02T23:56:19.000000+00:00)
+## VERIFIED STATE (2026-11-03T01:02:30.000000+00:00)
 - Branch: `main`. HEAD clean working tree.
 - **Campaigns 1-36:** Complete & verified on disk. Campaign 36: 16/16 passed. Gating invariants preserved (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17).
 - **Campaign 37:** COMPLETE — `scripts/generate_campaign37_artifacts.py` (ruff clean), `reports/cointegration_campaign37_mt.json`, `tests/test_cointegration_campaign37_mt.py` (14/14 passed, ruff clean). Cointegration rigor phase 9 done.
@@ -76,3 +76,5 @@ for tf in ['1h','4h','1d']:
 python -m pytest tests/test_cointegration_campaign38_mt.py -v
 python -m pytest tests/ -q
 ```
+
+**START HERE:** Copy the single initial task message above and begin immediately. No other work is permitted until Campaign 38 is complete and all verifications pass.
