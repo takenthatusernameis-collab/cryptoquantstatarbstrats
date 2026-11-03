@@ -1,91 +1,62 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T01:09:24Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T01:43:28Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
-**MAKE THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY.**
+**KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY AND REGRESSION-FREE.**
 
-This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. Future work MUST prioritize the pairs/cointegration path above all else.
+This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. The pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`) and real-data-only: no fabricated diagnostics, no synthetic evidence of real-market performance.
 
-## CURRENT STATE SNAPSHOT
-- Core strategy: `CointegrationPairsStrategy` with enriched cointegration gates (Engle-Granger/Johansen, spread MR, half-life 1<hl<500, rolling stability, structural breaks, leg stationarity)
-- Real-market validation exists (`reports/pairs_real_market.json`, `reports/cost_sensitivity_real*.json`) showing underperformance vs buy-hold but strategy is correctly gated and uses real data only
-- Heavy test suite with many campaign/gating tests: `tests/test_cointegration_campaign*_mt.py`, `tests/test_*_gating*.py`, `tests/test_*_signoff_mt.py`, `tests/test_live_*_mt.py`, `tests/test_permanent_production_certification_mt.py`
-- Recent git history is all "checkpoint agent session" commits (c8db0fe, e9b5339, ...) suggesting sessions have been checkpointing without completing the hard gating work
-- README explicitly calls out publication-grade cointegration diagnostics as the core of this repo
+## CURRENT STATE SNAPSHOT (GROUND TRUTH, VERIFIED 2026-11-03)
+- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`)
+- Cointegration campaign tests 29-38: **all pass** (102 passed)
+- Recertification audit, production certification, all gating/signoff/live-deployment bridge tests: **all pass** (38 passed)
+- Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes): **all pass**
+- Previous bottleneck (failing campaign/gating tests) is **REMOVED** - sessions were previously checkpointing on red tests; the suite is now green
+- Remaining lint debt: **5 ruff E501 line-too-long errors**, all in test files (line length > 100)
+- mypy is not installed in this environment (skip until available)
+- Warnings only (non-failing): statsmodels `adfuller`/`kpss` result_object FutureWarning, pandas freq `'d'` deprecation, statsmodels ComplexWarning/CollinearityWarning/InterpolationWarning
 
-## BOTTLENECKS TO REMOVE
-1. **Campaign test backlog** - There are 9+ cointegration campaign tests (campaign30 through campaign38) plus recertification/audit tests. These are likely the gate to production certification.
-2. **Gating test sprawl** - Multiple overlapping gates (portfolio, execution, operational risk, OOS cointegration validation, live deployment bridge, etc.). Need to understand which gates are actually blocking vs redundant.
-3. **MT (multi-test?) test complexity** - Tests with `_mt` suffix appear to be integration/multi-component tests that may be failing due to missing fixtures, incomplete wiring, or schema mismatches.
-4. **Checkpointing without closure** - Sessions are stopping at checkpoints instead of fixing failures. This must stop.
+## BOTTLENECKS REMOVED (DO NOT REINTRODUCE)
+1. **Failing campaign/gating tests** - were the gate to production clearance; now all pass. Do not let them rot.
+2. **Checkpointing without closure** - recent git history is all "checkpoint agent session" commits. Stop checkpointing on red; fix failures until green, then commit.
+3. **Test sprawl** - many overlapping `_mt` gating/signoff tests. They all pass; treat them as regression guards, not optional.
 
-## IMMEDIATE FIRST ACTIONS (DO IN THIS ORDER)
-Execute these commands first to get full visibility into what's broken:
+## NEXT FOCUS CAMPAIGN: "PRODUCTION CLEARANCE - REGRESSION PROOF & LINT CLEAN"
 
+**Goal:** Keep every cointegration/pairs test green, clear the 5 ruff E501 errors, and institutionalize the heavy-work discipline so the suite never silently turns red.
+
+### Phase 1: Clear lint debt (do first)
 ```bash
-# 1) See all cointegration campaign tests
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py -v 2>&1 | tail -80
-
-# 2) See all gating-related tests
-python -m pytest tests/test_*gating*.py tests/test_*signoff_mt.py -v 2>&1 | tail -80
-
-# 3) See production certification
-python -m pytest tests/test_permanent_production_certification_mt.py -v 2>&1 | tail -60
-
-# 4) See cointegration diagnostics schema tests
-python -m pytest tests/test_cointegration_diagnostics_schema.py tests/test_walk_forward_gate_stability_schema.py -v 2>&1 | tail -40
+python -m ruff check strategies/ backtest/ utils/ tests/ examples/
+# Fix the 5 E501 line-too-long errors (all in test files, wrap long lines)
 ```
+Do not weaken any assertion or gate to silence a lint error. Reflow lines only.
 
-## NEXT FOCUS CAMPAIGN: "COINTEGRATION ENRICHMENT -> PRODUCTION CLEARANCE"
+### Phase 2: Regression-proof the suite
+1. Run `python -m pytest tests/` - must exit 0 (765 passed, 1 skipped)
+2. Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - must exit 0
+3. Confirm `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` still show real_data_only provenance with no fabricated data
+4. If mypy becomes available: `python -m mypy backtest/ strategies/ utils/` must exit 0
 
-**Goal:** Get from current state to a state where all cointegration-related tests pass. Do NOT skip failing tests. Fix them.
-
-### Phase 1: Understand the enriched gates (Heavy Reading Required)
-Read these files to understand the full picture:
-- `strategies/pairs_cointegration.py` (and any related files)
-- `backtest/` modules related to diagnostics/gating
-- `tests/test_cointegration_campaign30_mt.py` through `tests/test_cointegration_campaign38_mt.py` - understand what each campaign requires
-- `reports/portfolio_real.json` - has pair diagnostics for 17 pairs
-- Any files referenced by failing tests
-
-### Phase 2: Fix failures ruthlessly
-For each failing test:
-1. Understand the exact assertion and schema expected
-2. Trace to implementation - is it missing logic, wrong schema, or incorrect gate behavior?
-3. Fix the implementation to match the expected behavior (or fix test only if test is clearly wrong AND matches the intended design from README/spec)
-4. Re-run that specific test until it passes
-5. Move to next failure
-
-**RULE:** The enriched gates are described as "publication-grade" and "fail-closed" in README. Respect that design. Don't weaken gates to make tests pass unless the test expectation contradicts the documented behavior AND you have evidence it's a test bug.
-
-### Phase 3: Integration & hardening
-Once campaign tests pass:
-1. Run all cointegration + gating tests together
-2. Run the full test suite but focus on anything related to pairs/cointegration first
-3. Ensure `python -m pytest tests/test_cointegration_campaign*_mt.py -v` exits 0
-4. Ensure no regressions in core pairs functionality
-
-## HEAVY WORK MANDATE
-- **Do heavy lifting.** Read actual source files, trace through code paths, understand schemas. Don't guess.
-- **Don't stop at exploration.** Every turn should make progress toward fixing failures or implementing missing pieces.
-- **Remove bottlenecks.** If you see repeated patterns of missing wiring, fix them systematically across all affected files.
-- **Be persistent.** Campaign tests may have many interconnected requirements. Fix them methodically.
-- **Verify with real data where specified.** Remember: no fabrication of diagnostics/data. Follow the "real_data_only" and provenance rules strictly.
+### Phase 3: Heavy-work mandate (continuous)
+- **Do heavy lifting.** Read actual source (`strategies/pairs_trading.py`, `utils/cointegration.py`, `backtest/engine.py`), trace code paths, understand schemas. Don't guess.
+- **Don't stop at exploration.** Every turn must make progress: fix a lint error, add a regression guard, or verify a gate.
+- **Remove bottlenecks systematically.** If you see a repeated pattern (e.g., long lines across test files), fix it across all affected files at once.
+- **Be persistent.** Gates are fail-closed and publication-grade. Don't weaken gates to make tests pass unless the test contradicts documented README behavior AND you have evidence it's a test bug.
+- **Verify with real data where specified.** Strict `real_data_only` and provenance rules. No fabrication.
 
 ## SUCCESS CRITERIA
-- [ ] All `test_cointegration_campaign*_mt.py` tests pass
-- [ ] All `test_cointegration_recertification_audit_mt.py` tests pass
-- [ ] All cointegration-related gating/signoff tests pass
-- [ ] `test_permanent_production_certification_mt.py` shows progress toward passing (or passes)
-- [ ] No new regressions in existing passing pairs tests
-- [ ] Changes maintain the fail-closed, real-data-only discipline described in README
+- [ ] `python -m pytest tests/` exits 0 (no new failures, no new skips beyond the existing 1)
+- [ ] `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0 (5 E501 errors cleared)
+- [ ] All `test_cointegration_campaign*_mt.py`, recertification, and production certification tests pass
+- [ ] No weakening of fail-closed gates or `real_data_only` provenance
+- [ ] No checkpointing-without-closure commits; every commit closes a failure or clears debt
 
 ## FILES MOST LIKELY TO NEED ATTENTION
-Based on repo structure and test names:
-- `strategies/pairs_cointegration.py`
-- `backtest/` (engine, portfolio, diagnostics, gating)
-- `utils/` (stats, cointegration helpers)
-- Any schema/validation modules
-- Test fixtures if they need updating to match correct schemas
+- Test files with the 5 E501 errors (run `python -m ruff check` to list exact lines)
+- `strategies/pairs_trading.py` (pairs strategy entry)
+- `utils/cointegration.py` (Engle-Granger/Johansen, spread MR, half-life, gates)
+- `backtest/engine.py` (backtest engine applying gates causally)
+- `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` (real-data provenance artifacts)
 
-**START NOW. Run the 4 commands in "IMMEDIATE FIRST ACTIONS" and begin fixing the first failing test you see. Do not write a summary of findings and stop - fix it.**
+**START NOW.** Run the ruff check, fix the 5 E501 errors, then run the full test suite. Do not write a summary and stop - fix it.
