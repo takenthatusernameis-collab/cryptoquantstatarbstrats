@@ -90,7 +90,7 @@ def load_cached(
                 return data.copy(), provenance
             parquet_path = _cache_path(key)
             meta_path = _meta_path(key)
-if parquet_path.exists() and meta_path.exists():
+            if parquet_path.exists() and meta_path.exists():
                 try:
                     with open(parquet_path, "rb") as fh:
                         data = pickle.load(fh)
