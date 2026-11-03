@@ -208,54 +208,41 @@ class CointegrationPairsStrategy(PairStrategy):
                         if not isinstance(gates, dict):
                             ok = False
                         else:
-                            for key in (
-                                "eg_pass",
-                                "johansen_pass",
-                                "spread_mr_pass",
-                                "hl_bounds_pass",
-                                "rolling_stable_ok",
-                                "leg_stationarity_ok",
-                                "no_structural_break",
-                                "all_pass",
-                            ):
-                                v = gates.get(key)
-                                if v is False:
-                                    ok = False
-                                    break
-                                # ``all_pass`` is a derived convenience key.
-                                # Only an explicit False blocks; a missing
-                                # ``all_pass`` is not a failure when the
-                                # individual gates above already passed.
-                                if key == "all_pass":
-                                    continue
-                                # ``no_structural_break`` is not an independent
-                                # gate; a confirmed break is signalled by
-                                # ``structural_breaks.flagged`` (checked below)
-                                # and blocks under both modes. A missing/None
-                                # ``no_structural_break`` must not itself block.
-                                if key == "no_structural_break":
-                                    continue
-                                if v is None and self.strict_enriched_gates:
-                                    ok = False
-                                    break
+                            # Also treat an explicit False on no_structural_break in gates as blocking
+                            if gates.get("no_structural_break") is False:
+                                ok = False
+                            # Missing no_structural_break in strict mode should not be relied upon
+                            # alone; structural_breaks.flagged is checked below. But be defensive.
+                            if ok:
+                                for key in (
+                                    "eg_pass",
+                                    "johansen_pass",
+                                    "spread_mr_pass",
+                                    "hl_bounds_pass",
+                                    "rolling_stable_ok",
+                                    "leg_stationarity_ok",
+                                    "all_pass",
+                                ):
+                                    v = gates.get(key)
+                                    if v is False:
+                                        ok = False
+                                        break
+                                    # ``all_pass`` is a derived convenience key.
+                                    # Only an explicit False blocks; a missing
+                                    # ``all_pass`` is not a failure when the
+                                    # individual gates above already passed.
+                                    if key == "all_pass":
+                                        continue
+                                    if v is None and self.strict_enriched_gates:
+                                        ok = False
+                                        break
                             if ok:
                                 if isinstance(sb, dict):
                                     if sb.get("flagged") is True:
-                                        # A confirmed structural break is a hard failure
-                                        # condition, not an "unassessable" state: it
-                                        # blocks under BOTH strict and non-strict modes.
-                                        # This matches the per-bar path (line 293) so
-                                        # cached and per-bar diagnostics never disagree on
-                                        # a flagged break.
                                         ok = False
-                                    # If structural_breaks exists but flagged is None/unassessable
-                                    # in strict mode, be fail-closed for parity with per-bar
                                     elif sb.get("flagged") is None and self.strict_enriched_gates:
                                         ok = False
                                 elif self.strict_enriched_gates:
-                                    # Missing structural_breaks info in cached diagnostics
-                                    # under strict mode must fail closed to match per-bar
-                                    # path behavior (per-bar always computes structural breaks)
                                     ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
@@ -291,45 +278,30 @@ class CointegrationPairsStrategy(PairStrategy):
                                 else {}
                             )
                             ok = True
-                            for key in (
-                                "eg_pass",
-                                "johansen_pass",
-                                "spread_mr_pass",
-                                "hl_bounds_pass",
-                                "rolling_stable_ok",
-                                "leg_stationarity_ok",
-                                "no_structural_break",
-                                "all_pass",
-                            ):
-                                v = g.get(key)
-                                if v is False:
-                                    ok = False
-                                    break
-                                # ``all_pass`` is a derived convenience key.
-                                # Only an explicit False blocks; a missing
-                                # ``all_pass`` is not a failure when the
-                                # individual gates above already passed.
-                                if key == "all_pass":
-                                    continue
-                                # ``no_structural_break`` is not an independent
-                                # gate; a confirmed break is signalled by
-                                # ``structural_breaks.flagged`` (checked below)
-                                # and blocks under both modes. A missing/None
-                                # ``no_structural_break`` must not itself block.
-                                if key == "no_structural_break":
-                                    continue
-                                if v is None and self.strict_enriched_gates:
-                                    ok = False
-                                    break
+                            # Also treat an explicit False on no_structural_break in gates as blocking
+                            if isinstance(g, dict) and g.get("no_structural_break") is False:
+                                ok = False
+                            if ok:
+                                for key in (
+                                    "eg_pass",
+                                    "johansen_pass",
+                                    "spread_mr_pass",
+                                    "hl_bounds_pass",
+                                    "rolling_stable_ok",
+                                    "leg_stationarity_ok",
+                                    "all_pass",
+                                ):
+                                    v = g.get(key)
+                                    if v is False:
+                                        ok = False
+                                        break
+                                    if key == "all_pass":
+                                        continue
+                                    if v is None and self.strict_enriched_gates:
+                                        ok = False
+                                        break
                             try:
                                 if isinstance(sb, dict) and sb.get("flagged") is True:
-                                    # A confirmed structural break is a hard
-                                    # failure condition, not an "unassessable"
-                                    # state: it blocks under BOTH strict and
-                                    # non-strict modes. This matches the cached
-                                    # path (line 233) so cached and per-bar
-                                    # diagnostics never disagree on a flagged
-                                    # break.
                                     ok = False
                                 elif (
                                     isinstance(sb, dict)
