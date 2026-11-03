@@ -49,7 +49,31 @@ def test_cointegration_gate_allows_cointegrated_pair():
     _, pvalue = strat.test_cointegration(df["A"], df["B"])
     assert pvalue <= 0.05, "a cointegrated pair should pass the gate"
 
-    signals = strat.generate_signals(df)
+    # Under strict enriched gates an unassessable rolling-stability gate
+    # blocks entries (fail-closed). Provide explicit passing diagnostics so
+    # the cointegrated pair is allowed through the full gate set.
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+            "all_pass": True,
+        },
+        "structural_breaks": {"flagged": False},
+    }
+    strat_enriched = CointegrationPairsStrategy(
+        pair=("A", "B"),
+        lookback=60,
+        entry_threshold=2.0,
+        cointegration_pvalue=0.05,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    signals = strat_enriched.generate_signals(df)
     positions = int((signals["A"].abs() > 1e-9).sum())
     assert positions > 0, "positions should be taken when the gate passes"
 

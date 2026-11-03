@@ -309,6 +309,26 @@ def comprehensive_cointegration_diagnostics(
         # Stability
         diag["rolling_stability"] = rolling_cointegration_stability(price1, price2)
         diag["structural_break"] = structural_break_check(price1, price2)
+        # Emit structural_breaks in the target-schema shape (with ``flagged``)
+        # so the strategy reads it consistently from either diagnostic path.
+        sb_raw = diag["structural_break"]
+        diag["structural_breaks"] = {
+            "available": bool(
+                "has_break" in sb_raw
+                and sb_raw.get("reason") is None
+                and "error" not in sb_raw
+            ),
+            "breaks": [],
+            "flagged": bool(sb_raw.get("has_break"))
+            if "has_break" in sb_raw
+            else None,
+            "notes": sb_raw.get("reason") or sb_raw.get("error"),
+            "provenance": {
+                "source": "utils.cointegration.structural_break_check",
+                "real_data_only": True,
+                "fabricated_data": False,
+            },
+        }
 
         # Gates
         eg_ok = bool(np.isfinite(eg.get("pvalue")) and eg["pvalue"] < 0.05)
@@ -320,13 +340,30 @@ def comprehensive_cointegration_diagnostics(
         )
         stable_ok = bool(diag["rolling_stability"].get("stable", False))
         break_ok = not bool(diag["structural_break"].get("has_break", False))
+        # spread MR: spread ADF p-value < 0.05
+        adf_spread_p = diag.get("adf_spread", {}).get("pvalue", float("nan"))
+        spread_mr_ok = bool(np.isfinite(adf_spread_p) and adf_spread_p < 0.05)
+        # leg stationarity: both legs ADF p-values finite
+        adf1_p = diag.get("adf_leg1", {}).get("pvalue", float("nan"))
+        adf2_p = diag.get("adf_leg2", {}).get("pvalue", float("nan"))
+        leg_stationarity_ok = bool(
+            np.isfinite(adf1_p) and np.isfinite(adf2_p)
+        )
+        # Emit the target-schema gate key set so any diagnostic fed into the
+        # strategy is read consistently. Missing/unknown keys are never
+        # coerced to True; unassessable gates are False (fail-closed).
         diag["gates"] = {
-            "engle_granger_pass": eg_ok,
+            "eg_pass": eg_ok,
             "johansen_pass": joh_ok,
-            "half_life_pass": hl_ok,
-            "rolling_stability_pass": stable_ok,
+            "spread_mr_pass": spread_mr_ok,
+            "hl_bounds_pass": hl_ok,
+            "leg_stationarity_ok": leg_stationarity_ok,
+            "rolling_stable_ok": stable_ok,
             "no_structural_break": break_ok,
-            "all_pass": bool(eg_ok and joh_ok and hl_ok and stable_ok and break_ok),
+            "all_pass": bool(
+                eg_ok and joh_ok and spread_mr_ok and hl_ok
+                and leg_stationarity_ok and stable_ok and break_ok
+            ),
         }
         return diag
     except Exception as e:

@@ -863,3 +863,46 @@ def test_enriched_gates_per_bar_trailing_only_no_lookahead():
     assert "enriched_gates_ok" in sig1.columns
     # All values should be finite (0 or 1)
     assert np.isfinite(sig1["enriched_gates_ok"].to_numpy()).all()
+
+
+def test_enriched_gates_unassessable_rolling_blocks_under_strict():
+    """An unassessable rolling stability gate must block entries under strict.
+
+    Regression test for the per-bar fallback that previously coerced
+    ``rolling_stable_ok = True`` when rolling stability reported
+    ``insufficient_data``. Under strict mode an unassessable gate must
+    block entries, not pass.
+    """
+    df = make_data(n=220)
+    # Use per-bar recomputation path (no cached enriched_diagnostics).
+    # With a 60-bar lookback the trailing window is too short for the
+    # 720-bar rolling stability test, so rolling_stable_ok is False /
+    # unassessable. Under strict mode this must block entries.
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=60,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig = strat.generate_signals(df)
+    # Strict mode + unassessable rolling gate -> no entries anywhere.
+    assert (sig["enriched_gates_ok"] == 0.0).all()
+    assert not sig["long"].any()
+    assert not sig["short"].any()
+
+
+def test_enriched_gates_unassessable_rolling_relaxed_allows_entries():
+    """Under relaxed mode an unassessable rolling gate may allow entries."""
+    df = make_data(n=220)
+    strat = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=60,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=False,
+    )
+    sig = strat.generate_signals(df)
+    # Relaxed mode does not block on unassessable gates; we only require
+    # that the signal column is finite and not all-blocked by the gate.
+    assert np.isfinite(sig["enriched_gates_ok"].to_numpy()).all()
