@@ -1038,3 +1038,35 @@ def test_enriched_gates_unassessable_rolling_relaxed_allows_entries():
     # Relaxed mode does not block on unassessable gates; we only require
     # that the signal column is finite and not all-blocked by the gate.
     assert np.isfinite(sig["enriched_gates_ok"].to_numpy()).all()
+
+
+def test_cached_vs_perbar_gate_parity_borderline_pair_strict():
+    """Cached enriched diagnostics must produce identical gate outcomes to per-bar path
+    for a borderline pair under strict_enriched_gates=True."""
+    df = make_data(n=400)
+    from utils.cointegration import target_schema_diagnostics
+
+    diag = target_schema_diagnostics(df["BTC"], df["ETH"], pair_name="BTC/ETH")
+    ed = {
+        "gates": diag.get("gates", {}),
+        "structural_breaks": diag.get("structural_breaks", {}),
+    }
+    strat_cached = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=60,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    strat_perbar = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=60,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig_cached = strat_cached.generate_signals(df)
+    sig_perbar = strat_perbar.generate_signals(df)
+    assert (sig_cached["enriched_gates_ok"] == sig_perbar["enriched_gates_ok"]).all(), (
+        "Cached vs per-bar gate parity failed under strict_enriched_gates=True"
+    )
