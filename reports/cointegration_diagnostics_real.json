@@ -24758,5 +24758,2234 @@
         }
       }
     }
-  }
+  },
+  "provenance": {
+    "source": "data/cache (real public Binance spot, www.binance.com)",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-03T10:52:05.933508+00:00",
+    "blocked_routes": [
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5185709758015115,
+        "available": true,
+        "pair": "BTC/ETH"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/ETH"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "BTC/ETH"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6029110794107174,
+        "available": true,
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.2549354385405693,
+        "pair": "ETH/SOL"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.7088623524510671,
+        "available": true,
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "BTC/SOL"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5953573596282998,
+        "available": true,
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.2947309381894337,
+        "pair": "ADA/ETH"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.21129935788433235,
+        "available": true,
+        "pair": "XRP/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "XRP/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "XRP/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "XRP/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "XRP/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.45717727230892935,
+        "available": true,
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.4567657702608397,
+        "pair": "BNB/ETH"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.489461613643462,
+        "available": true,
+        "pair": "BTC/BNB"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "BTC/BNB"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/BNB"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BTC/BNB"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "BTC/BNB"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.1931596946470452,
+        "available": true,
+        "pair": "SOL/BNB"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "SOL/BNB"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "SOL/BNB"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "SOL/BNB"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "SOL/BNB"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.3939546364893661,
+        "available": true,
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.2975606784510819,
+        "pair": "ADA/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.3298786871309937,
+        "available": true,
+        "pair": "XRP/ETH"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "XRP/ETH"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "XRP/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "XRP/ETH"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "XRP/ETH"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5419607363611392,
+        "available": true,
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.36354029077367817,
+        "pair": "BNB/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.4629150206302012,
+        "available": true,
+        "pair": "DOT/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "DOT/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "DOT/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "DOT/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "DOT/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6590290411763075,
+        "available": true,
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "DOT/ETH"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "POL/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "POL/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.29623394833033834,
+        "available": true,
+        "pair": "AVAX/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "AVAX/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "AVAX/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "AVAX/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "AVAX/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6072675498448601,
+        "available": true,
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.31857939881801767,
+        "pair": "LINK/BTC"
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.1683835618279763,
+        "available": true,
+        "pair": "LTC/BTC"
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "pair": "LTC/BTC"
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "LTC/BTC"
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pair": "LTC/BTC"
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/cointegration_diagnostics_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false,
+        "pair": "LTC/BTC"
+      }
+    ],
+    "rationale": "Real-data only cointegration diagnostics; no fabrication. Per-pair provenance preserved; aggregate blocked_routes listed."
+  },
+  "blocked_routes": [
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.5185709758015115,
+      "available": true,
+      "pair": "BTC/ETH"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/ETH"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "BTC/ETH"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.6029110794107174,
+      "available": true,
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.2549354385405693,
+      "pair": "ETH/SOL"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.7088623524510671,
+      "available": true,
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "half_life_bounds",
+      "gate": "half_life_bounds",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "BTC/SOL"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.5953573596282998,
+      "available": true,
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "half_life_bounds",
+      "gate": "half_life_bounds",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.2947309381894337,
+      "pair": "ADA/ETH"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.21129935788433235,
+      "available": true,
+      "pair": "XRP/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "XRP/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "XRP/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "XRP/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "XRP/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.45717727230892935,
+      "available": true,
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.4567657702608397,
+      "pair": "BNB/ETH"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.489461613643462,
+      "available": true,
+      "pair": "BTC/BNB"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "BTC/BNB"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/BNB"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BTC/BNB"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "BTC/BNB"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.1931596946470452,
+      "available": true,
+      "pair": "SOL/BNB"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "SOL/BNB"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "SOL/BNB"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "SOL/BNB"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "SOL/BNB"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.3939546364893661,
+      "available": true,
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.2975606784510819,
+      "pair": "ADA/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.3298786871309937,
+      "available": true,
+      "pair": "XRP/ETH"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "XRP/ETH"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "XRP/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "XRP/ETH"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "XRP/ETH"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.5419607363611392,
+      "available": true,
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.36354029077367817,
+      "pair": "BNB/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.4629150206302012,
+      "available": true,
+      "pair": "DOT/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "DOT/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "DOT/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "DOT/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "DOT/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.6590290411763075,
+      "available": true,
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "half_life_bounds",
+      "gate": "half_life_bounds",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "DOT/ETH"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "POL/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "POL/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.29623394833033834,
+      "available": true,
+      "pair": "AVAX/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "AVAX/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "AVAX/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "AVAX/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "AVAX/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.6072675498448601,
+      "available": true,
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "structural_break",
+      "gate": "structural_break",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "flagged": true,
+      "relative_change": 0.31857939881801767,
+      "pair": "LINK/BTC"
+    },
+    {
+      "route": "engle_granger",
+      "gate": "engle_granger",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pvalue": 0.1683835618279763,
+      "available": true,
+      "pair": "LTC/BTC"
+    },
+    {
+      "route": "johansen",
+      "gate": "johansen",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "available": true,
+      "pair": "LTC/BTC"
+    },
+    {
+      "route": "spread_mean_reversion",
+      "gate": "spread_mean_reversion",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "LTC/BTC"
+    },
+    {
+      "route": "leg_stationarity",
+      "gate": "leg_stationarity",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "pair": "LTC/BTC"
+    },
+    {
+      "route": "rolling_stability",
+      "gate": "rolling_stability",
+      "passed": false,
+      "provenance": {
+        "source": "reports/cointegration_diagnostics_real.json",
+        "real_data_only": true,
+        "fabricated_data": false
+      },
+      "frac_significant": null,
+      "n_windows": 184,
+      "stable": false,
+      "pair": "LTC/BTC"
+    }
+  ]
 }

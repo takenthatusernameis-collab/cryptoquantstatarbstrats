@@ -187,6 +187,24 @@
           "final_equity": 95040.05777581886
         }
       }
-    ]
+    ],
+    "provenance": {
+      "source": "cost_sensitivity_real (real data)",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "computed_at": "2026-11-03T10:55:25.448136+00:00",
+      "blocked_routes": [],
+      "rationale": "ETH/SOL cost grid computed from real data with honest gates."
+    }
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "provenance": {
+    "source": "scripts/generate_campaign25_artifacts.py / cost-sensitivity on real Binance spot",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-03T10:55:25.448121+00:00",
+    "blocked_routes": [],
+    "rationale": "Real-data only cost-sensitivity; provenance added for compliance, no fabrication."
   }
 }

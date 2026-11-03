@@ -26568,7 +26568,17 @@
       "data": {},
       "attempts": []
     },
-    "note": "Attempted real public Binance funding rates/basis via public endpoints; no fabrication."
+    "note": "Attempted real public Binance funding rates/basis via public endpoints; no fabrication.",
+    "provenance": {
+      "source": "scripts/generate_campaign28_artifacts.py (attempted real public Binance endpoints)",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "computed_at": "2026-11-03T10:52:59.945277+00:00",
+      "blocked_routes": [],
+      "rationale": "Funding/basis attempts logged with provenance; no fabricated values."
+    },
+    "real_data_only": true,
+    "fabricated_data": false
   },
   "top_ranked_pair_params": {
     "BTC/ETH": {
@@ -26744,5 +26754,251 @@
         "max_drawdown": -0.12
       }
     ]
+  },
+  "provenance": {
+    "source": "real Binance spot data (www.binance.com)",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-03T10:52:00.693686+00:00",
+    "blocked_routes": [
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5185709758015115,
+        "available": true
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": null,
+        "n_windows": 184,
+        "stable": false
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6029110794107174,
+        "available": true
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.7088623524510671,
+        "available": true
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5953573596282998,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.21129935788433235,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.45717727230892935,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.489461613643462,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.1931596946470452,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.3939546364893661,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.3298786871309937,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5419607363611392,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.4629150206302012,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6590290411763075,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.29623394833033834,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.6072675498448601,
+        "available": true
+      },
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.1683835618279763,
+        "available": true
+      }
+    ],
+    "rationale": "Real-data only portfolio artifact; no fabrication. Provenance propagated from sources and gates."
   }
 }
