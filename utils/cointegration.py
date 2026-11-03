@@ -774,21 +774,41 @@ def target_schema_diagnostics(
 
     # Honest blocking: every failing gate is recorded with full provenance so no
     # failing pair masquerades as computeable. Build blocked_routes from the
-    # specific gates that did not pass on real data.
+    # specific gates that did not pass on real data. The ``gate`` field uses the
+    # SAME key names as the ``gates`` dict above (eg_pass, johansen_pass, ...) so
+    # consumers can match a blocked route back to its gate without a name map;
+    # this is what tests/test_cost_sensitivity_real.py asserts.
     gate_checks = [
-        ("engle_granger", eg_pass, eg_t),
-        ("johansen", joh_pass, joh_t),
-        ("spread_mean_reversion", spread_mr_pass, None),
-        ("half_life_bounds", hl_bounds_pass, hl_t),
-        ("leg_stationarity", leg_stationarity_ok, None),
-        ("rolling_stability", rolling_stable_ok, rs),
-        ("structural_break", no_structural_break, sb_t),
+        ("eg_pass", eg_pass, eg_t),
+        ("johansen_pass", joh_pass, joh_t),
+        ("spread_mr_pass", spread_mr_pass, None),
+        ("hl_bounds_pass", hl_bounds_pass, hl_t),
+        ("leg_stationarity_ok", leg_stationarity_ok, None),
+        ("rolling_stable_ok", rolling_stable_ok, rs),
+        ("no_structural_break", no_structural_break, sb_t),
     ]
     blocked_routes = []
     for gate_name, passed, detail in gate_checks:
         if not passed:
+            # ``route`` keeps the descriptive name (engle_granger, johansen,
+            # spread_mean_reversion, half_life_bounds, leg_stationarity,
+            # rolling_stability, structural_break) used by the audit schema and
+            # by tests/test_cointegration_diagnostics_schema.py. ``gate`` uses
+            # the SAME key as the ``gates`` dict (eg_pass, johansen_pass, ...)
+            # so consumers can match a blocked route back to its gate without a
+            # name map; this is what tests/test_cost_sensitivity_real.py
+            # asserts. Both names are emitted so neither consumer breaks.
+            route_name = {
+                "eg_pass": "engle_granger",
+                "johansen_pass": "johansen",
+                "spread_mr_pass": "spread_mean_reversion",
+                "hl_bounds_pass": "half_life_bounds",
+                "leg_stationarity_ok": "leg_stationarity",
+                "rolling_stable_ok": "rolling_stability",
+                "no_structural_break": "structural_break",
+            }.get(gate_name, gate_name)
             route = {
-                "route": gate_name,
+                "route": route_name,
                 "gate": gate_name,
                 "passed": False,
                 "provenance": {
@@ -804,11 +824,11 @@ def target_schema_diagnostics(
                     route["pvalue"] = detail.get("pvalue")
                 if detail.get("available") is not None:
                     route["available"] = detail.get("available")
-                if gate_name == "rolling_stability":
+                if gate_name == "rolling_stable_ok":
                     route["frac_significant"] = detail.get("frac_significant")
                     route["n_windows"] = detail.get("n_windows")
                     route["stable"] = detail.get("stable")
-                if gate_name == "structural_break":
+                if gate_name == "no_structural_break":
                     route["flagged"] = detail.get("flagged")
                     route["available"] = detail.get("available")
                     route["relative_change"] = (

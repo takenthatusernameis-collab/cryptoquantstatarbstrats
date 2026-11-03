@@ -200,11 +200,232 @@
   "real_data_only": true,
   "fabricated_data": false,
   "provenance": {
-    "source": "scripts/generate_campaign25_artifacts.py / cost-sensitivity on real Binance spot",
+    "source": "examples.run_cost_sensitivity_real",
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-03T10:55:25.448121+00:00",
+    "computed_at": "2026-11-03T20:30:59.373488+00:00",
+    "blocked_routes": [
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5770583094894728,
+        "available": true
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": 0.11538461538461539,
+        "n_windows": 182,
+        "stable": false
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.2541291929620622
+      }
+    ],
+    "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: engle_granger, johansen, spread_mean_reversion, half_life_bounds, leg_stationarity, rolling_stability, structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
+  },
+  "type": "cost_sensitivity_real",
+  "computed_at": "2026-11-03T20:30:59.373476+00:00",
+  "fetch_provenance": {
+    "source": "data.cache.load_cached (real Binance spot, www.binance.com)",
+    "symbols": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-28",
+    "interval": "1h",
+    "cache_hit": false,
+    "blocked_hosts": [],
     "blocked_routes": [],
-    "rationale": "Real-data only cost-sensitivity; provenance added for compliance, no fabrication."
+    "per_symbol": {
+      "BTC": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "ETH": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "SOL": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      }
+    }
+  },
+  "cointegration_diagnostics": {
+    "pair": [
+      "ETH",
+      "SOL"
+    ],
+    "status": "blocked_or_insufficient_data",
+    "gates": {
+      "all_pass": false,
+      "eg_pass": false,
+      "johansen_pass": false,
+      "spread_mr_pass": false,
+      "hl_bounds_pass": false,
+      "leg_stationarity_ok": false,
+      "rolling_stable_ok": false,
+      "no_structural_break": false
+    },
+    "blocked_routes": [
+      {
+        "route": "engle_granger",
+        "gate": "engle_granger",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "pvalue": 0.5770583094894728,
+        "available": true
+      },
+      {
+        "route": "johansen",
+        "gate": "johansen",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "spread_mean_reversion",
+        "gate": "spread_mean_reversion",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
+      {
+        "route": "half_life_bounds",
+        "gate": "half_life_bounds",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true
+      },
+      {
+        "route": "leg_stationarity",
+        "gate": "leg_stationarity",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
+      {
+        "route": "rolling_stability",
+        "gate": "rolling_stability",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "frac_significant": 0.11538461538461539,
+        "n_windows": 182,
+        "stable": false
+      },
+      {
+        "route": "structural_break",
+        "gate": "structural_break",
+        "passed": false,
+        "provenance": {
+          "source": "reports/portfolio_real.json",
+          "real_data_only": true,
+          "fabricated_data": false
+        },
+        "available": true,
+        "flagged": true,
+        "relative_change": 0.2541291929620622
+      }
+    ],
+    "provenance": {
+      "source": "reports/portfolio_real.json",
+      "real_data_only": true,
+      "fabricated_data": false
+    }
   }
 }
