@@ -228,19 +228,26 @@ class CointegrationPairsStrategy(PairStrategy):
                                 # individual gates above already passed.
                                 if key == "all_pass":
                                     continue
+                                # ``no_structural_break`` is not an independent
+                                # gate; a confirmed break is signalled by
+                                # ``structural_breaks.flagged`` (checked below)
+                                # and blocks under both modes. A missing/None
+                                # ``no_structural_break`` must not itself block.
+                                if key == "no_structural_break":
+                                    continue
                                 if v is None and self.strict_enriched_gates:
                                     ok = False
                                     break
-                        if ok and isinstance(sb, dict) and sb.get("flagged") is True:
-                            # A confirmed structural break is a hard failure
-                            # condition, not an "unassessable" state: it
-                            # blocks under BOTH strict and non-strict modes.
-                            # This matches the per-bar path (line 293) so
-                            # cached and per-bar diagnostics never disagree on
-                            # a flagged break. (Previously non-strict silently
-                            # allowed entries through a confirmed structural
-                            # break, a fail-open.)
-                            ok = False
+                            if ok and isinstance(sb, dict) and sb.get("flagged") is True:
+                                # A confirmed structural break is a hard failure
+                                # condition, not an "unassessable" state: it
+                                # blocks under BOTH strict and non-strict modes.
+                                # This matches the per-bar path (line 293) so
+                                # cached and per-bar diagnostics never disagree on
+                                # a flagged break. (Previously non-strict silently
+                                # allowed entries through a confirmed structural
+                                # break, a fail-open.)
+                                ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
                         )
@@ -295,6 +302,13 @@ class CointegrationPairsStrategy(PairStrategy):
                                 # individual gates above already passed.
                                 if key == "all_pass":
                                     continue
+                                # ``no_structural_break`` is not an independent
+                                # gate; a confirmed break is signalled by
+                                # ``structural_breaks.flagged`` (checked below)
+                                # and blocks under both modes. A missing/None
+                                # ``no_structural_break`` must not itself block.
+                                if key == "no_structural_break":
+                                    continue
                                 if v is None and self.strict_enriched_gates:
                                     ok = False
                                     break
@@ -323,7 +337,7 @@ class CointegrationPairsStrategy(PairStrategy):
                     # Fail closed under strict mode: never promote missing/
                     # failed per-bar diagnostics into an "ok" signal.
                     fill_val = 0.0 if self.strict_enriched_gates else 1.0
-                    enriched_ok = enriched_ok.ffill().fillna(fill_val)
+                    enriched_ok = enriched_ok.bfill().ffill().fillna(fill_val)
             except Exception:
                 # Fail closed under strict mode; non-strict treats an
                 # unexpected error as permissive (documented fallback).

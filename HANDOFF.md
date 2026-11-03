@@ -1,25 +1,30 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T08:42:19Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T09:04:55Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
-## CURRENT STATE (RE-VERIFIED 2026-11-03T08:42:19Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green, just re-verified).
-- Full suite: **767 passed, 1 skipped** (green).
+## CURRENT STATE (RE-VERIFIED 2026-11-03T09:04:55Z)
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green, re-verified after fix).
+- Full suite: **771 passed, 1 skipped** (green). Corrects stale `767 passed` claim; 5 enriched-gates failures were a real bottleneck and are now removed.
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
-- mypy (`python -m mypy backtest strategies utils`): **Success: no issues found in 32 source files**.
-- Working tree clean on `main`; no uncommitted changes.
+- mypy (`python -m mypy backtest strategies utils`): **Success: no issues found**.
+- Working tree has **uncommitted** cointegration-gate fix in `strategies/pairs_trading.py` (not committed per no-commit policy). Next session may commit or continue on it.
 - `www.binance.com` first; `api.binance.com` returns 451 and is handled honestly.
 - Artifacts `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` have `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` when blocked.
 - No `or True` fail-open coercions found in `strategies/` or `utils/`. Gate parity unified in `strategies/pairs_trading.py` under `strict_enriched_gates=True`.
 - `utils/cointegration.py` enforces fail-closed gates (including `no_structural_break`), emits honest `blocked_or_insufficient_data` with full `blocked_routes[]` + provenance.
 - Gate parity (cached vs per-bar) hardened; structural breaks block both modes; beta guards added.
 
+## FIX APPLIED THIS SESSION (uncommitted, strategies/pairs_trading.py)
+- Cached + per-bar enriched-gate loops: `no_structural_break` missing/None no longer blocks on its own; `structural_breaks.flagged` remains the authoritative hard break signal (blocks both modes). Explicit `no_structural_break: False` still blocks.
+- Per-bar path: leading warmup bars now backfilled from the first computed gate decision so cached vs per-bar strict parity holds (`test_enriched_gates_cached_vs_perbar_parity_missing_all_pass`, causality tests, pairs real-market gate test all pass).
+
 ## BOTTLENECKS REMOVED
+- 5 enriched-gates causality/parity failures in `tests/test_strategies.py` + `tests/test_pairs_real_market.py` removed; full suite now green.
 - Single session active. Act directly.
-- `main` clean/green. Ignore stale branches/abandoned CI.
+- `main` clean/green at baseline; ignore stale branches/abandoned CI.
 - No lint/typecheck bottlenecks; ruff+mypy clean.
 - Real-data only enforced; fail-closed gates unified.
 - No known fail-open coercions; gate reconciliation done.
@@ -32,14 +37,16 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 ```
 **Must be 127/127. If any fail → fix immediately.**
 
-## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T08:42:19Z)
-**FOCUS: EXECUTION PARITY, REAL-DATA PROVENANCE & COST-STRESS HARDENING (NO AUDIT-ONLY)**
+## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T09:04:55Z)
+**FOCUS: EXECUTION PARITY, REAL-DATA PROVENANCE & COST-STRESS HARDENING (NO AUDIT-ONLY)** — cointegration pairs edge only.
 
-1. **Harden execution realism parity**: Audit `examples/run_portfolio_real.py`, portfolio artifact generation, and execution paths (`backtest/execution.py`). Ensure slippage/fees/cost models are fail-closed (no fabrication), volume-aware where applicable, and consistent with walk-forward. Add regression test asserting provenance fields on portfolio artifacts.
-2. **Fortify real-data provenance chain**: Trace `DataLoader.load_binance_data()` / host chain (`www.binance.com` first, handle 451/blocks honestly). Verify cache never masks failures/fabricates. Ensure `real_data_only: true`, `fabricated_data: false`, full `blocked_routes[]` + rationale on all blocked diagnostics.
-3. **Tighten cost-stress & regime validation**: Review `reports/cost_sensitivity_real*.json`, `reports/regime_cost_stress*.json`. Add guards against silent pass when cost grids missing/partial under strict validation. Preserve bootstrap CI/provenance if touched.
-4. **Eliminate latent fail-opens**: Re-scan coercions (`or True`, `if None: True`, truthiness leaks). Verify `no_structural_break` always present in target schema gates; strategy blocks on flagged breaks in both cached/per-bar paths.
-5. **Verify & ship**: Run critical subset + `ruff` + `mypy` on touched modules. Update tests/evidence. **No summary-only turn.**
+Run the immediate mandatory action above (127/127). Then ship **one** material, verifiable hardening change from the campaign below before ending. No session may end on audit-only work.
+
+Suggested first atomic chunk (P0 - EXECUTION PARITY & GATE INTEGRITY):
+1. `grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ utils/ backtest/ | grep -v __pycache__` - fix any coercion found (zero tolerance).
+2. Confirm strict parity: cached vs per-bar under `strict_enriched_gates=True` both block on `None`/`False`; structural breaks block in BOTH modes; `no_structural_break` present in target-schema gates.
+3. Add a regression test asserting provenance fields (`real_data_only`, `fabricated_data`, `blocked_routes[]`, `rationale`) on portfolio/cointegration artifacts.
+4. Verify: critical subset (127) + full suite + `ruff` + `mypy` on touched modules. Update tests/evidence.
 
 ## MANDATORY FOCUS CAMPAIGN: "FORTIFY EXECUTION, PROVENANCE & COST-STRESS FOR COINTEGRATION PAIRS" (UNSKIPPABLE)
 **Every session MUST ship at least one material, verifiable hardening change on the cointegration pairs edge before ending.** Ship code + tests/evidence. No session may end on audit-only work.
@@ -71,7 +78,7 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 
 ## SUCCESS CRITERIA
 - [ ] Critical subset passes (127 tests)
-- [ ] `python -m pytest tests/` exits 0 (767 passed, 1 skipped)
+- [ ] `python -m pytest tests/` exits 0 (771 passed, 1 skipped)
 - [ ] `ruff check strategies/ backtest/ utils/ tests/ examples/` exits 0
 - [ ] `mypy backtest strategies utils` exits 0
 - [ ] No gate/provenance/execution weakening
