@@ -275,7 +275,8 @@ class DataLoader:
 
         if not series_by_symbol:
             blocked_hosts = self.last_fetch_provenance.get("blocked_hosts", []) or []
-            blocked_routes = sorted(set(blocked_hosts + self.last_fetch_provenance.get("blocked_routes", []) or []))
+            cached_routes = self.last_fetch_provenance.get("blocked_routes", []) or []
+            blocked_routes = sorted(set(blocked_hosts + cached_routes))
             self.last_fetch_provenance["blocked_hosts"] = list(blocked_hosts)
             self.last_fetch_provenance["blocked_routes"] = blocked_routes
             err_obj = RuntimeError(
@@ -608,7 +609,6 @@ class DataLoader:
 
         def _fetch_one(sym: str) -> tuple[str, pd.Series | None, list[dict[str, Any]]]:
             local_attempts: list[dict[str, Any]] = []
-            last_err: str | None = None
             market_sym = _market_symbol(sym)
             for attempt in range(1, retries + 1):
                 cursor_ms = start_ms
@@ -631,9 +631,12 @@ class DataLoader:
                             url = f"{host}/api/v3/klines?{query}"
                             with urlopen(url, timeout=timeout) as resp:
                                 payload = json.loads(resp.read().decode("utf-8"))
-                            latency_ms = int((time.monotonic() - t0) * 1000)
+                            int((time.monotonic() - t0) * 1000)
                             if not isinstance(payload, list):
-                                raise RuntimeError(f"unexpected payload type: {type(payload).__name__}")
+                                raise RuntimeError(
+                                    "unexpected payload type: "
+                                    f"{type(payload).__name__}"
+                                )
                             if not payload:
                                 break
                             for candle in payload:
@@ -661,7 +664,8 @@ class DataLoader:
                         })
                         # Permanent HTTP errors identify a blocked route: skip it
                         # for every remaining symbol instead of retrying it.
-                        if any(code in err for code in ("HTTP Error 451", "HTTP Error 403", "HTTP Error 404")):
+                        blocked_codes = ("HTTP Error 451", "HTTP Error 403", "HTTP Error 404")
+                        if any(code in err for code in blocked_codes):
                             blocked_hosts.add(host)
                         continue
                 if host_used is not None and ts_list:
@@ -674,9 +678,12 @@ class DataLoader:
                     })
                     frame = pd.DataFrame({"timestamp": ts_list, sym: vol_list})
                     frame["timestamp"] = pd.to_datetime(frame["timestamp"], unit="ms", utc=True)
-                    series = frame.drop_duplicates("timestamp").set_index("timestamp").sort_index()[sym]
+                    series = (
+                        frame.drop_duplicates("timestamp")
+                        .set_index("timestamp")
+                        .sort_index()[sym]
+                    )
                     return sym, series, local_attempts
-                last_err = f"all_hosts_failed attempt={attempt}"
                 if attempt < retries:
                     time.sleep(backoff_seconds * attempt)
             return sym, None, local_attempts

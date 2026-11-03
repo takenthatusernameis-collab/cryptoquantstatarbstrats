@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T21:39:07Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T22:06:15Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,15 +6,16 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T21:39:07Z)
+## CURRENT STATE (VERIFIED 2026-11-03T22:06:15Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cointegration-related tests (`-k cointegration`): passing
-- Cache provenance replay tests: **6 passed** (green)
+- Cache provenance replay tests: **all passing** (29 passed incl. diagnostics schema)
 - Strategy enriched-gate tests (cached vs per-bar parity): **all passing**
-- Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): clean
+- Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/ data/`): **clean** (data/ bottleneck removed — 9 lint errors fixed)
 - mypy (`python -m mypy backtest strategies utils`): clean
 - Working tree **clean** on `main`
 - Fail-closed gates unified; real-data only enforced; no observed fail-open coercions.
+- Bottleneck eliminated: `data/loader.py` unused vars + long lines + missing trailing newlines in `data/__init__.py`/`examples/__init__.py` fixed; ruff now clean across ALL directories.
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
 1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
@@ -25,7 +26,7 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T21:39:07Z
+**TIMESTAMP:** 2026-11-03T22:06:15Z
 **OBJECTIVE:** Harden **cointegration pairs discovery + enriched gate path** for unbreakable fail-closed behavior and cached/uncached execution parity under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **Heavy execution required. No audit-only termination.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
@@ -66,7 +67,7 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
    - **Do not end until all pass and a material hardening is shipped with traceable evidence (files changed + tests added/updated).**
 
 ## MANDATORY FOCUS CAMPAIGN (UNSKIPPABLE - HEAVY WORK REQUIRED)
-Every agentic session MUST ship >=1 material, verifiable hardening change on the cointegration pairs edge. No summary-only termination. No deferral. No audit-only work.
+Every agentic session MUST ship >=1 material, verifiable hardening change on the cointegration pairs edge. No summary-only termination. No deferral. No audit-only work. This campaign is mandatory for every future session until explicitly superseded in this file.
 
 ### P0 - EXECUTION PARITY, GATE INTEGRITY (IMMEDIATE)
 - [ ] Eliminate any cached/uncached parity gaps under `strict_enriched_gates=True` (structural breaks, None/missing gates)

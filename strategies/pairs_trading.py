@@ -331,7 +331,11 @@ class CointegrationPairsStrategy(PairStrategy):
                                     # diagnostics never disagree on a flagged
                                     # break.
                                     ok = False
-                                elif isinstance(sb, dict) and sb.get("flagged") is None and self.strict_enriched_gates:
+                                elif (
+                                    isinstance(sb, dict)
+                                    and sb.get("flagged") is None
+                                    and self.strict_enriched_gates
+                                ):
                                     ok = False
                                 elif not isinstance(sb, dict) and self.strict_enriched_gates:
                                     ok = False
