@@ -221,14 +221,13 @@ class CointegrationPairsStrategy(PairStrategy):
                                 if v is False:
                                     ok = False
                                     break
+                                # ``all_pass`` is a derived convenience key.
+                                # Only an explicit False blocks; a missing
+                                # ``all_pass`` is not a failure when the
+                                # individual gates above already passed.
+                                if key == "all_pass":
+                                    continue
                                 if v is None and self.strict_enriched_gates:
-                                    ok = False
-                                    break
-                                if (
-                                    key == "all_pass"
-                                    and v is not True
-                                    and self.strict_enriched_gates
-                                ):
                                     ok = False
                                     break
                         if ok and isinstance(sb, dict) and sb.get("flagged") is True:
@@ -281,14 +280,13 @@ class CointegrationPairsStrategy(PairStrategy):
                                 if v is False:
                                     ok = False
                                     break
+                                # ``all_pass`` is a derived convenience key.
+                                # Only an explicit False blocks; a missing
+                                # ``all_pass`` is not a failure when the
+                                # individual gates above already passed.
+                                if key == "all_pass":
+                                    continue
                                 if v is None and self.strict_enriched_gates:
-                                    ok = False
-                                    break
-                                if (
-                                    key == "all_pass"
-                                    and v is not True
-                                    and self.strict_enriched_gates
-                                ):
                                     ok = False
                                     break
                             try:
