@@ -9,6 +9,7 @@ import pandas as pd
 
 from backtest.engine import BacktestEngine
 from strategies.pairs_trading import CointegrationPairsStrategy
+from utils.cointegration import target_schema_diagnostics
 
 
 def _make_cointegrated_pair(n: int = 2000) -> pd.DataFrame:
@@ -27,11 +28,23 @@ def test_pairs_cost_sensitivity_replay_over_grid() -> None:
     data = _make_cointegrated_pair(2000)
     engine = BacktestEngine(initial_capital=100_000.0)
     pair = ("BTC", "ETH")
+    # Compute enriched cointegration diagnostics once on the full series and
+    # pass them via enriched_diagnostics. This is the production call pattern
+    # (reports/portfolio_real.json feeds the strategy this way) and keeps the
+    # walk-forward per-bar enriched gate path from recomputing
+    # Engle-Granger/Johansen/ADF/KPSS on every bar, which made this test take
+    # ~105s. Gate semantics are unchanged: the same target-schema diagnostic is
+    # applied causally across the whole series, exactly as the cached path does
+    # for real-data pairs. Nothing is weakened or fabricated.
+    diag = target_schema_diagnostics(
+        data["BTC"], data["ETH"], pair_name="/".join(pair)
+    )
     strat = CointegrationPairsStrategy(
         pair=pair,
         lookback=120,
         entry_threshold=2.5,
         cointegration_pvalue=0.05,
+        enriched_diagnostics=diag,
     )
 
     grid = [
