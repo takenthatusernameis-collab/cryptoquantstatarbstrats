@@ -1,6 +1,6 @@
 {
   "type": "drift_triggered_regating_mt",
-  "generated_at": "2026-11-02T04:00:31.390383+00:00",
+  "generated_at": "2026-11-03T07:39:20.527036+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "data_source": "binance_public_rest_www.binance.com_cached_1h_resample_allowed_if_real",
@@ -54,7 +54,7 @@
     ],
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-02T04:00:31.390386+00:00"
+    "computed_at": "2026-11-03T07:39:20.527039+00:00"
   },
   "drift_triggered_regating_summary": {
     "fail_closed": true,
@@ -245,7 +245,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389935+00:00",
+            "computed_at": "2026-11-03T07:39:20.526605+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -419,7 +419,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389942+00:00",
+            "computed_at": "2026-11-03T07:39:20.526616+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -615,7 +615,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389950+00:00",
+            "computed_at": "2026-11-03T07:39:20.526623+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -811,7 +811,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389959+00:00",
+            "computed_at": "2026-11-03T07:39:20.526633+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -985,7 +985,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389969+00:00",
+            "computed_at": "2026-11-03T07:39:20.526641+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1159,7 +1159,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389978+00:00",
+            "computed_at": "2026-11-03T07:39:20.526646+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1333,7 +1333,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389983+00:00",
+            "computed_at": "2026-11-03T07:39:20.526652+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1507,7 +1507,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389989+00:00",
+            "computed_at": "2026-11-03T07:39:20.526666+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1681,7 +1681,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.389996+00:00",
+            "computed_at": "2026-11-03T07:39:20.526674+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1855,7 +1855,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390005+00:00",
+            "computed_at": "2026-11-03T07:39:20.526679+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2029,7 +2029,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390013+00:00",
+            "computed_at": "2026-11-03T07:39:20.526685+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2203,7 +2203,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390019+00:00",
+            "computed_at": "2026-11-03T07:39:20.526694+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2399,7 +2399,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390027+00:00",
+            "computed_at": "2026-11-03T07:39:20.526702+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2507,7 +2507,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390033+00:00",
+            "computed_at": "2026-11-03T07:39:20.526706+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2681,7 +2681,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390040+00:00",
+            "computed_at": "2026-11-03T07:39:20.526715+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2855,7 +2855,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390045+00:00",
+            "computed_at": "2026-11-03T07:39:20.526723+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3029,7 +3029,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390058+00:00",
+            "computed_at": "2026-11-03T07:39:20.526728+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3048,7 +3048,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-02T04:00:31.390062+00:00"
+        "computed_at": "2026-11-03T07:39:20.526732+00:00"
       }
     },
     "4h": {
@@ -3226,7 +3226,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390069+00:00",
+            "computed_at": "2026-11-03T07:39:20.526743+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3402,7 +3402,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390075+00:00",
+            "computed_at": "2026-11-03T07:39:20.526750+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3578,7 +3578,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390085+00:00",
+            "computed_at": "2026-11-03T07:39:20.526756+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3754,7 +3754,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390091+00:00",
+            "computed_at": "2026-11-03T07:39:20.526763+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3910,7 +3910,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390096+00:00",
+            "computed_at": "2026-11-03T07:39:20.526770+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4086,7 +4086,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390101+00:00",
+            "computed_at": "2026-11-03T07:39:20.526780+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4262,7 +4262,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390113+00:00",
+            "computed_at": "2026-11-03T07:39:20.526785+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4418,7 +4418,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390120+00:00",
+            "computed_at": "2026-11-03T07:39:20.526790+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4594,7 +4594,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390126+00:00",
+            "computed_at": "2026-11-03T07:39:20.526798+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4770,7 +4770,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390131+00:00",
+            "computed_at": "2026-11-03T07:39:20.526805+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4946,7 +4946,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390143+00:00",
+            "computed_at": "2026-11-03T07:39:20.526814+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5122,7 +5122,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390151+00:00",
+            "computed_at": "2026-11-03T07:39:20.526821+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5298,7 +5298,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390158+00:00",
+            "computed_at": "2026-11-03T07:39:20.526827+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5374,7 +5374,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390163+00:00",
+            "computed_at": "2026-11-03T07:39:20.526831+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5550,7 +5550,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390170+00:00",
+            "computed_at": "2026-11-03T07:39:20.526839+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5726,7 +5726,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390178+00:00",
+            "computed_at": "2026-11-03T07:39:20.526848+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5882,7 +5882,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390183+00:00",
+            "computed_at": "2026-11-03T07:39:20.526853+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5901,7 +5901,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-02T04:00:31.390187+00:00"
+        "computed_at": "2026-11-03T07:39:20.526859+00:00"
       }
     },
     "1d": {
@@ -6076,7 +6076,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390197+00:00",
+            "computed_at": "2026-11-03T07:39:20.526867+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6250,7 +6250,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390204+00:00",
+            "computed_at": "2026-11-03T07:39:20.526875+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6424,7 +6424,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390212+00:00",
+            "computed_at": "2026-11-03T07:39:20.526880+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6598,7 +6598,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390219+00:00",
+            "computed_at": "2026-11-03T07:39:20.526887+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6752,7 +6752,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390225+00:00",
+            "computed_at": "2026-11-03T07:39:20.526895+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6926,7 +6926,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390262+00:00",
+            "computed_at": "2026-11-03T07:39:20.526930+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7100,7 +7100,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390269+00:00",
+            "computed_at": "2026-11-03T07:39:20.526945+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7274,7 +7274,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390277+00:00",
+            "computed_at": "2026-11-03T07:39:20.526951+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7448,7 +7448,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390283+00:00",
+            "computed_at": "2026-11-03T07:39:20.526967+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7622,7 +7622,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390292+00:00",
+            "computed_at": "2026-11-03T07:39:20.526975+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7796,7 +7796,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390299+00:00",
+            "computed_at": "2026-11-03T07:39:20.526980+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7970,7 +7970,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390307+00:00",
+            "computed_at": "2026-11-03T07:39:20.526986+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8122,7 +8122,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390312+00:00",
+            "computed_at": "2026-11-03T07:39:20.526995+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8230,7 +8230,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390319+00:00",
+            "computed_at": "2026-11-03T07:39:20.527003+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8404,7 +8404,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390328+00:00",
+            "computed_at": "2026-11-03T07:39:20.527009+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8578,7 +8578,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390333+00:00",
+            "computed_at": "2026-11-03T07:39:20.527019+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8732,7 +8732,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-02T04:00:31.390340+00:00",
+            "computed_at": "2026-11-03T07:39:20.527029+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8751,7 +8751,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-02T04:00:31.390380+00:00"
+        "computed_at": "2026-11-03T07:39:20.527034+00:00"
       }
     }
   },

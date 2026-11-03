@@ -379,7 +379,7 @@ def comprehensive_cointegration_diagnostics(
         return diag
     except Exception as e:
         diag["error"] = str(e)[:200]
-        diag["gates"] = {"all_pass": False}
+        diag["gates"] = {"all_pass": False, "no_structural_break": None}
         return diag
 
 
@@ -739,7 +739,7 @@ def target_schema_diagnostics(
     # (ETH/SOL, ADA/ETH, BNB/ETH, ADA/BTC, BNB/BTC, LINK/BTC) were recorded
     # with all_pass computed from the other six gates only -- the artifact's
     # gate model never blocked the break even though the strategy did. Fail-open.
-    no_structural_break = bool(sb_t.get("flagged") is not True)
+    no_structural_break = bool(sb_t.get("flagged") is False)
     all_pass = bool(
         eg_pass
         and joh_pass
@@ -1018,6 +1018,7 @@ def blocked_schema_diagnostics(
                 "hl_bounds_pass": None,
                 "leg_stationarity_ok": None,
                 "rolling_stable_ok": None,
+                "no_structural_break": None,
             },
             "provenance": {
                 "source": source,

@@ -1350,13 +1350,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:56:39.414517+00:00",
+        "computed_at": "2026-11-03T07:38:06.769465+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2792,13 +2793,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:56:43.782477+00:00",
+        "computed_at": "2026-11-03T07:38:10.988713+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2855,6 +2857,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.2549354385405693
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.602911; spread_adf_p=0.353849; hl=493.3; hurst=0.505; rolling_frac=0.1141; /req 0.6; leg1_adf_p=0.656994; leg2_adf_p=0.670725; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -4238,13 +4253,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:56:48.136002+00:00",
+        "computed_at": "2026-11-03T07:38:15.404716+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -5708,13 +5724,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:56:52.483028+00:00",
+        "computed_at": "2026-11-03T07:38:19.646771+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -5782,6 +5799,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.2947309381894337
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.595357; spread_adf_p=0.346107; hl=556.7; hurst=0.4876; rolling_frac=0.0924; /req 0.6; leg1_adf_p=0.423085; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -7171,13 +7201,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:56:56.845581+00:00",
+        "computed_at": "2026-11-03T07:38:23.946140+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -8624,13 +8655,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:01.215054+00:00",
+        "computed_at": "2026-11-03T07:38:28.299236+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -8687,6 +8719,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.4567657702608397
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.457177; spread_adf_p=0.230224; hl=491.0; hurst=0.5372; rolling_frac=0.0815; /req 0.6; leg1_adf_p=0.542439; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -10070,13 +10115,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:05.553677+00:00",
+        "computed_at": "2026-11-03T07:38:32.648893+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -11516,13 +11562,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:09.987877+00:00",
+        "computed_at": "2026-11-03T07:38:37.041003+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -12962,13 +13009,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:14.353595+00:00",
+        "computed_at": "2026-11-03T07:38:41.378973+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -13025,6 +13073,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.2975606784510819
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.393955; spread_adf_p=0.185483; hl=410.5; hurst=0.4646; rolling_frac=0.0652; /req 0.6; leg1_adf_p=0.423085; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -14408,13 +14469,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:18.746087+00:00",
+        "computed_at": "2026-11-03T07:38:45.736624+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -15861,13 +15923,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:23.107819+00:00",
+        "computed_at": "2026-11-03T07:38:50.123107+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -15924,6 +15987,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.36354029077367817
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.541961; spread_adf_p=0.298215; hl=457.6; hurst=0.5274; rolling_frac=0.0761; /req 0.6; leg1_adf_p=0.542439; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -17307,13 +17383,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:27.458482+00:00",
+        "computed_at": "2026-11-03T07:38:54.480751+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -18753,13 +18830,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:31.865591+00:00",
+        "computed_at": "2026-11-03T07:38:58.819431+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -20216,13 +20294,14 @@
         "spread_mr_pass": true,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:36.305695+00:00",
+        "computed_at": "2026-11-03T07:39:03.189525+00:00",
         "blocked_routes": [
           {
             "route": "leg_stationarity",
@@ -21642,13 +21721,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:40.689268+00:00",
+        "computed_at": "2026-11-03T07:39:07.590497+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -23088,13 +23168,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:45.092343+00:00",
+        "computed_at": "2026-11-03T07:39:11.972574+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -23151,6 +23232,19 @@
             "frac_significant": null,
             "n_windows": 184,
             "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.31857939881801767
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.607268; spread_adf_p=0.358022; hl=475.6; hurst=0.4934; rolling_frac=0.1467; /req 0.6; leg1_adf_p=0.719468; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
@@ -24541,13 +24635,14 @@
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
         "leg_stationarity_ok": false,
-        "rolling_stable_ok": false
+        "rolling_stable_ok": false,
+        "no_structural_break": true
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T06:57:49.638494+00:00",
+        "computed_at": "2026-11-03T07:39:16.495281+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
