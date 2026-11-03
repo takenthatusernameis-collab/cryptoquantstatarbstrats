@@ -377,6 +377,12 @@ class DataLoader:
                 use_cache=use_cache,
             )
             provenance["cache"] = cache_prov
+            # Propagate blocked-route provenance from cache for honest reporting
+            # (cache must never mask failures/blocks).
+            if isinstance(cache_prov, dict):
+                for key in ("blocked_hosts", "blocked_routes"):
+                    if key in cache_prov and cache_prov[key]:
+                        provenance[key] = list(cache_prov[key])
             for sym in list(data.columns):
                 provenance["per_symbol"][sym] = {
                     "status": "ok",
