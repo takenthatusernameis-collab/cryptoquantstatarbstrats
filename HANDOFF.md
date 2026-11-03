@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T10:25:45Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T10:48:14Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,11 +6,11 @@
 Everything else exists only to support, gate, or validate the pairs/cointegration path.
 
 ## CURRENT STATE (RE-VERIFIED 2026-11-03T10:25:45Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green, re-verified).
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green, re-verified 2026-11-03T10:48:14Z).
 - Full suite: **771 passed, 1 skipped** (green).
 - Lint (`ruff check strategies/ backtest/ utils/ tests/ examples/`): **All checks passed**.
 - mypy (`python -m mypy backtest strategies utils`): **Success: no issues found**.
-- Working tree **clean** on `main`; prior cointegration-gate fix committed in `8a84d5b` ("chore(kilo): checkpoint agent session" added cost-sensitivity real tests).
+- Working tree **clean** on `main`; critical subset re-verified 127/127 at 2026-11-03T10:48:14Z.
 - `www.binance.com` first; `api.binance.com` returns 451 and is handled honestly.
 - Artifacts `reports/portfolio_real.json`, `reports/cointegration_diagnostics_real.json` have `real_data_only: true`, `fabricated_data: false`, full provenance with `blocked_routes[]` when blocked.
 - No `or True` fail-open coercions found in `strategies/` or `utils/`. Gate parity unified in `strategies/pairs_trading.py` under `strict_enriched_gates=True`.
@@ -34,7 +34,7 @@ python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegrati
 ```
 **Must be 127/127. If any fail → fix immediately before proceeding.**
 
-## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T10:25:45Z)
+## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T10:48:14Z)
 **FOCUS: REAL-DATA PROVENANCE & DATA LOADING HONESTY (P1) + ONE MATERIAL HARDENING SHIP** — cointegration pairs edge only.
 
 Run the immediate mandatory action above (127/127). Then ship **one** material, verifiable hardening change from the campaign below before ending. **No session may end on audit-only work.**
