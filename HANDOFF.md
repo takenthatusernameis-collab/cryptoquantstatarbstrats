@@ -1,12 +1,12 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T06:06:22Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T06:06:42Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs is the sole product edge.**
 This is publication-grade research code. Fabrication is categorically unacceptable. Everything else must exist only to support, gate, or validate the pairs/cointegration path.
 
-## GROUND TRUTH (RE-VERIFIED 2026-11-03T06:02:58Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed** — verified this session (2026-11-03T06:06:22Z).
+## GROUND TRUTH (RE-VERIFIED 2026-11-03T06:06:42Z)
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **125 passed** — verified this session (2026-11-03T06:06:42Z).
 - Full suite: **767 passed, 1 skipped** (verified 2026-11-03T05:35:28Z; tree clean on `main`).
 - Lint: `python -m ruff check strategies/ backtest/ utils/ tests/ examples/` → **All checks passed**.
 - mypy: `python -m mypy backtest strategies utils` → **Success: no issues found in 32 source files** (mypy 1.8 target). Do not weaken gates/provenance.
@@ -21,6 +21,14 @@ cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v
 ```
 **If ANY test fails → FIX IT IMMEDIATELY. All 125 must pass. Then proceed to P0 without delay.**
+
+## NEXT SESSION - INITIAL TASK (ATOMIC, TIMESTAMPED 2026-11-03T06:06:42Z)
+1. Run the IMMEDIATE MANDATORY ACTION above. Confirm 125/125 pass.
+2. Execute **P0 - GATE INTEGRITY**: hunt `or True` / fail-open coercions in `strategies/` and `utils/` (`grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ utils/ | grep -v __pycache__`); fix any found with zero tolerance.
+3. Verify strict path parity in `strategies/pairs_trading.py` under `strict_enriched_gates=True` for both cached (`enriched_diagnostics`) and per-bar paths: both must block on `None`/`False`; `all_pass` must remain non-blocking when missing if individuals pass.
+4. Harden `utils/cointegration.py` diagnostics: never fabricate/clamp values; `target_schema_diagnostics` emits honest `blocked_or_insufficient_data` with full `blocked_routes[]` + provenance; `blocked_schema_diagnostics` never invents metrics.
+5. Ship at least one material, verifiable gate-hardening/validation change on the cointegration pairs edge (code + tests/evidence) before ending. Run `ruff` + `mypy` on touched modules; re-run critical subset.
+
 
 ## BOTTLENECKS REMOVED / DISCARDED
 - Single session active. Act directly.
