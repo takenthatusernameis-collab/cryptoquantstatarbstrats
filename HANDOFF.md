@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T22:06:15Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T22:23:56Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,7 +6,7 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T22:06:15Z)
+## CURRENT STATE (VERIFIED 2026-11-03T22:23:56Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cointegration-related tests (`-k cointegration`): passing
 - Cache provenance replay tests: **all passing** (29 passed incl. diagnostics schema)
@@ -26,7 +26,7 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T22:06:15Z
+**TIMESTAMP:** 2026-11-03T22:23:56Z
 **OBJECTIVE:** Harden **cointegration pairs discovery + enriched gate path** for unbreakable fail-closed behavior and cached/uncached execution parity under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **Heavy execution required. No audit-only termination.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
