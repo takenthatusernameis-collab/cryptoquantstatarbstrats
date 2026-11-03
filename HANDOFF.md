@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T01:55:00Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T02:41:50Z | REPO: cryptoquantstatarbstrats
 
 ## PRIMARY OBJECTIVE (NON-NEGOTIABLE)
 **KEEP THE COINTEGRATION PAIRS STRATEGY PRODUCTION-READY AND REGRESSION-FREE.**
@@ -6,7 +6,7 @@
 This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the product. Everything else exists to support, gate, or validate it. The pairs path is fail-closed (`use_enriched_gates=True`, `strict_enriched_gates=True`) and real-data-only: no fabricated diagnostics, no synthetic evidence of real-market performance.
 
 ## CURRENT STATE SNAPSHOT (GROUND TRUTH, VERIFIED 2026-11-03)
-- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (suite is slow; `tests/test_pairs_cost_sensitivity.py::test_pairs_cost_sensitivity_replay_over_grid` alone takes ~105s because the pairs strategy computes enriched gates on every bar — see BOTTLENECKS below)
+- Full test suite: **765 passed, 1 skipped** - all green (`python -m pytest tests/`), exits 0 (cost-sensitivity test now ~2.5s after perf fix 69b1f17; no active bottlenecks remain)
 - Cointegration campaign tests 29-38: **all pass** (102 passed)
 - Recertification audit, production certification, all gating/signoff/live-deployment bridge tests: **all pass** (38 passed)
 - Cointegration diagnostics schema (real_data_only, 17 pairs, full provenance, blocked_routes): **all pass**
@@ -20,13 +20,13 @@ This repo is `cryptoquantstatarbstrats` - the cointegration/stat-arb edge IS the
 2. **Checkpointing without closure** - recent git history is all "checkpoint agent session" commits. Stop checkpointing on red; fix failures until green, then commit.
 3. **Test sprawl** - many overlapping `_mt` gating/signoff tests. They all pass; treat them as regression guards, not optional.
 4. **Lint debt** - 5 ruff E501 errors cleared; `ruff check` now exits 0. Do not re-introduce long lines.
+5. **Cost-sensitivity test slowness** - reduced from ~104s to ~2s in commit 69b1f17. Do not reintroduce per-bar gate recomputation.
 
 ## ACTIVE BOTTLENECKS (INVESTIGATE NEXT - unblock full-suite velocity)
-- **`tests/test_pairs_cost_sensitivity.py::test_pairs_cost_sensitivity_replay_over_grid`** is slow (~105s) because the pairs strategy computes enriched cointegration gates (Engle-Granger/Johansen/ADF/KPSS) on every bar of 2000 synthetic points, run 3x over a fee/slippage grid. It is NOT in the critical campaign/gating path and passes, but it makes `python -m pytest tests/` feel hung. Investigate: reduce fixture size, cache gate computations, or mark the test slow and run it separately in CI. Do not weaken the gates or fabricate results.
+- **None remaining.** Full suite now runs in ~3-5 min cleanly. Next: harden against regressions and keep gates green.
 
-## NEXT FOCUS CAMPAIGN: "PRODUCTION CLEARANCE - REGRESSION PROOF & LINT CLEAN"
-
-**Goal:** Keep every cointegration/pairs test green, keep `ruff check` at 0 errors, and institutionalize the heavy-work discipline so the suite never silently turns red. Phase 1 (lint) is COMPLETE.
+## NEXT FOCUS CAMPAIGN: "REGRESSION-PROOF & HEAVY-WORK DISCIPLINE"
+**Goal:** Keep every cointegration/pairs test green, keep `ruff check` at 0 errors, and institutionalize the heavy-work discipline so the suite never silently turns red. Phases 1-2 COMPLETE.
 
 ### Phase 1: Clear lint debt (COMPLETE)
 ```bash
@@ -35,13 +35,16 @@ python -m ruff check strategies/ backtest/ utils/ tests/ examples/
 # 0 errors. Reflow lines only; do not weaken assertions or gates.
 ```
 
-### Phase 2: Regression-proof the suite (next immediate work)
-1. Run `python -m pytest tests/` - must exit 0 (765 passed, 1 skipped). Allow ~3-5 min; the cost-sensitivity test is slow (see ACTIVE BOTTLENECKS).
+### Phase 2: Remove test bottleneck (COMPLETE - commit 69b1f17)
+- Cost-sensitivity test reduced from ~104s to ~2s. Full suite now runs in ~3-5 min.
+
+### Phase 3: Regression-proof the suite (next immediate work)
+1. Run `python -m pytest tests/` - must exit 0 (765 passed, 1 skipped). Allow ~3-5 min.
 2. Run `python -m pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -v` - must exit 0 (these are the critical gating path; 125 passed).
 3. Confirm `reports/portfolio_real.json` and `reports/cointegration_diagnostics_real.json` still show real_data_only provenance with no fabricated data
 4. If mypy becomes available: `python -m mypy backtest/ strategies/ utils/` must exit 0
 
-### Phase 3: Heavy-work mandate (continuous)
+### Phase 4: Heavy-work mandate (continuous)
 - **Do heavy lifting.** Read actual source (`strategies/pairs_trading.py`, `utils/cointegration.py`, `backtest/engine.py`), trace code paths, understand schemas. Don't guess.
 - **Don't stop at exploration.** Every turn must make progress: fix a lint error, add a regression guard, or verify a gate.
 - **Remove bottlenecks systematically.** If you see a repeated pattern (e.g., long lines across test files), fix it across all affected files at once.
@@ -56,7 +59,6 @@ python -m ruff check strategies/ backtest/ utils/ tests/ examples/
 - [ ] No checkpointing-without-closure commits; every commit closes a failure or clears debt
 
 ## FILES MOST LIKELY TO NEED ATTENTION
-- `tests/test_pairs_cost_sensitivity.py` (slow test; see ACTIVE BOTTLENECKS)
 - `strategies/pairs_trading.py` (pairs strategy entry)
 - `utils/cointegration.py` (Engle-Granger/Johansen, spread MR, half-life, gates)
 - `backtest/engine.py` (backtest engine applying gates causally)
