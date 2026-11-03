@@ -1329,20 +1329,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.650225080053641,
+        "leg2_pvalue": 0.6569943412712258,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": true,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:20:43.759221+00:00",
+        "computed_at": "2026-11-03T06:56:39.414517+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -1367,6 +1381,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -1380,7 +1404,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.518571; spread_adf_p=0.277833; hl=440.9; hurst=0.4581; rolling_frac=0.1848/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.518571; spread_adf_p=0.277833; hl=440.9; hurst=0.4581; rolling_frac=0.1848; /req 0.6; leg1_adf_p=0.650225; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.5185709758015115,
           "spread_adf_pvalue": 0.277833357277096,
@@ -1389,6 +1413,12 @@
           "rolling_frac_significant": 0.18478260869565216,
           "rolling_required": 0.6,
           "rolling_gap": 0.4152,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.650225080053641,
+            "leg2_pvalue": 0.6569943412712258,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -1417,6 +1447,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6569943412712258,
+              "threshold": 0.05,
+              "margin_x": 13.14,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -2733,20 +2771,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.6569943412712258,
+        "leg2_pvalue": 0.6707253984365085,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:20:48.183938+00:00",
+        "computed_at": "2026-11-03T06:56:43.782477+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -2782,6 +2834,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -2795,7 +2857,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.602911; spread_adf_p=0.353849; hl=493.3; hurst=0.505; rolling_frac=0.1141/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.602911; spread_adf_p=0.353849; hl=493.3; hurst=0.505; rolling_frac=0.1141; /req 0.6; leg1_adf_p=0.656994; leg2_adf_p=0.670725; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.6029110794107174,
           "spread_adf_pvalue": 0.35384919737867704,
@@ -2804,6 +2866,12 @@
           "rolling_frac_significant": 0.11413043478260869,
           "rolling_required": 0.6,
           "rolling_gap": 0.4859,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.6569943412712258,
+            "leg2_pvalue": 0.6707253984365085,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -2832,6 +2900,14 @@
               "threshold": 500.0,
               "note": "half_life within 50 of upper bound (edge)",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6707253984365085,
+              "threshold": 0.05,
+              "margin_x": 13.41,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -4141,20 +4217,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.650225080053641,
+        "leg2_pvalue": 0.6707253984365085,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:20:52.533410+00:00",
+        "computed_at": "2026-11-03T06:56:48.136002+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -4201,6 +4291,16 @@
             "available": true
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -4214,7 +4314,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.708862; spread_adf_p=0.468495; hl=611.8; hurst=0.4812; rolling_frac=0.0707/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.708862; spread_adf_p=0.468495; hl=611.8; hurst=0.4812; rolling_frac=0.0707; /req 0.6; leg1_adf_p=0.650225; leg2_adf_p=0.670725; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.7088623524510671,
           "spread_adf_pvalue": 0.46849534626857237,
@@ -4223,6 +4323,12 @@
           "rolling_frac_significant": 0.07065217391304347,
           "rolling_required": 0.6,
           "rolling_gap": 0.5293,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.650225080053641,
+            "leg2_pvalue": 0.6707253984365085,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -4257,6 +4363,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6707253984365085,
+              "threshold": 0.05,
+              "margin_x": 13.41,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -5573,20 +5687,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.42308507541526685,
+        "leg2_pvalue": 0.6569943412712258,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:20:56.871897+00:00",
+        "computed_at": "2026-11-03T06:56:52.483028+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -5633,6 +5761,16 @@
             "available": true
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -5646,7 +5784,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.595357; spread_adf_p=0.346107; hl=556.7; hurst=0.4876; rolling_frac=0.0924/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.595357; spread_adf_p=0.346107; hl=556.7; hurst=0.4876; rolling_frac=0.0924; /req 0.6; leg1_adf_p=0.423085; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.5953573596282998,
           "spread_adf_pvalue": 0.34610662263236114,
@@ -5655,6 +5793,12 @@
           "rolling_frac_significant": 0.09239130434782608,
           "rolling_required": 0.6,
           "rolling_gap": 0.5076,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.42308507541526685,
+            "leg2_pvalue": 0.6569943412712258,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -5689,6 +5833,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6569943412712258,
+              "threshold": 0.05,
+              "margin_x": 13.14,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -6998,20 +7150,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.32230645054111606,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:01.199660+00:00",
+        "computed_at": "2026-11-03T06:56:56.845581+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -7047,6 +7213,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -7060,7 +7236,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.211299; spread_adf_p=0.07952; hl=173.6; hurst=0.4268; rolling_frac=0.0924/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.211299; spread_adf_p=0.07952; hl=173.6; hurst=0.4268; rolling_frac=0.0924; /req 0.6; leg1_adf_p=0.322306; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.21129935788433235,
           "spread_adf_pvalue": 0.07952003917450462,
@@ -7069,6 +7245,12 @@
           "rolling_frac_significant": 0.09239130434782608,
           "rolling_required": 0.6,
           "rolling_gap": 0.5076,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.32230645054111606,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -7097,6 +7279,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -8413,20 +8603,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.5424386084799218,
+        "leg2_pvalue": 0.6569943412712258,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:05.563295+00:00",
+        "computed_at": "2026-11-03T06:57:01.215054+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -8462,6 +8666,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -8475,7 +8689,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.457177; spread_adf_p=0.230224; hl=491.0; hurst=0.5372; rolling_frac=0.0815/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.457177; spread_adf_p=0.230224; hl=491.0; hurst=0.5372; rolling_frac=0.0815; /req 0.6; leg1_adf_p=0.542439; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.45717727230892935,
           "spread_adf_pvalue": 0.2302236855616019,
@@ -8484,6 +8698,12 @@
           "rolling_frac_significant": 0.08152173913043478,
           "rolling_required": 0.6,
           "rolling_gap": 0.5185,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.5424386084799218,
+            "leg2_pvalue": 0.6569943412712258,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -8512,6 +8732,14 @@
               "threshold": 500.0,
               "note": "half_life within 50 of upper bound (edge)",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6569943412712258,
+              "threshold": 0.05,
+              "margin_x": 13.14,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -9821,20 +10049,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.650225080053641,
+        "leg2_pvalue": 0.5424386084799218,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:09.886150+00:00",
+        "computed_at": "2026-11-03T06:57:05.553677+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -9870,6 +10112,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -9883,7 +10135,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.489462; spread_adf_p=0.25471; hl=498.5; hurst=0.5263; rolling_frac=0.087/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.489462; spread_adf_p=0.25471; hl=498.5; hurst=0.5263; rolling_frac=0.087; /req 0.6; leg1_adf_p=0.650225; leg2_adf_p=0.542439; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.489461613643462,
           "spread_adf_pvalue": 0.25470980264603743,
@@ -9892,6 +10144,12 @@
           "rolling_frac_significant": 0.08695652173913043,
           "rolling_required": 0.6,
           "rolling_gap": 0.513,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.650225080053641,
+            "leg2_pvalue": 0.5424386084799218,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -9920,6 +10178,14 @@
               "threshold": 500.0,
               "note": "half_life within 50 of upper bound (edge)",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -11229,20 +11495,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.6707253984365085,
+        "leg2_pvalue": 0.5424386084799218,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:14.262918+00:00",
+        "computed_at": "2026-11-03T06:57:09.987877+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -11278,6 +11558,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -11291,7 +11581,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.19316; spread_adf_p=0.070965; hl=276.5; hurst=0.5317; rolling_frac=0.0217/req 0.6. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.19316; spread_adf_p=0.070965; hl=276.5; hurst=0.5317; rolling_frac=0.0217; /req 0.6; leg1_adf_p=0.670725; leg2_adf_p=0.542439; /req 0.05. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.1931596946470452,
           "spread_adf_pvalue": 0.07096507310186964,
@@ -11300,6 +11590,12 @@
           "rolling_frac_significant": 0.021739130434782608,
           "rolling_required": 0.6,
           "rolling_gap": 0.5783,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.6707253984365085,
+            "leg2_pvalue": 0.5424386084799218,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -11321,6 +11617,14 @@
               "threshold": 0.6,
               "gap": 0.5783,
               "near": false
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6707253984365085,
+              "threshold": 0.05,
+              "margin_x": 13.41,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -12637,20 +12941,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.42308507541526685,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:18.598662+00:00",
+        "computed_at": "2026-11-03T06:57:14.353595+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -12686,6 +13004,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -12699,7 +13027,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.393955; spread_adf_p=0.185483; hl=410.5; hurst=0.4646; rolling_frac=0.0652/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.393955; spread_adf_p=0.185483; hl=410.5; hurst=0.4646; rolling_frac=0.0652; /req 0.6; leg1_adf_p=0.423085; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.3939546364893661,
           "spread_adf_pvalue": 0.18548269854129723,
@@ -12708,6 +13036,12 @@
           "rolling_frac_significant": 0.06521739130434782,
           "rolling_required": 0.6,
           "rolling_gap": 0.5348,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.42308507541526685,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -12736,6 +13070,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -14045,20 +14387,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.32230645054111606,
+        "leg2_pvalue": 0.6569943412712258,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:22.943134+00:00",
+        "computed_at": "2026-11-03T06:57:18.746087+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -14094,6 +14450,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -14107,7 +14473,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.329879; spread_adf_p=0.144813; hl=236.4; hurst=0.4536; rolling_frac=0.1033/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.329879; spread_adf_p=0.144813; hl=236.4; hurst=0.4536; rolling_frac=0.1033; /req 0.6; leg1_adf_p=0.322306; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.3298786871309937,
           "spread_adf_pvalue": 0.14481264966148155,
@@ -14116,6 +14482,12 @@
           "rolling_frac_significant": 0.10326086956521739,
           "rolling_required": 0.6,
           "rolling_gap": 0.4967,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.32230645054111606,
+            "leg2_pvalue": 0.6569943412712258,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -14144,6 +14516,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6569943412712258,
+              "threshold": 0.05,
+              "margin_x": 13.14,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -15460,20 +15840,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.5424386084799218,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:27.250164+00:00",
+        "computed_at": "2026-11-03T06:57:23.107819+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -15509,6 +15903,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -15522,7 +15926,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.541961; spread_adf_p=0.298215; hl=457.6; hurst=0.5274; rolling_frac=0.0761/req 0.6. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.541961; spread_adf_p=0.298215; hl=457.6; hurst=0.5274; rolling_frac=0.0761; /req 0.6; leg1_adf_p=0.542439; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.5419607363611392,
           "spread_adf_pvalue": 0.29821465596383523,
@@ -15531,6 +15935,12 @@
           "rolling_frac_significant": 0.07608695652173914,
           "rolling_required": 0.6,
           "rolling_gap": 0.5239,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.5424386084799218,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -15559,6 +15969,14 @@
               "threshold": 500.0,
               "note": "half_life within 50 of upper bound (edge)",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -16868,20 +17286,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.4770443355109637,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:31.556040+00:00",
+        "computed_at": "2026-11-03T06:57:27.458482+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -16917,6 +17349,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -16930,7 +17372,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.462915; spread_adf_p=0.232835; hl=442.9; hurst=0.4947; rolling_frac=0.0652/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.462915; spread_adf_p=0.232835; hl=442.9; hurst=0.4947; rolling_frac=0.0652; /req 0.6; leg1_adf_p=0.477044; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.4629150206302012,
           "spread_adf_pvalue": 0.2328349996597494,
@@ -16939,6 +17381,12 @@
           "rolling_frac_significant": 0.06521739130434782,
           "rolling_required": 0.6,
           "rolling_gap": 0.5348,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.4770443355109637,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -16967,6 +17415,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -18276,20 +18732,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.4770443355109637,
+        "leg2_pvalue": 0.6569943412712258,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": false,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:35.825764+00:00",
+        "computed_at": "2026-11-03T06:57:31.865591+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -18336,6 +18806,16 @@
             "available": true
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -18349,7 +18829,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.659029; spread_adf_p=0.410486; hl=579.1; hurst=0.4952; rolling_frac=0.0761/req 0.6. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.659029; spread_adf_p=0.410486; hl=579.1; hurst=0.4952; rolling_frac=0.0761; /req 0.6; leg1_adf_p=0.477044; leg2_adf_p=0.656994; /req 0.05. Near-miss gates (close but failing): ['hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.6590290411763075,
           "spread_adf_pvalue": 0.41048630106786915,
@@ -18358,6 +18838,12 @@
           "rolling_frac_significant": 0.07608695652173914,
           "rolling_required": 0.6,
           "rolling_gap": 0.5239,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.4770443355109637,
+            "leg2_pvalue": 0.6569943412712258,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -18392,6 +18878,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.6569943412712258,
+              "threshold": 0.05,
+              "margin_x": 13.14,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -19701,21 +20195,45 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.2291513714290474,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": true,
         "johansen_pass": true,
         "spread_mr_pass": true,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:40.094674+00:00",
+        "computed_at": "2026-11-03T06:57:36.305695+00:00",
         "blocked_routes": [
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
           {
             "route": "rolling_stability",
             "gate": "rolling_stability",
@@ -19730,7 +20248,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. POL/BTC passes eg, johansen, spread_mean_reversion, hl_bounds, leg_stationarity but fails rolling_stability (frac_significant 0.04891304347826087 < 0.6). Deep dive: 9/184 trailing windows (frac 0.0489) pass EG, scattered with no robust trailing-only causal boundary. Candidate trailing-only filters tested (corr, vol_ratio, half-life, hurst, spread ADF); best filter 'hl_lt_30' achieved precision 0.4166666666666667 / recall 0.5555555555555556 with 7 false positives and 4 false negatives \u2014 not robust. No lookahead filter added. Kept blocked_or_insufficient_data solely on rolling_stability. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. POL/BTC fails the following enriched cointegration gates on this window: leg_stationarity, rolling_stability. leg_stationarity_ok=False (both legs must be stationary, ADF p <= 0.05; on this window POL ADF p=0.2291513714290474 and BTC ADF p=0.650225080053641 are non-stationary), rolling_stable_ok=False (frac_significant 0.04891304347826087 < 0.6). Deep dive: 9/184 trailing windows (frac 0.0489) pass EG, scattered with no robust trailing-only causal boundary. Candidate trailing-only filters tested (corr, vol_ratio, half-life, hurst, spread ADF); best filter 'hl_lt_30' achieved precision 0.4166666666666667 / recall 0.5555555555555556 with 7 false positives and 4 false negatives \u2014 not robust. No lookahead filter added. Kept blocked_or_insufficient_data; no threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.0005785755152727209,
           "spread_adf_pvalue": 8.647255027558303e-05,
@@ -19739,6 +20257,12 @@
           "rolling_frac_significant": 0.04891304347826087,
           "rolling_required": 0.6,
           "rolling_gap": 0.5511,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.2291513714290474,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "rolling_stability",
@@ -19753,6 +20277,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -19778,7 +20310,11 @@
           "best_recall": 0.5555555555555556,
           "false_positive": 7,
           "false_negative": 4,
-          "conclusion": "No trailing-only causal filter isolates the 9 EG-significant windows robustly. All candidates produce substantial false positives and/or false negatives; the significant windows are scattered with no stable trailing boundary. POL/BTC remains blocked_or_insufficient_data solely on rolling_stability."
+          "conclusion": "No trailing-only causal filter isolates the 9 EG-significant windows robustly. All candidates produce substantial false positives and/or false negatives; the significant windows are scattered with no stable trailing boundary. POL/BTC remains blocked_or_insufficient_data solely on rolling_stability.",
+          "failing_gates": [
+            "leg_stationarity",
+            "rolling_stability"
+          ]
         }
       }
     },
@@ -21085,20 +21621,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.6059614987148195,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:44.466911+00:00",
+        "computed_at": "2026-11-03T06:57:40.689268+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -21134,6 +21684,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -21147,7 +21707,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.296234; spread_adf_p=0.124341; hl=341.4; hurst=0.5158; rolling_frac=0.3696/req 0.6. Near-miss gates (close but failing): ['spread_mean_reversion', 'rolling_stability']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.296234; spread_adf_p=0.124341; hl=341.4; hurst=0.5158; rolling_frac=0.3696; /req 0.6; leg1_adf_p=0.605961; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['spread_mean_reversion', 'rolling_stability']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.29623394833033834,
           "spread_adf_pvalue": 0.12434113586162027,
@@ -21156,6 +21716,12 @@
           "rolling_frac_significant": 0.3695652173913043,
           "rolling_required": 0.6,
           "rolling_gap": 0.2304,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.6059614987148195,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -21177,6 +21743,14 @@
               "threshold": 0.6,
               "gap": 0.2304,
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -22493,20 +23067,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.7194680883799826,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:48.812530+00:00",
+        "computed_at": "2026-11-03T06:57:45.092343+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -22542,6 +23130,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -22555,7 +23153,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.607268; spread_adf_p=0.358022; hl=475.6; hurst=0.4934; rolling_frac=0.1467/req 0.6. Near-miss gates (close but failing): ['half_life_bounds', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.607268; spread_adf_p=0.358022; hl=475.6; hurst=0.4934; rolling_frac=0.1467; /req 0.6; leg1_adf_p=0.719468; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['half_life_bounds', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.6072675498448601,
           "spread_adf_pvalue": 0.35802234479307393,
@@ -22564,6 +23162,12 @@
           "rolling_frac_significant": 0.14673913043478262,
           "rolling_required": 0.6,
           "rolling_gap": 0.4533,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.7194680883799826,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -22599,6 +23203,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.7194680883799826,
+              "threshold": 0.05,
+              "margin_x": 14.39,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false
@@ -23908,20 +24520,34 @@
           "fabricated_data": false
         }
       },
+      "leg_stationarity": {
+        "available": true,
+        "alpha": 0.05,
+        "leg1_pvalue": 0.6429880964692156,
+        "leg2_pvalue": 0.650225080053641,
+        "leg1_stationary": false,
+        "leg2_stationary": false,
+        "both_stationary": false,
+        "provenance": {
+          "source": "statsmodels.tsa.stattools.adfuller",
+          "real_data_only": true,
+          "fabricated_data": false
+        }
+      },
       "gates": {
         "all_pass": false,
         "eg_pass": false,
         "johansen_pass": false,
         "spread_mr_pass": false,
         "hl_bounds_pass": true,
-        "leg_stationarity_ok": true,
+        "leg_stationarity_ok": false,
         "rolling_stable_ok": false
       },
       "provenance": {
         "source": "reports/cointegration_diagnostics_real.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-01T09:21:53.204697+00:00",
+        "computed_at": "2026-11-03T06:57:49.638494+00:00",
         "blocked_routes": [
           {
             "route": "engle_granger",
@@ -23957,6 +24583,16 @@
             }
           },
           {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity",
+            "passed": false,
+            "provenance": {
+              "source": "reports/cointegration_diagnostics_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
             "route": "rolling_stability",
             "gate": "rolling_stability",
             "passed": false,
@@ -23970,7 +24606,7 @@
             "stable": false
           }
         ],
-        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.168384; spread_adf_p=0.059207; hl=204.4; hurst=0.4656; rolling_frac=0.0978/req 0.6. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
+        "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates. Near-miss audit: eg_p=0.168384; spread_adf_p=0.059207; hl=204.4; hurst=0.4656; rolling_frac=0.0978; /req 0.6; leg1_adf_p=0.642988; leg2_adf_p=0.650225; /req 0.05. Near-miss gates (close but failing): ['engle_granger', 'spread_mean_reversion', 'hurst_mean_reversion_hint']. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data. No threshold weakening.",
         "near_miss_audit": {
           "eg_pvalue": 0.1683835618279763,
           "spread_adf_pvalue": 0.05920665694052233,
@@ -23979,6 +24615,12 @@
           "rolling_frac_significant": 0.09782608695652174,
           "rolling_required": 0.6,
           "rolling_gap": 0.5022,
+          "leg_stationarity": {
+            "leg1_pvalue": 0.6429880964692156,
+            "leg2_pvalue": 0.650225080053641,
+            "leg_stationarity_ok": false,
+            "note": "leg_stationarity_ok is a genuine stationarity conclusion (both legs ADF p <= 0.05), not merely 'the ADF test could be computed'"
+          },
           "near_miss_gates": [
             {
               "gate": "engle_granger",
@@ -24007,6 +24649,14 @@
               "threshold": 0.5,
               "note": "hurst < 0.5 (mean-reverting hint) but pair still blocked on other gates",
               "near": true
+            },
+            {
+              "gate": "leg_stationarity",
+              "value": 0.650225080053641,
+              "threshold": 0.05,
+              "margin_x": 13.0,
+              "near": false,
+              "note": "highest leg ADF p-value above 0.05 (non-stationary leg); near-miss only when close to 0.05"
             }
           ],
           "all_gates_pass": false

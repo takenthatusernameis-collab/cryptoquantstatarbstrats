@@ -231,8 +231,15 @@ class CointegrationPairsStrategy(PairStrategy):
                                     ok = False
                                     break
                         if ok and isinstance(sb, dict) and sb.get("flagged") is True:
-                            if self.strict_enriched_gates:
-                                ok = False
+                            # A confirmed structural break is a hard failure
+                            # condition, not an "unassessable" state: it
+                            # blocks under BOTH strict and non-strict modes.
+                            # This matches the per-bar path (line 293) so
+                            # cached and per-bar diagnostics never disagree on
+                            # a flagged break. (Previously non-strict silently
+                            # allowed entries through a confirmed structural
+                            # break, a fail-open.)
+                            ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
                         )
@@ -291,10 +298,16 @@ class CointegrationPairsStrategy(PairStrategy):
                                     break
                             try:
                                 if isinstance(sb, dict) and sb.get("flagged") is True:
-                                    if self.strict_enriched_gates:
-                                        ok = False
-                                    else:
-                                        ok = False
+                                    # A confirmed structural break is a hard
+                                    # failure condition, not an "unassessable"
+                                    # state: it blocks under BOTH strict and
+                                    # non-strict modes. This matches the cached
+                                    # path (line 233) so cached and per-bar
+                                    # diagnostics never disagree on a flagged
+                                    # break. (Previously non-strict silently
+                                    # allowed entries through a confirmed
+                                    # structural break, a fail-open.)
+                                    ok = False
                             except Exception:
                                 if self.strict_enriched_gates:
                                     ok = False

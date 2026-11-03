@@ -327,7 +327,17 @@ def test_real_diag_each_pair_full_schema_and_provenance():
         json.dumps(diag, default=float)
 
 
-def test_real_diag_pol_btc_blocked_only_on_rolling_stability():
+def test_real_diag_pol_btc_gates_and_blocked_routes():
+    """POL/BTC passes EG/Johansen/spread-MR/half-life but fails leg_stationarity
+    AND rolling_stability; both routes are recorded and neither is lifted.
+
+    ``leg_stationarity_ok`` is a genuine stationarity conclusion (both legs
+    ADF p <= 0.05), NOT merely "the ADF test could be computed". On this real
+    window both POL and BTC legs are non-stationary (ADF p 0.229 and 0.650),
+    so the leg gate fails honestly. The test asserts the corrected, honest
+    conclusion rather than the previous wrong one (which claimed the legs were
+    stationary and that POL/BTC was blocked solely on rolling_stability).
+    """
     data = _real_diag()
     diag = data["cointegration_diagnostics"]["POL/BTC"]
     gates = diag["gates"]
@@ -335,11 +345,11 @@ def test_real_diag_pol_btc_blocked_only_on_rolling_stability():
     assert gates["johansen_pass"] is True
     assert gates["spread_mr_pass"] is True
     assert gates["hl_bounds_pass"] is True
-    assert gates["leg_stationarity_ok"] is True
+    assert gates["leg_stationarity_ok"] is False
     assert gates["rolling_stable_ok"] is False
     assert gates["all_pass"] is False
     routes = {r["route"] for r in diag["provenance"]["blocked_routes"]}
-    assert routes == {"rolling_stability"}, routes
+    assert routes == {"leg_stationarity", "rolling_stability"}, routes
     assert diag["status"] == "blocked_or_insufficient_data"
 
 
@@ -371,6 +381,14 @@ def test_real_diag_near_miss_audit_present_for_all_pairs():
             assert key in audit, f"{pname}: near_miss_audit missing {key}"
         assert audit["rolling_required"] == 0.6, f"{pname}: rolling_required weakened"
         assert audit["all_gates_pass"] is False
+        # Leg stationarity detail is present and honest: a cointegration leg
+        # must be stationary (ADF p <= 0.05); the audit records both leg p-values
+        # and the derived gate so no pair can masquerade as leg-stationary.
+        leg = audit.get("leg_stationarity")
+        assert isinstance(leg, dict), f"{pname}: leg_stationarity detail missing"
+        assert "leg1_pvalue" in leg and "leg2_pvalue" in leg
+        assert "leg_stationarity_ok" in leg
+        assert leg["leg_stationarity_ok"] is diag["gates"]["leg_stationarity_ok"]
 
 
 def test_real_diag_rolling_stability_none_pass_honest_blocking():
@@ -440,7 +458,15 @@ def test_real_diag_near_miss_pairs_documented():
 
 
 def test_real_diag_pol_btc_deep_dive_locked():
-    """POL/BTC deep dive is locked: blocked solely on rolling_stability, no causal filter."""
+    """POL/BTC deep dive is locked: blocked on leg_stationarity AND
+    rolling_stability; no causal filter lifts either block.
+
+    ``leg_stationarity_ok`` is a genuine stationarity conclusion (both legs
+    ADF p <= 0.05), NOT merely "the ADF test could be computed". On this real
+    window both POL and BTC legs are non-stationary (ADF p 0.229 and 0.650),
+    so the leg gate fails honestly and POL/BTC is blocked on two gates, not
+    one. The deep-dive filter evaluation is preserved unchanged.
+    """
     data = _real_diag()
     diag = data["cointegration_diagnostics"]["POL/BTC"]
     prov = diag["provenance"]
@@ -452,6 +478,15 @@ def test_real_diag_pol_btc_deep_dive_locked():
     assert dd["best_precision"] < 1.0, "no filter should perfectly isolate passing windows"
     assert dd["false_positive"] > 0 or dd["false_negative"] > 0
     assert "No trailing-only causal filter" in dd["conclusion"]
+    # Honest blocking: the pair fails leg_stationarity (non-stationary legs)
+    # and rolling_stability; both routes are recorded, neither is lifted.
+    assert diag["gates"]["leg_stationarity_ok"] is False
+    assert diag["gates"]["rolling_stable_ok"] is False
+    assert diag["gates"]["all_pass"] is False
+    routes = {r["route"] for r in prov["blocked_routes"]}
+    assert routes == {"leg_stationarity", "rolling_stability"}, routes
+    assert diag["status"] == "blocked_or_insufficient_data"
+    assert "leg_stationarity" in prov["rationale"].lower()
     assert "rolling_stability" in prov["rationale"].lower()
 
 

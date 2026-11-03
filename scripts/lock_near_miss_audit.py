@@ -90,6 +90,29 @@ def near_miss_gates(diag: dict) -> list[dict]:
             "near": True,
         })
 
+    # Leg stationarity: a cointegration leg must be stationary (ADF p <= 0.05).
+    # This is a genuine stationarity conclusion, not merely "the ADF could be
+    # computed". A near-miss here is a leg whose ADF p is close to but above
+    # 0.05 (e.g. 0.05-0.20); a far-from-stationary leg (p >= 0.20) is a hard
+    # failure, not a near-miss.
+    leg1_p = (diag.get("adf_leg1") or {}).get("pvalue")
+    leg2_p = (diag.get("adf_leg2") or {}).get("pvalue")
+    if not gates.get("leg_stationarity_ok"):
+        leg_ps = [p for p in (leg1_p, leg2_p) if p is not None]
+        if leg_ps:
+            worst = max(leg_ps)
+            nm.append({
+                "gate": "leg_stationarity",
+                "value": worst,
+                "threshold": EG_ALPHA,
+                "margin_x": round(worst / EG_ALPHA, 2),
+                "near": worst <= 0.20,
+                "note": (
+                    "highest leg ADF p-value above 0.05 (non-stationary leg); "
+                    "near-miss only when close to 0.05"
+                ),
+            })
+
     return nm
 
 
@@ -119,6 +142,14 @@ def main() -> None:
             "rolling_required": ROLLING_FRAC_REQUIRED,
             "rolling_gap": round(ROLLING_FRAC_REQUIRED - rs["frac_significant"], 4)
             if rs.get("frac_significant") is not None else None,
+            "leg_stationarity": {
+                "leg1_pvalue": (diag.get("adf_leg1") or {}).get("pvalue"),
+                "leg2_pvalue": (diag.get("adf_leg2") or {}).get("pvalue"),
+                "leg_stationarity_ok": gates.get("leg_stationarity_ok"),
+                "note": "leg_stationarity_ok is a genuine stationarity "
+                "conclusion (both legs ADF p <= 0.05), not merely 'the ADF "
+                "test could be computed'",
+            },
             "near_miss_gates": nm,
             "all_gates_pass": bool(gates.get("all_pass")),
         }
@@ -130,6 +161,8 @@ def main() -> None:
         hl = spread.get("half_life_ou")
         hurst = spread.get("hurst_exponent")
         rs_frac = rs.get("frac_significant")
+        leg1_p = (diag.get("adf_leg1") or {}).get("pvalue")
+        leg2_p = (diag.get("adf_leg2") or {}).get("pvalue")
         parts = [
             f"eg_p={eg_p if eg_p is None else round(eg_p,6)}",
             f"spread_adf_p={sp_p if sp_p is None else round(sp_p,6)}",
@@ -137,6 +170,9 @@ def main() -> None:
             f"hurst={hurst if hurst is None else round(hurst,4)}",
             f"rolling_frac={rs_frac if rs_frac is None else round(rs_frac,4)}",
             f"/req {ROLLING_FRAC_REQUIRED}",
+            f"leg1_adf_p={leg1_p if leg1_p is None else round(leg1_p,6)}",
+            f"leg2_adf_p={leg2_p if leg2_p is None else round(leg2_p,6)}",
+            f"/req 0.05",
         ]
         near = [g["gate"] for g in nm if g.get("near")]
         rationale = (
@@ -150,14 +186,40 @@ def main() -> None:
         prov["rationale"] = rationale
 
     # POL/BTC: lock in deep-dive causal filter evaluation.
+    # The failing gates are read from the artifact itself (never hardcoded),
+    # so this stays correct when gate semantics change.
     if deep_dive and "POL/BTC" in cd:
         cfe = deep_dive.get("causal_filter_evaluation", {})
         best = cfe.get("best_result", {})
         prov = cd["POL/BTC"].setdefault("provenance", {})
+        pol_gates = cd["POL/BTC"].get("gates", {}) or {}
+        failing = sorted(
+            g for g in (
+                "engle_granger",
+                "johansen",
+                "spread_mean_reversion",
+                "half_life_bounds",
+                "leg_stationarity",
+                "rolling_stability",
+            ) if not pol_gates.get(
+                {"engle_granger": "eg_pass",
+                 "johansen": "johansen_pass",
+                 "spread_mean_reversion": "spread_mr_pass",
+                 "half_life_bounds": "hl_bounds_pass",
+                 "leg_stationarity": "leg_stationarity_ok",
+                 "rolling_stability": "rolling_stable_ok"}[g]
+            )
+        )
         prov["rationale"] = (
             "Real Binance spot series (www.binance.com); no fabrication. "
-            "POL/BTC passes eg, johansen, spread_mean_reversion, hl_bounds, "
-            "leg_stationarity but fails rolling_stability (frac_significant "
+            "POL/BTC fails the following enriched cointegration gates on this "
+            f"window: {', '.join(failing)}. "
+            f"leg_stationarity_ok={pol_gates.get('leg_stationarity_ok')} "
+            f"(both legs must be stationary, ADF p <= 0.05; on this window "
+            f"POL ADF p={cd['POL/BTC']['adf_leg1'].get('pvalue')} and BTC ADF "
+            f"p={cd['POL/BTC']['adf_leg2'].get('pvalue')} are non-stationary), "
+            f"rolling_stable_ok={pol_gates.get('rolling_stable_ok')} "
+            f"(frac_significant "
             f"{cd['POL/BTC']['rolling_stability']['frac_significant']} < 0.6). "
             "Deep dive: 9/184 trailing windows (frac 0.0489) pass EG, scattered "
             "with no robust trailing-only causal boundary. Candidate trailing-only "
@@ -166,8 +228,8 @@ def main() -> None:
             f"{best.get('precision')} / recall {best.get('recall')} with "
             f"{best.get('false_positive')} false positives and "
             f"{best.get('false_negative')} false negatives — not robust. "
-            "No lookahead filter added. Kept blocked_or_insufficient_data solely "
-            "on rolling_stability. No threshold weakening."
+            "No lookahead filter added. Kept blocked_or_insufficient_data; "
+            "no threshold weakening."
         )
         prov["deep_dive"] = {
             "source": "reports/pol_btc_deep_dive.json",
@@ -181,6 +243,7 @@ def main() -> None:
             "false_positive": best.get("false_positive"),
             "false_negative": best.get("false_negative"),
             "conclusion": cfe.get("conclusion"),
+            "failing_gates": failing,
         }
 
     ARTIFACT.write_text(json.dumps(data, indent=2, default=float), encoding="utf-8")

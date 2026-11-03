@@ -343,11 +343,22 @@ def comprehensive_cointegration_diagnostics(
         # spread MR: spread ADF p-value < 0.05
         adf_spread_p = diag.get("adf_spread", {}).get("pvalue", float("nan"))
         spread_mr_ok = bool(np.isfinite(adf_spread_p) and adf_spread_p < 0.05)
-        # leg stationarity: both legs ADF p-values finite
+        # Leg stationarity: a cointegration leg must be stationary (ADF p <= 0.05).
+        # This is a genuine stationarity conclusion, NOT merely "the ADF test
+        # could be computed". A leg whose ADF p-value exceeds the significance
+        # threshold is non-stationary and cannot serve as a cointegration leg;
+        # a missing or unassessable ADF result is fail-closed (False, never
+        # coerced to True). Previously this gate was True whenever the ADF
+        # returned a finite p-value, so every pair with non-stationary legs
+        # (all 17 real pairs: ADF p up to 0.72) was reported as leg-stationary.
         adf1_p = diag.get("adf_leg1", {}).get("pvalue", float("nan"))
         adf2_p = diag.get("adf_leg2", {}).get("pvalue", float("nan"))
         leg_stationarity_ok = bool(
             np.isfinite(adf1_p) and np.isfinite(adf2_p)
+            and adf1_p <= 0.05 and adf2_p <= 0.05
+        )
+        diag["leg_stationarity"] = _leg_stationarity_detail(
+            diag.get("adf_leg1", {}), diag.get("adf_leg2", {})
         )
         # Emit the target-schema gate key set so any diagnostic fed into the
         # strategy is read consistently. Missing/unknown keys are never
@@ -569,6 +580,41 @@ def _rolling_target(rs: dict[str, Any], window: int) -> dict[str, Any]:
     }
 
 
+def _leg_stationarity_detail(
+    adf1: dict[str, Any], adf2: dict[str, Any], alpha: float = 0.05
+) -> dict[str, Any]:
+    """Honest per-leg stationarity detail.
+
+    ``leg_stationarity_ok`` is a genuine stationarity conclusion, not merely
+    "the ADF test could be computed". A leg whose ADF p-value exceeds the
+    significance threshold is non-stationary and cannot serve as a
+    cointegration leg; a missing or unassessable ADF result is reported as
+    non-stationary (fail-closed, never coerced to True).
+    """
+    prov: dict[str, Any] = {
+        "source": "statsmodels.tsa.stattools.adfuller",
+        "real_data_only": True,
+        "fabricated_data": False,
+    }
+    if adf1.get("error"):
+        prov["error"] = adf1.get("error")
+    p1 = _opt_float(adf1.get("pvalue"))
+    p2 = _opt_float(adf2.get("pvalue"))
+    available = bool(p1 is not None and p2 is not None)
+    stationary1 = bool(p1 is not None and p1 <= alpha)
+    stationary2 = bool(p2 is not None and p2 <= alpha)
+    return {
+        "available": available,
+        "alpha": float(alpha),
+        "leg1_pvalue": p1,
+        "leg2_pvalue": p2,
+        "leg1_stationary": stationary1 if available else None,
+        "leg2_stationary": stationary2 if available else None,
+        "both_stationary": bool(stationary1 and stationary2) if available else None,
+        "provenance": prov,
+    }
+
+
 def _structural_breaks_target(sb: dict[str, Any]) -> dict[str, Any]:
     available = bool("has_break" in sb and sb.get("reason") is None and "error" not in sb)
     breaks: list[dict[str, Any]] = []
@@ -662,7 +708,18 @@ def target_schema_diagnostics(
     hl_bounds_pass = bool(hl_t["hl_bounds_pass"])
     adf1_p = _opt_float(adf1.get("pvalue"))
     adf2_p = _opt_float(adf2.get("pvalue"))
-    leg_stationarity_ok = bool(adf1_p is not None and adf2_p is not None)
+    # Leg stationarity: a cointegration leg must be stationary (ADF p <= 0.05).
+    # This is a genuine stationarity conclusion, not merely "the ADF test
+    # could be computed". A leg whose ADF p-value exceeds the significance
+    # threshold is non-stationary and cannot serve as a cointegration leg;
+    # a missing or unassessable ADF result is fail-closed (False, never
+    # coerced to True). Previously this gate was True whenever the ADF
+    # returned a finite p-value, so every pair with non-stationary legs
+    # (all 17 real pairs: ADF p up to 0.72) was reported as leg-stationary.
+    leg_stationarity_ok = bool(
+        adf1_p is not None and adf2_p is not None
+        and adf1_p <= 0.05 and adf2_p <= 0.05
+    )
     rolling_stable_ok = bool(rs.get("stable"))
 
     eg_pass = bool(eg_t.get("pass/fail") is True)
@@ -680,6 +737,8 @@ def target_schema_diagnostics(
         and leg_stationarity_ok
         and rolling_stable_ok
     )
+
+    leg_stationarity_detail = _leg_stationarity_detail(adf1, adf2)
 
     # Honest blocking: every failing gate is recorded with full provenance so no
     # failing pair masquerades as computeable. Build blocked_routes from the
@@ -787,6 +846,7 @@ def target_schema_diagnostics(
             },
             "rolling_stability": _rolling_target(rs, 720),
             "structural_breaks": _structural_breaks_target(sb),
+            "leg_stationarity": leg_stationarity_detail,
             "gates": {
                 "all_pass": all_pass,
                 "eg_pass": eg_pass,
