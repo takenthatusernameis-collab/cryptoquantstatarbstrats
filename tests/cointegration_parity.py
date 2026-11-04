@@ -11,6 +11,34 @@ from typing import Any
 import pandas as pd
 
 
+def _diff_full_diagnostics(
+    cached: dict[str, Any] | None,
+    perbar: dict[str, Any] | None,
+    pair: tuple[str, str],
+) -> list[str]:
+    """Diff full diagnostics objects with clear paths for debugging."""
+    problems: list[str] = []
+    if cached is None or perbar is None:
+        problems.append(
+            f"[{pair[0]}/{pair[1]}] one of cached/per-bar diagnostics is missing "
+            f"(cached={cached is not None}, perbar={perbar is not None})"
+        )
+        return problems
+    # Check gate-determining fields
+    for field in ("gates", "structural_breaks", "blocked_routes", "provenance"):
+        problems.extend(_diag_field_diverged(cached, perbar, pair, field))
+    # Check for unexpected keys that might affect gates
+    for key in ("cost_stress", "cost_grid", "blocked_schema"):
+        if key in cached or key in perbar:
+            a = cached.get(key)
+            b = perbar.get(key)
+            if a != b:
+                problems.append(
+                    f"[{pair[0]}/{pair[1]}] {key}: cached={a!r} vs per-bar={b!r}"
+                )
+    return problems
+
+
 def _diag_field_diverged(
     cached: dict[str, Any] | None,
     perbar: dict[str, Any] | None,
@@ -24,10 +52,11 @@ def _diag_field_diverged(
     supply one of the two diagnostics fails loudly instead of silently
     comparing nothing.
     """
+    pair_key = f"[{pair[0]}/{pair[1]}]"
     problems: list[str] = []
     if cached is None or perbar is None:
         problems.append(
-            f"{field}: one of cached/perbar diagnostics is missing "
+            f"{pair_key} {field}: one of cached/per-bar diagnostics is missing "
             f"(cached={cached is not None}, perbar={perbar is not None})"
         )
         return problems
@@ -37,7 +66,7 @@ def _diag_field_diverged(
         return problems
     if a is None or b is None:
         problems.append(
-            f"{field}: cached={a!r} vs per-bar={b!r} (one side missing)"
+            f"{pair_key} {field}: cached={a!r} vs per-bar={b!r} (one side missing)"
         )
         return problems
     if isinstance(a, dict) and isinstance(b, dict):
@@ -46,11 +75,11 @@ def _diag_field_diverged(
             bv = b.get(key)
             if av != bv:
                 problems.append(
-                    f"{field}.{key}: cached={av!r} vs per-bar={bv!r}"
+                    f"{pair_key} {field}.{key}: cached={av!r} vs per-bar={bv!r}"
                 )
         return problems
     if a != b:
-        problems.append(f"{field}: cached={a!r} vs per-bar={b!r}")
+        problems.append(f"{pair_key} {field}: cached={a!r} vs per-bar={b!r}")
     return problems
 
 
@@ -155,15 +184,16 @@ def assert_cached_vs_perbar_gate_parity_strict(
             _diag_field_diverged(cached_diag, perbar_diag, pair, "structural_breaks")
         )
         if check_provenance:
-            problems.extend(
-                _diag_field_diverged(cached_diag, perbar_diag, pair, "blocked_routes")
-            )
-            problems.extend(
-                _diag_field_diverged(cached_diag, perbar_diag, pair, "provenance")
-            )
+            problems.extend(_diag_field_diverged(cached_diag, perbar_diag, pair, "provenance"))
+            problems.extend(_diag_field_diverged(cached_diag, perbar_diag, pair, "blocked_routes"))
+            problems.extend(_diag_field_diverged(cached_diag, perbar_diag, pair, "blocked_schema"))
+            full_diff = _diff_full_diagnostics(cached_diag, perbar_diag, pair)
+            for msg in full_diff:
+                if msg not in problems:
+                    problems.append(msg)
         if problems:
             raise AssertionError(
-                f"Cached vs per-bar input parity failed for pair {pair}: "
+                f"Cached vs per-bar input parity failed for pair {pair[0]}/{pair[1]}: "
                 + " | ".join(problems)
             )
 
@@ -183,18 +213,19 @@ def assert_cached_vs_perbar_gate_parity_strict(
             )
         return ""
 
+    pair_key = f"[{pair[0]}/{pair[1]}]"
     problems: list[str] = []
     for col in ("enriched_gates_ok", "long", "short"):
         msg = _diverged(col)
         if msg:
-            problems.append(msg)
+            problems.append(f"{pair_key} {msg}")
     if not sig_cached["enriched_gates_ok"].notna().all():
-        problems.append("cached enriched_gates_ok contains NaN in strict mode")
+        problems.append(f"{pair_key} cached enriched_gates_ok contains NaN in strict mode")
     if not sig_perbar["enriched_gates_ok"].notna().all():
-        problems.append("per-bar enriched_gates_ok contains NaN in strict mode")
+        problems.append(f"{pair_key} per-bar enriched_gates_ok contains NaN in strict mode")
     if problems:
         raise AssertionError(
-            "Cached vs per-bar gate parity failed under strict_enriched_gates=True. "
+            f"Cached vs per-bar gate parity failed under strict_enriched_gates=True for {pair[0]}/{pair[1]}: "
             + " | ".join(problems)
         )
     return sig_cached, sig_perbar
