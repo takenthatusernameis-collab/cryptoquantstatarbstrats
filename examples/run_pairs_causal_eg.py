@@ -32,13 +32,25 @@ FREQ = "1h"
 
 
 def load_cached(sym: str) -> pd.Series:
-    with open(CACHE / f"{sym}_2026-04-01_2026-10-30_1h.pkl", "rb") as f:
-        d = pickle.load(f)
+    path = CACHE / f"{sym}_2026-04-01_2026-10-30_1h.pkl"
+    if not path.exists():
+        # Fall back to the wide multi-symbol cache if a per-symbol file is absent
+        for wide in sorted(CACHE.glob("*.pkl")):
+            try:
+                d = pickle.load(open(wide, "rb"))
+            except Exception:
+                continue
+            if isinstance(d, pd.DataFrame) and sym in d.columns:
+                s = d[sym].astype(float)
+                s.index.name = None
+                return s
+        raise FileNotFoundError(path)
+    d = pickle.load(open(path, "rb"))
     if isinstance(d, pd.DataFrame):
         col = d.columns[0] if len(d.columns) == 1 else sym
         s = d[col].astype(float)
     else:
-        s = d[sym].astype(float)
+        s = d[sym].astype(float) if sym in d.index else d.astype(float)
     s.index.name = None
     return s
 
