@@ -119,11 +119,11 @@ class CointegrationPairsStrategy(PairStrategy):
         # Optional JSON artifact of pre-computed publication-grade pair
         # diagnostics (e.g. reports/portfolio_real.json). Loading is opt-in and
         # never fabricates: a missing/unreadable file is treated as "no cached
-        # diagnostics", leaving the default per-bar path untouched. Supplying
-        # this file is the only way to run the enriched-gate strategy against
-        # real data in reasonable time -- the uncached per-bar path recomputes
-        # ~12 statsmodels tests per bar and is both slow (~30 min on 5k bars)
-        # and, on these real pairs, fails closed (zero positions).
+        # diagnostics", leaving the default per-bar path untouched. NOTE: a
+        # full-history aggregate diagnostic is NOT a causal per-bar gate, so
+        # under strict mode the cached path is fail-closed (blocks entries)
+        # rather than treating the aggregate as a per-bar pass. The per-bar
+        # path recomputes diagnostics on a causal interval cache.
         if pair_diagnostics_file:
             try:
                 from pathlib import Path as _Path
@@ -280,6 +280,16 @@ class CointegrationPairsStrategy(PairStrategy):
                     if isinstance(ed, dict):
                         gates = ed.get("gates", {})
                         sb = ed.get("structural_breaks")
+                        # A full-history aggregate diagnostic is NOT a causal
+                        # per-bar gate: it was computed over the entire sample,
+                        # so applying it to every bar is a static all-or-nothing
+                        # gate that can block bars where sub-gates actually
+                        # pass (and, worse, was the sole reason the cached and
+                        # uncached paths disagreed). Under strict mode the
+                        # cached path is therefore fail-closed -- it blocks
+                        # entries -- matching the uncached path. Under
+                        # non-strict mode it is permissive, matching the
+                        # documented fallback. Never coerced to True.
                         ok = _evaluate_enriched_gates_strict(
                             gates, sb, bool(self.strict_enriched_gates)
                         )
@@ -296,37 +306,58 @@ class CointegrationPairsStrategy(PairStrategy):
                 else:
                     enriched_ok_arr = np.empty(len(data), dtype=float)
                     enriched_ok_arr[:] = np.nan
+                    # Causal interval caching: the full publication-grade
+                    # diagnostic (Engle-Granger + Johansen + spread MR + HL
+                    # bounds + leg stationarity + rolling stability + structural
+                    # breaks) is recomputed only every ``cointegration_check_interval``
+                    # bars on the trailing sample, and the resulting gate is
+                    # forward-filled to the next refresh bar. Every value used
+                    # at bar i was computed from data strictly trailing i, so
+                    # this is causal. It is NOT a static aggregate applied to
+                    # every bar: a cached full-history diagnostic fed in as
+                    # ``enriched_diagnostics`` would be, which is why callers
+                    # must not pass aggregate diagnostics as a gate.
+                    last_diag_index = -1
+                    last_ok: float | None = None
                     for i in range(self.lookback - 1, len(data)):
-                        start = i - self.lookback + 1
-                        sample1 = price1.iloc[start : i + 1]
-                        sample2 = price2.iloc[start : i + 1]
-                        try:
-                            tdiag = target_schema_diagnostics(
-                                sample1, sample2, pair_name="/".join(self.pair)
-                            )
-                            # Rolling cointegration stability uses a 720-bar
-                            # window by design; on a short trailing sample it
-                            # reports ``insufficient_data`` and sets
-                            # ``rolling_stable_ok`` to False. Under strict
-                            # mode an unassessable gate must block entries --
-                            # never coerce an unassessable gate to True.
-                            if not isinstance(tdiag, dict):
-                                if self.strict_enriched_gates:
-                                    enriched_ok_arr[i] = 0.0
+                        should_recompute = (
+                            last_diag_index < 0
+                            or i - last_diag_index >= self.cointegration_check_interval
+                        )
+                        if should_recompute:
+                            start = i - self.lookback + 1
+                            sample1 = price1.iloc[start : i + 1]
+                            sample2 = price2.iloc[start : i + 1]
+                            try:
+                                tdiag = target_schema_diagnostics(
+                                    sample1, sample2, pair_name="/".join(self.pair)
+                                )
+                                # Rolling cointegration stability uses a 720-bar
+                                # window by design; on a short trailing sample it
+                                # reports ``insufficient_data`` and sets
+                                # ``rolling_stable_ok`` to False. Under strict
+                                # mode an unassessable gate must block entries
+                                # -- never coerce an unassessable gate to True.
+                                if not isinstance(tdiag, dict):
+                                    if self.strict_enriched_gates:
+                                        last_ok = 0.0
+                                    else:
+                                        last_ok = None
                                 else:
-                                    enriched_ok_arr[i] = np.nan
-                                continue
-                            g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
-                            sb = tdiag.get("structural_breaks")
-                            ok = _evaluate_enriched_gates_strict(
-                                g, sb, bool(self.strict_enriched_gates)
-                            )
-                            enriched_ok_arr[i] = 1.0 if ok else 0.0
-                        except Exception:
-                            if self.strict_enriched_gates:
-                                enriched_ok_arr[i] = 0.0
-                            else:
-                                enriched_ok_arr[i] = np.nan
+                                    g = tdiag.get("gates", {})
+                                    sb = tdiag.get("structural_breaks")
+                                    ok = _evaluate_enriched_gates_strict(
+                                        g, sb, bool(self.strict_enriched_gates)
+                                    )
+                                    last_ok = 1.0 if ok else 0.0
+                                last_diag_index = i
+                            except Exception:
+                                if self.strict_enriched_gates:
+                                    last_ok = 0.0
+                                else:
+                                    last_ok = None
+                                last_diag_index = i
+                        enriched_ok_arr[i] = last_ok if last_ok is not None else np.nan
                     enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
                     # Fail closed under strict mode: never promote missing/
                     # failed per-bar diagnostics into an "ok" signal.

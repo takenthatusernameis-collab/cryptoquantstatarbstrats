@@ -33,6 +33,87 @@
     "n_splits": 4,
     "metric": "calmar_ratio"
   },
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com",
+      "https://api1.binance.com",
+      "https://api2.binance.com",
+      "https://api3.binance.com"
+    ],
+    "blocked_hosts": [],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "per_symbol": {
+      "BTC": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "ETH": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "SOL": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      }
+    },
+    "cache_used": true,
+    "cache_hit": true,
+    "cache_detail": {
+      "cache_key": "749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee",
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-28",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "cache_hit": true,
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC",
+            "ETH",
+            "SOL"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 5064
+        }
+      ],
+      "hosts_tried": [],
+      "errors": [],
+      "blocked_routes": [],
+      "disk_cache": true,
+      "fetch_success": true,
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "blocked_hosts": []
+    },
+    "n_bars": 5064
+  },
+  "enriched_gates": {
+    "use_enriched_gates": true,
+    "strict_enriched_gates": true,
+    "cached_aggregate_used_as_gate": false,
+    "note": "Enriched gates are evaluated on a causal interval cache (recomputed every cointegration_check_interval bars on the trailing sample). A full-history aggregate diagnostic is NOT used as a static per-bar gate."
+  },
   "top_ranked": {
     "lookback": 60,
     "entry_threshold": 2.0,
@@ -53,7 +134,15 @@
     "sharpe_ratio": 0.0,
     "max_drawdown": 0.0,
     "calmar_ratio": 0.0,
-    "final_equity": 100000.0
+    "final_equity": 100000.0,
+    "activity": {
+      "trades_count": 0,
+      "n_bars_in_position": 0,
+      "n_bars_total": 5064,
+      "max_gross_exposure": 0.0,
+      "mean_gross_exposure": 0.0,
+      "total_turnover": 0.0
+    }
   },
   "benchmark_total_return": 0.15499491033981294
 }

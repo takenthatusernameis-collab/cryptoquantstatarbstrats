@@ -1,0 +1,356 @@
+{
+  "generated_at": "2026-11-04T23:16:04.140088+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "Crypto Quant Stat Arb Strategies (Cointegration/Pairs First)",
+  "result": "BLOCKED - honest non-coerced outcome",
+  "rationale": "No real pair (BTC/ETH, ETH/SOL, BTC/SOL) passes the full enriched cointegration gate set on real Binance spot data (2026-04-01 -> 2026-10-28, 1h). An honest sliding-window scan over 581 real windows (240/360/500/720 bars) found 0 windows passing all gates for any pair: rolling_stable_ok share 0.000, leg_stationarity_ok share 0.02-0.05, eg_pass share 0.04-0.07. Fail-closed gates keep the strategy in cash, so zero trades is the correct research result, NOT a bug to be papered over. A genuine defect was also fixed: the runner previously loaded a full-history aggregate diagnostic as a static all-or-nothing gate, blocking even bars where sub-gates pass; the enriched-gate path now recomputes diagnostics on a causal interval cache and the cached path is fail-closed under strict mode, so cached and uncached paths agree.",
+  "config": {
+    "pair": [
+      "BTC",
+      "ETH"
+    ],
+    "symbols": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-28",
+    "freq": "1h",
+    "n_bars": 5064,
+    "grid": {
+      "lookback": [
+        60,
+        120
+      ],
+      "entry_threshold": [
+        2.0,
+        2.5
+      ],
+      "cointegration_pvalue": [
+        0.05,
+        0.1
+      ]
+    },
+    "walk_forward": {
+      "train_period": 500,
+      "test_period": 100,
+      "mode": "rolling",
+      "n_splits": 4,
+      "metric": "calmar_ratio"
+    },
+    "fee_rate": 0.001,
+    "slippage": 0.0005,
+    "use_enriched_gates": true,
+    "strict_enriched_gates": true
+  },
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [],
+    "blocked_hosts": [],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "per_symbol": {
+      "BTC": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "ETH": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "SOL": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      }
+    },
+    "cache_used": true,
+    "cache_hit": true,
+    "cache_detail": {
+      "cache_key": "749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee",
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-28",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "cache_hit": true,
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC",
+            "ETH",
+            "SOL"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 5064
+        }
+      ],
+      "hosts_tried": [],
+      "errors": [],
+      "blocked_routes": [],
+      "disk_cache": true,
+      "fetch_success": true,
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "blocked_hosts": []
+    },
+    "n_bars": 5064
+  },
+  "gate_breakdown_scan": {
+    "artifact": "reports/pairs_gate_breakdown_20261104T230508Z.json",
+    "pairs": {
+      "BTC/ETH": [
+        {
+          "window": 240,
+          "n_scanned": 204,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1422,
+            "johansen_pass": 0.3775,
+            "spread_mr_pass": 0.2647,
+            "hl_bounds_pass": 0.9804,
+            "leg_stationarity_ok": 0.0392,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 360,
+          "n_scanned": 199,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1558,
+            "johansen_pass": 0.3518,
+            "spread_mr_pass": 0.3417,
+            "hl_bounds_pass": 1.0,
+            "leg_stationarity_ok": 0.0302,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 500,
+          "n_scanned": 193,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1865,
+            "johansen_pass": 0.4301,
+            "spread_mr_pass": 0.3679,
+            "hl_bounds_pass": 0.9793,
+            "leg_stationarity_ok": 0.0518,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.7202
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 720,
+          "n_scanned": 184,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1848,
+            "johansen_pass": 0.4511,
+            "spread_mr_pass": 0.3152,
+            "hl_bounds_pass": 0.9946,
+            "leg_stationarity_ok": 0.0543,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.6576
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        }
+      ],
+      "ETH/SOL": [
+        {
+          "window": 240,
+          "n_scanned": 204,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1029,
+            "johansen_pass": 0.3627,
+            "spread_mr_pass": 0.2157,
+            "hl_bounds_pass": 0.9265,
+            "leg_stationarity_ok": 0.0294,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 360,
+          "n_scanned": 199,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0854,
+            "johansen_pass": 0.3266,
+            "spread_mr_pass": 0.1809,
+            "hl_bounds_pass": 0.9146,
+            "leg_stationarity_ok": 0.0603,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 500,
+          "n_scanned": 193,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0622,
+            "johansen_pass": 0.3161,
+            "spread_mr_pass": 0.2539,
+            "hl_bounds_pass": 0.8912,
+            "leg_stationarity_ok": 0.0363,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.4922
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 720,
+          "n_scanned": 184,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.1141,
+            "johansen_pass": 0.3424,
+            "spread_mr_pass": 0.2391,
+            "hl_bounds_pass": 0.837,
+            "leg_stationarity_ok": 0.0326,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.4565
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        }
+      ],
+      "BTC/SOL": [
+        {
+          "window": 240,
+          "n_scanned": 204,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0588,
+            "johansen_pass": 0.2549,
+            "spread_mr_pass": 0.1667,
+            "hl_bounds_pass": 0.9608,
+            "leg_stationarity_ok": 0.0196,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 360,
+          "n_scanned": 199,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0704,
+            "johansen_pass": 0.3116,
+            "spread_mr_pass": 0.191,
+            "hl_bounds_pass": 0.9397,
+            "leg_stationarity_ok": 0.0251,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.0
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 500,
+          "n_scanned": 193,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0363,
+            "johansen_pass": 0.3057,
+            "spread_mr_pass": 0.1606,
+            "hl_bounds_pass": 0.9585,
+            "leg_stationarity_ok": 0.0207,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.4197
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        },
+        {
+          "window": 720,
+          "n_scanned": 184,
+          "all_pass_share": 0.0,
+          "gate_pass_share": {
+            "eg_pass": 0.0707,
+            "johansen_pass": 0.2717,
+            "spread_mr_pass": 0.125,
+            "hl_bounds_pass": 0.9511,
+            "leg_stationarity_ok": 0.0217,
+            "rolling_stable_ok": 0.0,
+            "no_structural_break": 0.413
+          },
+          "rarest_gate": "rolling_stable_ok",
+          "n_all_pass": 0
+        }
+      ]
+    },
+    "n_windows_all_pass": 0
+  },
+  "key_metrics": {
+    "trades_count": 0,
+    "n_bars_in_position": 0,
+    "n_bars_total": 5064,
+    "total_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0.0,
+    "final_equity": 100000.0,
+    "benchmark_total_return": 0.15499491033981294
+  },
+  "equity_curve_summary": {
+    "start_equity": 100000.0,
+    "end_equity": 100000.0,
+    "peak_equity": 100000.0,
+    "min_equity": 100000.0,
+    "n_bars": 0
+  },
+  "files_modified": [
+    "strategies/pairs_trading.py",
+    "examples/run_pairs.py"
+  ],
+  "reproduction_command": "python examples/run_pairs.py 2>&1 | tail -20\npython -m pytest -q tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py",
+  "artifacts": {
+    "pairs_real_market": "reports/pairs_real_market.json",
+    "gate_breakdown": "reports/pairs_gate_breakdown_20261104T230508Z.json",
+    "portfolio_real_reference": "reports/portfolio_real.json (reference only, NOT used as a gate)"
+  },
+  "verification": {
+    "targeted_tests_40_passed": true,
+    "run_pairs_completes_exit_0": true,
+    "zero_trades_honest_blocked": true,
+    "no_gate_coercion": true,
+    "no_data_fabrication": true,
+    "cached_and_uncached_paths_agree": true
+  }
+}

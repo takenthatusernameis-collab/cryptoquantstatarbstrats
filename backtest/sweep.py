@@ -438,6 +438,29 @@ def run_parameter_sweep(
             "calmar_ratio": _to_json_safe(run_result.get("calmar_ratio")),
             "final_equity": _to_json_safe(final_equity),
         }
+        # Additive, non-breaking activity metrics derived from the replay's
+        # executed weights so a zero-metrics run still reports concrete
+        # position/turnover evidence (never fabricated).
+        try:
+            w = run_result.get("weights")
+            if isinstance(w, pd.DataFrame) and not w.empty:
+                gross = w.abs().sum(axis=1)
+                turnover = w.diff().abs().sum(axis=1)
+                if len(turnover) > 0:
+                    turnover = turnover.copy()
+                    turnover.iloc[0] = float(w.iloc[0].abs().sum())
+                trades_count = int((turnover > 1e-12).sum())
+                in_pos = int((gross > 1e-12).sum())
+                replay_block["activity"] = {
+                    "trades_count": trades_count,
+                    "n_bars_in_position": in_pos,
+                    "n_bars_total": int(len(w)),
+                    "max_gross_exposure": _to_json_safe(float(gross.max()) if len(gross) else 0.0),
+                    "mean_gross_exposure": _to_json_safe(float(gross.mean()) if len(gross) else 0.0),
+                    "total_turnover": _to_json_safe(float(turnover.sum()) if len(turnover) else 0.0),
+                }
+        except Exception:
+            pass
         top["replay"] = replay_block
 
     return ranked
