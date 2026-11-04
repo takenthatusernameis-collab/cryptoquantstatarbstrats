@@ -46,5 +46,5 @@ def test_term_structure_blocks_missing_gates() -> None:
     strat = TermStructureStrategy(asset="BTC", near_tenor="iv_30d", far_tenor="iv_90d", lookback=30, enriched_diagnostics=ed)
     sig = strat.generate_signals(df)
     assert (sig["enriched_gates_ok"] == 0.0).all()
-    assert (sig["long_spread"] == False).all()
-    assert (sig["short_spread"] == False).all()
+    assert (~sig["long_spread"]).all()
+    assert (~sig["short_spread"]).all()

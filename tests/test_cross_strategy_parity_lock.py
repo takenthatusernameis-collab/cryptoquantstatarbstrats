@@ -145,7 +145,9 @@ def test_fail_closed_structural_breaks_none_blocks_strict() -> None:
         sig = strat.generate_signals(data)
         gated_ok = (sig["enriched_gates_ok"] == 0.0).all()
         assert gated_ok, f"{name}: gates not blocked when structural_breaks None under strict"
-        assert _positions_zero(strat, sig), f"{name}: positions not blocked when structural_breaks None under strict"
+        assert _positions_zero(strat, sig), (
+            f"{name}: positions not blocked when structural_breaks None under strict"
+        )
 
 
 def test_gate_none_coercion_is_fail_closed() -> None:

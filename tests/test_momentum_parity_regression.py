@@ -32,7 +32,11 @@ def test_momentum_cached_vs_perbar_parity() -> None:
     import strategies.momentum as mom
 
     def _fake_target(p1, p2, pair_name=""):
-        return {"gates": ed["gates"], "structural_breaks": ed["structural_breaks"], "provenance": {"fabricated_data": True}}
+        return {
+            "gates": ed["gates"],
+            "structural_breaks": ed["structural_breaks"],
+            "provenance": {"fabricated_data": True},
+        }
 
     orig = getattr(mom, "target_schema_diagnostics", None)
     try:
@@ -50,11 +54,20 @@ def test_momentum_cached_vs_perbar_parity() -> None:
 def test_momentum_blocks_flagged_break() -> None:
     df = _make_df()
     ed = {
-        "gates": {"eg_pass": True, "johansen_pass": True, "spread_mr_pass": True, "hl_bounds_pass": True,
-                 "rolling_stable_ok": True, "leg_stationarity_ok": True, "no_structural_break": False, "all_pass": False},
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+            "no_structural_break": False,
+            "all_pass": False,
+        },
+        "structural_breaks": {"flagged": True},
         "structural_breaks": {"flagged": True},
     }
     strat = MomentumStrategy(asset="BTC", n=10, m=20, enriched_diagnostics=ed)
     sig = strat.generate_signals(df)
-    assert (sig["long"] == False).all()
-    assert (sig["short"] == False).all()
+    assert (~sig["long"]).all()
+    assert (~sig["short"]).all()

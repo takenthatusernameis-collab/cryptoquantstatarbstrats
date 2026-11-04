@@ -46,5 +46,5 @@ def test_volatility_surface_blocks_flagged() -> None:
           "structural_breaks": {"flagged": True}}
     strat = VolatilitySurfaceStrategy(asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=ed)
     sig = strat.generate_signals(df)
-    assert (sig["long"] == False).all()
-    assert (sig["short"] == False).all()
+    assert (~sig["long"]).all()
+    assert (~sig["short"]).all()

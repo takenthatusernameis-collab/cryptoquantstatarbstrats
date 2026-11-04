@@ -167,7 +167,7 @@ class TermStructureStrategy(Strategy):
         signals["short_spread"] = signals["spread_zscore"] > self.entry_threshold
         signals["exit"] = signals["spread_zscore"].abs() < self.exit_threshold
 
-enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
+        enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
         if self.use_enriched_gates:
             try:
                 if (
@@ -189,7 +189,7 @@ enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
                         g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
                         sb = tdiag.get("structural_breaks")
                         ok = _evaluate_enriched_gates_strict(
-                            gates, sb, bool(self.strict_enriched_gates)
+                            g, sb, bool(self.strict_enriched_gates)
                         )
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float

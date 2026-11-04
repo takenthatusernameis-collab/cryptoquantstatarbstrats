@@ -15,8 +15,8 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from utils.reporting import (
     generate_walk_forward_html_report,
-    generate_walk_forward_report,
     generate_walk_forward_pdf_report,
+    generate_walk_forward_report,
     generate_walk_forward_text_report,
     sweep_cost_sensitivity,
     walk_forward_report_to_dict,
@@ -279,7 +279,7 @@ def test_sweep_cost_sensitivity_records_blocked_configs_with_provenance():
 
 def test_sweep_cost_sensitivity_raises_when_every_config_blocks():
     """A sweep whose entire grid blocks must fail closed, not return []."""
-    data = _make_data()
+    _make_data()
 
     def fn(fee_rate: float, slippage: float) -> dict:
         raise RuntimeError("everything is blocked")

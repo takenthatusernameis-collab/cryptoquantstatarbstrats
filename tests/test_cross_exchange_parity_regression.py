@@ -17,8 +17,16 @@ def _make_df(n: int = 200) -> pd.DataFrame:
 def test_cross_exchange_cached_vs_perbar_parity() -> None:
     df = _make_df()
     ed = {
-        "gates": {"eg_pass": True, "johansen_pass": True, "spread_mr_pass": True, "hl_bounds_pass": True,
-                 "rolling_stable_ok": True, "leg_stationarity_ok": True, "no_structural_break": True, "all_pass": True},
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+            "no_structural_break": True,
+            "all_pass": True,
+        },
         "structural_breaks": {"flagged": False},
     }
     strat_cached = CrossExchangeArb(exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed)
@@ -26,7 +34,11 @@ def test_cross_exchange_cached_vs_perbar_parity() -> None:
     import strategies.cross_exchange as ce
 
     def _fake_target(p1, p2, pair_name=""):
-        return {"gates": ed["gates"], "structural_breaks": ed["structural_breaks"], "provenance": {"fabricated_data": True}}
+        return {
+            "gates": ed["gates"],
+            "structural_breaks": ed["structural_breaks"],
+            "provenance": {"fabricated_data": True},
+        }
 
     orig = getattr(ce, "target_schema_diagnostics", None)
     try:
@@ -43,9 +55,19 @@ def test_cross_exchange_cached_vs_perbar_parity() -> None:
 
 def test_cross_exchange_blocks_flagged() -> None:
     df = _make_df()
-    ed = {"gates": {"eg_pass": True, "johansen_pass": True, "spread_mr_pass": True, "hl_bounds_pass": True,
-                    "rolling_stable_ok": True, "leg_stationarity_ok": True, "no_structural_break": False, "all_pass": False},
-          "structural_breaks": {"flagged": True}}
+    ed = {
+        "gates": {
+            "eg_pass": True,
+            "johansen_pass": True,
+            "spread_mr_pass": True,
+            "hl_bounds_pass": True,
+            "rolling_stable_ok": True,
+            "leg_stationarity_ok": True,
+            "no_structural_break": False,
+            "all_pass": False,
+        },
+        "structural_breaks": {"flagged": True},
+    }
     strat = CrossExchangeArb(exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed)
     sig = strat.generate_signals(df)
     assert (sig["EXA"] == 0.0).all()

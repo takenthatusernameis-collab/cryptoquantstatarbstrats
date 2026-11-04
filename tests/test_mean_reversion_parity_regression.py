@@ -33,7 +33,11 @@ def test_mean_reversion_cached_vs_perbar_gates_pass() -> None:
     import strategies.mean_reversion as mr
 
     def _fake_target(p1, p2, pair_name=""):
-        return {"gates": ed["gates"], "structural_breaks": ed["structural_breaks"], "provenance": {"fabricated_data": True}}
+        return {
+            "gates": ed["gates"],
+            "structural_breaks": ed["structural_breaks"],
+            "provenance": {"fabricated_data": True},
+        }
 
     orig = getattr(mr, "target_schema_diagnostics", None)
     try:
@@ -67,8 +71,8 @@ def test_mean_reversion_blocks_on_structural_break_flagged() -> None:
         asset="BTC", lookback=30, enriched_diagnostics=ed, strict_enriched_gates=True
     )
     sig = strat.generate_signals(df)
-    assert (not sig["long"]).all()
-    assert (not sig["short"]).all()
+    assert (~sig["long"]).all()
+    assert (~sig["short"]).all()
 
 
 def test_mean_reversion_blocks_missing_gates_strict() -> None:
