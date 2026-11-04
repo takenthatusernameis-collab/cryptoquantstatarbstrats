@@ -1,11 +1,11 @@
-TIMESTAMP: 2026-11-04T15:25:35Z | REPO: cryptoquantstatarbstrats
+TIMESTAMP: 2026-11-04T15:26:14Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: HEAVY-WORK CAMPAIGN — NEXT-GENERATION STAT-ARB EXPANSION (ALL 7 STRATEGIES)
 
 > **SINGLE SOURCE OF TRUTH. THIS SUPERSEDES ALL PREVIOUS HANDOFF ENTRIES. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (START HERE)
 
-**TIMESTAMP:** 2026-11-04T15:25:35Z
+**TIMESTAMP:** 2026-11-04T15:26:14Z
 **REPO:** `cryptoquantstatarbstrats` (Crypto Quant Stat Arb Strategies — stat-arb, plural; all 7 strategies in scope: momentum, term_structure, volatility_surface, cross_exchange, pairs, mean_reversion, portfolio)
 
 **MANDATE (HEAVY WORK REQUIRED):** The prior publication-grade verification/ship campaign is COMPLETE. The next campaign is **HEAVY-WORK EXPANSION**: deliver a measurable, end-to-end advance across all seven strategies — new real-market evidence, stricter fail-closed gates, and cross-strategy integration — not audits or summaries. Future agents MUST NOT terminate early; every session must produce code + tests + artifacts.
