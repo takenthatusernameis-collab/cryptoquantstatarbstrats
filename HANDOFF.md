@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T06:03:29Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T06:04:03Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS IS THE ONLY DURABLE HANDOFF. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## NEXT AGENT SESSION - START HERE NOW (MANDATORY, TIMESTAMPED)
 
-**TIMESTAMP:** 2026-11-04T06:03:29Z
+**TIMESTAMP:** 2026-11-04T06:04:03Z
 **REPO:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS EDGE ONLY MATTERS**
 **MODE:** HEAVY EXECUTION. NO AUDIT-ONLY. NO SUMMARY-ONLY TERMINATION.
 
@@ -52,7 +52,7 @@ python -m mypy backtest strategies utils data
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies.
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.** Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T05:32:35Z)
+## CURRENT STATE (VERIFIED 2026-11-04T06:04:03Z)
 - **CRITICAL GATE INTEGRITY:** Shared strict evaluator `_evaluate_enriched_gates_strict` enforced across cached and per-bar paths. Structural breaks block in both modes; missing gates/structural_breaks fail closed in strict mode. No coercions observed.
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cache provenance replay tests: **7 passed**
@@ -65,7 +65,7 @@ python -m mypy backtest strategies utils data
 - **No known blocking test failures. Baseline is green.**
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
-0. **Cache memory-hit masks blocked routes** (`tests/test_cache_provenance_replay.py::test_memory_cache_hit_preserves_blocked_routes` FAILING). Fix `data/cache.py` memory cache to replay cold-fetch blocked_routes. P0.
+0. **Cache memory-hit masks blocked routes** (`tests/test_cache_provenance_replay.py::test_memory_cache_hit_preserves_blocked_routes` RESOLVED 2026-11-04T06:04:03Z). `data/cache.py` memory cache now replays cold-fetch blocked_routes. P0 cleared.
 2. **Gate integrity** - No coercion (`or True`, `if X is None: True`). All gates evaluated causally from trailing data only. `no_structural_break` must be enforced consistently in both paths.
 3. **Pair discovery discipline** - Only pairs passing Engle-Granger/Johansen, spread mean-reversion, hl_bounds (1<hl<500), leg-stationarity, rolling stability, structural-break discipline with real data admitted. Inconclusive = reject.
 4. **Provenance completeness** - `real_data_only`, `fabricated_data:false`, full provenance keys, `blocked_routes[]` on any blocked path. Cache must never mask failures. Artifacts must include rationale/computed_at. Blocked cases must use `blocked_schema_diagnostics` with complete rationale/blocked_routes.
