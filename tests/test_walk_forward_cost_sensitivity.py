@@ -8,6 +8,7 @@ import json
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from backtest.cli import main
 from backtest.engine import BacktestEngine
@@ -241,7 +242,15 @@ def test_sweep_cost_sensitivity_backward_compat_empty_grid():
     assert sweep == []
 
 
-def test_sweep_cost_sensitivity_skips_failing_configs():
+def test_sweep_cost_sensitivity_records_blocked_configs_with_provenance():
+    """Failing cost configs are recorded as blocked rows, never silently dropped.
+
+    Regression test for the fail-closed cost-stress discipline: a sweep that
+    drops failing configs behind a shorter result list lets blocked routes /
+    failures masquerade as "fewer cost configs evaluated". Every config in the
+    grid must appear in the output; failing ones carry ``passed=False`` plus a
+    ``blocked_route`` and ``rationale`` so the provenance is traceable.
+    """
     data = _make_data()
     engine = BacktestEngine(initial_capital=100000)
     w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
@@ -254,9 +263,99 @@ def test_sweep_cost_sensitivity_skips_failing_configs():
             fee_rate=fee_rate, slippage=slippage,
         )
 
-    sweep = sweep_cost_sensitivity(fn, [(0.0, 0.0), (0.001, 0.0), (0.002, 0.0)])
-    assert len(sweep) == 1
+    grid = [(0.0, 0.0), (0.001, 0.0), (0.002, 0.0)]
+    sweep = sweep_cost_sensitivity(fn, grid)
+    # Every config in the grid must be present, not just the passing ones.
+    assert len(sweep) == len(grid)
+    assert sweep[0]["passed"] is True
+    assert sweep[0]["blocked_route"] is None
     assert sweep[0]["fee_rate"] == 0.0
+    for row in sweep[1:]:
+        assert row["passed"] is False
+        assert row["blocked_route"] == "walk_forward_exception"
+        assert row["rationale"]
+        assert "simulated failure" in row["error"]
+
+
+def test_sweep_cost_sensitivity_raises_when_every_config_blocks():
+    """A sweep whose entire grid blocks must fail closed, not return []."""
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100000)
+    w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
+
+    def fn(fee_rate: float, slippage: float) -> dict:
+        raise RuntimeError("everything is blocked")
+
+    with pytest.raises(RuntimeError):
+        sweep_cost_sensitivity(fn, [(0.0, 0.0), (0.001, 0.0)])
+
+
+def test_sweep_cost_sensitivity_non_dict_result_is_blocked():
+    """A non-dict walk-forward result is recorded as a blocked config."""
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100000)
+    w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
+
+    def fn(fee_rate: float, slippage: float) -> dict:
+        if fee_rate > 0:
+            return ["not", "a", "dict"]  # type: ignore[return-value]
+        return engine.walk_forward_portfolio(
+            w, data, train_period=40, test_period=10,
+            fee_rate=fee_rate, slippage=slippage,
+        )
+
+    sweep = sweep_cost_sensitivity(fn, [(0.0, 0.0), (0.001, 0.0)])
+    assert len(sweep) == 2
+    assert sweep[0]["passed"] is True
+    assert sweep[1]["passed"] is False
+    assert sweep[1]["blocked_route"] == "non_dict_result"
+
+
+def test_cost_sensitivity_report_preserves_blocked_rows_and_ranks_only_passing():
+    """Report generators surface blocked cost configs and rank passing rows only."""
+    from utils.reporting import (
+        generate_walk_forward_html_report,
+        generate_walk_forward_text_report,
+        generate_walk_forward_report,
+        walk_forward_report_to_dict,
+    )
+
+    data = _make_data()
+    engine = BacktestEngine(initial_capital=100000)
+    w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
+    res = engine.walk_forward_portfolio(w, data, train_period=40, test_period=10)
+
+    def fn(fee_rate: float, slippage: float) -> dict:
+        if fee_rate > 0:
+            raise RuntimeError("blocked config")
+        return engine.walk_forward_portfolio(
+            w, data, train_period=40, test_period=10,
+            fee_rate=fee_rate, slippage=slippage,
+        )
+
+    sweep = sweep_cost_sensitivity(fn, [(0.0, 0.0), (0.001, 0.0)])
+    res["cost_sensitivity"] = sweep
+    wf_rep = generate_walk_forward_report(res)
+
+    # Dict serialization preserves blocked rows with provenance.
+    d = walk_forward_report_to_dict(wf_rep)
+    rows = d["cost_sensitivity"]
+    assert len(rows) == 2
+    assert rows[0]["passed"] is True
+    assert rows[1]["passed"] is False
+    assert rows[1]["blocked_route"] == "walk_forward_exception"
+    assert "result" not in rows[0] and "result" not in rows[1]
+
+    # Text report renders blocked rows and never ranks a blocked config.
+    text = generate_walk_forward_text_report(wf_rep)
+    assert "Blocked cost configs" in text
+    assert "walk_forward_exception" in text
+    assert "Best OOS return" in text
+
+    # HTML report renders the Passed column and blocked route.
+    html = generate_walk_forward_html_report(wf_rep)
+    assert ">Passed<" in html or "<th>Passed</th>" in html
+    assert "walk_forward_exception" in html
 
 
 def test_walk_forward_cli_cost_sensitivity_text(tmp_path):

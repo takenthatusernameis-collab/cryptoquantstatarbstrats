@@ -172,6 +172,47 @@ def _safe_float(x: Any, default: float = 0.0) -> float:
         return default
 
 
+def _serialize_cost_sensitivity_row(row: dict[str, Any]) -> dict[str, Any]:
+    """Serialize one cost-sensitivity sweep row for JSON/text/HTML reports.
+
+    A passing row keeps its scalar metrics and drops the internal ``result``
+    object. A blocked row (``passed == False``) is preserved verbatim with its
+    ``blocked_route`` / ``rationale`` / ``error`` so a report can never hide a
+    blocked cost config behind a shorter row list. ``result`` is always
+    stripped (it is a walk-forward result dict, not JSON-serializable).
+    """
+    if not isinstance(row, dict):
+        return {}
+    out: dict[str, Any] = {}
+    for k, v in row.items():
+        if k == "result":
+            continue
+        out[k] = v
+    # Guarantee the provenance keys exist so consumers can rely on them.
+    out.setdefault("passed", False)
+    out.setdefault("blocked_route", None)
+    out.setdefault("rationale", None)
+    return out
+
+
+def _cost_sensitivity_best_worst(
+    cost_sensitivity: list[Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return (best, worst) passing cost-sensitivity rows by OOS mean return.
+
+    Blocked rows (``passed`` falsy) are excluded from the ranking so a blocked
+    config can never be reported as "best" or "worst". Raises ValueError when
+    no passing row exists, so callers can fail closed instead of rendering a
+    meaningless comparison.
+    """
+    valid = [r for r in cost_sensitivity if isinstance(r, dict) and r.get("passed")]
+    if not valid:
+        raise ValueError("no passing cost-sensitivity rows to rank")
+    best = max(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+    worst = min(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
+    return best, worst
+
+
 def brinson_text_lines(brinson: dict[str, Any]) -> list[str]:
     """Text lines summarizing Brinson attribution results."""
     lines: list[str] = []
@@ -941,22 +982,61 @@ def sweep_cost_sensitivity(
     ``fee_rate``, ``slippage``, ``mean_return``, ``oos_mean_return``,
     ``oos_is_ratio``, ``max_drawdown`` (mean per-window drawdown), plus the
     original ``walk_forward`` result under ``"result"`` when available.
+
+    Fail-closed discipline: a config that raises or returns a non-dict is
+    recorded as a *blocked* row with full provenance (``passed: false``,
+    ``blocked_route``, ``rationale``) rather than silently dropped. A sweep
+    whose entire grid blocks raises ``RuntimeError`` carrying the per-config
+    provenance so no caller can mistake an empty result list for "all configs
+    evaluated successfully". This prevents cost-stress sweeps from masking
+    blocked routes / failures under the guise of a shorter result list.
     """
     results: list[dict[str, Any]] = []
+    blocked_count = 0
     for fee_rate, slippage in cost_grid:
+        fee = float(fee_rate)
+        slip = float(slippage)
+        row: dict[str, Any] = {
+            "fee_rate": fee,
+            "slippage": slip,
+            "mean_return": 0.0,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "passed": False,
+            "blocked_route": None,
+            "rationale": None,
+        }
         try:
-            wf = walk_forward_fn(fee_rate=float(fee_rate), slippage=float(slippage), **wf_kwargs)
-        except Exception:
+            wf = walk_forward_fn(fee_rate=fee, slippage=slip, **wf_kwargs)
+        except Exception as exc:
+            # Record the failure honestly instead of dropping the config.
+            blocked_count += 1
+            row["blocked_route"] = "walk_forward_exception"
+            row["rationale"] = (
+                f"cost config (fee_rate={fee}, slippage={slip}) raised "
+                f"{type(exc).__name__}: {str(exc)[:120]}; config blocked, "
+                f"not evaluated as passing."
+            )
+            row["error"] = str(exc)[:200]
+            results.append(row)
             continue
         if not isinstance(wf, dict):
+            blocked_count += 1
+            row["blocked_route"] = "non_dict_result"
+            row["rationale"] = (
+                f"cost config (fee_rate={fee}, slippage={slip}) returned a "
+                f"{type(wf).__name__}, not a walk-forward result dict; config "
+                f"blocked, not evaluated as passing."
+            )
+            results.append(row)
             continue
-        row: dict[str, Any] = {
-            "fee_rate": float(fee_rate),
-            "slippage": float(slippage),
-            "mean_return": _safe_float(wf.get("mean_return", 0.0)),
-            "oos_mean_return": _safe_float(wf.get("oos_mean_return", 0.0)),
-            "oos_is_ratio": _safe_float(wf.get("oos_is_ratio", 0.0)),
-        }
+        row["passed"] = True
+        row["blocked_route"] = None
+        row["rationale"] = None
+        row["mean_return"] = _safe_float(wf.get("mean_return", 0.0))
+        row["oos_mean_return"] = _safe_float(wf.get("oos_mean_return", 0.0))
+        row["oos_is_ratio"] = _safe_float(wf.get("oos_is_ratio", 0.0))
         # Aggregate max drawdown across per-window results (mean of window DDs).
         per_window = wf.get("results", []) or []
         try:
@@ -971,6 +1051,18 @@ def sweep_cost_sensitivity(
             row["max_drawdown"] = 0.0
         row["result"] = wf
         results.append(row)
+
+    if cost_grid and blocked_count == len(cost_grid):
+        # Every config blocked: fail closed rather than returning an empty
+        # list that a caller could misread as "no cost sensitivity".
+        raise RuntimeError(
+            f"sweep_cost_sensitivity: all {len(cost_grid)} cost configs blocked; "
+            f"no walk-forward evaluation succeeded. Blocked routes: "
+            + "; ".join(
+                f"(fee={r['fee_rate']}, slip={r['slippage']}): {r['blocked_route']}"
+                for r in results
+            )
+        )
     return results
 
 
@@ -1303,7 +1395,7 @@ def generate_walk_forward_report(
     if isinstance(cost_sensitivity, list) and cost_sensitivity:
         try:
             report["cost_sensitivity"] = [
-                {k: v for k, v in row.items() if k != "result"} for row in cost_sensitivity
+                _serialize_cost_sensitivity_row(row) for row in cost_sensitivity
             ]
         except Exception:
             pass
@@ -1552,8 +1644,7 @@ def walk_forward_report_to_dict(wf_report: dict) -> dict:
     if isinstance(cost_sensitivity, list) and cost_sensitivity:
         try:
             out["cost_sensitivity"] = [
-                {str(k): v for k, v in row.items() if k != "result"}
-                for row in cost_sensitivity
+                _serialize_cost_sensitivity_row(row) for row in cost_sensitivity
             ]
         except Exception:
             pass
@@ -1704,25 +1795,40 @@ def generate_walk_forward_text_report(wf_report: dict) -> str:
                     ]
                 )
             )
-        # Identify best/worst cost configs by OOS mean return.
+        # Identify best/worst cost configs by OOS mean return. Blocked rows
+        # (passed falsy) are excluded so a blocked config is never reported as
+        # best/worst; if every config blocked, render nothing rather than crash.
         try:
-            valid = [r for r in cost_sensitivity if isinstance(r, dict)]
-            if valid:
-                best = max(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
-                worst = min(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
-                lines.append("")
-                lines.append(
-                    f"  Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
-                    f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
-                    f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}"
-                )
-                lines.append(
-                    f"  Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
-                    f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
-                    f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}"
-                )
-        except Exception:
+            best, worst = _cost_sensitivity_best_worst(cost_sensitivity)
+            lines.append("")
+            lines.append(
+                f"  Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
+                f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
+                f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}"
+            )
+            lines.append(
+                f"  Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
+                f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
+                f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}"
+            )
+        except ValueError:
+            # No passing config: nothing to rank.
             pass
+
+        # Surface blocked cost configs with their provenance so a report can
+        # never hide a blocked config behind a shorter row list.
+        blocked = [
+            r for r in cost_sensitivity if isinstance(r, dict) and not r.get("passed")
+        ]
+        if blocked:
+            lines.append("")
+            lines.append("  Blocked cost configs (not ranked):")
+            for r in blocked:
+                lines.append(
+                    f"    fee={_fmt_pct(r.get('fee_rate', 0.0))} "
+                    f"slippage={_fmt_pct(r.get('slippage', 0.0))}: "
+                    f"{r.get('blocked_route') or r.get('error') or 'blocked'}"
+                )
 
     # Multi-Horizon Walk-Forward (expanding vs rolling)
     multi_horizon = wf_report.get("multi_horizon")
@@ -1974,43 +2080,62 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
     # Cost-model sensitivity sweep when present.
     cost_sensitivity = wf_report.get("cost_sensitivity")
     if isinstance(cost_sensitivity, list) and cost_sensitivity:
+        import html as _html_mod
+
         html.append("<h2>Cost-Model Sensitivity</h2>")
         html.append("<table>")
         html.append(
-            "<tr><th>Fee Rate</th><th>Slippage</th><th>Mean Return</th>"
-            "<th>OOS Mean Return</th><th>OOS/IS Ratio</th><th>Max Drawdown</th></tr>"
+            "<tr><th>Fee Rate</th><th>Slippage</th><th>Passed</th>"
+            "<th>Mean Return</th><th>OOS Mean Return</th><th>OOS/IS Ratio</th>"
+            "<th>Max Drawdown</th><th>Blocked Route</th></tr>"
         )
         for row in cost_sensitivity:
+            passed = row.get("passed") if isinstance(row, dict) else None
+            blocked_route = row.get("blocked_route") if isinstance(row, dict) else None
             html.append(
                 "<tr>"
                 f"<td>{_fmt_pct(row.get('fee_rate', 0.0))}</td>"
                 f"<td>{_fmt_pct(row.get('slippage', 0.0))}</td>"
+                f"<td>{'yes' if passed else 'no'}</td>"
                 f"<td>{_fmt_pct(row.get('mean_return', 0.0))}</td>"
                 f"<td>{_fmt_pct(row.get('oos_mean_return', 0.0))}</td>"
                 f"<td>{_fmt_num(row.get('oos_is_ratio', 0.0))}</td>"
                 f"<td>{_fmt_pct(row.get('max_drawdown', 0.0))}</td>"
+                f"<td>{_html_mod.escape(str(blocked_route)) if blocked_route else ''}</td>"
                 "</tr>"
             )
         html.append("</table>")
         try:
-            valid = [r for r in cost_sensitivity if isinstance(r, dict)]
-            if valid:
-                best = max(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
-                worst = min(valid, key=lambda r: _safe_float(r.get("oos_mean_return", 0.0)))
-                html.append("<p><em>")
-                html.append(
-                    f"Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
-                    f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
-                    f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}. "
-                )
-                html.append(
-                    f"Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
-                    f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
-                    f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}."
-                )
-                html.append("</em></p>")
-        except Exception:
-            pass
+            best, worst = _cost_sensitivity_best_worst(cost_sensitivity)
+            html.append("<p><em>")
+            html.append(
+                f"Best OOS return: fee={_fmt_pct(best.get('fee_rate', 0.0))}, "
+                f"slippage={_fmt_pct(best.get('slippage', 0.0))} "
+                f"-> OOS={_fmt_pct(best.get('oos_mean_return', 0.0))}. "
+            )
+            html.append(
+                f"Worst OOS return: fee={_fmt_pct(worst.get('fee_rate', 0.0))}, "
+                f"slippage={_fmt_pct(worst.get('slippage', 0.0))} "
+                f"-> OOS={_fmt_pct(worst.get('oos_mean_return', 0.0))}."
+            )
+            html.append("</em></p>")
+        except ValueError:
+            import html as _html_mod2
+            blocked = [
+                r for r in cost_sensitivity
+                if isinstance(r, dict) and not r.get("passed")
+            ]
+            if blocked:
+                html.append("<p><em>All cost configs blocked; none ranked.</em></p><ul>")
+                for r in blocked:
+                    html.append(
+                        "<li>"
+                        f"fee={_fmt_pct(r.get('fee_rate', 0.0))} "
+                        f"slippage={_fmt_pct(r.get('slippage', 0.0))}: "
+                        f"{_html_mod2.escape(str(r.get('blocked_route') or r.get('error') or 'blocked'))}"
+                        "</li>"
+                    )
+                html.append("</ul>")
 
     # Multi-Horizon Walk-Forward
     multi_horizon = wf_report.get("multi_horizon")
