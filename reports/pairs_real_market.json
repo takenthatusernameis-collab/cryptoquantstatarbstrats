@@ -1,4 +1,8 @@
 {
+  "pair": [
+    "BTC",
+    "ETH"
+  ],
   "symbols": [
     "BTC",
     "ETH",
@@ -29,99 +33,6 @@
     "n_splits": 4,
     "metric": "calmar_ratio"
   },
-  "pairs": {
-    "BTC/ETH": {
-      "pair": [
-        "BTC",
-        "ETH"
-      ],
-      "top_ranked": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05,
-        "oos_mean_return": 0.0,
-        "mean_max_drawdown": 0.0,
-        "oos_is_ratio": 0.0,
-        "oos_periods": 4,
-        "rank": 1
-      },
-      "replay": {
-        "params": {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "cointegration_pvalue": 0.05
-        },
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0,
-        "calmar_ratio": 0.0,
-        "final_equity": 100000.0
-      },
-      "benchmark_total_return": 0.15499491033981294
-    },
-    "ETH/SOL": {
-      "pair": [
-        "ETH",
-        "SOL"
-      ],
-      "top_ranked": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05,
-        "oos_mean_return": 0.0,
-        "mean_max_drawdown": 0.0,
-        "oos_is_ratio": 0.0,
-        "oos_periods": 4,
-        "rank": 1
-      },
-      "replay": {
-        "params": {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "cointegration_pvalue": 0.05
-        },
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0,
-        "calmar_ratio": 0.0,
-        "final_equity": 100000.0
-      },
-      "benchmark_total_return": 0.17603020114976098
-    },
-    "BTC/SOL": {
-      "pair": [
-        "BTC",
-        "SOL"
-      ],
-      "top_ranked": {
-        "lookback": 60,
-        "entry_threshold": 2.0,
-        "cointegration_pvalue": 0.05,
-        "oos_mean_return": 0.0,
-        "mean_max_drawdown": 0.0,
-        "oos_is_ratio": 0.0,
-        "oos_periods": 4,
-        "rank": 1
-      },
-      "replay": {
-        "params": {
-          "lookback": 60,
-          "entry_threshold": 2.0,
-          "cointegration_pvalue": 0.05
-        },
-        "total_return": 0.0,
-        "sharpe_ratio": 0.0,
-        "max_drawdown": 0.0,
-        "calmar_ratio": 0.0,
-        "final_equity": 100000.0
-      },
-      "benchmark_total_return": 0.21588988290018762
-    }
-  },
-  "pair": [
-    "BTC",
-    "ETH"
-  ],
   "top_ranked": {
     "lookback": 60,
     "entry_threshold": 2.0,
@@ -144,15 +55,5 @@
     "calmar_ratio": 0.0,
     "final_equity": 100000.0
   },
-  "benchmark_total_return": 0.15499491033981294,
-  "provenance": {
-    "source": "examples.run_pairs_multi",
-    "data_source": "binance_public_spot",
-    "real_data_only": true,
-    "fabricated_data": false,
-    "computed_at": "2026-11-04T17:11:26.345089+00:00",
-    "blocked_routes": [],
-    "gate_source": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/portfolio_real.json",
-    "rationale": "All candles fetched from public Binance spot klines (www.binance.com); no synthetic/fabricated candles/IV/volume used as evidence. Cointegration gates and opposing-leg weights are computed from these real series only. Enriched gates are applied from the pre-computed publication-grade diagnostics in reports/portfolio_real.json (computed from the same real series), never recomputed per bar; gate decisions are fail-closed and honest (a failing gate blocks entries, it is never coerced to pass)."
-  }
+  "benchmark_total_return": 0.15499491033981294
 }
