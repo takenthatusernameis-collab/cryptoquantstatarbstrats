@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T05:12:57Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T05:32:35Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS IS THE ONLY DURABLE HANDOFF. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## NEXT AGENT SESSION - START HERE NOW (MANDATORY, TIMESTAMPED)
 
-**TIMESTAMP:** 2026-11-04T05:12:57Z
+**TIMESTAMP:** 2026-11-04T05:32:35Z
 **REPO:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS EDGE ONLY MATTERS**
 **MODE:** HEAVY EXECUTION. NO AUDIT-ONLY. NO SUMMARY-ONLY TERMINATION.
 
@@ -52,7 +52,7 @@ python -m mypy backtest strategies utils data
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies.
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.** Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T05:12:57Z)
+## CURRENT STATE (VERIFIED 2026-11-04T05:32:35Z)
 - **CRITICAL GATE INTEGRITY:** Shared strict evaluator `_evaluate_enriched_gates_strict` enforced across cached and per-bar paths. Structural breaks block in both modes; missing gates/structural_breaks fail closed in strict mode. No coercions observed.
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cache provenance replay tests: **7 passed**
