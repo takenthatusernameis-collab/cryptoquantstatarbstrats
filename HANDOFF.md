@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T07:59:39Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T08:50:33Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS (`CointegrationPairsStrategy`) - PARITY IS LAW - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS SUPERSEDES ALL PREVIOUS HANDOFF ENTRIES. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (START HERE - DO NOT SKIP)
 
-**TIMESTAMP:** 2026-11-04T07:59:39Z
+**TIMESTAMP:** 2026-11-04T08:50:33Z
 **REPO:** `cryptoquantstatarbstrats`
 **MANDATE:** You are working the COINTEGRATION PAIRS EDGE. Execution > narration. Ship code + tests + evidence or do not stop.
 
@@ -73,7 +73,7 @@ ruff check strategies/ backtest/ utils/ tests/ examples/ data/
 ## REPO SIGNAL
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs (`CointegrationPairsStrategy`) is the sole product edge.** Everything else supports/gates/validates/instruments it.
 
-## CURRENT VERIFIED STATE (2026-11-04T07:59:06Z)
+## CURRENT VERIFIED STATE (2026-11-04T08:50:00Z)
 - Critical cointegration subset: **127/127 passed**
 - Cache provenance replay: passing
 - Cointegration parity regression: present and passing
