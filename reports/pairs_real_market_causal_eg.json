@@ -151,7 +151,7 @@
     "data_source": "binance_public_spot_cached",
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-04T18:06:49.070567+00:00",
+    "computed_at": "2026-11-04T19:15:52.964890+00:00",
     "blocked_routes": [],
     "rationale": "Real public Binance spot candles only, served from the on-disk cache (data/cache/*.pkl) originally fetched from www.binance.com. No synthetic/fabricated candles/IV/volume used as evidence. Enriched publication-grade gates are DISABLED for this run (use_enriched_gates=False): the repo's own cached diagnostics in reports/portfolio_real.json record all_pass=False for every real pair, so the fail-closed default correctly produces zero positions -- that is the honest outcome, not a bug. This run applies the causal Engle-Granger screen only, with opposing-leg weights, costs and slippage, over a rolling walk-forward sweep."
   }
