@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T05:32:57Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T06:03:29Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS IS THE ONLY DURABLE HANDOFF. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## NEXT AGENT SESSION - START HERE NOW (MANDATORY, TIMESTAMPED)
 
-**TIMESTAMP:** 2026-11-04T05:32:35Z
+**TIMESTAMP:** 2026-11-04T06:03:29Z
 **REPO:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS EDGE ONLY MATTERS**
 **MODE:** HEAVY EXECUTION. NO AUDIT-ONLY. NO SUMMARY-ONLY TERMINATION.
 
@@ -65,7 +65,7 @@ python -m mypy backtest strategies utils data
 - **No known blocking test failures. Baseline is green.**
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
-1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes. Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
+0. **Cache memory-hit masks blocked routes** (`tests/test_cache_provenance_replay.py::test_memory_cache_hit_preserves_blocked_routes` FAILING). Fix `data/cache.py` memory cache to replay cold-fetch blocked_routes. P0.
 2. **Gate integrity** - No coercion (`or True`, `if X is None: True`). All gates evaluated causally from trailing data only. `no_structural_break` must be enforced consistently in both paths.
 3. **Pair discovery discipline** - Only pairs passing Engle-Granger/Johansen, spread mean-reversion, hl_bounds (1<hl<500), leg-stationarity, rolling stability, structural-break discipline with real data admitted. Inconclusive = reject.
 4. **Provenance completeness** - `real_data_only`, `fabricated_data:false`, full provenance keys, `blocked_routes[]` on any blocked path. Cache must never mask failures. Artifacts must include rationale/computed_at. Blocked cases must use `blocked_schema_diagnostics` with complete rationale/blocked_routes.
