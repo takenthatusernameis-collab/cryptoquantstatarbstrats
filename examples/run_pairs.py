@@ -24,6 +24,10 @@ from backtest.sweep import run_parameter_sweep
 from data.loader import DataLoader
 from strategies.pairs_trading import CointegrationPairsStrategy
 
+PAIR_DIAGNOSTICS_FILE = (
+    Path(__file__).resolve().parent.parent / "reports" / "portfolio_real.json"
+)
+
 
 def main() -> None:
     print(
@@ -53,7 +57,7 @@ def main() -> None:
     engine = BacktestEngine(initial_capital=100_000.0)
 
     rows = run_parameter_sweep(
-        CointegrationPairsStrategy(pair=pair),
+        CointegrationPairsStrategy(pair=pair, pair_diagnostics_file=str(PAIR_DIAGNOSTICS_FILE)),
         data,
         grid,
         train_period=500,
@@ -94,7 +98,7 @@ def main() -> None:
         k: v for k, v in top.items() if k in ("lookback", "entry_threshold", "cointegration_pvalue")
     }
     benchmark = engine.run_with_benchmark(
-        CointegrationPairsStrategy(pair=pair, **params),
+        CointegrationPairsStrategy(pair=pair, **params, pair_diagnostics_file=str(PAIR_DIAGNOSTICS_FILE)),
         data,
         fee_rate=0.001,
         slippage=0.0005,
