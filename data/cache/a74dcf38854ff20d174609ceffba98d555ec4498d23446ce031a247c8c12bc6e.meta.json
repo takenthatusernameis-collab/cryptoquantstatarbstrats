@@ -1,0 +1,36 @@
+{
+  "cache_key": "a74dcf38854ff20d174609ceffba98d555ec4498d23446ce031a247c8c12bc6e",
+  "symbols": [
+    "BTC",
+    "ETH",
+    "POL"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "interval": "1h",
+  "quote_asset": "USDT",
+  "fetch_success": true,
+  "rows": 5064,
+  "columns": [
+    "BTC",
+    "ETH",
+    "POL"
+  ],
+  "fetch_blocked_hosts": [],
+  "fetch_blocked_routes": [],
+  "fetch_attempts": [
+    {
+      "symbols": [
+        "BTC",
+        "ETH",
+        "POL"
+      ],
+      "interval": "1h",
+      "success": true,
+      "rows": 5064
+    }
+  ],
+  "fetch_errors": [],
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false
+}

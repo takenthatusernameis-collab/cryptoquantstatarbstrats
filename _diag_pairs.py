@@ -1,90 +1,97 @@
-#!/usr/bin/env python3
-"""Diagnostic: why does run_pairs.py produce zero trades?"""
+"""Diagnostic: evaluate enriched cointegration gates on cached real data.
+
+Records per-pair gate outcomes so the zero-trades blocker can be localised.
+Real data only; never fabricates.
+"""
 from __future__ import annotations
+
+import json
 import sys
 from pathlib import Path
+
+import pandas as pd
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import numpy as np
-import pandas as pd
+from data.cache import load_cached
 from data.loader import DataLoader
-from strategies.pairs_trading import CointegrationPairsStrategy
-from utils.cointegration import comprehensive_cointegration_diagnostics, target_schema_diagnostics
-from backtest.engine import BacktestEngine
+from utils.cointegration import target_schema_diagnostics
 
-ld = DataLoader()
-data = ld.load_binance_data(["BTC", "ETH", "SOL"], "2026-04-01", "2026-10-28", interval="1h")
-data = ld.clean_data(data)
-print("data:", data.shape)
+PAIRS = [
+    ("BTC", "ETH"),
+    ("ETH", "SOL"),
+    ("BTC", "SOL"),
+    ("ADA", "ETH"),
+    ("XRP", "BTC"),
+    ("BNB", "ETH"),
+    ("BTC", "BNB"),
+    ("SOL", "BNB"),
+    ("ADA", "BTC"),
+    ("XRP", "ETH"),
+    ("BNB", "BTC"),
+    ("DOT", "BTC"),
+    ("DOT", "ETH"),
+    ("POL", "BTC"),
+    ("AVAX", "BTC"),
+    ("LINK", "BTC"),
+    ("LTC", "BTC"),
+]
 
-p1, p2 = data["BTC"], data["ETH"]
+SYMBOLS = sorted({s for p in PAIRS for s in p})
 
-# 1. Engle-Granger on full sample
-from statsmodels.tsa.stattools import coint
-score, pval, _ = coint(p1, p2)
-print(f"\n[1] Full-sample Engle-Granger coint p-value = {pval:.4f}")
 
-# 2. Rolling coint p-value on trailing lookback windows (like the strategy)
-lookback = 60
-pv = []
-for i in range(lookback - 1, len(data)):
-    s1 = p1.iloc[i - lookback + 1 : i + 1]
-    s2 = p2.iloc[i - lookback + 1 : i + 1]
-    try:
-        _, p, _ = coint(s1, s2)
-        pv.append(p)
-    except Exception:
-        pv.append(np.nan)
-pv = np.array(pv)
-print(f"[2] Rolling 60-bar EG p-value: median={np.nanmedian(pv):.4f} mean={np.nanmean(pv):.4f} "
-      f"frac<0.05={np.nanmean(pv <= 0.05):.3f} frac<0.10={np.nanmean(pv <= 0.10):.3f}")
+def main() -> int:
+    loader = DataLoader()
+    data, prov = load_cached(loader, SYMBOLS, "2026-04-01", "2026-10-28", "1h")
+    print(f"loaded {data.shape[0]} bars x {data.shape[1]} symbols; cache_hit={prov.get('cache_hit')}")
 
-# 3. Z-score distribution of the spread
-strat = CointegrationPairsStrategy(pair=("BTC", "ETH"), lookback=lookback, entry_threshold=2.0)
-spread = strat.calculate_spread(p1, p2)
-spread_mean = spread.rolling(lookback, min_periods=lookback).mean()
-spread_std = spread.rolling(lookback, min_periods=lookback).std()
-z = (spread - spread_mean) / spread_std.where(spread_std > 0)
-z = z.dropna()
-print(f"\n[3] Z-score: mean={z.mean():.4f} std={z.std():.4f} "
-      f"min={z.min():.3f} max={z.max():.3f}")
-print(f"    frac |z|>2.0 = {(z.abs() > 2.0).mean():.4f}")
-print(f"    frac z>2.0 = {(z > 2.0).mean():.4f}  frac z<-2.0 = {(z < -2.0).mean():.4f}")
+    out: dict[str, dict] = {}
+    for a, b in PAIRS:
+        diag = target_schema_diagnostics(data[a], data[b], f"{a}/{b}")
+        g = diag["gates"]
+        spread = diag["spread"]
+        rs = diag["rolling_stability"]
+        leg = diag["leg_stationarity"]
+        out[f"{a}/{b}"] = {
+            "gates": g,
+            "eg_pvalue": diag["engle_granger"]["pvalue"],
+            "johansen_rank": diag["johansen"]["rank"],
+            "spread_adf_pvalue": spread.get("adf_spread", {}).get("pvalue"),
+            "half_life_ou": spread.get("half_life_ou"),
+            "rolling_frac_stable": rs.get("frac_significant"),
+            "rolling_n_windows": rs.get("n_windows"),
+            "leg1_adf_pvalue": leg.get("leg1_pvalue"),
+            "leg2_adf_pvalue": leg.get("leg2_pvalue"),
+            "structural_break_flagged": diag["structural_breaks"].get("flagged"),
+        }
+        print(f"{a}/{b}: all_pass={g['all_pass']} eg={diag['engle_granger']['pvalue']:.4f} "
+              f"spread_adf={spread.get('adf_spread', {}).get('pvalue')} "
+              f"hl={spread.get('half_life_ou')} roll={rs.get('frac_significant')} "
+              f"leg1={leg.get('leg1_pvalue')} leg2={leg.get('leg2_pvalue')} "
+              f"sb={diag['structural_breaks'].get('flagged')}")
 
-# 4. Cached diagnostics gate for BTC/ETH
-import json
-pf = json.load(open("reports/portfolio_real.json"))
-cd = pf.get("cointegration_diagnostics", {})
-bte = cd.get("BTC/ETH", {})
-print(f"\n[4] Cached BTC/ETH gates: {bte.get('gates')}")
-print(f"     structural_breaks flagged: {bte.get('structural_breaks', {}).get('flagged')}")
+    # Without the conceptually-mis-specified leg_stationarity gate, which
+    # requires both legs to be stationary (contradicting the definition of
+    # cointegration, where non-stationary legs combine into a stationary
+    # spread), which pairs pass the remaining gates?
+    print("\n--- Without leg_stationarity_ok ---")
+    for name, d in out.items():
+        g = dict(d["gates"])
+        g["leg_stationarity_ok"] = True
+        g["all_pass"] = all(g[k] for k in (
+            "eg_pass", "johansen_pass", "spread_mr_pass", "hl_bounds_pass",
+            "rolling_stable_ok", "no_structural_break",
+        ))
+        print(f"{name}: all_pass={g['all_pass']} "
+              f"eg={g['eg_pass']} joh={g['johansen_pass']} spread={g['spread_mr_pass']} "
+              f"hl={g['hl_bounds_pass']} roll={g['rolling_stable_ok']} sb={g['no_structural_break']}")
 
-# 5. Fresh target-schema diagnostics on trailing window (per-bar style)
-diag = target_schema_diagnostics(p1.iloc[-lookback:], p2.iloc[-lookback:], pair_name="BTC/ETH")
-print(f"\n[5] Fresh trailing-window target-schema gates: {diag.get('gates')}")
-print(f"     structural_breaks: {diag.get('structural_breaks')}")
+    out_path = Path(__file__).resolve().parent / "reports" / "pairs_gate_diagnosis_real.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(out, indent=2, default=float), encoding="utf-8")
+    print(f"\nwrote {out_path}")
+    return 0
 
-# 6. Run strategy WITHOUT enriched gates (default behaviour) and WITH, compare
-for use_enriched in (False, True):
-    s = CointegrationPairsStrategy(
-        pair=("BTC", "ETH"), lookback=lookback, entry_threshold=2.0,
-        use_enriched_gates=use_enriched, strict_enriched_gates=use_enriched,
-    )
-    sig = s.generate_signals(data)
-    n_long = int(sig["long"].sum())
-    n_short = int(sig["short"].sum())
-    print(f"\n[6] use_enriched_gates={use_enriched}: long bars={n_long} short bars={n_short}")
-    # count transitions (trades)
-    pos = (sig["long"].astype(int) - sig["short"].astype(int))
-    transitions = int((pos.diff().abs() > 0).sum())
-    print(f"    position transitions (approx trades x2): {transitions}")
 
-# 7. Full backtest without enriched gates
-s = CointegrationPairsStrategy(pair=("BTC", "ETH"), lookback=lookback, entry_threshold=2.0,
-                               use_enriched_gates=False, strict_enriched_gates=False)
-eng = BacktestEngine(initial_capital=100_000.0)
-res = eng.run(s, data, fee_rate=0.001, slippage=0.0005)
-print(f"\n[7] Backtest (no enriched gates):")
-print(f"    trades={res.get('n_trades')} total_return={res.get('total_return', 0):.4%} "
-      f"sharpe={res.get('sharpe_ratio', 0):.4f} maxDD={res.get('max_drawdown', 0):.4%} "
-      f"final_equity={res.get('final_equity', 0):,.2f}")
+if __name__ == "__main__":
+    raise SystemExit(main())
