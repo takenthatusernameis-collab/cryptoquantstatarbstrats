@@ -1305,3 +1305,55 @@ def test_enriched_gates_cached_vs_perbar_parity_gates_none_strict():
     assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
     assert not sig_cached["long"].any() and not sig_cached["short"].any()
     assert not sig_perbar["long"].any() and not sig_perbar["short"].any()
+
+
+# Shared parity assertion helper (codified to prevent future drift)
+def assert_cached_vs_perbar_gate_parity_strict(
+    df,
+    pair=("BTC", "ETH"),
+    lookback=60,
+    cached_diag=None,
+    fake_target_diag=None,
+):
+    """Assert cached enriched diagnostics produce identical gate outcomes
+    to per-bar path under strict_enriched_gates=True."""
+    import strategies.pairs_trading as pt
+    from strategies.pairs_trading import CointegrationPairsStrategy
+
+    strat_cached = CointegrationPairsStrategy(
+        pair,
+        lookback=lookback,
+        enriched_diagnostics=cached_diag,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    strat_perbar = CointegrationPairsStrategy(
+        pair,
+        lookback=lookback,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig_cached = strat_cached.generate_signals(df)
+
+    def _fake_target(p1, p2, pair_name=""):
+        if fake_target_diag is not None:
+            return fake_target_diag
+        # Fallback to cached diag if not provided
+        if cached_diag is not None:
+            return {"gates": cached_diag.get("gates", {}), "structural_breaks": cached_diag.get("structural_breaks", {}), "provenance": {"fabricated_data": True}}
+        raise AssertionError("fake_target_diag required for per-bar parity test")
+
+    orig = pt.target_schema_diagnostics
+    try:
+        pt.target_schema_diagnostics = _fake_target
+        sig_perbar = strat_perbar.generate_signals(df)
+    finally:
+        pt.target_schema_diagnostics = orig
+
+    assert (sig_cached["enriched_gates_ok"] == sig_perbar["enriched_gates_ok"]).all(), (
+        "Cached vs per-bar gate parity failed under strict_enriched_gates=True"
+    )
+    assert (sig_cached["long"] == sig_perbar["long"]).all()
+    assert (sig_cached["short"] == sig_perbar["short"]).all()
+    return sig_cached, sig_perbar
