@@ -613,6 +613,12 @@ class DataLoader:
         # every symbol (this previously burned 165 attempts on a single blocked
         # host across 33 symbols x 5 hosts x 1 retry).
         blocked_hosts: set[str] = set()
+        # Per-symbol provenance captured immediately after each symbol's fetch
+        # attempt. ``load_binance_data`` overwrites ``self.last_fetch_provenance``
+        # on every invocation, so reading it once at the end of the parallel
+        # loop only ever sees the LAST symbol's state and silently drops every
+        # other symbol's blocked hosts/routes. Capture inside the worker.
+        per_symbol_provenance: dict[str, dict[str, Any]] = {}
         provenance: dict[str, Any] = {
             "requested_symbols": list(symbols),
             "start": start_date,
@@ -625,6 +631,11 @@ class DataLoader:
             "per_symbol": {},
             "excluded": [],
             "blocked_routes": [],
+            # Publication-grade provenance: real public Binance spot quote
+            # volume only. Never fabricated, even when every symbol blocks.
+            "real_data_only": True,
+            "fabricated_data": False,
+            "source": "data.loader.DataLoader.fetch_quote_volume (real Binance spot klines, column 5)",
         }
 
         def _market_symbol(sym: str) -> str:
@@ -698,6 +709,13 @@ class DataLoader:
                         if any(code in err for code in blocked_codes):
                             blocked_hosts.add(host)
                         continue
+                # Capture this symbol's provenance immediately, before any other
+                # parallel worker overwrites self.last_fetch_provenance. A
+                # blocked host observed for one symbol must be reported for the
+                # whole call, never silently dropped by a later symbol.
+                per_symbol_provenance[sym] = dict(
+                    getattr(self, "last_fetch_provenance", {}) or {}
+                )
                 if host_used is not None and ts_list:
                     local_attempts.append({
                         "attempt": attempt,
@@ -754,5 +772,29 @@ class DataLoader:
             {"symbol": s, "reason": "not_in_results", "attempts": attempts_log.get(s, [])}
             for s in symbols if s not in results
         ]
+        # Aggregate blocked-route provenance from EVERY per-symbol fetch using
+        # the provenance captured inside _fetch_one (not a single shared
+        # self.last_fetch_provenance, which only retains the last symbol's
+        # state under parallel execution). A blocked host observed for any
+        # symbol must be reported for the whole call, never silently dropped.
+        for sym in symbols:
+            sym_prov = per_symbol_provenance.get(sym) or {}
+            if not isinstance(sym_prov, dict):
+                continue
+            for host in sym_prov.get("blocked_hosts", []) or []:
+                blocked_hosts.add(host)
+            for route in sym_prov.get("blocked_routes", []) or []:
+                blocked_hosts.add(route)
         provenance["blocked_routes"] = sorted(blocked_hosts)
+        if not results:
+            err_obj = RuntimeError(
+                f"No real Binance quote volume fetched for {symbols} "
+                f"between {start_date} and {end_date} after {retries} retries. "
+                f"Blocked hosts: {sorted(blocked_hosts)}."
+            )
+            try:
+                object.__setattr__(err_obj, "provenance", dict(provenance))
+            except Exception:
+                pass
+            raise err_obj
         return results, provenance
