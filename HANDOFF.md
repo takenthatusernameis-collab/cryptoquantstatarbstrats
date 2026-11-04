@@ -1,8 +1,8 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T15:47:51Z
+TIMESTAMP: 2026-11-04T16:00:00Z
 REPO: cryptoquantstatarbstrats
-FOCUS: Crypto Quantitative Statistical Arbitrage Strategies
+FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
 ---
 
@@ -11,63 +11,67 @@ FOCUS: Crypto Quantitative Statistical Arbitrage Strategies
 ```
 You are picking up cryptoquantstatarbstrats. NO "investigate only" loops. DO HEAVY WORKING IMMEDIATELY.
 
-OBJECTIVE: Unblock and deliver a working end-to-end crypto pairs statistical arbitrage pipeline (pair selection -> cointegration/spread construction -> z-score signals -> realistic backtest with costs) that produces concrete metrics from real code paths.
+OBJECTIVE: Unblock and deliver a verifiably working, REAL-DATA-ONLY end-to-end crypto pairs statistical arbitrage pipeline (pair selection -> cointegration/spread construction -> z-score signals -> realistic backtest with costs) that produces concrete, reproducible metrics from real code paths. Treat "cointegration is the core edge" as non-negotiable.
 
-EXECUTE IN THIS EXACT ORDER (remove blockers, do not skip):
+EXECUTE IN THIS EXACT ORDER (remove bottlenecks first):
 
-1. AUDIT & UNBLOCK IMPORTS (HARD BLOCKER)
-   - Run `pip show pytest numpy pandas scipy statsmodels` and `pip list | head -60`.
-   - Run `pytest -v 2>&1 | tail -120` and capture every ImportError/ModuleNotFoundError.
-   - Fix deps/path issues using `requirements.txt`/`pyproject.toml`. Install missing deps or fix imports/relative paths. Do this before expanding scope.
+1. TARGETED HEALTH CHECK (FAST)
+   - Do NOT run the full test suite blindly. Run targeted tests for the pairs/cointegration path first:
+     `pytest -v tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py -q`
+   - Capture any ImportError/ModuleNotFoundError. Fix deps/path issues using pyproject.toml/requirements.txt before expanding scope.
 
-2. MAP THE REAL DATA (BLOCKER)
-   - Inspect `data/` for actual files and schema. Read any loaders/adapters in `data/` and `utils/`.
-   - Trace how data flows into strategies/backtest. Fix adapters to match actual files - do not guess from README alone.
+2. MAP REAL DATA & PROVENANCE (BLOCKER)
+   - Inspect `data/` (loaders/adapters/cache). Read `data/loader.py` and `data/cache.py` to understand how real Binance data is fetched.
+   - Check existing real artifacts: `reports/pairs_real_market.json`, `reports/portfolio_real.json` for schema/provenance. Confirm `real_data_only` and no fabricated data.
+   - If network is blocked in env, use cached data/reports and fix adapters to work offline where possible.
 
-3. WIRE ONE STRATEGY END-TO-END (CORE)
-   - Find the simplest viable strategy in `strategies/`. Trace its full call chain through `backtest/` to a runnable entrypoint (test, script, or example).
-   - Make it execute against real data. Fix integration gaps (imports, class/function mismatches, missing args) until it runs.
+3. WIRE ONE PAIRS PATH END-TO-END (CORE)
+   - Focus on `strategies/pairs_trading.py` (CointegrationPairsStrategy). Trace through `backtest/engine.py` to a runnable entrypoint.
+   - Run a concrete example: `python examples/run_pairs.py` or `python examples/run_pairs_multi.py`. Capture full output/tracebacks.
+   - Fix integration gaps (imports, class/function mismatches, args) until it runs against real data paths.
 
 4. HARDEN STAT-ARB MATH (CORE)
-   - Ensure pair selection/cointegration (e.g. Engle-Granger), spread construction, z-score/thresholds, and position sizing are actually used.
-   - If missing/incomplete, implement minimal correct glue. Add/fix tiny unit tests only if they unblock the core path.
+   - Enforce causal rolling hedge ratio (positive, clipped, guarded), opposing legs preserved, Engle-Granger + enriched gates (fail-closed), z-score hysteresis.
+   - Ensure enriched diagnostics/gates are respected. Never fabricate gates/values.
+   - Add minimal glue only if required; fix in existing modules.
 
 5. ADD REALISM & PRODUCE PROOF (REQUIRED)
-   - Wire transaction costs/slippage/capital constraints into the backtest path if absent.
-   - Run the end-to-end backtest and output concrete metrics (trades, PnL, cumulative/period returns, Sharpe/vol or drawdown if available).
-   - Run `pytest -v`. Fix failures blocking the core stat-arb path. Leave the repo in a runnable state.
+   - Ensure transaction costs/slippage/capital constraints are applied in the backtest path.
+   - Run the end-to-end backtest and produce concrete metrics (trades/fills, PnL, cumulative/period returns, Sharpe, max drawdown, costs).
+   - Write a durable proof artifact: `reports/handoff_proof_<UTC_TIMESTAMP>.json` with: config, data provenance (real_data_only/fabricated_data/hosts/blocked_routes), gates summary, trades count, equity curve summary, key metrics, and file paths modified.
+   - Re-run targeted tests. Fix failures blocking the core pairs path. Leave repo in a runnable state.
 
 RULES:
 - Prioritize unblocking execution over documentation. Write code to fix failures.
-- If multiple things appear blocked, fix the bottleneck first (imports -> data -> integration -> tests).
-- Do not stop at "investigation". Make changes, run tests/backtests, iterate on failures.
-- Stay laser-focused on pairs/trading spreads/cointegration per repo name (crypto stat arb).
+- Full test suite is large/slow - use targeted runs. Only expand to broader tests if they block the core path.
+- Real data only. Never fabricate candles/IV/funding/basis. Follow existing provenance patterns.
+- Stay laser-focused on pairs/trading spreads/cointegration per repo name.
 - Commit nothing unless explicitly asked. Update THIS handoff only if you remove a NEW hard blocker not listed here.
-- Success = modified code + a working end-to-end stat-arb backtest run with verifiable output/metrics.
+- Success = modified code + working end-to-end pairs stat-arb backtest run + verifiable proof artifact with concrete metrics from real code paths.
 ```
 
 ---
 
 ## KNOWN STATE
 - `README.md` present (reference only)
-- Core dirs: `strategies/`, `backtest/`, `data/`, `utils/`, `tests/`, `scripts/`, `examples/`, `research_state/`
-- Packaging: `pyproject.toml`, `requirements.txt`, `cryptoquantstatarbstrats.egg-info/` present
-- Tests exist under `tests/` (heavy working expected)
-
-## IMMEDIATE ACTIONS FOR NEXT AGENT
-- [ ] `pytest -v` (capture full failures with tracebacks)
-- [ ] `pip list` / check deps vs imports
-- [ ] `ls -la data/` and read loaders in `data/`
-- [ ] Find strategy entrypoints: `grep -rn "cointegrat\|pairs_trading\|zscore\|spread" strategies/ backtest/ | head -40`
-- [ ] Trace one full path from strategy -> backtest -> data and make it runnable
-- [ ] Run one concrete backtest producing metrics
+- Core dirs: `strategies/`, `backtest/`, `data/`, `utils/`, `tests/`, `scripts/`, `examples/`, `research_state/`, `reports/`
+- Packaging: `pyproject.toml`, `requirements.txt`
+- Heavy test suite exists; many campaign tests passing individually
+- Pairs strategy has enriched cointegration gates (fail-closed). Loader has Binance host fallbacks. Rich real-market artifacts exist.
 
 ## BOTTLENECK REMOVAL PRIORITY
-1. **Imports/dependencies** - fix first (no code runs otherwise)
-2. **Data loading/schema mismatch** - adapt to actual files in `data/`
-3. **Strategy/backtest integration** - wire end-to-end
-4. **Stat-arb core logic gaps** (cointegration/spread/signals) - only after 1-3
-5. **Tests/costs/realism** - harden once core runs
+1. **Targeted tests/imports** - fix blockers in pairs/cointegration path first
+2. **Data loading/schema/provenance** - adapt to actual files/network constraints
+3. **Strategy/backtest integration** - wire end-to-end for CointegrationPairsStrategy
+4. **Stat-arb core logic gaps** (cointegration/spread/signals/gates) - harden
+5. **Costs/realism + proof artifact** - produce verifiable metrics
+
+## IMMEDIATE ACTIONS FOR NEXT AGENT
+- [ ] `pytest -v tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -q` (targeted)
+- [ ] `ls -la data/` and read `data/loader.py`, `data/cache.py`
+- [ ] `python examples/run_pairs.py 2>&1 | tail -80` or `python examples/run_pairs_multi.py 2>&1 | tail -80`
+- [ ] Trace `CointegrationPairsStrategy.generate_signals` -> `BacktestEngine.run` with real data
+- [ ] Produce `reports/handoff_proof_*.json` with concrete metrics
 
 ## SUCCESS CRITERION
-Next agent has executed heavy work: modified code to remove blockers, ran tests/backtests iteratively, and produced a working end-to-end crypto pairs stat-arb backtest run with concrete, verifiable metrics from real code paths.
+Next agent has executed heavy work: modified code to remove blockers, ran targeted tests/backtests iteratively, and produced a working end-to-end crypto pairs stat-arb backtest run with concrete, verifiable metrics + proof artifact from real code paths.
