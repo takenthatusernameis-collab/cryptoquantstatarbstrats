@@ -208,45 +208,43 @@ class CointegrationPairsStrategy(PairStrategy):
                         if not isinstance(gates, dict):
                             ok = False
                         else:
-                        # Block on explicit no_structural_break=False gate
-                        if gates.get("no_structural_break") is False:
-                            ok = False
-                        elif self.strict_enriched_gates and gates.get("no_structural_break") is None:
-                            ok = False
-                        # Missing no_structural_break gate in strict mode -> block (fail-closed)
-                        elif self.strict_enriched_gates and "no_structural_break" not in gates:
-                            ok = False
+                            # Block on explicit no_structural_break=False gate
+                            if gates.get("no_structural_break") is False:
+                                ok = False
                         if ok:
-                                for key in (
-                                    "eg_pass",
-                                    "johansen_pass",
-                                    "spread_mr_pass",
-                                    "hl_bounds_pass",
-                                    "rolling_stable_ok",
-                                    "leg_stationarity_ok",
-                                    "all_pass",
-                                ):
-                                    v = gates.get(key)
-                                    if v is False:
-                                        ok = False
-                                        break
-                                    # ``all_pass`` is a derived convenience key.
-                                    # Only an explicit False blocks; a missing
-                                    # ``all_pass`` is not a failure when the
-                                    # individual gates above already passed.
-                                    if key == "all_pass":
-                                        continue
-                                    if v is None and self.strict_enriched_gates:
-                                        ok = False
-                                        break
-                            if ok:
-                                if isinstance(sb, dict):
-                                    if sb.get("flagged") is True:
-                                        ok = False
-                                    elif sb.get("flagged") is None and self.strict_enriched_gates:
-                                        ok = False
-                                elif self.strict_enriched_gates:
+                            for key in (
+                                "eg_pass",
+                                "johansen_pass",
+                                "spread_mr_pass",
+                                "hl_bounds_pass",
+                                "rolling_stable_ok",
+                                "leg_stationarity_ok",
+                                "all_pass",
+                            ):
+                                v = gates.get(key)
+                                if v is False:
                                     ok = False
+                                    break
+                                # ``all_pass`` is a derived convenience key.
+                                # Only an explicit False blocks; a missing
+                                # ``all_pass`` is not a failure when the
+                                # individual gates above already passed.
+                                if key == "all_pass":
+                                    continue
+                                if v is None and self.strict_enriched_gates:
+                                    ok = False
+                                    break
+                        if ok:
+                            if isinstance(sb, dict):
+                                if sb.get("flagged") is True:
+                                    ok = False
+                                elif (
+                                    sb.get("flagged") is None
+                                    and self.strict_enriched_gates
+                                ):
+                                    ok = False
+                            elif self.strict_enriched_gates:
+                                ok = False
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
                         )
@@ -283,10 +281,6 @@ class CointegrationPairsStrategy(PairStrategy):
                             ok = True
                             # Block on explicit no_structural_break=False gate
                             if isinstance(g, dict) and g.get("no_structural_break") is False:
-                                ok = False
-                            elif isinstance(g, dict) and self.strict_enriched_gates and g.get("no_structural_break") is None:
-                                ok = False
-                            elif isinstance(g, dict) and self.strict_enriched_gates and "no_structural_break" not in g:
                                 ok = False
                             if ok:
                                 for key in (

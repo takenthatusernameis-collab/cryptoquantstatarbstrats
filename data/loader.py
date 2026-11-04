@@ -635,7 +635,10 @@ class DataLoader:
             # volume only. Never fabricated, even when every symbol blocks.
             "real_data_only": True,
             "fabricated_data": False,
-            "source": "data.loader.DataLoader.fetch_quote_volume (real Binance spot klines, column 5)",
+            "source": (
+                "data.loader.DataLoader.fetch_quote_volume "
+                "(real Binance spot klines, column 5)"
+            ),
         }
 
         def _market_symbol(sym: str) -> str:

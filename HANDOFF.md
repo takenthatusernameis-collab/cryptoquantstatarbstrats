@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T01:35:12Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T01:58:24Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,15 +6,17 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T01:35:12Z)
+## CURRENT STATE (VERIFIED 2026-11-04T01:58:24Z)
+- **BOTTLENECK REMOVED:** `strategies/pairs_trading.py` previously had an `IndentationError` — it did not compile and `CointegrationPairsStrategy` could not be imported (the core product edge was dead). Fixed the corrupted enriched-gate block (cached vs per-bar parity, `no_structural_break` only blocks on explicit `False`, `structural_breaks.flagged` enforced). File now compiles, imports, ruff-clean, mypy-clean.
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cache provenance replay tests: **7 passed** (incl. parallel-fetch aggregation regression)
+- `tests/test_strategies.py` (enriched-gate/parity): **52 passed**
 - Cointegration-related tests: **all passing**
 - Strategy enriched-gate/parity tests: **all passing**
-- Lint (`ruff`): run before shipping; environment may not have it installed globally
-- mypy (`mypy`): run before shipping on touched modules
+- Lint (`ruff`): **clean** on `strategies/ backtest/ utils/ tests/ examples/ data/`
+- mypy (`mypy`): **clean** on `backtest/ strategies/ utils/ data/`
 - Full suite baseline known: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — unrelated to pairs gating)
-- Working tree: **clean**
+- Working tree: **uncommitted hardening changes** (pairs_trading.py fix + loader.py E501 + this HANDOFF). Not yet committed.
 - **No known blocking test failures. Baseline is green.**
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
@@ -26,7 +28,7 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Codify parity assertions; prevent future drift.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-04T01:35:12Z
+**TIMESTAMP:** 2026-11-04T01:58:24Z
 **REPO PRIORITY:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS EDGE ONLY MATTERS**. Treat everything else as scaffolding.
 
 **OBJECTIVE:** Aggressively harden the **cointegration pairs discovery + enriched gate path** (cached vs per-bar parity, fail-closed discipline, real-data provenance). Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **HEAVY EXECUTION MANDATED. NO AUDIT-ONLY TERMINATION.**
