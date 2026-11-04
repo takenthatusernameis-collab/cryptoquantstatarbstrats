@@ -20,6 +20,54 @@ from utils.cointegration import (
 )
 
 
+def _evaluate_enriched_gates_strict(
+    gates: Any,
+    structural_breaks: Any,
+    strict: bool,
+) -> bool:
+    """Shared fail-closed gate evaluator for cached and per-bar paths.
+
+    Ensures cached vs uncached parity: structural breaks, missing gates,
+    and explicit False all block under strict mode. Never coerces None/True.
+    """
+    ok = True
+    if not isinstance(gates, dict):
+        return False if strict else True
+    # Explicit gate for no structural break
+    if gates.get("no_structural_break") is False:
+        ok = False
+    if ok:
+        for key in (
+            "eg_pass",
+            "johansen_pass",
+            "spread_mr_pass",
+            "hl_bounds_pass",
+            "rolling_stable_ok",
+            "leg_stationarity_ok",
+            "no_structural_break",
+            "all_pass",
+        ):
+            v = gates.get(key)
+            if v is False:
+                ok = False
+                break
+            if key == "all_pass":
+                continue
+            if v is None and strict:
+                ok = False
+                break
+    if ok:
+        if isinstance(structural_breaks, dict):
+            flagged = structural_breaks.get("flagged")
+            if flagged is True:
+                ok = False
+            elif flagged is None and strict:
+                ok = False
+        elif strict:
+            ok = False
+    return bool(ok)
+
+
 class CointegrationPairsStrategy(PairStrategy):
     """Pairs strategy using a rolling OLS hedge ratio and spread z-score.
 
@@ -204,47 +252,19 @@ class CointegrationPairsStrategy(PairStrategy):
                     if isinstance(ed, dict):
                         gates = ed.get("gates", {})
                         sb = ed.get("structural_breaks")
-                        ok = True
-                        if not isinstance(gates, dict):
-                            ok = False
-                        else:
-                            if gates.get("no_structural_break") is False:
-                                ok = False
-                        if ok and isinstance(gates, dict):
-                            for key in (
-                                "eg_pass",
-                                "johansen_pass",
-                                "spread_mr_pass",
-                                "hl_bounds_pass",
-                                "rolling_stable_ok",
-                                "leg_stationarity_ok",
-                                "no_structural_break",
-                                "all_pass",
-                            ):
-                                v = gates.get(key)
-                                if v is False:
-                                    ok = False
-                                    break
-                                if key == "all_pass":
-                                    continue
-                                if v is None and self.strict_enriched_gates:
-                                    ok = False
-                                    break
-                        if ok:
-                            if isinstance(sb, dict):
-                                if sb.get("flagged") is True:
-                                    ok = False
-                                elif (
-                                    sb.get("flagged") is None
-                                    and self.strict_enriched_gates
-                                ):
-                                    ok = False
-                            elif self.strict_enriched_gates:
-                                ok = False
+                        ok = _evaluate_enriched_gates_strict(
+                            gates, sb, bool(self.strict_enriched_gates)
+                        )
                         enriched_ok = pd.Series(
                             1.0 if ok else 0.0, index=data.index, dtype=float
                         )
                     else:
+                        # Cached diagnostics provided but not a dict - fail closed under strict
+                        enriched_ok = pd.Series(
+                            0.0 if self.strict_enriched_gates else 1.0,
+                            index=data.index,
+                            dtype=float,
+                        )
                         # Cached diagnostics provided but not a dict - fail closed under strict
                         enriched_ok = pd.Series(
                             0.0 if self.strict_enriched_gates else 1.0,
@@ -268,50 +288,17 @@ class CointegrationPairsStrategy(PairStrategy):
                             # ``rolling_stable_ok`` to False. Under strict
                             # mode an unassessable gate must block entries --
                             # never coerce an unassessable gate to True.
-                            g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
-                            sb = (
-                                tdiag.get("structural_breaks", {})
-                                if isinstance(tdiag, dict)
-                                else {}
-                            )
-                            ok = True
-                            # Block on explicit no_structural_break=False gate
-                            if isinstance(g, dict) and g.get("no_structural_break") is False:
-                                ok = False
-                            if ok:
-                                for key in (
-                                    "eg_pass",
-                                    "johansen_pass",
-                                    "spread_mr_pass",
-                                    "hl_bounds_pass",
-                                    "rolling_stable_ok",
-                                    "leg_stationarity_ok",
-                                    "no_structural_break",
-                                    "all_pass",
-                                ):
-                                    v = g.get(key)
-                                    if v is False:
-                                        ok = False
-                                        break
-                                    if key == "all_pass":
-                                        continue
-                                    if v is None and self.strict_enriched_gates:
-                                        ok = False
-                                        break
-                            try:
-                                if isinstance(sb, dict) and sb.get("flagged") is True:
-                                    ok = False
-                                elif (
-                                    isinstance(sb, dict)
-                                    and sb.get("flagged") is None
-                                    and self.strict_enriched_gates
-                                ):
-                                    ok = False
-                                elif not isinstance(sb, dict) and self.strict_enriched_gates:
-                                    ok = False
-                            except Exception:
+                            if not isinstance(tdiag, dict):
                                 if self.strict_enriched_gates:
-                                    ok = False
+                                    enriched_ok_arr[i] = 0.0
+                                else:
+                                    enriched_ok_arr[i] = np.nan
+                                continue
+                            g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
+                            sb = tdiag.get("structural_breaks")
+                            ok = _evaluate_enriched_gates_strict(
+                                g, sb, bool(self.strict_enriched_gates)
+                            )
                             enriched_ok_arr[i] = 1.0 if ok else 0.0
                         except Exception:
                             if self.strict_enriched_gates:
