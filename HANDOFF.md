@@ -1,6 +1,6 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T22:35:29Z
+TIMESTAMP: 2026-11-04T22:54:24Z
 REPO: cryptoquantstatarbstrats
 FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
@@ -14,7 +14,7 @@ Every session must treat pairs/spreads/cointegration as the primary deliverable.
 
 ---
 
-# THIS SESSION VERIFIED (2026-11-04T22:33Z)
+# THIS SESSION VERIFIED (2026-11-04T22:54Z)
 
 - Deps OK: `numpy,pandas,statsmodels,scipy,yaml` import clean.
 - Targeted pairs/cointegration tests: 40 passed
