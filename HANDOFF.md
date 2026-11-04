@@ -1,6 +1,6 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T17:55:27Z
+TIMESTAMP: 2026-11-04T18:30:52Z
 REPO: cryptoquantstatarbstrats
 FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
@@ -72,7 +72,7 @@ FOCUS CAMPAIGN (future agents MUST do heavy work):
 ```
 
 ## KNOWN STATE (INFERRED)
-- Targeted tests: 40 passed (verified at handoff time).
+- Targeted tests: 40 passed (verified 2026-11-04T18:30:52Z).
 - `strategies/pairs_trading.py`: causal rolling hedge ratio with guards, opposing legs via explicit weights, enriched gates (fail-closed), cointegration with caching.
 - `backtest/engine.py`: explicit per-asset weights precedence, costs/slippage, regime gating, walk-forward utilities.
 - `data/loader.py`, `data/cache.py`: Binance loader with retries/fallbacks; disk cache present.
