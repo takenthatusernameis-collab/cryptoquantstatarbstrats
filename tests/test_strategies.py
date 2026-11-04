@@ -634,63 +634,33 @@ def test_enriched_gates_use_enriched_false_ignores_diagnostics():
     assert (sig["enriched_gates_ok"] == 1.0).all()
 
 
+def _parity_diag(gates, structural_breaks):
+    """Build a cached diagnostics dict and matching per-bar fake target-schema dict
+    so the cached and per-bar paths receive identical gate inputs."""
+    ed = {"gates": dict(gates), "structural_breaks": dict(structural_breaks)}
+    fake = {
+        "gates": dict(gates),
+        "structural_breaks": dict(structural_breaks),
+        "provenance": {"fabricated_data": True},
+    }
+    return ed, fake
+
+
 def test_enriched_gates_cached_vs_perbar_parity_structural_break_flagged():
     """Cached and per-bar paths must agree on blocking when structural break flagged."""
-    import strategies.pairs_trading as pt
-    from strategies.pairs_trading import CointegrationPairsStrategy
-
-    df = make_data(n=200)
-    ed = {
-        "gates": {
-            "eg_pass": True,
-            "johansen_pass": True,
-            "spread_mr_pass": True,
-            "hl_bounds_pass": True,
-            "rolling_stable_ok": True,
-            "leg_stationarity_ok": True,
-            "no_structural_break": False,
-        },
-        "structural_breaks": {"flagged": True},
+    gates = {
+        "eg_pass": True,
+        "johansen_pass": True,
+        "spread_mr_pass": True,
+        "hl_bounds_pass": True,
+        "rolling_stable_ok": True,
+        "leg_stationarity_ok": True,
+        "no_structural_break": False,
     }
-    strat_cached = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=ed,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
+    ed, fake = _parity_diag(gates, {"flagged": True})
+    sig_cached, sig_perbar = assert_cached_vs_perbar_gate_parity_strict(
+        make_data(n=200), lookback=30, cached_diag=ed, fake_target_diag=fake
     )
-    sig_cached = strat_cached.generate_signals(df)
-
-    def fake_target_schema(p1, p2, pair_name=""):
-        return {
-            "gates": {
-                "eg_pass": True,
-                "johansen_pass": True,
-                "spread_mr_pass": True,
-                "hl_bounds_pass": True,
-                "rolling_stable_ok": True,
-                "leg_stationarity_ok": True,
-                "no_structural_break": False,
-            },
-            "structural_breaks": {"flagged": True},
-            "provenance": {"fabricated_data": True},
-        }
-
-
-    strat_perbar = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=None,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
-    )
-    orig = pt.target_schema_diagnostics
-    try:
-        pt.target_schema_diagnostics = fake_target_schema
-        sig_perbar = strat_perbar.generate_signals(df)
-    finally:
-        pt.target_schema_diagnostics = orig
-
     assert (sig_cached["enriched_gates_ok"] == 0.0).all()
     assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
     assert not sig_cached["long"].any() and not sig_cached["short"].any()
@@ -699,62 +669,20 @@ def test_enriched_gates_cached_vs_perbar_parity_structural_break_flagged():
 
 def test_enriched_gates_cached_vs_perbar_parity_missing_all_pass():
     """Cached and per-bar paths must agree when all_pass missing but individuals pass."""
-    import strategies.pairs_trading as pt
-    from strategies.pairs_trading import CointegrationPairsStrategy
-
-    df = make_data(n=200)
-    ed = {
-        "gates": {
-            "eg_pass": True,
-            "johansen_pass": True,
-            "spread_mr_pass": True,
-            "hl_bounds_pass": True,
-            "rolling_stable_ok": True,
-            "leg_stationarity_ok": True,
-            "no_structural_break": True,
-            # all_pass intentionally missing
-        },
-        "structural_breaks": {"flagged": False},
+    gates = {
+        "eg_pass": True,
+        "johansen_pass": True,
+        "spread_mr_pass": True,
+        "hl_bounds_pass": True,
+        "rolling_stable_ok": True,
+        "leg_stationarity_ok": True,
+        "no_structural_break": True,
+        # all_pass intentionally missing
     }
-    strat_cached = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=ed,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
+    ed, fake = _parity_diag(gates, {"flagged": False})
+    sig_cached, sig_perbar = assert_cached_vs_perbar_gate_parity_strict(
+        make_data(n=200), lookback=30, cached_diag=ed, fake_target_diag=fake
     )
-    sig_cached = strat_cached.generate_signals(df)
-
-    def fake_target_schema(p1, p2, pair_name=""):
-        return {
-            "gates": {
-                "eg_pass": True,
-                "johansen_pass": True,
-                "spread_mr_pass": True,
-                "hl_bounds_pass": True,
-                "rolling_stable_ok": True,
-                "leg_stationarity_ok": True,
-                "no_structural_break": True,
-                # all_pass missing
-            },
-            "structural_breaks": {"flagged": False},
-            "provenance": {"fabricated_data": True},
-        }
-
-    strat_perbar = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=None,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
-    )
-    orig = pt.target_schema_diagnostics
-    try:
-        pt.target_schema_diagnostics = fake_target_schema
-        sig_perbar = strat_perbar.generate_signals(df)
-    finally:
-        pt.target_schema_diagnostics = orig
-
     # Both should allow entries if z-scores trigger (gates ok)
     assert (sig_cached["enriched_gates_ok"] == 1.0).all()
     assert (sig_perbar["enriched_gates_ok"] == 1.0).all()
@@ -762,60 +690,19 @@ def test_enriched_gates_cached_vs_perbar_parity_missing_all_pass():
 
 def test_enriched_gates_cached_vs_perbar_parity_all_pass_false():
     """Cached and per-bar paths must agree when all_pass is explicitly False."""
-    import strategies.pairs_trading as pt
-    from strategies.pairs_trading import CointegrationPairsStrategy
-
-    df = make_data(n=200)
-    ed = {
-        "gates": {
-            "all_pass": False,
-            "eg_pass": True,
-            "johansen_pass": True,
-            "spread_mr_pass": True,
-            "hl_bounds_pass": True,
-            "rolling_stable_ok": True,
-            "leg_stationarity_ok": True,
-        },
-        "structural_breaks": {"flagged": False},
+    gates = {
+        "all_pass": False,
+        "eg_pass": True,
+        "johansen_pass": True,
+        "spread_mr_pass": True,
+        "hl_bounds_pass": True,
+        "rolling_stable_ok": True,
+        "leg_stationarity_ok": True,
     }
-    strat_cached = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=ed,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
+    ed, fake = _parity_diag(gates, {"flagged": False})
+    sig_cached, sig_perbar = assert_cached_vs_perbar_gate_parity_strict(
+        make_data(n=200), lookback=30, cached_diag=ed, fake_target_diag=fake
     )
-    sig_cached = strat_cached.generate_signals(df)
-
-    def fake_target_schema(p1, p2, pair_name=""):
-        return {
-            "gates": {
-                "all_pass": False,
-                "eg_pass": True,
-                "johansen_pass": True,
-                "spread_mr_pass": True,
-                "hl_bounds_pass": True,
-                "rolling_stable_ok": True,
-                "leg_stationarity_ok": True,
-            },
-            "structural_breaks": {"flagged": False},
-            "provenance": {"fabricated_data": True},
-        }
-
-    strat_perbar = CointegrationPairsStrategy(
-        ("BTC", "ETH"),
-        lookback=30,
-        enriched_diagnostics=None,
-        use_enriched_gates=True,
-        strict_enriched_gates=True,
-    )
-    orig = pt.target_schema_diagnostics
-    try:
-        pt.target_schema_diagnostics = fake_target_schema
-        sig_perbar = strat_perbar.generate_signals(df)
-    finally:
-        pt.target_schema_diagnostics = orig
-
     assert (sig_cached["enriched_gates_ok"] == 0.0).all()
     assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
     assert not sig_cached["long"].any() and not sig_cached["short"].any()
