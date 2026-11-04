@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T05:02:59Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T05:06:43Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,28 +6,28 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T05:02:59Z)
-- **BOTTLENECK REMOVED:** `strategies/pairs_trading.py` enriched-gate block hardened for cached vs per-bar parity. `no_structural_break` gate enforced, `structural_breaks.flagged` blocks in both modes, missing gates/structural_breaks fail closed in strict mode. Recent commits harden parity and add test coverage.
+## CURRENT STATE (VERIFIED 2026-11-04T05:06:43Z)
+- **CRITICAL GATE INTEGRITY:** Shared strict evaluator `_evaluate_enriched_gates_strict` enforced across cached and per-bar paths. Structural breaks block in both modes; missing gates/structural_breaks fail closed in strict mode. No coercions observed.
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
 - Cache provenance replay tests: **7 passed**
 - `tests/test_strategies.py` enriched-gate/parity: **all passing**
 - Cointegration-related tests: **all passing**
-- Lint (`ruff`): **clean** on `strategies/ backtest/ utils/ tests/ examples/ data/`
-- mypy (`mypy`): **clean** on `backtest/ strategies/ utils/ data/`
+- Lint (`ruff`): **clean** on touched modules
+- mypy (`mypy`): **clean** on touched modules
 - Full suite baseline known: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — unrelated to pairs gating)
 - Working tree: clean
 - **No known blocking test failures. Baseline is green.**
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
 1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
-2. **Gate integrity** - No coercion (`or True`, `is None -> True`). All gates evaluated causally from trailing data only. `no_structural_break` must be in target schema gates and enforced.
+2. **Gate integrity** - No coercion (`or True`, `if X is None: True`). All gates evaluated causally from trailing data only. `no_structural_break` must be enforced consistently in both paths.
 3. **Pair discovery discipline** - Only pairs passing Engle-Granger/Johansen, spread mean-reversion, hl_bounds (1<hl<500), leg-stationarity, rolling stability, structural-break discipline with real data admitted. Inconclusive = reject.
 4. **Provenance completeness** - `real_data_only`, `fabricated_data:false`, full provenance keys, `blocked_routes[]` on any blocked path. Cache must never mask failures. Artifacts must include rationale/computed_at. Blocked cases must use `blocked_schema_diagnostics` with complete rationale/blocked_routes.
 5. **Cost-stress fail-closed** - Cost grids cannot be bypassed in strict mode; cost assumptions recorded in provenance.
 6. **Regression prevention** - Codify parity assertions; prevent future drift.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-04T05:02:59Z
+**TIMESTAMP:** 2026-11-04T05:06:43Z
 **REPO PRIORITY:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS EDGE ONLY MATTERS**. Treat everything else as scaffolding.
 
 **OBJECTIVE:** Aggressively harden the **cointegration pairs discovery + enriched gate path** (cached vs per-bar parity, fail-closed discipline, real-data provenance). Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **HEAVY EXECUTION MANDATED. NO AUDIT-ONLY TERMINATION.**
