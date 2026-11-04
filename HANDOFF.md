@@ -1,6 +1,6 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T18:30:52Z
+TIMESTAMP: 2026-11-04T18:31:08Z
 REPO: cryptoquantstatarbstrats
 FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
