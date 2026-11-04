@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-03T23:07:07Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T00:07:47Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,20 +6,15 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-03T23:07:07Z)
-- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **133 passed** (green) — up from 127; +1 regression test added.
-- Cache provenance replay tests: **7 passed** (incl. new parallel-fetch aggregation regression test)
-- Strategy enriched-gate tests (cached vs per-bar parity): **all passing**
-- Lint (`ruff check data/ tests/`): **clean** on touched files
-- mypy (`python -m mypy data strategies utils backtest`): **clean**
-- Full suite: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — fails identically on clean `main`, unrelated to this change; blocked-route key naming mismatch between `route` and `gate` in `reports/cost_sensitivity_real.json`)
-- **Material hardening shipped this session:** parallel symbol fetch blocked-route aggregation in `data/loader.py:fetch_with_provenance`
-- Working tree: **dirty** (2 files changed — see below). Commit pending.
-
-## SHIPPED THIS SESSION (2026-11-03T23:07:07Z)
-**P1 — Real-data provenance & loading (hardened).**
-- `data/loader.py` — `fetch_with_provenance` parallel path: `_fetch_one` now returns the per-symbol provenance captured *inside* the worker (right after each `load_binance_data` call) and stores it in `per_symbol_provenance[sym]`. Blocked routes are aggregated from *every* symbol's captured provenance instead of the single shared `self.last_fetch_provenance`, which only retains the last symbol's state under parallel execution. Previously a blocked host observed for N-1 symbols was silently dropped; only the last symbol's blocked host survived. Also: the all-blocked error now raises the original `err_obj` (carrying `.provenance`) instead of a fresh `RuntimeError(str(...))` that discarded it.
-- `tests/test_cache_provenance_replay.py` — added `test_parallel_fetch_aggregates_all_symbol_blocked_hosts`: 5 symbols each blocking a distinct host must yield 5 blocked_hosts, 5 blocked_routes, 5 excluded entries, and per_symbol provenance for every symbol.
+## CURRENT STATE (VERIFIED 2026-11-04T00:07:47Z)
+- Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
+- Cache provenance replay tests: **8 passed** (incl. parallel-fetch aggregation regression)
+- Strategy enriched-gate tests (cached vs per-bar parity): **all passing** (21 enriched-gate tests passed)
+- Lint (`ruff check`): **clean**
+- mypy (`python -m mypy backtest strategies utils data`): **clean** on core modules
+- Full suite: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — fails identically on clean `main`, unrelated to recent changes; blocked-route key naming mismatch in `reports/cost_sensitivity_real.json`)
+- Working tree: **clean**
+- Last commit: `288983c` fix(data): aggregate blocked routes from every parallel symbol fetch (merged/committed)
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
 1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
@@ -30,7 +25,7 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-03T22:23:56Z
+**TIMESTAMP:** 2026-11-04T00:07:47Z
 **OBJECTIVE:** Harden **cointegration pairs discovery + enriched gate path** for unbreakable fail-closed behavior and cached/uncached execution parity under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **Heavy execution required. No audit-only termination.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
@@ -65,9 +60,9 @@ grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ u
    - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cache_provenance_replay.py -v` (must pass)
    - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/ -k cointegration -q` (must pass)
    - `/home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_strategies.py -v` (focus on enriched-gate/parity tests)
-   - If scope touched core/gates/data/cache/loader/strategies/backtest: run broader suite as time permits; target **771 passed, 1 skipped**
+   - If scope touched core/gates/data/cache/loader/strategies/backtest: run broader suite as time permits; target **789 passed, 1 skipped**
    - `ruff check strategies/ backtest/ utils/ tests/ examples/ data/` must pass
-   - `python -m mypy backtest strategies utils` must pass
+   - `python -m mypy backtest strategies utils data` must pass
    - **Do not end until all pass and a material hardening is shipped with traceable evidence (files changed + tests added/updated).**
 
 ## MANDATORY FOCUS CAMPAIGN (UNSKIPPABLE - HEAVY WORK REQUIRED)
@@ -104,7 +99,7 @@ Every agentic session MUST ship >=1 material, verifiable hardening change on the
 - [ ] Critical subset: **127/127**
 - [ ] Cache provenance: **all pass**
 - [ ] Cointegration-related: **all pass**
-- [ ] Full suite (if touched core/gates/data/cache/loader/strategies/backtest): **771 passed, 1 skipped**
+- [ ] Full suite (if touched core/gates/data/cache/loader/strategies/backtest): **789 passed, 1 skipped**
 - [ ] `ruff` clean
 - [ ] `mypy` clean on touched modules
 - [ ] Material hardening shipped with traceable evidence
