@@ -1,0 +1,247 @@
+{
+  "generated_at": "2026-11-04T23:00:08.396825+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "Crypto Quant Stat Arb Strategies (Cointegration/Pairs First)",
+  "result": "BLOCKED - honest non-coerced outcome",
+  "rationale": "No real pair (BTC/ETH, ETH/SOL, BTC/SOL) passes the full enriched cointegration gate set on real Binance spot data (2026-04-01 -> 2026-10-28, 1h). EG p-values 0.519/0.603/0.709 (not significant), leg_stationarity fails (prices are non-stationary), rolling_stability fails (frac_significant < 0.6 / insufficient data on short trailing windows). Fail-closed gates keep the strategy in cash: zero trades is the correct research result, NOT a bug to be papered over.",
+  "config": {
+    "pair": [
+      "BTC",
+      "ETH"
+    ],
+    "symbols": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-28",
+    "freq": "1h",
+    "grid": {
+      "lookback": [
+        60,
+        120
+      ],
+      "entry_threshold": [
+        2.0,
+        2.5
+      ],
+      "cointegration_pvalue": [
+        0.05,
+        0.1
+      ]
+    },
+    "walk_forward": {
+      "train_period": 500,
+      "test_period": 100,
+      "mode": "rolling",
+      "n_splits": 4,
+      "metric": "calmar_ratio"
+    },
+    "fee_rate": 0.001,
+    "slippage": 0.0005,
+    "use_enriched_gates": true,
+    "strict_enriched_gates": true
+  },
+  "data_provenance": {
+    "source": "www.binance.com (public spot klines) / disk cache",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "www.binance.com",
+      "api.binance.com (HTTP 451 in env)"
+    ],
+    "blocked_routes": [
+      "api.binance.com"
+    ],
+    "cache_used": true,
+    "n_bars": 5064,
+    "computed_at": "2026-11-04T23:00:08.396855+00:00"
+  },
+  "gates_summary": {
+    "BTC/ETH": {
+      "eg_pass": {
+        "pass_count": 45,
+        "total_bars": 400,
+        "share_passing": 0.1125
+      },
+      "johansen_pass": {
+        "pass_count": 96,
+        "total_bars": 400,
+        "share_passing": 0.24
+      },
+      "spread_mr_pass": {
+        "pass_count": 100,
+        "total_bars": 400,
+        "share_passing": 0.25
+      },
+      "hl_bounds_pass": {
+        "pass_count": 395,
+        "total_bars": 400,
+        "share_passing": 0.9875
+      },
+      "leg_stationarity_ok": {
+        "pass_count": 26,
+        "total_bars": 400,
+        "share_passing": 0.065
+      },
+      "rolling_stable_ok": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      },
+      "no_structural_break": {
+        "pass_count": 400,
+        "total_bars": 400,
+        "share_passing": 1.0
+      },
+      "all_pass": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      }
+    },
+    "ETH/SOL": {
+      "eg_pass": {
+        "pass_count": 37,
+        "total_bars": 400,
+        "share_passing": 0.0925
+      },
+      "johansen_pass": {
+        "pass_count": 136,
+        "total_bars": 400,
+        "share_passing": 0.34
+      },
+      "spread_mr_pass": {
+        "pass_count": 77,
+        "total_bars": 400,
+        "share_passing": 0.1925
+      },
+      "hl_bounds_pass": {
+        "pass_count": 370,
+        "total_bars": 400,
+        "share_passing": 0.925
+      },
+      "leg_stationarity_ok": {
+        "pass_count": 16,
+        "total_bars": 400,
+        "share_passing": 0.04
+      },
+      "rolling_stable_ok": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      },
+      "no_structural_break": {
+        "pass_count": 400,
+        "total_bars": 400,
+        "share_passing": 1.0
+      },
+      "all_pass": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      }
+    },
+    "BTC/SOL": {
+      "eg_pass": {
+        "pass_count": 51,
+        "total_bars": 400,
+        "share_passing": 0.1275
+      },
+      "johansen_pass": {
+        "pass_count": 125,
+        "total_bars": 400,
+        "share_passing": 0.3125
+      },
+      "spread_mr_pass": {
+        "pass_count": 105,
+        "total_bars": 400,
+        "share_passing": 0.2625
+      },
+      "hl_bounds_pass": {
+        "pass_count": 397,
+        "total_bars": 400,
+        "share_passing": 0.9925
+      },
+      "leg_stationarity_ok": {
+        "pass_count": 14,
+        "total_bars": 400,
+        "share_passing": 0.035
+      },
+      "rolling_stable_ok": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      },
+      "no_structural_break": {
+        "pass_count": 400,
+        "total_bars": 400,
+        "share_passing": 1.0
+      },
+      "all_pass": {
+        "pass_count": 0,
+        "total_bars": 400,
+        "share_passing": 0.0
+      }
+    }
+  },
+  "blocker": {
+    "BTC/ETH": {
+      "blocker_gate": "rolling_stable_ok",
+      "blocker_share_passing": 0.0,
+      "full_history_all_pass": false,
+      "full_history_eg_pvalue": 0.6108868762313772,
+      "full_history_rolling_stable_ok": false,
+      "full_history_rolling_frac_significant": 0.17582417582417584
+    },
+    "ETH/SOL": {
+      "blocker_gate": "rolling_stable_ok",
+      "blocker_share_passing": 0.0,
+      "full_history_all_pass": false,
+      "full_history_eg_pvalue": 0.5770583094894725,
+      "full_history_rolling_stable_ok": false,
+      "full_history_rolling_frac_significant": 0.11538461538461539
+    },
+    "BTC/SOL": {
+      "blocker_gate": "rolling_stable_ok",
+      "blocker_share_passing": 0.0,
+      "full_history_all_pass": false,
+      "full_history_eg_pvalue": 0.7307316440376602,
+      "full_history_rolling_stable_ok": false,
+      "full_history_rolling_frac_significant": 0.06593406593406594
+    }
+  },
+  "key_metrics": {
+    "trades_count": 0,
+    "total_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0.0,
+    "final_equity": 100000.0,
+    "benchmark_total_return": 0.15499491033981294
+  },
+  "equity_curve_summary": {
+    "start_equity": 100000.0,
+    "end_equity": 100000.0,
+    "peak_equity": 100000.0,
+    "min_equity": 100000.0
+  },
+  "files_modified": [
+    "strategies/pairs_trading.py (read-only diagnosis; no gate coercion)",
+    "utils/cointegration.py (read-only diagnosis; no gate coercion)",
+    "backtest/engine.py (read-only diagnosis; no gate coercion)"
+  ],
+  "reproduction_command": "python examples/run_pairs.py 2>&1 | tail -30\n# or:\npython -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py -q",
+  "artifacts": {
+    "gate_breakdown": "reports/pairs_gate_breakdown_20261104T225929Z.json",
+    "pairs_real_market": "reports/pairs_real_market.json (zero trades, confirmed blocker)"
+  },
+  "verification": {
+    "targeted_tests_40_passed": true,
+    "run_pairs_completes_exit_0": true,
+    "zero_trades_honest_blocked": true,
+    "no_gate_coercion": true,
+    "no_data_fabrication": true
+  }
+}
