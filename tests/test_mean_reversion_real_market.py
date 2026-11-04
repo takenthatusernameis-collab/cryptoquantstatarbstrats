@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -11,6 +12,15 @@ import pandas as pd
 from backtest.engine import BacktestEngine
 from backtest.sweep import run_parameter_sweep
 from strategies.mean_reversion import MeanReversionStrategy
+
+REPLAY_KEYS = ("total_return", "sharpe_ratio", "max_drawdown", "calmar_ratio", "final_equity")
+
+
+def _is_finite(value) -> bool:
+    try:
+        return math.isfinite(float(value))
+    except (TypeError, ValueError):
+        return False
 
 
 def _make_ohlc(n: int = 1500) -> pd.DataFrame:
@@ -68,3 +78,43 @@ def test_mean_reversion_walk_forward_with_replay_and_benchmark(tmp_path: Path) -
         },
     }
     json.dumps(out)  # should not raise
+
+
+def test_mean_reversion_real_market_artifact_exists() -> None:
+    p = Path("reports/mean_reversion_real_market.json")
+    assert p.exists()
+    data = json.loads(p.read_text())
+    assert data.get("assets") == ["BTC", "ETH", "SOL"]
+    assert "grid" in data and isinstance(data["grid"], dict)
+    assert "walk_forward" in data and isinstance(data["walk_forward"], dict)
+    assert "costs" in data and isinstance(data["costs"], dict)
+    assert "cost_sensitivity_grid" in data
+    assert "assets_results" in data and isinstance(data["assets_results"], dict)
+    assert "provenance" in data
+    for asset in data["assets"]:
+        res = data["assets_results"][asset]
+        assert "top_ranked" in res
+        assert "replay" in res and isinstance(res["replay"], dict)
+        for key in REPLAY_KEYS:
+            assert key in res["replay"], f"{asset} replay missing {key}"
+            assert _is_finite(res["replay"][key]), f"{asset} replay {key} not finite"
+        assert "benchmark_total_return" in res
+        assert _is_finite(res["benchmark_total_return"])
+        assert "cost_sensitivity" in res and isinstance(res["cost_sensitivity"], list)
+        assert res["cost_sensitivity"], f"{asset} cost_sensitivity grid must be non-empty"
+        for point in res["cost_sensitivity"]:
+            assert "fee_rate" in point and "slippage" in point
+            for key in REPLAY_KEYS:
+                assert key in point and _is_finite(point[key])
+    json.dumps(data)
+
+
+def test_mean_reversion_real_market_provenance() -> None:
+    p = Path("reports/mean_reversion_real_market.json")
+    data = json.loads(p.read_text())
+    prov = data["provenance"]
+    assert prov.get("real_data_only") is True
+    assert prov.get("fabricated_data") is False
+    assert isinstance(prov.get("blocked_routes"), list)
+    assert prov.get("computed_at")
+    assert prov.get("rationale")

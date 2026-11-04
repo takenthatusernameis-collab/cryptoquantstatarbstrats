@@ -1,0 +1,171 @@
+{
+  "assets": [
+    "BTC"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "grid": {
+    "lookback": [
+      30,
+      60
+    ],
+    "entry_percentile": [
+      0.2,
+      0.3
+    ],
+    "exit_percentile": [
+      0.5
+    ],
+    "short_percentile": [
+      0.8
+    ]
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "mode": "rolling",
+    "n_splits": 4,
+    "metric": "calmar_ratio"
+  },
+  "costs": {
+    "fee_rate": 0.001,
+    "slippage": 0.0005
+  },
+  "cost_sensitivity_grid": {
+    "fee_rates": [
+      0.0,
+      0.001,
+      0.002
+    ],
+    "slippages": [
+      0.0,
+      0.0005,
+      0.001
+    ]
+  },
+  "iv_source": "realized_vol_from_real_spot_closes",
+  "assets_results": {
+    "BTC": {
+      "asset": "BTC",
+      "top_ranked": {
+        "lookback": 30,
+        "entry_percentile": 0.3,
+        "exit_percentile": 0.5,
+        "short_percentile": 0.8,
+        "oos_mean_return": 0.006255306104743591,
+        "mean_max_drawdown": -0.012181352606745993,
+        "oos_is_ratio": -0.11528431323703651,
+        "oos_periods": 4,
+        "rank": 1
+      },
+      "replay": {
+        "params": {
+          "lookback": 30,
+          "entry_percentile": 0.3,
+          "exit_percentile": 0.5,
+          "short_percentile": 0.8
+        },
+        "total_return": -0.33081214428608285,
+        "sharpe_ratio": -3.5540198465568125,
+        "max_drawdown": -0.3380325295313956,
+        "calmar_ratio": -1.4825951133351625,
+        "final_equity": 66918.78557139171
+      },
+      "benchmark_total_return": 0.18865203074751524,
+      "cost_sensitivity": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0851766182944318,
+          "sharpe_ratio": 0.8509829671467544,
+          "max_drawdown": -0.09346883821615481,
+          "calmar_ratio": 1.626562713947159,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0005,
+          "total_return": -0.07625666073630755,
+          "sharpe_ratio": -0.6395439397633672,
+          "max_drawdown": -0.14523333781608927,
+          "calmar_ratio": -0.8835574355718948,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.001,
+          "total_return": -0.21373814622806497,
+          "sharpe_ratio": -2.1130238228754057,
+          "max_drawdown": -0.2253308709369961,
+          "calmar_ratio": -1.511300731949391,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0,
+          "total_return": -0.21373814622806497,
+          "sharpe_ratio": -2.1130238228754057,
+          "max_drawdown": -0.2253308709369961,
+          "calmar_ratio": -1.511300731949391,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": -0.33081214428608285,
+          "sharpe_ratio": -3.5540198465568125,
+          "max_drawdown": -0.3380325295313956,
+          "calmar_ratio": -1.4825951133351625,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.001,
+          "total_return": -0.430499880583889,
+          "sharpe_ratio": -4.948882528673624,
+          "max_drawdown": -0.4356122774050867,
+          "calmar_ratio": -1.4295241472688007,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.0,
+          "total_return": -0.430499880583889,
+          "sharpe_ratio": -4.948882528673624,
+          "max_drawdown": -0.4356122774050867,
+          "calmar_ratio": -1.4295241472688007,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.0005,
+          "total_return": -0.5153764923665128,
+          "sharpe_ratio": -6.286293745517782,
+          "max_drawdown": -0.5192442866818809,
+          "calmar_ratio": -1.3764077399977785,
+          "final_equity": 0.0
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": -0.5876367183717156,
+          "sharpe_ratio": -7.557561786505992,
+          "max_drawdown": -0.590516484626525,
+          "calmar_ratio": -1.328115992288271,
+          "final_equity": 0.0
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "source": "examples.run_volatility_surface_real",
+    "data_source": "binance_public_spot",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-04T11:10:19.385547+00:00",
+    "blocked_routes": [],
+    "rationale": "Spot candles fetched from public Binance spot klines (www.binance.com); IV signal derived from real spot close returns (no fabricated IV). No synthetic/fabricated candles/IV/volume used as evidence."
+  }
+}

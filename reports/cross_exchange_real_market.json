@@ -1,0 +1,162 @@
+{
+  "assets": [
+    "BTC",
+    "ETH"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-28",
+  "freq": "1h",
+  "n_bars": 5064,
+  "grid": {
+    "entry_threshold": [
+      0.005,
+      0.01,
+      0.02
+    ],
+    "exit_threshold": [
+      0.002,
+      0.005
+    ]
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "mode": "rolling",
+    "n_splits": 4,
+    "metric": "calmar_ratio"
+  },
+  "costs": {
+    "fee_rate": 0.001,
+    "slippage": 0.0005
+  },
+  "cost_sensitivity_grid": {
+    "fee_rates": [
+      0.0,
+      0.001,
+      0.002
+    ],
+    "slippages": [
+      0.0,
+      0.0005,
+      0.001
+    ]
+  },
+  "assets_results": {
+    "pair": "BTC/ETH",
+    "top_ranked": {
+      "entry_threshold": 0.005,
+      "exit_threshold": 0.002,
+      "oos_mean_return": -0.009362293151135903,
+      "mean_max_drawdown": -0.014083883107540829,
+      "oos_is_ratio": 0.6879389790874274,
+      "oos_periods": 4,
+      "rank": 1
+    },
+    "replay": {
+      "params": {
+        "entry_threshold": 0.005,
+        "exit_threshold": 0.002
+      },
+      "total_return": -0.022200176662908522,
+      "sharpe_ratio": -0.2520473999288792,
+      "max_drawdown": -0.10867031377210823,
+      "calmar_ratio": -0.35082598368822043,
+      "final_equity": 97779.98233370915
+    },
+    "benchmark_total_return": 0.15586310997174246,
+    "cost_sensitivity": [
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.0,
+        "total_return": -0.020729598720487186,
+        "sharpe_ratio": -0.23115119803798068,
+        "max_drawdown": -0.10867031377210856,
+        "calmar_ratio": -0.327764970078022,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.0005,
+        "total_return": -0.021219791367962704,
+        "sharpe_ratio": -0.23812480082856297,
+        "max_drawdown": -0.10867031377210812,
+        "calmar_ratio": -0.33545479094501346,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.0,
+        "slippage": 0.001,
+        "total_return": -0.021709984015436112,
+        "sharpe_ratio": -0.24509039640742486,
+        "max_drawdown": -0.1086703137721089,
+        "calmar_ratio": -0.3431417956080632,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.0,
+        "total_return": -0.021709984015436112,
+        "sharpe_ratio": -0.24509039640742486,
+        "max_drawdown": -0.1086703137721089,
+        "calmar_ratio": -0.3431417956080632,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.0005,
+        "total_return": -0.022200176662908522,
+        "sharpe_ratio": -0.2520473999288792,
+        "max_drawdown": -0.10867031377210823,
+        "calmar_ratio": -0.35082598368822043,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.001,
+        "slippage": 0.001,
+        "total_return": -0.02269036931038093,
+        "sharpe_ratio": -0.2589952291506645,
+        "max_drawdown": -0.10867031377210912,
+        "calmar_ratio": -0.3585073548062712,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.0,
+        "total_return": -0.02269036931038093,
+        "sharpe_ratio": -0.2589952291506645,
+        "max_drawdown": -0.10867031377210912,
+        "calmar_ratio": -0.3585073548062712,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.0005,
+        "total_return": -0.02318056195785001,
+        "sharpe_ratio": -0.26593330467689913,
+        "max_drawdown": -0.10867031377210667,
+        "calmar_ratio": -0.3661859085827167,
+        "final_equity": 0.0
+      },
+      {
+        "fee_rate": 0.002,
+        "slippage": 0.001,
+        "total_return": -0.02367075460532586,
+        "sharpe_ratio": -0.2728610501986694,
+        "max_drawdown": -0.10867031377210745,
+        "calmar_ratio": -0.37386164463799354,
+        "final_equity": 0.0
+      }
+    ]
+  },
+  "provenance": {
+    "source": "examples.run_cross_exchange_real",
+    "data_source": "binance_public_spot",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "computed_at": "2026-11-04T11:10:29.950904+00:00",
+    "blocked_routes": [
+      "native_dual_venue_same_asset_feed_unavailable_single_venue_spot_only"
+    ],
+    "rationale": "Spot candles for BTC/ETH fetched from public Binance spot klines (www.binance.com) and used as the two price inputs; a native same-asset dual-venue cross-exchange feed is unavailable from a single public spot source (declared blocked route). No synthetic/fabricated candles/IV/volume used as evidence."
+  }
+}

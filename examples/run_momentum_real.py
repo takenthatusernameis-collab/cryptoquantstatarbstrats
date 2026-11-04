@@ -4,7 +4,9 @@
 Fetches public Binance spot candles (no API key required), runs a walk-forward
 parameter sweep per asset (BTC, ETH, SOL) with replay_best=True, compares each
 asset's top-ranked combo to an equal-weight buy-and-hold benchmark over the
-same window, and consolidates results into reports/momentum_real_market.json.
+same window, sweeps a transaction-cost sensitivity grid, and consolidates
+results into reports/momentum_real_market.json with full provenance
+(real_data_only: true, fabricated_data: false).
 
 This is a research/demonstration script. Its output is not evidence of a
 trading edge and is not investment advice.
@@ -14,6 +16,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -34,6 +37,8 @@ GRID = {
     "m": [20, 40, 60],
     "entry_threshold": [0.005, 0.01, 0.02],
 }
+COST_FEES = [0.0, 0.001, 0.002]
+COST_SLIPPAGES = [0.0, 0.0005, 0.001]
 
 
 def run_for_asset(asset: str, data, grid, engine: BacktestEngine):
@@ -62,13 +67,37 @@ def run_for_asset(asset: str, data, grid, engine: BacktestEngine):
         fee_rate=FEE_RATE,
         slippage=SLIPPAGE,
     )
-    return top, benchmark
+    return top, benchmark, params
+
+
+def cost_sensitivity_grid(asset: str, params: dict, data, engine: BacktestEngine):
+    grid = []
+    for fee in COST_FEES:
+        for slip in COST_SLIPPAGES:
+            result = engine.run(
+                MomentumStrategy(asset=asset, **params),
+                data[[asset]],
+                fee_rate=fee,
+                slippage=slip,
+            )
+            grid.append(
+                {
+                    "fee_rate": fee,
+                    "slippage": slip,
+                    "total_return": float(result.get("total_return", 0.0)),
+                    "sharpe_ratio": float(result.get("sharpe_ratio", 0.0)),
+                    "max_drawdown": float(result.get("max_drawdown", 0.0)),
+                    "calmar_ratio": float(result.get("calmar_ratio", 0.0)),
+                    "final_equity": float(result.get("final_equity", 0.0)),
+                }
+            )
+    return grid
 
 
 def main() -> None:
     print(
         "RESEARCH/DEMO ONLY: uses real public Binance spot candles. Results are not "
-        "evidence of a trading edge and are not investment advice."
+        "evidence of a trading edge and is not investment advice."
     )
 
     loader = DataLoader()
@@ -80,11 +109,23 @@ def main() -> None:
     )
 
     engine = BacktestEngine(initial_capital=100_000.0)
+    provenance = {
+        "source": "examples.run_momentum_real",
+        "data_source": "binance_public_spot",
+        "real_data_only": True,
+        "fabricated_data": False,
+        "computed_at": datetime.now(timezone.utc).isoformat(),
+        "blocked_routes": [],
+        "rationale": (
+            "All candles fetched from public Binance spot klines (www.binance.com); "
+            "no synthetic/fabricated candles/IV/volume used as evidence."
+        ),
+    }
 
     results = {}
     for asset in ASSETS:
         print(f"\n=== Validating momentum on {asset} ===")
-        top, benchmark = run_for_asset(asset, data, GRID, engine)
+        top, benchmark, params = run_for_asset(asset, data, GRID, engine)
         replay = top.get("replay") or {}
         print("Top-ranked combo (out-of-sample walk-forward):")
         print(f"  n={top['n']} m={top['m']} entry_threshold={top['entry_threshold']}")
@@ -105,11 +146,17 @@ def main() -> None:
             f"Equal-weighted buy-and-hold benchmark ({asset}): "
             f"{benchmark['benchmark_total_return']:.4%}"
         )
+        cost_grid = cost_sensitivity_grid(asset, params, data, engine)
+        print(
+            f"Cost sensitivity: {len(cost_grid)} fee x slippage points "
+            f"(fees={COST_FEES}, slippages={COST_SLIPPAGES})"
+        )
         results[asset] = {
             "asset": asset,
             "top_ranked": {k: v for k, v in top.items() if k != "replay"},
             "replay": replay,
             "benchmark_total_return": benchmark["benchmark_total_return"],
+            "cost_sensitivity": cost_grid,
         }
 
     out = {
@@ -130,7 +177,12 @@ def main() -> None:
             "fee_rate": FEE_RATE,
             "slippage": SLIPPAGE,
         },
+        "cost_sensitivity_grid": {
+            "fee_rates": COST_FEES,
+            "slippages": COST_SLIPPAGES,
+        },
         "assets_results": results,
+        "provenance": provenance,
     }
     out_path = Path(__file__).resolve().parent.parent / "reports" / "momentum_real_market.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
