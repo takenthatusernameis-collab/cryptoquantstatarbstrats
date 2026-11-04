@@ -1,6 +1,6 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T22:32:27Z
+TIMESTAMP: 2026-11-04T22:33:09Z
 REPO: cryptoquantstatarbstrats
 FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
@@ -11,6 +11,36 @@ FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. Cointegration/pairs trading IS the core edge.
 Mean reversion, momentum, term structure, volatility surface are SECONDARY and must not displace pairs work.
 Every session must treat pairs/spreads/cointegration as the primary deliverable.
+
+---
+
+# THIS SESSION VERIFIED (2026-11-04T22:33Z)
+
+- Deps OK: `numpy,pandas,statsmodels,scipy,yaml` import clean.
+- Targeted pairs/cointegration tests: 40 passed
+  (`tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py
+  tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py -q`).
+- `examples/run_pairs.py` COMPLETES end-to-end (exit 0), 5064 hourly bars BTC/ETH/SOL
+  2026-04-01->2026-10-28, cached Binance data, network-independent, writes
+  `reports/pairs_real_market.json` BUT trades_count=0, total_return=0, sharpe=0,
+  max_drawdown=0, final_equity=100000 (PRIMARY BLOCKER - confirmed below).
+- `strategies/pairs_trading.py`: causal rolling hedge ratio (guarded >1e-18, clip [1e-6,1e6]),
+  opposing legs via explicit per-asset weights, enriched gates fail-closed
+  (use_enriched_gates=True, strict_enriched_gates=True default). Gates block all entries.
+- `backtest/engine.py`: explicit per-asset weights precedence (`_signals_to_weights`),
+  costs/slippage, walk-forward (train=500/test=100, rolling, 4 splits).
+- `data/loader.py`, `data/cache.py`: Binance loader with retries/fallbacks; disk cache present
+  for 11 symbols 1h 2026-04-01->2026-10-30. Network: api.binance.com HTTP 451; loader uses
+  www.binance.com or cache.
+- `reports/pairs_gate_diagnosis_real.json` confirms: all three pairs fail the cointegration
+  screen on every real window (EG p 0.518/0.577/0.731; rolling frac 0.176/0.115/0.066,
+  all < 0.6). `rolling_stable_ok` is FALSE on all 182 rolling windows for every pair.
+- Root cause CONFIRMED: `rolling_stable_ok` is the SOLE gate blocker -> enriched_ok=0
+  everywhere -> state=0 every bar -> zero entries -> zero trades -> zero metrics.
+- `examples/run_pairs.py` compounds this by loading `reports/portfolio_real.json` cached
+  diagnostics (BTC/ETH gates.all_pass=False) as a STATIC all-or-nothing gate, blocking even
+  bars where sub-gates pass.
+- Working tree clean; all prior sessions were checkpoints (no uncommitted changes).
 
 ---
 
@@ -28,11 +58,11 @@ that produces concrete, reproducible metrics from real code paths. Treat "cointe
 non-negotiable. Real data only. Never fabricate candles/IV/funding/basis. Follow existing provenance patterns
 (real_data_only, fabricated_data, blocked_routes, computed_at, rationale).
 
-CURRENT STATE (CONFIRMED 2026-11-04T22:32Z):
+CURRENT STATE (CONFIRMED 2026-11-04T22:33Z):
 - Deps OK (`numpy,pandas,statsmodels,scipy,yaml` import). Targeted tests: 40 passed (baseline).
 - `examples/run_pairs.py` COMPLETES end-to-end (exit 0, 5064 hourly bars BTC/ETH/SOL 2026-04-01->2026-10-28,
   cached Binance data, network-independent) and writes `reports/pairs_real_market.json`, BUT
-  trades_count=0, total_return=0, sharpe=0, maxDD=0, final_equity=100000 (PRIMARY BLOCKER - see below).
+  trades_count=0, total_return=0, sharpe=0, max_drawdown=0, final_equity=100000 (PRIMARY BLOCKER - see below).
 - `strategies/pairs_trading.py`: causal rolling hedge ratio, opposing legs via explicit weights,
   enriched gates fail-closed (use_enriched_gates=True, strict_enriched_gates=True default). Gates block all
   entries currently.
@@ -52,7 +82,6 @@ DIAGNOSED BLOCKER (ROOT CAUSE CONFIRMED - REMOVE FIRST):
   None of the three pairs passes the cointegration screen on any real window -> enriched_ok=0 everywhere ->
   state=0 on every bar -> zero entries -> zero trades -> zero metrics. This is the CORRECT strict-gate research
   result: no pair here is stably cointegrated, so the enriched screen correctly keeps the strategy in cash.
-
   `examples/run_pairs.py` compounds this by loading `reports/portfolio_real.json` cached diagnostics
   (BTC/ETH gates.all_pass=False) as a STATIC all-or-nothing gate, so even bars where sub-gates pass are blocked.
 
@@ -147,8 +176,8 @@ FOCUS CAMPAIGN (future agents MUST do heavy work - never avoid it):
 
 # KNOWN STATE (INFERRED / CONFIRMED)
 
-- Deps: OK (`numpy,pandas,statsmodels,scipy,yaml` import). Verified 2026-11-04T22:32Z.
-- Targeted tests: 40 passed (verified 2026-11-04T21:45Z baseline).
+- Deps: OK (`numpy,pandas,statsmodels,scipy,yaml` import). Verified 2026-11-04T22:33Z.
+- Targeted tests: 40 passed (verified 2026-11-04T22:33Z).
 - `examples/run_pairs.py`: COMPLETES end-to-end (exit 0), 5064 hourly bars BTC/ETH/SOL 2026-04-01->2026-10-28,
   writes `reports/pairs_real_market.json`, BUT trades_count=0, total_return=0, sharpe=0, max_drawdown=0,
   final_equity=100000 (PRIMARY BLOCKER - diagnosed above).
