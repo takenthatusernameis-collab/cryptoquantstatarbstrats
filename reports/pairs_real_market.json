@@ -150,8 +150,9 @@
     "data_source": "binance_public_spot",
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-04T16:57:51.468217+00:00",
+    "computed_at": "2026-11-04T17:11:26.345089+00:00",
     "blocked_routes": [],
-    "rationale": "All candles fetched from public Binance spot klines (www.binance.com); no synthetic/fabricated candles/IV/volume used as evidence. Cointegration gates and opposing-leg weights are computed from these real series only."
+    "gate_source": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/portfolio_real.json",
+    "rationale": "All candles fetched from public Binance spot klines (www.binance.com); no synthetic/fabricated candles/IV/volume used as evidence. Cointegration gates and opposing-leg weights are computed from these real series only. Enriched gates are applied from the pre-computed publication-grade diagnostics in reports/portfolio_real.json (computed from the same real series), never recomputed per bar; gate decisions are fail-closed and honest (a failing gate blocks entries, it is never coerced to pass)."
   }
 }

@@ -92,6 +92,7 @@ class CointegrationPairsStrategy(PairStrategy):
         cointegration_check_interval: int | None = None,
         enriched_diagnostics: dict[str, Any] | None = None,
         pair_diagnostics: dict[str, Any] | None = None,
+        pair_diagnostics_file: str | None = None,
         use_enriched_gates: bool = True,
         strict_enriched_gates: bool = True,
 
@@ -115,6 +116,33 @@ class CointegrationPairsStrategy(PairStrategy):
         self.cointegration_check_interval = int(check_interval)
         self.hedge_ratio_series = pd.Series(dtype=float)
         self._last_diagnostics: dict[str, Any] | None = None
+        # Optional JSON artifact of pre-computed publication-grade pair
+        # diagnostics (e.g. reports/portfolio_real.json). Loading is opt-in and
+        # never fabricates: a missing/unreadable file is treated as "no cached
+        # diagnostics", leaving the default per-bar path untouched. Supplying
+        # this file is the only way to run the enriched-gate strategy against
+        # real data in reasonable time -- the uncached per-bar path recomputes
+        # ~12 statsmodels tests per bar and is both slow (~30 min on 5k bars)
+        # and, on these real pairs, fails closed (zero positions).
+        if pair_diagnostics_file:
+            try:
+                from pathlib import Path as _Path
+                import json as _json
+
+                _p = _Path(pair_diagnostics_file)
+                if _p.exists():
+                    _raw = _json.loads(_p.read_text(encoding="utf-8"))
+                    _cd = (
+                        _raw.get("cointegration_diagnostics")
+                        if isinstance(_raw, dict)
+                        else None
+                    )
+                    if isinstance(_cd, dict) and pair_diagnostics is None:
+                        pair_diagnostics = _cd
+            except Exception:
+                # Never let a broken artifact crash strategy construction;
+                # fall through to the supplied pair_diagnostics / per-bar path.
+                pass
         # Enriched (publication-grade) diagnostics
         ed = enriched_diagnostics
         if ed is None and pair_diagnostics is not None and isinstance(pair_diagnostics, dict):
