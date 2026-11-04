@@ -265,12 +265,6 @@ class CointegrationPairsStrategy(PairStrategy):
                             index=data.index,
                             dtype=float,
                         )
-                        # Cached diagnostics provided but not a dict - fail closed under strict
-                        enriched_ok = pd.Series(
-                            0.0 if self.strict_enriched_gates else 1.0,
-                            index=data.index,
-                            dtype=float,
-                        )
                 else:
                     enriched_ok_arr = np.empty(len(data), dtype=float)
                     enriched_ok_arr[:] = np.nan

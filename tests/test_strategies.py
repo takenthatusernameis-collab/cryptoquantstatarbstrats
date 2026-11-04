@@ -1258,3 +1258,50 @@ def test_enriched_gates_cached_vs_perbar_parity_missing_structural_breaks_strict
     assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
     assert not sig_cached["long"].any() and not sig_cached["short"].any()
     assert not sig_perbar["long"].any() and not sig_perbar["short"].any()
+
+
+
+def test_enriched_gates_cached_vs_perbar_parity_gates_none_strict():
+    """Cached and per-bar paths must agree when gates is None in strict mode."""
+    import strategies.pairs_trading as pt
+    from strategies.pairs_trading import CointegrationPairsStrategy
+
+    df = make_data(n=200)
+    ed = {
+        "gates": None,
+        "structural_breaks": {"flagged": False},
+    }
+    strat_cached = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=ed,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    sig_cached = strat_cached.generate_signals(df)
+
+    def fake_target_schema(p1, p2, pair_name=""):
+        return {
+            "gates": None,
+            "structural_breaks": {"flagged": False},
+            "provenance": {"fabricated_data": True},
+        }
+
+    strat_perbar = CointegrationPairsStrategy(
+        ("BTC", "ETH"),
+        lookback=30,
+        enriched_diagnostics=None,
+        use_enriched_gates=True,
+        strict_enriched_gates=True,
+    )
+    orig = pt.target_schema_diagnostics
+    try:
+        pt.target_schema_diagnostics = fake_target_schema
+        sig_perbar = strat_perbar.generate_signals(df)
+    finally:
+        pt.target_schema_diagnostics = orig
+
+    assert (sig_cached["enriched_gates_ok"] == 0.0).all()
+    assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
+    assert not sig_cached["long"].any() and not sig_cached["short"].any()
+    assert not sig_perbar["long"].any() and not sig_perbar["short"].any()
