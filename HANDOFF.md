@@ -1,11 +1,11 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T07:48:39Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T07:49:00Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS SUPERSEDES ALL PREVIOUS HANDOFF ENTRIES. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
 ## NEXT AGENT SESSION - START HERE NOW (MANDATORY, TIMESTAMPED)
 
-**TIMESTAMP:** 2026-11-04T07:48:39Z
+**TIMESTAMP:** 2026-11-04T07:49:00Z
 **REPO:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS (`CointegrationPairsStrategy`) IS THE SOLE PRODUCT EDGE**
 **MODE:** HEAVY EXECUTION. NO AUDIT-ONLY. NO SUMMARY-ONLY TERMINATION. NO DEFERRAL.
 
@@ -66,7 +66,7 @@ python -m mypy backtest strategies utils data
 ## REPO SIGNAL (INFERRED)
 `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.** Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T07:48:39Z)
+## CURRENT STATE (VERIFIED 2026-11-04T07:49:00Z)
 - **Gate integrity:** Shared strict evaluator `_evaluate_enriched_gates_strict` enforced across cached and per-bar paths. Structural breaks block in both modes; missing gates/structural_breaks fail closed in strict mode. No coercions observed.
 - **Parity tooling:** Shared helper `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()` codified + regression tests present.
 - **Critical subset (cointegration campaigns/recertification/permanent cert/schema):** **127 passed** (green)
@@ -76,7 +76,7 @@ python -m mypy backtest strategies utils data
 - **Cointegration-related tests:** **all passing**
 - **Lint (`ruff`):** **clean** on touched modules (strategies/, backtest/, utils/, data/, examples/, cointegration tests). Pre-existing ruff findings are confined to `tests/test_walk_forward_cost_sensitivity.py` (unused locals/import sort) and one E501 in `examples/` — outside the cointegration edge, not blocking.
 - **mypy:** **clean** on touched modules (35 files, no issues)
-- **Full suite baseline known:** **799 passed, 1 skipped, 0 failures** (re-verified at 2026-11-04T07:48:39Z; the previously-noted `test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` pre-existing failure is resolved — that file now passes 2/2)
+- **Full suite baseline known:** **799 passed, 1 skipped, 0 failures** (re-verified at 2026-11-04T07:49:00Z; the previously-noted `test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` pre-existing failure is resolved — that file now passes 2/2)
 - **Working tree:** clean
 - **No known blocking test failures. Baseline is green.**
 
