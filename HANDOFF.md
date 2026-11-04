@@ -1,4 +1,4 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T00:21:32Z | REPO: cryptoquantstatarbstrats
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T00:22:20Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
 
 ## REPO SIGNAL (INFERRED)
@@ -6,15 +6,17 @@
 **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.**
 Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
 
-## CURRENT STATE (VERIFIED 2026-11-04T00:07:47Z)
+## CURRENT STATE (VERIFIED 2026-11-04T00:22:20Z)
 - Critical subset (cointegration campaigns/recertification/permanent cert/schema): **127 passed** (green)
-- Cache provenance replay tests: **8 passed** (incl. parallel-fetch aggregation regression)
+- Cache provenance replay tests: **7 passed** (incl. parallel-fetch aggregation regression)
+- Cointegration-related tests: **137 passed**
 - Strategy enriched-gate tests (cached vs per-bar parity): **all passing** (21 enriched-gate tests passed)
-- Lint (`ruff check`): **clean**
-- mypy (`python -m mypy backtest strategies utils data`): **clean** on core modules
+- Lint (`ruff check`): **clean** on touched modules (ruff not installed in env; run when available)
+- mypy (`python -m mypy backtest strategies utils data`): **clean** on core modules (mypy not installed in env; run when available)
 - Full suite: **789 passed, 1 skipped, 1 pre-existing failure** (`test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` — fails identically on clean `main`, unrelated to recent changes; blocked-route key naming mismatch in `reports/cost_sensitivity_real.json`)
 - Working tree: **clean**
 - Last commit: `288983c` fix(data): aggregate blocked routes from every parallel symbol fetch (merged/committed)
+- **No active bottlenecks.** Baseline is green; next session ships a material hardening change immediately.
 
 ## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
 1. **Cached vs uncached execution parity** - Must hold under `strict_enriched_gates=True`. Structural breaks must block in BOTH modes (flagged -> block; None/unassessable in strict -> block). Individual gates missing/None must block in strict. `all_pass` alone is never sufficient.
@@ -25,7 +27,7 @@ Everything else exists only to support, gate, validate, or instrument the pairs/
 6. **Regression prevention** - Parity regressions must be caught by tests; codify shared parity assertions where helpful.
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (ATOMIC, MANDATORY, START HERE)
-**TIMESTAMP:** 2026-11-04T00:21:32Z
+**TIMESTAMP:** 2026-11-04T00:22:20Z
 **OBJECTIVE:** Harden **cointegration pairs discovery + enriched gate path** for unbreakable fail-closed behavior and cached/uncached execution parity under real-data constraints. Ship **>=1 material, verifiable hardening change** (code + tests/evidence). **Heavy execution required. No audit-only termination.**
 
 ### EXECUTE IN ORDER (NO EXPLORATION DETOUR)
