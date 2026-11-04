@@ -1,4 +1,4 @@
- TIMESTAMP:.*| TIMESTAMP: 2026-11-04T10:35:02Z | REPO: cryptoquantstatarbstrats
+ TIMESTAMP:.*| TIMESTAMP: 2026-11-04T10:52:19Z | REPO: cryptoquantstatarbstrats
 # PRIORITY: STAT-ARB STRATEGY PARITY & DIAGNOSTICS HARDENING (NEXT CAMPAIGN) — COINTEGRATION PAIRS EDGE IS COMPLETE & VERIFIED
 # STATUS: COINTEGRATION CAMPAIGN FINALIZED — NEXT CAMPAIGN ARMED
 
@@ -25,7 +25,7 @@
 
 ## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (START HERE - DO NOT SKIP)
 
-**TIMESTAMP:** 2026-11-04T09:07:18Z
+**TIMESTAMP:** 2026-11-04T10:52:19Z
 **REPO:** `cryptoquantstatarbstrats` (= Crypto Quant Stat Arb Strategies — stat-arb strategies, plural)
 **MANDATE:** You are working the **STAT-ARB STRATEGY PARITY & DIAGNOSTICS HARDENING** campaign. Execution > narration. Ship code + tests + evidence or do not stop. Cointegration pairs is the proven edge; every other strategy in this repo must meet the same publication-grade bar or it is a weak link.
 
@@ -79,7 +79,7 @@ python -m mypy backtest strategies utils data
 ```
 **DO NOT END UNTIL ALL PASS.** Report files changed, tests added/updated per strategy, and verification results.
 
-## CURRENT VERIFIED STATE (2026-11-04T09:07:18Z)
+## CURRENT VERIFIED STATE (2026-11-04T10:52:19Z)
 - Cointegration campaign: COMPLETE & VERIFIED (802 passed, 1 skipped, 0 failures; mypy/ruff clean)
 - Next campaign: STAT-ARB STRATEGY PARITY & DIAGNOSTICS HARDENING — ARMED, NOT STARTED
 - Strategies needing hardening: mean_reversion, momentum, term_structure, volatility_surface, cross_exchange
