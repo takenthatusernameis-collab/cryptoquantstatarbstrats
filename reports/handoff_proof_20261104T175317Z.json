@@ -1,0 +1,60 @@
+{
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)",
+  "config": {
+    "strategy": "CointegrationPairsStrategy",
+    "pairs": ["BTC/ETH"],
+    "universe": ["BTC", "ETH", "SOL"],
+    "freq": "1h",
+    "start": "2026-04-01",
+    "end": "2026-10-28",
+    "fee_rate": 0.001,
+    "slippage": 0.0005,
+    "walk_forward": {"train_period": 500, "test_period": 100, "mode": "rolling", "n_splits": 4}
+  },
+  "data_provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "source": "binance_public_spot",
+    "loader": "data.loader.DataLoader.load_binance_data",
+    "hosts_tried": ["www.binance.com", "api.binance.com"],
+    "blocked_routes": ["api.binance.com (HTTP 451)"],
+    "cache_used": true,
+    "cache_path": "data/cache/",
+    "computed_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+    "rationale": "Public Binance spot klines via www.binance.com fallback; cached data leveraged. No fabricated candles."
+  },
+  "gates_summary": {
+    "use_enriched_gates": true,
+    "strict_enriched_gates": true,
+    "note": "Enriched gates enforced fail-closed per strategy defaults; see strategy implementation."
+  },
+  "trades_count": 0,
+  "equity_curve_summary": {
+    "initial_equity": 100000.0,
+    "final_equity": 100000.0,
+    "peak_equity": 100000.0,
+    "min_equity": 100000.0
+  },
+  "key_metrics": {
+    "total_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0.0,
+    "oos_mean_return_top_ranked": 0.0,
+    "benchmark_total_return": 0.15499491033981294
+  },
+  "files_modified": [],
+  "reproduction_command": "timeout 1800 python examples/run_pairs.py",
+  "artifacts": [
+    "reports/pairs_real_market.json"
+  ],
+  "verification": {
+    "targeted_tests_passed": true,
+    "tests_run": ["tests/test_cointegration_campaign31_mt.py", "tests/test_cointegration_diagnostics_schema.py", "tests/test_pairs_real_market.py", "tests/test_cointegration_threshold_invariance.py"],
+    "tests_passed_count": 40,
+    "example_completed": true,
+    "example_exit_code": 0
+  }
+}
