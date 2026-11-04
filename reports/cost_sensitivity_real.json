@@ -343,7 +343,7 @@
     "blocked_routes": [
       {
         "route": "engle_granger",
-        "gate": "engle_granger",
+        "gate": "eg_pass",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -355,7 +355,7 @@
       },
       {
         "route": "johansen",
-        "gate": "johansen",
+        "gate": "johansen_pass",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -366,7 +366,7 @@
       },
       {
         "route": "spread_mean_reversion",
-        "gate": "spread_mean_reversion",
+        "gate": "spread_mr_pass",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -376,7 +376,7 @@
       },
       {
         "route": "half_life_bounds",
-        "gate": "half_life_bounds",
+        "gate": "hl_bounds_pass",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -387,7 +387,7 @@
       },
       {
         "route": "leg_stationarity",
-        "gate": "leg_stationarity",
+        "gate": "leg_stationarity_ok",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -397,7 +397,7 @@
       },
       {
         "route": "rolling_stability",
-        "gate": "rolling_stability",
+        "gate": "rolling_stable_ok",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",
@@ -410,7 +410,7 @@
       },
       {
         "route": "structural_break",
-        "gate": "structural_break",
+        "gate": "no_structural_break",
         "passed": false,
         "provenance": {
           "source": "reports/portfolio_real.json",

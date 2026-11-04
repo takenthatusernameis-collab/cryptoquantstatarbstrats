@@ -67,7 +67,7 @@ def test_cost_sensitivity_real_provenance_is_honest():
     # Structural breaks are a hard block under both modes.
     if gates.get("no_structural_break") is False:
         assert any(
-            b.get("gate") == "structural_break" for b in blocked
+            b.get("route") == "structural_break" for b in blocked
         )
 
     # Fetch provenance must record the real host(s) tried and never fabricate.
