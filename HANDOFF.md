@@ -1,134 +1,108 @@
-# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T07:59:06Z | REPO: cryptoquantstatarbstrats
-# PRIORITY: COINTEGRATION PAIRS EDGE - FAIL-CLOSED, REAL-DATA ONLY - HEAVY EXECUTION MANDATED
+# DURABLE HANDOFF | TIMESTAMP: 2026-11-04T07:59:39Z | REPO: cryptoquantstatarbstrats
+# PRIORITY: COINTEGRATION PAIRS (`CointegrationPairsStrategy`) - PARITY IS LAW - HEAVY EXECUTION MANDATED
 
 > **SINGLE SOURCE OF TRUTH. THIS SUPERSEDES ALL PREVIOUS HANDOFF ENTRIES. READ THIS FIRST. NO OTHER PRIORITY FILES.**
 
-## NEXT AGENT SESSION - START HERE NOW (MANDATORY, TIMESTAMPED)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC WORK SESSION (START HERE - DO NOT SKIP)
 
-**TIMESTAMP:** 2026-11-04T07:59:06Z
-**REPO:** `cryptoquantstatarbstrats` → **COINTEGRATION PAIRS (`CointegrationPairsStrategy`) IS THE SOLE PRODUCT EDGE**
-**MODE:** HEAVY EXECUTION. NO AUDIT-ONLY. NO SUMMARY-ONLY TERMINATION. NO DEFERRAL.
+**TIMESTAMP:** 2026-11-04T07:59:39Z
+**REPO:** `cryptoquantstatarbstrats`
+**MANDATE:** You are working the COINTEGRATION PAIRS EDGE. Execution > narration. Ship code + tests + evidence or do not stop.
 
-**IMMEDIATE OBJECTIVE (DO NOT DEVIATE):**
-Aggressively eliminate any remaining cached vs per-bar parity gaps, enforce fail-closed discipline, and **codify the parity invariant everywhere it matters**. Ship **>= 1 material, verifiable hardening change** (code + tests + evidence). This is mandatory for every future session until explicitly superseded in THIS file.
+**IMMEDIATE MISSION (UNSKIPPABLE):**
+Eliminate every remaining ad-hoc cached-vs-per-bar gate/signal/provenance comparison and make the shared parity helper the **ONLY** enforcement surface. Codify parity so that future drift is unmissable and cannot be reintroduced. Remove the bottleneck where manual comparisons exist. This must be treated as P0 until complete.
 
-**EXECUTE IN THIS EXACT ORDER (NO EXPLORATION DETOUR):**
+**FAIL CONDITIONS (AUTO-REJECT TERMINATION):**
+- Any cached-vs-per-bar comparison outside of `tests/cointegration_parity.py` (search for patterns like comparing `enriched_gates_ok`, `gates`, `structural_breaks`, `blocked_routes`, `provenance` between cached and per-bar paths)
+- Any fail-open coercion (`or True`, `is None: True`, ternaries/defaults that collapse None/False to pass)
+- Ending without >=1 material hardening change with tests added/updated and evidence
+- Leaving parity coverage for borderline cases (missing `structural_breaks`, `gates=None`, `structural_breaks.flagged=None`, cost-grid missing in strict, blocked-schema) untested
 
-### 1) VERIFY BASELINE (FAIL FAST)
+## EXECUTE IN THIS EXACT ORDER (NO DETOUR)
+
+### 1) BASELINE VERIFICATION (FAIL FAST)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 /home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cointegration_campaign*_mt.py tests/test_cointegration_recertification_audit_mt.py tests/test_permanent_production_certification_mt.py tests/test_cointegration_diagnostics_schema.py -q
 ```
-**MUST BE 127/127.** Fix any failure before continuing. Do not proceed with a red baseline.
+**MUST BE 127/127.** Fix before proceeding.
 
-### 2) ELIMINATE FAIL-OPEN COERCIONS (P0 - ZERO TOLERANCE)
+### 2) FIND AND ELIMINATE AD-HOC PARITY CHECKS (BOTTLENECK REMOVAL - P0)
 ```bash
-grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ utils/ backtest/ data/ tests/ | grep -v __pycache__ | grep -v ".pyc"
+grep -rn "enriched_gates_ok" strategies/ backtest/ utils/ data/ | grep -v __pycache__
+grep -rn "assert.*cached.*per.*bar\|cached.*vs.*per.*bar" tests/ strategies/ backtest/ utils/ data/ | grep -v __pycache__
+grep -rn "\bor True\b\|if .* is None: .* True\|True if .* is None" strategies/ utils/ backtest/ data/ tests/ | grep -v __pycache__
 ```
-Any match is a **P0 defect**. Fix causally (tighten conditions, use explicit `if`/`else`, or restructure) without weakening gates, provenance, or real-data requirements. Add a regression test if the pattern was exploitable.
+**Action:** For every match outside `tests/cointegration_parity.py`, migrate to `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()`. If the comparison is in production code paths that need parity guarantees, add enforcement there using the shared helper's logic (or refactor to call shared validator). No bespoke `assert` blocks.
 
-### 3) ENFORCE CACHED VS UNCACHED PARITY + GATE INTEGRITY (P0 - CRITICAL)
-Trace and harden:
-- `CointegrationPairsStrategy.enriched_diagnostics` (cached path) vs per-bar `target_schema_diagnostics` in `strategies/pairs_trading.py` under `strict_enriched_gates=True`.
-- **Structural breaks:** `flagged=True` → block in **BOTH** paths. `flagged=None`/unassessable in strict → block. Missing `structural_breaks` in strict (cached or per-bar) → block.
-- **Gates:** Missing/`None` gates in strict → block. `all_pass` alone is **insufficient**. `gates.no_structural_break` must be enforced identically in both paths.
-- **Signals:** Identical `enriched_gates_ok`, identical long/short, identical blocked routes, identical provenance.
-- **Cache:** `data/cache.py` must **never** mask blocked routes/failures. Memory hits must replay cold-fetch provenance exactly (see `test_memory_cache_hit_preserves_blocked_routes`).
+### 3) HARDEN THE SHARED PARITY HELPER (MAKE VIOLATIONS UNMISSABLE - P0)
+Edit `tests/cointegration_parity.py`:
+- [ ] Make assertion messages **field-level and actionable**: include pair key, diverged fields (`enriched_gates_ok`, `gates.*`, `structural_breaks`, `blocked_routes`, `provenance`), and expected vs actual
+- [ ] Explicitly assert structural break parity: `flagged=True` blocks both paths; `flagged=None`/unassessable blocks in strict; missing `structural_breaks` blocks in strict
+- [ ] Explicitly assert gate parity: missing/`None` gates block in strict; `all_pass` alone insufficient; `gates.no_structural_break` must match
+- [ ] Explicitly assert provenance/blocked_routes parity (cache must not mask failures)
+- [ ] Add helper to diff full diagnostics objects with clear paths for debugging
 
-**Action:** For any borderline case with divergence risk, use `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()` from the shared helper. Do **not** re-implement ad-hoc parity checks.
+### 4) EXPAND PARITY COVERAGE FOR BORDERLINE CASES (FORCE HEAVY WORK - P0)
+Edit/add tests (prefer `tests/test_cointegration_parity_regression.py` or extend it):
+- [ ] Missing `structural_breaks` in strict (cached and per-bar)
+- [ ] `structural_breaks.flagged=None` in strict
+- [ ] `gates=None` / missing individual gates in strict
+- [ ] `cost_stress`/cost-grid missing in strict mode
+- [ ] Blocked-schema cases with `blocked_routes[]` preserved identically
+- [ ] Memory cache hit preserves blocked routes and parity (tie to `test_cache_provenance_replay.py`)
+- [ ] Ensure tests use the shared helper (no ad-hoc comparisons)
 
-### 4) CODIFY PARITY EVERYWHERE (P0 - REMOVE BOTTLENECK)
-The shared helper exists (`tests/cointegration_parity.py`) and regression tests exist (`tests/test_cointegration_parity_regression.py`). This is **not optional** - extend it to be the enforcement surface:
+### 5) ENFORCE DISCIPLINE ACROSS PATHS (P0)
+- [ ] `strategies/pairs_trading.py`: cached vs per-bar paths must be identical in enforcement. No early returns that bypass strict checks.
+- [ ] `data/cache.py`: never mask blocked routes/failures; memory hits replay provenance exactly.
+- [ ] Loader/provenance: aggregate `blocked_routes[]` across parallel fetches; never fabricate.
+- [ ] Pair admission fail-closed on inconclusive; use `blocked_schema_diagnostics` with full provenance.
 
-- [ ] **Audit call sites:** Find all places that compare cached vs per-bar diagnostics/gates/signals and migrate them to the shared helper where feasible.
-- [ ] **Harden the helper:** Make violations explicit with actionable messages (include pair keys, which field diverged: `enriched_gates_ok`, `gates`, `structural_breaks`, `blocked_routes`, `provenance`).
-- [ ] **Expand coverage:** Add parity tests for borderline cases (missing `structural_breaks`, `gates=None`, `structural_breaks.flagged=None`, cost-grid missing in strict, blocked-schema cases). Prefer data-driven cases that would have slipped manual checks.
-- [ ] **Prevent drift:** If duplication remains, consolidate into the helper. Parity must be unmissable on failure.
-
-### 5) HARDEN DISCOVERY, PROVENANCE & COSTS (P0/P1)
-- **Real-data only:** Pair admission must be fail-closed on inconclusive. Use `blocked_schema_diagnostics` for blocked cases with full provenance (`real_data_only`, `fabricated_data:false`, `blocked_routes[]`, `computed_at`, rationale).
-- **Diagnostics schema:** `target_schema_diagnostics` must emit `gates.no_structural_break` and accurate `blocked_routes` on blocked pairs.
-- **Loader/cache:** Parallel symbol fetches must aggregate `blocked_routes[]` from all loader provenances. Cache must never fabricate or mask failures.
-- **Funding/basis:** Attempts logged with full provenance or explicitly blocked (never fabricated).
-- **Cost-stress:** Cost grids cannot be bypassed in strict mode. Cost assumptions must be recorded in provenance; missing in strict → block.
-
-### 6) VERIFY & SHIP WITH EVIDENCE (MANDATORY - DO NOT END EARLY)
+### 6) VERIFY, LINT, TYPECHECK, SHIP WITH EVIDENCE (MANDATORY)
 ```bash
 /home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cache_provenance_replay.py -v
 /home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_cointegration_parity_regression.py -v
 /home/runner/work/_temp/kilo-home/.local/bin/pytest tests/ -k cointegration -q
 /home/runner/work/_temp/kilo-home/.local/bin/pytest tests/test_strategies.py -v
 ruff check strategies/ backtest/ utils/ tests/ examples/ data/
-python -m mypy backtest strategies utils data
+/home/runner/work/_temp/kilo-home/.local/bin/mypy backtest strategies utils data
 ```
-**DO NOT END UNTIL:** all of the above pass, **>=1 material hardening change** is shipped (code + tests), parity is verified for affected paths, and evidence is traceable (files changed + tests added/updated).
+**DO NOT END UNTIL ALL PASS.** Report files changed, tests added/updated, and parity verification results.
 
-## REPO SIGNAL (INFERRED)
-`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs (`CointegrationPairsStrategy` in `strategies/pairs_trading.py`) is the sole product edge.** Everything else exists only to support, gate, validate, or instrument the pairs/cointegration path.
+## REPO SIGNAL
+`cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. **Cointegration pairs (`CointegrationPairsStrategy`) is the sole product edge.** Everything else supports/gates/validates/instruments it.
 
-## CURRENT STATE (VERIFIED 2026-11-04T07:59:06Z)
-- **Gate integrity:** Shared strict evaluator `_evaluate_enriched_gates_strict` enforced across cached and per-bar paths. Structural breaks block in both modes; missing gates/structural_breaks fail closed in strict mode. No coercions observed.
-- **Parity tooling:** Shared helper `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()` codified + regression tests present.
-- **Critical subset (cointegration campaigns/recertification/permanent cert/schema):** **127 passed** (green)
-- **Cache provenance replay:** **7 passed**
-- **Cointegration parity regression:** **present and passing**
-- **`tests/test_strategies.py` enriched-gate/parity:** **all passing**
-- **Cointegration-related tests:** **all passing**
-- **Lint (`ruff`):** **clean** on touched modules (strategies/, backtest/, utils/, data/, examples/, cointegration tests). Pre-existing ruff findings are confined to `tests/test_walk_forward_cost_sensitivity.py` (unused locals/import sort) and one E501 in `examples/` — outside the cointegration edge, not blocking.
-- **mypy:** **clean** on touched modules (35 files, no issues)
-- **Full suite baseline known:** **799 passed, 1 skipped, 0 failures** (re-verified at 2026-11-04T07:49:00Z; the previously-noted `test_cost_sensitivity_real.py::test_cost_sensitivity_real_provenance_is_honest` pre-existing failure is resolved — that file now passes 2/2)
-- **Working tree:** clean
-- **No known blocking test failures. Baseline is green.**
+## CURRENT VERIFIED STATE (2026-11-04T07:59:06Z)
+- Critical cointegration subset: **127/127 passed**
+- Cache provenance replay: passing
+- Cointegration parity regression: present and passing
+- Full suite: **799 passed, 1 skipped, 0 failures** (known good baseline)
+- Lint/mypy clean on touched modules
+- Working tree clean
 
-## BOTTLENECKS TO ELIMINATE NOW (ACTIVE)
-1. **Parity drift risk (HIGH)** - The helper exists but must be **universally used**. Any manual cached/uncached comparison is a regression vector. **Action:** audit and migrate.
-2. **Cache leakage (HIGH)** - Ensure memory cache never masks blocked routes/failures. Verify with targeted tests.
-3. **Fail-open surfaces (HIGH)** - Zero coercions. Treat `or True`, `if X is None: True`, equivalent as P0.
-4. **Discovery discipline (HIGH)** - Inconclusive pairs must be rejected. Provenance must be complete on blocked paths.
-5. **Cost-stress bypass (MED-HIGH)** - Enforce in strict mode with recorded assumptions.
-6. **Drift prevention (HIGH)** - **Codify parity into the shared helper and use it everywhere** to make future violations unmissable.
-
-## MANDATORY FOCUS CAMPAIGN (UNSKIPPABLE - HEAVY WORK REQUIRED)
-Every agentic session MUST ship **>=1 material, verifiable hardening change** on the cointegration pairs edge. No summary-only termination. No deferral. No audit-only work.
-
-### P0 - EXECUTION PARITY, GATE INTEGRITY (IMMEDIATE)
-- [ ] Eliminate any cached/uncached parity gaps under `strict_enriched_gates=True` (structural breaks, None/missing gates, `no_structural_break`)
-- [ ] Zero fail-open coercions (`or True`, `is None -> True`, equivalent)
-- [ ] Diagnostics never fabricate/clamp; blocked use `blocked_schema_diagnostics` with full provenance
-- [ ] Pair admission real-data only; inconclusive = reject
-- [ ] Leg stationarity and rolling stability fail-closed when unassessable
-
-### P1 - REAL-DATA PROVENANCE, LOADING & CACHE (HARDEN)
-- [ ] Loader/cache: prefer real endpoints, handle blocks honestly; cache never masks failures/fabricates
-- [ ] Parallel symbol fetches aggregate `blocked_routes[]` from all symbol loader provenances
-- [ ] Artifacts enforce `real_data_only:true`, `fabricated_data:false`, complete provenance
-- [ ] Funding/basis attempts logged with full provenance or explicitly blocked (never fabricated)
-- [ ] Memory cache parity verified for blocked routes
-
-### P2 - COST-STRESS, ROBUSTNESS & DRIFT PREVENTION (HARDEN)
-- [ ] Cost grids validated and fail-closed in strict mode; provenance preserved
-- [ ] Bootstrap/robustness paths preserve provenance; no fabrication
-- [ ] **Migrate ad-hoc parity checks to `tests/cointegration_parity.py` and harden the helper**
-- [ ] **Add/strengthen parity regression tests for borderline cases (shared helper only)**
-- [ ] **Codify parity checks to prevent future regression (shared helper/assertion) - PRIORITIZE THIS TO REMOVE BOTTLENECK**
-
-## DISCIPLINE (NON-NEGOTIABLE)
-- **HEAVY WORK REQUIRED.** Execution > narration. Ship code+tests+evidence.
-- **TRACE BEFORE CHANGE.** Read source + tests to understand causality. Do not guess.
-- **FAIL-CLOSED.** Never weaken `use_enriched_gates`, `strict_enriched_gates`, provenance, or real-data requirements.
-- **PUBLICATION-GRADE.** Real-data only. Evidence required (tests + lint + mypy + affected artifacts).
-- **NO COERCION.** `or True`, `is None -> True`, or any equivalent fail-open pattern is forbidden.
-- **SHARED PARITY IS LAW.** Use `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()` for cached vs per-bar gate parity. No bespoke parity assertions.
-- **SINGLE HANDOFF.** This file is the only durable handoff. No competing priority files.
+## BOTTLENECKS TO REMOVE NOW
+1. **Ad-hoc parity checks** - Must be migrated to shared helper (removes inconsistency)
+2. **Weak parity assertions** - Must become field-level and exhaustive (prevents silent drift)
+3. **Borderline case coverage gaps** - Must be added (closes exploit surface)
+4. **Cache masking risk** - Must be verified and enforced (fail-closed)
+5. **Fail-open coercions** - Must be zero-toleranced (hard block)
 
 ## SUCCESS CRITERIA (MUST SATISFY)
-- [ ] Critical subset: **127/127**
-- [ ] Cache provenance: **all pass**
-- [ ] Cointegration parity regression: **all pass**
-- [ ] Cointegration-related: **all pass**
-- [ ] Full suite (if touched core/gates/data/cache/loader/strategies/backtest): maintain green baseline (**799 passed, 1 skipped, 0 failures**, no new regressions)
-- [ ] `ruff` clean on touched modules
-- [ ] `mypy` clean on touched modules
-- [ ] **Material hardening shipped with traceable evidence** (files changed + tests added/updated)
-- [ ] No gate/provenance/execution weakening detected
-- [ ] **Cached vs uncached parity verified for all affected paths** using the shared helper
+- [ ] **Zero ad-hoc cached-vs-per-bar comparisons** outside `tests/cointegration_parity.py` (verified by grep)
+- [ ] Shared helper hardened with field-level diffs and explicit structural/gate/provenance checks
+- [ ] Parity regression tests expanded for all borderline cases above
+- [ ] All verification commands pass (127/127 cointegration subset, cache provenance, parity regression, cointegration tests, strategies tests)
+- [ ] `ruff` clean, `mypy` clean on touched modules
+- [ ] **>=1 material hardening change shipped** with traceable evidence (files changed + tests added/updated)
+- [ ] No gate/provenance/execution weakening
+- [ ] Cached vs uncached parity verified via shared helper for all affected paths
+
+## DISCIPLINE (NON-NEGOTIABLE)
+- **HEAVY WORK REQUIRED.** No audit-only, no summary-only termination.
+- **TRACE BEFORE CHANGE.** Read source+tests to understand causality.
+- **FAIL-CLOSED.** Never weaken `use_enriched_gates`, `strict_enriched_gates`, provenance, or real-data requirements.
+- **PARITY IS LAW.** Use `tests/cointegration_parity.assert_cached_vs_perbar_gate_parity_strict()` for all cached-vs-per-bar gate parity. No bespoke parity assertions.
+- **NO COERCION.** `or True`, `is None -> True`, equivalent forbidden.
+- **PUBLICATION-GRADE.** Real-data only, full provenance, evidence required.
+- **SINGLE HANDOFF.** This file is the only durable handoff.
