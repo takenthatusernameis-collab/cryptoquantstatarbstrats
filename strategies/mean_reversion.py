@@ -93,8 +93,12 @@ class MeanReversionStrategy(Strategy):
             "all_pass": True,
         }
         structural_breaks = {"flagged": False, "available": True}
-        provenance = {"source": "strategies.mean_reversion", "real_data_only": True, "fabricated_data": False}
-        blocked_routes = []
+        provenance = {
+            "source": "strategies.mean_reversion",
+            "real_data_only": True,
+            "fabricated_data": False,
+        }
+        blocked_routes: list[str] = []
         return {
             "gates": gates,
             "structural_breaks": structural_breaks,
@@ -115,31 +119,48 @@ class MeanReversionStrategy(Strategy):
         signals["short"] = z > self.entry_threshold
         signals["exit"] = abs(z) < self.exit_threshold
 
-        enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
+enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
         if self.use_enriched_gates:
             try:
-                if self.enriched_diagnostics is not None and isinstance(self.enriched_diagnostics, dict):
+                if (
+                    self.enriched_diagnostics is not None
+                    and isinstance(self.enriched_diagnostics, dict)
+                ):
                     ed = self.enriched_diagnostics
                     gates = ed.get("gates", {})
                     sb = ed.get("structural_breaks")
-                    ok = _evaluate_enriched_gates_strict(gates, sb, bool(self.strict_enriched_gates))
-                    enriched_ok = pd.Series(1.0 if ok else 0.0, index=data.index, dtype=float)
+                    ok = _evaluate_enriched_gates_strict(
+                        gates, sb, bool(self.strict_enriched_gates)
+                    )
+                    enriched_ok = pd.Series(
+                        1.0 if ok else 0.0, index=data.index, dtype=float
+                    )
                 else:
                     try:
                         tdiag = self._build_diagnostics(data)
                         g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
                         sb = tdiag.get("structural_breaks")
-                        ok = _evaluate_enriched_gates_strict(g, sb, bool(self.strict_enriched_gates))
+                        ok = _evaluate_enriched_gates_strict(
+                            gates, sb, bool(self.strict_enriched_gates)
+                        )
                         enriched_ok_arr = np.empty(len(data), dtype=float)
                         enriched_ok_arr[:] = 1.0 if ok else 0.0
                         enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
                     except Exception:
                         if self.strict_enriched_gates:
-                            enriched_ok = pd.Series(0.0, index=data.index, dtype=float)
+                            enriched_ok = pd.Series(
+                                0.0, index=data.index, dtype=float
+                            )
                         else:
-                            enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
+                            enriched_ok = pd.Series(
+                                1.0, index=data.index, dtype=float
+                            )
             except Exception:
-                enriched_ok = pd.Series(1.0 if not self.strict_enriched_gates else 0.0, index=data.index, dtype=float)
+                enriched_ok = pd.Series(
+                    1.0 if not self.strict_enriched_gates else 0.0,
+                    index=data.index,
+                    dtype=float,
+                )
 
         # Apply gates: if not ok, flatten signals
         if self.use_enriched_gates:

@@ -15,8 +15,8 @@ from backtest.engine import BacktestEngine
 from data.loader import DataLoader
 from utils.reporting import (
     generate_walk_forward_html_report,
-    generate_walk_forward_pdf_report,
     generate_walk_forward_report,
+    generate_walk_forward_pdf_report,
     generate_walk_forward_text_report,
     sweep_cost_sensitivity,
     walk_forward_report_to_dict,
@@ -280,8 +280,6 @@ def test_sweep_cost_sensitivity_records_blocked_configs_with_provenance():
 def test_sweep_cost_sensitivity_raises_when_every_config_blocks():
     """A sweep whose entire grid blocks must fail closed, not return []."""
     data = _make_data()
-    engine = BacktestEngine(initial_capital=100000)
-    w = pd.DataFrame(0.5, index=data.index, columns=data.columns)
 
     def fn(fee_rate: float, slippage: float) -> dict:
         raise RuntimeError("everything is blocked")
@@ -300,8 +298,12 @@ def test_sweep_cost_sensitivity_non_dict_result_is_blocked():
         if fee_rate > 0:
             return ["not", "a", "dict"]  # type: ignore[return-value]
         return engine.walk_forward_portfolio(
-            w, data, train_period=40, test_period=10,
-            fee_rate=fee_rate, slippage=slippage,
+            w,
+            data,
+            train_period=40,
+            test_period=10,
+            fee_rate=fee_rate,
+            slippage=slippage,
         )
 
     sweep = sweep_cost_sensitivity(fn, [(0.0, 0.0), (0.001, 0.0)])
@@ -315,8 +317,8 @@ def test_cost_sensitivity_report_preserves_blocked_rows_and_ranks_only_passing()
     """Report generators surface blocked cost configs and rank passing rows only."""
     from utils.reporting import (
         generate_walk_forward_html_report,
-        generate_walk_forward_text_report,
         generate_walk_forward_report,
+        generate_walk_forward_text_report,
         walk_forward_report_to_dict,
     )
 

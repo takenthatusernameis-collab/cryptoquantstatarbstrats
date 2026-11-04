@@ -2128,11 +2128,14 @@ def generate_walk_forward_html_report(wf_report: dict, title: str = "Walk-Forwar
             if blocked:
                 html.append("<p><em>All cost configs blocked; none ranked.</em></p><ul>")
                 for r in blocked:
+                    blocked_route = r.get("blocked_route")
+                    error = r.get("error")
+                    label = str(blocked_route or error or "blocked")
                     html.append(
                         "<li>"
                         f"fee={_fmt_pct(r.get('fee_rate', 0.0))} "
                         f"slippage={_fmt_pct(r.get('slippage', 0.0))}: "
-                        f"{_html_mod2.escape(str(r.get('blocked_route') or r.get('error') or 'blocked'))}"
+                        f"{_html_mod2.escape(label)}"
                         "</li>"
                     )
                 html.append("</ul>")

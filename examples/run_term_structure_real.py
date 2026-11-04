@@ -158,9 +158,10 @@ def main() -> None:
         "computed_at": datetime.now(timezone.utc).isoformat(),
         "blocked_routes": [],
         "rationale": (
-            "Spot candles fetched from public Binance spot klines (www.binance.com); "
-            "iv_30d/iv_90d are realized-volatility proxies computed from real spot close "
-            "returns (no fabricated IV). No synthetic/fabricated candles/IV/volume used as evidence."
+            "Spot candles fetched from public Binance spot klines "
+            "(www.binance.com); iv_30d/iv_90d are realized-volatility "
+            "proxies computed from real spot close returns (no fabricated "
+            "IV). No synthetic/fabricated candles/IV/volume used as evidence."
         ),
     }
 

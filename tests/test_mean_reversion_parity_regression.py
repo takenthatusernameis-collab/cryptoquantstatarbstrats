@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 
 from strategies.mean_reversion import MeanReversionStrategy
-from tests.cointegration_parity import assert_cached_vs_perbar_gate_parity_strict
 
 
 def _make_df(n: int = 200) -> pd.DataFrame:
@@ -64,15 +63,19 @@ def test_mean_reversion_blocks_on_structural_break_flagged() -> None:
         },
         "structural_breaks": {"flagged": True},
     }
-    strat = MeanReversionStrategy(asset="BTC", lookback=30, enriched_diagnostics=ed, strict_enriched_gates=True)
+    strat = MeanReversionStrategy(
+        asset="BTC", lookback=30, enriched_diagnostics=ed, strict_enriched_gates=True
+    )
     sig = strat.generate_signals(df)
-    assert (sig["long"] == False).all()
-    assert (sig["short"] == False).all()
+    assert (not sig["long"]).all()
+    assert (not sig["short"]).all()
 
 
 def test_mean_reversion_blocks_missing_gates_strict() -> None:
     df = _make_df()
     ed = {"gates": {}, "structural_breaks": {"flagged": False}}
-    strat = MeanReversionStrategy(asset="BTC", lookback=30, enriched_diagnostics=ed, strict_enriched_gates=True)
+    strat = MeanReversionStrategy(
+        asset="BTC", lookback=30, enriched_diagnostics=ed, strict_enriched_gates=True
+    )
     sig = strat.generate_signals(df)
     assert (sig["enriched_gates_ok"] == 0.0).all()

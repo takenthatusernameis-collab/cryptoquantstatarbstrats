@@ -131,7 +131,9 @@ def test_parity_blocked_schema_preserved_shared_helper():
         "blocked_schema": dict(ed["blocked_schema"]),
         "provenance": dict(ed["provenance"]),
     }
-    sig_cached, sig_perbar = assert_cached_vs_perbar_gate_parity_strict(df, cached_diag=ed, fake_target_diag=fake, check_provenance=True)
+    sig_cached, sig_perbar = assert_cached_vs_perbar_gate_parity_strict(
+        df, cached_diag=ed, fake_target_diag=fake, check_provenance=True
+    )
     assert (sig_cached["enriched_gates_ok"] == 0.0).all()
     assert (sig_perbar["enriched_gates_ok"] == 0.0).all()
     assert not sig_cached["long"].any() and not sig_cached["short"].any()

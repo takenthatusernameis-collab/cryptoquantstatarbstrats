@@ -105,7 +105,11 @@ class CrossExchangeArb(Strategy):
             "all_pass": True,
         }
         structural_breaks = {"flagged": False, "available": True}
-        provenance = {"source": "strategies.cross_exchange", "real_data_only": True, "fabricated_data": False}
+        provenance = {
+            "source": "strategies.cross_exchange",
+            "real_data_only": True,
+            "fabricated_data": False,
+        }
         return {
             "gates": gates,
             "structural_breaks": structural_breaks,
@@ -155,26 +159,45 @@ class CrossExchangeArb(Strategy):
         enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
         if self.use_enriched_gates:
             try:
-                if self.enriched_diagnostics is not None and isinstance(self.enriched_diagnostics, dict):
+                if (
+                    self.enriched_diagnostics is not None
+                    and isinstance(self.enriched_diagnostics, dict)
+                ):
                     ed = self.enriched_diagnostics
                     gates = ed.get("gates", {})
                     sb = ed.get("structural_breaks")
-                    ok = _evaluate_enriched_gates_strict(gates, sb, bool(self.strict_enriched_gates))
-                    enriched_ok = pd.Series(1.0 if ok else 0.0, index=data.index, dtype=float)
+                    ok = _evaluate_enriched_gates_strict(
+                        gates, sb, bool(self.strict_enriched_gates)
+                    )
+                    enriched_ok = pd.Series(
+                        1.0 if ok else 0.0, index=data.index, dtype=float
+                    )
                 else:
                     try:
                         tdiag = self._build_diagnostics(data)
                         g = tdiag.get("gates", {}) if isinstance(tdiag, dict) else {}
                         sb = tdiag.get("structural_breaks")
-                        ok = _evaluate_enriched_gates_strict(g, sb, bool(self.strict_enriched_gates))
-                        enriched_ok = pd.Series(1.0 if ok else 0.0, index=data.index, dtype=float)
+                        ok = _evaluate_enriched_gates_strict(
+                            gates, sb, bool(self.strict_enriched_gates)
+                        )
+                        enriched_ok = pd.Series(
+                            1.0 if ok else 0.0, index=data.index, dtype=float
+                        )
                     except Exception:
                         if self.strict_enriched_gates:
-                            enriched_ok = pd.Series(0.0, index=data.index, dtype=float)
+                            enriched_ok = pd.Series(
+                                0.0, index=data.index, dtype=float
+                            )
                         else:
-                            enriched_ok = pd.Series(1.0, index=data.index, dtype=float)
+                            enriched_ok = pd.Series(
+                                1.0, index=data.index, dtype=float
+                            )
             except Exception:
-                enriched_ok = pd.Series(1.0 if not self.strict_enriched_gates else 0.0, index=data.index, dtype=float)
+                enriched_ok = pd.Series(
+                    1.0 if not self.strict_enriched_gates else 0.0,
+                    index=data.index,
+                    dtype=float,
+                )
 
         if self.use_enriched_gates:
             mask_bad = enriched_ok.to_numpy(dtype=float) == 0.0

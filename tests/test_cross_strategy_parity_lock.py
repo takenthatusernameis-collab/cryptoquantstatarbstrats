@@ -156,11 +156,17 @@ def test_gate_none_coercion_is_fail_closed() -> None:
     }
     diag["gates"]["eg_pass"] = None
     for name, cls, kwargs, data in _STRATEGY_CASES:
-        strat = cls(**kwargs, enriched_diagnostics=diag, strict_enriched_gates=True)
+        strat = cls(
+            **kwargs,
+            enriched_diagnostics=diag,
+            strict_enriched_gates=True,
+        )
         sig = strat.generate_signals(data)
         gated_ok = (sig["enriched_gates_ok"] == 0.0).all()
         assert gated_ok, f"{name}: None gate coerced to pass under strict"
-        assert _positions_zero(strat, sig), f"{name}: positions not blocked for None gate under strict"
+        assert _positions_zero(strat, sig), (
+            f"{name}: positions not blocked for None gate under strict"
+        )
 
 
 def test_cached_vs_perbar_gate_parity_all_strategies() -> None:
