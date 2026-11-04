@@ -65,7 +65,6 @@ def test_momentum_blocks_flagged_break() -> None:
             "all_pass": False,
         },
         "structural_breaks": {"flagged": True},
-        "structural_breaks": {"flagged": True},
     }
     strat = MomentumStrategy(asset="BTC", n=10, m=20, enriched_diagnostics=ed)
     sig = strat.generate_signals(df)

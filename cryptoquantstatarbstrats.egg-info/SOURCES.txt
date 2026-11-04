@@ -26,6 +26,7 @@ strategies/momentum.py
 strategies/pairs_trading.py
 strategies/term_structure.py
 strategies/volatility_surface.py
+tests/cointegration_parity.py
 tests/test_attribution.py
 tests/test_attribution_reporting.py
 tests/test_benchmark_dashboard.py
@@ -45,6 +46,7 @@ tests/test_cointegration_campaign36_mt.py
 tests/test_cointegration_campaign37_mt.py
 tests/test_cointegration_campaign38_mt.py
 tests/test_cointegration_diagnostics_schema.py
+tests/test_cointegration_parity_regression.py
 tests/test_cointegration_recertification_audit_mt.py
 tests/test_cointegration_threshold_invariance.py
 tests/test_config_validation.py
@@ -54,6 +56,9 @@ tests/test_cost_sensitivity_real.py
 tests/test_cost_sensitivity_real_mean_reversion.py
 tests/test_cost_sensitivity_real_portfolio.py
 tests/test_costs.py
+tests/test_cross_exchange_parity_regression.py
+tests/test_cross_exchange_real_market_regression.py
+tests/test_cross_strategy_parity_lock.py
 tests/test_drift_monitor_schema.py
 tests/test_drift_triggered_regating_mt.py
 tests/test_end_to_end_pairs_execution_validation_mt.py
@@ -75,8 +80,10 @@ tests/test_live_go_live_authorization_final_mt.py
 tests/test_live_operational_readiness_signoff_mt.py
 tests/test_live_operations_continuity_incident_response_mt.py
 tests/test_live_production_deployment_mt.py
+tests/test_mean_reversion_parity_regression.py
 tests/test_mean_reversion_real_market.py
 tests/test_metrics.py
+tests/test_momentum_parity_regression.py
 tests/test_momentum_real_market.py
 tests/test_monte_carlo.py
 tests/test_oos_cointegration_validation_gating.py
@@ -128,7 +135,11 @@ tests/test_sweep_replay_best.py
 tests/test_sweep_walk_forward.py
 tests/test_tail_risk_parameter_stability.py
 tests/test_term_structure.py
+tests/test_term_structure_parity_regression.py
+tests/test_term_structure_real_market_regression.py
 tests/test_volatility_surface.py
+tests/test_volatility_surface_parity_regression.py
+tests/test_volatility_surface_real_market_regression.py
 tests/test_walk_forward_anchor.py
 tests/test_walk_forward_attribution.py
 tests/test_walk_forward_benchmarks.py

@@ -15,16 +15,28 @@ def _make_df(n: int = 200) -> pd.DataFrame:
 def test_volatility_surface_cached_vs_perbar_parity() -> None:
     df = _make_df()
     ed = {
-        "gates": {"eg_pass": True, "johansen_pass": True, "spread_mr_pass": True, "hl_bounds_pass": True,
-                 "rolling_stable_ok": True, "leg_stationarity_ok": True, "no_structural_break": True, "all_pass": True},
+        "gates": {
+            "eg_pass": True, "johansen_pass": True, "spread_mr_pass": True,
+            "hl_bounds_pass": True, "rolling_stable_ok": True,
+            "leg_stationarity_ok": True, "no_structural_break": True,
+            "all_pass": True,
+        },
         "structural_breaks": {"flagged": False},
     }
-    strat_cached = VolatilitySurfaceStrategy(asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=ed)
-    strat_perbar = VolatilitySurfaceStrategy(asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=None)
+    strat_cached = VolatilitySurfaceStrategy(
+        asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=ed,
+    )
+    strat_perbar = VolatilitySurfaceStrategy(
+        asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=None,
+    )
     import strategies.volatility_surface as vs
 
     def _fake_target(p1, p2, pair_name=""):
-        return {"gates": ed["gates"], "structural_breaks": ed["structural_breaks"], "provenance": {"fabricated_data": True}}
+        return {
+            "gates": ed["gates"],
+            "structural_breaks": ed["structural_breaks"],
+            "provenance": {"fabricated_data": True},
+        }
 
     orig = getattr(vs, "target_schema_diagnostics", None)
     try:
@@ -41,10 +53,18 @@ def test_volatility_surface_cached_vs_perbar_parity() -> None:
 
 def test_volatility_surface_blocks_flagged() -> None:
     df = _make_df()
-    ed = {"gates": {"eg_pass": True, "johansen_pass": True, "spread_mr_pass": True, "hl_bounds_pass": True,
-                    "rolling_stable_ok": True, "leg_stationarity_ok": True, "no_structural_break": False, "all_pass": False},
-          "structural_breaks": {"flagged": True}}
-    strat = VolatilitySurfaceStrategy(asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=ed)
+    ed = {
+        "gates": {
+            "eg_pass": True, "johansen_pass": True, "spread_mr_pass": True,
+            "hl_bounds_pass": True, "rolling_stable_ok": True,
+            "leg_stationarity_ok": True, "no_structural_break": False,
+            "all_pass": False,
+        },
+        "structural_breaks": {"flagged": True},
+    }
+    strat = VolatilitySurfaceStrategy(
+        asset="BTC", iv_column="iv", lookback=30, enriched_diagnostics=ed,
+    )
     sig = strat.generate_signals(df)
     assert (~sig["long"]).all()
     assert (~sig["short"]).all()

@@ -224,8 +224,9 @@ def assert_cached_vs_perbar_gate_parity_strict(
     if not sig_perbar["enriched_gates_ok"].notna().all():
         problems.append(f"{pair_key} per-bar enriched_gates_ok contains NaN in strict mode")
     if problems:
-        raise AssertionError(
-            f"Cached vs per-bar gate parity failed under strict_enriched_gates=True for {pair[0]}/{pair[1]}: "
-            + " | ".join(problems)
+        msg = (
+            f"Cached vs per-bar gate parity failed under strict_enriched_gates=True for "
+            f"{pair[0]}/{pair[1]}: "
         )
+        raise AssertionError(msg + " | ".join(problems))
     return sig_cached, sig_perbar

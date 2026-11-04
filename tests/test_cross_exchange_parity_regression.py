@@ -29,8 +29,12 @@ def test_cross_exchange_cached_vs_perbar_parity() -> None:
         },
         "structural_breaks": {"flagged": False},
     }
-    strat_cached = CrossExchangeArb(exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed)
-    strat_perbar = CrossExchangeArb(exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=None)
+    strat_cached = CrossExchangeArb(
+        exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed,
+    )
+    strat_perbar = CrossExchangeArb(
+        exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=None,
+    )
     import strategies.cross_exchange as ce
 
     def _fake_target(p1, p2, pair_name=""):
@@ -68,7 +72,9 @@ def test_cross_exchange_blocks_flagged() -> None:
         },
         "structural_breaks": {"flagged": True},
     }
-    strat = CrossExchangeArb(exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed)
+    strat = CrossExchangeArb(
+        exchange_a="EXA", exchange_b="EXB", enriched_diagnostics=ed,
+    )
     sig = strat.generate_signals(df)
     assert (sig["EXA"] == 0.0).all()
     assert (sig["EXB"] == 0.0).all()
