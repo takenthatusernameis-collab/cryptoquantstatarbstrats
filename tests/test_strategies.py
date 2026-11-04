@@ -422,6 +422,7 @@ def test_enriched_gates_passing_allows_entries():
             "hl_bounds_pass": True,
             "rolling_stable_ok": True,
             "leg_stationarity_ok": True,
+            "no_structural_break": True,
         },
         "structural_breaks": {"flagged": False},
     }
@@ -907,6 +908,7 @@ def test_enriched_gates_causality_no_future_leakage_cached():
             "hl_bounds_pass": True,
             "rolling_stable_ok": True,
             "leg_stationarity_ok": True,
+            "no_structural_break": True,
         },
         "structural_breaks": {"flagged": False},
     }
@@ -949,6 +951,7 @@ def test_enriched_gates_causality_trailing_only_no_lookahead_explicit():
             "hl_bounds_pass": True,
             "rolling_stable_ok": True,
             "leg_stationarity_ok": True,
+            "no_structural_break": True,
         },
         "structural_breaks": {"flagged": False},
     }
