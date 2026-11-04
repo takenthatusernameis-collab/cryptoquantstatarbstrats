@@ -72,7 +72,14 @@ def test_post_deployment_live_readiness_signoff_preserves_gating():
     assert readiness.get("scope_limited_to_eligible_only") is True
     assert readiness.get("zero_capital_on_blocked") is True
     assert readiness.get("ready_pairs_timeframes") == [["POL/BTC", "4h"]]
-    assert readiness.get("provenance") or True
+    # Fail-closed provenance: must be a real, honest record, never a vacuous pass.
+    readiness_provenance = readiness.get("provenance")
+    assert isinstance(readiness_provenance, dict), (
+        "post_deployment_readiness.provenance must be a dict with real-data "
+        "provenance; got %r" % (readiness_provenance,)
+    )
+    assert readiness_provenance.get("real_data_only") is True
+    assert readiness_provenance.get("fabricated_data") is False
 
     g_res = gating.get("results_by_timeframe") or {}
     c_res = cert.get("results_by_timeframe") or {}

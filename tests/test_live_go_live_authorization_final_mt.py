@@ -68,7 +68,14 @@ def test_live_go_live_authorization_final_preserves_gating():
     assert go_live.get("scope_limited_to_eligible_only") is True
     assert go_live.get("zero_capital_on_blocked") is True
     assert go_live.get("authorized_pairs_timeframes") == [["POL/BTC", "4h"]]
-    assert go_live.get("provenance") or True
+    # Fail-closed provenance: must be a real, honest record, never a vacuous pass.
+    go_live_provenance = go_live.get("provenance")
+    assert isinstance(go_live_provenance, dict), (
+        "go_live_authorization.provenance must be a dict with real-data "
+        "provenance; got %r" % (go_live_provenance,)
+    )
+    assert go_live_provenance.get("real_data_only") is True
+    assert go_live_provenance.get("fabricated_data") is False
 
     g_res = gating.get("results_by_timeframe") or {}
     c_res = cert.get("results_by_timeframe") or {}

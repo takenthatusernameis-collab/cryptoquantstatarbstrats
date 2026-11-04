@@ -47,10 +47,16 @@ def test_weights_change_only_on_rebalance_dates():
     reb_set = set(reb_dates)
     # Find differences
     diffs = (reb.diff().abs().sum(axis=1) > 1e-12)
-    # Changes should only occur at rebalance dates (or first)
+    # Changes should only occur at rebalance dates. A weight change at any
+    # bar after the first is a fail-closed violation unless that bar is a
+    # scheduled rebalance date. The previous ``or True`` made this check
+    # vacuous (it could never fail), which is exactly the fail-open
+    # coercion this campaign forbids.
     for i, dt in enumerate(data.index):
         if diffs.iloc[i] and i > 0:
-            assert dt in reb_set or True  # allow first change at start
+            assert dt in reb_set, (
+                f"weight changed at {dt} (bar {i}) which is not a rebalance date"
+            )
 
 
 def test_rebalance_with_engine_run_portfolio():
