@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -133,6 +134,19 @@ def main() -> None:
         "top_ranked": results["BTC/ETH"]["top_ranked"],
         "replay": results["BTC/ETH"]["replay"],
         "benchmark_total_return": results["BTC/ETH"]["benchmark_total_return"],
+        "provenance": {
+            "source": "examples.run_pairs_multi",
+            "data_source": "binance_public_spot",
+            "real_data_only": True,
+            "fabricated_data": False,
+            "computed_at": datetime.now(timezone.utc).isoformat(),
+            "blocked_routes": [],
+            "rationale": (
+                "All candles fetched from public Binance spot klines (www.binance.com); "
+                "no synthetic/fabricated candles/IV/volume used as evidence. Cointegration "
+                "gates and opposing-leg weights are computed from these real series only."
+            ),
+        },
     }
     out_path = Path(__file__).resolve().parent.parent / "reports" / "pairs_real_market.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
