@@ -208,10 +208,9 @@ class CointegrationPairsStrategy(PairStrategy):
                         if not isinstance(gates, dict):
                             ok = False
                         else:
-                            # Block on explicit no_structural_break=False gate
                             if gates.get("no_structural_break") is False:
                                 ok = False
-                        if ok:
+                        if ok and isinstance(gates, dict):
                             for key in (
                                 "eg_pass",
                                 "johansen_pass",
@@ -219,16 +218,13 @@ class CointegrationPairsStrategy(PairStrategy):
                                 "hl_bounds_pass",
                                 "rolling_stable_ok",
                                 "leg_stationarity_ok",
+                                "no_structural_break",
                                 "all_pass",
                             ):
                                 v = gates.get(key)
                                 if v is False:
                                     ok = False
                                     break
-                                # ``all_pass`` is a derived convenience key.
-                                # Only an explicit False blocks; a missing
-                                # ``all_pass`` is not a failure when the
-                                # individual gates above already passed.
                                 if key == "all_pass":
                                     continue
                                 if v is None and self.strict_enriched_gates:
@@ -290,6 +286,7 @@ class CointegrationPairsStrategy(PairStrategy):
                                     "hl_bounds_pass",
                                     "rolling_stable_ok",
                                     "leg_stationarity_ok",
+                                    "no_structural_break",
                                     "all_pass",
                                 ):
                                     v = g.get(key)

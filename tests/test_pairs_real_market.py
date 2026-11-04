@@ -60,6 +60,7 @@ def test_cointegration_gate_allows_cointegrated_pair():
             "hl_bounds_pass": True,
             "rolling_stable_ok": True,
             "leg_stationarity_ok": True,
+            "no_structural_break": True,
             "all_pass": True,
         },
         "structural_breaks": {"flagged": False},
