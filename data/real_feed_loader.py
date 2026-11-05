@@ -843,21 +843,132 @@ def generate_unblock_status_report(
     return report
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: emit a fail-closed real-feed unblock status report.
+def build_unblock_trend_report(
+    reports_dir: str | Path,
+    *,
+    campaign: int | None = None,
+    limit: int | None = None,
+) -> dict[str, Any]:
+    """Aggregate historical real_feed_unblock_status reports (fail-closed).
 
-    Exit 0 on successful report emission (blocked or Path-R-eligible state is
-    honest data, not a CLI error). Exit 2 on invalid arguments/IO failures.
-    Never fabricates data or proves edge.
+    Reads observable fields only from existing ``real_feed_unblock_status_*.json``
+    artifacts under *reports_dir*. Never fabricates data, never proves edge, and
+    never labels missing/unreadable files as progress. Unreadable files are
+    recorded explicitly. Designed to make campaign-over-campaign blocker state
+    auditable as a concrete artifact, not to claim any strategy edge.
+    """
+    reports_dir = Path(reports_dir)
+    paths = sorted(reports_dir.glob("real_feed_unblock_status_*.json"))
+    entries: list[dict[str, Any]] = []
+    unreadable: list[dict[str, str]] = []
+    for p in paths:
+        try:
+            obj = json.loads(p.read_text(encoding="utf-8"))
+        except Exception as exc:
+            unreadable.append({"path": str(p), "error": f"{type(exc).__name__}:{exc}"})
+            continue
+        if not isinstance(obj, dict):
+            unreadable.append({"path": str(p), "error": "report_not_object"})
+            continue
+        scan = obj.get("scan_summary") or {}
+        delta = obj.get("campaign_delta") or {}
+        entries.append(
+            {
+                "path": str(p),
+                "name": p.name,
+                "campaign": obj.get("campaign"),
+                "generated_at_utc": obj.get("generated_at_utc"),
+                "conclusion": obj.get("conclusion"),
+                "path_r_triggered": bool(obj.get("path_r_triggered")),
+                "blocked_families": sorted(obj.get("blocked_families") or []),
+                "audit_conclusion": obj.get("audit_conclusion"),
+                "meta_files_scanned": scan.get("meta_files_scanned"),
+                "candidate_hits": scan.get("candidate_hits"),
+                "new_real_feeds_with_provenance_found": scan.get(
+                    "new_real_feeds_with_provenance_found"
+                ),
+                "campaign_delta_prior_available": delta.get("prior_available"),
+                "campaign_delta_changed": delta.get("changed"),
+                "campaign_delta_honest_assessment": delta.get("honest_assessment"),
+            }
+        )
+    entries.sort(key=lambda e: (e.get("campaign") if isinstance(e.get("campaign"), int) else -1, e.get("name") or ""))
+    if limit is not None and limit >= 0:
+        entries = entries[-limit:] if limit else []
+    campaigns = [e.get("campaign") for e in entries if isinstance(e.get("campaign"), int)]
+    path_r_seen = [e for e in entries if e.get("path_r_triggered")]
+    numbered = [e for e in entries if isinstance(e.get("campaign"), int)]
+    latest = numbered[-1] if numbered else (entries[-1] if entries else None)
+    transitions: list[dict[str, Any]] = []
+    for prev, cur in zip(entries, entries[1:]):
+        transitions.append(
+            {
+                "from_campaign": prev.get("campaign"),
+                "to_campaign": cur.get("campaign"),
+                "blocked_families_changed": prev.get("blocked_families") != cur.get("blocked_families"),
+                "path_r_changed": prev.get("path_r_triggered") != cur.get("path_r_triggered"),
+                "conclusion_changed": prev.get("conclusion") != cur.get("conclusion"),
+                "audit_conclusion_changed": prev.get("audit_conclusion") != cur.get("audit_conclusion"),
+            }
+        )
+    any_transition_change = any(
+        t["blocked_families_changed"]
+        or t["path_r_changed"]
+        or t["conclusion_changed"]
+        or t["audit_conclusion_changed"]
+        for t in transitions
+    )
+    return {
+        "tool": "data.real_feed_loader.build_unblock_trend_report",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "campaign": campaign,
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "no_proxies_labeled_real": True,
+        "oos_edge_proven": False,
+        "reports_dir": str(reports_dir),
+        "status_files_found": len(paths),
+        "status_reports_read": len(entries),
+        "unreadable_files": unreadable,
+        "campaigns_observed": campaigns,
+        "path_r_ever_triggered": bool(path_r_seen),
+        "path_r_triggered_campaigns": [e.get("campaign") for e in path_r_seen],
+        "latest": latest,
+        "transitions": transitions,
+        "any_observable_state_change_across_reports": any_transition_change,
+        "entries": entries,
+        "honest_assessment": (
+            "NO_HISTORICAL_STATUS_REPORTS_FOUND"
+            if not entries
+            else "PATH_R_OBSERVED_IN_HISTORY_REVIEW_REQUIRED"
+            if path_r_seen
+            else "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+            if not any_transition_change
+            else "OBSERVABLE_STATE_CHANGE_IN_HISTORY_REVIEW_REQUIRED"
+        ),
+        "notes": (
+            "Concrete fail-closed trend/audit artifact derived only from existing "
+            "real_feed_unblock_status reports. Not an edge claim. No fabrication."
+        ),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: emit fail-closed real-feed unblock status or trend reports.
+
+    Exit 0 on successful report emission (blocked/unchanged state is honest
+    data, not a CLI error). Exit 2 on invalid arguments/IO failures. Never
+    fabricates data or proves edge.
     """
     parser = argparse.ArgumentParser(
-        description="Fail-closed real non-spot feed unblock/readiness status report"
+        description="Fail-closed real non-spot feed unblock/readiness status and trend reports"
     )
     parser.add_argument("--cache-dir", default="data/cache", help="Cache directory to scan")
     parser.add_argument(
         "--reports-dir",
         default="reports",
-        help="Reports directory for readiness discovery",
+        help="Reports directory for readiness discovery / trend inputs",
     )
     parser.add_argument("--campaign", type=int, default=None)
     parser.add_argument("--output", default=None, help="Write JSON report to this path")
@@ -876,15 +987,33 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="Path to a prior real_feed_unblock_status JSON for fail-closed campaign delta",
     )
-    args = parser.parse_args(argv)
-    report = generate_unblock_status_report(
-        Path(args.cache_dir),
-        campaign=args.campaign,
-        reports_dir=Path(args.reports_dir),
-        auto_discover_readiness=not args.no_auto_discover_readiness,
-        include_readiness_details=bool(getattr(args, "readiness_details", False)),
-        prior_report=args.prior,
+    parser.add_argument(
+        "--trend",
+        action="store_true",
+        help="Emit an aggregated unblock trend report from real_feed_unblock_status_*.json",
     )
+    parser.add_argument(
+        "--trend-limit",
+        type=int,
+        default=None,
+        help="When --trend is set, include only the last N status entries (chronological order)",
+    )
+    args = parser.parse_args(argv)
+    if args.trend:
+        report = build_unblock_trend_report(
+            Path(args.reports_dir),
+            campaign=args.campaign,
+            limit=args.trend_limit,
+        )
+    else:
+        report = generate_unblock_status_report(
+            Path(args.cache_dir),
+            campaign=args.campaign,
+            reports_dir=Path(args.reports_dir),
+            auto_discover_readiness=not args.no_auto_discover_readiness,
+            include_readiness_details=bool(getattr(args, "readiness_details", False)),
+            prior_report=args.prior,
+        )
     payload = json.dumps(report, indent=2, sort_keys=False) + "\n"
     if args.output:
         out = Path(args.output)

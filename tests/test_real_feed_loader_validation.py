@@ -873,7 +873,7 @@ def test_audit_cache_records_candidate_refusal(tmp_path: Path):
 
 
 # --- Campaign #18: generate_unblock_status_report (fail-closed infrastructure) ---
-from data.real_feed_loader import compare_unblock_status, generate_unblock_status_report  # noqa: E402
+from data.real_feed_loader import build_unblock_trend_report, compare_unblock_status, generate_unblock_status_report  # noqa: E402
 
 
 def test_generate_unblock_status_report_no_candidates(tmp_path: Path):
@@ -1218,3 +1218,156 @@ def test_unblock_status_cli_prior_flag(tmp_path: Path):
     assert obj["campaign_delta"]["prior_available"] is True
     assert obj["campaign_delta"]["changed"] is False
     assert obj["campaign_delta"]["honest_assessment"] == "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+
+
+# --- Campaign 21: fail-closed unblock trend aggregation (real, tested, no edge claim) ---
+
+def test_build_unblock_trend_report_empty(tmp_path: Path):
+    trend = build_unblock_trend_report(tmp_path / "reports", campaign=21)
+    assert trend["tool"] == "data.real_feed_loader.build_unblock_trend_report"
+    assert trend["fail_closed"] is True
+    assert trend["real_data_only"] is True
+    assert trend["fabricated_data"] is False
+    assert trend["oos_edge_proven"] is False
+    assert trend["status_files_found"] == 0
+    assert trend["status_reports_read"] == 0
+    assert trend["latest"] is None
+    assert trend["honest_assessment"] == "NO_HISTORICAL_STATUS_REPORTS_FOUND"
+
+
+def test_build_unblock_trend_report_aggregates_and_detects_no_change(tmp_path: Path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    base = {
+        "tool": "data.real_feed_loader.generate_unblock_status_report",
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "oos_edge_proven": False,
+        "path_r_triggered": False,
+        "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+        "audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+        "blocked_families": [
+            "funding_basis_carry",
+            "cross_exchange_dual_venue_same_asset",
+            "term_structure_real_iv_vol_surface",
+            "intrabar_microstructure",
+        ],
+        "scan_summary": {
+            "meta_files_scanned": 21,
+            "candidate_hits": 0,
+            "new_real_feeds_with_provenance_found": False,
+        },
+        "campaign_delta": {"prior_available": True, "changed": False, "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"},
+    }
+    for camp, ts in [(19, "20261105T163015Z"), (20, "20261105T163640Z")]:
+        obj = {**base, "campaign": camp, "generated_at_utc": ts}
+        (reports / f"real_feed_unblock_status_{ts}.json").write_text(json.dumps(obj), encoding="utf-8")
+    trend = build_unblock_trend_report(reports, campaign=21)
+    assert trend["status_files_found"] == 2
+    assert trend["status_reports_read"] == 2
+    assert trend["campaigns_observed"] == [19, 20]
+    assert trend["path_r_ever_triggered"] is False
+    assert trend["any_observable_state_change_across_reports"] is False
+    assert trend["latest"]["campaign"] == 20
+    assert len(trend["transitions"]) == 1
+    assert trend["transitions"][0]["blocked_families_changed"] is False
+    assert trend["honest_assessment"] == "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+    assert trend["oos_edge_proven"] is False
+
+
+def test_build_unblock_trend_report_records_unreadable_and_path_r_history(tmp_path: Path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    (reports / "real_feed_unblock_status_20261105T000001Z.json").write_text(
+        json.dumps(
+            {
+                "campaign": 19,
+                "path_r_triggered": False,
+                "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+                "blocked_families": ["funding_basis_carry"],
+                "scan_summary": {"candidate_hits": 0},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (reports / "real_feed_unblock_status_20261105T000002Z.json").write_text(
+        json.dumps(
+            {
+                "campaign": 20,
+                "path_r_triggered": True,
+                "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+                "blocked_families": [],
+                "scan_summary": {"candidate_hits": 1, "new_real_feeds_with_provenance_found": True},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (reports / "real_feed_unblock_status_20261105T000003Z.json").write_text("{broken", encoding="utf-8")
+    trend = build_unblock_trend_report(reports, campaign=21)
+    assert trend["status_files_found"] == 3
+    assert trend["status_reports_read"] == 2
+    assert len(trend["unreadable_files"]) == 1
+    assert trend["path_r_ever_triggered"] is True
+    assert trend["path_r_triggered_campaigns"] == [20]
+    assert trend["any_observable_state_change_across_reports"] is True
+    assert trend["honest_assessment"] == "PATH_R_OBSERVED_IN_HISTORY_REVIEW_REQUIRED"
+
+
+def test_build_unblock_trend_report_limit(tmp_path: Path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    for camp, ts in [(18, "20261105T135404Z"), (19, "20261105T163015Z"), (20, "20261105T163640Z")]:
+        (reports / f"real_feed_unblock_status_{ts}.json").write_text(
+            json.dumps({"campaign": camp, "path_r_triggered": False, "blocked_families": ["x"], "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED"}),
+            encoding="utf-8",
+        )
+    trend = build_unblock_trend_report(reports, campaign=21, limit=2)
+    assert trend["campaigns_observed"] == [19, 20]
+    assert trend["latest"]["campaign"] == 20
+
+
+def test_unblock_trend_cli_flag(tmp_path: Path):
+    from data.real_feed_loader import main
+
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    (reports / "real_feed_unblock_status_20261105T163640Z.json").write_text(
+        json.dumps(
+            {
+                "campaign": 20,
+                "path_r_triggered": False,
+                "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+                "audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+                "blocked_families": [
+                    "funding_basis_carry",
+                    "cross_exchange_dual_venue_same_asset",
+                    "term_structure_real_iv_vol_surface",
+                    "intrabar_microstructure",
+                ],
+                "scan_summary": {"meta_files_scanned": 21, "candidate_hits": 0},
+            }
+        ),
+        encoding="utf-8",
+    )
+    out = tmp_path / "trend.json"
+    rc = main(
+        [
+            "--trend",
+            "--reports-dir",
+            str(reports),
+            "--campaign",
+            "21",
+            "--output",
+            str(out),
+        ]
+    )
+    assert rc == 0
+    obj = json.loads(out.read_text(encoding="utf-8"))
+    assert obj["tool"] == "data.real_feed_loader.build_unblock_trend_report"
+    assert obj["campaign"] == 21
+    assert obj["status_reports_read"] == 1
+    assert obj["oos_edge_proven"] is False
+    assert obj["honest_assessment"] == "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
