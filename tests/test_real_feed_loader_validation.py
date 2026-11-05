@@ -804,3 +804,68 @@ def test_intrabar_microstructure_accepts_real_feed_in_cache_when_provenance_vali
     meta_path, _ = _write_intrabar_microstructure_artifact(cache, _valid_intrabar_microstructure_df("trades"), kind="trades")
     df, report = validate_and_load_real_feed(meta_path, "intrabar_microstructure")
     assert report["ok"] and report["rows"] == 5
+
+
+# --- Campaign #17: audit_cache_for_real_nonspot_feeds (fail-closed infrastructure) ---
+from data.real_feed_loader import audit_cache_for_real_nonspot_feeds  # noqa: E402 (appended)
+
+
+def test_audit_cache_for_real_nonspot_feeds_no_candidates(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    (cache / "spot.meta.json").write_text(
+        json.dumps({"kind": "binance_spot"}), encoding="utf-8"
+    )
+    result = audit_cache_for_real_nonspot_feeds(cache, campaign=17)
+    assert result["fail_closed"] is True
+    assert result["real_data_only"] is True
+    assert result["fabricated_data"] is False
+    assert result["oos_edge_proven"] is False
+    assert result["campaign"] == 17
+    assert result["conclusion"] == "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+    assert result["candidate_validation"] == []
+    assert result["families"]["funding_basis_carry"]["status"] == "blocked_no_real_feed"
+    assert result["scan"]["meta_files_scanned"] == 1
+    assert result["non_candidate_meta_count"] == 1
+
+
+def test_audit_cache_accepts_valid_nonspot_funding_artifact(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    _write_artifact(cache, _valid_df())
+    result = audit_cache_for_real_nonspot_feeds(cache, campaign=17)
+    assert result["scan"]["new_real_feeds_with_provenance_found"] is True
+    assert (
+        result["conclusion"] == "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND"
+    )
+    assert (
+        result["families"]["funding_basis_carry"]["status"]
+        == "real_feed_with_provenance_present"
+    )
+    assert len(result["candidate_validation"]) == 1
+    assert result["candidate_validation"][0]["ok"] is True
+    assert result["candidate_validation"][0]["family"] == "funding_basis_carry"
+    assert result["oos_edge_proven"] is False
+
+
+def test_audit_cache_records_candidate_refusal(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    pkl = cache / "funding_bad.pkl"
+    _valid_df().to_pickle(pkl)
+    meta = {
+        "family": "funding_basis_carry",
+        "real_data_only": False,
+        "fabricated_data": True,
+        "sha256_pkl": "bad",
+        "pkl_file": pkl.name,
+    }
+    (cache / "funding_bad.meta.json").write_text(json.dumps(meta), encoding="utf-8")
+    result = audit_cache_for_real_nonspot_feeds(cache, campaign=17)
+    assert result["scan"]["candidate_hits"]
+    assert result["conclusion"] == "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+    assert result["families"]["funding_basis_carry"]["status"] == "blocked_no_real_feed"
+    assert any(
+        v["ok"] is False and v["refused"] is True
+        for v in result["candidate_validation"]
+    )

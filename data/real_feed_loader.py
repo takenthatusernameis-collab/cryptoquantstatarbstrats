@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -485,7 +486,10 @@ def scan_cache_for_real_nonspot_feeds(
         "fail_closed": True,
         "real_data_only_required": True,
         "fabricated_data_allowed": False,
-        "families": {fam: {"status": "blocked_no_real_feed", "valid_artifacts": []} for fam in FAMILY_SPECS},
+        "families": {
+            fam: {"status": "blocked_no_real_feed", "valid_artifacts": []}
+            for fam in FAMILY_SPECS
+        },
         "meta_files_scanned": 0,
         "candidate_hits": [],
         "new_real_feeds_with_provenance_found": False,
@@ -515,7 +519,7 @@ def scan_cache_for_real_nonspot_feeds(
         for fam in families:
             try:
                 _, report = validate_and_load_real_feed(mp, fam)
-            except RealFeedValidationError as exc:
+            except RealFeedValidationError:
                 continue
             except Exception:
                 continue
@@ -530,3 +534,65 @@ def scan_cache_for_real_nonspot_feeds(
                 result["families"][fam]["status"] = "real_feed_with_provenance_present"
                 result["new_real_feeds_with_provenance_found"] = True
     return result
+
+
+def audit_cache_for_real_nonspot_feeds(
+    cache_dir: str | Path,
+    *,
+    campaign: int | None = None,
+) -> dict[str, Any]:
+    """Fail-closed cache audit: scan + per-candidate validation outcomes.
+
+    Advances audit infrastructure without fabricating data or weakening gates.
+    Every artifact is accepted only when ``validate_and_load_real_feed`` passes.
+    Refusal reasons are recorded for candidate hits to make blockers explicit.
+    This function does not prove edge and never sets ``oos_edge_proven`` true.
+    """
+    cache_dir = Path(cache_dir)
+    scan = scan_cache_for_real_nonspot_feeds(cache_dir)
+    audit: dict[str, Any] = {
+        "tool": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "campaign": campaign,
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "no_proxies_labeled_real": True,
+        "oos_edge_proven": False,
+        "scan": scan,
+        "families": scan["families"],
+        "candidate_validation": [],
+        "non_candidate_meta_count": max(
+            0, int(scan.get("meta_files_scanned", 0)) - len(scan.get("candidate_hits", []))
+        ),
+        "conclusion": (
+            "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND"
+            if scan.get("new_real_feeds_with_provenance_found")
+            else "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+        ),
+    }
+    if not cache_dir.exists():
+        return audit
+    for hit in scan.get("candidate_hits", []):
+        meta_name = str(hit.get("meta", ""))
+        mp = cache_dir / meta_name
+        for fam in hit.get("families_considered", []):
+            entry: dict[str, Any] = {"meta": meta_name, "family": fam, "ok": False}
+            try:
+                _, report = validate_and_load_real_feed(mp, fam)
+            except RealFeedValidationError as exc:
+                entry["refused"] = True
+                entry["reason"] = str(exc)
+                audit["candidate_validation"].append(entry)
+                continue
+            except Exception as exc:
+                entry["refused"] = True
+                entry["reason"] = f"unexpected_error:{type(exc).__name__}:{exc}"
+                audit["candidate_validation"].append(entry)
+                continue
+            entry["ok"] = bool(report.get("ok"))
+            entry["refused"] = bool(report.get("refused"))
+            entry["reason"] = report.get("reason")
+            entry["rows"] = report.get("rows")
+            audit["candidate_validation"].append(entry)
+    return audit

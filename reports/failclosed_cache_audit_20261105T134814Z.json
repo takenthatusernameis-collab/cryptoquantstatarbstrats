@@ -1,0 +1,120 @@
+{
+  "artifact": "failclosed_cache_audit_20261105T134814Z",
+  "campaign": 17,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T13:48:55.690627+00:00",
+  "purpose": "Concrete fail-closed cache audit artifact produced by tested code (_run_p17_campaign17_pathc.py + data.real_feed_loader.audit_cache_for_real_nonspot_feeds). Not a structurally-similar spot retest; not an edge claim; records explicit per-candidate validation outcomes without fabrication or gate weakening.",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "supported_families": [
+    "cross_exchange_dual_venue_same_asset",
+    "funding_basis_carry",
+    "intrabar_microstructure",
+    "term_structure_real_iv_vol_surface"
+  ],
+  "cache_dir": "data/cache",
+  "audit_result": {
+    "tool": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds",
+    "generated_at_utc": "2026-11-05T13:48:14.205899+00:00",
+    "campaign": 17,
+    "fail_closed": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "no_proxies_labeled_real": true,
+    "oos_edge_proven": false,
+    "scan": {
+      "cache_dir": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache",
+      "cache_exists": true,
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "families": {
+        "funding_basis_carry": {
+          "status": "blocked_no_real_feed",
+          "valid_artifacts": []
+        },
+        "cross_exchange_dual_venue_same_asset": {
+          "status": "blocked_no_real_feed",
+          "valid_artifacts": []
+        },
+        "term_structure_real_iv_vol_surface": {
+          "status": "blocked_no_real_feed",
+          "valid_artifacts": []
+        },
+        "intrabar_microstructure": {
+          "status": "blocked_no_real_feed",
+          "valid_artifacts": []
+        }
+      },
+      "meta_files_scanned": 21,
+      "candidate_hits": [],
+      "new_real_feeds_with_provenance_found": false
+    },
+    "families": {
+      "funding_basis_carry": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "cross_exchange_dual_venue_same_asset": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "term_structure_real_iv_vol_surface": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "intrabar_microstructure": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      }
+    },
+    "candidate_validation": [],
+    "non_candidate_meta_count": 21,
+    "conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+  },
+  "spot_cache_reference": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true,
+    "not_a_new_feed": true
+  },
+  "code_changes": [
+    "data/real_feed_loader.py: added fail-closed audit_cache_for_real_nonspot_feeds (records per-candidate validation outcomes; no fabrication, no gate weakening)",
+    "tests/test_real_feed_loader_validation.py: added 3 audit_cache tests (no candidates, valid artifact accept, candidate refusal recorded)",
+    "_run_p17_campaign17_pathc.py: Campaign #17 Path C-maintain runner producing honest fail-closed artifacts"
+  ],
+  "tests_at_generation": {
+    "raw": "902 passed, 1 skipped, 3559 warnings in 40.34s",
+    "passed": 902,
+    "failed": 0,
+    "skipped": 1,
+    "duration_s": 40.34
+  },
+  "loader_tests_at_generation": {
+    "raw": "70 passed in 0.36s",
+    "passed": 70,
+    "failed": 0,
+    "skipped": 0,
+    "duration_s": 0.36
+  },
+  "quality_gates": {
+    "mypy_real_feed_loader": {
+      "command": "python -m mypy data/real_feed_loader.py",
+      "rc": 0,
+      "ok": true,
+      "tail": [
+        "Success: no issues found in 1 source file"
+      ]
+    },
+    "ruff_real_feed_loader": {
+      "command": "python -m ruff check data/real_feed_loader.py",
+      "rc": 1,
+      "ok": false
+    }
+  },
+  "oos_edge_proven": false,
+  "conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+}
