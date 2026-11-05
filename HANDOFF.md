@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:46:52Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:47:07Z
 
 REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1. NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
@@ -23,7 +23,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
    - Run tests: `pytest tests/test_cointegration_campaign31_mt tests/test_cointegration_diagnostics_schema tests/test_pairs_real_market -v`
    - Lint/typecheck touched files: `ruff check utils/cointegration.py strategies/pairs_trading.py && mypy utils/cointegration.py strategies/pairs_trading.py`
 
-## CURRENT STATE (AS OF 2026-11-05T03:46Z)
+## CURRENT STATE (AS OF 2026-11-05T03:47Z)
 - Last scan (20261105T025358Z): n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked.
 - Rolling stability frac_significant often 0.0-0.11 with small n_windows; leg_stationarity and structural_break are common blockers on real data.
 - `examples/run_pairs_multi.py` ran with enriched gates enforced causally -> trades_count=0/total_return=0 for BTC/ETH, ETH/SOL, BTC/SOL.
