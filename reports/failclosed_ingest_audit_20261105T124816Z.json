@@ -1,0 +1,37 @@
+{
+  "artifact": "failclosed_ingest_audit_20261105T124816Z",
+  "campaign": 15,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T12:48:16.000000+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "purpose": "Harden/verify fail-closed ingestion: document scan behavior and gate requirements for non-spot feeds (no new feed added).",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "loader": {
+    "module": "data/real_feed_loader.py",
+    "scan_fn": "scan_cache_for_real_nonspot_feeds",
+    "validate_fn": "validate_and_load_real_feed"
+  },
+  "requirements": [
+    "real_data_only == true",
+    "fabricated_data == false",
+    "sha256 verified",
+    "schema valid (required fields present, types ok)",
+    "provenance fields present and verifiable (source/retrieval/timestamps/symbol_map)",
+    "only artifacts passing validation count as valid non-spot provenance"
+  ],
+  "scan_result": {
+    "cache_dir": "data/cache",
+    "cache_exists": true,
+    "meta_files_scanned": 21,
+    "new_real_feeds_with_provenance_found": false,
+    "families_all_blocked": true
+  },
+  "verification": {
+    "tests_ran": "pytest tests/test_real_feed_loader_validation.py -q",
+    "passed": 67,
+    "failed": 0
+  },
+  "notes": "No code changes made in this session (fail-closed infrastructure already in place). Third artifact is an audit-only concrete artifact documenting gates and current scan state; infrastructure remains ready for Path R on next genuine ingestion."
+}

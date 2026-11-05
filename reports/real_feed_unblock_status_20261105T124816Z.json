@@ -1,0 +1,32 @@
+{
+  "artifact": "real_feed_unblock_status_20261105T124816Z",
+  "campaign": 15,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T12:48:16.000000+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/real_feed_unblock_status_20261105T124347Z.json",
+  "fail_closed": true,
+  "real_data_only": true,
+  "no_fabrication": true,
+  "no_proxies_labeled_real": true,
+  "scan": {
+    "tool": "data.real_feed_loader.scan_cache_for_real_nonspot_feeds",
+    "cache_dir": "data/cache",
+    "cache_exists": true,
+    "meta_files_scanned": 21,
+    "candidate_hits": [],
+    "new_real_feeds_with_provenance_found": false
+  },
+  "families": {
+    "funding_basis_carry": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+    "cross_exchange_dual_venue_same_asset": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+    "term_structure_real_iv_vol_surface": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+    "intrabar_microstructure": {"status": "blocked_no_real_feed", "valid_artifacts": []}
+  },
+  "blockers": [
+    "No new real non-spot feed with verifiable provenance ingested in-session",
+    "scan_cache_for_real_nonspot_feeds found 0 valid artifacts passing validate_and_load_real_feed (real_data_only=true, fabricated_data=false, sha256 verified, schema valid)"
+  ],
+  "action_required_for_path_r": "Ingest genuinely new real feed(s) with immutable provenance into data/cache/ and validate via real_feed_loader before claiming ingestion/edge. Path R not triggered this session.",
+  "conclusion": "STILL_BLOCKED"
+}
