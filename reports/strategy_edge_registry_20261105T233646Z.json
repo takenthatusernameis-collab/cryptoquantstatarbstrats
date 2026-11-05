@@ -1,0 +1,306 @@
+{
+  "report": "strategy_edge_registry",
+  "campaign": 40,
+  "supersedes": "strategy_edge_registry_20261105T232053Z.json",
+  "generated_at_utc": "2026-11-05T23:36:46.255479+00:00",
+  "mandate": "Campaign 40 deliverable — consolidated edge registry updated with C40 Path R-B (quote-volume climax mean reversion on validated real_quote_volume) + fail-closed unblock recheck (delta vs 20261105T224120Z) + full pytest rerun. Fail-closed, real data only, no fabrication, no threshold weakening, no proxies labeled real, no C23 rerun.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "no_proxies_labeled_real": true
+  },
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3571,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "new_artifacts_campaign40": [
+    "real_quote_volume_climax_mean_reversion_costed_oos_20261105T233410Z.json",
+    "real_feed_unblock_status_20261105T233410Z.json"
+  ],
+  "prior_registry": "strategy_edge_registry_20261105T232053Z.json",
+  "families": [
+    {
+      "family": "pairs_cointegration",
+      "data_status": "real_cached_verified",
+      "actionable_next_step": "(unchanged by C39; gating invariants preserved 1h=[],4h=[POL/BTC],1d=[]; do not re-scan/re-audit without NEW real dataset.) (unchanged by C40; gating invariants preserved; do not re-scan without NEW real dataset.) (unchanged by C40; gating invariants preserved; do not re-scan without NEW real dataset.)"
+    },
+    {
+      "family": "momentum",
+      "data_status": "real_cached_verified",
+      "actionable_next_step": "NO PROVEN NET-OF-COST OOS EDGE (unchanged). Do not claim edge; no structurally-similar spot retest on same cache as new campaign."
+    },
+    {
+      "family": "mean_reversion",
+      "data_status": "real_cached_verified"
+    },
+    {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": "Quote Volume Climax Mean Reversion (genuinely different from C23 Abnormal Quote Volume Momentum: mean reversion/fade, opposite signal sign)",
+      "diagnostic_evidence": [
+        {
+          "artifact": "real_quote_volume_climax_mean_reversion_costed_oos_20261105T233410Z.json",
+          "key_metrics": {
+            "assets": 11,
+            "bars": 5112,
+            "window": "2026-04-01..2026-10-30",
+            "interval": "1h",
+            "walk_forward": {
+              "mode": "rolling",
+              "train_bars": 720,
+              "test_bars": 168,
+              "step_bars": 168
+            },
+            "cost_grid_bps_fee_slippage": [
+              [
+                0,
+                0
+              ],
+              [
+                5,
+                0
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                0,
+                10
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                20,
+                0
+              ],
+              [
+                0,
+                20
+              ],
+              [
+                20,
+                20
+              ]
+            ],
+            "n_oos_edge_proven": 0,
+            "n_assets_all_slices_oos_net_positive": 0,
+            "n_assets_all_slices_beat_benchmark": 0,
+            "aggregate_oos_edge_proven_fail_closed": false,
+            "by_asset_compact": [
+              {
+                "asset": "ADA",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": -0.20721807151189298,
+                "bench_oos_0bps": -0.10850660556113201,
+                "oos_40bps": -1.5392180715118933,
+                "bench_oos_40bps": -0.10850660556113201,
+                "is_mean_0bps": 0.028150109553887637,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "AVAX",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.07790820568444567,
+                "bench_oos_0bps": 0.03692307851737009,
+                "oos_40bps": -1.3420917943155546,
+                "bench_oos_40bps": 0.03692307851737009,
+                "is_mean_0bps": 0.0797886019029519,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BNB",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": -0.20546650422293744,
+                "bench_oos_0bps": 0.16790033173988939,
+                "oos_40bps": -1.5854665042229374,
+                "bench_oos_40bps": 0.16790033173988939,
+                "is_mean_0bps": 0.10752509433322088,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BTC",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.04089410215823186,
+                "bench_oos_0bps": 0.056906054230617786,
+                "oos_40bps": -1.243105897841768,
+                "bench_oos_40bps": 0.056906054230617786,
+                "is_mean_0bps": 0.04948978974806295,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "DOT",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.24323640234546506,
+                "bench_oos_0bps": -0.12387410404863253,
+                "oos_40bps": -1.216763597654535,
+                "bench_oos_40bps": -0.12387410404863253,
+                "is_mean_0bps": 0.035246059706608435,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "ETH",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": -0.02844670773849367,
+                "bench_oos_0bps": 0.06087103021756268,
+                "oos_40bps": -1.3684467077384936,
+                "bench_oos_40bps": 0.06087103021756268,
+                "is_mean_0bps": 0.04577688607655228,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LINK",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0401187225850379,
+                "bench_oos_0bps": 0.2598010407291865,
+                "oos_40bps": -1.4758812774149621,
+                "bench_oos_40bps": 0.2598010407291865,
+                "is_mean_0bps": 0.06517550856527976,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LTC",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.029447397594682956,
+                "bench_oos_0bps": 0.0774892478977014,
+                "oos_40bps": -1.3905526024053172,
+                "bench_oos_40bps": 0.0774892478977014,
+                "is_mean_0bps": 0.1172880102642031,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "POL",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": 0.24142150859071776,
+                "bench_oos_0bps": 0.04760403801385149,
+                "oos_40bps": -1.1745784914092823,
+                "bench_oos_40bps": 0.04760403801385149,
+                "is_mean_0bps": 0.01062322042008168,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "SOL",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": -0.14119153765652404,
+                "bench_oos_0bps": 0.2228033848671428,
+                "oos_40bps": -1.641191537656524,
+                "bench_oos_40bps": 0.2228033848671428,
+                "is_mean_0bps": -0.008052376712710974,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "XRP",
+                "exposure": true,
+                "oos_edge_proven": false,
+                "oos_0bps": -0.07950991802849516,
+                "bench_oos_0bps": -0.007174877049763051,
+                "oos_40bps": -1.2995099180284952,
+                "bench_oos_40bps": -0.007174877049763051,
+                "is_mean_0bps": 0.029885942193882964,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              }
+            ],
+            "pre_stated_rule": "oos_edge_proven=true IFF executed exposure>0 AND for ALL cost-grid slices OOS net sum > 0 AND OOS net sum > B&H OOS sum on same OOS windows. Else false (fail-closed).",
+            "not_c23_rerun": true,
+            "hypothesis_differs_from_c23": true
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "checks": {
+          "real_data_only": true,
+          "fabricated_data": false,
+          "no_threshold_weakening": true,
+          "no_proxies_labeled_real": true,
+          "benchmark_relative": true,
+          "net_of_cost_grid": true,
+          "walk_forward_is_oos": true,
+          "not_c23_rerun": true
+        }
+      },
+      "actionable_next_step": "NO PROVEN NET-OF-COST OOS EDGE for real_quote_volume Path R-B on real cached spot 1h (0/11 assets pass pre-stated rule). Volume-climax mean reversion/fade tested; no edge proven. Do not claim edge. Remaining blocked families unchanged (funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure)."
+    },
+    {
+      "family": "cross_exchange_same_asset_dual_venue",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)"
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)"
+    },
+    {
+      "family": "term_structure_carry_proxy",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)"
+    },
+    {
+      "family": "volatility_surface_arbitrage_proxy",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)"
+    }
+  ],
+  "path_r": {
+    "triggered": true,
+    "real_quote_volume_validated": true,
+    "c23_rerun": false,
+    "different_prestated_hypothesis_tested": true,
+    "note": "C40 Path R-B (quote-volume climax mean reversion) tested; C23 unchanged rerun forbidden and not performed."
+  },
+  "global_truth": {
+    "oos_edge_proven": false,
+    "campaign40_path_rb": "real_quote_volume_climax_mean_reversion_costed_oos_*.json produced; 0/11 assets OOS edge proven under pre-stated fail-closed rule; oos_edge_proven=false.",
+    "unblock_status": "real_feed_unblock_status_*.json: blocked families unchanged for remaining families; real_quote_volume validated; delta vs 20261105T224120Z recorded (no change, still blocked fail-closed).",
+    "rules": [
+      "real data only",
+      "no fabrication",
+      "fail-closed",
+      "no threshold weakening",
+      "no proxies labeled real",
+      ">=3 concrete reports artifacts per session",
+      "no structurally-similar spot retest on same cache presented as new campaign",
+      "no C23 Abnormal Quote Volume Momentum rerun unchanged"
+    ]
+  }
+}

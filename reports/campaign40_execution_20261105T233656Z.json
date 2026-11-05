@@ -1,0 +1,40 @@
+{
+  "report": "campaign40_execution",
+  "campaign": 40,
+  "generated_at_utc": "2026-11-05T23:36:56.199710+00:00",
+  "computed_at_stamp": "20261105T233656Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "oos_edge_proven": false,
+  "mandate": "Campaign 40 execution record — Path R-B quote-volume climax mean reversion on validated real_quote_volume (genuinely different from C23 momentum) + fail-closed unblock recheck + registry supersede + full pytest rerun. No C23 rerun, no structurally-similar spot retest on same cache, no threshold weakening, no fabrication.",
+  "artifacts_produced": [
+    "real_quote_volume_climax_mean_reversion_costed_oos_20261105T233410Z.json",
+    "real_feed_unblock_status_20261105T135404Z.json",
+    "strategy_edge_registry_20261105T114512Z.json"
+  ],
+  "scripts_created": [
+    "scripts/generate_campaign40_artifacts.py",
+    "scripts/emit_campaign40_registry.py"
+  ],
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "path_rb_result": {
+    "hypothesis": "Quote Volume Climax Mean Reversion (mean reversion/fade, opposite signal sign vs C23 momentum)",
+    "assets_tested": 11,
+    "n_oos_edge_proven": 0,
+    "oos_edge_proven": false,
+    "not_c23_rerun": true
+  },
+  "unblock_status_delta_vs_20261105T224120Z": "no_change_still_blocked_fail_closed; blocked families unchanged (funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure); real_quote_volume validated; path_r_triggered=true",
+  "supersedes_registry": "strategy_edge_registry_20261105T232053Z.json",
+  "honest_assessment": "C40 complete: >=3 artifacts produced, full suite green (928 passed, 1 skipped, 0 failed), oos_edge_proven=false, no edge claimed, no thresholds weakened, no proxies labeled real, no C23 rerun."
+}
