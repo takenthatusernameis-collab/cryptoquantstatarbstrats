@@ -1,7 +1,7 @@
 {
   "type": "post_deployment_live_readiness_signoff_mt",
   "mandate": "cryptoquantstatarbstrats - post-deployment live readiness (real data only)",
-  "computed_at": "2026-11-03T07:34:16.228030+00:00",
+  "computed_at": "2026-11-05T18:42:36.586304+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "causal_only": true,
@@ -78,6 +78,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -93,7 +103,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227618+00:00",
+              "time": "2026-11-05T18:42:36.585893+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -222,6 +232,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -233,11 +253,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227629+00:00",
+              "time": "2026-11-05T18:42:36.585904+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -377,6 +408,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -392,7 +433,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227636+00:00",
+              "time": "2026-11-05T18:42:36.585911+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -532,6 +573,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -543,11 +594,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227645+00:00",
+              "time": "2026-11-05T18:42:36.585922+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -676,6 +738,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -691,7 +763,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227652+00:00",
+              "time": "2026-11-05T18:42:36.585930+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -820,6 +892,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -831,11 +913,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227660+00:00",
+              "time": "2026-11-05T18:42:36.585936+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -964,6 +1057,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -979,7 +1082,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227668+00:00",
+              "time": "2026-11-05T18:42:36.585944+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1108,6 +1211,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1123,7 +1236,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227674+00:00",
+              "time": "2026-11-05T18:42:36.585952+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1252,6 +1365,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1263,11 +1386,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227679+00:00",
+              "time": "2026-11-05T18:42:36.585959+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1396,6 +1530,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1411,7 +1555,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227688+00:00",
+              "time": "2026-11-05T18:42:36.585968+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1540,6 +1684,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1551,11 +1705,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227697+00:00",
+              "time": "2026-11-05T18:42:36.585975+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1684,6 +1849,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1699,7 +1874,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227702+00:00",
+              "time": "2026-11-05T18:42:36.585986+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1839,6 +2014,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1854,7 +2039,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227708+00:00",
+              "time": "2026-11-05T18:42:36.585994+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -1950,6 +2135,16 @@
           "fills_allowed": false,
           "blocked_routes": [
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1965,7 +2160,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227720+00:00",
+              "time": "2026-11-05T18:42:36.585999+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2094,6 +2289,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2109,7 +2314,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227725+00:00",
+              "time": "2026-11-05T18:42:36.586007+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2238,6 +2443,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2249,11 +2464,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227730+00:00",
+              "time": "2026-11-05T18:42:36.586015+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2382,6 +2608,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2397,7 +2633,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227737+00:00",
+              "time": "2026-11-05T18:42:36.586023+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2548,7 +2784,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227748+00:00",
+              "time": "2026-11-05T18:42:36.586030+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2694,7 +2930,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227754+00:00",
+              "time": "2026-11-05T18:42:36.586039+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2840,7 +3076,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227760+00:00",
+              "time": "2026-11-05T18:42:36.586045+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -2986,7 +3222,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227767+00:00",
+              "time": "2026-11-05T18:42:36.586050+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3122,7 +3358,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227774+00:00",
+              "time": "2026-11-05T18:42:36.586057+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3268,7 +3504,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227782+00:00",
+              "time": "2026-11-05T18:42:36.586064+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3414,7 +3650,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227791+00:00",
+              "time": "2026-11-05T18:42:36.586075+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3550,7 +3786,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227796+00:00",
+              "time": "2026-11-05T18:42:36.586080+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3696,7 +3932,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227804+00:00",
+              "time": "2026-11-05T18:42:36.586085+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3842,7 +4078,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227811+00:00",
+              "time": "2026-11-05T18:42:36.586091+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -3988,7 +4224,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227817+00:00",
+              "time": "2026-11-05T18:42:36.586098+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4134,7 +4370,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227823+00:00",
+              "time": "2026-11-05T18:42:36.586109+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4280,7 +4516,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227828+00:00",
+              "time": "2026-11-05T18:42:36.586117+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4534,7 +4770,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227842+00:00",
+              "time": "2026-11-05T18:42:36.586127+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4680,7 +4916,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227850+00:00",
+              "time": "2026-11-05T18:42:36.586135+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4816,7 +5052,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227857+00:00",
+              "time": "2026-11-05T18:42:36.586142+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -4967,7 +5203,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227864+00:00",
+              "time": "2026-11-05T18:42:36.586150+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5111,7 +5347,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227873+00:00",
+              "time": "2026-11-05T18:42:36.586156+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5255,7 +5491,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227879+00:00",
+              "time": "2026-11-05T18:42:36.586163+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5399,7 +5635,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227886+00:00",
+              "time": "2026-11-05T18:42:36.586170+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5533,7 +5769,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227893+00:00",
+              "time": "2026-11-05T18:42:36.586177+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5677,7 +5913,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227901+00:00",
+              "time": "2026-11-05T18:42:36.586182+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5821,7 +6057,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227909+00:00",
+              "time": "2026-11-05T18:42:36.586189+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -5965,7 +6201,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227914+00:00",
+              "time": "2026-11-05T18:42:36.586196+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6109,7 +6345,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227921+00:00",
+              "time": "2026-11-05T18:42:36.586201+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6253,7 +6489,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227928+00:00",
+              "time": "2026-11-05T18:42:36.586210+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6397,7 +6633,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227937+00:00",
+              "time": "2026-11-05T18:42:36.586216+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6541,7 +6777,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227947+00:00",
+              "time": "2026-11-05T18:42:36.586225+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6674,7 +6910,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227952+00:00",
+              "time": "2026-11-05T18:42:36.586271+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6785,7 +7021,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227956+00:00",
+              "time": "2026-11-05T18:42:36.586276+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -6929,7 +7165,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227964+00:00",
+              "time": "2026-11-05T18:42:36.586284+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -7073,7 +7309,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.228010+00:00",
+              "time": "2026-11-05T18:42:36.586291+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",
@@ -7207,7 +7443,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.228019+00:00",
+              "time": "2026-11-05T18:42:36.586300+00:00",
               "action": "reject_order",
               "reason": "post_deployment_readiness_blocked_fail_closed",
               "gate": "post_deployment_readiness",

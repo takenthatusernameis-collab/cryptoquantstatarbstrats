@@ -1,7 +1,7 @@
 {
   "type": "live_go_live_authorization_final_mt",
   "mandate": "cryptoquantstatarbstrats - final live go-live authorization (real data only)",
-  "computed_at": "2026-11-03T07:34:16.227602+00:00",
+  "computed_at": "2026-11-05T18:42:36.585876+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "causal_only": true,
@@ -78,6 +78,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -93,7 +103,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227078+00:00",
+              "time": "2026-11-05T18:42:36.585374+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -232,6 +242,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -243,11 +263,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227132+00:00",
+              "time": "2026-11-05T18:42:36.585424+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -397,6 +428,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -412,7 +453,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227146+00:00",
+              "time": "2026-11-05T18:42:36.585442+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -562,6 +603,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -573,11 +624,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227156+00:00",
+              "time": "2026-11-05T18:42:36.585453+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -716,6 +778,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -731,7 +803,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227165+00:00",
+              "time": "2026-11-05T18:42:36.585460+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -870,6 +942,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -881,11 +963,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227174+00:00",
+              "time": "2026-11-05T18:42:36.585470+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1024,6 +1117,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1039,7 +1142,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227180+00:00",
+              "time": "2026-11-05T18:42:36.585485+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1178,6 +1281,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1193,7 +1306,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227186+00:00",
+              "time": "2026-11-05T18:42:36.585492+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1332,6 +1445,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1343,11 +1466,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227196+00:00",
+              "time": "2026-11-05T18:42:36.585502+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1486,6 +1620,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1501,7 +1645,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227206+00:00",
+              "time": "2026-11-05T18:42:36.585511+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1640,6 +1784,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1651,11 +1805,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227211+00:00",
+              "time": "2026-11-05T18:42:36.585518+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1794,6 +1959,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1809,7 +1984,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227217+00:00",
+              "time": "2026-11-05T18:42:36.585524+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -1959,6 +2134,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -1974,7 +2159,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227224+00:00",
+              "time": "2026-11-05T18:42:36.585533+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2080,6 +2265,16 @@
           "fills_allowed": false,
           "blocked_routes": [
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2095,7 +2290,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227232+00:00",
+              "time": "2026-11-05T18:42:36.585542+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2234,6 +2429,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2249,7 +2454,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227240+00:00",
+              "time": "2026-11-05T18:42:36.585551+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2388,6 +2593,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2399,11 +2614,22 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227247+00:00",
+              "time": "2026-11-05T18:42:36.585558+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2542,6 +2768,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -2557,7 +2793,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227253+00:00",
+              "time": "2026-11-05T18:42:36.585564+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2718,7 +2954,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227266+00:00",
+              "time": "2026-11-05T18:42:36.585580+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -2874,7 +3110,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227279+00:00",
+              "time": "2026-11-05T18:42:36.585587+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3030,7 +3266,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227285+00:00",
+              "time": "2026-11-05T18:42:36.585595+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3186,7 +3422,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227291+00:00",
+              "time": "2026-11-05T18:42:36.585601+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3332,7 +3568,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227298+00:00",
+              "time": "2026-11-05T18:42:36.585611+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3488,7 +3724,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227306+00:00",
+              "time": "2026-11-05T18:42:36.585617+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3644,7 +3880,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227314+00:00",
+              "time": "2026-11-05T18:42:36.585623+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3790,7 +4026,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227319+00:00",
+              "time": "2026-11-05T18:42:36.585628+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -3946,7 +4182,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227327+00:00",
+              "time": "2026-11-05T18:42:36.585637+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4102,7 +4338,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227338+00:00",
+              "time": "2026-11-05T18:42:36.585646+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4258,7 +4494,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227344+00:00",
+              "time": "2026-11-05T18:42:36.585654+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4414,7 +4650,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227356+00:00",
+              "time": "2026-11-05T18:42:36.585659+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4570,7 +4806,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227362+00:00",
+              "time": "2026-11-05T18:42:36.585665+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4834,7 +5070,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227403+00:00",
+              "time": "2026-11-05T18:42:36.585678+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -4990,7 +5226,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227417+00:00",
+              "time": "2026-11-05T18:42:36.585688+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5136,7 +5372,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227426+00:00",
+              "time": "2026-11-05T18:42:36.585695+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5297,7 +5533,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227437+00:00",
+              "time": "2026-11-05T18:42:36.585706+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5451,7 +5687,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227447+00:00",
+              "time": "2026-11-05T18:42:36.585712+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5605,7 +5841,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227453+00:00",
+              "time": "2026-11-05T18:42:36.585722+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5759,7 +5995,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227462+00:00",
+              "time": "2026-11-05T18:42:36.585729+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -5903,7 +6139,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227470+00:00",
+              "time": "2026-11-05T18:42:36.585735+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6057,7 +6293,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227478+00:00",
+              "time": "2026-11-05T18:42:36.585742+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6211,7 +6447,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227484+00:00",
+              "time": "2026-11-05T18:42:36.585750+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6365,7 +6601,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227490+00:00",
+              "time": "2026-11-05T18:42:36.585758+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6519,7 +6755,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227500+00:00",
+              "time": "2026-11-05T18:42:36.585763+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6673,7 +6909,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227505+00:00",
+              "time": "2026-11-05T18:42:36.585775+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6827,7 +7063,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227515+00:00",
+              "time": "2026-11-05T18:42:36.585781+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -6981,7 +7217,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227521+00:00",
+              "time": "2026-11-05T18:42:36.585795+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -7124,7 +7360,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227528+00:00",
+              "time": "2026-11-05T18:42:36.585804+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -7245,7 +7481,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227532+00:00",
+              "time": "2026-11-05T18:42:36.585811+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -7399,7 +7635,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227542+00:00",
+              "time": "2026-11-05T18:42:36.585817+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -7553,7 +7789,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227552+00:00",
+              "time": "2026-11-05T18:42:36.585863+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",
@@ -7697,7 +7933,7 @@
           ],
           "rejection_log": [
             {
-              "time": "2026-11-03T07:34:16.227596+00:00",
+              "time": "2026-11-05T18:42:36.585869+00:00",
               "action": "reject_order",
               "reason": "go_live_blocked_fail_closed",
               "gate": "go_live_authorization",

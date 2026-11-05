@@ -1,6 +1,6 @@
 {
   "type": "live_operational_readiness_signoff_mt",
-  "generated_at": "2026-11-03T07:37:54.858179+00:00",
+  "generated_at": "2026-11-05T18:42:32.593009+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "data_source": "binance_public_rest_www.binance.com_cached_1h_resample_allowed_if_real",
@@ -62,7 +62,7 @@
     ],
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-03T07:37:54.858184+00:00"
+    "computed_at": "2026-11-05T18:42:32.593012+00:00"
   },
   "live_operational_readiness_summary": {
     "fail_closed": true,
@@ -144,6 +144,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -177,6 +187,16 @@
                 {
                   "route": "spread_mean_reversion",
                   "gate": "spread_mean_reversion",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
@@ -239,7 +259,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857787+00:00",
+            "computed_at": "2026-11-05T18:42:32.592603+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -293,6 +313,16 @@
               }
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -304,6 +334,17 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
@@ -345,6 +386,16 @@
                   }
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -356,6 +407,17 @@
                   "frac_significant": null,
                   "n_windows": 184,
                   "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
                 }
               ],
               "fail_closed": true,
@@ -399,7 +461,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857795+00:00",
+            "computed_at": "2026-11-05T18:42:32.592614+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -462,6 +524,16 @@
                 "fabricated_data": false
               },
               "available": true
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
             },
             {
               "route": "rolling_stability",
@@ -527,6 +599,16 @@
                   "available": true
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -581,7 +663,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857803+00:00",
+            "computed_at": "2026-11-05T18:42:32.592621+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -646,6 +728,16 @@
               "available": true
             },
             {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
               "route": "rolling_stability",
               "gate": "rolling_stability",
               "passed": false,
@@ -657,6 +749,17 @@
               "frac_significant": null,
               "n_windows": 184,
               "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
             }
           ],
           "rejection_log": [
@@ -709,6 +812,16 @@
                   "available": true
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -720,6 +833,17 @@
                   "frac_significant": null,
                   "n_windows": 184,
                   "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
                 }
               ],
               "fail_closed": true,
@@ -763,7 +887,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857812+00:00",
+            "computed_at": "2026-11-05T18:42:32.592627+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -809,6 +933,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -869,158 +1003,8 @@
                   }
                 },
                 {
-                  "route": "rolling_stability",
-                  "gate": "rolling_stability",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "frac_significant": null,
-                  "n_windows": 184,
-                  "stable": false
-                }
-              ],
-              "fail_closed": true,
-              "no_auto_lift": true,
-              "orders_allowed": false,
-              "fills_allowed": false,
-              "capital_usdt": 0.0,
-              "allocation_usdt": 0.0,
-              "position_limit_usdt": 0.0,
-              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
-              "provenance": {
-                "source": "reports/portfolio_gating_mt.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            }
-          ],
-          "operational_readiness": {
-            "go_live_authorized": false,
-            "deployment_verified": false,
-            "continuity_hardened": true,
-            "incident_response_ready": true,
-            "capital_preservation_enforced": true,
-            "monitoring_comprehensive": true,
-            "reconciliation_validated": true,
-            "fail_closed": true,
-            "no_auto_lift": true
-          },
-          "baseline_diff": {
-            "baseline_source": "reports/portfolio_gating_mt.json",
-            "diff_against_baseline": true,
-            "invariants_preserved": true
-          },
-          "gating_context": {
-            "eligible_pairs_tf": [],
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false
-          },
-          "provenance": {
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857818+00:00",
-            "causal_only": true,
-            "trailing_windows_only": true
-          }
-        },
-        "BNB/ETH": {
-          "pair": "BNB/ETH",
-          "timeframe": "1h",
-          "eligible_by_gating": false,
-          "status": "LIVE_READINESS_BLOCKED",
-          "live_operationally_ready": false,
-          "hard_blocked": true,
-          "orders_allowed": false,
-          "fills_allowed": false,
-          "capital_usdt": 0.0,
-          "allocation_usdt": 0.0,
-          "position_limit_usdt": 0.0,
-          "weight": 0.0,
-          "live_readiness_checks": [],
-          "blocked_routes": [
-            {
-              "route": "engle_granger",
-              "gate": "engle_granger",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "pvalue": 0.45717727230892935,
-              "available": true
-            },
-            {
-              "route": "johansen",
-              "gate": "johansen",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "available": true
-            },
-            {
-              "route": "spread_mean_reversion",
-              "gate": "spread_mean_reversion",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            },
-            {
-              "route": "rolling_stability",
-              "gate": "rolling_stability",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "frac_significant": null,
-              "n_windows": 184,
-              "stable": false
-            }
-          ],
-          "rejection_log": [
-            {
-              "reason": "live_operational_readiness_hard_blocked",
-              "block_reason": "not_cointegration_gated_eligible",
-              "blocked_routes": [
-                {
-                  "route": "engle_granger",
-                  "gate": "engle_granger",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "pvalue": 0.45717727230892935,
-                  "available": true
-                },
-                {
-                  "route": "johansen",
-                  "gate": "johansen",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "available": true
-                },
-                {
-                  "route": "spread_mean_reversion",
-                  "gate": "spread_mean_reversion",
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
@@ -1083,7 +1067,209 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857825+00:00",
+            "computed_at": "2026-11-05T18:42:32.592635+00:00",
+            "causal_only": true,
+            "trailing_windows_only": true
+          }
+        },
+        "BNB/ETH": {
+          "pair": "BNB/ETH",
+          "timeframe": "1h",
+          "eligible_by_gating": false,
+          "status": "LIVE_READINESS_BLOCKED",
+          "live_operationally_ready": false,
+          "hard_blocked": true,
+          "orders_allowed": false,
+          "fills_allowed": false,
+          "capital_usdt": 0.0,
+          "allocation_usdt": 0.0,
+          "position_limit_usdt": 0.0,
+          "weight": 0.0,
+          "live_readiness_checks": [],
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.45717727230892935,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 184,
+              "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            }
+          ],
+          "rejection_log": [
+            {
+              "reason": "live_operational_readiness_hard_blocked",
+              "block_reason": "not_cointegration_gated_eligible",
+              "blocked_routes": [
+                {
+                  "route": "engle_granger",
+                  "gate": "engle_granger",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "pvalue": 0.45717727230892935,
+                  "available": true
+                },
+                {
+                  "route": "johansen",
+                  "gate": "johansen",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                },
+                {
+                  "route": "spread_mean_reversion",
+                  "gate": "spread_mean_reversion",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "rolling_stability",
+                  "gate": "rolling_stability",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "frac_significant": null,
+                  "n_windows": 184,
+                  "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                }
+              ],
+              "fail_closed": true,
+              "no_auto_lift": true,
+              "orders_allowed": false,
+              "fills_allowed": false,
+              "capital_usdt": 0.0,
+              "allocation_usdt": 0.0,
+              "position_limit_usdt": 0.0,
+              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
+              "provenance": {
+                "source": "reports/portfolio_gating_mt.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            }
+          ],
+          "operational_readiness": {
+            "go_live_authorized": false,
+            "deployment_verified": false,
+            "continuity_hardened": true,
+            "incident_response_ready": true,
+            "capital_preservation_enforced": true,
+            "monitoring_comprehensive": true,
+            "reconciliation_validated": true,
+            "fail_closed": true,
+            "no_auto_lift": true
+          },
+          "baseline_diff": {
+            "baseline_source": "reports/portfolio_gating_mt.json",
+            "diff_against_baseline": true,
+            "invariants_preserved": true
+          },
+          "gating_context": {
+            "eligible_pairs_tf": [],
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "provenance": {
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false,
+            "computed_at": "2026-11-05T18:42:32.592645+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1129,6 +1315,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -1189,6 +1385,16 @@
                   }
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -1243,7 +1449,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857831+00:00",
+            "computed_at": "2026-11-05T18:42:32.592653+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1289,6 +1495,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -1349,158 +1565,8 @@
                   }
                 },
                 {
-                  "route": "rolling_stability",
-                  "gate": "rolling_stability",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "frac_significant": null,
-                  "n_windows": 184,
-                  "stable": false
-                }
-              ],
-              "fail_closed": true,
-              "no_auto_lift": true,
-              "orders_allowed": false,
-              "fills_allowed": false,
-              "capital_usdt": 0.0,
-              "allocation_usdt": 0.0,
-              "position_limit_usdt": 0.0,
-              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
-              "provenance": {
-                "source": "reports/portfolio_gating_mt.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            }
-          ],
-          "operational_readiness": {
-            "go_live_authorized": false,
-            "deployment_verified": false,
-            "continuity_hardened": true,
-            "incident_response_ready": true,
-            "capital_preservation_enforced": true,
-            "monitoring_comprehensive": true,
-            "reconciliation_validated": true,
-            "fail_closed": true,
-            "no_auto_lift": true
-          },
-          "baseline_diff": {
-            "baseline_source": "reports/portfolio_gating_mt.json",
-            "diff_against_baseline": true,
-            "invariants_preserved": true
-          },
-          "gating_context": {
-            "eligible_pairs_tf": [],
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false
-          },
-          "provenance": {
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857838+00:00",
-            "causal_only": true,
-            "trailing_windows_only": true
-          }
-        },
-        "ADA/BTC": {
-          "pair": "ADA/BTC",
-          "timeframe": "1h",
-          "eligible_by_gating": false,
-          "status": "LIVE_READINESS_BLOCKED",
-          "live_operationally_ready": false,
-          "hard_blocked": true,
-          "orders_allowed": false,
-          "fills_allowed": false,
-          "capital_usdt": 0.0,
-          "allocation_usdt": 0.0,
-          "position_limit_usdt": 0.0,
-          "weight": 0.0,
-          "live_readiness_checks": [],
-          "blocked_routes": [
-            {
-              "route": "engle_granger",
-              "gate": "engle_granger",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "pvalue": 0.3939546364893661,
-              "available": true
-            },
-            {
-              "route": "johansen",
-              "gate": "johansen",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "available": true
-            },
-            {
-              "route": "spread_mean_reversion",
-              "gate": "spread_mean_reversion",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            },
-            {
-              "route": "rolling_stability",
-              "gate": "rolling_stability",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "frac_significant": null,
-              "n_windows": 184,
-              "stable": false
-            }
-          ],
-          "rejection_log": [
-            {
-              "reason": "live_operational_readiness_hard_blocked",
-              "block_reason": "not_cointegration_gated_eligible",
-              "blocked_routes": [
-                {
-                  "route": "engle_granger",
-                  "gate": "engle_granger",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "pvalue": 0.3939546364893661,
-                  "available": true
-                },
-                {
-                  "route": "johansen",
-                  "gate": "johansen",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "available": true
-                },
-                {
-                  "route": "spread_mean_reversion",
-                  "gate": "spread_mean_reversion",
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
@@ -1563,7 +1629,209 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857845+00:00",
+            "computed_at": "2026-11-05T18:42:32.592660+00:00",
+            "causal_only": true,
+            "trailing_windows_only": true
+          }
+        },
+        "ADA/BTC": {
+          "pair": "ADA/BTC",
+          "timeframe": "1h",
+          "eligible_by_gating": false,
+          "status": "LIVE_READINESS_BLOCKED",
+          "live_operationally_ready": false,
+          "hard_blocked": true,
+          "orders_allowed": false,
+          "fills_allowed": false,
+          "capital_usdt": 0.0,
+          "allocation_usdt": 0.0,
+          "position_limit_usdt": 0.0,
+          "weight": 0.0,
+          "live_readiness_checks": [],
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.3939546364893661,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 184,
+              "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            }
+          ],
+          "rejection_log": [
+            {
+              "reason": "live_operational_readiness_hard_blocked",
+              "block_reason": "not_cointegration_gated_eligible",
+              "blocked_routes": [
+                {
+                  "route": "engle_granger",
+                  "gate": "engle_granger",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "pvalue": 0.3939546364893661,
+                  "available": true
+                },
+                {
+                  "route": "johansen",
+                  "gate": "johansen",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                },
+                {
+                  "route": "spread_mean_reversion",
+                  "gate": "spread_mean_reversion",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "rolling_stability",
+                  "gate": "rolling_stability",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "frac_significant": null,
+                  "n_windows": 184,
+                  "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                }
+              ],
+              "fail_closed": true,
+              "no_auto_lift": true,
+              "orders_allowed": false,
+              "fills_allowed": false,
+              "capital_usdt": 0.0,
+              "allocation_usdt": 0.0,
+              "position_limit_usdt": 0.0,
+              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
+              "provenance": {
+                "source": "reports/portfolio_gating_mt.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            }
+          ],
+          "operational_readiness": {
+            "go_live_authorized": false,
+            "deployment_verified": false,
+            "continuity_hardened": true,
+            "incident_response_ready": true,
+            "capital_preservation_enforced": true,
+            "monitoring_comprehensive": true,
+            "reconciliation_validated": true,
+            "fail_closed": true,
+            "no_auto_lift": true
+          },
+          "baseline_diff": {
+            "baseline_source": "reports/portfolio_gating_mt.json",
+            "diff_against_baseline": true,
+            "invariants_preserved": true
+          },
+          "gating_context": {
+            "eligible_pairs_tf": [],
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "provenance": {
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false,
+            "computed_at": "2026-11-05T18:42:32.592666+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1609,6 +1877,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -1669,158 +1947,8 @@
                   }
                 },
                 {
-                  "route": "rolling_stability",
-                  "gate": "rolling_stability",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "frac_significant": null,
-                  "n_windows": 184,
-                  "stable": false
-                }
-              ],
-              "fail_closed": true,
-              "no_auto_lift": true,
-              "orders_allowed": false,
-              "fills_allowed": false,
-              "capital_usdt": 0.0,
-              "allocation_usdt": 0.0,
-              "position_limit_usdt": 0.0,
-              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
-              "provenance": {
-                "source": "reports/portfolio_gating_mt.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            }
-          ],
-          "operational_readiness": {
-            "go_live_authorized": false,
-            "deployment_verified": false,
-            "continuity_hardened": true,
-            "incident_response_ready": true,
-            "capital_preservation_enforced": true,
-            "monitoring_comprehensive": true,
-            "reconciliation_validated": true,
-            "fail_closed": true,
-            "no_auto_lift": true
-          },
-          "baseline_diff": {
-            "baseline_source": "reports/portfolio_gating_mt.json",
-            "diff_against_baseline": true,
-            "invariants_preserved": true
-          },
-          "gating_context": {
-            "eligible_pairs_tf": [],
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false
-          },
-          "provenance": {
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857856+00:00",
-            "causal_only": true,
-            "trailing_windows_only": true
-          }
-        },
-        "BNB/BTC": {
-          "pair": "BNB/BTC",
-          "timeframe": "1h",
-          "eligible_by_gating": false,
-          "status": "LIVE_READINESS_BLOCKED",
-          "live_operationally_ready": false,
-          "hard_blocked": true,
-          "orders_allowed": false,
-          "fills_allowed": false,
-          "capital_usdt": 0.0,
-          "allocation_usdt": 0.0,
-          "position_limit_usdt": 0.0,
-          "weight": 0.0,
-          "live_readiness_checks": [],
-          "blocked_routes": [
-            {
-              "route": "engle_granger",
-              "gate": "engle_granger",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "pvalue": 0.5419607363611392,
-              "available": true
-            },
-            {
-              "route": "johansen",
-              "gate": "johansen",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "available": true
-            },
-            {
-              "route": "spread_mean_reversion",
-              "gate": "spread_mean_reversion",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            },
-            {
-              "route": "rolling_stability",
-              "gate": "rolling_stability",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "frac_significant": null,
-              "n_windows": 184,
-              "stable": false
-            }
-          ],
-          "rejection_log": [
-            {
-              "reason": "live_operational_readiness_hard_blocked",
-              "block_reason": "not_cointegration_gated_eligible",
-              "blocked_routes": [
-                {
-                  "route": "engle_granger",
-                  "gate": "engle_granger",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "pvalue": 0.5419607363611392,
-                  "available": true
-                },
-                {
-                  "route": "johansen",
-                  "gate": "johansen",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "available": true
-                },
-                {
-                  "route": "spread_mean_reversion",
-                  "gate": "spread_mean_reversion",
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
@@ -1883,7 +2011,209 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857863+00:00",
+            "computed_at": "2026-11-05T18:42:32.592674+00:00",
+            "causal_only": true,
+            "trailing_windows_only": true
+          }
+        },
+        "BNB/BTC": {
+          "pair": "BNB/BTC",
+          "timeframe": "1h",
+          "eligible_by_gating": false,
+          "status": "LIVE_READINESS_BLOCKED",
+          "live_operationally_ready": false,
+          "hard_blocked": true,
+          "orders_allowed": false,
+          "fills_allowed": false,
+          "capital_usdt": 0.0,
+          "allocation_usdt": 0.0,
+          "position_limit_usdt": 0.0,
+          "weight": 0.0,
+          "live_readiness_checks": [],
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.5419607363611392,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 184,
+              "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            }
+          ],
+          "rejection_log": [
+            {
+              "reason": "live_operational_readiness_hard_blocked",
+              "block_reason": "not_cointegration_gated_eligible",
+              "blocked_routes": [
+                {
+                  "route": "engle_granger",
+                  "gate": "engle_granger",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "pvalue": 0.5419607363611392,
+                  "available": true
+                },
+                {
+                  "route": "johansen",
+                  "gate": "johansen",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                },
+                {
+                  "route": "spread_mean_reversion",
+                  "gate": "spread_mean_reversion",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "rolling_stability",
+                  "gate": "rolling_stability",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "frac_significant": null,
+                  "n_windows": 184,
+                  "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                }
+              ],
+              "fail_closed": true,
+              "no_auto_lift": true,
+              "orders_allowed": false,
+              "fills_allowed": false,
+              "capital_usdt": 0.0,
+              "allocation_usdt": 0.0,
+              "position_limit_usdt": 0.0,
+              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
+              "provenance": {
+                "source": "reports/portfolio_gating_mt.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            }
+          ],
+          "operational_readiness": {
+            "go_live_authorized": false,
+            "deployment_verified": false,
+            "continuity_hardened": true,
+            "incident_response_ready": true,
+            "capital_preservation_enforced": true,
+            "monitoring_comprehensive": true,
+            "reconciliation_validated": true,
+            "fail_closed": true,
+            "no_auto_lift": true
+          },
+          "baseline_diff": {
+            "baseline_source": "reports/portfolio_gating_mt.json",
+            "diff_against_baseline": true,
+            "invariants_preserved": true
+          },
+          "gating_context": {
+            "eligible_pairs_tf": [],
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "provenance": {
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false,
+            "computed_at": "2026-11-05T18:42:32.592685+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1929,6 +2259,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -1989,6 +2329,16 @@
                   }
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -2043,7 +2393,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857870+00:00",
+            "computed_at": "2026-11-05T18:42:32.592695+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2106,6 +2456,16 @@
                 "fabricated_data": false
               },
               "available": true
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
             },
             {
               "route": "rolling_stability",
@@ -2171,99 +2531,15 @@
                   "available": true
                 },
                 {
-                  "route": "rolling_stability",
-                  "gate": "rolling_stability",
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
                     "real_data_only": true,
                     "fabricated_data": false
-                  },
-                  "frac_significant": null,
-                  "n_windows": 184,
-                  "stable": false
-                }
-              ],
-              "fail_closed": true,
-              "no_auto_lift": true,
-              "orders_allowed": false,
-              "fills_allowed": false,
-              "capital_usdt": 0.0,
-              "allocation_usdt": 0.0,
-              "position_limit_usdt": 0.0,
-              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
-              "provenance": {
-                "source": "reports/portfolio_gating_mt.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            }
-          ],
-          "operational_readiness": {
-            "go_live_authorized": false,
-            "deployment_verified": false,
-            "continuity_hardened": true,
-            "incident_response_ready": true,
-            "capital_preservation_enforced": true,
-            "monitoring_comprehensive": true,
-            "reconciliation_validated": true,
-            "fail_closed": true,
-            "no_auto_lift": true
-          },
-          "baseline_diff": {
-            "baseline_source": "reports/portfolio_gating_mt.json",
-            "diff_against_baseline": true,
-            "invariants_preserved": true
-          },
-          "gating_context": {
-            "eligible_pairs_tf": [],
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false
-          },
-          "provenance": {
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857878+00:00",
-            "causal_only": true,
-            "trailing_windows_only": true
-          }
-        },
-        "POL/BTC": {
-          "pair": "POL/BTC",
-          "timeframe": "1h",
-          "eligible_by_gating": false,
-          "status": "LIVE_READINESS_BLOCKED",
-          "live_operationally_ready": false,
-          "hard_blocked": true,
-          "orders_allowed": false,
-          "fills_allowed": false,
-          "capital_usdt": 0.0,
-          "allocation_usdt": 0.0,
-          "position_limit_usdt": 0.0,
-          "weight": 0.0,
-          "live_readiness_checks": [],
-          "blocked_routes": [
-            {
-              "route": "rolling_stability",
-              "gate": "rolling_stability",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "frac_significant": null,
-              "n_windows": 184,
-              "stable": false
-            }
-          ],
-          "rejection_log": [
-            {
-              "reason": "live_operational_readiness_hard_blocked",
-              "block_reason": "not_cointegration_gated_eligible",
-              "blocked_routes": [
+                  }
+                },
                 {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
@@ -2319,7 +2595,121 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857882+00:00",
+            "computed_at": "2026-11-05T18:42:32.592701+00:00",
+            "causal_only": true,
+            "trailing_windows_only": true
+          }
+        },
+        "POL/BTC": {
+          "pair": "POL/BTC",
+          "timeframe": "1h",
+          "eligible_by_gating": false,
+          "status": "LIVE_READINESS_BLOCKED",
+          "live_operationally_ready": false,
+          "hard_blocked": true,
+          "orders_allowed": false,
+          "fills_allowed": false,
+          "capital_usdt": 0.0,
+          "allocation_usdt": 0.0,
+          "position_limit_usdt": 0.0,
+          "weight": 0.0,
+          "live_readiness_checks": [],
+          "blocked_routes": [
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 184,
+              "stable": false
+            }
+          ],
+          "rejection_log": [
+            {
+              "reason": "live_operational_readiness_hard_blocked",
+              "block_reason": "not_cointegration_gated_eligible",
+              "blocked_routes": [
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "rolling_stability",
+                  "gate": "rolling_stability",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "frac_significant": null,
+                  "n_windows": 184,
+                  "stable": false
+                }
+              ],
+              "fail_closed": true,
+              "no_auto_lift": true,
+              "orders_allowed": false,
+              "fills_allowed": false,
+              "capital_usdt": 0.0,
+              "allocation_usdt": 0.0,
+              "position_limit_usdt": 0.0,
+              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
+              "provenance": {
+                "source": "reports/portfolio_gating_mt.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            }
+          ],
+          "operational_readiness": {
+            "go_live_authorized": false,
+            "deployment_verified": false,
+            "continuity_hardened": true,
+            "incident_response_ready": true,
+            "capital_preservation_enforced": true,
+            "monitoring_comprehensive": true,
+            "reconciliation_validated": true,
+            "fail_closed": true,
+            "no_auto_lift": true
+          },
+          "baseline_diff": {
+            "baseline_source": "reports/portfolio_gating_mt.json",
+            "diff_against_baseline": true,
+            "invariants_preserved": true
+          },
+          "gating_context": {
+            "eligible_pairs_tf": [],
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "provenance": {
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false,
+            "computed_at": "2026-11-05T18:42:32.592705+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2365,6 +2755,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -2425,158 +2825,8 @@
                   }
                 },
                 {
-                  "route": "rolling_stability",
-                  "gate": "rolling_stability",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "frac_significant": null,
-                  "n_windows": 184,
-                  "stable": false
-                }
-              ],
-              "fail_closed": true,
-              "no_auto_lift": true,
-              "orders_allowed": false,
-              "fills_allowed": false,
-              "capital_usdt": 0.0,
-              "allocation_usdt": 0.0,
-              "position_limit_usdt": 0.0,
-              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
-              "provenance": {
-                "source": "reports/portfolio_gating_mt.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            }
-          ],
-          "operational_readiness": {
-            "go_live_authorized": false,
-            "deployment_verified": false,
-            "continuity_hardened": true,
-            "incident_response_ready": true,
-            "capital_preservation_enforced": true,
-            "monitoring_comprehensive": true,
-            "reconciliation_validated": true,
-            "fail_closed": true,
-            "no_auto_lift": true
-          },
-          "baseline_diff": {
-            "baseline_source": "reports/portfolio_gating_mt.json",
-            "diff_against_baseline": true,
-            "invariants_preserved": true
-          },
-          "gating_context": {
-            "eligible_pairs_tf": [],
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false
-          },
-          "provenance": {
-            "source": "reports/portfolio_gating_mt.json",
-            "real_data_only": true,
-            "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857887+00:00",
-            "causal_only": true,
-            "trailing_windows_only": true
-          }
-        },
-        "LINK/BTC": {
-          "pair": "LINK/BTC",
-          "timeframe": "1h",
-          "eligible_by_gating": false,
-          "status": "LIVE_READINESS_BLOCKED",
-          "live_operationally_ready": false,
-          "hard_blocked": true,
-          "orders_allowed": false,
-          "fills_allowed": false,
-          "capital_usdt": 0.0,
-          "allocation_usdt": 0.0,
-          "position_limit_usdt": 0.0,
-          "weight": 0.0,
-          "live_readiness_checks": [],
-          "blocked_routes": [
-            {
-              "route": "engle_granger",
-              "gate": "engle_granger",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "pvalue": 0.6072675498448601,
-              "available": true
-            },
-            {
-              "route": "johansen",
-              "gate": "johansen",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "available": true
-            },
-            {
-              "route": "spread_mean_reversion",
-              "gate": "spread_mean_reversion",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              }
-            },
-            {
-              "route": "rolling_stability",
-              "gate": "rolling_stability",
-              "passed": false,
-              "provenance": {
-                "source": "reports/cointegration_diagnostics_real.json",
-                "real_data_only": true,
-                "fabricated_data": false
-              },
-              "frac_significant": null,
-              "n_windows": 184,
-              "stable": false
-            }
-          ],
-          "rejection_log": [
-            {
-              "reason": "live_operational_readiness_hard_blocked",
-              "block_reason": "not_cointegration_gated_eligible",
-              "blocked_routes": [
-                {
-                  "route": "engle_granger",
-                  "gate": "engle_granger",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "pvalue": 0.6072675498448601,
-                  "available": true
-                },
-                {
-                  "route": "johansen",
-                  "gate": "johansen",
-                  "passed": false,
-                  "provenance": {
-                    "source": "reports/cointegration_diagnostics_real.json",
-                    "real_data_only": true,
-                    "fabricated_data": false
-                  },
-                  "available": true
-                },
-                {
-                  "route": "spread_mean_reversion",
-                  "gate": "spread_mean_reversion",
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
                   "passed": false,
                   "provenance": {
                     "source": "reports/cointegration_diagnostics_real.json",
@@ -2639,7 +2889,209 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857894+00:00",
+            "computed_at": "2026-11-05T18:42:32.592711+00:00",
+            "causal_only": true,
+            "trailing_windows_only": true
+          }
+        },
+        "LINK/BTC": {
+          "pair": "LINK/BTC",
+          "timeframe": "1h",
+          "eligible_by_gating": false,
+          "status": "LIVE_READINESS_BLOCKED",
+          "live_operationally_ready": false,
+          "hard_blocked": true,
+          "orders_allowed": false,
+          "fills_allowed": false,
+          "capital_usdt": 0.0,
+          "allocation_usdt": 0.0,
+          "position_limit_usdt": 0.0,
+          "weight": 0.0,
+          "live_readiness_checks": [],
+          "blocked_routes": [
+            {
+              "route": "engle_granger",
+              "gate": "engle_granger",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "pvalue": 0.6072675498448601,
+              "available": true
+            },
+            {
+              "route": "johansen",
+              "gate": "johansen",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            },
+            {
+              "route": "spread_mean_reversion",
+              "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "rolling_stability",
+              "gate": "rolling_stability",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "frac_significant": null,
+              "n_windows": 184,
+              "stable": false
+            },
+            {
+              "route": "structural_break",
+              "gate": "structural_break",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              },
+              "available": true
+            }
+          ],
+          "rejection_log": [
+            {
+              "reason": "live_operational_readiness_hard_blocked",
+              "block_reason": "not_cointegration_gated_eligible",
+              "blocked_routes": [
+                {
+                  "route": "engle_granger",
+                  "gate": "engle_granger",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "pvalue": 0.6072675498448601,
+                  "available": true
+                },
+                {
+                  "route": "johansen",
+                  "gate": "johansen",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                },
+                {
+                  "route": "spread_mean_reversion",
+                  "gate": "spread_mean_reversion",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
+                  "route": "rolling_stability",
+                  "gate": "rolling_stability",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "frac_significant": null,
+                  "n_windows": 184,
+                  "stable": false
+                },
+                {
+                  "route": "structural_break",
+                  "gate": "structural_break",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  },
+                  "available": true
+                }
+              ],
+              "fail_closed": true,
+              "no_auto_lift": true,
+              "orders_allowed": false,
+              "fills_allowed": false,
+              "capital_usdt": 0.0,
+              "allocation_usdt": 0.0,
+              "position_limit_usdt": 0.0,
+              "remediation": "zero_capital_orders_fills_position_limits_no_auto_lift_live_readiness_blocks_until_cointegration_gated",
+              "provenance": {
+                "source": "reports/portfolio_gating_mt.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            }
+          ],
+          "operational_readiness": {
+            "go_live_authorized": false,
+            "deployment_verified": false,
+            "continuity_hardened": true,
+            "incident_response_ready": true,
+            "capital_preservation_enforced": true,
+            "monitoring_comprehensive": true,
+            "reconciliation_validated": true,
+            "fail_closed": true,
+            "no_auto_lift": true
+          },
+          "baseline_diff": {
+            "baseline_source": "reports/portfolio_gating_mt.json",
+            "diff_against_baseline": true,
+            "invariants_preserved": true
+          },
+          "gating_context": {
+            "eligible_pairs_tf": [],
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "provenance": {
+            "source": "reports/portfolio_gating_mt.json",
+            "real_data_only": true,
+            "fabricated_data": false,
+            "computed_at": "2026-11-05T18:42:32.592724+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2685,6 +3137,16 @@
             {
               "route": "spread_mean_reversion",
               "gate": "spread_mean_reversion",
+              "passed": false,
+              "provenance": {
+                "source": "reports/cointegration_diagnostics_real.json",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            {
+              "route": "leg_stationarity",
+              "gate": "leg_stationarity",
               "passed": false,
               "provenance": {
                 "source": "reports/cointegration_diagnostics_real.json",
@@ -2745,6 +3207,16 @@
                   }
                 },
                 {
+                  "route": "leg_stationarity",
+                  "gate": "leg_stationarity",
+                  "passed": false,
+                  "provenance": {
+                    "source": "reports/cointegration_diagnostics_real.json",
+                    "real_data_only": true,
+                    "fabricated_data": false
+                  }
+                },
+                {
                   "route": "rolling_stability",
                   "gate": "rolling_stability",
                   "passed": false,
@@ -2799,7 +3271,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857904+00:00",
+            "computed_at": "2026-11-05T18:42:32.592732+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2820,7 +3292,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T07:37:54.857909+00:00"
+        "computed_at": "2026-11-05T18:42:32.592736+00:00"
       }
     },
     "4h": {
@@ -2984,7 +3456,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857916+00:00",
+            "computed_at": "2026-11-05T18:42:32.592743+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3146,7 +3618,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857921+00:00",
+            "computed_at": "2026-11-05T18:42:32.592750+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3308,7 +3780,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857928+00:00",
+            "computed_at": "2026-11-05T18:42:32.592758+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3470,7 +3942,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857936+00:00",
+            "computed_at": "2026-11-05T18:42:32.592763+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3612,7 +4084,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857943+00:00",
+            "computed_at": "2026-11-05T18:42:32.592771+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3774,7 +4246,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857950+00:00",
+            "computed_at": "2026-11-05T18:42:32.592776+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3936,7 +4408,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857955+00:00",
+            "computed_at": "2026-11-05T18:42:32.592783+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4078,7 +4550,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857962+00:00",
+            "computed_at": "2026-11-05T18:42:32.592790+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4240,7 +4712,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857969+00:00",
+            "computed_at": "2026-11-05T18:42:32.592795+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4402,7 +4874,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857976+00:00",
+            "computed_at": "2026-11-05T18:42:32.592832+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4564,7 +5036,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857981+00:00",
+            "computed_at": "2026-11-05T18:42:32.592840+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4726,7 +5198,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857986+00:00",
+            "computed_at": "2026-11-05T18:42:32.592847+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4888,7 +5360,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.857997+00:00",
+            "computed_at": "2026-11-05T18:42:32.592855+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4957,7 +5429,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858027+00:00",
+            "computed_at": "2026-11-05T18:42:32.592859+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5119,7 +5591,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858036+00:00",
+            "computed_at": "2026-11-05T18:42:32.592866+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5281,7 +5753,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858041+00:00",
+            "computed_at": "2026-11-05T18:42:32.592874+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5423,7 +5895,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858046+00:00",
+            "computed_at": "2026-11-05T18:42:32.592879+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5444,7 +5916,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T07:37:54.858052+00:00"
+        "computed_at": "2026-11-05T18:42:32.592882+00:00"
       }
     },
     "1d": {
@@ -5605,7 +6077,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858061+00:00",
+            "computed_at": "2026-11-05T18:42:32.592891+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5765,7 +6237,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858068+00:00",
+            "computed_at": "2026-11-05T18:42:32.592899+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5925,7 +6397,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858077+00:00",
+            "computed_at": "2026-11-05T18:42:32.592908+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6085,7 +6557,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858083+00:00",
+            "computed_at": "2026-11-05T18:42:32.592913+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6225,7 +6697,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858089+00:00",
+            "computed_at": "2026-11-05T18:42:32.592920+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6385,7 +6857,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858097+00:00",
+            "computed_at": "2026-11-05T18:42:32.592925+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6545,7 +7017,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858102+00:00",
+            "computed_at": "2026-11-05T18:42:32.592932+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6705,7 +7177,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858109+00:00",
+            "computed_at": "2026-11-05T18:42:32.592940+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6865,7 +7337,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858118+00:00",
+            "computed_at": "2026-11-05T18:42:32.592947+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7025,7 +7497,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858127+00:00",
+            "computed_at": "2026-11-05T18:42:32.592954+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7185,7 +7657,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858132+00:00",
+            "computed_at": "2026-11-05T18:42:32.592961+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7345,7 +7817,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858137+00:00",
+            "computed_at": "2026-11-05T18:42:32.592968+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7483,7 +7955,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858149+00:00",
+            "computed_at": "2026-11-05T18:42:32.592973+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7577,7 +8049,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858153+00:00",
+            "computed_at": "2026-11-05T18:42:32.592978+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7737,7 +8209,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858158+00:00",
+            "computed_at": "2026-11-05T18:42:32.592988+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7897,7 +8369,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858167+00:00",
+            "computed_at": "2026-11-05T18:42:32.592997+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8037,7 +8509,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-03T07:37:54.858172+00:00",
+            "computed_at": "2026-11-05T18:42:32.593004+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8058,7 +8530,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-03T07:37:54.858175+00:00"
+        "computed_at": "2026-11-05T18:42:32.593007+00:00"
       }
     }
   },
