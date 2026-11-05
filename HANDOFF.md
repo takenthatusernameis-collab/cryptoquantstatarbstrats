@@ -1,4 +1,7 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T06:10:00Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T06:13:25Z
+
+## INITIAL TASK MESSAGE (for next agentic session)
+"Next session: complete the two incomplete artifacts (closest-ledger with per-leg ADF p-values, impossibility memo with per-TF worst-leg distributions + top-10 closest pairs). Reuse utils/cointegration._leg_stationarity_detail; sort by max(leg1_pvalue, leg2_pvalue) asc; scan 55 pairs x 3 TFs on cached real Binance spot 2026-04-01..2026-10-30. No threshold weakening, real data only, fail-closed, causal trailing only. Leave >=1 new concrete artifact in reports/. Run pytest + ruff + mypy."
 REPO: cryptoquantstatarbstrats | CORE EDGE: pairs/spreads/cointegration (MANDATORY PRIORITY #1). Real data only. Fail-closed. No threshold weakening. Causal trailing only.
 
 ## VERIFIED STATE (this session, direct measurement)
