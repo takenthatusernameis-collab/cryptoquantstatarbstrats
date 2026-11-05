@@ -1,0 +1,41 @@
+{
+  "artifact": "real_feed_unblock_status_20261105T105258Z",
+  "campaign": 10,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T10:52:58Z",
+  "repo": "cryptoquantstatarbstrats",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "method": "Re-scanned data/cache/* for new non-spot feed artifacts with verifiable provenance (funding/basis/dual-venue/cross-exchange/IV-vol-surface/intrabar/microstructure keywords + meta flags real_data_only=true,fabricated_data=false,sha256_pkl). No network fabrication; no proxies labeled real.",
+  "cache_keyword_hits": [],
+  "new_real_feeds_with_provenance_found": false,
+  "families": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed"
+  },
+  "pairs_cointegration": {
+    "status": "PROVEN_BLOCKED",
+    "exhausted_pairs": "165/165",
+    "rescanned_this_session": false
+  },
+  "spot_only_1h_cached": {
+    "status": "EXHAUSTED",
+    "families": {
+      "P4_momentum_mr": "exhausted_no_edge",
+      "P5_xsec_rank_momentum": "exhausted_no_edge",
+      "P6_donchian_tsmom": "exhausted_no_edge",
+      "P7_range_breakout_reversion_volband": "exhausted_no_edge",
+      "P9_pairwise_ols_hedge_spread_mr": "exhausted_no_edge",
+      "P10_residual_momentum": "exhausted_no_edge",
+      "P11_lead_lag_diffusion": "exhausted_no_edge"
+    }
+  },
+  "readiness_spec": "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+  "loader_validation": "reports/funding_basis_carry_loader_validation_20261105T105258Z.json",
+  "honest_conclusion": "No new real feeds with verifiable provenance ingested/found this session. All non-spot families remain blocked_no_real_feed. Pairs remain proven blocked. Spot-only 1h remains exhausted. Fail-closed loader/validator implemented and tested to refuse missing/fabricated/proxy inputs when feeds arrive."
+}

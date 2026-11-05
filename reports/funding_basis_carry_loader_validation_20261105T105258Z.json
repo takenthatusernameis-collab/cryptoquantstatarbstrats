@@ -1,0 +1,82 @@
+{
+  "artifact": "funding_basis_carry_loader_validation_20261105T105258Z",
+  "campaign": 10,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T10:52:58Z",
+  "repo": "cryptoquantstatarbstrats",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "purpose": "Proves the fail-closed real-feed loader/validator (data/real_feed_loader.py, family=funding_basis_carry) refuses missing metadata, integrity mismatches, fabricated/proxy-as-real flags, missing provenance, schema violations, and unknown families. Synthetic fixtures used ONLY in-test/validation-harness are never labeled real data in artifacts.",
+  "implementation": {
+    "module": "data/real_feed_loader.py",
+    "tests": "tests/test_real_feed_loader_validation.py",
+    "family_spec": "funding_basis_carry",
+    "entrypoint": "validate_and_load_real_feed(meta_path, family)"
+  },
+  "test_results": {
+    "targeted": "15 passed in 0.28s",
+    "full_suite": "847 passed, 1 skipped, 0 failed, 3569 warnings, 40.37s",
+    "full_suite_command": "PYTHONPATH=/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages /home/runner/work/_temp/kilo-home/.local/bin/pytest -q"
+  },
+  "refusal_proof_cases": [
+    {
+      "case": "valid_passes",
+      "refused": false,
+      "detail": "passed_all_fail_closed_checks"
+    },
+    {
+      "case": "missing_metadata",
+      "refused": true,
+      "reason": "real_feed_loader refused: metadata file missing: /home/runner/work/_temp/kilo-tmp/tmp5yr14jjx/no.meta.json"
+    },
+    {
+      "case": "sha256_mismatch",
+      "refused": true,
+      "reason": "real_feed_loader refused: sha256_pkl mismatch (expected deadbeef..., got 098579e29d3f2678...)"
+    },
+    {
+      "case": "fabricated_flag_true",
+      "refused": true,
+      "reason": "real_feed_loader refused: fabricated_data must be false (got True)"
+    },
+    {
+      "case": "real_data_only_false",
+      "refused": true,
+      "reason": "real_feed_loader refused: real_data_only must be true (got False)"
+    },
+    {
+      "case": "missing_data_file",
+      "refused": true,
+      "reason": "real_feed_loader refused: data file missing: gone.pkl"
+    },
+    {
+      "case": "missing_provenance_keys",
+      "refused": true,
+      "reason": "real_feed_loader refused: missing required provenance keys: ['source_provider', 'source_endpoints', 'request_urls_or_params', 'retrieved_at_utc', 'symbol_map_native_to_repo', 'window_start_utc', 'window_end_utc', 'freq', 'row_count', 'columns', 'sha256_meta_inputs', 'notes_limits_gaps']"
+    },
+    {
+      "case": "missing_required_column",
+      "refused": true,
+      "reason": "real_feed_loader refused: missing required columns: ['funding_rate']"
+    },
+    {
+      "case": "proxy_labeled_real_notes",
+      "refused": true,
+      "reason": "real_feed_loader refused: provenance notes admit proxy/fabricated-as-real: 'proxy labeled real'"
+    },
+    {
+      "case": "empty_sha256",
+      "refused": true,
+      "reason": "real_feed_loader refused: sha256_pkl missing/empty in provenance metadata"
+    },
+    {
+      "case": "unknown_family",
+      "refused": true,
+      "reason": "real_feed_loader refused: unknown/unsupported family 'nonexistent_family'; supported=['funding_basis_carry']"
+    }
+  ],
+  "verdict": "PASS_FAIL_CLOSED: all invalid/missing/fabricated/proxy inputs refused; valid provenance+integrity+schema payload accepted."
+}

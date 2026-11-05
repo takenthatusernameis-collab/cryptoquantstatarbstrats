@@ -1,0 +1,120 @@
+{
+  "artifact": "strategy_edge_registry_20261105T105258Z",
+  "campaign": 10,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T10:52:58Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T104640Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "PYTHONPATH=/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages /home/runner/work/_temp/kilo-home/.local/bin/pytest -q",
+    "passed": 847,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3569,
+    "duration_s": 40.37,
+    "rc": 0
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "bars": 5112,
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "freq": "1h",
+    "source": "Binance public spot",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [
+      0,
+      5,
+      10,
+      20
+    ],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165 pairs; no re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_xsec_rank_P5": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_donchian_tsmom_P6": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_range_breakout_reversion_volband_P7": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_pairwise_ols_spread_mr_P9": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_residual_momentum_P10": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_lead_lag_diffusion_P11": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "readiness": "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "loader_validation": "reports/funding_basis_carry_loader_validation_20261105T105258Z.json"
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    }
+  },
+  "campaign10_artifacts": [
+    "reports/funding_basis_carry_loader_validation_20261105T105258Z.json",
+    "reports/real_feed_unblock_status_20261105T105258Z.json",
+    "reports/strategy_edge_registry_20261105T105258Z.json",
+    "data/real_feed_loader.py",
+    "tests/test_real_feed_loader_validation.py"
+  ],
+  "core_truth": "No proven net-of-cost OOS edge on real cached spot 1h (exhausted) and no real non-spot feeds with provenance present (blocked). oos_edge_proven=false across registry. Campaign #10 advanced fail-closed infrastructure (funding_basis_carry loader+validator+tests, 847 passed) without fabrication, proxies, threshold weakening, pairs re-scan, or structurally-similar spot retests."
+}
