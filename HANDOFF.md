@@ -1,6 +1,6 @@
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
-TIMESTAMP: 2026-11-04T23:55:00Z
+TIMESTAMP: 2026-11-05T00:04:45Z
 REPO: cryptoquantstatarbstrats
 FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
 
@@ -14,16 +14,16 @@ Every session must treat pairs/spreads/cointegration as the primary deliverable.
 
 ---
 
-# THIS SESSION VERIFIED (2026-11-04T22:54Z)
+# THIS SESSION VERIFIED (2026-11-05T00:04:45Z)
 
-- Deps OK: `numpy,pandas,statsmodels,scipy,yaml` import clean.
+- Deps OK: `numpy,pandas,statsmodels,scipy,yaml` import clean (`python -c "import numpy,pandas,statsmodels,scipy,yaml; print('ok')"`).
 - Targeted pairs/cointegration tests: 40 passed
   (`tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py
   tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py -q`).
 - `examples/run_pairs.py` COMPLETES end-to-end (exit 0), 5064 hourly bars BTC/ETH/SOL
   2026-04-01->2026-10-28, cached Binance data, network-independent, writes
   `reports/pairs_real_market.json` BUT trades_count=0, total_return=0, sharpe=0,
-  max_drawdown=0, final_equity=100000 (PRIMARY BLOCKER - confirmed below).
+  max_drawdown=0, final_equity=100000 (PRIMARY BLOCKER - confirmed below, re-confirmed this session).
 - `strategies/pairs_trading.py`: causal rolling hedge ratio (guarded >1e-18, clip [1e-6,1e6]),
   opposing legs via explicit per-asset weights, enriched gates fail-closed
   (use_enriched_gates=True, strict_enriched_gates=True default). Gates block all entries.
@@ -35,8 +35,9 @@ Every session must treat pairs/spreads/cointegration as the primary deliverable.
 - `reports/pairs_gate_diagnosis_real.json` confirms: all three pairs fail the cointegration
   screen on every real window (EG p 0.518/0.577/0.731; rolling frac 0.176/0.115/0.066,
   all < 0.6). `rolling_stable_ok` is FALSE on all 182 rolling windows for every pair.
-- Root cause CONFIRMED: `rolling_stable_ok` is the SOLE gate blocker -> enriched_ok=0
-  everywhere -> state=0 every bar -> zero entries -> zero trades -> zero metrics.
+- Root cause CONFIRMED (re-confirmed this session by running `examples/run_pairs.py`):
+  `rolling_stable_ok` is the SOLE gate blocker -> enriched_ok=0 everywhere -> state=0 every bar ->
+  zero entries -> zero trades -> zero metrics.
 - `examples/run_pairs.py` compounds this by loading `reports/portfolio_real.json` cached
   diagnostics (BTC/ETH gates.all_pass=False) as a STATIC all-or-nothing gate, blocking even
   bars where sub-gates pass.
@@ -58,7 +59,7 @@ that produces concrete, reproducible metrics from real code paths. Treat "cointe
 non-negotiable. Real data only. Never fabricate candles/IV/funding/basis. Follow existing provenance patterns
 (real_data_only, fabricated_data, blocked_routes, computed_at, rationale).
 
-CURRENT STATE (CONFIRMED 2026-11-04T22:33Z):
+CURRENT STATE (CONFIRMED 2026-11-05T00:04:45Z):
 - Deps OK (`numpy,pandas,statsmodels,scipy,yaml` import). Targeted tests: 40 passed (baseline).
 - `examples/run_pairs.py` COMPLETES end-to-end (exit 0, 5064 hourly bars BTC/ETH/SOL 2026-04-01->2026-10-28,
   cached Binance data, network-independent) and writes `reports/pairs_real_market.json`, BUT
@@ -166,7 +167,7 @@ FOCUS CAMPAIGN (future agents MUST do heavy work - never avoid it):
   nonzero total_return/sharpe/maxDD) from a real-code-path run, OR the honest blocked result is documented with
   a per-bar gate breakdown + provenance.
 - If blocked/inefficient, remove bottlenecks immediately - no investigation-only loops. The diagnosed
-  rolling_stable_ok blocker (strategies/pairs_trading.py:276-381; rolling 720-bar stability vs short
+  rolling_stable_ok blocker (strategies/pairs_trading.py:366-371; rolling 720-bar stability vs short
   walk-forward windows; frac 0.066-0.176 < 0.6 on all three real pairs) is the blocker to resolve before any
   session is considered effective. Calibrate the gate so it genuinely evaluates on real windows (fail-closed,
   no coercion), or document the honest blocked outcome with full per-bar gate breakdown.
@@ -176,8 +177,8 @@ FOCUS CAMPAIGN (future agents MUST do heavy work - never avoid it):
 
 # KNOWN STATE (INFERRED / CONFIRMED)
 
-- Deps: OK (`numpy,pandas,statsmodels,scipy,yaml` import). Verified 2026-11-04T22:33Z.
-- Targeted tests: 40 passed (verified 2026-11-04T22:33Z).
+- Deps: OK (`numpy,pandas,statsmodels,scipy,yaml` import). Verified 2026-11-05T00:04:45Z.
+- Targeted tests: 40 passed (verified 2026-11-05T00:04:45Z).
 - `examples/run_pairs.py`: COMPLETES end-to-end (exit 0), 5064 hourly bars BTC/ETH/SOL 2026-04-01->2026-10-28,
   writes `reports/pairs_real_market.json`, BUT trades_count=0, total_return=0, sharpe=0, max_drawdown=0,
   final_equity=100000 (PRIMARY BLOCKER - diagnosed above).
