@@ -1,6 +1,6 @@
 {
   "type": "drift_triggered_regating_mt",
-  "generated_at": "2026-11-05T18:42:29.813800+00:00",
+  "generated_at": "2026-11-05T19:38:09.520336+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "data_source": "binance_public_rest_www.binance.com_cached_1h_resample_allowed_if_real",
@@ -54,7 +54,7 @@
     ],
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-05T18:42:29.813803+00:00"
+    "computed_at": "2026-11-05T19:38:09.520338+00:00"
   },
   "drift_triggered_regating_summary": {
     "fail_closed": true,
@@ -265,7 +265,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813380+00:00",
+            "computed_at": "2026-11-05T19:38:09.519913+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -481,7 +481,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813390+00:00",
+            "computed_at": "2026-11-05T19:38:09.519921+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -697,7 +697,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813401+00:00",
+            "computed_at": "2026-11-05T19:38:09.519932+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -935,7 +935,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813412+00:00",
+            "computed_at": "2026-11-05T19:38:09.519943+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1129,7 +1129,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813419+00:00",
+            "computed_at": "2026-11-05T19:38:09.519949+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1345,7 +1345,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813427+00:00",
+            "computed_at": "2026-11-05T19:38:09.519957+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1539,7 +1539,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813435+00:00",
+            "computed_at": "2026-11-05T19:38:09.519965+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1733,7 +1733,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813443+00:00",
+            "computed_at": "2026-11-05T19:38:09.519972+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -1949,7 +1949,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813451+00:00",
+            "computed_at": "2026-11-05T19:38:09.519982+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2143,7 +2143,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813458+00:00",
+            "computed_at": "2026-11-05T19:38:09.519988+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2359,7 +2359,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813467+00:00",
+            "computed_at": "2026-11-05T19:38:09.519996+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2553,7 +2553,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813473+00:00",
+            "computed_at": "2026-11-05T19:38:09.520004+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2769,7 +2769,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813482+00:00",
+            "computed_at": "2026-11-05T19:38:09.520012+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -2897,7 +2897,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813489+00:00",
+            "computed_at": "2026-11-05T19:38:09.520019+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3091,7 +3091,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813495+00:00",
+            "computed_at": "2026-11-05T19:38:09.520025+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3307,7 +3307,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813505+00:00",
+            "computed_at": "2026-11-05T19:38:09.520035+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3501,7 +3501,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813510+00:00",
+            "computed_at": "2026-11-05T19:38:09.520040+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3520,7 +3520,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T18:42:29.813516+00:00"
+        "computed_at": "2026-11-05T19:38:09.520046+00:00"
       }
     },
     "4h": {
@@ -3698,7 +3698,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813527+00:00",
+            "computed_at": "2026-11-05T19:38:09.520055+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -3874,7 +3874,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813538+00:00",
+            "computed_at": "2026-11-05T19:38:09.520068+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4050,7 +4050,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813544+00:00",
+            "computed_at": "2026-11-05T19:38:09.520073+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4226,7 +4226,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813549+00:00",
+            "computed_at": "2026-11-05T19:38:09.520079+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4382,7 +4382,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813554+00:00",
+            "computed_at": "2026-11-05T19:38:09.520085+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4558,7 +4558,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813568+00:00",
+            "computed_at": "2026-11-05T19:38:09.520095+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4734,7 +4734,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813574+00:00",
+            "computed_at": "2026-11-05T19:38:09.520101+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -4890,7 +4890,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813579+00:00",
+            "computed_at": "2026-11-05T19:38:09.520106+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5066,7 +5066,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813587+00:00",
+            "computed_at": "2026-11-05T19:38:09.520115+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5242,7 +5242,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813595+00:00",
+            "computed_at": "2026-11-05T19:38:09.520122+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5418,7 +5418,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813602+00:00",
+            "computed_at": "2026-11-05T19:38:09.520130+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5594,7 +5594,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813607+00:00",
+            "computed_at": "2026-11-05T19:38:09.520135+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5770,7 +5770,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813614+00:00",
+            "computed_at": "2026-11-05T19:38:09.520142+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -5846,7 +5846,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813621+00:00",
+            "computed_at": "2026-11-05T19:38:09.520148+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6022,7 +6022,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813626+00:00",
+            "computed_at": "2026-11-05T19:38:09.520154+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6198,7 +6198,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813635+00:00",
+            "computed_at": "2026-11-05T19:38:09.520168+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6354,7 +6354,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813642+00:00",
+            "computed_at": "2026-11-05T19:38:09.520173+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6373,7 +6373,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T18:42:29.813646+00:00"
+        "computed_at": "2026-11-05T19:38:09.520177+00:00"
       }
     },
     "1d": {
@@ -6548,7 +6548,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813654+00:00",
+            "computed_at": "2026-11-05T19:38:09.520186+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6722,7 +6722,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813660+00:00",
+            "computed_at": "2026-11-05T19:38:09.520191+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -6896,7 +6896,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813694+00:00",
+            "computed_at": "2026-11-05T19:38:09.520228+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7070,7 +7070,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813702+00:00",
+            "computed_at": "2026-11-05T19:38:09.520236+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7224,7 +7224,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813711+00:00",
+            "computed_at": "2026-11-05T19:38:09.520245+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7398,7 +7398,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813717+00:00",
+            "computed_at": "2026-11-05T19:38:09.520253+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7572,7 +7572,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813724+00:00",
+            "computed_at": "2026-11-05T19:38:09.520258+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7746,7 +7746,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813732+00:00",
+            "computed_at": "2026-11-05T19:38:09.520265+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -7920,7 +7920,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813741+00:00",
+            "computed_at": "2026-11-05T19:38:09.520275+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8094,7 +8094,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813748+00:00",
+            "computed_at": "2026-11-05T19:38:09.520283+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8268,7 +8268,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813754+00:00",
+            "computed_at": "2026-11-05T19:38:09.520288+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8442,7 +8442,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813762+00:00",
+            "computed_at": "2026-11-05T19:38:09.520298+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8594,7 +8594,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813769+00:00",
+            "computed_at": "2026-11-05T19:38:09.520306+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8702,7 +8702,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813775+00:00",
+            "computed_at": "2026-11-05T19:38:09.520311+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -8876,7 +8876,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813781+00:00",
+            "computed_at": "2026-11-05T19:38:09.520316+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -9050,7 +9050,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813786+00:00",
+            "computed_at": "2026-11-05T19:38:09.520322+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -9204,7 +9204,7 @@
             "source": "reports/portfolio_gating_mt.json",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T18:42:29.813793+00:00",
+            "computed_at": "2026-11-05T19:38:09.520330+00:00",
             "causal_only": true,
             "trailing_windows_only": true
           }
@@ -9223,7 +9223,7 @@
         "source": "reports/portfolio_gating_mt.json",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T18:42:29.813798+00:00"
+        "computed_at": "2026-11-05T19:38:09.520334+00:00"
       }
     }
   },
