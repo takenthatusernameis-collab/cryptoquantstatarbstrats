@@ -1,0 +1,65 @@
+{
+  "type": "strategy_edge_registry",
+  "campaign": 30,
+  "computed_at": "2026-11-05T20:06:00Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "supersedes": "reports/strategy_edge_registry_20261105T195956Z.json",
+  "test_counts": {
+    "command": "pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3572,
+    "duration_s": 56.85,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "artifacts_c30": [
+    "reports/cointegration_campaign30_mt.json",
+    "reports/real_feed_unblock_status_20261105T200500Z.json",
+    "reports/strategy_edge_registry_20261105T200600Z.json"
+  ],
+  "prior_artifacts_referenced": [
+    "reports/strategy_edge_registry_20261105T195956Z.json",
+    "reports/real_feed_unblock_status_20261105T195831Z.json",
+    "reports/cointegration_campaign29_mt.json",
+    "reports/campaign29_execution_status_20261105T195840Z.json"
+  ],
+  "feed_unblock_status": "reports/real_feed_unblock_status_20261105T200500Z.json",
+  "campaign_delta_vs_c29": {
+    "changed": false,
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (delta vs 20261105T195831Z)",
+    "prior_report": "reports/real_feed_unblock_status_20261105T195831Z.json"
+  },
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "blocked_families_remaining": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "validated_but_no_edge": {
+    "real_quote_volume": {
+      "status": "validated_feed",
+      "c23_hypothesis_result": "oos_edge_proven_false_0_of_11",
+      "rerun_c23_unchanged": false,
+      "path_rb_new_hypothesis_executed": false
+    }
+  },
+  "spot_exhaustion": "Spot-only 1h families exhausted on same cache; structurally-similar retests not performed.",
+  "notes": [
+    "C30 cointegration MT artifact (phase 2, real data only, causal trailing, gate thresholds unchanged) present: cointegration_campaign30_mt.json.",
+    "No new real feed passed fail-closed validation for remaining blocked families (R-A not triggered).",
+    "No genuinely different pre-stated R-B hypothesis on validated real_quote_volume executed this session (C23 not rerun unchanged).",
+    "oos_edge_proven=false. Honest fail-closed: still blocked/exhausted, no proven edge."
+  ]
+}
