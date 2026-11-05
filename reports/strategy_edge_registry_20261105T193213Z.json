@@ -1,0 +1,108 @@
+{
+  "report": "strategy_edge_registry",
+  "supersedes": "strategy_edge_registry_20261105T184351Z.json",
+  "generated_at_utc": "2026-11-05T19:33:10.318753+00:00",
+  "campaign": 24,
+  "mandate": "Campaign #24 (Path C-maintain) \u2014 fail-closed registry supersede. No new real feed for remaining blocked families; no genuinely different pre-stated real_quote_volume hypothesis credibly implemented this session. Honest no-change unblock state. Real data only, no fabrication, no threshold weakening, no proxies labeled real.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "no_proxies_labeled_real": true
+  },
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 925,
+    "skipped": 1,
+    "warnings": 3561,
+    "failed": 0,
+    "duration_s": 56.58,
+    "scope": "full tests/",
+    "tail": "925 passed, 1 skipped, 3561 warnings in 56.58s",
+    "rc": 0
+  },
+  "artifacts_this_campaign": [
+    "real_feed_unblock_status_20261105T184300Z.json",
+    "cache_provenance_gap_audit_20261105T184300Z.json",
+    "strategy_edge_registry_20261105T184351Z.json",
+    "strategy_edge_registry_20261105T193213Z.json"
+  ],
+  "prior_artifacts": {
+    "c23_oos": "reports/real_quote_volume_abnormal_momentum_costed_oos_20261105T183142Z.json",
+    "c23_status": "reports/real_feed_unblock_status_20261105T182936Z.json",
+    "c23_audit": "reports/cache_provenance_gap_audit_20261105T182936Z.json",
+    "c23_registry": "reports/strategy_edge_registry_20261105T183200Z.json",
+    "c24_status": "reports/real_feed_unblock_status_20261105T184300Z.json",
+    "c24_audit": "reports/cache_provenance_gap_audit_20261105T184300Z.json"
+  },
+  "families": [
+    {
+      "family": "pairs_cointegration",
+      "data_status": "real_cached_verified",
+      "edge_status": "PROVEN_BLOCKED",
+      "note": "165/165 fail-closed on current real cached universe/window. Do not re-scan without new real dataset + new fail-closed audit."
+    },
+    {
+      "family": "spot_1h_momentum_mean_reversion_exhausted",
+      "data_status": "real_cached_verified",
+      "edge_status": "EXHAUSTED_NO_PROVEN_EDGE",
+      "note": "P4 mom/MR, P5 xsec rank, P6 Donchian, P7 range breakout-reversion+volband, P9 pairwise OLS-hedge spread MR, P10 residual momentum, P11 lead-lag diffusion \u2014 0 proven net-of-cost OOS edge. No structurally-similar retest on same cache."
+    },
+    {
+      "family": "real_quote_volume_abnormal_momentum_c23",
+      "data_status": "real_feed_with_provenance_present_fail_closed_validated",
+      "edge_status": "NO_PROVEN_EDGE",
+      "oos_edge_proven": false,
+      "note": "Pre-stated WF 720/168/168, cost 0-40bps, B&H benchmark; 0/11 assets oos_edge_proven. Feed validated; do not re-run same hypothesis unchanged. Genuinely different pre-stated hypotheses only (Path R-B)."
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "intrabar_microstructure",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    }
+  ],
+  "global_truth": {
+    "oos_edge_proven": false,
+    "pairs": "PROVEN BLOCKED (165/165 fail-closed). No re-scan without new real dataset.",
+    "spot_1h_families": "EXHAUSTED \u2014 0 proven net-of-cost OOS edge.",
+    "real_quote_volume": "Validated real feed present; C23 Abnormal Quote Volume Momentum oos_edge_proven=false (0/11). Same hypothesis not to be rerun.",
+    "remaining_blocked": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "c24_unblock_delta_vs_c23": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (path_r still triggered for real_quote_volume only; blocked families unchanged).",
+    "rules": [
+      "real data only",
+      "no fabrication",
+      "fail-closed",
+      "no threshold weakening",
+      "no proxies labeled real",
+      ">=3 concrete reports artifacts per session",
+      "no investigation-only",
+      "no structurally-similar spot retest on same cache",
+      "no C23 hypothesis rerun unchanged"
+    ]
+  }
+}
