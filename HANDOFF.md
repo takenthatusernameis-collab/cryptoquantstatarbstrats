@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T08:35:02Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T08:35:33Z
 
 ## JUST COMPLETED (VERIFIED, REAL DATA, FAIL-CLOSED) — DO NOT REDO
 - **PRIORITY 4 (net-of-cost OOS, real spot): COMPLETE.** Heavy walk-forward IS/OOS + benchmark-relative validation for `momentum` and `mean_reversion` on REAL cached Binance spot 1h (`data/cache/*_2026-04-01_2026-10-30_1h.pkl`, 11 assets, 5112 bars, 2026-04-01..2026-10-30). Rolling WF 30d train / 7d test (720/168 bars), cost grid fee+slippage {0,5,10,20} bps combos (0–40 bps total), vs buy-and-hold on same windows/costs. Strategy defaults honored (no threshold weakening; `use_enriched_gates=True, strict_enriched_gates=True`). Pre-stated rule: `oos_edge_proven=true` IFF all cost slices OOS net mean_return>0 AND all slices beat B&H OOS AND exposure/trades>0 (fail-closed).
