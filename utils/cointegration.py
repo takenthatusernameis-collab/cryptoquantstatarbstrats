@@ -217,13 +217,10 @@ def rolling_cointegration_stability(
 ) -> dict[str, Any]:
     """Test rolling cointegration stability over time windows.
 
-    The requested ``window`` is used when the sample is large enough to
-    support at least three non-overlapping sub-windows; otherwise the window
-    is stepped down to the largest size that still yields those sub-windows.
-    This makes the gate genuinely assessable on the short causal trailing
-    samples the pairs strategy actually uses (60/120 bars) instead of
-    auto-failing with ``insufficient_data`` on every refresh. Never coerced:
-    when even the smallest usable window cannot be computed the gate stays
+    Calibrated to be assessable on short causal trailing samples (e.g.
+    lookback 60/120) used by the pairs strategy. We try to obtain >= 2
+    windows when >=3 is not possible, using overlapping windows as needed.
+    Never coerced: if no assessable windows can be formed the gate stays
     unassessable (``stable=False``, ``reason=insufficient_data``) and the
     fail-closed strategy blocks entries.
     """
@@ -236,19 +233,43 @@ def rolling_cointegration_stability(
         while win > min_subwindow and n < win * min_windows:
             win = max(min_subwindow, win // 2)
         if n < win * min_windows:
-            return {
-                "stable": False,
-                "reason": "insufficient_data",
-                "pvalues": [],
-                "frac_significant": 0.0,
-                "frac_significant_0_05": 0.0,
-                "n_windows": 0,
-                "window": int(window),
-                "step": int(step),
-                "requested_window": int(window),
-                "used_window": None,
-            }
-        step_use = max(1, min(int(step), win // 2))
+            # Try with fewer windows if possible (for short trailing samples)
+            if n >= win * 2 and win >= min_subwindow:
+                min_windows = 2
+            elif n >= max(20, win // 2) and win > max(20, min_subwindow // 2):
+                # Try smaller window to get at least 2 windows
+                win = max(20, min_subwindow // 2)
+                while win >= 20 and n < win * 2:
+                    win = max(20, win - 10)
+                if n >= win * 2:
+                    min_windows = 2
+                else:
+                    return {
+                        "stable": False,
+                        "reason": "insufficient_data",
+                        "pvalues": [],
+                        "frac_significant": 0.0,
+                        "frac_significant_0_05": 0.0,
+                        "n_windows": 0,
+                        "window": int(window),
+                        "step": int(step),
+                        "requested_window": int(window),
+                        "used_window": None,
+                    }
+            else:
+                return {
+                    "stable": False,
+                    "reason": "insufficient_data",
+                    "pvalues": [],
+                    "frac_significant": 0.0,
+                    "frac_significant_0_05": 0.0,
+                    "n_windows": 0,
+                    "window": int(window),
+                    "step": int(step),
+                    "requested_window": int(window),
+                    "used_window": None,
+                }
+        step_use = max(1, min(int(step), max(1, win // 4))) if n < win * 3 else max(1, min(int(step), win // 2))
         pvalues = []
         for start in range(0, n - win + 1, step_use):
             end = start + win
@@ -300,15 +321,10 @@ def structural_break_check(
 ) -> dict[str, Any]:
     """Simple structural break check via rolling hedge ratio instability (Chow-like heuristic).
 
-    ``min_seg`` is the minimum segment size for the half-sample comparison.
-    When the sample is shorter than ``2 * min_seg`` the segment size steps
-    down to the largest value that still fits two non-trivial halves, so the
-    gate is genuinely assessable on the short causal trailing samples the
-    pairs strategy uses (60/120 bars) instead of auto-failing with
-    ``insufficient_data`` on every refresh. Never coerced: when even the
-    smallest usable segment cannot be computed the gate stays unassessable
-    (``has_break=False``, ``reason=insufficient_data``) and the fail-closed
-    strategy blocks entries.
+    Calibrated to be assessable on short causal trailing samples (60/120 bars).
+    Never coerced: when even smallest usable segment cannot be computed the
+    gate stays unassessable (``has_break=False``, ``reason=insufficient_data``)
+    and fail-closed strategy blocks entries.
     """
     try:
         p1, p2 = _to_clean_pair(price1, price2)
@@ -318,7 +334,21 @@ def structural_break_check(
         while seg > min_seg_floor and n < seg * 2:
             seg = max(min_seg_floor, seg // 2)
         if n < seg * 2:
-            return {"has_break": False, "reason": "insufficient_data"}
+            # Try harder for very short samples
+            if n >= 20:
+                seg2 = max(10, n // 3)
+                if n >= seg2 * 2:
+                    seg = seg2
+                elif n >= 12:
+                    seg2 = max(6, n // 4)
+                    if n >= seg2 * 2:
+                        seg = seg2
+                    else:
+                        return {"has_break": False, "reason": "insufficient_data"}
+                else:
+                    return {"has_break": False, "reason": "insufficient_data"}
+            else:
+                return {"has_break": False, "reason": "insufficient_data"}
         # split into halves
         mid = n // 2
         beta1 = estimate_hedge_ratio_ols(p1.iloc[:mid], p2.iloc[:mid])

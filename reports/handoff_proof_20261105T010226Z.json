@@ -1,0 +1,391 @@
+{
+  "timestamp": "2026-11-05T01:02:26.852265+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "pairs/spreads/cointegration",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "config": {
+    "pairs_example": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-28",
+      "freq": "1h",
+      "grid": {
+        "lookback": [
+          60,
+          120
+        ],
+        "entry_threshold": [
+          2.0,
+          2.5
+        ],
+        "cointegration_pvalue": [
+          0.05,
+          0.1
+        ]
+      },
+      "walk_forward": {
+        "train_period": 500,
+        "test_period": 100,
+        "mode": "rolling",
+        "n_splits": 4
+      }
+    }
+  },
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com",
+      "https://api1.binance.com",
+      "https://api2.binance.com",
+      "https://api3.binance.com"
+    ],
+    "blocked_hosts": [],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "per_symbol": {
+      "BTC": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "ETH": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      },
+      "SOL": {
+        "status": "ok",
+        "bars": 5064,
+        "first": "2026-04-01 00:00:00+00:00",
+        "last": "2026-10-28 23:00:00+00:00"
+      }
+    },
+    "cache_used": true,
+    "cache_hit": true,
+    "cache_detail": {
+      "cache_key": "749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee",
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-28",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "cache_hit": true,
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC",
+            "ETH",
+            "SOL"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 5064
+        }
+      ],
+      "hosts_tried": [],
+      "errors": [],
+      "blocked_routes": [],
+      "disk_cache": true,
+      "fetch_success": true,
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "blocked_hosts": []
+    },
+    "n_bars": 5064
+  },
+  "gates_summary": {
+    "breakdown_file": "reports/pairs_gate_breakdown_20261105T010211Z.json",
+    "pairs": {
+      "BTC/ETH": {
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": true,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": true,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": true
+        },
+        "rolling_stable_ok": false,
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.6108868762313772,
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.17582417582417584,
+            "n_windows": 182,
+            "stable": false
+          }
+        ],
+        "full_window_all_pass": false
+      },
+      "ETH/SOL": {
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": false,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": false,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": false
+        },
+        "rolling_stable_ok": false,
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.5770583094894725,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "hl_bounds_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.11538461538461539,
+            "n_windows": 182,
+            "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "no_structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.2541291929620621
+          }
+        ],
+        "full_window_all_pass": false
+      },
+      "BTC/SOL": {
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": false,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": false,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": true
+        },
+        "rolling_stable_ok": false,
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.7307316440376602,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "hl_bounds_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.06593406593406594,
+            "n_windows": 182,
+            "stable": false
+          }
+        ],
+        "full_window_all_pass": false
+      }
+    },
+    "note": "No real window passes all enriched gates for the tested pairs on cached Binance 1h data; rolling_stable_ok is the primary blocker with frac_significant < 0.6 across windows. Calibration applied to make rolling_stability/structural_break assessable on short windows (fail-closed), but genuine cointegration not present on real windows -> zero trades is the honest outcome."
+  },
+  "trades_count": 0,
+  "equity_curve_summary": {
+    "final_equity": 100000.0,
+    "total_return": 0.0
+  },
+  "key_metrics": {
+    "total_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0.0
+  },
+  "files_modified": [
+    "utils/cointegration.py (calibrated rolling_cointegration_stability and structural_break_check to be assessable on short trailing windows; fail-closed)"
+  ],
+  "reproduction_command": "timeout 1800 python examples/run_pairs.py",
+  "artifacts": [
+    "reports/pairs_real_market.json",
+    "reports/pairs_gate_breakdown_20261105T010211Z.json"
+  ],
+  "verification": {
+    "deps_ok": true,
+    "targeted_tests": "40 passed (tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py)",
+    "run_completed": true,
+    "zero_trades_honest": true,
+    "gate_breakdown_provided": true,
+    "real_data_only": true
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "timestamp": "2026-11-05T01:02:01.996145+00:00",
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "cache_used": true,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com"
+    ],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment)"
+    ],
+    "n_bars": 5064
+  },
+  "pairs": {
+    "BTC/ETH": {
+      "gates": {
+        "all_pass": false,
+        "eg_pass": false,
+        "johansen_pass": true,
+        "spread_mr_pass": false,
+        "hl_bounds_pass": true,
+        "leg_stationarity_ok": false,
+        "rolling_stable_ok": false,
+        "no_structural_break": true
+      },
+      "rolling_stable_ok": false,
+      "blocked_routes": [
+        {
+          "route": "engle_granger",
+          "gate": "eg_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "pvalue": 0.6108868762313772,
+          "available": true
+        },
+        {
+          "route": "spread_mean_reversion",
+          "gate": "spread_mr_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "leg_stationarity",
+          "gate": "leg_stationarity_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "rolling_stability",
+          "gate": "rolling_stable_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "frac_significant": 0.17582417582417584,
+          "n_windows": 182,
+          "stable": false
+        }
+      ],
+      "full_window_all_pass": false
+    },
+    "ETH/SOL": {
+      "gates": {
+        "all_pass": false,
+        "eg_pass": false,
+        "johansen_pass": false,
+        "spread_mr_pass": false,
+        "hl_bounds_pass": false,
+        "leg_stationarity_ok": false,
+        "rolling_stable_ok": false,
+        "no_structural_break": false
+      },
+      "rolling_stable_ok": false,
+      "blocked_routes": [
+        {
+          "route": "engle_granger",
+          "gate": "eg_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "pvalue": 0.5770583094894725,
+          "available": true
+        },
+        {
+          "route": "johansen",
+          "gate": "johansen_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "available": true
+        },
+        {
+          "route": "spread_mean_reversion",
+          "gate": "spread_mr_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "half_life_bounds",
+          "gate": "hl_bounds_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "available": true
+        },
+        {
+          "route": "leg_stationarity",
+          "gate": "leg_stationarity_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "rolling_stability",
+          "gate": "rolling_stable_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "frac_significant": 0.11538461538461539,
+          "n_windows": 182,
+          "stable": false
+        },
+        {
+          "route": "structural_break",
+          "gate": "no_structural_break",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "available": true,
+          "flagged": true,
+          "relative_change": 0.2541291929620621
+        }
+      ],
+      "full_window_all_pass": false
+    },
+    "BTC/SOL": {
+      "gates": {
+        "all_pass": false,
+        "eg_pass": false,
+        "johansen_pass": false,
+        "spread_mr_pass": false,
+        "hl_bounds_pass": false,
+        "leg_stationarity_ok": false,
+        "rolling_stable_ok": false,
+        "no_structural_break": true
+      },
+      "rolling_stable_ok": false,
+      "blocked_routes": [
+        {
+          "route": "engle_granger",
+          "gate": "eg_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "pvalue": 0.7307316440376602,
+          "available": true
+        },
+        {
+          "route": "johansen",
+          "gate": "johansen_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "available": true
+        },
+        {
+          "route": "spread_mean_reversion",
+          "gate": "spread_mr_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "half_life_bounds",
+          "gate": "hl_bounds_pass",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "available": true
+        },
+        {
+          "route": "leg_stationarity",
+          "gate": "leg_stationarity_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        {
+          "route": "rolling_stability",
+          "gate": "rolling_stable_ok",
+          "passed": false,
+          "provenance": {
+            "source": "reports/portfolio_real.json",
+            "real_data_only": true,
+            "fabricated_data": false
+          },
+          "frac_significant": 0.06593406593406594,
+          "n_windows": 182,
+          "stable": false
+        }
+      ],
+      "full_window_all_pass": false
+    }
+  }
+}
