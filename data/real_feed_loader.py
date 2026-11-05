@@ -93,10 +93,34 @@ CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC = FamilySpec(
     timestamp_columns=("timestamp_utc",),
 )
 
+TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC = FamilySpec(
+    name="term_structure_real_iv_vol_surface",
+    required_columns=(
+        "timestamp_utc",
+        "underlying",
+        "iv_30d",
+        "iv_90d",
+    ),
+    required_provenance_keys=(
+        "source_provider",
+        "endpoints",
+        "retrieved_at_utc",
+        "underlying_map",
+        "iv_definition",
+        "row_count",
+        "sha256_pkl",
+        "real_data_only",
+        "fabricated_data",
+    ),
+    numeric_columns=("iv_30d", "iv_90d"),
+    timestamp_columns=("timestamp_utc",),
+)
+
 
 FAMILY_SPECS: dict[str, FamilySpec] = {
     FUNDING_BASIS_CARRY_SPEC.name: FUNDING_BASIS_CARRY_SPEC,
     CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.name: CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
+    TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC.name: TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
 }
 
 
@@ -196,6 +220,52 @@ def _check_dual_venue_not_single_venue_proxy(df: pd.DataFrame, report: dict[str,
             )
 
 
+def _check_term_structure_not_realized_vol_proxy(
+    meta: dict[str, Any], report: dict[str, Any]
+) -> None:
+    """Refuse realized/historical volatility mislabeled as implied volatility.
+
+    Only explicit proxy/admission signals are refused (fail-closed). Legitimate
+    IV sources may mention 'historical' incidentally (e.g. historical IV series);
+    those are not refused unless paired with a realized-vol-as-IV admission.
+    """
+    hay = " ".join(
+        str(meta.get(k, ""))
+        for k in (
+            "iv_definition",
+            "notes_limits_gaps",
+            "notes",
+            "description",
+            "source",
+        )
+    ).lower()
+    refusals = (
+        "realized vol labeled as iv",
+        "realized volatility labeled as iv",
+        "historical volatility labeled as iv",
+        "realized vol proxy",
+        "realized volatility proxy",
+        "not implied volatility",
+        "proxy for iv",
+        "proxy for implied",
+    )
+    for bad in refusals:
+        if bad in hay:
+            _refuse(
+                f"term-structure metadata admits realized-vol/proxy labeled as IV: {bad!r}",
+                report,
+            )
+    # Refuse if definition explicitly says realized/historical vol and not implied/DVOL/IV
+    if ("realized vol" in hay or "historical volatility" in hay) and not any(
+        k in hay for k in ("implied", "dvol", " iv", "iv_", "(iv", "black-scholes")
+    ):
+        _refuse(
+            "term-structure iv_definition/notes describe realized/historical volatility "
+            "without implied/DVOL/IV basis (proxy-as-IV), refused",
+            report,
+        )
+
+
 def validate_and_load_real_feed(
     meta_path: str | Path,
     family: str = "funding_basis_carry",
@@ -257,6 +327,8 @@ def validate_and_load_real_feed(
 
     if family == "cross_exchange_dual_venue_same_asset":
         _check_dual_venue_not_single_venue_proxy(df, report)
+    if family == "term_structure_real_iv_vol_surface":
+        _check_term_structure_not_realized_vol_proxy(meta, report)
 
     # monotonic unique timestamp check when present
     for tcol in spec.timestamp_columns:

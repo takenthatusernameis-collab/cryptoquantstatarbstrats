@@ -17,6 +17,7 @@ import pytest
 from data.real_feed_loader import (
     CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
     FUNDING_BASIS_CARRY_SPEC,
+    TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
     RealFeedValidationError,
     sha256_file,
     validate_and_load_real_feed,
@@ -350,3 +351,172 @@ def test_dual_venue_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: P
         meta_path, "cross_exchange_dual_venue_same_asset"
     )
     assert report["ok"] and report["rows"] == 5
+
+def _valid_term_structure_df() -> pd.DataFrame:
+    # synthetic test fixture (test-only) — never labeled real data in artifacts
+    return pd.DataFrame(
+        {
+            "timestamp_utc": pd.date_range("2026-04-01", periods=5, freq="1h", tz="UTC"),
+            "underlying": ["BTC"] * 5,
+            "iv_30d": [0.62, 0.63, 0.61, 0.64, 0.60],
+            "iv_90d": [0.58, 0.59, 0.57, 0.60, 0.56],
+        }
+    )
+
+
+def _write_term_structure_artifact(
+    tmp: Path, df: pd.DataFrame, meta_overrides: dict | None = None
+):
+    pkl = tmp / "iv_deribit_BTC_20260401_20260401_1h.pkl"
+    df.to_pickle(pkl)
+    meta = {
+        "source_provider": "Deribit",
+        "endpoints": ["/public/get_historical_volatility?currency=BTC"],
+        "retrieved_at_utc": "2026-11-05T00:00:00Z",
+        "underlying_map": {"BTC": "BTC"},
+        "iv_definition": "Deribit DVOL / implied volatility (30d, 90d tenor proxies as documented)",
+        "row_count": len(df),
+        "sha256_pkl": sha256_file(pkl),
+        "sha256_meta_inputs": "test-fixture",
+        "real_data_only": True,
+        "fabricated_data": False,
+        "notes_limits_gaps": "none (test fixture payload; provenance fields satisfy schema)",
+        "pkl_file": pkl.name,
+    }
+    if meta_overrides:
+        meta.update(meta_overrides)
+    meta_path = tmp / "iv_deribit_BTC_20260401_20260401_1h.meta.json"
+    meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    return meta_path, pkl
+
+
+def test_term_structure_valid_artifact_passes_fail_closed_checks(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(tmp_path, _valid_term_structure_df())
+    df, report = validate_and_load_real_feed(
+        meta_path, "term_structure_real_iv_vol_surface"
+    )
+    assert report["ok"] is True and report["refused"] is False
+    assert report["fail_closed"] is True
+    assert len(df) == 5
+    assert report["family_spec"] == TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC.name
+
+
+def test_term_structure_refuses_missing_metadata(tmp_path: Path):
+    missing = tmp_path / "nope_iv.meta.json"
+    with pytest.raises(RealFeedValidationError, match="metadata file missing"):
+        validate_and_load_real_feed(missing, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_sha256_mismatch(tmp_path: Path):
+    meta_path, pkl = _write_term_structure_artifact(tmp_path, _valid_term_structure_df())
+    df = _valid_term_structure_df()
+    df.loc[0, "iv_30d"] = 0.99
+    df.to_pickle(pkl)
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl mismatch"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_missing_sha256(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path, _valid_term_structure_df(), {"sha256_pkl": ""}
+    )
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl missing"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_fabricated_flag(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path, _valid_term_structure_df(), {"fabricated_data": True}
+    )
+    with pytest.raises(RealFeedValidationError, match="fabricated_data must be false"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_real_data_only_false(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path, _valid_term_structure_df(), {"real_data_only": False}
+    )
+    with pytest.raises(RealFeedValidationError, match="real_data_only must be true"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_missing_data_file(tmp_path: Path):
+    meta_path, pkl = _write_term_structure_artifact(tmp_path, _valid_term_structure_df())
+    pkl.unlink()
+    with pytest.raises(RealFeedValidationError, match="data file missing"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_missing_provenance_keys(tmp_path: Path):
+    meta_path = tmp_path / "bad_iv.meta.json"
+    pkl = tmp_path / "bad_iv.pkl"
+    _valid_term_structure_df().to_pickle(pkl)
+    meta = {
+        "real_data_only": True,
+        "fabricated_data": False,
+        "sha256_pkl": sha256_file(pkl),
+        "pkl_file": pkl.name,
+    }
+    meta_path.write_text(json.dumps(meta), encoding="utf-8")
+    with pytest.raises(RealFeedValidationError, match="missing required provenance keys"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_missing_required_columns_iv_30d(tmp_path: Path):
+    df = _valid_term_structure_df().drop(columns=["iv_30d"])
+    meta_path, _ = _write_term_structure_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="missing required columns"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_missing_required_columns_iv_90d(tmp_path: Path):
+    df = _valid_term_structure_df().drop(columns=["iv_90d"])
+    meta_path, _ = _write_term_structure_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="missing required columns"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_duplicate_timestamps(tmp_path: Path):
+    df = _valid_term_structure_df()
+    df.loc[1, "timestamp_utc"] = df.loc[0, "timestamp_utc"]
+    meta_path, _ = _write_term_structure_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="not monotonic|duplicate"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_row_count_mismatch(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path, _valid_term_structure_df(), {"row_count": 999}
+    )
+    with pytest.raises(RealFeedValidationError, match="row_count mismatch"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_realized_vol_labeled_as_iv(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path,
+        _valid_term_structure_df(),
+        {"iv_definition": "realized volatility labeled as iv 30d/90d"},
+    )
+    with pytest.raises(RealFeedValidationError, match="realized-vol/proxy labeled as IV"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_realized_vol_without_implied_basis(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path,
+        _valid_term_structure_df(),
+        {"iv_definition": "30-day historical realized volatility series"},
+    )
+    with pytest.raises(RealFeedValidationError, match="proxy-as-IV|realized"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def test_term_structure_refuses_proxy_labeled_real_in_notes(tmp_path: Path):
+    meta_path, _ = _write_term_structure_artifact(
+        tmp_path,
+        _valid_term_structure_df(),
+        {"notes_limits_gaps": "proxy labeled real IV derived from spot"},
+    )
+    with pytest.raises(RealFeedValidationError, match="proxy/fabricated-as-real"):
+        validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")

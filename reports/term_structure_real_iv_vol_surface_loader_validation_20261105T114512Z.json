@@ -1,0 +1,63 @@
+{
+  "artifact": "term_structure_real_iv_vol_surface_loader_validation_20261105T114512Z",
+  "campaign": 12,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T11:45:12Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": null,
+  "family": "term_structure_real_iv_vol_surface",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "loader_module": "data/real_feed_loader.py",
+  "test_module": "tests/test_real_feed_loader_validation.py",
+  "readiness_spec": "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+  "family_spec": {
+    "name": "term_structure_real_iv_vol_surface",
+    "required_columns": [
+      "timestamp_utc",
+      "underlying",
+      "iv_30d",
+      "iv_90d"
+    ],
+    "required_provenance_keys": [
+      "source_provider",
+      "endpoints",
+      "retrieved_at_utc",
+      "underlying_map",
+      "iv_definition",
+      "row_count",
+      "sha256_pkl",
+      "real_data_only",
+      "fabricated_data"
+    ],
+    "numeric_columns": [
+      "iv_30d",
+      "iv_90d"
+    ],
+    "extra_fail_closed_refusals": [
+      "realized/historical volatility labeled as IV (explicit admission) refused",
+      "realized/historical volatility in iv_definition/notes without implied/DVOL/IV basis (proxy-as-IV) refused",
+      "proxy/fabricated-as-real admitted in notes_limits_gaps refused",
+      "missing sha256_pkl, sha256 mismatch, fabricated_data!=false, real_data_only!=true refused",
+      "missing required IV columns/timestamps/provenance keys refused"
+    ]
+  },
+  "tests": {
+    "loader_targeted_command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+    "loader_targeted_passed": 45,
+    "loader_targeted_failed": 0,
+    "term_structure_tests_added_campaign": 12,
+    "term_structure_test_count": 15,
+    "full_suite_command": "python -m pytest tests/ -q",
+    "full_suite_passed": 877,
+    "full_suite_skipped": 1,
+    "full_suite_failed": 0,
+    "full_suite_warnings": 3569,
+    "full_suite_duration_s": 40.26,
+    "rc": 0
+  },
+  "honest_conclusion": "Fail-closed loader/validator for term_structure_real_iv_vol_surface added and tested (synthetic test fixtures only, never labeled real). Loader refuses missing/fabricated/proxy-as-IV inputs per readiness spec. No real IV/vol-surface feed with provenance was ingested or found in data/cache; family remains blocked_no_real_feed. oos_edge_proven=false."
+}
