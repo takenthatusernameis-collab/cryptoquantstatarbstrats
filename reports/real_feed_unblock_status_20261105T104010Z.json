@@ -1,0 +1,50 @@
+{
+  "report": "real_feed_unblock_status",
+  "generated_at_utc": "2026-11-05T10:40:10.597310+00:00",
+  "mandate": "PRIORITY 11 / Campaign #7 Deliverable 2 \u2014 honest re-check for newly added real feeds with provenance; covers missing P10 artifact. No fabrication/proxies.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "new_external_feeds": false
+  },
+  "recheck": {
+    "cache_dir": "data/cache",
+    "new_real_feed_files_with_provenance_found": [],
+    "spot_1h_caches_verified": "11 assets 2026-04-01..2026-10-30 1h present (unchanged)",
+    "notes": "No genuinely new real feed files with provenance added (funding/basis/spot-perp/dual-venue/real IV/vol surface). Only existing spot 1h caches + prior artifacts."
+  },
+  "assessment": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "pairs_cointegration": "PROVEN BLOCKED on current real cached universe/window (fail-closed); do not re-scan without NEW real dataset"
+  },
+  "required_schemas_still_needed": {
+    "funding_basis_carry": [
+      "perp/spot/funding timestamps aligned",
+      "fees/carry costs",
+      "real exchange provenance",
+      "net-of-cost validation"
+    ],
+    "cross_exchange_dual_venue": [
+      "same-asset dual venue prices with timestamps",
+      "fees/transfer constraints",
+      "real provenance",
+      "fail-closed arb test"
+    ],
+    "term_structure_real_iv_vol_surface": [
+      "real listed IV/vol surface by expiry/strike or term structure",
+      "fees/margin assumptions stated",
+      "real provider provenance",
+      "net-of-cost validation"
+    ]
+  },
+  "references": {
+    "inventory": "reports/real_feed_inventory_20261105T084255Z.json",
+    "unblock_plan": "reports/real_feed_unblock_plan_20261105T084447Z.json",
+    "prior_status_p9": "reports/real_feed_unblock_status_20261105T095713Z.json"
+  },
+  "validation_run": "none_ingested_no_new_real_feeds_with_provenance"
+}
