@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:03:00Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:45:09Z
 
 REPO: cryptoquantstatarbstrats. PRIORITY: pairs/spreads/cointegration = core edge. NO fabrication. Fail-closed. No threshold weakening.
 
@@ -9,7 +9,7 @@ IMMEDIATELY HEAVY WORK:
 3) Rerun `examples/run_pairs_multi.py` and confirm gate breakdown written to `reports/`.
 4) Run universe scan `examples/run_pair_universe_scan.py` again with fresh timestamp if needed; write/read results. If ANY pair passes ALL gates (eg/joh/spread MR/hl bounds/leg stationarity/rolling stable/no structural break) with real data only -> build walk-forward OOS backtest showing nonzero trades_count/total_return/sharpe/max_drawdown with fresh proof artifact. If NONE pass -> produce an honest blocked report with per-gate reasons (no fabrication, no threshold weakening).
 
-## CURRENT STATE (AS OF 2026-11-05T03:03Z)
+## CURRENT STATE (AS OF 2026-11-05T03:45Z)
 - `rolling_cointegration_stability` modified to shrink aggressively and try step=1 for >=2 windows on short samples (tested synthetic n=120 gives >=2 windows).
 - Ran `examples/run_pairs_multi.py` (exit 0). Results: all three pairs (BTC/ETH, ETH/SOL, BTC/SOL) show trades_count=0 / total_return=0 on full replay with enriched gates enforced causally; benchmarks positive.
 - Universe scan completed previously: `reports/pairs_candidate_scan_20261105T025358Z.json` has `n_pairs_scanned` from universe across 1h/4h/1d, `n_pass_all_gates=0`, no passing candidates.
