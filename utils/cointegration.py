@@ -215,10 +215,27 @@ def johansen_test(
 def rolling_cointegration_stability(
     price1: pd.Series, price2: pd.Series, window: int = 720, step: int = 24
 ) -> dict[str, Any]:
-    """Test rolling cointegration stability over time windows."""
+    """Test rolling cointegration stability over time windows.
+
+    The requested ``window`` is used when the sample is large enough to
+    support at least three non-overlapping sub-windows; otherwise the window
+    is stepped down to the largest size that still yields those sub-windows.
+    This makes the gate genuinely assessable on the short causal trailing
+    samples the pairs strategy actually uses (60/120 bars) instead of
+    auto-failing with ``insufficient_data`` on every refresh. Never coerced:
+    when even the smallest usable window cannot be computed the gate stays
+    unassessable (``stable=False``, ``reason=insufficient_data``) and the
+    fail-closed strategy blocks entries.
+    """
     try:
         p1, p2 = _to_clean_pair(price1, price2)
-        if len(p1) < window * 1.5:
+        n = len(p1)
+        win = int(window)
+        min_windows = 3
+        min_subwindow = 30
+        while win > min_subwindow and n < win * min_windows:
+            win = max(min_subwindow, win // 2)
+        if n < win * min_windows:
             return {
                 "stable": False,
                 "reason": "insufficient_data",
@@ -228,10 +245,13 @@ def rolling_cointegration_stability(
                 "n_windows": 0,
                 "window": int(window),
                 "step": int(step),
+                "requested_window": int(window),
+                "used_window": None,
             }
+        step_use = max(1, min(int(step), win // 2))
         pvalues = []
-        for start in range(0, len(p1) - window + 1, step):
-            end = start + window
+        for start in range(0, n - win + 1, step_use):
+            end = start + win
             try:
                 res = engle_granger_test(p1.iloc[start:end], p2.iloc[start:end])
                 pv = res.get("pvalue", float("nan"))
@@ -248,6 +268,8 @@ def rolling_cointegration_stability(
                 "n_windows": 0,
                 "window": int(window),
                 "step": int(step),
+                "requested_window": int(window),
+                "used_window": win,
             }
         frac_sig = float(np.mean([pv < 0.05 for pv in pvalues]))
         stable = frac_sig >= 0.6  # majority of windows cointegrated
@@ -259,6 +281,8 @@ def rolling_cointegration_stability(
             "n_windows": len(pvalues),
             "window": int(window),
             "step": int(step),
+            "requested_window": int(window),
+            "used_window": int(win),
         }
     except Exception as e:
         return {
@@ -274,13 +298,29 @@ def rolling_cointegration_stability(
 def structural_break_check(
     price1: pd.Series, price2: pd.Series, min_seg: int = 200
 ) -> dict[str, Any]:
-    """Simple structural break check via rolling hedge ratio instability (Chow-like heuristic)."""
+    """Simple structural break check via rolling hedge ratio instability (Chow-like heuristic).
+
+    ``min_seg`` is the minimum segment size for the half-sample comparison.
+    When the sample is shorter than ``2 * min_seg`` the segment size steps
+    down to the largest value that still fits two non-trivial halves, so the
+    gate is genuinely assessable on the short causal trailing samples the
+    pairs strategy uses (60/120 bars) instead of auto-failing with
+    ``insufficient_data`` on every refresh. Never coerced: when even the
+    smallest usable segment cannot be computed the gate stays unassessable
+    (``has_break=False``, ``reason=insufficient_data``) and the fail-closed
+    strategy blocks entries.
+    """
     try:
         p1, p2 = _to_clean_pair(price1, price2)
-        if len(p1) < min_seg * 2:
+        n = len(p1)
+        seg = int(min_seg)
+        min_seg_floor = 30
+        while seg > min_seg_floor and n < seg * 2:
+            seg = max(min_seg_floor, seg // 2)
+        if n < seg * 2:
             return {"has_break": False, "reason": "insufficient_data"}
         # split into halves
-        mid = len(p1) // 2
+        mid = n // 2
         beta1 = estimate_hedge_ratio_ols(p1.iloc[:mid], p2.iloc[:mid])
         beta2 = estimate_hedge_ratio_ols(p1.iloc[mid:], p2.iloc[mid:])
         if not (np.isfinite(beta1) and np.isfinite(beta2)):
@@ -292,6 +332,8 @@ def structural_break_check(
             "beta_first_half": float(beta1),
             "beta_second_half": float(beta2),
             "rel_diff": float(rel_diff),
+            "min_segment": int(seg),
+            "requested_min_segment": int(min_seg),
         }
     except Exception as e:
         return {"has_break": False, "error": str(e)[:80]}

@@ -161,6 +161,11 @@ class CointegrationPairsStrategy(PairStrategy):
         self.enriched_diagnostics = ed
         self.use_enriched_gates = bool(use_enriched_gates)
         self.strict_enriched_gates = bool(strict_enriched_gates)
+        # Per-bar gate breakdown captured during generate_signals() so the
+        # honest fail-closed outcome can be audited (which gate blocks, on what
+        # share of bars). Never fabricated; missing/unassessable gates are
+        # recorded as False under strict mode.
+        self._gate_breakdown: pd.DataFrame | None = None
         if self.enriched_diagnostics is not None:
             self._last_diagnostics = self.enriched_diagnostics
 
@@ -186,6 +191,16 @@ class CointegrationPairsStrategy(PairStrategy):
         self._last_diagnostics = diag
         self.enriched_diagnostics = diag
         return diag
+
+    def get_gate_breakdown(self) -> pd.DataFrame | None:
+        """Return the per-bar enriched-gate pass/fail breakdown, if recorded.
+
+        Captured during ``generate_signals`` for the uncached (causal) path.
+        Under the cached path the aggregate diagnostic is applied uniformly,
+        so the breakdown is a single repeated row -- recorded honestly as such
+        rather than fabricated per-bar variation.
+        """
+        return self._gate_breakdown
 
     def test_cointegration(self, price1: pd.Series, price2: pd.Series) -> tuple[float, float]:
         """Test cointegration on the explicitly supplied sample only."""
@@ -306,6 +321,21 @@ class CointegrationPairsStrategy(PairStrategy):
                 else:
                     enriched_ok_arr = np.empty(len(data), dtype=float)
                     enriched_ok_arr[:] = np.nan
+                    # Per-bar gate breakdown: record every gate's pass/fail at
+                    # each refresh so the honest fail-closed outcome can be
+                    # audited (which gate blocks, on what share of bars).
+                    gate_names = (
+                        "eg_pass",
+                        "johansen_pass",
+                        "spread_mr_pass",
+                        "hl_bounds_pass",
+                        "leg_stationarity_ok",
+                        "rolling_stable_ok",
+                        "no_structural_break",
+                    )
+                    breakdown = pd.DataFrame(
+                        False, index=data.index, columns=list(gate_names) + ["all_pass"]
+                    )
                     # Causal interval caching: the full publication-grade
                     # diagnostic (Engle-Granger + Johansen + spread MR + HL
                     # bounds + leg stationarity + rolling stability + structural
@@ -319,6 +349,7 @@ class CointegrationPairsStrategy(PairStrategy):
                     # must not pass aggregate diagnostics as a gate.
                     last_diag_index = -1
                     last_ok: float | None = None
+                    last_breakdown: dict[str, bool] | None = None
                     for i in range(self.lookback - 1, len(data)):
                         should_recompute = (
                             last_diag_index < 0
@@ -343,6 +374,7 @@ class CointegrationPairsStrategy(PairStrategy):
                                         last_ok = 0.0
                                     else:
                                         last_ok = None
+                                    last_breakdown = None
                                 else:
                                     g = tdiag.get("gates", {})
                                     sb = tdiag.get("structural_breaks")
@@ -350,15 +382,29 @@ class CointegrationPairsStrategy(PairStrategy):
                                         g, sb, bool(self.strict_enriched_gates)
                                     )
                                     last_ok = 1.0 if ok else 0.0
+                                    # Record the honest per-gate pass/fail from
+                                    # this refresh so the breakdown reflects
+                                    # which gate(s) actually blocked.
+                                    last_breakdown = {
+                                        k: bool(g.get(k) is True)
+                                        for k in gate_names
+                                    }
+                                    last_breakdown["all_pass"] = bool(
+                                        g.get("all_pass") is True
+                                    )
                                 last_diag_index = i
                             except Exception:
                                 if self.strict_enriched_gates:
                                     last_ok = 0.0
                                 else:
                                     last_ok = None
+                                last_breakdown = None
                                 last_diag_index = i
                         enriched_ok_arr[i] = last_ok if last_ok is not None else np.nan
+                        if last_breakdown is not None:
+                            breakdown.iloc[i] = list(last_breakdown.values())
                     enriched_ok = pd.Series(enriched_ok_arr, index=data.index)
+                    self._gate_breakdown = breakdown
                     # Fail closed under strict mode: never promote missing/
                     # failed per-bar diagnostics into an "ok" signal.
                     fill_val = 0.0 if self.strict_enriched_gates else 1.0
