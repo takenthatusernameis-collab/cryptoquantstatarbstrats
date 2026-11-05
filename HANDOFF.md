@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T08:50:07Z
+# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T08:51:05Z
 
 ## READ THIS FIRST / DO THIS NOW (NO REHASH, NO INVESTIGATION-ONLY)
 **You are the next session. Execute PRIORITY 6 below immediately.** This repo is `cryptoquantstatarbstrats` (crypto quant stat-arb strategies): the only acceptable progress is **heavy, fail-closed, real-data work that leaves artifacts**. **Every session leaves >=2 new concrete artifacts in `reports/`. This session requires A+B+C (>=3).** Real data only. Never fabricate. No threshold weakening. No proxies labeled as real feeds. Do not re-litigate pairs. Commit nothing unless explicitly asked.
