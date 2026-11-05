@@ -236,12 +236,20 @@ def rolling_cointegration_stability(
             # Try with fewer windows if possible (for short trailing samples)
             if n >= win * 2 and win >= min_subwindow:
                 min_windows = 2
-            elif n >= max(20, win // 2) and win > max(20, min_subwindow // 2):
+            elif n >= 12:
                 # Try smaller window to get at least 2 windows
-                win = max(20, min_subwindow // 2)
-                while win >= 20 and n < win * 2:
-                    win = max(20, win - 10)
-                if n >= win * 2:
+                win_new = min(win // 2, 15)
+                if win_new < 10:
+                    win_new = 10
+                win = win_new
+                # shrink until we can get >=2 windows or can't
+                for _ in range(20):
+                    if win < 10:
+                        break
+                    if n >= win * 2:
+                        break
+                    win = max(10, win - 3)
+                if n >= win * 2 and win >= 10:
                     min_windows = 2
                 else:
                     return {
