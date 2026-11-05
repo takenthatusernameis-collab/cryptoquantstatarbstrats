@@ -255,7 +255,13 @@ def rolling_cointegration_stability(
                 else:
                     # Last resort: try to get >=2 windows with heavy overlap
                     # Use window as large as possible but ensure we get 2 windows
-                    for w_cand in [max(8, n // 2), max(8, n // 3 * 2), max(8, int(n * 0.6)), max(8, int(n * 0.5))]:
+                    w_cands = [
+                        max(8, n // 2),
+                        max(8, n // 3 * 2),
+                        max(8, int(n * 0.6)),
+                        max(8, int(n * 0.5)),
+                    ]
+                    for w_cand in w_cands:
                         if w_cand > n:
                             continue
                         # Check if we can get >=2 windows with step=1
@@ -323,11 +329,12 @@ def rolling_cointegration_stability(
                 except Exception:
                     continue
         if not pvalues or len(pvalues) < 2:  # need at least 2 windows
+            frac = float(np.mean([pv < 0.05 for pv in pvalues])) if pvalues else 0.0
             return {
                 "stable": False,
                 "pvalues": pvalues,
-                "frac_significant": float(np.mean([pv < 0.05 for pv in pvalues])) if pvalues else 0.0,
-                "frac_significant_0_05": float(np.mean([pv < 0.05 for pv in pvalues])) if pvalues else 0.0,
+                "frac_significant": frac,
+                "frac_significant_0_05": frac,
                 "n_windows": len(pvalues),
                 "window": int(window),
                 "step": int(step),
