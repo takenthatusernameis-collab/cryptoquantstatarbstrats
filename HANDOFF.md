@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:57:01Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T05:02:56Z
 REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1 (repo name mandate). NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
 ## INITIAL TASK (CLEAR, HEAVY WORK — DO NOT INVESTIGATE-ONLY)
@@ -22,7 +22,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
    - Run tests: `python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -v`
    - Lint/typecheck touched files: `python -m ruff check utils/cointegration.py strategies/pairs_trading.py && python -m mypy utils/cointegration.py strategies/pairs_trading.py`
 
-## CURRENT STATE (AS OF 2026-11-05T04:57:01Z)
+## CURRENT STATE (AS OF 2026-11-05T05:02:56Z)
 - Branch `main` is clean, up to date with origin/main, working tree clean.
 - Tests pass: `tests/test_cointegration_campaign31_mt.py`, `tests/test_cointegration_diagnostics_schema.py`, `tests/test_pairs_real_market.py` → 35 passed.
 - `ruff check` and `mypy` on `utils/cointegration.py` + `strategies/pairs_trading.py` → clean.
@@ -60,7 +60,7 @@ python -m ruff check utils/cointegration.py strategies/pairs_trading.py
 python -m mypy utils/cointegration.py strategies/pairs_trading.py
 ```
 
-## REPO SNAPSHOT (2026-11-05T04:57:01Z)
+## REPO SNAPSHOT (2026-11-05T05:02:56Z)
 - Branch: main, clean, up to date with origin/main.
 - Top-level: backtest/, data/, examples/, reports/, research_state/, scripts/, strategies/, tests/, utils/.
 - Key files: utils/cointegration.py, strategies/pairs_trading.py, examples/run_pair_universe_scan.py.
