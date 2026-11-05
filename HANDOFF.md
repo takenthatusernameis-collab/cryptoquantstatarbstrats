@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T20:01:07Z (Campaign #30 IN PROGRESS: `cointegration_campaign30_mt.json` already produced; remaining required: `real_feed_unblock_status_<UTC>.json` + `strategy_edge_registry_<UTC>.json`; >= 3 new `reports/` artifacts total; no investigation-only.)**
+**Timestamp (UTC): 2026-11-05T20:02:28Z (Campaign #30 IN PROGRESS: `cointegration_campaign30_mt.json` already produced; remaining required: `real_feed_unblock_status_<UTC>.json` (prior=20261105T195831Z, campaign=30) + `strategy_edge_registry_<UTC>.json` (supersede 20261105T195956Z) + rerun `pytest tests/ -q`; >= 3 new `reports/` artifacts total; no investigation-only.)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #29 STATUS (COMPLETE — fail-closed, no proven edge)
