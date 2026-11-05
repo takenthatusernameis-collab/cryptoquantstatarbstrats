@@ -1,0 +1,150 @@
+{
+  "artifact": "strategy_edge_registry_20261105T173236Z",
+  "campaign": 22,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T17:32:36Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T164226Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 925,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 57.04,
+    "note": "Full suite rerun in-session after C22 code changes (loader+tests).",
+    "loader_targeted": {
+      "command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+      "passed": 93,
+      "failed": 0,
+      "rc": 0,
+      "delta_from_c21": "+3 (build_cache_provenance_gap_audit: empty cache, refused candidate gap recording, CLI --cache-provenance-audit)"
+    }
+  },
+  "quality_gates": {
+    "loader_import_smoke": {
+      "command": "python -c 'from data.real_feed_loader import build_cache_provenance_gap_audit, build_unblock_trend_report, compare_unblock_status, generate_unblock_status_report, main'",
+      "rc": 0,
+      "ok": true
+    },
+    "cli_smoke_status": {
+      "command": "python -m data.real_feed_loader --cache-dir data/cache --reports-dir reports --campaign 22 --prior reports/real_feed_unblock_status_20261105T164226Z.json --output reports/real_feed_unblock_status_20261105T173236Z.json",
+      "rc": 0,
+      "ok": true,
+      "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+      "campaign_delta_changed": false,
+      "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+    },
+    "cli_smoke_cache_provenance_audit": {
+      "command": "python -m data.real_feed_loader --cache-provenance-audit --cache-dir data/cache --campaign 22 --reports-dir reports --output reports/cache_provenance_gap_audit_20261105T173236Z.json",
+      "rc": 0,
+      "ok": true,
+      "conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+      "path_r_triggered": false,
+      "honest_assessment": "CANDIDATES_PRESENT_BUT_FAIL_CLOSED_REFUSED_STILL_BLOCKED",
+      "meta_files_scanned": 21,
+      "candidate_hits": 1,
+      "refused_candidates": 1,
+      "valid_candidates": 0,
+      "note": "volume_1h_full.meta.json is classified as a real_quote_volume candidate but fails closed due to missing required provenance keys; refusal is honest, not progress."
+    }
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [
+      0,
+      5,
+      10,
+      20
+    ],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "campaign_artifacts": [
+    "reports/real_feed_unblock_status_20261105T173236Z.json",
+    "reports/cache_provenance_gap_audit_20261105T173236Z.json",
+    "reports/strategy_edge_registry_20261105T173236Z.json"
+  ],
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165. No re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_xsec_rank_P5": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_donchian_tsmom_P6": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_range_breakout_reversion_volband_P7": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_pairwise_ols_hedge_spread_mr_P9": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_residual_momentum_P10": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_lead_lag_diffusion_P11": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"
+    },
+    "real_quote_volume": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "evidence": "Candidate volume_1h_full.meta.json present but fail-closed refused: missing required provenance keys; no valid provenance certificate. Recorded in cache_provenance_gap_audit.",
+      "path_r_blocker": "requires complete verifiable provenance/certificate satisfying loader schema + passing validate_and_load_real_feed"
+    }
+  },
+  "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED. No new real non-spot feed with verifiable provenance ingested. Path R not triggered. oos_edge_proven=false across registry. Campaign #22 delivered real tested infrastructure (cache provenance gap audit + CLI) and concrete fail-closed artifacts; no edge claim.",
+  "next_campaign_binding": {
+    "campaign": 23,
+    "expected_path": "C-maintain unless genuinely new real feed with provenance ingested+validated in-session (Path R)",
+    "required_artifacts_min": 3,
+    "must_use_prior": "reports/real_feed_unblock_status_20261105T173236Z.json",
+    "must_supersede": "reports/strategy_edge_registry_20261105T173236Z.json"
+  }
+}

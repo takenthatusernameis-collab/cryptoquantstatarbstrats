@@ -1171,6 +1171,139 @@ def build_unblock_trend_report(
     }
 
 
+def build_cache_provenance_gap_audit(
+    cache_dir: str | Path,
+    *,
+    campaign: int | None = None,
+    reports_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Emit a concrete fail-closed cache provenance/candidate gap audit artifact.
+
+    Enumerates all ``*.meta.json`` files in *cache_dir*, records whether each is
+    classified as a non-spot candidate, whether a provenance certificate is
+    discoverable, and the fail-closed validation outcome (including refusal
+    reasons) from :func:`audit_cache_for_real_nonspot_feeds`. Also summarizes
+    the four externally-gated non-spot families. Never fabricates data, never
+    proves edge, and never labels refused/missing provenance as progress.
+    """
+    cache_dir = Path(cache_dir)
+    scan = scan_cache_for_real_nonspot_feeds(cache_dir)
+    audit = audit_cache_for_real_nonspot_feeds(cache_dir, campaign=campaign)
+    candidate_meta_names = {str(h.get("meta", "")) for h in scan.get("candidate_hits", [])}
+    candidate_families = {
+        str(h.get("meta", "")): [str(f) for f in (h.get("families_considered") or [])]
+        for h in scan.get("candidate_hits", [])
+    }
+    validations_by_meta: dict[str, list[dict[str, Any]]] = {}
+    for v in audit.get("candidate_validation", []) or []:
+        if not isinstance(v, dict):
+            continue
+        validations_by_meta.setdefault(str(v.get("meta", "")), []).append(v)
+
+    meta_inventory: list[dict[str, Any]] = []
+    for mp in sorted(cache_dir.glob("*.meta.json")) if cache_dir.exists() else []:
+        meta_name = mp.name
+        prov = _discover_provenance_certificate(cache_dir, mp)
+        obj: dict[str, Any] | None = None
+        read_error: str | None = None
+        try:
+            loaded = json.loads(mp.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                obj = loaded
+            else:
+                read_error = "meta_not_object"
+        except Exception as exc:
+            read_error = f"{type(exc).__name__}:{exc}"
+        flags_ok = (
+            isinstance(obj, dict)
+            and obj.get("real_data_only") is True
+            and obj.get("fabricated_data") is False
+        ) if obj is not None else None
+        meta_inventory.append(
+            {
+                "meta": meta_name,
+                "candidate_nonspot": meta_name in candidate_meta_names,
+                "families_considered": candidate_families.get(meta_name, []),
+                "provenance_certificate_discovered": prov is not None,
+                "provenance_certificate_path": str(prov) if prov is not None else None,
+                "meta_readable": read_error is None,
+                "meta_read_error": read_error,
+                "declared_real_data_only_true_fabricated_false": flags_ok,
+                "meta_type_or_artifact": (obj or {}).get("type") or (obj or {}).get("artifact"),
+                "validation_results": validations_by_meta.get(meta_name, []),
+            }
+        )
+
+    blocked_families = sorted(
+        fam for fam, info in (audit.get("families") or {}).items()
+        if isinstance(info, dict) and not info.get("valid_artifacts")
+    )
+    path_r_triggered = scan.get("new_real_feeds_with_provenance_found") is True and any(
+        isinstance(info, dict) and info.get("valid_artifacts")
+        for info in (audit.get("families") or {}).values()
+    )
+    any_candidate_valid = any(
+        isinstance(v, dict) and v.get("ok") and not v.get("refused")
+        for v in (audit.get("candidate_validation") or [])
+    )
+    candidate_hits_list = scan.get("candidate_hits") or []
+    candidate_hits = len(candidate_hits_list) if isinstance(candidate_hits_list, list) else int(candidate_hits_list or 0)
+    refused_candidates = sum(
+        1 for v in (audit.get("candidate_validation") or []) if isinstance(v, dict) and v.get("refused")
+    )
+    return {
+        "tool": "data.real_feed_loader.build_cache_provenance_gap_audit",
+        "artifact": "cache_provenance_gap_audit",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "campaign": campaign,
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "no_proxies_labeled_real": True,
+        "oos_edge_proven": False,
+        "cache_dir": str(cache_dir),
+        "reports_dir": str(reports_dir) if reports_dir is not None else None,
+        "conclusion": (
+            "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT"
+            if path_r_triggered and any_candidate_valid
+            else "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+        ),
+        "path_r_triggered": bool(path_r_triggered and any_candidate_valid),
+        "blocked_families": blocked_families,
+        "scan_summary": {
+            "meta_files_scanned": int(scan.get("meta_files_scanned", 0) or 0),
+            "candidate_hits": candidate_hits,
+            "candidate_validation_count": len(audit.get("candidate_validation") or []),
+            "refused_candidates": refused_candidates,
+            "valid_candidates": sum(
+                1 for v in (audit.get("candidate_validation") or [])
+                if isinstance(v, dict) and v.get("ok") and not v.get("refused")
+            ),
+            "new_real_feeds_with_provenance_found": bool(
+                scan.get("new_real_feeds_with_provenance_found")
+            ),
+            "non_candidate_meta_count": int(audit.get("non_candidate_meta_count", 0) or 0),
+        },
+        "families": audit.get("families", {}),
+        "candidate_validation": audit.get("candidate_validation", []),
+        "provenance_certificates": audit.get("provenance_certificates", []),
+        "meta_inventory": meta_inventory,
+        "honest_assessment": (
+            "PATH_R_ELIGIBLE_REVIEW_REQUIRED"
+            if path_r_triggered and any_candidate_valid
+            else "CANDIDATES_PRESENT_BUT_FAIL_CLOSED_REFUSED_STILL_BLOCKED"
+            if candidate_hits > 0
+            else "NO_CANDIDATE_NONSPOT_FEEDS_STILL_BLOCKED_FAIL_CLOSED"
+        ),
+        "notes": (
+            "Concrete fail-closed cache/provenance gap audit derived only from existing "
+            "cache metadata and loader validation. Refusals are recorded honestly; "
+            "refused or missing provenance is not progress and not an edge claim. "
+            "No fabrication, no proxies labeled real, no threshold weakening."
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: emit fail-closed real-feed unblock status or trend reports.
 
@@ -1215,12 +1348,23 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="When --trend is set, include only the last N status entries (chronological order)",
     )
+    parser.add_argument(
+        "--cache-provenance-audit",
+        action="store_true",
+        help="Emit a fail-closed per-meta cache provenance/candidate gap audit artifact",
+    )
     args = parser.parse_args(argv)
     if args.trend:
         report = build_unblock_trend_report(
             Path(args.reports_dir),
             campaign=args.campaign,
             limit=args.trend_limit,
+        )
+    elif getattr(args, "cache_provenance_audit", False):
+        report = build_cache_provenance_gap_audit(
+            Path(args.cache_dir),
+            campaign=args.campaign,
+            reports_dir=Path(args.reports_dir),
         )
     else:
         report = generate_unblock_status_report(
