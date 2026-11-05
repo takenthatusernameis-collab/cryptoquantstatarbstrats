@@ -1,0 +1,98 @@
+{
+  "tool": "campaign20_failclosed_delta_audit",
+  "generated_at_utc": "2026-11-05T16:39:19.398735+00:00",
+  "timestamp_utc_artifact": "20261105T163640Z",
+  "campaign": 20,
+  "repo": "cryptoquantstatarbstrats",
+  "path_executed": "Path C-maintain",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "path_r_triggered": false,
+  "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "code_changes_tested": {
+    "data/real_feed_loader.py": [
+      "added compare_unblock_status()",
+      "generate_unblock_status_report accepts prior_report and emits campaign_delta",
+      "CLI --prior flag"
+    ],
+    "tests/test_real_feed_loader_validation.py": [
+      "+6 tests (85 total in file; baseline 79 in C19 report context -> +6 delta tests)"
+    ]
+  },
+  "test_evidence": {
+    "loader_suite": "85 passed, 0 failed",
+    "full_suite": "917 passed, 1 skipped, 0 failed",
+    "command": "python -m pytest tests/ -q"
+  },
+  "audit_summary": {
+    "meta_files_scanned": 21,
+    "candidate_hits": 0,
+    "candidate_validation_count": 0,
+    "non_candidate_meta_count": 21,
+    "audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+    "new_real_feeds_with_provenance_found": false
+  },
+  "campaign_delta": {
+    "tool": "data.real_feed_loader.compare_unblock_status",
+    "generated_at_utc": "2026-11-05T16:39:19.398654+00:00",
+    "fail_closed": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "oos_edge_proven": false,
+    "prior_available": true,
+    "changed": false,
+    "prior_source": "reports/real_feed_unblock_status_20261105T163015Z.json",
+    "prior_campaign": 19,
+    "current_campaign": 20,
+    "prior_conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+    "current_conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+    "prior_audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+    "current_audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+    "prior_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "current_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "blocked_families_changed": false,
+    "prior_path_r_triggered": false,
+    "current_path_r_triggered": false,
+    "path_r_changed": false,
+    "scan_differences": {},
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+  },
+  "families": {
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "notes": "Concrete fail-closed infrastructure/audit artifact backed by real tested code. Not an edge claim. No spot retest on same cache. No fabrication/proxies/gate weakening."
+}

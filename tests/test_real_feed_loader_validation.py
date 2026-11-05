@@ -873,7 +873,7 @@ def test_audit_cache_records_candidate_refusal(tmp_path: Path):
 
 
 # --- Campaign #18: generate_unblock_status_report (fail-closed infrastructure) ---
-from data.real_feed_loader import generate_unblock_status_report  # noqa: E402
+from data.real_feed_loader import compare_unblock_status, generate_unblock_status_report  # noqa: E402
 
 
 def test_generate_unblock_status_report_no_candidates(tmp_path: Path):
@@ -1084,3 +1084,137 @@ def test_unblock_status_cli_readiness_details_flag(tmp_path: Path):
     assert obj["readiness_specs"][0]["feeds_count"] == 2
     assert obj["readiness_specs"][0]["generated_at_utc"] == "2026-11-05T10:46:40Z"
     assert obj["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
+
+
+# --- Campaign #20: compare_unblock_status / campaign_delta (fail-closed infrastructure) ---
+
+
+def test_compare_unblock_status_no_prior():
+    delta = compare_unblock_status(None, {"blocked_families": ["funding_basis_carry"]})
+    assert delta["fail_closed"] is True
+    assert delta["oos_edge_proven"] is False
+    assert delta["prior_available"] is False
+    assert delta["reason"] == "no_prior_provided"
+    assert delta["changed"] is None
+
+
+def test_compare_unblock_status_missing_prior_file(tmp_path: Path):
+    delta = compare_unblock_status(tmp_path / "nope.json", {"blocked_families": []})
+    assert delta["prior_available"] is False
+    assert delta["reason"] == "prior_report_missing"
+    assert delta["changed"] is None
+
+
+def test_compare_unblock_status_detects_no_change(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    current = generate_unblock_status_report(cache, campaign=20)
+    prior_path = tmp_path / "prior.json"
+    prior_path.write_text(json.dumps(current), encoding="utf-8")
+    delta = compare_unblock_status(prior_path, current)
+    assert delta["prior_available"] is True
+    assert delta["changed"] is False
+    assert delta["blocked_families_changed"] is False
+    assert delta["path_r_changed"] is False
+    assert delta["scan_differences"] == {}
+    assert delta["honest_assessment"] == "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+    assert delta["oos_edge_proven"] is False
+
+
+def test_compare_unblock_status_detects_change():
+    prior = {
+        "campaign": 19,
+        "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+        "audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+        "path_r_triggered": False,
+        "blocked_families": [
+            "funding_basis_carry",
+            "cross_exchange_dual_venue_same_asset",
+            "term_structure_real_iv_vol_surface",
+            "intrabar_microstructure",
+        ],
+        "scan_summary": {"meta_files_scanned": 21, "candidate_hits": 0},
+    }
+    current = {
+        **prior,
+        "campaign": 20,
+        "path_r_triggered": True,
+        "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+        "blocked_families": [
+            "cross_exchange_dual_venue_same_asset",
+            "term_structure_real_iv_vol_surface",
+            "intrabar_microstructure",
+        ],
+        "scan_summary": {"meta_files_scanned": 22, "candidate_hits": 1},
+    }
+    delta = compare_unblock_status(prior, current)
+    assert delta["changed"] is True
+    assert delta["blocked_families_changed"] is True
+    assert delta["path_r_changed"] is True
+    assert delta["scan_differences"]["candidate_hits"]["prior"] == 0
+    assert delta["scan_differences"]["candidate_hits"]["current"] == 1
+    assert delta["honest_assessment"] == "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED"
+
+
+def test_generate_unblock_status_report_includes_campaign_delta(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    prior = generate_unblock_status_report(cache, campaign=19)
+    prior_path = tmp_path / "prior.json"
+    prior_path.write_text(json.dumps(prior), encoding="utf-8")
+    current = generate_unblock_status_report(cache, campaign=20, prior_report=prior_path)
+    assert current["campaign"] == 20
+    assert current["oos_edge_proven"] is False
+    assert current["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
+    assert "campaign_delta" in current
+    assert current["campaign_delta"]["prior_available"] is True
+    assert current["campaign_delta"]["changed"] is False
+    assert current["campaign_delta"]["prior_campaign"] == 19
+    assert current["campaign_delta"]["current_campaign"] == 20
+
+
+def test_unblock_status_cli_prior_flag(tmp_path: Path):
+    from data.real_feed_loader import main
+
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    prior_out = tmp_path / "prior.json"
+    rc = main(
+        [
+            "--cache-dir",
+            str(cache),
+            "--reports-dir",
+            str(reports),
+            "--campaign",
+            "19",
+            "--output",
+            str(prior_out),
+            "--no-auto-discover-readiness",
+        ]
+    )
+    assert rc == 0
+    out = tmp_path / "out.json"
+    rc = main(
+        [
+            "--cache-dir",
+            str(cache),
+            "--reports-dir",
+            str(reports),
+            "--campaign",
+            "20",
+            "--prior",
+            str(prior_out),
+            "--output",
+            str(out),
+            "--no-auto-discover-readiness",
+        ]
+    )
+    assert rc == 0
+    obj = json.loads(out.read_text(encoding="utf-8"))
+    assert obj["campaign"] == 20
+    assert obj["path_r_triggered"] is False
+    assert obj["campaign_delta"]["prior_available"] is True
+    assert obj["campaign_delta"]["changed"] is False
+    assert obj["campaign_delta"]["honest_assessment"] == "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"

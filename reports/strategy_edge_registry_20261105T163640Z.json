@@ -1,0 +1,135 @@
+{
+  "artifact": "strategy_edge_registry_20261105T163640Z",
+  "campaign": 20,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T16:36:40Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T163015Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 917,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 59.24,
+    "note": "Full suite rerun in-session after C20 code changes (loader+tests).",
+    "loader_targeted": {
+      "command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+      "passed": 85,
+      "failed": 0,
+      "rc": 0,
+      "delta_from_c19": "+6 (campaign-delta/compare_unblock_status/prior_report/CLI --prior tests)"
+    }
+  },
+  "quality_gates": {
+    "loader_import_smoke": {
+      "command": "python -c 'from data.real_feed_loader import compare_unblock_status, generate_unblock_status_report'",
+      "rc": 0,
+      "ok": true
+    },
+    "cli_smoke": {
+      "command": "python -m data.real_feed_loader --campaign 20 --prior reports/real_feed_unblock_status_20261105T163015Z.json --output <tmp>",
+      "rc": 0,
+      "ok": true
+    }
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [0, 5, 10, 20],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165. No re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_xsec_rank_P5": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_donchian_tsmom_P6": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_range_breakout_reversion_volband_P7": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_pairwise_ols_hedge_spread_mr_P9": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_residual_momentum_P10": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_lead_lag_diffusion_P11": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    }
+  },
+  "campaign20_artifacts": [
+    "reports/real_feed_unblock_status_20261105T163640Z.json",
+    "reports/failclosed_campaign_delta_audit_20261105T163640Z.json",
+    "reports/strategy_edge_registry_20261105T163640Z.json"
+  ],
+  "code_changes_campaign20": [
+    {
+      "file": "data/real_feed_loader.py",
+      "change": "Added compare_unblock_status() for fail-closed prior-vs-current unblock delta (observable state only; unreadable prior handled honestly). generate_unblock_status_report accepts prior_report and emits campaign_delta. CLI adds --prior.",
+      "tests_added": [
+        "test_compare_unblock_status_no_prior",
+        "test_compare_unblock_status_missing_prior_file",
+        "test_compare_unblock_status_detects_no_change",
+        "test_compare_unblock_status_detects_change",
+        "test_generate_unblock_status_report_includes_campaign_delta",
+        "test_unblock_status_cli_prior_flag"
+      ],
+      "real_tested": true
+    }
+  ],
+  "campaign20_unblock_scan": {
+    "path_r_triggered": false,
+    "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+    "meta_files_scanned": 21,
+    "candidate_hits": 0,
+    "valid_nonspot_provenance_artifacts_found": 0,
+    "readiness_spec_count": 1,
+    "readiness_specs_discovered": ["real_feed_ingestion_readiness_20261105T104640Z.json"],
+    "campaign_delta_vs_prior": {
+      "prior": "reports/real_feed_unblock_status_20261105T163015Z.json",
+      "prior_available": true,
+      "changed": false,
+      "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+    },
+    "families": {
+      "funding_basis_carry": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+      "cross_exchange_dual_venue_same_asset": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+      "term_structure_real_iv_vol_surface": {"status": "blocked_no_real_feed", "valid_artifacts": []},
+      "intrabar_microstructure": {"status": "blocked_no_real_feed", "valid_artifacts": []}
+    }
+  },
+  "core_truth": "No proven net-of-cost OOS edge. Pairs proven blocked (165/165). Spot 1h exhausted. Non-spot families blocked_no_real_feed (fail-closed scan: 0 valid provenance artifacts, 0 candidate hits across 21 meta files). oos_edge_proven=false across registry. Campaign #20 Path C-maintain: added fail-closed campaign-delta/compare_unblock_status + CLI --prior (+6 tests; loader 85 passed), produced honest unblock status with delta + delta audit + superseding registry with rerun tests (917 passed, 1 skipped). No fabrication/proxies/threshold weakening/no pairs rescan/no structurally-similar spot retest. Next productive path is Path R only if a genuinely new real feed with provenance is ingested."
+}

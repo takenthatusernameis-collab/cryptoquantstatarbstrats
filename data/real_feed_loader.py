@@ -644,6 +644,101 @@ def discover_readiness_specs(reports_dir: str | Path) -> list[dict[str, Any]]:
     return found
 
 
+def compare_unblock_status(
+    prior: dict[str, Any] | str | Path | None,
+    current: dict[str, Any],
+) -> dict[str, Any]:
+    """Compare a prior unblock status report to the current one (fail-closed).
+
+    Accepts a prior report dict or a path to a JSON report. Records only
+    observable differences (blocked families, path_r, scan counts, audit
+    conclusion). Never fabricates changes; if the prior report is unreadable,
+    the delta is marked ``prior_unavailable`` honestly. Does not prove edge.
+    """
+    delta: dict[str, Any] = {
+        "tool": "data.real_feed_loader.compare_unblock_status",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "oos_edge_proven": False,
+        "prior_available": False,
+        "changed": None,
+    }
+    if prior is None:
+        delta["reason"] = "no_prior_provided"
+        return delta
+    prior_obj: dict[str, Any] | None = None
+    if isinstance(prior, dict):
+        prior_obj = prior
+        delta["prior_source"] = "<dict>"
+    else:
+        prior_path = Path(prior)
+        delta["prior_source"] = str(prior_path)
+        if prior_path.exists():
+            try:
+                loaded = json.loads(prior_path.read_text(encoding="utf-8"))
+                if isinstance(loaded, dict):
+                    prior_obj = loaded
+                else:
+                    delta["reason"] = "prior_report_not_object"
+                    return delta
+            except Exception as exc:
+                delta["reason"] = f"prior_read_error:{type(exc).__name__}:{exc}"
+                return delta
+        else:
+            delta["reason"] = "prior_report_missing"
+            return delta
+    delta["prior_available"] = True
+    prior_blocked = sorted(prior_obj.get("blocked_families") or [])
+    current_blocked = sorted(current.get("blocked_families") or [])
+    prior_path_r = bool(prior_obj.get("path_r_triggered"))
+    current_path_r = bool(current.get("path_r_triggered"))
+    prior_scan = prior_obj.get("scan_summary") or {}
+    current_scan = current.get("scan_summary") or {}
+    scan_keys = (
+        "meta_files_scanned",
+        "candidate_hits",
+        "candidate_validation_count",
+        "new_real_feeds_with_provenance_found",
+    )
+    scan_diff = {
+        k: {"prior": prior_scan.get(k), "current": current_scan.get(k)}
+        for k in scan_keys
+        if prior_scan.get(k) != current_scan.get(k)
+    }
+    changed = (
+        prior_blocked != current_blocked
+        or prior_path_r != current_path_r
+        or prior_obj.get("audit_conclusion") != current.get("audit_conclusion")
+        or bool(scan_diff)
+    )
+    delta.update(
+        {
+            "changed": changed,
+            "prior_campaign": prior_obj.get("campaign"),
+            "current_campaign": current.get("campaign"),
+            "prior_conclusion": prior_obj.get("conclusion"),
+            "current_conclusion": current.get("conclusion"),
+            "prior_audit_conclusion": prior_obj.get("audit_conclusion"),
+            "current_audit_conclusion": current.get("audit_conclusion"),
+            "prior_blocked_families": prior_blocked,
+            "current_blocked_families": current_blocked,
+            "blocked_families_changed": prior_blocked != current_blocked,
+            "prior_path_r_triggered": prior_path_r,
+            "current_path_r_triggered": current_path_r,
+            "path_r_changed": prior_path_r != current_path_r,
+            "scan_differences": scan_diff,
+            "honest_assessment": (
+                "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED"
+                if changed
+                else "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+            ),
+        }
+    )
+    return delta
+
+
 def generate_unblock_status_report(
     cache_dir: str | Path,
     *,
@@ -652,16 +747,19 @@ def generate_unblock_status_report(
     reports_dir: str | Path | None = None,
     auto_discover_readiness: bool = True,
     include_readiness_details: bool = False,
+    prior_report: dict[str, Any] | str | Path | None = None,
 ) -> dict[str, Any]:
     """Generate a fail-closed unblock/readiness status report from cache state.
 
     Combines ``audit_cache_for_real_nonspot_feeds`` with readiness spec
     references. If *readiness_specs* is omitted and *auto_discover_readiness* is
     true, relevant readiness specs are discovered from *reports_dir* (or
-    ``cache_dir/../reports`` when reports_dir is omitted). Never fabricates
-    data, never weakens validation, never sets ``oos_edge_proven`` true. A
-    family is unblocked only when a valid real non-spot provenance artifact is
-    present and passes validation.
+    ``cache_dir/../reports`` when reports_dir is omitted). When *prior_report*
+    is provided, a ``campaign_delta`` section compares observable unblock state
+    against the prior report (fail-closed; no fabricated changes). Never
+    fabricates data, never weakens validation, never sets ``oos_edge_proven``
+    true. A family is unblocked only when a valid real non-spot provenance
+    artifact is present and passes validation.
     """
     audit = audit_cache_for_real_nonspot_feeds(cache_dir, campaign=campaign)
     specs: list[dict[str, Any]] = []
@@ -709,7 +807,7 @@ def generate_unblock_status_report(
         fam for fam, info in audit["families"].items()
         if info.get("status") != "real_feed_with_provenance_present"
     ]
-    return {
+    report: dict[str, Any] = {
         "tool": "data.real_feed_loader.generate_unblock_status_report",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "campaign": campaign,
@@ -740,6 +838,9 @@ def generate_unblock_status_report(
         "readiness_spec_count": len(specs),
         "auto_discover_readiness": auto_discover_readiness,
     }
+    if prior_report is not None:
+        report["campaign_delta"] = compare_unblock_status(prior_report, report)
+    return report
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -770,6 +871,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Include compact readiness-spec metadata (feeds_count/timestamps) when present",
     )
+    parser.add_argument(
+        "--prior",
+        default=None,
+        help="Path to a prior real_feed_unblock_status JSON for fail-closed campaign delta",
+    )
     args = parser.parse_args(argv)
     report = generate_unblock_status_report(
         Path(args.cache_dir),
@@ -777,6 +883,7 @@ def main(argv: list[str] | None = None) -> int:
         reports_dir=Path(args.reports_dir),
         auto_discover_readiness=not args.no_auto_discover_readiness,
         include_readiness_details=bool(getattr(args, "readiness_details", False)),
+        prior_report=args.prior,
     )
     payload = json.dumps(report, indent=2, sort_keys=False) + "\n"
     if args.output:
