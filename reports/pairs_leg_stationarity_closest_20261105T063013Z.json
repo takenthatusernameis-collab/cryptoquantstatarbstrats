@@ -9,7 +9,7 @@
   "source": "cached_real_binance_spot_2026-04-01..2026-10-30_resample_last",
   "n_entries": 165,
   "n_pass_all_gates": 0,
-  "sorted_by": "max(leg1_pvalue, leg2_pvalue) ascending",
+  "sorted_by": "max(leg1_pvalue, leg2_pvalue) asc",
   "entries": [
     {
       "pair": "POL/XRP",
@@ -1267,7 +1267,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.32230645054111606
     },
     {
       "pair": "POL/XRP",
@@ -1481,7 +1482,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.3226213013850222
     },
     {
       "pair": "POL/XRP",
@@ -1869,7 +1871,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.34310109294903196
     },
     {
       "pair": "ADA/POL",
@@ -2124,7 +2127,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4085165380040904
     },
     {
       "pair": "ADA/XRP",
@@ -2379,7 +2383,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4085165380040904
     },
     {
       "pair": "ADA/DOT",
@@ -2603,7 +2608,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42261281153897734
     },
     {
       "pair": "DOT/POL",
@@ -2858,7 +2864,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42261281153897734
     },
     {
       "pair": "DOT/XRP",
@@ -3113,7 +3120,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42261281153897734
     },
     {
       "pair": "ADA/POL",
@@ -4424,7 +4432,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42308507541526685
     },
     {
       "pair": "ADA/XRP",
@@ -5735,7 +5744,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42308507541526685
     },
     {
       "pair": "AVAX/POL",
@@ -6156,7 +6166,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42500410558328067
     },
     {
       "pair": "AVAX/XRP",
@@ -6577,7 +6588,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.42500410558328067
     },
     {
       "pair": "ADA/DOT",
@@ -7868,7 +7880,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4770443355109637
     },
     {
       "pair": "DOT/POL",
@@ -9179,7 +9192,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4770443355109637
     },
     {
       "pair": "DOT/XRP",
@@ -10490,7 +10504,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4770443355109637
     },
     {
       "pair": "ADA/AVAX",
@@ -10921,7 +10936,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.48393586370918074
     },
     {
       "pair": "ADA/POL",
@@ -11362,7 +11378,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.48393586370918074
     },
     {
       "pair": "ADA/XRP",
@@ -11803,7 +11820,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.48393586370918074
     },
     {
       "pair": "ADA/BNB",
@@ -12244,7 +12262,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4927417921968245
     },
     {
       "pair": "AVAX/BNB",
@@ -12665,7 +12684,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4927417921968245
     },
     {
       "pair": "BNB/POL",
@@ -13076,7 +13096,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4927417921968245
     },
     {
       "pair": "BNB/XRP",
@@ -13517,7 +13538,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.4927417921968245
     },
     {
       "pair": "ADA/AVAX",
@@ -13772,7 +13794,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.49754195132232426
     },
     {
       "pair": "AVAX/DOT",
@@ -14007,7 +14030,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.49754195132232426
     },
     {
       "pair": "AVAX/POL",
@@ -14242,7 +14266,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.49754195132232426
     },
     {
       "pair": "AVAX/XRP",
@@ -14477,7 +14502,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.49754195132232426
     },
     {
       "pair": "ADA/DOT",
@@ -14898,7 +14924,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5277116486337987
     },
     {
       "pair": "AVAX/DOT",
@@ -15319,7 +15346,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5277116486337987
     },
     {
       "pair": "BNB/DOT",
@@ -15760,7 +15788,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5277116486337987
     },
     {
       "pair": "DOT/POL",
@@ -16201,7 +16230,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5277116486337987
     },
     {
       "pair": "DOT/XRP",
@@ -16642,7 +16672,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5277116486337987
     },
     {
       "pair": "ADA/BNB",
@@ -17964,7 +17995,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5424386084799218
     },
     {
       "pair": "BNB/DOT",
@@ -19286,7 +19318,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5424386084799218
     },
     {
       "pair": "BNB/POL",
@@ -20555,7 +20588,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5424386084799218
     },
     {
       "pair": "BNB/XRP",
@@ -21877,7 +21911,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5424386084799218
     },
     {
       "pair": "ADA/BNB",
@@ -22132,7 +22167,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5847771596491143
     },
     {
       "pair": "AVAX/BNB",
@@ -22367,7 +22403,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5847771596491143
     },
     {
       "pair": "BNB/DOT",
@@ -22622,7 +22659,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5847771596491143
     },
     {
       "pair": "BNB/POL",
@@ -22824,7 +22862,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5847771596491143
     },
     {
       "pair": "BNB/XRP",
@@ -23079,7 +23118,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5847771596491143
     },
     {
       "pair": "ADA/BTC",
@@ -23520,7 +23560,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "AVAX/BTC",
@@ -23941,7 +23982,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "BNB/BTC",
@@ -24382,7 +24424,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "BTC/DOT",
@@ -24803,7 +24846,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "BTC/POL",
@@ -25191,7 +25235,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "BTC/XRP",
@@ -25612,7 +25657,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.5934261979983775
     },
     {
       "pair": "ADA/LTC",
@@ -25867,7 +25913,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "AVAX/LTC",
@@ -26091,7 +26138,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "BNB/LTC",
@@ -26346,7 +26394,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "DOT/LTC",
@@ -26601,7 +26650,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "LTC/POL",
@@ -26826,7 +26876,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "LTC/XRP",
@@ -27061,7 +27112,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6050512047640761
     },
     {
       "pair": "ADA/AVAX",
@@ -28372,7 +28424,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6059614987148195
     },
     {
       "pair": "AVAX/BNB",
@@ -29674,7 +29727,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6059614987148195
     },
     {
       "pair": "AVAX/DOT",
@@ -30965,7 +31019,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6059614987148195
     },
     {
       "pair": "AVAX/POL",
@@ -32256,7 +32311,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6059614987148195
     },
     {
       "pair": "AVAX/XRP",
@@ -33547,7 +33603,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6059614987148195
     },
     {
       "pair": "ADA/LTC",
@@ -33988,7 +34045,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "AVAX/LTC",
@@ -34376,7 +34434,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "BNB/LTC",
@@ -34817,7 +34876,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "BTC/LTC",
@@ -35228,7 +35288,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "DOT/LTC",
@@ -35649,7 +35710,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "LTC/POL",
@@ -36060,7 +36122,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "LTC/XRP",
@@ -36481,7 +36544,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6301688898054416
     },
     {
       "pair": "ADA/BTC",
@@ -36736,7 +36800,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "AVAX/BTC",
@@ -36971,7 +37036,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "BNB/BTC",
@@ -37226,7 +37292,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "BTC/DOT",
@@ -37461,7 +37528,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "BTC/LTC",
@@ -37686,7 +37754,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "BTC/POL",
@@ -37888,7 +37957,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "BTC/XRP",
@@ -38123,7 +38193,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.639822545168874
     },
     {
       "pair": "ADA/LTC",
@@ -39434,7 +39505,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "AVAX/LTC",
@@ -40692,7 +40764,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "BNB/LTC",
@@ -42003,7 +42076,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "DOT/LTC",
@@ -43294,7 +43368,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "LTC/POL",
@@ -44575,7 +44650,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "LTC/XRP",
@@ -45866,7 +45942,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6429880964692156
     },
     {
       "pair": "ADA/BTC",
@@ -47177,7 +47254,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "AVAX/BTC",
@@ -48468,7 +48546,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "BNB/BTC",
@@ -49779,7 +49858,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "BTC/DOT",
@@ -51081,7 +51161,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "BTC/LTC",
@@ -52372,7 +52453,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "BTC/POL",
@@ -53630,7 +53712,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "BTC/XRP",
@@ -54921,7 +55004,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.650225080053641
     },
     {
       "pair": "ADA/SOL",
@@ -55362,7 +55446,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "AVAX/SOL",
@@ -55783,7 +55868,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "BNB/SOL",
@@ -56194,7 +56280,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "BTC/SOL",
@@ -56615,7 +56702,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "DOT/SOL",
@@ -57056,7 +57144,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "LTC/SOL",
@@ -57477,7 +57566,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "POL/SOL",
@@ -57876,7 +57966,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "SOL/XRP",
@@ -58317,7 +58408,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6544927581341511
     },
     {
       "pair": "ADA/ETH",
@@ -59639,7 +59731,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "AVAX/ETH",
@@ -60930,7 +61023,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "BNB/ETH",
@@ -62241,7 +62335,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "BTC/ETH",
@@ -63521,7 +63616,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "DOT/ETH",
@@ -64823,7 +64919,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "ETH/LTC",
@@ -66114,7 +66211,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "ETH/POL",
@@ -67372,7 +67470,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "ETH/XRP",
@@ -68663,7 +68762,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6569943412712258
     },
     {
       "pair": "ADA/ETH",
@@ -68918,7 +69018,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "AVAX/ETH",
@@ -69153,7 +69254,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "BNB/ETH",
@@ -69408,7 +69510,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "BTC/ETH",
@@ -69632,7 +69735,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "DOT/ETH",
@@ -69856,7 +69960,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "ETH/LTC",
@@ -70080,7 +70185,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "ETH/POL",
@@ -70294,7 +70400,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "ETH/XRP",
@@ -70529,7 +70636,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.657578215368391
     },
     {
       "pair": "ADA/LINK",
@@ -70784,7 +70892,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "AVAX/LINK",
@@ -71039,7 +71148,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "BNB/LINK",
@@ -71241,7 +71351,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "BTC/LINK",
@@ -71496,7 +71607,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "DOT/LINK",
@@ -71751,7 +71863,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "ETH/LINK",
@@ -72006,7 +72119,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "LINK/LTC",
@@ -72241,7 +72355,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "LINK/POL",
@@ -72466,7 +72581,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "LINK/XRP",
@@ -72721,7 +72837,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6601439146467577
     },
     {
       "pair": "ADA/ETH",
@@ -73162,7 +73279,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "AVAX/ETH",
@@ -73572,7 +73690,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "BNB/ETH",
@@ -74013,7 +74132,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "BTC/ETH",
@@ -74423,7 +74543,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "DOT/ETH",
@@ -74844,7 +74965,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "ETH/LTC",
@@ -75265,7 +75387,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "ETH/POL",
@@ -75653,7 +75776,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "ETH/SOL",
@@ -76094,7 +76218,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "ETH/XRP",
@@ -76515,7 +76640,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6612393285957878
     },
     {
       "pair": "ADA/SOL",
@@ -76770,7 +76896,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "AVAX/SOL",
@@ -77005,7 +77132,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "BNB/SOL",
@@ -77230,7 +77358,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "BTC/SOL",
@@ -77465,7 +77594,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "DOT/SOL",
@@ -77720,7 +77850,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "ETH/SOL",
@@ -77975,7 +78106,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "LINK/SOL",
@@ -78188,7 +78320,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "LTC/SOL",
@@ -78423,7 +78556,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "POL/SOL",
@@ -78625,7 +78759,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "SOL/XRP",
@@ -78880,7 +79015,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6677361105320168
     },
     {
       "pair": "ADA/SOL",
@@ -80202,7 +80338,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "AVAX/SOL",
@@ -81504,7 +81641,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "BNB/SOL",
@@ -82795,7 +82933,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "BTC/SOL",
@@ -84097,7 +84236,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "DOT/SOL",
@@ -85419,7 +85559,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "ETH/SOL",
@@ -86730,7 +86871,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "LTC/SOL",
@@ -88021,7 +88163,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "POL/SOL",
@@ -89290,7 +89433,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "SOL/XRP",
@@ -90612,7 +90756,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.6707253984365085
     },
     {
       "pair": "ADA/LINK",
@@ -91934,7 +92079,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "AVAX/LINK",
@@ -93256,7 +93402,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "BNB/LINK",
@@ -94525,7 +94672,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "BTC/LINK",
@@ -95836,7 +95984,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "DOT/LINK",
@@ -97158,7 +97307,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "ETH/LINK",
@@ -98469,7 +98619,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "LINK/LTC",
@@ -99760,7 +99911,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "LINK/POL",
@@ -101041,7 +101193,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "LINK/SOL",
@@ -102322,7 +102475,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "LINK/XRP",
@@ -103644,7 +103798,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7194680883799826
     },
     {
       "pair": "ADA/LINK",
@@ -104085,7 +104240,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "AVAX/LINK",
@@ -104526,7 +104682,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "BNB/LINK",
@@ -104925,7 +105082,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "BTC/LINK",
@@ -105366,7 +105524,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "DOT/LINK",
@@ -105807,7 +105966,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "ETH/LINK",
@@ -106248,7 +106408,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "LINK/LTC",
@@ -106669,7 +106830,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "LINK/POL",
@@ -107080,7 +107242,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "LINK/SOL",
@@ -107491,7 +107654,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, leg_stationarity_ok, rolling_stable_ok. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     },
     {
       "pair": "LINK/XRP",
@@ -107932,7 +108096,8 @@
           }
         ],
         "rationale": "Real Binance spot series (www.binance.com); no fabrication. Pair did not pass all enriched cointegration gates: eg_pass, johansen_pass, spread_mr_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break. Marked blocked_or_insufficient_data with full provenance; do not trade until all gates pass on real data."
-      }
+      },
+      "worst_leg_pvalue": 0.7241767394349878
     }
   ]
 }
