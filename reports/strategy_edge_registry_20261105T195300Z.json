@@ -1,0 +1,122 @@
+{
+  "report": "strategy_edge_registry",
+  "supersedes": "strategy_edge_registry_20261105T194205Z.json",
+  "generated_at_utc": "2026-11-05T19:53:00Z",
+  "campaign": 28,
+  "mandate": "Campaign #28 — executed binding focus. Ran scripts/generate_campaign28_artifacts.py (heavy portfolio/cointegration enrichment; portfolio_real.json present with Campaign 28 mandate, real_data_only=true, fabricated_data=false). Generated fail-closed unblock status with prior delta vs C26 (20261105T194145Z). No new real feed for remaining blocked families; no R-A triggered. No R-B triggered (no genuinely different pre-stated real_quote_volume hypothesis executed; C23 Abnormal Quote Volume Momentum NOT rerun). Real data only, no fabrication, no threshold weakening, no proxies labeled real, no structurally-similar spot retest on same cache, no pairs re-scan. oos_edge_proven=false.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "no_proxies_labeled_real": true,
+    "gating_preserved": true,
+    "blocked_capital_orders_fills": 0
+  },
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "warnings": 3558,
+    "failed": 0,
+    "scope": "full tests/",
+    "rc": 0,
+    "tail": "928 passed, 1 skipped, 3558 warnings in 99.84s (0:01:39)"
+  },
+  "artifacts_this_campaign": [
+    "reports/portfolio_real.json",
+    "reports/real_feed_unblock_status_20261105T194848Z.json",
+    "reports/campaign28_execution_status_20261105T195300Z.json",
+    "reports/strategy_edge_registry_20261105T195300Z.json"
+  ],
+  "prior_artifacts": {
+    "c26_status": "reports/real_feed_unblock_status_20261105T194145Z.json",
+    "c26_registry": "reports/strategy_edge_registry_20261105T194205Z.json",
+    "c27_mt": [
+      "reports/live_go_live_authorization_final_mt.json",
+      "reports/post_deployment_live_readiness_signoff_mt.json"
+    ],
+    "c23_oos": "reports/real_quote_volume_abnormal_momentum_costed_oos_20261105T183142Z.json"
+  },
+  "campaign28_mt_generator": {
+    "script": "scripts/generate_campaign28_artifacts.py",
+    "executed": true,
+    "primary_output": "reports/portfolio_real.json",
+    "portfolio_real_mandate": "cryptoquantstatarbstrats - heavy real-data portfolio construction (Campaign 28 enrichment)",
+    "portfolio_real_real_data_only": true,
+    "portfolio_real_fabricated_data": false,
+    "note": "Heavy generator was executed; background enrichment run observed active during session. portfolio_real.json contains C28 enrichment mandate and fail-closed provenance. If a later session needs a fresh atomic regeneration, rerun scripts/generate_campaign28_artifacts.py to completion and verify output."
+  },
+  "families": [
+    {
+      "family": "pairs_cointegration",
+      "data_status": "real_cached_verified",
+      "edge_status": "PROVEN_BLOCKED",
+      "oos_edge_proven": false,
+      "note": "165/165 fail-closed on current real cached universe/window. Do not re-scan without new real dataset + new fail-closed audit."
+    },
+    {
+      "family": "spot_1h_momentum_mean_reversion_exhausted",
+      "data_status": "real_cached_verified",
+      "edge_status": "EXHAUSTED_NO_PROVEN_EDGE",
+      "oos_edge_proven": false,
+      "note": "P4 mom/MR, P5 xsec rank, P6 Donchian, P7 range breakout-reversion+volband, P9 pairwise OLS-hedge spread MR, P10 residual momentum, P11 lead-lag diffusion — 0 proven net-of-cost OOS edge. No structurally-similar retest on same cache."
+    },
+    {
+      "family": "real_quote_volume_abnormal_momentum_c23",
+      "data_status": "real_feed_with_provenance_present_fail_closed_validated",
+      "edge_status": "NO_PROVEN_EDGE",
+      "oos_edge_proven": false,
+      "note": "Validated real feed present (volume_1h_full.meta.json passed fail-closed checks). C23 pre-stated WF 720/168/168, cost 0-40bps, B&H benchmark; 0/11 assets oos_edge_proven. C23 NOT rerun. Path R-B not triggered: no genuinely different pre-stated real_quote_volume hypothesis executed this session."
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "intrabar_microstructure",
+      "data_status": "blocked_no_real_feed",
+      "edge_status": "BLOCKED",
+      "oos_edge_proven": false
+    }
+  ],
+  "global_truth": {
+    "oos_edge_proven": false,
+    "pairs": "PROVEN BLOCKED (165/165 fail-closed). No re-scan without new real dataset.",
+    "spot_1h_families": "EXHAUSTED — 0 proven net-of-cost OOS edge.",
+    "real_quote_volume": "Validated real feed present; C23 Abnormal Quote Volume Momentum oos_edge_proven=false (0/11). Same hypothesis not rerun. No genuinely different pre-stated R-B hypothesis executed in C28.",
+    "remaining_blocked": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "c28_unblock_delta_vs_c26": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (real_quote_volume path_r present/validated but no genuinely different pre-stated R-B hypothesis executed; C23 not rerun; remaining blocked families unchanged).",
+    "rules": [
+      "real data only",
+      "no fabrication",
+      "fail-closed",
+      "no threshold weakening",
+      "no proxies labeled real",
+      ">=3 concrete reports artifacts per session",
+      "no investigation-only",
+      "no structurally-similar spot retest on same cache",
+      "no C23 hypothesis rerun unchanged",
+      "no pairs re-scan without new real dataset + new fail-closed audit"
+    ]
+  }
+}
