@@ -1,5 +1,5 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:49:25Z
-REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1. NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:57:01Z
+REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1 (repo name mandate). NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
 ## INITIAL TASK (CLEAR, HEAVY WORK — DO NOT INVESTIGATE-ONLY)
 
@@ -22,7 +22,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
    - Run tests: `python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -v`
    - Lint/typecheck touched files: `python -m ruff check utils/cointegration.py strategies/pairs_trading.py && python -m mypy utils/cointegration.py strategies/pairs_trading.py`
 
-## CURRENT STATE (AS OF 2026-11-05T04:47:52Z)
+## CURRENT STATE (AS OF 2026-11-05T04:57:01Z)
 - Branch `main` is clean, up to date with origin/main, working tree clean.
 - Tests pass: `tests/test_cointegration_campaign31_mt.py`, `tests/test_cointegration_diagnostics_schema.py`, `tests/test_pairs_real_market.py` → 35 passed.
 - `ruff check` and `mypy` on `utils/cointegration.py` + `strategies/pairs_trading.py` → clean.
@@ -36,7 +36,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
 - **Assessability (rolling stability)**: REMOVED. `rolling_cointegration_stability` produces >=2 windows on short samples (60/120). Monitor for any remaining `insufficient_data` cases.
 - **Parity (cached vs uncached)**: Verified on main; per-bar interval caching matches cached path under strict fail-closed. No divergence.
 - **False "insufficient_data"**: Removed via window shrinking + step=1 fallback; only truly impossible cases remain unassessable.
-- **Leg stationarity (REMAINING, CANNOT BE WEAKENED)**: Requires both legs ADF p <= 0.05; on real crypto price legs this is genuinely non-stationary. This is the primary blocker keeping n_pass_all_gates=0. Path forward: confirm honestly via fresh scan, document per-gate counts, do NOT weaken.
+- **Leg stationarity (REMAINING, CANNOT BE WEAKENED)**: Requires both legs ADF p <= 0.05; on real crypto price legs this is genuinely non-stationary. This is the primary blocker keeping n_pass_all_gates=0. Path forward: confirm honestly via fresh scan, document per-gate counts, do NOT weaken. Do not spend sessions investigating ways around it — that is prohibited.
 
 ## NEXT FOCUS CAMPAIGN (HEAVY WORK, NO COASTING — MANDATORY)
 1. Run fresh universe scan immediately (`python examples/run_pair_universe_scan.py`) → fresh timestamped JSON in `reports/`.
@@ -44,6 +44,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
 3. If none pass → write honest blocked summary (`reports/pairs_blocked_summary_<UTC>.json`) with per-gate failure counts across TFs.
 4. Verify causal parity + gate trace (no weakening).
 5. Run tests + ruff + mypy; leave concrete artifacts in `reports/`.
+Every session must end with at least one new concrete artifact in `reports/`. Investigation-only loops without an artifact are prohibited.
 
 ## FILES TO FOCUS ON
 - `examples/run_pair_universe_scan.py` (run it — produces the scan artifact)
@@ -59,7 +60,7 @@ python -m ruff check utils/cointegration.py strategies/pairs_trading.py
 python -m mypy utils/cointegration.py strategies/pairs_trading.py
 ```
 
-## REPO SNAPSHOT (2026-11-05T04:49:25Z)
+## REPO SNAPSHOT (2026-11-05T04:57:01Z)
 - Branch: main, clean, up to date with origin/main.
 - Top-level: backtest/, data/, examples/, reports/, research_state/, scripts/, strategies/, tests/, utils/.
 - Key files: utils/cointegration.py, strategies/pairs_trading.py, examples/run_pair_universe_scan.py.
