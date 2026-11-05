@@ -1,0 +1,328 @@
+{
+  "report": "real_feed_inventory",
+  "generated_at_utc": "2026-11-05T08:42:55.765556+00:00",
+  "mandate": "PRIORITY 5 Deliverable A1 \u2014 honest inventory of real cached data NOW; fail-closed provenance",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "method": "read cache *.meta.json; no network; no data fabrication"
+  },
+  "cache_dir": "data/cache",
+  "named_spot_1h_assets": [
+    {
+      "symbol": "ADA",
+      "market": "ADAUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/ADA_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/ADA_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "AVAX",
+      "market": "AVAXUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/AVAX_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123679,
+      "cache_meta": "data/cache/AVAX_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "BNB",
+      "market": "BNBUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/BNB_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/BNB_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "BTC",
+      "market": "BTCUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/BTC_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/BTC_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "DOT",
+      "market": "DOTUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/DOT_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/DOT_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "ETH",
+      "market": "ETHUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/ETH_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/ETH_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "LINK",
+      "market": "LINKUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/LINK_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123679,
+      "cache_meta": "data/cache/LINK_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "LTC",
+      "market": "LTCUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/LTC_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/LTC_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "POL",
+      "market": "POLUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/POL_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/POL_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "SOL",
+      "market": "SOLUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/SOL_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/SOL_2026-04-01_2026-10-30_1h.meta.json"
+    },
+    {
+      "symbol": "XRP",
+      "market": "XRPUSDT",
+      "interval": "1h",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "host": "https://www.binance.com",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "cache_pkl": "data/cache/XRP_2026-04-01_2026-10-30_1h.pkl",
+      "cache_pkl_bytes": 123678,
+      "cache_meta": "data/cache/XRP_2026-04-01_2026-10-30_1h.meta.json"
+    }
+  ],
+  "named_spot_1h_count": 11,
+  "named_spot_1h_common_window": {
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "bars": 5112,
+    "interval": "1h"
+  },
+  "hash_named_cache_entries_noncanonical": [
+    {
+      "meta": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-30"
+      }
+    },
+    {
+      "meta": "385aae3f022b2d7bba4ec502cb8e7399d26cb31b961a016aebf7d165450fd4ba.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-28"
+      }
+    },
+    {
+      "meta": "4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-28"
+      }
+    },
+    {
+      "meta": "6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-30"
+      }
+    },
+    {
+      "meta": "749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-28"
+      }
+    },
+    {
+      "meta": "74e86e8e4b0a7933c26fc9328b8b753711f3ab76e2333a44b6057856699eec1a.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-30"
+      }
+    },
+    {
+      "meta": "76dedb82e6b94ca7f326484a09194c2b3eb557d0477cd04c607b146fd1b74a0d.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-30"
+      }
+    },
+    {
+      "meta": "a74dcf38854ff20d174609ceffba98d555ec4498d23446ce031a247c8c12bc6e.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-28"
+      }
+    },
+    {
+      "meta": "d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76.meta.json",
+      "summary": {
+        "interval": "1h",
+        "start": "2026-04-01",
+        "end": "2026-10-30"
+      }
+    },
+    {
+      "meta": "volume_1h_full.meta.json",
+      "summary": {
+        "start": "2026-04-01",
+        "end": "2026-10-30",
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public klines column 5"
+      }
+    }
+  ],
+  "family_support": {
+    "spot_strategies_momentum_mean_reversion_alt_signals": {
+      "supported": true,
+      "basis": "11 assets x 5112 1h bars, real Binance spot klines (www.binance.com), common window 2026-04-01..2026-10-30",
+      "limits": [
+        "single venue (spot only)",
+        "single interval available in named cache (1h)",
+        "~7 months window; regime-limited"
+      ]
+    },
+    "pairs_cointegration": {
+      "supported_datawise": true,
+      "edge_status": "PROVEN BLOCKED on this universe/window (165/165 diagnostic-blocked, fail-closed). Do not re-scan without NEW real dataset.",
+      "real_feed_present": true
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "supported": false,
+      "data_status": "blocked_no_real_feed",
+      "reason": "Only single-venue Binance spot cache present; no second venue quotes/trades/BBO aligned series."
+    },
+    "funding_basis_carry": {
+      "supported": false,
+      "data_status": "blocked_no_real_feed",
+      "reason": "No real funding-rate or spot-perp basis series in cache; fapi routes blocked (HTTP 451) per prior evidence."
+    },
+    "term_structure_real_iv_vol_surface": {
+      "supported": false,
+      "data_status": "blocked_no_real_feed",
+      "reason": "No real IV/vol-surface/option-chain data in cache. Spot-vol != IV surface; proxies forbidden as real feeds."
+    }
+  },
+  "notes": [
+    "Inventory is evidence of cached files/metas only; it does not claim profitability.",
+    "No fabricated candles/IV/funding/basis/dual-venue feeds."
+  ]
+}

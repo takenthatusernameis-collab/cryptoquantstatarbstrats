@@ -1,0 +1,168 @@
+{
+  "report": "real_feed_unblock_plan",
+  "generated_at_utc": "2026-11-05T08:44:47.175039+00:00",
+  "mandate": "PRIORITY 5 Deliverable A2 \u2014 concrete, honest unblock plan per blocked feed family; fail-closed; no fabrication/proxy-as-real-feed",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "method": "inventory-driven; references observed blocked routes in prior artifacts"
+  },
+  "references": {
+    "inventory": "reports/real_feed_inventory_20261105T084255Z.json",
+    "funding_basis_blocked": "reports/funding_basis_blocked_20261105T075839Z.json",
+    "cross_exchange": "reports/cross_exchange_real_market.json",
+    "latest_registry": "reports/strategy_edge_registry_20261105T081456Z.json"
+  },
+  "blocked_families": [
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "observed_blocked_routes": [
+        "Only single-venue Binance spot cache present in data/cache (named 1h series).",
+        "No second-venue real quotes/trades/BBO/klines cached or fetched in this environment (reports/cross_exchange_real_market.json indicates dual-venue blocked / single-venue only context)."
+      ],
+      "required_real_feed_schema": {
+        "description": "Synchronized dual-venue observations for the SAME asset to measure executable spread; real data only.",
+        "minimum_csv_or_parquet_columns": [
+          "timestamp_utc (ISO8601, aligned to exchange/UTC)",
+          "venue (e.g. binance_spot, coinbase_spot, kraken_spot)",
+          "symbol_normalized (e.g. BTC)",
+          "instrument (spot/perp)",
+          "bid",
+          "ask",
+          "mid (optional if bid/ask present)",
+          "last (optional)",
+          "bid_size (optional)",
+          "ask_size (optional)"
+        ],
+        "alignment": "Common clock or documented venue timestamps; resample/align policy stated; no forward-fill fabrication across large gaps (fail closed on gaps > policy).",
+        "frequency": ">=1m preferred for arb realism; 1h acceptable only with explicit staleness/slippage caveats (not preferred).",
+        "coverage": "Overlapping window >= cached spot window (2026-04-01..2026-10-30) for comparable validation.",
+        "provenance_fields_required": [
+          "source",
+          "venue",
+          "real_data_only",
+          "fabricated_data",
+          "fetched_at_or_exported_at",
+          "market/instrument ids"
+        ]
+      },
+      "validation_plan_if_unblocked": [
+        "Compute cross-venue mid/spread with conservative taker fees+slippage per venue; fail-closed if alignment/gaps/fees unknown.",
+        "Run rolling IS/OOS on executable net spread; benchmark = 0 (cash) and spot B&H where relevant; pre-state oos_edge_proven rule.",
+        "No proxy feeds labeled as dual-venue."
+      ],
+      "honest_workarounds_not_acceptable": [
+        "Fabricating a second venue from same-venue noise",
+        "Using spot-only as dual-venue proxy"
+      ]
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "observed_blocked_routes": [
+        "fapi.binance.com HTTP 451 (environment route blocked; per reports/funding_basis_blocked_20261105T075839Z.json).",
+        "No cached real funding-rate series in data/cache.",
+        "No cached real basis/perp-spot spread series in data/cache.",
+        "No dual-instrument (spot+perp/futures) real feed."
+      ],
+      "required_real_feed_schema": {
+        "funding_rates": {
+          "columns": [
+            "timestamp_utc",
+            "venue",
+            "symbol",
+            "instrument (perp/funding)",
+            "funding_rate (decimal per funding interval)",
+            "funding_interval_hours (e.g. 8)",
+            "mark_price (optional)",
+            "index_price (optional)"
+          ],
+          "frequency": "native funding events (typically 8h) plus optional 1h context; timestamps real."
+        },
+        "basis_spot_perp": {
+          "columns": [
+            "timestamp_utc",
+            "venue",
+            "symbol",
+            "spot_mid_or_close",
+            "perp_mark_or_mid",
+            "basis (perp-spot) or computable",
+            "basis_bps (optional)"
+          ],
+          "alignment": "Strict timestamp alignment; fail closed on mismatched symbols/instruments."
+        },
+        "provenance_fields_required": [
+          "source",
+          "real_data_only",
+          "fabricated_data",
+          "venue",
+          "instrument"
+        ]
+      },
+      "validation_plan_if_unblocked": [
+        "Compute net carry = realized funding +/- basis capture - fees/slippage/borrow (if applicable); fail-closed on missing cost components (state unknown).",
+        "Rolling IS/OOS, cost grid, exposure; compare to spot B&H/cash; pre-state oos_edge_proven."
+      ],
+      "honest_workarounds_not_acceptable": [
+        "Deriving pseudo-funding from spot prices and labeling as real funding",
+        "Spot-vol or returns as basis proxy"
+      ]
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "observed_blocked_routes": [
+        "No real IV/vol-surface/option-chain data in data/cache or reports with real IV series.",
+        "Term-structure strategy requires actual iv_30d/iv_90d columns (README); none present."
+      ],
+      "required_real_feed_schema": {
+        "minimum_columns": [
+          "timestamp_utc",
+          "underlier (e.g. BTC)",
+          "tenor_days or expiry",
+          "iv (decimal)",
+          "strike (optional for surface)",
+          "option_type (C/P, optional)",
+          "mark_price (optional)",
+          "delta (optional)"
+        ],
+        "term_structure_minimum": [
+          "timestamp_utc",
+          "underlier",
+          "iv_30d",
+          "iv_90d"
+        ],
+        "provenance_fields_required": [
+          "source (e.g. Deribit/options venue export)",
+          "real_data_only",
+          "fabricated_data",
+          "instrument/expiry metadata"
+        ],
+        "notes": "IV must be from real option marks/quotes; not fabricated; not spot realized vol relabeled as IV."
+      },
+      "validation_plan_if_unblocked": [
+        "Signal from real iv_30d/iv_90d term slope/level with execution/cost assumptions stated; fail-closed if IV missing/stale.",
+        "IS/OOS net-of-cost vs benchmark; pre-state oos_edge_proven."
+      ],
+      "honest_workarounds_not_acceptable": [
+        "Spot realized volatility as IV surface",
+        "Synthetic IV generation"
+      ]
+    }
+  ],
+  "actionable_unblock_steps_ranked": [
+    "Export/cache real dual-venue spot BBO/klines for BTC/ETH (same UTC window as cache) from a permitted source into data/cache with provenance metas.",
+    "Export/cache real perp funding rates (+ optional mark/index) and aligned spot-perp basis for BTC/ETH/SOL/BNB (1h or native 8h funding) with provenance.",
+    "Export/cache real IV term points (iv_30d, iv_90d) or surface slices from a real options venue with provenance."
+  ],
+  "global_rules": [
+    "real_data_only=true",
+    "fabricated_data=false",
+    "fail_closed=true",
+    "no_threshold_weakening=true",
+    "no proxies labeled as real feeds"
+  ]
+}

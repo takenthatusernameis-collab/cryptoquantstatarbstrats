@@ -1,0 +1,468 @@
+{
+  "report": "spot_alt_signal_costed_oos",
+  "generated_at_utc": "2026-11-05T08:46:19.488550+00:00",
+  "mandate": "PRIORITY 5 Deliverable B \u2014 genuinely different real-spot signal family (cross-sectional risk-adjusted return rank, long top/short bottom quartile), full net-of-cost WF IS/OOS + benchmark-relative; real cached spot only; fail-closed.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "data_source": "real cached Binance spot 1h (data/cache/*_2026-04-01_2026-10-30_1h.pkl)",
+    "window": "2026-04-01..2026-10-30",
+    "bars_expected": 5112,
+    "interval": "1h",
+    "assets_expected": 11
+  },
+  "family": {
+    "name": "cross_sectional_risk_adjusted_return_rank",
+    "description": "Genuinely different from prior momentum/mean_reversion: cross-sectional (11-asset) rank of trailing 7d return / 14d realized vol; long top 25%, short bottom 25%, equal weight within legs; market-neutral gross 1; fail-closed if <6 valid assets. Computed only from real cached spot prices.",
+    "params": {
+      "lookback_return_bars": 168,
+      "lookback_vol_bars": 336,
+      "top_quantile": 0.25,
+      "bottom_quantile": 0.25,
+      "min_cross_assets": 6
+    },
+    "uses_only_real_cached_spot": true,
+    "no_new_external_feeds": true,
+    "no_gate_weakening": true,
+    "no_proxies_as_new_feed_types": true
+  },
+  "cache_inventory": [
+    {
+      "symbol": "ADA",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "ADAUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "AVAX",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "AVAXUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "BNB",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "BNBUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "BTC",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "BTCUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "DOT",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "DOTUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "ETH",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "ETHUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "LINK",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "LINKUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "LTC",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "LTCUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "POL",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "POLUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "SOL",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "SOLUSDT",
+        "host": "https://www.binance.com"
+      }
+    },
+    {
+      "symbol": "XRP",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "meta": {
+        "real_data_only": true,
+        "fabricated_data": false,
+        "source": "www.binance.com public spot klines",
+        "market": "XRPUSDT",
+        "host": "https://www.binance.com"
+      }
+    }
+  ],
+  "config": {
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "min_assets_reported_explicitly": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "BNB"
+    ],
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        20,
+        20
+      ]
+    ],
+    "walk_forward": {
+      "mode": "rolling",
+      "train_bars": 720,
+      "test_bars": 168,
+      "step_bars": 168,
+      "engine_advances_by": "test_period (non-overlapping test windows)"
+    },
+    "benchmark": "equal-weight buy-and-hold (1/N constant) over same 11 assets, same WF windows/cost grid"
+  },
+  "pre_stated_oos_edge_rule": "oos_edge_proven=true IFF (all cost-grid slices OOS net mean_return>0) AND (all slices OOS net mean_return > equal-weight B&H benchmark OOS on same WF windows/costs) AND (executed exposure/trades>0). Else false (fail-closed).",
+  "exposure": {
+    "n_active_bars_executed": 4775,
+    "n_turnover_events": 1520,
+    "bars": 5112,
+    "has_exposure": true
+  },
+  "per_named_asset_exposure_BTC_ETH_SOL_BNB": {
+    "BTC": {
+      "n_bars_long": 1496,
+      "n_bars_short": 603,
+      "n_bars_flat": 3013,
+      "avg_abs_weight_when_active": 0.3811735747181197,
+      "gross_exposure_share_of_portfolio_active_bars": 0.08377835951134383
+    },
+    "ETH": {
+      "n_bars_long": 1388,
+      "n_bars_short": 771,
+      "n_bars_flat": 2953,
+      "avg_abs_weight_when_active": 0.39285162884051256,
+      "gross_exposure_share_of_portfolio_active_bars": 0.08881326352530541
+    },
+    "SOL": {
+      "n_bars_long": 1355,
+      "n_bars_short": 683,
+      "n_bars_flat": 3074,
+      "avg_abs_weight_when_active": 0.3891887471377166,
+      "gross_exposure_share_of_portfolio_active_bars": 0.0830541012216405
+    },
+    "BNB": {
+      "n_bars_long": 1906,
+      "n_bars_short": 621,
+      "n_bars_flat": 2585,
+      "avg_abs_weight_when_active": 0.37429099063448096,
+      "gross_exposure_share_of_portfolio_active_bars": 0.09904013961605586
+    }
+  },
+  "cost_grid_results": [
+    {
+      "fee_bps": 0,
+      "slippage_bps": 0,
+      "total_cost_bps": 0,
+      "is_mean_return": 0.5273886341281795,
+      "oos_mean_return": -0.004532766907368817,
+      "mean_return": -0.004532766907368817,
+      "oos_is_ratio": -0.008594737569310505,
+      "positive_periods": 13,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.0012366514852702416,
+      "benchmark_is_mean_return": 0.032659081944435224,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 5,
+      "slippage_bps": 0,
+      "total_cost_bps": 5,
+      "is_mean_return": 0.37811108205585214,
+      "oos_mean_return": -0.02902106034782805,
+      "mean_return": -0.02902106034782805,
+      "oos_is_ratio": -0.07675273676200066,
+      "positive_periods": 8,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.0007367195271574512,
+      "benchmark_is_mean_return": 0.03214275240346323,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 0,
+      "slippage_bps": 5,
+      "total_cost_bps": 5,
+      "is_mean_return": 0.37811108205585214,
+      "oos_mean_return": -0.02902106034782805,
+      "mean_return": -0.02902106034782805,
+      "oos_is_ratio": -0.07675273676200066,
+      "positive_periods": 8,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.0007367195271574512,
+      "benchmark_is_mean_return": 0.03214275240346323,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 5,
+      "slippage_bps": 5,
+      "total_cost_bps": 10,
+      "is_mean_return": 0.24376087662785698,
+      "oos_mean_return": -0.05286084284825259,
+      "mean_return": -0.05286084284825259,
+      "oos_is_ratio": -0.2168553197687822,
+      "positive_periods": 5,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.00023678756904496398,
+      "benchmark_is_mean_return": 0.03162642286249128,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 10,
+      "slippage_bps": 0,
+      "total_cost_bps": 10,
+      "is_mean_return": 0.24376087662785698,
+      "oos_mean_return": -0.05286084284825259,
+      "mean_return": -0.05286084284825259,
+      "oos_is_ratio": -0.2168553197687822,
+      "positive_periods": 5,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.00023678756904496398,
+      "benchmark_is_mean_return": 0.03162642286249128,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 0,
+      "slippage_bps": 10,
+      "total_cost_bps": 10,
+      "is_mean_return": 0.24376087662785698,
+      "oos_mean_return": -0.05286084284825259,
+      "mean_return": -0.05286084284825259,
+      "oos_is_ratio": -0.2168553197687822,
+      "positive_periods": 5,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": 0.00023678756904496398,
+      "benchmark_is_mean_return": 0.03162642286249128,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 10,
+      "slippage_bps": 10,
+      "total_cost_bps": 20,
+      "is_mean_return": 0.01390869363582083,
+      "oos_mean_return": -0.09866848570857686,
+      "mean_return": -0.09866848570857686,
+      "oos_is_ratio": -7.094015318193748,
+      "positive_periods": 1,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": -0.0007630763471800276,
+      "benchmark_is_mean_return": 0.030593763780546044,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 20,
+      "slippage_bps": 0,
+      "total_cost_bps": 20,
+      "is_mean_return": 0.01390869363582083,
+      "oos_mean_return": -0.09866848570857686,
+      "mean_return": -0.09866848570857686,
+      "oos_is_ratio": -7.094015318193748,
+      "positive_periods": 1,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": -0.0007630763471800276,
+      "benchmark_is_mean_return": 0.030593763780546044,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 0,
+      "slippage_bps": 20,
+      "total_cost_bps": 20,
+      "is_mean_return": 0.01390869363582083,
+      "oos_mean_return": -0.09866848570857686,
+      "mean_return": -0.09866848570857686,
+      "oos_is_ratio": -7.094015318193748,
+      "positive_periods": 1,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": -0.0007630763471800276,
+      "benchmark_is_mean_return": 0.030593763780546044,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    },
+    {
+      "fee_bps": 20,
+      "slippage_bps": 20,
+      "total_cost_bps": 40,
+      "is_mean_return": -0.3239713420201259,
+      "oos_mean_return": -0.18328031586539012,
+      "mean_return": -0.18328031586539012,
+      "oos_is_ratio": 0.5657300263737658,
+      "positive_periods": 0,
+      "total_periods": 26,
+      "windows": 26,
+      "benchmark": "equal_weight_buy_and_hold_11_assets",
+      "benchmark_oos_mean_return": -0.0027628041796295623,
+      "benchmark_is_mean_return": 0.028528445616658092,
+      "beats_benchmark_oos": false,
+      "oos_net_positive": false
+    }
+  ],
+  "summary": {
+    "all_cost_slices_oos_net_positive": false,
+    "all_cost_slices_beat_benchmark_oos": false,
+    "oos_edge_proven": false,
+    "n_cost_slices": 10,
+    "honest_outcome_note": "oos_edge_proven=false (fail-closed, honest). No edge claimed."
+  },
+  "runtime_seconds": 6.38,
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  }
+}
