@@ -118,6 +118,30 @@ TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC = FamilySpec(
     timestamp_columns=("timestamp_utc",),
 )
 
+REAL_QUOTE_VOLUME_SPEC = FamilySpec(
+    name="real_quote_volume",
+    required_columns=("timestamp_utc", "symbol", "quote_volume_usdt"),
+    required_provenance_keys=(
+        "source_provider",
+        "source_endpoints",
+        "request_urls_or_params",
+        "retrieved_at_utc",
+        "symbol_map_native_to_repo",
+        "window_start_utc",
+        "window_end_utc",
+        "freq",
+        "row_count",
+        "columns",
+        "sha256_pkl",
+        "sha256_meta_inputs",
+        "real_data_only",
+        "fabricated_data",
+        "notes_limits_gaps",
+    ),
+    numeric_columns=("quote_volume_usdt",),
+    timestamp_columns=("timestamp_utc",),
+)
+
 INTRA_BAR_MICROSTRUCTURE_SPEC = FamilySpec(
     name="intrabar_microstructure",
     required_columns=("timestamp_utc", "symbol"),
@@ -146,6 +170,7 @@ FAMILY_SPECS: dict[str, FamilySpec] = {
     FUNDING_BASIS_CARRY_SPEC.name: FUNDING_BASIS_CARRY_SPEC,
     CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.name: CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
     TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC.name: TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
+    REAL_QUOTE_VOLUME_SPEC.name: REAL_QUOTE_VOLUME_SPEC,
     INTRA_BAR_MICROSTRUCTURE_SPEC.name: INTRA_BAR_MICROSTRUCTURE_SPEC,
 }
 
@@ -336,10 +361,18 @@ def validate_and_load_real_feed(
     family: str = "funding_basis_carry",
     *,
     max_gap_factor: float = 3.0,
+    provenance: dict[str, Any] | str | Path | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Validate provenance+integrity+schema and load a real feed. Fail-closed.
 
     Returns (dataframe, report). Raises RealFeedValidationError on ANY violation.
+
+    *provenance* optionally supplies an external provenance certificate (dict or
+    path to a JSON file) whose keys are merged over the artifact's own metadata
+    before validation. This lets an artifact whose on-disk metadata predates the
+    loader's provenance schema still be validated fail-closed, without mutating
+    the cached artifact. The certificate is itself subject to the same
+    real_data_only/fabricated_data/admission checks.
     """
     meta_path = Path(meta_path)
     report: dict[str, Any] = {
@@ -365,6 +398,32 @@ def validate_and_load_real_feed(
         _refuse("metadata must be a JSON object", report)
     report["notes_limits_gaps"] = meta.get("notes_limits_gaps", "")
 
+    if provenance is not None:
+        prov_obj: dict[str, Any] | None = None
+        if isinstance(provenance, dict):
+            prov_obj = provenance
+            report["provenance_source"] = "<dict>"
+        else:
+            prov_path = Path(provenance)
+            report["provenance_source"] = str(prov_path)
+            if not prov_path.exists():
+                _refuse(f"provenance certificate missing: {prov_path}", report)
+            try:
+                prov_obj = json.loads(prov_path.read_text(encoding="utf-8"))
+            except Exception as exc:
+                _refuse(f"provenance certificate unreadable/invalid JSON: {exc}", report)
+            if not isinstance(prov_obj, dict):
+                _refuse("provenance certificate must be a JSON object", report)
+        if prov_obj is not None:
+            if prov_obj.get("real_data_only") is not True:
+                _refuse("provenance certificate real_data_only must be true", report)
+            if prov_obj.get("fabricated_data") is not False:
+                _refuse("provenance certificate fabricated_data must be false", report)
+            merged = dict(meta)
+            merged.update(prov_obj)
+            meta = merged
+            report["provenance_merged"] = True
+
     _check_provenance_keys(meta, spec, report)
     _check_flags(meta, report)
     pkl_path = _check_integrity(meta_path, meta, report)
@@ -373,6 +432,25 @@ def validate_and_load_real_feed(
         df = pd.read_pickle(pkl_path)  # noqa: S301 - loading only after sha256+provenance pass
     except Exception as exc:
         _refuse(f"data file unreadable after integrity check: {exc}", report)
+    if isinstance(df, dict):
+        # real_quote_volume family may be stored as {symbol: Series(timestamp, quote_volume_usdt)}.
+        # Normalize to a long frame (timestamp_utc, symbol, quote_volume_usdt) so the rest of
+        # the fail-closed checks (schema, monotonic timestamps, row_count, columns) apply.
+        if family != "real_quote_volume":
+            _refuse(
+                f"dict payload not supported for family {family!r}; expected a pandas DataFrame",
+                report,
+            )
+        rows: list[dict[str, Any]] = []
+        for sym, s in df.items():
+            if not isinstance(s, pd.Series):
+                _refuse(f"payload entry {sym!r} is not a pandas Series", report)
+            s = pd.to_numeric(s, errors="coerce")
+            for ts, val in s.items():
+                rows.append({"timestamp_utc": pd.Timestamp(ts), "symbol": str(sym), "quote_volume_usdt": float(val)})
+        if not rows:
+            _refuse("dict payload contains no usable rows", report)
+        df = pd.DataFrame(rows).sort_values(["timestamp_utc", "symbol"]).reset_index(drop=True)
     if not isinstance(df, pd.DataFrame):
         _refuse(f"data payload must be a pandas DataFrame (got {type(df).__name__})", report)
 
@@ -450,6 +528,14 @@ NONSPOT_FAMILY_KEYWORDS: dict[str, tuple[str, ...]] = {
         "depth",
         "orderbook",
     ),
+    "real_quote_volume": (
+        "quote_volume",
+        "quotevolume",
+        "volume_1h",
+        "real_binance_quote_volume",
+        "klines",
+        "column 5",
+    ),
 }
 
 
@@ -471,6 +557,37 @@ def _candidate_families_for_meta(meta: dict[str, Any], path_hint: str) -> list[s
         if fam not in families and any(kw in hay for kw in kws):
             families.append(fam)
     return families
+
+
+def _discover_provenance_certificate(
+    cache_dir: Path, meta_path: Path
+) -> dict[str, Any] | None:
+    """Return a validated provenance certificate dict for *meta_path*, if any.
+
+    Looks for a sibling ``<stem>.provenance.json`` (or ``<stem>_provenance.json``)
+    in *cache_dir*. The certificate must declare ``real_data_only=true`` and
+    ``fabricated_data=false`` and carry the family's required provenance keys.
+    Returns None when no usable certificate exists (fail-closed: the artifact is
+    then only loadable if its inline metadata is already complete).
+    """
+    stem = meta_path.name[: -len(".meta.json")]
+    candidates = [
+        meta_path.with_name(f"{stem}.provenance.json"),
+        meta_path.with_name(f"{stem}_provenance.json"),
+    ]
+    for cand in candidates:
+        if not cand.exists():
+            continue
+        try:
+            obj = json.loads(cand.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        if obj.get("real_data_only") is not True or obj.get("fabricated_data") is not False:
+            continue
+        return obj
+    return None
 
 
 def scan_cache_for_real_nonspot_feeds(
@@ -516,12 +633,19 @@ def scan_cache_for_real_nonspot_feeds(
         if not isinstance(meta, dict):
             continue
         families = _candidate_families_for_meta(meta, mp.name)
+        # A real_quote_volume artifact may carry its provenance in a sibling
+        # certificate (e.g. volume_1h_full.provenance.json) rather than inline.
+        prov = _discover_provenance_certificate(cache_dir, mp)
+        if prov is not None:
+            result.setdefault("provenance_certificates", []).append(str(prov))
+            if "real_quote_volume" not in families:
+                families.append("real_quote_volume")
         if not families:
             continue
         result["candidate_hits"].append({"meta": mp.name, "families_considered": families})
         for fam in families:
             try:
-                _, report = validate_and_load_real_feed(mp, fam)
+                _, report = validate_and_load_real_feed(mp, fam, provenance=prov)
             except RealFeedValidationError:
                 continue
             except Exception:
@@ -565,6 +689,7 @@ def audit_cache_for_real_nonspot_feeds(
         "scan": scan,
         "families": scan["families"],
         "candidate_validation": [],
+        "provenance_certificates": [],
         "non_candidate_meta_count": max(
             0, int(scan.get("meta_files_scanned", 0)) - len(scan.get("candidate_hits", []))
         ),
@@ -579,10 +704,14 @@ def audit_cache_for_real_nonspot_feeds(
     for hit in scan.get("candidate_hits", []):
         meta_name = str(hit.get("meta", ""))
         mp = cache_dir / meta_name
+        prov = _discover_provenance_certificate(cache_dir, mp)
+        if prov is not None:
+            audit["provenance_certificates"] = audit.get("provenance_certificates", []) or []
+            audit["provenance_certificates"].append(str(mp.with_name(meta_name[: -len(".meta.json")] + ".provenance.json")))
         for fam in hit.get("families_considered", []):
             entry: dict[str, Any] = {"meta": meta_name, "family": fam, "ok": False}
             try:
-                _, report = validate_and_load_real_feed(mp, fam)
+                _, report = validate_and_load_real_feed(mp, fam, provenance=prov)
             except RealFeedValidationError as exc:
                 entry["refused"] = True
                 entry["reason"] = str(exc)
@@ -841,6 +970,94 @@ def generate_unblock_status_report(
     if prior_report is not None:
         report["campaign_delta"] = compare_unblock_status(prior_report, report)
     return report
+
+
+def build_real_quote_volume_provenance(
+    cache_dir: str | Path,
+    *,
+    meta_path: str | Path | None = None,
+    pkl_path: str | Path | None = None,
+    source_provider: str = "www.binance.com public klines endpoint",
+    source_endpoints: str = "GET /api/v3/klines (spot) — column 5 = quote asset volume (Q)",
+    request_urls_or_params: str = (
+        "symbol=<SYMBOL>&interval=1h&startTime=<ms>&endTime=<ms>&limit=1000; "
+        "paginated per symbol over 2026-04-01..2026-10-30 UTC"
+    ),
+    notes_limits_gaps: str = (
+        "Real Binance public spot quote volume (klines column 5), not fabricated, not a proxy. "
+        "1h bars, UTC. MATIC excluded (all retries failed / not in results). "
+        "No resampling of a derived/estimated series; raw klines column."
+    ),
+) -> dict[str, Any]:
+    """Build a fail-closed provenance certificate for a real quote-volume artifact.
+
+    The certificate supplies every key required by ``REAL_QUOTE_VOLUME_SPEC`` so the
+    artifact becomes loadable by ``validate_and_load_real_feed`` (family
+    ``real_quote_volume``). It computes sha256 over the pkl and the existing meta
+    inputs, verifies the payload is a {symbol: Series} dict, and returns the
+    certificate dict plus the meta path to write. Never fabricates data; the
+    caller must supply a real cached artifact.
+    """
+    cache_dir = Path(cache_dir)
+    if meta_path is None:
+        meta_path = cache_dir / "volume_1h_full.meta.json"
+    else:
+        meta_path = Path(meta_path)
+    if pkl_path is None:
+        pkl_path = meta_path.with_suffix(".pkl")
+    else:
+        pkl_path = Path(pkl_path)
+    if not pkl_path.exists():
+        raise RealFeedValidationError(f"data file missing: {pkl_path}")
+    meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    if not isinstance(meta, dict):
+        raise RealFeedValidationError("metadata must be a JSON object")
+    payload = pd.read_pickle(pkl_path)  # noqa: S301 - provenance-only inspection
+    if not isinstance(payload, dict) or not all(isinstance(v, pd.Series) for v in payload.values()):
+        raise RealFeedValidationError(
+            "quote volume payload must be a dict of {symbol: pandas.Series}"
+        )
+    symbols = [str(k) for k in payload.keys()]
+    rows = sum(int(len(v)) for v in payload.values())
+    first = min((pd.Timestamp(v.index[0]) for v in payload.values() if len(v)), default=None)
+    last = max((pd.Timestamp(v.index[-1]) for v in payload.values() if len(v)), default=None)
+    cert = {
+        "artifact": "real_quote_volume_provenance",
+        "family": "real_quote_volume",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "no_proxies_labeled_real": True,
+        "source_provider": source_provider,
+        "source_endpoints": source_endpoints,
+        "request_urls_or_params": request_urls_or_params,
+        "retrieved_at_utc": str(
+            meta.get("retrieved_at_utc") or (first.isoformat() if first is not None else "")
+        ),
+        "symbol_map_native_to_repo": {s: s for s in symbols},
+        "window_start_utc": str(first.isoformat()) if first is not None else None,
+        "window_end_utc": str(last.isoformat()) if last is not None else None,
+        "freq": "1h",
+        "row_count": int(rows),
+        "columns": ["timestamp_utc", "symbol", "quote_volume_usdt"],
+        "symbols": symbols,
+        "n_symbols": int(len(symbols)),
+        "sha256_pkl": sha256_file(pkl_path),
+        "sha256_meta_inputs": sha256_file(meta_path),
+        "pkl_file": pkl_path.name,
+        "notes_limits_gaps": notes_limits_gaps,
+        "existing_meta_keys": sorted(meta.keys()),
+        "payload_kind": "dict_of_symbol_series",
+        "verification": {
+            "payload_is_dict_of_series": True,
+            "all_entries_numeric_coercible": bool(
+                all(pd.to_numeric(v, errors="coerce").notna().any() for v in payload.values())
+            ),
+            "rows_total": int(rows),
+        },
+    }
+    return cert
 
 
 def build_unblock_trend_report(
