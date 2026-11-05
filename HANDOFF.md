@@ -1,58 +1,55 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T05:02:56Z
-REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1 (repo name mandate). NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T05:54:00Z
+REPO: cryptoquantstatarbstrats | CORE EDGE: pairs/spreads/cointegration (MANDATORY PRIORITY #1). Real data only. Fail-closed. No threshold weakening. Causal trailing only.
 
 ## INITIAL TASK (CLEAR, HEAVY WORK — DO NOT INVESTIGATE-ONLY)
 
-IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
+DO THIS IMMEDIATELY IN ORDER (ARTIFACTS REQUIRED):
 
-1) **FRESH UNIVERSE SCAN + PER-GATE BREAKDOWN (HIGHEST PRIORITY, UNBLOCKED)**
-   - Run `python examples/run_pair_universe_scan.py` to write a FRESH timestamped `reports/pairs_candidate_scan_$(date -u +%Y%m%dT%H%M%SZ).json`.
-   - This produces counts by gate across 1h/4h/1d (eg_pass, johansen_pass, spread_mr_pass, hl_bounds_pass, leg_stationarity_ok, rolling_stable_ok, no_structural_break, all_pass) for all 55 pairs × 3 TFs = 165 scans.
-   - Output must be real Binance spot data only; no fabrication; no threshold weakening.
+1) **CONFIRM FRESH SCAN ARTIFACT EXISTS (BLOCKERS REMOVED)**
+   - Fresh scan: `reports/pairs_candidate_scan_20261105T050821Z.json` exists (n_pairs_scanned_tf=165, n_pass_all_gates=0).
+   - Fresh blocked summary: `reports/pairs_blocked_summary_20261105T055351Z.json` exists with per-gate failures.
+   - Gate failures (TF-aggregate): leg_stationarity_ok is dominant blocker; eg_pass/johansen_pass/spread_mr_pass/hl_bounds_pass/rolling_stable_ok/no_structural_break also fail on real crypto. Do NOT weaken any gate.
 
-2) **HONEST BLOCKED SUMMARY (IF NO PAIR PASSES — EXPECTED OUTCOME)**
-   - IF any pair passes ALL gates on real data: build a walk-forward OOS backtest for that pair(s) showing nonzero trades_count/total_return/sharpe/max_drawdown with a fresh proof artifact under `reports/` (honest numbers, no fabrication).
-   - IF none pass: write an honest blocked summary under `reports/pairs_blocked_summary_$(date -u +%Y%m%dT%H%M%SZ).json` citing per-gate failures from the fresh scan (counts by gate across TFs), no fabrication, no threshold weakening. Do not coerce any gate to True.
+2) **HEAVY CAMPAIGN: FIND ANY HONEST PATH TO A PASSING PAIR (NO WEAKENING)**
+   - **Leg stationarity reality**: both legs must be ADF stationary (p<=0.05). On current 1h/4h/1d real series this is rare. Explore ONLY via non-weakening means: (a) different pair selection within cached universe (focus pairs where both legs show stronger mean-reversion/ADF evidence), (b) verify data cleaning/resampling doesn't drop structure, (c) confirm causal trailing windows are correct. Do NOT change thresholds/p-values/significance or "relax" tests.
+   - **Spread/cointegration**: if legs approach stationarity, EG/Johansen/spread MR/rolling stability must hold causally. Any fix must be assessability-only or correctness/parity only.
+   - **If you find >=1 pair passing ALL gates on real data**: build walk-forward OOS backtest with fresh proof artifact under `reports/` (nonzero trades or honest zeros with full diagnostics; no fabrication).
+   - **If none pass after exhaustive honest search**: update/write a more detailed blocked summary under `reports/pairs_blocked_summary_<UTC>.json` adding concrete pair-level examples of why leg_stationarity_ok fails (top failing pairs per TF with ADF p-values/provenance) without weakening gates.
 
-3) **CAUSAL PARITY + GATE TRACE (VERIFY, NO WEAKENING)**
-   - Confirm `strategies/pairs_trading.py` uses enriched gates causally with parity between cached/uncached paths (fail-closed under strict mode).
-   - Confirm gates block honestly on real data (leg_stationarity, structural_break, spread_mr, eg/johansen, rolling_stable). Only fix assessability bugs. Never weaken ADF, structural break, or other gate tests.
+3) **HARDEN PARITY + TRACE (VERIFY ONLY)**
+   - Confirm `strategies/pairs_trading.py` enriched gates causal per-bar, interval caching parity with cached/uncached paths, fail-closed.
+   - Confirm `utils/cointegration.py` assessability fixes intact (>=2 windows). Only fix assessability/correctness bugs. Never touch gate thresholds.
 
-4) **VALIDATE + LINT**
-   - Run tests: `python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -v`
-   - Lint/typecheck touched files: `python -m ruff check utils/cointegration.py strategies/pairs_trading.py && python -m mypy utils/cointegration.py strategies/pairs_trading.py`
+4) **VALIDATE + COMMIT ARTIFACTS**
+   - Run: `python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -v`
+   - Lint/typecheck: `python -m ruff check utils/cointegration.py strategies/pairs_trading.py && python -m mypy utils/cointegration.py strategies/pairs_trading.py`
+   - Every session MUST leave >=1 new concrete artifact in `reports/` (scan/blocked summary/detailed failure analysis/OOS proof). No investigation-only loops.
 
-## CURRENT STATE (AS OF 2026-11-05T05:02:56Z)
-- Branch `main` is clean, up to date with origin/main, working tree clean.
-- Tests pass: `tests/test_cointegration_campaign31_mt.py`, `tests/test_cointegration_diagnostics_schema.py`, `tests/test_pairs_real_market.py` → 35 passed.
-- `ruff check` and `mypy` on `utils/cointegration.py` + `strategies/pairs_trading.py` → clean.
-- Scans T025358Z/T030941Z: n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked. STALE — need fresh scan.
-- FIXED: `rolling_cointegration_stability` now produces >=2 windows on short trailing slices (60/120) with heavy overlap/step=1 fallback. Assessability bottleneck removed.
-- On real data, `leg_stationarity_ok` is often False (both legs must have ADF p <= 0.05) — this is a genuine statistical blocker on current crypto price series, NOT assessability failure. Do not weaken.
-- `strategies/pairs_trading.py` enriched gates run causally per-bar with interval caching; fail-closed parity maintained.
-- `examples/run_pairs_multi.py` with enriched gates → positions remain zero due to strict gate blocking (honest, no weakening).
+## CURRENT STATE (2026-11-05T05:54:00Z)
+- Branch main clean, up to date with origin/main.
+- Tests: 35 passed (campaign31 MT, diagnostics schema, pairs real market).
+- ruff/mypy clean on utils/cointegration.py + strategies/pairs_trading.py.
+- Fresh scan done (20261105T050821Z): 165 (55×3), n_pass_all_gates=0. Blocked summary written (20261105T055351Z).
+- Assessability (rolling stability) fixed. Parity verified. Leg stationarity is genuine blocker on real crypto price legs.
 
-## BOTTLENECKS (REMOVED / REMAINING)
-- **Assessability (rolling stability)**: REMOVED. `rolling_cointegration_stability` produces >=2 windows on short samples (60/120). Monitor for any remaining `insufficient_data` cases.
-- **Parity (cached vs uncached)**: Verified on main; per-bar interval caching matches cached path under strict fail-closed. No divergence.
-- **False "insufficient_data"**: Removed via window shrinking + step=1 fallback; only truly impossible cases remain unassessable.
-- **Leg stationarity (REMAINING, CANNOT BE WEAKENED)**: Requires both legs ADF p <= 0.05; on real crypto price legs this is genuinely non-stationary. This is the primary blocker keeping n_pass_all_gates=0. Path forward: confirm honestly via fresh scan, document per-gate counts, do NOT weaken. Do not spend sessions investigating ways around it — that is prohibited.
+## BOTTLENECKS
+- **Leg stationarity (REMAINING, CANNOT WEAKEN)**: Both legs need ADF p<=0.05. Dominant failure. Do not spend cycles trying to bypass — do heavy honest work to find pairs where this can be true on real data, or document concretely why impossible.
+- **Other gates**: EG/Johansen/spread MR/structural break/rolling stability/hurdle bounds all matter; failures cascade once legs fail.
 
-## NEXT FOCUS CAMPAIGN (HEAVY WORK, NO COASTING — MANDATORY)
-1. Run fresh universe scan immediately (`python examples/run_pair_universe_scan.py`) → fresh timestamped JSON in `reports/`.
-2. If any pair passes all gates → walk-forward OOS backtest with proof artifact under `reports/`.
-3. If none pass → write honest blocked summary (`reports/pairs_blocked_summary_<UTC>.json`) with per-gate failure counts across TFs.
-4. Verify causal parity + gate trace (no weakening).
-5. Run tests + ruff + mypy; leave concrete artifacts in `reports/`.
-Every session must end with at least one new concrete artifact in `reports/`. Investigation-only loops without an artifact are prohibited.
+## NEXT FOCUS CAMPAIGN (MANDATORY, HEAVY)
+Priority order (by repo name): pairs > spreads > cointegration.
+1. Deep-dive failing pairs for leg_stationarity: pick top candidates by other gates passing (eg_pass/johansen_pass/spread_mr_pass) and inspect ADF p-values per leg/TF with provenance.
+2. If any pair shows both legs stationary on real data with causal windows → full enriched gate trace + walk-forward OOS with proof.
+3. Else produce detailed per-gate, per-pair breakdown (honest) in reports/ with concrete numbers. No threshold changes.
+4. Keep parity/caching/fail-closed intact. Validate tests+lint+mypy.
 
 ## FILES TO FOCUS ON
-- `examples/run_pair_universe_scan.py` (run it — produces the scan artifact)
-- `utils/cointegration.py` (assessability fixed; do not touch gate logic)
-- `strategies/pairs_trading.py` (causal parity, fail-closed — verify only)
-- `reports/*` (scan output + blocked summary artifacts)
+- `utils/cointegration.py` (gates/ADF/EG/Johansen/rolling stability; assessability fixed, don't weaken)
+- `strategies/pairs_trading.py` (causal enriched gates, parity)
+- `examples/run_pair_universe_scan.py`, `examples/run_pairs_multi.py`
+- `reports/` (artifacts required)
 
-## VERIFICATION COMMANDS
+## VERIFICATION
 ```bash
 python examples/run_pair_universe_scan.py
 python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py -v
@@ -60,18 +57,10 @@ python -m ruff check utils/cointegration.py strategies/pairs_trading.py
 python -m mypy utils/cointegration.py strategies/pairs_trading.py
 ```
 
-## REPO SNAPSHOT (2026-11-05T05:02:56Z)
-- Branch: main, clean, up to date with origin/main.
-- Top-level: backtest/, data/, examples/, reports/, research_state/, scripts/, strategies/, tests/, utils/.
-- Key files: utils/cointegration.py, strategies/pairs_trading.py, examples/run_pair_universe_scan.py.
-- Tests: 35 passed (cointegration campaign31 MT, diagnostics schema, pairs real market).
-- Lint/typecheck: ruff + mypy clean on utils/cointegration.py + strategies/pairs_trading.py.
-- Last non-checkpoint commits: 3c5e1a7 chore: capture completed workflow run diagnostics; 20a205c chore(handoff): finalize cointegration parity campaign.
-
 ## RULES (NON-NEGOTIABLE)
 - Real data only. Never fabricate.
 - Fail-closed always.
-- No threshold weakening.
+- No threshold weakening (ADF p<=0.05, significance levels unchanged).
 - Causal only (trailing). No full-history aggregates as per-bar gates.
 - Commit nothing unless explicitly asked.
-- Heavy working immediately. No investigation-only loops. Every session must leave a concrete artifact in `reports/`.
+- Heavy working immediately. No investigation-only. Every session leaves concrete artifact in `reports/`.

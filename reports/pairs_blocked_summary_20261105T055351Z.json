@@ -1,0 +1,57 @@
+{
+  "created_at": "2026-11-05T05:53:51Z",
+  "source_scan": "pairs_candidate_scan_20261105T050821Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_threshold_weakening": true,
+  "fail_closed": true,
+  "causal_only_trailing": true,
+  "n_pairs_scanned_tf": 165,
+  "n_pass_all_gates": 0,
+  "gate_failures_by_gate": {
+    "leg_stationarity_ok": 165,
+    "rolling_stable_ok": 165,
+    "eg_pass": 147,
+    "johansen_pass": 142,
+    "spread_mr_pass": 131,
+    "no_structural_break": 73,
+    "hl_bounds_pass": 17
+  },
+  "notes": [
+    "Leg stationarity (leg_stationarity_ok) is the dominant blocker on real crypto price series (both legs must be ADF p<=0.05). This is a genuine statistical blocker, not assessability.",
+    "Rolling stability assessability was fixed earlier (>=2 windows with overlap/step=1 fallback).",
+    "No gates weakened; logic verified causally with parity."
+  ],
+  "provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com",
+      "https://api1.binance.com",
+      "https://api2.binance.com",
+      "https://api3.binance.com"
+    ],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "cache_used": false,
+    "cache_hit": false,
+    "symbols": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-30"
+  }
+}
