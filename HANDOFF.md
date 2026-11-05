@@ -1,5 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:47:52Z
-
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:49:25Z
 REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1. NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
 ## INITIAL TASK (CLEAR, HEAVY WORK — DO NOT INVESTIGATE-ONLY)
@@ -59,6 +58,14 @@ python -m pytest tests/test_cointegration_campaign31_mt.py tests/test_cointegrat
 python -m ruff check utils/cointegration.py strategies/pairs_trading.py
 python -m mypy utils/cointegration.py strategies/pairs_trading.py
 ```
+
+## REPO SNAPSHOT (2026-11-05T04:49:25Z)
+- Branch: main, clean, up to date with origin/main.
+- Top-level: backtest/, data/, examples/, reports/, research_state/, scripts/, strategies/, tests/, utils/.
+- Key files: utils/cointegration.py, strategies/pairs_trading.py, examples/run_pair_universe_scan.py.
+- Tests: 35 passed (cointegration campaign31 MT, diagnostics schema, pairs real market).
+- Lint/typecheck: ruff + mypy clean on utils/cointegration.py + strategies/pairs_trading.py.
+- Last non-checkpoint commits: 3c5e1a7 chore: capture completed workflow run diagnostics; 20a205c chore(handoff): finalize cointegration parity campaign.
 
 ## RULES (NON-NEGOTIABLE)
 - Real data only. Never fabricate.
