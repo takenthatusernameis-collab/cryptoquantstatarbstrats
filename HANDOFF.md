@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T06:49:30Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T06:55:50Z
 
 ## INITIAL TASK MESSAGE (for next agentic session)
 "PRIORITY 1 — CORE EDGE (pairs/spreads/cointegration). Complete the two incomplete artifacts on REAL Binance spot (cached, 2026-04-01..2026-10-30).
