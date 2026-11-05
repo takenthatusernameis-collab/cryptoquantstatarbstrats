@@ -1,0 +1,108 @@
+{
+  "report": "spot_breakout_volfilter_costed_oos",
+  "generated_at_utc": "2026-11-05T09:36:26.391684+00:00",
+  "mandate": "PRIORITY 6 Deliverable A \u2014 new, pre-stated real-spot signal family different from momentum/mean_reversion/cross-sectional rank: Donchian breakout with volatility-regime filter; real cached spot only; fail-closed.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "data_source": "real cached Binance spot 1h (data/cache/*_2026-04-01_2026-10-30_1h.pkl)",
+    "window": "2026-04-01..2026-10-30",
+    "bars_expected": 5112,
+    "interval": "1h",
+    "assets_expected": 11
+  },
+  "family": {
+    "name": "donchian_breakout_volfilter",
+    "description": "Genuinely different: Donchian(N=48) breakout entry (long above prev48h high / short below prev48h low) only when 72h realized vol in [25th,75th] rolling band; exit logic via channel mid/structure (pre-stated); long/short or state as chosen. No new feeds.",
+    "params": {
+      "entry_lookback_bars": 48,
+      "exit_lookback_bars": 24,
+      "vol_lookback_bars": 72,
+      "vol_low_pct": 0.25,
+      "vol_high_pct": 0.75,
+      "long_only": false,
+      "require_vol_in_band": true
+    },
+    "uses_only_real_cached_spot": true,
+    "no_new_external_feeds": true,
+    "no_gate_weakening": true,
+    "no_proxies_as_new_feed_types": true
+  },
+  "cache_inventory": [],
+  "config": {
+    "assets": [],
+    "min_assets_reported_explicitly": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "BNB"
+    ],
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        20,
+        20
+      ]
+    ],
+    "walk_forward": {
+      "mode": "rolling",
+      "train_bars": 720,
+      "test_bars": 168,
+      "step_bars": 168
+    }
+  },
+  "by_asset": [],
+  "aggregate": {
+    "n_assets": 0,
+    "n_oos_edge_proven": 0,
+    "n_assets_all_slices_oos_net_positive": 0,
+    "n_assets_all_slices_beat_benchmark": 0,
+    "aggregate_oos_edge_proven_fail_closed": false,
+    "pre_stated_oos_edge_proven_rule": "oos_edge_proven = true only if (all reported WF OOS folds >= 0 net-of-cost at a stated cost, and >=0 vs benchmark in aggregate/required sense) with full exposure/trade counts; otherwise false (fail-closed)."
+  },
+  "benchmarks": {
+    "stated": "asset buy-and-hold and/or EW buy-and-hold as appropriate"
+  },
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true
+}
