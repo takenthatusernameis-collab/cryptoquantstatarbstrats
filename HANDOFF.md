@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T20:06:00Z (Campaign #30 COMPLETE — fail-closed, no proven edge; C31 is next binding campaign.)**
+**Timestamp (UTC): 2026-11-05T20:39:07Z (Campaign #31 IN PROGRESS — C31 cointegration artifact produced; unblock status + registry next.)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #30 STATUS (COMPLETE — fail-closed, no proven edge)
