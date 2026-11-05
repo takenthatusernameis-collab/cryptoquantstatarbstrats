@@ -450,7 +450,9 @@ def validate_and_load_real_feed(
                 rows.append({"timestamp_utc": pd.Timestamp(ts), "symbol": str(sym), "quote_volume_usdt": float(val)})
         if not rows:
             _refuse("dict payload contains no usable rows", report)
-        df = pd.DataFrame(rows).sort_values(["timestamp_utc", "symbol"]).reset_index(drop=True)
+        # Canonical long layout: symbol-major sort so per-symbol timestamp
+        # monotonicity/unique checks are well-defined downstream.
+        df = pd.DataFrame(rows).sort_values(["symbol", "timestamp_utc"]).reset_index(drop=True)
     if not isinstance(df, pd.DataFrame):
         _refuse(f"data payload must be a pandas DataFrame (got {type(df).__name__})", report)
 
@@ -477,15 +479,59 @@ def validate_and_load_real_feed(
 
     # monotonic unique timestamp check when present
     for tcol in spec.timestamp_columns:
-        if tcol in df.columns:
-            ts = pd.to_datetime(df[tcol], utc=True, errors="coerce")
-            if ts.isna().any():
-                _refuse(f"timestamp column {tcol!r} has unparseable values", report)
-            if not ts.is_monotonic_increasing:
-                _refuse(f"timestamp column {tcol!r} is not monotonic increasing", report)
-            if ts.duplicated().any():
-                dup = int(ts.duplicated().sum())
-                _refuse(f"timestamp column {tcol!r} has {dup} duplicate timestamps", report)
+        if tcol not in df.columns:
+            continue
+        ts = pd.to_datetime(df[tcol], utc=True, errors="coerce")
+        if ts.isna().any():
+            _refuse(f"timestamp column {tcol!r} has unparseable values", report)
+        # Multi-symbol long frames (real_quote_volume: one row per
+        # (timestamp, symbol)) legitimately repeat each timestamp once per
+        # symbol. Enforce monotonic+unique *within each symbol group* rather
+        # than globally, and require the frame itself to be symbol-ordered.
+        group_col = "symbol" if (family == "real_quote_volume" and "symbol" in df.columns) else None
+        if group_col is not None:
+            # Multi-symbol long frames are NOT globally timestamp-monotonic
+            # (each symbol restarts at window start); require symbol-major
+            # ordering and per-symbol monotonic+unique timestamps instead.
+            if not df[group_col].is_monotonic_increasing:
+                _refuse(
+                    f"frame not sorted by {group_col!r} (symbol-major required)",
+                    report,
+                )
+            dup_global = int(ts.duplicated().sum())
+            per_group_dups = 0
+            non_monotonic_groups = 0
+            for _, g in df.groupby(group_col, sort=False):
+                gts = pd.to_datetime(g[tcol], utc=True, errors="coerce")
+                if not gts.is_monotonic_increasing:
+                    non_monotonic_groups += 1
+                if gts.duplicated().any():
+                    per_group_dups += int(gts.duplicated().sum())
+            if non_monotonic_groups:
+                _refuse(
+                    f"timestamp column {tcol!r} is not monotonic increasing within "
+                    f"{non_monotonic_groups} symbol group(s)",
+                    report,
+                )
+            if per_group_dups:
+                _refuse(
+                    f"timestamp column {tcol!r} has {per_group_dups} duplicate "
+                    f"timestamps within symbol groups",
+                    report,
+                )
+            report["multi_symbol_long_frame"] = {
+                "group_col": group_col,
+                "n_groups": int(df[group_col].nunique()),
+                "global_duplicate_timestamps": dup_global,
+                "within_group_duplicates": per_group_dups,
+                "checked": "per_symbol_monotonic_unique",
+            }
+            continue
+        if not ts.is_monotonic_increasing:
+            _refuse(f"timestamp column {tcol!r} is not monotonic increasing", report)
+        if ts.duplicated().any():
+            dup = int(ts.duplicated().sum())
+            _refuse(f"timestamp column {tcol!r} has {dup} duplicate timestamps", report)
 
     report.update(
         {
@@ -1004,7 +1050,14 @@ def build_real_quote_volume_provenance(
     else:
         meta_path = Path(meta_path)
     if pkl_path is None:
-        pkl_path = meta_path.with_suffix(".pkl")
+        # Derive the data file name by stripping the trailing ".meta.json"
+        # suffix (NOT with_suffix(".pkl"), which on "x.meta.json" yields
+        # "x.meta.pkl" — a phantom path that fails closed even when the real
+        # artifact exists next to the metadata).
+        if meta_path.name.endswith(".meta.json"):
+            pkl_path = meta_path.with_name(meta_path.name[: -len(".meta.json")] + ".pkl")
+        else:
+            pkl_path = meta_path.with_suffix(".pkl")
     else:
         pkl_path = Path(pkl_path)
     if not pkl_path.exists():
