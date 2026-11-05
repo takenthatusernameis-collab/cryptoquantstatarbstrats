@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:00:14Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:46:55Z
 
 REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1. NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
@@ -25,7 +25,7 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
    - Run tests: `pytest tests/test_cointegration_campaign31_mt tests/test_cointegration_diagnostics_schema tests/test_pairs_real_market -v`
    - Lint/typecheck touched files: `ruff check utils/cointegration.py strategies/pairs_trading.py && mypy utils/cointegration.py strategies/pairs_trading.py`
 
-## CURRENT STATE (AS OF 2026-11-05T04:00:14Z)
+## CURRENT STATE (AS OF 2026-11-05T04:46:55Z)
 - Scans T025358Z/T030941Z: n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked.
 - Fixed assessability: rolling_cointegration_stability now produces >=2 windows on short trailing slices (60/120) with heavy overlap/step=1 fallback.
 - On real data, leg_stationarity_ok is often False (both legs must have ADF p <= 0.05) — this is a genuine statistical blocker on current crypto price series, not assessability.
