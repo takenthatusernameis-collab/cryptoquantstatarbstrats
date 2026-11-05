@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:45:09Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:45:29Z
 
 REPO: cryptoquantstatarbstrats. PRIORITY: pairs/spreads/cointegration = core edge. NO fabrication. Fail-closed. No threshold weakening.
 
