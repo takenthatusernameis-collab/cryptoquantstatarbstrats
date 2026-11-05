@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T11:41:51Z (Campaign #12 binding; handoff re-stamped for next agentic session; no new real feed found — Path C-maintain)**
+**Timestamp (UTC): 2026-11-05T11:42:13Z (Campaign #12 binding; handoff re-stamped for next agentic session; no new real feed found — Path C-maintain)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies.**
 Mission: find/validate a **net-of-cost OOS statistical/arbitrage edge on real crypto data only**. Fail-closed. Heavy, reproducible artifacts required. This file is the **only** durable handoff. Read it first. Execute it. Do not re-litigate settled facts.
 
@@ -11,7 +11,7 @@ No new real feed with provenance was ingested in this session, so Path R did not
 - Spot-only 1h families: **EXHAUSTED** (P4 mom/MR, P5 xsec rank, P6 Donchian, P7 range breakout-reversion+volband, P9 pairwise OLS-hedge spread MR, P10 residual momentum, P11 lead-lag diffusion) — 0 proven net-of-cost OOS edge.
 - Feeds: `dual-venue|funding-basis-carry|real-IV/vol-surface|intrabar-microstructure = blocked_no_real_feed` (no provenance found). No fabricated feeds.
 - Loader `data/real_feed_loader.py` already has fail-closed `FamilySpec`s + tests for `funding_basis_carry` and `cross_exchange_dual_venue_same_asset` (incl. proxy-as-dual-venue refusal). Readiness spec: `reports/real_feed_ingestion_readiness_20261105T104640Z.json`.
-- Last registry: `reports/strategy_edge_registry_20261105T105258Z.json` (to be superseded). Last validation: `reports/funding_basis_carry_loader_validation_20261105T105258Z.json` (PASS_FAIL_CLOSED).
+- Last registry: `reports/strategy_edge_registry_20261105T105940Z.json` (to be superseded). Last validation: `reports/funding_basis_carry_loader_validation_20261105T105258Z.json` (PASS_FAIL_CLOSED).
 
 ## INITIAL TASK MESSAGE (EXECUTE FIRST — NO DELAY)
 **PRIORITY 15 / CAMPAIGN #12 — MANDATORY.** Next agent MUST NOT do investigation-only work and MUST NOT generate structurally-similar spot retests on the same cache presented as a new campaign. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only. No fabrication. No threshold weakening. No proxies labeled as real. `oos_edge_proven=false` is valid and required if edge is not proven. **Zero-artifact sessions are automatic failures.**
