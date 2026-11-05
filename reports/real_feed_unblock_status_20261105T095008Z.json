@@ -1,0 +1,48 @@
+{
+  "report": "real_feed_unblock_status",
+  "generated_at_utc": "2026-11-05T09:50:08.078442+00:00",
+  "mandate": "PRIORITY 7 / Campaign #3 Deliverable B \u2014 re-check for newly added real feeds; honest blocked_no_real_feed if none. If genuinely new real feeds with provenance present, ingest + smallest fail-closed validation (not applicable).",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true
+  },
+  "recheck": {
+    "cache_dir": "data/cache",
+    "repo_scan": "for funding/basis/perp_spot/dualvenue/iv_surface/vol_surface_term files with provenance (excluding blocked/status/inventory/unblock plan artifacts and code)",
+    "new_real_feed_files_with_provenance_found": [],
+    "notes": "Only known blocked/status artifacts found (e.g. reports/funding_basis_blocked_20261105T075839Z.json). No genuinely new real feed files with provenance added."
+  },
+  "assessment": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed"
+  },
+  "references": {
+    "inventory": "reports/real_feed_inventory_20261105T084255Z.json",
+    "unblock_plan": "reports/real_feed_unblock_plan_20261105T084447Z.json",
+    "prior_status_p6": "reports/real_feed_unblock_status_20261105T093642Z.json"
+  },
+  "required_schemas_still_needed": {
+    "funding_basis_carry": [
+      "perp/spot/funding timestamps aligned",
+      "fees/carry costs",
+      "real exchange provenance",
+      "net-of-cost validation"
+    ],
+    "cross_exchange_dual_venue": [
+      "same-asset dual venue prices with timestamps",
+      "fees/transfer constraints",
+      "real provenance",
+      "fail-closed arb test"
+    ],
+    "term_structure_real_iv_vol_surface": [
+      "real listed IV/vol surface by expiry/strike or term structure",
+      "fees/margin assumptions stated",
+      "real provider provenance",
+      "net-of-cost validation"
+    ]
+  },
+  "validation_run": "none_ingested_no_new_real_feeds_with_provenance"
+}
