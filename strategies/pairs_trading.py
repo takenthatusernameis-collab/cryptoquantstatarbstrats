@@ -126,8 +126,8 @@ class CointegrationPairsStrategy(PairStrategy):
         # path recomputes diagnostics on a causal interval cache.
         if pair_diagnostics_file:
             try:
-                from pathlib import Path as _Path
                 import json as _json
+                from pathlib import Path as _Path
 
                 _p = _Path(pair_diagnostics_file)
                 if _p.exists():

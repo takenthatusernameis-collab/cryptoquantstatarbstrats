@@ -277,7 +277,10 @@ def rolling_cointegration_stability(
                     "requested_window": int(window),
                     "used_window": None,
                 }
-        step_use = max(1, min(int(step), max(1, win // 4))) if n < win * 3 else max(1, min(int(step), win // 2))
+        if n < win * 3:
+            step_use = max(1, min(int(step), max(1, win // 4)))
+        else:
+            step_use = max(1, min(int(step), win // 2))
         pvalues = []
         for start in range(0, n - win + 1, step_use):
             end = start + win
