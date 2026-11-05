@@ -1,0 +1,576 @@
+{
+  "report": "strategy_edge_registry",
+  "supersedes": "strategy_edge_registry_20261105T203854Z.json",
+  "generated_at_utc": "2026-11-05T20:41:33.621241+00:00",
+  "mandate": "PRIORITY 4 Deliverable B \u2014 consolidated edge registry updated with net-of-cost OOS (momentum/mean_reversion, real cached spot). Fail-closed, no fabrication, no threshold weakening.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true
+  },
+  "pytest": {
+    "command": "python -m pytest -q",
+    "passed": 832,
+    "skipped": 1,
+    "warnings": 3555,
+    "failed": 0,
+    "duration_s": 51.2,
+    "scope": "full tests/"
+  },
+  "new_artifacts_this_session": [
+    "momentum_mr_costed_oos_20261105T081323Z.json"
+  ],
+  "families": [
+    {
+      "family": "pairs_cointegration",
+      "data_status": "real_cached_verified",
+      "actionable_next_step": "(unchanged by P4; do not re-scan without new real dataset.) (unchanged by P4; do not re-scan without new real dataset.)"
+    },
+    {
+      "family": "momentum",
+      "data_status": "real_cached_verified",
+      "diagnostic_evidence": [
+        {
+          "artifact": "momentum_mr_costed_oos_20261105T081323Z.json",
+          "key_metrics": {
+            "assets": 11,
+            "bars": 5112,
+            "window": "2026-04-01..2026-10-30",
+            "interval": "1h",
+            "walk_forward": {
+              "mode": "rolling",
+              "train_bars": 720,
+              "test_bars": 168
+            },
+            "cost_grid_bps_fee_slippage": [
+              [
+                0,
+                0
+              ],
+              [
+                5,
+                0
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                0,
+                10
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                20,
+                0
+              ],
+              [
+                0,
+                20
+              ],
+              [
+                20,
+                20
+              ]
+            ],
+            "n_oos_edge_proven": 0,
+            "n_assets_all_slices_oos_net_positive": 0,
+            "n_assets_all_slices_beat_benchmark": 0,
+            "aggregate_oos_edge_proven_fail_closed": false,
+            "by_asset_compact": [
+              {
+                "asset": "ADA",
+                "exposure": {
+                  "n_active_bars_executed": 3297,
+                  "n_turnover_events": 715,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0062100731436415,
+                "bench_oos_0bps": -0.006501355297332982,
+                "oos_40bps": -0.08460202398838448,
+                "bench_oos_40bps": -0.010466237825615104,
+                "is_mean_0bps": 1.6004629355269775,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "AVAX",
+                "exposure": {
+                  "n_active_bars_executed": 3218,
+                  "n_turnover_events": 715,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.007209101828082085,
+                "bench_oos_0bps": 0.0007740464629956572,
+                "oos_40bps": -0.09562905125498769,
+                "bench_oos_40bps": -0.0032249733834283133,
+                "is_mean_0bps": 1.2591063947797805,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BNB",
+                "exposure": {
+                  "n_active_bars_executed": 2153,
+                  "n_turnover_events": 561,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.006372700757788789,
+                "bench_oos_0bps": 0.005095377224478606,
+                "oos_40bps": -0.06572127671536272,
+                "bench_oos_40bps": 0.0010792591749106833,
+                "is_mean_0bps": 0.5262266541594243,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BTC",
+                "exposure": {
+                  "n_active_bars_executed": 2062,
+                  "n_turnover_events": 527,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0011706450944669001,
+                "bench_oos_0bps": 0.002001088446983947,
+                "oos_40bps": -0.0661181062312235,
+                "bench_oos_40bps": -0.0020033185416874913,
+                "is_mean_0bps": 0.4813873462661072,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "DOT",
+                "exposure": {
+                  "n_active_bars_executed": 3486,
+                  "n_turnover_events": 701,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.010674918742242663,
+                "bench_oos_0bps": -0.010262062187543082,
+                "oos_40bps": -0.10148854415113154,
+                "bench_oos_40bps": -0.01421547728918429,
+                "is_mean_0bps": 1.4488677270238115,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "ETH",
+                "exposure": {
+                  "n_active_bars_executed": 2501,
+                  "n_turnover_events": 535,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0029775193650238073,
+                "bench_oos_0bps": 0.001959103679767025,
+                "oos_40bps": -0.06781259187190082,
+                "bench_oos_40bps": -0.0020468627339819477,
+                "is_mean_0bps": 0.6915519035794238,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LINK",
+                "exposure": {
+                  "n_active_bars_executed": 3159,
+                  "n_turnover_events": 674,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0037105902757148448,
+                "bench_oos_0bps": 0.008932598526023046,
+                "oos_40bps": -0.08511043612871608,
+                "bench_oos_40bps": 0.004904075471681492,
+                "is_mean_0bps": 1.1307968247606996,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LTC",
+                "exposure": {
+                  "n_active_bars_executed": 2692,
+                  "n_turnover_events": 666,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.011090101231826214,
+                "bench_oos_0bps": 0.0012412994446524123,
+                "oos_40bps": -0.09557511007637759,
+                "bench_oos_40bps": -0.002759652323568447,
+                "is_mean_0bps": 0.8165348139737915,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "POL",
+                "exposure": {
+                  "n_active_bars_executed": 3029,
+                  "n_turnover_events": 711,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.0012699342525851432,
+                "bench_oos_0bps": 0.00040079795703326437,
+                "oos_40bps": -0.0891948368310543,
+                "bench_oos_40bps": -0.003590380576046817,
+                "is_mean_0bps": 1.3656906770525792,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "SOL",
+                "exposure": {
+                  "n_active_bars_executed": 2978,
+                  "n_turnover_events": 602,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.015234591989761685,
+                "bench_oos_0bps": 0.008914285357719145,
+                "oos_40bps": -0.06466726070803805,
+                "bench_oos_40bps": 0.004882464736481846,
+                "is_mean_0bps": 0.9631085797457323,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "XRP",
+                "exposure": {
+                  "n_active_bars_executed": 2781,
+                  "n_turnover_events": 603,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.01468085442482275,
+                "bench_oos_0bps": -0.0010801290681131926,
+                "oos_40bps": -0.06493612920682586,
+                "bench_oos_40bps": -0.005070703698712508,
+                "is_mean_0bps": 0.9869731637939994,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              }
+            ],
+            "pre_stated_rule": "oos_edge_proven=true IFF (all cost-grid slices: OOS net mean_return > 0) AND (all cost-grid slices: OOS net mean_return > buy-and-hold benchmark OOS mean_return on same WF windows) AND (executed exposure/trades > 0). Else false (fail-closed)."
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "checks": {
+          "real_data_only": true,
+          "fabricated_data": false,
+          "no_threshold_weakening": true,
+          "strategy_defaults": "use_enriched_gates=True, strict_enriched_gates=True (not weakened)",
+          "benchmark_relative": true,
+          "net_of_cost_grid": true,
+          "walk_forward_is_oos": true
+        }
+      },
+      "actionable_next_step": "NO PROVEN NET-OF-COST OOS EDGE for momentum on real cached spot 1h (0/11 assets pass pre-stated rule: all cost slices OOS>0 AND beat B&H). 0/11 assets have all-slice OOS net positive but 0/11 beat benchmark across all slices \u2014 momentum/return profile is beta-like on this window, not alpha. Do not claim edge. If pursued, explore parameter/feature changes ONLY via new real-data OOS artifacts (no in-sample tuning presented as edge, no gate weakening); otherwise deprioritize vs blocked-feed families until new real feeds (funding/basis/dual-venue) or new real datasets arrive."
+    },
+    {
+      "family": "mean_reversion",
+      "data_status": "real_cached_verified",
+      "diagnostic_evidence": [
+        {
+          "artifact": "momentum_mr_costed_oos_20261105T081323Z.json",
+          "key_metrics": {
+            "assets": 11,
+            "bars": 5112,
+            "window": "2026-04-01..2026-10-30",
+            "interval": "1h",
+            "walk_forward": {
+              "mode": "rolling",
+              "train_bars": 720,
+              "test_bars": 168
+            },
+            "cost_grid_bps_fee_slippage": [
+              [
+                0,
+                0
+              ],
+              [
+                5,
+                0
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                0,
+                10
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                20,
+                0
+              ],
+              [
+                0,
+                20
+              ],
+              [
+                20,
+                20
+              ]
+            ],
+            "n_oos_edge_proven": 0,
+            "n_assets_all_slices_oos_net_positive": 0,
+            "n_assets_all_slices_beat_benchmark": 0,
+            "aggregate_oos_edge_proven_fail_closed": false,
+            "by_asset_compact": [
+              {
+                "asset": "ADA",
+                "exposure": {
+                  "n_active_bars_executed": 592,
+                  "n_turnover_events": 488,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.007948407760438033,
+                "bench_oos_0bps": -0.006501355297332982,
+                "oos_40bps": -0.05584049477464722,
+                "bench_oos_40bps": -0.010466237825615104,
+                "is_mean_0bps": -0.511249370483402,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "AVAX",
+                "exposure": {
+                  "n_active_bars_executed": 566,
+                  "n_turnover_events": 476,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.018130444375649295,
+                "bench_oos_0bps": 0.0007740464629956572,
+                "oos_40bps": -0.044158903456244486,
+                "bench_oos_40bps": -0.0032249733834283133,
+                "is_mean_0bps": -0.4842646030482982,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BNB",
+                "exposure": {
+                  "n_active_bars_executed": 610,
+                  "n_turnover_events": 462,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.0031438783921427216,
+                "bench_oos_0bps": 0.005095377224478606,
+                "oos_40bps": -0.06143292381852187,
+                "bench_oos_40bps": 0.0010792591749106833,
+                "is_mean_0bps": -0.31825722479612983,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "BTC",
+                "exposure": {
+                  "n_active_bars_executed": 610,
+                  "n_turnover_events": 480,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0034525213166004586,
+                "bench_oos_0bps": 0.002001088446983947,
+                "oos_40bps": -0.06007517074311809,
+                "bench_oos_40bps": -0.0020033185416874913,
+                "is_mean_0bps": -0.3068352486049384,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "DOT",
+                "exposure": {
+                  "n_active_bars_executed": 627,
+                  "n_turnover_events": 524,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.02049251179961861,
+                "bench_oos_0bps": -0.010262062187543082,
+                "oos_40bps": -0.04777403159171129,
+                "bench_oos_40bps": -0.01421547728918429,
+                "is_mean_0bps": -0.5253619854820353,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "ETH",
+                "exposure": {
+                  "n_active_bars_executed": 635,
+                  "n_turnover_events": 468,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": -0.0020369467402546323,
+                "bench_oos_0bps": 0.001959103679767025,
+                "oos_40bps": -0.06279905574752655,
+                "bench_oos_40bps": -0.0020468627339819477,
+                "is_mean_0bps": -0.3981768021993454,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LINK",
+                "exposure": {
+                  "n_active_bars_executed": 624,
+                  "n_turnover_events": 488,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.006435741704009072,
+                "bench_oos_0bps": 0.008932598526023046,
+                "oos_40bps": -0.0563323046053644,
+                "bench_oos_40bps": 0.004904075471681492,
+                "is_mean_0bps": -0.45673590131688463,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "LTC",
+                "exposure": {
+                  "n_active_bars_executed": 582,
+                  "n_turnover_events": 534,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.01529303546064039,
+                "bench_oos_0bps": 0.0012412994446524123,
+                "oos_40bps": -0.05315215754993662,
+                "bench_oos_40bps": -0.002759652323568447,
+                "is_mean_0bps": -0.3948806416394025,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "POL",
+                "exposure": {
+                  "n_active_bars_executed": 578,
+                  "n_turnover_events": 510,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0071835961658069,
+                "bench_oos_0bps": 0.00040079795703326437,
+                "oos_40bps": -0.058465670483423285,
+                "bench_oos_40bps": -0.003590380576046817,
+                "is_mean_0bps": -0.4822374527956911,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "SOL",
+                "exposure": {
+                  "n_active_bars_executed": 608,
+                  "n_turnover_events": 514,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.0072941396142059325,
+                "bench_oos_0bps": 0.008914285357719145,
+                "oos_40bps": -0.059568773427509006,
+                "bench_oos_40bps": 0.004882464736481846,
+                "is_mean_0bps": -0.43491294021302074,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              },
+              {
+                "asset": "XRP",
+                "exposure": {
+                  "n_active_bars_executed": 631,
+                  "n_turnover_events": 536,
+                  "bars": 5112
+                },
+                "oos_edge_proven": false,
+                "oos_0bps": 0.004559945946145416,
+                "bench_oos_0bps": -0.0010801290681131926,
+                "oos_40bps": -0.06429534226278026,
+                "bench_oos_40bps": -0.005070703698712508,
+                "is_mean_0bps": -0.44171446325395886,
+                "all_slices_oos_pos": false,
+                "all_slices_beat_bench": false
+              }
+            ],
+            "pre_stated_rule": "oos_edge_proven=true IFF (all cost-grid slices: OOS net mean_return > 0) AND (all cost-grid slices: OOS net mean_return > buy-and-hold benchmark OOS mean_return on same WF windows) AND (executed exposure/trades > 0). Else false (fail-closed)."
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "checks": {
+          "real_data_only": true,
+          "fabricated_data": false,
+          "no_threshold_weakening": true,
+          "strategy_defaults": "use_enriched_gates=True, strict_enriched_gates=True (not weakened)",
+          "benchmark_relative": true,
+          "net_of_cost_grid": true,
+          "walk_forward_is_oos": true
+        }
+      },
+      "actionable_next_step": "NO PROVEN NET-OF-COST OOS EDGE for mean_reversion on real cached spot 1h (0/11 assets pass pre-stated rule: all cost slices OOS>0 AND beat B&H). 0/11 assets have all-slice OOS net positive but 0/11 beat benchmark across all slices \u2014 momentum/return profile is beta-like on this window, not alpha. Do not claim edge. If pursued, explore parameter/feature changes ONLY via new real-data OOS artifacts (no in-sample tuning presented as edge, no gate weakening); otherwise deprioritize vs blocked-feed families until new real feeds (funding/basis/dual-venue) or new real datasets arrive."
+    },
+    {
+      "family": "cross_exchange_same_asset_dual_venue",
+      "data_status": "blocked_no_real_feed"
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed"
+    },
+    {
+      "family": "term_structure_carry_proxy",
+      "data_status": "blocked_no_real_feed"
+    },
+    {
+      "family": "volatility_surface_arbitrage_proxy",
+      "data_status": "blocked_no_real_feed"
+    }
+  ],
+  "global_truth": {
+    "pairs": "PROVEN BLOCKED (fail-closed, 165/165, 0 breaches) on current real cached universe/window \u2014 do not re-scan/re-audit without NEW real dataset.",
+    "momentum_mean_reversion": "NO PROVEN NET-OF-COST OOS EDGE (0/11 each) on real cached spot 1h 2026-04-01..2026-10-30, rolling 30d/7d WF, cost grid 0-40bps, vs B&H; beta-like, not alpha.",
+    "cross_exchange_funding_basis_term_structure_real_iv": "BLOCKED_NO_REAL_FEED \u2014 honest only; no fabricated feeds/proxies labeled real.",
+    "rules": [
+      "real data only",
+      "no fabrication",
+      "fail-closed",
+      "no threshold weakening",
+      "no proxies labeled real",
+      ">=1 concrete reports artifact per session"
+    ]
+  }
+}

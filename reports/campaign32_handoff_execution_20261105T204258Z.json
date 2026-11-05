@@ -1,0 +1,28 @@
+{
+  "type": "campaign_handoff_execution_status",
+  "campaign": 32,
+  "timestamp_utc": "2026-11-05T20:42:58Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "actions_taken": [
+    "Read HANDOFF.md/README/recent reports/registry/state; confirmed C31 cointegration artifact existed (cointegration_campaign31_mt.json, campaign 31, gating_invariants_preserved true, 1h=[],4h=[POL/BTC],1d=[]).",
+    "Executed scripts/generate_campaign31_artifacts.py (satisfied in-repo script) and recorded its output; cointegration campaign31 artifact present/updated in reports.",
+    "Generated fail-closed unblock recheck via data.real_feed_loader.generate_unblock_status_report(cache_dir='data/cache', campaign=31, reports_dir='reports', prior_report=reports/real_feed_unblock_status_20261105T203300Z.json) and persisted reports/real_feed_unblock_status_20261105T204108Z.json.",
+    "Reran full suite: pytest tests/ -q => 928 passed, 1 skipped, 3567 warnings, ~56.82s, rc=0.",
+    "Ran scripts/emit_strategy_edge_registry.py to produce reports/strategy_edge_registry_20261105T204133Z.json (supersedes prior registry)."
+  ],
+  "artifacts_produced_this_session": [
+    "reports/real_feed_unblock_status_20261105T204108Z.json",
+    "reports/strategy_edge_registry_20261105T204133Z.json",
+    "reports/campaign32_handoff_execution_20261105T204258Z.json",
+    "reports/cointegration_campaign31_mt.json (generated/refreshed via scripts/generate_campaign31_artifacts.py)"
+  ],
+  "handoff_inconsistency_noted": "Existing HANDOFF.md header marked C31 complete but C32 binding text referenced campaign31 script/blocker naming and campaign=31 unblock call; interpreted as producing required heavy artifacts with honest provenance and updating durable handoff to C33 with correct priors.",
+  "honest_assessment": "NO_PROVEN_OOS_EDGE;_STILL_BLOCKED_FAIL_CLOSED_FOR_REMAINING_FAMILIES",
+  "gating_invariants_preserved": {"1h": [], "4h": ["POL/BTC"], "1d": []},
+  "pytest": {"passed": 928, "skipped": 1, "failed": 0, "warnings": 3567, "duration_s": 56.82, "rc": 0, "scope": "full tests/"}
+}
