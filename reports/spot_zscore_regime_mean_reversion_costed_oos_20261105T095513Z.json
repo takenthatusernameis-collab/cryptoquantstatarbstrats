@@ -1,0 +1,249 @@
+{
+  "report": "spot_zscore_regime_mean_reversion_costed_oos",
+  "generated_at_utc": "2026-11-05T09:55:52.362139+00:00",
+  "mandate": "PRIORITY 9 / Campaign #5 Deliverable A \u2014 regime-adaptive z-score mean-reversion on rolling pairwise spreads (OLS hedge) from same 11-asset real spot cache. Structurally different from P4-P7. Fail-closed, no tuning, no gate weakening.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "new_external_feeds": false,
+    "proxies": false,
+    "data_source": "real cached Binance spot 1h (data/cache/*_2026-04-01_2026-10-30_1h.pkl + meta)",
+    "window": "2026-04-01..2026-10-30",
+    "bars": 5112,
+    "interval": "1h",
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ]
+  },
+  "structural_novelty": {
+    "different_from": [
+      "P4 momentum/mean_reversion (single-asset)",
+      "P5 cross_sectional_risk_adjusted_return_rank",
+      "P6 donchian_breakout_volfilter",
+      "P7 range_breakout_reversion_volband"
+    ],
+    "what_is_new": "Pairwise spread construction across 11 assets (55 pairs) with causal rolling OLS hedge ratio, z-score mean-reversion on spread, per-fold IS regime filters (abs corr, half-life bounds, spread vol regime), dollar-neutral legs, execution shift + turnover costs, aggregated per-asset attribution vs B&H on same WF OOS windows."
+  },
+  "cache_inventory": [
+    {
+      "symbol": "ADA",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "ADAUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "AVAX",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "AVAXUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "BNB",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "BNBUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "BTC",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "BTCUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "DOT",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "DOTUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "ETH",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "ETHUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "LINK",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "LINKUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "LTC",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "LTCUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "POL",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "POLUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "SOL",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "SOLUSDT",
+      "host": "https://www.binance.com"
+    },
+    {
+      "symbol": "XRP",
+      "bars": 5112,
+      "first": "2026-04-01 00:00:00+00:00",
+      "last": "2026-10-30 23:00:00+00:00",
+      "source": "www.binance.com public spot klines",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "market": "XRPUSDT",
+      "host": "https://www.binance.com"
+    }
+  ],
+  "config": {
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "n_pairs": 55,
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        20,
+        20
+      ]
+    ],
+    "walk_forward": {
+      "mode": "rolling",
+      "train_bars": 720,
+      "test_bars": 168,
+      "step_bars": 168
+    },
+    "benchmark": "buy-and-hold per asset (gross, no recurring turnover) on union of OOS WF windows; strategy net of fee+slippage on turnover",
+    "pre_stated_oos_edge_proven_rule": "oos_edge_proven=true IFF executed exposure>0 AND for ALL cost-grid slices OOS net sum > 0 AND OOS net sum > B&H OOS sum on same OOS windows. Else false (fail-closed).",
+    "params": {
+      "hedge_lookback": 120,
+      "z_lookback": 60,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "max_hold_bars": 72,
+      "min_abs_corr_is": 0.45,
+      "halflife_min_bars": 2,
+      "halflife_max_bars": 240,
+      "vol_regime_window": 120,
+      "vol_regime_max_mult": 3.0,
+      "min_train_obs": 200
+    },
+    "explicitly_reported": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "BNB"
+    ]
+  },
+  "by_asset": {
+    "ADA": {
+      "has_exposure":
