@@ -1,0 +1,1181 @@
+{
+  "artifact": "spot_cost_regime_audit_20261105T124233Z",
+  "generated_at_utc": "2026-11-05T12:42:33.616256+00:00",
+  "campaign": 14,
+  "path": "C-maintain",
+  "audit_only": true,
+  "not_new_edge_claim": true,
+  "not_structurally_similar_spot_retest_presented_as_new": true,
+  "purpose": "Negative-control cost-sensitivity + regime robustness audit on real spot cache (pre-stated simple 168h momentum sign, 720/168/168 WF). Quantifies whether any cost/regime slice shows positive net OOS. Known-exhausted family context; audit does not reopen edge claim.",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "source_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+  "source_meta": {
+    "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+    "symbols": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "interval": "1h",
+    "quote_asset": "USDT",
+    "fetch_success": true,
+    "rows": 5112,
+    "columns": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ]
+  },
+  "source_sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+  "pre_stated": {
+    "signal": "sign(close / close.shift(168) - 1), shifted 1 bar (no lookahead)",
+    "wf": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "mode": "rolling"
+    },
+    "cost_grid_bps_one_way_total_applied_to_turnover": [
+      0,
+      5,
+      10,
+      20
+    ],
+    "regimes": "high_vol/low_vol by test-window EW realized vol vs median rolling realized vol"
+  },
+  "summary_by_regime_cost": [
+    {
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "n_windows": 15,
+      "oos_net_mean_avg": 9.78007851810834e-05,
+      "oos_net_positive_windows": 7,
+      "oos_gross_mean_avg": 9.78007851810834e-05
+    },
+    {
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "n_windows": 15,
+      "oos_net_mean_avg": 8.365937103966926e-05,
+      "oos_net_positive_windows": 7,
+      "oos_gross_mean_avg": 9.78007851810834e-05
+    },
+    {
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "n_windows": 15,
+      "oos_net_mean_avg": 6.951795689825512e-05,
+      "oos_net_positive_windows": 7,
+      "oos_gross_mean_avg": 9.78007851810834e-05
+    },
+    {
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "n_windows": 15,
+      "oos_net_mean_avg": 4.1235128615426835e-05,
+      "oos_net_positive_windows": 6,
+      "oos_gross_mean_avg": 9.78007851810834e-05
+    },
+    {
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "n_windows": 11,
+      "oos_net_mean_avg": 1.626882477166484e-05,
+      "oos_net_positive_windows": 5,
+      "oos_gross_mean_avg": 1.626882477166484e-05
+    },
+    {
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "n_windows": 11,
+      "oos_net_mean_avg": -4.5687377221552156e-07,
+      "oos_net_positive_windows": 4,
+      "oos_gross_mean_avg": 1.626882477166484e-05
+    },
+    {
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "n_windows": 11,
+      "oos_net_mean_avg": -1.7182572316095857e-05,
+      "oos_net_positive_windows": 3,
+      "oos_gross_mean_avg": 1.626882477166484e-05
+    },
+    {
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "n_windows": 11,
+      "oos_net_mean_avg": -5.063396940385662e-05,
+      "oos_net_positive_windows": 3,
+      "oos_gross_mean_avg": 1.626882477166484e-05
+    }
+  ],
+  "n_windows_total": 104,
+  "all_slices_oos_net_mean_positive": false,
+  "oos_edge_proven": false,
+  "oos_edge_proven_rule": "true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows \u2014 NOT satisfied/met by this audit framing; result reported honestly.",
+  "honest_conclusion": "Audit-only negative control on real spot cache. oos_edge_proven=false. No hidden edge claimed; spot 1h remains exhausted. No cost/regime slice shows positive average OOS net in this audit.",
+  "windows": [
+    {
+      "window_start": "2026-05-01 00:00:00+00:00",
+      "window_end": "2026-05-07 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.00018229135001483968,
+      "oos_net_mean": -0.00018229135001483968,
+      "oos_net_sharpe_ann": -5.3095182838153745,
+      "turnover_mean": 0.03409090909090909
+    },
+    {
+      "window_start": "2026-05-01 00:00:00+00:00",
+      "window_end": "2026-05-07 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.00018229135001483968,
+      "oos_net_mean": -0.00019933680456029433,
+      "oos_net_sharpe_ann": -5.804231805365015,
+      "turnover_mean": 0.03409090909090909
+    },
+    {
+      "window_start": "2026-05-01 00:00:00+00:00",
+      "window_end": "2026-05-07 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.00018229135001483968,
+      "oos_net_mean": -0.00021638225910574875,
+      "oos_net_sharpe_ann": -6.297640679662917,
+      "turnover_mean": 0.03409090909090909
+    },
+    {
+      "window_start": "2026-05-01 00:00:00+00:00",
+      "window_end": "2026-05-07 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.00018229135001483968,
+      "oos_net_mean": -0.0002504731681966579,
+      "oos_net_sharpe_ann": -7.2796170112949605,
+      "turnover_mean": 0.03409090909090909
+    },
+    {
+      "window_start": "2026-05-08 00:00:00+00:00",
+      "window_end": "2026-05-14 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.00020175801759775142,
+      "oos_net_mean": 0.00020175801759775142,
+      "oos_net_sharpe_ann": 4.886650981537011,
+      "turnover_mean": 0.024891774891774892
+    },
+    {
+      "window_start": "2026-05-08 00:00:00+00:00",
+      "window_end": "2026-05-14 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.00020175801759775142,
+      "oos_net_mean": 0.000189312130151864,
+      "oos_net_sharpe_ann": 4.588334320087392,
+      "turnover_mean": 0.024891774891774892
+    },
+    {
+      "window_start": "2026-05-08 00:00:00+00:00",
+      "window_end": "2026-05-14 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.00020175801759775142,
+      "oos_net_mean": 0.00017686624270597657,
+      "oos_net_sharpe_ann": 4.2894025663418045,
+      "turnover_mean": 0.024891774891774892
+    },
+    {
+      "window_start": "2026-05-08 00:00:00+00:00",
+      "window_end": "2026-05-14 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.00020175801759775142,
+      "oos_net_mean": 0.0001519744678142017,
+      "oos_net_sharpe_ann": 3.6898619937472095,
+      "turnover_mean": 0.024891774891774892
+    },
+    {
+      "window_start": "2026-05-15 00:00:00+00:00",
+      "window_end": "2026-05-21 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -6.516218788265472e-05,
+      "oos_net_mean": -6.516218788265472e-05,
+      "oos_net_sharpe_ann": -1.607078367033324,
+      "turnover_mean": 0.008658008658008658
+    },
+    {
+      "window_start": "2026-05-15 00:00:00+00:00",
+      "window_end": "2026-05-21 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -6.516218788265472e-05,
+      "oos_net_mean": -6.949119221165904e-05,
+      "oos_net_sharpe_ann": -1.7139173321707037,
+      "turnover_mean": 0.008658008658008658
+    },
+    {
+      "window_start": "2026-05-15 00:00:00+00:00",
+      "window_end": "2026-05-21 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -6.516218788265472e-05,
+      "oos_net_mean": -7.382019654066342e-05,
+      "oos_net_sharpe_ann": -1.8207084467614751,
+      "turnover_mean": 0.008658008658008658
+    },
+    {
+      "window_start": "2026-05-15 00:00:00+00:00",
+      "window_end": "2026-05-21 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -6.516218788265472e-05,
+      "oos_net_mean": -8.247820519867207e-05,
+      "oos_net_sharpe_ann": -2.034106968455451,
+      "turnover_mean": 0.008658008658008658
+    },
+    {
+      "window_start": "2026-05-22 00:00:00+00:00",
+      "window_end": "2026-05-28 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -1.844480119588812e-05,
+      "oos_net_mean": -1.844480119588812e-05,
+      "oos_net_sharpe_ann": -0.46396637606648344,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-05-22 00:00:00+00:00",
+      "window_end": "2026-05-28 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -1.844480119588812e-05,
+      "oos_net_mean": -3.954869729978419e-05,
+      "oos_net_sharpe_ann": -0.9949269136593691,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-05-22 00:00:00+00:00",
+      "window_end": "2026-05-28 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -1.844480119588812e-05,
+      "oos_net_mean": -6.0652593403680314e-05,
+      "oos_net_sharpe_ann": -1.5258411218825494,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-05-22 00:00:00+00:00",
+      "window_end": "2026-05-28 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -1.844480119588812e-05,
+      "oos_net_mean": -0.00010286038561147256,
+      "oos_net_sharpe_ann": -2.5868630117467846,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-05-29 00:00:00+00:00",
+      "window_end": "2026-06-04 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.0006616212117656066,
+      "oos_net_mean": 0.0006616212117656066,
+      "oos_net_sharpe_ann": 10.831719532358864,
+      "turnover_mean": 0.012987012987012986
+    },
+    {
+      "window_start": "2026-05-29 00:00:00+00:00",
+      "window_end": "2026-06-04 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.0006616212117656066,
+      "oos_net_mean": 0.0006551277052721001,
+      "oos_net_sharpe_ann": 10.721339878901865,
+      "turnover_mean": 0.012987012987012986
+    },
+    {
+      "window_start": "2026-05-29 00:00:00+00:00",
+      "window_end": "2026-06-04 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.0006616212117656066,
+      "oos_net_mean": 0.0006486341987785936,
+      "oos_net_sharpe_ann": 10.610922913460351,
+      "turnover_mean": 0.012987012987012986
+    },
+    {
+      "window_start": "2026-05-29 00:00:00+00:00",
+      "window_end": "2026-06-04 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.0006616212117656066,
+      "oos_net_mean": 0.0006356471857915805,
+      "oos_net_sharpe_ann": 10.38999289017848,
+      "turnover_mean": 0.012987012987012986
+    },
+    {
+      "window_start": "2026-06-05 00:00:00+00:00",
+      "window_end": "2026-06-11 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.00028762938858750567,
+      "oos_net_mean": 0.00028762938858750567,
+      "oos_net_sharpe_ann": 3.036542470700095,
+      "turnover_mean": 0.008116883116883118
+    },
+    {
+      "window_start": "2026-06-05 00:00:00+00:00",
+      "window_end": "2026-06-11 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.00028762938858750567,
+      "oos_net_mean": 0.00028357094702906413,
+      "oos_net_sharpe_ann": 2.9934795170216852,
+      "turnover_mean": 0.008116883116883118
+    },
+    {
+      "window_start": "2026-06-05 00:00:00+00:00",
+      "window_end": "2026-06-11 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.00028762938858750567,
+      "oos_net_mean": 0.00027951250547062254,
+      "oos_net_sharpe_ann": 2.9504099915122564,
+      "turnover_mean": 0.008116883116883118
+    },
+    {
+      "window_start": "2026-06-05 00:00:00+00:00",
+      "window_end": "2026-06-11 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.00028762938858750567,
+      "oos_net_mean": 0.0002713956223537394,
+      "oos_net_sharpe_ann": 2.864253489434681,
+      "turnover_mean": 0.008116883116883118
+    },
+    {
+      "window_start": "2026-06-12 00:00:00+00:00",
+      "window_end": "2026-06-18 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.0001317558927703379,
+      "oos_net_mean": -0.0001317558927703379,
+      "oos_net_sharpe_ann": -2.5451458430125915,
+      "turnover_mean": 0.03896103896103896
+    },
+    {
+      "window_start": "2026-06-12 00:00:00+00:00",
+      "window_end": "2026-06-18 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.0001317558927703379,
+      "oos_net_mean": -0.00015123641225085735,
+      "oos_net_sharpe_ann": -2.9211515154948158,
+      "turnover_mean": 0.03896103896103896
+    },
+    {
+      "window_start": "2026-06-12 00:00:00+00:00",
+      "window_end": "2026-06-18 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.0001317558927703379,
+      "oos_net_mean": -0.00017071693173137688,
+      "oos_net_sharpe_ann": -3.2968968691736356,
+      "turnover_mean": 0.03896103896103896
+    },
+    {
+      "window_start": "2026-06-12 00:00:00+00:00",
+      "window_end": "2026-06-18 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.0001317558927703379,
+      "oos_net_mean": -0.0002096779706924158,
+      "oos_net_sharpe_ann": -4.047358112037662,
+      "turnover_mean": 0.03896103896103896
+    },
+    {
+      "window_start": "2026-06-19 00:00:00+00:00",
+      "window_end": "2026-06-25 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.00031306741846968966,
+      "oos_net_mean": 0.00031306741846968966,
+      "oos_net_sharpe_ann": 4.597782123889104,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-06-19 00:00:00+00:00",
+      "window_end": "2026-06-25 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.00031306741846968966,
+      "oos_net_mean": 0.00029196352236579353,
+      "oos_net_sharpe_ann": 4.287888849248272,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-06-19 00:00:00+00:00",
+      "window_end": "2026-06-25 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.00031306741846968966,
+      "oos_net_mean": 0.00027085962626189735,
+      "oos_net_sharpe_ann": 3.9778538257889062,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-06-19 00:00:00+00:00",
+      "window_end": "2026-06-25 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.00031306741846968966,
+      "oos_net_mean": 0.0002286518340541051,
+      "oos_net_sharpe_ann": 3.3574853131599864,
+      "turnover_mean": 0.04220779220779221
+    },
+    {
+      "window_start": "2026-06-26 00:00:00+00:00",
+      "window_end": "2026-07-02 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -4.8936757837580816e-05,
+      "oos_net_mean": -4.8936757837580816e-05,
+      "oos_net_sharpe_ann": -1.178743454777435,
+      "turnover_mean": 0.022186147186147184
+    },
+    {
+      "window_start": "2026-06-26 00:00:00+00:00",
+      "window_end": "2026-07-02 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -4.8936757837580816e-05,
+      "oos_net_mean": -6.0029831430654445e-05,
+      "oos_net_sharpe_ann": -1.4453874549481638,
+      "turnover_mean": 0.022186147186147184
+    },
+    {
+      "window_start": "2026-06-26 00:00:00+00:00",
+      "window_end": "2026-07-02 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -4.8936757837580816e-05,
+      "oos_net_mean": -7.112290502372801e-05,
+      "oos_net_sharpe_ann": -1.7117491123469788,
+      "turnover_mean": 0.022186147186147184
+    },
+    {
+      "window_start": "2026-06-26 00:00:00+00:00",
+      "window_end": "2026-07-02 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -4.8936757837580816e-05,
+      "oos_net_mean": -9.330905220987523e-05,
+      "oos_net_sharpe_ann": -2.243482967791823,
+      "turnover_mean": 0.022186147186147184
+    },
+    {
+      "window_start": "2026-07-03 00:00:00+00:00",
+      "window_end": "2026-07-09 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -5.677845370052231e-05,
+      "oos_net_mean": -5.677845370052231e-05,
+      "oos_net_sharpe_ann": -1.3257434949047355,
+      "turnover_mean": 0.017857142857142856
+    },
+    {
+      "window_start": "2026-07-03 00:00:00+00:00",
+      "window_end": "2026-07-09 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -5.677845370052231e-05,
+      "oos_net_mean": -6.570702512909375e-05,
+      "oos_net_sharpe_ann": -1.5343390600737359,
+      "turnover_mean": 0.017857142857142856
+    },
+    {
+      "window_start": "2026-07-03 00:00:00+00:00",
+      "window_end": "2026-07-09 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -5.677845370052231e-05,
+      "oos_net_mean": -7.46355965576651e-05,
+      "oos_net_sharpe_ann": -1.7429266114420732,
+      "turnover_mean": 0.017857142857142856
+    },
+    {
+      "window_start": "2026-07-03 00:00:00+00:00",
+      "window_end": "2026-07-09 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -5.677845370052231e-05,
+      "oos_net_mean": -9.249273941480797e-05,
+      "oos_net_sharpe_ann": -2.1600197822010685,
+      "turnover_mean": 0.017857142857142856
+    },
+    {
+      "window_start": "2026-07-10 00:00:00+00:00",
+      "window_end": "2026-07-16 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.0001089555149824575,
+      "oos_net_mean": 0.0001089555149824575,
+      "oos_net_sharpe_ann": 4.854359121153347,
+      "turnover_mean": 0.04004329004329004
+    },
+    {
+      "window_start": "2026-07-10 00:00:00+00:00",
+      "window_end": "2026-07-16 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.0001089555149824575,
+      "oos_net_mean": 8.893386996081248e-05,
+      "oos_net_sharpe_ann": 3.9667320088162756,
+      "turnover_mean": 0.04004329004329004
+    },
+    {
+      "window_start": "2026-07-10 00:00:00+00:00",
+      "window_end": "2026-07-16 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.0001089555149824575,
+      "oos_net_mean": 6.891222493916745e-05,
+      "oos_net_sharpe_ann": 3.0764995880354253,
+      "turnover_mean": 0.04004329004329004
+    },
+    {
+      "window_start": "2026-07-10 00:00:00+00:00",
+      "window_end": "2026-07-16 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.0001089555149824575,
+      "oos_net_mean": 2.886893489587738e-05,
+      "oos_net_sharpe_ann": 1.2903727026429583,
+      "turnover_mean": 0.04004329004329004
+    },
+    {
+      "window_start": "2026-07-17 00:00:00+00:00",
+      "window_end": "2026-07-23 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -8.480460926555908e-05,
+      "oos_net_mean": -8.480460926555908e-05,
+      "oos_net_sharpe_ann": -4.6503146639461015,
+      "turnover_mean": 0.044372294372294376
+    },
+    {
+      "window_start": "2026-07-17 00:00:00+00:00",
+      "window_end": "2026-07-23 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -8.480460926555908e-05,
+      "oos_net_mean": -0.00010699075645170626,
+      "oos_net_sharpe_ann": -5.860641229930771,
+      "turnover_mean": 0.044372294372294376
+    },
+    {
+      "window_start": "2026-07-17 00:00:00+00:00",
+      "window_end": "2026-07-23 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -8.480460926555908e-05,
+      "oos_net_mean": -0.00012917690363785343,
+      "oos_net_sharpe_ann": -7.065944726194836,
+      "turnover_mean": 0.044372294372294376
+    },
+    {
+      "window_start": "2026-07-17 00:00:00+00:00",
+      "window_end": "2026-07-23 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -8.480460926555908e-05,
+      "oos_net_mean": -0.00017354919801014783,
+      "oos_net_sharpe_ann": -9.456660306837254,
+      "turnover_mean": 0.044372294372294376
+    },
+    {
+      "window_start": "2026-07-24 00:00:00+00:00",
+      "window_end": "2026-07-30 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.00026638782827049373,
+      "oos_net_mean": -0.00026638782827049373,
+      "oos_net_sharpe_ann": -7.947719799901577,
+      "turnover_mean": 0.047619047619047616
+    },
+    {
+      "window_start": "2026-07-24 00:00:00+00:00",
+      "window_end": "2026-07-30 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.00026638782827049373,
+      "oos_net_mean": -0.0002901973520800175,
+      "oos_net_sharpe_ann": -8.665918555628474,
+      "turnover_mean": 0.047619047619047616
+    },
+    {
+      "window_start": "2026-07-24 00:00:00+00:00",
+      "window_end": "2026-07-30 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.00026638782827049373,
+      "oos_net_mean": -0.00031400687588954137,
+      "oos_net_sharpe_ann": -9.384036586446554,
+      "turnover_mean": 0.047619047619047616
+    },
+    {
+      "window_start": "2026-07-24 00:00:00+00:00",
+      "window_end": "2026-07-30 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.00026638782827049373,
+      "oos_net_mean": -0.00036162592350858896,
+      "oos_net_sharpe_ann": -10.81874545094753,
+      "turnover_mean": 0.047619047619047616
+    },
+    {
+      "window_start": "2026-07-31 00:00:00+00:00",
+      "window_end": "2026-08-06 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 3.157268466872894e-05,
+      "oos_net_mean": 3.157268466872894e-05,
+      "oos_net_sharpe_ann": 1.824393393099109,
+      "turnover_mean": 0.04112554112554113
+    },
+    {
+      "window_start": "2026-07-31 00:00:00+00:00",
+      "window_end": "2026-08-06 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 3.157268466872894e-05,
+      "oos_net_mean": 1.1009914105958354e-05,
+      "oos_net_sharpe_ann": 0.6372655873086214,
+      "turnover_mean": 0.04112554112554113
+    },
+    {
+      "window_start": "2026-07-31 00:00:00+00:00",
+      "window_end": "2026-08-06 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 3.157268466872894e-05,
+      "oos_net_mean": -9.55285645681222e-06,
+      "oos_net_sharpe_ann": -0.553651747379549,
+      "turnover_mean": 0.04112554112554113
+    },
+    {
+      "window_start": "2026-07-31 00:00:00+00:00",
+      "window_end": "2026-08-06 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 3.157268466872894e-05,
+      "oos_net_mean": -5.067839758235335e-05,
+      "oos_net_sharpe_ann": -2.9414894518729287,
+      "turnover_mean": 0.04112554112554113
+    },
+    {
+      "window_start": "2026-08-07 00:00:00+00:00",
+      "window_end": "2026-08-13 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 4.2925025624551767e-07,
+      "oos_net_mean": 4.2925025624551767e-07,
+      "oos_net_sharpe_ann": 0.03406053667665584,
+      "turnover_mean": 0.03841991341991342
+    },
+    {
+      "window_start": "2026-08-07 00:00:00+00:00",
+      "window_end": "2026-08-13 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 4.2925025624551767e-07,
+      "oos_net_mean": -1.87807064537112e-05,
+      "oos_net_sharpe_ann": -1.4882410375702704,
+      "turnover_mean": 0.03841991341991342
+    },
+    {
+      "window_start": "2026-08-07 00:00:00+00:00",
+      "window_end": "2026-08-13 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 4.2925025624551767e-07,
+      "oos_net_mean": -3.799066316366788e-05,
+      "oos_net_sharpe_ann": -3.004673213215363,
+      "turnover_mean": 0.03841991341991342
+    },
+    {
+      "window_start": "2026-08-07 00:00:00+00:00",
+      "window_end": "2026-08-13 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 4.2925025624551767e-07,
+      "oos_net_mean": -7.641057658358134e-05,
+      "oos_net_sharpe_ann": -6.0092555438328175,
+      "turnover_mean": 0.03841991341991342
+    },
+    {
+      "window_start": "2026-08-14 00:00:00+00:00",
+      "window_end": "2026-08-20 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.0005101108353130875,
+      "oos_net_mean": 0.0005101108353130875,
+      "oos_net_sharpe_ann": 13.173614972264613,
+      "turnover_mean": 0.02867965367965368
+    },
+    {
+      "window_start": "2026-08-14 00:00:00+00:00",
+      "window_end": "2026-08-20 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.0005101108353130875,
+      "oos_net_mean": 0.0004957710084732607,
+      "oos_net_sharpe_ann": 12.818091613174703,
+      "turnover_mean": 0.02867965367965368
+    },
+    {
+      "window_start": "2026-08-14 00:00:00+00:00",
+      "window_end": "2026-08-20 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.0005101108353130875,
+      "oos_net_mean": 0.0004814311816334339,
+      "oos_net_sharpe_ann": 12.461245671590177,
+      "turnover_mean": 0.02867965367965368
+    },
+    {
+      "window_start": "2026-08-14 00:00:00+00:00",
+      "window_end": "2026-08-20 23:00:00+00:00",
+      "regime": "low_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.0005101108353130875,
+      "oos_net_mean": 0.00045275152795378024,
+      "oos_net_sharpe_ann": 11.743734324428546,
+      "turnover_mean": 0.02867965367965368
+    },
+    {
+      "window_start": "2026-08-21 00:00:00+00:00",
+      "window_end": "2026-08-27 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.0007013658652538476,
+      "oos_net_mean": 0.0007013658652538476,
+      "oos_net_sharpe_ann": 7.813937771198596,
+      "turnover_mean": 0.0
+    },
+    {
+      "window_start": "2026-08-21 00:00:00+00:00",
+      "window_end": "2026-08-27 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.0007013658652538476,
+      "oos_net_mean": 0.0007013658652538476,
+      "oos_net_sharpe_ann": 7.813937771198596,
+      "turnover_mean": 0.0
+    },
+    {
+      "window_start": "2026-08-21 00:00:00+00:00",
+      "window_end": "2026-08-27 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.0007013658652538476,
+      "oos_net_mean": 0.0007013658652538476,
+      "oos_net_sharpe_ann": 7.813937771198596,
+      "turnover_mean": 0.0
+    },
+    {
+      "window_start": "2026-08-21 00:00:00+00:00",
+      "window_end": "2026-08-27 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.0007013658652538476,
+      "oos_net_mean": 0.0007013658652538476,
+      "oos_net_sharpe_ann": 7.813937771198596,
+      "turnover_mean": 0.0
+    },
+    {
+      "window_start": "2026-08-28 00:00:00+00:00",
+      "window_end": "2026-09-03 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.0003644921642122739,
+      "oos_net_mean": -0.0003644921642122739,
+      "oos_net_sharpe_ann": -9.930205315963018,
+      "turnover_mean": 0.040584415584415584
+    },
+    {
+      "window_start": "2026-08-28 00:00:00+00:00",
+      "window_end": "2026-09-03 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.0003644921642122739,
+      "oos_net_mean": -0.00038478437200448174,
+      "oos_net_sharpe_ann": -10.480959724418074,
+      "turnover_mean": 0.040584415584415584
+    },
+    {
+      "window_start": "2026-08-28 00:00:00+00:00",
+      "window_end": "2026-09-03 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.0003644921642122739,
+      "oos_net_mean": -0.00040507657979668943,
+      "oos_net_sharpe_ann": -11.030536354765372,
+      "turnover_mean": 0.040584415584415584
+    },
+    {
+      "window_start": "2026-08-28 00:00:00+00:00",
+      "window_end": "2026-09-03 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.0003644921642122739,
+      "oos_net_mean": -0.0004456609953811051,
+      "oos_net_sharpe_ann": -12.125592156257156,
+      "turnover_mean": 0.040584415584415584
+    },
+    {
+      "window_start": "2026-09-04 00:00:00+00:00",
+      "window_end": "2026-09-10 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.00011529249435306416,
+      "oos_net_mean": -0.00011529249435306416,
+      "oos_net_sharpe_ann": -2.400008697904282,
+      "turnover_mean": 0.031385281385281384
+    },
+    {
+      "window_start": "2026-09-04 00:00:00+00:00",
+      "window_end": "2026-09-10 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.00011529249435306416,
+      "oos_net_mean": -0.00013098513504570486,
+      "oos_net_sharpe_ann": -2.726299976128974,
+      "turnover_mean": 0.031385281385281384
+    },
+    {
+      "window_start": "2026-09-04 00:00:00+00:00",
+      "window_end": "2026-09-10 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.00011529249435306416,
+      "oos_net_mean": -0.00014667777573834558,
+      "oos_net_sharpe_ann": -3.052248025181072,
+      "turnover_mean": 0.031385281385281384
+    },
+    {
+      "window_start": "2026-09-04 00:00:00+00:00",
+      "window_end": "2026-09-10 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.00011529249435306416,
+      "oos_net_mean": -0.00017806305712362702,
+      "oos_net_sharpe_ann": -3.702792622872397,
+      "turnover_mean": 0.031385281385281384
+    },
+    {
+      "window_start": "2026-09-11 00:00:00+00:00",
+      "window_end": "2026-09-17 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.00030860191640388906,
+      "oos_net_mean": -0.00030860191640388906,
+      "oos_net_sharpe_ann": -7.606445965897804,
+      "turnover_mean": 0.038419913419913417
+    },
+    {
+      "window_start": "2026-09-11 00:00:00+00:00",
+      "window_end": "2026-09-17 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.00030860191640388906,
+      "oos_net_mean": -0.0003278118731138458,
+      "oos_net_sharpe_ann": -8.088224849279317,
+      "turnover_mean": 0.038419913419913417
+    },
+    {
+      "window_start": "2026-09-11 00:00:00+00:00",
+      "window_end": "2026-09-17 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.00030860191640388906,
+      "oos_net_mean": -0.00034702182982380254,
+      "oos_net_sharpe_ann": -8.570241980712845,
+      "turnover_mean": 0.038419913419913417
+    },
+    {
+      "window_start": "2026-09-11 00:00:00+00:00",
+      "window_end": "2026-09-17 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.00030860191640388906,
+      "oos_net_mean": -0.0003854417432437159,
+      "oos_net_sharpe_ann": -9.534476406627675,
+      "turnover_mean": 0.038419913419913417
+    },
+    {
+      "window_start": "2026-09-18 00:00:00+00:00",
+      "window_end": "2026-09-24 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.0006738185336255556,
+      "oos_net_mean": 0.0006738185336255556,
+      "oos_net_sharpe_ann": 9.75558943508267,
+      "turnover_mean": 0.007034632034632035
+    },
+    {
+      "window_start": "2026-09-18 00:00:00+00:00",
+      "window_end": "2026-09-24 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.0006738185336255556,
+      "oos_net_mean": 0.0006703012176082396,
+      "oos_net_sharpe_ann": 9.705899738966757,
+      "turnover_mean": 0.007034632034632035
+    },
+    {
+      "window_start": "2026-09-18 00:00:00+00:00",
+      "window_end": "2026-09-24 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.0006738185336255556,
+      "oos_net_mean": 0.0006667839015909236,
+      "oos_net_sharpe_ann": 9.65613465369233,
+      "turnover_mean": 0.007034632034632035
+    },
+    {
+      "window_start": "2026-09-18 00:00:00+00:00",
+      "window_end": "2026-09-24 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.0006738185336255556,
+      "oos_net_mean": 0.0006597492695562914,
+      "oos_net_sharpe_ann": 9.5563820021201,
+      "turnover_mean": 0.007034632034632035
+    },
+    {
+      "window_start": "2026-09-25 00:00:00+00:00",
+      "window_end": "2026-10-01 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.00022652375943785612,
+      "oos_net_mean": -0.00022652375943785612,
+      "oos_net_sharpe_ann": -5.213889095268913,
+      "turnover_mean": 0.053030303030303025
+    },
+    {
+      "window_start": "2026-09-25 00:00:00+00:00",
+      "window_end": "2026-10-01 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.00022652375943785612,
+      "oos_net_mean": -0.0002530389109530076,
+      "oos_net_sharpe_ann": -5.820106178955056,
+      "turnover_mean": 0.053030303030303025
+    },
+    {
+      "window_start": "2026-09-25 00:00:00+00:00",
+      "window_end": "2026-10-01 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.00022652375943785612,
+      "oos_net_mean": -0.0002795540624681591,
+      "oos_net_sharpe_ann": -6.42487183257477,
+      "turnover_mean": 0.053030303030303025
+    },
+    {
+      "window_start": "2026-09-25 00:00:00+00:00",
+      "window_end": "2026-10-01 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.00022652375943785612,
+      "oos_net_mean": -0.0003325843654984622,
+      "oos_net_sharpe_ann": -7.629391312558948,
+      "turnover_mean": 0.053030303030303025
+    },
+    {
+      "window_start": "2026-10-02 00:00:00+00:00",
+      "window_end": "2026-10-08 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.0001346595064932807,
+      "oos_net_mean": -0.0001346595064932807,
+      "oos_net_sharpe_ann": -3.259557575952097,
+      "turnover_mean": 0.05844155844155844
+    },
+    {
+      "window_start": "2026-10-02 00:00:00+00:00",
+      "window_end": "2026-10-08 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.0001346595064932807,
+      "oos_net_mean": -0.00016388028571405992,
+      "oos_net_sharpe_ann": -3.970471895128808,
+      "turnover_mean": 0.05844155844155844
+    },
+    {
+      "window_start": "2026-10-02 00:00:00+00:00",
+      "window_end": "2026-10-08 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.0001346595064932807,
+      "oos_net_mean": -0.00019310106493483913,
+      "oos_net_sharpe_ann": -4.682095528076649,
+      "turnover_mean": 0.05844155844155844
+    },
+    {
+      "window_start": "2026-10-02 00:00:00+00:00",
+      "window_end": "2026-10-08 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.0001346595064932807,
+      "oos_net_mean": -0.00025154262337639754,
+      "oos_net_sharpe_ann": -6.106408094737997,
+      "turnover_mean": 0.05844155844155844
+    },
+    {
+      "window_start": "2026-10-09 00:00:00+00:00",
+      "window_end": "2026-10-15 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 1.8311455450923813e-05,
+      "oos_net_mean": 1.8311455450923813e-05,
+      "oos_net_sharpe_ann": 0.3181418419570325,
+      "turnover_mean": 0.017316017316017316
+    },
+    {
+      "window_start": "2026-10-09 00:00:00+00:00",
+      "window_end": "2026-10-15 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 1.8311455450923813e-05,
+      "oos_net_mean": 9.65344679291505e-06,
+      "oos_net_sharpe_ann": 0.16779818877714212,
+      "turnover_mean": 0.017316017316017316
+    },
+    {
+      "window_start": "2026-10-09 00:00:00+00:00",
+      "window_end": "2026-10-15 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 1.8311455450923813e-05,
+      "oos_net_mean": 9.95438134906494e-07,
+      "oos_net_sharpe_ann": 0.017310706193308115,
+      "turnover_mean": 0.017316017316017316
+    },
+    {
+      "window_start": "2026-10-09 00:00:00+00:00",
+      "window_end": "2026-10-15 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 1.8311455450923813e-05,
+      "oos_net_mean": -1.6320579181110867e-05,
+      "oos_net_sharpe_ann": -0.2840490877206835,
+      "turnover_mean": 0.017316017316017316
+    },
+    {
+      "window_start": "2026-10-16 00:00:00+00:00",
+      "window_end": "2026-10-22 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": -0.0001417085012698757,
+      "oos_net_mean": -0.0001417085012698757,
+      "oos_net_sharpe_ann": -2.9231163037369052,
+      "turnover_mean": 0.03246753246753247
+    },
+    {
+      "window_start": "2026-10-16 00:00:00+00:00",
+      "window_end": "2026-10-22 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": -0.0001417085012698757,
+      "oos_net_mean": -0.00015794226750364207,
+      "oos_net_sharpe_ann": -3.258149351019704,
+      "turnover_mean": 0.03246753246753247
+    },
+    {
+      "window_start": "2026-10-16 00:00:00+00:00",
+      "window_end": "2026-10-22 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": -0.0001417085012698757,
+      "oos_net_mean": -0.00017417603373740825,
+      "oos_net_sharpe_ann": -3.593007382455957,
+      "turnover_mean": 0.03246753246753247
+    },
+    {
+      "window_start": "2026-10-16 00:00:00+00:00",
+      "window_end": "2026-10-22 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": -0.0001417085012698757,
+      "oos_net_mean": -0.00020664356620494071,
+      "oos_net_sharpe_ann": -4.261964157999067,
+      "turnover_mean": 0.03246753246753247
+    },
+    {
+      "window_start": "2026-10-23 00:00:00+00:00",
+      "window_end": "2026-10-29 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 0,
+      "oos_gross_mean": 0.00028316889734128096,
+      "oos_net_mean": 0.00028316889734128096,
+      "oos_net_sharpe_ann": 5.584262959330887,
+      "turnover_mean": 0.021103896103896104
+    },
+    {
+      "window_start": "2026-10-23 00:00:00+00:00",
+      "window_end": "2026-10-29 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 5,
+      "oos_gross_mean": 0.00028316889734128096,
+      "oos_net_mean": 0.00027261694928933284,
+      "oos_net_sharpe_ann": 5.374069761738856,
+      "turnover_mean": 0.021103896103896104
+    },
+    {
+      "window_start": "2026-10-23 00:00:00+00:00",
+      "window_end": "2026-10-29 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 10,
+      "oos_gross_mean": 0.00028316889734128096,
+      "oos_net_mean": 0.0002620650012373848,
+      "oos_net_sharpe_ann": 5.1639059053581,
+      "turnover_mean": 0.021103896103896104
+    },
+    {
+      "window_start": "2026-10-23 00:00:00+00:00",
+      "window_end": "2026-10-29 23:00:00+00:00",
+      "regime": "high_vol",
+      "cost_bps": 20,
+      "oos_gross_mean": 0.00028316889734128096,
+      "oos_net_mean": 0.00024096110513348873,
+      "oos_net_sharpe_ann": 4.743732557816305,
+      "turnover_mean": 0.021103896103896104
+    }
+  ]
+}

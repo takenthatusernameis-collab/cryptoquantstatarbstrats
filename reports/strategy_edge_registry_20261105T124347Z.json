@@ -1,0 +1,128 @@
+{
+  "artifact": "strategy_edge_registry_20261105T124347Z",
+  "campaign": 14,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T12:44:12.981851+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T114735Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 899,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3579,
+    "duration_s": 40.6,
+    "rc": 0,
+    "loader_targeted": {
+      "command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+      "passed": 67,
+      "failed": 0
+    }
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "bars": 5112,
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "freq": "1h",
+    "source": "Binance public spot",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [
+      0,
+      5,
+      10,
+      20
+    ],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165 pairs; no re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_xsec_rank_P5": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_donchian_tsmom_P6": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_range_breakout_reversion_volband_P7": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_pairwise_ols_hedge_spread_mr_P9": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_residual_momentum_P10": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_lead_lag_diffusion_P11": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py"
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py"
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py"
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py"
+    },
+    "campaign14_spot_cost_regime_audit": {
+      "status": "AUDIT_ONLY_NOT_EDGE",
+      "oos_edge_proven": false,
+      "artifact": "reports/spot_cost_regime_audit_20261105T124233Z.json",
+      "note": "negative-control cost/regime audit on real spot cache; not a new family/edge claim; spot remains exhausted"
+    }
+  },
+  "campaign14_artifacts": [
+    "reports/spot_cost_regime_audit_20261105T124233Z.json",
+    "reports/real_feed_unblock_status_20261105T124347Z.json",
+    "reports/strategy_edge_registry_20261105T124347Z.json",
+    "data/real_feed_loader.py",
+    "tests/test_real_feed_loader_validation.py"
+  ],
+  "code_changes": {
+    "loader": [
+      "added scan_cache_for_real_nonspot_feeds (fail-closed non-spot cache scan; counts only validated provenance+sha256+schema artifacts)"
+    ],
+    "tests": [
+      "+4 tests for scan helper (empty/missing/spot-meta-rejected/valid-funding-accepted); loader tests 63->67"
+    ]
+  },
+  "core_truth": "No proven net-of-cost OOS edge. Pairs proven blocked (165/165). Spot 1h exhausted. Non-spot families blocked_no_real_feed (fail-closed scan found 0 valid provenance artifacts). oos_edge_proven=false across registry. Campaign #14 Path C-maintain produced real tested code + 3 concrete artifacts; no fabrication, no proxies, no threshold weakening, no pairs re-scan, no structurally-similar spot retest presented as new. Next productive path is Path R only if a genuinely new real feed with provenance is ingested."
+}

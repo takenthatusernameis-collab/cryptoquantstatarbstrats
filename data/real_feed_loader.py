@@ -417,3 +417,186 @@ def validate_and_load_real_feed(
         }
     )
     return df, report
+
+
+NONSPOT_FAMILY_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "funding_basis_carry": ("funding", "basis", "carry", "perp"),
+    "cross_exchange_dual_venue_same_asset": (
+        "dualvenue",
+        "dual_venue",
+        "cross_exchange",
+        "cross-exchange",
+        "venue_a",
+        "venue_b",
+    ),
+    "term_structure_real_iv_vol_surface": (
+        "iv",
+        "vol_surface",
+        "vol-surface",
+        "term_structure",
+        "term-structure",
+        "dvol",
+        "implied",
+    ),
+    "intrabar_microstructure": (
+        "intrabar",
+        "microstructure",
+        "trades",
+        "book",
+        "depth",
+        "orderbook",
+    ),
+}
+
+
+def _candidate_families_for_meta(meta: dict[str, Any], path_hint: str) -> list[str]:
+    hay = " ".join(
+        [
+            path_hint.lower(),
+            str(meta.get("family", "")).lower(),
+            str(meta.get("kind", "")).lower(),
+            str(meta.get("source_provider", "")).lower(),
+            str(meta.get("notes_limits_gaps", "")).lower(),
+        ]
+    )
+    families: list[str] = []
+    declared = str(meta.get("family", "")).strip()
+    if declared in FAMILY_SPECS:
+        families.append(declared)
+    for fam, kws in NONSPOT_FAMILY_KEYWORDS.items():
+        if fam not in families and any(kw in hay for kw in kws):
+            families.append(fam)
+    return families
+
+
+def scan_cache_for_real_nonspot_feeds(
+    cache_dir: str | Path,
+) -> dict[str, Any]:
+    """Fail-closed scan: only artifacts passing validate_and_load_real_feed count.
+
+    Does NOT fabricate. A file counts as a real non-spot feed with provenance only
+    if its metadata passes the relevant family validator (real_data_only=true,
+    fabricated_data=false, sha256 verified, schema valid, no proxy admissions).
+    """
+    cache_dir = Path(cache_dir)
+    result: dict[str, Any] = {
+        "cache_dir": str(cache_dir),
+        "cache_exists": cache_dir.exists(),
+        "fail_closed": True,
+        "real_data_only_required": True,
+        "fabricated_data_allowed": False,
+        "families": {fam: {"status": "blocked_no_real_feed", "valid_artifacts": []} for fam in FAMILY_SPECS},
+        "meta_files_scanned": 0,
+        "candidate_hits": [],
+        "new_real_feeds_with_provenance_found": False,
+    }
+    if not cache_dir.exists():
+        return result
+    meta_paths = sorted(cache_dir.glob("*.meta.json")) + sorted(cache_dir.glob("*.json"))
+    seen: set[str] = set()
+    for mp in meta_paths:
+        rp = str(mp.resolve())
+        if rp in seen or not mp.name.endswith("meta.json"):
+            # only provenance meta files; skip non-meta json like summary
+            if not mp.name.endswith("meta.json"):
+                continue
+        seen.add(rp)
+        result["meta_files_scanned"] += 1
+        try:
+            meta = json.loads(mp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(meta, dict):
+            continue
+        families = _candidate_families_for_meta(meta, mp.name)
+        if not families:
+            continue
+        result["candidate_hits"].append({"meta": mp.name, "families_considered": families})
+        for fam in families:
+            try:
+                _, report = validate_and_load_real_feed(mp, fam)
+            except RealFeedValidationError as exc:
+                continue
+            except Exception:
+                continue
+            if report.get("ok"):
+                entry = {
+                    "meta": mp.name,
+                    "family": fam,
+                    "rows": report.get("rows"),
+                    "reason": report.get("reason"),
+                }
+                result["families"][fam]["valid_artifacts"].append(entry)
+                result["families"][fam]["status"] = "real_feed_with_provenance_present"
+                result["new_real_feeds_with_provenance_found"] = True
+    return result
+
+
+NONSPOT_FAMILY_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "funding_basis_carry": ("funding", "basis", "carry", "perp"),
+    "cross_exchange_dual_venue_same_asset": (
+        "dualvenue", "dual_venue", "cross_exchange", "cross-exchange", "venue_a", "venue_b",
+    ),
+    "term_structure_real_iv_vol_surface": (
+        "iv", "vol_surface", "vol-surface", "term_structure", "term-structure", "dvol", "implied",
+    ),
+    "intrabar_microstructure": ("intrabar", "microstructure", "orderbook", "depth"),
+}
+
+
+def _candidate_families_for_meta(meta: dict[str, Any], path_hint: str) -> list[str]:
+    hay = " ".join([
+        path_hint.lower(), str(meta.get("family", "")).lower(),
+        str(meta.get("kind", "")).lower(), str(meta.get("source_provider", "")).lower(),
+    ])
+    families: list[str] = []
+    declared = str(meta.get("family", "")).strip()
+    if declared in FAMILY_SPECS:
+        families.append(declared)
+    for fam, kws in NONSPOT_FAMILY_KEYWORDS.items():
+        if fam not in families and any(kw in hay for kw in kws):
+            families.append(fam)
+    return families
+
+
+def scan_cache_for_real_nonspot_feeds(cache_dir: str | Path) -> dict[str, Any]:
+    """Fail-closed scan: only artifacts passing validate_and_load_real_feed count.
+
+    Does NOT fabricate. Counts a real non-spot feed with provenance only if
+    metadata passes the family validator (real_data_only=true, fabricated_data=false,
+    sha256 verified, schema valid, no proxy admissions).
+    """
+    cache_dir = Path(cache_dir)
+    result: dict[str, Any] = {
+        "cache_dir": str(cache_dir), "cache_exists": cache_dir.exists(),
+        "fail_closed": True, "real_data_only_required": True, "fabricated_data_allowed": False,
+        "families": {fam: {"status": "blocked_no_real_feed", "valid_artifacts": []} for fam in FAMILY_SPECS},
+        "meta_files_scanned": 0, "candidate_hits": [],
+        "new_real_feeds_with_provenance_found": False,
+    }
+    if not cache_dir.exists():
+        return result
+    for mp in sorted(cache_dir.glob("*.meta.json")):
+        result["meta_files_scanned"] += 1
+        try:
+            meta = json.loads(mp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(meta, dict):
+            continue
+        families = _candidate_families_for_meta(meta, mp.name)
+        if not families:
+            continue
+        result["candidate_hits"].append({"meta": mp.name, "families_considered": families})
+        for fam in families:
+            try:
+                _, report = validate_and_load_real_feed(mp, fam)
+            except Exception:
+                continue
+            if report.get("ok"):
+                result["families"][fam]["valid_artifacts"].append(
+                    {"meta": mp.name, "family": fam, "rows": report.get("rows")}
+                )
+                result["families"][fam]["status"] = "real_feed_with_provenance_present"
+                result["new_real_feeds_with_provenance_found"] = True
+    return result

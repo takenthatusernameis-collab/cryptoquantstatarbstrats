@@ -1,0 +1,72 @@
+{
+  "artifact": "real_feed_unblock_status_20261105T124347Z",
+  "campaign": 14,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T12:44:12.981851+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/real_feed_unblock_status_20261105T114735Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "method": "Honest fail-closed re-scan of data/cache/* via data.real_feed_loader.scan_cache_for_real_nonspot_feeds (validates provenance+sha256+schema per family; only passing artifacts count). No network fabrication; no proxies labeled real; no threshold weakening; no pairs re-scan; no structurally-similar spot retest presented as new.",
+  "scan": {
+    "cache_dir": "data/cache",
+    "cache_exists": true,
+    "fail_closed": true,
+    "real_data_only_required": true,
+    "fabricated_data_allowed": false,
+    "families": {
+      "funding_basis_carry": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "cross_exchange_dual_venue_same_asset": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "term_structure_real_iv_vol_surface": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "intrabar_microstructure": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      }
+    },
+    "meta_files_scanned": 21,
+    "candidate_hits": [],
+    "new_real_feeds_with_provenance_found": false
+  },
+  "new_real_feeds_with_provenance_found": false,
+  "families": {
+    "funding_basis_carry": "blocked_no_real_feed",
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed"
+  },
+  "pairs_cointegration": {
+    "status": "PROVEN_BLOCKED",
+    "exhausted_pairs": "165/165",
+    "rescanned_this_session": false
+  },
+  "spot_only_1h_cached": {
+    "status": "EXHAUSTED",
+    "families": {
+      "P4_momentum_mr": "exhausted_no_edge",
+      "P5_xsec_rank_momentum": "exhausted_no_edge",
+      "P6_donchian_tsmom": "exhausted_no_edge",
+      "P7_range_breakout_reversion_volband": "exhausted_no_edge",
+      "P9_pairwise_ols_hedge_spread_mr": "exhausted_no_edge",
+      "P10_residual_momentum": "exhausted_no_edge",
+      "P11_lead_lag_diffusion": "exhausted_no_edge"
+    }
+  },
+  "campaign14_artifacts": [
+    "reports/spot_cost_regime_audit_20261105T124233Z.json",
+    "reports/real_feed_unblock_status_20261105T124347Z.json",
+    "reports/strategy_edge_registry_20261105T124347Z.json"
+  ],
+  "honest_conclusion": "No new real feeds with verifiable provenance found/ingested (fail-closed scan, 21 meta files, 0 valid non-spot provenance artifacts). Pairs proven blocked. Spot 1h exhausted. oos_edge_proven=false. Path R remains the only productive edge path and requires a genuinely new real feed with provenance ingested in-session."
+}

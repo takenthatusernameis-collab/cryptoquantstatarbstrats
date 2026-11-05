@@ -184,6 +184,48 @@ def test_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: Path):
     assert report["ok"] and report["rows"] == 5
 
 
+def test_scan_cache_empty_dir_reports_blocked(tmp_path: Path):
+    from data.real_feed_loader import scan_cache_for_real_nonspot_feeds
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    r = scan_cache_for_real_nonspot_feeds(cache)
+    assert r["fail_closed"] is True
+    assert r["new_real_feeds_with_provenance_found"] is False
+    assert all(v["status"] == "blocked_no_real_feed" for v in r["families"].values())
+
+
+def test_scan_cache_missing_dir_reports_blocked(tmp_path: Path):
+    from data.real_feed_loader import scan_cache_for_real_nonspot_feeds
+    r = scan_cache_for_real_nonspot_feeds(tmp_path / "nope")
+    assert r["cache_exists"] is False
+    assert r["new_real_feeds_with_provenance_found"] is False
+
+
+def test_scan_cache_rejects_spot_meta_as_nonspot_feed(tmp_path: Path):
+    from data.real_feed_loader import scan_cache_for_real_nonspot_feeds
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    # existing spot-style meta (no non-spot family/provenance keys) must not count
+    (cache / "BTC_2026-04-01_2026-10-30_1h.meta.json").write_text(
+        json.dumps({"symbols": ["BTC"], "start": "2026-04-01", "real_data_only": True, "fabricated_data": False}),
+        encoding="utf-8",
+    )
+    r = scan_cache_for_real_nonspot_feeds(cache)
+    assert r["new_real_feeds_with_provenance_found"] is False
+    assert r["meta_files_scanned"] >= 1
+
+
+def test_scan_cache_accepts_valid_nonspot_funding_artifact(tmp_path: Path):
+    from data.real_feed_loader import scan_cache_for_real_nonspot_feeds
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    _write_artifact(cache, _valid_df())  # valid funding provenance+schema
+    r = scan_cache_for_real_nonspot_feeds(cache)
+    assert r["new_real_feeds_with_provenance_found"] is True
+    assert r["families"]["funding_basis_carry"]["status"] == "real_feed_with_provenance_present"
+    assert len(r["families"]["funding_basis_carry"]["valid_artifacts"]) == 1
+
+
 def _valid_dual_venue_df() -> pd.DataFrame:
     # synthetic test fixture (test-only) — never labeled real data in artifacts
     return pd.DataFrame(
