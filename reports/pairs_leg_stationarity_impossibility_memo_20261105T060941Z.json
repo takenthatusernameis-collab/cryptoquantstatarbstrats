@@ -1,0 +1,31 @@
+{
+  "created_at": "2026-11-05T06:09:41.283782+00:00",
+  "purpose": "pairs_leg_stationarity_impossibility_memo",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_threshold_weakening": true,
+  "fail_closed": true,
+  "causal_only_trailing": true,
+  "conclusion": "No pair passes all gates on this real window. Leg stationarity (both legs ADF p <= 0.05) blocks all 165 pairs; others cascade.",
+  "evidence": {
+    "source_scan": "reports/pairs_candidate_scan_20261105T050821Z.json",
+    "n_pairs_scanned_tf": 165,
+    "n_pass_all_gates": 0,
+    "gate_failures_by_gate": {
+      "leg_stationarity_ok": 165,
+      "rolling_stable_ok": 165,
+      "eg_pass": 147,
+      "johansen_pass": 142,
+      "spread_mr_pass": 131,
+      "no_structural_break": 73,
+      "hl_bounds_pass": 17
+    }
+  },
+  "rationale": [
+    "ADF tests on real price levels (BTC/ETH/SOL majors) show leg p-values well above 0.05 (e.g. BTC/ETH ~0.65).",
+    "This is a genuine statistical blocker under the publication-grade gate set; thresholds unchanged.",
+    "Rolling stability assessability fixed; parity/fail-closed verified.",
+    "Data cleaning/resampling use real aggregation only; no fabrication."
+  ],
+  "recommendation": "Do not weaken gates. Focus remains on pairs/spreads/cointegration but no honest path to pass_all_gates on current real window. Documented concretely."
+}
