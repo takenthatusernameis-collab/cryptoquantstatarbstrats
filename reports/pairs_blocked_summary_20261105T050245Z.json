@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-11-05T05:02:45.630054+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "pairs/spreads/cointegration",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "source_scan": "pairs_candidate_scan_20261105T045612Z.json",
+  "n_pairs_scanned": 165,
+  "n_pass_all_gates": 0,
+  "per_gate_pass_counts": {
+    "hl_bounds_pass": 148,
+    "no_structural_break": 92,
+    "johansen_pass": 23,
+    "eg_pass": 18,
+    "spread_mr_pass": 34
+  },
+  "per_gate_pass_counts_by_tf": {
+    "1h": {
+      "hl_bounds_pass": 38,
+      "no_structural_break": 31,
+      "johansen_pass": 6,
+      "eg_pass": 7,
+      "spread_mr_pass": 10
+    },
+    "4h": {
+      "spread_mr_pass": 13,
+      "hl_bounds_pass": 55,
+      "no_structural_break": 31,
+      "johansen_pass": 6,
+      "eg_pass": 6
+    },
+    "1d": {
+      "hl_bounds_pass": 55,
+      "johansen_pass": 11,
+      "no_structural_break": 30,
+      "eg_pass": 5,
+      "spread_mr_pass": 11
+    }
+  },
+  "blocked_reason": "All pairs blocked by strict fail-closed gates on real Binance spot data; no thresholds weakened. Leg stationarity (both legs ADF p<=0.05) and rolling cointegration stability are the primary blockers.",
+  "rationale": "Honest summary citing only real scan results. No fabrication, no threshold weakening.",
+  "rules_followed": [
+    "real_data_only",
+    "fail_closed",
+    "no_threshold_weakening",
+    "causal_only"
+  ]
+}
