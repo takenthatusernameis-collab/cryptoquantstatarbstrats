@@ -1,0 +1,339 @@
+{
+  "tool": "data.real_feed_loader.build_cache_provenance_gap_audit",
+  "artifact": "cache_provenance_gap_audit",
+  "generated_at_utc": "2026-11-05T18:29:38.372050+00:00",
+  "campaign": 23,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "cache_dir": "data/cache",
+  "reports_dir": "reports",
+  "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+  "path_r_triggered": true,
+  "blocked_families": [
+    "cross_exchange_dual_venue_same_asset",
+    "funding_basis_carry",
+    "intrabar_microstructure",
+    "term_structure_real_iv_vol_surface"
+  ],
+  "scan_summary": {
+    "meta_files_scanned": 21,
+    "candidate_hits": 1,
+    "candidate_validation_count": 1,
+    "refused_candidates": 0,
+    "valid_candidates": 1,
+    "new_real_feeds_with_provenance_found": true,
+    "non_candidate_meta_count": 20
+  },
+  "families": {
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "real_quote_volume": {
+      "status": "real_feed_with_provenance_present",
+      "valid_artifacts": [
+        {
+          "meta": "volume_1h_full.meta.json",
+          "family": "real_quote_volume",
+          "rows": 81792,
+          "reason": "passed_all_fail_closed_checks"
+        }
+      ]
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "candidate_validation": [
+    {
+      "meta": "volume_1h_full.meta.json",
+      "family": "real_quote_volume",
+      "ok": true,
+      "refused": false,
+      "reason": "passed_all_fail_closed_checks",
+      "rows": 81792
+    }
+  ],
+  "provenance_certificates": [
+    "data/cache/volume_1h_full.provenance.json"
+  ],
+  "meta_inventory": [
+    {
+      "meta": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "385aae3f022b2d7bba4ec502cb8e7399d26cb31b961a016aebf7d165450fd4ba.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "74e86e8e4b0a7933c26fc9328b8b753711f3ab76e2333a44b6057856699eec1a.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "76dedb82e6b94ca7f326484a09194c2b3eb557d0477cd04c607b146fd1b74a0d.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "ADA_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "AVAX_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "BNB_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "BTC_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "DOT_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "ETH_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "LINK_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "LTC_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "POL_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "SOL_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "XRP_2026-04-01_2026-10-30_1h.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "a74dcf38854ff20d174609ceffba98d555ec4498d23446ce031a247c8c12bc6e.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76.meta.json",
+      "candidate_nonspot": false,
+      "families_considered": [],
+      "provenance_certificate_discovered": false,
+      "provenance_certificate_path": null,
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": false,
+      "meta_type_or_artifact": null,
+      "validation_results": []
+    },
+    {
+      "meta": "volume_1h_full.meta.json",
+      "candidate_nonspot": true,
+      "families_considered": [
+        "real_quote_volume"
+      ],
+      "provenance_certificate_discovered": true,
+      "provenance_certificate_path": "{'artifact': 'real_quote_volume_provenance', 'family': 'real_quote_volume', 'generated_at_utc': '2026-11-05T17:45:34.943151+00:00', 'fail_closed': True, 'real_data_only': True, 'fabricated_data': False, 'no_proxies_labeled_real': True, 'source_provider': 'www.binance.com public klines endpoint', 'source_endpoints': 'GET /api/v3/klines (spot) \u2014 column 5 = quote asset volume (Q)', 'request_urls_or_params': 'symbol=<SYMBOL>&interval=1h&startTime=<ms>&endTime=<ms>&limit=1000; paginated per symbol over 2026-04-01..2026-10-30 UTC', 'retrieved_at_utc': '2026-04-01T00:00:00+00:00', 'symbol_map_native_to_repo': {'BTC': 'BTC', 'ADA': 'ADA', 'DOT': 'DOT', 'ETH': 'ETH', 'BNB': 'BNB', 'AVAX': 'AVAX', 'LTC': 'LTC', 'POL': 'POL', 'LINK': 'LINK', 'SOL': 'SOL', 'XRP': 'XRP', 'DOGE': 'DOGE', 'SHIB': 'SHIB', 'TRX': 'TRX', 'AAVE': 'AAVE', 'UNI': 'UNI'}, 'window_start_utc': '2026-04-01T00:00:00+00:00', 'window_end_utc': '2026-10-30T23:00:00+00:00', 'freq': '1h', 'row_count': 81792, 'columns': ['timestamp_utc', 'symbol', 'quote_volume_usdt'], 'symbols': ['BTC', 'ADA', 'DOT', 'ETH', 'BNB', 'AVAX', 'LTC', 'POL', 'LINK', 'SOL', 'XRP', 'DOGE', 'SHIB', 'TRX', 'AAVE', 'UNI'], 'n_symbols': 16, 'sha256_pkl': '4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c', 'sha256_meta_inputs': '4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616', 'pkl_file': 'volume_1h_full.pkl', 'notes_limits_gaps': 'Real Binance public spot quote volume (klines column 5), not fabricated, not a proxy. 1h bars, UTC. MATIC excluded (all retries failed / not in results). No resampling of a derived/estimated series; raw klines column.', 'existing_meta_keys': ['blocked_routes', 'end', 'excluded', 'fabricated_data', 'real_data_only', 'source', 'start', 'symbols', 'type'], 'payload_kind': 'dict_of_symbol_series', 'verification': {'payload_is_dict_of_series': True, 'all_entries_numeric_coercible': True, 'rows_total': 81792}}",
+      "meta_readable": true,
+      "meta_read_error": null,
+      "declared_real_data_only_true_fabricated_false": true,
+      "meta_type_or_artifact": "real_binance_quote_volume_1h",
+      "validation_results": [
+        {
+          "meta": "volume_1h_full.meta.json",
+          "family": "real_quote_volume",
+          "ok": true,
+          "refused": false,
+          "reason": "passed_all_fail_closed_checks",
+          "rows": 81792
+        }
+      ]
+    }
+  ],
+  "honest_assessment": "PATH_R_ELIGIBLE_REVIEW_REQUIRED",
+  "notes": "Concrete fail-closed cache/provenance gap audit derived only from existing cache metadata and loader validation. Refusals are recorded honestly; refused or missing provenance is not progress and not an edge claim. No fabrication, no proxies labeled real, no threshold weakening."
+}

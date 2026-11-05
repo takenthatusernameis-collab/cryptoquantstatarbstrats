@@ -1,0 +1,134 @@
+{
+  "artifact": "strategy_edge_registry_20261105T183200Z",
+  "campaign": 23,
+  "path": "R",
+  "generated_at_utc": "2026-11-05T18:32:00Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T173236Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 925,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 57.10,
+    "note": "Full suite rerun in-session after C23 Path R analysis run (no loader/test code changes required)."
+  },
+  "quality_gates": {
+    "real_feed_unblock_status": {
+      "command": "python -m data.real_feed_loader --cache-dir data/cache --reports-dir reports --campaign 23 --prior reports/real_feed_unblock_status_20261105T173236Z.json --output reports/real_feed_unblock_status_20261105T182936Z.json",
+      "rc": 0,
+      "ok": true,
+      "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+      "path_r_triggered": true,
+      "audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+      "campaign_delta_changed": true,
+      "honest_assessment": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED"
+    },
+    "cache_provenance_gap_audit": {
+      "command": "python -m data.real_feed_loader --cache-provenance-audit --cache-dir data/cache --campaign 23 --reports-dir reports --output reports/cache_provenance_gap_audit_20261105T182936Z.json",
+      "rc": 0,
+      "ok": true,
+      "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+      "path_r_triggered": true,
+      "honest_assessment": "PATH_R_ELIGIBLE_REVIEW_REQUIRED",
+      "meta_files_scanned": 21,
+      "candidate_hits": 1,
+      "refused_candidates": 0,
+      "valid_candidates": 1,
+      "provenance_certificate": "data/cache/volume_1h_full.provenance.json"
+    },
+    "real_quote_volume_feed_validation": {
+      "family": "real_quote_volume",
+      "meta": "data/cache/volume_1h_full.meta.json",
+      "provenance_cert": "data/cache/volume_1h_full.provenance.json",
+      "pkl": "data/cache/volume_1h_full.pkl",
+      "validation_ok": true,
+      "refused": false,
+      "reason": "passed_all_fail_closed_checks",
+      "rows": 81792,
+      "family_spec": "real_quote_volume",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "source_provider": "www.binance.com public klines endpoint (column 5 quote asset volume)",
+      "payload_kind": "dict_of_symbol_series",
+      "symbols": 16,
+      "note": "Valid real non-spot feed with verifiable provenance present and passed validate_and_load_real_feed (fail-closed). Path R triggered."
+    }
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [0, 5, 10, 20],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "campaign_artifacts": [
+    "reports/real_quote_volume_abnormal_momentum_costed_oos_20261105T183142Z.json",
+    "reports/real_feed_unblock_status_20261105T182936Z.json",
+    "reports/cache_provenance_gap_audit_20261105T182936Z.json",
+    "reports/strategy_edge_registry_20261105T183200Z.json"
+  ],
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165. No re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_xsec_rank_P5": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_donchian_tsmom_P6": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_range_breakout_reversion_volband_P7": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_pairwise_ols_hedge_spread_mr_P9": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_residual_momentum_P10": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "spot_lead_lag_diffusion_P11": {"status": "EXHAUSTED", "oos_edge_proven": false},
+    "real_quote_volume_abnormal_momentum_C23": {
+      "family": "real_quote_volume",
+      "status": "TESTED_NO_EDGE",
+      "path": "R",
+      "artifact": "reports/real_quote_volume_abnormal_momentum_costed_oos_20261105T183142Z.json",
+      "artifact_sha256": "cb188bfa7b4c039d8648b227a59f1c00ef845b9f09838a57813885eda9cfde71",
+      "hypothesis": "Abnormal Quote Volume Momentum (pre-stated, params fixed before OOS): causal rolling vol z-score surge -> 24h momentum direction, WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+      "feed_validation": "passed_all_fail_closed_checks (real Binance klines col 5 quote volume, provenance cert + meta)",
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "aggregate_oos_edge_proven_fail_closed": false,
+      "per_named": {
+        "BTC": {"oos_edge_proven": false, "oos_0bps_sum": -0.04089410215823186, "oos_40bps_sum": -1.3248941021582317, "all_slices_beat_bh": false},
+        "ETH": {"oos_edge_proven": false, "oos_0bps_sum": 0.02844670773849367, "oos_40bps_sum": -1.3115532922615063, "all_slices_beat_bh": false},
+        "SOL": {"oos_edge_proven": false, "oos_0bps_sum": 0.14119153765652404, "oos_40bps_sum": -1.3588084623434762, "all_slices_beat_bh": false},
+        "BNB": {"oos_edge_proven": false, "oos_0bps_sum": 0.20546650422293744, "oos_40bps_sum": -1.1745334957770626, "all_slices_beat_bh": false}
+      },
+      "oos_edge_proven": false
+    },
+    "funding_basis_carry": {"status": "blocked_no_real_feed", "oos_edge_proven": false, "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"},
+    "cross_exchange_dual_venue_same_asset": {"status": "blocked_no_real_feed", "oos_edge_proven": false, "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"},
+    "term_structure_real_iv_vol_surface": {"status": "blocked_no_real_feed", "oos_edge_proven": false, "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"},
+    "intrabar_microstructure": {"status": "blocked_no_real_feed", "oos_edge_proven": false, "path_r_blocker": "requires genuinely new real feed with verifiable provenance ingested+validated in-session"},
+    "real_quote_volume": {
+      "status": "real_feed_with_provenance_present",
+      "oos_edge_proven": false,
+      "evidence": "volume_1h_full.meta.json + volume_1h_full.provenance.json + volume_1h_full.pkl pass validate_and_load_real_feed (81792 rows, 16 symbols, real Binance klines col 5). C23 Path R tested pre-stated Abnormal Quote Volume Momentum: 0/11 assets met fail-closed edge rule."
+    }
+  },
+  "honest_assessment": "C23 Path R: real_quote_volume feed validated fail-closed with verifiable provenance (Path R triggered). Pre-stated Abnormal Quote Volume Momentum tested WF 720/168/168, 0-40bps, B&H benchmark: 0/11 oos_edge_proven, no assets met all-slice net>0 AND beat B&H. oos_edge_proven=false across registry. No fabrication/proxies/threshold weakening. Remaining families funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure still blocked_no_real_feed.",
+  "next_campaign_binding": {
+    "campaign": 24,
+    "expected_path": "C-maintain unless genuinely new real feed with provenance ingested+validated in-session (Path R) for a remaining blocked family, or a clearly pre-stated new hypothesis on the validated real_quote_volume feed with real tested code and fail-closed WF/cost/benchmark artifacts",
+    "required_artifacts_min": 3,
+    "must_use_prior": "reports/real_feed_unblock_status_20261105T182936Z.json",
+    "must_supersede": "reports/strategy_edge_registry_20261105T183200Z.json"
+  }
+}
