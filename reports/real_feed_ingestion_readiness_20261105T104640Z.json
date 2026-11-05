@@ -1,0 +1,191 @@
+{
+  "artifact": "real_feed_ingestion_readiness",
+  "campaign": 9,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T10:46:40Z",
+  "repo": "cryptoquantstatarbstrats",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "purpose": "Concrete, executable readiness spec for ingesting genuinely new real feeds with provenance. No data is fabricated. If a feed cannot be ingested with verifiable provenance, it remains blocked_no_real_feed.",
+  "settled_context": {
+    "cached_real_spot": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}",
+    "cached_spot_assets": ["ADA","AVAX","BNB","BTC","DOT","ETH","LINK","LTC","POL","SOL","XRP"],
+    "cached_spot_bars": 5112,
+    "cached_spot_window": "2026-04-01T00:00:00Z..2026-10-30T23:00:00Z",
+    "cached_spot_freq": "1h",
+    "cached_spot_source": "Binance public spot klines (www.binance.com)",
+    "spot_1h_exhausted_memo": "reports/spot_universe_exhausted_memo_20261105T104319Z.json",
+    "pairs_proven_blocked": "165/165; no re-scan; no gate weakening",
+    "wf_protocol": {"train_bars": 720, "test_bars": 168, "step_bars": 168},
+    "cost_grid_bps_roundtrip_combos": [[0,0],[5,5],[10,10],[20,20]],
+    "benchmark": "buy_and_hold"
+  },
+  "feeds": [
+    {
+      "family": "funding_basis_carry",
+      "status_target": "blocked_no_real_feed_until_ingested_with_provenance",
+      "hypothesis_pre_stated": "Perpetual funding/basis carry (or cross-maturity basis) yields net-of-funding-and-cost OOS PnL after benchmark/carry costs on overlapping WF windows with the cached spot universe.",
+      "real_sources_acceptable": [
+        {"provider": "Binance", "endpoints_examples": ["GET /fapi/v1/fundingRate (historical funding)", "GET /fapi/v1/premiumIndexKlines (mark/index/basis context)", "GET /fapi/v1/klines (perp)"], "notes": "Public; respect rate limits; capture request URLs, params, retrieval timestamp, and response hashes."},
+        {"provider": "OKX/Bybit/Deribit (perp funding)", "notes": "Only if operator can retrieve with provenance; symbol mapping must be explicit."}
+      ],
+      "target_schema": {
+        "file_naming": "data/cache/funding_<provider>_<symbol>_<startYYYYMMDD>_<endYYYYMMDD>_<freq>.pkl (+ .meta.json)",
+        "required_columns": ["timestamp_utc","symbol","funding_rate","mark_price_or_close","index_price_optional","interval_hours_optional"],
+        "dtypes": {"timestamp_utc": "ISO8601 UTC string or tz-aware datetime64[ns, UTC]", "funding_rate": "float64 (decimal, e.g. 0.0001 = 1bp)"},
+        "index": "monotonic unique timestamp_utc per symbol",
+        "alignment": "Resample/align to 1h grid consistent with spot cache when joined; document any interpolation (prefer none/forward-fill only if justified and recorded)."
+      },
+      "provenance_meta_schema_required_keys": [
+        "source_provider","source_endpoints","request_urls_or_params","retrieved_at_utc",
+        "symbol_map_native_to_repo","window_start_utc","window_end_utc","freq",
+        "row_count","columns","sha256_pkl","sha256_meta_inputs","real_data_only",
+        "fabricated_data","notes_limits_gaps"
+      ],
+      "fail_closed_loader_requirements": [
+        "Refuse load if .meta.json missing or sha256_pkl mismatch.",
+        "Refuse if fabricated_data!=false or real_data_only!=true.",
+        "Refuse if timestamp gaps exceed declared tolerance without explicit gap record.",
+        "Refuse if funding_rate contains impossible sentinel values not documented.",
+        "No proxy: do not synthesize funding from spot returns or volatility."
+      ],
+      "cost_carry_model_inputs": [
+        "spot/perp trading fees+slippage bps (use repo cost grid where applicable)",
+        "funding received/paid per interval using actual funding_rate series",
+        "basis carry only if real futures/perp price series with provenance present",
+        "inventory/margin constraints documented as assumptions (not fabricated data)"
+      ],
+      "validation_checks": [
+        "Cross-check a sample of timestamps/rates against provider UI/docs (recorded in meta).",
+        "Verify symbol coverage overlaps cached spot (BTC/ETH/SOL minimum).",
+        "Run WF 720/168/168 net-of-cost-and-funding; report per-slice and aggregate; benchmark B&H."
+      ],
+      "ingestion_runbook_operator": [
+        "1) Choose provider (Binance fapi recommended) and symbols (BTCUSDT,ETHUSDT,SOLUSDT,...) covering cached spot.",
+        "2) Retrieve historical funding (and optional mark/index) for 2026-04-01..2026-10-30 UTC (or maximal overlap). Save raw responses to a temp dir outside commit if large; compute hashes.",
+        "3) Normalize to target_schema; write .pkl and .meta.json into data/cache/ with naming convention; compute sha256_pkl and embed in meta.",
+        "4) Run validation_checks and a dry-run loader that enforces fail_closed_loader_requirements.",
+        "5) Commit only small provenance/meta + deterministic artifacts; do not commit secrets/API keys; large raw dumps only if repo policy allows and provenance preserved.",
+        "6) Re-run Path R: produce *_costed_oos_<UTC>.json + real_feed_unblock_status_<UTC>.json + strategy_edge_registry_<UTC>.json."
+      ]
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "status_target": "blocked_no_real_feed_until_ingested_with_provenance",
+      "hypothesis_pre_stated": "Same-asset price dislocation between two real venues yields net-of-fees/slippage/transfer-latency-adjusted OOS edge on synchronized windows.",
+      "real_sources_acceptable": [
+        {"provider": "Binance spot + Coinbase/OKX/Kraken spot (or equivalent)", "notes": "Two independent real venues for same asset (e.g., BTC). Must include venue identifiers and synchronized timestamps."}
+      ],
+      "target_schema": {
+        "file_naming": "data/cache/dualvenue_<asset>_<venueA>_<venueB>_<startYYYYMMDD>_<endYYYYMMDD>_<freq>.pkl (+ .meta.json)",
+        "required_columns": ["timestamp_utc","asset","price_venue_a","price_venue_b","mid_or_close_flag_a","mid_or_close_flag_b"],
+        "alignment": "Strict timestamp alignment; drop/mask misaligned bars fail-closed with counts recorded."
+      },
+      "provenance_meta_schema_required_keys": [
+        "source_provider_a","source_provider_b","endpoints_a","endpoints_b","retrieved_at_utc",
+        "symbol_map_a","symbol_map_b","clock_sync_assumption","row_count_aligned","rows_dropped_misaligned",
+        "sha256_pkl","real_data_only","fabricated_data"
+      ],
+      "fail_closed_loader_requirements": [
+        "Refuse if either venue provenance missing or fabricated.",
+        "Refuse if alignment produces ambiguous joins; no interpolation of missing venue prices.",
+        "No proxy: do not use a single venue as 'dual'."
+      ],
+      "cost_carry_model_inputs": [
+        "taker/maker fees per venue (documented assumption) + slippage bps grid",
+        "transfer/latency modeled as explicit cost/holding constraint (assumptions recorded, not fabricated ticks)"
+      ],
+      "validation_checks": [
+        "Verify dislocation distribution is plausible; spot-check samples vs public charts (recorded).",
+        "WF net-of-cost OOS; edge proven only if survives all cost slices and beats benchmark."
+      ],
+      "ingestion_runbook_operator": [
+        "1) Select asset(s) overlapping cache (BTC/ETH/SOL) and two venues with public historical data.",
+        "2) Retrieve OHLC/close series for identical windows/freq; record endpoints+hashes.",
+        "3) Align timestamps; write dualvenue .pkl+.meta.json with provenance; sha256 verify.",
+        "4) Run costed WF evaluation (Path R artifact) with explicit fee/latency assumptions.",
+        "5) Update unblock status + strategy registry."
+      ]
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "status_target": "blocked_no_real_feed_until_ingested_with_provenance",
+      "hypothesis_pre_stated": "Real implied-vol term structure / surface signals (not fabricated) produce net-of-cost OOS edge (e.g., carry/relative-value) under WF protocol.",
+      "real_sources_acceptable": [
+        {"provider": "Deribit", "endpoints_examples": ["public get_historical_volatility or DVOL history; options instruments history if available with provenance"], "notes": "Must be actual IV/surface data; README states CLI does not fabricate iv_30d/iv_90d."}
+      ],
+      "target_schema": {
+        "file_naming": "data/cache/iv_<provider>_<underlying>_<startYYYYMMDD>_<endYYYYMMDD>_<freq>.pkl (+ .meta.json)",
+        "required_columns_min": ["timestamp_utc","underlying","iv_30d","iv_90d"],
+        "optional_columns": ["dvol","skew_25d","term_slope","instrument_metadata"]
+      },
+      "provenance_meta_schema_required_keys": [
+        "source_provider","endpoints","retrieved_at_utc","underlying_map",
+        "iv_definition","row_count","sha256_pkl","real_data_only","fabricated_data"
+      ],
+      "fail_closed_loader_requirements": [
+        "Refuse if iv columns missing or fabricated (see README term-structure note).",
+        "Refuse without provenance meta + sha256.",
+        "No proxy from realized vol labeled as IV."
+      ],
+      "cost_carry_model_inputs": [
+        "Options/vol instrument trading costs/slippage assumptions documented; if not tradable in-repo, report signal-only with fail-closed 'not_executable' flag."
+      ],
+      "validation_checks": [
+        "Validate IV ranges/plausibility; spot-check samples.",
+        "WF net-of-cost OOS with benchmark; pre-state entry/exit."
+      ],
+      "ingestion_runbook_operator": [
+        "1) Retrieve real IV/DVOL history for BTC/ETH from Deribit (or equivalent) with timestamps.",
+        "2) Normalize to target schema; write .pkl+.meta.json with full provenance/hashes.",
+        "3) Implement/confirm fail-closed loader (no fabrication).",
+        "4) Run costed WF backtest; produce Path R artifacts or mark not_executable if costs unmodelable.",
+        "5) Update unblock status + registry."
+      ]
+    },
+    {
+      "family": "intrabar_microstructure",
+      "status_target": "blocked_no_real_feed_until_ingested_with_provenance",
+      "hypothesis_pre_stated": "Real intrabar/tick/trade/book microstructure yields net-of-cost OOS edge beyond 1h spot close strategies.",
+      "real_sources_acceptable": [
+        {"provider": "Exchange trade/aggTrade/book data with provenance", "notes": "High volume; may be impractical in CI environment. Only ingest with verifiable raw provenance."}
+      ],
+      "target_schema": {
+        "file_naming": "data/cache/micro_<provider>_<symbol>_<startYYYYMMDD>_<endYYYYMMDD>_<kind>.pkl (+ .meta.json)",
+        "required_columns_by_kind": {
+          "trades": ["timestamp_utc","symbol","price","qty","side_or_is_buyer_maker_optional"],
+          "book": ["timestamp_utc","symbol","bid_px_levels","ask_px_levels","bid_sz_levels","ask_sz_levels","depth"]
+        }
+      },
+      "provenance_meta_schema_required_keys": [
+        "source_provider","endpoints_or_files","retrieved_at_utc","symbol_map",
+        "kind","row_count","sha256_pkl","real_data_only","fabricated_data","compression_if_any"
+      ],
+      "fail_closed_loader_requirements": [
+        "Refuse without provenance+hash; refuse fabricated/synthetic flags.",
+        "No resampling to 1h presented as microstructure edge."
+      ],
+      "cost_carry_model_inputs": ["fees+slippage+latency assumptions explicit; spread/impact modeled only from real book/trades if present"],
+      "validation_checks": ["Timestamp monotonicity, outlier checks, sample cross-verification."],
+      "ingestion_runbook_operator": [
+        "1) Assess feasibility (size/rate limits). Retrieve bounded sample window with provenance.",
+        "2) Store with hashes; fail-closed loader.",
+        "3) Only then run Path R costed WF; otherwise remain blocked."
+      ]
+    }
+  ],
+  "global_acceptance_criteria_for_path_R": {
+    "provenance_required": true,
+    "oos_edge_proven_true_only_if": [
+      "exposure > 0",
+      "all pre-stated cost-grid slices have OOS net > 0",
+      "beats benchmark on same WF windows (pre-stated)"
+    ],
+    "artifacts_minimum": ["*_costed_oos_<UTC>.json","data/cache/* provenance/meta with sha256","real_feed_unblock_status_<UTC>.json","strategy_edge_registry_<UTC>.json"],
+    "if_provenance_missing": "Do not claim ingestion; produce Path C-maintain artifacts and keep family blocked_no_real_feed."
+  }
+}

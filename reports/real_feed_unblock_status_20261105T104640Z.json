@@ -1,0 +1,40 @@
+{
+  "artifact": "real_feed_unblock_status",
+  "campaign": 9,
+  "generated_at_utc": "2026-11-05T10:46:40Z",
+  "repo": "cryptoquantstatarbstrats",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "honest_recheck": true,
+  "new_real_feeds_with_provenance_found_this_session": false,
+  "search_performed": {
+    "data_cache_glob": "data/cache/**/*",
+    "keywords": ["fund","basis","iv","tick","trade","book","deribit","okx","bybit","fut","perp","dual"],
+    "result": "no matching files beyond existing spot 1h cache"
+  },
+  "feed_status": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed"
+  },
+  "spot_1h_cached": {
+    "status": "available_real_cached",
+    "cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}",
+    "assets": ["ADA","AVAX","BNB","BTC","DOT","ETH","LINK","LTC","POL","SOL","XRP"],
+    "bars": 5112,
+    "window": "2026-04-01T00:00:00Z..2026-10-30T23:00:00Z",
+    "freq": "1h",
+    "exhausted": true,
+    "exhaustion_memo": "reports/spot_universe_exhausted_memo_20261105T104319Z.json"
+  },
+  "pairs": {
+    "status": "proven_blocked",
+    "coverage": "165/165",
+    "no_rescan": true,
+    "no_gate_weakening": true
+  },
+  "oos_edge_proven": false,
+  "next_required_action": "Path R if operator ingests a new real feed with provenance per reports/real_feed_ingestion_readiness_20261105T104640Z.json; otherwise remain fail-closed blocked."
+}

@@ -1,0 +1,57 @@
+{
+  "artifact": "strategy_edge_registry",
+  "campaign": 9,
+  "generated_at_utc": "2026-11-05T10:46:40Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T104319Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "test_run": {
+    "command": "PYTHONPATH=/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages /home/runner/work/_temp/kilo-home/.local/bin/pytest -q",
+    "result_summary": "832 passed, 1 skipped, 3570 warnings in 39.86s",
+    "passed": 832,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3570,
+    "duration_seconds": 39.86,
+    "rc": 0
+  },
+  "data_context": {
+    "cached_real_spot": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}",
+    "assets": ["ADA","AVAX","BNB","BTC","DOT","ETH","LINK","LTC","POL","SOL","XRP"],
+    "bars": 5112,
+    "window": "2026-04-01T00:00:00Z..2026-10-30T23:00:00Z",
+    "freq": "1h",
+    "source": "Binance public spot",
+    "wf_protocol": {"train_bars": 720, "test_bars": 168, "step_bars": 168},
+    "cost_grid_bps_roundtrip_combos": [[0,0],[5,5],[10,10],[20,20]]
+  },
+  "families_tested_on_real_cached_spot": [
+    {"family": "pairs_cointegration", "status": "proven_blocked", "evidence": "165/165 blocked; no re-scan"},
+    {"family": "momentum_mean_reversion_spot", "campaign": "P4-P5", "oos_edge_proven": false},
+    {"family": "donchian_breakout", "campaign": "P6", "oos_edge_proven": false},
+    {"family": "range_breakout_reversion_volband", "campaign": "P7", "oos_edge_proven": false},
+    {"family": "zscore_regime_mean_reversion", "campaign": "P9", "oos_edge_proven": false},
+    {"family": "residual_momentum", "campaign": "P10", "oos_edge_proven": false},
+    {"family": "leadlag_diffusion", "campaign": "P11", "oos_edge_proven": false}
+  ],
+  "spot_1h_exhausted": true,
+  "exhaustion_memo": "reports/spot_universe_exhausted_memo_20261105T104319Z.json",
+  "feeds": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed"
+  },
+  "campaign_9_artifacts": [
+    "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+    "reports/real_feed_unblock_status_20261105T104640Z.json",
+    "reports/strategy_edge_registry_20261105T104640Z.json"
+  ],
+  "readiness_spec": "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+  "oos_edge_proven": false,
+  "honest_conclusion": "No proven net-of-cost OOS edge on real cached spot 1h. Spot-only 1h families exhausted. No new real feeds with provenance ingested. Path R requires operator to ingest real feed with verifiable provenance per readiness spec; until then remain fail-closed."
+}
