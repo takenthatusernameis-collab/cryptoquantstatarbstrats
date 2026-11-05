@@ -64,8 +64,39 @@ FUNDING_BASIS_CARRY_SPEC = FamilySpec(
     timestamp_columns=("timestamp_utc",),
 )
 
+CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC = FamilySpec(
+    name="cross_exchange_dual_venue_same_asset",
+    required_columns=(
+        "timestamp_utc",
+        "asset",
+        "price_venue_a",
+        "price_venue_b",
+        "mid_or_close_flag_a",
+        "mid_or_close_flag_b",
+    ),
+    required_provenance_keys=(
+        "source_provider_a",
+        "source_provider_b",
+        "endpoints_a",
+        "endpoints_b",
+        "retrieved_at_utc",
+        "symbol_map_a",
+        "symbol_map_b",
+        "clock_sync_assumption",
+        "row_count_aligned",
+        "rows_dropped_misaligned",
+        "sha256_pkl",
+        "real_data_only",
+        "fabricated_data",
+    ),
+    numeric_columns=("price_venue_a", "price_venue_b"),
+    timestamp_columns=("timestamp_utc",),
+)
+
+
 FAMILY_SPECS: dict[str, FamilySpec] = {
     FUNDING_BASIS_CARRY_SPEC.name: FUNDING_BASIS_CARRY_SPEC,
+    CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.name: CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
 }
 
 
@@ -153,6 +184,18 @@ def _check_schema(df: pd.DataFrame, spec: FamilySpec, report: dict[str, Any]) ->
                 )
 
 
+def _check_dual_venue_not_single_venue_proxy(df: pd.DataFrame, report: dict[str, Any]) -> None:
+    """Refuse a single venue duplicated as both legs (proxy-as-dual-venue)."""
+    if {"price_venue_a", "price_venue_b"}.issubset(df.columns) and len(df) > 0:
+        pa = pd.to_numeric(df["price_venue_a"], errors="coerce")
+        pb = pd.to_numeric(df["price_venue_b"], errors="coerce")
+        if (pa == pb).all():
+            _refuse(
+                "price_venue_a equals price_venue_b on all rows; single venue mislabeled as dual venue (proxy), refused",
+                report,
+            )
+
+
 def validate_and_load_real_feed(
     meta_path: str | Path,
     family: str = "funding_basis_carry",
@@ -199,6 +242,8 @@ def validate_and_load_real_feed(
         _refuse(f"data payload must be a pandas DataFrame (got {type(df).__name__})", report)
 
     declared_rows = meta.get("row_count")
+    if family == "cross_exchange_dual_venue_same_asset":
+        declared_rows = meta.get("row_count_aligned", declared_rows)
     if declared_rows is not None and int(declared_rows) != len(df):
         _refuse(f"row_count mismatch (meta={declared_rows}, actual={len(df)})", report)
 
@@ -209,6 +254,9 @@ def validate_and_load_real_feed(
             _refuse(f"declared columns missing from payload: {missing_decl}", report)
 
     _check_schema(df, spec, report)
+
+    if family == "cross_exchange_dual_venue_same_asset":
+        _check_dual_venue_not_single_venue_proxy(df, report)
 
     # monotonic unique timestamp check when present
     for tcol in spec.timestamp_columns:

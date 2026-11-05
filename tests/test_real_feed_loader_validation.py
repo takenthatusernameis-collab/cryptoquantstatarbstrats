@@ -15,6 +15,7 @@ import pandas as pd
 import pytest
 
 from data.real_feed_loader import (
+    CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
     FUNDING_BASIS_CARRY_SPEC,
     RealFeedValidationError,
     sha256_file,
@@ -179,4 +180,173 @@ def test_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: Path):
     cache.mkdir(parents=True)
     meta_path, _ = _write_artifact(cache, _valid_df())
     df, report = validate_and_load_real_feed(meta_path)
+    assert report["ok"] and report["rows"] == 5
+
+
+def _valid_dual_venue_df() -> pd.DataFrame:
+    # synthetic test fixture (test-only) — never labeled real data in artifacts
+    return pd.DataFrame(
+        {
+            "timestamp_utc": pd.date_range("2026-04-01", periods=5, freq="1h", tz="UTC"),
+            "asset": ["BTC"] * 5,
+            "price_venue_a": [50000.0, 50100.0, 49950.0, 50020.0, 50080.0],
+            "price_venue_b": [50005.0, 50110.0, 49945.0, 50025.0, 50090.0],
+            "mid_or_close_flag_a": ["close"] * 5,
+            "mid_or_close_flag_b": ["close"] * 5,
+        }
+    )
+
+
+def _write_dual_venue_artifact(tmp: Path, df: pd.DataFrame, meta_overrides: dict | None = None):
+    pkl = tmp / "dualvenue_BTC_binance_coinbase_20260401_20260401_1h.pkl"
+    df.to_pickle(pkl)
+    meta = {
+        "source_provider_a": "Binance",
+        "source_provider_b": "Coinbase",
+        "endpoints_a": ["/api/v3/klines?symbol=BTCUSDT&interval=1h"],
+        "endpoints_b": ["/products/BTC-USD/candles"],
+        "retrieved_at_utc": "2026-11-05T00:00:00Z",
+        "symbol_map_a": {"BTCUSDT": "BTC"},
+        "symbol_map_b": {"BTC-USD": "BTC"},
+        "clock_sync_assumption": "venue clocks aligned to UTC bar open",
+        "row_count_aligned": len(df),
+        "rows_dropped_misaligned": 0,
+        "sha256_pkl": sha256_file(pkl),
+        "sha256_meta_inputs": "test-fixture",
+        "real_data_only": True,
+        "fabricated_data": False,
+        "notes_limits_gaps": "none (test fixture payload; provenance fields satisfy schema)",
+        "pkl_file": pkl.name,
+    }
+    if meta_overrides:
+        meta.update(meta_overrides)
+    meta_path = tmp / "dualvenue_BTC_binance_coinbase_20260401_20260401_1h.meta.json"
+    meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    return meta_path, pkl
+
+
+def test_dual_venue_valid_artifact_passes_fail_closed_checks(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, _valid_dual_venue_df())
+    df, report = validate_and_load_real_feed(
+        meta_path, "cross_exchange_dual_venue_same_asset"
+    )
+    assert report["ok"] is True and report["refused"] is False
+    assert report["fail_closed"] is True
+    assert len(df) == 5
+    assert report["family_spec"] == CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.name
+
+
+def test_dual_venue_refuses_missing_metadata(tmp_path: Path):
+    missing = tmp_path / "nope.meta.json"
+    with pytest.raises(RealFeedValidationError, match="metadata file missing"):
+        validate_and_load_real_feed(missing, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_sha256_mismatch(tmp_path: Path):
+    meta_path, pkl = _write_dual_venue_artifact(tmp_path, _valid_dual_venue_df())
+    df = _valid_dual_venue_df()
+    df.loc[0, "price_venue_a"] = 999999.0
+    df.to_pickle(pkl)
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl mismatch"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_missing_sha256(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, _valid_dual_venue_df(), {"sha256_pkl": ""})
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl missing"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_fabricated_flag(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(
+        tmp_path, _valid_dual_venue_df(), {"fabricated_data": True}
+    )
+    with pytest.raises(RealFeedValidationError, match="fabricated_data must be false"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_real_data_only_false(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(
+        tmp_path, _valid_dual_venue_df(), {"real_data_only": False}
+    )
+    with pytest.raises(RealFeedValidationError, match="real_data_only must be true"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_missing_data_file(tmp_path: Path):
+    meta_path, pkl = _write_dual_venue_artifact(tmp_path, _valid_dual_venue_df())
+    pkl.unlink()
+    with pytest.raises(RealFeedValidationError, match="data file missing"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_missing_provenance_keys(tmp_path: Path):
+    meta_path = tmp_path / "bad.meta.json"
+    pkl = tmp_path / "bad.pkl"
+    _valid_dual_venue_df().to_pickle(pkl)
+    meta = {
+        "real_data_only": True,
+        "fabricated_data": False,
+        "sha256_pkl": sha256_file(pkl),
+        "pkl_file": pkl.name,
+    }
+    meta_path.write_text(json.dumps(meta), encoding="utf-8")
+    with pytest.raises(RealFeedValidationError, match="missing required provenance keys"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_missing_required_columns(tmp_path: Path):
+    df = _valid_dual_venue_df().drop(columns=["price_venue_b"])
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="missing required columns"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_duplicate_timestamps(tmp_path: Path):
+    df = _valid_dual_venue_df()
+    df.loc[1, "timestamp_utc"] = df.loc[0, "timestamp_utc"]
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="not monotonic|duplicate"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_row_count_mismatch(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(
+        tmp_path, _valid_dual_venue_df(), {"row_count_aligned": 999}
+    )
+    with pytest.raises(RealFeedValidationError, match="row_count mismatch"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_unknown_family(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, _valid_dual_venue_df())
+    with pytest.raises(RealFeedValidationError, match="unknown/unsupported family"):
+        validate_and_load_real_feed(meta_path, "nonexistent_family")
+
+
+def test_dual_venue_refuses_single_venue_as_dual_proxy(tmp_path: Path):
+    df = _valid_dual_venue_df()
+    df["price_venue_b"] = df["price_venue_a"]  # identical series -> proxy
+    meta_path, _ = _write_dual_venue_artifact(tmp_path, df)
+    with pytest.raises(RealFeedValidationError, match="single venue mislabeled as dual venue"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_refuses_proxy_labeled_real_in_notes(tmp_path: Path):
+    meta_path, _ = _write_dual_venue_artifact(
+        tmp_path,
+        _valid_dual_venue_df(),
+        {"notes_limits_gaps": "venue b derived from venue a proxy labeled real"},
+    )
+    with pytest.raises(RealFeedValidationError, match="proxy/fabricated-as-real"):
+        validate_and_load_real_feed(meta_path, "cross_exchange_dual_venue_same_asset")
+
+
+def test_dual_venue_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: Path):
+    cache = tmp_path / "data" / "cache"
+    cache.mkdir(parents=True)
+    meta_path, _ = _write_dual_venue_artifact(cache, _valid_dual_venue_df())
+    df, report = validate_and_load_real_feed(
+        meta_path, "cross_exchange_dual_venue_same_asset"
+    )
     assert report["ok"] and report["rows"] == 5

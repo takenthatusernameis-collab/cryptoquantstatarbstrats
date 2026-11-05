@@ -1,0 +1,102 @@
+{
+  "artifact": "cross_exchange_dual_venue_loader_validation_20261105T105940Z",
+  "campaign": 11,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T10:59:40Z",
+  "repo": "cryptoquantstatarbstrats",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "purpose": "Proves the fail-closed real-feed loader/validator (data/real_feed_loader.py, family=cross_exchange_dual_venue_same_asset) refuses missing metadata, integrity mismatches, fabricated/proxy-as-real flags, missing provenance, schema violations, single-venue-as-dual proxies, and unknown families. Synthetic fixtures used ONLY in-test/validation-harness are never labeled real data in artifacts. No real dual-venue feed ingested; family remains blocked_no_real_feed.",
+  "implementation": {
+    "module": "data/real_feed_loader.py",
+    "tests": "tests/test_real_feed_loader_validation.py",
+    "family_spec": "cross_exchange_dual_venue_same_asset",
+    "entrypoint": "validate_and_load_real_feed(meta_path, family)",
+    "spec_required_columns": ["timestamp_utc","asset","price_venue_a","price_venue_b","mid_or_close_flag_a","mid_or_close_flag_b"],
+    "spec_required_provenance_keys": ["source_provider_a","source_provider_b","endpoints_a","endpoints_b","retrieved_at_utc","symbol_map_a","symbol_map_b","clock_sync_assumption","row_count_aligned","rows_dropped_misaligned","sha256_pkl","real_data_only","fabricated_data"],
+    "extra_fail_closed_check": "refuses price_venue_a == price_venue_b on all rows (single venue mislabeled as dual venue)"
+  },
+  "test_results": {
+    "targeted_dual_venue": "15 passed",
+    "loader_module_total": "30 passed (funding_basis_carry + cross_exchange_dual_venue_same_asset)",
+    "full_suite": "862 passed, 1 skipped, 0 failed, 3556 warnings, 40.94s, rc=0",
+    "full_suite_command": "PYTHONPATH=/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages /home/runner/work/_temp/kilo-home/.local/bin/pytest -q"
+  },
+  "refusal_proof_cases": [
+    {
+      "case": "valid_passes",
+      "refused": false,
+      "detail": "passed_all_fail_closed_checks"
+    },
+    {
+      "case": "missing_metadata",
+      "refused": true,
+      "reason": "metadata file missing"
+    },
+    {
+      "case": "sha256_mismatch",
+      "refused": true,
+      "reason": "sha256_pkl mismatch"
+    },
+    {
+      "case": "empty_sha256",
+      "refused": true,
+      "reason": "sha256_pkl missing/empty in provenance metadata"
+    },
+    {
+      "case": "fabricated_flag_true",
+      "refused": true,
+      "reason": "fabricated_data must be false"
+    },
+    {
+      "case": "real_data_only_false",
+      "refused": true,
+      "reason": "real_data_only must be true"
+    },
+    {
+      "case": "missing_data_file",
+      "refused": true,
+      "reason": "data file missing"
+    },
+    {
+      "case": "missing_provenance_keys",
+      "refused": true,
+      "reason": "missing required provenance keys"
+    },
+    {
+      "case": "missing_required_column",
+      "refused": true,
+      "reason": "missing required columns"
+    },
+    {
+      "case": "row_count_aligned_mismatch",
+      "refused": true,
+      "reason": "row_count mismatch"
+    },
+    {
+      "case": "duplicate_timestamps",
+      "refused": true,
+      "reason": "duplicate timestamps / not monotonic"
+    },
+    {
+      "case": "single_venue_as_dual_proxy",
+      "refused": true,
+      "reason": "single venue mislabeled as dual venue (proxy), refused"
+    },
+    {
+      "case": "proxy_labeled_real_notes",
+      "refused": true,
+      "reason": "provenance notes admit proxy/fabricated-as-real"
+    },
+    {
+      "case": "unknown_family",
+      "refused": true,
+      "reason": "unknown/unsupported family"
+    }
+  ],
+  "verdict": "PASS_FAIL_CLOSED: all invalid/missing/fabricated/proxy/single-venue-as-dual inputs refused; valid provenance+integrity+schema payload accepted.",
+  "family_status": "cross_exchange_dual_venue_same_asset remains blocked_no_real_feed; loader/validator ready to enforce fail-closed ingestion when a real feed with provenance arrives."
+}
