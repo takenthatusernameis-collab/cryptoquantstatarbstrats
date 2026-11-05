@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-11-05T05:15:52.934399+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "pairs/spreads/cointegration",
+  "source_scan": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/pairs_candidate_scan_20261105T050821Z.json",
+  "source_scan_timestamp": "2026-11-05T05:08:21.306938+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com",
+      "https://api1.binance.com",
+      "https://api2.binance.com",
+      "https://api3.binance.com"
+    ],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "cache_used": false,
+    "cache_hit": false,
+    "symbols": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-30"
+  },
+  "universe": [
+    "ADA",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "LINK",
+    "LTC",
+    "POL",
+    "SOL",
+    "XRP"
+  ],
+  "timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "n_pairs_scanned": 165,
+  "n_pass_all_gates": 0,
+  "by_timeframe": {
+    "1h": {
+      "n": 55,
+      "eg_pass": 7,
+      "johansen_pass": 6,
+      "spread_mr_pass": 10,
+      "hl_bounds_pass": 38,
+      "leg_stationarity_ok": 0,
+      "rolling_stable_ok": 0,
+      "no_structural_break": 31,
+      "all_pass": 0
+    },
+    "4h": {
+      "n": 55,
+      "eg_pass": 6,
+      "johansen_pass": 6,
+      "spread_mr_pass": 13,
+      "hl_bounds_pass": 55,
+      "leg_stationarity_ok": 0,
+      "rolling_stable_ok": 0,
+      "no_structural_break": 31,
+      "all_pass": 0
+    },
+    "1d": {
+      "n": 55,
+      "eg_pass": 5,
+      "johansen_pass": 11,
+      "spread_mr_pass": 11,
+      "hl_bounds_pass": 55,
+      "leg_stationarity_ok": 0,
+      "rolling_stable_ok": 0,
+      "no_structural_break": 30,
+      "all_pass": 0
+    }
+  },
+  "by_gate_overall": {
+    "eg_pass": 18,
+    "johansen_pass": 23,
+    "spread_mr_pass": 34,
+    "hl_bounds_pass": 148,
+    "leg_stationarity_ok": 0,
+    "rolling_stable_ok": 0,
+    "no_structural_break": 92,
+    "all_pass": 0,
+    "n": 165
+  },
+  "blocking_analysis": {
+    "primary_blocker": "leg_stationarity_ok",
+    "notes": [
+      "leg_stationarity_ok requires both legs ADF p <= 0.05 (fail-closed). On real crypto price legs this is often false; no thresholds weakened.",
+      "rolling_stability assessability fixed (>=2 windows on short samples).",
+      "parity verified between cached/uncached paths (fail-closed)."
+    ]
+  },
+  "rules": [
+    "real_data_only",
+    "fail_closed",
+    "no_threshold_weakening",
+    "causal_trailing_only"
+  ],
+  "conclusion": "No pair passes ALL gates on real data in fresh scan. No fabrication/coercion performed."
+}
