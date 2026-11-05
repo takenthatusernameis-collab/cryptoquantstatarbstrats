@@ -1,0 +1,374 @@
+{
+  "report": "strategy_edge_registry",
+  "mandate": "PRIORITY 3 \u2014 consolidated real-data edge registry across stat-arb families; fail-closed, no fabrication, no threshold weakening",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "computed_at": "2026-11-05T08:01:11.495463+00:00"
+  },
+  "pytest": {
+    "command": "python -m pytest -q",
+    "passed": 832,
+    "skipped": 1,
+    "warnings": 3567,
+    "failed": 0,
+    "duration_s": 51.73,
+    "scope": "full tests/"
+  },
+  "families": [
+    {
+      "family": "pairs_cointegration",
+      "data_status": "real_cached_verified",
+      "diagnostic_evidence": [
+        {
+          "artifact": "reports/pairs_failclosed_audit_20261105T075431Z.json",
+          "key_metrics": {
+            "n_audited": 165,
+            "n_diagnostic_blocked": 165,
+            "n_breaches_fail_closed": 0,
+            "overall_pass_fail_closed": true,
+            "universe": "11 symbols x 55 pairs x {1h,4h,1d}=165",
+            "window": "2026-04-01..2026-10-30 Binance spot cached"
+          }
+        },
+        {
+          "artifact": "reports/pairs_leg_stationarity_impossibility_memo_20261105T065521Z.json",
+          "key_metrics": "leg-stationarity impossibility on cached universe (prior evidence)"
+        },
+        {
+          "artifact": "reports/portfolio_real.json",
+          "key_metrics": {
+            "real_data_only": true,
+            "cointegration_diagnostics_present": true
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "method": "read+assert consistency vs pairs_failclosed_audit artifact (165/165 diagnostic-blocked -> zero exposure/entries, 0 breaches)",
+        "checks": {
+          "artifact_exists": true,
+          "overall_pass_fail_closed": true,
+          "n_breaches_fail_closed_zero": true,
+          "n_zero_exposure_when_blocked_eq_diagnostic_blocked": true,
+          "n_audited": 165
+        }
+      },
+      "actionable_next_step": "CORE PAIRS EDGE PROVEN BLOCKED on current real cached spot universe/window. Deprioritize pairs until NEW real feed/universe/window is provided (e.g. different symbols, longer history, or externally sourced stationary-leg candidates) \u2014 re-run fail-closed audit on any new data before any exposure claim. Do NOT weaken gates."
+    },
+    {
+      "family": "cross_exchange_same_asset_dual_venue",
+      "data_status": "blocked_no_real_feed",
+      "diagnostic_evidence": [
+        {
+          "artifact": "reports/cross_exchange_real_market.json",
+          "key_metrics": {
+            "pair": "BTC/ETH",
+            "replay_total_return": -0.022200176662908522,
+            "benchmark_total_return": 0.15586310997174246
+          },
+          "note": "Executed on single-venue public Binance spot as two price inputs (declared); NOT a native dual-venue same-asset arb. Replay total_return -2.22% vs buy-and-hold +15.59% on BTC/ETH inputs; negative cost-sensitivity across grid."
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "checks": {
+          "artifact_exists": true,
+          "real_data_only": true,
+          "fabricated_data_false": true,
+          "declares_native_dual_venue_blocked": true,
+          "single_venue_spot_only": true
+        },
+        "honesty": "artifact declares native_dual_venue_same_asset_feed_unavailable_single_venue_spot_only and real_data_only=true,fabricated_data=false"
+      },
+      "blocked_routes": [
+        "native_dual_venue_same_asset_feed_unavailable_single_venue_spot_only (environment provides single-venue Binance spot cache only)"
+      ],
+      "actionable_next_step": "Provide cached dual-venue same-asset OHLCV CSVs (venue A + venue B, same asset, aligned timestamps) from permitted sources; then re-run cross-exchange with honest provenance. Do not treat single-venue spot pair as dual-venue arb."
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "diagnostic_evidence": [
+        {
+          "artifact": "reports/portfolio_real.json",
+          "key_metrics": "funding/basis unavailable on current real spot-only cache (per portfolio artifacts)"
+        },
+        {
+          "artifact": "funding_basis_blocked_20261105T075839Z.json",
+          "key_metrics": "blocked, no real feed"
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "blocked_routes": [
+          "fapi.binance.com HTTP 451 (environment route blocked; per handoff)",
+          "no cached real funding-rate series in data/cache",
+          "no cached real basis/perp-spot spread series in data/cache",
+          "no dual-instrument (spot+perp/futures) real feed"
+        ],
+        "rationale": "No real funding/basis feed available in cached artifacts or permitted routes. Do not fabricate or derive pseudo-funding from spot prices as a real feed."
+      },
+      "blocked_routes": [
+        "fapi.binance.com HTTP 451 (environment route blocked; per handoff)",
+        "no cached real funding-rate series in data/cache",
+        "no cached real basis/perp-spot spread series in data/cache",
+        "no dual-instrument (spot+perp/futures) real feed"
+      ],
+      "actionable_next_step": "Provide cached real funding-rate CSVs (e.g. per-symbol 1h/8h funding) and/or spot-perp basis series from a permitted source; then run cost/fail-closed verification."
+    },
+    {
+      "family": "term_structure_derivatives",
+      "data_status": "blocked_no_real_feed",
+      "diagnostic_evidence": [
+        {
+          "artifact": "data/cache (inventory)",
+          "key_metrics": "no real futures curve/term-structure/IV-tenor data files"
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "method": "ran TermStructureStrategy against real cached spot DataFrame; raised ValueError requiring IV columns (iv_30d/iv_90d) \u2014 fail-closed on missing real derivatives feed",
+        "error": "TermStructureStrategy requires at least two implied-volatility columns (e.g. 'iv_30d' and 'iv_90d'). Available columns: ['ADA', 'AVAX', 'BNB', 'BTC', 'DOT', 'ETH', 'LINK', 'LTC', 'POL', 'SOL', 'XRP']"
+      },
+      "blocked_routes": [
+        "no cached real futures term-structure / multi-tenor IV data in data/cache"
+      ],
+      "actionable_next_step": "Provide real multi-tenor futures/IV term-structure data (e.g. dated futures closes or IV tenor series) from permitted source; re-run with fail-closed verification."
+    },
+    {
+      "family": "volatility_surface_options_iv",
+      "data_status": "blocked_no_real_feed",
+      "diagnostic_evidence": [
+        {
+          "artifact": "data/cache (inventory)",
+          "key_metrics": "no real options IV surface data files"
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": "partial/proxy_only \u2014 NOT a real IV-surface edge",
+        "method": "VolatilitySurfaceStrategy executed on real cached spot (11 assets, 5112 bars) producing spot-vol/derived signals; NO real IV/options surface feed used. Result is explicitly labeled spot-proxy and MUST NOT be presented as a real IV-surface edge.",
+        "spot_proxy_metrics": {
+          "symbols": [
+            "ADA",
+            "AVAX",
+            "BNB",
+            "BTC",
+            "DOT",
+            "ETH",
+            "LINK",
+            "LTC",
+            "POL",
+            "SOL",
+            "XRP"
+          ],
+          "n_bars": 5112,
+          "entries_nonzero": 25203,
+          "max_abs_signal": 1.0
+        }
+      },
+      "blocked_routes": [
+        "no cached real options implied-volatility surface feed in data/cache"
+      ],
+      "actionable_next_step": "Provide real options IV surface data (strike/tenor/IV) from permitted source; re-run true surface strategy fail-closed. Treat current run as proxy-only diagnostic, not edge evidence."
+    },
+    {
+      "family": "momentum",
+      "data_status": "real_cached_verified",
+      "diagnostic_evidence": [
+        {
+          "artifact": "real cached Binance spot 1h 2026-04-01..2026-10-30 (data/cache/*_2026-04-01_2026-10-30_1h.pkl)",
+          "key_metrics": {
+            "assets_tested": [
+              "BTC",
+              "ETH",
+              "SOL",
+              "ADA",
+              "AVAX",
+              "BNB",
+              "DOT",
+              "LINK",
+              "LTC",
+              "POL",
+              "XRP"
+            ],
+            "n_bars": 5112,
+            "per_asset": {
+              "BTC": {
+                "entries_nonzero": 16069,
+                "max_abs_signal": 86390.4105,
+                "error": null
+              },
+              "ETH": {
+                "entries_nonzero": 16759,
+                "max_abs_signal": 2754.859,
+                "error": null
+              },
+              "SOL": {
+                "entries_nonzero": 17331,
+                "max_abs_signal": 122.6965,
+                "error": null
+              },
+              "ADA": {
+                "entries_nonzero": 17707,
+                "max_abs_signal": 1.0,
+                "error": null
+              },
+              "AVAX": {
+                "entries_nonzero": 17606,
+                "max_abs_signal": 11.4555,
+                "error": null
+              },
+              "BNB": {
+                "entries_nonzero": 16079,
+                "max_abs_signal": 795.33,
+                "error": null
+              },
+              "DOT": {
+                "entries_nonzero": 18022,
+                "max_abs_signal": 1.37205,
+                "error": null
+              },
+              "LINK": {
+                "entries_nonzero": 17543,
+                "max_abs_signal": 15.1876,
+                "error": null
+              },
+              "LTC": {
+                "entries_nonzero": 16860,
+                "max_abs_signal": 72.802,
+                "error": null
+              },
+              "POL": {
+                "entries_nonzero": 17365,
+                "max_abs_signal": 1.0,
+                "error": null
+              },
+              "XRP": {
+                "entries_nonzero": 17030,
+                "max_abs_signal": 1.59179,
+                "error": null
+              }
+            },
+            "aggregate_nonzero_entries": 188371,
+            "any_errors": false
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "method": "per-asset generate_signals on real cached spot (asset-named column); signals produced with enriched_gates_ok column present (default strict_enriched_gates=True). This is a signal-generation/exposure sanity run on real spot, not a full costed OOS edge claim.",
+        "note": "No external derivatives feed gate required; inputs are real spot only."
+      },
+      "actionable_next_step": "Run full costed walk-forward/backtest (fees+slippage grid) per asset on real cached spot and record net-of-cost, benchmark-relative, IS/OOS metrics before any edge claim. Current evidence: signals nonzero on real data; edge not yet net-validated in this registry run."
+    },
+    {
+      "family": "mean_reversion",
+      "data_status": "real_cached_verified",
+      "diagnostic_evidence": [
+        {
+          "artifact": "real cached Binance spot 1h 2026-04-01..2026-10-30 (data/cache/*_2026-04-01_2026-10-30_1h.pkl)",
+          "key_metrics": {
+            "assets_tested": [
+              "BTC",
+              "ETH",
+              "SOL",
+              "ADA",
+              "AVAX",
+              "BNB",
+              "DOT",
+              "LINK",
+              "LTC",
+              "POL",
+              "XRP"
+            ],
+            "n_bars": 5112,
+            "per_asset": {
+              "BTC": {
+                "entries_nonzero": 12536,
+                "max_abs_signal": 4.802639,
+                "error": null
+              },
+              "ETH": {
+                "entries_nonzero": 12713,
+                "max_abs_signal": 4.862038,
+                "error": null
+              },
+              "SOL": {
+                "entries_nonzero": 12535,
+                "max_abs_signal": 4.284558,
+                "error": null
+              },
+              "ADA": {
+                "entries_nonzero": 12565,
+                "max_abs_signal": 4.817396,
+                "error": null
+              },
+              "AVAX": {
+                "entries_nonzero": 12478,
+                "max_abs_signal": 4.803396,
+                "error": null
+              },
+              "BNB": {
+                "entries_nonzero": 12535,
+                "max_abs_signal": 4.677625,
+                "error": null
+              },
+              "DOT": {
+                "entries_nonzero": 12590,
+                "max_abs_signal": 4.675093,
+                "error": null
+              },
+              "LINK": {
+                "entries_nonzero": 12589,
+                "max_abs_signal": 4.282812,
+                "error": null
+              },
+              "LTC": {
+                "entries_nonzero": 12553,
+                "max_abs_signal": 4.580453,
+                "error": null
+              },
+              "POL": {
+                "entries_nonzero": 12537,
+                "max_abs_signal": 4.371613,
+                "error": null
+              },
+              "XRP": {
+                "entries_nonzero": 12658,
+                "max_abs_signal": 4.544096,
+                "error": null
+              }
+            },
+            "aggregate_nonzero_entries": 138289,
+            "any_errors": false
+          }
+        }
+      ],
+      "strategy_honors_fail_closed": {
+        "verified": true,
+        "method": "per-asset generate_signals on real cached spot (asset-named column); signals produced with enriched_gates_ok column present (default strict_enriched_gates=True). Signal-generation sanity run, not a full costed OOS edge claim."
+      },
+      "actionable_next_step": "Run full costed walk-forward/backtest (fees+slippage grid) per asset on real cached spot and record net-of-cost, benchmark-relative, IS/OOS metrics before any edge claim."
+    }
+  ],
+  "blocked_feed_inventory": {
+    "searched_paths": [
+      "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data",
+      "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports"
+    ],
+    "hits": [],
+    "provenance": {
+      "real_data_only": true,
+      "fabricated_data": false,
+      "fail_closed": true,
+      "no_threshold_weakening": true,
+      "computed_at": "2026-11-05T07:58:22.000652+00:00"
+    },
+    "real_like_data_files": [],
+    "has_real_funding_basis_iv_feed": false
+  },
+  "overall_conclusion": "No proven, net-of-cost, OOS-validated stat-arb edge on the current real cached universe/window. Pairs cointegration is PROVEN BLOCKED and fail-closed (165/165, 0 breaches). Cross-exchange dual-venue and funding/basis/term-structure/real-IV are BLOCKED by missing real feeds (honest). Momentum/mean-reversion produce nonzero signals on real spot but lack net-of-cost OOS validation in this registry \u2014 next heavy step is costed WF validation on real data, plus unblocking real derivatives feeds where strategically justified."
+}

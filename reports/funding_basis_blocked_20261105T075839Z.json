@@ -1,0 +1,30 @@
+{
+  "family": "funding_basis_carry",
+  "data_status": "blocked_no_real_feed",
+  "diagnostic_evidence": [
+    "reports/portfolio_real.json (funding/basis unavailable noted in prior handoff context; no real funding-rate CSVs in data/cache)"
+  ],
+  "inventory": {
+    "data_cache_glob_hits_real_funding_basis_iv": false,
+    "searched": [
+      "data/cache/**",
+      "reports/*funding*|*basis*|*iv*"
+    ]
+  },
+  "strategy_honors_fail_closed": true,
+  "blocked_routes": [
+    "fapi.binance.com HTTP 451 (environment route blocked; per handoff)",
+    "no cached real funding-rate series in data/cache",
+    "no cached real basis/perp-spot spread series in data/cache",
+    "no dual-instrument (spot+perp/futures) real feed"
+  ],
+  "rationale": "No real funding/basis feed available in cached artifacts or permitted routes. Do not fabricate or derive pseudo-funding from spot prices as a real feed.",
+  "actionable_next_step": "Provide cached real funding-rate CSVs (e.g. per-symbol 1h/8h funding) and/or spot-perp basis series from a permitted source; then run cost/fail-closed verification.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "computed_at": "2026-11-05T07:58:39.782509+00:00"
+  }
+}
