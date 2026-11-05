@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T20:00:00Z (Campaign #29 COMPLETE, fail-closed. Next: execute Campaign #30 binding; >= 3 new `reports/` artifacts; no investigation-only.)**
+**Timestamp (UTC): 2026-11-05T20:01:07Z (Campaign #30 IN PROGRESS: `cointegration_campaign30_mt.json` already produced; remaining required: `real_feed_unblock_status_<UTC>.json` + `strategy_edge_registry_<UTC>.json`; >= 3 new `reports/` artifacts total; no investigation-only.)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #29 STATUS (COMPLETE — fail-closed, no proven edge)
@@ -11,7 +11,7 @@ Executed 2026-11-05 (this session). Produced/refreshed (>=4 artifacts):
 
 ## BOTTLENECK REMOVAL (READ BEFORE ACTING)
 - **Fail-closed infra healthy (no infra bottleneck):** full suite **928 passed, 1 skipped, 0 failed**. Do not re-open test/loader infra unless you change it and keep tests green.
-- **C29 bottleneck removed:** cointegration MT refresh + fail-closed unblock status + execution status + registry supersede produced. Next: `scripts/generate_campaign30_artifacts.py` (exists in `scripts/`; check priors/expectations; run if satisfied; otherwise produce a fail-closed `reports/campaign30_execution_blocker_<UTC>.json` with exact missing priors + smallest concrete unblocking step taken).
+- **C30 in progress:** `cointegration_campaign30_mt.json` already exists; remaining required artifacts: `real_feed_unblock_status_<UTC>.json` (prior=20261105T195831Z, campaign=30) + `strategy_edge_registry_<UTC>.json` (supersede 20261105T195956Z) + rerun `pytest tests/ -q`. Run `scripts/generate_campaign30_artifacts.py` if priors satisfied; else fail-closed blocker artifact.
 - **No valid new feed for remaining blocked families.** `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure = blocked_no_real_feed` (unchanged, fail-closed). `real_quote_volume` validated but C23 hypothesis failed (`oos_edge_proven=false`, 0/11). Spot-only 1h families exhausted; pairs/gating blocked (1h 0/17, 4h 1/17 POL/BTC, 1d 0/17). Do not spin on unverifiable feeds/proxies.
 - **Zero-artifact sessions are automatic failures.** "I looked and found nothing" is not a deliverable. Produce concrete `reports/` artifacts plus tested code where code changes are involved.
 
