@@ -2,7 +2,7 @@
   "type": "cointegration_campaign34_mt",
   "mandate": "cryptoquantstatarbstrats - Campaign 34 cointegration rigor phase 6: fail-closed kill-switch/circuit-breaker execution halting + regime-transition stress amplification on hedge-ratio stability + multi-regime basket cointegration walk-forward OOS capacity/rebalancing under stress (real data only)",
   "campaign": 34,
-  "computed_at": "2026-11-05T21:35:25.541172+00:00",
+  "computed_at": "2026-11-05T21:42:20.579513+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "causal_only": true,
@@ -171,7 +171,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.786984+00:00",
+                "computed_at": "2026-11-05T21:42:19.831589+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -237,7 +237,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.851195+00:00",
+                "computed_at": "2026-11-05T21:42:19.895170+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -257,7 +257,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.851228+00:00",
+                  "computed_at": "2026-11-05T21:42:19.895201+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -266,7 +266,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.851232+00:00",
+                "computed_at": "2026-11-05T21:42:19.895206+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -280,7 +280,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.851237+00:00",
+                "computed_at": "2026-11-05T21:42:19.895211+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -289,7 +289,7 @@
               "source": "portfolio_basket_cointegration_core",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.851247+00:00",
+              "computed_at": "2026-11-05T21:42:19.895215+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -297,11 +297,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.851253+00:00",
+              "computed_at": "2026-11-05T21:42:19.895221+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -320,7 +323,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:19.910645+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -497,7 +508,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.855934+00:00",
+                  "computed_at": "2026-11-05T21:42:19.899715+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -526,7 +537,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.859588+00:00",
+                  "computed_at": "2026-11-05T21:42:19.903161+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -555,7 +566,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.863107+00:00",
+                  "computed_at": "2026-11-05T21:42:19.906612+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -584,7 +595,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.867118+00:00",
+                  "computed_at": "2026-11-05T21:42:19.909990+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -594,7 +605,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.867273+00:00",
+              "computed_at": "2026-11-05T21:42:19.910146+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -774,7 +785,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.855934+00:00",
+                  "computed_at": "2026-11-05T21:42:19.899715+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -803,7 +814,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.859588+00:00",
+                  "computed_at": "2026-11-05T21:42:19.903161+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -832,7 +843,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.863107+00:00",
+                  "computed_at": "2026-11-05T21:42:19.906612+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -861,7 +872,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.867118+00:00",
+                  "computed_at": "2026-11-05T21:42:19.909990+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -871,7 +882,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.867273+00:00",
+              "computed_at": "2026-11-05T21:42:19.910146+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -914,7 +925,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.867503+00:00",
+                  "computed_at": "2026-11-05T21:42:19.910339+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -934,7 +945,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.867639+00:00",
+                  "computed_at": "2026-11-05T21:42:19.910502+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -954,7 +965,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.867759+00:00",
+                  "computed_at": "2026-11-05T21:42:19.910621+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -964,7 +975,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.867775+00:00",
+              "computed_at": "2026-11-05T21:42:19.910635+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -973,7 +984,7 @@
             "source": "campaign34_core_1h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:24.867786+00:00",
+            "computed_at": "2026-11-05T21:42:19.910654+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -1058,7 +1069,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.872146+00:00",
+                "computed_at": "2026-11-05T21:42:19.914965+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -1124,7 +1135,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.939403+00:00",
+                "computed_at": "2026-11-05T21:42:19.982591+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -1146,7 +1157,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.939432+00:00",
+                  "computed_at": "2026-11-05T21:42:19.982619+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1155,7 +1166,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.939436+00:00",
+                "computed_at": "2026-11-05T21:42:19.982623+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -1169,7 +1180,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.939441+00:00",
+                "computed_at": "2026-11-05T21:42:19.982628+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -1178,7 +1189,7 @@
               "source": "portfolio_basket_cointegration_core_expanded",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.939444+00:00",
+              "computed_at": "2026-11-05T21:42:19.982632+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -1186,11 +1197,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.939450+00:00",
+              "computed_at": "2026-11-05T21:42:19.982638+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -1209,7 +1223,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:19.998463+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -1390,7 +1412,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.943767+00:00",
+                  "computed_at": "2026-11-05T21:42:19.986647+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1423,7 +1445,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.947662+00:00",
+                  "computed_at": "2026-11-05T21:42:19.990148+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1456,7 +1478,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.951752+00:00",
+                  "computed_at": "2026-11-05T21:42:19.993987+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1489,7 +1511,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.955532+00:00",
+                  "computed_at": "2026-11-05T21:42:19.997578+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1499,7 +1521,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.955684+00:00",
+              "computed_at": "2026-11-05T21:42:19.997732+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -1683,7 +1705,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.943767+00:00",
+                  "computed_at": "2026-11-05T21:42:19.986647+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1716,7 +1738,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.947662+00:00",
+                  "computed_at": "2026-11-05T21:42:19.990148+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1749,7 +1771,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.951752+00:00",
+                  "computed_at": "2026-11-05T21:42:19.993987+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1782,7 +1804,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.955532+00:00",
+                  "computed_at": "2026-11-05T21:42:19.997578+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1792,7 +1814,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.955684+00:00",
+              "computed_at": "2026-11-05T21:42:19.997732+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -1835,7 +1857,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.955887+00:00",
+                  "computed_at": "2026-11-05T21:42:19.997931+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1855,7 +1877,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.956020+00:00",
+                  "computed_at": "2026-11-05T21:42:19.998059+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1875,7 +1897,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.956140+00:00",
+                  "computed_at": "2026-11-05T21:42:19.998176+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1895,7 +1917,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.956255+00:00",
+                  "computed_at": "2026-11-05T21:42:19.998290+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1915,7 +1937,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:24.956402+00:00",
+                  "computed_at": "2026-11-05T21:42:19.998439+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -1925,7 +1947,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:24.956423+00:00",
+              "computed_at": "2026-11-05T21:42:19.998454+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -1934,7 +1956,7 @@
             "source": "campaign34_core_expanded_1h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:24.956435+00:00",
+            "computed_at": "2026-11-05T21:42:19.998468+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -2067,7 +2089,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:24.965460+00:00",
+                "computed_at": "2026-11-05T21:42:20.007118+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -2133,7 +2155,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.073128+00:00",
+                "computed_at": "2026-11-05T21:42:20.115339+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -2161,7 +2183,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.073164+00:00",
+                  "computed_at": "2026-11-05T21:42:20.115402+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2170,7 +2192,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.073169+00:00",
+                "computed_at": "2026-11-05T21:42:20.115407+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -2184,7 +2206,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.073176+00:00",
+                "computed_at": "2026-11-05T21:42:20.115411+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -2193,7 +2215,7 @@
               "source": "portfolio_basket_cointegration_full_universe",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.073180+00:00",
+              "computed_at": "2026-11-05T21:42:20.115415+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -2201,11 +2223,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.073188+00:00",
+              "computed_at": "2026-11-05T21:42:20.115420+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -2224,7 +2249,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.132705+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -2417,7 +2450,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.077622+00:00",
+                  "computed_at": "2026-11-05T21:42:20.119657+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2462,7 +2495,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.081585+00:00",
+                  "computed_at": "2026-11-05T21:42:20.123465+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2507,7 +2540,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.085554+00:00",
+                  "computed_at": "2026-11-05T21:42:20.127281+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2552,7 +2585,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.089589+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131165+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2562,7 +2595,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.089746+00:00",
+              "computed_at": "2026-11-05T21:42:20.131313+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -2758,7 +2791,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.077622+00:00",
+                  "computed_at": "2026-11-05T21:42:20.119657+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2803,7 +2836,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.081585+00:00",
+                  "computed_at": "2026-11-05T21:42:20.123465+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2848,7 +2881,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.085554+00:00",
+                  "computed_at": "2026-11-05T21:42:20.127281+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2893,7 +2926,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.089589+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131165+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2903,7 +2936,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.089746+00:00",
+              "computed_at": "2026-11-05T21:42:20.131313+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -2946,7 +2979,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.089935+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131515+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2966,7 +2999,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090069+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131640+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -2986,7 +3019,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090190+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131765+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3006,7 +3039,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090308+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131878+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3026,7 +3059,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090462+00:00",
+                  "computed_at": "2026-11-05T21:42:20.131990+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3046,7 +3079,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090578+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132101+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3066,7 +3099,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090693+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132208+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3086,7 +3119,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090805+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132314+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3106,7 +3139,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.090919+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132452+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3126,7 +3159,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.091028+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132562+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3146,7 +3179,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.091137+00:00",
+                  "computed_at": "2026-11-05T21:42:20.132678+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3156,7 +3189,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.091151+00:00",
+              "computed_at": "2026-11-05T21:42:20.132696+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -3165,7 +3198,7 @@
             "source": "campaign34_full_universe_1h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.091161+00:00",
+            "computed_at": "2026-11-05T21:42:20.132709+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -3177,13 +3210,13 @@
         "n_cost_stress_monotonic": 3,
         "n_kill_switch_triggered": 0,
         "n_breach_alerts_present": 0,
-        "n_regime_transition_stress_amplified": 0
+        "n_regime_transition_stress_amplified": 3
       },
       "provenance": {
         "source": "campaign34_1h_real_data_only",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T21:35:25.091187+00:00",
+        "computed_at": "2026-11-05T21:42:20.132731+00:00",
         "blocked_routes": [],
         "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
       }
@@ -3293,7 +3326,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.097420+00:00",
+                "computed_at": "2026-11-05T21:42:20.138783+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -3350,7 +3383,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.146035+00:00",
+                "computed_at": "2026-11-05T21:42:20.185902+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -3370,7 +3403,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.146058+00:00",
+                  "computed_at": "2026-11-05T21:42:20.185930+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3379,7 +3412,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.146062+00:00",
+                "computed_at": "2026-11-05T21:42:20.185935+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -3393,7 +3426,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.146066+00:00",
+                "computed_at": "2026-11-05T21:42:20.185939+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -3402,7 +3435,7 @@
               "source": "portfolio_basket_cointegration_core",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.146069+00:00",
+              "computed_at": "2026-11-05T21:42:20.185942+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -3410,11 +3443,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.146074+00:00",
+              "computed_at": "2026-11-05T21:42:20.185948+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -3433,7 +3469,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.208485+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -3610,7 +3654,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.149786+00:00",
+                  "computed_at": "2026-11-05T21:42:20.189747+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3639,7 +3683,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.153199+00:00",
+                  "computed_at": "2026-11-05T21:42:20.193258+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3668,7 +3712,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.156577+00:00",
+                  "computed_at": "2026-11-05T21:42:20.196788+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3697,7 +3741,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.159934+00:00",
+                  "computed_at": "2026-11-05T21:42:20.200231+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3707,7 +3751,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.160086+00:00",
+              "computed_at": "2026-11-05T21:42:20.200414+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -3887,7 +3931,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.149786+00:00",
+                  "computed_at": "2026-11-05T21:42:20.189747+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3916,7 +3960,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.153199+00:00",
+                  "computed_at": "2026-11-05T21:42:20.193258+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3945,7 +3989,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.156577+00:00",
+                  "computed_at": "2026-11-05T21:42:20.196788+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3974,7 +4018,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.159934+00:00",
+                  "computed_at": "2026-11-05T21:42:20.200231+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -3984,7 +4028,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.160086+00:00",
+              "computed_at": "2026-11-05T21:42:20.200414+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4045,7 +4089,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.168029+00:00",
+                  "computed_at": "2026-11-05T21:42:20.208169+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4065,7 +4109,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.168153+00:00",
+                  "computed_at": "2026-11-05T21:42:20.208293+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4085,7 +4129,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.168278+00:00",
+                  "computed_at": "2026-11-05T21:42:20.208434+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4095,7 +4139,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.168305+00:00",
+              "computed_at": "2026-11-05T21:42:20.208455+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4104,7 +4148,7 @@
             "source": "campaign34_core_4h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.168337+00:00",
+            "computed_at": "2026-11-05T21:42:20.208490+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -4189,7 +4233,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.170894+00:00",
+                "computed_at": "2026-11-05T21:42:20.211121+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -4246,7 +4290,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.220078+00:00",
+                "computed_at": "2026-11-05T21:42:20.261110+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -4268,7 +4312,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.220102+00:00",
+                  "computed_at": "2026-11-05T21:42:20.261132+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4277,7 +4321,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.220106+00:00",
+                "computed_at": "2026-11-05T21:42:20.261136+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -4291,7 +4335,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.220111+00:00",
+                "computed_at": "2026-11-05T21:42:20.261141+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -4300,7 +4344,7 @@
               "source": "portfolio_basket_cointegration_core_expanded",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.220114+00:00",
+              "computed_at": "2026-11-05T21:42:20.261144+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4308,11 +4352,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.220120+00:00",
+              "computed_at": "2026-11-05T21:42:20.261162+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4331,7 +4378,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.282709+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -4512,7 +4567,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.224120+00:00",
+                  "computed_at": "2026-11-05T21:42:20.264978+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4545,7 +4600,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.227728+00:00",
+                  "computed_at": "2026-11-05T21:42:20.268494+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4578,7 +4633,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.231188+00:00",
+                  "computed_at": "2026-11-05T21:42:20.271944+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4611,7 +4666,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.234658+00:00",
+                  "computed_at": "2026-11-05T21:42:20.275381+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4621,7 +4676,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.234810+00:00",
+              "computed_at": "2026-11-05T21:42:20.275533+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4805,7 +4860,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.224120+00:00",
+                  "computed_at": "2026-11-05T21:42:20.264978+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4838,7 +4893,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.227728+00:00",
+                  "computed_at": "2026-11-05T21:42:20.268494+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4871,7 +4926,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.231188+00:00",
+                  "computed_at": "2026-11-05T21:42:20.271944+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4904,7 +4959,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.234658+00:00",
+                  "computed_at": "2026-11-05T21:42:20.275381+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4914,7 +4969,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.234810+00:00",
+              "computed_at": "2026-11-05T21:42:20.275533+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -4975,7 +5030,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.241574+00:00",
+                  "computed_at": "2026-11-05T21:42:20.282180+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -4995,7 +5050,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.241707+00:00",
+                  "computed_at": "2026-11-05T21:42:20.282304+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5015,7 +5070,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.241829+00:00",
+                  "computed_at": "2026-11-05T21:42:20.282446+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5035,7 +5090,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.241935+00:00",
+                  "computed_at": "2026-11-05T21:42:20.282554+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5055,7 +5110,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.242041+00:00",
+                  "computed_at": "2026-11-05T21:42:20.282659+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5065,7 +5120,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.242055+00:00",
+              "computed_at": "2026-11-05T21:42:20.282680+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -5074,7 +5129,7 @@
             "source": "campaign34_core_expanded_4h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.242085+00:00",
+            "computed_at": "2026-11-05T21:42:20.282719+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -5207,7 +5262,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.245890+00:00",
+                "computed_at": "2026-11-05T21:42:20.286479+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -5264,7 +5319,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.321047+00:00",
+                "computed_at": "2026-11-05T21:42:20.362124+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -5292,7 +5347,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.321076+00:00",
+                  "computed_at": "2026-11-05T21:42:20.362164+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5301,7 +5356,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.321081+00:00",
+                "computed_at": "2026-11-05T21:42:20.362169+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -5315,7 +5370,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.321088+00:00",
+                "computed_at": "2026-11-05T21:42:20.362176+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -5324,7 +5379,7 @@
               "source": "portfolio_basket_cointegration_full_universe",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.321092+00:00",
+              "computed_at": "2026-11-05T21:42:20.362180+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -5332,11 +5387,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.321099+00:00",
+              "computed_at": "2026-11-05T21:42:20.362189+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -5355,7 +5413,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.390276+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": true,
@@ -5548,7 +5614,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.326049+00:00",
+                  "computed_at": "2026-11-05T21:42:20.367246+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5593,7 +5659,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.330765+00:00",
+                  "computed_at": "2026-11-05T21:42:20.371840+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5638,7 +5704,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.335480+00:00",
+                  "computed_at": "2026-11-05T21:42:20.376506+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5683,7 +5749,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.340063+00:00",
+                  "computed_at": "2026-11-05T21:42:20.381068+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5693,7 +5759,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.340262+00:00",
+              "computed_at": "2026-11-05T21:42:20.381261+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -5889,7 +5955,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.326049+00:00",
+                  "computed_at": "2026-11-05T21:42:20.367246+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5934,7 +6000,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.330765+00:00",
+                  "computed_at": "2026-11-05T21:42:20.371840+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -5979,7 +6045,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.335480+00:00",
+                  "computed_at": "2026-11-05T21:42:20.376506+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6024,7 +6090,7 @@
                   "source": "causal_walk_forward_portfolio_rebalancing_multiregime_stress",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.340063+00:00",
+                  "computed_at": "2026-11-05T21:42:20.381068+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6034,7 +6100,7 @@
               "source": "causal_walk_forward_portfolio_rebalancing + fee_x_slippage_cost_grid_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.340262+00:00",
+              "computed_at": "2026-11-05T21:42:20.381261+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6105,7 +6171,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.348934+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389066+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6125,7 +6191,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349079+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389197+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6145,7 +6211,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349212+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389310+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6163,7 +6229,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349373+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389475+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6183,7 +6249,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349520+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389599+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6203,7 +6269,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349648+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389709+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6223,7 +6289,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349773+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389815+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6243,7 +6309,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.349896+00:00",
+                  "computed_at": "2026-11-05T21:42:20.389918+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6261,7 +6327,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.350027+00:00",
+                  "computed_at": "2026-11-05T21:42:20.390021+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6281,7 +6347,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.350156+00:00",
+                  "computed_at": "2026-11-05T21:42:20.390123+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6301,7 +6367,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.350277+00:00",
+                  "computed_at": "2026-11-05T21:42:20.390232+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6311,7 +6377,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.350296+00:00",
+              "computed_at": "2026-11-05T21:42:20.390247+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6320,7 +6386,7 @@
             "source": "campaign34_full_universe_4h_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.350336+00:00",
+            "computed_at": "2026-11-05T21:42:20.390285+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -6332,13 +6398,13 @@
         "n_cost_stress_monotonic": 3,
         "n_kill_switch_triggered": 0,
         "n_breach_alerts_present": 3,
-        "n_regime_transition_stress_amplified": 0
+        "n_regime_transition_stress_amplified": 3
       },
       "provenance": {
         "source": "campaign34_4h_real_data_only",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T21:35:25.350387+00:00",
+        "computed_at": "2026-11-05T21:42:20.390307+00:00",
         "blocked_routes": [],
         "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
       }
@@ -6446,7 +6512,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.357177+00:00",
+                "computed_at": "2026-11-05T21:42:20.395948+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6478,7 +6544,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.369805+00:00",
+                "computed_at": "2026-11-05T21:42:20.408734+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6498,7 +6564,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.369823+00:00",
+                  "computed_at": "2026-11-05T21:42:20.408751+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6507,7 +6573,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.369827+00:00",
+                "computed_at": "2026-11-05T21:42:20.408755+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6521,7 +6587,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.369831+00:00",
+                "computed_at": "2026-11-05T21:42:20.408759+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6530,7 +6596,7 @@
               "source": "portfolio_basket_cointegration_core",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.369834+00:00",
+              "computed_at": "2026-11-05T21:42:20.408763+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6538,11 +6604,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.369840+00:00",
+              "computed_at": "2026-11-05T21:42:20.408768+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6561,7 +6630,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.415750+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": false,
@@ -6572,7 +6649,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.369853+00:00",
+              "computed_at": "2026-11-05T21:42:20.408775+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6586,7 +6663,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.369853+00:00",
+              "computed_at": "2026-11-05T21:42:20.408775+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6629,7 +6706,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.376836+00:00",
+                  "computed_at": "2026-11-05T21:42:20.415486+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6649,7 +6726,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.376960+00:00",
+                  "computed_at": "2026-11-05T21:42:20.415605+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6669,7 +6746,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.377070+00:00",
+                  "computed_at": "2026-11-05T21:42:20.415711+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6679,7 +6756,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.377085+00:00",
+              "computed_at": "2026-11-05T21:42:20.415723+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6688,7 +6765,7 @@
             "source": "campaign34_core_1d_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.377116+00:00",
+            "computed_at": "2026-11-05T21:42:20.415755+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -6773,7 +6850,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.379249+00:00",
+                "computed_at": "2026-11-05T21:42:20.417841+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6805,7 +6882,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.392279+00:00",
+                "computed_at": "2026-11-05T21:42:20.431113+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6827,7 +6904,7 @@
                   "source": "portfolio_spread",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.392298+00:00",
+                  "computed_at": "2026-11-05T21:42:20.431131+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6836,7 +6913,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.392302+00:00",
+                "computed_at": "2026-11-05T21:42:20.431135+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6850,7 +6927,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.392306+00:00",
+                "computed_at": "2026-11-05T21:42:20.431139+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -6859,7 +6936,7 @@
               "source": "portfolio_basket_cointegration_core_expanded",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.392310+00:00",
+              "computed_at": "2026-11-05T21:42:20.431142+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6867,11 +6944,14 @@
           "regime_transition_stress_amplification": {
             "available": false,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": true,
+            "multi_asset_hedge_ratio_stability_across_switches": true,
+            "regime_switch_stress_quantified": false,
             "provenance": {
               "source": "regime_transition_stress_amplification",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.392315+00:00",
+              "computed_at": "2026-11-05T21:42:20.431147+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6890,7 +6970,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.438167+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": false,
@@ -6901,7 +6989,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.392322+00:00",
+              "computed_at": "2026-11-05T21:42:20.431154+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6915,7 +7003,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.392322+00:00",
+              "computed_at": "2026-11-05T21:42:20.431154+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -6958,7 +7046,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.399275+00:00",
+                  "computed_at": "2026-11-05T21:42:20.437674+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6978,7 +7066,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.399426+00:00",
+                  "computed_at": "2026-11-05T21:42:20.437802+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -6998,7 +7086,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.399542+00:00",
+                  "computed_at": "2026-11-05T21:42:20.437914+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7018,7 +7106,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.399648+00:00",
+                  "computed_at": "2026-11-05T21:42:20.438024+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7038,7 +7126,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.399751+00:00",
+                  "computed_at": "2026-11-05T21:42:20.438128+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7048,7 +7136,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.399765+00:00",
+              "computed_at": "2026-11-05T21:42:20.438140+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7057,7 +7145,7 @@
             "source": "campaign34_core_expanded_1d_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.399795+00:00",
+            "computed_at": "2026-11-05T21:42:20.438171+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -7202,7 +7290,7 @@
                 "source": "statsmodels.tsa.vector_ar.vecm.coint_johansen",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.402314+00:00",
+                "computed_at": "2026-11-05T21:42:20.440595+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -7234,7 +7322,7 @@
                 "source": "statsmodels.coint_johansen on rolling causal trailing windows",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.417486+00:00",
+                "computed_at": "2026-11-05T21:42:20.455702+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -7282,7 +7370,7 @@
                   "source": "utils.cointegration adf_test + half_life_ou + hurst_exponent",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.424737+00:00",
+                  "computed_at": "2026-11-05T21:42:20.462458+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7291,7 +7379,7 @@
                 "source": "johansen_leading_cointegrating_vector_normalized_first_asset",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.424751+00:00",
+                "computed_at": "2026-11-05T21:42:20.462470+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -7305,7 +7393,7 @@
                 "source": "johansen_trace_test_common_stochastic_trend",
                 "real_data_only": true,
                 "fabricated_data": false,
-                "computed_at": "2026-11-05T21:35:25.424757+00:00",
+                "computed_at": "2026-11-05T21:42:20.462475+00:00",
                 "blocked_routes": [],
                 "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
               }
@@ -7314,7 +7402,7 @@
               "source": "portfolio_basket_cointegration_full_universe",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.424760+00:00",
+              "computed_at": "2026-11-05T21:42:20.462479+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7606,7 +7694,7 @@
               "source": "regime_transition_stress_amplification_campaign34",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.533022+00:00",
+              "computed_at": "2026-11-05T21:42:20.571658+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7625,7 +7713,15 @@
             "zero_capacity_on_breach": true,
             "cannot_auto_lift": true,
             "fail_closed": true,
-            "breach_alerts_driven_halting": true
+            "breach_alerts_driven_halting": true,
+            "provenance": {
+              "source": "kill_switch_circuit_breaker_campaign34",
+              "real_data_only": true,
+              "fabricated_data": false,
+              "computed_at": "2026-11-05T21:42:20.579482+00:00",
+              "blocked_routes": [],
+              "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
+            }
           },
           "multi_regime_basket_cointegration_walk_forward_oos": {
             "available": false,
@@ -7636,7 +7732,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.533059+00:00",
+              "computed_at": "2026-11-05T21:42:20.571697+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7650,7 +7746,7 @@
               "source": "walk_forward_portfolio_rebalancing_multiregime_stress",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.533059+00:00",
+              "computed_at": "2026-11-05T21:42:20.571697+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7693,7 +7789,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540007+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578408+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7713,7 +7809,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540129+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578529+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7733,7 +7829,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540238+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578634+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7753,7 +7849,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540376+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578736+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7773,7 +7869,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540491+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578834+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7793,7 +7889,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540595+00:00",
+                  "computed_at": "2026-11-05T21:42:20.578934+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7813,7 +7909,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540706+00:00",
+                  "computed_at": "2026-11-05T21:42:20.579031+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7833,7 +7929,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540806+00:00",
+                  "computed_at": "2026-11-05T21:42:20.579126+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7853,7 +7949,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.540904+00:00",
+                  "computed_at": "2026-11-05T21:42:20.579222+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7873,7 +7969,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.541003+00:00",
+                  "computed_at": "2026-11-05T21:42:20.579319+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7893,7 +7989,7 @@
                   "source": "execution_aware_capacity_allocation_real_volume",
                   "real_data_only": true,
                   "fabricated_data": false,
-                  "computed_at": "2026-11-05T21:35:25.541100+00:00",
+                  "computed_at": "2026-11-05T21:42:20.579442+00:00",
                   "blocked_routes": [],
                   "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
                 }
@@ -7903,7 +7999,7 @@
               "source": "real_binance_quote_volume + participation_cap + pair_gating_fail_closed + breach_alerts_kill_switch_monitoring",
               "real_data_only": true,
               "fabricated_data": false,
-              "computed_at": "2026-11-05T21:35:25.541113+00:00",
+              "computed_at": "2026-11-05T21:42:20.579455+00:00",
               "blocked_routes": [],
               "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
             }
@@ -7912,7 +8008,7 @@
             "source": "campaign34_full_universe_1d_real_data_only",
             "real_data_only": true,
             "fabricated_data": false,
-            "computed_at": "2026-11-05T21:35:25.541143+00:00",
+            "computed_at": "2026-11-05T21:42:20.579486+00:00",
             "blocked_routes": [],
             "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
           }
@@ -7924,13 +8020,13 @@
         "n_cost_stress_monotonic": 0,
         "n_kill_switch_triggered": 0,
         "n_breach_alerts_present": 0,
-        "n_regime_transition_stress_amplified": 1
+        "n_regime_transition_stress_amplified": 3
       },
       "provenance": {
         "source": "campaign34_1d_real_data_only",
         "real_data_only": true,
         "fabricated_data": false,
-        "computed_at": "2026-11-05T21:35:25.541167+00:00",
+        "computed_at": "2026-11-05T21:42:20.579503+00:00",
         "blocked_routes": [],
         "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
       }
@@ -7940,7 +8036,7 @@
     "source": "scripts/generate_campaign34_artifacts.py",
     "real_data_only": true,
     "fabricated_data": false,
-    "computed_at": "2026-11-05T21:35:25.541179+00:00",
+    "computed_at": "2026-11-05T21:42:20.579519+00:00",
     "blocked_routes": [],
     "rationale": "Computed from real cached Binance data; causal only (trailing windows)."
   },

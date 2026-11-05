@@ -1,0 +1,63 @@
+{
+  "type": "campaign_handoff_execution_status",
+  "campaign": 34,
+  "timestamp_utc": "20261105T215152Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "no_pairs_feed_resscan": true,
+  "no_structurally_similar_spot_retest_on_same_cache": true,
+  "no_c23_hypothesis_rerun_unchanged": true,
+  "oos_edge_proven": false,
+  "actions_taken": [
+    "Read HANDOFF.md (single durable handoff, Campaign #34 binding). Confirmed prior campaign=33 artifacts and registry truth (oos_edge_proven=false).",
+    "Executed scripts/generate_campaign34_artifacts.py -> reports/cointegration_campaign34_mt.json (real cached Binance data, causal/trailing, gate thresholds unchanged, gating_invariants_preserved=true).",
+    "Ran C34 fail-closed feed-unblock recheck via data.real_feed_loader.generate_unblock_status_report(cache_dir='data/cache', campaign=34, reports_dir='reports', prior_report='reports/real_feed_unblock_status_20261105T204518Z.json') -> reports/real_feed_unblock_status_20261105T214657Z.json. Delta vs HANDOFF-designated prior: NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED.",
+    "Reran full suite: pytest tests/ -q (live counts recorded, not hardcoded).",
+    "Superseded strategy_edge_registry -> strategy_edge_registry_20261105T215045Z.json with C34 artifacts + recorded pytest counts."
+  ],
+  "artifacts_produced_this_session": [
+    "reports/cointegration_campaign34_mt.json",
+    "reports/real_feed_unblock_status_20261105T214657Z.json",
+    "strategy_edge_registry_20261105T215045Z.json",
+    "reports/campaign34_handoff_execution_20261105T214800Z.json"
+  ],
+  "unblock_status_delta": {
+    "prior_report": "reports/real_feed_unblock_status_20261105T204518Z.json",
+    "current_report": "reports/real_feed_unblock_status_20261105T214657Z.json",
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "changed": false,
+    "path_r_changed": false,
+    "blocked_families_changed": false,
+    "prior_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "current_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "current_blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ]
+  },
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "honest_assessment": "NO_PROVEN_OOS_EDGE;_REMAINING_FAMILIES_STILL_BLOCKED_FAIL_CLOSED;_SPOT_1H_EXHAINTED;_COINTTEGRATION_GATING_INVARIANTS_PRESERVED",
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3570,
+    "duration_s": 63.35,
+    "rc": 0,
+    "scope": "full tests/",
+    "tail": "\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n928 passed, 1 skipped, 3566 warnings in 63.01s (0:01:03)"
+  },
+  "latest_registry": "strategy_edge_registry_20261105T215045Z.json"
+}

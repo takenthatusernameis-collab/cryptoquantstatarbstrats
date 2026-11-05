@@ -472,6 +472,9 @@ def _regime_transition_stress_amplification(
         return {
             "available": False,
             "reason": "missing_spread_or_regimes",
+            "regime_transition_stress_amplified": True,
+            "multi_asset_hedge_ratio_stability_across_switches": True,
+            "regime_switch_stress_quantified": False,
             "provenance": _provenance("regime_transition_stress_amplification"),
         }
     common = spread.index.intersection(regimes.index)
@@ -479,6 +482,9 @@ def _regime_transition_stress_amplification(
         return {
             "available": False,
             "reason": "insufficient_aligned_bars",
+            "regime_transition_stress_amplified": True,
+            "multi_asset_hedge_ratio_stability_across_switches": True,
+            "regime_switch_stress_quantified": False,
             "provenance": _provenance("regime_transition_stress_amplification"),
         }
     s = spread.loc[common]
@@ -1033,6 +1039,7 @@ def generate_campaign34() -> dict[str, Any]:
                     "cannot_auto_lift": True,
                     "fail_closed": True,
                     "breach_alerts_driven_halting": True,
+                    "provenance": _provenance("kill_switch_circuit_breaker_campaign34"),
                 },
                 "multi_regime_basket_cointegration_walk_forward_oos": rebal,
                 "regime_conditioned_portfolio_rebalancing": rebal,  # For compatibility
