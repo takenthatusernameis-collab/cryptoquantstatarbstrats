@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T11:42:13Z (Campaign #12 binding; handoff re-stamped for next agentic session; no new real feed found — Path C-maintain)**
+**Timestamp (UTC): 2026-11-05T11:42:36Z (Campaign #12 binding; handoff re-stamped for next agentic session; no new real feed found — Path C-maintain)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies.**
 Mission: find/validate a **net-of-cost OOS statistical/arbitrage edge on real crypto data only**. Fail-closed. Heavy, reproducible artifacts required. This file is the **only** durable handoff. Read it first. Execute it. Do not re-litigate settled facts.
 
