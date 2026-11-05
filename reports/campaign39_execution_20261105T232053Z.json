@@ -1,0 +1,45 @@
+{
+  "type": "campaign39_handoff_execution",
+  "campaign": 39,
+  "computed_at": "2026-11-05T23:20:53.739436+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "artifacts_produced_or_confirmed": [
+    "reports/cointegration_campaign39_mt.json",
+    "reports/real_feed_unblock_status_20261105T224120Z.json",
+    "reports/campaign39_execution_20261105T232053Z.json",
+    "reports/strategy_edge_registry_20261105T232053Z.json",
+    "HANDOFF.md (updated)"
+  ],
+  "campaign39_script": "scripts/generate_campaign39_artifacts.py (present; priors satisfied; C39 MT artifact exists)",
+  "path_r_assessment": {
+    "path_r_triggered": true,
+    "real_quote_volume_validated": true,
+    "c23_abnormal_quote_volume_momentum_rerun": false,
+    "different_prestated_hypothesis_tested_this_session": false,
+    "reason": "No genuinely different pre-stated R-B hypothesis was executed this session; rerunning C23 unchanged is forbidden. oos_edge_proven remains false."
+  },
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0
+  },
+  "provenance": {
+    "source": "handoff_execution",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "blocked_routes": [],
+    "rationale": "C39 artifacts confirmed/generated; registry superseded; full suite green; fail-closed."
+  }
+}
