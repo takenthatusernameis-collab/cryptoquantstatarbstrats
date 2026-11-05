@@ -1,3 +1,47 @@
+# NEXT AGENT INITIAL TASK MESSAGE (PASTE THIS FIRST)
+
+TIMESTAMP: 2026-11-05T00:07:34Z
+REPO: cryptoquantstatarbstrats
+FOCUS: Crypto Quantitative Statistical Arbitrage Strategies (Cointegration/Pairs First)
+
+```
+You are picking up cryptoquantstatarbstrats. NO "investigate only" loops. DO HEAVY WORKING IMMEDIATELY.
+
+REPO-NAME PRIORITY (non-negotiable): cryptoquantstatarbstrats = Crypto Quant Stat Arb Strategies. Cointegration/pairs trading IS the core edge. Everything else is secondary and must not displace pairs work.
+
+OBJECTIVE: Deliver a verifiably working, REAL-DATA-ONLY end-to-end crypto pairs statistical arbitrage pipeline (pair selection -> cointegration/spread construction -> z-score signals -> realistic backtest with costs) that produces concrete, reproducible metrics from real code paths. Real data only. Never fabricate candles/IV/funding/basis. Follow existing provenance patterns (real_data_only, fabricated_data, blocked_routes, computed_at, rationale).
+
+CURRENT CONFIRMED STATE (see full HANDOFF.md for details):
+- Deps OK (numpy,pandas,statsmodels,scipy,yaml). Targeted tests: 40 passed (baseline).
+- examples/run_pairs.py COMPLETES end-to-end (exit 0, BTC/ETH/SOL 2026-04-01->2026-10-28 cached Binance) writing reports/pairs_real_market.json BUT trades_count=0, total_return=0, sharpe=0, max_drawdown=0, final_equity=100000 (PRIMARY BLOCKER).
+- Root cause (CONFIRMED): rolling_stable_ok is the SOLE gate blocker. No pair passes cointegration screen on any real window (BTC/ETH EG p=0.518, rolling frac=0.176; ETH/SOL 0.577/0.115; BTC/SOL 0.731/0.066; all < 0.6). Enriched gates fail-closed everywhere. examples/run_pairs.py also compounds via cached aggregate gate.
+- strategies/pairs_trading.py: causal rolling hedge ratio, explicit opposing weights, enriched gates strict fail-closed. backtest/engine.py: per-asset weights precedence. data/cache has 11 symbols 1h 2026-04-01->2026-10-30. api.binance.com HTTP 451 in env.
+
+FIX DIRECTION (sanctioned):
+1. Emit per-bar gate breakdown reports/pairs_gate_breakdown_<UTC>.json with per-gate pass/fail shares; confirm rolling_stable_ok is sole blocker.
+2. Calibrate the rolling-stability/window assessment so the gate genuinely evaluates on real windows (fail-closed, no coercion) to produce nonzero trades/metrics, OR if no real window passes all gates, document the honest blocked result with full gate breakdown + provenance. Never weaken thresholds to hide genuine failures.
+3. Produce fresh reports/handoff_proof_<UTC>.json with config, data provenance (real_data_only/fabricated_data/hosts_tried/blocked_routes/cache_used), gates_summary, trades_count, equity_curve_summary, key_metrics, files_modified, reproduction_command, artifacts, verification.
+4. Constraints: real data only, no fabrication, fail-closed stays, causal/trailing only.
+
+EXECUTE IN ORDER (remove bottlenecks first):
+1. HEALTH CHECK: python -c "import numpy,pandas,statsmodels,scipy,yaml; print('ok')"; python -m pytest -v tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py -q (expect 40 passed)
+2. DATA/PROVENANCE: inspect data/loader.py,data/cache.py,reports/*.json; record hosts_tried/blocked_routes/cache_used
+3. GATE BREAKDOWN: instrument/emulate causal enriched gates for BTC/ETH (and others) -> reports/pairs_gate_breakdown_<UTC>.json showing rolling_stable_ok share
+4. UNBLOCK END-TO-END: fix strategies/pairs_trading.py/utils/cointegration.py/examples/run_pairs.py as needed to calibrate rolling_stability/structural_break/leg_stationarity evaluation on real windows OR wire honest blocked path; run timeout 1800 python examples/run_pairs.py until reports/pairs_real_market.json has outcome
+5. HARDEN & PROVE: ensure causal hedge ratio/explicit weights, costs applied, write fresh proof + gate breakdown, re-run targeted tests
+
+RULES:
+- Prioritize unblocking execution over docs. Write code to fix failures.
+- Full suite large/slow - use targeted runs.
+- Real data only. Never fabricate.
+- Stay laser-focused on pairs/spreads/cointegration.
+- Success = modified code + working end-to-end pairs stat-arb run + verifiable proof artifact with concrete metrics from real code paths. Zero trades is NOT progress unless accompanied by per-bar gate breakdown + honest blocked-result documentation.
+
+FOCUS CAMPAIGN: every session must re-run targeted tests and confirm examples/run_pairs.py completes before declaring progress. Not complete until fresh reports/handoff_proof_*.json exists with concrete metrics OR honest blocked result documented with gate breakdown+provenance. Remove bottlenecks immediately - no investigation-only loops.
+```
+
+---
+
 # HANDOFF (SINGLE DURABLE HANDOFF)
 
 TIMESTAMP: 2026-11-05T00:04:45Z
