@@ -230,6 +230,7 @@ def rolling_cointegration_stability(
         win = int(window)
         min_windows = 3
         min_subwindow = 30
+        # More aggressive shrinking for short trailing samples
         while win > min_subwindow and n < win * min_windows:
             win = max(min_subwindow, win // 2)
         if n < win * min_windows:
@@ -237,33 +238,46 @@ def rolling_cointegration_stability(
             if n >= win * 2 and win >= min_subwindow:
                 min_windows = 2
             elif n >= 12:
-                # Try smaller window to get at least 2 windows
+                # Try much smaller window to get at least 2 windows
                 win_new = min(win // 2, 15)
                 if win_new < 10:
                     win_new = 10
                 win = win_new
                 # shrink until we can get >=2 windows or can't
-                for _ in range(20):
-                    if win < 10:
+                for _ in range(40):
+                    if win < 8:
                         break
                     if n >= win * 2:
                         break
-                    win = max(10, win - 3)
-                if n >= win * 2 and win >= 10:
+                    win = max(8, win - 2)
+                if n >= win * 2 and win >= 8:
                     min_windows = 2
                 else:
-                    return {
-                        "stable": False,
-                        "reason": "insufficient_data",
-                        "pvalues": [],
-                        "frac_significant": 0.0,
-                        "frac_significant_0_05": 0.0,
-                        "n_windows": 0,
-                        "window": int(window),
-                        "step": int(step),
-                        "requested_window": int(window),
-                        "used_window": None,
-                    }
+                    # Last resort: try to get >=2 windows with heavy overlap
+                    # Use window as large as possible but ensure we get 2 windows
+                    for w_cand in [max(8, n // 2), max(8, n // 3 * 2), max(8, int(n * 0.6)), max(8, int(n * 0.5))]:
+                        if w_cand > n:
+                            continue
+                        # Check if we can get >=2 windows with step=1
+                        if n - w_cand + 1 >= 2 or (n >= w_cand * 2):  # easy case
+                            pass
+                        if n >= w_cand + max(1, w_cand // 4):  # need at least some overlap
+                            win = w_cand
+                            min_windows = 2
+                            break
+                    if not (n >= win * 2 and win >= 8):
+                        return {
+                            "stable": False,
+                            "reason": "insufficient_data",
+                            "pvalues": [],
+                            "frac_significant": 0.0,
+                            "frac_significant_0_05": 0.0,
+                            "n_windows": 0,
+                            "window": int(window),
+                            "step": int(step),
+                            "requested_window": int(window),
+                            "used_window": None,
+                        }
             else:
                 return {
                     "stable": False,
@@ -277,7 +291,10 @@ def rolling_cointegration_stability(
                     "requested_window": int(window),
                     "used_window": None,
                 }
+        # Use heavier overlap for short samples
         if n < win * 3:
+            step_use = max(1, min(int(step), max(1, win // 6)))  # more overlap
+        elif n < win * 4:
             step_use = max(1, min(int(step), max(1, win // 4)))
         else:
             step_use = max(1, min(int(step), win // 2))
@@ -291,20 +308,35 @@ def rolling_cointegration_stability(
                     pvalues.append(float(pv))
             except Exception:
                 continue
-        if not pvalues:
+        # If we got < 2 windows but could potentially get more with step=1, try again
+        if len(pvalues) < 2 and n >= win + 1:
+            pvalues = []
+            for start in range(0, n - win + 1, 1):  # step by 1 for max overlap
+                end = start + win
+                try:
+                    res = engle_granger_test(p1.iloc[start:end], p2.iloc[start:end])
+                    pv = res.get("pvalue", float("nan"))
+                    if np.isfinite(pv):
+                        pvalues.append(float(pv))
+                    if len(pvalues) >= 10:  # cap to avoid excessive computation
+                        break
+                except Exception:
+                    continue
+        if not pvalues or len(pvalues) < 2:  # need at least 2 windows
             return {
                 "stable": False,
-                "pvalues": [],
-                "frac_significant": 0.0,
-                "frac_significant_0_05": 0.0,
-                "n_windows": 0,
+                "pvalues": pvalues,
+                "frac_significant": float(np.mean([pv < 0.05 for pv in pvalues])) if pvalues else 0.0,
+                "frac_significant_0_05": float(np.mean([pv < 0.05 for pv in pvalues])) if pvalues else 0.0,
+                "n_windows": len(pvalues),
                 "window": int(window),
                 "step": int(step),
                 "requested_window": int(window),
                 "used_window": win,
+                "reason": "insufficient_windows" if len(pvalues) < 2 else None,
             }
         frac_sig = float(np.mean([pv < 0.05 for pv in pvalues]))
-        stable = frac_sig >= 0.6  # majority of windows cointegrated
+        stable = frac_sig >= 0.6  # majority of windows cointegrated - DO NOT raise
         return {
             "stable": bool(stable),
             "pvalues": pvalues,
