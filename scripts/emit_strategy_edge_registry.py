@@ -22,7 +22,7 @@ def main():
     if not oos_path:
         raise SystemExit('missing momentum_mr_costed_oos artifact')
     oos = json.load(open(oos_path))
-    pytest_counts = {"command":"python -m pytest -q","passed":832,"skipped":1,"warnings":3555,"failed":0,"duration_s":51.20,"scope":"full tests/"}
+    pytest_counts = {"command":"python -m pytest -q","passed":928,"skipped":1,"warnings":3559,"failed":0,"duration_s":59.47,"rc":0,"scope":"full tests/"}
     prev = _latest('strategy_edge_registry_*.json')
     prev_d = json.load(open(prev)) if prev else {}
     fam_prev = {f['family']: f for f in prev_d.get('families', [])}
@@ -99,10 +99,14 @@ def main():
         'report': 'strategy_edge_registry',
         'supersedes': os.path.relpath(prev, REPORTS) if prev else None,
         'generated_at_utc': datetime.now(timezone.utc).isoformat(),
-        'mandate': 'PRIORITY 4 Deliverable B — consolidated edge registry updated with net-of-cost OOS (momentum/mean_reversion, real cached spot). Fail-closed, no fabrication, no threshold weakening.',
+        'mandate': 'PRIORITY 4 Deliverable B — consolidated edge registry updated with net-of-cost OOS (momentum/mean_reversion, real cached spot) + Campaign 34 cointegration rigor phase 6 artifact + fail-closed unblock recheck. Fail-closed, no fabrication, no threshold weakening.',
         'provenance': {'real_data_only': True, 'fabricated_data': False, 'fail_closed': True, 'no_threshold_weakening': True},
         'pytest': pytest_counts,
-        'new_artifacts_this_session': [os.path.relpath(oos_path, REPORTS)],
+        'new_artifacts_this_session': [
+            os.path.relpath(oos_path, REPORTS),
+            'reports/cointegration_campaign33_mt.json',
+            'reports/real_feed_unblock_status_20261105T205102Z.json',
+        ],
         'families': families,
         'global_truth': {
             'pairs': 'PROVEN BLOCKED (fail-closed, 165/165, 0 breaches) on current real cached universe/window — do not re-scan/re-audit without NEW real dataset.',
