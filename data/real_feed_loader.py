@@ -11,6 +11,7 @@ as real data. This module never fabricates data.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from dataclasses import dataclass
@@ -228,7 +229,8 @@ def _check_schema(df: pd.DataFrame, spec: FamilySpec, report: dict[str, Any]) ->
             gaps = str(report.get("notes_limits_gaps", "")).lower()
             if "sentinel" not in gaps and "extreme" not in gaps:
                 _refuse(
-                    f"funding_rate has {extreme} values with |rate|>1.0 (undocumented sentinel/impossible)",
+                    f"funding_rate has {extreme} values with |rate|>1.0 "
+                    "(undocumented sentinel/impossible)",
                     report,
                 )
 
@@ -240,7 +242,8 @@ def _check_dual_venue_not_single_venue_proxy(df: pd.DataFrame, report: dict[str,
         pb = pd.to_numeric(df["price_venue_b"], errors="coerce")
         if (pa == pb).all():
             _refuse(
-                "price_venue_a equals price_venue_b on all rows; single venue mislabeled as dual venue (proxy), refused",
+                "price_venue_a equals price_venue_b on all rows; "
+                "single venue mislabeled as dual venue (proxy), refused",
                 report,
             )
 
@@ -598,28 +601,86 @@ def audit_cache_for_real_nonspot_feeds(
     return audit
 
 
+def discover_readiness_specs(reports_dir: str | Path) -> list[dict[str, Any]]:
+    """Discover real-feed readiness spec artifacts in *reports_dir* (fail-closed).
+
+    Returns references to files whose JSON declares
+    ``artifact == "real_feed_ingestion_readiness"`` or ``readiness_spec``-like
+    metadata, plus a few stable known names if present. Never fabricates content;
+    only reads existing files and records parse errors honestly.
+    """
+    reports_dir = Path(reports_dir)
+    found: list[dict[str, Any]] = []
+    if not reports_dir.exists():
+        return found
+    candidates = sorted(set(reports_dir.glob("*readiness*.json")))
+    for sp in candidates:
+        entry: dict[str, Any] = {"path": str(sp), "exists": True, "name": sp.name}
+        try:
+            obj = json.loads(sp.read_text(encoding="utf-8"))
+        except Exception as exc:
+            entry["read_error"] = f"{type(exc).__name__}:{exc}"
+            found.append(entry)
+            continue
+        if not isinstance(obj, dict):
+            entry["kind"] = "non_object_json"
+            found.append(entry)
+            continue
+        art = obj.get("artifact")
+        entry["artifact"] = art
+        entry["campaign"] = obj.get("campaign")
+        entry["generated_at_utc"] = obj.get("generated_at_utc")
+        families: list[str] = []
+        if isinstance(obj.get("feeds"), list):
+            for feed in obj["feeds"]:
+                if isinstance(feed, dict) and feed.get("family"):
+                    families.append(str(feed["family"]))
+        if obj.get("family"):
+            families.append(str(obj["family"]))
+        entry["families_covered"] = sorted(set(families))
+        is_relevant = art == "real_feed_ingestion_readiness" or bool(families)
+        entry["relevant_to_nonspot_unblock"] = bool(is_relevant)
+        if is_relevant:
+            found.append(entry)
+    return found
+
+
 def generate_unblock_status_report(
     cache_dir: str | Path,
     *,
     campaign: int | None = None,
     readiness_specs: list[str] | None = None,
+    reports_dir: str | Path | None = None,
+    auto_discover_readiness: bool = True,
 ) -> dict[str, Any]:
     """Generate a fail-closed unblock/readiness status report from cache state.
 
-    Combines ``audit_cache_for_real_nonspot_feeds`` with optional readiness spec
-    file references. Never fabricates data, never weakens validation, never sets
-    ``oos_edge_proven`` true. A family is unblocked only when a valid real
-    non-spot provenance artifact is present and passes validation.
+    Combines ``audit_cache_for_real_nonspot_feeds`` with readiness spec
+    references. If *readiness_specs* is omitted and *auto_discover_readiness* is
+    true, relevant readiness specs are discovered from *reports_dir* (or
+    ``cache_dir/../reports`` when reports_dir is omitted). Never fabricates
+    data, never weakens validation, never sets ``oos_edge_proven`` true. A
+    family is unblocked only when a valid real non-spot provenance artifact is
+    present and passes validation.
     """
     audit = audit_cache_for_real_nonspot_feeds(cache_dir, campaign=campaign)
     specs: list[dict[str, Any]] = []
-    for ref in readiness_specs or []:
+    refs = list(readiness_specs) if readiness_specs is not None else []
+    if readiness_specs is None and auto_discover_readiness:
+        rdir = (
+            Path(reports_dir)
+            if reports_dir is not None
+            else Path(cache_dir).resolve().parent.parent / "reports"
+        )
+        specs.extend(discover_readiness_specs(rdir))
+    for ref in refs:
         sp = Path(ref)
-        entry: dict[str, Any] = {"path": str(sp), "exists": sp.exists()}
+        entry: dict[str, Any] = {"path": str(sp), "exists": sp.exists(), "name": sp.name}
         if sp.exists():
             try:
                 obj = json.loads(sp.read_text(encoding="utf-8"))
                 entry["artifact"] = obj.get("artifact") if isinstance(obj, dict) else None
+                entry["campaign"] = obj.get("campaign") if isinstance(obj, dict) else None
             except Exception as exc:
                 entry["read_error"] = f"{type(exc).__name__}:{exc}"
         specs.append(entry)
@@ -650,7 +711,53 @@ def generate_unblock_status_report(
             "meta_files_scanned": audit["scan"].get("meta_files_scanned"),
             "candidate_hits": len(audit["scan"].get("candidate_hits", [])),
             "candidate_validation_count": len(audit.get("candidate_validation", [])),
-            "new_real_feeds_with_provenance_found": audit["scan"].get("new_real_feeds_with_provenance_found"),
+            "new_real_feeds_with_provenance_found": audit["scan"].get(
+                "new_real_feeds_with_provenance_found"
+            ),
         },
         "readiness_specs": specs,
     }
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: emit a fail-closed real-feed unblock status report.
+
+    Exit 0 on successful report emission (blocked or Path-R-eligible state is
+    honest data, not a CLI error). Exit 2 on invalid arguments/IO failures.
+    Never fabricates data or proves edge.
+    """
+    parser = argparse.ArgumentParser(
+        description="Fail-closed real non-spot feed unblock/readiness status report"
+    )
+    parser.add_argument("--cache-dir", default="data/cache", help="Cache directory to scan")
+    parser.add_argument(
+        "--reports-dir",
+        default="reports",
+        help="Reports directory for readiness discovery",
+    )
+    parser.add_argument("--campaign", type=int, default=None)
+    parser.add_argument("--output", default=None, help="Write JSON report to this path")
+    parser.add_argument(
+        "--no-auto-discover-readiness",
+        action="store_true",
+        help="Do not auto-discover readiness specs from reports dir",
+    )
+    args = parser.parse_args(argv)
+    report = generate_unblock_status_report(
+        Path(args.cache_dir),
+        campaign=args.campaign,
+        reports_dir=Path(args.reports_dir),
+        auto_discover_readiness=not args.no_auto_discover_readiness,
+    )
+    payload = json.dumps(report, indent=2, sort_keys=False) + "\n"
+    if args.output:
+        out = Path(args.output)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(payload, encoding="utf-8")
+    else:
+        print(payload, end="")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

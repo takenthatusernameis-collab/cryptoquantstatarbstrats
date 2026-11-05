@@ -19,6 +19,7 @@ from data.real_feed_loader import (
     INTRA_BAR_MICROSTRUCTURE_SPEC,
     TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
     RealFeedValidationError,
+    discover_readiness_specs,
     sha256_file,
     validate_and_load_real_feed,
 )
@@ -922,3 +923,93 @@ def test_generate_unblock_status_report_records_readiness_specs(tmp_path: Path):
     assert result["readiness_specs"][0]["exists"] is True
     assert result["readiness_specs"][0]["artifact"] == "x"
     assert result["readiness_specs"][1]["exists"] is False
+
+
+def test_discover_readiness_specs_finds_real_feed_readiness(tmp_path: Path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    spec = reports / "real_feed_ingestion_readiness_20261105T104640Z.json"
+    spec.write_text(
+        json.dumps(
+            {
+                "artifact": "real_feed_ingestion_readiness",
+                "campaign": 9,
+                "feeds": [
+                    {"family": "funding_basis_carry"},
+                    {"family": "cross_exchange_dual_venue_same_asset"},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    unrelated = reports / "live_readiness_checklist_mt.json"
+    unrelated.write_text(json.dumps({"status": "blocked"}), encoding="utf-8")
+    found = discover_readiness_specs(reports)
+    assert len(found) == 1
+    assert found[0]["artifact"] == "real_feed_ingestion_readiness"
+    assert "funding_basis_carry" in found[0]["families_covered"]
+    assert found[0]["relevant_to_nonspot_unblock"] is True
+
+
+def test_discover_readiness_specs_handles_parse_error(tmp_path: Path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    bad = reports / "bad_readiness.json"
+    bad.write_text("{not json", encoding="utf-8")
+    found = discover_readiness_specs(reports)
+    assert len(found) == 1
+    assert found[0]["read_error"].startswith("JSONDecodeError:")
+
+
+def test_generate_unblock_status_report_auto_discovers_readiness(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    spec = reports / "real_feed_ingestion_readiness_20261105T104640Z.json"
+    spec.write_text(
+        json.dumps(
+            {
+                "artifact": "real_feed_ingestion_readiness",
+                "feeds": [{"family": "funding_basis_carry"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = generate_unblock_status_report(cache, campaign=19, reports_dir=reports)
+    assert result["campaign"] == 19
+    assert result["oos_edge_proven"] is False
+    assert result["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
+    assert len(result["readiness_specs"]) == 1
+    assert result["readiness_specs"][0]["artifact"] == "real_feed_ingestion_readiness"
+
+
+def test_unblock_status_cli_writes_report(tmp_path: Path):
+    from data.real_feed_loader import main
+
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    out = tmp_path / "out.json"
+    rc = main(
+        [
+            "--cache-dir",
+            str(cache),
+            "--reports-dir",
+            str(reports),
+            "--campaign",
+            "19",
+            "--output",
+            str(out),
+            "--no-auto-discover-readiness",
+        ]
+    )
+    assert rc == 0
+    obj = json.loads(out.read_text(encoding="utf-8"))
+    assert obj["tool"] == "data.real_feed_loader.generate_unblock_status_report"
+    assert obj["campaign"] == 19
+    assert obj["path_r_triggered"] is False
+    assert obj["oos_edge_proven"] is False
+    assert obj["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
+    assert obj["readiness_specs"] == []
