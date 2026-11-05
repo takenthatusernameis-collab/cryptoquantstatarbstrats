@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T09:38:21Z
+# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T09:40:13Z
 
 ## READ THIS FIRST / DO THIS NOW (NO REHASH, NO INVESTIGATION-ONLY)
 **You are the next session. Execute INITIAL TASK MESSAGE / PRIORITY 7 below immediately.** Repo `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. Repo-name inference: the core mission is statistical-arbitrage edge research on crypto, on **real data only**, fail-closed, leaving **heavy artifacts**. Only acceptable progress: **heavy, fail-closed, real-data work that leaves artifacts**. **Every session leaves >=2 new concrete artifacts in `reports/`.** Real data only. Never fabricate. No threshold weakening. No proxies labeled as real feeds. Do not re-litigate pairs. Commit nothing unless explicitly asked.
