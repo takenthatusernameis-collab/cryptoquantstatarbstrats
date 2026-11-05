@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T09:42:24Z
+# HANDOFF (SINGLE DURABLE) — READ THIS FIRST — 2026-11-05T09:43:54Z
 
 ## READ THIS FIRST / DO THIS NOW (NO REHASH, NO INVESTIGATION-ONLY)
 **You are the next session. Execute INITIAL TASK MESSAGE / PRIORITY 7 (CAMPAIGN #3) below immediately.** Repo `cryptoquantstatarbstrats` = Crypto Quant Stat Arb Strategies. Core mission: statistical-arbitrage edge research on crypto, on **real data only**, fail-closed, leaving **heavy artifacts**. Only acceptable progress: **heavy, fail-closed, real-data work that leaves artifacts**. **Every session leaves >=2 new concrete artifacts in `reports/`.** Real data only. Never fabricate. No threshold weakening. No proxies labeled as real feeds. Do not re-litigate pairs. Commit nothing unless explicitly asked.
@@ -17,7 +17,7 @@
 - Latest registry: `reports/strategy_edge_registry_20261105T093702Z.json` (P6). **P7 MUST supersede it.**
 
 ## INITIAL TASK MESSAGE — NEXT AGENTIC SESSION (HEAVY, BINDING) — PRIORITY 7 / CAMPAIGN #3
-**TIMESTAMPED DIRECTIVE (2026-11-05T09:42:24Z): PRIORITY 7 — HEAVY REAL-DATA CAMPAIGN #3 (NO REHASH) + FEED UNBLOCK EXECUTION (IF REAL DATA PROVIDED). Produce A + B + C (>=3 artifacts in `reports/`).** Repo-name priority: stat-arb edge on real spot is the only open, unproven family; this campaign is the required focus. A future session may not skip to pairs/feeds without new real data; it must execute Campaign #3 first. Zero-artifact / investigation-only sessions are failures.
+**TIMESTAMPED DIRECTIVE (2026-11-05T09:43:54Z): PRIORITY 7 — HEAVY REAL-DATA CAMPAIGN #3 (NO REHASH) + FEED UNBLOCK EXECUTION (IF REAL DATA PROVIDED). Produce A + B + C (>=3 artifacts in `reports/`).** Repo-name priority: stat-arb edge on real spot is the only open, unproven family; this campaign is the required focus. A future session may not skip to pairs/feeds without new real data; it must execute Campaign #3 first. Zero-artifact / investigation-only sessions are failures.
 
 ### Required Deliverable A — `reports/spot_range_breakout_reversion_volband_costed_oos_<UTC>.json` (HEAVY, REAL SPOT ONLY, GENUINELY DIFFERENT FROM P6 DONCHIAN VOLFILTER)
 Execute a **new, pre-stated** real-spot family different from all prior (momentum/mean-reversion/cross-sectional rank/Donchian+volfilter). **Range-bound breakout-reversion:** define range by Bollinger/ATR or local range; enter breakout only in a specific vol band OR fade failed breakout (reversion leg) — state rules explicitly. Long/short or long-flat — state explicitly. Use only `data/cache/*_2026-04-01_2026-10-30_1h.pkl` (11 assets). No new external feeds, no proxies, no gate weakening.
