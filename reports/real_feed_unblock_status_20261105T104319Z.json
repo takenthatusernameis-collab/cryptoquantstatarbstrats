@@ -1,0 +1,130 @@
+{
+  "report": "real_feed_unblock_status",
+  "generated_at_utc": "2026-11-05T10:43:19.089295+00:00",
+  "mandate": "PRIORITY 12 / Campaign #8 Path C Deliverable 2 \u2014 honest re-check for newly added real feeds with provenance. No fabrication/proxies.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "new_external_feeds": false,
+    "proxies": false
+  },
+  "recheck": {
+    "cache_dir": "data/cache",
+    "new_real_feed_files_with_provenance_found": [],
+    "spot_1h_caches_verified": "11 assets 2026-04-01..2026-10-30 1h present (0bab5d6a..., 5112 bars, Binance public spot meta). Unchanged.",
+    "notes": "No genuinely new real feed files with provenance added (funding/basis/spot-perp/dual-venue/real IV/vol surface/intrabar). Spot-only hypothesis space on current cache is exhausted per memo."
+  },
+  "assessment": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed",
+    "pairs_cointegration": "PROVEN BLOCKED on current real cached universe/window (fail-closed); do not re-scan without NEW real dataset",
+    "spot_only_cached_1h": "EXHAUSTED across tested structurally distinct families (P4-P11) on current window"
+  },
+  "required_schemas_still_needed": {
+    "global_requirements": [
+      "Verifiable provenance: source, retrieval method, timestamps, symbol mapping, timezone, license/access constraints recorded in metadata sidecar.",
+      "Immutable cached artifact in data/cache (or designated raw-data path) with checksum/hash recorded; no in-place silent mutation.",
+      "Schema validation + fail-closed loader: reject missing columns, bad timestamps, duplicates, lookahead leakage, synthetic/proxy fields labeled as real.",
+      "Explicit fee/carry/margin/transfer assumptions for any tradable strategy; net-of-cost/carry OOS required.",
+      "Pre-stated walk-forward and cost grid before seeing OOS results; oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows.",
+      "No threshold weakening, no proxies labeled real, fabricated_data=false."
+    ],
+    "funding_basis_carry": {
+      "schema": {
+        "required_series": [
+          "perp_mark_or_last",
+          "spot_index_or_spot",
+          "funding_rate",
+          "funding_interval",
+          "timestamps_utc"
+        ],
+        "optional_but_recommended": [
+          "open_interest",
+          "borrow_rate_if_spot_short",
+          "venue_liquidity_depth"
+        ],
+        "alignment": "strict timestamp alignment across perp/spot/funding; document resample/forward-fill rules (prefer none; if any, causal only and disclosed).",
+        "costs": [
+          "taker/maker fees both legs",
+          "slippage model",
+          "funding carry sign/magnitude",
+          "margin/collateral constraints if modeled"
+        ]
+      },
+      "provenance_validation": [
+        "exchange+endpoint documented",
+        "raw response/sample hash or immutable snapshot",
+        "symbol/contract mapping verified",
+        "missing/funding-gap handling fail-closed"
+      ]
+    },
+    "dual_venue_cross_exchange": {
+      "schema": {
+        "required_series": [
+          "venue_a_price",
+          "venue_b_price",
+          "timestamps_utc",
+          "asset_symbol_normalized"
+        ],
+        "optional_but_recommended": [
+          "bid_ask",
+          "depth",
+          "withdrawal/deposit_latency_or_transfer_cost_assumptions"
+        ],
+        "alignment": "same-asset matching verified; clock skew handling documented; no lookahead.",
+        "costs": [
+          "fees both venues",
+          "slippage",
+          "transfer/latency/capital lockup assumptions stated",
+          "inventory/short constraints stated"
+        ]
+      },
+      "provenance_validation": [
+        "both venues documented",
+        "same underlying instrument verified",
+        "stale-quote handling fail-closed"
+      ]
+    },
+    "real_iv_vol_surface": {
+      "schema": {
+        "required_series": [
+          "underlying",
+          "expiry",
+          "strike_or_delta",
+          "option_type",
+          "implied_vol_or_mark_iv",
+          "timestamps_utc"
+        ],
+        "optional_but_recommended": [
+          "bid_iv",
+          "ask_iv",
+          "mark_price",
+          "greeks_if_provided",
+          "term_structure_points"
+        ],
+        "alignment": "surface/term snapshots aligned to decision time; no forward-filled future IV.",
+        "costs": [
+          "option fees/spreads",
+          "margin/haircut assumptions",
+          "hedge/rebalance costs if strategy requires"
+        ]
+      },
+      "provenance_validation": [
+        "listed venue/provider documented (e.g., Deribit/other real source) \u2014 not synthetic",
+        "contract specs verified",
+        "missing-surface handling fail-closed"
+      ]
+    }
+  },
+  "references": {
+    "exhaustion_memo": "spot_universe_exhausted_memo_20261105T104319Z.json",
+    "prior_status_p11": "reports/real_feed_unblock_status_20261105T104010Z.json",
+    "inventory": "reports/real_feed_inventory_20261105T084255Z.json",
+    "unblock_plan": "reports/real_feed_unblock_plan_20261105T084447Z.json"
+  },
+  "validation_run": "none_ingested_no_new_real_feeds_with_provenance"
+}

@@ -1,0 +1,122 @@
+{
+  "report": "strategy_edge_registry",
+  "supersedes": "reports/strategy_edge_registry_20261105T104010Z.json",
+  "generated_at_utc": "2026-11-05T10:43:19.089295+00:00",
+  "mandate": "PRIORITY 12 / Campaign #8 Path C \u2014 superseding registry: records spot-only exhaustion memo + honest feed recheck + rerun test counts. Fail-closed, real data only.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "new_external_feeds": false,
+    "proxies": false
+  },
+  "pytest": {
+    "command": "PYTHONPATH=/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages /home/runner/work/_temp/kilo-home/.local/bin/pytest -q",
+    "raw_tail": "832 passed, 1 skipped, 3561 warnings in 40.30s",
+    "returncode": 0,
+    "duration_s_measured": 40.74,
+    "passed": 832,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3561,
+    "duration_s_reported": 40.3
+  },
+  "new_artifacts_this_session": [
+    "spot_universe_exhausted_memo_20261105T104319Z.json",
+    "real_feed_unblock_status_20261105T104319Z.json",
+    "strategy_edge_registry_20261105T104319Z.json"
+  ],
+  "spot_only_cached_status": {
+    "status": "EXHAUSTED_PRESTATED_STRUCTURALLY_DISTINCT_FAMILIES",
+    "window": "2026-04-01..2026-10-30 1h, 11 assets, Binance spot cache 0bab5d6a...",
+    "tested": [
+      "P4 momentum",
+      "P4 mean_reversion",
+      "P5 xsec rank",
+      "P6 Donchian breakout+volfilter",
+      "P7 range breakout-reversion+volband",
+      "P9 pairwise OLS-hedge spread MR",
+      "P10 residual momentum",
+      "P11 lead-lag diffusion"
+    ],
+    "oos_edge_proven_any": false,
+    "exhaustion_memo": "spot_universe_exhausted_memo_20261105T104319Z.json"
+  },
+  "real_feed_status": {
+    "cross_exchange_dual_venue_same_asset": "blocked_no_real_feed",
+    "funding_basis_carry": "blocked_no_real_feed",
+    "term_structure_real_iv_vol_surface": "blocked_no_real_feed",
+    "intrabar_microstructure": "blocked_no_real_feed",
+    "pairs_cointegration": "PROVEN BLOCKED on current real cached universe/window (fail-closed); do not re-scan without NEW real dataset",
+    "spot_only_cached_1h": "EXHAUSTED across tested structurally distinct families (P4-P11) on current window"
+  },
+  "families_summary": [
+    {
+      "family": "pairs_cointegration",
+      "status": "PROVEN_BLOCKED_NO_RESCAN"
+    },
+    {
+      "family": "momentum/P4",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/momentum_mr_costed_oos_20261105T081323Z.json"
+    },
+    {
+      "family": "mean_reversion/P4",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/momentum_mr_costed_oos_20261105T081323Z.json"
+    },
+    {
+      "family": "xsec_rank/P5",
+      "status": "NO_NET_OOS_EDGE",
+      "artifact": "reports/spot_alt_signal_costed_oos_20261105T084619Z.json"
+    },
+    {
+      "family": "donchian_breakout_volfilter/P6",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/spot_breakout_volfilter_costed_oos_20261105T093626Z.json"
+    },
+    {
+      "family": "range_breakout_reversion_volband/P7",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/spot_range_breakout_reversion_volband_costed_oos_20261105T094822Z.json"
+    },
+    {
+      "family": "pairwise_spread_mr/P9",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/spot_zscore_regime_mean_reversion_costed_oos_20261105T095617Z.json"
+    },
+    {
+      "family": "residual_momentum/P10",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/spot_residual_momentum_costed_oos_20261105T100459Z.json"
+    },
+    {
+      "family": "leadlag_diffusion/P11",
+      "status": "NO_NET_OOS_EDGE_0_of_11",
+      "artifact": "reports/spot_leadlag_diffusion_costed_oos_20261105T103856Z.json"
+    },
+    {
+      "family": "cross_exchange_dual_venue",
+      "status": "BLOCKED_NO_REAL_FEED"
+    },
+    {
+      "family": "funding_basis_carry",
+      "status": "BLOCKED_NO_REAL_FEED"
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "status": "BLOCKED_NO_REAL_FEED"
+    }
+  ],
+  "top_priority_next": {
+    "recommendation": "Path R only if a genuinely new real feed is ingested WITH verifiable provenance (funding/basis, dual-venue, or real IV/vol surface/intrabar). Otherwise remain in honest exhausted/blocked state; do not generate structurally-similar spot retests on the same cache as \"new\" campaigns. Any new-feed test must be pre-stated, fail-closed, net-of-cost/carry OOS with benchmark.",
+    "do_not": [
+      "re-scan pairs on same universe",
+      "weaken gates",
+      "fabricate feeds",
+      "label proxies real",
+      "claim edge without all-slice net>0 + benchmark beat"
+    ]
+  }
+}

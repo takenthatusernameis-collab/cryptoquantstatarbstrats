@@ -1,0 +1,248 @@
+{
+  "report": "spot_universe_exhausted_memo",
+  "generated_at_utc": "2026-11-05T10:43:19.089295+00:00",
+  "mandate": "PRIORITY 12 / Campaign #8 Path C \u2014 fail-closed memo: structurally distinct spot-only hypothesis space exhausted on current real cached spot 1h window; no new real feed ingested. Not a proven-edge claim.",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "no_threshold_weakening": true,
+    "new_external_feeds": false,
+    "proxies": false
+  },
+  "oos_edge_proven": false,
+  "scope": {
+    "real_spot_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}",
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "window": "2026-04-01..2026-10-30",
+    "interval": "1h",
+    "bars": 5112,
+    "source": "Binance public spot (cached, provenance in meta)",
+    "walk_forward_protocol": "train=720 bars, test=168 bars, step=168 bars (causal, no lookahead)",
+    "cost_grid_bps_combos": "0/5/10/20 combos (round-trip/taker-equivalent as pre-stated per artifact); benchmark buy-and-hold same window",
+    "note": "Use cache as-is. Do not re-fetch. No intrabar data available."
+  },
+  "tested_families_exhausted": [
+    {
+      "id": "P4-momentum",
+      "artifact": "reports/momentum_mr_costed_oos_20261105T081323Z.json",
+      "family": "raw_momentum",
+      "structure": "single-asset lookback return sign",
+      "result": "0/11 net-of-cost OOS edge proven"
+    },
+    {
+      "id": "P4-mean_reversion",
+      "artifact": "reports/momentum_mr_costed_oos_20261105T081323Z.json",
+      "family": "raw_mean_reversion",
+      "structure": "single-asset z-score reversion",
+      "result": "0/11 net-of-cost OOS edge proven"
+    },
+    {
+      "id": "P5-xsec_rank",
+      "artifact": "reports/spot_alt_signal_costed_oos_20261105T084619Z.json",
+      "family": "cross_sectional_risk_adjusted_return_rank",
+      "structure": "cross-sectional rank of risk-adjusted returns",
+      "result": "no proven net-of-cost OOS edge"
+    },
+    {
+      "id": "P6-donchian",
+      "artifact": "reports/spot_breakout_volfilter_costed_oos_20261105T093626Z.json",
+      "family": "donchian_breakout_volfilter",
+      "structure": "Donchian channel breakout + volatility filter",
+      "result": "0/11 net-of-cost OOS edge proven"
+    },
+    {
+      "id": "P7-range_breakout_reversion",
+      "artifact": "reports/spot_range_breakout_reversion_volband_costed_oos_20261105T094822Z.json",
+      "family": "range_breakout_reversion_volband",
+      "structure": "range breakout-reversion with volatility band",
+      "result": "0/11 net-of-cost OOS edge proven"
+    },
+    {
+      "id": "P9-pairwise_spread_mr",
+      "artifact": "reports/spot_zscore_regime_mean_reversion_costed_oos_20261105T095617Z.json",
+      "family": "spot_zscore_regime_mean_reversion_pairs",
+      "structure": "pairwise OLS-hedge spread z-score mean reversion (55 pairs, train-fit hedge)",
+      "result": "0/11/aggregate net-of-cost OOS edge proven"
+    },
+    {
+      "id": "P10-residual_momentum",
+      "artifact": "reports/spot_residual_momentum_costed_oos_20261105T100459Z.json",
+      "family": "spot_residual_momentum",
+      "structure": "causal idiosyncratic residual momentum (train residualization)",
+      "result": "0/11 net-of-cost OOS edge proven; BTC gross>BH at 0bps but fails all-slice net/benchmark rule"
+    },
+    {
+      "id": "P11-leadlag_diffusion",
+      "artifact": "reports/spot_leadlag_diffusion_costed_oos_20261105T103856Z.json",
+      "family": "spot_leadlag_diffusion",
+      "structure": "causal lead-lag cross-asset diffusion (train-selected leader+lag, lagged leader z-score, direction fixed by train corr)",
+      "result": "0/11 net-of-cost OOS edge proven"
+    }
+  ],
+  "exhaustion_assessment": {
+    "structurally_distinct_spot_only_families_tested": 8,
+    "conclusion": "EXHAUSTED on current 11-asset 2026-04-01..2026-10-30 1h Binance spot cache under pre-stated WF/cost/benchmark protocol. No tested family achieved all-slices net-of-cost OOS > 0 AND beat benchmark on same WF windows with exposure>0.",
+    "fail_closed": true
+  },
+  "remaining_prestated_micro_hypotheses_ruled_out": [
+    {
+      "hypothesis": "Volatility-managed / target-vol sizing overlay on each tested signal family (P4-P11) using causal trailing realized vol.",
+      "ruling": "NOT JUSTIFIED AS NEW STRUCTURAL EDGE on this window without re-running full WF artifacts; overlays are sizing transforms of already-tested directional signals. Prior results show directional gross edges generally fail at realistic cost grid or vs B&H benchmark across slices \u2014 vol scaling does not create a new information source and cannot turn negative net-of-cost OOS into proven edge without violating pre-statement discipline. If attempted later, must be a new pre-stated artifact with causal vol estimate and same fail-closed rule; not executed now to avoid structurally-similar retest presented as new.",
+      "testable_here": "possible_but_not_new_structure"
+    },
+    {
+      "hypothesis": "Regime filter (e.g., trend/vol regime) gating existing P4-P11 signals, causally estimated on train/trailing window.",
+      "ruling": "NOT A NEW ALPHA FAMILY; gating reduces exposure and may worsen net-of-cost after turnover in some slices. Cannot be claimed as structurally distinct edge without a new pre-stated WF artifact. Ruled out as a Campaign #8 \"new family\" action; if pursued, must be explicitly pre-stated and fail-closed.",
+      "testable_here": "possible_but_not_new_structure"
+    },
+    {
+      "hypothesis": "Intrabar/microstructure alpha (order flow imbalance, trade-sign imbalance, bid-ask dynamics, latency arb).",
+      "ruling": "NOT TESTABLE on current cache: only 1h OHLCV-equivalent spot bars available; no tick/trade/book/intrabar data with provenance. Requires new real feed.",
+      "testable_here": false,
+      "blocked_by": "blocked_no_real_feed_intrabar"
+    },
+    {
+      "hypothesis": "Funding/basis/carry (spot-perp, perp-perp funding capture).",
+      "ruling": "NOT TESTABLE on current cache: no real perp/funding/basis series with provenance.",
+      "testable_here": false,
+      "blocked_by": "blocked_no_real_feed"
+    },
+    {
+      "hypothesis": "Cross-exchange / dual-venue same-asset arbitrage.",
+      "ruling": "NOT TESTABLE on current cache: single-venue spot only (Binance public). No dual-venue timestamps/fees/transfer constraints with provenance.",
+      "testable_here": false,
+      "blocked_by": "blocked_no_real_feed"
+    },
+    {
+      "hypothesis": "Options/IV term-structure or volatility-surface arbitrage with real listed IV.",
+      "ruling": "NOT TESTABLE on current cache: no real listed IV/vol surface/term structure with provenance.",
+      "testable_here": false,
+      "blocked_by": "blocked_no_real_feed"
+    },
+    {
+      "hypothesis": "On-chain flow / exchange flow / sentiment / macro alt-data signals.",
+      "ruling": "NOT TESTABLE without new real feed + provenance. Proxies (synthetic, inferred, or unlabeled) are forbidden.",
+      "testable_here": false,
+      "blocked_by": "blocked_no_real_feed"
+    },
+    {
+      "hypothesis": "Higher-frequency resampling variants (e.g., 5m/15m) of same spot families.",
+      "ruling": "NOT TESTABLE on current 1h-only cache without new real data ingestion; re-fetching same window at different granularity would be a data change requiring provenance validation and is not present. Do not fabricate.",
+      "testable_here": false,
+      "blocked_by": "no_cached_real_subhour_feed"
+    }
+  ],
+  "real_feed_acquisition_checklist": {
+    "global_requirements": [
+      "Verifiable provenance: source, retrieval method, timestamps, symbol mapping, timezone, license/access constraints recorded in metadata sidecar.",
+      "Immutable cached artifact in data/cache (or designated raw-data path) with checksum/hash recorded; no in-place silent mutation.",
+      "Schema validation + fail-closed loader: reject missing columns, bad timestamps, duplicates, lookahead leakage, synthetic/proxy fields labeled as real.",
+      "Explicit fee/carry/margin/transfer assumptions for any tradable strategy; net-of-cost/carry OOS required.",
+      "Pre-stated walk-forward and cost grid before seeing OOS results; oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows.",
+      "No threshold weakening, no proxies labeled real, fabricated_data=false."
+    ],
+    "funding_basis_carry": {
+      "schema": {
+        "required_series": [
+          "perp_mark_or_last",
+          "spot_index_or_spot",
+          "funding_rate",
+          "funding_interval",
+          "timestamps_utc"
+        ],
+        "optional_but_recommended": [
+          "open_interest",
+          "borrow_rate_if_spot_short",
+          "venue_liquidity_depth"
+        ],
+        "alignment": "strict timestamp alignment across perp/spot/funding; document resample/forward-fill rules (prefer none; if any, causal only and disclosed).",
+        "costs": [
+          "taker/maker fees both legs",
+          "slippage model",
+          "funding carry sign/magnitude",
+          "margin/collateral constraints if modeled"
+        ]
+      },
+      "provenance_validation": [
+        "exchange+endpoint documented",
+        "raw response/sample hash or immutable snapshot",
+        "symbol/contract mapping verified",
+        "missing/funding-gap handling fail-closed"
+      ]
+    },
+    "dual_venue_cross_exchange": {
+      "schema": {
+        "required_series": [
+          "venue_a_price",
+          "venue_b_price",
+          "timestamps_utc",
+          "asset_symbol_normalized"
+        ],
+        "optional_but_recommended": [
+          "bid_ask",
+          "depth",
+          "withdrawal/deposit_latency_or_transfer_cost_assumptions"
+        ],
+        "alignment": "same-asset matching verified; clock skew handling documented; no lookahead.",
+        "costs": [
+          "fees both venues",
+          "slippage",
+          "transfer/latency/capital lockup assumptions stated",
+          "inventory/short constraints stated"
+        ]
+      },
+      "provenance_validation": [
+        "both venues documented",
+        "same underlying instrument verified",
+        "stale-quote handling fail-closed"
+      ]
+    },
+    "real_iv_vol_surface": {
+      "schema": {
+        "required_series": [
+          "underlying",
+          "expiry",
+          "strike_or_delta",
+          "option_type",
+          "implied_vol_or_mark_iv",
+          "timestamps_utc"
+        ],
+        "optional_but_recommended": [
+          "bid_iv",
+          "ask_iv",
+          "mark_price",
+          "greeks_if_provided",
+          "term_structure_points"
+        ],
+        "alignment": "surface/term snapshots aligned to decision time; no forward-filled future IV.",
+        "costs": [
+          "option fees/spreads",
+          "margin/haircut assumptions",
+          "hedge/rebalance costs if strategy requires"
+        ]
+      },
+      "provenance_validation": [
+        "listed venue/provider documented (e.g., Deribit/other real source) \u2014 not synthetic",
+        "contract specs verified",
+        "missing-surface handling fail-closed"
+      ]
+    }
+  },
+  "next_actions_binding": {
+    "if_no_new_real_feed": "Next session must not invent new spot-only families on this same cache/window; only Path R if genuinely new real feed with provenance is ingested, else maintain honest blocked/exhausted status with >=3 artifacts if a handoff refresh is required.",
+    "if_new_real_feed": "Ingest with provenance -> schema-validate fail-closed -> pre-state WF/costs -> produce *_costed_oos_<UTC>.json + feed_unblock_status + registry supersede (>=3)."
+  }
+}
