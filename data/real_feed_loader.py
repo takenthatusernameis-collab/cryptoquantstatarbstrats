@@ -596,3 +596,61 @@ def audit_cache_for_real_nonspot_feeds(
             entry["rows"] = report.get("rows")
             audit["candidate_validation"].append(entry)
     return audit
+
+
+def generate_unblock_status_report(
+    cache_dir: str | Path,
+    *,
+    campaign: int | None = None,
+    readiness_specs: list[str] | None = None,
+) -> dict[str, Any]:
+    """Generate a fail-closed unblock/readiness status report from cache state.
+
+    Combines ``audit_cache_for_real_nonspot_feeds`` with optional readiness spec
+    file references. Never fabricates data, never weakens validation, never sets
+    ``oos_edge_proven`` true. A family is unblocked only when a valid real
+    non-spot provenance artifact is present and passes validation.
+    """
+    audit = audit_cache_for_real_nonspot_feeds(cache_dir, campaign=campaign)
+    specs: list[dict[str, Any]] = []
+    for ref in readiness_specs or []:
+        sp = Path(ref)
+        entry: dict[str, Any] = {"path": str(sp), "exists": sp.exists()}
+        if sp.exists():
+            try:
+                obj = json.loads(sp.read_text(encoding="utf-8"))
+                entry["artifact"] = obj.get("artifact") if isinstance(obj, dict) else None
+            except Exception as exc:
+                entry["read_error"] = f"{type(exc).__name__}:{exc}"
+        specs.append(entry)
+    blocked = [
+        fam for fam, info in audit["families"].items()
+        if info.get("status") != "real_feed_with_provenance_present"
+    ]
+    return {
+        "tool": "data.real_feed_loader.generate_unblock_status_report",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "campaign": campaign,
+        "fail_closed": True,
+        "real_data_only": True,
+        "fabricated_data": False,
+        "no_proxies_labeled_real": True,
+        "oos_edge_proven": False,
+        "path_r_triggered": bool(audit["scan"].get("new_real_feeds_with_provenance_found")),
+        "conclusion": (
+            "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT"
+            if audit["scan"].get("new_real_feeds_with_provenance_found")
+            else "PATH_C_MAINTAIN_STILL_BLOCKED"
+        ),
+        "blocked_families": blocked,
+        "families": audit["families"],
+        "audit_conclusion": audit["conclusion"],
+        "scan_summary": {
+            "cache_dir": audit["scan"].get("cache_dir"),
+            "meta_files_scanned": audit["scan"].get("meta_files_scanned"),
+            "candidate_hits": len(audit["scan"].get("candidate_hits", [])),
+            "candidate_validation_count": len(audit.get("candidate_validation", [])),
+            "new_real_feeds_with_provenance_found": audit["scan"].get("new_real_feeds_with_provenance_found"),
+        },
+        "readiness_specs": specs,
+    }

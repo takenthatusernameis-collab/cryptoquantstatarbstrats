@@ -1,0 +1,102 @@
+{
+  "artifact": "real_feed_unblock_status_20261105T135404Z",
+  "campaign": 18,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T13:54:50.906692+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/real_feed_unblock_status_20261105T134814Z.json",
+  "fail_closed": true,
+  "real_data_only": true,
+  "no_fabrication": true,
+  "no_proxies_labeled_real": true,
+  "tool_report": {
+    "tool": "data.real_feed_loader.generate_unblock_status_report",
+    "generated_at_utc": "2026-11-05T13:54:50.906684+00:00",
+    "campaign": 18,
+    "fail_closed": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "no_proxies_labeled_real": true,
+    "oos_edge_proven": false,
+    "path_r_triggered": false,
+    "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "families": {
+      "funding_basis_carry": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "cross_exchange_dual_venue_same_asset": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "term_structure_real_iv_vol_surface": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "intrabar_microstructure": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      }
+    },
+    "audit_conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS",
+    "scan_summary": {
+      "cache_dir": "data/cache",
+      "meta_files_scanned": 21,
+      "candidate_hits": 0,
+      "candidate_validation_count": 0,
+      "new_real_feeds_with_provenance_found": false
+    },
+    "readiness_specs": [
+      {
+        "path": "reports/funding_basis_carry_real_feed_readiness_20261105T104640Z.json",
+        "exists": false
+      },
+      {
+        "path": "reports/cross_exchange_dual_venue_same_asset_real_feed_readiness_20261105T114512Z.json",
+        "exists": false
+      },
+      {
+        "path": "reports/term_structure_real_iv_vol_surface_real_feed_readiness_20261105T114512Z.json",
+        "exists": false
+      },
+      {
+        "path": "reports/intrabar_microstructure_real_feed_readiness_20261105T124347Z.json",
+        "exists": false
+      }
+    ]
+  },
+  "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+  "path_r_triggered": false,
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "families": {
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "action_required_for_path_r": "Ingest genuinely new real feed(s) with immutable provenance into data/cache/ and validate via real_feed_loader.validate_and_load_real_feed / generate_unblock_status_report before claiming ingestion/edge.",
+  "oos_edge_proven": false
+}

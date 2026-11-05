@@ -869,3 +869,56 @@ def test_audit_cache_records_candidate_refusal(tmp_path: Path):
         v["ok"] is False and v["refused"] is True
         for v in result["candidate_validation"]
     )
+
+
+# --- Campaign #18: generate_unblock_status_report (fail-closed infrastructure) ---
+from data.real_feed_loader import generate_unblock_status_report  # noqa: E402
+
+
+def test_generate_unblock_status_report_no_candidates(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    (cache / "spot.meta.json").write_text(json.dumps({"kind": "binance_spot"}), encoding="utf-8")
+    result = generate_unblock_status_report(cache, campaign=18)
+    assert result["fail_closed"] is True
+    assert result["real_data_only"] is True
+    assert result["fabricated_data"] is False
+    assert result["oos_edge_proven"] is False
+    assert result["campaign"] == 18
+    assert result["path_r_triggered"] is False
+    assert result["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
+    assert result["audit_conclusion"] == "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+    assert set(result["blocked_families"]) == {
+        "funding_basis_carry",
+        "cross_exchange_dual_venue_same_asset",
+        "term_structure_real_iv_vol_surface",
+        "intrabar_microstructure",
+    }
+    assert result["scan_summary"]["candidate_hits"] == 0
+    assert result["scan_summary"]["new_real_feeds_with_provenance_found"] is False
+
+
+def test_generate_unblock_status_report_accepts_valid_nonspot(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    _write_artifact(cache, _valid_df())
+    result = generate_unblock_status_report(cache, campaign=18)
+    assert result["path_r_triggered"] is True
+    assert result["conclusion"] == "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT"
+    assert "funding_basis_carry" not in result["blocked_families"]
+    assert result["scan_summary"]["new_real_feeds_with_provenance_found"] is True
+    assert result["oos_edge_proven"] is False
+
+
+def test_generate_unblock_status_report_records_readiness_specs(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    spec = tmp_path / "spec.json"
+    spec.write_text(json.dumps({"artifact": "x"}), encoding="utf-8")
+    missing = tmp_path / "missing.json"
+    result = generate_unblock_status_report(
+        cache, campaign=18, readiness_specs=[str(spec), str(missing)]
+    )
+    assert result["readiness_specs"][0]["exists"] is True
+    assert result["readiness_specs"][0]["artifact"] == "x"
+    assert result["readiness_specs"][1]["exists"] is False
