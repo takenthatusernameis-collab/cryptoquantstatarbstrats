@@ -1,6 +1,9 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T02:13:02Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T02:44:59Z
 
 REPO: cryptoquantstatarbstrats. PRIORITY: pairs/spreads/cointegration = core edge.
+
+## INITIAL TASK (CLEAR, HEAVY WORK — DO NOT INVESTIGATE-ONLY)
+Start immediately: edit `utils/cointegration.py::rolling_cointegration_stability` to produce >=2 windows on trailing 60/120-bar causal samples (shrink window/step, heavier overlap, min_windows>=2 when >=3 impossible) while keeping real p-values from `engle_granger_test` and NOT raising `frac_significant >= 0.6`; then mirror the causal per-bar path in `strategies/pairs_trading.py`; verify on BTC/ETH trailing 120 bars; rerun `examples/run_pairs_multi.py` and confirm gate breakdown written to `reports/`. Heavy working immediately.
 
 ## STATUS (HONEST)
 - `examples/run_pairs_multi.py` exits 0 with `trades_count=0` on real Binance 1h 2026-04-01→2026-10-28 (BTC/ETH, ETH/SOL, BTC/SOL).
