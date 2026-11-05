@@ -532,6 +532,7 @@ def scan_cache_for_real_nonspot_feeds(
     return result
 
 
+
 NONSPOT_FAMILY_KEYWORDS: dict[str, tuple[str, ...]] = {
     "funding_basis_carry": ("funding", "basis", "carry", "perp"),
     "cross_exchange_dual_venue_same_asset": (

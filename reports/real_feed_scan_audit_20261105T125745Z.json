@@ -1,0 +1,69 @@
+{
+  "artifact": "real_feed_scan_audit_20261105T125745Z",
+  "campaign": 16,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T12:58:27.441159+00:00",
+  "purpose": "Concrete fail-closed audit artifact produced by tested code (_run_p12_campaign16_pathc.py + data.real_feed_loader). Not a structurally-similar spot retest; not an edge claim.",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "supported_families": [
+    "cross_exchange_dual_venue_same_asset",
+    "funding_basis_carry",
+    "intrabar_microstructure",
+    "term_structure_real_iv_vol_surface"
+  ],
+  "cache_dir": "data/cache",
+  "scan_result": {
+    "cache_dir": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache",
+    "cache_exists": true,
+    "fail_closed": true,
+    "real_data_only_required": true,
+    "fabricated_data_allowed": false,
+    "families": {
+      "funding_basis_carry": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "cross_exchange_dual_venue_same_asset": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "term_structure_real_iv_vol_surface": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "intrabar_microstructure": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      }
+    },
+    "meta_files_scanned": 21,
+    "candidate_hits": [],
+    "new_real_feeds_with_provenance_found": false
+  },
+  "spot_cache_reference": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true,
+    "not_a_new_feed": true
+  },
+  "tests_at_generation": {
+    "raw": "899 passed, 1 skipped, 3576 warnings in 40.72s",
+    "passed": 899,
+    "failed": 0,
+    "skipped": 1,
+    "duration_s": 40.72
+  },
+  "loader_tests_at_generation": {
+    "raw": "67 passed in 0.34s",
+    "passed": 67,
+    "failed": 0,
+    "skipped": 0,
+    "duration_s": 0.34
+  },
+  "oos_edge_proven": false,
+  "conclusion": "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS"
+}
