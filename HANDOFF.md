@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T02:54:00Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T02:55:37Z
 
 REPO: cryptoquantstatarbstrats. PRIORITY: pairs/spreads/cointegration = core edge.
 
