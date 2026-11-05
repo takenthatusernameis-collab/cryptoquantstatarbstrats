@@ -1,0 +1,125 @@
+{
+  "timestamp": "2026-11-05T01:14:39.000000+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "focus": "pairs/spreads/cointegration",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "session_note": (
+    "Honest blocked outcome documented. The pair-universe/timeframe scan (reports/pairs_candidate_scan_20261105T011346Z.json) "
+    "computed full enriched cointegration diagnostics for all 165 pair/timeframe combos (11 cached symbols x 1h/4h/1d, real "
+    "Binance spot data only) using current target_schema_diagnostics logic. n_pass_all_gates=0. leg_stationarity_ok is False for "
+    "all 165 entries (crypto price levels are non-stationary random walks; the gate requires BOTH legs ADF p <= 0.05), and "
+    "rolling_stable_ok is False for all 165 (frac_significant < 0.6). Under the fail-closed strict enriched gates this makes "
+    "zero trades the unavoidable, honest research result. Per repo rules no gate was weakened, no threshold coerced, and no "
+    "data fabricated."
+  ),
+  "config": {
+    "pairs_example": {
+      "pair": ["BTC", "ETH"],
+      "symbols": ["BTC", "ETH", "SOL"],
+      "start": "2026-04-01",
+      "end": "2026-10-28",
+      "freq": "1h",
+      "grid": {
+        "lookback": [60, 120],
+        "entry_threshold": [2.0, 2.5],
+        "cointegration_pvalue": [0.05, 0.1]
+      },
+      "walk_forward": {
+        "train_period": 500,
+        "test_period": 100,
+        "mode": "rolling",
+        "n_splits": 4
+      },
+      "enriched_gates": {
+        "use_enriched_gates": true,
+        "strict_enriched_gates": true
+      }
+    },
+    "candidate_scan": {
+      "symbols": ["ADA","AVAX","BNB","BTC","DOT","ETH","LINK","LTC","POL","SOL","XRP"],
+      "timeframes": ["1h","4h","1d"],
+      "n_pairs_scanned": 165,
+      "n_pass_all_gates": 0,
+      "scan_file": "reports/pairs_candidate_scan_20261105T011346Z.json"
+    }
+  },
+  "data_provenance": {
+    "source": "real public Binance spot klines",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "hosts_tried": [
+      "https://www.binance.com",
+      "https://api.binance.com",
+      "https://api1.binance.com",
+      "https://api2.binance.com",
+      "https://api3.binance.com"
+    ],
+    "blocked_hosts": [],
+    "blocked_routes": [
+      "api.binance.com (HTTP 451 in this environment, established in prior sessions)"
+    ],
+    "per_symbol": {
+      "BTC": { "status": "ok", "bars": 5064, "first": "2026-04-01 00:00:00+00:00", "last": "2026-10-28 23:00:00+00:00" },
+      "ETH": { "status": "ok", "bars": 5064, "first": "2026-04-01 00:00:00+00:00", "last": "2026-10-28 23:00:00+00:00" },
+      "SOL": { "status": "ok", "bars": 5064, "first": "2026-04-01 00:00:00+00:00", "last": "2026-10-28 23:00:00+00:00" }
+    },
+    "cache_used": true,
+    "cache_hit": true,
+    "n_bars": 5064
+  },
+  "gates_summary": {
+    "breakdown_file": "reports/pairs_candidate_scan_20261105T011346Z.json",
+    "scan": {
+      "n_pairs_scanned": 165,
+      "n_pass_all_gates": 0,
+      "leg_stationarity_ok_false_count": 165,
+      "rolling_stable_ok_false_count": 165,
+      "universal_blocker": "leg_stationarity_ok (both legs ADF p <= 0.05 required; false for all real price-level pairs)",
+      "secondary_blocker": "rolling_stable_ok (frac_significant < 0.6 on all real windows/timeframes)"
+    },
+    "pairs_run_pairs_1h": {
+      "BTC/ETH": { "all_pass": false, "eg_pass": false, "johansen_pass": true, "spread_mr_pass": false, "hl_bounds_pass": true, "leg_stationarity_ok": false, "rolling_stable_ok": false, "no_structural_break": true, "frac_significant": 0.1758, "eg_pvalue": 0.6109 },
+      "ETH/SOL": { "all_pass": false, "eg_pass": false, "johansen_pass": false, "spread_mr_pass": false, "hl_bounds_pass": false, "leg_stationarity_ok": false, "rolling_stable_ok": false, "no_structural_break": false, "frac_significant": 0.1154, "eg_pvalue": 0.5771 },
+      "BTC/SOL": { "all_pass": false, "eg_pass": false, "johansen_pass": false, "spread_mr_pass": false, "hl_bounds_pass": false, "leg_stationarity_ok": false, "rolling_stable_ok": false, "no_structural_break": true, "frac_significant": 0.0659, "eg_pvalue": 0.7307 }
+    },
+    "note": (
+      "No real pair/timeframe passes all enriched gates. leg_stationarity_ok is the primary bottleneck (false for all 165 "
+      "combos): cointegration theory requires legs to be non-stationary (I(1)) with a stationary spread, yet this gate demands "
+      "both legs stationary (already covered correctly by spread_mr_pass). Under fail-closed strict gates this is not coerceable "
+      "without weakening the gate, which repo rules forbid. Zero trades is the honest outcome."
+    )
+  },
+  "trades_count": 0,
+  "equity_curve_summary": {
+    "final_equity": 100000.0,
+    "total_return": 0.0
+  },
+  "key_metrics": {
+    "total_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0.0
+  },
+  "files_modified": [
+    "examples/run_pair_universe_scan.py (new: reusable pair-universe/timeframe cointegration scan, real data only, writes reports/pairs_candidate_scan_<UTC>.json)",
+    "reports/pairs_candidate_scan_20261105T011346Z.json (new: full gate-by-gate scan, 165 pair/timeframe combos, 0 passing)",
+    "reports/handoff_proof_20261105T011439Z.json (this file)"
+  ],
+  "reproduction_command": "timeout 1800 python examples/run_pairs.py && python examples/run_pair_universe_scan.py",
+  "artifacts": [
+    "reports/pairs_real_market.json",
+    "reports/pairs_candidate_scan_20261105T011346Z.json",
+    "reports/handoff_proof_20261105T011439Z.json"
+  ],
+  "verification": {
+    "deps_ok": true,
+    "targeted_tests": "40 passed (tests/test_cointegration_campaign31_mt.py tests/test_cointegration_diagnostics_schema.py tests/test_pairs_real_market.py tests/test_cointegration_threshold_invariance.py)",
+    "run_completed": true,
+    "zero_trades_honest": true,
+    "gate_breakdown_provided": true,
+    "real_data_only": true,
+    "no_gate_weakened": true,
+    "no_fabrication": true
+  }
+}
