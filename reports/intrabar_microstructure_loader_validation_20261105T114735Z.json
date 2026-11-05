@@ -1,0 +1,66 @@
+{
+  "artifact": "intrabar_microstructure_loader_validation_20261105T114735Z",
+  "campaign": 13,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T11:47:35Z",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": null,
+  "family": "intrabar_microstructure",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "loader_module": "data/real_feed_loader.py",
+  "test_module": "tests/test_real_feed_loader_validation.py",
+  "readiness_spec": "reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+  "family_spec": {
+    "name": "intrabar_microstructure",
+    "required_columns": [
+      "timestamp_utc",
+      "symbol"
+    ],
+    "required_provenance_keys": [
+      "source_provider",
+      "endpoints_or_files",
+      "retrieved_at_utc",
+      "symbol_map",
+      "kind",
+      "row_count",
+      "sha256_pkl",
+      "real_data_only",
+      "fabricated_data"
+    ],
+    "numeric_columns": [
+      "price",
+      "qty",
+      "depth"
+    ],
+    "extra_fail_closed_refusals": [
+      "invalid/missing kind (must be 'trades' or 'book') refused",
+      "trades kind: missing price or qty refused",
+      "book kind: missing bid_px_levels/ask_px_levels/bid_sz_levels/ask_sz_levels/depth refused",
+      "resampled-to-1h-presented-as-microstructure admission refused",
+      "proxy/fabricated-as-real admitted in notes_limits_gaps refused",
+      "missing sha256_pkl, sha256 mismatch, fabricated_data!=false, real_data_only!=true refused",
+      "missing required columns/timestamps/provenance keys refused",
+      "duplicate/non-monotonic timestamps refused",
+      "row_count mismatch refused"
+    ]
+  },
+  "tests": {
+    "loader_targeted_command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+    "loader_targeted_passed": 63,
+    "loader_targeted_failed": 0,
+    "intrabar_microstructure_tests_added_campaign": 13,
+    "intrabar_microstructure_test_count": 18,
+    "full_suite_command": "python -m pytest tests/ -q",
+    "full_suite_passed": 895,
+    "full_suite_skipped": 1,
+    "full_suite_failed": 0,
+    "full_suite_warnings": 3577,
+    "full_suite_duration_s": 40.80,
+    "rc": 0
+  },
+  "honest_conclusion": "Fail-closed loader/validator for intrabar_microstructure added and tested (synthetic test fixtures only, never labeled real). Loader refuses missing/fabricated/proxy-as-microstructure/resampled-to-1h inputs per readiness spec. Supports kind=trades (price, qty, optional side) and kind=book (bid/ask price+size levels, depth). No real intrabar/microstructure feed with provenance was ingested or found in data/cache; family remains blocked_no_real_feed. oos_edge_proven=false."
+}

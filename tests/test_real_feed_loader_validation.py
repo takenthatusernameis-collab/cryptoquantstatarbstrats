@@ -7,7 +7,6 @@ Proves the loader refuses missing/fabricated/proxy/invalid inputs.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -17,6 +16,7 @@ import pytest
 from data.real_feed_loader import (
     CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
     FUNDING_BASIS_CARRY_SPEC,
+    INTRA_BAR_MICROSTRUCTURE_SPEC,
     TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
     RealFeedValidationError,
     sha256_file,
@@ -520,3 +520,245 @@ def test_term_structure_refuses_proxy_labeled_real_in_notes(tmp_path: Path):
     )
     with pytest.raises(RealFeedValidationError, match="proxy/fabricated-as-real"):
         validate_and_load_real_feed(meta_path, "term_structure_real_iv_vol_surface")
+
+
+def _valid_intrabar_microstructure_df(kind: str = "trades") -> pd.DataFrame:
+    # synthetic test fixture (test-only) — never labeled real data in artifacts
+    base = {
+        "timestamp_utc": pd.date_range("2026-04-01", periods=5, freq="1min", tz="UTC"),
+        "symbol": ["BTCUSDT"] * 5,
+    }
+    if kind == "trades":
+        base.update(
+            {
+                "price": [50000.0, 50010.0, 49990.0, 50005.0, 50015.0],
+                "qty": [0.1, 0.2, 0.15, 0.3, 0.05],
+                "side_or_is_buyer_maker": ["buy", "sell", "buy", "sell", "buy"],
+            }
+        )
+    else:  # book
+        base.update(
+            {
+                "bid_px_levels": [
+                    [49995.0, 49990.0],
+                    [50005.0, 50000.0],
+                    [49998.0, 49993.0],
+                    [50002.0, 49997.0],
+                    [49999.0, 49994.0],
+                ],
+                "ask_px_levels": [
+                    [50005.0, 50010.0],
+                    [50015.0, 50020.0],
+                    [50008.0, 50013.0],
+                    [50012.0, 50017.0],
+                    [50009.0, 50014.0],
+                ],
+                "bid_sz_levels": [
+                    [0.5, 0.3],
+                    [0.4, 0.2],
+                    [0.6, 0.1],
+                    [0.5, 0.3],
+                    [0.7, 0.2],
+                ],
+                "ask_sz_levels": [
+                    [0.3, 0.5],
+                    [0.2, 0.4],
+                    [0.1, 0.6],
+                    [0.3, 0.5],
+                    [0.2, 0.7],
+                ],
+                "depth": [1.0, 1.0, 1.0, 1.0, 1.0],
+            }
+        )
+    return pd.DataFrame(base)
+
+
+def _write_intrabar_microstructure_artifact(
+    tmp: Path, df: pd.DataFrame, meta_overrides: dict | None = None, kind: str = "trades"
+):
+    pkl = tmp / f"micro_binance_BTCUSDT_20260401_20260401_1min_{kind}.pkl"
+    df.to_pickle(pkl)
+    meta = {
+        "source_provider": "Binance",
+        "endpoints_or_files": ["/api/v3/aggTrades?symbol=BTCUSDT"],
+        "retrieved_at_utc": "2026-11-05T00:00:00Z",
+        "symbol_map": {"BTCUSDT": "BTC"},
+        "kind": kind,
+        "row_count": len(df),
+        "sha256_pkl": sha256_file(pkl),
+        "sha256_meta_inputs": "test-fixture",
+        "real_data_only": True,
+        "fabricated_data": False,
+        "notes_limits_gaps": "none (test fixture payload; provenance fields satisfy schema)",
+        "pkl_file": pkl.name,
+    }
+    if meta_overrides:
+        meta.update(meta_overrides)
+    meta_path = tmp / f"micro_binance_BTCUSDT_20260401_20260401_1min_{kind}.meta.json"
+    meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    return meta_path, pkl
+
+
+def test_intrabar_microstructure_trades_valid_artifact_passes_fail_closed_checks(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades"
+    )
+    df, report = validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+    assert report["ok"] is True and report["refused"] is False
+    assert report["fail_closed"] is True
+    assert len(df) == 5
+    assert report["family_spec"] == INTRA_BAR_MICROSTRUCTURE_SPEC.name
+
+
+def test_intrabar_microstructure_book_valid_artifact_passes_fail_closed_checks(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("book"), kind="book"
+    )
+    df, report = validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+    assert report["ok"] is True and report["refused"] is False
+    assert report["fail_closed"] is True
+    assert len(df) == 5
+    assert report["family_spec"] == INTRA_BAR_MICROSTRUCTURE_SPEC.name
+
+
+def test_intrabar_microstructure_refuses_missing_metadata(tmp_path: Path):
+    missing = tmp_path / "nope_micro.meta.json"
+    with pytest.raises(RealFeedValidationError, match="metadata file missing"):
+        validate_and_load_real_feed(missing, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_sha256_mismatch(tmp_path: Path):
+    meta_path, pkl = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades"
+    )
+    df = _valid_intrabar_microstructure_df("trades")
+    df.loc[0, "price"] = 999999.0
+    df.to_pickle(pkl)
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl mismatch"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_missing_sha256(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), {"sha256_pkl": ""}, kind="trades"
+    )
+    with pytest.raises(RealFeedValidationError, match="sha256_pkl missing"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_fabricated_flag(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path,
+        _valid_intrabar_microstructure_df("trades"),
+        {"fabricated_data": True},
+        kind="trades",
+    )
+    with pytest.raises(RealFeedValidationError, match="fabricated_data must be false"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_real_data_only_false(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path,
+        _valid_intrabar_microstructure_df("trades"),
+        {"real_data_only": False},
+        kind="trades",
+    )
+    with pytest.raises(RealFeedValidationError, match="real_data_only must be true"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_missing_data_file(tmp_path: Path):
+    meta_path, pkl = _write_intrabar_microstructure_artifact(tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    pkl.unlink()
+    with pytest.raises(RealFeedValidationError, match="data file missing"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_missing_provenance_keys(tmp_path: Path):
+    meta_path = tmp_path / "bad_micro.meta.json"
+    pkl = tmp_path / "bad_micro.pkl"
+    _valid_intrabar_microstructure_df("trades").to_pickle(pkl)
+    meta = {
+        "real_data_only": True,
+        "fabricated_data": False,
+        "sha256_pkl": sha256_file(pkl),
+        "pkl_file": pkl.name,
+    }
+    meta_path.write_text(json.dumps(meta), encoding="utf-8")
+    with pytest.raises(RealFeedValidationError, match="missing required provenance keys"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_invalid_kind(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), {"kind": "not_a_kind"}, kind="trades"
+    )
+    with pytest.raises(RealFeedValidationError, match="invalid/missing kind"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_missing_required_columns_trades(tmp_path: Path):
+    df = _valid_intrabar_microstructure_df("trades").drop(columns=["qty"])
+    meta_path, _ = _write_intrabar_microstructure_artifact(tmp_path, df, kind="trades")
+    with pytest.raises(RealFeedValidationError, match="missing required columns"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_missing_required_columns_book(tmp_path: Path):
+    df = _valid_intrabar_microstructure_df("book").drop(columns=["depth"])
+    meta_path, _ = _write_intrabar_microstructure_artifact(tmp_path, df, kind="book")
+    with pytest.raises(RealFeedValidationError, match="missing required columns"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_duplicate_timestamps(tmp_path: Path):
+    df = _valid_intrabar_microstructure_df("trades")
+    df.loc[1, "timestamp_utc"] = df.loc[0, "timestamp_utc"]
+    meta_path, _ = _write_intrabar_microstructure_artifact(tmp_path, df, kind="trades")
+    with pytest.raises(RealFeedValidationError, match="not monotonic|duplicate"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_row_count_mismatch(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), {"row_count": 999}, kind="trades"
+    )
+    with pytest.raises(RealFeedValidationError, match="row_count mismatch"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_unknown_family(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    with pytest.raises(RealFeedValidationError, match="unknown/unsupported family"):
+        validate_and_load_real_feed(meta_path, "nonexistent_family")
+
+
+def test_intrabar_microstructure_refuses_resampled_to_1h_as_microstructure_proxy(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path,
+        _valid_intrabar_microstructure_df("trades"),
+        {"notes_limits_gaps": "resampled to 1h from spot then presented as microstructure"},
+        kind="trades",
+    )
+    with pytest.raises(RealFeedValidationError, match="resampled-to-1h-as-microstructure"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_refuses_proxy_labeled_real_in_notes(tmp_path: Path):
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path,
+        _valid_intrabar_microstructure_df("trades"),
+        {"notes_limits_gaps": "microstructure proxy labeled real derived from spot"},
+        kind="trades",
+    )
+    with pytest.raises(RealFeedValidationError, match="proxy/fabricated-as-real"):
+        validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+
+
+def test_intrabar_microstructure_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: Path):
+    cache = tmp_path / "data" / "cache"
+    cache.mkdir(parents=True)
+    meta_path, _ = _write_intrabar_microstructure_artifact(cache, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    df, report = validate_and_load_real_feed(meta_path, "intrabar_microstructure")
+    assert report["ok"] and report["rows"] == 5

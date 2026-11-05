@@ -116,11 +116,35 @@ TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC = FamilySpec(
     timestamp_columns=("timestamp_utc",),
 )
 
+INTRA_BAR_MICROSTRUCTURE_SPEC = FamilySpec(
+    name="intrabar_microstructure",
+    required_columns=("timestamp_utc", "symbol"),
+    required_provenance_keys=(
+        "source_provider",
+        "endpoints_or_files",
+        "retrieved_at_utc",
+        "symbol_map",
+        "kind",
+        "row_count",
+        "sha256_pkl",
+        "real_data_only",
+        "fabricated_data",
+    ),
+    numeric_columns=("price", "qty", "depth"),
+    timestamp_columns=("timestamp_utc",),
+)
+
+MICRO_TRADES_COLUMNS = ("price", "qty")
+MICRO_TRADES_OPTIONAL_COLUMNS = ("side_or_is_buyer_maker",)
+MICRO_BOOK_COLUMNS = ("bid_px_levels", "ask_px_levels", "bid_sz_levels", "ask_sz_levels", "depth")
+MICRO_VALID_KINDS = ("trades", "book")
+
 
 FAMILY_SPECS: dict[str, FamilySpec] = {
     FUNDING_BASIS_CARRY_SPEC.name: FUNDING_BASIS_CARRY_SPEC,
     CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.name: CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC,
     TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC.name: TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC,
+    INTRA_BAR_MICROSTRUCTURE_SPEC.name: INTRA_BAR_MICROSTRUCTURE_SPEC,
 }
 
 
@@ -266,6 +290,43 @@ def _check_term_structure_not_realized_vol_proxy(
         )
 
 
+def _check_intrabar_microstructure(
+    meta: dict[str, Any], df: pd.DataFrame, report: dict[str, Any]
+) -> None:
+    """Validate intrabar_microstructure kind-specific schema and refuse resampled proxies.
+
+    kind must be 'trades' or 'book'. trades requires price+qty (side optional).
+    book requires bid/ask price+size levels + depth. Missing/invalid kind refused.
+    Any admission of resampling-to-1h presented as microstructure is refused.
+    """
+    kind = str(meta.get("kind", "")).strip().lower()
+    if kind not in MICRO_VALID_KINDS:
+        _refuse(f"invalid/missing kind {kind!r}; must be one of {MICRO_VALID_KINDS}", report)
+
+    required_by_kind = {
+        "trades": MICRO_TRADES_COLUMNS,
+        "book": MICRO_BOOK_COLUMNS,
+    }
+    missing_cols = [c for c in required_by_kind[kind] if c not in df.columns]
+    if missing_cols:
+        _refuse(f"missing required columns for kind={kind!r}: {missing_cols}", report)
+
+    notes = str(meta.get("notes_limits_gaps", "")).lower()
+    resampled_admissions = (
+        "resampled to 1h",
+        "resampled-to-1h",
+        "1h-presented-as-microstructure",
+        "aggregated to 1h",
+        "1h rollup",
+    )
+    for bad in resampled_admissions:
+        if bad in notes:
+            _refuse(
+                f"provenance notes admit resampled-to-1h-as-microstructure proxy: {bad!r}",
+                report,
+            )
+
+
 def validate_and_load_real_feed(
     meta_path: str | Path,
     family: str = "funding_basis_carry",
@@ -329,6 +390,8 @@ def validate_and_load_real_feed(
         _check_dual_venue_not_single_venue_proxy(df, report)
     if family == "term_structure_real_iv_vol_surface":
         _check_term_structure_not_realized_vol_proxy(meta, report)
+    if family == "intrabar_microstructure":
+        _check_intrabar_microstructure(meta, df, report)
 
     # monotonic unique timestamp check when present
     for tcol in spec.timestamp_columns:
