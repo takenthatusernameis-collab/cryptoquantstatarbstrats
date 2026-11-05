@@ -1013,3 +1013,74 @@ def test_unblock_status_cli_writes_report(tmp_path: Path):
     assert obj["oos_edge_proven"] is False
     assert obj["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"
     assert obj["readiness_specs"] == []
+
+
+def test_generate_unblock_status_report_readiness_details_opt_in(tmp_path: Path):
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    spec = reports / "real_feed_ingestion_readiness_x.json"
+    spec.write_text(
+        json.dumps(
+            {
+                "artifact": "real_feed_ingestion_readiness",
+                "campaign": 9,
+                "generated_at_utc": "2026-11-05T10:46:40Z",
+                "feeds": [{"family": "funding_basis_carry"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    base = generate_unblock_status_report(
+        cache, campaign=19, reports_dir=reports, include_readiness_details=False
+    )
+    assert base["readiness_spec_count"] == 1
+    assert base["auto_discover_readiness"] is True
+    assert "generated_at_utc" not in base["readiness_specs"][0]
+    detailed = generate_unblock_status_report(
+        cache, campaign=19, reports_dir=reports, include_readiness_details=True
+    )
+    assert detailed["readiness_specs"][0]["generated_at_utc"] == "2026-11-05T10:46:40Z"
+    assert detailed["readiness_specs"][0]["feeds_count"] == 1
+    assert detailed["oos_edge_proven"] is False
+    assert detailed["path_r_triggered"] is False
+
+
+def test_unblock_status_cli_readiness_details_flag(tmp_path: Path):
+    from data.real_feed_loader import main
+
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    (reports / "real_feed_ingestion_readiness_x.json").write_text(
+        json.dumps(
+            {
+                "artifact": "real_feed_ingestion_readiness",
+                "generated_at_utc": "2026-11-05T10:46:40Z",
+                "feeds": [{"family": "funding_basis_carry"}, {"family": "intrabar_microstructure"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    out = tmp_path / "out.json"
+    rc = main(
+        [
+            "--cache-dir",
+            str(cache),
+            "--reports-dir",
+            str(reports),
+            "--campaign",
+            "19",
+            "--readiness-details",
+            "--output",
+            str(out),
+        ]
+    )
+    assert rc == 0
+    obj = json.loads(out.read_text(encoding="utf-8"))
+    assert obj["readiness_spec_count"] == 1
+    assert obj["readiness_specs"][0]["feeds_count"] == 2
+    assert obj["readiness_specs"][0]["generated_at_utc"] == "2026-11-05T10:46:40Z"
+    assert obj["conclusion"] == "PATH_C_MAINTAIN_STILL_BLOCKED"

@@ -1,0 +1,177 @@
+{
+  "artifact": "strategy_edge_registry_20261105T163015Z",
+  "campaign": 19,
+  "path": "C-maintain",
+  "generated_at_utc": "2026-11-05T16:34:36.312608+00:00",
+  "repo": "cryptoquantstatarbstrats",
+  "supersedes": "reports/strategy_edge_registry_20261105T135404Z.json",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "no_threshold_weakening": true,
+  "no_pairs_rescan": true,
+  "no_structurally_similar_spot_retest_same_cache": true,
+  "tests": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 909,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 61.62,
+    "note": "Full suite rerun in-session after C19 code changes (loader+tests); env deps installed (pandas/numpy/scipy/statsmodels/sklearn/pyyaml) for execution.",
+    "loader_targeted": {
+      "command": "python -m pytest tests/test_real_feed_loader_validation.py -q",
+      "passed": 79,
+      "failed": 0,
+      "rc": 0,
+      "delta_from_c18": "+2 (readiness-details opt-in/report hardening tests)"
+    }
+  },
+  "quality_gates": {
+    "loader_import_smoke": {
+      "command": "python -c 'from data.real_feed_loader import generate_unblock_status_report'",
+      "rc": 0,
+      "ok": true
+    },
+    "cli_smoke": {
+      "command": "python -m data.real_feed_loader --campaign 19 --readiness-details --output <tmp>",
+      "rc": 0,
+      "ok": true
+    },
+    "mypy_real_feed_loader": {
+      "command": "python -m mypy data/real_feed_loader.py",
+      "rc": null,
+      "ok": null,
+      "note": "mypy not installed in runner env; no loader logic regression indicated (tests green, import/CLI smoke green)."
+    },
+    "ruff_real_feed_loader": {
+      "command": "python -m ruff check data/real_feed_loader.py",
+      "rc": null,
+      "ok": null,
+      "note": "ruff not installed in runner env; C18 baseline was clean for modified code."
+    }
+  },
+  "real_spot_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "reused_as_is": true
+  },
+  "wf_cost_protocol": {
+    "wf": "720/168/168 rolling",
+    "cost_grid_bps": [
+      0,
+      5,
+      10,
+      20
+    ],
+    "edge_rule": "oos_edge_proven=true only if exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows"
+  },
+  "registry": {
+    "pairs_cointegration": {
+      "family": "cointegration_pairs",
+      "status": "PROVEN_BLOCKED",
+      "evidence": "165/165. No re-scan; no gate weakening",
+      "oos_edge_proven": false
+    },
+    "spot_momentum_mr_P4": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_xsec_rank_P5": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_donchian_tsmom_P6": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_range_breakout_reversion_volband_P7": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_pairwise_ols_hedge_spread_mr_P9": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_residual_momentum_P10": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "spot_lead_lag_diffusion_P11": {
+      "status": "EXHAUSTED",
+      "oos_edge_proven": false
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "oos_edge_proven": false,
+      "fail_closed_loader": "data/real_feed_loader.py",
+      "fail_closed_audit": "data.real_feed_loader.audit_cache_for_real_nonspot_feeds"
+    }
+  },
+  "campaign19_artifacts": [
+    "reports/real_feed_unblock_status_20261105T163015Z.json",
+    "reports/failclosed_unblock_status_tool_report_20261105T163015Z.json",
+    "reports/strategy_edge_registry_20261105T163015Z.json"
+  ],
+  "code_changes_campaign19": [
+    {
+      "file": "data/real_feed_loader.py",
+      "change": "Hardened generate_unblock_status_report/discover_readiness_specs: added include_readiness_details (opt-in compact feeds_count/generated_at_utc for explicit refs and auto-discovered specs); removed unconditional generated_at_utc from auto-discovered entries to keep default discovery compact; discovery details read fail-closed per-spec. CLI adds --readiness-details.",
+      "tests_added": [
+        "test_generate_unblock_status_report_readiness_details_opt_in",
+        "test_unblock_status_cli_readiness_details_flag"
+      ],
+      "real_tested": true
+    }
+  ],
+  "campaign19_unblock_scan": {
+    "path_r_triggered": false,
+    "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+    "meta_files_scanned": 21,
+    "candidate_hits": 0,
+    "valid_nonspot_provenance_artifacts_found": 0,
+    "readiness_spec_count": 1,
+    "readiness_specs_discovered": [
+      "real_feed_ingestion_readiness_20261105T104640Z.json"
+    ],
+    "families": {
+      "funding_basis_carry": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "cross_exchange_dual_venue_same_asset": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "term_structure_real_iv_vol_surface": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      },
+      "intrabar_microstructure": {
+        "status": "blocked_no_real_feed",
+        "valid_artifacts": []
+      }
+    }
+  },
+  "core_truth": "No proven net-of-cost OOS edge. Pairs proven blocked (165/165). Spot 1h exhausted. Non-spot families blocked_no_real_feed (fail-closed scan/audit: 0 valid provenance artifacts, 0 candidate hits across 21 meta files). oos_edge_proven=false across registry. Campaign #19 Path C-maintain: hardened fail-closed generate_unblock_status_report readiness-details/reporting (+2 tests; loader 79 passed), produced honest unblock status (CLI, readiness details) + tool report + superseding registry with rerun tests (909 passed, 1 skipped). No fabrication/proxies/threshold weakening/no pairs rescan/no structurally-similar spot retest. Next productive path is Path R only if a genuinely new real feed with provenance is ingested."
+}

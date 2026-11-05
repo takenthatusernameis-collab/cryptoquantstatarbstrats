@@ -629,7 +629,6 @@ def discover_readiness_specs(reports_dir: str | Path) -> list[dict[str, Any]]:
         art = obj.get("artifact")
         entry["artifact"] = art
         entry["campaign"] = obj.get("campaign")
-        entry["generated_at_utc"] = obj.get("generated_at_utc")
         families: list[str] = []
         if isinstance(obj.get("feeds"), list):
             for feed in obj["feeds"]:
@@ -652,6 +651,7 @@ def generate_unblock_status_report(
     readiness_specs: list[str] | None = None,
     reports_dir: str | Path | None = None,
     auto_discover_readiness: bool = True,
+    include_readiness_details: bool = False,
 ) -> dict[str, Any]:
     """Generate a fail-closed unblock/readiness status report from cache state.
 
@@ -672,15 +672,36 @@ def generate_unblock_status_report(
             if reports_dir is not None
             else Path(cache_dir).resolve().parent.parent / "reports"
         )
-        specs.extend(discover_readiness_specs(rdir))
+        for d in discover_readiness_specs(rdir):
+            if include_readiness_details and d.get("path") and d.get("exists"):
+                try:
+                    obj = json.loads(Path(d["path"]).read_text(encoding="utf-8"))
+                    if isinstance(obj, dict):
+                        d.setdefault("generated_at_utc", obj.get("generated_at_utc"))
+                        d.setdefault(
+                            "feeds_count",
+                            len(obj["feeds"]) if isinstance(obj.get("feeds"), list) else None,
+                        )
+                except Exception as exc:
+                    d["read_error"] = f"{type(exc).__name__}:{exc}"
+            specs.append(d)
     for ref in refs:
         sp = Path(ref)
         entry: dict[str, Any] = {"path": str(sp), "exists": sp.exists(), "name": sp.name}
         if sp.exists():
             try:
                 obj = json.loads(sp.read_text(encoding="utf-8"))
-                entry["artifact"] = obj.get("artifact") if isinstance(obj, dict) else None
-                entry["campaign"] = obj.get("campaign") if isinstance(obj, dict) else None
+                if isinstance(obj, dict):
+                    entry["artifact"] = obj.get("artifact")
+                    entry["campaign"] = obj.get("campaign")
+                    if include_readiness_details:
+                        entry["generated_at_utc"] = obj.get("generated_at_utc")
+                        entry["feeds_count"] = (
+                            len(obj["feeds"]) if isinstance(obj.get("feeds"), list) else None
+                        )
+                else:
+                    entry["artifact"] = None
+                    entry["campaign"] = None
             except Exception as exc:
                 entry["read_error"] = f"{type(exc).__name__}:{exc}"
         specs.append(entry)
@@ -716,6 +737,8 @@ def generate_unblock_status_report(
             ),
         },
         "readiness_specs": specs,
+        "readiness_spec_count": len(specs),
+        "auto_discover_readiness": auto_discover_readiness,
     }
 
 
@@ -742,12 +765,18 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Do not auto-discover readiness specs from reports dir",
     )
+    parser.add_argument(
+        "--readiness-details",
+        action="store_true",
+        help="Include compact readiness-spec metadata (feeds_count/timestamps) when present",
+    )
     args = parser.parse_args(argv)
     report = generate_unblock_status_report(
         Path(args.cache_dir),
         campaign=args.campaign,
         reports_dir=Path(args.reports_dir),
         auto_discover_readiness=not args.no_auto_discover_readiness,
+        include_readiness_details=bool(getattr(args, "readiness_details", False)),
     )
     payload = json.dumps(report, indent=2, sort_keys=False) + "\n"
     if args.output:
