@@ -1,8 +1,8 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T20:39:07Z (Campaign #31 IN PROGRESS — C31 cointegration artifact produced; unblock status + registry next.)**
+**Timestamp (UTC): 2026-11-05T20:39:45Z (Campaign #31 COMPLETE — C32 binding next) — C31 cointegration artifact produced; unblock status + registry next.)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
-## CAMPAIGN #30 STATUS (COMPLETE — fail-closed, no proven edge)
+## CAMPAIGN #31 STATUS (COMPLETE — fail-closed, no proven edge)
 Executed 2026-11-05 (this session). Produced (>=3 artifacts):
 - `reports/cointegration_campaign30_mt.json` — phase-2 real-data cointegration rigor (17 pairs × 1h/4h/1d, causal trailing OOS/rolling). `real_data_only=true`, `fabricated_data=false`, `causal_only=true`, `trailing_windows_only=true`, `fail_closed=true`, `gating_invariants_preserved=true` (`1h=[]`,`4h=[POL/BTC]`,`1d=[]`). Gate thresholds unchanged; no auto-lift.
 - `reports/real_feed_unblock_status_20261105T200500Z.json` — fail-closed re-check via `data.real_feed_loader.generate_unblock_status_report(cache_dir='data/cache', campaign=30, reports_dir='reports', prior_report=reports/real_feed_unblock_status_20261105T195831Z.json)`. `campaign_delta.changed=false`, `honest_assessment=NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`. `path_r_triggered=true` (validated `real_quote_volume` present) but **no genuinely different pre-stated R-B hypothesis executed**; C23 NOT rerun. Remaining blocked (unchanged): `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure`. No proxies labeled real.
@@ -15,12 +15,12 @@ Executed 2026-11-05 (this session). Produced (>=3 artifacts):
 - **Zero-artifact sessions are automatic failures.** "I looked and found nothing" is not a deliverable. Produce concrete `reports/` artifacts plus tested code where code changes are involved.
 
 ## INITIAL TASK MESSAGE (EXECUTE FIRST — NO DELAY)
-**PRIORITY 31 / CAMPAIGN #31 — MANDATORY, NOT OPTIONAL.** Next agent MUST NOT do investigation-only work and MUST NOT generate structurally-similar spot retests on the same cache presented as a new campaign, and MUST NOT re-run C23 Abnormal Quote Volume Momentum unchanged. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only. No fabrication. No threshold weakening. No proxies labeled as real. `oos_edge_proven=false` is valid and required if edge is not proven.
+**PRIORITY 32 / CAMPAIGN #32 — MANDATORY, NOT OPTIONAL.** Next agent MUST NOT do investigation-only work and MUST NOT generate structurally-similar spot retests on the same cache presented as a new campaign, and MUST NOT re-run C23 Abnormal Quote Volume Momentum unchanged. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only. No fabrication. No threshold weakening. No proxies labeled as real. `oos_edge_proven=false` is valid and required if edge is not proven.
 
 ### Binding context (settled — do not re-litigate)
-C30 complete (>=3 artifacts: `cointegration_campaign30_mt.json`, `real_feed_unblock_status_20261105T200500Z.json`, `strategy_edge_registry_20261105T200600Z.json`). C27 MT artifacts exist (`live_go_live_authorization_final_mt.json`, `post_deployment_live_readiness_signoff_mt.json`). `oos_edge_proven=false` across registry. Remaining blocked: `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure`. Gating invariants preserved (`1h=[]`,`4h=[POL/BTC]`,`1d=[]`). Spot 1h exhausted. `real_quote_volume` validated (C23 no edge). Fail-closed infra green (928 passed, 1 skipped).
+C31 complete (>=3 artifacts: `cointegration_campaign31_mt.json`, `real_feed_unblock_status_20261105T203300Z.json`, `strategy_edge_registry_20261105T203854Z.json`). C30 complete (>=3 artifacts: `cointegration_campaign30_mt.json`, `real_feed_unblock_status_20261105T200500Z.json`, `strategy_edge_registry_20261105T200600Z.json`). C27 MT artifacts exist (`live_go_live_authorization_final_mt.json`, `post_deployment_live_readiness_signoff_mt.json`). `oos_edge_proven=false` across registry. Remaining blocked: `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure`. Gating invariants preserved (`1h=[]`,`4h=[POL/BTC]`,`1d=[]`). Spot 1h exhausted. `real_quote_volume` validated (C23 no edge). Fail-closed infra green (928 passed, 1 skipped).
 
-## CAMPAIGN #31 (BINDING — CANNOT BE AVOIDED)
+## CAMPAIGN #32 (BINDING — CANNOT BE AVOIDED)
 Produce **>= 3 artifacts** (all fail-closed, real, reproducible):
 1. Run `python scripts/generate_campaign31_artifacts.py` if present and priors satisfied; include its output artifact(s) in `reports/`. If missing/unsatisfied, create `reports/campaign31_execution_blocker_<UTC>.json` (fail-closed, real) documenting exact missing priors + the **smallest concrete unblocking step taken this session** (not just described).
 2. `reports/real_feed_unblock_status_<UTC>.json` — honest fail-closed re-check via `data.real_feed_loader.generate_unblock_status_report(cache_dir, campaign=31, reports_dir=..., prior_report=reports/real_feed_unblock_status_20261105T200500Z.json)`, recording delta vs C30.
@@ -37,7 +37,7 @@ Produce **>= 3 artifacts** (all fail-closed, real, reproducible):
 - **Heavy work mandatory:** >= 3 new artifacts in `reports/` every session; real tested code + artifact (not just prose) when code changes. Investigation-only prose is not a substitute.
 - **Honesty:** Honest "still blocked" / "still exhausted" / "no proven edge" reports are acceptable deliverables; fake progress is not.
 
-## COMPLETION CHECK (C31)
+## COMPLETION CHECK (C32)
 - [ ] C31 MT/script artifact(s) produced (or fail-closed blocker artifact with concrete action taken).
 - [ ] `reports/real_feed_unblock_status_<UTC>.json` exists (honest, fail-closed, includes campaign delta vs C30 prior `20261105T200500Z`).
 - [ ] `reports/strategy_edge_registry_<UTC>.json` supersedes `20261105T200600Z` with rerun test counts.
