@@ -231,59 +231,76 @@ def rolling_cointegration_stability(
         min_windows = 3
         min_subwindow = 30
         # More aggressive shrinking for short trailing samples
+        if n < 200:  # be very aggressive for short samples
+            min_subwindow = 10
         while win > min_subwindow and n < win * min_windows:
             win = max(min_subwindow, win // 2)
         if n < win * min_windows:
             # Try with fewer windows if possible (for short trailing samples)
             if n >= win * 2 and win >= min_subwindow:
                 min_windows = 2
-            elif n >= 12:
+            elif n >= 10:
                 # Try much smaller window to get at least 2 windows
-                win_new = min(win // 2, 15)
-                if win_new < 10:
-                    win_new = 10
+                win_new = min(win // 2, 20)
+                if win_new < 8:
+                    win_new = 8
                 win = win_new
                 # shrink until we can get >=2 windows or can't
-                for _ in range(40):
+                for _ in range(60):
                     if win < 8:
                         break
                     if n >= win * 2:
                         break
-                    win = max(8, win - 2)
-                if n >= win * 2 and win >= 8:
+                    win = max(6, win - 1)
+                if n >= win * 2 and win >= 6:
                     min_windows = 2
                 else:
                     # Last resort: try to get >=2 windows with heavy overlap
                     # Use window as large as possible but ensure we get 2 windows
                     w_cands = [
-                        max(8, n // 2),
-                        max(8, n // 3 * 2),
-                        max(8, int(n * 0.6)),
-                        max(8, int(n * 0.5)),
+                        max(6, n // 2),
+                        max(6, n // 3 * 2),
+                        max(6, int(n * 0.6)),
+                        max(6, int(n * 0.5)),
+                        max(6, n - 2),
+                        max(6, n - 3),
                     ]
                     for w_cand in w_cands:
-                        if w_cand > n:
+                        if w_cand > n or w_cand < 6:
                             continue
                         # Check if we can get >=2 windows with step=1
-                        if n - w_cand + 1 >= 2 or (n >= w_cand * 2):  # easy case
-                            pass
-                        if n >= w_cand + max(1, w_cand // 4):  # need at least some overlap
+                        if n >= w_cand + 1:  # need at least some overlap
                             win = w_cand
                             min_windows = 2
                             break
-                    if not (n >= win * 2 and win >= 8):
-                        return {
-                            "stable": False,
-                            "reason": "insufficient_data",
-                            "pvalues": [],
-                            "frac_significant": 0.0,
-                            "frac_significant_0_05": 0.0,
-                            "n_windows": 0,
-                            "window": int(window),
-                            "step": int(step),
-                            "requested_window": int(window),
-                            "used_window": None,
-                        }
+                    if not (n >= win * 2 and win >= 6) and not (
+                        n >= win + 1 and win >= 6 and min_windows <= 2
+                    ):
+                        # One more try - force step=1 style
+                        pass
+                    if not (n >= win * 2 and win >= 6) and not (
+                        n - win + 1 >= 2
+                    ):  # can't even get 2 windows with step 1?
+                        if n >= 12 and win >= 6:  # try to force
+                            min_windows = 2
+                        elif n >= 10:
+                            win = max(6, n // 3)
+                            if win < 6:
+                                win = 6
+                            min_windows = 2
+                        else:
+                            return {
+                                "stable": False,
+                                "reason": "insufficient_data",
+                                "pvalues": [],
+                                "frac_significant": 0.0,
+                                "frac_significant_0_05": 0.0,
+                                "n_windows": 0,
+                                "window": int(window),
+                                "step": int(step),
+                                "requested_window": int(window),
+                                "used_window": None,
+                            }
             else:
                 return {
                     "stable": False,

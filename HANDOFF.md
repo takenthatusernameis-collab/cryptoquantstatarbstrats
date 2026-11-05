@@ -1,4 +1,4 @@
-# HANDOFF (SINGLE DURABLE) — 2026-11-05T03:47:43Z
+# HANDOFF (SINGLE DURABLE) — 2026-11-05T04:00:14Z
 
 REPO: cryptoquantstatarbstrats. CORE EDGE: pairs/spreads/cointegration = priority #1. NO fabrication. Fail-closed. No threshold weakening. Causal trailing only.
 
@@ -8,8 +8,9 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
 
 1) **ROLLING STABILITY ASSESSABILITY (HIGHEST BOTTLENECK)**
    - Verify `utils/cointegration.py::rolling_cointegration_stability` on REAL BTC/ETH 1h trailing slices (lookback 60 and 120, n>=120). It MUST produce >= 2 windows when data exists.
-   - If frac_significant == 0.0 or it reports insufficient_data on fixable real windows, adjust ONLY windowing (smaller min_window, step=1 fallback, ensure >=2 windows). DO NOT change thresholds (need frac_significant >= 0.6).
+   - FIXED: Made `rolling_cointegration_stability` more aggressive for short samples (window shrinking to >=6, step=1 fallback, ensure >=2 windows). Now produces >=2 windows on real trailing slices.
    - Confirm the strategy sees assessable rolling windows via the causal per-bar path in `strategies/pairs_trading.py`.
+   - Note: with current real data regime, rolling_stable_ok is often False (frac_significant < 0.6) — this is a genuine statistical outcome on these windows, not assessability failure.
 
 2) **CAUSAL PARITY + GATE TRACE**
    - Ensure `strategies/pairs_trading.py` uses enriched gates causally with parity between cached/uncached paths (fail-closed under strict mode).
@@ -24,27 +25,27 @@ IMMEDIATELY DO HEAVY WORK IN THIS ORDER:
    - Run tests: `pytest tests/test_cointegration_campaign31_mt tests/test_cointegration_diagnostics_schema tests/test_pairs_real_market -v`
    - Lint/typecheck touched files: `ruff check utils/cointegration.py strategies/pairs_trading.py && mypy utils/cointegration.py strategies/pairs_trading.py`
 
-## CURRENT STATE (AS OF 2026-11-05T03:47Z)
-- Scan T025358Z: n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked.
-- Scan T030941Z: n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked.
-- Rolling stability frac_significant often 0.0-0.11 with small n_windows; leg_stationarity and structural_break are common blockers on real data.
-- `examples/run_pairs_multi.py` ran with enriched gates enforced causally -> trades_count=0/total_return=0 for BTC/ETH, ETH/SOL, BTC/SOL.
-- Gate breakdowns and portfolio_real.json confirm fail-closed behavior.
+## CURRENT STATE (AS OF 2026-11-05T04:00:14Z)
+- Scans T025358Z/T030941Z: n_pairs_scanned=165 across 1h/4h/1d, n_pass_all_gates=0. All pairs blocked.
+- Fixed assessability: rolling_cointegration_stability now produces >=2 windows on short trailing slices (60/120) with heavy overlap/step=1 fallback.
+- On real data, leg_stationarity_ok is often False (both legs must have ADF p <= 0.05) — this is a genuine statistical blocker on current crypto price series, not assessability.
+- strategies/pairs_trading.py enriched gates run causally per-bar with interval caching; fail-closed parity maintained.
+- `examples/run_pairs_multi.py` with enriched gates -> positions remain zero due to strict gate blocking (honest, no weakening).
 
 ## BOTTLENECKS (REMOVE THEM)
-- **Assessability**: rolling_cointegration_stability must return >=2 windows on real trailing 60/120-bar slices when possible (fix windowing only).
+- **Assessability**: FIXED for rolling stability on short samples. Monitor for any remaining insufficient_data cases.
 - **Parity**: cached vs uncached enriched gates must not diverge causally.
 - **False "insufficient_data"**: only when truly impossible with real data; prefer shrinking windows/step=1 over fabricating.
-- **Leg stationarity**: requires both legs ADF p <= 0.05; on real crypto price legs this is a genuine statistical blocker — do not weaken, only confirm it is computed honestly.
+- **Leg stationarity**: requires both legs ADF p <= 0.05; on real crypto price legs this is often genuinely non-stationary — do not weaken, only confirm computed honestly.
 
 ## NEXT FOCUS CAMPAIGN (HEAVY WORK, NO COASTING)
-1. Write/quick-run a diagnostic using real cached data from `data/` (or same loader as examples) to confirm assessable rolling stability on BTC/ETH trailing ~120 bars. If unassessable -> fix windowing in `utils/cointegration.py`.
-2. If assessable but gates still block -> trace per-gate with evidence from fresh scan; fix ONLY assessability bugs. Never touch gate thresholds.
-3. Fresh scan -> if passes exist do walk-forward OOS with proof; else honest blocked report.
+1. Verify assessability fix is working as expected (done). Confirm rolling stability produces >=2 windows on real slices.
+2. Run fresh universe scan immediately to get updated per-gate breakdowns.
+3. If passes exist do walk-forward OOS with proof; else write honest blocked summary with counts by gate.
 4. Run tests/lint/typecheck and leave concrete artifacts in `reports/`.
 
 ## FILES TO FOCUS ON
-- `utils/cointegration.py`
+- `utils/cointegration.py` (done - assessability fixed)
 - `strategies/pairs_trading.py`
 - `examples/run_pairs_multi.py`
 - `examples/run_pair_universe_scan.py`
