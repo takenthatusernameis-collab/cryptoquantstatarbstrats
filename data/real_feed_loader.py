@@ -496,11 +496,11 @@ def scan_cache_for_real_nonspot_feeds(
     seen: set[str] = set()
     for mp in meta_paths:
         rp = str(mp.resolve())
-        if rp in seen or not mp.name.endswith("meta.json"):
-            # only provenance meta files; skip non-meta json like summary
-            if not mp.name.endswith("meta.json"):
-                continue
+        if rp in seen:
+            continue
         seen.add(rp)
+        if not mp.name.endswith("meta.json"):
+            continue
         result["meta_files_scanned"] += 1
         try:
             meta = json.loads(mp.read_text(encoding="utf-8"))

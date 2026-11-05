@@ -1,10 +1,10 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T13:38:48Z (Campaign #17 BINDING — execute now. No new real feed with provenance found in Campaign #16.)**
+**Timestamp (UTC): 2026-11-05T13:40:00Z (Campaign #17 BINDING — execute now. No new real feed with provenance found in Campaign #16.)**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #16 STATUS (COMPLETE — Path C-maintain)
 No new real feed with provenance was found/ingested (fail-closed scan via `data.real_feed_loader.scan_cache_for_real_nonspot_feeds` of `data/cache/`, **21 meta files, 0 valid non-spot provenance artifacts**), so Path R did not trigger. Path C-maintain executed with real, tested code + artifacts.
-- Tests (full): **899 passed, 1 skipped, 0 failed** (`pytest tests/ -q`, rc=0, 40.72s). Loader tests `tests/test_real_feed_loader_validation.py`: **67 passed**.
+- Tests (full): **899 passed, 1 skipped, 0 failed** (`pytest tests/ -q`, rc=0, ~40.9s). Loader tests `tests/test_real_feed_loader_validation.py`: **67 passed**. Suite restored to green after bottleneck removal (see below).
 - Campaign #16 artifacts (>=3): `reports/real_feed_unblock_status_20261105T125745Z.json`, `reports/real_feed_scan_audit_20261105T125745Z.json` (concrete fail-closed scan audit produced by tested code; not an edge claim; not a spot retest), `reports/strategy_edge_registry_20261105T125745Z.json` (supersedes `20261105T124816Z.json`).
 - Code (real, tested): cleaned duplicate `NONSPOT_FAMILY_KEYWORDS`/`_candidate_families_for_meta`/`scan_cache_for_real_nonspot_feeds` definitions from `data/real_feed_loader.py` (no behavior regression; loader tests still 67 passed). Path-C runner: `_run_p12_campaign16_pathc.py`.
 - Real spot cache (reuse as-is, do not re-fetch): `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}` (sha256 in registry) — 11 assets, 5112 bars, 2026-04-01..2026-10-30 1h, Binance public spot.
@@ -13,7 +13,8 @@ No new real feed with provenance was found/ingested (fail-closed scan via `data.
 - Feeds: `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure = blocked_no_real_feed` (0 valid provenance artifacts found). No fabricated feeds/proxies. Fail-closed loader/scan in place for all four.
 - `oos_edge_proven=false` across the registry.
 
-## BOTTLENECK REMOVAL (READ BEFORE ACTING)
+## BOTTLENECK REMOVAL (READ BEFORE ACTING) — BOTTLENACK REMOVED THIS SESSION
+- **Bottleneck removed:** `data/real_feed_loader.py:scan_cache_for_real_nonspot_feeds` had a dedup fall-through bug: `glob("*.json")` re-matches `*.meta.json` files, so each provenance file appeared twice in `meta_paths`, and already-seen meta.json files were re-processed instead of skipped. This double-counted valid artifacts and broke `test_scan_cache_accepts_valid_nonspot_funding_artifact` (`assert 2 == 1`), dropping the suite from 899/0 failed to 898/1 failed. Fixed by skipping already-seen paths before the meta.json filter. Suite restored to **899 passed, 1 skipped, 0 failed**; mypy clean; no new ruff errors introduced (4 pre-existing E501s untouched).
 - **Path R is externally gated:** it requires a *genuinely new real feed with verifiable provenance ingested in-session*. Not an in-session option unless you can actually pull one. Do not spin on unverifiable feeds. This is an external blocker that cannot be removed by code changes; document honestly and fall to Path C-maintain.
 - **Path C-maintain is the expected, mandatory in-session path when no new feed exists.** Do not treat "no new feed" as a license to do nothing or to re-run spot/cointegration scans on the same cache as new.
 - **Zero-artifact sessions are automatic failures.** "I looked and found nothing" is not a deliverable. Produce concrete `reports/` artifacts plus tested code where code changes are involved.
@@ -23,7 +24,7 @@ No new real feed with provenance was found/ingested (fail-closed scan via `data.
 **PRIORITY 19 / CAMPAIGN #17 — MANDATORY, NOT OPTIONAL.** Next agent MUST NOT do investigation-only work and MUST NOT generate structurally-similar spot retests on the same cache presented as a new campaign. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only. No fabrication. No threshold weakening. No proxies labeled as real. `oos_edge_proven=false` is valid and required if edge is not proven. **Zero-artifact sessions are automatic failures.**
 
 ### Binding context (settled — do not re-litigate)
-Campaign #16 status above. `oos_edge_proven=false` across the board. No real non-spot feeds with provenance present (fail-closed scan). Pairs proven blocked. Spot 1h exhausted. Fail-closed ingestion+scan infrastructure exists for all four. Full suite green.
+Campaign #16 status above. `oos_edge_proven=false` across the board. No real non-spot feeds with provenance present (fail-closed scan). Pairs proven blocked. Spot 1h exhausted. Fail-closed ingestion+scan infrastructure exists for all four. Full suite green. Bottleneck (dedup double-count bug) removed; loader/scan restored to correct behavior.
 
 ## CAMPAIGN #17 (BINDING — CANNOT BE AVOIDED)
 **Path R is the only productive edge path.** Follow it **only** if you can ingest a genuinely new real feed with provenance in-session (per readiness spec; validate via `data/real_feed_loader.py`). Otherwise follow **Path C-maintain** (heavy, honest) — do not churn or create fake work.
