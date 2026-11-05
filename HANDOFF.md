@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-05T22:18:07Z (Campaign #33 artifacts refreshed via generate_campaign33_artifacts.py → cointegration_campaign33_mt.json; `oos_edge_proven=false`) — C34 binding next.**
+**Timestamp (UTC): 2026-11-05T22:18:31Z (Campaign #33 artifacts refreshed via generate_campaign33_artifacts.py → cointegration_campaign33_mt.json; `oos_edge_proven=false`) — C34 binding next.**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost OOS statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #33 STATUS (EXECUTED — fail-closed, no proven edge)
