@@ -1,0 +1,150 @@
+{
+  "generated_at_utc": "2026-11-06T02:48:28.016100+00:00",
+  "campaign": 52,
+  "title": "Volume-Absolute-Return Rolling Correlation Shock Mean Reversion (Liquidity-Volatility Co-movement) — costed OOS (fail-closed, real quote volume)",
+  "family": "liquidity_volatility_comovement_mean_reversion",
+  "path": "R-B (validated real_quote_volume; no new blocked-family feed)",
+  "oos_edge_proven": false,
+  "n_assets_tested": 0,
+  "n_assets_with_exposure": 0,
+  "n_oos_edge_proven": 0,
+  "pre_stated_hypothesis": "cvr_z = zscore(rolling Pearson corr(qvol, |ret1|, W=48), ZLB=168) is a bivariate liquidity-volatility co-movement/dependence statistic (uses |ret1| jointly with qvol). Genuinely different from C23/C40/C41 vol_z level (univariate), C42 expansion, C43 unsloped vol_z divergence, C44 vol_z ROC, C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, C47 up/down partition imbalance, C48 rolling STD of qvol (2nd-moment), C49 rolling excess kurtosis (4th-moment), C50 rolling skewness (3rd-moment), C51 rolling lag-1 autocorrelation (serial dependence). Fade extreme positive co-movement shocks (cvr_z>=1.25): ret_W>0 -> SHORT, ret_W<0 -> LONG; extreme decoupling (cvr_z<=-1.25) -> no entry (pre-stated asymmetry). Exit cvr_z<0.25 or hold>=12h or flip. t->t+1 execution. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows. Edge iff exposure>0 AND all slices OOS net>0 AND >B&H.",
+  "config": {
+    "spot_cache": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+    "spot_meta": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "spot_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "volume_meta": "data/cache/volume_1h_full.meta.json",
+    "volume_provenance": "data/cache/volume_1h_full.provenance.json",
+    "volume_validation": {
+      "ok": true,
+      "refused": false,
+      "family": "real_quote_volume",
+      "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "notes_limits_gaps": "",
+      "provenance_source": "<dict>",
+      "provenance_merged": true,
+      "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "multi_symbol_long_frame": {
+        "group_col": "symbol",
+        "n_groups": 16,
+        "global_duplicate_timestamps": 76680,
+        "within_group_duplicates": 0,
+        "checked": "per_symbol_monotonic_unique"
+      },
+      "reason": "passed_all_fail_closed_checks",
+      "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+      "rows": 81792,
+      "columns": [
+        "timestamp_utc",
+        "symbol",
+        "quote_volume_usdt"
+      ],
+      "family_spec": "real_quote_volume"
+    },
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        20,
+        20
+      ]
+    ],
+    "wf": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "params": {
+      "corr_window": 48,
+      "z_lookback": 168,
+      "entry_z": 1.25,
+      "exit_z": 0.25,
+      "max_hold_bars": 12,
+      "min_obs": 168,
+      "eps": 1e-12
+    },
+    "execution": "signal_t -> return_{t+1}"
+  },
+  "by_asset": {},
+  "honesty": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "no_threshold_weakening": true,
+    "pre_stated_before_oos": true,
+    "edge_requires_all_slices_and_bh": true,
+    "oos_edge_proven": false,
+    "conclusion": "no_oos_edge_proven_campaign52_fail_closed"
+  }
+}

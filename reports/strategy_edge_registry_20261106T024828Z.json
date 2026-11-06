@@ -1,0 +1,184 @@
+{
+  "generated_at_utc": "2026-11-06T02:49:02.319533+00:00",
+  "campaign": 52,
+  "title": "Strategy edge registry \u2014 Campaign 52 (C52 vol-absret cross-correlation shock MR costed OOS on real quote volume; fail-closed)",
+  "supersedes": "reports/strategy_edge_registry_20261106T024329Z.json",
+  "oos_edge_proven": false,
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign_52_real_quote_volume_vol_absret_corr_shock_mr": {
+    "artifact": "reports/real_quote_volume_vol_absret_corr_shock_mean_reversion_costed_oos_20261106T024828Z.json",
+    "generated_at_utc": "2026-11-06T02:48:28.016100+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": 0,
+    "n_assets_with_exposure": 0,
+    "n_oos_edge_proven": 0,
+    "by_asset": []
+  },
+  "campaign_51_real_quote_volume_autocorr_shock_mr": {
+    "artifact": "reports/real_quote_volume_autocorr_shock_mean_reversion_costed_oos_20261106T024316Z.json",
+    "generated_at_utc": "2026-11-06T02:43:16.595037+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": null,
+    "n_assets_with_exposure": null,
+    "n_oos_edge_proven": null,
+    "by_asset": [
+      {
+        "asset": "ADA",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.07753031514812914,
+        "bench_oos_0bps": -0.10850660556113201,
+        "oos_40bps": -1.0855303151481293,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "AVAX",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.1211507627437276,
+        "bench_oos_0bps": 0.03692307851737009,
+        "oos_40bps": -0.7668492372562725,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BNB",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.045183027274259935,
+        "bench_oos_0bps": 0.16790033173988939,
+        "oos_40bps": -0.9868169727257401,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.15054130122742726,
+        "bench_oos_0bps": 0.056906054230617786,
+        "oos_40bps": -0.6974586987725728,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "DOT",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2877188002993759,
+        "bench_oos_0bps": -0.12387410404863253,
+        "oos_40bps": -1.0557188002993763,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "ETH",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.036208577821848165,
+        "bench_oos_0bps": 0.06087103021756268,
+        "oos_40bps": -0.8882085778218481,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LINK",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.19461001539057776,
+        "bench_oos_0bps": 0.2598010407291865,
+        "oos_40bps": -0.7133899846094223,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.026958695769411567,
+        "bench_oos_0bps": 0.0774892478977014,
+        "oos_40bps": -0.7090413042305885,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "POL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.24980384772486885,
+        "bench_oos_0bps": 0.04760403801385149,
+        "oos_40bps": -0.6261961522751311,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "SOL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.29976364763835117,
+        "bench_oos_0bps": 0.2228033848671428,
+        "oos_40bps": -0.6202363523616488,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "XRP",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.0994835494878985,
+        "bench_oos_0bps": -0.007174877049763051,
+        "oos_40bps": -1.1074835494878985,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      }
+    ]
+  },
+  "feed_unblock_status": {
+    "path": "reports/real_feed_unblock_status_20261106T024828Z.json",
+    "campaign": 52,
+    "path_r_triggered": true,
+    "path_r_reason": null,
+    "blocked_families": null,
+    "delta_changed": false,
+    "delta_message": null
+  },
+  "path_r_assessment": {
+    "real_quote_volume_validated_fail_closed": true,
+    "c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_rerun": false,
+    "c51_autocorr_shock_mean_reversion_tested": true,
+    "c52_vol_absret_crosscorr_shock_mean_reversion_tested": true,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis_differs_from_c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_c51": "C52 uses zscore(rolling Pearson corr(qvol, |ret1|, W=48), ZLB=168) \u2014 a bivariate liquidity-volatility co-movement/dependence statistic (uses |ret1| jointly with qvol). Distinct from C23/C40/C41 vol_z level, C42 expansion, C43 unsloped vol_z divergence, C44 vol_z ROC, C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, C47 up/down partition imbalance, C48 rolling STD (2nd-moment), C49 rolling excess kurtosis (4th-moment), C50 rolling skewness (3rd-moment), C51 rolling lag-1 autocorrelation (serial dependence). C52 is a cross-correlation/co-movement transform.",
+    "oos_edge_proven_any": false
+  },
+  "settled_facts": {
+    "spot_1h_exhausted": true,
+    "cointegration_gating_preserved": {
+      "1h": [],
+      "4h": [
+        "POL/BTC"
+      ],
+      "1d": []
+    },
+    "remaining_blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ]
+  },
+  "honesty": {
+    "real_data_only": true,
+    "no_fabrication_no_proxies_labeled_real": true,
+    "no_threshold_weakening": true,
+    "oos_edge_proven": false
+  }
+}
