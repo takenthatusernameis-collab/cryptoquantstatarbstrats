@@ -1,0 +1,69 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T112634Z",
+  "campaign": 85,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261106T112155Z.json",
+    "sha256": "957f1f1c1174dc5d2493f7e7c4d976e995adee1fe1e3aaab5b973095d9089d67"
+  },
+  "prior_unblock_status": {
+    "path": "reports/real_feed_unblock_status_20261106T111852Z.json",
+    "sha256": "44949e29f361da7afd3fe589f1089e096876d5cba2c7c6d082c3e25d2b27b9ba"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s_approx": 56.42,
+    "warnings": 3566
+  },
+  "r_a": {
+    "artifact": "reports/real_feed_unblock_status_20261106T112342Z.json",
+    "sha256": "1110edd0bd077f9ee4c36881063dada317aff78db5385e4e32a878fc066f5eec",
+    "delta": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED vs C84 prior; 4 families blocked_no_real_feed (funding_basis_carry,cross_exchange_dual_venue_same_asset,term_structure_real_iv_vol_surface,intrabar_microstructure); real_quote_volume validated present (volume_1h_full, 81792 rows). Cache stale (mtimes 2026-11-06 09:58 UTC). No proxies labeled real; no fabricated feeds/provenance."
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_gastwirth_location_shock_mr_costed_oos_20261106T112453Z.json",
+    "sha256": "dde97702d466eeaf7146228d5e4d6c779d29cee08ee62128a99686ad84e47043",
+    "script": "scripts/run_real_quote_volume_gastwirth_location_shock_mr_costed_oos.py",
+    "hypothesis": "VOLUME_GASTWIRTH_LOCATION_SHOCK_MR (Gastwirth location G=0.3*Q(1/3)+0.4*Q(0.5)+0.3*Q(2/3), W=48, tercile+median robust LOCATION L-estimator; z(dz,168); fade |dz|>=1.25 exit |dz|<0.25/hold>=12/flip; t->t+1; WF 720/168/168; 0-40bps; B&H same OOS windows)",
+    "mechanical_distinctness": "Uses terciles Q(1/3),Q(2/3)+median Q(0.5) with weights 0.3,0.4,0.3 (tercile-balanced LOCATION). Distinct from C84 Midhinge MH=(Q1+Q3)/2 (quartiles Q1/Q3, excludes median, weights 0.5/0/0.5), C83 Tukey trimean TM=(Q1+2*Q2+Q3)/4 (quartiles Q1/Q3, weights 0.25/0.5/0.25), C82 AAD/C80 MAD (scale/dispersion of deviations), C66-C73 quantile dispersions/asymmetries (spread/asymmetry not location), C79 Sarle BC/C45 CV/C51C74C75C76C78 inequality (shape/scale/concentration), C41-43 entropy, C23/C40-C84 other RQV transforms. Data identical; transform mechanically different (tercile quantile points+weights).",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": -0.08449971651520394,
+        "fee5_slip5": -3.4364997165152067,
+        "fee10_slip10": -6.788499716515207,
+        "fee20_slip20": -13.492499716515205,
+        "fee40_slip40": -26.900499716515203
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": -1.7586521086247905e-06,
+        "fee5_slip5": -7.152222187219462e-05,
+        "fee10_slip10": -0.00014128579163576435,
+        "fee20_slip20": -0.00028081293116290386,
+        "fee40_slip40": -0.000559867210217183
+      }
+    },
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "R-A executed (no_change vs C84 prior). R-B executed on real_quote_volume (validated); no OOS edge proven. Fail-closed; real data only; no gate/threshold weakening; no C23/C40-C84 reruns."
+}
