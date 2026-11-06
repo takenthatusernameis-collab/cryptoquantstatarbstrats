@@ -1,0 +1,40 @@
+{
+  "generated_at_utc": "2026-11-06T05:35:57.768335+00:00",
+  "campaign": 64,
+  "supersedes": "reports/strategy_edge_registry_20261106T052802Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python3.12 -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3560 warnings in 32.44s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_range_max_min_dispersion_shock_mr_costed_oos_20261106T053519Z.json",
+    "reports/real_feed_unblock_status_20261106T053522Z.json"
+  ],
+  "c64_hypothesis": "real_quote_volume Rolling Range (max-min full-extremes dispersion) shock MR (R-B, pre-stated; differs from C23/C40-C63)",
+  "c64_oos_result": {
+    "oos_edge_proven": false,
+    "n_assets_tested": 11,
+    "n_assets_with_exposure": 11,
+    "n_oos_edge_proven": 0
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C64 R-B on validated real_quote_volume (Rolling Range max-min full-extremes dispersion shock MR; distinct from C63 GMD pairwise dispersion, C62 IQR rank quartile spread, C61 MAD L1 median deviation, C48 STD/L2 mean-based, C56 CV relative ratio, C49/C50 higher moments, C57/C58/C60 entropies, C59 Hurst fractal scaling, C51 autocorr, C52-C55 correlations/beta, and all C23/C40-C52 level/ROC/cumulative/partition/imbalance transforms); oos_edge_proven=false unless pre-stated rule passes. Remaining families blocked_no_real_feed."
+}
