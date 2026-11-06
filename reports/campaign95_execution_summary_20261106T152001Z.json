@@ -1,0 +1,87 @@
+{
+  "campaign": 95,
+  "generated_at_utc": "20261106T152001Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "oos_edge_proven": false,
+  "artifacts_concrete": [
+    {
+      "path": "reports/real_feed_ingest_attempt_20261106T151639Z.json",
+      "sha256": "ae847078067845b08cce432fc2bf28e92ae00be40d6758968f1b224ea89f26dc"
+    },
+    {
+      "path": "reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json",
+      "sha256": "13b30af3f965e84b77fb8899c9fa1398279853e77ccbd9b8fe3f872c8d70f485"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T151843Z.json",
+      "sha256": "6ca9ab15716b68b4ab558653d98ce06714e0b34b1e58334ebb021291de40c665"
+    }
+  ],
+  "n_artifacts": 3,
+  "r_a_reference": {
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "status": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED_REFERENCE_ONLY_NO_STALE_RESCAN",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ]
+  },
+  "bottleneck_1_feed_ingest_attempt": {
+    "artifact": "reports/real_feed_ingest_attempt_20261106T151639Z.json",
+    "sha256": "ae847078067845b08cce432fc2bf28e92ae00be40d6758968f1b224ea89f26dc",
+    "result": "NO_NEW_REAL_NONSPOT_FEED_INGESTED_FAIL_CLOSED",
+    "family_targeted": "funding_basis_carry",
+    "smallest_unblocking_action": "Operator/ingestion job must fetch real funding/basis series with full provenance+sha256 satisfying FUNDING_BASIS_CARRY_SPEC, place in data/cache, re-run unblock status/audit."
+  },
+  "r_b_higuchi_fd": {
+    "artifact": "reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json",
+    "sha256": "13b30af3f965e84b77fb8899c9fa1398279853e77ccbd9b8fe3f872c8d70f485",
+    "hypothesis_id": "VOLUME_HIGUCHI_FD_SHOCK_MR",
+    "distinctness": "Genuinely distinct: Higuchi Fractal Dimension (geometric curve-length scaling L(k)~k^{-D}, multi-interval k resampling, log(L)-log(1/k) slope, W=168,k_max=8) of log-volume changes; not in C23/C40-C94. NON-Hjorth C94 (no derivative variance ratios; multi-interval curve-length scaling). NON-Hurst/RS (Higuchi curve-length, not rescaled-range). NON-entropy incl spectral (no p*log p). NON-LZ76 C93. NON-WW-runs/mean-run-length/TP (C88/89/87). NON-BDS C91. NON-VR C90. NON-OU/HL C92. NON-single-lag-ACF. NON-location C83-C86. NON-dispersion/skew/kurtosis. Grep-verified no higuchi/hfd/fractal_dimension in prior RQV costed_oos/scripts pre-impl.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 2.0199987721140955,
+        "fee5_slip5": -3.079001227885908,
+        "fee10_slip10": -8.178001227885908,
+        "fee20_slip20": -18.376001227885904,
+        "fee40_slip40": -38.7720012278859
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 4.204126648589111e-05,
+        "fee5_slip5": -6.408177713715259e-05,
+        "fee10_slip10": -0.00017020482076019622,
+        "fee20_slip20": -0.0003824509080062834,
+        "fee40_slip40": -0.000806943082498458
+      }
+    },
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "warnings": 3570,
+    "rc": 0,
+    "duration_s": 57.2,
+    "summary_line": "928 passed, 1 skipped, 3570 warnings in 56.70s"
+  },
+  "bottlenecks_remaining": [
+    "4 nonspot families still blocked_no_real_feed (funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure) \u2014 requires operator-supplied real artifacts with fail-closed provenance+sha256.",
+    "No OOS-proven edge found in RQV transform families through C95 (HFD null under exact rule).",
+    "RQV transform space increasingly exhausted; further candidates must be grep-verified genuinely distinct vs C23/C40-C95 before implementation."
+  ],
+  "next_concrete_action": "If/when a real funding_basis_carry (or other blocked family) artifact with complete fail-closed provenance/meta/sha256 is placed in data/cache, re-run generate_unblock_status_report and, if a family becomes valid, execute path_r costed OOS validation under the exact edge rule. Otherwise select a next genuinely-distinct RQV transform (pre-state + grep-verify vs all prior) and run WF 720/168/168, 0-40bps, B&H-same-windows, exact fail-closed edge rule."
+}
