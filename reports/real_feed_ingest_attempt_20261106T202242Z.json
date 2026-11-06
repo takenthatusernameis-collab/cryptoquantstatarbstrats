@@ -1,0 +1,65 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261106T202242Z",
+  "campaign": 102,
+  "target_family": "cross_exchange_dual_venue_same_asset",
+  "operator_action_required": "place real nonspot feed artifact into data/cache/ with fail-closed provenance/meta for exactly one blocked family (e.g. cross_exchange_dual_venue_same_asset), then run loader/unblock audit for that family",
+  "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+  "evidence": {
+    "data_cache_listing": "only spot OHLCV-derived cache pkls/meta and volume_1h_full/provenance artifacts present in data/cache; no funding, basis, carry, cross-exchange dual-venue, term-structure/IV/vol-surface, or intrabar/microstructure real feed artifacts found",
+    "prior_unblock_reference": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "blocked_families_reference_only_no_rescan": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "stale_cache_rescan_performed": false,
+    "target_family_status": "blocked_no_real_feed",
+    "target_family_valid_artifacts": [],
+    "cache_audit_path": "reports/real_feed_cache_audit_102_20261106T202242Z.json",
+    "unblock_status_path": "reports/real_feed_unblock_status_102_20261106T202242Z.json",
+    "unblock_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "campaign_delta": {
+      "tool": "data.real_feed_loader.compare_unblock_status",
+      "generated_at_utc": "2026-11-06T20:22:43.064259+00:00",
+      "fail_closed": true,
+      "real_data_only": true,
+      "fabricated_data": false,
+      "oos_edge_proven": false,
+      "prior_available": true,
+      "changed": false,
+      "prior_source": "reports/real_feed_unblock_status_20261106T130243Z.json",
+      "prior_campaign": 88,
+      "current_campaign": 102,
+      "prior_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+      "current_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+      "prior_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+      "current_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+      "prior_blocked_families": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "current_blocked_families": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "blocked_families_changed": false,
+      "prior_path_r_triggered": true,
+      "current_path_r_triggered": true,
+      "path_r_changed": false,
+      "scan_differences": {},
+      "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+    }
+  },
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true
+}

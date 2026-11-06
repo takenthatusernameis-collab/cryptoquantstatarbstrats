@@ -1,0 +1,67 @@
+{
+  "tool": "campaign102_execution_summary",
+  "generated_at_utc": "20261106T202343Z",
+  "campaign": 102,
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T201129Z.json",
+    "prior_registry_sha256": "935e651bdec647418d4612fc6ec9428ca7728e51bd06e2b0aafc9f5d92324674"
+  },
+  "deliverables": {
+    "ingest_attempt": {
+      "path": "reports/real_feed_ingest_attempt_20261106T202242Z.json",
+      "sha256": "440a0e62bb1e7529987accdf5a9a5b4012d678e82c3f1f59cfb0c02b0c59a69d"
+    },
+    "rb_costed_oos": {
+      "path": "reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json",
+      "sha256": "0a344a04425f075fa3fd2f3122091d747e9243edf0842488f8497d905782cc41"
+    },
+    "strategy_edge_registry": {
+      "path": "reports/strategy_edge_registry_20261106T202343Z.json",
+      "sha256": "ce1d2d411542eaad47c2829b5983a89f007bef277f631c7ebd86927be0b9b0c5"
+    },
+    "campaign102_execution_summary": {
+      "path": "reports/campaign102_execution_summary_20261106T202343Z.json",
+      "sha256": "05e96c8c78b7386b8c2a6dbd50d3012c6c96875e01fb8bc68dfebe36559f0aa6"
+    }
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3562
+  },
+  "c102_rb_result": {
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_edge_proven": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -1.3499515796872497,
+      "fee5_slip5": -3.203951579687251,
+      "fee10_slip10": -5.057951579687251,
+      "fee20_slip20": -8.76595157968725,
+      "fee40_slip40": -16.18195157968725
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": -0.0003090548488294985,
+      "fee5_slip5": -0.0007335053982800482,
+      "fee10_slip10": -0.0011579559477305978,
+      "fee20_slip20": -0.0020068570466316962,
+      "fee40_slip40": -0.0037046592444338945
+    }
+  },
+  "primary_blockers_status": {
+    "nonspot_ingest": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED (no real nonspot artifacts in data/cache/workspace for cross_exchange_dual_venue_same_asset; operator must place artifact)",
+    "stale_cache_rescan": "NOT_PERFORMED"
+  },
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "overall_oos_edge_proven": false
+}

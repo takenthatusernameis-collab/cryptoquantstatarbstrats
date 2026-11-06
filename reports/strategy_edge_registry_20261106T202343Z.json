@@ -1,0 +1,75 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T202343Z",
+  "campaign": 102,
+  "supersedes": "reports/strategy_edge_registry_20261106T201129Z.json",
+  "supersedes_sha256": "935e651bdec647418d4612fc6ec9428ca7728e51bd06e2b0aafc9f5d92324674",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T201129Z.json",
+    "prior_registry_sha256": "935e651bdec647418d4612fc6ec9428ca7728e51bd06e2b0aafc9f5d92324674",
+    "c100_rb": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
+    "c100_rb_sha256": "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951",
+    "c101_rb": "reports/real_quote_volume_dfa_shock_mr_costed_oos_20261106T200334Z.json",
+    "c101_rb_sha256": "41dc8fc858acb19e6c36679359c6a304ea3dfb24477332c9b12d4bb4a01265c7",
+    "c102_rb": "reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json",
+    "c102_rb_sha256": "0a344a04425f075fa3fd2f3122091d747e9243edf0842488f8497d905782cc41"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3562
+  },
+  "campaign102_r_b": {
+    "artifact": "reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json",
+    "sha256": "0a344a04425f075fa3fd2f3122091d747e9243edf0842488f8497d905782cc41",
+    "candidate": "VOLUME_APEN_SHOCK_MR (Approximate Entropy of log-volume changes, fade ApEn-shocks vs baseline; m=2, r=0.2*std)",
+    "pre_stated_distinctness": "Grep-verified absent before impl: approximate_entropy|apen|approx_entropy not present in prior real_quote_volume costed OOS reports/scripts. Distinct from permutation/sample/shannon/renyi entropy families (block-frequency entropy), DFA(C101), ZCR(C100), Hurst/RS(C94), Higuchi FD(C95), Katz FD(C96), Petrosian FD(C99), LZ76(C93), Hjorth/TKEO. ApEn is vector-regularity entropy (Chebyshev m-vector matches within tolerance r), not block-frequency entropy.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": -1.3499515796872497,
+        "fee5_slip5": -3.203951579687251,
+        "fee10_slip10": -5.057951579687251,
+        "fee20_slip20": -8.76595157968725,
+        "fee40_slip40": -16.18195157968725
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": -0.0003090548488294985,
+        "fee5_slip5": -0.0007335053982800482,
+        "fee10_slip10": -0.0011579559477305978,
+        "fee20_slip20": -0.0020068570466316962,
+        "fee40_slip40": -0.0037046592444338945
+      }
+    },
+    "fail_closed": true
+  },
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261106T202242Z.json",
+    "ingest_attempt_sha256": "440a0e62bb1e7529987accdf5a9a5b4012d678e82c3f1f59cfb0c02b0c59a69d",
+    "no_stale_cache_rescan": true
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "overall_oos_edge_proven": false,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false
+}
