@@ -1,0 +1,76 @@
+{
+  "artifact": "reports/strategy_edge_registry_20261106T101904Z.json",
+  "campaign": 80,
+  "cumulative_real_quote_volume_rb_exhausted_examples": "C23/C40-C79 plus C80 MAD-scale shock MR (no edge proven). Do not rerun unchanged.",
+  "current_unblock_status": "reports/real_feed_unblock_status_20261106T101846Z.json",
+  "current_unblock_status_sha256": "d96c49ccf8af9b64419c3fcfab59025bfaa4db318e3d92c7df3d276565272297",
+  "fabricated_data": false,
+  "fail_closed": true,
+  "generated_at_utc": "2026-11-06T10:19:04.132597+00:00",
+  "honest_assessment": "EXECUTED_C80_RB_DEPS_UNBLOCKED_R_A_INFEASIBLE_NO_OOS_EDGE",
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "prior_unblock_status": "reports/real_feed_unblock_status_20261106T101309Z.json",
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "duration_s": 56.77,
+    "executed_at_utc": "2026-11-06T10:18Z",
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "warnings": 3582
+  },
+  "ra_attempt": {
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "performed": true,
+    "result": "no_new_valid_nonspot_feed_with_complete_provenance_found",
+    "validated_nonspot_feed_present": "real_quote_volume (volume_1h_full)"
+  },
+  "rb_campaign80": {
+    "all_costs_positive": false,
+    "any_exposure": true,
+    "artifact": "reports/real_quote_volume_mad_scale_shock_mr_costed_oos_20261106T101732Z.json",
+    "artifact_sha256": "3017493a6b1a246ee5700d13dc75185e3394ac567b01d20e427cff4596639db4",
+    "beats_bh_rule": false,
+    "benchmark": "buy-and-hold per asset (gross), same OOS WF windows",
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "distinctness_summary": "Rolling MAD=median(|x-med(x)|) robust L1 scale on raw volume; distinct from C45 CV (\u03c3/\u03bc), C79 Sarle BC joint skew/kurtosis, C66-C73 quantile dispersions/asymmetries, share-inequality indices C51/C74/C75/C76/C78, entropy C41/C42/C43.",
+    "family": "real_quote_volume",
+    "hypothesis": "Volume MAD Scale Shock Mean Reversion",
+    "oos_edge_proven": false,
+    "script": "scripts/run_real_quote_volume_mad_scale_shock_mr_costed_oos.py",
+    "script_sha256": "90b5bf026fe9f3c5443076a3e152822a758639aca2ffeae1914d2129c0117d49",
+    "wf": "rolling 720/168/168"
+  },
+  "real_data_only": true,
+  "supersedes": "reports/strategy_edge_registry_20261106T101331Z.json",
+  "supersedes_sha256": "e3e9b064fc1a328d1fb0c0aea72dcf8a36e7312b8c4c2022660a538fae107dc9",
+  "tool": "manual_campaign80_registry_emit"
+}

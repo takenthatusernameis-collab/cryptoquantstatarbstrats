@@ -1,0 +1,143 @@
+{
+  "audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+  "auto_discover_readiness": true,
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "campaign": 80,
+  "campaign_delta": {
+    "blocked_families_changed": false,
+    "changed": false,
+    "current_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+    "current_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "current_campaign": 80,
+    "current_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "current_path_r_triggered": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "generated_at_utc": "2026-11-06T10:18:46.528121+00:00",
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "oos_edge_proven": false,
+    "path_r_changed": false,
+    "prior_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+    "prior_available": true,
+    "prior_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "prior_campaign": 79,
+    "prior_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "prior_path_r_triggered": true,
+    "prior_source": "reports/real_feed_unblock_status_20261106T101309Z.json",
+    "real_data_only": true,
+    "scan_differences": {},
+    "tool": "data.real_feed_loader.compare_unblock_status"
+  },
+  "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+  "fabricated_data": false,
+  "fail_closed": true,
+  "families": {
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "real_quote_volume": {
+      "status": "real_feed_with_provenance_present",
+      "valid_artifacts": [
+        {
+          "family": "real_quote_volume",
+          "meta": "volume_1h_full.meta.json",
+          "reason": "passed_all_fail_closed_checks",
+          "rows": 81792
+        }
+      ]
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "generated_at_utc": "2026-11-06T10:18:46.528095+00:00",
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "path_r_triggered": true,
+  "ra_attempt": {
+    "blocked_families_checked": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "notes": [
+      "Only validated nonspot feed with provenance remains real_quote_volume (volume_1h_full).",
+      "Legacy validation artifacts exist for funding/dual_venue/term_structure families but no validated cached feed artifacts passed current unblock scan for those families.",
+      "Fail-closed: no proxies labeled real, no fabricated provenance."
+    ],
+    "performed": true,
+    "result": "no_new_valid_nonspot_feed_with_complete_provenance_found",
+    "scope": "local repo/workspace cache/data paths and readiness specs; no external fetch",
+    "searched_paths": [
+      "data/cache",
+      "/home/runner/work",
+      "reports readiness/loader validation artifacts"
+    ]
+  },
+  "rb_campaign80": {
+    "artifact": "reports/real_quote_volume_mad_scale_shock_mr_costed_oos_20261106T101732Z.json",
+    "distinctness_vs": [
+      "C23/C40-C77 prior RQV transforms",
+      "C78 Hoover/Robin Hood share-L1 deviation",
+      "C79 Sarle Bimodality Coefficient (skew+kurtosis joint)"
+    ],
+    "edge_reason": "any_exposure=true, all_costs_positive=false, beats_bh_rule=false",
+    "executed": true,
+    "hypothesis": "Volume MAD Scale Shock Mean Reversion",
+    "oos_edge_proven": false,
+    "script": "scripts/run_real_quote_volume_mad_scale_shock_mr_costed_oos.py",
+    "sha256": "3017493a6b1a246ee5700d13dc75185e3394ac567b01d20e427cff4596639db4"
+  },
+  "readiness_spec_count": 1,
+  "readiness_specs": [
+    {
+      "artifact": "real_feed_ingestion_readiness",
+      "campaign": 9,
+      "exists": true,
+      "families_covered": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "name": "real_feed_ingestion_readiness_20261105T104640Z.json",
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+      "relevant_to_nonspot_unblock": true
+    }
+  ],
+  "real_data_only": true,
+  "scan_summary": {
+    "cache_dir": "data/cache",
+    "candidate_hits": 1,
+    "candidate_validation_count": 1,
+    "meta_files_scanned": 21,
+    "new_real_feeds_with_provenance_found": true
+  },
+  "tool": "data.real_feed_loader.generate_unblock_status_report"
+}
