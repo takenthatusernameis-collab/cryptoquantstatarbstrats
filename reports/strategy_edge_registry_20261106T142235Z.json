@@ -1,0 +1,68 @@
+{
+  "tool": "campaign91_registry_emit",
+  "generated_at_utc": "20261106T142235Z",
+  "campaign": 91,
+  "supersedes": "reports/strategy_edge_registry_20261106T141245Z.json",
+  "supersedes_sha256": "ebcf60997c4d29d07460a4de0e3db59d4f81fe4a854f230c4aeff2105d5a43d9",
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fadedfd0802ad4bf43fcf95eaff4a67ddfbc9611513221800aafc7a6d80",
+    "prior_c90_rb": "reports/real_quote_volume_variance_ratio_shock_mr_costed_oos_20261106T141032Z.json",
+    "prior_c90_rb_sha256": "e192f01f7d2b2e1532565f0462d02d98e6262b138f4c0d43d3a707cabfb0e0e5"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3562,
+    "duration_s": 59.63
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "campaign91_r_b": {
+    "artifact": "reports/real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos_20261106T142103Z.json",
+    "sha256": "c8625a2a42d2810ea2f037f0cfb2ce95b9cc2c61b835babefabe2910e1ff33a6",
+    "hypothesis_id": "VOLUME_BDS_NONLINEAR_INDEPENDENCE_SHOCK_MR",
+    "mechanical_distinctness_summary": "BDS V_m=C_m(eps)-C_1(eps)^m (m=2, eps=0.5*sd, W=168) correlation-integral/embedding-dimension nonlinear-independence test on continuous log-volume changes (joint higher-order dependence / embedding-space clustering). NOT in C23/C40-C90. NON-variance-ratio (C90 VR(q) is multi-horizon second-moment variance-scaling, not embedding correlation integral), NON-mean-run-length-persistence (C89 dichotomized run durations), NON-WW-runs (C88 dichotomized total-run-count), NON-TP (C87 reversal-count of raw diffs), NON-single-lag linear ACF (detects nonlinear/higher-order joint dependence across m-lag embedding), NON-location (C83-C86), NON-dispersion/entropy/skew/kurtosis. BDS report absent pre-C91 (verified).",
+    "walkforward": "720/168/168",
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -0.6198715984115071,
+      "fee5_slip5": -6.293871598411511,
+      "fee10_slip10": -11.96787159841151,
+      "fee20_slip20": -23.315871598411505,
+      "fee40_slip40": -46.0118715984115
+    },
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "ra_status_reference": "R-A remains complete/reference-only (NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED, 4 blocked families, real_quote_volume validated-only; do not stale-cache rescan). Reference: reports/real_feed_unblock_status_20261106T130243Z.json",
+  "fail_closed": true
+}

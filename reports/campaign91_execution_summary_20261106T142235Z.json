@@ -1,0 +1,67 @@
+{
+  "tool": "campaign91_execution_summary",
+  "generated_at_utc": "20261106T142235Z",
+  "campaign": 91,
+  "artifacts_this_session": [
+    {
+      "path": "reports/real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos_20261106T142103Z.json",
+      "sha256": "c8625a2a42d2810ea2f037f0cfb2ce95b9cc2c61b835babefabe2910e1ff33a6",
+      "kind": "R-B costed OOS"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T142235Z.json",
+      "sha256": "8e50e58db76cc457eb3fcbcb6e214cc67de486b95d7865b9299d4640a87c2300",
+      "kind": "superseding strategy edge registry"
+    },
+    {
+      "path": "reports/campaign91_execution_summary_20261106T142235Z.json",
+      "sha256": "2e9772830f9190041aaeec88c0f083b80694dd75473184f8882a5735915e0f2c",
+      "kind": "C91 execution summary"
+    }
+  ],
+  "ra": {
+    "status": "reference_only_no_rerun_stale_cache",
+    "reference": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "reference_sha256": "49699fadedfd0802ad4bf43fcf95eaff4a67ddfbc9611513221800aafc7a6d80",
+    "conclusion": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": 4,
+    "validated_only": [
+      "real_quote_volume"
+    ]
+  },
+  "rb": {
+    "hypothesis_id": "VOLUME_BDS_NONLINEAR_INDEPENDENCE_SHOCK_MR",
+    "script": "scripts/run_real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos.py",
+    "artifact": "reports/real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos_20261106T142103Z.json",
+    "sha256": "c8625a2a42d2810ea2f037f0cfb2ce95b9cc2c61b835babefabe2910e1ff33a6",
+    "distinctness_verified": "No BDS/correlation-integral/embedding-dimension report pre-C91 (verified). Transform BDS V_m=C_m-C_1^m, m=2, eps=0.5*sd, W=168 on log-volume changes \u2014 mechanically distinct from ALL C23/C40-C90 (esp C90 VR variance-scaling, C89 mean-run-length, C88 WW runs, C87 TP, single-lag ACF, C83-C86 location, dispersion/entropy/skew/kurtosis).",
+    "wf": "720/168/168",
+    "costs_bps": "0/0,5/5,10/10,20/20,40/40",
+    "benchmark": "B&H same OOS windows",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+    "n_assets": 11,
+    "exposure": true,
+    "net_gt0_at_0bps_cross_asset_sum": -0.6198715984115071,
+    "fails_from_bps": 5,
+    "beats_bh": false
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3562,
+    "duration_s": 59.63
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T141245Z.json",
+  "supersedes_sha256": "ebcf60997c4d29d07460a4de0e3db59d4f81fe4a854f230c4aeff2105d5a43d9",
+  "prior_c90_rb": "reports/real_quote_volume_variance_ratio_shock_mr_costed_oos_20261106T141032Z.json",
+  "prior_c90_rb_sha256": "e192f01f7d2b2e1532565f0462d02d98e6262b138f4c0d43d3a707cabfb0e0e5",
+  "bottlenecks": {
+    "cache_stale_rA_no_change_C84_C91_refs": "R-A reference-only; path_r needs NEW real nonspot feed artifact with fail-closed provenance in data/cache.",
+    "rqv_exhausted_through_C91": "Add BDS (C91) to exhausted list (now 56 real_quote_volume_*_costed_oos reports). Next must be genuinely distinct from ALL C23/C40-C91."
+  },
+  "fail_closed": true,
+  "note": "Artifacts emitted before this summary (>=3 concrete reports this session including R-B + registry + summary)."
+}
