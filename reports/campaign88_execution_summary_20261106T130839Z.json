@@ -1,0 +1,31 @@
+{
+  "campaign": 88,
+  "generated_at_utc": "20261106T130839Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "r_a": {
+    "status": "COMPLETE",
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "delta": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": 4
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_wald_wolfowitz_runs_shock_mr_costed_oos_20261106T130804Z.json",
+    "sha256": "c51d665151e2ff8e1b807ec4fa181ad632dbdad879a1005327ebba1942e1cc44",
+    "transform": "Wald-Wolfowitz runs statistic Z_WW on median-dichotomized volume (randomness/clustering), NON-LOCATION, NON-TP vs C87",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "registry": {
+    "path": "reports/strategy_edge_registry_20261106T130830Z.json",
+    "sha256": "3a97d20fa0ff471404e3f8c2a532a0096f9baf19684345e85b2a47491c8c4f3f",
+    "supersedes": "reports/strategy_edge_registry_20261106T122237Z.json"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0
+  },
+  "next_mandatory": "C89 R-A reference-only vs 20261106T130243Z (no stale-cache rescan); R-B must be genuinely distinct NON-location, NON-TP transform not in C23/C40-C88 (and not Wald-Wolfowitz runs). To unblock path_r, ingest NEW real nonspot feed with fail-closed provenance into data/cache/."
+}

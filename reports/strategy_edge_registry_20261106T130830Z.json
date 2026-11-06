@@ -1,0 +1,70 @@
+{
+  "campaign": 88,
+  "generated_at_utc": "20261106T130830Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. No gate/threshold weakening. WF 720/168/168, cost grid 0\u201340bps [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261106T122237Z.json",
+    "sha256": "945396134f19455fdf219a0e6ff6b27a1b74cb8860c2bff6a07b9f067d89f69f"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0
+  },
+  "r_a": {
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T122116Z.json",
+    "delta_vs_c87": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_nonspot_feed": {
+      "family": "real_quote_volume",
+      "cache": "volume_1h_full",
+      "rows": 81792,
+      "provenance_present": true
+    },
+    "path_r_note": "R-A complete 2026-11-06T13:02:43Z; same stale cache not re-scanned as new campaign work. No new validated nonspot feed discovered; R-B executed on real_quote_volume."
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_wald_wolfowitz_runs_shock_mr_costed_oos_20261106T130804Z.json",
+    "sha256": "c51d665151e2ff8e1b807ec4fa181ad632dbdad879a1005327ebba1942e1cc44",
+    "script": "scripts/run_real_quote_volume_wald_wolfowitz_runs_shock_mr_costed_oos.py",
+    "hypothesis": "VOLUME_WALD_WOLFOWITZ_RUNS_SHOCK_MR (Z_WW=(R-mu_R)/sqrt(var_R), W=48, median-dichotomized contiguous same-side runs count = dichotomized-sequence randomness/clustering, NON-LOCATION, NON-TP; z(dz,168); fade |dz|>=1.25 exit |dz|<0.25/hold>=12/flip; t->t+1; WF 720/168/168; 0-40bps; B&H same OOS windows)",
+    "mechanical_distinctness": "NON-LOCATION, NON-TP transform. Z_WW standardizes run count R of a median-dichotomized sequence (mu_R=1+2*n1*n2/(n1+n2), WW variance) measuring randomness/clustering of above/below-median runs. Distinct from exhausted location family (C86 Hodges\u2013Lehmann Walsh-average-median, C85 Gastwirth tercile L-estimator, C84 Midhinge, C83 Tukey trimean) \u2014 run-count on dichotomy, not level/center. Distinct from C87 Turning-Point Rate TP=(1/(n-2))*sum I[(dx_{i-1})*(dx_i)<0] (local peak/trough reversals of consecutive raw differences/triplet oscillation) \u2014 different operation (median dichotomy + contiguous same-side run-length grouping) and different randomness null/normalization. Distinct from ACF/autocorr (linear lag-1 covariance of continuous series vs binary dichotomized-sequence run clustering), C41-C43 entropy (distributional symbol-probability information/complexity vs single standardized run-count), C80 MAD/C82 AAD (scale/dispersion), C66-C73 quantile dispersions/asymmetries, moment/Bowley/Kelly skewness & kurtosis, C79 Sarle BC/C45 CV/C51,C74-C78 inequality, and other C23/C40-C87 RQV transforms. Data identical (real_quote_volume); transform mechanically different.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 1.3666686478249472,
+        "fee5_slip5": -2.6723313521750556,
+        "fee10_slip10": -6.711331352175054,
+        "fee20_slip20": -14.789331352175052,
+        "fee40_slip40": -30.945331352175057
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 2.8443819676676403e-05,
+        "fee5_slip5": -5.561795188509522e-05,
+        "fee10_slip10": -0.00013967972344686676,
+        "fee20_slip20": -0.0003078032665704099,
+        "fee40_slip40": -0.0006440503528174961
+      }
+    },
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  }
+}
