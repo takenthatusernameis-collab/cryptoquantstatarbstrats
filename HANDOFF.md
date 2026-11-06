@@ -1,4 +1,4 @@
-**Timestamp (UTC): 20261106T082521Z (Handoff refresh; Campaign #72 executed; registry `strategy_edge_registry_20261106T081541Z.json` supersedes `...T071418Z.json`; `oos_edge_proven=false`) — C73 binding now. Full suite green: `python -m pytest tests/ -q` => rc=0, 928 passed, 1 skipped, 0 failed. C72 artifacts verified present in `reports/`; no new blocked-family feed.**
+**Timestamp (UTC): 20261106T082707Z (Handoff refresh; C73 still binding/unexecuted; registry `strategy_edge_registry_20261106T081541Z.json` supersedes `...T071418Z.json`; `oos_edge_proven=false`) — C73 mandatory. Full suite green: `python -m pytest tests/ -q` => rc=0, 928 passed, 1 skipped, 0 failed. No C73 artifacts yet; produce >=3.**
 
 ## CAMPAIGN #72 STATUS (EXECUTED — fail-closed, no proven edge)
 
