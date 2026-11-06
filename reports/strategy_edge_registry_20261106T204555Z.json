@@ -1,0 +1,72 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-06T20:45:55.860166+00:00",
+  "campaign": 103,
+  "supersedes": "reports/strategy_edge_registry_20261106T202343Z.json",
+  "supersedes_sha256": "ce1d2d411542eaad47c2829b5983a89f007bef277f631c7ebd86927be0b9b0c5",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T202343Z.json",
+    "prior_registry_sha256": "ce1d2d411542eaad47c2829b5983a89f007bef277f631c7ebd86927be0b9b0c5",
+    "c102_rb": "reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json",
+    "c102_rb_sha256": "0a344a04425f075fa3fd2f3122091d747e9243edf0842488f8497d905782cc41",
+    "c103_rb": "reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json",
+    "c103_rb_sha256": "f648e6f42a33808773bdcb41fd3f1bbcdc12c351235d92318cbc3ea5224d4c58"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0
+  },
+  "campaign103_r_b": {
+    "artifact": "reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json",
+    "sha256": "f648e6f42a33808773bdcb41fd3f1bbcdc12c351235d92318cbc3ea5224d4c58",
+    "candidate": "VOLUME_SPECTRAL_ENTROPY_SHOCK_MR (Spectral/PDS entropy of log-volume changes, periodogram normalized Shannon entropy over positive freqs, fade spectral-entropy shocks vs baseline)",
+    "pre_stated_distinctness": "Grep-verified absent before impl: spectral_entropy|power_spectral.*entropy|psd.*entropy not present in prior real_quote_volume costed OOS reports/scripts. Distinct from ApEn/SampleEn/permutation/shannon/renyi block-frequency entropies, DFA(C101), Hurst/RS, Higuchi/Katz/Petrosian FD, LZ76, Hjorth/TKEO, ZCR(C100).",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": -0.25863783631377435,
+        "fee5_slip5": -2.012637836313776,
+        "fee10_slip10": -3.766637836313776,
+        "fee20_slip20": -7.274637836313775,
+        "fee40_slip40": -14.290637836313774
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": -5.921195886304357e-05,
+        "fee5_slip5": -0.00046076873541982044,
+        "fee10_slip10": -0.000862325511976597,
+        "fee20_slip20": -0.00166543906509015,
+        "fee40_slip40": -0.003271666171317256
+      }
+    },
+    "fail_closed": true
+  },
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261106T204259Z.json",
+    "ingest_attempt_sha256": "f534ae573e1e02f33a8a55c2f0197373fb0ac8a219da9444ffc4b8668aa80f89",
+    "no_stale_cache_rescan": true
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS net mean on same WF windows; else false.",
+  "overall_oos_edge_proven": false,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false
+}
