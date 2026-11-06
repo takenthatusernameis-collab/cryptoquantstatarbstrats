@@ -1,0 +1,223 @@
+{
+  "artifact": "strategy_edge_registry",
+  "campaign": 51,
+  "generated_at_utc": "2026-11-06T02:43:29.032185+00:00",
+  "computed_at_stamp": "20261106T024329Z",
+  "supersedes": "strategy_edge_registry_20261106T023848Z.json",
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "decision": "NO_PROVEN_OOS_EDGE",
+  "test_suite": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign51_artifacts": {
+    "volume_hypothesis": "real_quote_volume_autocorr_shock_mean_reversion_costed_oos_20261106T024316Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T024317Z.json",
+    "generator": "scripts/generate_campaign51_artifacts.py",
+    "unblock_script": "scripts/run_campaign51_unblock_status.py"
+  },
+  "path_r": {
+    "different_prestated_hypothesis_tested": true,
+    "c51_hypothesis": {
+      "name": "Volume Autocorrelation Shock Mean Reversion (Liquidity Persistence/Clustering Burst Fade)",
+      "description": "Compute rolling lag-1 autocorrelation of real quote volume over 48h, z-score over 168h (causal) -> ac1_z. Fade extreme volume-persistence/clustering bursts: ac1_z >= 1.25 and ret_W>0 -> SHORT; ac1_z >= 1.25 and ret_W<0 -> LONG. Extreme anti-persistence (ac1_z <= -1.25) -> no entry (pre-stated asymmetry). Exit on ac1_z < 0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+      "params_fixed_before_oos_evaluation": true,
+      "no_in_sample_tuning": true,
+      "differs_from_c23": "C23 trades high vol_z LEVEL (first-moment) momentum continuation; C51 uses z-score of rolling lag-1 AUTOCORRELATION of qvol (serial dependence/persistence) as a shock fade.",
+      "differs_from_c40": "C40 fades HIGH volume climax on aggregate vol_z level; C51 fades VOLUME PERSISTENCE/CLUSTERING (autocorrelation) — a temporal-dependence statistic, not volume level.",
+      "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C51 mean-reverts on extreme volume autocorrelation/persistence shocks.",
+      "differs_from_c42": "C42 confirms breakouts on volume expansion (level); C51 uses volume autocorrelation (serial structure) shock fade, no breakout/expansion confirmation.",
+      "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price extremes; C51 uses ac1_z (volume persistence) shock with ret_W confirmation — different transform and trigger.",
+      "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C51 mean-reverts on extreme ac1_z persistence shocks, no ROC/acceleration.",
+      "differs_from_c45": "C45 mean-reverts on Amihud illiquidity shocks (|ret|/volume, price-impact ratio); C51 uses rolling autocorrelation of qvol (temporal dependence), not a price-impact ratio.",
+      "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C51 uses ac1_z volume-persistence shock fade — different transform (serial dependence vs OBV slopes) and opposite mechanic.",
+      "differs_from_c47": "C47 uses up/down volume split imbalance ratio (directional partitioned sums) exhaustion fade; C51 uses rolling lag-1 autocorrelation of total qvol (temporal clustering) — different construction.",
+      "differs_from_c48": "C48 uses z-score of rolling STD of qvol (2nd-moment dispersion/volatility-of-liquidity); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence) — distinct temporal-structure statistic, not a marginal dispersion moment.",
+      "differs_from_c49": "C49 uses z-score of rolling EXCESS KURTOSIS of qvol (4th-moment tail-fatness); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence/persistence) — different statistic measuring temporal clustering vs tail shape.",
+      "differs_from_c50": "C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence/persistence) — different statistic measuring temporal clustering vs distributional asymmetry.",
+      "ac_window": 48,
+      "z_lookback": 168,
+      "entry_z": 1.25,
+      "exit_z": 0.25,
+      "max_hold_bars": 12,
+      "min_obs": 168,
+      "eps": 1e-12
+    },
+    "c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_rerun": false,
+    "real_quote_volume_validated": true,
+    "volume_family": {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "Volume Autocorrelation Shock Mean Reversion (Liquidity Persistence/Clustering Burst Fade)",
+        "description": "Compute rolling lag-1 autocorrelation of real quote volume over 48h, z-score over 168h (causal) -> ac1_z. Fade extreme volume-persistence/clustering bursts: ac1_z >= 1.25 and ret_W>0 -> SHORT; ac1_z >= 1.25 and ret_W<0 -> LONG. Extreme anti-persistence (ac1_z <= -1.25) -> no entry (pre-stated asymmetry). Exit on ac1_z < 0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 trades high vol_z LEVEL (first-moment) momentum continuation; C51 uses z-score of rolling lag-1 AUTOCORRELATION of qvol (serial dependence/persistence) as a shock fade.",
+        "differs_from_c40": "C40 fades HIGH volume climax on aggregate vol_z level; C51 fades VOLUME PERSISTENCE/CLUSTERING (autocorrelation) — a temporal-dependence statistic, not volume level.",
+        "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C51 mean-reverts on extreme volume autocorrelation/persistence shocks.",
+        "differs_from_c42": "C42 confirms breakouts on volume expansion (level); C51 uses volume autocorrelation (serial structure) shock fade, no breakout/expansion confirmation.",
+        "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price extremes; C51 uses ac1_z (volume persistence) shock with ret_W confirmation — different transform and trigger.",
+        "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C51 mean-reverts on extreme ac1_z persistence shocks, no ROC/acceleration.",
+        "differs_from_c45": "C45 mean-reverts on Amihud illiquidity shocks (|ret|/volume, price-impact ratio); C51 uses rolling autocorrelation of qvol (temporal dependence), not a price-impact ratio.",
+        "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C51 uses ac1_z volume-persistence shock fade — different transform (serial dependence vs OBV slopes) and opposite mechanic.",
+        "differs_from_c47": "C47 uses up/down volume split imbalance ratio (directional partitioned sums) exhaustion fade; C51 uses rolling lag-1 autocorrelation of total qvol (temporal clustering) — different construction.",
+        "differs_from_c48": "C48 uses z-score of rolling STD of qvol (2nd-moment dispersion/volatility-of-liquidity); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence) — distinct temporal-structure statistic, not a marginal dispersion moment.",
+        "differs_from_c49": "C49 uses z-score of rolling EXCESS KURTOSIS of qvol (4th-moment tail-fatness); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence/persistence) — different statistic measuring temporal clustering vs tail shape.",
+        "differs_from_c50": "C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry); C51 uses z-score of rolling AUTOCORRELATION of qvol (serial dependence/persistence) — different statistic measuring temporal clustering vs distributional asymmetry.",
+        "ac_window": 48,
+        "z_lookback": 168,
+        "entry_z": 1.25,
+        "exit_z": 0.25,
+        "max_hold_bars": 12,
+        "min_obs": 168,
+        "eps": 1e-12
+      },
+      "evidence_artifact": "real_quote_volume_autocorr_shock_mean_reversion_costed_oos_20261106T024316Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.07753031514812914,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": -1.0855303151481293,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "AVAX",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.1211507627437276,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": -0.7668492372562725,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.045183027274259935,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -0.9868169727257401,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.15054130122742726,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": -0.6974586987725728,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.2877188002993759,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -1.0557188002993763,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "ETH",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.036208577821848165,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": -0.8882085778218481,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.19461001539057776,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": -0.7133899846094223,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.026958695769411567,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -0.7090413042305885,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.24980384772486885,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -0.6261961522751311,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.29976364763835117,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": -0.6202363523616488,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.0994835494878985,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -1.1074835494878985,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_bench": 0,
+      "status": "no_proven_edge_net_of_costs"
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "spot_1h_exhausted": true,
+  "honest_assessment": "C51 tested a genuinely different pre-stated hypothesis (Volume Autocorrelation Shock Mean Reversion / liquidity persistence-clustering burst fade: z-score of rolling lag-1 autocorrelation of qvol, serial-dependence/temporal-clustering) on real_quote_volume. No proven net-of-cost OOS edge. Remaining families (funding/basis/carry, cross-exchange dual-venue, term-structure/real-IV, intrabar microstructure) remain blocked_no_real_feed. Fail-closed.",
+  "_source_files": {
+    "volume": "real_quote_volume_autocorr_shock_mean_reversion_costed_oos_20261106T024316Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T024317Z.json"
+  }
+}
