@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "20261106T232607Z",
+  "campaign": 107,
+  "attempt": "nonspot_real_feed_ingest",
+  "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+  "conclusion": "NO_REAL_NONSPOT_ARTIFACT_PRESENT",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "evidence": {
+    "searched_patterns": [
+      "data/raw/*funding*",
+      "data/raw/*perp*",
+      "data/raw/*open_interest*",
+      "data/raw/*oi*",
+      "data/raw/*nonspot*",
+      "reports/*funding*ingest*",
+      "reports/*nonspot*ingest*"
+    ],
+    "found_real_artifacts": [],
+    "notes": "R-B proceeds on validated real_quote_volume family; nonspot ingest is not a blocker for R-B."
+  },
+  "rb_unblocked": true,
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ]
+}

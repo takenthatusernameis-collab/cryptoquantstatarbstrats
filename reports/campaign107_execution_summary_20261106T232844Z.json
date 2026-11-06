@@ -1,0 +1,39 @@
+{
+  "tool": "campaign107_execution_summary",
+  "generated_at_utc": "20261106T232844Z",
+  "campaign": 107,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "steps_completed": [
+    "C107 reimplemented (W_PE=168, d=3,tau=1, WF 720/168/168, costs 0-40bps, campaign 107)",
+    "C107 executed",
+    "nonspot ingest evidence emitted (FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT)",
+    "pytest attempted (not installed; recorded fail-closed note)",
+    "strategy_edge_registry regenerated (includes C106+C107)",
+    "campaign107 execution summary emitted"
+  ],
+  "artifacts": {
+    "c107_rb": {
+      "path": "reports/real_quote_volume_permutation_entropy_shock_mr_costed_oos_20261106T232706Z.json",
+      "sha256": "12b02d9f91b8c37dd2518c99626320b638773a6d085e74b4967bdf493659f96c",
+      "oos_edge_proven": false
+    },
+    "ingest_attempt": {
+      "path": "reports/real_feed_ingest_attempt_20261106T232607Z.json",
+      "sha256": "a937d8d73fdd3c543870e7bff97fb93532d47c3372b69e63b902776b26d6ce06"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261106T232826Z.json",
+      "sha256": "185aa90b292c0e98b68284a64533ee00ec556e4a3e79e06aff88483bb98e03d6"
+    },
+    "summary": {
+      "path": "reports/campaign107_execution_summary_20261106T232844Z.json",
+      "sha256_placeholder": "self",
+      "sha256": "2b4436c7046a07231f29eb8a716a677e274d2731abf4fd1f6b2244e43224e8aa"
+    }
+  },
+  "nonspot_blocker": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT (does not block R-B on real_quote_volume)",
+  "edge_claim": "NONE",
+  "next_campaign": "C108 R-B on validated real_quote_volume family: propose a distinct pre-stated hypothesis (grep-verified) \u2014 e.g. VOLUME_VARIATION_COEFFICIENT_SHOCK_MR or other not-yet-tested family; reimplement/run WF 720/168/168 costs 0-40bps, emit artifact, then regenerate registry + ingest evidence + summary. Continue fail-closed; no reruns; nonspot still non-blocking for R-B."
+}

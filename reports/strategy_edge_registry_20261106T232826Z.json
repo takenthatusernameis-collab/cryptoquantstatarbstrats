@@ -1,0 +1,54 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T232844Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": "reports/strategy_edge_registry_20261106T204555Z.json",
+  "notes": "Includes C104-C107 real_quote_volume costed OOS; stale prior registries missing C106/C107 are superseded.",
+  "nonspot_ingest": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "artifact": "reports/real_feed_ingest_attempt_20261106T232607Z.json",
+    "sha256": "a937d8d73fdd3c543870e7bff97fb93532d47c3372b69e63b902776b26d6ce06",
+    "rb_unblocked": true
+  },
+  "pytest": {
+    "command": "python3 -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": null,
+    "scope": "full tests/",
+    "note": "Pytest not installed in this environment; counts carried forward from last recorded run (strategy_edge_registry_20261106T213828Z lineage / HANDOFF). Full test run not reproducible here."
+  },
+  "campaigns": [
+    {
+      "campaign": 104,
+      "strategy": "VOLUME_WAVELET_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 105,
+      "strategy": "VOLUME_HURST_RS_PERSISTENCE_MR",
+      "artifact": "reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 106,
+      "strategy": "VOLUME_SAMPLE_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_sample_entropy_shock_mr_costed_oos_20261106T225102Z.json",
+      "sha256": "08b4ea8b5e0b9ada11e463255b61e6d42976f12eda61de7ed33fd520a7fde21b",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 107,
+      "strategy": "VOLUME_PERMUTATION_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_permutation_entropy_shock_mr_costed_oos_20261106T232706Z.json",
+      "sha256": "12b02d9f91b8c37dd2518c99626320b638773a6d085e74b4967bdf493659f96c",
+      "oos_edge_proven": false
+    }
+  ],
+  "edge_claim": "NONE \u2014 no candidate satisfies fail-closed edge rule (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net, same WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]]).",
+  "reference_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json"
+}

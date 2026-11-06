@@ -12,13 +12,14 @@ PRE-STATED HYPOTHESIS (fixed before seeing OOS results): "Volume Permutation-Ent
   exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on
   same WF windows. Real data only; no proxies/fabrication; grep-verified distinct.
 """
-import json, os, pickle, hashlib, math
+import json, os, pickle, hashlib, math, sys
 from pathlib import Path
 from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
 root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(root))
 cache_dir = root / "data" / "cache"
 reports = root / "reports"
 reports.mkdir(exist_ok=True)
