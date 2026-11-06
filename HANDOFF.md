@@ -1,4 +1,4 @@
-## READ THIS FIRST — C95 INITIAL TASK (20261106T151004Z)
+## READ THIS FIRST — C95 INITIAL TASK (20261106T151324Z)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #95 now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Environment READY (`.venv`, pandas/numpy/scipy/scikit-learn/statsmodels/PyYAML/pytest; use `.venv/bin/python`).**
 
