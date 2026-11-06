@@ -1,0 +1,53 @@
+{
+  "tool": "campaign93_execution_summary",
+  "generated_at_utc": "20261106T143520Z",
+  "campaign": 93,
+  "ra_reference_only": {
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "status": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "note": "No stale-cache rescan performed."
+  },
+  "rb": {
+    "artifact": "reports/real_quote_volume_lz76_complexity_shock_mr_costed_oos_20261106T143358Z.json",
+    "sha256": "f784dde095495895bb6a0f9401da50315e9e95a6696bb6e193537d47f78a7335",
+    "hypothesis_id": "VOLUME_LZ76_ALGORITHMIC_COMPLEXITY_SHOCK_MR",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -0.5387078903994218,
+      "fee5_slip5": -7.065707890399425,
+      "fee10_slip10": -13.592707890399424,
+      "fee20_slip20": -26.646707890399423,
+      "fee40_slip40": -52.754707890399416
+    },
+    "distinctness": "LZ76 phrase-parsing algorithmic complexity (dictionary-phrase count, Kolmogorov-complexity proxy) on median-dichotomized log-volume changes; mechanically distinct vs C23/C40-C92 (non-entropy [distribution info vs compression phrases], non-WW/mean-run-length/TP C87-89 [run/reversal counts/durations vs dictionary phrases], non-BDS C91, non-VR C90, non-OU/HL C92, non-single-lag-ACF, non-location C83-C86, non-dispersion/skew/kurtosis). No lempel/lz/lzc RQV pre-existed."
+  },
+  "registry": {
+    "artifact": "reports/strategy_edge_registry_20261106T143520Z.json",
+    "sha256": "d61a7337c7098f341b0e4f01e29954b22d8e5af515d073831b59e186e89635fd",
+    "supersedes": "reports/strategy_edge_registry_20261106T142846Z.json",
+    "supersedes_sha256": "f47ca60e64f2a1b018ebd46cb0ebebe7a16dd12e240ba8c338786ced86965279"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3561,
+    "duration_s": 57.45
+  },
+  "artifacts_emitted_this_session": [
+    "scripts/run_real_quote_volume_lz76_complexity_shock_mr_costed_oos.py",
+    "reports/real_quote_volume_lz76_complexity_shock_mr_costed_oos_20261106T143358Z.json",
+    "reports/strategy_edge_registry_20261106T143520Z.json",
+    "reports/campaign93_execution_summary_20261106T143520Z.json"
+  ],
+  "edge_status": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+  "fail_closed": true
+}

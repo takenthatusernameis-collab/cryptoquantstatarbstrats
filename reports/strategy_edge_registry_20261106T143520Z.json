@@ -1,0 +1,68 @@
+{
+  "tool": "campaign93_registry_emit",
+  "generated_at_utc": "20261106T143520Z",
+  "campaign": 93,
+  "supersedes": "reports/strategy_edge_registry_20261106T142846Z.json",
+  "supersedes_sha256": "f47ca60e64f2a1b018ebd46cb0ebebe7a16dd12e240ba8c338786ced86965279",
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_c92_rb": "reports/real_quote_volume_ou_halflife_shock_mr_costed_oos_20261106T142846Z.json",
+    "prior_c92_rb_sha256": "d7237f2967485234841d84319b1ff1b027b29a804646f3ec192892487eecb8ad"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3561,
+    "duration_s": 57.45
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "campaign93_r_b": {
+    "artifact": "reports/real_quote_volume_lz76_complexity_shock_mr_costed_oos_20261106T143358Z.json",
+    "sha256": "f784dde095495895bb6a0f9401da50315e9e95a6696bb6e193537d47f78a7335",
+    "hypothesis_id": "VOLUME_LZ76_ALGORITHMIC_COMPLEXITY_SHOCK_MR",
+    "mechanical_distinctness_summary": "Rolling Lempel\u2013Ziv 76 (LZ76) phrase-parsing algorithmic complexity c(n)*log2(n)/n on median-dichotomized log-volume change sequence (W=168, ZLB=168) \u2014 an ALGORITHMIC/COMPRESSION (dictionary-phrase parsing, Kolmogorov-complexity proxy) counting parsed distinct phrases via substring parsing. NOT in C23/C40-C92. NON-entropy: Shannon/permutation/sample/Renyi2 are symbol-probability/ordinal-pattern information measures from distributions (p*log p, pattern frequencies, template-match probs), LZ76 is a combinatorial dictionary-phrase parsing object (structural phrase novelty vs distributional uncertainty). NON-WW-runs C88 (total-run-count), NON-mean-run-length C89 (run durations), NON-TP C87 (peak/trough reversal count of triplets) \u2014 LZ76 counts DISTINCT PHRASES, not runs/durations/reversals; objects differ (phrase dictionary vs run/reversal counts/durations). NON-BDS C91 (correlation-integral/embedding-dimension on delay-embedded change vectors, no C_m/embedding). NON-variance-ratio C90 (multi-horizon variance-scaling). NON-OU/HL C92 (parametric AR(1) levels regression -> reversion speed/half-life timescale). NON-single-lag ACF, NON-location (C83-C86), NON-dispersion/entropy/skew/kurtosis. No lempel/lz/lzc RQV report pre-C93 (verified: 57 prior, 0 matches).",
+    "walkforward": "720/168/168",
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -0.5387078903994218,
+      "fee5_slip5": -7.065707890399425,
+      "fee10_slip10": -13.592707890399424,
+      "fee20_slip20": -26.646707890399423,
+      "fee40_slip40": -52.754707890399416
+    },
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "ra_status_reference": "R-A remains complete/reference-only (NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED, 4 blocked families, real_quote_volume validated-only; do not stale-cache rescan). Reference: reports/real_feed_unblock_status_20261106T130243Z.json",
+  "fail_closed": true
+}
