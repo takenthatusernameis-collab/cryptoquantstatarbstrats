@@ -1,0 +1,221 @@
+{
+  "schema": "strategy_edge_registry.v1",
+  "campaign": 41,
+  "generated_at_utc": "2026-11-06T00:33:11.682789+00:00",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "supersedes": "reports/strategy_edge_registry_20261105T233646Z.json",
+  "c41_artifacts": [
+    "reports/real_quote_volume_dryup_breakout_costed_oos_20261106T003151Z.json",
+    "reports/real_feed_unblock_status_20261106T003208Z.json",
+    "reports/strategy_edge_registry_20261106T003311Z.json"
+  ],
+  "path_r": {
+    "status_recheck": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "path_r_triggered": true,
+    "blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "c23_rerun": false,
+    "c40_climax_mean_reversion_rerun": false,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis": "Quote Volume Dry-Up Breakout Continuation",
+    "differs_from_c23_c40": true
+  },
+  "gating_invariants_preserved": {
+    "1h": {
+      "n_gated": 0,
+      "pairs": []
+    },
+    "4h": {
+      "n_gated": 1,
+      "pairs": [
+        "POL/BTC"
+      ]
+    },
+    "1d": {
+      "n_gated": 0,
+      "pairs": []
+    }
+  },
+  "families": [
+    {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "Quote Volume Dry-Up Breakout Continuation",
+        "description": "Causal rolling z-score of real quote_volume_usdt; liquidity DRY-UP (z < -1.0) combined with a vol-scaled short-term breakout (|ret6|/RV72 > 1.25) triggers CONTINUATION in the breakout direction (long if ret6>0, short if ret6<0). Exit on vol normalization (z > -0.2), max hold, or direction flip. Execution shifted t->t+1. Triggers on LOW volume regime (dry-up), opposite of C23/C40 which trigger on HIGH volume/climax; different mechanic and regime.",
+        "params": {
+          "zvol_lookback": 168,
+          "rv_lookback": 72,
+          "breakout_ret_bars": 6,
+          "break_k": 1.25,
+          "dry_z": -1.0,
+          "exit_z": -0.2,
+          "max_hold_bars": 18,
+          "min_vol_obs": 168
+        },
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 = momentum on HIGH vol surge (vol_z high) riding ret24 direction. C41 = continuation on LOW vol dry-up with vol-scaled breakout, different trigger regime and signal construction.",
+        "differs_from_c40": "C40 = mean reversion/FADE on HIGH vol climax (opposite of ret24). C41 = continuation on LOW vol dry-up (opposite trigger regime), not a fade."
+      },
+      "evidence_artifact": "reports/real_quote_volume_dryup_breakout_costed_oos_20261106T003151Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.13572427602214376,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": -0.24772427602214375,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "AVAX",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.03207323304693943,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": -0.16792676695306058,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.004108962256972326,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -0.2598910377430277,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.013632652511431864,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": -0.15763265251143188,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.06518492612628124,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -0.16681507387371877,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "ETH",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.010477131549751273,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": -0.07447713154975127,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.03190365814350882,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": -0.19190365814350885,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.06462791800280865,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -0.30337208199719135,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.0760594159528476,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -0.38805941595284765,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.001422938898632986,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": -0.23342293889863303,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.036833795170830075,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -0.17116620482916992,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_benchmark": 0,
+      "status": "no_proven_edge_net_of_costs"
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "intrabar_microstructure",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    }
+  ],
+  "oos_edge_proven": false,
+  "pytest_rerun": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 24,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "honest_assessment": "NO PROVEN NET-OF-COST OOS EDGE. oos_edge_proven=false. C41 tested Quote Volume Dry-Up Breakout Continuation on validated real_quote_volume (genuinely different from C23 momentum and C40 climax mean reversion): no asset met fail-closed rule (exposure>0 AND all cost slices OOS net>0 AND beat B&H). Remaining blocked families unchanged: funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure. Fail-closed, real data only."
+}

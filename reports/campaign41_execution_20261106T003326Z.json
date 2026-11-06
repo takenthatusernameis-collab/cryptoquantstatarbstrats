@@ -1,0 +1,107 @@
+{
+  "schema": "campaign41_execution.v1",
+  "campaign": 41,
+  "path": "R-B",
+  "generated_at_utc": "2026-11-06T00:33:26.389713+00:00",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "oos_edge_proven": false,
+  "artifacts_produced": [
+    "reports/real_quote_volume_dryup_breakout_costed_oos_20261106T003151Z.json",
+    "reports/real_feed_unblock_status_20261106T003208Z.json",
+    "reports/strategy_edge_registry_20261106T003311Z.json"
+  ],
+  "r_b_hypothesis": {
+    "name": "Quote Volume Dry-Up Breakout Continuation",
+    "differs_from_c23": "C23 = momentum on HIGH vol surge (vol_z high) riding ret24 direction. C41 = continuation on LOW vol dry-up with vol-scaled breakout, different trigger regime and signal construction.",
+    "differs_from_c40": "C40 = mean reversion/FADE on HIGH vol climax (opposite of ret24). C41 = continuation on LOW vol dry-up (opposite trigger regime), not a fade.",
+    "params": {
+      "zvol_lookback": 168,
+      "rv_lookback": 72,
+      "breakout_ret_bars": 6,
+      "break_k": 1.25,
+      "dry_z": -1.0,
+      "exit_z": -0.2,
+      "max_hold_bars": 18,
+      "min_vol_obs": 168
+    },
+    "pre_stated_rule": "oos_edge_proven=true IFF executed exposure>0 AND for ALL cost-grid slices OOS net sum > 0 AND OOS net sum > B&H OOS sum on same OOS windows. Else false (fail-closed)."
+  },
+  "r_b_result": {
+    "n_assets": 11,
+    "n_oos_edge_proven": 0,
+    "aggregate_oos_edge_proven_fail_closed": false,
+    "n_assets_all_slices_oos_net_positive": 0,
+    "n_assets_all_slices_beat_benchmark": 0,
+    "per_named": {
+      "BTC": {
+        "oos_edge_proven": false,
+        "has_exposure": true,
+        "bh_oos_sum": 0.056906054230617786,
+        "oos_0bps_sum": -0.013632652511431864,
+        "oos_40bps_sum": -0.15763265251143188,
+        "all_slices_beat_bh": false
+      },
+      "ETH": {
+        "oos_edge_proven": false,
+        "has_exposure": true,
+        "bh_oos_sum": 0.06087103021756268,
+        "oos_0bps_sum": -0.010477131549751273,
+        "oos_40bps_sum": -0.07447713154975127,
+        "all_slices_beat_bh": false
+      },
+      "SOL": {
+        "oos_edge_proven": false,
+        "has_exposure": true,
+        "bh_oos_sum": 0.2228033848671428,
+        "oos_0bps_sum": -0.001422938898632986,
+        "oos_40bps_sum": -0.23342293889863303,
+        "all_slices_beat_bh": false
+      },
+      "BNB": {
+        "oos_edge_proven": false,
+        "has_exposure": true,
+        "bh_oos_sum": 0.16790033173988939,
+        "oos_0bps_sum": 0.004108962256972326,
+        "oos_40bps_sum": -0.2598910377430277,
+        "all_slices_beat_bh": false
+      }
+    }
+  },
+  "unblock_status": {
+    "path": "reports/real_feed_unblock_status_20261106T003208Z.json",
+    "changed": false,
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "path_r_triggered": true,
+    "blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "prior": "reports/real_feed_unblock_status_20261105T233410Z.json"
+  },
+  "registry": {
+    "path": "reports/strategy_edge_registry_20261106T003311Z.json",
+    "supersedes": "reports/strategy_edge_registry_20261105T233646Z.json",
+    "oos_edge_proven": false,
+    "pytest_rerun": {
+      "command": "python -m pytest tests/ -q",
+      "passed": 928,
+      "skipped": 1,
+      "failed": 0,
+      "warnings": 24,
+      "rc": 0,
+      "scope": "full tests/"
+    }
+  },
+  "gating_invariants_preserved": {
+    "1h": 0,
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": 0
+  },
+  "honest_assessment": "NO PROVEN NET-OF-COST OOS EDGE. oos_edge_proven=false. C41 tested Quote Volume Dry-Up Breakout Continuation on validated real_quote_volume (genuinely different from C23 momentum and C40 climax mean reversion): no asset met fail-closed rule (exposure>0 AND all cost slices OOS net>0 AND beat B&H). Remaining blocked families unchanged: funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure. Fail-closed, real data only."
+}
