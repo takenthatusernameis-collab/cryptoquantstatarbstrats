@@ -1,0 +1,117 @@
+{
+  "audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+  "auto_discover_readiness": true,
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "campaign": 79,
+  "campaign_delta": {
+    "blocked_families_changed": false,
+    "changed": true,
+    "current_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+    "current_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "current_campaign": 79,
+    "current_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "current_path_r_triggered": true,
+    "fabricated_data": false,
+    "fail_closed": true,
+    "generated_at_utc": "2026-11-06T10:13:09.371137+00:00",
+    "honest_assessment": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED",
+    "oos_edge_proven": false,
+    "path_r_changed": true,
+    "prior_audit_conclusion": null,
+    "prior_available": true,
+    "prior_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "prior_campaign": 78,
+    "prior_conclusion": "BLOCKED_NO_NEW_VALID_NONSPOT_FEEDS",
+    "prior_path_r_triggered": false,
+    "prior_source": "reports/real_feed_unblock_status_20261106T100522Z.json",
+    "real_data_only": true,
+    "scan_differences": {
+      "candidate_validation_count": {
+        "current": 1,
+        "prior": null
+      },
+      "new_real_feeds_with_provenance_found": {
+        "current": true,
+        "prior": null
+      }
+    },
+    "tool": "data.real_feed_loader.compare_unblock_status"
+  },
+  "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+  "fabricated_data": false,
+  "fail_closed": true,
+  "families": {
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "real_quote_volume": {
+      "status": "real_feed_with_provenance_present",
+      "valid_artifacts": [
+        {
+          "family": "real_quote_volume",
+          "meta": "volume_1h_full.meta.json",
+          "reason": "passed_all_fail_closed_checks",
+          "rows": 81792
+        }
+      ]
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "generated_at_utc": "2026-11-06T10:13:09.371115+00:00",
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "path_r_triggered": true,
+  "readiness_spec_count": 1,
+  "readiness_specs": [
+    {
+      "artifact": "real_feed_ingestion_readiness",
+      "campaign": 9,
+      "exists": true,
+      "families_covered": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "name": "real_feed_ingestion_readiness_20261105T104640Z.json",
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingestion_readiness_20261105T104640Z.json",
+      "relevant_to_nonspot_unblock": true
+    }
+  ],
+  "real_data_only": true,
+  "scan_summary": {
+    "cache_dir": "data/cache",
+    "candidate_hits": 1,
+    "candidate_validation_count": 1,
+    "meta_files_scanned": 21,
+    "new_real_feeds_with_provenance_found": true
+  },
+  "tool": "data.real_feed_loader.generate_unblock_status_report"
+}

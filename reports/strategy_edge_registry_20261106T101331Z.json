@@ -1,0 +1,184 @@
+{
+  "artifacts": [
+    "reports/real_quote_volume_hoover_robin_hood_shock_mr_costed_oos_20261106T101025Z.json",
+    "reports/real_quote_volume_bimodality_coeff_shock_mr_costed_oos_20261106T101306Z.json",
+    "reports/real_feed_unblock_status_20261106T101309Z.json",
+    "scripts/run_real_quote_volume_hoover_robin_hood_shock_mr_costed_oos.py",
+    "scripts/run_real_quote_volume_bimodality_coeff_shock_mr_costed_oos.py",
+    "HANDOFF.md"
+  ],
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "c78_hypothesis": {
+    "distinctness": "L1 share deviation from uniform (max vertical Lorenz gap) != C51 Gini pairwise L1, C76 Theil L GE(0), C74 Theil T GE(1), C75 R\u00e9nyi-2 H2, C41 Shannon binned, C42/43 perm/sample entropy, C45 CV, C66-73 quantile dispersions/asymmetries, corr/beta/lead-lag/level/ROC/ratio/cumulative/partition/imbalance.",
+    "formula": "H_t=0.5*\u03a3|p_i-1/n| (W=48,ZLB=168,entry\u00b11.25,exit 0.25,hold12,t->t+1,WF 720/168/168,0-40bps)",
+    "name": "Volume Hoover (Robin Hood) Share-Deviation Shock MR",
+    "result": {
+      "aggregate": {
+        "fee0_slip0": {
+          "mean_frac_beats_bh": 0.09090909090909091,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.18048644966062355,
+          "mean_oos_net_mean_across_assets": -4.132015788933689e-05,
+          "n_assets": 11
+        },
+        "fee10_slip10": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.7992137223878963,
+          "mean_oos_net_mean_across_assets": -0.0001829701745393536,
+          "n_assets": 11
+        },
+        "fee20_slip20": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -1.417940995115169,
+          "mean_oos_net_mean_across_assets": -0.0003246201911893702,
+          "n_assets": 11
+        },
+        "fee40_slip40": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -2.6553955405697143,
+          "mean_oos_net_mean_across_assets": -0.0006079202244894036,
+          "n_assets": 11
+        },
+        "fee5_slip5": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.4898500860242601,
+          "mean_oos_net_mean_across_assets": -0.00011214516621434527,
+          "n_assets": 11
+        }
+      },
+      "all_costs_positive": false,
+      "any_exposure": true,
+      "beats_bh_rule": false,
+      "oos_edge_proven": false
+    }
+  },
+  "c79_hypothesis": {
+    "distinctness": "Composite nonlinear shape/bimodality statistic jointly mapping skewness(3rd)+excess kurtosis(4th) with sample-size correction; not raw CV(C45)/kurtosis signal, not share-inequality (C51/C74/C75/C76/C78), not C41/C42/C43 entropy, not C66-73 quantile transforms, not corr/beta/lead-lag/level/ROC/ratio/cumulative/partition/imbalance in C23/C40-C78.",
+    "formula": "BC=(g^2+1)/(k_ex + 3*(n-1)^2/((n-2)*(n-3))), g=skew,k_ex=excess kurtosis (W=48,ZLB=168,entry\u00b11.25,exit 0.25,hold12,t->t+1,WF 720/168/168,0-40bps)",
+    "name": "Volume Bimodality Coefficient (Sarle's BC) Shock MR",
+    "result": {
+      "aggregate": {
+        "fee0_slip0": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.19282389981343312,
+          "mean_oos_net_mean_across_assets": -4.414466570820355e-05,
+          "n_assets": 11
+        },
+        "fee10_slip10": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.8517329907225243,
+          "mean_oos_net_mean_across_assets": -0.00019499381655735447,
+          "n_assets": 11
+        },
+        "fee20_slip20": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -1.510642081631615,
+          "mean_oos_net_mean_across_assets": -0.00034584296740650523,
+          "n_assets": 11
+        },
+        "fee40_slip40": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -2.828460263449797,
+          "mean_oos_net_mean_across_assets": -0.0006475412691048069,
+          "n_assets": 11
+        },
+        "fee5_slip5": {
+          "mean_frac_beats_bh": 0.0,
+          "mean_oos_bh_across_assets": 0.0627947835957995,
+          "mean_oos_net_across_assets": -0.5222784452679788,
+          "mean_oos_net_mean_across_assets": -0.00011956924113277903,
+          "n_assets": 11
+        }
+      },
+      "all_costs_positive": false,
+      "any_exposure": true,
+      "beats_bh_rule": false,
+      "oos_edge_proven": false
+    }
+  },
+  "campaign": 79,
+  "execution_state": "EXECUTED_C78_AND_C79_RB_DEPS_UNBLOCKED",
+  "generated_at_utc": "2026-11-06T10:13:31.600053+00:00",
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. .venv deps present (numpy/pandas/scipy/sklearn/statsmodels/yaml/pytest). C78 Hoover + C79 Sarle BC both executed with WF 720/168/168, 0-40bps, B&H same OOS windows, fail-closed real loader: exposure true but all_costs_positive false, beats_bh false => oos_edge_proven=false. R-A infeasible: 4 families blocked_no_real_feed (funding_basis_carry,cross_exchange_dual_venue_same_asset,term_structure_real_iv_vol_surface,intrabar_microstructure); real_quote_volume remains only validated real feed. Full pytest green: 928 passed,1 skipped,0 failed,rc=0.",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "duration_s": "~60.29",
+    "errors": 0,
+    "executed_this_session": true,
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "warnings": 3565
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T100753Z.json",
+  "unblock_status": {
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "campaign": 79,
+    "campaign_delta": {
+      "blocked_families_changed": false,
+      "changed": true,
+      "current_audit_conclusion": "VALID_NONSPOT_PROVENANCE_ARTIFACTS_FOUND",
+      "current_blocked_families": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "current_campaign": 79,
+      "current_conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+      "current_path_r_triggered": true,
+      "fabricated_data": false,
+      "fail_closed": true,
+      "generated_at_utc": "2026-11-06T10:13:09.371137+00:00",
+      "honest_assessment": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED",
+      "oos_edge_proven": false,
+      "path_r_changed": true,
+      "prior_audit_conclusion": null,
+      "prior_available": true,
+      "prior_blocked_families": [
+        "cross_exchange_dual_venue_same_asset",
+        "funding_basis_carry",
+        "intrabar_microstructure",
+        "term_structure_real_iv_vol_surface"
+      ],
+      "prior_campaign": 78,
+      "prior_conclusion": "BLOCKED_NO_NEW_VALID_NONSPOT_FEEDS",
+      "prior_path_r_triggered": false,
+      "prior_source": "reports/real_feed_unblock_status_20261106T100522Z.json",
+      "real_data_only": true,
+      "scan_differences": {
+        "candidate_validation_count": {
+          "current": 1,
+          "prior": null
+        },
+        "new_real_feeds_with_provenance_found": {
+          "current": true,
+          "prior": null
+        }
+      },
+      "tool": "data.real_feed_loader.compare_unblock_status"
+    },
+    "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
+    "path_r_triggered": true
+  }
+}
