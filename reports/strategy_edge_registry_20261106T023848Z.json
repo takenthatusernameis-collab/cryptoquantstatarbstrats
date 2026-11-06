@@ -1,0 +1,221 @@
+{
+  "artifact": "strategy_edge_registry",
+  "campaign": 50,
+  "generated_at_utc": "2026-11-06T02:38:48.551637+00:00",
+  "computed_at_stamp": "20261106T023848Z",
+  "supersedes": "strategy_edge_registry_20261106T023401Z.json",
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "decision": "NO_PROVEN_OOS_EDGE",
+  "test_suite": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign50_artifacts": {
+    "volume_hypothesis": "real_quote_volume_skewness_shock_mean_reversion_costed_oos_20261106T023835Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T023842Z.json",
+    "generator": "scripts/generate_campaign50_artifacts.py",
+    "unblock_script": "scripts/run_campaign50_unblock_status.py"
+  },
+  "path_r": {
+    "different_prestated_hypothesis_tested": true,
+    "c50_hypothesis": {
+      "name": "Volume Skewness Shock Mean Reversion (Volume Distribution Asymmetry Burst Fade)",
+      "description": "Compute rolling skewness (Fisher, 3rd-moment distributional asymmetry) of real quote volume over 24h, z-score over 168h (causal) -> skew_z. Fade extreme volume-asymmetry bursts: skew_z >= 1.25 and ret_W>0 -> SHORT; skew_z >= 1.25 and ret_W<0 -> LONG. Extreme left-skewed volume drought/scarcity (skew_z <= -1.25) -> no entry (pre-stated asymmetry). Exit on skew_z < 0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+      "params_fixed_before_oos_evaluation": true,
+      "no_in_sample_tuning": true,
+      "differs_from_c23": "C23 trades high vol_z LEVEL (first-moment volume z) momentum continuation; C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment asymmetry) as a shock fade.",
+      "differs_from_c40": "C40 fades HIGH volume climax on aggregate vol_z level; C50 fades VOLUME DISTRIBUTION ASYMMETRY (skewness) — different transform (3rd moment asymmetry, not volume level).",
+      "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C50 mean-reverts on extreme volume asymmetry shocks (high skew_z).",
+      "differs_from_c42": "C42 confirms breakouts on volume expansion (level); C50 uses volume skewness (distribution asymmetry) shock fade, no breakout/expansion confirmation.",
+      "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price extremes; C50 uses skew_z (volume distribution asymmetry) shock with ret_W confirmation — different transform and trigger.",
+      "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C50 mean-reverts on extreme skew_z volume-asymmetry shocks, no ROC/acceleration.",
+      "differs_from_c45": "C45 mean-reverts on Amihud illiquidity shocks (|ret|/volume, price-impact ratio); C50 uses rolling skewness of qvol (distribution asymmetry), not a price-impact ratio.",
+      "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C50 uses skew_z volume-asymmetry shock fade — different transform (3rd moment vs OBV slopes) and opposite mechanic.",
+      "differs_from_c47": "C47 uses up/down volume split imbalance ratio (directional partitioned sums) exhaustion fade; C50 uses rolling skewness of total qvol (undirected distribution asymmetry/3rd moment) — different construction.",
+      "differs_from_c48": "C48 uses z-score of rolling STD of qvol (2nd-moment dispersion/volatility-of-liquidity); C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry) — distinct moment measuring directional bias, not dispersion magnitude.",
+      "differs_from_c49": "C49 uses z-score of rolling EXCESS KURTOSIS of qvol (4th-moment tail-fatness/spikiness); C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry) — different moment statistic measuring asymmetry vs tail shape.",
+      "skew_window": 24,
+      "z_lookback": 168,
+      "entry_z": 1.25,
+      "exit_z": 0.25,
+      "max_hold_bars": 12,
+      "min_obs": 168,
+      "eps": 1e-12
+    },
+    "c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_rerun": false,
+    "real_quote_volume_validated": true,
+    "volume_family": {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "Volume Skewness Shock Mean Reversion (Volume Distribution Asymmetry Burst Fade)",
+        "description": "Compute rolling skewness (Fisher, 3rd-moment distributional asymmetry) of real quote volume over 24h, z-score over 168h (causal) -> skew_z. Fade extreme volume-asymmetry bursts: skew_z >= 1.25 and ret_W>0 -> SHORT; skew_z >= 1.25 and ret_W<0 -> LONG. Extreme left-skewed volume drought/scarcity (skew_z <= -1.25) -> no entry (pre-stated asymmetry). Exit on skew_z < 0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 trades high vol_z LEVEL (first-moment volume z) momentum continuation; C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment asymmetry) as a shock fade.",
+        "differs_from_c40": "C40 fades HIGH volume climax on aggregate vol_z level; C50 fades VOLUME DISTRIBUTION ASYMMETRY (skewness) — different transform (3rd moment asymmetry, not volume level).",
+        "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C50 mean-reverts on extreme volume asymmetry shocks (high skew_z).",
+        "differs_from_c42": "C42 confirms breakouts on volume expansion (level); C50 uses volume skewness (distribution asymmetry) shock fade, no breakout/expansion confirmation.",
+        "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price extremes; C50 uses skew_z (volume distribution asymmetry) shock with ret_W confirmation — different transform and trigger.",
+        "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C50 mean-reverts on extreme skew_z volume-asymmetry shocks, no ROC/acceleration.",
+        "differs_from_c45": "C45 mean-reverts on Amihud illiquidity shocks (|ret|/volume, price-impact ratio); C50 uses rolling skewness of qvol (distribution asymmetry), not a price-impact ratio.",
+        "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C50 uses skew_z volume-asymmetry shock fade — different transform (3rd moment vs OBV slopes) and opposite mechanic.",
+        "differs_from_c47": "C47 uses up/down volume split imbalance ratio (directional partitioned sums) exhaustion fade; C50 uses rolling skewness of total qvol (undirected distribution asymmetry/3rd moment) — different construction.",
+        "differs_from_c48": "C48 uses z-score of rolling STD of qvol (2nd-moment dispersion/volatility-of-liquidity); C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry) — distinct moment measuring directional bias, not dispersion magnitude.",
+        "differs_from_c49": "C49 uses z-score of rolling EXCESS KURTOSIS of qvol (4th-moment tail-fatness/spikiness); C50 uses z-score of rolling SKEWNESS of qvol (3rd-moment distributional asymmetry) — different moment statistic measuring asymmetry vs tail shape.",
+        "skew_window": 24,
+        "z_lookback": 168,
+        "entry_z": 1.25,
+        "exit_z": 0.25,
+        "max_hold_bars": 12,
+        "min_obs": 168,
+        "eps": 1e-12
+      },
+      "evidence_artifact": "real_quote_volume_skewness_shock_mean_reversion_costed_oos_20261106T023835Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.0734439711972843,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": -0.9974439711972843,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "AVAX",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.5392282305491451,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": -0.5847717694508549,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.15565032877086138,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -1.0276503287708614,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.18124600418770354,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": -1.1652460041877035,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.3199308927958401,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -0.58806910720416,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "ETH",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.10921167288163225,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": -0.9507883271183678,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.2571794468600761,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": -1.285179446860076,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.12527286506428859,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -0.7907271349357115,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.09475008064035306,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -1.106750080640353,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.17484661998141193,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": -0.8531533800185881,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.14837091141474446,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -0.7516290885852557,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_bench": 0,
+      "status": "no_proven_edge_net_of_costs"
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "spot_1h_exhausted": true,
+  "honest_assessment": "C50 tested a genuinely different pre-stated hypothesis (Volume Skewness Shock Mean Reversion / volume distribution asymmetry burst fade: z-score of rolling skewness of qvol, 3rd-moment asymmetry) on real_quote_volume. No proven net-of-cost OOS edge. Remaining families (funding/basis/carry, cross-exchange dual-venue, term-structure/real-IV, intrabar microstructure) remain blocked_no_real_feed. Fail-closed.",
+  "_source_files": {
+    "volume": "real_quote_volume_skewness_shock_mean_reversion_costed_oos_20261106T023835Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T023842Z.json"
+  }
+}
