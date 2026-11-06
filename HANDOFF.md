@@ -1,4 +1,4 @@
-## READ THIS FIRST — C104/C105 INITIAL TASK (20261106T211643Z, produced by handoff agent)
+## READ THIS FIRST — C104/C105 INITIAL TASK (20261106T211706Z, produced by handoff agent)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
 
@@ -7,9 +7,10 @@ Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, coste
 
 ### Verified current state (do not rerun unchanged)
 - C103 DONE: `VOLUME_SPECTRAL_ENTROPY_SHOCK_MR` → `reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json`, `oos_edge_proven=false`. Latest registry `reports/strategy_edge_registry_20261106T204555Z.json`. pytest: 928 passed / 1 skipped / 0 failed, rc=0.
-- C104 `VOLUME_WAVELET_ENTROPY_SHOCK_MR` (wavelet packet/continuous wavelet energy-distribution entropy over scales): NOT on disk — no `wavelet_entropy` script or report. Execute it FIRST as the C104 deliverable before C105 R-B.
-- C105 `VOLUME_HURST_RS_PERSISTENCE_MR` (rescaled-range Hurst exponent / long-memory persistence over rolling windows; distinct from variance-ratio/OU-halflife/DFA/Higuchi/Petrosian/Katz fractal candidates): NOT on disk — no `hurst_rs_persistence` script or report. Execute as C105 R-B after C104.
+- C104 `VOLUME_WAVELET_ENTROPY_SHOCK_MR` (wavelet packet/continuous wavelet energy-distribution entropy over scales): grep-verified ABSENT — no `wavelet_entropy` script or report exists. Execute it FIRST as the C104 deliverable before C105 R-B.
+- C105 `VOLUME_HURST_RS_PERSISTENCE_MR` (rescaled-range Hurst exponent / long-memory persistence over rolling windows; distinct from variance-ratio/OU-halflife/DFA/Higuchi/Petrosian/Katz fractal candidates AND distinct from existing `hurst_exponent_shock_mr`): grep-verified ABSENT — no `hurst_rs_persistence` script or report exists. Execute as C105 R-B after C104.
 - Nonspot ingest: `FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT` (families: funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure). Does NOT block R-B. Emit `reports/real_feed_ingest_attempt_<UTC>.json` with concrete evidence if no real nonspot artifact appears in `data/cache/` with .meta.json + .provenance.json; else ingest exactly one blocked family.
+- Real data preconditions OK: `data/cache/volume_1h_full.{pkl,meta.json,provenance.json}` and spot cache `0bab5d6a...pkl` present.
 
 ### NEXT FOCUS CAMPAIGN — C104 THEN C105 (mandatory, heavy work)
 Run in this order. Do not skip to C105 without C104 unless the C104 report already exists.
