@@ -1,0 +1,86 @@
+{
+  "campaign": 89,
+  "generated_at_utc": "20261106T131733Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "status": "COMPLETE_FAIL_CLOSED_NO_OOS_EDGE",
+  "r_a": {
+    "action": "REFERENCE_ONLY_NO_STALE_CACHE_RESCAN",
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "delta": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_nonspot_feed": "real_quote_volume (volume_1h_full, 81792 rows, provenance present)"
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_mean_run_length_persistence_shock_mr_costed_oos_20261106T131620Z.json",
+    "sha256": "1f84d36b4a70074bee68357fb0525dbbbb5fd4d2ccf5b0260e0a73a3693de20c",
+    "hypothesis": "VOLUME_MEAN_RUN_LENGTH_PERSISTENCE_SHOCK_MR",
+    "transform": "rolling mean contiguous above/below-median run length L_mean=n_kept/R (W=48) -> causal z (dz,168), fade |dz|>=1.25 exit <0.25/hold>=12/flip, t->t+1, WF 720/168/168, 0-40bps, B&H same windows",
+    "distinctness": "not in C23/C40-C88; NOT location (C83-C86); NOT TP (C87); NOT WW standardized total-run-count (C88 uses Z_WW randomness null mu_R,var_R; C89 uses mean run DURATION/persistence L_mean causally z-scored); distinct vs ACF/autocorr and C41-C43 entropy",
+    "result": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": -2.2159146462012647,
+        "fee5_slip5": -5.5889146462012675,
+        "fee10_slip10": -8.961914646201267,
+        "fee20_slip20": -15.707914646201267,
+        "fee40_slip40": -29.199914646201265
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": -4.6118769692833504e-05,
+        "fee5_slip5": -0.00011631940239346627,
+        "fee10_slip10": -0.00018652003509409896,
+        "fee20_slip20": -0.00032692130049536436,
+        "fee40_slip40": -0.0006077238312978951
+      }
+    },
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 56.65,
+    "warnings": 3582,
+    "scope": "full tests/"
+  },
+  "artifacts_produced_this_session": [
+    "reports/real_quote_volume_mean_run_length_persistence_shock_mr_costed_oos_20261106T131620Z.json",
+    "reports/strategy_edge_registry_20261106T131733Z.json",
+    "reports/campaign89_execution_summary_20261106T131733Z.json"
+  ],
+  "registry_supersedes": {
+    "path": "reports/strategy_edge_registry_20261106T130830Z.json",
+    "sha256": "3a97d20fa0ff471404e3f8c2a532a0096f9baf19684345e85b2a47491c8c4f3f"
+  },
+  "new_registry_sha256": "b7f2ee34ccaf3cafcabec24c58ace5f93b7250d9ae18196d30bba40be8713661",
+  "bottlenecks_status": {
+    "stale_cache_no_change_C84_C89": "R-A referenced only (NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED); no same-cache rescan. To unblock path_r ingest NEW real nonspot feed with fail-closed provenance/meta into data/cache/.",
+    "rqv_transforms_exhausted_through_C89": "Location (C83-C86), TP (C87), WW runs (C88), mean run-length persistence (C89) \u2014 no edge. C90 must be genuinely distinct (non-location, non-TP, non-WW-runs, non-mean-run-length-persistence) with mechanical distinctness pre-stated.",
+    "no_status_only": ">=3 concrete reports artifacts emitted before summary."
+  },
+  "mandatory_rules_honored": {
+    "real_data_only": true,
+    "fail_closed": true,
+    "no_proxies_labeled_real": true,
+    "no_same_cache_rescan": true,
+    "no_C23_C40_C88_reruns": true,
+    "no_gate_threshold_weakening": true,
+    "edge_rule_applied": true
+  }
+}
