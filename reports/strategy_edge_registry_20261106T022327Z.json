@@ -1,0 +1,213 @@
+{
+  "artifact": "strategy_edge_registry",
+  "campaign": 47,
+  "generated_at_utc": "2026-11-06T02:23:27.149791+00:00",
+  "computed_at_stamp": "20261106T022327Z",
+  "supersedes": "strategy_edge_registry_20261106T014937Z.json",
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "decision": "NO_PROVEN_OOS_EDGE",
+  "test_suite": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign47_artifacts": {
+    "volume_hypothesis": "real_quote_volume_updown_imbalance_exhaustion_costed_oos_20261106T022315Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T022318Z.json"
+  },
+  "path_r": {
+    "different_prestated_hypothesis_tested": true,
+    "c47_hypothesis": {
+      "name": "Up-Down Quote Volume Imbalance Exhaustion Mean Reversion",
+      "description": "Split real quote volume by return sign over rolling W=24h: up_vol=sum(qvol|ret>0), down_vol=sum(qvol|ret<0). imbalance=(up_vol-down_vol)/(up_vol+down_vol+eps), z-scored over 168h (causal). Fade exhaustion: imbalance_z>=1.25 and ret_W>0 -> SHORT; imbalance_z<=-1.25 and ret_W<0 -> LONG. Exit on normalization |imb_z|<0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+      "params_fixed_before_oos_evaluation": true,
+      "no_in_sample_tuning": true,
+      "differs_from_c23": "C23 trades high vol_z LEVEL momentum continuation; C47 splits volume into up/down by return sign and fades extreme imbalance ratio with confirming price move.",
+      "differs_from_c40": "C40 fades HIGH volume climax (aggregate vol_z level); C47 uses directional up/down volume split imbalance, not aggregate volume level climax.",
+      "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C47 mean-reverts on extreme up/down volume imbalance exhaustion.",
+      "differs_from_c42": "C42 confirms breakouts on volume expansion; C47 uses up/down split imbalance ratio fade, no breakout/expansion confirmation.",
+      "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price-trend extremes (reversion); C47 uses a rolling up/down volume split imbalance z-score (directional signed-volume partition) with ret_W confirmation — different construction and signal.",
+      "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C47 mean-reverts on extreme up/down volume imbalance ratio, no ROC/acceleration.",
+      "differs_from_c45": "C45 mean-reverts on Amihud illiquidity SHOCKS (|ret|/volume); C47 uses up/down volume partition imbalance, not price-impact ratio.",
+      "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C47 uses rolling up/down volume split imbalance ratio z-score with exhaustion fade — different transform (partitioned sums ratio vs cumulative OBV slopes) and opposite mechanic (fade vs continuation).",
+      "imbalance_window": 24,
+      "z_lookback": 168,
+      "entry_z": 1.25,
+      "exit_z": 0.25,
+      "max_hold_bars": 12,
+      "min_obs": 168,
+      "eps": 1e-12
+    },
+    "c23_c40_c41_c42_c43_c44_c45_c46_rerun": false,
+    "real_quote_volume_validated": true,
+    "volume_family": {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "Up-Down Quote Volume Imbalance Exhaustion Mean Reversion",
+        "description": "Split real quote volume by return sign over rolling W=24h: up_vol=sum(qvol|ret>0), down_vol=sum(qvol|ret<0). imbalance=(up_vol-down_vol)/(up_vol+down_vol+eps), z-scored over 168h (causal). Fade exhaustion: imbalance_z>=1.25 and ret_W>0 -> SHORT; imbalance_z<=-1.25 and ret_W<0 -> LONG. Exit on normalization |imb_z|<0.25, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 trades high vol_z LEVEL momentum continuation; C47 splits volume into up/down by return sign and fades extreme imbalance ratio with confirming price move.",
+        "differs_from_c40": "C40 fades HIGH volume climax (aggregate vol_z level); C47 uses directional up/down volume split imbalance, not aggregate volume level climax.",
+        "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C47 mean-reverts on extreme up/down volume imbalance exhaustion.",
+        "differs_from_c42": "C42 confirms breakouts on volume expansion; C47 uses up/down split imbalance ratio fade, no breakout/expansion confirmation.",
+        "differs_from_c43": "C43 fades volume-price divergence using unsloped vol_z at price-trend extremes (reversion); C47 uses a rolling up/down volume split imbalance z-score (directional signed-volume partition) with ret_W confirmation — different construction and signal.",
+        "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C47 mean-reverts on extreme up/down volume imbalance ratio, no ROC/acceleration.",
+        "differs_from_c45": "C45 mean-reverts on Amihud illiquidity SHOCKS (|ret|/volume); C47 uses up/down volume partition imbalance, not price-impact ratio.",
+        "differs_from_c46": "C46 continues on OBV (cumulative sign*vol) slope divergence vs price slope; C47 uses rolling up/down volume split imbalance ratio z-score with exhaustion fade — different transform (partitioned sums ratio vs cumulative OBV slopes) and opposite mechanic (fade vs continuation).",
+        "imbalance_window": 24,
+        "z_lookback": 168,
+        "entry_z": 1.25,
+        "exit_z": 0.25,
+        "max_hold_bars": 12,
+        "min_obs": 168,
+        "eps": 1e-12
+      },
+      "evidence_artifact": "real_quote_volume_updown_imbalance_exhaustion_costed_oos_20261106T022315Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.00850832593110229,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": -1.4885083259311025,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "AVAX",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.33260077393762233,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": -1.0993992260623777,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.04083197813616657,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -1.3151680218638335,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.003822587742050243,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": -1.3638225877420505,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.2559267236205576,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -1.1000732763794425,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "ETH",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.2077233023016939,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": -1.527723302301694,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.05883740585202468,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": -1.4828374058520248,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.018339134613332808,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -1.3336608653866673,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.07345518194994471,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -1.4774551819499449,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.022576758686754683,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": -1.3814232413132452,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.1274580559274966,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -1.5274580559274966,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_bench": 0,
+      "status": "no_proven_edge_net_of_costs"
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "gating_invariants_preserved": {
+    "1h": [],
+    "4h": [
+      "POL/BTC"
+    ],
+    "1d": []
+  },
+  "spot_1h_exhausted": true,
+  "honest_assessment": "C47 tested a genuinely different pre-stated hypothesis (Up-Down Quote Volume Imbalance Exhaustion Mean Reversion on real_quote_volume). No proven net-of-cost OOS edge. Remaining families (funding/basis/carry, cross-exchange dual-venue, term-structure/real-IV, intrabar microstructure) remain blocked_no_real_feed. Fail-closed.",
+  "_source_files": {
+    "volume": "real_quote_volume_updown_imbalance_exhaustion_costed_oos_20261106T022315Z.json",
+    "unblock_status": "real_feed_unblock_status_20261106T022318Z.json"
+  }
+}
