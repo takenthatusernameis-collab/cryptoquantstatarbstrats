@@ -1,0 +1,72 @@
+{
+  "campaign": 87,
+  "generated_at_utc": "20261106T122237Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. No gate/threshold weakening. WF 720/168/168, cost grid 0\u201340bps [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261106T120340Z.json",
+    "sha256": "eb10abbd23516c0d98d0faf34a7790469f0cb1c9c0f343f5039288bb90ddd2f3"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s_approx": 56.84,
+    "warnings": 3558
+  },
+  "r_a": {
+    "artifact": "reports/real_feed_unblock_status_20261106T122116Z.json",
+    "sha256": "1aafbf833b977365fcd07c77656d2d5ed91f001023c7578141ca4a755310328a",
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T120340Z.json",
+    "delta_vs_c86": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_nonspot_feed": {
+      "family": "real_quote_volume",
+      "cache": "volume_1h_full",
+      "rows": 81792,
+      "provenance_present": true
+    },
+    "path_r_note": "R-A reference/delta only; same stale cache not re-scanned as new campaign work. No new validated nonspot feed discovered; R-B required on real_quote_volume."
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_turning_point_rate_shock_mr_costed_oos_20261106T122053Z.json",
+    "sha256": "a313be213b4a29ca9ccb0f4a6a726c19fabc41a9880124d5fa15c42293e4aa4b",
+    "script": "scripts/run_real_quote_volume_turning_point_rate_shock_mr_costed_oos.py",
+    "hypothesis": "VOLUME_TURNING_POINT_RATE_SHOCK_MR (TP=(1/(n-2))*sum I[(dx_{i-1})*(dx_i)<0], W=48, fraction of interior local peaks/troughs = path oscillation/local direction-reversal rate, NON-LOCATION; z(dz,168); fade |dz|>=1.25 exit |dz|<0.25/hold>=12/flip; t->t+1; WF 720/168/168; 0-40bps; B&H same OOS windows)",
+    "mechanical_distinctness": "NON-LOCATION transform. TP is a path oscillation/local non-monotonicity rate (count of local direction reversals over triplets), not a level/center. Explicitly distinct from exhausted location family: C86 Hodges\u2013Lehmann HL=median{(x_i+x_j)/2} (rank-based Walsh-average-median LOCATION), C85 Gastwirth G=0.3*Q(1/3)+0.4*Q(0.5)+0.3*Q(2/3) (tercile L-estimator LOCATION), C84 Midhinge MH=(Q1+Q3)/2 (quartile LOCATION 0.5/0/0.5), C83 Tukey trimean TM=(Q1+2*Q2+Q3)/4 (quartile+median LOCATION 0.25/0.5/0.25). Also distinct from ACF/serial-correlation (linear lag-1 covariance vs local sign-reversal triplet count; monotone drift high-ACF/zero-TP, rapid oscillation high-TP), C41-C43 entropy (distributional symbol-probability information/complexity vs single reversal-frequency count), C80 MAD/C82 AAD (scale/dispersion), C66-C73 quantile dispersions/asymmetries (cross-sectional spread/asymmetry), moment/Bowley/Kelly skewness & kurtosis (distributional shape), C79 Sarle BC/C45 CV/C51,C74-C78 inequality (shape/scale/concentration), and other C23/C40-C86 RQV transforms. Data identical (real_quote_volume); transform mechanically different.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 1.396441945387832,
+        "fee5_slip5": -2.4535580546121714,
+        "fee10_slip10": -6.30355805461217,
+        "fee20_slip20": -14.003558054612167,
+        "fee40_slip40": -29.40355805461217
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 2.9063477051861304e-05,
+        "fee5_slip5": -5.1064728076343875e-05,
+        "fee10_slip10": -0.00013119293320454898,
+        "fee20_slip20": -0.00029144934346095927,
+        "fee40_slip40": -0.0006119621639737797
+      }
+    },
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  }
+}
