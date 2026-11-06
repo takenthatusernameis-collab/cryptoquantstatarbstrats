@@ -1,0 +1,72 @@
+{
+  "tool": "campaign92_execution_summary",
+  "generated_at_utc": "20261106T142846Z",
+  "campaign": 92,
+  "artifacts_this_session": [
+    {
+      "path": "scripts/run_real_quote_volume_ou_halflife_shock_mr_costed_oos.py",
+      "sha256": "e2c03b7348373b70e7d1bf39f152889c5e90af90dd73c5b9f2bce9ac3b6a3dde",
+      "kind": "R-B script (OU half-life/AR1 mean-reversion speed)"
+    },
+    {
+      "path": "reports/real_quote_volume_ou_halflife_shock_mr_costed_oos_20261106T142846Z.json",
+      "sha256": "d7237f2967485234841d84319b1ff1b027b29a804646f3ec192892487eecb8ad",
+      "kind": "R-B costed OOS"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T142846Z.json",
+      "sha256": "f47ca60e64f2a1b018ebd46cb0ebebe7a16dd12e240ba8c338786ced86965279",
+      "kind": "superseding strategy edge registry"
+    },
+    {
+      "path": "reports/campaign92_execution_summary_20261106T142846Z.json",
+      "sha256": "84f63ad6845efdac21cf29da03b4007b0da627f89cb9a59033b12b85ee4b6f7b",
+      "kind": "C92 execution summary"
+    }
+  ],
+  "ra": {
+    "status": "reference_only_no_rerun_stale_cache",
+    "reference": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "reference_sha256": "49699fadedfd0802ad4bf43fcf95eaff4a67ddfbc9611513221800aafc7a6d80",
+    "conclusion": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "blocked_families": 4,
+    "validated_only": [
+      "real_quote_volume"
+    ]
+  },
+  "rb": {
+    "hypothesis_id": "VOLUME_OU_HALFLIFE_MEAN_REVERSION_SPEED_SHOCK_MR",
+    "script": "scripts/run_real_quote_volume_ou_halflife_shock_mr_costed_oos.py",
+    "artifact": "reports/real_quote_volume_ou_halflife_shock_mr_costed_oos_20261106T142846Z.json",
+    "sha256": "d7237f2967485234841d84319b1ff1b027b29a804646f3ec192892487eecb8ad",
+    "distinctness_verified": "No half_life/ou/ornstein RQV report pre-C92 (verified). OU HL=ln(2)/(-b) from AR(1) LEVELS regression \u0394x=a+b*x_{t-1}+e (W=168,ZLB=168) \u2014 parametric mean-reversion SPEED/characteristic timescale. Mechanically distinct vs ALL C23/C40-C91: vs BDS C91 (embedding corr integral on CHANGES), vs VR C90 (multi-horizon variance-scaling), vs mean-run-length C89 & WW C88 (dichotomized run stats), vs TP C87 (reversal count), vs single-lag ACF (regression-derived HL/rate with theta>0 gate, not raw ACF value), vs location C83-C86, vs dispersion/entropy/skew/kurtosis.",
+    "wf": "720/168/168",
+    "costs_bps": "0/0,5/5,10/10,20/20,40/40",
+    "benchmark": "B&H same OOS windows",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+    "n_assets": 11,
+    "exposure": true,
+    "net_gt0_at_0bps_cross_asset_sum": 2.0619331233894376,
+    "fails_from_bps": 5,
+    "beats_bh": false
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3586,
+    "duration_s": 57.31
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T142235Z.json",
+  "supersedes_sha256": "8e50e58db76cc457eb3fcbcb6e214cc67de486b95d7865b9299d4640a87c2300",
+  "prior_c91_rb": "reports/real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos_20261106T142103Z.json",
+  "prior_c91_rb_sha256": "c8625a2a42d2810ea2f037f0cfb2ce95b9cc2c61b835babefabe2910e1ff33a6",
+  "bottlenecks": {
+    "cache_stale_rA_no_change_C84_C92_refs": "R-A reference-only; path_r needs NEW real nonspot feed artifact with fail-closed provenance in data/cache (not a rescan).",
+    "rqv_exhausted_through_C92": "Add OU half-life/AR(1) mean-reversion speed (C92) to exhausted list (57 real_quote_volume_*_costed_oos reports now). Next must be genuinely distinct from ALL C23/C40-C92 (non-location, non-TP, non-WW-runs, non-mean-run-length, non-VR, non-BDS, non-OU/HL, non-dispersion, non-entropy, non-skew/kurtosis, non-single-lag-ACF)."
+  },
+  "fail_closed": true,
+  "note": "Artifacts emitted before this summary (>=4 concrete artifacts: script + R-B report + superseding registry + summary)."
+}

@@ -1,0 +1,68 @@
+{
+  "tool": "campaign92_registry_emit",
+  "generated_at_utc": "20261106T142846Z",
+  "campaign": 92,
+  "supersedes": "reports/strategy_edge_registry_20261106T142235Z.json",
+  "supersedes_sha256": "8e50e58db76cc457eb3fcbcb6e214cc67de486b95d7865b9299d4640a87c2300",
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fadedfd0802ad4bf43fcf95eaff4a67ddfbc9611513221800aafc7a6d80",
+    "prior_c91_rb": "reports/real_quote_volume_bds_nonlinear_independence_shock_mr_costed_oos_20261106T142103Z.json",
+    "prior_c91_rb_sha256": "c8625a2a42d2810ea2f037f0cfb2ce95b9cc2c61b835babefabe2910e1ff33a6"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3586,
+    "duration_s": 57.31
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "campaign92_r_b": {
+    "artifact": "reports/real_quote_volume_ou_halflife_shock_mr_costed_oos_20261106T142846Z.json",
+    "sha256": "d7237f2967485234841d84319b1ff1b027b29a804646f3ec192892487eecb8ad",
+    "hypothesis_id": "VOLUME_OU_HALFLIFE_MEAN_REVERSION_SPEED_SHOCK_MR",
+    "mechanical_distinctness_summary": "Rolling OU half-life HL=ln(2)/(-b) from parametric AR(1) regression \u0394x=a+b*x_{t-1}+e on log-volume LEVELS (theta=-b>0, W=168,ZLB=168) \u2014 a CONTINUOUS-LEVEL MEAN-REVERSION SPEED/CHARACTERISTIC TIMESCALE (regression-derived rate/half-life of level process). NOT in C23/C40-C91. NON-BDS (C91: correlation-integral/embedding-dimension nonlinear-independence on CHANGES, C_m-C_1^m; different input/functional/phenomenon). NON-variance-ratio (C90 VR multi-horizon second-moment variance-scaling). NON-mean-run-length-persistence (C89 dichotomized run durations). NON-WW-runs (C88 dichotomized total-run-count). NON-TP (C87 reversal-count). NON-single-lag ACF: OU/HL fits AR(1) LEVELS regression with intercept and transforms pull-back coeff to HL=ln(2)/(-b) with theta>0 gate \u2014 regression-derived parametric characteristic time, distinct from raw single-lag ACF correlation used directly. NON-location (C83-C86). NON-dispersion/entropy/skew/kurtosis. No half_life/ou/ornstein RQV report pre-C92 (verified).",
+    "walkforward": "720/168/168",
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 2.0619331233894376,
+      "fee5_slip5": -2.343066876610566,
+      "fee10_slip10": -6.748066876610564,
+      "fee20_slip20": -15.558066876610562,
+      "fee40_slip40": -33.178066876610565
+    },
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "ra_status_reference": "R-A remains complete/reference-only (NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED, 4 blocked families, real_quote_volume validated-only; do not stale-cache rescan). Reference: reports/real_feed_unblock_status_20261106T130243Z.json",
+  "fail_closed": true
+}
