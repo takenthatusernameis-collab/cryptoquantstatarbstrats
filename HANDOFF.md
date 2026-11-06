@@ -1,4 +1,4 @@
-## READ THIS FIRST — C96 INITIAL TASK (20261106T152230Z)
+## READ THIS FIRST — C96 INITIAL TASK (20261106T152510Z)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #96 now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Environment READY (`.venv`; use `.venv/bin/python`, pytest 9.2.0). Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
 
