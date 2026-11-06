@@ -1,0 +1,45 @@
+{
+  "tool": "campaign96_rb_execution_record",
+  "generated_at_utc": "20261106T170630Z",
+  "campaign": 96,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "hypothesis_prestated": {
+    "id": "VOLUME_KATZ_FD_SHOCK_MR",
+    "transform": "rolling Katz Fractal Dimension of dlogv (W=168,ZLB=168), KFD=log10(n)/(log10(n)+log10(d/a)), n=N-1,L=sum sqrt(1+dx^2),a=L/n,d=max_i sqrt(i^2+(x_i-x_0)^2), unit time step 1 bar; MR z-shock entry_z=1.25 exit_z=0.25 max_hold=12; WF 720/168/168; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]; B&H same OOS windows."
+  },
+  "distinctness_prestated_mechanical": {
+    "grep_precheck": "no prior Katz/KFD transform in reports/real_quote_volume_*costed_oos* reports (report_hits empty) and no prior script before this session script; script created at scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py",
+    "report_hits_katz_kfd": [],
+    "non_tp": "TP counts interior peaks/troughs I[(x_i-x_{i-1})*(x_{i+1}-x_i)<0] (rate). Katz is total planar length L + max diameter d fractal-dimension value; no sign-change counting.",
+    "non_higuchi_C95": "Higuchi uses k-interval L(k) resampling and log(L)-log(1/k) slope; Katz uses single L,d (no k resampling/slope).",
+    "non_hjorth_C94": "no derivative variance ratios",
+    "non_hurst_rs": "not rescaled-range cumulative-deviation scaling",
+    "non_entropy_lz76_wwruns_meanrunlen_bds_vr_ouhl_acf_location_dispersion_skew_kurt": "as stated in script/hypothesis"
+  },
+  "execution": {
+    "status": "NOT_EXECUTED_ENVIRONMENT_BLOCKED_FAIL_CLOSED",
+    "script": "scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py",
+    "script_sha256": "2af5843d353d24edd9dc9e2140a66b4eae9c3215c3d821ab6b44fb04abc8ec77",
+    "blockers": [
+      "No .venv present at repo root; .venv/bin/python missing.",
+      "System python3 lacks project dependencies (pandas/numpy/scipy/statsmodels not importable); cached spot/volume are pandas pickles.",
+      "pytest module not found (python3 -m pytest unavailable); cannot run full test suite to produce authoritative rc/counts."
+    ],
+    "action_taken": "Pre-stated distinctness mechanically; verified no prior Katz/KFD costed_oos report; script present and reviewed; execution deferred fail-closed (no fake results).",
+    "smallest_unblocking_action": "Restore .venv with project deps (pip install -e .[dev] or equivalent) incl. pandas,numpy,scipy,statsmodels,pytest; then run .venv/bin/python scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py and .venv/bin/python -m pytest -q."
+  },
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T151843Z.json",
+    "prior_registry_sha256": "6ca9ab151138c47949f76f9a42e01fd341d5e66815def3035294217b29605b4b",
+    "prior_c95_rb": "reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json",
+    "prior_c95_rb_sha256": "13b30af38961878eaf1fce6bdc0ac9ff7b7257ddf7e9060bb7d18d6ef8a4e90f",
+    "c96_ingest_attempt": "reports/real_feed_ingest_attempt_20261106T170620Z.json"
+  },
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}

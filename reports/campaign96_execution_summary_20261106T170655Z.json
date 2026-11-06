@@ -1,0 +1,49 @@
+{
+  "tool": "campaign96_execution_summary",
+  "generated_at_utc": "20261106T170655Z",
+  "campaign": 96,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "concrete_artifacts_produced_this_session": [
+    {
+      "path": "reports/real_feed_ingest_attempt_20261106T170620Z.json",
+      "sha256": "26bb8f48c1cf864c4cbc469855c3d910a15ea2f62912d56e40b996a9dc8b7521",
+      "summary": "Mandatory nonspot ingest attempt (funding_basis_carry target); searched data/cache+repo+temp; no deployable real artifacts; IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED with smallest unblocking action."
+    },
+    {
+      "path": "reports/campaign96_rb_execution_record_20261106T170630Z.json",
+      "sha256": "f88f84377e9eb145664b2d4dd070e3aee767c7764703b73568933dbf858e514d",
+      "summary": "R-B VOLUME_KATZ_FD_SHOCK_MR distinctness pre-stated/grep-verified (no prior Katz/KFD costed_oos report); execution NOT_EXECUTED_ENVIRONMENT_BLOCKED_FAIL_CLOSED (no .venv/pandas/numpy/pytest)."
+    },
+    {
+      "path": "scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py",
+      "sha256": "2af5843d353d24edd9dc9e2140a66b4eae9c3215c3d821ab6b44fb04abc8ec77",
+      "summary": "C96 R-B script (Katz FD of dlogv, WF 720/168/168, cost grid 0-40bps, B&H same windows, exact edge rule, fail-closed). Reviewed; not executed due to missing deps."
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T170645Z.json",
+      "sha256": "0d4ed7deaa1a8382a10dc31ea4e2ff917d2af2c9de0d34be79e9c244838e6565",
+      "summary": "Registry superseding 20261106T151843Z; references unblock status 130243Z, C95 Higuchi RB 151757Z, C96 ingest/RB; pytest not rerun (env); NO_OOS_EDGE_PROVEN_FAIL_CLOSED."
+    }
+  ],
+  "bottlenecks_addressed": [
+    "Produced fresh C96 feed-ingest attempt artifact with concrete search paths, missing artifacts, provenance/sha256 requirements, smallest unblocking action (no fabrication).",
+    "Pre-stated mechanical distinctness for Katz FD vs C23/C40-C95 (incl. TP/Higuchi/Hjorth); grep-verified no prior Katz/KFD costed_oos report; created ready-to-run script (did not execute fake results).",
+    "Updated durable handoff (HANDOFF.md) with clear next actions."
+  ],
+  "bottlenecks_remaining": [
+    "PRIMARY: 4 nonspot families still blocked_no_real_feed (funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure). Only real_quote_volume validated. Operator must ingest a real feed artifact into data/cache with full fail-closed provenance+sha256.",
+    "ENV: No .venv; system python3 missing pandas/numpy/scipy/statsmodels/pytest. Katz FD R-B script and full pytest cannot run until deps restored.",
+    "RQV transform space exhausted through C95; C96 Katz FD distinct but unexecuted \u2014 next agent must run it (and verify numerically/toy if desired) once env restored, or pick another grep-verified distinct transform only if justified."
+  ],
+  "next_concrete_action": "1) Restore environment: create/activate .venv and install project deps incl. pandas,numpy,scipy,statsmodels,pytest (e.g. python -m venv .venv && . .venv/bin/activate && pip install -e '.[dev]'). 2) Run .venv/bin/python scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py (WF 720/168/168, 0-40bps, B&H same windows, exact fail-closed edge rule); save artifact; if edge proven only by rule, update registry. 3) Run full .venv/bin/python -m pytest -q and record authoritative counts/rc in a new registry/superseding artifact. 4) If a real nonspot feed artifact becomes available, place in data/cache with provenance+sha256 and re-run loader/unblock audit for that family; do not rescan stale cache as new work. Reference reports/real_feed_unblock_status_20261106T130243Z.json and reports/strategy_edge_registry_20261106T170645Z.json.",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_registry": "reports/strategy_edge_registry_20261106T151843Z.json",
+    "superseding_registry": "reports/strategy_edge_registry_20261106T170645Z.json"
+  },
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}

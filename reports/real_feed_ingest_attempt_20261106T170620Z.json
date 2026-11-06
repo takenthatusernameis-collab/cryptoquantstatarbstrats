@@ -1,0 +1,82 @@
+{
+  "tool": "campaign96_real_feed_ingest_attempt",
+  "generated_at_utc": "20261106T170620Z",
+  "generated_at_iso": "2026-11-06T17:06:20Z",
+  "campaign": 96,
+  "session": "C96_handoff_agent",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "blocked_families_targeted": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "selected_family_for_ingest_attempt": "funding_basis_carry",
+  "ingest_result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+  "search_paths_checked": {
+    "data_cache": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache",
+    "data_dir_outside_cache": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data",
+    "repo_wide": "funding|basis*carry|dual*venue|cross*exchange*dual|term*structure*iv|iv*30d*90d|intrabar|microstructure*trade excluding .venv,__pycache__,.git,data/cache,*/reports/*loader_validation*,*/tests/* (spot-ambiguous tokens)",
+    "temp_runner": "/home/runner/work/_temp (no deployable feed artifacts found in shallow listing; no .venv/site-packages with project deps discovered)"
+  },
+  "evidence": {
+    "cache_contents": "spot OHLCV per-symbol (ADA,AVAX,BNB,BTC,DOT,ETH,LINK,LTC,POL,SOL,XRP 2026-04-01_2026-10-30_1h) + hash-named spot caches + volume_1h_full.pkl/meta/provenance (validated real_quote_volume). No funding/basis, dual-venue, IV/term-structure, intrabar/microstructure artifacts.",
+    "cache_nonspot_candidate_meta_by_family": {
+      "funding_basis_carry": [],
+      "cross_exchange_dual_venue_same_asset": [],
+      "term_structure_real_iv_vol_surface": [],
+      "intrabar_microstructure": []
+    },
+    "repo_hits": "only blocker/status artifacts (e.g. reports/funding_basis_blocked_20261105T075839Z.json), not deployable real feeds with pkl+meta+provenance+sha256 passing family specs.",
+    "environment_blocker": "No .venv present; system python3 lacks pandas/numpy/pytest in this session; cannot execute RQV costed OOS or pytest without dependency restoration."
+  },
+  "missing_artifacts_exact": {
+    "funding_basis_carry": "Real provider-sourced funding/mark/basis series + complete provenance keys + sha256_pkl/meta integrity + real_data_only=true/fabricated_data=false passing FUNDING_BASIS_CARRY_SPEC validate_and_load_real_feed.",
+    "cross_exchange_dual_venue_same_asset": "Real dual-venue same-asset aligned artifact passing CROSS_EXCHANGE_DUAL_VENUE_SAME_ASSET_SPEC.",
+    "term_structure_real_iv_vol_surface": "Real IV/term-structure artifact (iv_30d, iv_90d, underlying, provenance) passing TERM_STRUCTURE_REAL_IV_VOL_SURFACE_SPEC.",
+    "intrabar_microstructure": "Real intrabar trades/book artifact passing INTRA_BAR_MICROSTRUCTURE_SPEC."
+  },
+  "checksum_provenance_requirements": {
+    "common": [
+      "meta sidecar + data pkl in data/cache",
+      "sha256_pkl matches file",
+      "real_data_only=true,fabricated_data=false",
+      "no proxy/fabricated labeled real",
+      "required provenance keys per family spec",
+      "schema/row_count/timestamp/duplicate/numeric checks pass"
+    ],
+    "funding_basis_carry_required_provenance": [
+      "source_provider",
+      "source_endpoints",
+      "request_urls_or_params",
+      "retrieved_at_utc",
+      "symbol_map_native_to_repo",
+      "window_start_utc",
+      "window_end_utc",
+      "freq",
+      "row_count",
+      "columns",
+      "sha256_pkl",
+      "sha256_meta_inputs",
+      "real_data_only",
+      "fabricated_data",
+      "notes_limits_gaps"
+    ]
+  },
+  "smallest_unblocking_action": "Operator/ingestion must fetch real funding/basis from an approved provider for repo symbols over needed window, write data/cache/<artifact>.pkl + .meta.json (+ provenance) satisfying FUNDING_BASIS_CARRY_SPEC and fail-closed loader checks, then re-run generate_unblock_status_report/audit. In parallel restore .venv/deps (pandas,numpy,scipy,statsmodels,pytest) so R-B/pytest can execute. No fabrication.",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T151843Z.json",
+    "prior_registry_sha256": "6ca9ab151138c47949f76f9a42e01fd341d5e66815def3035294217b29605b4b",
+    "prior_ingest_attempts": [
+      "reports/real_feed_ingest_attempt_20261106T151639Z.json",
+      "reports/real_feed_ingest_attempt_20261106T152552Z.json"
+    ]
+  },
+  "conclusion": "NO_NEW_REAL_NONSPOT_FEED_INGESTED_FAIL_CLOSED"
+}

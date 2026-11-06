@@ -1,0 +1,56 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T170645Z",
+  "campaign": 96,
+  "supersedes": "reports/strategy_edge_registry_20261106T151843Z.json",
+  "supersedes_sha256": "6ca9ab15716b68b4ab558653d98ce06714e0b34b1e58334ebb021291de40c665",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "c95_higuchi_rb": "reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json",
+    "c95_higuchi_rb_sha256": "13b30af38961878eaf1fce6bdc0ac9ff7b7257ddf7e9060bb7d18d6ef8a4e90f",
+    "c96_ingest_attempt": "reports/real_feed_ingest_attempt_20261106T170620Z.json",
+    "c96_ingest_attempt_sha256": "26bb8f48c1cf864c4cbc469855c3d910a15ea2f62912d56e40b996a9dc8b7521",
+    "c96_rb_execution_record": "reports/campaign96_rb_execution_record_20261106T170630Z.json",
+    "c96_rb_execution_record_sha256": "f88f84377e9eb145664b2d4dd070e3aee767c7764703b73568933dbf858e514d",
+    "c96_rb_script": "scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py",
+    "c96_rb_script_sha256": "2af5843d353d24edd9dc9e2140a66b4eae9c3215c3d821ab6b44fb04abc8ec77"
+  },
+  "c96_actions": [
+    {
+      "action": "R-A reference-only",
+      "result": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (stale cache; 4 families blocked; real_quote_volume validated-only). No rescan performed."
+    },
+    {
+      "action": "real nonspot feed ingest attempt (funding_basis_carry target)",
+      "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+      "artifact": "reports/real_feed_ingest_attempt_20261106T170620Z.json"
+    },
+    {
+      "action": "R-B Katz FD shock MR (VOLUME_KATZ_FD_SHOCK_MR, distinct pre-stated; script created)",
+      "result": "NOT_EXECUTED_ENVIRONMENT_BLOCKED_FAIL_CLOSED",
+      "artifact": "reports/campaign96_rb_execution_record_20261106T170630Z.json"
+    }
+  ],
+  "oos_edge_proven": false,
+  "pytest": {
+    "executed_this_session": false,
+    "reason": "pytest module/deps unavailable in environment (no .venv; system python missing pandas/numpy/pytest)",
+    "last_known_authoritative": {
+      "source": "reports/strategy_edge_registry_20261106T151843Z.json (C95 context)",
+      "passed": 928,
+      "skipped": 1,
+      "failed": 0,
+      "rc": 0,
+      "warnings": 3570,
+      "duration_s": 56.7
+    },
+    "note": "Full pytest must be rerun after environment restoration; counts not re-verified this session."
+  },
+  "rqv_transform_families_note": "60 prior real_quote_volume_*_costed_oos reports through C95; Katz FD (VOLUME_KATZ_FD_SHOCK_MR) distinctness pre-stated/grep-verified vs TP/Higuchi/Hjorth/Hurst-RS/entropy/LZ76/WW-runs/mean-run-length/BDS/VR/OU-HL/single-lag-ACF/location/dispersion/skew/kurtosis; execution pending env restore.",
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}
