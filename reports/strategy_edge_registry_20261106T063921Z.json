@@ -1,0 +1,67 @@
+{
+  "generated_at_utc": "2026-11-06T06:39:53.269251+00:00",
+  "campaign": 70,
+  "supersedes": "reports/strategy_edge_registry_20261106T063313Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3559 warnings in 31.48s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_lower_quartile_dispersion_lqd_shock_mr_costed_oos_20261106T063816Z.json",
+    "reports/real_feed_unblock_status_20261106T063921Z.json"
+  ],
+  "c70_hypothesis": "real_quote_volume Rolling Lower Quartile Dispersion (LQD=P50-P25, rank-conditional below-median spread) dispersion shock MR (R-B, pre-stated; differs from C23/C40-C69)",
+  "c70_oos_result": {
+    "oos_edge_proven": false,
+    "any_exposure": true,
+    "all_costs_positive": false,
+    "beats_bh_rule": false,
+    "aggregate": {
+      "fee0_slip0": {
+        "mean_frac_beats_bh": 0.5629370629370629,
+        "mean_oos_net_across_assets": -0.0022509334203777666,
+        "n_assets": 11
+      },
+      "fee10_slip10": {
+        "mean_frac_beats_bh": 0.44055944055944063,
+        "mean_oos_net_across_assets": -0.02444723707918469,
+        "n_assets": 11
+      },
+      "fee20_slip20": {
+        "mean_frac_beats_bh": 0.31818181818181823,
+        "mean_oos_net_across_assets": -0.04613395027724652,
+        "n_assets": 11
+      },
+      "fee40_slip40": {
+        "mean_frac_beats_bh": 0.16433566433566435,
+        "mean_oos_net_across_assets": -0.0880257973717651,
+        "n_assets": 11
+      },
+      "fee5_slip5": {
+        "mean_frac_beats_bh": 0.5034965034965034,
+        "mean_oos_net_across_assets": -0.013413536835316346,
+        "n_assets": 11
+      }
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C70 R-B on validated real_quote_volume (Rolling Lower Quartile Dispersion LQD=P50-P25, W=48, rank-conditional below-median spread; NOT monotonic transform of C62 IQR P75-P25 under asymmetry; distinct from C66 IDR P90-P10, C67/C68 semi-variances mean-conditional L2^2, C69 upper semi-MAD mean-conditional L1 above-mean, C61/C65 MAD/MeanAD full-distribution centered L1, C48/C56 STD/CV symmetric L2, and all C23/C40-C69 moments/entropies/Hurst-SampEn/autocorr/corr/beta/level/ROC/cumulative/partition/imbalance); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed."
+}
