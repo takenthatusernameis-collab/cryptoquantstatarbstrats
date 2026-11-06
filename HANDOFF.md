@@ -1,4 +1,4 @@
-## READ THIS FIRST — C104/C105 INITIAL TASK (20261106T211445Z, produced by handoff agent)
+## READ THIS FIRST — C104/C105 INITIAL TASK (20261106T211643Z, produced by handoff agent)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
 
