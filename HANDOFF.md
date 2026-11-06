@@ -1,4 +1,12 @@
-**Timestamp (UTC): 20261106T092000Z (Handoff refresh; C73 EXECUTED — fail-closed, no proven edge; registry `strategy_edge_registry_20261106T091943Z.json` supersedes `...T081541Z.json`; `oos_edge_proven=false`) — C74 mandatory. Full suite green: `python -m pytest tests/ -q` => rc=0, 928 passed, 1 skipped, 0 failed. No C74 artifacts yet; produce >=3.**
+## READ THIS FIRST — C74 INITIAL TASK (2026-11-06T09:21:35Z)
+
+**Single durable handoff for `cryptoquantstatarbstrats`. Execute Campaign #74 now (no investigation-only work).**
+- **State:** C73 complete/fail-closed (`oos_edge_proven=false`). Latest registry: `reports/strategy_edge_registry_20261106T091943Z.json` (supersedes `...T081541Z`). Latest unblock status: `reports/real_feed_unblock_status_20261106T091925Z.json` (delta vs `...T081536Z`, `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`). Full suite green at last registry: `928 passed, 1 skipped, 0 failed` (rc=0).
+- **Blocked families (substantive, unchanged):** `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure` — `blocked_no_real_feed`. No proxies labeled real. No fabricated feeds/provenance.
+- **Do now (>=3 new `reports/` artifacts):** **R-A preferred** — only if a genuinely NEW real feed for a blocked family passes fail-closed validation with complete provenance this session, produce costed OOS + cache/provenance/certificate + unblock status (+ prior delta) + registry supersede. **Else R-B** — test a genuinely different pre-stated hypothesis on validated `real_quote_volume` (NOT C23/C40–C73; C73 was rolling Kelly decile skewness shock MR) with WF 720/168/168, cost grid 0–40bps, B&H benchmark, tested runner/code, unblock status, registry supersede. `oos_edge_proven=false` is valid if rule not met.
+- **Mandatory:** No pairs/feed re-scans on same cache as "new campaign"; no C23/C40–C73 reruns; no gate weakening; rerun `python -m pytest tests/ -q` and record counts in new registry. If neither R-A nor R-B possible, emit `reports/campaign74_execution_blocker_<UTC>.json` with exact missing priors + smallest concrete unblocking step taken this session.
+
+**Timestamp (UTC, prior refresh):** 20261106T092000Z (C73 executed; `oos_edge_proven=false`) — C74 binding details below.
 
 ## CAMPAIGN #73 STATUS (EXECUTED — fail-closed, no proven edge)
 
