@@ -1,0 +1,48 @@
+{
+  "tool": "campaign98_execution_summary",
+  "generated_at_utc": "20261106T171929Z",
+  "campaign": 98,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "concrete_artifacts_produced_this_session": [
+    {
+      "path": "reports/real_feed_ingest_attempt_20261106T171838Z.json",
+      "sha256": "6bb481f50589ee5c57343f19e7831d087b02fe30a3a95f5a17bcfb71db25c51a",
+      "summary": "C98 nonspot ingest attempt (stale cache; 4 families blocked); IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED."
+    },
+    {
+      "path": "reports/real_quote_volume_tkeo_shock_mr_costed_oos_20261106T171624Z.json",
+      "sha256": "3c83df9c99558664aa6a96538244b15325609f77f92b419f09d018184136ed1a",
+      "summary": "C98 R-B VOLUME_TKEO_SHOCK_MR (causal TKEO e_t=x_t^2-x_{t-1}*x_{t-2} rolling mean of dlogv; WF 720/168/168; 0-40bps; B&H same windows). oos_edge_proven=false, any_exposure=true, all_pos=false, beats_bh=false."
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T171910Z.json",
+      "sha256": "307e6b43a3d0e176ac2fdba15d7ba40a255e45395eb46262eaf096c1a514005c",
+      "summary": "Strategy edge registry superseding 20261106T170645Z; pytest 928 passed, 1 skipped, 0 failed, rc=0; NO_OOS_EDGE_PROVEN_FAIL_CLOSED."
+    },
+    {
+      "path": "scripts/run_real_quote_volume_tkeo_shock_mr_costed_oos.py",
+      "sha256": "4f90d2f4f52ad0137e0dd645d1209722e4e8d3102fb593c7cca67f1ea3367a8a",
+      "summary": "C98 TKEO R-B script (distinctness pre-stated, grep-verified; fail-closed)."
+    }
+  ],
+  "bottlenecks_addressed": [
+    "Env restored; reran full pytest (928 passed/1 skipped/rc=0).",
+    "Executed C98 R-B TKEO (grep-verified distinct pre-impl); produced costed OOS artifact \u2014 no edge (fail-closed).",
+    "Produced fresh C98 ingest attempt with cache evidence; no fabricated feeds."
+  ],
+  "bottlenecks_remaining": [
+    "PRIMARY: 4 nonspot families still blocked_no_real_feed on stale cache (funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure). Only real_quote_volume validated. Operator must ingest a real feed artifact into data/cache with full fail-closed provenance+sha256.",
+    "RQV transform families through C98 TKEO show no OOS edge under exact rule; further transforms must be genuinely distinct, pre-stated, grep-verified, and not weaken gates."
+  ],
+  "next_concrete_action": "1) If a real nonspot feed artifact becomes available, place in data/cache with provenance+sha256 and run loader/unblock audit for that family (do not rescan stale cache as new work). 2) Execute Campaign #99 R-B: pre-state a genuinely distinct candidate (grep-verify absent in reports/scripts), implement scripts/run_real_quote_volume_<candidate>_shock_mr_costed_oos.py, run WF 720/168/168, 0-40bps, B&H same windows, exact fail-closed edge rule; produce artifact. 3) Rerun pytest if code changed; emit registry+summary superseding C98 registry. 4) No edge claim unless OOS exposure>0 AND all cost slices OOS net>0 AND beats B&H on same WF windows. Reference reports/real_feed_unblock_status_20261106T130243Z.json and reports/strategy_edge_registry_20261106T171910Z.json.",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_registry": "reports/strategy_edge_registry_20261106T170645Z.json",
+    "superseding_registry": "reports/strategy_edge_registry_20261106T171910Z.json"
+  },
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}

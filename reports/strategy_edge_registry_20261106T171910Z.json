@@ -1,0 +1,60 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T171910Z",
+  "campaign": 98,
+  "supersedes": "reports/strategy_edge_registry_20261106T170645Z.json",
+  "supersedes_sha256": "0d4ed7deaa1a8382a10dc31ea4e2ff917d2af2c9de0d34be79e9c244838e6565",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "c97_katz_rb": "reports/real_quote_volume_katz_fd_shock_mr_costed_oos_20261106T171349Z.json",
+    "c97_katz_rb_sha256": "1e8e553edc21fe528896aa2de2d86a33544b7d83385c22bfcded862f9f44d4ef",
+    "c98_ingest_attempt": "reports/real_feed_ingest_attempt_20261106T171838Z.json",
+    "c98_ingest_attempt_sha256": "6bb481f50589ee5c57343f19e7831d087b02fe30a3a95f5a17bcfb71db25c51a",
+    "c98_tkeo_rb": "reports/real_quote_volume_tkeo_shock_mr_costed_oos_20261106T171624Z.json",
+    "c98_tkeo_rb_sha256": "3c83df9c99558664aa6a96538244b15325609f77f92b419f09d018184136ed1a",
+    "c98_tkeo_script": "scripts/run_real_quote_volume_tkeo_shock_mr_costed_oos.py",
+    "c98_tkeo_script_sha256": "4f90d2f4f52ad0137e0dd645d1209722e4e8d3102fb593c7cca67f1ea3367a8a"
+  },
+  "c98_actions": [
+    {
+      "action": "R-A reference-only",
+      "result": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (stale cache; 4 families blocked; real_quote_volume validated-only). No rescan performed."
+    },
+    {
+      "action": "real nonspot feed ingest attempt (funding_basis_carry target)",
+      "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+      "artifact": "reports/real_feed_ingest_attempt_20261106T171838Z.json"
+    },
+    {
+      "action": "R-B TKEO shock MR (VOLUME_TKEO_SHOCK_MR, distinct pre-stated; grep-verified teager/tkeo absent pre-impl)",
+      "result": "EXECUTED_NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+      "artifact": "reports/real_quote_volume_tkeo_shock_mr_costed_oos_20261106T171624Z.json",
+      "summary": {
+        "oos_edge_proven": false,
+        "n_assets": 11,
+        "any_exposure": true,
+        "all_pos": false,
+        "beats_bh": false
+      }
+    }
+  ],
+  "oos_edge_proven": false,
+  "pytest": {
+    "executed_this_session": true,
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "rc": 0,
+    "warnings": 3578,
+    "duration_s": 50.51
+  },
+  "rqv_transform_families_note": "TKEO (VOLUME_TKEO_SHOCK_MR, causal e_t=x_t^2-x_{t-1}*x_{t-2} rolling mean) distinctness pre-stated/grep-verified vs C23/C40-C97 families; executed real-data costed OOS \u2014 no edge.",
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}
