@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-11-06T06:25:21.996958+00:00",
+  "campaign": 67,
+  "supersedes": "reports/strategy_edge_registry_20261106T061925Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3564 warnings in 31.99s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_lower_semi_variance_downside_dispersion_shock_mr_costed_oos_20261106T062449Z.json",
+    "reports/real_feed_unblock_status_20261106T062449Z.json"
+  ],
+  "c67_hypothesis": "real_quote_volume Rolling Lower Semi-Variance (Downside Variance, L2^2 of below-mean deviations only) dispersion shock MR (R-B, pre-stated; differs from C23/C40-C66)",
+  "c67_oos_result": {
+    "oos_edge_proven": false,
+    "any_exposure": true,
+    "aggregate_cost_grid": {
+      "fee0_slip0": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.0014915268769360589,
+        "n_asset_slices": 286,
+        "slices_exposed": 281
+      },
+      "fee10_slip10": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.02077911646417187,
+        "n_asset_slices": 286,
+        "slices_exposed": 281
+      },
+      "fee20_slip20": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.039650338321155436,
+        "n_asset_slices": 286,
+        "slices_exposed": 281
+      },
+      "fee5_slip5": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.011187966328435345,
+        "n_asset_slices": 286,
+        "slices_exposed": 281
+      }
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C67 R-B on validated real_quote_volume (Rolling Lower Semi-Variance = mean(min(x-mean,0)^2), W=48, asymmetric downside-only L2^2 dispersion; distinct from C48/C56 full STD/CV symmetric, C61/C65 MAD/MeanAD L1 centered full-distribution, C62/C66 IQR/IDR rank cutpoints, C63 GMD pairwise, C64 Range extremes, and all C23/C40-C66 moments/entropies/Hurst-SampEn/autocorr/corr/beta/level/ROC/cumulative/partition/imbalance); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed."
+}
