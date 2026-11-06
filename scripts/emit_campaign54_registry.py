@@ -111,55 +111,54 @@ def volume_family(art: dict) -> dict:
 
 def main():
     ts = _ts()
+    c54_path = _latest("real_quote_volume_vol_absret_beta_sensitivity_shock_mr_costed_oos_*.json")
     c53_path = _latest("real_quote_volume_vol_ret_lead_corr_predictive_fade_costed_oos_*.json")
-    c52_path = _latest("real_quote_volume_vol_absret_corr_shock_mean_reversion_costed_oos_*.json")
     all_status = sorted(glob.glob(str(REPORTS / "real_feed_unblock_status_20261106T*.json")))
     status_path = all_status[-1] if all_status else None
 
+    c54_art = _load_json(c54_path) if c54_path else {}
     c53_art = _load_json(c53_path) if c53_path else {}
-    c52_art = _load_json(c52_path) if c52_path else {}
     status = _load_json(status_path) if status_path else {}
+    if c54_path:
+        c54_art["_path"] = str(Path(c54_path).relative_to(ROOT))
     if c53_path:
         c53_art["_path"] = str(Path(c53_path).relative_to(ROOT))
-    if c52_path:
-        c52_art["_path"] = str(Path(c52_path).relative_to(ROOT))
 
     pytest_res = _pytest_counts()
-    oos_edge_proven = bool(c53_art.get("oos_edge_proven")) or bool(c52_art.get("oos_edge_proven"))
+    oos_edge_proven = bool(c54_art.get("oos_edge_proven")) or bool(c53_art.get("oos_edge_proven"))
 
     reg = {
         "generated_at_utc": _now(),
         "campaign": 54,
-        "title": "Strategy edge registry — Campaign 54 (C53 vol-ret lead cross-correlation predictive fade costed OOS on real quote volume; fail-closed)",
+        "title": "Strategy edge registry — Campaign 54 (C54 vol-absret OLS beta sensitivity shock MR costed OOS on real quote volume; fail-closed)",
         "supersedes": "reports/strategy_edge_registry_20261106T032550Z.json",
         "oos_edge_proven": oos_edge_proven,
         "pytest": pytest_res,
+        "campaign_54_real_quote_volume_vol_absret_ols_beta_sensitivity_shock_mr": volume_family(c54_art),
         "campaign_53_real_quote_volume_vol_ret_lead_corr_predictive_fade": volume_family(c53_art),
-        "campaign_52_real_quote_volume_vol_absret_corr_shock_mr": volume_family(c52_art),
         "feed_unblock_status": {
             "path": str(Path(status_path).relative_to(ROOT)) if status_path else None,
             "campaign": status.get("campaign"),
             "path_r_triggered": status.get("path_r_triggered"),
             "path_r_reason": status.get("path_r_reason"),
-            "blocked_families": (status.get("paths") or {}).get("path_b_blocked_family_feeds", {}).get("blocked_families"),
+            "blocked_families": status.get("blocked_families"),
             "delta_changed": (status.get("campaign_delta") or {}).get("changed"),
-            "delta_message": (status.get("campaign_delta") or {}).get("message"),
+            "delta_message": (status.get("campaign_delta") or {}).get("honest_assessment"),
         },
         "path_r_assessment": {
             "real_quote_volume_validated_fail_closed": True,
-            "c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_c52_rerun": False,
-            "c53_vol_ret_lead_crosscorr_predictive_fade_tested": True,
+            "c23_c40_c53_rerun": False,
+            "c54_vol_absret_ols_beta_sensitivity_shock_mr_tested": True,
             "different_prestated_hypothesis_tested": True,
-            "hypothesis_differs_from_c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_c51_c52": (
-                "C53 uses zscore(rolling Pearson corr(qvol[t], ret[t+k], W=48), ZLB=168) with lead k=1 and SIGNED "
-                "returns — a lead-lag / Granger-direction statistic (does volume at t predict the signed future "
-                "return?). Distinct from C23/C40/C41 vol_z level, C42 expansion, C43 unsloped vol_z divergence, "
-                "C44 vol_z ROC, C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, "
-                "C47 up/down partition imbalance, C48 rolling STD (2nd-moment), C49 rolling excess kurtosis "
-                "(4th-moment), C50 rolling skewness (3rd-moment), C51 rolling lag-1 autocorrelation "
-                "(serial dependence), C52 contemporaneous cross-corr(qvol, |ret1|) co-movement (same t, magnitude). "
-                "C53 is a lead-lag/predictive transform with a lead offset and signed returns. C52 volume loading "
-                "bug (0 assets tested) fixed so the hypothesis is actually tested on real assets."
+            "hypothesis_differs_from_c23_c40_c53": (
+                "C54 uses rolling OLS regression SLOPE beta_t = Cov(qvol,|ret1|;W=48)/Var(|ret1|;W=48) z-scored ZLB=168 — "
+                "the sensitivity/SCALE of liquidity (quote volume) response per unit contemporaneous absolute return (volatility). "
+                "Distinct from C52 (Pearson CORRELATION corr(qvol,|ret1|), normalized co-movement, no scale) and C53 "
+                "(corr(qvol, signed ret[t+k]) with LEAD k=1, lead-lag/Granger predictive direction, signed). Also distinct from "
+                "C23/C40/C41 vol_z level/expansion, C42 expansion confirmation, C43 unsloped vol_z divergence, C44 vol_z ROC, "
+                "C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, C47 up/down partition imbalance, "
+                "C48 rolling STD (2nd-moment), C49 rolling excess kurtosis (4th-moment), C50 rolling skewness (3rd-moment), "
+                "C51 rolling lag-1 autocorrelation (serial dependence). C54 is a regression sensitivity (scale) transform."
             ),
             "oos_edge_proven_any": oos_edge_proven,
         },
@@ -167,7 +166,7 @@ def main():
             "spot_1h_exhausted": True,
             "cointegration_gating_preserved": {"1h": [], "4h": ["POL/BTC"], "1d": []},
             "remaining_blocked_families": ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"],
-            "c52_zero_asset_bug_fixed": True,
+            "real_quote_volume_hypotheses_tested_c23_c40_c54_all_no_edge": True,
         },
         "honesty": {
             "real_data_only": True,

@@ -1,0 +1,300 @@
+{
+  "generated_at_utc": "2026-11-06T03:35:10.480096+00:00",
+  "campaign": 54,
+  "title": "Strategy edge registry \u2014 Campaign 54 (C54 vol-absret OLS beta sensitivity shock MR costed OOS on real quote volume; fail-closed)",
+  "supersedes": "reports/strategy_edge_registry_20261106T032550Z.json",
+  "oos_edge_proven": false,
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign_54_real_quote_volume_vol_absret_ols_beta_sensitivity_shock_mr": {
+    "artifact": "reports/real_quote_volume_vol_absret_beta_sensitivity_shock_mr_costed_oos_20261106T033312Z.json",
+    "generated_at_utc": "2026-11-06T03:33:14.833285+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": 11,
+    "n_assets_with_exposure": 11,
+    "n_oos_edge_proven": 0,
+    "by_asset": [
+      {
+        "asset": "ADA",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.0013608248044278959,
+        "bench_oos_0bps": -0.2269589930978433,
+        "oos_40bps": -0.6804770569715769,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "AVAX",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.14735894787228165,
+        "bench_oos_0bps": -0.08899889988998666,
+        "oos_40bps": -0.7201905868757318,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BNB",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": 0.005978090070654085,
+        "bench_oos_0bps": 0.1350060125450836,
+        "oos_40bps": -0.6777145981040571,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.23691454468615036,
+        "bench_oos_0bps": 0.02155067346182382,
+        "oos_40bps": -0.7632445442781367,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "DOT",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.27361251083171456,
+        "bench_oos_0bps": -0.2450166112956751,
+        "oos_40bps": -0.745835423055409,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "ETH",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.29328733017732656,
+        "bench_oos_0bps": -0.0019401907411387143,
+        "oos_40bps": -0.7585953813749169,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LINK",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.21319393186514057,
+        "bench_oos_0bps": 0.16575192096595592,
+        "oos_40bps": -0.7499433032343308,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.501564730282213,
+        "bench_oos_0bps": -0.00416742163435857,
+        "oos_40bps": -0.8409549281893481,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "POL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.3720492410184335,
+        "bench_oos_0bps": -0.07917981072555202,
+        "oos_40bps": -0.7872120825843878,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "SOL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2671645332133542,
+        "bench_oos_0bps": 0.15104103983632222,
+        "oos_40bps": -0.7585410971517916,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "XRP",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2648192166256539,
+        "bench_oos_0bps": -0.09518239637399917,
+        "oos_40bps": -0.761620862700342,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      }
+    ]
+  },
+  "campaign_53_real_quote_volume_vol_ret_lead_corr_predictive_fade": {
+    "artifact": "reports/real_quote_volume_vol_ret_lead_corr_predictive_fade_costed_oos_20261106T032909Z.json",
+    "generated_at_utc": "2026-11-06T03:29:09.583116+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": 11,
+    "n_assets_with_exposure": 11,
+    "n_oos_edge_proven": 0,
+    "by_asset": [
+      {
+        "asset": "ADA",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.13920617499178367,
+        "bench_oos_0bps": -0.10850660556113201,
+        "oos_40bps": -1.5232061749917838,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "AVAX",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.250280644820565,
+        "bench_oos_0bps": 0.03692307851737009,
+        "oos_40bps": -1.5382806448205653,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BNB",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2936285708066275,
+        "bench_oos_0bps": 0.16790033173988939,
+        "oos_40bps": -1.6976285708066277,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2504247190984923,
+        "bench_oos_0bps": 0.056906054230617786,
+        "oos_40bps": -1.7224247190984923,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "DOT",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.16307494330941474,
+        "bench_oos_0bps": -0.12387410404863253,
+        "oos_40bps": -1.447074943309415,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "ETH",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.8300695618515866,
+        "bench_oos_0bps": 0.06087103021756268,
+        "oos_40bps": -2.174069561851587,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LINK",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.3685484285692844,
+        "bench_oos_0bps": 0.2598010407291865,
+        "oos_40bps": -1.7045484285692845,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.057551404893253943,
+        "bench_oos_0bps": 0.0774892478977014,
+        "oos_40bps": -1.401551404893254,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "POL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.7756614832916429,
+        "bench_oos_0bps": 0.04760403801385149,
+        "oos_40bps": -2.191661483291643,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "SOL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.43970587675708683,
+        "bench_oos_0bps": 0.2228033848671428,
+        "oos_40bps": -1.8357058767570869,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "XRP",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.45383017299982675,
+        "bench_oos_0bps": -0.007174877049763051,
+        "oos_40bps": -1.7858301729998272,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      }
+    ]
+  },
+  "feed_unblock_status": {
+    "path": "reports/real_feed_unblock_status_20261106T033321Z.json",
+    "campaign": 54,
+    "path_r_triggered": true,
+    "path_r_reason": null,
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "delta_changed": false,
+    "delta_message": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"
+  },
+  "path_r_assessment": {
+    "real_quote_volume_validated_fail_closed": true,
+    "c23_c40_c53_rerun": false,
+    "c54_vol_absret_ols_beta_sensitivity_shock_mr_tested": true,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis_differs_from_c23_c40_c53": "C54 uses rolling OLS regression SLOPE beta_t = Cov(qvol,|ret1|;W=48)/Var(|ret1|;W=48) z-scored ZLB=168 \u2014 the sensitivity/SCALE of liquidity (quote volume) response per unit contemporaneous absolute return (volatility). Distinct from C52 (Pearson CORRELATION corr(qvol,|ret1|), normalized co-movement, no scale) and C53 (corr(qvol, signed ret[t+k]) with LEAD k=1, lead-lag/Granger predictive direction, signed). Also distinct from C23/C40/C41 vol_z level/expansion, C42 expansion confirmation, C43 unsloped vol_z divergence, C44 vol_z ROC, C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, C47 up/down partition imbalance, C48 rolling STD (2nd-moment), C49 rolling excess kurtosis (4th-moment), C50 rolling skewness (3rd-moment), C51 rolling lag-1 autocorrelation (serial dependence). C54 is a regression sensitivity (scale) transform.",
+    "oos_edge_proven_any": false
+  },
+  "settled_facts": {
+    "spot_1h_exhausted": true,
+    "cointegration_gating_preserved": {
+      "1h": [],
+      "4h": [
+        "POL/BTC"
+      ],
+      "1d": []
+    },
+    "remaining_blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "real_quote_volume_hypotheses_tested_c23_c40_c54_all_no_edge": true
+  },
+  "honesty": {
+    "real_data_only": true,
+    "no_fabrication_no_proxies_labeled_real": true,
+    "no_threshold_weakening": true,
+    "oos_edge_proven": false
+  }
+}

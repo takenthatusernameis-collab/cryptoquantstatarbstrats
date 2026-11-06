@@ -1,0 +1,184 @@
+{
+  "generated_at_utc": "2026-11-06T03:33:55.522206+00:00",
+  "campaign": 54,
+  "title": "Strategy edge registry \u2014 Campaign 54 (C53 vol-ret lead cross-correlation predictive fade costed OOS on real quote volume; fail-closed)",
+  "supersedes": "reports/strategy_edge_registry_20261106T032550Z.json",
+  "oos_edge_proven": false,
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "campaign_53_real_quote_volume_vol_ret_lead_corr_predictive_fade": {
+    "artifact": "reports/real_quote_volume_vol_ret_lead_corr_predictive_fade_costed_oos_20261106T032909Z.json",
+    "generated_at_utc": "2026-11-06T03:29:09.583116+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": 11,
+    "n_assets_with_exposure": 11,
+    "n_oos_edge_proven": 0,
+    "by_asset": [
+      {
+        "asset": "ADA",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.13920617499178367,
+        "bench_oos_0bps": -0.10850660556113201,
+        "oos_40bps": -1.5232061749917838,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "AVAX",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.250280644820565,
+        "bench_oos_0bps": 0.03692307851737009,
+        "oos_40bps": -1.5382806448205653,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BNB",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2936285708066275,
+        "bench_oos_0bps": 0.16790033173988939,
+        "oos_40bps": -1.6976285708066277,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "BTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.2504247190984923,
+        "bench_oos_0bps": 0.056906054230617786,
+        "oos_40bps": -1.7224247190984923,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "DOT",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.16307494330941474,
+        "bench_oos_0bps": -0.12387410404863253,
+        "oos_40bps": -1.447074943309415,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "ETH",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.8300695618515866,
+        "bench_oos_0bps": 0.06087103021756268,
+        "oos_40bps": -2.174069561851587,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LINK",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.3685484285692844,
+        "bench_oos_0bps": 0.2598010407291865,
+        "oos_40bps": -1.7045484285692845,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "LTC",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.057551404893253943,
+        "bench_oos_0bps": 0.0774892478977014,
+        "oos_40bps": -1.401551404893254,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "POL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.7756614832916429,
+        "bench_oos_0bps": 0.04760403801385149,
+        "oos_40bps": -2.191661483291643,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "SOL",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.43970587675708683,
+        "bench_oos_0bps": 0.2228033848671428,
+        "oos_40bps": -1.8357058767570869,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      },
+      {
+        "asset": "XRP",
+        "exposure": true,
+        "oos_edge_proven": false,
+        "oos_0bps": -0.45383017299982675,
+        "bench_oos_0bps": -0.007174877049763051,
+        "oos_40bps": -1.7858301729998272,
+        "all_slices_oos_net_gt_zero": false,
+        "all_slices_oos_net_beat_bh": false
+      }
+    ]
+  },
+  "campaign_52_real_quote_volume_vol_absret_corr_shock_mr": {
+    "artifact": "reports/real_quote_volume_vol_absret_corr_shock_mean_reversion_costed_oos_20261106T024828Z.json",
+    "generated_at_utc": "2026-11-06T02:48:28.016100+00:00",
+    "oos_edge_proven": false,
+    "n_assets_tested": 0,
+    "n_assets_with_exposure": 0,
+    "n_oos_edge_proven": 0,
+    "by_asset": []
+  },
+  "feed_unblock_status": {
+    "path": "reports/real_feed_unblock_status_20261106T032909Z.json",
+    "campaign": 54,
+    "path_r_triggered": true,
+    "path_r_reason": null,
+    "blocked_families": null,
+    "delta_changed": false,
+    "delta_message": null
+  },
+  "path_r_assessment": {
+    "real_quote_volume_validated_fail_closed": true,
+    "c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_c52_rerun": false,
+    "c53_vol_ret_lead_crosscorr_predictive_fade_tested": true,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis_differs_from_c23_c40_c41_c42_c43_c44_c45_c46_c47_c48_c49_c50_c51_c52": "C53 uses zscore(rolling Pearson corr(qvol[t], ret[t+k], W=48), ZLB=168) with lead k=1 and SIGNED returns \u2014 a lead-lag / Granger-direction statistic (does volume at t predict the signed future return?). Distinct from C23/C40/C41 vol_z level, C42 expansion, C43 unsloped vol_z divergence, C44 vol_z ROC, C45 Amihud |ret|/volume pointwise ratio, C46 OBV signed-cumulative slopes, C47 up/down partition imbalance, C48 rolling STD (2nd-moment), C49 rolling excess kurtosis (4th-moment), C50 rolling skewness (3rd-moment), C51 rolling lag-1 autocorrelation (serial dependence), C52 contemporaneous cross-corr(qvol, |ret1|) co-movement (same t, magnitude). C53 is a lead-lag/predictive transform with a lead offset and signed returns. C52 volume loading bug (0 assets tested) fixed so the hypothesis is actually tested on real assets.",
+    "oos_edge_proven_any": false
+  },
+  "settled_facts": {
+    "spot_1h_exhausted": true,
+    "cointegration_gating_preserved": {
+      "1h": [],
+      "4h": [
+        "POL/BTC"
+      ],
+      "1d": []
+    },
+    "remaining_blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "c52_zero_asset_bug_fixed": true
+  },
+  "honesty": {
+    "real_data_only": true,
+    "no_fabrication_no_proxies_labeled_real": true,
+    "no_threshold_weakening": true,
+    "oos_edge_proven": false
+  }
+}
