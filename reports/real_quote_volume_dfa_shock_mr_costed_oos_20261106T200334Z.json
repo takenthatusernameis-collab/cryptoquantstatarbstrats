@@ -1,0 +1,150 @@
+{
+  "tool": "real_quote_volume_dfa_shock_mr_costed_oos",
+  "generated_at_utc": "20261106T200334Z",
+  "campaign": 101,
+  "candidate": "VOLUME_DFA_SHOCK_MR (DFA alpha of log-volume changes, fade alpha-shocks vs baseline; linear detrending)",
+  "pre_stated_distinctness": "Grep-verified absent before impl: dfa|detrended_fluctuation not present in prior real_quote_volume costed OOS reports/scripts. Distinct from Hurst/RS(C94), Higuchi FD(C95), Katz FD(C96), Petrosian FD(C99), LZ76(C93), entropy families, Hjorth/TKEO, ZCR(C100). Uses DFA scaling exponent alpha of integrated volume-change series with linear detrending.",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "data": {
+    "spot_cache": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+    "spot_cache_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "volume_meta": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "volume_loader_report": {
+      "ok": true,
+      "refused": false,
+      "family": "real_quote_volume",
+      "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "notes_limits_gaps": "",
+      "provenance_source": "<dict>",
+      "provenance_merged": true,
+      "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "multi_symbol_long_frame": {
+        "group_col": "symbol",
+        "n_groups": 16,
+        "global_duplicate_timestamps": 76680,
+        "within_group_duplicates": 0,
+        "checked": "per_symbol_monotonic_unique"
+      },
+      "reason": "passed_all_fail_closed_checks",
+      "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+      "rows": 81792,
+      "columns": [
+        "timestamp_utc",
+        "symbol",
+        "quote_volume_usdt"
+      ],
+      "family_spec": "real_quote_volume"
+    }
+  },
+  "params": {
+    "w_dfa": 168,
+    "scales": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "alb": 336,
+    "entry_z": 1.5,
+    "exit_z": 0.5,
+    "max_hold": 24,
+    "train": 720,
+    "test": 168,
+    "step": 168,
+    "cost_grid": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ]
+  },
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "c99_rb": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "c99_rb_sha256": "6618de27b80be3ed737d89659d94c59b9ee9b3faea7fc459472dab91feae779c",
+    "c100_rb": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
+    "c100_rb_sha256": "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951"
+  },
+  "per_asset": {},
+  "aggregate": {
+    "n_assets": 0,
+    "any_exposure_oos": false,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "mean_bh_oos_mean_across_assets": 0.0,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_edge_proven": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 0,
+      "fee5_slip5": 0,
+      "fee10_slip10": 0,
+      "fee20_slip20": 0,
+      "fee40_slip40": 0
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": 0.0,
+      "fee5_slip5": 0.0,
+      "fee10_slip10": 0.0,
+      "fee20_slip20": 0.0,
+      "fee40_slip40": 0.0
+    }
+  },
+  "oos_edge_proven": false
+}

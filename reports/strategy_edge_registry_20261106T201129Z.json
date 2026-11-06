@@ -1,0 +1,75 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T201129Z",
+  "campaign": 101,
+  "supersedes": "reports/strategy_edge_registry_20261106T174241Z.json",
+  "supersedes_sha256": "58a473016bccae144a7492f191d3ad8e4695db36049f31b2a32afaa268a01e26",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T174241Z.json",
+    "prior_registry_sha256": "28ae0a7bc9b11afd145f43907f70f464d2a41e76168fb24a6edeeebbf0e8dd3d",
+    "c99_rb": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "c99_rb_sha256": "6618de27b80be3ed737d89659d94c59b9ee9b3faea7fc459472dab91feae779c",
+    "c100_rb": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
+    "c100_rb_sha256": "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951",
+    "c101_rb": "reports/real_quote_volume_dfa_shock_mr_costed_oos_20261106T200334Z.json",
+    "c101_rb_sha256": "41dc8fc858acb19e6c36679359c6a304ea3dfb24477332c9b12d4bb4a01265c7"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3570
+  },
+  "campaign101_r_b": {
+    "artifact": "reports/real_quote_volume_dfa_shock_mr_costed_oos_20261106T200334Z.json",
+    "sha256": "41dc8fc858acb19e6c36679359c6a304ea3dfb24477332c9b12d4bb4a01265c7",
+    "candidate": "VOLUME_DFA_SHOCK_MR (DFA alpha of log-volume changes, fade alpha-shocks vs baseline; linear detrending)",
+    "pre_stated_distinctness": "Grep-verified absent before impl: dfa|detrended_fluctuation not present in prior real_quote_volume costed OOS reports/scripts. Distinct from Hurst/RS(C94), Higuchi FD(C95), Katz FD(C96), Petrosian FD(C99), LZ76(C93), entropy families, Hjorth/TKEO, ZCR(C100). Uses DFA scaling exponent alpha of integrated volume-change series with linear detrending.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 0,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 0.0,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 0,
+        "fee5_slip5": 0,
+        "fee10_slip10": 0,
+        "fee20_slip20": 0,
+        "fee40_slip40": 0
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      }
+    },
+    "fail_closed": true
+  },
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "ingest_attempt": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingest_attempt_20261106T201129Z.json",
+    "ingest_attempt_sha256": "ac2b651cb4445b7567ba9fc184c24c27dce114d791e10b2c8814247148320a22",
+    "no_stale_cache_rescan": true
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "overall_oos_edge_proven": false,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false
+}

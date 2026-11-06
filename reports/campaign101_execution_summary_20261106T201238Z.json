@@ -1,0 +1,67 @@
+{
+  "tool": "campaign101_execution_summary",
+  "generated_at_utc": "20261106T201238Z",
+  "campaign": 101,
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T174241Z.json",
+    "prior_registry_sha256": "28ae0a7bc9b11afd145f43907f70f464d2a41e76168fb24a6edeeebbf0e8dd3d"
+  },
+  "deliverables": {
+    "ingest_attempt": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingest_attempt_20261106T201129Z.json",
+      "sha256": "ac2b651cb4445b7567ba9fc184c24c27dce114d791e10b2c8814247148320a22"
+    },
+    "rb_costed_oos": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_dfa_shock_mr_costed_oos_20261106T200334Z.json",
+      "sha256": "41dc8fc858acb19e6c36679359c6a304ea3dfb24477332c9b12d4bb4a01265c7"
+    },
+    "strategy_edge_registry": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/strategy_edge_registry_20261106T201129Z.json",
+      "sha256": "935e651bdec647418d4612fc6ec9428ca7728e51bd06e2b0aafc9f5d92324674"
+    },
+    "campaign101_execution_summary": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign101_execution_summary_20261106T201238Z.json",
+      "sha256": "e102c3db9a794e20475538b7c6c889e3148d74474fcbb5bc45cda4ec1e153eb6"
+    }
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3570
+  },
+  "c101_rb_result": {
+    "n_assets": 0,
+    "any_exposure_oos": false,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "mean_bh_oos_mean_across_assets": 0.0,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_edge_proven": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 0,
+      "fee5_slip5": 0,
+      "fee10_slip10": 0,
+      "fee20_slip20": 0,
+      "fee40_slip40": 0
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": 0.0,
+      "fee5_slip5": 0.0,
+      "fee10_slip10": 0.0,
+      "fee20_slip20": 0.0,
+      "fee40_slip40": 0.0
+    }
+  },
+  "primary_blockers_status": {
+    "nonspot_ingest": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED (no real nonspot artifacts in data/cache/workspace; operator must place artifact)",
+    "stale_cache_rescan": "NOT_PERFORMED"
+  },
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "overall_oos_edge_proven": false
+}
