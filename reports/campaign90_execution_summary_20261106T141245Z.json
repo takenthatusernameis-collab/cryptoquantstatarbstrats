@@ -1,0 +1,84 @@
+{
+  "campaign": 90,
+  "generated_at_utc": "20261106T141245Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "status": "C90_RB_EXECUTED_NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+  "r_a": {
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "status": "REFERENCE_ONLY_NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "note": "Same stale cache; not rescanned. 4 families blocked; real_quote_volume validated-only (81792 rows, provenance present). path_r infeasible without new validated nonspot feed+provenance."
+  },
+  "r_b": {
+    "artifact": "reports/real_quote_volume_variance_ratio_shock_mr_costed_oos_20261106T141032Z.json",
+    "sha256": "e192f01f3dbc16fb430315e103bfa0b055002f60e4ae56c37ebd9b7cc9b0e0e5",
+    "hypothesis_id": "VOLUME_VARIANCE_RATIO_SHOCK_MR",
+    "distinctness": "Lo/Craig\u2013MacKinlay variance-ratio VR(q)=Var(r^(q))/(q*Var(r)) on log-volume changes (q=24,W_VR=168); mechanically distinct vs C23/C40-C89 (NON-location/TP/WW-runs/mean-run-length-persistence/dispersion/entropy/skew/kurtosis/autocorr).",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 1.1067347968370331,
+      "fee5_slip5": -3.3512652031629697,
+      "fee10_slip10": -7.809265203162969,
+      "fee20_slip20": -16.72526520316297,
+      "fee40_slip40": -34.55726520316297
+    }
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "duration_s": 57.32,
+    "warnings": 3560,
+    "scope": "full tests/"
+  },
+  "artifacts_produced_this_session": [
+    {
+      "path": "scripts/run_real_quote_volume_variance_ratio_shock_mr_costed_oos.py",
+      "kind": "c90_rb_script"
+    },
+    {
+      "path": "reports/real_quote_volume_variance_ratio_shock_mr_costed_oos_20261106T141032Z.json",
+      "sha256": "e192f01f3dbc16fb430315e103bfa0b055002f60e4ae56c37ebd9b7cc9b0e0e5",
+      "kind": "c90_rb_costed_oos"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261106T141245Z.json",
+      "sha256": "ebcf6099cea816e50ea13a1667c4c178a49b7574831124d091b36ae6d55a43d9",
+      "kind": "c90_superseding_registry"
+    },
+    {
+      "path": "reports/campaign90_execution_summary_20261106T141245Z.json",
+      "kind": "c90_execution_summary",
+      "sha256": "98e786e2a513987cc3124f00994c95d550f30f4836b2c4a0e7a39dbc5285d5ab"
+    }
+  ],
+  "registry_supersedes": {
+    "path": "reports/strategy_edge_registry_20261106T131733Z.json",
+    "sha256": "b7f2ee34ccaf3cafcabec24c58ace5f93b7250d9ae18196d30bba40be8713661"
+  },
+  "new_registry_sha256": "ebcf6099cea816e50ea13a1667c4c178a49b7574831124d091b36ae6d55a43d9",
+  "bottlenecks_status": {
+    "cache_stale_r_a_no_change_C84_C90": "active \u2014 R-A reference-only on stale cache; path_r blocked until NEW real nonspot feed artifact ingested with fail-closed provenance/meta.",
+    "rqv_transforms_exhausted_through_C90": "C90 adds VR(q) (no edge). Exhausted now includes location (C83-C86), TP (C87), WW-runs (C88), mean-run-length-persistence (C89), VR (C90), plus all C23/C40-C82/C80-C89 dispersion/entropy/skew/kurtosis/autocorr/volume-divergence families. C91 must use a genuinely distinct transform (pre-state mechanical distinctness).",
+    "no_status_only": "honored (>=3 concrete report artifacts)."
+  },
+  "mandatory_rules_honored": {
+    "real_data_only": true,
+    "fail_closed": true,
+    "no_proxies_labeled_real": true,
+    "no_fabricated_feeds_provenance": true,
+    "no_stale_cache_rescan_as_new_work": true,
+    "no_C23_C40_C90_reruns_unchanged": true,
+    "no_gate_threshold_weakening": true,
+    "edge_rule_exact_applied": true
+  }
+}
