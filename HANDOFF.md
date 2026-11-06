@@ -1,4 +1,4 @@
-## READ THIS FIRST — C89 CONTINUATION (20261106T131034Z)
+## READ THIS FIRST — C89 CONTINUATION (20261106T131057Z)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #89 R-B now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Environment READY (`.venv`, pandas/numpy/scipy/scikit-learn/statsmodels/PyYAML/pytest; use `.venv/bin/python`).**
 
