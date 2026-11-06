@@ -1,0 +1,67 @@
+{
+  "generated_at_utc": "2026-11-06T07:14:50.443106+00:00",
+  "campaign": 71,
+  "supersedes": "reports/strategy_edge_registry_20261106T063921Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3587 warnings in 31.15s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_upper_quartile_dispersion_uqd_shock_mr_costed_oos_20261106T071350Z.json",
+    "reports/real_feed_unblock_status_20261106T071417Z.json"
+  ],
+  "c71_hypothesis": "real_quote_volume Rolling Upper Quartile Dispersion (UQD=P75-P50, rank-conditional above-median spread) dispersion shock MR (R-B, pre-stated; differs from C23/C40-C70)",
+  "c71_oos_result": {
+    "oos_edge_proven": false,
+    "any_exposure": true,
+    "all_costs_positive": false,
+    "beats_bh_rule": false,
+    "aggregate": {
+      "fee0_slip0": {
+        "mean_frac_beats_bh": 0.5069930069930069,
+        "mean_oos_net_across_assets": -0.004350163686667066,
+        "n_assets": 11
+      },
+      "fee10_slip10": {
+        "mean_frac_beats_bh": 0.41258741258741255,
+        "mean_oos_net_across_assets": -0.02643419255827195,
+        "n_assets": 11
+      },
+      "fee20_slip20": {
+        "mean_frac_beats_bh": 0.3181818181818182,
+        "mean_oos_net_across_assets": -0.04800789594423769,
+        "n_assets": 11
+      },
+      "fee40_slip40": {
+        "mean_frac_beats_bh": 0.17132867132867133,
+        "mean_oos_net_across_assets": -0.08967262593813867,
+        "n_assets": 11
+      },
+      "fee5_slip5": {
+        "mean_frac_beats_bh": 0.4615384615384615,
+        "mean_oos_net_across_assets": -0.015456739886797556,
+        "n_assets": 11
+      }
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C71 R-B on validated real_quote_volume (Rolling Upper Quartile Dispersion UQD=P75-P50, W=48, zscore ZLB=168, rank-conditional above-median spread; NOT monotonic transform of C70 LQD P50-P25 below-median under asymmetry; distinct from C62 IQR P75-P25 symmetric span, C66 IDR P90-P10, C68 upper semi-variance mean-conditional L2^2 above-MEAN, C69 upper semi-MAD mean-conditional L1 above-MEAN, C67 lower semi-variance, C61/C65 MAD/MeanAD full-distribution centered L1, C48/C56 STD/CV symmetric L2, and all C23/C40-C70 moments/entropies/Hurst-SampEn/autocorr/corr/beta/level/ROC/cumulative/partition/imbalance); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed."
+}
