@@ -1,0 +1,40 @@
+{
+  "generated_at_utc": "2026-11-06T05:19:20.928859+00:00",
+  "campaign": 62,
+  "supersedes": "reports/strategy_edge_registry_20261106T051444Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python3 -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3569 warnings in 31.55s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_iqr_dispersion_shock_mr_costed_oos_20261106T051843Z.json",
+    "reports/real_feed_unblock_status_20261106T051843Z.json"
+  ],
+  "c62_hypothesis": "real_quote_volume Interquartile Range (IQR=Q3-Q1, robust rank-based quartile dispersion) shock MR (R-B, pre-stated; differs from C23/C40-C61)",
+  "c62_oos_result": {
+    "oos_edge_proven": false,
+    "n_assets_tested": 11,
+    "n_assets_with_exposure": 11,
+    "n_oos_edge_proven": 0
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C62 R-B on validated real_quote_volume (IQR=Q3-Q1 robust rank/order-statistic quartile dispersion shock MR; distinct from C61 MAD L1 median-based absolute deviation, C48 STD/L2 mean-based dispersion, C56 CV relative ratio, C60 Sample Entropy template regularity, C59 Hurst R/S fractal scaling, C58 permutation entropy, C57 Shannon entropy, C49/C50 higher moments, C51 linear autocorr, and all C23/C40-C55/C52-C54 transforms); oos_edge_proven=false unless pre-stated rule passes. Remaining families blocked_no_real_feed."
+}
