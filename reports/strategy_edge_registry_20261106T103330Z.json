@@ -1,0 +1,87 @@
+{
+  "artifact": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-06T10:33:30Z",
+  "campaign": 82,
+  "supersedes": "reports/strategy_edge_registry_20261106T102313Z.json",
+  "supersedes_sha256": "5cc4609b21d03b2a978ddf82838b3d92deab88e412f8127ed5885f0dc7a89bcc",
+  "prior_unblock": "reports/real_feed_unblock_status_20261106T102141Z.json",
+  "prior_unblock_sha256": "a01bf9951f142bf1789d2c899a07fbd094753b5dda4f29a5ca6796ef5b26149c",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": false,
+  "gate_weakening": false,
+  "reruns_unchanged_c23_c40_c81": false,
+  "environment": {
+    "venv": ".venv",
+    "deps": ["pandas", "numpy", "scipy", "scikit-learn", "statsmodels", "PyYAML", "pytest"]
+  },
+  "pytest": {
+    "executed": true,
+    "command": ". .venv/bin/activate && python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "warnings": 3564,
+    "rc": 0,
+    "duration_s": 56.92
+  },
+  "r_a_feed_unblock": {
+    "executed": true,
+    "required_first": true,
+    "tool": "data.real_feed_loader.generate_unblock_status_report(cache_dir='data/cache', campaign=82, prior_report='reports/real_feed_unblock_status_20261106T102141Z.json')",
+    "artifact": "reports/real_feed_unblock_status_20261106T102730Z.json",
+    "sha256": "2fa3153437b58d19479c4ae03f3f7c5c80a302c04f5b831411fa5b7e8c752e6b",
+    "campaign": 82,
+    "prior_report_referenced": "reports/real_feed_unblock_status_20261106T102141Z.json",
+    "delta_vs_prior": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (changed=false, prior_campaign=81, conclusions unchanged)",
+    "blocked_families_unchanged": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "real_quote_volume_status": "real_feed_with_provenance_present (volume_1h_full, 81792 rows, passed_all_fail_closed_checks)",
+    "new_valid_nonspot_feed_discovered": false,
+    "proxies_labeled_real": false,
+    "fabricated_feeds_or_provenance": false,
+    "conclusion": "4 families remain blocked_no_real_feed; R-A infeasible for unblock -> proceeded to distinct R-B per rules"
+  },
+  "r_b_costed_oos": {
+    "executed": true,
+    "script": "scripts/run_real_quote_volume_trimean_location_shock_mr_costed_oos.py",
+    "script_sha256": "baf1d39d43775bc6b243dbaba7db2ebfa02011e68d8889477da3c981671394e5",
+    "artifact": "reports/real_quote_volume_trimean_location_shock_mr_costed_oos_20261106T103150Z.json",
+    "artifact_sha256": "58361b05f5ee0849b2b8968a9640c69b06af7f3792f736cc559864ad5a765bd7",
+    "campaign": 82,
+    "hypothesis": "Volume Tukey Trimean (Robust Location, L-estimator) Shock Mean Reversion: TM_t=(Q1+2*Q2+Q3)/4, W=48 on real quote_volume_usdt>0; z(dz,168) fades robust-location shocks (dz>=1.25 short, <=-1.25 long), exit |dz|<0.25/hold>=12/flip, t->t+1; WF 720/168/168; 0-40bps; B&H same OOS windows",
+    "mechanical_distinctness": "TM is a ROBUST LOCATION (level) L-estimator, not scale/shape/inequality/entropy/dispersion-ratio. Distinct from C80 MAD median(|x-median|) and C81 AAD mean(|x-mean|) which are SCALE of deviations (different center/aggregator); distinct from C66-C73 quantile dispersions/asymmetries (IQR/Bowley/Kelly family) — TM is location, not spread/asymmetry and not quartile coefficient of dispersion (Q3-Q1)/(Q3+Q1); distinct from C79 Sarle BC, C45 CV, C51/C74/C75/C76/C78 inequality, C41/C42/C43 entropy, and C23/C40-C81 transforms. Not tested in C23/C40-C81.",
+    "data": "real Binance spot quote volume (volume_1h_full, fail-closed validate_and_load_real_feed with provenance) + real cached spot 1h (0bab5d6…fcf7); real_data_only=true, fabricated_data=false",
+    "edge_rule_exact": "oos_edge_proven = OOS_exposure>0 AND for ALL cost slices mean OOS net sum across assets > 0 AND mean OOS net mean beats mean B&H OOS mean on same windows (fail-closed)",
+    "result": {
+      "oos_edge_proven": false,
+      "any_exposure": true,
+      "all_costs_positive": false,
+      "beats_bh_rule": false,
+      "aggregate": {
+        "fee0_slip0": {"mean_oos_net_across_assets": 0.05478233769649202, "mean_oos_net_mean_across_assets": 1.2541743978134623e-05, "positive": true, "beats_bh": false},
+        "fee5_slip5": {"mean_oos_net_across_assets": -0.2485812986671446, "mean_oos_net_mean_across_assets": -5.690963797324738e-05, "positive": false, "beats_bh": false},
+        "fee10_slip10": {"mean_oos_net_across_assets": -0.551944935030781, "mean_oos_net_mean_across_assets": -0.00012636101992462932, "positive": false, "beats_bh": false},
+        "fee20_slip20": {"mean_oos_net_across_assets": -1.1586722077580536, "mean_oos_net_mean_across_assets": -0.00026526378382739325, "positive": false, "beats_bh": false},
+        "fee40_slip40": {"mean_oos_net_across_assets": -2.372126753212599, "mean_oos_net_mean_across_assets": -0.0005430693116329209, "positive": false, "beats_bh": false}
+      }
+    },
+    "oos_edge_proven": false
+  },
+  "overall": {
+    "r_a_unblock_changed": false,
+    "blocked_families": ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"],
+    "new_oos_edge_proven": false,
+    "c82_deliverables_emitted": [
+      "reports/real_feed_unblock_status_20261106T102730Z.json",
+      "scripts/run_real_quote_volume_trimean_location_shock_mr_costed_oos.py",
+      "reports/real_quote_volume_trimean_location_shock_mr_costed_oos_20261106T103150Z.json",
+      "reports/strategy_edge_registry_20261106T103330Z.json (this)"
+    ]
+  }
+}
