@@ -1,0 +1,29 @@
+{
+  "type": "strategy_edge_registry",
+  "generated_at_utc": "20261106T213828Z",
+  "supersedes": "reports/strategy_edge_registry_20261106T204555Z.json",
+  "real_data_only": true,
+  "fail_closed": true,
+  "campaigns": {
+    "104": {
+      "candidate": "VOLUME_WAVELET_ENTROPY_SHOCK_MR",
+      "artifact": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json"
+    },
+    "105": {
+      "candidate": "VOLUME_HURST_RS_PERSISTENCE_MR",
+      "artifact": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json"
+    }
+  },
+  "nonspot_ingest": {
+    "attempt": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingest_attempt_20261106T213721Z.json",
+    "conclusion": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT"
+  },
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json"
+  },
+  "pytest": {
+    "command": "python -m pytest tests/ -q",
+    "rc": 0,
+    "tail": "\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n928 passed, 1 skipped, 3566 warnings in 47.77s"
+  }
+}

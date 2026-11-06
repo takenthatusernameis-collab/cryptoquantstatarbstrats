@@ -1,0 +1,41 @@
+{
+  "type": "campaign105_execution_summary",
+  "generated_at_utc": "20261106T214009Z",
+  "campaign": 105,
+  "real_data_only": true,
+  "fail_closed": true,
+  "actions": [
+    "Grep-verified distinctness before implementation",
+    "Implemented fail-closed R-B script mirroring spectral entropy framework",
+    "Ran with WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows",
+    "Emitted costed OOS artifact with per-asset and aggregate"
+  ],
+  "artifacts": [
+    "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json"
+  ],
+  "edge": {
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": -0.96268543773272,
+        "fee5_slip5": -5.952685437732723,
+        "fee10_slip10": -10.942685437732722,
+        "fee20_slip20": -20.92268543773272,
+        "fee40_slip40": -40.88268543773272
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": -0.00022039501779595237,
+        "fee5_slip5": -0.0013627942851952204,
+        "fee10_slip10": -0.0025051935525944877,
+        "fee20_slip20": -0.004789992087393022,
+        "fee40_slip40": -0.009359589156990093
+      }
+    }
+  }
+}

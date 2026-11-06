@@ -1,0 +1,41 @@
+{
+  "type": "campaign104_execution_summary",
+  "generated_at_utc": "20261106T214009Z",
+  "campaign": 104,
+  "real_data_only": true,
+  "fail_closed": true,
+  "actions": [
+    "Grep-verified distinctness before implementation",
+    "Implemented fail-closed R-B script mirroring spectral entropy framework",
+    "Ran with WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows",
+    "Emitted costed OOS artifact with per-asset and aggregate"
+  ],
+  "artifacts": [
+    "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json"
+  ],
+  "edge": {
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      }
+    }
+  }
+}
