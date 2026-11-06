@@ -1,0 +1,138 @@
+{
+  "type": "real_quote_volume_illiq_shock_mean_reversion_costed_oos",
+  "campaign": 45,
+  "generated_at_utc": "2026-11-06T01:40:59.481514+00:00",
+  "computed_at_stamp": "20261106T014059Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "no_threshold_weakening": true,
+  "no_proxies_labeled_real": true,
+  "path": "R-B",
+  "pre_stated_hypothesis": {
+    "name": "Illiquidity Shock Mean Reversion (Amihud Proxy on Real Quote Volume)",
+    "description": "Compute Amihud illiquidity proxy ILLIQ=|ret1|/(quote_volume+eps) and its causal z-score (168h). When illiq_z>1.5 and |ret1|>=0.1% (thin-liquidity shock), fade the move direction: long if ret1<0, short if ret1>0. Exit on illiq_z<0, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+    "params_fixed_before_oos_evaluation": true,
+    "no_in_sample_tuning": true,
+    "differs_from_c23": "C23 uses high vol_z LEVEL surge for momentum continuation; C45 uses |ret|/volume illiquidity ratio, not vol_z level.",
+    "differs_from_c40": "C40 fades HIGH volume climax (vol_z level); C45 fades illiquidity SHOCKS (|ret|/volume z-score), different transformation.",
+    "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C45 fades on HIGH illiquidity ratio shocks.",
+    "differs_from_c42": "C42 confirms breakouts on volume expansion (rising vol_z); C45 uses return-normalized illiquidity ratio, no breakout condition.",
+    "differs_from_c43": "C43 fades volume-price divergence (weak vol_z confirmation of extremes); C45 fades illiquidity spikes (|ret|/volume).",
+    "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C45 mean-reverts on illiquidity ratio shocks — opposite direction/mechanic and different signal.",
+    "illiq_z_lookback": 168,
+    "illiq_entry_z": 1.5,
+    "illiq_exit_z": 0.0,
+    "ret1_min_abs": 0.001,
+    "max_hold_bars": 12,
+    "min_obs": 168,
+    "eps": 1e-12
+  },
+  "data": {
+    "spot_cache": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+    "spot_cache_sha256_pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "volume_meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "volume_provenance_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.provenance.json",
+    "volume_validation_report_ok": true,
+    "real_quote_volume_validated": true
+  },
+  "config": {
+    "train_test_step": [
+      720,
+      168,
+      168
+    ],
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        20,
+        20
+      ]
+    ],
+    "benchmark": "buy_and_hold_same_oos_windows",
+    "execution_shift": "t->t+1",
+    "causal_windows_only": true
+  },
+  "symbols_tested": [],
+  "by_asset": {},
+  "summary": {
+    "n_symbols_tested": 0,
+    "n_assets_with_exposure": 0,
+    "n_oos_edge_proven": 0,
+    "oos_edge_proven": false,
+    "edge_rule": "exposure>0 AND all cost-grid slices OOS net>0 AND OOS net>B&H on same OOS windows (pre-stated, fail-closed)"
+  },
+  "_source_files": {
+    "generator": "scripts/generate_campaign45_artifacts.py"
+  }
+}
