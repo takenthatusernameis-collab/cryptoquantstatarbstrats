@@ -3,20 +3,26 @@
 strategy on real Binance spot quote volume (klines column 5) + real cached spot 1h.
 
 PRE-STATED HYPOTHESIS (fixed before seeing OOS results): "Volume Sample-Entropy shock mean reversion"
-- Feature: Sample Entropy (SampEn) of log-volume changes dlogv on rolling windows,
-  m=2, r=0.2*std of window. Value-space template-matching regularity/predictability,
-  distinct from spectral/permutation/approximate/shannon entropies and DFA/Hurst/LZ etc.
-- Signal: shock = |z(SampEn)| relative to longer baseline; fade extremes with t->t+1.
+- Feature: Sample entropy (SampEn, m=2, r=0.2*std) of log-volume returns dlogv on
+  rolling windows W_SE. SampEn is the negative log of the conditional probability that
+  similar m-length patterns remain similar at m+1 (excluding self-matches), distinct
+  from spectral/wavelet/approximate/shannon/permutation/Renyi entropies, DFA/Hurst/RS,
+  Higuchi/Katz/Petrosian FD, LZ76, Hjorth/TKEO, ZCR.
+- Signal: shock = |z(SampEn)| relative to longer baseline ALB; fade extremes
+  (high SampEn = irregular/unpredictable -> short; low SampEn = regular/predictable -> long).
 - Execution shift t->t+1; walk-forward rolling 720/168/168; cost grid
   [[0,0],[5,5],[10,10],[20,20],[40,40]]; edge rule exact: oos_edge_proven true IFF
   exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on
   same WF windows. Real data only; no proxies/fabrication; grep-verified distinct.
 """
-import json, os, pickle, hashlib, math
+import json, pickle, hashlib, sys
 from pathlib import Path
 from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
+
+root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(root))
 
 root = Path(__file__).resolve().parent.parent
 cache_dir = root / "data" / "cache"
@@ -26,20 +32,16 @@ ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 SPOT_CACHE = "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7"
 VOL_META = cache_dir / "volume_1h_full.meta.json"
-COST_GRID = [[0,0],[5,5],[10,10],[20,20],[40,40]]
+COST_GRID = [[0, 0], [5, 5], [10, 10], [20, 20], [40, 40]]
 TRAIN, TEST, STEP = 720, 168, 168
 W_SE = 168  # sample entropy window
-ALB = 336     # baseline
-M = 2
-R_FRAC = 0.2
+ALB = 336   # baseline
 ENTRY_Z = 1.5
 EXIT_Z = 0.5
 MAX_HOLD = 24
-MIN_OBS = 168
-PRIOR_C100_RB_SHA = "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951"
-PRIOR_C101_RB_SHA = "41dc8fc858acb19e6c36679359c6a304ea3dfb24477332c9b12d4bb4a01265c7"
-PRIOR_C102_RB_SHA = "0a344a04425f075fa3fd2f3122091d747e9243edf0842488f8497d905782cc41"
-PRIOR_C103_RB_SHA = "7c13c27c7068e93be909a9e49f89254c2b5c5d1908ca4da672fb71e3b8a79e40"
+M = 2
+R_SCALE = 0.2
+PRIOR_REGISTRY = "reports/strategy_edge_registry_20261106T213828Z.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -59,39 +61,38 @@ def wf_windows(n):
     return ws
 
 
-def _template_matrix(arr: np.ndarray, m: int) -> np.ndarray:
-    n = len(arr)
-    K = n - m + 1
-    if K <= 0:
-        return np.empty((0, m), dtype=float)
-    return np.stack([arr[i:i + m] for i in range(K)], axis=0)
-
-
-def _count_matches(templates: np.ndarray, r: float):
-    k = templates.shape[0]
-    if k < 2:
-        return 0, 0
-    diff = np.max(np.abs(templates[:, None, :] - templates[None, :, :]), axis=2)
-    matches = diff <= r
-    np.fill_diagonal(matches, False)
-    return int(matches.sum()), int(k * (k - 1))
-
-
-def sample_entropy(arr: np.ndarray, m: int, r: float) -> float:
-    x = np.asarray(arr, dtype=float)
+def sample_entropy(x, m=M, r_scale=R_SCALE):
+    """SampEn(m, r): -ln(A/B), excluding self-matches. O(N^2) on window."""
+    x = np.asarray(x, dtype=float)
     x = x[np.isfinite(x)]
     n = x.size
     if n < m + 2:
         return np.nan
-    if r <= 0 or not np.isfinite(r):
+    sd = np.std(x, ddof=0)
+    if sd <= 1e-18 or not np.isfinite(sd):
         return np.nan
-    t_m = _template_matrix(x, m)
-    t_m1 = _template_matrix(x, m + 1)
-    b_count, b_total = _count_matches(t_m, r)
-    a_count, a_total = _count_matches(t_m1, r)
-    if b_count == 0 or a_total == 0 or a_count == 0:
+    r = r_scale * sd
+
+    def _phi(mm):
+        count = 0
+        templates = n - mm
+        if templates <= 0:
+            return 0
+        for i in range(templates):
+            xi = x[i:i + mm]
+            for j in range(i + 1, templates):
+                if np.max(np.abs(xi - x[j:j + mm])) <= r:
+                    count += 1
+        return count
+
+    b = _phi(m)
+    a = _phi(m + 1)
+    if b == 0 or a == 0:
         return np.nan
-    return float(-math.log(a_count / b_count))
+    val = -np.log(a / b)
+    if not np.isfinite(val):
+        return np.nan
+    return float(val)
 
 
 def rolling_sample_entropy(x, w):
@@ -100,11 +101,7 @@ def rolling_sample_entropy(x, w):
         win = x[i - w + 1:i + 1]
         if not np.isfinite(win).all():
             continue
-        sd = np.std(win, ddof=0)
-        if sd <= 1e-18:
-            continue
-        r = R_FRAC * sd
-        out[i] = sample_entropy(win, M, r)
+        out[i] = sample_entropy(win)
     return out
 
 
@@ -164,9 +161,9 @@ def run_asset(prices: pd.Series, vol: pd.Series):
             hold = hold + 1 if cur != 0 else 0
         else:
             desired = 0.0
-            if z >= ENTRY_Z:
+            if z >= ENTRY_Z:  # high SampEn -> irregular shock, fade short
                 desired = -1.0
-            elif z <= -ENTRY_Z:
+            elif z <= -ENTRY_Z:  # low SampEn -> regular, fade long
                 desired = 1.0
             if cur == 0.0:
                 nxt = desired
@@ -219,6 +216,8 @@ def run_asset(prices: pd.Series, vol: pd.Series):
         "window_end": str(idx[-1]) if n else None,
         "n_wf_folds": len(ws),
         "has_exposure_oos": bool((np.abs(sig[oos_union]) > 0).sum() > 0) if oos_union.any() else False,
+        "n_active_bars_oos": int((np.abs(sig[oos_union]) > 0).sum()) if oos_union.any() else 0,
+        "exposure_frac_oos": float((np.abs(sig[oos_union]) > 0).mean()) if oos_union.any() else 0.0,
         "bh_oos_sum": bh_oos,
         "bh_oos_mean": bh_oos_mean,
         "cost_slices": slices,
@@ -238,37 +237,31 @@ def main():
     for a in syms:
         try:
             sp = spot[a].astype(float)
-        except Exception:
-            continue
-        try:
             vv = vol_df[a]
         except Exception:
             continue
         res[a] = run_asset(sp, vv)
-    fee_slip_list = [(0,0),(5,5),(10,10),(20,20),(40,40)]
+    fee_slip_list = [(0, 0), (5, 5), (10, 10), (20, 20), (40, 40)]
     any_exp = any(v.get("has_exposure_oos") for v in res.values())
     sums = {}
     means = {}
-    bh_means = []
+    bh_means = [v["bh_oos_mean"] for v in res.values()]
     for f, s in fee_slip_list:
         key = f"fee{f}_slip{s}"
-        ssum = sum(v["cost_slices"][key]["oos_net_sum"] for v in res.values() if key in v["cost_slices"])
-        msum = sum(v["cost_slices"][key]["oos_net_mean"] for v in res.values() if key in v["cost_slices"])
-        sums[key] = ssum
-        means[key] = msum
-    for v in res.values():
-        bh_means.append(v["bh_oos_mean"])
+        sums[key] = sum(v["cost_slices"][key]["oos_net_sum"] for v in res.values() if key in v["cost_slices"])
+        means[key] = sum(v["cost_slices"][key]["oos_net_mean"] for v in res.values() if key in v["cost_slices"])
     mean_bh = float(np.mean(bh_means)) if bh_means else 0.0
     mean_m = {k: float(means[k]) for k in means}
     all_pos = all(sums.get(f"fee{f}_slip{s}", -np.inf) > 0 for f, s in fee_slip_list)
     beats_bh = all(mean_m.get(f"fee{f}_slip{s}", -np.inf) > mean_bh for f, s in fee_slip_list)
     oos_edge = bool(any_exp and all_pos and beats_bh)
+    prior_reg_sha = sha256_file(root / PRIOR_REGISTRY) if (root / PRIOR_REGISTRY).exists() else None
     out = {
         "tool": "real_quote_volume_sample_entropy_shock_mr_costed_oos",
         "generated_at_utc": ts,
         "campaign": 106,
-        "candidate": "VOLUME_SAMPLE_ENTROPY_SHOCK_MR (Sample Entropy SampEn of log-volume changes on rolling windows, m=2,r=0.2*std, fade SampEn shocks vs baseline)",
-        "pre_stated_distinctness": "Grep-verified absent before impl: sample_entropy|SampEn not present in prior real_quote_volume costed OOS reports/scripts. Distinct from spectral/wavelet/approximate/permutation/shannon entropies, DFA/Hurst/FD/LZ/Hjorth/ZCR.",
+        "candidate": "VOLUME_SAMPLE_ENTROPY_SHOCK_MR (Sample entropy SampEn m=2,r=0.2*std of log-volume returns, fade SampEn shocks vs baseline)",
+        "pre_stated_distinctness": "Grep-verified absent before impl: sample_entropy not present in prior real_quote_volume costed OOS reports/scripts. SampEn excludes self-matches vs ApEn; distinct from spectral/wavelet/approximate/shannon/permutation/Renyi entropies, DFA/Hurst/RS, Higuchi/Katz/Petrosian FD, LZ76, Hjorth/TKEO, ZCR. Time-domain conditional similarity complexity.",
         "real_data_only": True,
         "fabricated_data": False,
         "fail_closed": True,
@@ -279,20 +272,13 @@ def main():
             "volume_meta": str(VOL_META),
             "volume_loader_report": vol_report,
         },
-        "params": {"w_se": W_SE, "alb": ALB, "m": M, "r_frac": R_FRAC, "entry_z": ENTRY_Z, "exit_z": EXIT_Z, "max_hold": MAX_HOLD, "train": TRAIN, "test": TEST, "step": STEP, "cost_grid": COST_GRID},
+        "params": {"w_se": W_SE, "alb": ALB, "entry_z": ENTRY_Z, "exit_z": EXIT_Z, "max_hold": MAX_HOLD, "m": M, "r_scale": R_SCALE, "train": TRAIN, "test": TEST, "step": STEP, "cost_grid": COST_GRID},
         "references": {
             "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
-            "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
-            "prior_registry": "reports/strategy_edge_registry_20261106T213828Z.json",
-            "prior_registry_sha256": "ce1d2d411542eaad47c2829b5983a89f007bef277f631c7ebd86927be0b9b0c5",
-            "c100_rb": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
-            "c100_rb_sha256": PRIOR_C100_RB_SHA,
-            "c101_rb": "reports/real_quote_volume_dfa_shock_mr_costed_oos_20261106T200334Z.json",
-            "c101_rb_sha256": PRIOR_C101_RB_SHA,
-            "c102_rb": "reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json",
-            "c102_rb_sha256": PRIOR_C102_RB_SHA,
-            "c103_rb": "reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json",
-            "c103_rb_sha256": PRIOR_C103_RB_SHA,
+            "prior_registry": PRIOR_REGISTRY,
+            "prior_registry_sha256": prior_reg_sha,
+            "c104_rb": "reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json",
+            "c105_rb": "reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json",
         },
         "per_asset": res,
         "aggregate": {
