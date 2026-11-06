@@ -1,0 +1,222 @@
+{
+  "schema": "strategy_edge_registry.v1",
+  "campaign": 42,
+  "generated_at_utc": "2026-11-06T00:38:32.351470+00:00",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "supersedes": "reports/strategy_edge_registry_20261106T003311Z.json",
+  "c42_artifacts": [
+    "reports/real_quote_volume_volume_expansion_breakout_costed_oos_20261106T003700Z.json",
+    "reports/real_feed_unblock_status_20261106T003709Z.json",
+    "reports/strategy_edge_registry_20261106T003832Z.json"
+  ],
+  "path_r": {
+    "status_recheck": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "path_r_triggered": true,
+    "blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "c23_rerun": false,
+    "c40_climax_mean_reversion_rerun": false,
+    "c41_rerun": false,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis": "Volume-Expansion Breakout Confirmation Continuation",
+    "differs_from_c23_c40_c41": true
+  },
+  "gating_invariants_preserved": {
+    "1h": {
+      "n_gated": 0,
+      "pairs": []
+    },
+    "4h": {
+      "n_gated": 1,
+      "pairs": [
+        "POL/BTC"
+      ]
+    },
+    "1d": {
+      "n_gated": 0,
+      "pairs": []
+    }
+  },
+  "families": [
+    {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "Volume-Expansion Breakout Confirmation Continuation",
+        "description": "Causal rolling z-score of real quote_volume_usdt; a vol-scaled short-term breakout (|ret6|/RV72 > 1.25) trades CONTINUATION in the breakout direction (long if ret6>0, short if ret6<0) ONLY when volume is EXPANDING (vol_z > 0.0 and rising vs prior bar) as breakout confirmation. Exit on vol_z <= 0.0 (expansion ended), max hold, or direction flip. Execution shifted t->t+1. Triggers on volume-expansion confirmation, neither C41 low-vol dry-up nor C23 high-vol surge momentum nor C40 high-vol climax fade — genuinely different regime and mechanic.",
+        "params": {
+          "zvol_lookback": 168,
+          "rv_lookback": 72,
+          "breakout_ret_bars": 6,
+          "break_k": 1.25,
+          "vol_z_min": 0.0,
+          "vol_z_exit": 0.0,
+          "max_hold_bars": 18,
+          "min_vol_obs": 168
+        },
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 = momentum on HIGH vol surge (vol_z high) riding ret24 direction, no breakout confirmation. C42 = breakout continuation only on volume-expansion confirmation (rising non-negative vol_z), different trigger regime.",
+        "differs_from_c40": "C40 = mean reversion/FADE on HIGH vol climax (opposite of ret24). C42 = continuation on volume-expansion breakout confirmation (same direction), not a fade, different regime.",
+        "differs_from_c41": "C41 = continuation on LOW vol_z dry-up (vol_z < -1.0). C42 = continuation on volume EXPANSION (vol_z > 0.0 and rising), opposite volume regime and trigger."
+      },
+      "evidence_artifact": "reports/real_quote_volume_volume_expansion_breakout_costed_oos_20261106T003700Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.42222094403615495,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": -2.8217790559638454,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "AVAX",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.4498829642191091,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": -3.741882964219109,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.07097578613313549,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -3.4589757861331356,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.07552497531881619,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": -3.3915249753188164,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.5210632905310516,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -4.301063290531052,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "ETH",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.06573170378223492,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": -3.130268296217765,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.27405109420386997,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": -3.5740510942038703,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.5937556402914506,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -4.013755640291452,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.03282269503038415,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -3.4911773049696158,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.10677692661281135,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": -3.5107769266128113,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.2488008686426586,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -3.0271991313573414,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_benchmark": 0,
+      "status": "no_proven_edge_net_of_costs"
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "intrabar_microstructure",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    }
+  ],
+  "oos_edge_proven": false,
+  "pytest_rerun": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  },
+  "honest_assessment": "NO PROVEN NET-OF-COST OOS EDGE. oos_edge_proven=false. C42 tested Volume-Expansion Breakout Confirmation Continuation on validated real_quote_volume (genuinely different from C23 momentum, C40 climax mean reversion, C41 dry-up breakout continuation): no asset met fail-closed rule (exposure>0 AND all cost slices OOS net>0 AND beat B&H). Remaining blocked families unchanged: funding_basis_carry, cross_exchange_dual_venue_same_asset, term_structure_real_iv_vol_surface, intrabar_microstructure. Fail-closed, real data only."
+}
