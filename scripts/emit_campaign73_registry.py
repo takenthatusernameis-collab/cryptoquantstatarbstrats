@@ -3,6 +3,7 @@
 from __future__ import annotations
 import glob
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -20,62 +21,43 @@ def run_pytest():
     passed = failed = skipped = errors = 0
     for line in reversed(tail):
         if "passed" in line or "failed" in line or "error" in line:
-            import re
-
             def grab(word):
                 m = re.search(r"(\d+) " + word, line)
                 return int(m.group(1)) if m else 0
-
-            passed = grab("passed")
-            failed = grab("failed")
-            skipped = grab("skipped")
-            errors = grab("error")
+            passed, failed, skipped, errors = grab("passed"), grab("failed"), grab("skipped"), grab("error")
             break
-    return {
-        "command": " ".join(cmd),
-        "returncode": p.returncode,
-        "passed": passed,
-        "failed": failed,
-        "skipped": skipped,
-        "errors": errors,
-        "summary_tail": tail,
-    }
+    return {"command": " ".join(cmd), "returncode": p.returncode, "passed": passed, "failed": failed, "skipped": skipped, "errors": errors, "summary_tail": tail}
 
 
 def main():
-    c73 = sorted(glob.glob(str(REPORTS / "real_quote_volume_peak_trough_drawdown_shock_mr_costed_oos_*.json")))
+    c73 = sorted(glob.glob(str(REPORTS / "real_quote_volume_kelly_decile_skewness_shock_mr_costed_oos_*.json")))
     c73_path = c73[-1] if c73 else None
     c73_obj = json.load(open(c73_path)) if c73_path else {}
-    status = sorted(glob.glob(str(REPORTS / "real_feed_unblock_status_20261106T*.json")))
-    status_path = [s for s in status if "081536" not in s.split("/")[-1]]
-    status_path = (sorted(status_path)[-1] if status_path else (status[-1] if status else None))
+    statuses = sorted(glob.glob(str(REPORTS / "real_feed_unblock_status_*.json")))
+    c73_status = [s for s in statuses if Path(s).name > "real_feed_unblock_status_20261106T081536Z.json"]
+    status_path = sorted(c73_status)[-1] if c73_status else (statuses[-1] if statuses else None)
     status_obj = json.load(open(status_path)) if status_path else {}
 
     pytest_res = run_pytest()
-    blocked = status_obj.get("blocked_families") or status_obj.get("families_blocked") or [
-        "funding_basis_carry",
-        "cross_exchange_dual_venue_same_asset",
-        "term_structure_real_iv_vol_surface",
-        "intrabar_microstructure",
-    ]
-    oos = c73_obj.get("oos_edge_proven", False)
+    blocked = status_obj.get("blocked_families") or ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"]
+    oos = bool(c73_obj.get("oos_edge_proven", False))
     out = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "campaign": 73,
         "supersedes": "reports/strategy_edge_registry_20261106T081541Z.json",
-        "oos_edge_proven": bool(oos),
+        "oos_edge_proven": oos,
         "pytest_full_suite": pytest_res,
         "artifacts": [p for p in [c73_path and "reports/" + Path(c73_path).name, status_path and "reports/" + Path(status_path).name] if p],
-        "c73_hypothesis": "real_quote_volume Rolling Volume Peak-to-Trough Drawdown Shock Mean Reversion (DD=(Peak-qvol)/Peak, Peak=rolling max W=48; zscore(DD,ZLB=168); fade d_z>=1.25 LONG / d_z<=-1.25 SHORT; exit |d_z|<0.25 or hold>=12; t->t+1; WF 720/168/168; cost grid 0-40bps; B&H benchmark). R-B, pre-stated; genuinely distinct from C23/C40-C72 (no moment/dispersion-magnitude/entropy/Hurst/autocorr/corr/beta/imbalance/level-breakout; first peak-to-trough drawdown transform on real_quote_volume; differs from C72 Bowley quartile asymmetry and C40 Fisher 3rd-moment skewness)",
+        "c73_hypothesis": "real_quote_volume Rolling Kelly (Decile) Skewness (P90+P10-2*P50)/(P90-P10), rank/decile asymmetry bounded [-1,1], shock MR (R-B, pre-stated; differs from C23/C40-C72 incl. C66 IDR magnitude same decile cutpoints, C72 Bowley quartile asymmetry, C40 Fisher moment skewness)",
         "c73_oos_result": {
-            "oos_edge_proven": bool(oos),
+            "oos_edge_proven": oos,
             "any_exposure": c73_obj.get("any_exposure"),
             "all_costs_positive": c73_obj.get("all_costs_positive"),
             "beats_bh_rule": c73_obj.get("beats_bh_rule"),
             "aggregate": c73_obj.get("aggregate"),
         },
         "blocked_families_substantive": blocked,
-        "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C73 R-B on validated real_quote_volume (peak-to-trough drawdown shock MR, W=48, ZLB=168, genuinely distinct from C23/C40-C72); oos_edge_proven=false unless pre-stated rule passes. Remaining families blocked_no_real_feed.",
+        "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C73 R-B on validated real_quote_volume (Kelly decile skewness, W=48, ZLB=168, rank/decile asymmetry direction; distinct from C66 IDR P90-P10 dispersion magnitude on same decile cutpoints — asymmetry ratio vs magnitude — distinct from C72 Bowley quartile asymmetry (P25/P75) — decile vs quartile tail sensitivity — distinct from C40 Fisher 3rd-moment skewness and all C23/C40-C72); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed.",
     }
     out_path = REPORTS / f"strategy_edge_registry_{UTC}.json"
     out_path.write_text(json.dumps(out, indent=2, sort_keys=True, default=str) + "\n")

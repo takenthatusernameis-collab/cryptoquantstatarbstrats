@@ -1,0 +1,78 @@
+{
+  "artifacts": [
+    "reports/real_quote_volume_kelly_decile_skewness_shock_mr_costed_oos_20261106T091906Z.json",
+    "reports/real_feed_unblock_status_20261106T091925Z.json"
+  ],
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "c73_hypothesis": "real_quote_volume Rolling Kelly (Decile) Skewness (P90+P10-2*P50)/(P90-P10), rank/decile asymmetry bounded [-1,1], shock MR (R-B, pre-stated; differs from C23/C40-C72 incl. C66 IDR magnitude same decile cutpoints, C72 Bowley quartile asymmetry, C40 Fisher moment skewness)",
+  "c73_oos_result": {
+    "aggregate": {
+      "fee0_slip0": {
+        "mean_frac_beats_bh": 0.18181818181818182,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.1341287805155934,
+        "n_assets": 11
+      },
+      "fee10_slip10": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.5661287805155936,
+        "n_assets": 11
+      },
+      "fee20_slip20": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.9981287805155934,
+        "n_assets": 11
+      },
+      "fee40_slip40": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -1.8621287805155935,
+        "n_assets": 11
+      },
+      "fee5_slip5": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.35012878051559354,
+        "n_assets": 11
+      }
+    },
+    "all_costs_positive": false,
+    "any_exposure": true,
+    "beats_bh_rule": false,
+    "oos_edge_proven": false
+  },
+  "campaign": 73,
+  "generated_at_utc": "2026-11-06T09:20:16.801392+00:00",
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C73 R-B on validated real_quote_volume (Kelly decile skewness, W=48, ZLB=168, rank/decile asymmetry direction; distinct from C66 IDR P90-P10 dispersion magnitude on same decile cutpoints \u2014 asymmetry ratio vs magnitude \u2014 distinct from C72 Bowley quartile asymmetry (P25/P75) \u2014 decile vs quartile tail sensitivity \u2014 distinct from C40 Fisher 3rd-moment skewness and all C23/C40-C72); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed.",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "errors": 0,
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "summary_tail": [
+      "tests/test_walk_forward_bootstrap.py: 8 warnings",
+      "tests/test_walk_forward_compare.py: 4 warnings",
+      "tests/test_walk_forward_cost_sensitivity.py: 15 warnings",
+      "tests/test_walk_forward_is_oos.py: 9 warnings",
+      "tests/test_walk_forward_live.py: 7 warnings",
+      "tests/test_walk_forward_multi_horizon.py: 5 warnings",
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3573 warnings in 32.27s"
+    ]
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T081541Z.json"
+}
