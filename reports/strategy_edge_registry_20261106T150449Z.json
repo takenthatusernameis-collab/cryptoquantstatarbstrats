@@ -1,0 +1,54 @@
+{
+  "tool": "campaign94_registry_emit",
+  "generated_at_utc": "20261106T150449Z",
+  "campaign": 94,
+  "supersedes": "reports/strategy_edge_registry_20261106T143520Z.json",
+  "supersedes_sha256": "d61a7337c7098f341b0e4f01e29954b22d8e5af515d073831b59e186e89635fd",
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_c93_rb": "reports/real_quote_volume_lz76_complexity_shock_mr_costed_oos_20261106T143358Z.json",
+    "prior_c93_rb_sha256": "f784dde095495895bb6a0f9401da50315e9e95a6696bb6e193537d47f78a7335"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3559,
+    "duration_s": 56.37
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "campaign94_r_b": {
+    "artifact": "reports/real_quote_volume_hjorth_mobility_shock_mr_costed_oos_20261106T150449Z.json",
+    "sha256": "35aec05286b79246be83268ecc6992676f542861d09879cf56cb97f06bf97546",
+    "script": "scripts/run_real_quote_volume_hjorth_mobility_shock_mr_costed_oos.py",
+    "hypothesis_id": "VOLUME_HJORTH_MOBILITY_SHOCK_MR",
+    "mechanical_distinctness_summary": "Rolling Hjorth Mobility = sqrt(var(dx)/var(x)) (variance-of-derivative / derivative-ratio time-domain signal-shape statistic) of log-volume changes (W=168, ZLB=168) as MR shocks. NOT in C23/C40-C93. NON-entropy (incl. spectral-entropy-as-Shannon-over-PSD): variance ratios of derivatives, not p*log p / distribution information. NON-LZ76 C93 (no phrase parsing/dictionary/parsing). NON-WW-runs C88 / mean-run-length C89 / TP C87 (no run/reversal counts or durations). NON-BDS C91 (no embedding/correlation integral/C_m). NON-VR C90 (no multi-horizon variance scaling). NON-OU/HL C92 (no AR(1) regression/timescale). NON-single-lag ACF (derivative variance ratios, not lag-k covariance). NON-Hurst/RS (not rescaled-range). NON-location C83-C86. NON-dispersion/skew/kurtosis. Data source identical (real_quote_volume), transform mechanically different.",
+    "walkforward": "720/168/168",
+    "cost_grid_bps": [
+      [0, 0],
+      [5, 5],
+      [10, 10],
+      [20, 20],
+      [40, 40]
+    ],
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -1.5092225051162762,
+      "fee5_slip5": -5.98122250511628,
+      "fee10_slip10": -10.453222505116278,
+      "fee20_slip20": -19.397222505116275,
+      "fee40_slip40": -37.28522250511627
+    },
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "ra_status_reference": "R-A remains complete/reference-only (NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED, 4 blocked families, real_quote_volume validated-only; do not stale-cache rescan). Reference: reports/real_feed_unblock_status_20261106T130243Z.json",
+  "fail_closed": true
+}

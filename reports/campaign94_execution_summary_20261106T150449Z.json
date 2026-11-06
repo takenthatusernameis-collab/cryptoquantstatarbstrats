@@ -1,0 +1,53 @@
+{
+  "tool": "campaign94_execution_summary",
+  "generated_at_utc": "20261106T150449Z",
+  "campaign": 94,
+  "ra_reference_only": {
+    "artifact": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "status": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "note": "No stale-cache rescan performed. R-A complete."
+  },
+  "rb": {
+    "artifact": "reports/real_quote_volume_hjorth_mobility_shock_mr_costed_oos_20261106T150449Z.json",
+    "sha256": "35aec05286b79246be83268ecc6992676f542861d09879cf56cb97f06bf97546",
+    "hypothesis_id": "VOLUME_HJORTH_MOBILITY_SHOCK_MR",
+    "oos_edge_proven": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "beats_bh_mean_rule": false,
+    "mean_bh_oos_mean": 1.4376095145558495e-05,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -1.5092225051162762,
+      "fee5_slip5": -5.98122250511628,
+      "fee10_slip10": -10.453222505116278,
+      "fee20_slip20": -19.397222505116275,
+      "fee40_slip40": -37.28522250511627
+    },
+    "distinctness": "Rolling Hjorth Mobility = sqrt(var(dx)/var(x)) (time-domain variance-of-derivative / derivative-ratio signal-shape statistic) of log-volume changes (W=168, ZLB=168). Mechanically distinct vs C23/C40-C93: NON-entropy (variance ratios, not p*log p distribution info), NON-LZ76 C93 (no phrase parsing/dictionary), NON-WW/mean-run-length/TP C87-89 (no run/reversal counts/durations), NON-BDS C91, NON-VR C90, NON-OU/HL C92, NON-single-lag-ACF, NON-Hurst/RS, NON-location C83-C86, NON-dispersion/skew/kurtosis. No hjorth/mobility RQV report pre-existed."
+  },
+  "registry": {
+    "artifact": "reports/strategy_edge_registry_20261106T150449Z.json",
+    "sha256": "d4e35f01726ad1d25002849eafb83d8bd154201e55fa62292807ff12add444b5",
+    "supersedes": "reports/strategy_edge_registry_20261106T143520Z.json",
+    "supersedes_sha256": "d61a7337c7098f341b0e4f01e29954b22d8e5af515d073831b59e186e89635fd"
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "warnings": 3559,
+    "duration_s": 56.37
+  },
+  "artifacts_emitted_this_session": [
+    "scripts/run_real_quote_volume_hjorth_mobility_shock_mr_costed_oos.py",
+    "reports/real_quote_volume_hjorth_mobility_shock_mr_costed_oos_20261106T150449Z.json",
+    "reports/strategy_edge_registry_20261106T150449Z.json",
+    "reports/campaign94_execution_summary_20261106T150449Z.json"
+  ],
+  "edge_status": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+  "fail_closed": true
+}
