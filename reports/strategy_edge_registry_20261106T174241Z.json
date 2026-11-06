@@ -1,0 +1,70 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T174241Z",
+  "campaign": 100,
+  "supersedes": "reports/strategy_edge_registry_20261106T172430Z.json",
+  "supersedes_sha256": "58a473016bccae144a7492f191d3ad8e4695db36049f31b2a32afaa268a01e26",
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T172430Z.json",
+    "prior_registry_sha256": "58a473016bccae144a7492f191d3ad8e4695db36049f31b2a32afaa268a01e26",
+    "c99_rb": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "c99_rb_sha256": "6618de27b80be3ed737d89659d94c59b9ee9b3faea7fc459472dab91feae779c"
+  },
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3565
+  },
+  "campaign100_r_b": {
+    "artifact": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
+    "sha256": "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951",
+    "candidate": "VOLUME_ZCR_SHOCK_MR (rolling Zero-Crossing Rate of log-volume changes x, ZCR=(1/(N-1))*sum I[x_i*x_{i-1}<0], sign-oscillation-about-zero shocks; MR fade)",
+    "pre_stated_distinctness": "Grep-verified absent before impl: zero_crossing|zcr_shock|rolling_zcr|ZCR|sign_change_rate_x|volume_zcr empty in prior real_quote_volume costed OOS reports/scripts. Mechanically distinct from C99 PFD (sign changes in first differences d1 mapped to FD) \u2014 ZCR uses sign changes of series x itself and reports a rate; distinct from C87 TP (interior peaks/troughs of x), C88/C89 runs, C90-98/entropy/location/dispersion families.",
+    "oos_edge_proven": false,
+    "aggregate": {
+      "n_assets": 11,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "oos_edge_proven": false,
+      "cross_asset_sum_oos_net_sum": {
+        "fee0_slip0": 1.1815983346606376,
+        "fee5_slip5": -3.7094016653393664,
+        "fee10_slip10": -8.600401665339366,
+        "fee20_slip20": -18.382401665339362,
+        "fee40_slip40": -37.946401665339366
+      },
+      "cross_asset_mean_oos_net_mean": {
+        "fee0_slip0": 2.4592039932164442e-05,
+        "fee5_slip5": -7.720199936187492e-05,
+        "fee10_slip10": -0.00017899603865591422,
+        "fee20_slip20": -0.0003825841172439927,
+        "fee40_slip40": -0.0007897602744201499
+      }
+    },
+    "fail_closed": true
+  },
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261106T174241Z.json",
+    "no_stale_cache_rescan": true
+  },
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false.",
+  "overall_oos_edge_proven": false,
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false
+}

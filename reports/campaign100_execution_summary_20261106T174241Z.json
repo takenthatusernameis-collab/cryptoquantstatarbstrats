@@ -1,0 +1,54 @@
+{
+  "tool": "campaign100_execution_summary",
+  "generated_at_utc": "20261106T174241Z",
+  "campaign": 100,
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T172430Z.json",
+    "prior_registry_sha256": "58a473016bccae144a7492f191d3ad8e4695db36049f31b2a32afaa268a01e26"
+  },
+  "deliverables": {
+    "ingest_attempt": {
+      "path": "reports/real_feed_ingest_attempt_20261106T174241Z.json",
+      "sha256": "48e360a6bb61bac14e0ed7942f325168976b8e188df0b491460081168f4fe1b6"
+    },
+    "rb_costed_oos": {
+      "path": "reports/real_quote_volume_zcr_shock_mr_costed_oos_20261106T174105Z.json",
+      "sha256": "c3caf4dfdf66fedfb522f61233172c541f6cae7852c78173c6a41156bbc55951"
+    },
+    "strategy_edge_registry": {
+      "path": "reports/strategy_edge_registry_20261106T174241Z.json",
+      "sha256": "28ae0a7bc9b11afd145f43907f70f464d2a41e76168fb24a6edeeebbf0e8dd3d"
+    },
+    "campaign100_execution_summary": {
+      "path": "reports/campaign100_execution_summary_20261106T174241Z.json",
+      "sha256": "47b150beda355663106759a07c6c7ee1f14fbfc12e73c6938a22e17d6cc9dd45"
+    }
+  },
+  "pytest": {
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "returncode": 0,
+    "warnings": 3565
+  },
+  "c100_rb_result": {
+    "candidate": "VOLUME_ZCR_SHOCK_MR",
+    "oos_edge_proven": false,
+    "n_assets": 11,
+    "any_exposure": true,
+    "all_pos_net_sum": false,
+    "beats_bh": false,
+    "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+  },
+  "primary_blockers_status": {
+    "nonspot_ingest": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED (no real nonspot artifacts in data/cache/workspace; operator must place artifact)",
+    "stale_cache_rescan": "NOT_PERFORMED"
+  },
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "overall_oos_edge_proven": false
+}
