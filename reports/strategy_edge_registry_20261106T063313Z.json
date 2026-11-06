@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-11-06T06:33:44.190774+00:00",
+  "campaign": 69,
+  "supersedes": "reports/strategy_edge_registry_20261106T062917Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3579 warnings in 30.83s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_upper_semi_mad_tail_conditioned_l1_dispersion_shock_mr_costed_oos_20261106T063309Z.json",
+    "reports/real_feed_unblock_status_20261106T063309Z.json"
+  ],
+  "c69_hypothesis": "real_quote_volume Rolling Upper Semi-Mean-Absolute-Deviation (Tail-Conditioned L1 Dispersion) dispersion shock MR (R-B, pre-stated; differs from C23/C40-C68)",
+  "c69_oos_result": {
+    "oos_edge_proven": false,
+    "any_exposure": true,
+    "aggregate_cost_grid": {
+      "fee0_slip0": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.004578238881757008,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee10_slip10": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.02569713381765486,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee20_slip20": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.0463369703265202,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee5_slip5": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.015198279396306115,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      }
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C69 R-B on validated real_quote_volume (Rolling Upper Semi-MAD = mean(|x-m|) over above-mean deviations only, W=48, tail-conditioned L1 dispersion; same tail set as C68 upper semi-variance but L1 norm vs C68 L2^2 norm \u2014 NOT monotonic-equivalent under asymmetry; distinct from C67 lower semi-variance L2^2 below-mean, C48/C56 full STD/CV L2 symmetric, C61/C65 MAD/MeanAD L1 full-distribution centered both sides, C62/C66 IQR/IDR rank cutpoints, C63 GMD pairwise, C64 Range extremes, and all C23/C40-C68 moments/entropies/Hurst-SampEn/autocorr/corr/beta/level/ROC/cumulative/partition/imbalance); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed."
+}
