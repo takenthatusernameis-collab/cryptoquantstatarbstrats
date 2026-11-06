@@ -1,4 +1,4 @@
-**Timestamp (UTC): 2026-11-06T04:26:33Z (Campaign #57 executed; registry `strategy_edge_registry_20261106T042559Z.json`; `oos_edge_proven=false`) — C58 binding next. Full suite green: `python3.12 -m pytest tests/ -q` (registry pytest field) => rc=0, 928 passed, 1 skipped, 0 failed. C57 artifacts verified present in `reports/`; no new blocked-family feed.**
+**Timestamp (UTC): 2026-11-06T04:27:57Z (Handoff refresh; Campaign #57 executed; registry `strategy_edge_registry_20261106T042559Z.json`; `oos_edge_proven=false`) — C58 binding next. Full suite green: `python3.12 -m pytest tests/ -q` (registry pytest field) => rc=0, 928 passed, 1 skipped, 0 failed. C57 artifacts verified present in `reports/`; no new blocked-family feed.**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost out-of-sample statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #57 STATUS (EXECUTED — fail-closed, no proven edge)
