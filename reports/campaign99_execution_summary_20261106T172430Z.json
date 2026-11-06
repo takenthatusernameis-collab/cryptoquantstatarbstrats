@@ -1,0 +1,65 @@
+{
+  "tool": "campaign99_execution_summary",
+  "generated_at_utc": "20261106T172430Z",
+  "campaign": 99,
+  "repo_prioritization": "cryptoquantstatarbstrats -> fail-closed, real-data-only stat-arb edge validation (walk-forward OOS, costed backtests, B&H comparison, full provenance). Edge claimed ONLY under exact fail-closed rule.",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_registry": "reports/strategy_edge_registry_20261106T171910Z.json",
+    "prior_registry_sha256": "307e6b43a3d0e176ac2fdba15d7ba40a255e45395eb46262eaf096c1a514005c"
+  },
+  "artifacts_produced_this_session": [
+    "reports/real_feed_ingest_attempt_20261106T172113Z.json",
+    "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "scripts/run_real_quote_volume_petrosian_fd_shock_mr_costed_oos.py",
+    "reports/strategy_edge_registry_20261106T172430Z.json",
+    "reports/campaign99_execution_summary_20261106T172430Z.json"
+  ],
+  "r_a_feed_ingest": {
+    "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+    "artifact": "reports/real_feed_ingest_attempt_20261106T172113Z.json",
+    "sha256": "c62527cf1e41b9eeb80bfa7a191c175a6a8156522f7ea5741a85212f193593ea",
+    "stale_cache_rescan_performed": false,
+    "blocked_families_reference_only": ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"],
+    "validated_only_family": "real_quote_volume"
+  },
+  "r_b_costed_oos": {
+    "candidate": "VOLUME_PETROSIAN_FD_SHOCK_MR (rolling Petrosian Fractal Dimension, N_delta sign changes in first differences of log-volume changes)",
+    "distinctness_prestated": true,
+    "grep_verified_absent_preimpl": "grep -rn 'petrosian|pfd|n_delta' reports/real_quote_volume_*costed_oos* scripts/run_real_quote_volume_*costed_oos*.py -> empty (pre-impl)",
+    "script": "scripts/run_real_quote_volume_petrosian_fd_shock_mr_costed_oos.py",
+    "script_sha256": "6ede367882332f5dcff94799bc8d81b94b2c750833e597b1bfa84fabcf5c805f",
+    "artifact": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "sha256": "6618de27b80be3ed737d89659d94c59b9ee9b3faea7fc459472dab91feae779c",
+    "oos_edge_proven": false,
+    "n_assets": 11,
+    "any_exposure": true,
+    "all_pos": false,
+    "beats_bh": false,
+    "agg_net_sum": {
+      "fee0_slip0": -0.5267265490802083,
+      "fee5_slip5": -5.302726549080211,
+      "fee10_slip10": -10.07872654908021,
+      "fee20_slip20": -19.63072654908021,
+      "fee40_slip40": -38.73472654908021
+    }
+  },
+  "pytest": {
+    "executed_this_session": true,
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "rc": 0,
+    "warnings": 3574,
+    "duration_s": 47.82
+  },
+  "oos_edge_proven": false,
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}

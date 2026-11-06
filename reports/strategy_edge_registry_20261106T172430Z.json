@@ -1,0 +1,69 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261106T172430Z",
+  "campaign": 99,
+  "supersedes": "reports/strategy_edge_registry_20261106T171910Z.json",
+  "supersedes_sha256": "307e6b43a3d0e176ac2fdba15d7ba40a255e45395eb46262eaf096c1a514005c",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "references": {
+    "real_feed_unblock_status": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "real_feed_unblock_status_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "c98_tkeo_rb": "reports/real_quote_volume_tkeo_shock_mr_costed_oos_20261106T171624Z.json",
+    "c98_tkeo_rb_sha256": "3c83df9c99558664aa6a96538244b15325609f77f92b419f09d018184136ed1a",
+    "c99_ingest_attempt": "reports/real_feed_ingest_attempt_20261106T172113Z.json",
+    "c99_ingest_attempt_sha256": "c62527cf1e41b9eeb80bfa7a191c175a6a8156522f7ea5741a85212f193593ea",
+    "c99_petrosian_fd_rb": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+    "c99_petrosian_fd_rb_sha256": "6618de27b80be3ed737d89659d94c59b9ee9b3faea7fc459472dab91feae779c",
+    "c99_petrosian_fd_script": "scripts/run_real_quote_volume_petrosian_fd_shock_mr_costed_oos.py",
+    "c99_petrosian_fd_script_sha256": "6ede367882332f5dcff94799bc8d81b94b2c750833e597b1bfa84fabcf5c805f"
+  },
+  "c99_actions": [
+    {
+      "action": "R-A reference-only",
+      "result": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED (stale cache; 4 families blocked; real_quote_volume validated-only). No rescan performed."
+    },
+    {
+      "action": "real nonspot feed ingest attempt (funding_basis_carry target)",
+      "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+      "artifact": "reports/real_feed_ingest_attempt_20261106T172113Z.json"
+    },
+    {
+      "action": "R-B Petrosian Fractal Dimension shock MR (VOLUME_PETROSIAN_FD_SHOCK_MR, distinct pre-stated; grep-verified petrosian/pfd/n_delta absent pre-impl)",
+      "result": "EXECUTED_NO_OOS_EDGE_PROVEN_FAIL_CLOSED",
+      "artifact": "reports/real_quote_volume_petrosian_fd_shock_mr_costed_oos_20261106T172340Z.json",
+      "summary": {
+        "oos_edge_proven": false,
+        "n_assets": 11,
+        "any_exposure": true,
+        "all_pos": false,
+        "beats_bh": false,
+        "bh_mean": 1.4376095145558495e-05,
+        "agg_net_sum": {
+          "fee0_slip0": -0.5267265490802083,
+          "fee5_slip5": -5.302726549080211,
+          "fee10_slip10": -10.07872654908021,
+          "fee20_slip20": -19.63072654908021,
+          "fee40_slip40": -38.73472654908021
+        }
+      }
+    }
+  ],
+  "oos_edge_proven": false,
+  "edge_rule_exact": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows; else false. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "pytest": {
+    "executed_this_session": true,
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "rc": 0,
+    "warnings": 3574,
+    "duration_s": 47.82
+  },
+  "rqv_transform_families_note": "C99 Petrosian FD (VOLUME_PETROSIAN_FD_SHOCK_MR, N_delta sign-change count in first differences mapped via Petrosian formula) distinctness pre-stated/grep-verified vs C23/C40-C98 families (non-TP-of-x rate, non-WW-runs/mean-run-length on x, non-Katz/Higuchi/TKEO/Hjorth FD/energy/variance operators); executed real-data costed OOS — no edge.",
+  "conclusion": "NO_OOS_EDGE_PROVEN_FAIL_CLOSED"
+}

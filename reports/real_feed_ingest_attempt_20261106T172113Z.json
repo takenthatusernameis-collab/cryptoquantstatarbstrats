@@ -1,0 +1,21 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261106T172113Z",
+  "campaign": 99,
+  "target_family": "funding_basis_carry",
+  "operator_action_required": "place real nonspot feed artifact into data/cache/ with fail-closed provenance/meta for exactly one blocked family (e.g. funding_basis_carry), then run loader/unblock audit for that family",
+  "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+  "evidence": {
+    "data_cache_listing": "only spot OHLCV-derived cache pkls/meta (0bab5d6a..., 385aae..., 4fd3e..., 6d2e..., 749b..., 74e86..., 76ded..., *_1h.pkl/meta) and volume_1h_full/provenance artifacts present in data/cache; no funding, basis, carry, cross-exchange dual-venue, term-structure/IV/vol-surface, or intrabar/microstructure real feed artifacts found",
+    "workspace_search": "find /home/runner/work and / for funding*basis*carry/nonspot feed files outside .venv/reports returned no usable real feed artifacts (permission noise only under /tmp,/sys,/etc private paths)",
+    "prior_unblock_reference": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "blocked_families_reference_only_no_rescan": ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"],
+    "validated_only_family": "real_quote_volume"
+  },
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "stale_cache_rescan_performed": false
+}
