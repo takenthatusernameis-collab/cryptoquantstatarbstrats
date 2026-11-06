@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    "reports/real_quote_volume_bowley_quartile_skewness_shock_mr_costed_oos_20261106T073509Z.json",
+    "reports/real_feed_unblock_status_20261106T081536Z.json"
+  ],
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "c72_hypothesis": "real_quote_volume Rolling Bowley (Quartile/Galton) Skewness (P75+P25-2*P50)/(P75-P25), rank/quartile asymmetry bounded [-1,1], shock MR (R-B, pre-stated; differs from C23/C40-C71 incl. C40 Fisher moment skewness & C62/C70/C71 dispersion magnitudes)",
+  "c72_oos_result": {
+    "aggregate": {
+      "fee0_slip0": {
+        "mean_frac_beats_bh": 0.18181818181818182,
+        "mean_oos_net_across_assets": -0.09688669995352826,
+        "n_assets": 11
+      },
+      "fee10_slip10": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_net_across_assets": -0.6170685181353467,
+        "n_assets": 11
+      },
+      "fee20_slip20": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_net_across_assets": -1.1372503363171649,
+        "n_assets": 11
+      },
+      "fee40_slip40": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_net_across_assets": -2.177613972680801,
+        "n_assets": 11
+      },
+      "fee5_slip5": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_net_across_assets": -0.3569776090444375,
+        "n_assets": 11
+      }
+    },
+    "all_costs_positive": false,
+    "any_exposure": true,
+    "beats_bh_rule": false,
+    "oos_edge_proven": false
+  },
+  "campaign": 72,
+  "generated_at_utc": "2026-11-06T08:16:13.680462+00:00",
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C72 R-B on validated real_quote_volume (Bowley quartile/Galton skewness, W=48, ZLB=168, rank/quartile asymmetry direction; distinct from C40 Fisher 3rd-moment skewness and from C62/C70/C71/C66 dispersion magnitudes \u2014 asymmetry coefficient vs spread size \u2014 and all C23/C40-C71); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed.",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "errors": 0,
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "summary_tail": [
+      "tests/test_walk_forward_bootstrap.py: 8 warnings",
+      "tests/test_walk_forward_compare.py: 4 warnings",
+      "tests/test_walk_forward_cost_sensitivity.py: 15 warnings",
+      "tests/test_walk_forward_is_oos.py: 9 warnings",
+      "tests/test_walk_forward_live.py: 7 warnings",
+      "tests/test_walk_forward_multi_horizon.py: 5 warnings",
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3562 warnings in 31.66s"
+    ]
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T071418Z.json"
+}
