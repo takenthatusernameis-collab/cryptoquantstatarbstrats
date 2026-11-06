@@ -1,0 +1,103 @@
+{
+  "artifact": "reports/campaign78_execution_blocker_20261106T100522Z.json",
+  "campaign": 78,
+  "generated_at_utc": "2026-11-06T10:07:50.690098+00:00",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "path_attempted": "R-B (R-A infeasible: no new valid nonspot real feeds with complete provenance found in data/cache; 4 families remain blocked_no_real_feed per evidence scan)",
+  "c78_hypothesis_pre_stated": {
+    "name": "Volume Hoover (Robin Hood) Share-Deviation Shock Mean Reversion",
+    "family": "rolling_hoover_robin_hood_volume_shock_mr",
+    "formula": "H_t=0.5*\u03a3|p_i-1/n|, p_i=x_i/\u03a3x_i, W=48; z(d_z,168) fade shocks |d_z|>=1.25, exit |d_z|<0.25/hold>=12/flip; t->t+1",
+    "params": {
+      "W": 48,
+      "ZLB": 168,
+      "ENTRY_Z": 1.25,
+      "EXIT_Z": 0.25,
+      "MAX_HOLD": 12,
+      "WF_TRAIN": 720,
+      "WF_TEST": 168,
+      "WF_STEP": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "distinctness_vs_c23_c40_c77": [
+      "Hoover/Robin Hood L1 share deviation from uniform (max vertical Lorenz gap) != C51 Gini pairwise mean-difference, != C76 Theil L GE(0) mean(ln mu/x), != C74 Theil T GE(1) mean(r ln r), != C75 R\u00e9nyi-2 collision -ln(\u03a3p^2), != C41 Shannon binned histogram, != C42/43 permutation/sample entropy, != C45 CV/kurtosis, != C66-71 quantile dispersions, != C72 Bowley/C73 Kelly quantile asymmetries, != corr/beta/lead-lag/level/ROC/ratio/cumulative/partition/imbalance transforms in prior campaigns."
+    ],
+    "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum across assets > 0 AND mean OOS net mean beats mean B&H OOS mean on same WF windows. Fail-closed."
+  },
+  "concrete_action_taken_this_session": [
+    "Evidence-scanned data/cache (21 meta files) for new/valid nonspot real feeds with provenance \u2014 no new valid nonspot feeds; 4 families still blocked_no_real_feed.",
+    "Created runnable R-B runner script: scripts/run_real_quote_volume_hoover_robin_hood_shock_mr_costed_oos.py (pre-stated hypothesis, WF 720/168/168, cost 0-40bps, B&H same windows, fail-closed loader validation, distinctness documented).",
+    "Emitted reports/real_feed_unblock_status_20261106T100522Z.json (campaign 78, prior=reports/real_feed_unblock_status_20261106T095526Z.json, delta no change, 4 blocked families).",
+    "Attempted to execute runner and pytest in /usr/bin/python3; blocked by missing runtime deps in this shell (numpy/pandas/pytest/scipy/etc. not installed; no venv found)."
+  ],
+  "exact_missing_priors_and_blockers": [
+    {
+      "type": "runtime_dependency",
+      "missing": [
+        "numpy>=1.24",
+        "pandas>=2.0",
+        "scipy>=1.11",
+        "scikit-learn>=1.2",
+        "statsmodels>=0.14",
+        "PyYAML>=6.0",
+        "pytest"
+      ],
+      "evidence": [
+        "/usr/bin/python3: ModuleNotFoundError numpy/pandas; No module named pytest",
+        "pip show numpy pandas -> not found",
+        "no .venv; /opt/hostedtoolcache/Python/* lack deps; no pandas dist-packages/venv pytest bins found"
+      ]
+    },
+    {
+      "type": "blocked_family_feeds",
+      "families": [
+        "funding_basis_carry",
+        "cross_exchange_dual_venue_same_asset",
+        "term_structure_real_iv_vol_surface",
+        "intrabar_microstructure"
+      ],
+      "missing": "validated real feed files with complete provenance passing fail-closed validation",
+      "evidence": "direct meta/provenance scan 2026-11-06T10:05Z: only real_quote_volume (volume_1h_full) validated; no new nonspot candidates."
+    }
+  ],
+  "smallest_concrete_unblocking_steps": [
+    "python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && pip install pytest",
+    "python scripts/run_real_quote_volume_hoover_robin_hood_shock_mr_costed_oos.py",
+    "python -m pytest tests/ -q",
+    "python scripts/emit_campaign78_registry.py  # regenerate after runner+pytest to supersede with executed OOS/pytest counts",
+    "If R-A possible: place validated real feed+provenance for a blocked family in data/cache; run fail-closed validation/feasibility; regenerate unblock status via generate_unblock_status_report(campaign=78, prior_report='reports/real_feed_unblock_status_20261106T100522Z.json')"
+  ],
+  "candidate_real_sources_checked": {
+    "checked": [
+      "data/cache/*.meta.json",
+      "data/cache/*.provenance.json",
+      "/home/runner filename scan for funding/basis/cross_exchange/iv/intrabar/orderbook"
+    ],
+    "result": "no new valid real nonspot feeds with complete provenance found."
+  },
+  "oos_edge_proven": false,
+  "status": "BLOCKED_ENVIRONMENT_DEPS_MISSING_FOR_EXECUTION_RB_PREPARED"
+}

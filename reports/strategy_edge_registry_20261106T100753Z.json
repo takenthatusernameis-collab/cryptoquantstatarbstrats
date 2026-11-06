@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    "reports/real_feed_unblock_status_20261106T100522Z.json",
+    "reports/campaign78_execution_blocker_20261106T100522Z.json",
+    "scripts/run_real_quote_volume_hoover_robin_hood_shock_mr_costed_oos.py",
+    "scripts/emit_campaign78_unblock_status.py",
+    "scripts/emit_campaign78_registry.py"
+  ],
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "c78_hypothesis": "real_quote_volume Rolling Hoover (Robin Hood) share-deviation H_t=0.5*\u03a3|p_i-1/n| (p_i=x_i/\u03a3x_i, W=48, ZLB=168, L1 vs uniform/max vertical Lorenz gap) shock MR (R-B pre-stated; distinct from C23/C40-C77 incl. C51 Gini pairwise L1, C76 Theil L GE(0) mean ln(mu/x), C74 Theil T GE(1) mean r*ln r, C75 R\u00e9nyi-2 H2 -ln \u03a3p^2, C41 Shannon binned, C42/43 permutation/sample entropy, C45 CV, C66-73 quantile dispersions/asymmetries)",
+  "c78_oos_result": null,
+  "campaign": 78,
+  "execution_state": "BLOCKED_ENVIRONMENT_DEPS_MISSING_FOR_EXECUTION_RB_PREPARED",
+  "generated_at_utc": "2026-11-06T10:07:53.116179+00:00",
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. R-A infeasible (4 families blocked_no_real_feed, no new validated nonspot feeds). R-B pre-stated + runnable script created (Hoover/Robin Hood). In this shell, numpy/pandas/pytest deps unavailable so OOS execution/pytest rerun blocked; blocker artifact records exact missing deps and concrete unblocking commands. Registry supersedes C76 and must be regenerated after runner+pytest execute. oos_edge_proven remains false until executed artifact meets pre-stated rule.",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python3 -m pytest tests/ -q",
+    "errors": 0,
+    "failed": 0,
+    "passed": 0,
+    "returncode": 1,
+    "skipped": 0,
+    "summary_tail": [
+      "/usr/bin/python3: No module named pytest"
+    ]
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T095532Z.json"
+}

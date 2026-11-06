@@ -1,0 +1,67 @@
+{
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "campaign": 78,
+  "campaign_delta": {
+    "blocked_families_changed": false,
+    "changed": false,
+    "current_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "current_campaign": 78,
+    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+    "prior_blocked_families": [
+      "cross_exchange_dual_venue_same_asset",
+      "funding_basis_carry",
+      "intrabar_microstructure",
+      "term_structure_real_iv_vol_surface"
+    ],
+    "prior_campaign": 76,
+    "prior_source": "reports/real_feed_unblock_status_20261106T095526Z.json"
+  },
+  "conclusion": "BLOCKED_NO_NEW_VALID_NONSPOT_FEEDS",
+  "fabricated_data": false,
+  "fail_closed": true,
+  "families": {
+    "cross_exchange_dual_venue_same_asset": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "funding_basis_carry": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "intrabar_microstructure": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "real_quote_volume": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    },
+    "term_structure_real_iv_vol_surface": {
+      "status": "blocked_no_real_feed",
+      "valid_artifacts": []
+    }
+  },
+  "generated_at_utc": "2026-11-06T10:05:22.740574+00:00",
+  "no_proxies_labeled_real": true,
+  "notes": "Direct evidence scan (no pandas). real_quote_volume remains only validated real non-spot-adjacent feed; 4 substantive families still blocked_no_real_feed. No fabricated feeds/provenance. C78 R-B executed on real_quote_volume (Hoover/Robin Hood).",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "scan_summary": {
+    "cache_dir": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache",
+    "candidate_hits": 1,
+    "meta_files_scanned": 21,
+    "new_real_feeds_with_provenance_found_nonspot": false,
+    "validated_ok": 0
+  },
+  "tool": "scripts.emit_campaign78_unblock_status (direct file-evidence scan; loader deps unavailable in this shell)"
+}
