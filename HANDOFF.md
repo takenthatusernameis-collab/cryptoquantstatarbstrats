@@ -1,38 +1,36 @@
-## READ THIS FIRST — C97 INITIAL TASK (20261106T170700Z, produced by C96 handoff agent)
+## READ THIS FIRST — C98 INITIAL TASK (20261106T171352Z, produced by C97 handoff agent)
 
-**Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #97 now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
+**Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #98 now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
 
 ### Repo prioritization (from name `cryptoquantstatarbstrats`)
 Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance. Edge is claimed ONLY under the exact fail-closed edge rule below.
 
-### C96 state (reference; do not rerun unchanged)
-- **R-A (reference-only, NO rerun on stale cache):** `reports/real_feed_unblock_status_20261106T130243Z.json` (sha256 `49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80`) — `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`. 4 families blocked: `funding_basis_carry`, `cross_exchange_dual_venue_same_asset`, `term_structure_real_iv_vol_surface`, `intrabar_microstructure`. Only `real_quote_volume` (`volume_1h_full`, 81792 rows, provenance validated) is validated nonspot. **No new validated nonspot feed; path_r infeasible on stale cache.**
-- **C96 feed ingest attempt (mandatory bottleneck removal):** `reports/real_feed_ingest_attempt_20261106T170620Z.json` (sha256 `26bb8f48c1cf864c4cbc469855c3d910a15ea2f62912d56e40b996a9dc8b7521`) — `IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED`. Searched `data/cache`, repo, `/home/runner/work/_temp` (shallow); no real deployable artifacts for 4 blocked families. Smallest unblocking action: operator/ingestion must place real artifact with full fail-closed provenance+sha256 satisfying family spec (e.g. `FUNDING_BASIS_CARRY_SPEC`) in `data/cache`, then re-run `generate_unblock_status_report`/audit.
-- **C96 R-B (genuinely distinct, PRE-STATED, NOT EXECUTED — ENV BLOCKED):** `scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py` (sha256 `39f0b2e1b8c2f0f6f5a9e5d4c3b2a1908f7e6d5c4b3a291807f6e5d4c3b2a19f`? verify via registry) — hypothesis `VOLUME_KATZ_FD_SHOCK_MR` (rolling Katz Fractal Dimension of `dlogv`, `KFD=log10(n)/(log10(n)+log10(d/a))`, `n=N-1, L=sum sqrt(1+dx^2), a=L/n, d=max_i sqrt(i^2+(x_i-x_0)^2)`, unit time step 1 bar; W=168,ZLB=168; MR z-shock entry 1.25/exit 0.25/max_hold 12; WF 720/168/168; cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]`; B&H same OOS windows). **Distinctness grep-verified vs C23/C40–C95** (no prior Katz/KFD costed_oos report): NOT TP/sign-change counting (TP is rate `I[(x_i-x_{i-1})*(x_{i+1}-x_i)<0]`; Katz is planar length+max diameter FD), NOT Higuchi C95 (no k-interval `L(k)` resampling/slope), NOT Hjorth/Hurst-RS/entropy/LZ76/WW-runs/mean-run-length/BDS/VR/OU-HL/single-lag-ACF/location/dispersion/skew/kurtosis. **Execution record:** `reports/campaign96_rb_execution_record_20261106T170630Z.json` (sha256 `f88f84377e9eb145664b2d4dd070e3aee767c7764703b73568933dbf858e514d`) — `NOT_EXECUTED_ENVIRONMENT_BLOCKED_FAIL_CLOSED`.
-- **Registry (supersedes C95):** `reports/strategy_edge_registry_20261106T170645Z.json` (sha256 `0d4ed7deaa1a8382a10dc31ea4e2ff917d2af2c9de0d34be79e9c244838e6565`) — supersedes `reports/strategy_edge_registry_20261106T151843Z.json` (sha256 `6ca9ab151138c47949f76f9a42e01fd341d5e66815def3035294217b29605b4b`). References unblock `130243Z` and C95 Higuchi RB `151757Z`. **pytest NOT rerun this session** (env blocked). Last authoritative (C95 context): `928 passed, 1 skipped, 0 failed, rc=0` (3570 warnings, 56.70s) — must be rerun after env restore.
-- **C96 summary:** `reports/campaign96_execution_summary_20261106T170655Z.json` (sha256 `e89922cfbaf9b0e7c8013fd21c67c23e9f0e2b80f59af850488e4401421634f6`).
+### C97 state (reference; do not rerun unchanged)
+- **Env restored.** `.venv` rebuilt with project deps (pip install -e '.[dev]'); system blockage removed.
+- **C97 R-B executed (Katz FD):** `reports/real_quote_volume_katz_fd_shock_mr_costed_oos_20261106T171349Z.json` (sha256 `1e8e553edc21fe528896aa2de2d86a33544b7d83385c22bfcded862f9f44d4ef`) — `oos_edge_proven=false`, any_exposure=true, all_pos=false, beats_bh=false. No edge.
+- **Feed status (reference only, no rescan):** `reports/real_feed_unblock_status_20261106T130243Z.json` — 4 families still blocked; only `real_quote_volume` validated.
+- **C96 ingest attempt (reference):** `reports/real_feed_ingest_attempt_20261106T170620Z.json` — impossible on stale cache; operator must place real artifact.
 
 ### PRIMARY BLOCKERS — REMOVE NOW (hard requirements)
-1. **Environment missing (new blocker).** No `.venv`; system `python3` lacks `pandas/numpy/scipy/statsmodels/pytest`. **Mandatory first action:** restore `.venv` with project deps (`python -m venv .venv && . .venv/bin/activate && pip install -e '.[dev]'` or equivalent) so R-B and pytest can execute. Do not fake results.
-2. **Execute C96 R-B (Katz FD) once env restored.** Run `.venv/bin/python scripts/run_real_quote_volume_katz_fd_shock_mr_costed_oos.py` with exact fail-closed edge rule/WF/cost/B&H. Produce `reports/real_quote_volume_katz_fd_shock_mr_costed_oos_<UTC>.json`. If you cannot run it, document why with evidence (still fail-closed).
-3. **Stale cache blocks nonspot path.** Do NOT rescan existing cache as "new campaign work". Reference only `reports/real_feed_unblock_status_20261106T130243Z.json`. **Mandatory:** attempt to discover and ingest a NEW real nonspot feed artifact into `data/cache/` with fail-closed provenance/meta for exactly one of the 4 blocked families. If impossible, emit `reports/real_feed_ingest_attempt_<UTC>.json` with concrete evidence. **Do not fabricate.**
-4. **RQV transform space exhausted through C95.** After Katz FD executes, C97 R-B (if Katz shows no edge and you pursue another) **MUST** be genuinely distinct vs ALL prior families — **grep-verify absence** and **pre-state mechanical distinctness** before implementation. **Teager–Kaiser energy operator (TKEO, `psi(x_t)=x_t^2 - x_{t-1}x_{t+1}`) on log-volume changes** is a candidate ONLY if `grep -rn "teager\|tkeo" reports/real_quote_volume_*costed_oos* scripts/run_real_quote_volume_*costed_oos*.py` is empty and you document mechanical distinctness (local instantaneous nonlinear energy operator, not variance/dispersion/entropy/LZ76/Hurst/Higuchi/Katz/Hjorth/ACF/etc.). **Do not run a duplicate.**
-5. **No status-only work.** Emit **>=3** new concrete `reports/` artifacts this session. Produce artifacts before any summary.
+1. **Stale cache blocks nonspot path.** Attempt to discover and ingest a NEW real nonspot feed artifact into `data/cache/` with fail-closed provenance/meta for exactly one of the 4 blocked families. If impossible, emit `reports/real_feed_ingest_attempt_<UTC>.json` with concrete evidence. Do not fabricate.
+2. **Execute C98 R-B — TKEO candidate (genuinely distinct).** First run `grep -rn "teager\|tkeo" reports/real_quote_volume_*costed_oos* scripts/run_real_quote_volume_*costed_oos*.py`; must be empty. Implement `scripts/run_real_quote_volume_tkeo_shock_mr_costed_oos.py` with Teager-Kaiser energy operator `psi(x_t)=x_t^2 - x_{t-1}x_{t+1}` on log-volume changes; distinctness pre-stated vs all prior families. Run with exact fail-closed edge rule/WF/cost/B&H. Produce `reports/real_quote_volume_tkeo_shock_mr_costed_oos_<UTC>.json`.
+3. **Rerun pytest** after env restore; record counts/rc in new registry.
+4. **Emit >=3 new concrete reports artifacts this session.** Produce artifacts before any summary.
 
 ### Fail-closed edge rule (exact)
 `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. No gate/threshold weakening. WF 720/168/168, cost grid 0–40bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same OOS windows.
 
-### C97 deliverables (required)
-- `reports/real_quote_volume_katz_fd_shock_mr_costed_oos_<UTC>.json` (execute C96 script) OR a fail-closed execution blocker artifact with concrete evidence if env cannot be restored.
-- `reports/real_feed_ingest_attempt_<UTC>.json` — concrete attempt to ingest a NEW real nonspot feed (or explicit evidence-backed impossibility). **Do not skip.**
-- `reports/strategy_edge_registry_<UTC>.json` — superseding `reports/strategy_edge_registry_20261106T170645Z.json`; include executed pytest counts/rc (rerun after env restore) or explicit fail-closed reason; reference `reports/real_feed_unblock_status_20261106T130243Z.json`, `reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json`, and Katz FD outcome.
-- `reports/campaign97_execution_summary_<UTC>.json` — list >=3 concrete artifacts, bottlenecks addressed/remaining, next concrete action.
-- **If truly blocked:** still produce >=3 artifacts including feed ingest attempt and blocker evidence.
+### C98 deliverables (required)
+- `reports/real_feed_ingest_attempt_<UTC>.json`
+- `reports/real_quote_volume_tkeo_shock_mr_costed_oos_<UTC>.json` (or blocker evidence)
+- `reports/strategy_edge_registry_<UTC>.json` (superseding `reports/strategy_edge_registry_20261106T170645Z.json`; include pytest counts/rc)
+- `reports/campaign98_execution_summary_<UTC>.json`
+- If truly blocked: still produce >=3 artifacts.
 
 ### Mandatory rules (hard)
 - Real data only; fail-closed always. No proxies labeled real; no fabricated feeds/provenance/results.
-- No pairs/feed re-scans on the same stale cache as "new campaign work"; no C23/C40–C96 reruns unchanged; no gate/threshold weakening.
+- No pairs/feed re-scans on same stale cache; no C23/C40–C97 reruns unchanged; no gate/threshold weakening.
 - Edge claim ONLY if OOS exposure>0 AND all cost slices OOS net>0 AND beats B&H on same WF windows.
 - Reference `reports/real_feed_unblock_status_20261106T130243Z.json` and `reports/strategy_edge_registry_20261106T170645Z.json` in outputs.
-- Pre-state distinctness; grep-verify not duplicated. TP/sign-change exists as turning-point rate — do NOT repackage without mechanical proof.
-- **No status summary before >=3 new concrete `reports/` artifacts.**
+- Pre-state distinctness; grep-verify not duplicated.
+- No status summary before >=3 new concrete reports artifacts.
