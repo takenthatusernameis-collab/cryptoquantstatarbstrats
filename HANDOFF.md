@@ -1,70 +1,42 @@
-## READ THIS FIRST — C74 INITIAL TASK (2026-11-06T09:21:35Z)
+## READ THIS FIRST — C75 INITIAL TASK (20261106T092906Z)
 
-**Single durable handoff for `cryptoquantstatarbstrats`. Execute Campaign #74 now (no investigation-only work).**
-- **State:** C73 complete/fail-closed (`oos_edge_proven=false`). Latest registry: `reports/strategy_edge_registry_20261106T091943Z.json` (supersedes `...T081541Z`). Latest unblock status: `reports/real_feed_unblock_status_20261106T091925Z.json` (delta vs `...T081536Z`, `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`). Full suite green at last registry: `928 passed, 1 skipped, 0 failed` (rc=0).
+**Single durable handoff for `cryptoquantstatarbstrats`. Execute Campaign #75 now (no investigation-only work).**
+- **State:** C74 complete/fail-closed (`oos_edge_proven=false`). Latest registry: `reports/strategy_edge_registry_20261106T092751Z.json` (supersedes `reports/strategy_edge_registry_20261106T091943Z.json`). Latest unblock status: `reports/real_feed_unblock_status_20261106T092751Z.json` (delta vs `reports/real_feed_unblock_status_20261106T091925Z.json`, `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`). Full suite green at last registry: `928 passed, 1 skipped, 0 failed` (rc=0).
+- **C74 R-B result (pre-stated, real_quote_volume, 11 assets, 5112 bars, WF 720/168/168, cost 0–40bps, B&H same windows):** "Volume Theil T Inequality Shock Mean Reversion" — rolling Theil T `T_t=mean((x/μ)*ln(x/μ)), x>0,μ>0` (GE(1), value-weighted log-ratio inequality), W=48, ZLB=168, fade shocks `d_z>=1.25 SHORT / d_z<=-1.25 LONG`, exit `|d_z|<0.25`/hold>=12/flip, exec t->t+1. Distinct from C51 Gini L1 mean-difference, C41 Shannon binned histogram entropy, C42/43 permutation/sample entropy, C45 CV σ/μ, C72 Bowley quartile asymmetry, C73 Kelly decile asymmetry, and all C23/C40–C73. Exposure present; aggregate mean OOS net negative across all costs, B&H not beaten (`all_costs_positive=false, beats_bh_rule=false`) → **`oos_edge_proven=false`**. Artifact: `reports/real_quote_volume_theil_t_inequality_shock_mr_costed_oos_20261106T092744Z.json`.
 - **Blocked families (substantive, unchanged):** `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure` — `blocked_no_real_feed`. No proxies labeled real. No fabricated feeds/provenance.
-- **Do now (>=3 new `reports/` artifacts):** **R-A preferred** — only if a genuinely NEW real feed for a blocked family passes fail-closed validation with complete provenance this session, produce costed OOS + cache/provenance/certificate + unblock status (+ prior delta) + registry supersede. **Else R-B** — test a genuinely different pre-stated hypothesis on validated `real_quote_volume` (NOT C23/C40–C73; C73 was rolling Kelly decile skewness shock MR) with WF 720/168/168, cost grid 0–40bps, B&H benchmark, tested runner/code, unblock status, registry supersede. `oos_edge_proven=false` is valid if rule not met.
-- **Mandatory:** No pairs/feed re-scans on same cache as "new campaign"; no C23/C40–C73 reruns; no gate weakening; rerun `python -m pytest tests/ -q` and record counts in new registry. If neither R-A nor R-B possible, emit `reports/campaign74_execution_blocker_<UTC>.json` with exact missing priors + smallest concrete unblocking step taken this session.
+- **Do now (>=3 new `reports/` artifacts):** **R-A preferred** — only if a genuinely NEW real feed for a blocked family passes fail-closed validation with complete provenance this session, produce costed OOS + cache/provenance/certificate + unblock status (+ prior delta) + registry supersede. **Else R-B** — test a genuinely different pre-stated hypothesis on validated `real_quote_volume` (NOT C23/C40–C74; C74 = rolling Theil T GE(1) inequality shock MR) with WF 720/168/168, cost grid 0–40bps, B&H benchmark, tested runner/code, unblock status, registry supersede. `oos_edge_proven=false` is valid if rule not met.
+- **Mandatory:** No pairs/feed re-scans on same cache as "new campaign"; no C23/C40–C74 reruns; no gate weakening; rerun `python -m pytest tests/ -q` and record counts in new registry. If neither R-A nor R-B possible, emit `reports/campaign75_execution_blocker_<UTC>.json` with exact missing priors + smallest concrete unblocking step taken this session.
 
-**Timestamp (UTC, prior refresh):** 20261106T092000Z (C73 executed; `oos_edge_proven=false`) — C74 binding details below.
+## CAMPAIGN #74 STATUS (EXECUTED — fail-closed, no proven edge)
 
-## CAMPAIGN #73 STATUS (EXECUTED — fail-closed, no proven edge)
+Verified present in `reports/` (20261106T092906Z run context):
+- `reports/real_quote_volume_theil_t_inequality_shock_mr_costed_oos_20261106T092744Z.json` — C74 Path R-B (Theil T GE(1) inequality shock MR, pre-stated). 11 assets, 26 WF slices each, `any_exposure=true`. Aggregate: `fee0_slip0 mean_oos_net=-0.241901` (net negative), all cost slices net negative, `all_costs_positive=false`, `beats_bh_rule=false`, **`oos_edge_proven=false`**.
+- `reports/real_feed_unblock_status_20261106T092751Z.json` — fail-closed re-check (campaign 74, delta vs `20261106T091925Z`). `path_r_triggered=true` (validated `real_quote_volume` present — already-tested family) but **no new real feed for remaining blocked families**. `campaign_delta.changed=false` / `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`.
+- `reports/strategy_edge_registry_20261106T092751Z.json` — supersedes `20261106T091943Z`. `oos_edge_proven=false`. pytest rc=0 (928 passed, 1 skipped, 0 failed, full tests/).
 
-Verified present in `reports/` (2026-11-06T09:19:06Z / 09:19:25Z / 09:19:43Z):
+C74 runners added (tested): `scripts/generate_campaign74_artifacts.py`, `scripts/run_campaign74_unblock_status.py`, `scripts/emit_campaign74_registry.py`.
 
-- `reports/real_quote_volume_kelly_decile_skewness_shock_mr_costed_oos_20261106T091906Z.json` — C73 Path R-B on validated `real_quote_volume` (Binance spot klines col 5; `validate_and_load_real_feed` + `volume_1h_full.provenance.json`; 11 spot assets: ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP; 5112 common bars). Hypothesis (pre-stated): "Volume Kelly (Decile) Skewness Shock Mean Reversion" (rolling Kelly K_t = (P90+P10-2*P50)/(P90-P10), rank/decile asymmetry bounded [-1,1], causal W=48h; zscore ZLB=168 -> d_z; fade asymmetry shocks d_z>=1.25 SHORT / d_z<=-1.25 LONG; exit |d_z|<0.25 or hold>=12 or flip; exec t->t+1; WF 720/168/168; cost grid 0–40bps; B&H benchmark). **Result:** 11 assets tested, 26 WF slices each, `any_exposure=true`, aggregate mean OOS net negative across costs (all cost slices net negative; `all_costs_positive=false`, `beats_bh_rule=false`), **`oos_edge_proven=false`** (pre-stated rule not met). Genuinely distinct from C66 IDR (P90-P10 dispersion magnitude, same decile cutpoints — Kelly is an asymmetry ratio/direction vs magnitude); distinct from C72 Bowley (quartile P25/P75 asymmetry — Kelly uses decile P10/P90, different tail sensitivity/cutpoints); distinct from C40 Fisher skewness (3rd standardized moment, mean-centered, unbounded) and all C23/C40–C72.
-- `reports/real_feed_unblock_status_20261106T091925Z.json` — fail-closed re-check (delta vs `20261106T081536Z.json`, campaign 73). `path_r_triggered=true` (validated `real_quote_volume` present — already-tested family, not new) but **no new real feed for remaining blocked families**. `blocked_families` unchanged/substantive: `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure = blocked_no_real_feed`. `campaign_delta.changed=false` / `NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED`.
-- `reports/strategy_edge_registry_20261106T091943Z.json` — supersedes `...T081541Z.json`. `oos_edge_proven=false`. pytest rc=0 (928 passed, 1 skipped, 0 failed, full tests/).
-
-C73 runners added (tested): `scripts/generate_campaign73_artifacts.py`, `scripts/run_campaign73_unblock_status.py`, `scripts/emit_campaign73_registry.py`.
-
-## BOTTLENECKS REMOVED (C73)
-
-- **C73 executed (>=3 artifacts, full suite green):** R-B hypothesis (rolling Kelly decile skewness, W=48, ZLB=168, rank/decile asymmetry direction; distinct from C66/C72/C40 and all C23/C40–C72) tested on validated `real_quote_volume`, all 11 assets, exposure present, no edge proven. Runners added.
-- **Stale blocker cleared:** C73 scripts were present and have been RUN. Do not re-litigate C73 script absence.
-- **Infra healthy:** fail-closed test/loader/registry path green (928 passed, 1 skipped, 0 failed, rc=0). Do not reopen infra unless you change it and keep full tests green.
+## BOTTLENECKS REMOVED (C74)
+- C74 executed (>=3 artifacts, full suite green): R-B Theil T hypothesis tested on validated `real_quote_volume`; runners added. Stale state cleared.
+- Infra healthy (928 passed, 1 skipped, 0 failed). Do not reopen infra unless you change it and keep full tests green.
 
 ## BOTTLENECKS (READ BEFORE ACTING — DO NOT IGNORE)
-
-- **No valid new feed for remaining blocked families (substantive):** `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure = blocked_no_real_feed`. Do not label proxies as real; do not fabricate feeds/provenance. R-A only if a genuinely new real feed for one of these passes fail-closed validation with complete provenance this session.
-- **Spot 1h exhausted; cointegration gating settled on current cache:** pairs/gating invariants preserved (`1h 0/17`, `4h 1/17 POL/BTC`, `1d 0/17`). Do not pairs/feed re-scan or produce structurally similar spot retests on the same cache as a "new campaign".
-- **`real_quote_volume` now tested with THIRTY-FIVE hypotheses (all oos_edge_proven=false):** C23; C40–C73; **C73 = rolling Kelly decile skewness shock MR**. Any further R-B hypothesis on `real_quote_volume` must be genuinely distinct in transform/mechanic from ALL of C23/C40–C73. Remaining distinct directions are severely constrained — prefer R-A (genuinely new real feed for a blocked family) over R-B on real_quote_volume.
-- **Zero-artifact / investigation-only sessions are automatic failures.** "Looked and found nothing" is not deliverable. Produce concrete `reports/` artifacts plus tested code where code changes are involved.
+- **No valid new feed for remaining blocked families (substantive):** `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure = blocked_no_real_feed`. R-A only if a genuinely new real feed passes fail-closed validation with complete provenance this session.
+- **Spot 1h exhausted; cointegration gating settled on current cache:** `1h 0/17`, `4h 1/17 POL/BTC`, `1d 0/17`. No pairs/feed re-scan or structurally similar spot retests on same cache as "new campaign".
+- **`real_quote_volume` now tested with THIRTY-SIX hypotheses (all oos_edge_proven=false):** C23; C40–C74; **C74 = rolling Theil T GE(1) inequality shock MR**. Any further R-B on `real_quote_volume` must be genuinely distinct in transform/mechanic from ALL of C23/C40–C74. Remaining distinct directions severely constrained — prefer R-A.
+- **Zero-artifact / investigation-only sessions are automatic failures.**
 
 ## INITIAL TASK MESSAGE (EXECUTE FIRST — NO DELAY)
+**PRIORITY 75 / CAMPAIGN #75 — MANDATORY.** No investigation-only work, no same-cache pairs/feed re-scans, no structurally-similar spot retests, no C23/C40–C74 reruns unchanged, no gate weakening, no proxies labeled real, no fabricated feeds/provenance. `oos_edge_proven=false` valid. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only.
 
-**PRIORITY 74 / CAMPAIGN #74 — MANDATORY, NOT OPTIONAL.** Next agent MUST NOT do investigation-only work, MUST NOT generate structurally-similar spot retests on the same cache presented as a new campaign, MUST NOT rerun C23/C40–C73 hypotheses unchanged, MUST NOT weaken gates, label proxies real, or fabricate feeds/provenance. `oos_edge_proven=false` is valid and required if edge is not proven. Produce **>= 3 new concrete artifacts in `reports/`**. Real data only.
+Binding context (settled): C74 executed; registry `reports/strategy_edge_registry_20261106T092751Z.json` (`oos_edge_proven=false`, 928/1/0). Status `reports/real_feed_unblock_status_20261106T092751Z.json` (delta vs 091925Z, unchanged/blocked). Blocked unchanged substantive. Gating invariants preserved. `real_quote_volume` validated (C23/C40–C74 no edge, thirty-six hypotheses).
 
-### Binding context (settled — do not re-litigate)
+**CAMPAIGN #75 (BINDING):** 1) **R-A preferred** — new validated blocked-family real feed → costed OOS + provenance/cert + status (+ prior `reports/real_feed_unblock_status_20261106T092751Z.json`) + registry supersede. 2) **R-B if R-A impossible** — genuinely different pre-stated hypothesis on `real_quote_volume` (NOT C23/C40–C74) → `real_quote_volume_<hypothesis>_costed_oos_<UTC>.json` (WF 720/168/168, 0–40bps, B&H) + tested runner + status + registry supersede. 3) `reports/real_feed_unblock_status_<UTC>.json` via `generate_unblock_status_report(..., campaign=75, prior_report='reports/real_feed_unblock_status_20261106T092751Z.json')`. 4) `reports/strategy_edge_registry_<UTC>.json` superseding `reports/strategy_edge_registry_20261106T092751Z.json` with rerun pytest counts. Blocker fallback: `reports/campaign75_execution_blocker_<UTC>.json` with exact missing priors + smallest concrete unblocking step taken.
 
-C73 executed (>=3 artifacts, verified present): `real_quote_volume_kelly_decile_skewness_shock_mr_costed_oos_20261106T091906Z.json` (Rolling Kelly decile skewness shock MR, 11 assets, exposure present, aggregate net negative, no edge), `real_feed_unblock_status_20261106T091925Z.json` (delta vs `20261106T081536Z`, unchanged/blocked), `strategy_edge_registry_20261106T091943Z.json` (supersedes `20261106T081541Z`). Registry truth: `oos_edge_proven=false`. Remaining blocked (substantive, unchanged): `funding_basis_carry|cross_exchange_dual_venue_same_asset|term_structure_real_iv_vol_surface|intrabar_microstructure` (no new blocked-family real feed). Gating invariants preserved (`1h=[]`,`4h=[POL/BTC]`,`1d=[]`). Spot 1h exhausted. `real_quote_volume` validated (C23/C40–C73 no edge, thirty-five hypotheses). Fail-closed infra green (registry: `python -m pytest tests/ -q` rc=0, 928 passed, 1 skipped, 0 failed). C73 runners: `scripts/generate_campaign73_artifacts.py`, `scripts/run_campaign73_unblock_status.py`, `scripts/emit_campaign73_registry.py`.
+**ANTI-EVASION:** No re-scans/similar retests/reruns; no weakening/fabrication/proxies; edge claim only if exposure>0 AND all cost slices OOS net>0 AND beats B&H on same WF windows; >=3 `reports/` artifacts every session.
 
-### CAMPAIGN #74 (BINDING — CANNOT BE AVOIDED)
-
-Produce **>= 3 artifacts** (all fail-closed, real, reproducible), in this order of preference:
-
-1. **R-A (PREFERRED):** only if a genuinely NEW real feed for a remaining blocked family passes fail-closed validation with complete provenance this session → `<family>_costed_oos_<UTC>.json` + cache provenance/certificate passing `validate_and_load_real_feed` + status (+ prior) + registry supersede.
-2. **R-B (only if R-A impossible this session):** test a GENUINELY DIFFERENT pre-stated hypothesis on validated `real_quote_volume` (NOT C23/C40–C73) → `real_quote_volume_<hypothesis>_costed_oos_<UTC>.json` (WF 720/168/168, cost grid 0–40bps, B&H benchmark on same windows) + tested runner/code + status (+ prior) + registry supersede. Pre-state hypothesis in artifact; state how it differs from C23/C40–C73. `oos_edge_proven=false` is valid.
-3. `reports/real_feed_unblock_status_<UTC>.json` — honest fail-closed re-check via `data.real_feed_loader.generate_unblock_status_report(cache_dir, campaign=74, reports_dir='reports', prior_report='reports/real_feed_unblock_status_20261106T091925Z.json')`, recording delta vs prior.
-4. `reports/strategy_edge_registry_<UTC>.json` superseding `reports/strategy_edge_registry_20261106T091943Z.json` with rerun `python -m pytest tests/ -q` counts (full suite) and C74 artifacts listed. `oos_edge_proven=false` unless pre-stated rule passes.
-
-If neither R-A nor R-B is possible this session, produce `reports/campaign74_execution_blocker_<UTC>.json` documenting exact missing priors plus the **smallest concrete unblocking step taken this session**.
-
-## ANTI-EVASION (ENFORCED — FUTURE AGENTS CANNOT OPT OUT)
-
-- **No escape:** No pairs/feed re-scans unless genuinely new real dataset + new fail-closed audit added this session. No structurally similar spot retests on the same cache presented as new. No rerun of C23/C40–C73 hypotheses unchanged. No "investigation-only" session.
-- **No edge claim:** `oos_edge_proven=true` only if pre-stated: exposure>0 AND all cost-grid slices OOS net>0 AND beats benchmark on same WF windows.
-- **No weakening/fabrication/proxies:** Never weaken gates. No proxies labeled real. No fabricated feeds/provenance. `oos_edge_proven=false` is valid; exhaustion/blockers must remain explicit.
-- **Heavy work mandatory:** >= 3 new artifacts in `reports/` every session; real tested code + artifact (not just prose) when code changes. Investigation-only prose is not a substitute.
-- **Honesty:** Honest "still blocked" / "still exhausted" / "no proven edge" reports are acceptable deliverables; fake progress is not.
-
-## COMPLETION CHECK (C74)
-
-- [ ] C74/script artifact(s) produced (R-A costed oos on a newly validated blocked-family feed, or R-B genuinely different hypothesis on validated `real_quote_volume`, with tested runner) or fail-closed blocker artifact with concrete action taken.
-- [ ] `reports/real_feed_unblock_status_<UTC>.json` exists (honest, fail-closed, delta vs `20261106T091925Z`).
-- [ ] `reports/strategy_edge_registry_<UTC>.json` supersedes `20261106T091943Z`.
-- [ ] >= 3 new artifacts in `reports/`.
-- [ ] No fabrication/proxies/threshold weakening; no pairs re-scan; no structurally-similar spot retest on same cache; no C23/C40–C73 hypothesis rerun unchanged.
-- [ ] Full suite green: rerun `python -m pytest tests/ -q` and record counts.
+**COMPLETION CHECK (C75):** C75 artifact(s) (R-A/R-B/tested runner or blocker w/ action) + unblock status (delta vs `reports/real_feed_unblock_status_20261106T092751Z.json`) + registry superseding `reports/strategy_edge_registry_20261106T092751Z.json` + >=3 reports artifacts + no fabrication/proxies/weakening/re-scans/reruns + full pytest rerun recorded.
 
 **START NOW. No status summary first. Produce the heavy implementation/analysis artifact first.**
+
+---

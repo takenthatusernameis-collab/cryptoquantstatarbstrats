@@ -1,0 +1,78 @@
+{
+  "artifacts": [
+    "reports/real_quote_volume_theil_t_inequality_shock_mr_costed_oos_20261106T092744Z.json",
+    "reports/real_feed_unblock_status_20261106T092751Z.json"
+  ],
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "c74_hypothesis": "real_quote_volume Rolling Theil T Inequality (GE(1), mean((x/mu)*ln(x/mu)), value-weighted log-ratio) shock MR (R-B, pre-stated; differs from C23/C40-C73 incl. C51 Gini L1 mean-difference, C41 Shannon binned histogram entropy, C42/43 permutation/sample entropy, C45 CV \u03c3/\u03bc, C72 Bowley quartile asymmetry, C73 Kelly decile asymmetry)",
+  "c74_oos_result": {
+    "aggregate": {
+      "fee0_slip0": {
+        "mean_frac_beats_bh": 0.09090909090909091,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.2419010365111233,
+        "n_assets": 11
+      },
+      "fee10_slip10": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.5202646728747596,
+        "n_assets": 11
+      },
+      "fee20_slip20": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.798628309238396,
+        "n_assets": 11
+      },
+      "fee40_slip40": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -1.3553555819656689,
+        "n_assets": 11
+      },
+      "fee5_slip5": {
+        "mean_frac_beats_bh": 0.0,
+        "mean_oos_bh_across_assets": 0.05264220035182683,
+        "mean_oos_net_across_assets": -0.3810828546929416,
+        "n_assets": 11
+      }
+    },
+    "all_costs_positive": false,
+    "any_exposure": true,
+    "beats_bh_rule": false,
+    "oos_edge_proven": false
+  },
+  "campaign": 74,
+  "generated_at_utc": "2026-11-06T09:28:22.736551+00:00",
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C74 R-B on validated real_quote_volume (Theil T inequality, W=48, ZLB=168, value-weighted log-ratio GE(1); distinct from C51 Gini L1 mean-difference, C41 Shannon binned histogram entropy, C42/43 permutation/sample entropy, C45 CV, C72 Bowley, C73 Kelly, and all C23/C40-C73); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed.",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "errors": 0,
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "summary_tail": [
+      "tests/test_walk_forward_bootstrap.py: 8 warnings",
+      "tests/test_walk_forward_compare.py: 4 warnings",
+      "tests/test_walk_forward_cost_sensitivity.py: 15 warnings",
+      "tests/test_walk_forward_is_oos.py: 9 warnings",
+      "tests/test_walk_forward_live.py: 7 warnings",
+      "tests/test_walk_forward_multi_horizon.py: 5 warnings",
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3572 warnings in 30.65s"
+    ]
+  },
+  "supersedes": "reports/strategy_edge_registry_20261106T091943Z.json"
+}
