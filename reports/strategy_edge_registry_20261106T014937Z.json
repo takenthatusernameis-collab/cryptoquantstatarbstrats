@@ -1,0 +1,226 @@
+{
+  "schema": "strategy_edge_registry.v1",
+  "campaign": 46,
+  "generated_at_utc": "2026-11-06T01:49:37.927657+00:00",
+  "fail_closed": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "supersedes": "reports/strategy_edge_registry_20261106T014201Z.json",
+  "c46_artifacts": [
+    "reports/real_quote_volume_obv_price_slope_divergence_costed_oos_20261106T014823Z.json",
+    "reports/real_feed_unblock_status_20261106T014827Z.json",
+    "reports/strategy_edge_registry_20261106T014937Z.json"
+  ],
+  "path_r": {
+    "status_recheck": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED",
+    "path_r_triggered": true,
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "c23_rerun": false,
+    "c40_climax_mean_reversion_rerun": false,
+    "c41_rerun": false,
+    "c42_rerun": false,
+    "c43_rerun": false,
+    "c44_rerun": false,
+    "c45_rerun": false,
+    "different_prestated_hypothesis_tested": true,
+    "hypothesis": "OBV-Price Slope Divergence Continuation (Accumulation/Distribution Proxy on Real Quote Volume)",
+    "differs_from_c23_c40_c41_c42_c43_c44_c45": true
+  },
+  "gating_invariants_preserved": {
+    "1h": {
+      "n_gated": 0,
+      "pairs": []
+    },
+    "4h": {
+      "n_gated": 1,
+      "pairs": [
+        "POL/BTC"
+      ]
+    },
+    "1d": {
+      "n_gated": 0,
+      "pairs": []
+    }
+  },
+  "families": [
+    {
+      "family": "real_quote_volume",
+      "data_status": "real_feed_with_provenance_present",
+      "path": "R-B",
+      "hypothesis": {
+        "name": "OBV-Price Slope Divergence Continuation (Accumulation/Distribution Proxy on Real Quote Volume)",
+        "description": "Build causal OBV proxy OBV=cumsum(sign(ret1)*quote_volume_usdt) (integrated signed volume). Compute z-scored slopes over 24h (z lookback 168h) for OBV and price. When slopes diverge with magnitude (|obv_z|,|px_z|>=1.25, opposite signs): OBV up + price down -> LONG (accumulation continuation); OBV down + price up -> SHORT. Exit on realignment, weak OBV slope, max hold 12h, or flip. Execution t->t+1. WF 720/168/168, cost grid 0-40bps, B&H benchmark on same OOS windows.",
+        "params_fixed_before_oos_evaluation": true,
+        "no_in_sample_tuning": true,
+        "differs_from_c23": "C23 uses high vol_z LEVEL for momentum continuation; C46 uses integrated signed volume (OBV) slope divergence.",
+        "differs_from_c40": "C40 fades HIGH volume climax (vol_z level); C46 uses OBV (sign(ret)*volume cumulative) slope vs price slope divergence — different construction.",
+        "differs_from_c41": "C41 continues on LOW vol_z dry-up breakout; C46 trades OBV-price slope divergences (accumulation/distribution), no dry-up/breakout condition.",
+        "differs_from_c42": "C42 confirms breakouts on volume expansion (rising vol_z); C46 uses signed integrated volume OBV slope, not expansion confirmation.",
+        "differs_from_c43": "C43 fades volume-price DIVERGENCE using vol_z (unsloped volume level z at price extremes) as a reversion fade; C46 uses OBV slope (integrated signed flow) vs price slope divergence as a CONTINUATION of hidden accumulation/distribution with different signal math (slope z-scores, opposite trade intent framing).",
+        "differs_from_c44": "C44 trend-follows on vol_z ROC acceleration; C46 uses OBV cumulative signed-volume slope divergence, not volume acceleration.",
+        "differs_from_c45": "C45 mean-reverts on illiquidity SHOCKS (|ret|/volume Amihud ratio z-score); C46 uses signed volume integration OBV vs price slopes — different transform and mechanic.",
+        "slope_lb": 24,
+        "z_lookback": 168,
+        "entry_z": 1.25,
+        "exit_z": 0.25,
+        "max_hold_bars": 12,
+        "min_obs": 168,
+        "eps": 1e-12
+      },
+      "evidence_artifact": "reports/real_quote_volume_obv_price_slope_divergence_costed_oos_20261106T014823Z.json",
+      "by_asset_summary": [
+        {
+          "asset": "ADA",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": -0.10850660556113201,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": true
+        },
+        {
+          "asset": "AVAX",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": 0.03692307851737009,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BNB",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.013327041364272318,
+          "bench_oos_0bps": 0.16790033173988939,
+          "oos_40bps": -0.02132704136427232,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "BTC",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": 0.056906054230617786,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "DOT",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.013864406093201831,
+          "bench_oos_0bps": -0.12387410404863253,
+          "oos_40bps": -0.02986440609320183,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": true
+        },
+        {
+          "asset": "ETH",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": 0.06087103021756268,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LINK",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": 0.2598010407291865,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "LTC",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.007996055559045478,
+          "bench_oos_0bps": 0.0774892478977014,
+          "oos_40bps": -0.01599605555904548,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "POL",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.03078443024699551,
+          "bench_oos_0bps": 0.04760403801385149,
+          "oos_40bps": -0.04678443024699551,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "SOL",
+          "exposure": false,
+          "oos_edge_proven": false,
+          "oos_0bps": 0.0,
+          "bench_oos_0bps": 0.2228033848671428,
+          "oos_40bps": 0.0,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        },
+        {
+          "asset": "XRP",
+          "exposure": true,
+          "oos_edge_proven": false,
+          "oos_0bps": -0.015972490662228944,
+          "bench_oos_0bps": -0.007174877049763051,
+          "oos_40bps": -0.023972490662228944,
+          "all_slices_oos_pos": false,
+          "all_slices_beat_bench": false
+        }
+      ],
+      "oos_edge_proven": false,
+      "n_assets": 11,
+      "n_oos_edge_proven": 0,
+      "n_assets_all_slices_oos_net_positive": 0,
+      "n_assets_all_slices_beat_benchmark": 2,
+      "status": "proven_zero_cost_only_not_net_of_costs"
+    },
+    {
+      "family": "funding_basis_carry",
+      "data_status": "blocked_no_real_feed",
+      "actionable_next_step": "(unchanged by C39)",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "cross_exchange_dual_venue_same_asset",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "term_structure_real_iv_vol_surface",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    },
+    {
+      "family": "intrabar_microstructure",
+      "data_status": "blocked_no_real_feed",
+      "oos_edge_proven": false
+    }
+  ],
+  "oos_edge_proven": false,
+  "pytest_rerun": {
+    "command": "python -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 0,
+    "scope": "full tests/"
+  }
+}
