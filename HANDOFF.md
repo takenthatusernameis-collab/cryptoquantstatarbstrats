@@ -1,5 +1,5 @@
 # HANDOFF (SINGLE DURABLE) — INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION
-**Timestamp (UTC): 2026-11-06T01:43:45Z (Campaign #45 executed; registry `strategy_edge_registry_20261106T014201Z.json`; `oos_edge_proven=false`) — C46 binding next.**
+**Timestamp (UTC): 2026-11-06T01:44:01Z (Campaign #45 executed; registry `strategy_edge_registry_20261106T014201Z.json`; `oos_edge_proven=false`) — C46 binding next.**
 **Repo (inferred priority): `cryptoquantstatarbstrats` — Crypto Quantitative Statistical Arbitrage Strategies. Priority mission: find/validate a net-of-cost out-of-sample statistical/arbitrage edge on real crypto data only. Fail-closed. Heavy, reproducible artifacts required. This file is the ONLY durable handoff. Read it first. Execute it. Do not re-litigate settled facts.**
 
 ## CAMPAIGN #45 STATUS (EXECUTED — fail-closed, no proven edge)
@@ -11,7 +11,7 @@ Produced this session (3 concrete artifacts in `reports/`) + tested runners (`sc
 ## BOTTLENECKS REMOVED (THIS SESSION)
 - **C45 R-B execution unblocked & delivered:** `scripts/generate_campaign45_artifacts.py` was created (pre-stated, genuinely different hypothesis) and executed successfully (11 assets). Volume loader long-format (timestamp_utc/symbol/quote_volume_usdt) handling confirmed; loader intersection validated. Scripts `scripts/run_campaign45_unblock_status.py` and `scripts/emit_campaign45_registry.py` executed. No infra bottleneck remains from C45.
 
-## BOTTLENECKS (READ BEFORE ACTING)
+## BOTTLENECKS (READ BEFORE ACTING — DO NOT IGNORE)
 - **Infra healthy:** fail-closed test/loader/registry path green (928 passed, 1 skipped, 0 failed, rc=0). Do not reopen infra unless you change it and keep full tests green.
 - **No valid new feed for remaining blocked families (substantive):** `funding_basis_carry | cross_exchange_dual_venue_same_asset | term_structure_real_iv_vol_surface | intrabar_microstructure = blocked_no_real_feed`. Do not label proxies as real; do not fabricate feeds/provenance.
 - **Spot 1h exhausted; cointegration gating settled on current cache:** pairs/gating invariants preserved (`1h 0/17`, `4h 1/17 POL/BTC`, `1d 0/17`). Do not pairs/feed re-scan or produce structurally similar spot retests on the same cache as a "new campaign".
