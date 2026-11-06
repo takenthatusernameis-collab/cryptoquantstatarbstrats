@@ -1,0 +1,79 @@
+{
+  "artifact": "reports/strategy_edge_registry_20261106T102313Z.json",
+  "campaign": 81,
+  "cumulative_real_quote_volume_rb_exhausted_examples": "C23/C40-C80 plus C81 AAD (mean absolute deviation from mean) scale shock MR (no edge proven). Do not rerun unchanged.",
+  "current_unblock_status": "reports/real_feed_unblock_status_20261106T102141Z.json",
+  "current_unblock_status_sha256": "a01bf9951f142bf1789d2c899a07fbd094753b5dda4f29a5ca6796ef5b26149c",
+  "fabricated_data": false,
+  "fail_closed": true,
+  "generated_at_utc": "2026-11-06T10:23:13.933060+00:00",
+  "honest_assessment": "EXECUTED_C81_RB_DEPS_UNBLOCKED_R_A_INFEASIBLE_NO_OOS_EDGE",
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "prior_registry": "reports/strategy_edge_registry_20261106T101904Z.json",
+  "prior_registry_sha256": "e171bc658ba14501dabb67249abc4bd670bba6e91135c3a4b4ab6aa9c04ef670",
+  "prior_unblock_status": "reports/real_feed_unblock_status_20261106T101846Z.json",
+  "pytest": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "duration_s": 59.07,
+    "executed_at_utc": "2026-11-06T10:21Z",
+    "failed": 0,
+    "passed": 928,
+    "returncode": 0,
+    "skipped": 1,
+    "warnings": 3577
+  },
+  "ra_attempt": {
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "performed": true,
+    "result": "no_new_valid_nonspot_feed_with_complete_provenance_found",
+    "unblock_artifact": "reports/real_feed_unblock_status_20261106T102141Z.json",
+    "validated_nonspot_feed_present": "real_quote_volume (volume_1h_full, 81792 rows, provenance present)"
+  },
+  "rb_campaign81": {
+    "all_costs_positive": false,
+    "any_exposure": true,
+    "artifact": "reports/real_quote_volume_aad_scale_shock_mr_costed_oos_20261106T102255Z.json",
+    "artifact_sha256": "4977791fac4e81d237b80c8c60149607126e68d6be32ed3f420215c66bf91e30",
+    "beats_bh_rule": false,
+    "benchmark": "buy-and-hold per asset (gross), same OOS WF windows",
+    "cost_grid_bps_fee_slippage": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "distinctness_summary": "AAD=mean(|x_i-mean(x)|) L1 scale centered+aggregated at MEAN; distinct from C80 MAD median(|x_i-median(x)|) double-median robust, C45 CV (L2 std/mean), C79 Sarle BC joint skew/kurtosis, C66-C73 quantile dispersions/asymmetries, share-inequality C51/C74/C75/C76/C78, entropy C41/C42/C43, C23/C40-C80 transforms.",
+    "family": "real_quote_volume",
+    "hypothesis": "Volume AAD (Mean Absolute Deviation from Mean) Scale Shock Mean Reversion",
+    "oos_edge_proven": false,
+    "script": "scripts/run_real_quote_volume_aad_scale_shock_mr_costed_oos.py",
+    "script_sha256": "869996950694ab10c755e5934eeef791f7f593e15d195c2ba1ae21c2063f93aa",
+    "wf": "rolling 720/168/168"
+  },
+  "real_data_only": true,
+  "supersedes": "reports/strategy_edge_registry_20261106T101904Z.json",
+  "supersedes_sha256": "e171bc658ba14501dabb67249abc4bd670bba6e91135c3a4b4ab6aa9c04ef670",
+  "tool": "manual_campaign81_registry_emit"
+}
