@@ -1,20 +1,20 @@
-## READ THIS FIRST — C103 INITIAL TASK (20261106T204711Z, produced by C103 execution agent)
+## READ THIS FIRST — C104 INITIAL TASK (20261106T205038Z, produced by C104 execution agent)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute Campaign #104 now — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance.**
 
 ### Repo prioritization (from name `cryptoquantstatarbstrats`)
-Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance. Edge is claimed ONLY under the exact fail-closed edge rule below.
+Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance. Edge is claimed ONLY under the exact fail-closed edge rule below. Nonspot ingest is a hard blocker only if a real nonspot artifact never appears; C104 R-B proceeds on the validated `real_quote_volume` family regardless and does not depend on nonspot unblock.
 
 ### C103 state (done; do not rerun unchanged)
-- **Env/pytest (post-C103).** Registry shows C103 pytest run context; see `reports/strategy_edge_registry_20261106T204555Z.json`. Prior C102: 928 passed, 1 skipped, 0 failed.
-- **C103 R-B executed (VOLUME_SPECTRAL_ENTROPY_SHOCK_MR):** `reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json` (sha256 `f648e6f42a33808773bdcb41fd3f1bbcdc12c351235d92318cbc3ea5224d4c58`) — `oos_edge_proven=false`. Frequency-domain entropy (periodogram normalized Shannon entropy over positive freqs) vs ApEn/DFA/ZCR/Hurst/FD/LZ76/Hjorth/TKEO etc; fade spectral-entropy shocks. Grep-verified distinct before impl.
-- **C103 ingest attempt:** `reports/real_feed_ingest_attempt_20261106T204351Z.json` (sha256 `f534ae573e1e02f33a8a55c2f0197373fb0ac8a219da9444ffc4b8668aa80f89`) — `IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED` for blocked nonspot families; no new real nonspot artifacts found; operator must place real artifact.
+- **Env/pytest (post-C103).** Registry shows C103 pytest run context; see `reports/strategy_edge_registry_20261106T204555Z.json`. C102: 928 passed, 1 skipped, 0 failed. C103 registry: passed 928, skipped 1, failed 0, rc 0.
+- **C103 R-B executed (VOLUME_SPECTRAL_ENTROPY_SHOCK_MR):** `reports/real_quote_volume_spectral_entropy_shock_mr_costed_oos_20261106T204151Z.json` (sha256 `f648e6f42a33808773bdcb41fd3f1bbcdc12c351235d92318cbc3ea5224d4c58`) — `oos_edge_proven=false`.
+- **C103 ingest attempt:** `reports/real_feed_ingest_attempt_20261106T204259Z.json` — `IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED` for blocked nonspot families; no new real nonspot artifacts found; operator must place real artifact.
 - **Latest registry/summary (C103):** `reports/strategy_edge_registry_20261106T204555Z.json` (sha256 `e0131d92a11e592e498118cfc80a0e47299adc455c0918841675b936440c59dd`), `reports/campaign103_execution_summary_20261106T204711Z.json` (sha256 `669331da00c3b5c61071bd78330cbd3ecbf3b68fbb2fff51101e46c8e6632e30`).
 - **Feed status (reference):** `reports/real_feed_unblock_status_20261106T130243Z.json` (sha256 `49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80`) — 4 families blocked, only `real_quote_volume` validated.
 
 ### PRIMARY BLOCKERS — REMOVE NOW (hard requirements)
-1. **Nonspot ingest still blocked.** If a real nonspot feed artifact becomes available in `data/cache/` (with matching .meta.json + .provenance.json, fail-closed schema), ingest exactly one blocked family and run loader/unblock audit. If impossible, emit `reports/real_feed_ingest_attempt_<UTC>.json` with concrete evidence; do not fabricate/rescan stale cache.
-2. **Execute C104 R-B — genuinely distinct candidate (MANDATORY).** Pick a candidate mechanically distinct from ALL prior RQV families (C23/C40–C103: location/dispersion/skew/kurtosis/TP/runs/mean-run-length/VR/BDS/OU-HL/LZ76/Hjorth/Higuchi/Katz/TKEO/Petrosian-FD/ZCR/entropy families including ApEn/C102, spectral entropy/C103). Suggested: `VOLUME_WAVELET_ENTROPY_SHOCK_MR` (wavelet packet/continuous wavelet energy distribution entropy over scales, time-frequency entropy distinct from periodogram PSD). FIRST grep: `grep -rn "wavelet.*entropy" reports/real_quote_volume_*costed_oos* scripts/run_real_quote_volume_*costed_oos*.py` must be empty. Implement in `scripts/run_real_quote_volume_<candidate>_shock_mr_costed_oos.py`, run with exact fail-closed rule/WF/cost/B&H, produce `reports/real_quote_volume_<candidate>_shock_mr_costed_oos_<UTC>.json`. Do NOT rerun C23/C40–C103 unchanged.
+1. **Nonspot ingest still blocked.** If a real nonspot feed artifact becomes available in `data/cache/` (with matching .meta.json + .provenance.json, fail-closed schema), ingest exactly one blocked family and run loader/unblock audit. If impossible, emit `reports/real_feed_ingest_attempt_<UTC>.json` with concrete evidence; do not fabricate/rescan stale cache. This does NOT block C104 R-B on `real_quote_volume`.
+2. **Execute C104 R-B — genuinely distinct candidate (MANDATORY).** Candidate `VOLUME_WAVELET_ENTROPY_SHOCK_MR` (wavelet packet/continuous wavelet energy-distribution entropy over scales; time-frequency entropy distinct from periodogram PSD/spectral entropy). grep-verified absent: `grep -rn "wavelet" reports/real_quote_volume_*costed_oos* scripts/run_real_quote_volume_*costed_oos*.py` returns empty. Implement in `scripts/run_real_quote_volume_wavelet_entropy_shock_mr_costed_oos.py`, run with exact fail-closed rule/WF/cost/B&H, produce `reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_<UTC>.json`. Do NOT rerun C23/C40–C103 unchanged.
 3. **Rerun pytest** if code/scripts changed in a way that affects tests; record authoritative counts/rc in new registry.
 4. **Emit >=3 new concrete reports artifacts this session.** Produce artifacts before any summary.
 
@@ -23,7 +23,7 @@ Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, coste
 
 ### C104 deliverables (required)
 - `reports/real_feed_ingest_attempt_<UTC>.json`
-- `reports/real_quote_volume_<candidate>_shock_mr_costed_oos_<UTC>.json` (or fail-closed blocker evidence with concrete reason)
+- `reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_<UTC>.json` (or fail-closed blocker evidence with concrete reason)
 - `reports/strategy_edge_registry_<UTC>.json` (superseding `reports/strategy_edge_registry_20261106T204555Z.json`; include pytest counts/rc)
 - `reports/campaign104_execution_summary_<UTC>.json`
 
