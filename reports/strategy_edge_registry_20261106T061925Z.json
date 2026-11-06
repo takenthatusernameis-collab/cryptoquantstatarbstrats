@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-11-06T06:19:57.063837+00:00",
+  "campaign": 66,
+  "supersedes": "reports/strategy_edge_registry_20261106T061455Z.json",
+  "oos_edge_proven": false,
+  "pytest_full_suite": {
+    "command": "/usr/bin/python -m pytest tests/ -q",
+    "returncode": 0,
+    "passed": 928,
+    "failed": 0,
+    "skipped": 1,
+    "errors": 0,
+    "summary_tail": [
+      "tests/test_walk_forward_reoptimize.py: 18 warnings",
+      "  /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/loader.py:327: Pandas4Warning: 'd' is deprecated and will be removed in a future version, please use 'D' instead.",
+      "    dates = pd.date_range(start_date, end_date, freq=freq)",
+      "",
+      "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "928 passed, 1 skipped, 3569 warnings in 30.72s"
+    ]
+  },
+  "artifacts": [
+    "reports/real_quote_volume_idr_interdecile_dispersion_shock_mr_costed_oos_20261106T061846Z.json",
+    "reports/real_feed_unblock_status_20261106T061908Z.json"
+  ],
+  "c66_hypothesis": "real_quote_volume Rolling Interdecile Range (IDR, P90-P10) dispersion shock MR (R-B, pre-stated; differs from C23/C40-C65)",
+  "c66_oos_result": {
+    "oos_edge_proven": false,
+    "any_exposure": true,
+    "aggregate_cost_grid": {
+      "fee0_slip0": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.004589799981735276,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee10_slip10": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.02530987380035265,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee20_slip20": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.04557097193398424,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      },
+      "fee5_slip5": {
+        "all_positive": false,
+        "beats_bh_all": false,
+        "mean_bh_net": 0.001043186413333077,
+        "mean_oos_net": -0.015007877887365196,
+        "n_asset_slices": 286,
+        "slices_exposed": 285
+      }
+    }
+  },
+  "blocked_families_substantive": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "notes": "Fail-closed. Real data only. No proxies/fabrication/threshold weakening. C66 R-B on validated real_quote_volume (Rolling IDR P90-P10 rank-decile 80% spread, trimming 10% tails each side; distinct tail cutpoints from C62 IQR P75-P25 50% spread, distinct from C64 Range extremes, distinct from C61/C65 centered-L1 MAD/MeanAD magnitudes, C63 GMD pairwise, C48/C56 STD/CV L2, and all C23/C40-C65 moments/entropies/Hurst-SampEn/autocorr/corr/beta/level/ROC/cumulative/partition/imbalance); oos_edge_proven=false (pre-stated rule not met). Remaining families blocked_no_real_feed."
+}
