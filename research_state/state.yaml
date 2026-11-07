@@ -1,5 +1,5 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T204436Z
+updated_utc: 20261107T204501Z
 latest_campaign_done: C173
 next_campaign: C174
 readiness_verified_utc: 20261107T203510Z
@@ -106,4 +106,4 @@ mandatory:
 - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices
   OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168,
   cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-handoff_refreshed_utc: 20261107T204436Z
+handoff_refreshed_utc: 20261107T204501Z
