@@ -1,0 +1,52 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T222826Z",
+  "campaign": 179,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T222314Z.json",
+    "sha256": "b8518a3fbe2ffa106c87d037fe6bbc65d21d22ce3c25119d9b3d634c9d983591"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true
+  },
+  "c179": {
+    "strategy_id": "VOLUME_RQA_LMAX_OVER_RR_RATIO_SHOCK_MR",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_lmax_over_rr_ratio_shock_mr_costed_oos_20261107T222826Z.json",
+      "sha256": "b0ef4d614f13dbb843be1e82a5a38f3f8be3839b9ec9060eaae25865a6fc8379"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T222826Z.json",
+      "sha256": "87548b62a2c29f82215b2ad897527fc2f0a3df24f5959049d3f13c2e0f3410aa"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_lmax_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "ee64a497dfcf864add19525646fb38ee3938feb4303ff770022eb74be486fa0a"
+    },
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.23703673547727355,
+      "fee5_slip5": -0.11196326452272673,
+      "fee10_slip10": -0.46096326452272673,
+      "fee20_slip20": -1.1589632645227264,
+      "fee40_slip40": -2.5549632645227267
+    },
+    "edge_claim": "NONE"
+  },
+  "prior": {
+    "latest_registry": "reports/strategy_edge_registry_20261107T222314Z.json",
+    "latest_registry_sha256": "b8518a3fbe2ffa106c87d037fe6bbc65d21d22ce3c25119d9b3d634c9d983591",
+    "c178_oos": "reports/real_quote_volume_rqa_lmax_over_lam_ratio_shock_mr_costed_oos_20261107T222314Z.json",
+    "c178_oos_sha256": "180ca15613d812373db7cf5726e57c55323a22dc4e4606a4ab88b30272995979"
+  },
+  "note": "C179 VOLUME_RQA_LMAX_OVER_RR_RATIO_SHOCK_MR executed fail-closed on real_quote_volume; no OOS edge proven (rule requires exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H). Nonspot ingest remains blocked fail-closed; does not block R-B on real_quote_volume."
+}
