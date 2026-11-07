@@ -2,6 +2,7 @@ repo: cryptoquantstatarbstrats
 updated_utc: 20261107T075536Z
 latest_campaign_done: C136
 next_campaign: C137
+readiness_verified_utc: 20261107T075708Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -25,6 +26,8 @@ c137_preselected:
   metric: RQA ratio %RR/%DET (recurrence density normalized by determinism) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2) — MUST grep-verify distinct implementation before run (collision guard vs C125 %RR, C126 %DET, C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR)
   distinctness_grep: "rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET"
   grep_verify_required: true
+  distinctness_grep_verified_utc: 20261107T075708Z
+  distinctness_grep_result: zero_non_self_hits
   note: If collision, pick next distinct RQA composite — pre-state, grep-zero, justify.
 bottlenecks_removed:
   - C104-C136 locked; no reruns

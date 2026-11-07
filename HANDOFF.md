@@ -2,6 +2,8 @@
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
+**Readiness verified 20261107T075708Z:** `numpy,scipy,pandas` importable; required caches present (`volume_1h_full.{pkl,provenance.json}`, `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`); pytest unavailable (honest); C137 primary grep-zero in `scripts/ strategies/ backtest/ utils/`; git clean.
+
 ## Repo prioritization (from name `cryptoquantstatarbstrats`)
 Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. Nonspot ingest is a hard blocker only if a real nonspot artifact never appears; R-B proceeds on validated `real_quote_volume` family regardless.
 
@@ -22,7 +24,7 @@ Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed b
 
 ## Bottlenecks removed (this handoff)
 - C136 marked DONE with disk-verified SHAs and superseding registry emitted; C104–C136 locked — no reruns. Carry forward latest registry `strategy_edge_registry_20261107T075344Z.json` (sha `0c199afadd2a2aea7032bacef2997622402e883567d36d48153dd1376c033b3d`).
-- **C137 pre-selected (must grep-verify + disambiguate):** Primary candidate `VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR` — ratio `%RR/%DET` (recurrence density normalized by determinism) on delay-embedded log-volume returns, `m=2, tau=1, eps=0.5*std(r_window)` fixed, `W_RR=168`, `l_min=2`, fail-closed to NaN/no-signal when `%DET<=0` or undefined/non-finite/degenerate/zero off-diagonal recurrence. **Collision guard (REQUIRED):** C125 trades `%RR` direct, C126 `%DET` direct, C133 `%DET/%RR` (inverse form), C134 `%LAM/%DET`, C136 `%LAM/%RR`; this trades *ratio* `%RR/%DET` — grep MUST confirm no prior `rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET` implementation before running. If any non-self hit exists, pick next distinct alternative: `VOLUME_RQA_TRAPPING_TIME_RATIO_SHOCK_MR` — verify no `trapping_time_ratio|tt_ratio` collision; same spec, fail-closed appropriately. If still colliding, choose another genuinely distinct RQA composite — **pre-state the chosen alternative, record grep-zero, and justify distinctness in OOS `pre_stated_distinctness`**.
+- **C137 pre-selected (grep-VERIFIED 20261107T075708Z, zero non-self hits in `scripts/ strategies/ backtest/ utils/`):** Primary candidate `VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR` — ratio `%RR/%DET` (recurrence density normalized by determinism) on delay-embedded log-volume returns, `m=2, tau=1, eps=0.5*std(r_window)` fixed, `W_RR=168`, `l_min=2`, fail-closed to NaN/no-signal when `%DET<=0` or undefined/non-finite/degenerate/zero off-diagonal recurrence. **Collision guard PASSED:** C125 trades `%RR` direct, C126 `%DET` direct, C133 `%DET/%RR` (inverse form), C134 `%LAM/%DET`, C136 `%LAM/%RR`; this trades *ratio* `%RR/%DET` — grep confirmed 0 hits for `rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET`. If a future agent sees a collision, pick next distinct alternative: `VOLUME_RQA_TRAPPING_TIME_RATIO_SHOCK_MR` — verify no `trapping_time_ratio|tt_ratio` collision; same spec, fail-closed. **Pre-state chosen alternative, record grep-zero, justify distinctness in OOS `pre_stated_distinctness`**.
 - "No status before >=3 new artifacts" + mandatory run — forces heavy work.
 - pytest unavailable recorded honestly — do not fabricate test results.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
@@ -37,9 +39,9 @@ cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python3 -c "import numpy,scipy,pandas; print('deps_ok')"
 ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl
 # primary candidate grep (must be 0 non-self before implementation); if not 0, apply collision guard and pick/verify alternative
-grep -rn 'rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head
+grep -rn 'rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head  # verified 0 hits 20261107T075708Z
 ```
-Record the grep result and the final chosen feature in the OOS `pre_stated_distinctness`.
+Primary candidate verified distinct; record grep result (or any alternative) in OOS `pre_stated_distinctness`.
 
 ### Step 1 — Run C137 (PRIORITY 1)
 1. **Feature (pre-stated primary, grep-verified/disambiguated):** `VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR` (or verified alternative per collision guard). On `r_t = ln(v_t)-ln(v_{t-1})`, delay embedding `X_i=(r_i,r_{i+tau})`, `m=2,tau=1`, trailing `W_RR=168`. `R_{ij}=1` if `||X_i-X_j||_inf <= eps`, `eps = 0.5*std(r_window)` fixed. Compute `%RR = (offdiag recurrence sum) / (M*(M-1))`, `%DET = (points in qualifying diagonal lines l>=l_min=2, main diagonal excluded)/(offdiag sum)`. `RATIO_RR_DET = %RR / %DET` (**fail-closed** to `NaN`/no-signal if `%DET<=0`, offdiag/undefined/non-finite/degenerate). Causal trailing only.
@@ -72,4 +74,4 @@ python3 -c "import numpy,scipy,pandas; print('deps_ok')"
 ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl
 grep -rn 'rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head
 ```
-Then (if grep-zero / no collision) implement/run C137 (`VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR`, spec above) or the verified alternative; emit C137 OOS (correct campaign/strategy/top-level gates), then complete Step 2. **Do not stop until Step 2 complete with >=3 new C137 artifacts.**
+Then implement/run C137 (`VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR`, primary, grep-verified 20261107T075708Z) per spec; emit C137 OOS (correct `campaign:137`/`strategy_id`/top-level gates, include `pre_stated_distinctness` with grep evidence), then complete Step 2. **Do not stop until Step 2 complete with >=3 new C137 artifacts. No status-only response.**
