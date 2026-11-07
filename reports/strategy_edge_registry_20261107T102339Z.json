@@ -1,0 +1,114 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T102339Z",
+  "campaign": 147,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "pytest": "unavailable (No module named pytest)",
+  "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+  "supersedes": "reports/strategy_edge_registry_20261107T101900Z.json",
+  "supersedes_sha256": "0dc859e3cdd77da6f177a2ec993f877d3410b3edcecf59b4532a9712323afb8c",
+  "lineage": [
+    "reports/strategy_edge_registry_20261107T081009Z.json",
+    "reports/strategy_edge_registry_20261107T081548Z.json",
+    "reports/strategy_edge_registry_20261107T085403Z.json",
+    "reports/strategy_edge_registry_20261107T090342Z.json",
+    "reports/strategy_edge_registry_20261107T095654Z.json",
+    "reports/strategy_edge_registry_20261107T100055Z.json",
+    "reports/strategy_edge_registry_20261107T101205Z.json",
+    "reports/strategy_edge_registry_20261107T101900Z.json"
+  ],
+  "campaigns": {
+    "C140": {
+      "family": "VOLUME_RQA_RR_OVER_TT_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C141": {
+      "family": "VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C142": {
+      "family": "VOLUME_RQA_TT_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C143": {
+      "family": "VOLUME_RQA_LAM_OVER_TT_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C144": {
+      "family": "VOLUME_RQA_ENTR_OVER_DET_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C145": {
+      "family": "VOLUME_RQA_TT_OVER_LAM_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C146": {
+      "family": "VOLUME_RQA_DET_OVER_ENTR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked",
+      "oos_path": "reports/real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos_20261107T101900Z.json",
+      "oos_sha256": "ccbb1b34621e899f9f598c3241f9a1e6f3da23ade5e82aeaf53115d08df2d3d4",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261107T101900Z.json",
+      "registry_path": "reports/strategy_edge_registry_20261107T101900Z.json",
+      "summary_path": "reports/campaign146_execution_summary_20261107T101900Z.json"
+    },
+    "C147": {
+      "family": "VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR",
+      "metric": "RQA ratio RATIO_LAM_ENTR = %LAM / ENTR (laminarity normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed on ENTR<=0/no qualifying diagonal lines/%LAM undefined/non-finite/offdiag-degenerate/undefined",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "edge_claim": "NONE",
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.36486379044774253,
+        "fee5_slip5": -0.6858637904477428,
+        "fee10_slip10": -1.0068637904477429,
+        "fee20_slip20": -1.648863790447743,
+        "fee40_slip40": -2.932863790447743
+      },
+      "status": "completed",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos_20261107T102339Z.json",
+          "sha256": "d5a3831eb7c876cf3b502f8670ea3cbdc933e9daf973baa2880c1143e00f899f"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T102339Z.json",
+          "sha256": "08439605c4cd3541b357909fcce0fb1553e66d1fe41c8dbdbbed5b796e9d1a1b"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos.py",
+          "sha256": "82e459d74d021f1bcf08d09f5f97c3a4235fb9653abdb51ff124e22c747086e3"
+        }
+      }
+    }
+  },
+  "c148_preselected": {
+    "family_primary": "VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio RATIO_ENTR_LAM = ENTR / %LAM (diagonal-line Shannon entropy normalized by laminarity) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if %LAM<=0, no qualifying vertical lines, ENTR undefined/non-finite (ENTR<=0), offdiag/recurrence degenerate, or undefined",
+    "alt1": "VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR (L_max/ENTR; fail-closed on ENTR<=0/no qualifying diagonal lines/L_max undefined)",
+    "alt2": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)",
+    "distinctness_grep_primary": "entr_over_lam|entr_lam_ratio|rqa_ratio_entr_lam|ENTR_OVER_LAM",
+    "grep_verify_required": true,
+    "note": "C148 pre-stated; re-verify grep at run time. Distinct from C125-C147 (incl C127 %LAM direct, C130 ENTR direct, C147 %LAM/ENTR) \u2014 C148 trades ENTR/%LAM inverse."
+  },
+  "next_campaign": "C148"
+}
