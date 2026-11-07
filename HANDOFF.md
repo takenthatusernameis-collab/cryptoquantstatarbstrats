@@ -1,4 +1,4 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T144105Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T144514Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Prioritization (from repo name):** fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
@@ -45,7 +45,7 @@ Implement `scripts/run_real_quote_volume_rqa_trend_over_entr_ratio_shock_mr_cost
 - `"No status before >=3 new artifacts"` + mandatory run — forces heavy work for C162.
 - `pytest` unavailable recorded honestly — do not fabricate test results.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
-- No active blocked sessions; no cross-session dependencies pending. Progress can continue unimpeded on C162.
+- State over-claim corrected 20261107T144514Z: `latest_campaign_done` reset to C161 (no C162 artifacts existed); `next_campaign` reset to C162. C162 heavy work remains mandatory.
 
 ## C161 result (locked, do not rerun)
 - `VOLUME_RQA_LMAX_OVER_TREND_RATIO_SHOCK_MR` (L_max / TREND, inverse of C160), campaign 161, `oos_edge_proven:false`, `edge_claim:NONE`.
