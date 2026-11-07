@@ -1,0 +1,19 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T045938Z",
+  "campaign": 124,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "attempted_nonspot_feeds": [],
+  "nonspot_artifact_found": false,
+  "blocker": "No real nonspot feed artifact present/provided in repo; fail-closed (no proxies labeled real, no fabrication).",
+  "rb_unblocked": true,
+  "rb_basis": "Validated real_quote_volume cache available for R-B campaigns.",
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T045317Z.json",
+    "prior_registry_sha256": "6ca91bf20058f115c2474b828ff21211872c3b06409b3d1d7a8189b558051f5b",
+    "c124_oos": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
+    "c124_oos_sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410"
+  }
+}

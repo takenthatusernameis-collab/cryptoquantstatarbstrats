@@ -1,0 +1,29 @@
+{
+  "tool": "campaign124_execution_summary",
+  "generated_at_utc": "20261107T045938Z",
+  "campaign": 124,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "pytest": {
+    "command": "python3 -m pytest -q --tb=no",
+    "result": "No module named pytest (recorded honestly; not fabricated)"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
+      "sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T045938Z.json",
+      "sha256": "3ecc6818f8d4ea8b3c1b25d60eda99fd28247f44710cfbd9b3b6f2c0161423a3"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T045938Z.json",
+      "sha256": "3ce0643763eec09bcd47a2944f4f8ab72638643318014606cbe16c9bef12c3e7"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_phase_entropy_shock_mr_costed_oos.py",
+      "sha256": "77d8c7cc63466d2e9f675738385d33d2b253e18116bf795b18121cc9f13a2e87"
+    }
+  ]
+}
