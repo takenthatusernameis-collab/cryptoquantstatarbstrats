@@ -1,0 +1,26 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T085403Z",
+  "campaign": 140,
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "nonspot_status": "blocked_fail_closed_no_real_nonspot_artifact",
+  "blocked_routes": [
+    "api.binance.com (451 in this environment)",
+    "api1.binance.com (451 in this environment)",
+    "api2.binance.com (451 in this environment)",
+    "api3.binance.com (451 in this environment)",
+    "fapi.binance.com (451 in this environment)"
+  ],
+  "real_nonspot_artifact_present": false,
+  "rb_unblocked": true,
+  "rb_basis": "validated_real_quote_volume_family",
+  "volume_cache": {
+    "pkl": "data/cache/volume_1h_full.pkl",
+    "meta": "data/cache/volume_1h_full.meta.json",
+    "provenance": "data/cache/volume_1h_full.provenance.json",
+    "present": true
+  },
+  "notes_limits_gaps": "Nonspot/futures/perp OI/funding real feeds not ingested in this environment (HTTP 451 fail-closed). R-B proceeds on validated real_quote_volume family only; no proxies labeled real; no fabricated feeds/provenance/results."
+}

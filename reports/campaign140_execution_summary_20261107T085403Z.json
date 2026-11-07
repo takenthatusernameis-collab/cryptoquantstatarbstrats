@@ -1,0 +1,73 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T085403Z",
+  "campaign": 140,
+  "strategy_id": "VOLUME_RQA_RR_OVER_TT_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.16059517212766627,
+    "fee5_slip5": -0.48659517212766656,
+    "fee10_slip10": -0.8125951721276666,
+    "fee20_slip20": -1.4645951721276664,
+    "fee40_slip40": -2.7685951721276667
+  },
+  "pytest": {
+    "available": false,
+    "command": "python3 -m pytest -q --tb=no",
+    "result": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "nonspot_ingest": {
+    "path": "reports/real_feed_ingest_attempt_20261107T085403Z.json",
+    "status": "blocked_fail_closed_no_real_nonspot_artifact",
+    "rb_unblocked": true
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T081548Z.json",
+    "prior_registry_sha256": "329b291627ff6b3236f2d14de1efff1c4d5ed20c8b558d826e5df4ac6055338c",
+    "c139_oos": "reports/real_quote_volume_rqa_rr_over_lam_ratio_shock_mr_costed_oos_20261107T081548Z.json",
+    "c139_oos_sha256": "3dcbe5b1c237d7fb5b87bc127084e2174806135f13b6f94fc9c0719d872530fd",
+    "c138_oos": "reports/real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos_20261107T080909Z.json",
+    "c138_oos_sha256": "77f3acea4e53ef3ea63ced8d26d68e5f1adc8883c4ad01aedec54d66849d47ca"
+  },
+  "pre_stated_distinctness": {
+    "grep_hits": 0,
+    "grep_cmd": "grep -rn 'rr_over_tt|rr_tt_ratio|rqa_ratio_rr_tt|RR_OVER_TT' scripts/ strategies/ backtest/ utils/",
+    "verified_before_implementation": true,
+    "primary_candidate_used": true
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rr_over_tt_ratio_shock_mr_costed_oos_20261107T085403Z.json",
+      "sha256": "85a1780d7dd319bd248db2cfa2344de273ba1831f7d53d98dc63efeeff6ea7ad",
+      "bytes": 211220
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_tt_ratio_shock_mr_costed_oos.py",
+      "sha256": "2327347af4c59b085f160ae1fe9eb07e2f9bb95ebbd261fc284b00cfd84edfa5",
+      "bytes": 16999
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T085403Z.json",
+      "sha256": "803f9d709778c33c52c24bcbb803b3db7b3626c0eff89973ead9458ab6c91cae",
+      "bytes": 1091
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T085403Z.json",
+      "sha256": "15e9bf32492dfb02a736746b70753362293d42ec184fb908dc4f1f376733c28d",
+      "bytes": 6330
+    }
+  ],
+  "sha256_note": "SHAs computed from bytes on disk."
+}

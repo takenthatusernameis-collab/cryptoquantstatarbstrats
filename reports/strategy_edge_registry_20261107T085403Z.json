@@ -1,0 +1,121 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T085403Z",
+  "campaign": 140,
+  "supersedes": "reports/strategy_edge_registry_20261107T081548Z.json",
+  "supersedes_sha256": "329b291627ff6b3236f2d14de1efff1c4d5ed20c8b558d826e5df4ac6055338c",
+  "lineage": [
+    "reports/strategy_edge_registry_20261107T080923Z.json",
+    "reports/strategy_edge_registry_20261107T081009Z.json",
+    "reports/strategy_edge_registry_20261107T081548Z.json"
+  ],
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "pytest": {
+    "available": false,
+    "command": "python3 -m pytest -q --tb=no",
+    "result": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "nonspot_ingest": {
+    "report": "reports/real_feed_ingest_attempt_20261107T085403Z.json",
+    "report_sha256": "803f9d709778c33c52c24bcbb803b3db7b3626c0eff89973ead9458ab6c91cae",
+    "status": "blocked_fail_closed_no_real_nonspot_artifact",
+    "rb_unblocked": true,
+    "rb_basis": "validated_real_quote_volume_family"
+  },
+  "campaigns": {
+    "C137": {
+      "strategy_id": "VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR",
+      "oos": "reports/real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos_20261107T080021Z.json",
+      "oos_sha256": "0acefbc7dfdaf656291ffad9d6900f483800707bc7878c7f2503baa6a9414f37",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "script": "scripts/run_real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "3a1983d0226bda93586a3c300a9c45b388970988141fc53189942c3d49e0d17d",
+      "context": "carried_forward"
+    },
+    "C138": {
+      "strategy_id": "VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR",
+      "oos": "reports/real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos_20261107T080909Z.json",
+      "oos_sha256": "77f3acea4e53ef3ea63ced8d26d68e5f1adc8883c4ad01aedec54d66849d47ca",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "script": "scripts/run_real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "b331cc9d1aa3a3f2e346bf5b2675175398e0ad8dc475ceb900f1be6fa59d1046",
+      "ingest": "reports/real_feed_ingest_attempt_20261107T080923Z.json",
+      "ingest_sha256": "a4bd143a7cac6a2a7f4b970295a42adf1546e693051cb0e02a0966476d05c4c3",
+      "context": "carried_forward"
+    },
+    "C139": {
+      "strategy_id": "VOLUME_RQA_RR_OVER_LAM_RATIO_SHOCK_MR",
+      "feature": "RATIO_RR_LAM = %RR/%LAM on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2), fail-closed on %LAM<=0/offdiag<=0/degenerate",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'rr_over_lam|rr_lam_ratio|rqa_ratio_rr_lam|RR_OVER_LAM' scripts/ strategies/ backtest/ utils/",
+        "grep_hits": 0,
+        "verified_before_implementation": true,
+        "collision_guard": "distinct from C125 %RR, C128 %LAM, C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM"
+      },
+      "oos": "reports/real_quote_volume_rqa_rr_over_lam_ratio_shock_mr_costed_oos_20261107T081548Z.json",
+      "oos_sha256": "3dcbe5b1c237d7fb5b87bc127084e2174806135f13b6f94fc9c0719d872530fd",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.060474826930652203,
+        "fee5_slip5": -0.22252517306934805,
+        "fee10_slip10": -0.5055251730693482,
+        "fee20_slip20": -1.071525173069348,
+        "fee40_slip40": -2.203525173069348
+      },
+      "script": "scripts/run_real_quote_volume_rqa_rr_over_lam_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "8cb1a152b91d2d12c20943d2aa769eb1cf7a4e91b1d37333960c4b5b0fb0e99a",
+      "ingest": "reports/real_feed_ingest_attempt_20261107T081548Z.json",
+      "ingest_sha256": "01bf06089b5d1176d4364b8a5032821e969492a9ca6bbcd13477ed0961e26acc",
+      "context": "carried_forward"
+    },
+    "C140": {
+      "strategy_id": "VOLUME_RQA_RR_OVER_TT_RATIO_SHOCK_MR",
+      "feature": "RATIO_RR_TT = %RR/TT_mean (recurrence density normalized by trapping time / mean vertical-line length, l>=l_min main-diagonal excluded) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2), fail-closed on TT_mean<=0/no qualifying vertical lines/offdiag<=0/degenerate/non-finite/undefined",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'rr_over_tt|rr_tt_ratio|rqa_ratio_rr_tt|RR_OVER_TT' scripts/ strategies/ backtest/ utils/",
+        "grep_hits": 0,
+        "verified_before_implementation": true,
+        "collision_guard": "distinct from C125 %RR direct, C128 %LAM/TT-family direct (rqa_trapping_time* exists but ratio ID/feature distinct), C130 ENTR direct, C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM; C140 trades ratio %RR/TT_mean"
+      },
+      "oos": "reports/real_quote_volume_rqa_rr_over_tt_ratio_shock_mr_costed_oos_20261107T085403Z.json",
+      "oos_sha256": "85a1780d7dd319bd248db2cfa2344de273ba1831f7d53d98dc63efeeff6ea7ad",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.16059517212766627,
+        "fee5_slip5": -0.48659517212766656,
+        "fee10_slip10": -0.8125951721276666,
+        "fee20_slip20": -1.4645951721276664,
+        "fee40_slip40": -2.7685951721276667
+      },
+      "script": "scripts/run_real_quote_volume_rqa_rr_over_tt_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "2327347af4c59b085f160ae1fe9eb07e2f9bb95ebbd261fc284b00cfd84edfa5",
+      "ingest": "reports/real_feed_ingest_attempt_20261107T085403Z.json",
+      "ingest_sha256": "803f9d709778c33c52c24bcbb803b3db7b3626c0eff89973ead9458ab6c91cae",
+      "context": "new_this_campaign"
+    }
+  },
+  "entries": [
+    {
+      "campaign": 140,
+      "strategy_id": "VOLUME_RQA_RR_OVER_TT_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "oos_sha256": "85a1780d7dd319bd248db2cfa2344de273ba1831f7d53d98dc63efeeff6ea7ad"
+    }
+  ]
+}
