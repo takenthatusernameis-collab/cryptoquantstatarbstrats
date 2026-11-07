@@ -1,0 +1,37 @@
+{
+  "tool": "campaign166_execution_summary",
+  "generated_at_utc": "2026-11-07T17:33:30+00:00",
+  "campaign": 166,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_vmax_over_lam_ratio_shock_mr_costed_oos_20261107T164659Z.json",
+      "sha256": "87d630102068c8539e7eed8441d237db37d20fe14fbf515b6c4ee489357d467e"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T173330Z.json",
+      "sha256": "fb4bb81400d74036aa06526fb217f61b83232b27cf9f8c2353b446b4631ea128"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T173330Z.json",
+      "sha256": "f400501ed85c734d6f3093595b7594c631862af82c2fc28f58fbc7fd4d233762"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_vmax_over_lam_ratio_shock_mr_costed_oos.py",
+      "sha256": "b2fed7637425d530900fd1fd8b731c4be40434d975736e94e92a50939c44f2f8"
+    },
+    "superseded_registry": {
+      "path": "reports/strategy_edge_registry_20261107T164010Z.json",
+      "sha256": "bc2c0f706547edfc14e38f66343c1fcdcf940b6a434dce530dd290371e6a588f"
+    }
+  },
+  "notes": [
+    "C166 V_max/%LAM RQA ratio shock MR on real_quote_volume; heavy work completed.",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "pytest unavailable recorded honestly; no fabricated results."
+  ]
+}
