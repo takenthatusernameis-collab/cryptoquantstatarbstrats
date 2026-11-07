@@ -1,4 +1,4 @@
-## READ THIS FIRST — C123 INITIAL TASK (20261107T042708Z; single durable handoff)
+## READ THIS FIRST — C123 INITIAL TASK (20261107T042732Z; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
