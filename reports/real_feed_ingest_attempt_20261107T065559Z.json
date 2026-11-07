@@ -1,0 +1,26 @@
+{
+  "report": "real_feed_ingest_attempt",
+  "campaign": 131,
+  "timestamp_utc": "20261107T065559Z",
+  "iso_utc": "2026-11-07T06:55:59Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "nonspot_attempted": false,
+  "nonspot_artifact_found": false,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "rb_unblocked": true,
+  "rb_basis": "validated real_quote_volume family; C131 RQA max diagonal line length L_MAX / divergence DIV=1/L_MAX executed on real data",
+  "notes": [
+    "No fabricated feeds/provenance/results. Nonspot ingest blocker does not block R-B on real_quote_volume."
+  ],
+  "references": {
+    "c131_oos": "reports/real_quote_volume_rqa_maxdiagline_divergence_shock_mr_costed_oos_20261107T065559Z.json",
+    "c131_oos_sha256": "d7433ccc04fbfbdf2639d6fdc26a96a3f1463268fd0cd5ec6b9a704b7ceac49c",
+    "c131_script": "scripts/run_real_quote_volume_rqa_maxdiagline_divergence_shock_mr_costed_oos.py",
+    "c131_script_sha256": "050c1e4af8528a0e2fec3d4a030c229afdea3083c65b1a597369f910c0a49487",
+    "prior_registry": "reports/strategy_edge_registry_20261107T065319Z.json",
+    "prior_registry_sha256": "b6447577552832216adc6e5882248454d49ec1c5e802239def183ce546cc5149",
+    "c130_oos": "reports/real_quote_volume_rqa_recurrence_entropy_shock_mr_costed_oos_20261107T065053Z.json",
+    "c130_oos_sha256": "9c1d8b38f90fca82cdb93269cdaf24fa531c211e2468a2aa47e0efd1f48ad326"
+  }
+}

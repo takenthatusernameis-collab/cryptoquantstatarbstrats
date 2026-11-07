@@ -1,0 +1,75 @@
+{
+  "report": "campaign131_execution_summary",
+  "campaign": 131,
+  "timestamp_utc": "20261107T065559Z",
+  "iso_utc": "2026-11-07T06:55:59Z",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "pytest": {
+    "available": false,
+    "outcome": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_maxdiagline_divergence_shock_mr_costed_oos_20261107T065559Z.json",
+      "sha256": "d7433ccc04fbfbdf2639d6fdc26a96a3f1463268fd0cd5ec6b9a704b7ceac49c",
+      "role": "C131 RQA max diagonal line length L_MAX / divergence DIV costed OOS"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_maxdiagline_divergence_shock_mr_costed_oos.py",
+      "sha256": "050c1e4af8528a0e2fec3d4a030c229afdea3083c65b1a597369f910c0a49487",
+      "role": "C131 implementation script"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T065559Z.json",
+      "sha256": "4f35a28e8c84a2544a7a33da213ea78e9fe164e8fa336b58948ed33ad0e33ab0",
+      "role": "Real feed ingest attempt (fail-closed, R-B unblocked)"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T065559Z.json",
+      "sha256": "d45248d5de6fc4759e2ee0dfb1b8b9ab77fbde2089838d6da5d903a57558cc58",
+      "role": "Strategy edge registry (supersedes C130)"
+    }
+  ],
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T065319Z.json",
+    "sha256": "b6447577552832216adc6e5882248454d49ec1c5e802239def183ce546cc5149"
+  },
+  "c130_reference": {
+    "oos": "reports/real_quote_volume_rqa_recurrence_entropy_shock_mr_costed_oos_20261107T065053Z.json",
+    "sha256": "9c1d8b38f90fca82cdb93269cdaf24fa531c211e2468a2aa47e0efd1f48ad326"
+  },
+  "oos_net_sums": {
+    "fee0_slip0": -0.9549613041807605,
+    "fee5_slip5": -1.7009613041807612,
+    "fee10_slip10": -2.4469613041807614,
+    "fee20_slip20": -3.9389613041807614,
+    "fee40_slip40": -6.922961304180761
+  },
+  "oos_edge_gates": {
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false
+  },
+  "aggregate": {
+    "n_assets": 11,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": -0.9549613041807605,
+      "fee5_slip5": -1.7009613041807612,
+      "fee10_slip10": -2.4469613041807614,
+      "fee20_slip20": -3.9389613041807614,
+      "fee40_slip40": -6.922961304180761
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": -0.00021852342626324983,
+      "fee5_slip5": -0.00038950842626324985,
+      "fee10_slip10": -0.0005604934262632498,
+      "fee20_slip20": -0.0009024634262632498,
+      "fee40_slip40": -0.0015864734262632498
+    },
+    "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05
+  }
+}
