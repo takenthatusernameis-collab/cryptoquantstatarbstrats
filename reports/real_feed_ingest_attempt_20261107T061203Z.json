@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "20261107T061203Z",
+  "campaign": 128,
+  "real_data_only": true,
+  "fail_closed": true,
+  "attempt": "nonspot_ingest",
+  "result": "blocked_no_real_nonspot_artifact",
+  "rb_unblocked": true,
+  "rb_note": "Route-B proceeds on validated real_quote_volume family; nonspot ingest is not a blocker for C128.",
+  "blocked_routes": [
+    "no_real_nonspot_feed_artifact_present"
+  ],
+  "evidence": {
+    "checked_cache_dir": "data/cache",
+    "real_quote_volume_ok": true
+  },
+  "provenance": {
+    "source": "local_cache_scan",
+    "fabricated_data": false
+  }
+}

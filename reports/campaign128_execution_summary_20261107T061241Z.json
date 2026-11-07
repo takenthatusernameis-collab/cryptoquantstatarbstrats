@@ -1,0 +1,99 @@
+{
+  "campaign": 128,
+  "generated_at_utc": "20261107T061241Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "candidate": "VOLUME_RQA_LAMINARITY_SHOCK_MR",
+  "feature": "RQA laminarity %LAM (vertical-line fraction) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2,ALB=336,entry_z>=1.5,exit|z|<0.5,max_hold=24; exec t->t+1",
+  "wf": "720/168/168",
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "pre_stated_distinctness": {
+    "grep_hits_at_selection": 0,
+    "grep_verified_at_utc": "20261107T060636Z",
+    "grep_cmd": "grep -rn '%LAM|laminarity|trapping_time|TT_mean|rqa_tt|vert_line' scripts/ strategies/ backtest/ utils/",
+    "family": "RQA %LAM vertical structure",
+    "distinct_from": [
+      "C125 %REC density",
+      "C126 %DET diagonal fraction",
+      "C127 L_MEAN diagonal mean length",
+      "BDS",
+      "C104-C124 families"
+    ]
+  },
+  "pytest": {
+    "available": false,
+    "result": "No module named pytest",
+    "recorded_honestly": true
+  },
+  "ingest": {
+    "rb_unblocked": true,
+    "nonspot_blocker_blocks_rb": false,
+    "result": "blocked_no_real_nonspot_artifact"
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T060613Z.json",
+    "prior_registry_sha256": "7b38b7010f2a7beefaf023945c55f65958e69e3a28ba88ca14faf9497a12fd29",
+    "c127_oos": "reports/real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos_20261107T060312Z.json",
+    "c127_oos_sha256": "e124581738988c773c80708222036bdb9409fa420032040647d204412c18886f",
+    "c128_oos": "reports/real_quote_volume_rqa_laminarity_shock_mr_costed_oos_20261107T061014Z.json",
+    "c128_oos_sha256": "258016d68656db86ba699ef7527fc7d9ae5d41be34526b984705ca51bbb4f47a"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_laminarity_shock_mr_costed_oos_20261107T061014Z.json",
+      "exists": true,
+      "sha256": "258016d68656db86ba699ef7527fc7d9ae5d41be34526b984705ca51bbb4f47a",
+      "bytes": 567520
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_laminarity_shock_mr_costed_oos.py",
+      "exists": true,
+      "sha256": "b082181e3d0bf76062318705a8347565ea2fcc8c5af4780d3d48746ad32aa89f",
+      "bytes": 16302
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T061203Z.json",
+      "exists": true,
+      "sha256": "c1ac49fd2e83330ab39354373d2ae37e8944ea0a9d15e16dfbafb00052fe380d",
+      "bytes": 579
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T061222Z.json",
+      "exists": true,
+      "sha256": "39daf4a30c7973d7b9cabdf4bcf1950424670ff5db70f02a8df003ab937fe12c",
+      "bytes": 38903
+    },
+    {
+      "path": "reports/campaign128_execution_summary_20261107T061241Z.json",
+      "exists": true,
+      "sha256": "bce10889f320b4494f7487d1fa91016af2edfd49a6014cd962fbed468865d3fc",
+      "bytes": 2912
+    }
+  ],
+  "heavy_work_mandatory": true,
+  "no_status_before_3_artifacts": true
+}
