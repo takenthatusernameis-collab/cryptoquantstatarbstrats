@@ -1,0 +1,56 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T224422Z",
+  "campaign": 182,
+  "supersedes": "reports/strategy_edge_registry_20261107T223952Z.json",
+  "supersedes_sha256": "b311d5ca8a55dacb113af6448f079711dca8d0071bb684aa6a29b0a0b6d26ee2",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "global_oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "c182_entry": {
+    "strategy_id": "VOLUME_RQA_LAM_OVER_LAVG_RATIO_SHOCK_MR",
+    "campaign": 182,
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json",
+        "sha256": "bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T224422Z.json",
+        "sha256": "832bc3fa1307b207ab6feb80f33aaa90d19c24fda93b3312fb84b9683f22708b"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos.py",
+        "sha256": "fea1ccf31d8bf78731437dd7d8f3e64d590dc5e280d6285e055a78f87966ffe2"
+      }
+    },
+    "references": {
+      "c181_oos": {
+        "path": "reports/real_quote_volume_rqa_vmax_over_lavg_ratio_shock_mr_costed_oos_20261107T223952Z.json",
+        "sha256": "f01fd9687b472f502cae3bde2cd038af93e44e8b199c2c337837150fcd1a6335"
+      },
+      "prior_registry": {
+        "path": "reports/strategy_edge_registry_20261107T223952Z.json",
+        "sha256": "b311d5ca8a55dacb113af6448f079711dca8d0071bb684aa6a29b0a0b6d26ee2"
+      }
+    }
+  },
+  "prior_references": {
+    "c181_oos": {
+      "path": "reports/real_quote_volume_rqa_vmax_over_lavg_ratio_shock_mr_costed_oos_20261107T223952Z.json",
+      "sha256": "f01fd9687b472f502cae3bde2cd038af93e44e8b199c2c337837150fcd1a6335"
+    },
+    "prior_registry": {
+      "path": "reports/strategy_edge_registry_20261107T223952Z.json",
+      "sha256": "b311d5ca8a55dacb113af6448f079711dca8d0071bb684aa6a29b0a0b6d26ee2"
+    }
+  }
+}

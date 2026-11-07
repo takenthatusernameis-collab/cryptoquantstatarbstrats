@@ -1,0 +1,32 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T224422Z",
+  "campaign": 182,
+  "strategy_id": "VOLUME_RQA_LAM_OVER_LAVG_RATIO_SHOCK_MR",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "type": "oos",
+      "path": "reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json",
+      "sha256": "bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b"
+    },
+    {
+      "type": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T224422Z.json",
+      "sha256": "832bc3fa1307b207ab6feb80f33aaa90d19c24fda93b3312fb84b9683f22708b"
+    },
+    {
+      "type": "registry",
+      "path": "reports/strategy_edge_registry_20261107T224422Z.json",
+      "sha256": "f3ad154d951cba8e0b41cc91d78dee04f8fe966aa4139cb1700536ce7d90c86c"
+    },
+    {
+      "type": "script",
+      "path": "scripts/run_real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos.py",
+      "sha256": "fea1ccf31d8bf78731437dd7d8f3e64d590dc5e280d6285e055a78f87966ffe2"
+    }
+  ]
+}

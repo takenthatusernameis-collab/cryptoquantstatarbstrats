@@ -1,0 +1,44 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T224422Z",
+  "campaign": 182,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "reason": "no validated nonspot real feed available in this environment; nonspot routes not ingested",
+    "rb_unblocked": true,
+    "rb_unblocked_for": "validated real_quote_volume"
+  },
+  "validated_feeds": {
+    "real_quote_volume": {
+      "status": "validated",
+      "cache_files": {
+        "volume_1h_full.pkl": {
+          "path": "data/cache/volume_1h_full.pkl",
+          "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c"
+        },
+        "volume_1h_full.meta.json": {
+          "path": "data/cache/volume_1h_full.meta.json",
+          "sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616"
+        },
+        "volume_1h_full.provenance.json": {
+          "path": "data/cache/volume_1h_full.provenance.json",
+          "sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+        }
+      },
+      "provenance_verified": true
+    },
+    "spot_cache": {
+      "status": "validated",
+      "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+    }
+  },
+  "c182_context": {
+    "oos_artifact": "reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json",
+    "oos_sha256": "bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b",
+    "strategy_id": "VOLUME_RQA_LAM_OVER_LAVG_RATIO_SHOCK_MR"
+  }
+}
