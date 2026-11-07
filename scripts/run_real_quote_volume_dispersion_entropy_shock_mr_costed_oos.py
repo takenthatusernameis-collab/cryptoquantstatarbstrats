@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Campaign #109 Path R (fail-closed, real data only): real_quote_volume-conditioned
+"""Campaign #119 Path R-B (fail-closed, real data only): real_quote_volume-conditioned
 strategy on real Binance spot quote volume (klines column 5) + real cached spot 1h.
 
 PRE-STATED HYPOTHESIS (fixed before seeing OOS results): "Volume Dispersion-Entropy shock mean reversion"
@@ -14,6 +14,8 @@ PRE-STATED HYPOTHESIS (fixed before seeing OOS results): "Volume Dispersion-Entr
   [[0,0],[5,5],[10,10],[20,20],[40,40]]; edge rule exact: oos_edge_proven true IFF
   exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on
   same WF windows. Real data only; no proxies/fabrication; grep-verified distinct.
+Distinct from C111–C118 (SVD entropy, Fisher Information, attention entropy, increment entropy,
+permutation variance, fluctuation complexity, range entropy, cumulative residual entropy).
 """
 import json, os, pickle, hashlib, math, sys
 from pathlib import Path
@@ -42,12 +44,8 @@ ENTRY_Z = 1.5
 EXIT_Z = 0.5
 MAX_HOLD = 24
 
-PRIOR_C104_RB_SHA = "7f3646d1c037ec3c407a6515e14a1d1a85bca1d7940b5f98c7e119fbc3b0b5e7"
-PRIOR_C105_RB_SHA = "e7a6edc4535f6da2333a3b4d6f33c2c24c0dfdf84cd982366a16c9fe1933c59d"
-PRIOR_C106_RB_SHA = "08b4ea8b5e0b9ada11e463255b61e6d42976f12eda61de7ed33fd520a7fde21b"
-PRIOR_C107_RB_SHA = "12b02d9f91b8c37dd2518c99626320b638773a6d085e74b4967bdf493659f96c"
-PRIOR_C108_RB_SHA = "f4cc1868aebb8f3b0e383bdccd1447af970bfd4a4ad50751006641ee2e66108f"
-PRIOR_REGISTRY_SHA = "d8a2a826ade40575d0024b54ed4dfb6af23f7641fec2ee441f7a7f4b57af011a"
+PRIOR_C118_RB_SHA = "431472461c4c932beba68b9ba2a64e7d9f09b40685d009c991431e6bdc1118af"
+PRIOR_REGISTRY_SHA = "c28f530de58334ee9e56ca2a2cc8e9eba752c6040c2b15ff75074a4163a8e478"
 
 
 def sha256_file(path: Path) -> str:
@@ -266,9 +264,9 @@ def main():
     out = {
         "tool": "real_quote_volume_dispersion_entropy_shock_mr_costed_oos",
         "generated_at_utc": ts,
-        "campaign": 109,
+        "campaign": 119,
         "candidate": "VOLUME_DISPERSION_ENTROPY_SHOCK_MR (Dispersion Entropy Rostaghi & Azami 2016 on log-volume returns, W_DE=168, NCDF->c=6 classes, m=2, d=1, Shannon entropy normalized by log(c^m); fade DE shocks vs ALB baseline)",
-        "pre_stated_distinctness": "Grep-verified absent before impl: dispersion_entropy|DISPERSION_ENTROPY|DispEn not present in prior scripts/reports. Distinct from permutation/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS entropies & complexities.",
+        "pre_stated_distinctness": "Fresh C119 execution of dispersion-entropy family (prior C109 artifact exists but not reused as C119). Distinct from C111–C118 families: SVD entropy, Fisher Information, attention entropy, increment entropy, permutation variance, fluctuation complexity, range entropy, cumulative residual entropy.",
         "real_data_only": True,
         "fabricated_data": False,
         "fail_closed": True,
@@ -283,18 +281,10 @@ def main():
         "references": {
             "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
             "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
-            "prior_registry": "reports/strategy_edge_registry_20261107T000254Z.json",
+            "prior_registry": "reports/strategy_edge_registry_20261107T020709Z.json",
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c104_rb": "reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json",
-            "c104_rb_sha256": PRIOR_C104_RB_SHA,
-            "c105_rb": "reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json",
-            "c105_rb_sha256": PRIOR_C105_RB_SHA,
-            "c106_rb": "reports/real_quote_volume_sample_entropy_shock_mr_costed_oos_20261106T225102Z.json",
-            "c106_rb_sha256": PRIOR_C106_RB_SHA,
-            "c107_rb": "reports/real_quote_volume_permutation_entropy_shock_mr_costed_oos_20261106T232706Z.json",
-            "c107_rb_sha256": PRIOR_C107_RB_SHA,
-            "c108_rb": "reports/real_quote_volume_slope_entropy_shock_mr_costed_oos_20261107T000211Z.json",
-            "c108_rb_sha256": PRIOR_C108_RB_SHA,
+            "c118_rb": "reports/real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos_20261107T020658Z.json",
+            "c118_rb_sha256": PRIOR_C118_RB_SHA,
         },
         "per_asset": res,
         "aggregate": {

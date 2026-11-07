@@ -1,0 +1,38 @@
+{
+  "tool": "campaign119_execution_summary",
+  "generated_at_utc": "2026-11-07T02:11:44.780533+00:00",
+  "campaign": 119,
+  "status": "DONE",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "pytest": {
+    "outcome": "unavailable",
+    "detail": "python3 -m pytest -> No module named pytest (recorded honestly; not fabricated)",
+    "carried_forward_lineage_counts": "not rerun/fabricated"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T021053Z.json",
+      "sha256": "3eb0a9fb636afe31bd9b247d64dddc641bba3f70f7631faf0908c0415accd6d9",
+      "kind": "oos"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T021112Z.json",
+      "sha256": "fbb6e9cbae0994b1fbb7b71fd967c8955cb1161c91b3287b5308d323da723356",
+      "kind": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T021112Z.json",
+      "sha256": "a44a0764306ef11e94c4d65521093fa8722b114c86fa5f38d4dd887db4ed1ee6",
+      "kind": "registry"
+    },
+    {
+      "path": "reports/campaign119_execution_summary_20261107T021112Z.json",
+      "sha256": "cea948fb45d130d5b7ab91e5bfcbee03aa31cab586a22c52230cd5d07bab208e",
+      "kind": "summary"
+    }
+  ]
+}

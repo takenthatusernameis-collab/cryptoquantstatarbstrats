@@ -1,0 +1,24 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "2026-11-07T02:11:44.780533+00:00",
+  "campaign": 119,
+  "result": "IMPOSSIBLE_WITH_AVAILABLE_REAL_ARTIFACTS_FAIL_CLOSED",
+  "reason": "No real nonspot artifacts present in data/cache or workspace for any blocked family; cannot fabricate. Only real_quote_volume validated and tested.",
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "validated_only_family": "real_quote_volume",
+  "cache_audit": {
+    "dir": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache",
+    "note": "spot/quote-volume cache present; no real nonspot artifacts for blocked families (fail-closed)."
+  },
+  "actions_taken": [],
+  "operator_instruction": "Place a real, verifiable artifact for exactly one blocked family into data/cache/ with matching .meta.json and .provenance.json (fail-closed schema) to enable ingest/unblock audit.",
+  "rb_unblocked": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true
+}
