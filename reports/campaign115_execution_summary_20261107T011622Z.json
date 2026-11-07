@@ -1,0 +1,59 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T011622Z",
+  "campaign": 115,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "c104_c114_status": "DONE_oos_edge_proven_false_no_rerun",
+  "step0_distinctness": {
+    "grep_verified_absent_before_impl": true,
+    "checked": [
+      "scripts/",
+      "reports/"
+    ],
+    "terms": [
+      "permutation_variance",
+      "PermutationVariance"
+    ],
+    "result": "no existing C115 permutation-variance OOS script/report found"
+  },
+  "step1_c115": {
+    "candidate": "VOLUME_PERMUTATION_VARIANCE_SHOCK_MR",
+    "feature": "Bandt-Pompe ordinal patterns m=4,tau=1 over log-volume returns within W_PV=168; PMF variance*24 normalized by (23/576) to [0,1]-like (clipped); fail-closed on non-finite/degenerate windows",
+    "signal": "z=(PV-ALB_mean)/ALB_std ALB=336; entry_z>=1.5 fade shock (z>0 short, z<0 long); exit_z<0.5 or max_hold=24 or flip; execution t->t+1 no lookahead",
+    "wf": "720/168/168",
+    "cost_grid": "[[0,0],[5,5],[10,10],[20,20],[40,40]]",
+    "bh": "same OOS windows",
+    "script": "scripts/run_real_quote_volume_permutation_variance_shock_mr_costed_oos.py",
+    "script_sha256": "20906dbb527728755ad901e37682fd36ff510bb3c4e45cbdb1d3b76cbd23024c",
+    "artifact": "real_quote_volume_permutation_variance_shock_mr_costed_oos_20261107T011457Z.json",
+    "artifact_sha256": "89fcc7ef8a3e46cca630c8c7ebe4f9f1daa6dfdc1f88541987b8f84f288ea807",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE"
+  },
+  "step2": {
+    "ingest_attempt": {
+      "artifact": "real_feed_ingest_attempt_20261107T011622Z.json",
+      "sha256": "665115ac33325fc667b14a274251c745f730b29737019828e48568a17f66a67c",
+      "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+      "rb_unblocked": true
+    },
+    "pytest": {
+      "command": "python3 -m pytest tests/ -q",
+      "rc": 1,
+      "output_tail": "/usr/bin/python3: No module named pytest",
+      "recorded_honestly": true,
+      "note": "pytest not installed in this env; counts carried forward from lineage (928 passed/1 skipped/0 failed) \u2014 not fabricated in this run."
+    },
+    "registry": {
+      "artifact": "strategy_edge_registry_20261107T011622Z.json",
+      "sha256": "8671a00563e585535bdd3631260fd2874ecd2cff731fface7cf250f16e06b647",
+      "supersedes": "strategy_edge_registry_20261107T011022Z.json",
+      "supersedes_sha256": "ffcacca26a732efbab8ab908ed43aceb3cb4cecb3724960ea46117eacdbeeabe"
+    }
+  },
+  "nonspot_blocker": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT (does not block R-B on real_quote_volume)",
+  "edge_claim": "NONE",
+  "next_campaign": "C116 R-B VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR (grep-verify distinctness before impl; fall back to VOLUME_RANGE_ENTROPY_SHOCK_MR or VOLUME_CUMULATIVE_RESIDUAL_ENTROPY_SHOCK_MR if duplicated). Mandatory: impl+run+>=3 artifacts, no status-only replies, real data only, fail-closed, edge rule exact."
+}

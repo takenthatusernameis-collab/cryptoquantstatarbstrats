@@ -1,0 +1,76 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T011622Z",
+  "campaign": 115,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": "strategy_edge_registry_20261107T011022Z.json",
+  "supersedes_sha256": "ffcacca26a732efbab8ab908ed43aceb3cb4cecb3724960ea46117eacdbeeabe",
+  "edge_claim": "NONE",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "carry_forward_note": "Carries C111-C114 entries from superseded registry and adds C115; C104-C110 remain oos_edge_proven=false per lineage (see superseded chain through strategy_edge_registry_20261107T011022Z.json).",
+  "entries": [
+    {
+      "campaign": 111,
+      "candidate": "VOLUME_SVD_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_svd_entropy_shock_mr_costed_oos_20261107T001622Z.json",
+      "sha256": "61f0aba3623fe7aa4b54e529bb167551de6313d6471b8f8bb0140fb7aa6a3baf",
+      "script": "scripts/run_real_quote_volume_svd_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "085de015a1045d8e0db61cd24ffa2184a9198aaaf67eba55106719cb76a2025d",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "SVD entropy (Hankel embedding m=10,d=1, W_SVD=168, Shannon entropy of normalized singular values normalized by log(k)) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 112,
+      "candidate": "VOLUME_FISHER_INFORMATION_SHOCK_MR",
+      "artifact": "real_quote_volume_fisher_information_shock_mr_costed_oos_20261107T001916Z.json",
+      "sha256": "893fe91b513dc5a7f41e6d6104ce8d6d7eaf4bcd764091abade13905782a30f6",
+      "script": "scripts/run_real_quote_volume_fisher_information_shock_mr_costed_oos.py",
+      "script_sha256": "bc5430e543db920e0d5ab2ce9a9c5b50cb70592e510daa7f54d4b3686b3131a1",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Fisher Information (amplitude form/PMF binning) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 113,
+      "candidate": "VOLUME_ATTENTION_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_attention_entropy_shock_mr_costed_oos_20261107T010650Z.json",
+      "sha256": "2f44c98d8cbd01e596aa21cc8990703bf69aba11c1b9d498a95838bb35d2980a",
+      "script": "scripts/run_real_quote_volume_attention_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "b67c93ee40aca8baaf0df0906f9ff2ae9f3ab49bb57a3b64b1630961299e05e4",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Attention entropy (softmax self-attention distribution entropy over scalar dot-product scores r_i*r_j within W_ATT=168, mean H_i) on log-volume returns; fade shocks vs ALB=336. Distinct from C112 Fisher Information. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 114,
+      "candidate": "VOLUME_INCREMENT_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_increment_entropy_shock_mr_costed_oos_20261107T011021Z.json",
+      "sha256": "de01ac8b96b8453ab728205d4d94e1939405d1b25f6bb43e91e2c307626d19d9",
+      "script": "scripts/run_real_quote_volume_increment_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "e6718f9fd1ac4eb43d84b10acf96b444f8a2251ec9476ddf542ada414fdef140",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Increment entropy (normalized Shannon entropy of quantized increment symbols d_t=r_t-r_{t-1} over log-volume returns within W_INC=168, Q=10 equal-width bins; fade shocks vs ALB=336). Distinct from C113 attention entropy and all prior entropy/complexity families (Fisher Information, SVD/bubble/dispersion/permutation/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS). WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 115,
+      "candidate": "VOLUME_PERMUTATION_VARIANCE_SHOCK_MR",
+      "artifact": "real_quote_volume_permutation_variance_shock_mr_costed_oos_20261107T011457Z.json",
+      "sha256": "89fcc7ef8a3e46cca630c8c7ebe4f9f1daa6dfdc1f88541987b8f84f288ea807",
+      "script": "scripts/run_real_quote_volume_permutation_variance_shock_mr_costed_oos.py",
+      "script_sha256": "20906dbb527728755ad901e37682fd36ff510bb3c4e45cbdb1d3b76cbd23024c",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Bandt-Pompe ordinal patterns m=4,tau=1 over log-volume returns within W_PV=168; PMF variance*24 normalized by (23/576) to [0,1]-like (stated in artifact); fade permutation-variance shocks vs ALB=336. Distinct from permutation-entropy families and C104-C114 (increment/attention/Fisher Information, SVD/bubble/dispersion/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS). WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    }
+  ],
+  "nonspot_ingest": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "rb_unblocked": true,
+    "artifact": "real_feed_ingest_attempt_20261107T011622Z.json",
+    "sha256": "665115ac33325fc667b14a274251c745f730b29737019828e48568a17f66a67c"
+  }
+}
