@@ -1,4 +1,4 @@
-## READ THIS FIRST — C121 INITIAL TASK (20261107T030900Z, refreshed for next agentic session; single durable handoff)
+## READ THIS FIRST — C121 INITIAL TASK (20261107T031217Z, refreshed for next agentic session; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
@@ -7,14 +7,15 @@ Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed b
 
 ### Verified current state (do not rerun unchanged)
 - C104–C119 DONE → `oos_edge_proven=false` (registry lineage). Do NOT rerun.
-- **C120 DONE (20261107T030455Z–030825Z):** `VOLUME_MULTISCALE_SAMPLE_ENTROPY_SHOCK_MR` (Multiscale Sample Entropy, Costa et al. 2005; coarse-grain log-volume returns at scales tau={2,3,5}, SampEn m=2, r=0.2*std excluding self-matches, feature=mean finite SampEn across scales; fade MSE shocks vs ALB=336; entry_z>=1.5, exit_z<0.5, max_hold=24; WF 720/168/168; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]; B&H same OOS windows) — `oos_edge_proven=false`, `edge_claim: NONE`.
+- **C120 DONE (20261107T030455Z–030825Z):** `VOLUME_MULTISCALE_SAMPLE_ENTROPY_SHOCK_MR` — `oos_edge_proven=false`, `edge_claim: NONE`.
   - OOS: `reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json` (sha256 `53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382`, `real_data_only=true`, `fail_closed=true`).
-  - Script: `scripts/run_real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos.py` (sha256 `e85cc6de5487238e2e2a67f2a58e5ead34029020268f2ff2d2013c8fc6da52c7`; fresh C120 run).
+  - Script: `scripts/run_real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos.py` (sha256 `e85cc6de5487238e2e2a67f2a58e5ead34029020268f2ff2d2013c8fc6da52c7`).
   - Ingest: `reports/real_feed_ingest_attempt_20261107T030825Z.json` (sha256 `4643ee44272b54d22df7c8f6e0b009cf42588a9e84ad58ee4c90ee14fe7360f2`, fail-closed blocked/no real nonspot artifact; `rb_unblocked=true`).
-  - Registry (latest, supersedes C119): `reports/strategy_edge_registry_20261107T030825Z.json` (sha256 `0b5aa8bd669e31480ffdc5ff0b34fd5f328e914fc9e0854adab538f54147836a`, supersedes `strategy_edge_registry_20261107T021112Z.json` sha `a44a0764306ef11e94c4d65521093fa8722b114c86fa5f38d4dd887db4ed1ee6`; structurally consistent `campaign/supersedes/lineage`; includes C118+C119+C120; `edge_claim: NONE`).
+  - Registry (latest): `reports/strategy_edge_registry_20261107T030825Z.json` (sha256 `0b5aa8bd669e31480ffdc5ff0b34fd5f328e914fc9e0854adab538f54147836a`; supersedes C119 registry `20261107T021112Z` sha `a44a0764306ef11e94c4d65521093fa8722b114c86fa5f38d4dd887db4ed1ee6`; includes C118+C119+C120; `edge_claim: NONE`).
   - Summary: `reports/campaign120_execution_summary_20261107T030825Z.json` (sha256 `8cda15ea8a517d651e15419a13e75d36a294b25b8446c62f7d8a47b9686f284e`).
   - Pytest: `python3 -m pytest -q --tb=no` → `No module named pytest` (recorded honestly; not fabricated).
 - Real data preconditions OK (do not re-scan/fetch): `data/cache/volume_1h_full.{pkl,meta.json,provenance.json}`, `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` present.
+- Python deps OK: `numpy, scipy, pandas` importable. pytest NOT installed (`No module named pytest`); record honestly.
 
 ### NEXT FOCUS CAMPAIGN — C121 R-B new unused entropy/complexity family (MANDATORY, HEAVY WORK)
 
@@ -58,6 +59,7 @@ ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/
 - Registry structural consistency restored for C120 and carried forward as requirement.
 - C121 candidate guidance with explicit distinctness requirement to avoid invalid rerun.
 - "No status before >=3 new artifacts" + mandatory run — forces heavy work.
+- pytest unavailable recorded honestly — do not fabricate test results.
 
 ### Immediate first action
 ```bash
