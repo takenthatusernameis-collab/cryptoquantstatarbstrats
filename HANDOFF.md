@@ -1,29 +1,29 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T104346Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T105206Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Prioritization (from repo name):** fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
 
-## INITIAL TASK FOR NEXT SESSION — C149 (MANDATORY, HEAVY WORK, START NOW)
+## INITIAL TASK FOR NEXT SESSION — C150 (MANDATORY, HEAVY WORK, START NOW)
 
-C104–C148 DONE — do NOT rerun. `pytest` unavailable (honestly recorded — do not fabricate test results). `numpy/scipy/pandas` importable. Caches present (`data/cache/volume_1h_full.{pkl,meta.json,provenance.json}`, `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}`).
+C104–C149 DONE — do NOT rerun. `pytest` unavailable (honestly recorded — do not fabricate test results). `numpy/scipy/pandas` importable. Caches present (`data/cache/volume_1h_full.{pkl,meta.json,provenance.json}`, `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}`).
 
 **Readiness (run first, fail-closed):**
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python3 -c "import numpy,scipy,pandas; print('deps_ok')"
 ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl
-grep -rn 'lmax_over_entr|lmax_entr_ratio|rqa_ratio_lmax_entr|LMAX_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l   # must be 0 non-self
+grep -rn 'det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l   # must be 0 non-self
 ```
 
-**Primary C149 candidate (pre-selected, grep-zero verified 20261107T104346Z — re-verify at run time):** `VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR` — RQA ratio `RATIO_LMAX_ENTR = L_max / ENTR` (max diagonal line length normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns (`m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2`). `ENTR` = -sum p(l)*ln(p(l)) over qualifying diagonal lines (natural log raw, C130/C146-consistent). `L_max` = maximum qualifying diagonal-line length (`l>=l_min`, main diagonal excluded). Fail-closed NaN/no-signal if `ENTR<=0`, no qualifying diagonal lines, `L_max` undefined/non-finite, offdiag/recurrence degenerate, or undefined. Distinct from C125–C148 (incl C129 L_max direct, C130 ENTR direct, C146 %DET/ENTR, C147 %LAM/ENTR, C148 ENTR/%LAM) — C149 trades `L_max/ENTR`. **Re-verify grep at run time (collision guard). If collision, pick next distinct alternative (`VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR` `%DET/TT` fail-closed on `TT<=0`/no qualifying vertical lines/`%DET` undefined/non-finite/offdiag-degenerate/undefined; or `VOLUME_RQA_TT_OVER_LMAX_RATIO_SHOCK_MR` `TT/L_max` fail-closed on `L_max<=0`/no qualifying diagonal lines/`TT` undefined/non-finite), re-grep, and record chosen feature + grep evidence.**
+**Primary C150 candidate (pre-selected, grep-zero verified 20261107T105206Z — re-verify at run time):** `VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR` — RQA ratio `RATIO_DET_TT = %DET / TT` (determinism normalized by trapping time) on delay-embedded log-volume returns (`m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2`). `%DET` = (sum of diagonal-line points for qualifying diagonal lines `l>=l_min`, main diagonal excluded) / (offdiag recurrence sum). `TT` = mean qualifying vertical-line length (`l>=l_min`). Fail-closed NaN/no-signal if `TT<=0`, no qualifying vertical lines, `%DET` undefined/non-finite, offdiag/recurrence degenerate, or undefined. Distinct from C125–C149 (incl C126 %DET direct, C128 TT direct, C140 %RR/TT, C141 %DET/TT, C143 %LAM/TT, C145 TT/%RR) — C150 trades `%DET/TT`. **Re-verify grep at run time (collision guard). If collision, pick next distinct alternative (`VOLUME_RQA_TT_OVER_LMAX_RATIO_SHOCK_MR` `TT/L_max` fail-closed on `L_max<=0`/no qualifying diagonal lines/`TT` undefined/non-finite; or `VOLUME_RQA_TT_OVER_DET_RATIO_SHOCK_MR` `TT/%DET` fail-closed on `%DET<=0`/no qualifying diagonal lines/`TT` undefined/non-finite), re-grep, and record chosen feature + grep evidence.**
 
-Implement `scripts/run_real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos.py` (or chosen alternative) modeled on C148/C147 scripts (copy WF/cost/B&H/SHA/report structure; change only feature computation, IDs, `pre_stated_distinctness`/refs to latest registry `strategy_edge_registry_20261107T104346Z.json` sha `380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2` and C148 OOS sha `ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0`). Run it to emit `reports/real_quote_volume_rqa_<chosen>_costed_oos_<UTC>.json` with all top-level gate fields (`oos_edge_proven`, `any_exposure_oos`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`, `cross_asset.oos_net_sums`), `edge_claim: NONE`, `real_data_only:true`, `fail_closed:true`, and `pre_stated_distinctness` recording grep cmd/hits/evidence.
+Implement `scripts/run_real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos.py` (or chosen alternative) modeled on C149/C148 scripts (copy WF/cost/B&H/SHA/report structure; change only feature computation, IDs, `pre_stated_distinctness`/refs to latest registry `strategy_edge_registry_20261107T105206Z.json` sha `5cfc9cd4f99aee9f7d5e56f58b1a1ecf1508098dbe0b83423327002e17bc9e7c` and C149 OOS sha `3c3e70d9f85537e9287d18d508a9e2364252c2119bcb320d923e06ece2a8425c`). Run it to emit `reports/real_quote_volume_rqa_<chosen>_costed_oos_<UTC>.json` with all top-level gate fields (`oos_edge_proven`, `any_exposure_oos`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`, `cross_asset.oos_net_sums`), `edge_claim: NONE`, `real_data_only:true`, `fail_closed:true`, and `pre_stated_distinctness` recording grep cmd/hits/evidence.
 
 ### Step 1 — Ingest + registry + summary (MANDATORY)
-1. Ingest: `reports/real_feed_ingest_attempt_<UTC>.json` (campaign 149) — record nonspot blocked fail-closed, `rb_unblocked:true` for validated `real_quote_volume` family.
-2. Registry: `reports/strategy_edge_registry_<UTC>.json` superseding `strategy_edge_registry_20261107T104346Z.json` (sha `380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2`). Structurally consistent `campaign/supersedes/supersedes_sha256/lineage/campaigns`; include C142–C148 context/entries and add C149 with artifacts/SHAs/scripts; `edge_claim: NONE` unless edge rule holds.
-3. Summary: `reports/campaign149_execution_summary_<UTC>.json` listing all new artifact paths + sha256 (SHAs computed from bytes on disk): OOS, ingest, registry, script.
-4. Sync `research_state/state.yaml`: `latest_campaign_done: C149`, `next_campaign: C150`, latest registry sha, latest OOS path/sha, `oos_edge_proven` from emitted report, `c150_preselected` with a distinct grep-verified RQA-ratio candidate not used in C125–C149.
+1. Ingest: `reports/real_feed_ingest_attempt_<UTC>.json` (campaign 150) — record nonspot blocked fail-closed, `rb_unblocked:true` for validated `real_quote_volume` family.
+2. Registry: `reports/strategy_edge_registry_<UTC>.json` superseding `strategy_edge_registry_20261107T105206Z.json` (sha `5cfc9cd4f99aee9f7d5e56f58b1a1ecf1508098dbe0b83423327002e17bc9e7c`). Structurally consistent `campaign/supersedes/supersedes_sha256/lineage/campaigns`; include C143–C149 context/entries and add C150 with artifacts/SHAs/scripts; `edge_claim: NONE` unless edge rule holds.
+3. Summary: `reports/campaign150_execution_summary_<UTC>.json` listing all new artifact paths + sha256 (SHAs computed from bytes on disk): OOS, ingest, registry, script.
+4. Sync `research_state/state.yaml`: `latest_campaign_done: C150`, `next_campaign: C151`, latest registry sha, latest OOS path/sha, `oos_edge_proven` from emitted report, `c151_preselected` with a distinct grep-verified RQA-ratio candidate not used in C125–C150.
 
 ## Fail-closed edge rule (exact)
 `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. No gate/threshold weakening. WF `720/168/168`, cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same OOS windows.
@@ -32,32 +32,32 @@ Implement `scripts/run_real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_coste
 - Real data only; fail-closed always. No proxies labeled real; no fabricated feeds/provenance/results.
 - No pairs/feed re-scans on same stale cache; no prior campaign reruns unchanged; no gate/threshold weakening.
 - Edge claim ONLY if conditions above hold.
-- Pre-state distinctness; grep-verify before implementation/run (C149 collision guard required; record chosen feature + grep evidence).
-- **No status summary before >= 3 new concrete C149 report artifacts exist** (OOS + ingest + registry/summary).
+- Pre-state distinctness; grep-verify before implementation/run (C150 collision guard required; record chosen feature + grep evidence).
+- **No status summary before >= 3 new concrete C150 report artifacts exist** (OOS + ingest + registry/summary).
 - **Heavy work mandatory:** implement/run + artifact emission; no status-only replies.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
 
-## Bottlenecks removed (confirmed 20261107T104346Z)
-- C104–C147 locked; no reruns unchanged. Carry forward latest registry `strategy_edge_registry_20261107T104346Z.json` (sha `380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2`).
-- C148 completed heavy; all artifacts emitted with disk-verified SHAs; state.yaml/HANDOFF synced to C148-done/C149-next.
+## Bottlenecks removed (confirmed 20261107T105206Z)
+- C104–C148 locked; no reruns unchanged. Carry forward latest registry `strategy_edge_registry_20261107T105206Z.json` (sha `5cfc9cd4f99aee9f7d5e56f58b1a1ecf1508098dbe0b83423327002e17bc9e7c`).
+- C149 completed heavy; all artifacts emitted with disk-verified SHAs; state.yaml/HANDOFF synced to C149-done/C150-next.
 - `numpy/scipy/pandas` importable.
-- C149 primary pre-selected and grep-zero verified (20261107T104346Z): `VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR` (`L_max/ENTR`).
-- `"No status before >=3 new artifacts"` + mandatory run — forces heavy work for C149.
+- C150 primary pre-selected and grep-zero verified (20261107T105206Z): `VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR` (`%DET/TT`).
+- `"No status before >=3 new artifacts"` + mandatory run — forces heavy work for C150.
 - `pytest` unavailable recorded honestly — do not fabricate test results.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
 
-## C148 result (locked, do not rerun)
-- `VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR` (ENTR/%LAM, inverse of C147), campaign 148, `oos_edge_proven:false`, `edge_claim:NONE`.
-- OOS: `reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json` (sha `ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0`). `any_exposure_oos:true`; cross-asset net sums `fee0=+0.340290, fee5=+0.015290, fee10=-0.309710, fee20=-0.959710, fee40=-2.259710`; `all_cost_slices_positive_oos_net_sum:false`; `all_cost_slices_beat_bh_mean_rule:false`.
-- Ingest: `reports/real_feed_ingest_attempt_20261107T104346Z.json` (sha `176149fa373c6c5e3fb15703da6e4811a8ec0c5da17baed0f49c51920c8a79d1`).
-- Registry: `reports/strategy_edge_registry_20261107T104346Z.json` (sha `380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2`, supersedes C147 `68e8d689...`).
-- Summary: `reports/campaign148_execution_summary_20261107T104346Z.json` (sha `c9bc2a95b6d19e068d28c2ac8d5a56de57fd41277716a32ec33d8e8875a88b51`).
-- Script: `scripts/run_real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos.py` (sha `5f780976f00fb75150bc3e5b16e21014a56c1c92a9b877b1d2c85e48d113a3a3`). Distinctness grep hits pre=0.
+## C149 result (locked, do not rerun)
+- `VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR` (L_max/ENTR), campaign 149, `oos_edge_proven:false`, `edge_claim:NONE`.
+- OOS: `reports/real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos_20261107T105206Z.json` (sha `3c3e70d9f85537e9287d18d508a9e2364252c2119bcb320d923e06ece2a8425c`). `any_exposure_oos:true`; cross-asset net sums `fee0=+0.177548, fee5=-0.187452, fee10=-0.552452, fee20=-1.282452, fee40=-2.742452`; `all_cost_slices_positive_oos_net_sum:false`; `all_cost_slices_beat_bh_mean_rule:false`.
+- Ingest: `reports/real_feed_ingest_attempt_20261107T105206Z.json` (sha `75a536816bd6e5beef99bd9c66a1167112bb098b4cfea106e8c19f9a670db073`).
+- Registry: `reports/strategy_edge_registry_20261107T105206Z.json` (sha `5cfc9cd4f99aee9f7d5e56f58b1a1ecf1508098dbe0b83423327002e17bc9e7c`, supersedes C148 `380aa7cc...`).
+- Summary: `reports/campaign149_execution_summary_20261107T105206Z.json` (sha `900c9ddf86b8fd75481c6ba0452c029a7f0f6fa9a373dc7c131d9b3728019ace`).
+- Script: `scripts/run_real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos.py` (sha `6f9ae9c60d41e58ba6c25a257112ede41dc60f630586a4e795c32a6fd32aeed4`). Distinctness grep hits pre=0.
 
 ## Immediate first action
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python3 -c "import numpy,scipy,pandas; print('deps_ok')"
-grep -rn 'lmax_over_entr|lmax_entr_ratio|rqa_ratio_lmax_entr|LMAX_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l
+grep -rn 'det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l
 ```
-Then implement and run the C149 L_max/ENTR (or collision-safe alternative) OOS script, emit ingest/registry/summary, and sync `research_state/state.yaml` to C149-done/C150-next. **Do not stop until C149 is properly complete with >=3 new artifacts and state.yaml synced. No status-only response.**
+Then implement and run the C150 %DET/TT (or collision-safe alternative) OOS script, emit ingest/registry/summary, and sync `research_state/state.yaml` to C150-done/C151-next. **Do not stop until C150 is properly complete with >=3 new artifacts and state.yaml synced. No status-only response.**
