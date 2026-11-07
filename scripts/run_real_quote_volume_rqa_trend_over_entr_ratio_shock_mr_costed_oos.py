@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C161: RQA ratio L_max/TREND (max diagonal line length normalized by diagonal recurrence TREND slope) shock on delay-embedded log-volume returns (real data only).
+"""C162: RQA ratio TREND/ENTR (diagonal recurrence TREND slope normalized by diagonal-line Shannon entropy) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_TREND_OVER_ENTR_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
@@ -10,18 +10,15 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
   l>=l_min=2). TREND = linear regression slope (least squares) of recurrence point
   displacement (1-based index j>=1 along each qualifying diagonal line, from its start)
   against that index, computed over all qualifying diagonal-line recurrence points
-  (pooled). RATIO_LMAX_TREND = L_max / TREND.
-  Fail-closed to NaN/no-signal if TREND==0 or undefined/non-finite (regression
-  degenerate/insufficient qualifying diagonal points), L_max<=0 or undefined/non-finite,
-  no qualifying diagonal lines, offdiag/recurrence degenerate, or undefined.
-  Causal trailing only. Inverse of C160 TREND/L_max; distinct feature id/implementation/hypothesis.
+  (pooled). ENTR = Shannon entropy -sum p(l) log p(l) over qualifying diagonal line
+  lengths. RATIO_TREND_ENTR = TREND / ENTR.
+  Fail-closed to NaN/no-signal if ENTR<=0 or undefined/non-finite, TREND undefined/
+  non-finite (regression degenerate/insufficient qualifying diagonal points), no
+  qualifying diagonal lines, offdiag/recurrence degenerate, or undefined.
+  Causal trailing only. Distinct from C125-C161 (incl C161 L_max/TREND inverse,
+  C160 TREND/L_max, C159 TT/ENTR, C158 %LAM/L_max, C157 RR/ENTR).
 
-Distinctness (grep-verified at run time; collision guard): trend_over_entr|lmax_trend_ratio|rqa_ratio_lmax_trend|TREND_OVER_ENTR
-  over scripts/ strategies/ backtest/ utils/ — re-verified before implementation/run; primary candidate used.
-  Distinct from C125-C160 (incl C160 TREND/L_max — inverse ratio but distinct feature/id/implementation/hypothesis;
-  C159 TT/ENTR, C158 %LAM/L_max, C157 RR/ENTR). C161 trades L_max/TREND.
-
-Signal (fail-closed MR): z = (RATIO_LMAX_TREND - ALB_mean) / ALB_std, ALB=336.
+Signal (fail-closed MR): z = (RATIO_TREND_ENTR - ALB_mean) / ALB_std, ALB=336.
   entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
   max_hold=24 or flip. Exec t -> t+1.
 WF/costs/B&H (exact): 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]],
@@ -54,10 +51,10 @@ VOL_PKL = cache_dir / "volume_1h_full.pkl"
 VOL_META = cache_dir / "volume_1h_full.meta.json"
 VOL_PROV = cache_dir / "volume_1h_full.provenance.json"
 
-PRIOR_REGISTRY = "reports/strategy_edge_registry_20261107T134336Z.json"
-PRIOR_REGISTRY_SHA = "a58ce4fc7161ec10340d6ec1183deabd7cf647abd83ad890f32e59356eb1a86a"
-PRIOR_C160_OOS = "reports/real_quote_volume_rqa_trend_over_lmax_ratio_shock_mr_costed_oos_20261107T134222Z.json"
-PRIOR_C160_OOS_SHA = "90e7d1b0aa2d41d8d8af2446c4f4d28d80f1d605343318cb612f9740a2a6e3c8"
+PRIOR_REGISTRY = "reports/strategy_edge_registry_20261107T135406Z.json"
+PRIOR_REGISTRY_SHA = "17048b6cb9a9c2aea40c2ad20cc8e4f1be1930fb00d12646fe6a47e9356cf2d0"
+PRIOR_C161_OOS = "reports/real_quote_volume_rqa_lmax_over_trend_ratio_shock_mr_costed_oos_20261107T135204Z.json"
+PRIOR_C161_OOS_SHA = "de217c58dc141fffbd09e8b7a850094f3253e79788b612083e7b2a37200c95bf"
 
 W_RR = 168
 ALB = 336
@@ -74,9 +71,9 @@ TEST = 168
 STEP = 168
 COST_GRID = [[0, 0], [5, 5], [10, 10], [20, 20], [40, 40]]
 
-DISTINCTNESS_GREP = "grep -rn 'trend_over_entr|lmax_trend_ratio|rqa_ratio_lmax_trend|TREND_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1"
+DISTINCTNESS_GREP = "grep -rn 'trend_over_entr|trend_entr_ratio|rqa_ratio_trend_entr|TREND_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1"
 DISTINCTNESS_HITS_PRE = 0
-DISTINCTNESS_VERIFIED_UTC = "20261107T135009Z"
+DISTINCTNESS_VERIFIED_UTC = "20261107T135406Z"
 
 
 def sha256_file(p: Path) -> str:
@@ -382,20 +379,22 @@ def main():
     out = {
         "tool": "real_quote_volume_rqa_trend_over_entr_ratio_shock_mr_costed_oos",
         "generated_at_utc": ts,
-        "campaign": 161,
+        "campaign": 162,
         "strategy_id": "VOLUME_RQA_TREND_OVER_ENTR_RATIO_SHOCK_MR",
-        "candidate": "VOLUME_RQA_TREND_OVER_ENTR_RATIO_SHOCK_MR (RQA ratio L_max/TREND, max diagonal line length normalized by diagonal recurrence TREND slope, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_LMAX_TREND shocks vs ALB=336)",
-        "feature_definition": "RATIO_LMAX_TREND = L_max / TREND. L_max = maximum length of qualifying diagonal lines (k!=0, main diagonal excluded, l>=l_min). TREND = least-squares slope of recurrence point displacement (1-based index j>=1 along each qualifying diagonal line, from its start) vs j, pooled over all qualifying diagonal-line points. Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if TREND==0 or undefined/non-finite (regression degenerate/insufficient qualifying diagonal points), L_max<=0 or undefined/non-finite, no qualifying diagonal lines, offdiag/recurrence degenerate, or undefined. Inverse of C160 TREND/L_max; distinct feature id/implementation/hypothesis.",
+        "candidate": "VOLUME_RQA_TREND_OVER_ENTR_RATIO_SHOCK_MR (RQA ratio TREND/ENTR, diagonal recurrence TREND slope normalized by diagonal-line Shannon entropy, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_TREND_ENTR shocks vs ALB=336)",
+        "feature_definition": "RATIO_TREND_ENTR = TREND / ENTR. TREND = least-squares slope of recurrence point displacement (1-based index j>=1 along each qualifying diagonal line, from its start) vs j, pooled over all qualifying diagonal-line recurrence points. ENTR = Shannon entropy -sum p(l) log p(l) over qualifying diagonal line lengths. L_max = maximum length of qualifying diagonal lines (k!=0, main diagonal excluded, l>=l_min). Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if ENTR<=0 or undefined/non-finite, TREND undefined/non-finite (regression degenerate/insufficient qualifying diagonal points), no qualifying diagonal lines, offdiag/recurrence degenerate, or undefined. Distinct from C161 L_max/TREND (inverse ratio, distinct numerator/denominator), C160 TREND/L_max, C159 TT/ENTR, C158 %LAM/L_max, C157 RR/ENTR.",
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
             "grep_hits_at_selection": DISTINCTNESS_HITS_PRE,
             "grep_verified_at_utc": DISTINCTNESS_VERIFIED_UTC,
             "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
-            "selection_note": "Primary C161 candidate from HANDOFF/state.yaml; grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C160 (incl C159 TT/ENTR, C158 %LAM/L_max, C157 RR/ENTR, C160 TREND/L_max). C161 trades L_max/TREND.",
-            "family": "RQA L_max/TREND ratio (max diagonal line length normalized by diagonal recurrence TREND slope) shock on volume dynamics",
-            "distinct_from_c160_trend_over_lmax": "C160 trades TREND/L_max (TREND slope numerator, L_max denominator); C161 trades L_max/TREND (L_max numerator, TREND slope denominator) — inverse ratio, distinct strategy id and feature computation direction.",
-            "distinct_from_c159_tt_over_entr": "C159 trades TT/ENTR; C161 trades L_max/TREND, distinct numerator (L_max vs TT_mean) and denominator (TREND vs ENTR).",
-            "distinct_from_c158_lam_over_lmax": "C158 trades %LAM/L_max; C161 uses L_max numerator and TREND denominator (distinct ratio).",
+            "selection_note": "Primary C162 candidate from HANDOFF/state.yaml (TREND/ENTR); grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C161 (incl C161 L_max/TREND, C160 TREND/L_max, C159 TT/ENTR, C158 %LAM/L_max, C157 RR/ENTR, C155 ENTR/L_max, C156 RR/L_max). C162 trades TREND/ENTR.",
+            "family": "RQA TREND/ENTR ratio (diagonal recurrence TREND slope normalized by diagonal-line Shannon entropy) shock on volume dynamics",
+            "distinct_from_c161_lmax_over_trend": "C161 trades L_max/TREND (L_max numerator, TREND denominator); C162 trades TREND/ENTR (TREND numerator, ENTR denominator) — distinct numerator (TREND vs L_max) and denominator (ENTR vs TREND).",
+            "distinct_from_c160_trend_over_lmax": "C160 trades TREND/L_max (TREND slope numerator, L_max denominator); C162 trades TREND/ENTR (TREND slope numerator, ENTR entropy denominator) — distinct denominator.",
+            "distinct_from_c159_tt_over_entr": "C159 trades TT/ENTR; C162 trades TREND/ENTR, distinct numerator (TREND slope vs TT_mean).",
+            "distinct_from_c158_lam_over_lmax": "C158 trades %LAM/L_max; C162 uses TREND numerator and ENTR denominator (distinct ratio).",
+            "distinct_from_c157_rr_over_entr": "C157 trades RR/ENTR; C162 trades TREND/ENTR, distinct numerator (TREND slope vs RR rate).",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
@@ -419,8 +418,8 @@ def main():
         "references": {
             "prior_registry": PRIOR_REGISTRY,
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c160_oos": PRIOR_C160_OOS,
-            "c160_oos_sha256": PRIOR_C160_OOS_SHA,
+            "c161_oos": PRIOR_C161_OOS,
+            "c161_oos_sha256": PRIOR_C161_OOS_SHA,
         },
         "per_asset": assets,
         "cross_asset": {"oos_net_sums": cross},
