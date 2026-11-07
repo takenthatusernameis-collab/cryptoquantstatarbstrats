@@ -1,0 +1,98 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-07T19:49:00.000000+00:00",
+  "campaign": 170,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T194147Z.json",
+    "sha256": "19cc20be3105ed35e4691fda5a2147094a674fa504667d9598c30c1432eab104"
+  },
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "latest_campaign_entry": {
+    "campaign": 170,
+    "strategy_id": "VOLUME_RQA_LMAX_OVER_DET_RATIO_SHOCK_MR",
+    "family": "RQA Lmax/DET ratio (max diagonal line length Lmax normalized by DET/TREND determinism) shock on volume dynamics",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.7897561063332756,
+      "fee5_slip5": 0.41075610633327536,
+      "fee10_slip10": 0.03175610633327523,
+      "fee20_slip20": -0.7262438936667246,
+      "fee40_slip40": -2.2422438936667244
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos_20261107T194830Z.json",
+        "sha256": "e88f0c061dd695efd7274295fd470e8833d5c04423100c78556664390d3c5f30"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos.py",
+        "sha256": "3b62f67f9391ba2e6f5fc97625da537910ea878aa69b5870cea35d2246d18284"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T194845Z.json",
+        "sha256": "dd9cf0316389cab53d4e0e0be0d1c4b0ac87775cf216e5c06768467ffac8f379"
+      },
+      "prior_registry": {
+        "path": "reports/strategy_edge_registry_20261107T194147Z.json",
+        "sha256": "19cc20be3105ed35e4691fda5a2147094a674fa504667d9598c30c1432eab104"
+      },
+      "c169_oos": {
+        "path": "reports/real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos_20261107T193943Z.json",
+        "sha256": "06071d806fedc8eba2342f331fea23fbb061e952369b80ddbd3273689441f262"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rEIn 'lmax_over_det|det_over_lmax|LMAX_OVER_DET|RQA_LMAX_OVER_DET|rqa_ratio_lmax_over_det' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T194830Z",
+      "grep_evidence_note": "Pre-implementation/run grep (grep -rEIn) over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used. Does not collide with C169's vmax_over_trend guard tokens.",
+      "selection_note": "Primary C170 candidate from HANDOFF/state.yaml (LMAX_OVER_DET); grep-zero confirmed before implementation/run (collision guard passed). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND, C169 V_max/TREND (different numerator/denominator token family Lmax/DET). Family: RQA Lmax/DET ratio shock on volume dynamics.",
+      "family": "RQA Lmax/DET ratio (max diagonal line length Lmax normalized by DET/TREND determinism) shock on volume dynamics",
+      "distinct_from_c165_trend_over_lam": "C165 trades TREND/%LAM (TREND numerator, %LAM denominator); C170 trades Lmax/DET (Lmax numerator, DET denominator) \u2014 distinct numerator/denominator token family.",
+      "distinct_from_c166_vmax_over_lam": "C166 trades V_max/%LAM (V_max numerator, %LAM denominator); C170 trades Lmax/DET (Lmax numerator, DET denominator) \u2014 distinct numerator/denominator token family.",
+      "distinct_from_c167_tt_over_trend": "C167 trades TT/TREND (TT numerator, TREND denominator); C170 trades Lmax/DET (Lmax numerator, DET denominator) \u2014 distinct numerator token family.",
+      "distinct_from_c168_rr_over_trend": "C168 trades RR/TREND (RR numerator, TREND denominator); C170 trades Lmax/DET (Lmax numerator, DET denominator) \u2014 distinct numerator token family.",
+      "distinct_from_c169_vmax_over_trend": "C169 trades V_max/TREND (V_max numerator, TREND denominator); C170 trades Lmax/DET (Lmax numerator, DET denominator) \u2014 distinct numerator token family; does not collide with C169's vmax_over_trend guard tokens.",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "prior_entries": [],
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "rb_unblocked": true,
+    "rb_family": "real_quote_volume",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "ingest_attempt": {
+      "path": "reports/real_feed_ingest_attempt_20261107T194845Z.json",
+      "sha256": "dd9cf0316389cab53d4e0e0be0d1c4b0ac87775cf216e5c06768467ffac8f379"
+    }
+  },
+  "c171_preselected": {
+    "family_primary": "VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio RR/V_max (recurrence rate RR = sum(R)/N^2 normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on V_max==0/undefined-non-finite (no qualifying vertical lines), recurrence degenerate (sum(R)<=0), or undefined",
+    "distinctness_grep_primary": "grep -rEIn 'rr_over_vmax|vmax_over_rr|RR_OVER_VMAX|RQA_RR_OVER_VMAX|rqa_ratio_rr_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T194840Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C171 (grep 0 at run time, post-C170). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND, C169 V_max/TREND, C170 Lmax/DET (RR/V_max token family unused in C125-C170; differs from C168 RR/TREND by denominator V_max not TREND). Re-verify at C171 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "notes": [
+    "C170 Lmax/DET RQA ratio shock MR on real_quote_volume; edge rule did not hold (edge_claim NONE).",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "No proxies labeled real; no fabrication. pytest unavailable recorded honestly."
+  ]
+}
