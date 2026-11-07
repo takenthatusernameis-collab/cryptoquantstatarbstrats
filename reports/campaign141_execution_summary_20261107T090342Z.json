@@ -1,0 +1,78 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T090342Z",
+  "campaign": 141,
+  "strategy_id": "VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.45336506664510956,
+    "fee5_slip5": 0.0503650666451092,
+    "fee10_slip10": -0.3526349333548909,
+    "fee20_slip20": -1.1586349333548909,
+    "fee40_slip40": -2.7706349333548905
+  },
+  "pytest": {
+    "available": false,
+    "command": "python3 -m pytest -q --tb=no",
+    "result": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "nonspot_ingest": {
+    "path": "reports/real_feed_ingest_attempt_20261107T090342Z.json",
+    "status": "blocked_fail_closed_no_real_nonspot_artifact",
+    "rb_unblocked": true
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T085403Z.json",
+    "prior_registry_sha256": "15e9bf32492dfb02a736746b70753362293d42ec184fb908dc4f1f376733c28d",
+    "c140_oos": "reports/real_quote_volume_rqa_rr_over_tt_ratio_shock_mr_costed_oos_20261107T085403Z.json",
+    "c140_oos_sha256": "85a1780d7dd319bd248db2cfa2344de273ba1831f7d53d98dc63efeeff6ea7ad"
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rn 'entr_over_rr\\|entr_rr_ratio\\|rqa_ratio_entr_rr\\|ENTR_OVER_RR' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_verified_at_utc": "20261107T090342Z",
+    "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+    "selection_note": "Primary C141 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). No collision with C125 %RR direct, C130 ENTR direct, C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM, C140 %RR/TT. C141 trades ratio ENTR/%RR.",
+    "family": "RQA ENTR/%RR ratio (diagonal-line entropy normalized by recurrence density) shock on volume dynamics",
+    "distinct_from_c125": "C125 trades %RR directly; C141 normalizes ENTR by %RR.",
+    "distinct_from_c130": "C130 trades ENTR directly; C141 normalizes ENTR by %RR.",
+    "distinct_from_c133_c140_ratios": "C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM, C140 %RR/TT \u2014 C141 uses ENTR numerator with %RR denominator, a distinct ratio.",
+    "entr_definition": "raw Shannon entropy, natural log, not normalized by ln(K) (pre-stated fixed, consistent with C130)",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos_20261107T090342Z.json",
+      "sha256": "2c1513ac8bf1142d622f52c5e076fa44706ad728ceb786d9fd99b74f7b66d746",
+      "bytes": 210849
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "8066bf1797b31fb6d311915bd2c2b0913951a702821c215a9bde8a9491b053d5",
+      "bytes": 17041
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T090342Z.json",
+      "sha256": "af2839caaee45d39c915c6491ed6bb4a43ca461059eb1f44af0a6cb4c9695448",
+      "bytes": 1298
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T090342Z.json",
+      "sha256": "0fcfc9410fadb171b621a959029dccb4ec891fc8dd2543d3f7c1db8252706fa4",
+      "bytes": 9906
+    }
+  ],
+  "sha256_note": "SHAs computed from bytes on disk."
+}

@@ -1,0 +1,26 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T090342Z",
+  "campaign": 141,
+  "attempt_type": "nonspot_real_feed_ingest_readiness",
+  "real_data_only": true,
+  "fail_closed": true,
+  "status": "blocked_fail_closed_no_real_nonspot_artifact",
+  "blocker_detail": "No real funding/open-interest/basis/nonspot artifact or provenance-validated fetch path was available in repo/workspace at attempt time; no proxy, synthetic, or fabricated feed emitted.",
+  "attempted_sources_reviewed": [
+    "data/cache/volume_1h_full.provenance.json",
+    "reports/*real*ingest*",
+    "reports/*nonspot*",
+    "reports/*funding*",
+    "reports/*basis*"
+  ],
+  "rb_unblocked": true,
+  "rb_basis": "validated_real_quote_volume_family",
+  "rb_note": "R-B proceeds on validated real_quote_volume family regardless of nonspot ingest blocker (hard blocker only for claiming real nonspot artifacts).",
+  "references": {
+    "prior_ingest": "reports/real_feed_ingest_attempt_20261107T085403Z.json",
+    "prior_ingest_sha256": "803f9d709778c33c52c24bcbb803b3db7b3626c0eff89973ead9458ab6c91cae",
+    "c141_oos": "reports/real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos_20261107T090342Z.json",
+    "c141_oos_sha256": "2c1513ac8bf1142d622f52c5e076fa44706ad728ceb786d9fd99b74f7b66d746"
+  }
+}
