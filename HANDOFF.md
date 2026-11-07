@@ -1,4 +1,4 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T204117Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T204436Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Priority (from repo name):** fail-closed, **real-data-only** stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Claim edge **ONLY** if the exact fail-closed edge rule holds. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
