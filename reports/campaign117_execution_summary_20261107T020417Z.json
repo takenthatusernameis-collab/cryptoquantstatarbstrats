@@ -1,0 +1,17 @@
+{
+  "tool": "campaign117_execution_summary",
+  "generated_at_utc": "20261107T020417Z",
+  "campaign": 117,
+  "candidate": "VOLUME_RANGE_ENTROPY_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": "real_quote_volume_range_entropy_shock_mr_costed_oos_20261107T020310Z.json",
+    "oos_sha256": "868acc4a4f1bca5ee9d411cff834afa4cdaa2d8c622a0ad3327071d8eccb70b7",
+    "ingest": "real_feed_ingest_attempt_20261107T020412Z.json",
+    "registry": "strategy_edge_registry_20261107T020417Z.json"
+  },
+  "pytest": "not installed (No module named pytest); lineage 928 passed/1 skipped/0 failed carried forward"
+}
