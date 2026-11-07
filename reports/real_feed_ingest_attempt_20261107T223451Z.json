@@ -1,0 +1,27 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T223451Z",
+  "campaign": 180,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "reason": "No new real nonspot/provenanced feed ingested in C180; R-B proceeds on validated real_quote_volume per fail-closed policy."
+  },
+  "real_quote_volume": {
+    "status": "validated_existing_cache",
+    "rb_unblocked": true,
+    "cache_paths_sha256_from_bytes": {
+      "volume_1h_full.pkl": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "volume_1h_full.meta.json": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+      "volume_1h_full.provenance.json": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89",
+      "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+    }
+  },
+  "references": {
+    "prior_ingest": "reports/real_feed_ingest_attempt_20261107T222826Z.json",
+    "prior_ingest_sha256": "87548b62a2c29f82215b2ad897527fc2f0a3df24f5959049d3f13c2e0f3410aa"
+  }
+}
