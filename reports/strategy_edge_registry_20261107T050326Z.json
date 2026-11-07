@@ -398,6 +398,80 @@
           "sha256": "6ca91bf20058f115c2474b828ff21211872c3b06409b3d1d7a8189b558051f5b"
         }
       }
+    },
+    {
+      "campaign": "C125",
+      "timestamp_utc": "20261107T050326Z",
+      "strategy_family": "VOLUME_RECURRENCE_RATE_SHOCK_MR",
+      "description": "RQA recurrence rate (%REC = density of recurrence points) on delay-embedded (m=2,tau=1) log-volume returns over trailing window W=168; epsilon as pre-stated fraction of std (exact rule in OOS/script). Fade shocks via z(feature, ALB=336): entry_z>=1.5 short/<=-1.5 long, exit |z|<0.5/max_hold 24/flip, exec t->t+1, WF 720/168/168. Fail-closed on non-finite/degenerate.",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'recurrence_rate\\|%REC\\|recurrence_quant\\|rqa_' scripts/ reports/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+        "grep_hits": 0,
+        "family": "RQA recurrence rate",
+        "distinct_from_c124": "Hilbert phase histogram entropy vs RQA recurrence matrix density; different domain (phase-space recurrence vs phase distribution)",
+        "verified_at_utc": "20261107T050257Z"
+      },
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos_report": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+        "oos_report_sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e",
+        "script": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
+        "script_sha256": "4fb5836a4478d8882412fc7f48562e01c799c350512e3c0b43c30e420b32b8a5",
+        "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
+        "ingest_attempt_sha256": "0679390cdf6afc6e4c8ed7b1fe9e34bc6d21e2c827b81ba6ceae25155f56c0fb"
+      },
+      "aggregate": {
+        "n_assets": 11,
+        "any_exposure_oos": true,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+        "all_cost_slices_beat_bh_mean_rule": false,
+        "oos_edge_proven": false,
+        "cross_asset_sum_oos_net_sum": {
+          "fee0_slip0": -1.5983838934893266,
+          "fee5_slip5": -3.262383893489328,
+          "fee10_slip10": -4.926383893489327,
+          "fee20_slip20": -8.254383893489328,
+          "fee40_slip40": -14.910383893489326
+        },
+        "cross_asset_mean_oos_net_mean": {
+          "fee0_slip0": -0.00036593037854609127,
+          "fee5_slip5": -0.0007468827594984725,
+          "fee10_slip10": -0.0011278351404508534,
+          "fee20_slip20": -0.0018897399023556152,
+          "fee40_slip40": -0.0034135494261651393
+        }
+      }
     }
   ],
   "campaigns": [
@@ -457,7 +531,8 @@
       "script_sha256": "922cd3e8690d57bae7579c925d605f3fc6dba83f547e6e761df41f97ffdb5403",
       "candidate": "VOLUME_RECURRENCE_RATE_SHOCK_MR (RQA %REC, m=2,tau=1,eps=0.15*sigma_embedded,W_RR=168)",
       "distinct_from_c124": "Hilbert phase histogram entropy vs RQA recurrence matrix density"
-    }
+    },
+    "C125"
   ],
   "notes": "C124 added (Phase Entropy shock MR, Hilbert instantaneous-phase histogram entropy). All C104-C124 oos_edge_proven=false; edge_claim NONE. Registry supersedes C123 (sha 6ca91bf2\u2026)."
 }

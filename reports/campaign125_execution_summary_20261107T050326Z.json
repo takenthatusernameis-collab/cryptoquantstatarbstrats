@@ -15,17 +15,17 @@
     },
     {
       "path": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
-      "sha256": "b85f7997bd5dbb1220151e009203805cc4579ba2085c5b147ecbdc256f087d88",
+      "sha256": "0679390cdf6afc6e4c8ed7b1fe9e34bc6d21e2c827b81ba6ceae25155f56c0fb",
       "type": "ingest_attempt"
     },
     {
       "path": "reports/strategy_edge_registry_20261107T050326Z.json",
-      "sha256": "6cbdac44a226296215589450f7b81144b21d285210d60a048b6cae920d4ca21f",
+      "sha256": "afc423bfb3e50e3d7821ffd70f2f7539aef8eadd2714dfd075f1b526dd98766d",
       "type": "registry_superseding"
     },
     {
       "path": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
-      "sha256": "922cd3e8690d57bae7579c925d605f3fc6dba83f547e6e761df41f97ffdb5403",
+      "sha256": "4fb5836a4478d8882412fc7f48562e01c799c350512e3c0b43c30e420b32b8a5",
       "type": "script"
     }
   ],
@@ -35,5 +35,9 @@
     "c124_oos": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
     "c124_oos_sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410"
   },
-  "pytest": "not_run_or_unavailable_recorded_honestly"
+  "pytest": "not_run_or_unavailable_recorded_honestly",
+  "corrections": {
+    "registry_updated_to_include_C125_entry": true,
+    "shas_reconciled_to_disk_at_utc": "20261107T050430Z"
+  }
 }
