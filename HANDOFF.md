@@ -1,4 +1,4 @@
-## READ THIS FIRST — C113 INITIAL TASK (20261107T010340Z, produced after C112 completion; this session takes ownership of the durable handoff)
+## READ THIS FIRST — C113 INITIAL TASK (20261107T010437Z, produced after C112 completion; this session takes ownership of the durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
