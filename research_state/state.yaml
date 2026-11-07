@@ -1,62 +1,66 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T101505Z
-latest_campaign_done: C145
-next_campaign: C146
-readiness_verified_utc: 20261107T101505Z
+updated_utc: 20261107T101900Z
+latest_campaign_done: C146
+next_campaign: C147
+readiness_verified_utc: 20261107T101900Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
 fail_closed: true
 no_proxies_labeled_real: true
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T101205Z.json
-  sha256: 7d943c4b8547a978af26af4659ee84d95f4587df007e19a9dbfe1dea940a5d20
-  supersedes: reports/strategy_edge_registry_20261107T100643Z.json
-  supersedes_sha256: 7eb9007e55f1610a4eb266488c9e4dc11320b88cc5cc833faefc31393f16a9fb
+  path: reports/strategy_edge_registry_20261107T101900Z.json
+  sha256: 0dc859e3cdd77da6f177a2ec993f877d3410b3edcecf59b4532a9712323afb8c
+  supersedes: reports/strategy_edge_registry_20261107T101205Z.json
+  supersedes_sha256: 7d943c4b8547a978af26af4659ee84d95f4587df007e19a9dbfe1dea940a5d20
 latest_oos:
-  campaign: C145
-  family: VOLUME_RQA_TT_OVER_LAM_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_tt_over_lam_ratio_shock_mr_costed_oos_20261107T101205Z.json
-  sha256: 5d38cc6eb608083cd13c57fadfdab73e75e4e66d61af6ae56d9b93ec2782a263
+  campaign: C146
+  family: VOLUME_RQA_DET_OVER_ENTR_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos_20261107T101900Z.json
+  sha256: ccbb1b34621e899f9f598c3241f9a1e6f3da23ade5e82aeaf53115d08df2d3d4
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.23939876661422843
-    fee5_slip5: -0.05060123338577183
-    fee10_slip10: -0.340601233385772
-    fee20_slip20: -0.9206012333857718
-    fee40_slip40: -2.0806012333857717
+    fee0_slip0: 0.23281776095722806
+    fee5_slip5: -0.21018223904277233
+    fee10_slip10: -0.6531822390427724
+    fee20_slip20: -1.539182239042772
+    fee40_slip40: -3.3111822390427723
 pytest: unavailable (No module named pytest)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
-c145_completion:
+c146_completion:
   status: completed
-  ingest_path: reports/real_feed_ingest_attempt_20261107T101205Z.json
-  ingest_sha256: d341ff926294f42c538944de341d391e70579fc445c2f0e7af9a15e937da86db
-  summary_path: reports/campaign145_execution_summary_20261107T101205Z.json
-  summary_sha256: 25a32f5b2fd8360a917ad9971da4c6ee2788ea40b2af7e817f4649bc66be0200
-  script_path: scripts/run_real_quote_volume_rqa_tt_over_lam_ratio_shock_mr_costed_oos.py
-  script_sha256: 401678c9f333ebb53cc4f5b364d9ead4a4097f8f911999f79e38e03728dcfb4d
+  oos_path: reports/real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos_20261107T101900Z.json
+  oos_sha256: ccbb1b34621e899f9f598c3241f9a1e6f3da23ade5e82aeaf53115d08df2d3d4
+  ingest_path: reports/real_feed_ingest_attempt_20261107T101900Z.json
+  ingest_sha256: 9a50c0d1220c8479db8c4e8bf50db1a970693abb1535f396f584c99bcfaa9bea
+  registry_path: reports/strategy_edge_registry_20261107T101900Z.json
+  registry_sha256: 0dc859e3cdd77da6f177a2ec993f877d3410b3edcecf59b4532a9712323afb8c
+  summary_path: reports/campaign146_execution_summary_20261107T101900Z.json
+  summary_sha256: f204695e58b6f98f17202bbaa1e8d618c768b836c6cbb4597f5305164c4a1c19
+  script_path: scripts/run_real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos.py
+  script_sha256: 67d9111de0af7e1e90117018c47e082fb226f133e9e2e6f6d16eed9c5802890f
   distinctness_grep_hits_pre: 0
-  distinctness_grep_cmd: "grep -rn 'tt_over_lam|tt_lam_ratio|rqa_ratio_tt_lam|TT_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
-c146_preselected:
-  family_primary: VOLUME_RQA_DET_OVER_ENTR_RATIO_SHOCK_MR
-  metric_primary: RQA ratio RATIO_DET_ENTR = %DET / ENTR (determinism normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if ENTR<=0/no qualifying diagonal lines/%DET undefined/non-finite/offdiag-degenerate/undefined
-  alt1: VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR (%LAM/ENTR; fail-closed on ENTR<=0/no qualifying diagonal lines)
-  alt2: VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR (ENTR/%LAM; fail-closed on %LAM<=0/no qualifying vertical lines)
-  distinctness_grep_primary: "det_over_entr|det_entr_ratio|rqa_ratio_det_entr|DET_OVER_ENTR"
-  grep_hits_verified_utc: 20261107T101505Z
+  distinctness_grep_cmd: "grep -rn 'det_over_entr|det_entr_ratio|rqa_ratio_det_entr|DET_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
+c147_preselected:
+  family_primary: VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR
+  metric_primary: RQA ratio RATIO_LAM_ENTR = %LAM / ENTR (laminarity normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if ENTR<=0/no qualifying diagonal lines/%LAM undefined/non-finite/offdiag-degenerate/undefined
+  alt1: VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR (ENTR/%LAM; fail-closed on %LAM<=0/no qualifying vertical lines)
+  alt2: VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR (L_max/ENTR; fail-closed on ENTR<=0/no qualifying diagonal lines/L_max undefined)
+  distinctness_grep_primary: "lam_over_entr|lam_entr_ratio|rqa_ratio_lam_entr|LAM_OVER_ENTR"
+  grep_hits_verified_utc: 20261107T101900Z
   grep_hits: 0
   grep_verify_required: true
-  note: C146 primary pre-stated; grep-zero verified 20261107T101205Z. Distinct from C125-C145 (incl C130 ENTR direct, C131-135 DET-family context, C141 ENTR/%RR, C144 ENTR/%DET inverse context) — C146 trades %DET/ENTR.
+  note: C147 primary pre-stated; grep-zero verified at C146 completion. Distinct from C125-C146 (incl C127 %LAM direct, C130 ENTR direct, C136 %LAM/%RR, C146 %DET/ENTR context) — C147 trades %LAM/ENTR. Re-verify grep at run time.
 bottlenecks_removed:
-  - C104-C145 locked; no reruns unchanged
-  - C145 TT/LAM implemented/run; grep-zero distinctness verified before implementation/run; OOS+ingest+registry+summary emitted with disk-verified SHAs
-  - C146 DET/ENTR primary pre-selected and grep-zero verified
+  - C104-C146 locked; no reruns unchanged
+  - C146 DET/ENTR implemented/run; grep-zero distinctness verified before implementation/run; OOS+ingest+registry+summary emitted with disk-verified SHAs
+  - C147 LAM/ENTR primary pre-selected and grep-zero verified
   - nonspot ingest does not block R-B on real_quote_volume
   - pytest unavailable recorded honestly; do not fabricate test results
 mandatory:
-  - No status summary before >= 3 new concrete C146 report artifacts (OOS + ingest + registry/summary)
+  - No status summary before >= 3 new concrete C147 report artifacts (OOS + ingest + registry/summary)
   - Heavy work mandatory: implement/run + emit artifacts; no status-only replies
   - Real data only; fail-closed; edge_claim NONE unless fail-closed edge rule holds

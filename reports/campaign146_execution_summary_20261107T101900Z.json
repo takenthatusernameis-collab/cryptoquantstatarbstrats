@@ -1,0 +1,38 @@
+{
+  "tool": "campaign146_execution_summary",
+  "generated_at_utc": "20261107T101900Z",
+  "campaign": 146,
+  "status": "completed",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos_20261107T101900Z.json",
+      "kind": "oos",
+      "sha256": "ccbb1b34621e899f9f598c3241f9a1e6f3da23ade5e82aeaf53115d08df2d3d4"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T101900Z.json",
+      "kind": "ingest",
+      "sha256": "9a50c0d1220c8479db8c4e8bf50db1a970693abb1535f396f584c99bcfaa9bea"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T101900Z.json",
+      "kind": "registry",
+      "sha256": "0dc859e3cdd77da6f177a2ec993f877d3410b3edcecf59b4532a9712323afb8c"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos.py",
+      "kind": "script",
+      "sha256": "67d9111de0af7e1e90117018c47e082fb226f133e9e2e6f6d16eed9c5802890f"
+    }
+  ],
+  "distinctness_grep": {
+    "cmd": "grep -rn 'det_over_entr|det_entr_ratio|rqa_ratio_det_entr|DET_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+    "hits": 0,
+    "verified_before_implementation_run": true
+  },
+  "notes": "C146 VOLUME_RQA_DET_OVER_ENTR_RATIO_SHOCK_MR (%DET/ENTR, inverse of C144 context) completed: OOS+ingest+registry+summary emitted, fail-closed, real_data_only. any_exposure_oos=true; cross-asset net sums mixed (fee0=0.232818..fee40=-3.311182); all_cost_slices_positive false; B&H mean-beat rule false; edge_claim NONE. Nonspot ingest blocked fail-closed; R-B proceeds on real_quote_volume."
+}
