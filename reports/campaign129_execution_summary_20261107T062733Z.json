@@ -1,0 +1,62 @@
+{
+  "report": "campaign129_execution_summary",
+  "campaign": 129,
+  "timestamp_utc": "20261107T062733Z",
+  "iso_utc": "2026-11-07T06:27:33Z",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "pytest": {
+    "available": false,
+    "outcome": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_trapping_time_shock_mr_costed_oos_20261107T062741Z_c129.json",
+      "sha256": "e9bff8c9625689a129b09b6cedff349b484941151f1f1a76a49aea3c443afa04",
+      "role": "C129 RQA trapping time TT costed OOS (normalized labels/gates)"
+    },
+    {
+      "path": "reports/real_quote_volume_rqa_trapping_time_shock_mr_costed_oos_20261107T062741Z.json",
+      "sha256": "10703b923212881fad2d29ad40a93243e2fcb6ebe9ef97aa01ab81d9f1d9fb10",
+      "role": "C129 raw script-emitted OOS (preserved; emitted campaign label was 128 in script JSON)"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_trapping_time_shock_mr_costed_oos.py",
+      "sha256": "c71cef4c67af01699142f6bee8ff913e02902f8a80693efde58bbc8ce864b2de",
+      "role": "C129 implementation script"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T062733Z.json",
+      "sha256": "7cc0ac4bb937f0e4967bca130255bfca47865d530826e396d6a3f2fc215d38d8",
+      "role": "Real feed ingest attempt (fail-closed, R-B unblocked)"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T062733Z.json",
+      "sha256": "434e1530cb282a045f4b80ef7c62fca385df3285b5d3fe3e37847c43f8e93d5c",
+      "role": "Strategy edge registry (supersedes C128)"
+    }
+  ],
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T061222Z.json",
+    "sha256": "39daf4a30c7973d7b9cabdf4bcf1950424670ff5db70f02a8df003ab937fe12c"
+  },
+  "c128_reference": {
+    "oos": "reports/real_quote_volume_rqa_laminarity_shock_mr_costed_oos_20261107T061014Z.json",
+    "sha256": "258016d68656db86ba699ef7527fc7d9ae5d41be34526b984705ca51bbb4f47a"
+  },
+  "oos_net_sums": {
+    "fee0_slip0": -1.768691460072498,
+    "fee5_slip5": -2.5396914600724987,
+    "fee10_slip10": -3.310691460072499,
+    "fee20_slip20": -4.852691460072498,
+    "fee40_slip40": -7.936691460072498
+  },
+  "oos_edge_gates": {
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "report": "real_feed_ingest_attempt",
+  "campaign": 129,
+  "timestamp_utc": "20261107T062733Z",
+  "iso_utc": "2026-11-07T06:27:33Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "nonspot_attempted": false,
+  "nonspot_artifact_found": false,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "rb_unblocked": true,
+  "rb_basis": "validated real_quote_volume family; C129 RQA trapping time TT executed on real data",
+  "notes": [
+    "No fabricated feeds/provenance/results. Nonspot ingest blocker does not block R-B on real_quote_volume."
+  ],
+  "references": {
+    "c129_oos": "reports/real_quote_volume_rqa_trapping_time_shock_mr_costed_oos_20261107T062741Z.json",
+    "c129_oos_sha256": "10703b923212881fad2d29ad40a93243e2fcb6ebe9ef97aa01ab81d9f1d9fb10",
+    "prior_registry": "reports/strategy_edge_registry_20261107T061222Z.json",
+    "prior_registry_sha256": "39daf4a30c7973d7b9cabdf4bcf1950424670ff5db70f02a8df003ab937fe12c"
+  }
+}
