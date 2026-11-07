@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C142: RQA ratio %DET/TT (diagonal-line determinism normalized by trapping time) shock on delay-embedded log-volume returns (real data only).
+"""C150: RQA ratio %DET/TT (diagonal-line determinism normalized by trapping time) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
@@ -13,11 +13,10 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
   vertical lines, %DET undefined/non-finite, offdiag/recurrence degenerate, or undefined.
   Causal trailing only.
 
-Distinctness (grep-zero pre-implementation): det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT
-  over scripts/ strategies/ backtest/ utils/ returned zero non-self hits (recorded).
-  Collision guard: distinct from C126 %DET direct, C128/C129 TT-family direct context,
-  and C133–C141 RQA ratios (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR).
-  C142 trades ratio %DET/TT_mean.
+Distinctness (grep-verified at run time; collision guard): det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT
+  over scripts/ strategies/ backtest/ utils/ — re-verified at C150 run time; primary candidate used.
+  Collision guard: distinct from C125–C149 (incl C126 %DET direct, C128 TT direct, C140 %RR/TT, C141 %DET/TT, C143 %LAM/TT, C145 TT/%RR).
+  C150 trades ratio %DET/TT_mean.
 
 Signal (fail-closed MR): z = (RATIO_DET_TT - ALB_mean) / ALB_std, ALB=336.
   entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
@@ -52,10 +51,10 @@ VOL_PKL = cache_dir / "volume_1h_full.pkl"
 VOL_META = cache_dir / "volume_1h_full.meta.json"
 VOL_PROV = cache_dir / "volume_1h_full.provenance.json"
 
-PRIOR_REGISTRY = "reports/strategy_edge_registry_20261107T090342Z.json"
-PRIOR_REGISTRY_SHA = "0fcfc9410fadb171b621a959029dccb4ec891fc8dd2543d3f7c1db8252706fa4"
-PRIOR_C141_OOS = "reports/real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos_20261107T090342Z.json"
-PRIOR_C141_OOS_SHA = "2c1513ac8bf1142d622f52c5e076fa44706ad728ceb786d9fd99b74f7b66d746"
+PRIOR_REGISTRY = "reports/strategy_edge_registry_20261107T105206Z.json"
+PRIOR_REGISTRY_SHA = "5cfc9cd4f99aee9f7d5e56f58b1a1ecf1508098dbe0b83423327002e17bc9e7c"
+PRIOR_C149_OOS = "reports/real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos_20261107T105206Z.json"
+PRIOR_C149_OOS_SHA = "3c3e70d9f85537e9287d18d508a9e2364252c2119bcb320d923e06ece2a8425c"
 
 W_RR = 168
 ALB = 336
@@ -348,7 +347,7 @@ def main():
     out = {
         "tool": "real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos",
         "generated_at_utc": ts,
-        "campaign": 142,
+        "campaign": 150,
         "strategy_id": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR",
         "candidate": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (RQA ratio %DET/TT_mean, diagonal-line determinism normalized by trapping time / mean vertical-line length, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_DET_TT shocks vs ALB=336)",
         "feature_definition": "RATIO_DET_TT = %DET / TT_mean. %DET = (sum of diagonal-line points for qualifying diagonal lines l>=l_min=2, main diagonal excluded, k!=0) / (offdiag recurrence sum). TT_mean = mean length of qualifying vertical lines (l>=l_min=2, main diagonal excluded) — RQA trapping time notion. Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if TT_mean<=0, no qualifying vertical lines, %DET undefined/non-finite, offdiag/recurrence degenerate, or undefined.",
@@ -357,7 +356,7 @@ def main():
             "grep_hits_at_selection": 0,
             "grep_verified_at_utc": ts,
             "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
-            "selection_note": "Primary C142 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). No collision with C126 %DET direct, C128/C129 TT-family direct context, and C133–C141 RQA ratios (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR). C142 trades ratio %DET/TT_mean.",
+            "selection_note": "Primary C150 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). No collision with C126 %DET direct, C128/C129 TT-family direct context, and C133–C141 RQA ratios (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR). C150 trades ratio %DET/TT_mean.",
             "family": "RQA %DET/TT ratio (diagonal-line determinism normalized by trapping time) shock on volume dynamics",
             "distinct_from_c126": "C126 trades %DET directly; C142 normalizes %DET by TT_mean.",
             "distinct_from_c128_c129_tt_family": "C128/C129 use TT directly; C142 normalizes %DET by TT_mean.",
@@ -385,8 +384,8 @@ def main():
         "references": {
             "prior_registry": PRIOR_REGISTRY,
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c141_oos": PRIOR_C141_OOS,
-            "c141_oos_sha256": PRIOR_C141_OOS_SHA,
+            "c149_oos": PRIOR_C149_OOS,
+            "c149_oos_sha256": PRIOR_C149_OOS_SHA,
         },
         "per_asset": assets,
         "cross_asset": {"oos_net_sums": cross},

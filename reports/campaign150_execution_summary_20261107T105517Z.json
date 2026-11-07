@@ -1,0 +1,44 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T105517Z",
+  "campaign": 150,
+  "strategy_id": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.21928571878091374,
+    "fee5_slip5": -0.1547142812190866,
+    "fee10_slip10": -0.5287142812190867,
+    "fee20_slip20": -1.2767142812190868,
+    "fee40_slip40": -2.7727142812190864
+  },
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos_20261107T105517Z.json",
+      "sha256": "19c41b642506fe8ed002ee85905e34a2eb6906fc08f1ae7175e78d0ea13e8dbe"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T105517Z.json",
+      "sha256": "e8792bf5fdb47475004d2a50666cccd7aaa0b3124bfa03584867030e87b37128"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T105517Z.json",
+      "sha256": "bf44ee2026847640e468325f6a2b40e59a829b7b0a0aab68cf398fdd12209a37"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos.py",
+      "sha256": "28c21acea90720c65d0e24bb52ecb5aff32095475f6749ecba5a478b32d0caa7"
+    },
+    "summary": {
+      "path": "reports/campaign150_execution_summary_20261107T105517Z.json",
+      "sha256": "cc217682f45a0d05ed9a742515240b1b9c82f85f9edafa13555fc6cb1dbd8ed7"
+    }
+  },
+  "notes": "C150 heavy work complete: %DET/TT RQA ratio OOS implemented+run (fixed stale script refs), ingest/registry/summary emitted with disk SHAs. Nonspot blocked fail-closed; R-B on validated real_quote_volume. edge_claim NONE."
+}

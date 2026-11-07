@@ -1,0 +1,31 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T105517Z",
+  "campaign": 150,
+  "strategy_context": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "rb_basis": "validated_real_quote_volume_family",
+  "rb_unblocked": true,
+  "nonspot": {
+    "attempted": false,
+    "status": "blocked_fail_closed_no_real_nonspot_artifact",
+    "reason": "No real nonspot (perp/funding/basis/OI/mark) artifact present in repo/cache; fail-closed. R-B proceeds on validated real_quote_volume family only.",
+    "endpoints_checked": [],
+    "artifacts_found": [],
+    "proxies_labeled_real": false,
+    "fabricated": false
+  },
+  "real_quote_volume": {
+    "status": "validated_available",
+    "meta": "data/cache/volume_1h_full.meta.json",
+    "provenance": "data/cache/volume_1h_full.provenance.json",
+    "pkl": "data/cache/volume_1h_full.pkl"
+  },
+  "spot_cache": {
+    "pkl": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json"
+  },
+  "notes": "C150 ingest: nonspot remains blocked fail-closed (no real artifact). R-B unblocked on validated real_quote_volume family; no proxies labeled real; no fabricated feeds/provenance/results."
+}
