@@ -1,0 +1,30 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "2026-11-07T19:56:45.057150+00:00",
+  "campaign": 171,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "rb_family": "real_quote_volume",
+    "note": "Non-spot/external feed ingest remains blocked in this environment (fail-closed). R-B proceeds on validated real_quote_volume cache/provenance; blocker does not block R-B on real_quote_volume."
+  },
+  "real_quote_volume_cache": {
+    "pkl": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+    "pkl_exists": true,
+    "pkl_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "meta": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "meta_exists": true,
+    "meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+    "provenance": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.provenance.json",
+    "provenance_exists": true,
+    "provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+  },
+  "spot_cache": {
+    "pkl": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "exists": true,
+    "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+  }
+}

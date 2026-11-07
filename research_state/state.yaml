@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T195219Z
-latest_campaign_done: C170
-next_campaign: C171
-readiness_verified_utc: 20261107T195219Z
+updated_utc: 20261107T195703Z
+latest_campaign_done: C171
+next_campaign: C172
+readiness_verified_utc: 20261107T195703Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -12,66 +12,65 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T194900Z.json
-  sha256: c89757fe45765de2ff7c9be8f0293f10909d93aa3146d466be05772b7940437e
-  supersedes: reports/strategy_edge_registry_20261107T194147Z.json
-  supersedes_sha256: 19cc20be3105ed35e4691fda5a2147094a674fa504667d9598c30c1432eab104
+  path: reports/strategy_edge_registry_20261107T195645Z.json
+  sha256: 00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d
+  supersedes: reports/strategy_edge_registry_20261107T194900Z.json
+  supersedes_sha256: c89757fe45765de2ff7c9be8f0293f10909d93aa3146d466be05772b7940437e
 latest_oos:
-  campaign: C170
-  family: VOLUME_RQA_LMAX_OVER_DET_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos_20261107T194830Z.json
-  sha256: e88f0c061dd695efd7274295fd470e8833d5c04423100c78556664390d3c5f30
+  campaign: C171
+  family: VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos_20261107T195511Z.json
+  sha256: 04e05bcd56a38c6c47147ae30a0c4c456addc6f494dc356138e1a9436b449342
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.7897561063332756
-    fee5_slip5: 0.41075610633327536
-    fee10_slip10: 0.03175610633327523
-    fee20_slip20: -0.7262438936667246
-    fee40_slip40: -2.2422438936667244
-c170_completed:
-  campaign: C170
-  strategy_id: VOLUME_RQA_LMAX_OVER_DET_RATIO_SHOCK_MR
+    fee0_slip0: -0.09022710082764118
+    fee5_slip5: -0.35622710082764136
+    fee10_slip10: -0.6222271008276414
+    fee20_slip20: -1.1542271008276415
+    fee40_slip40: -2.2182271008276415
+c171_completed:
+  campaign: C171
+  strategy_id: VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos_20261107T194830Z.json
-      sha256: e88f0c061dd695efd7274295fd470e8833d5c04423100c78556664390d3c5f30
+      path: reports/real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos_20261107T195511Z.json
+      sha256: 04e05bcd56a38c6c47147ae30a0c4c456addc6f494dc356138e1a9436b449342
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T194845Z.json
-      sha256: dd9cf0316389cab53d4e0e0be0d1c4b0ac87775cf216e5c06768467ffac8f379
+      path: reports/real_feed_ingest_attempt_20261107T195645Z.json
+      sha256: 348a3229f8596dc974b1724a9a9a64681ff757ae3256d8e20e2c23f9fd343691
     registry:
-      path: reports/strategy_edge_registry_20261107T194900Z.json
-      sha256: c89757fe45765de2ff7c9be8f0293f10909d93aa3146d466be05772b7940437e
+      path: reports/strategy_edge_registry_20261107T195645Z.json
+      sha256: 00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d
     script:
-      path: scripts/run_real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos.py
-      sha256: 3b62f67f9391ba2e6f5fc97625da537910ea878aa69b5870cea35d2246d18284
+      path: scripts/run_real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos.py
+      sha256: 5c2e0cdce0fcd970ea73c24fc0c38529d65e6a09b49881d754fe832349c779e0
     summary:
-      path: reports/campaign170_execution_summary_20261107T194910Z.json
-      sha256: 60e0587af45ef41b45707b37acd2e10d004fa89368f7bba8f668ad7719f3e0c6
-c171_preselected:
-  family_primary: VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR
-  metric_primary: RQA ratio RR/V_max (recurrence rate RR = sum(R)/N^2 normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on V_max==0/undefined-non-finite (no qualifying vertical lines), recurrence degenerate (sum(R)<=0), or undefined
-  distinctness_grep_primary: grep -rEIn 'rr_over_vmax|vmax_over_rr|RR_OVER_VMAX|RQA_RR_OVER_VMAX|rqa_ratio_rr_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1
-  grep_hits_observed_20261107T194840Z: 0
+      path: reports/campaign171_execution_summary_20261107T195645Z.json
+      sha256: e2c018956a795a80bd18ff05755de1e0a960f5579a7b4fbb86c7fa360a7b0c40
+c172_preselected:
+  family_primary: VOLUME_RQA_TT_OVER_VMAX_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio TT/V_max (trapping time TT normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs"
+  distinctness_grep_primary: "grep -rEIn 'tt_over_vmax|vmax_over_tt|TT_OVER_VMAX|RQA_TT_OVER_VMAX|rqa_ratio_tt_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1"
+  grep_hits_observed_20261107T195645Z: 0
   grep_verify_required: true
-  note: Preselected for C171 (grep 0 at run time, post-C170). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND, C169 V_max/TREND, C170 Lmax/DET (RR/V_max token family unused in C125-C170; differs from C168 RR/TREND by denominator V_max, not TREND). Re-verify at C171 run time (0 non-self). If collides, pick next grep-zero fallback (e.g. TT_OVER_VMAX, VMAX_OVER_TT both grep-0 at 20261107T194840Z) and record evidence.
+  note: "Preselected for C172 (grep 0 at selection time, post-C171). Distinct from C125-C171 RQA-ratio families (including C171 RR/V_max). Re-verify at C172 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
 bottlenecks_removed:
-- C104-C169 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
-- C170 completed at 20261107T194910Z (OOS+ingest+registry+summary+script, disk SHAs recorded); state.yaml/HANDOFF synced to C170-done/C171-next
+- C104-C170 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+- C171 completed at 20261107T195703Z (OOS+ingest+registry+summary+script, disk SHAs recorded); state.yaml/HANDOFF synced to C171-done/C172-next
 - numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate test results
 - nonspot ingest does not block R-B on real_quote_volume
-- C169 VMAX_OVER_TREND collision guard verified 0 non-self before implementation/run
-- C170 LMAX_OVER_DET collision guard verified 0 non-self before implementation/run (re-verified 20261107T194659Z)
-- C171 preselect RR_OVER_VMAX grep verified 0 non-self at 20261107T194840Z (post-C170); eliminates collision-search delay
+- C171 RR_OVER_VMAX collision guard verified 0 non-self before implementation/run
+- C172 preselect TT_OVER_VMAX grep verified 0 non-self at 20261107T195645Z (post-C171); eliminates collision-search delay
 - Single durable handoff (HANDOFF.md) + research_state/state.yaml are the only coordination sources; next agent must not produce status-only output
 - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
 mandatory:
-- No status summary before >= 3 new concrete C171 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+- No status summary before >= 3 new concrete C172 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
 - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-- 'C171: grep-verify distinctness before implementation/run; recheck RR_OVER_VMAX grep=0 at run time'
+- 'C172: grep-verify distinctness before implementation/run; recheck TT_OVER_VMAX grep=0 at run time'
 - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-handoff_refreshed_utc: 20261107T195219Z
+handoff_refreshed_utc: 20261107T195703Z

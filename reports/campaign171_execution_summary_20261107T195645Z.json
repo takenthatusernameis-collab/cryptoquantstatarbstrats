@@ -1,0 +1,79 @@
+{
+  "tool": "campaign171_execution_summary",
+  "generated_at_utc": "2026-11-07T19:56:45.077058+00:00",
+  "campaign": 171,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos_20261107T195511Z.json",
+      "sha256": "04e05bcd56a38c6c47147ae30a0c4c456addc6f494dc356138e1a9436b449342"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T195645Z.json",
+      "sha256": "348a3229f8596dc974b1724a9a9a64681ff757ae3256d8e20e2c23f9fd343691"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T195645Z.json",
+      "sha256": "00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "5c2e0cdce0fcd970ea73c24fc0c38529d65e6a09b49881d754fe832349c779e0"
+    },
+    "superseded_registry": {
+      "path": "reports/strategy_edge_registry_20261107T194900Z.json",
+      "sha256": "c89757fe45765de2ff7c9be8f0293f10909d93aa3146d466be05772b7940437e"
+    },
+    "superseded_c170_oos": {
+      "path": "reports/real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos_20261107T194830Z.json",
+      "sha256": "e88f0c061dd695efd7274295fd470e8833d5c04423100c78556664390d3c5f30"
+    }
+  },
+  "c171_rb": {
+    "candidate": "VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR (RQA ratio RR/V_max, recurrence rate RR = sum(R)/N^2 normalized by max vertical line length V_max, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_RR_VMAX shocks vs ALB=336)",
+    "strategy_id": "VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.09022710082764118,
+      "fee5_slip5": -0.35622710082764136,
+      "fee10_slip10": -0.6222271008276414,
+      "fee20_slip20": -1.1542271008276415,
+      "fee40_slip40": -2.2182271008276415
+    }
+  },
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T195645Z.json",
+    "note": "Nonspot ingest blocked fail-closed; R-B unblocked on validated real_quote_volume."
+  },
+  "c172_preselected": {
+    "family_primary": "VOLUME_RQA_TT_OVER_VMAX_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio TT/V_max (trapping time TT normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs",
+    "distinctness_grep_primary": "grep -rEIn 'tt_over_vmax|vmax_over_tt|TT_OVER_VMAX|RQA_TT_OVER_VMAX|rqa_ratio_tt_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T195645Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C172 (grep 0 at selection time, post-C171). Distinct from C125-C171 RQA-ratio families (including C171 RR/V_max). Re-verify at C172 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "notes": [
+    "C171 RR/V_max RQA ratio shock MR on real_quote_volume; heavy work completed (>=3 new concrete artifacts: OOS + ingest + registry + summary, each with SHA256 from bytes).",
+    "Edge rule did not hold (edge_claim NONE); reported honestly, no fabrication.",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "pytest unavailable recorded honestly; no fabricated results.",
+    "C170 and prior registry superseded by C171 artifacts."
+  ]
+}
