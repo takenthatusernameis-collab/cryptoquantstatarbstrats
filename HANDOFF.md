@@ -1,9 +1,9 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T155342Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T155408Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Prioritization (from repo name):** fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
 
-## VERIFIED THIS SESSION (20261107T155342Z) — no reruns needed
+## VERIFIED THIS SESSION (20261107T155408Z) — no reruns needed
 - `numpy/scipy/pandas` importable. `pytest` unavailable (recorded honestly — do NOT fabricate test results).
 - Real caches present + SHA-verified against prior ingest: `data/cache/volume_1h_full.pkl` (4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c), `data/cache/volume_1h_full.meta.json` (4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616), `data/cache/volume_1h_full.provenance.json` (c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89), spot `0bab5d6a...631fcf7.pkl` (5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b).
 - C162 artifacts on disk with SHAs matching registry/summary (verified): C162 OOS `reports/real_quote_volume_rqa_trend_over_entr_ratio_shock_mr_costed_oos_20261107T145139Z.json` (9ae2a423559374234c2cd1cec77b8f5cbb18786ae7282e5b918d0b5b523db9ea), ingest `real_feed_ingest_attempt_20261107T154835Z.json` (adabb55c5b9b40af2bec1447a513194a19808d482f1dd36bfc42e905ade7aacc), registry `strategy_edge_registry_20261107T154835Z.json` (02309b4b050c102114e000ef013f83202fe1f661a245efb2e93d8ea2ef3b6210), summary `campaign162_execution_summary_20261107T154835Z.json` (269e7415ac8ff048e6564bf00116577d57fac465798d98ae47b7cfe842d6c22d), script (22ea68022ee398a3d16154c0946f03971bc1b508624a06ae1550f84fd1a79e52).
@@ -14,7 +14,7 @@ Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 - Latest registry (superseding): `reports/strategy_edge_registry_20261107T154835Z.json` (02309b4b050c102114e000ef013f83202fe1f661a245efb2e93d8ea2ef3b6210, supersedes C161 17048b6c...). Ingest: `real_feed_ingest_attempt_20261107T154835Z.json` (adabb55c...). No prior campaign reruns; no stale cache re-scans.
 
 ## INITIAL TASK FOR NEXT SESSION — C163 (MANDATORY, HEAVY WORK, START IMMEDIATELY)
-**Timestamped directive (20261107T155342Z): execute C163 now. No status-only replies. No status summary before >= 3 new concrete C163 report artifacts exist on disk (OOS + ingest + registry/summary), each with SHA256 from bytes.**
+**Timestamped directive (20261107T155408Z): execute C163 now. No status-only replies. No status summary before >= 3 new concrete C163 report artifacts exist on disk (OOS + ingest + registry/summary), each with SHA256 from bytes.**
 
 **Primary C163 candidate (pre-selected — MUST re-verify grep at run time):** `VOLUME_RQA_ENTR_OVER_TREND_RATIO_SHOCK_MR` — RQA ratio `ENTR/TREND` (diagonal-line Shannon entropy normalized by diagonal recurrence TREND slope) shock on delay-embedded log-volume returns (`m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2`), trailing/causal. Fail-closed NaN/no-signal if `TREND==0` or undefined/non-finite (regression degenerate/insufficient qualifying diagonal points), `ENTR<=0` or undefined/non-finite, no qualifying diagonal lines, offdiag/recurrence degenerate, or undefined. Distinct from C125–C162 (incl C162 `TREND/ENTR` — inverse ratio, distinct numerator/denominator; C161 `L_max/TREND`, C160 `TREND/L_max`, C159 `TT/ENTR`).
 
@@ -22,7 +22,7 @@ Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 ```bash
 grep -rn 'entr_over_trend|entr_trend_ratio|rqa_ratio_entr_trend|ENTR_OVER_TREND' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l
 ```
-Must be **0 non-self**. Verified 0 this session (20261107T155342Z). If collides, pick next distinct grep-zero alternative, re-grep, and record chosen feature + grep evidence.
+Must be **0 non-self**. Verified 0 this session (20261107T155408Z). If collides, pick next distinct grep-zero alternative, re-grep, and record chosen feature + grep evidence.
 
 ### Required C163 deliverables (all on disk, SHA256 from bytes)
 1. **Implement/run OOS script** (model on C162): `scripts/run_real_quote_volume_rqa_entr_over_trend_ratio_shock_mr_costed_oos.py` (or collision-safe alternative). Change only feature computation, IDs, `pre_stated_distinctness`, and refs to latest registry `reports/strategy_edge_registry_20261107T154835Z.json` (02309b4b050c102114e000ef013f83202fe1f661a245efb2e93d8ea2ef3b6210) + C162 OOS sha `9ae2a423559374234c2cd1cec77b8f5cbb18786ae7282e5b918d0b5b523db9ea`. Emit `reports/real_quote_volume_rqa_entr_over_trend_ratio_shock_mr_costed_oos_<UTC>.json` with `oos_edge_proven`, `any_exposure_oos`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`, `cross_asset.oos_net_sums`, `edge_claim: NONE` unless rule holds, `real_data_only:true`, `fail_closed:true`, and `pre_stated_distinctness` (grep cmd/hits/evidence; explicit distinctness from C162/C161/C160).
@@ -43,7 +43,7 @@ Must be **0 non-self**. Verified 0 this session (20261107T155342Z). If collides,
 - **Heavy work mandatory:** implement/run + artifact emission; no status-only replies.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
 
-## Bottlenecks removed (confirmed 20261107T155342Z)
+## Bottlenecks removed (confirmed 20261107T155408Z)
 - C104–C162 locked; no reruns unchanged. Artifacts/SHA integrity verified.
 - `numpy/scipy/pandas` importable; caches present. `pytest` unavailable recorded honestly — do not fabricate.
 - C163 primary `ENTR/OVER_TREND` grep verified **0 hits** this session. Re-verify at run time.
