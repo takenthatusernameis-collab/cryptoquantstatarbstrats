@@ -1,0 +1,92 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T073351Z",
+  "campaign": 135,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "supersedes": "reports/strategy_edge_registry_20261107T072710Z.json",
+  "supersedes_sha256": "f09e6018b538197dece7e300e59b24220ffc03e82d2a401a578d318674c817fa",
+  "lineage_note": "C104-C134 locked (no reruns). C135 executed: VOLUME_RQA_VERT_HORIZ_LINE_MAX_RATIO_SHOCK_MR (RQA ratio L_MAX_V/L_MAX, max vertical/max diagonal line length shock, m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2, ALB=336 z fade) on real_quote_volume; oos_edge_proven=false.",
+  "pytest": {
+    "status": "unavailable",
+    "detail": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "artifact": "reports/real_feed_ingest_attempt_20261107T073351Z.json",
+    "sha256": "ac054477b816a8dfd5624811e9841422bc7c93b25d379c2db2dead686862be99"
+  },
+  "entries": [
+    {
+      "campaign": 135,
+      "strategy_id": "VOLUME_RQA_VERT_HORIZ_LINE_MAX_RATIO_SHOCK_MR",
+      "family": "RQA L_MAX_V/L_MAX ratio (max vertical/max diagonal line length) shock",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "oos_artifact": "reports/real_quote_volume_rqa_vert_horiz_line_max_ratio_shock_mr_costed_oos_20261107T073351Z.json",
+      "oos_sha256": "880b3ad88c4ccaf41a1cb83c763e68055243ff07cdb49c4f25eb477fef3f62b3",
+      "script": "scripts/run_real_quote_volume_rqa_vert_horiz_line_max_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "06157da0bcd8c05c650f3bad78bb15b02d2a3f3747f41201d45c2f40d2bb9768",
+      "distinctness_grep": "vert_horiz_line_ratio|maxv_over_maxd|lmaxv_over_lmax|VERT_HORIZ_LINE_MAX_RATIO|LAM_MAX_OVER_DET_MAX -> 0 non-self hits (pre-impl); collision guard vs C131 DIV=1/L_MAX, C132 DIV_V=1/L_MAX_V passed",
+      "wf": "720/168/168",
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.9236394459078964,
+        "fee5_slip5": -1.684639445907897,
+        "fee10_slip10": -2.445639445907897,
+        "fee20_slip20": -3.9676394459078974,
+        "fee40_slip40": -7.011639445907896
+      }
+    },
+    {
+      "campaign": 134,
+      "strategy_id": "VOLUME_RQA_LAM_OVER_DET_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "oos_artifact": "reports/real_quote_volume_rqa_lam_over_det_ratio_shock_mr_costed_oos_20261107T072710Z.json",
+      "oos_sha256": "47828e281ce07ec115970851c5bcb33687414382efe804b9692a6501cb69fc6c",
+      "script": "scripts/run_real_quote_volume_rqa_lam_over_det_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "ef7091c3420eb80542b4222e1b473207731fc18988cbcf6745d4e755ba4fc9d7",
+      "ref": "C134 context carried forward"
+    },
+    {
+      "campaign": 133,
+      "strategy_id": "VOLUME_RQA_DET_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "oos_artifact": "reports/real_quote_volume_rqa_det_over_rr_ratio_shock_mr_costed_oos_20261107T071212Z.json",
+      "oos_sha256": "ee4e2bc22de6ef65b1c230927e85a3a5322873f2a34a082315680f405a730e80",
+      "ref": "see superseded registry"
+    }
+  ],
+  "campaigns_covered": "C104-C135 (C104-C134 locked; C135 appended)"
+}

@@ -1,0 +1,44 @@
+{
+  "tool": "campaign135_execution_summary",
+  "generated_at_utc": "20261107T073351Z",
+  "campaign": 135,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "strategy_id": "VOLUME_RQA_VERT_HORIZ_LINE_MAX_RATIO_SHOCK_MR",
+  "distinctness_grep": "vert_horiz_line_ratio|maxv_over_maxd|lmaxv_over_lmax|VERT_HORIZ_LINE_MAX_RATIO|LAM_MAX_OVER_DET_MAX -> 0 non-self hits (repo grep; HANDOFF/state refs only)",
+  "pytest": {
+    "status": "unavailable",
+    "detail": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_vert_horiz_line_max_ratio_shock_mr_costed_oos_20261107T073351Z.json",
+      "sha256": "880b3ad88c4ccaf41a1cb83c763e68055243ff07cdb49c4f25eb477fef3f62b3",
+      "exists": true
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_vert_horiz_line_max_ratio_shock_mr_costed_oos.py",
+      "sha256": "06157da0bcd8c05c650f3bad78bb15b02d2a3f3747f41201d45c2f40d2bb9768",
+      "exists": true
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T073351Z.json",
+      "sha256": "ac054477b816a8dfd5624811e9841422bc7c93b25d379c2db2dead686862be99",
+      "exists": true
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T073351Z.json",
+      "sha256": "6064587862ee3458a14ac23f552f48fac0c08500933330d377a581d7e4d4f77f",
+      "exists": true
+    }
+  ],
+  "notes": [
+    "C104-C134 locked, not rerun.",
+    "Nonspot ingest blocked fail-closed; RB unblocked on real_quote_volume.",
+    "SHAs computed from bytes on disk."
+  ]
+}
