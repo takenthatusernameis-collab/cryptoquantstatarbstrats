@@ -1,0 +1,45 @@
+{
+  "tool": "campaign157_execution_summary",
+  "generated_at_utc": "20261107T125008Z",
+  "campaign": 157,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.28564102255990675,
+    "fee5_slip5": -0.6926410225599071,
+    "fee10_slip10": -1.0996410225599074,
+    "fee20_slip20": -1.9136410225599072,
+    "fee40_slip40": -3.5416410225599066
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_rr_over_entr_ratio_shock_mr_costed_oos_20261107T124940Z.json",
+      "sha256": "180c48ba89554b1f9be8a0fda710e06d92850cb5bd0a9c331180a28437f84a1d",
+      "kind": "oos_report"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T125008Z.json",
+      "sha256": "2f139c7d025a7b870f84eabfb83e944600fce8654c6ccf73e9620812e119b21b",
+      "kind": "ingest_report"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T125008Z.json",
+      "sha256": "d81d357c87181624d79875d50d7c012c0ed4bdda29f8174e6bd29c9ae8132bfe",
+      "kind": "registry"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_entr_ratio_shock_mr_costed_oos.py",
+      "sha256": "6e7689e77a7a4ac43c2cad29f425eff5fea682008698de10bea2b0b59e1db690",
+      "kind": "script"
+    }
+  ],
+  "shas_computed_from_disk": true,
+  "supersedes_registry": "reports/strategy_edge_registry_20261107T124230Z.json",
+  "supersedes_registry_sha256": "c6248481e3b747d0b2e864c442fcd092a8ed669e364e30a9a9796451a984d8c9"
+}

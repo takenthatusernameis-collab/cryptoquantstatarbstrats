@@ -1,0 +1,28 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T125008Z",
+  "campaign": 157,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "rb_unblocked": true,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "note": "Nonspot/funding/basis/OI feeds not ingested in this environment; R-B proceeds on validated real_quote_volume family regardless."
+  },
+  "validated_feeds": {
+    "real_quote_volume": {
+      "status": "validated_real",
+      "source_cache": "data/cache/volume_1h_full.pkl",
+      "provenance": "data/cache/volume_1h_full.provenance.json",
+      "meta": "data/cache/volume_1h_full.meta.json",
+      "note": "Reused existing validated real quote-volume cache; no re-fetch/re-scan."
+    },
+    "spot_prices": {
+      "status": "validated_real_cached",
+      "source_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "note": "Existing real Binance spot cache; no re-scan."
+    }
+  },
+  "no_proxies_labeled_real": true
+}
