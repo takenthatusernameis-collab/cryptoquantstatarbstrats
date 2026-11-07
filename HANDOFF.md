@@ -1,8 +1,8 @@
-# READ THIS FIRST — C140 INITIAL TASK (20261107T081548Z; single durable handoff)
+# READ THIS FIRST — C140 INITIAL TASK (20261107T081911Z; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
-**Readiness verified 20261107T081548Z:** `numpy,scipy,pandas` importable; required caches present (`volume_1h_full.{pkl,provenance.json}`, `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`); pytest unavailable (honest, `No module named pytest`); C140 primary grep-zero in `scripts/ strategies/ backtest/ utils/`.
+**Readiness verified 20261107T081911Z:** `numpy,scipy,pandas` importable; required caches present (`volume_1h_full.{pkl,provenance.json}`, `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`); pytest unavailable (honest, `No module named pytest`); C140 primary grep-zero in `scripts/ strategies/ backtest/ utils/`.
 
 ## Repo prioritization (from name `cryptoquantstatarbstrats`)
 Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. Nonspot ingest is a hard blocker only if a real nonspot artifact never appears; R-B proceeds on validated `real_quote_volume` family regardless.
