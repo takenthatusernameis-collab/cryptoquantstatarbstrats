@@ -1,4 +1,4 @@
-# READ THIS FIRST — C127 INITIAL TASK (20261107T060218Z; single durable handoff)
+# READ THIS FIRST — C128 INITIAL TASK (20261107T060523Z; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
@@ -20,7 +20,7 @@ Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed b
 
 ## Bottlenecks removed (this handoff)
 - C126 marked DONE with disk-verified SHAs; C104–C126 locked — no reruns. Latest registry carried forward: `strategy_edge_registry_20261107T060021Z.json` (sha `650bab78…`).
-- **C127 family pre-selected & grep-verified clean (20261107T060218Z):** `VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR` — RQA average diagonal line length `L_MEAN` = (sum of lengths of all diagonal lines with `l >= l_min` in the recurrence matrix) / (count of such diagonal lines) on delay-embedded log-volume returns. Grep `average_diagonal|L_MEAN|mean_diag_line|rqa_lmean|diag_line_mean` over `scripts/ strategies/ backtest/ utils/` must return **zero implementation hits before run** (reconfirm & record in OOS `pre_stated_distinctness`; note self-references only after implementation). Distinct from C126 `%DET` (diagonal-line point fraction, not mean line length) and C125 `%REC` (density, no line structure); distinct from BDS and all C104–C124 families.
+- **C127 DONE (20261107T060523Z):** `VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR` — `oos_edge_proven=false`, `edge_claim: NONE`. OOS `reports/real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos_20261107T060312Z.json` (sha `e124581738988c773c80708222036bdb9409fa420032040647d204412c18886f`). Summary `reports/campaign127_execution_summary_20261107T060523Z.json`. `VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR` — RQA average diagonal line length `L_MEAN` = (sum of lengths of all diagonal lines with `l >= l_min` in the recurrence matrix) / (count of such diagonal lines) on delay-embedded log-volume returns. Grep `average_diagonal|L_MEAN|mean_diag_line|rqa_lmean|diag_line_mean` over `scripts/ strategies/ backtest/ utils/` must return **zero implementation hits before run** (reconfirm & record in OOS `pre_stated_distinctness`; note self-references only after implementation). Distinct from C126 `%DET` (diagonal-line point fraction, not mean line length) and C125 `%REC` (density, no line structure); distinct from BDS and all C104–C124 families.
 - "No status before >=3 new artifacts" + mandatory run — forces heavy work.
 - pytest unavailable recorded honestly — do not fabricate test results.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.

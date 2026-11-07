@@ -1,0 +1,15 @@
+{
+  "tool": "campaign127_execution_summary",
+  "generated_at_utc": "20261107T060523Z",
+  "campaign": 127,
+  "oos_artifact": "reports/real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos_20261107T060312Z.json",
+  "oos_sha256": "e124581738988c773c80708222036bdb9409fa420032040647d204412c18886f",
+  "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T060514Z.json",
+  "ingest_sha256": "7155a54e17ac0f5f509c01427a5171afb773c6ccfaaace230e14b7c8c99561a8",
+  "script": "scripts/run_real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos.py",
+  "script_sha256": "965d67540a2c6db0825f7ccab3f24e6caa7eed00834e7ca48c9a88dbb52daeb6",
+  "pytest": "unavailable (No module named pytest)",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "rb_unblocked": true
+}
