@@ -1,0 +1,19 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T060021Z",
+  "campaign": 126,
+  "real_data_only": true,
+  "fail_closed": true,
+  "status": "blocked_no_real_nonspot_artifact",
+  "rb_unblocked": true,
+  "detail": "No validated real nonspot artifact found in this environment; R-B proceeds on validated real_quote_volume family. Nonspot ingest not fabricated.",
+  "sources_checked": [
+    "data/cache/*",
+    "reports/*nonspot*",
+    "reports/*perp*",
+    "reports/*futures*"
+  ],
+  "sha256": {
+    "real_feed_ingest_attempt_20261107T060021Z.json": "bdc15345e8c41cb74fdce157e2f08d7107b92f8091f56de293f8d1c305c15692"
+  }
+}

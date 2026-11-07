@@ -1,0 +1,43 @@
+{
+  "campaign": 126,
+  "generated_at_utc": "20261107T060021Z",
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "pytest": {
+    "available": false,
+    "outcome": "unavailable (No module named pytest)",
+    "fabricated": false
+  },
+  "pre_stated_distinctness_verified": {
+    "grep_cmd": "grep -rn 'recurrence_determinism\\|%DET\\|laminarity\\|%LAM\\|rqa_det' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+    "grep_hits": 0,
+    "verified_at_utc": "20261107T050614Z"
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T050326Z.json",
+    "prior_registry_sha256": "afc423bfb3e50e3d7821ffd70f2f7539aef8eadd2714dfd075f1b526dd98766d",
+    "c125_oos": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+    "c125_oos_sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_determinism_shock_mr_costed_oos_20261107T055735Z.json",
+      "sha256": "fa17cbb405d6839f2038e1a73905422741ebf211b2c3576ff789e9e8b5b42283"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_determinism_shock_mr_costed_oos.py",
+      "sha256": "b384ad5edfb378e59c6dd4e3665aa49e52631c8635ca3df7994f902e7631c24b"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T060021Z.json",
+      "sha256": "bd65fbcdaaf73f71c648c11a2bcb16da3fc84bb8cab10cf9653a95ab71cfea24"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T060021Z.json",
+      "sha256": "650bab78db4aed4e8d18f71bcc53a945700f8c3fce75d6d78b4a7b429cf3fd79"
+    }
+  ]
+}
