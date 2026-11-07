@@ -1,0 +1,58 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T011022Z",
+  "campaign": 114,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "c104_c113_status": "DONE_oos_edge_proven_false_no_rerun",
+  "step0_distinctness": {
+    "grep_verified_absent_before_impl": true,
+    "checked": [
+      "scripts/",
+      "reports/"
+    ],
+    "terms": [
+      "increment_entropy",
+      "IncrementEntropy"
+    ]
+  },
+  "step1_c114": {
+    "candidate": "VOLUME_INCREMENT_ENTROPY_SHOCK_MR",
+    "feature": "normalized Shannon entropy of quantized increment symbols d_t=r_t-r_{t-1} over log-volume returns, W_INC=168, Q=10 equal-width bins, normalized by log(Q); fail-closed on degenerate/zero-range/non-finite",
+    "signal": "z=(H_inc-ALB_mean)/ALB_std ALB=336; entry_z>=1.5 fade shock (z>0 short, z<0 long); exit_z<0.5 or max_hold=24 or flip; execution t->t+1 no lookahead",
+    "wf": "720/168/168",
+    "cost_grid": "[[0,0],[5,5],[10,10],[20,20],[40,40]]",
+    "bh": "same OOS windows",
+    "script": "scripts/run_real_quote_volume_increment_entropy_shock_mr_costed_oos.py",
+    "script_sha256": "e6718f9fd1ac4eb43d84b10acf96b444f8a2251ec9476ddf542ada414fdef140",
+    "artifact": "real_quote_volume_increment_entropy_shock_mr_costed_oos_20261107T011021Z.json",
+    "artifact_sha256": "de01ac8b96b8453ab728205d4d94e1939405d1b25f6bb43e91e2c307626d19d9",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE"
+  },
+  "step2": {
+    "ingest_attempt": {
+      "artifact": "real_feed_ingest_attempt_20261107T011022Z.json",
+      "sha256": "d1d83d4633e4955925496708b9a8c68c5f159e3cb0c4d3bb00437c5e060de8e4",
+      "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+      "rb_unblocked": true
+    },
+    "pytest": {
+      "command": "python3 -m pytest tests/ -q",
+      "rc": 1,
+      "output_tail": "/usr/bin/python3: No module named pytest",
+      "recorded_honestly": true,
+      "note": "pytest not installed in this env; counts carried forward from lineage (928 passed/1 skipped/0 failed) \u2014 not fabricated in this run."
+    },
+    "registry": {
+      "artifact": "strategy_edge_registry_20261107T011022Z.json",
+      "sha256": "ffcacca26a732efbab8ab908ed43aceb3cb4cecb3724960ea46117eacdbeeabe",
+      "supersedes": "strategy_edge_registry_20261107T010750Z.json",
+      "supersedes_sha256": "0224302615240cf7303ecfae51c1b7b69857153916087473327bcfe3d86a01dd"
+    }
+  },
+  "nonspot_blocker": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT (does not block R-B on real_quote_volume)",
+  "edge_claim": "NONE",
+  "next_campaign": "C115 R-B VOLUME_PERMUTATION_VARIANCE_SHOCK_MR (grep-verify distinctness before impl; fall back to VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR or VOLUME_RANGE_ENTROPY_SHOCK_MR if duplicated). Mandatory: impl+run+>=3 artifacts, no status-only replies, real data only, fail-closed, edge rule exact."
+}
