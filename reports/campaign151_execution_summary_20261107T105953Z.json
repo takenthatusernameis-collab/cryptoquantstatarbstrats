@@ -1,0 +1,34 @@
+{
+  "tool": "campaign151_execution_summary",
+  "generated_at_utc": "20261107T105953Z",
+  "campaign": 151,
+  "status": "completed",
+  "strategy_id": "VOLUME_RQA_TT_OVER_LMAX_RATIO_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos_20261107T105953Z.json",
+      "sha256": "6caa21838b5bc5e8291586d8735896ad74ac00bf490f8746a98696ea4eb9e531",
+      "type": "oos"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T105953Z.json",
+      "sha256": "c8235c658fab1f9653dc0efcb2795d230776386dc39d0b7dd99e6cda29aca235",
+      "type": "ingest"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T105953Z.json",
+      "sha256": "ba60832be0eb86898d8d3da400a52aa5a6ca2261f7036060f1b5e64d91be4802",
+      "type": "registry"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "2851603d44c12b3e58232cdd11ff65e74bef809872bc69486c5b6c7c266910c4",
+      "type": "script"
+    }
+  ],
+  "notes": "C151 executed with heavy work (implemented+ran OOS). Grep distinctness verified pre-implementation (0 hits). Edge not proven; no gate weakening."
+}
