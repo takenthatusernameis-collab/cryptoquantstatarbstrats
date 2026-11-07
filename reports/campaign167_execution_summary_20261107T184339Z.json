@@ -1,0 +1,38 @@
+{
+  "tool": "campaign167_execution_summary",
+  "generated_at_utc": "2026-11-07T18:43:39+00:00",
+  "campaign": 167,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_tt_over_trend_ratio_shock_mr_costed_oos_20261107T184339Z.json",
+      "sha256": "515fffa2ffaafbda2ac486722d36c2bbe315f667fb90aaa67a54f7c955034f52"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T184339Z.json",
+      "sha256": "8eacbb204c626c3ca63ddf8886e0c9d931268d6b7384ab6289983e0c57d61ade"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T184339Z.json",
+      "sha256": "541298ffe161771ce67e775ce3a02dee643ca2d7cd979c0604dd4e7179e698fd"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_tt_over_trend_ratio_shock_mr_costed_oos.py",
+      "sha256": "70f9bd5ee59cc06585b4922ed920cf971e97cf683bd1620aa2fd47406a20115a"
+    },
+    "superseded_registry": {
+      "path": "reports/strategy_edge_registry_20261107T173330Z.json",
+      "sha256": "f400501ed85c734d6f3093595b7594c631862af82c2fc28f58fbc7fd4d233762"
+    }
+  },
+  "notes": [
+    "C167 TT/TREND RQA ratio shock MR on real_quote_volume; heavy work completed (>=3 new concrete artifacts: OOS + ingest + registry + summary).",
+    "Edge rule did not hold (edge_claim NONE); reported honestly, no fabrication.",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "pytest unavailable recorded honestly; no fabricated results."
+  ]
+}

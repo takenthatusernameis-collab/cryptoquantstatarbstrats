@@ -1,0 +1,71 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-07T18:43:39+00:00",
+  "campaign": 167,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T173330Z.json",
+    "sha256": "f400501ed85c734d6f3093595b7594c631862af82c2fc28f58fbc7fd4d233762"
+  },
+  "references": {
+    "c166_oos": {
+      "path": "reports/real_quote_volume_rqa_vmax_over_lam_ratio_shock_mr_costed_oos_20261107T164659Z.json",
+      "sha256": "87d630102068c8539e7eed8441d237db37d20fe14fbf515b6c4ee489357d467e"
+    }
+  },
+  "c166_oos": {
+    "strategy_id": "VOLUME_RQA_VMAX_OVER_LAM_RATIO_SHOCK_MR",
+    "path": "reports/real_quote_volume_rqa_vmax_over_lam_ratio_shock_mr_costed_oos_20261107T164659Z.json",
+    "sha256": "87d630102068c8539e7eed8441d237db37d20fe14fbf515b6c4ee489357d467e",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.1198857017085776,
+      "fee5_slip5": -0.2651142982914227,
+      "fee10_slip10": -0.6501142982914228,
+      "fee20_slip20": -1.4201142982914225,
+      "fee40_slip40": -2.9601142982914226
+    },
+    "script": "scripts/run_real_quote_volume_rqa_vmax_over_lam_ratio_shock_mr_costed_oos.py",
+    "script_sha256": "b2fed7637425d530900fd1fd8b731c4be40434d975736e94e92a50939c44f2f8"
+  },
+  "c167_oos": {
+    "strategy_id": "VOLUME_RQA_TT_OVER_TREND_RATIO_SHOCK_MR",
+    "path": "reports/real_quote_volume_rqa_tt_over_trend_ratio_shock_mr_costed_oos_20261107T184339Z.json",
+    "sha256": "515fffa2ffaafbda2ac486722d36c2bbe315f667fb90aaa67a54f7c955034f52",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.2436055159077143,
+      "fee5_slip5": -0.6076055159077146,
+      "fee10_slip10": -0.9716055159077147,
+      "fee20_slip20": -1.6996055159077146,
+      "fee40_slip40": -3.1556055159077143
+    },
+    "script": "scripts/run_real_quote_volume_rqa_tt_over_trend_ratio_shock_mr_costed_oos.py",
+    "script_sha256": "70f9bd5ee59cc06585b4922ed920cf971e97cf683bd1620aa2fd47406a20115a"
+  },
+  "c167_ingest": {
+    "path": "reports/real_feed_ingest_attempt_20261107T184339Z.json",
+    "sha256": "8eacbb204c626c3ca63ddf8886e0c9d931268d6b7384ab6289983e0c57d61ade"
+  },
+  "c168_preselected": {
+    "family_primary": "VOLUME_RQA_RR_OVER_TREND_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio RR/TREND (recurrence rate RR normalized by TREND determinism) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on TREND==0/undefined-non-finite, recurrence degenerate",
+    "distinctness_grep_primary": "rr_over_trend|trend_over_rr|RQA_RR_OVER_TREND|rqa_ratio_rr_over_trend",
+    "grep_hits_observed_20261107T184339Z": 0,
+    "grep_verify_required": true,
+    "note": "Preselected for C168 (grep 0 at 20261107T184339Z). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND (RR/TREND token family unused in C125-C167). Re-verify at run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "lineage_note": "C167 adds VOLUME_RQA_TT_OVER_TREND_RATIO_SHOCK_MR (RQA TT/TREND shock, real_quote_volume only). No prior reruns. Nonspot blocked fail-closed; R-B unblocked on real_quote_volume."
+}
