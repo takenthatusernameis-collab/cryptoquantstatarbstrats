@@ -1,0 +1,27 @@
+{
+  "schema_version": "real_feed_ingest_attempt.v1",
+  "generated_at_utc": "20261107T042055Z",
+  "campaign": "C122",
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "nonspot_ingest_attempted": true,
+  "nonspot_real_artifact_present": false,
+  "nonspot_status": "blocked_fail_closed_no_real_nonspot_artifact",
+  "routes_checked": [
+    {
+      "route": "nonspot_real_artifact_presence",
+      "result": "absent_fail_closed",
+      "notes": "No verified real nonspot (perp/funding/OI/basis/mark) artifact with provenance found in repo cache/reports for this campaign."
+    }
+  ],
+  "rb_unblocked": true,
+  "rb_basis": "R-B proceeds on validated real_quote_volume family regardless of nonspot ingest status (pre-stated).",
+  "real_quote_volume_preconditions_ok": true,
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T041147Z.json",
+    "prior_registry_sha256": "dd5492697d70ff3f79d0e8dbb8b0a72eb6cfa230eb4143f757f185c22392d684",
+    "c122_oos": "reports/real_quote_volume_distribution_entropy_shock_mr_costed_oos_20261107T041843Z.json",
+    "c122_oos_sha256": "a18bb64d7f0f5b5dde049032a92d6503e9dc726ded273e658f2db1c9151cfba3"
+  }
+}

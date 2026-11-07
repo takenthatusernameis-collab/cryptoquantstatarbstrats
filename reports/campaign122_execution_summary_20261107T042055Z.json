@@ -1,0 +1,71 @@
+{
+  "schema_version": "campaign_execution_summary.v1",
+  "generated_at_utc": "20261107T042055Z",
+  "campaign": "C122",
+  "strategy_family": "VOLUME_DISTRIBUTION_ENTROPY_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "pytest": {
+    "returncode": 1,
+    "output_tail": "/usr/bin/python3: No module named pytest"
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_distribution_entropy_shock_mr_costed_oos_20261107T041843Z.json",
+      "sha256": "a18bb64d7f0f5b5dde049032a92d6503e9dc726ded273e658f2db1c9151cfba3"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_distribution_entropy_shock_mr_costed_oos.py",
+      "sha256": "0608fd06ae895e3878f9dd714d1d9b0b2ea31c7491d082c883942ab64e0baa0a"
+    },
+    {
+      "kind": "ingest_attempt",
+      "path": "reports/real_feed_ingest_attempt_20261107T042055Z.json",
+      "sha256": "c43778aadd806e3c72a624a22cd814dc9932a6a655d47b06301361359d0256ef"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T042055Z.json",
+      "sha256": "09b4dac2185098e14be07ca9be18f9544703015cbd1ba6673c54862b9c0c1860",
+      "supersedes": "reports/strategy_edge_registry_20261107T041147Z.json",
+      "supersedes_sha256": "dd5492697d70ff3f79d0e8dbb8b0a72eb6cfa230eb4143f757f185c22392d684"
+    }
+  ],
+  "result_summary": {
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_edge_proven": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 0.09812821999180099,
+      "fee5_slip5": -1.3708717800082002,
+      "fee10_slip10": -2.8398717800082,
+      "fee20_slip20": -5.7778717800082,
+      "fee40_slip40": -11.653871780008199
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": 2.2465251829624752e-05,
+      "fee5_slip5": -0.0003138442719798993,
+      "fee10_slip10": -0.0006501537957894231,
+      "fee20_slip20": -0.0013227728434084705,
+      "fee40_slip40": -0.0026680109386465656
+    }
+  },
+  "references": {
+    "prior_c121_oos": {
+      "path": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+      "sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3"
+    },
+    "prior_registry": {
+      "path": "reports/strategy_edge_registry_20261107T041147Z.json",
+      "sha256": "dd5492697d70ff3f79d0e8dbb8b0a72eb6cfa230eb4143f757f185c22392d684"
+    }
+  }
+}
