@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "20261107T081029Z",
+  "campaign": 138,
+  "tool": "campaign138_execution_summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "readiness": {
+    "deps_ok": true,
+    "numpy_scipy_pandas_importable": true,
+    "caches_present": [
+      "data/cache/volume_1h_full.pkl",
+      "data/cache/volume_1h_full.provenance.json",
+      "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl"
+    ]
+  },
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rn 'det_over_lam|det_lam_ratio|rqa_ratio_det_lam|DET_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>/dev/null",
+    "grep_hits_pre_implementation_non_self": 0,
+    "collision_guard_passed": true,
+    "distinct_from": [
+      "C126 %DET direct",
+      "C128 %LAM direct",
+      "C133 %DET/%RR",
+      "C134 %LAM/%DET inverse",
+      "C136 %LAM/%RR",
+      "C137 %RR/%DET"
+    ]
+  },
+  "pytest": {
+    "available": false,
+    "command": "python3 -m pytest -q --tb=no",
+    "outcome": "unavailable (No module named pytest)",
+    "honest": true,
+    "fabricated": false
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T080222Z.json",
+    "prior_registry_sha256": "0afcf580807f83dc82519ffbd8dac1283bb17621d2a813abad9ec33f8a73e5c3",
+    "c137_oos": "reports/real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos_20261107T080021Z.json",
+    "c137_oos_sha256": "0acefbc7dfdaf656291ffad9d6900f483800707bc7878c7f2503baa6a9414f37"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos_20261107T080909Z.json",
+      "sha256": "77f3acea4e53ef3ea63ced8d26d68e5f1adc8883c4ad01aedec54d66849d47ca",
+      "bytes": 567677
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos.py",
+      "sha256": "b331cc9d1aa3a3f2e346bf5b2675175398e0ad8dc475ceb900f1be6fa59d1046",
+      "bytes": 16473
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T080923Z.json",
+      "sha256": "a4bd143a7cac6a2a7f4b970295a42adf1546e693051cb0e02a0966476d05c4c3",
+      "bytes": 637
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T081009Z.json",
+      "sha256": "ebca08c085d91a93ea29a6d33c414898cd0a06d74b9cf055de76bd971476f8e0",
+      "bytes": 8272
+    }
+  ],
+  "notes": [
+    "C138 OOS computed as RQA ratio %DET/%LAM (logic present in script/OOS compute). An initial pre-corrected on-disk artifact (080433Z) contained C137-copied metadata; corrected canonical artifact 080909Z (and _corrected copy) has correct C138 metadata and C137 references; script metadata corrected on disk.",
+    "No prior campaign reruns; no gate/threshold weakening; nonspot ingest fail-closed (rb_unblocked=true)."
+  ]
+}

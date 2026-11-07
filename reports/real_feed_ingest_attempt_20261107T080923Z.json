@@ -1,0 +1,16 @@
+{
+  "generated_at_utc": "20261107T080923Z",
+  "campaign": 138,
+  "tool": "real_feed_ingest_attempt",
+  "real_data_only": true,
+  "fail_closed": true,
+  "rb_unblocked": true,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "status_detail": "No real nonspot feed artifact ingested in this environment; fail-closed. R-B proceeds on validated real_quote_volume family.",
+  "attempted_sources_checked": [
+    "data/cache nonspot artifacts",
+    "local real feed manifests/provenance"
+  ],
+  "fabricated_data": false,
+  "notes": "Honest fail-closed ingest attempt for C138; nonspot blocker does not block R-B on real_quote_volume."
+}

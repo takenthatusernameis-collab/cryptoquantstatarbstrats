@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-"""C137: RQA ratio %RR/%DET (recurrence density normalized by determinism) shock on delay-embedded log-volume returns (real data only).
+"""C138: RQA ratio %DET/%LAM (determinism normalized by laminarity) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
   embedding X_i = (r_i, r_{i+tau}) with m=2, tau=1 over trailing window W_RR=168.
   Recurrence matrix R_{ij}=1 if ||X_i-X_j||_inf <= eps, else 0;
   eps = eps_scale * std(r_window) with pre-stated fixed eps_scale=0.5.
-  %RR = (offdiag recurrence sum) / (M*(M-1)), M = embedded points.
   %DET = (points in qualifying diagonal lines l>=l_min, main diagonal excluded)
          / (offdiag recurrence sum), l_min=2 (pre-stated).
-  RATIO_DET_LAM = %RR / %DET (fail-closed to NaN/no-signal if %DET<=0, offdiag sum<=0,
+  %LAM = (points in qualifying vertical lines l>=l_min, main diagonal excluded)
+         / (offdiag recurrence sum), l_min=2 (pre-stated).
+  RATIO_DET_LAM = %DET / %LAM (fail-closed to NaN/no-signal if %LAM<=0, offdiag sum<=0,
   non-finite, degenerate std/eps, or undefined). Causal trailing only.
 
-Distinctness (grep-zero pre-implementation): rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET
+Distinctness (grep-zero pre-implementation): det_over_lam|det_lam_ratio|rqa_ratio_det_lam|DET_OVER_LAM
   over scripts/ strategies/ backtest/ utils/ returned zero non-self hits (recorded).
-  Collision guard: C125 %RR direct, C126 %DET direct, C133 %DET/%RR (inverse), C134 %LAM/%DET,
-  C136 %LAM/%RR — C137 trades *ratio* %RR/%DET, a genuinely distinct composite (recurrence density
-  normalized by determinism).
+  Collision guard: C126 %DET direct, C128 %LAM direct, C133 %DET/%RR, C134 %LAM/%DET (inverse),
+  C136 %LAM/%RR, C137 %RR/%DET — C138 trades *ratio* %DET/%LAM, a genuinely distinct composite
+  (determinism normalized by laminarity).
 
 Signal (fail-closed MR): z = (RATIO_DET_LAM - ALB_mean) / ALB_std, ALB=336.
   entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
@@ -53,8 +54,8 @@ VOL_PROV = root / "data/cache/volume_1h_full.provenance.json"
 
 PRIOR_REGISTRY = "reports/strategy_edge_registry_20261107T080222Z.json"
 PRIOR_REGISTRY_SHA = "0afcf580807f83dc82519ffbd8dac1283bb17621d2a813abad9ec33f8a73e5c3"
-PRIOR_C136_OOS = "reports/real_quote_volume_rqa_lam_over_rr_ratio_shock_mr_costed_oos_20261107T075344Z.json"
-PRIOR_C136_OOS_SHA = "1e9e562d79d561b4266f6bb3bf5fe447e99668787f76d63519af1cb7b57b99cc"
+PRIOR_C137_OOS = "reports/real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos_20261107T080021Z.json"
+PRIOR_C137_OOS_SHA = "0acefbc7dfdaf656291ffad9d6900f483800707bc7878c7f2503baa6a9414f37"
 
 W_RR = 168
 ALB = 336
@@ -327,18 +328,19 @@ def main():
         "tool": "real_quote_volume_rqa_det_over_lam_ratio_shock_mr_costed_oos",
         "generated_at_utc": ts, "campaign": 138,
         "strategy_id": "VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR",
-        "candidate": "VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR (RQA ratio %RR/%DET, recurrence density normalized by determinism, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_DET_LAM shocks vs ALB=336)",
-        "feature_definition": "RATIO_DET_LAM = %RR/%DET with %RR = (offdiag recurrence sum)/(M*(M-1)), %DET = (points in qualifying diagonal lines l>=l_min, main diagonal excluded)/(offdiag recurrence sum), delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal on %DET<=0, offdiag sum<=0, degenerate/non-finite/undefined",
+        "candidate": "VOLUME_RQA_DET_OVER_LAM_RATIO_SHOCK_MR (RQA ratio %DET/%LAM, determinism normalized by laminarity, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_DET_LAM shocks vs ALB=336)",
+        "feature_definition": "RATIO_DET_LAM = %DET/%LAM with %DET = (points in qualifying diagonal lines l>=l_min, main diagonal excluded)/(offdiag recurrence sum), %LAM = (points in qualifying vertical lines l>=l_min, main diagonal excluded)/(offdiag recurrence sum), delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal on %LAM<=0, offdiag sum<=0, degenerate/non-finite/undefined",
         "pre_stated_distinctness": {
-            "grep_cmd": "grep -rn 'rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+            "grep_cmd": "grep -rn 'det_over_lam|det_lam_ratio|rqa_ratio_det_lam|DET_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
             "grep_hits_at_selection": 0, "grep_verified_at_utc": ts,
-            "selection_note": "Primary C137 candidate from HANDOFF; grep-zero confirmed before implementation/run (no collision with C125 %RR, C126 %DET, C133 %DET/%RR inverse, C134 %LAM/%DET, C136 %LAM/%RR) — C137 trades ratio %RR/%DET.",
-            "family": "RQA %RR/%DET ratio (recurrence density normalized by determinism) shock on volume dynamics",
-            "distinct_from_c125": "C125 trades %RR (recurrence density) directly; C137 normalizes %RR by %DET.",
-            "distinct_from_c126": "C126 trades %DET (determinism) directly; C137 forms ratio %RR/%DET.",
-            "distinct_from_c133": "C133 trades %DET/%RR (determinism normalized by recurrence density); C137 is the inverse ratio %RR/%DET.",
-            "distinct_from_c134": "C134 trades %LAM/%DET (laminarity normalized by determinism); C137 uses %RR numerator.",
-            "distinct_from_c136": "C136 trades %LAM/%RR (laminarity normalized by recurrence density); C137 uses %RR/%DET.",
+            "selection_note": "Primary C138 candidate from HANDOFF; grep-zero confirmed before implementation/run (no collision with C126 %DET direct, C128 %LAM direct, C133 %DET/%RR, C134 %LAM/%DET inverse, C136 %LAM/%RR, C137 %RR/%DET) — C138 trades ratio %DET/%LAM.",
+            "family": "RQA %DET/%LAM ratio (determinism normalized by laminarity) shock on volume dynamics",
+            "distinct_from_c126": "C126 trades %DET (determinism) directly; C138 normalizes %DET by %LAM.",
+            "distinct_from_c128": "C128 trades %LAM (laminarity) directly; C138 forms ratio %DET/%LAM.",
+            "distinct_from_c133": "C133 trades %DET/%RR; C138 uses %LAM denominator (not %RR).",
+            "distinct_from_c134": "C134 trades %LAM/%DET (inverse); C138 trades %DET/%LAM.",
+            "distinct_from_c136": "C136 trades %LAM/%RR; C138 uses %DET/%LAM.",
+            "distinct_from_c137": "C137 trades %RR/%DET; C138 uses %DET/%LAM.",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True, "fabricated_data": False, "fail_closed": True, "edge_claim": "NONE",
@@ -349,7 +351,7 @@ def main():
                    "step": STEP, "cost_grid": COST_GRID, "feature_compute_step": 2,
                    "feature_compute_note": "Causal trailing RQA computed every 2 bars and held (causal forward-hold) for runtime; signal/z/exec logic unchanged."},
         "references": {"prior_registry": PRIOR_REGISTRY, "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-                       "c136_oos": PRIOR_C136_OOS, "c136_oos_sha256": PRIOR_C136_OOS_SHA},
+                       "c137_oos": PRIOR_C137_OOS, "c137_oos_sha256": PRIOR_C137_OOS_SHA},
         "per_asset": res,
         "aggregate": {"n_assets": len(res), "any_exposure_oos": any_exp,
                       "all_cost_slices_positive_oos_net_sum": all_pos,
