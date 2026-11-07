@@ -1,0 +1,47 @@
+{
+  "tool": "campaign113_execution_summary",
+  "generated_at_utc": "20261107T010750Z",
+  "campaign": 113,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "candidate": "VOLUME_ATTENTION_ENTROPY_SHOCK_MR",
+  "distinctness_grep_verified": "grep -rl attention_entropy|AttentionEntropy scripts/reports showed no existing C113 attention-entropy OOS script/report before implementation (only no-match check recorded).",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "nonspot_blocker": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "rb_unblocked": true
+  },
+  "pytest": {
+    "rc": 1,
+    "stdout_tail": "",
+    "stderr_tail": "/usr/bin/python3: No module named pytest",
+    "installed": false
+  },
+  "artifacts": {
+    "c113_oos_report": {
+      "path": "reports/real_quote_volume_attention_entropy_shock_mr_costed_oos_20261107T010650Z.json",
+      "sha256": "2f44c98d8cbd01e596aa21cc8990703bf69aba11c1b9d498a95838bb35d2980a"
+    },
+    "c113_script": {
+      "path": "scripts/run_real_quote_volume_attention_entropy_shock_mr_costed_oos.py",
+      "sha256": "b67c93ee40aca8baaf0df0906f9ff2ae9f3ab49bb57a3b64b1630961299e05e4"
+    },
+    "ingest_attempt": {
+      "path": "reports/real_feed_ingest_attempt_20261107T010750Z.json",
+      "sha256": "b1a63852969667684a7bd6d9ff2d9bc70668656e29f4789ca8d87780f6996380"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T010750Z.json",
+      "sha256": "0224302615240cf7303ecfae51c1b7b69857153916087473327bcfe3d86a01dd",
+      "supersedes": "reports/strategy_edge_registry_20261107T001929Z.json",
+      "supersedes_sha256": "705223093d89133e67e4642dd2f88aeabc9e93536ef62f55aa1943eec52fffcf"
+    }
+  },
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80"
+  },
+  "next_campaign": "C114 R-B VOLUME_INCREMENT_ENTROPY_SHOCK_MR (grep-verify distinctness first; fail-closed; real data only) if C113 edge not proven."
+}
