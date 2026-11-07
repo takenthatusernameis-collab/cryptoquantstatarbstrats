@@ -1,0 +1,48 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "2026-11-07T20:49:09.000000+00:00",
+  "campaign": 174,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "strategy_id": "VOLUME_RQA_DET_OVER_TREND_RATIO_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "supersedes_registry": {
+    "path": "reports/strategy_edge_registry_20261107T203510Z.json",
+    "sha256": "f804e29b37465d5e40d5012818302aa3956b53bbc7fbdce397943eb394a6df0f"
+  },
+  "cites_c173_oos": {
+    "path": "reports/real_quote_volume_rqa_det_over_vmax_ratio_shock_mr_costed_oos_20261107T203510Z.json",
+    "sha256": "6a991562ff70b5ec84c79b2604e37c8c614f80fb2a81636368fe3cc212aa87ed"
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.8326390458759599,
+    "fee5_slip5": -1.2276390458759603,
+    "fee10_slip10": -1.6226390458759603,
+    "fee20_slip20": -2.4126390458759603,
+    "fee40_slip40": -3.99263904587596
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos_20261107T204909Z.json",
+      "sha256": "083ff5be33807d7f91e8b5a517a6945148f0809eeb0a84e3a46e9616b60a5141"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T204909Z.json",
+      "sha256": "a2d51089a1f5fde01abc54de8d9a57410560a4acb861c4da55259a8495485b40"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T204909Z.json",
+      "sha256": "cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos.py",
+      "sha256": "d695337698d85a42d4ca24e314824d5ca69b0274a2ff711594de9e2181125e5d"
+    }
+  ]
+}
