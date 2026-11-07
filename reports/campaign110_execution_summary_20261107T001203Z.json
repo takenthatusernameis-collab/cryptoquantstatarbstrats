@@ -1,0 +1,49 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T001203Z",
+  "campaign": 110,
+  "candidate": "VOLUME_BUBBLE_ENTROPY_SHOCK_MR",
+  "status": "evaluated_no_edge",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_blocker": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT (does NOT block R-B on real_quote_volume)",
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_bubble_entropy_shock_mr_costed_oos_20261107T001005Z.json",
+      "sha256": "248d74d4953f959479e4eb99e70be4bb4e457cc40d92c108c1154870284de184",
+      "kind": "c110_oos_report"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_bubble_entropy_shock_mr_costed_oos.py",
+      "sha256": "d3ca4f20e28a3eb41b819bdb6851aaee2a5bf0c0343fa6d3a85e84d5f6006711",
+      "kind": "c110_script"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T001203Z.json",
+      "sha256": "14fdfd7b37861d3c336166a07362dc7c42adb6ab820194290bbd0c9deae42f0f",
+      "kind": "c110_ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T001203Z.json",
+      "sha256": "112754acd792d4401203fa3c086d63480aad7866baa53a980a6ca93c8a60cd29",
+      "kind": "c110_registry"
+    },
+    {
+      "path": "campaign110_execution_summary_20261107T001203Z.json",
+      "sha256": "05fa0115079932d30d8086d39690afcb8380ad087a0ea63ebd50e049d48c25c9",
+      "kind": "c110_summary"
+    }
+  ],
+  "new_artifact_count": 4,
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T000648Z.json",
+    "prior_registry_sha256": "658954a37951775fc797baebb2efe73631b874a63af0481c8b8c17d4d4a791c0",
+    "c109_rb": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T000606Z.json",
+    "c109_rb_sha256": "6068210ad5c2e1911e891c94bc3609e6ddc3c0ee8a3bc4b038ebcbe64b9119c5"
+  },
+  "pytest": "module NOT installed in this env (python3 -m pytest -> No module named pytest); counts carried forward from lineage (928 passed/1 skipped/0 failed) - recorded honestly, not fabricated",
+  "next_campaign": "C111 VOLUME_SVD_ENTROPY_SHOCK_MR (grep-verify distinctness before impl)"
+}

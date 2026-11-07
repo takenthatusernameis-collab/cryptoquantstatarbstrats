@@ -1,0 +1,94 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T001203Z",
+  "campaign": 110,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T000648Z.json",
+    "sha256": "658954a37951775fc797baebb2efe73631b874a63af0481c8b8c17d4d4a791c0"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]]. Real data only.",
+  "reference": "reports/real_feed_unblock_status_20261106T130243Z.json",
+  "candidates": [
+    {
+      "campaign": 104,
+      "name": "VOLUME_WAVELET_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json",
+      "sha256": "7f3646d1c037ec3c407a6515e14a1d1a85bca1d7940b5f98c7e119fbc3b0b5e7",
+      "script": "scripts/run_real_quote_volume_wavelet_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "316eae9d225622b4f19ada0145fbff086549b8fbee8a9addb27baced40159fc9",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 105,
+      "name": "VOLUME_HURST_RS_PERSISTENCE_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json",
+      "sha256": "e7a6edc4535f6da2333a3b4d6f33c2c24c0dfdf84cd982366a16c9fe1933c59d",
+      "script": "scripts/run_real_quote_volume_hurst_rs_persistence_mr_costed_oos.py",
+      "script_sha256": "9e673cb99006afbcfcae8162fe58aff5ce0862f93b163e68573ea90994328fda",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 106,
+      "name": "VOLUME_SAMPLE_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_sample_entropy_shock_mr_costed_oos_20261106T225102Z.json",
+      "sha256": "08b4ea8b5e0b9ada11e463255b61e6d42976f12eda61de7ed33fd520a7fde21b",
+      "script": "scripts/run_real_quote_volume_sample_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "e224991a7603bc1c6a2741ee415e3ad8626e7d70f24ec2c2f9fce96b90fe4139",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 107,
+      "name": "VOLUME_PERMUTATION_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_permutation_entropy_shock_mr_costed_oos_20261106T232706Z.json",
+      "sha256": "12b02d9f91b8c37dd2518c99626320b638773a6d085e74b4967bdf493659f96c",
+      "script": "scripts/run_real_quote_volume_permutation_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "2ba6fc7f9981b8fbb0244fb791442d057c4ee6caaaf8584a9f3c76b3593089c3",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 108,
+      "name": "VOLUME_SLOPE_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_slope_entropy_shock_mr_costed_oos_20261107T000211Z.json",
+      "sha256": "f4cc1868aebb8f3b0e383bdccd1447af970bfd4a4ad50751006641ee2e66108f",
+      "script": "scripts/run_real_quote_volume_slope_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "a68c5f0f52f02d2518bdf84e773e412ff87f58d71c676607c1c611c63bdcc856",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 109,
+      "name": "VOLUME_DISPERSION_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T000606Z.json",
+      "sha256": "6068210ad5c2e1911e891c94bc3609e6ddc3c0ee8a3bc4b038ebcbe64b9119c5",
+      "script": "scripts/run_real_quote_volume_dispersion_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "7b7372504699988991ad59396f5f014c464adc2a65443204c0025e16aca61d75",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    },
+    {
+      "campaign": 110,
+      "name": "VOLUME_BUBBLE_ENTROPY_SHOCK_MR",
+      "family": "real_quote_volume",
+      "artifact": "reports/real_quote_volume_bubble_entropy_shock_mr_costed_oos_20261107T001005Z.json",
+      "sha256": "248d74d4953f959479e4eb99e70be4bb4e457cc40d92c108c1154870284de184",
+      "script": "scripts/run_real_quote_volume_bubble_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "d3ca4f20e28a3eb41b819bdb6851aaee2a5bf0c0343fa6d3a85e84d5f6006711",
+      "oos_edge_proven": false,
+      "status": "evaluated_no_edge"
+    }
+  ]
+}
