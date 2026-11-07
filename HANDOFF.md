@@ -1,4 +1,4 @@
-## READ THIS FIRST — C115 INITIAL TASK (20261107T011022Z, produced after C114 completion; single durable handoff)
+## READ THIS FIRST — C115 INITIAL TASK (20261107T011235Z, produced after C114 completion; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
