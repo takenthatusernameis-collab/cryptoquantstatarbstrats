@@ -1,0 +1,67 @@
+{
+  "tool": "campaign132_execution_summary",
+  "generated_at_utc": "20261107T070514Z",
+  "campaign": 132,
+  "strategy_id": "VOLUME_RQA_MAXVERTLINE_DIVERGENCE_SHOCK_MR",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "pytest": {
+    "available": false,
+    "outcome": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "result": {
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.10311354933613992,
+      "fee5_slip5": -0.5068864506638606,
+      "fee10_slip10": -1.116886450663861,
+      "fee20_slip20": -2.3368864506638607,
+      "fee40_slip40": -4.77688645066386
+    }
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_maxvertline_divergence_shock_mr_costed_oos_20261107T070514Z.json",
+      "sha256": "602db16aa5d5874547b278ebd13b85772ea4ebfc236f8cd40e68cda76b5f3466",
+      "bytes": 560191
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_maxvertline_divergence_shock_mr_costed_oos.py",
+      "sha256": "ab151bc3cd181dfacb60bacbfd75259ee9e72e0e281825ca410bcede93136f1d",
+      "bytes": 17940
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T070514Z.json",
+      "sha256": "aaea583c3b02a0b2d9a18301d3a771dd35c4b42cae8c6f5b90d13944076281e7",
+      "bytes": 863
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T070514Z.json",
+      "sha256": "bcd7a44806e2a4e7bb01ce560a9dc275bb7314cd21bf0946b1693913721be3f0",
+      "bytes": 55760
+    },
+    {
+      "kind": "prior_registry_superseded",
+      "path": "reports/strategy_edge_registry_20261107T065559Z.json",
+      "sha256": "d45248d5de6fc4759e2ee0dfb1b8b9ab77fbde2089838d6da5d903a57558cc58",
+      "bytes": 49539
+    },
+    {
+      "kind": "c131_oos_ref",
+      "path": "reports/real_quote_volume_rqa_maxdiagline_divergence_shock_mr_costed_oos_20261107T065559Z.json",
+      "sha256": "d7433ccc04fbfbdf2639d6fdc26a96a3f1463268fd0cd5ec6b9a704b7ceac49c",
+      "bytes": 564905
+    }
+  ],
+  "artifact_count_new_c132": 4
+}
