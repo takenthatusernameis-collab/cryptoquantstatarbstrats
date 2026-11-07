@@ -1,0 +1,45 @@
+{
+  "tool": "campaign136_execution_summary",
+  "generated_at_utc": "20261107T075344Z",
+  "campaign": 136,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "strategy_id": "VOLUME_RQA_LAM_OVER_RR_RATIO_SHOCK_MR",
+  "distinctness_grep": "lam_over_rr|lam_rr_ratio|rqa_ratio_lam_rr|LAM_OVER_RR -> 0 non-self hits (repo grep; HANDOFF/state refs only)",
+  "pytest": {
+    "status": "unavailable",
+    "detail": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_lam_over_rr_ratio_shock_mr_costed_oos_20261107T075344Z.json",
+      "sha256": "1e9e562d79d561b4266f6bb3bf5fe447e99668787f76d63519af1cb7b57b99cc",
+      "exists": true
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_lam_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "9ace00977e21551cf071eafe8bcdafeefb02469e2abf60b613233101d80d5d2f",
+      "exists": true
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T075344Z.json",
+      "sha256": "ce00bee8007a0b165e0cbeb88f932606e211dd6c4fa1e2162e2c1ab881dbf89e",
+      "exists": true
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T075344Z.json",
+      "sha256": "0c199afadd2a2aea7032bacef2997622402e883567d36d48153dd1376c033b3d",
+      "exists": true
+    }
+  ],
+  "notes": [
+    "C104-C135 locked, not rerun.",
+    "C136 executed on real_quote_volume; oos_edge_proven=false; edge_claim NONE (fail-closed edge rule not met).",
+    "Nonspot ingest blocked fail-closed; RB unblocked on real_quote_volume.",
+    "SHAs computed from bytes on disk."
+  ]
+}

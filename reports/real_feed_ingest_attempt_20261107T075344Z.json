@@ -1,0 +1,25 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T075344Z",
+  "campaign": 136,
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "no_proxies_labeled_real": true,
+  "attempt": "nonspot_real_feed_discovery",
+  "status": "blocked_fail_closed",
+  "result": "no_real_nonspot_artifact_available_in_repo_or_cache",
+  "rb_unblocked": true,
+  "rb_note": "R-B proceeds on validated real_quote_volume family regardless of nonspot blocker",
+  "checked_paths": [
+    "data/cache",
+    "data/raw",
+    "data/feeds",
+    "reports"
+  ],
+  "evidence": {
+    "real_quote_volume_present": true,
+    "validated_meta": "data/cache/volume_1h_full.meta.json",
+    "validated_prov": "data/cache/volume_1h_full.provenance.json"
+  }
+}
