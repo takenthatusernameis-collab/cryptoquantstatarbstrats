@@ -1,11 +1,11 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T135406Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T144037Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Prioritization (from repo name):** fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
 
-## INITIAL TASK FOR NEXT SESSION — C162 (MANDATORY, HEAVY WORK, START NOW)
+## INITIAL TASK FOR NEXT SESSION — C163 (MANDATORY, HEAVY WORK, START NOW)
 
-C104–C161 DONE — do NOT rerun. `pytest` unavailable (honestly recorded — do not fabricate test results). `numpy/scipy/pandas` importable (verified). Caches present (`data/cache/volume_1h_full.{pkl,meta.json,provenance.json}`, `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}`).
+C104–C162 DONE — do NOT rerun. `pytest` unavailable (honestly recorded — do not fabricate test results). `numpy/scipy/pandas` importable (verified). Caches present (`data/cache/volume_1h_full.{pkl,meta.json,provenance.json}`, `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.{pkl,meta.json}`).
 
 **Readiness (run first, fail-closed):**
 ```bash
