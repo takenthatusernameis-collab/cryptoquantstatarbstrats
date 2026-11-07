@@ -1,0 +1,73 @@
+{
+  "tool": "campaign120_execution_summary",
+  "generated_at_utc": "2026-11-07T03:08:45.000000+00:00",
+  "campaign": 120,
+  "status": "DONE",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "pytest": {
+    "outcome": "unavailable",
+    "detail": "python3 -m pytest -> No module named pytest (recorded honestly; not fabricated)",
+    "carried_forward_lineage_counts": "not rerun/fabricated"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json",
+      "sha256": "53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382",
+      "kind": "oos",
+      "script": "scripts/run_real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "e85cc6de5487238e2e2a67f2a58e5ead34029020268f2ff2d2013c8fc6da52c7"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T030825Z.json",
+      "sha256": "4643ee44272b54d22df7c8f6e0b009cf42588a9e84ad58ee4c90ee14fe7360f2",
+      "kind": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T030825Z.json",
+      "sha256": "0b5aa8bd669e31480ffdc5ff0b34fd5f328e914fc9e0854adab538f54147836a",
+      "kind": "registry"
+    },
+    {
+      "path": "reports/campaign120_execution_summary_20261107T030825Z.json",
+      "sha256": "d985684b2c7c1647fe66ae4724839df77290ff88e0642bcb52b17ed1815faefb",
+      "kind": "summary"
+    }
+  ],
+  "aggregate": {
+    "n_assets": 11,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_edge_proven": false,
+    "cross_asset_sum_oos_net_sum": {
+      "fee0_slip0": 0.757402482530516,
+      "fee5_slip5": -9.112597517469487,
+      "fee10_slip10": -18.982597517469486,
+      "fee20_slip20": -38.72259751746949,
+      "fee40_slip40": -78.20259751746948
+    },
+    "cross_asset_mean_oos_net_mean": {
+      "fee0_slip0": 0.00017339800424233425,
+      "fee5_slip5": -0.002086217380373051,
+      "fee10_slip10": -0.0043458327649884354,
+      "fee20_slip20": -0.008865063534219205,
+      "fee40_slip40": -0.017903525072680743
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "pre_stated_distinctness": "Multiscale Sample Entropy (Costa et al. 2005) on log-volume returns W_MSE=168, coarse-grain scales tau={2,3,5}, SampEn m=2,r=0.2*std excluding self-matches, feature=mean finite SampEn across scales, fade MSE shocks vs ALB=336. Grep-verified absent from scripts/ and reports/ before impl. Genuinely distinct from C106 single-scale SampEn (C120 coarse-grains at tau>1 and averages across scales {2,3,5}; not a monotonic transform of single-scale SampEn). Distinct from C111-C119.",
+  "supersedes": "reports/strategy_edge_registry_20261107T021112Z.json",
+  "supersedes_sha256": "a44a0764306ef11e94c4d65521093fa8722b114c86fa5f38d4dd887db4ed1ee6",
+  "references": {
+    "c119_registry": "reports/strategy_edge_registry_20261107T021112Z.json",
+    "c119_registry_sha256": "a44a0764306ef11e94c4d65521093fa8722b114c86fa5f38d4dd887db4ed1ee6",
+    "c119_oos": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T021053Z.json",
+    "c119_oos_sha256": "3eb0a9fb636afe31bd9b247d64dddc641bba3f70f7631faf0908c0415accd6d9",
+    "c106_rb": "reports/real_quote_volume_sample_entropy_shock_mr_costed_oos_20261106T225102Z.json"
+  }
+}
