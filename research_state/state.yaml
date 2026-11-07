@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T205043Z
-latest_campaign_done: C174
-next_campaign: C175
+updated_utc: 20261107T213708Z
+latest_campaign_done: C175
+next_campaign: C176
 readiness_verified_utc: 20261107T204909Z
 edge_claim: NONE
 global_oos_edge_proven: false
@@ -12,25 +12,25 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T204909Z.json
-  sha256: cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5
-  supersedes: reports/strategy_edge_registry_20261107T203510Z.json
-  supersedes_sha256: f804e29b37465d5e40d5012818302aa3956b53bbc7fbdce397943eb394a6df0f
+  path: reports/strategy_edge_registry_20261107T213708Z.json
+  sha256: dc46c90a817ce03cb04af7ab87bfda3a9a6f2ae52134b395591a0c2074b80821
+  supersedes: reports/strategy_edge_registry_20261107T204909Z.json
+  supersedes_sha256: cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5
 latest_oos:
-  campaign: C174
-  family: VOLUME_RQA_DET_OVER_TREND_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos_20261107T204909Z.json
-  sha256: 083ff5be33807d7f91e8b5a517a6945148f0809eeb0a84e3a46e9616b60a5141
+  campaign: C175
+  family: VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T213708Z.json
+  sha256: ab813d27cc15f2e0b878a978ef9e29348a08e48a4ae4ebfb8a22c945b8d83ef1
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.8326390458759599
-    fee5_slip5: -1.2276390458759603
-    fee10_slip10: -1.6226390458759603
-    fee20_slip20: -2.4126390458759603
-    fee40_slip40: -3.99263904587596
+    fee0_slip0: -0.080213502570049
+    fee5_slip5: -0.3982135025700493
+    fee10_slip10: -0.7162135025700493
+    fee20_slip20: -1.3522135025700492
+    fee40_slip40: -2.6242135025700493
 c174_completed:
   campaign: C174
   strategy_id: VOLUME_RQA_DET_OVER_TREND_RATIO_SHOCK_MR
@@ -83,4 +83,35 @@ mandatory:
 - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices
   OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168,
   cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-handoff_refreshed_utc: 20261107T205043Z
+handoff_refreshed_utc: 20261107T213708Z
+
+c175_completed:
+  campaign: C175
+  strategy_id: VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos:
+      path: reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T213708Z.json
+      sha256: ab813d27cc15f2e0b878a978ef9e29348a08e48a4ae4ebfb8a22c945b8d83ef1
+    ingest:
+      path: reports/real_feed_ingest_attempt_20261107T213708Z.json
+      sha256: ddf18651df1c0884c0c6c05e4291db5f094d0909db0851d2c6b13f981ab6dfb8
+    registry:
+      path: reports/strategy_edge_registry_20261107T213708Z.json
+      sha256: dc46c90a817ce03cb04af7ab87bfda3a9a6f2ae52134b395591a0c2074b80821
+    script:
+      path: scripts/run_real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos.py
+      sha256: 0b73dfea203346c8318bbb942d181ae01cacd50f4d25d5c7be4c65741c922e9a
+    summary:
+      path: reports/campaign175_execution_summary_20261107T213708Z.json
+      sha256: 900842d329a5921ce957a4778bf69711b4ca6869288434dffb63e1f0ee90df90
+
+c176_preselected:
+  family_primary: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
+  metric_primary: RQA ratio LAM/V_max (laminarity LAM normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs
+  distinctness_grep_primary: grep -rEIn 'lam_over_vmax|LAM_OVER_VMAX|vmax_over_lam|rqa_ratio_lam_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1
+  grep_hits_observed: 0
+  grep_observed_utc: 20261107T213708Z
+  grep_verify_required: true
+  note: Preselected for C176 (grep 0 at C175 completion). Distinct from C125-C175 RQA-ratio families (uses LAM numerator with V_max denominator; LAM/V_max not previously used). Re-verify at C176 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence.

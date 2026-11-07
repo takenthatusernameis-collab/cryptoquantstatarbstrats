@@ -1,29 +1,22 @@
 #!/usr/bin/env python3
-"""C175: RQA ratio ENTR/V_max (diagonal-line Shannon entropy ENTR normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (real data only).
+"""C175: RQA ratio ENTR/V_max (Shannon entropy ENTR of diagonal line length distribution
+normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
   embedding X_i = (r_i, r_{i+tau}) with m=2, tau=1 over trailing window W_RR=168.
   Recurrence matrix R_{ij}=1 if ||X_i-X_j||_inf <= eps, else 0;
   eps = eps_scale * std(r_window) with pre-stated fixed eps_scale=0.5.
-  ENTR = -sum p(l)*ln(p(l)) over qualifying diagonal line lengths l>=l_min=2
-  (main diagonal k=0 excluded), natural log, raw (C130/C146/C149-consistent).
-  V_max = max vertical line length (max run of consecutive 1s in any column of R
-  with run length >= l_min). RATIO_ENTR_VMAX = ENTR / V_max. l_min=2.
-  Fail-closed to NaN/no-signal if V_max==0 or undefined/non-finite (no qualifying
-  vertical lines), ENTR undefined/non-finite/degenerate (no qualifying diagonal line
-  distribution / entropy undefined or <=0), sum(R)<=0, or undefined.
-  Causal trailing only. Distinct from C125–C174 (incl C130 ENTR direct, C141 ENTR/%RR,
-  C146 %DET/ENTR, C147 %LAM/ENTR, C148 ENTR/%LAM, C149 L_max/ENTR, C166 V_max/%LAM,
-  C169 V_max/TREND, C171 RR/V_max, C172 TT/V_max, C173 DET/V_max). C175 uses ENTR
-  numerator with V_max denominator — distinct pairing (ENTR numerator + V_max denominator
-  token family not used in prior C125–C174).
-
-Signal (fail-closed MR): z = (RATIO_ENTR_VMAX - ALB_mean) / ALB_std, ALB=336.
-  entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
-  max_hold=24 or flip. Exec t -> t+1.
-WF/costs/B&H (exact): 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]],
-  B&H same OOS windows. Real data only; fail-closed.
+  Diagonal lines: length l = number of consecutive 1s along diagonal k!=0, l>=l_min.
+  ENTR = -sum p(l)*log(p(l)) where p(l)=count(l)/N_diag, N_diag = number of diagonal lines with l>=l_min.
+  Vertical lines: length vlen = number of consecutive 1s down a column, v>=l_min? l_min=2 applies to lines.
+  V_max = max vertical line length over all vertical lines with length>=l_min. If no qualifying vertical lines -> NaN.
+  RATIO_ENTR_VMAX = ENTR / V_max.
+  l_min=2.
+  Fail-closed to NaN/no-signal if V_max==0 or undefined/non-finite (no qualifying vertical lines),
+  ENTR undefined/non-finite/degenerate (no qualifying diagonal line distribution / entropy undefined),
+  sum(R)<=0, or undefined. Causal trailing only.
+  Distinct from C125-C174 (uses ENTR numerator with V_max denominator; ENTR/V_max pairing not used).
 """
 
 from __future__ import annotations
@@ -32,7 +25,6 @@ import hashlib
 import json
 import pickle
 import sys
-from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -111,29 +103,11 @@ def wf_splits(n: int, train: int, test: int, step: int):
     return out
 
 
-def _vert_lines(R: np.ndarray, l_min: int) -> list[int]:
-    """All vertical line lengths >= l_min across all columns of R."""
-    lines: list[int] = []
-    for c in range(R.shape[1]):
-        col = R[:, c]
-        run = 0
-        for val in col:
-            if val:
-                run += 1
-            else:
-                if run >= l_min:
-                    lines.append(run)
-                run = 0
-        if run >= l_min:
-            lines.append(run)
-    return lines
-
-
-def _diag_lengths(R: np.ndarray, l_min: int) -> list[int]:
-    """Qualifying diagonal line lengths (main diagonal excluded)."""
+def _diag_line_lengths(R: np.ndarray, l_min: int) -> list:
+    """Get lengths of diagonal lines (k!=0) with l>=l_min"""
     M = R.shape[0]
-    lengths: list[int] = []
-    for k in range(1 - M, M):
+    lengths = []
+    for k in range(-(M - 1), M):
         if k == 0:
             continue
         diag = np.diag(R, k=k)
@@ -150,19 +124,23 @@ def _diag_lengths(R: np.ndarray, l_min: int) -> list[int]:
     return lengths
 
 
-def _diag_entr_from_lengths(lengths: list[int]) -> float:
-    """Diagonal-line Shannon entropy ENTR (natural log). Fail-closed NaN."""
-    if not lengths:
-        return np.nan
-    counts = Counter(lengths)
-    entr = 0.0
-    for c in counts.values():
-        p = c / len(lengths)
-        if p > 0:
-            entr -= p * np.log(p)
-    if not np.isfinite(entr) or entr <= 0:
-        return np.nan
-    return float(entr)
+def _vert_line_lengths(R: np.ndarray, l_min: int) -> list:
+    """Get lengths of vertical lines with l>=l_min"""
+    M = R.shape[0]
+    lengths = []
+    for j in range(M):
+        col = R[:, j]
+        run = 0
+        for val in col:
+            if val:
+                run += 1
+            else:
+                if run >= l_min:
+                    lengths.append(run)
+                run = 0
+        if run >= l_min:
+            lengths.append(run)
+    return lengths
 
 
 def rqa_entr_over_vmax_ratio_window(rw: np.ndarray, eps_scale: float, l_min: int) -> float:
@@ -187,17 +165,33 @@ def rqa_entr_over_vmax_ratio_window(rw: np.ndarray, eps_scale: float, l_min: int
     total_rr = float(np.sum(R))
     if not np.isfinite(total_rr) or total_rr <= 0:
         return np.nan  # recurrence degenerate (sum(R)<=0)
-    vlines = _vert_lines(R, l_min)
-    if not vlines:
-        return np.nan  # V_max undefined (no qualifying vertical lines)
-    vmax = float(max(vlines))
-    if not np.isfinite(vmax) or vmax <= 0:
-        return np.nan
-    lengths = _diag_lengths(R, l_min)
-    entr = _diag_entr_from_lengths(lengths)
-    if not np.isfinite(entr) or entr <= 0:
+
+    diag_lens = _diag_line_lengths(R, l_min)
+    if len(diag_lens) == 0:
         return np.nan  # ENTR undefined/degenerate
-    ratio = entr / vmax
+
+    # Compute Shannon entropy of diagonal line length distribution
+    # p(l) = count(l) / N_diag
+    from collections import Counter
+    cnt = Counter(diag_lens)
+    N_diag = float(len(diag_lens))
+    entr = 0.0
+    for lval, c in cnt.items():
+        p = c / N_diag
+        if p > 0:
+            entr -= p * np.log(p)  # natural log
+
+    if not np.isfinite(entr) or entr < 0:
+        return np.nan
+
+    vert_lens = _vert_line_lengths(R, l_min)
+    if len(vert_lens) == 0:
+        return np.nan  # V_max undefined/non-finite
+    V_max = float(np.max(vert_lens))
+    if not np.isfinite(V_max) or V_max <= 0:
+        return np.nan  # V_max==0 or undefined
+
+    ratio = entr / V_max
     if not np.isfinite(ratio):
         return np.nan
     return float(ratio)
@@ -359,26 +353,15 @@ def main():
         "generated_at_utc": ts,
         "campaign": 175,
         "strategy_id": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR",
-        "candidate": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR (RQA ratio ENTR/V_max, diagonal-line Shannon entropy ENTR = -sum p(l)*ln(p(l)) over qualifying diagonal lines, normalized by max vertical line length V_max, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_ENTR_VMAX shocks vs ALB=336)",
-        "feature_definition": "RATIO_ENTR_VMAX = ENTR / V_max. ENTR = -sum p(l)*ln(p(l)) over qualifying diagonal line lengths l>=l_min (main diagonal k=0 excluded), natural log, raw (C130/C146/C149-consistent). V_max = max vertical line length (max run of consecutive 1s in any column of R with run length >= l_min). Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if V_max==0 or undefined/non-finite (no qualifying vertical lines), ENTR undefined/non-finite/degenerate (no qualifying diagonal line distribution / entropy undefined or <=0), recurrence degenerate (sum(R)<=0), or undefined. Distinct from C125–C174 (incl C130 ENTR direct, C141 ENTR/%RR, C146 %DET/ENTR, C147 %LAM/ENTR, C148 ENTR/%LAM, C149 L_max/ENTR, C166 V_max/%LAM, C169 V_max/TREND, C171 RR/V_max, C172 TT/V_max, C173 DET/V_max). ENTR numerator with V_max denominator — distinct pairing.",
+        "candidate": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR (RQA ratio ENTR/V_max, Shannon entropy of diagonal line length distribution normalized by max vertical line length, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade ratio shocks vs ALB=336)",
+        "feature_definition": "RATIO_ENTR_VMAX = ENTR / V_max. ENTR = -sum p(l)*log(p(l)) where p(l)=count(l)/N_diag over diagonal lines with l>=l_min (k!=0). V_max = max vertical line length over vertical lines with l>=l_min. Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if V_max==0 or undefined/non-finite (no qualifying vertical lines), ENTR undefined/non-finite/degenerate (no qualifying diagonal line distribution / entropy undefined), recurrence degenerate (sum(R)<=0), or undefined.",
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
             "grep_hits_at_selection": DISTINCTNESS_HITS_PRE,
             "grep_verified_at_utc": DISTINCTNESS_VERIFIED_UTC,
-            "grep_evidence_note": "Pre-implementation/run grep (grep -rEIn) over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
-            "selection_note": "Primary C175 candidate from HANDOFF/state.yaml (ENTR_OVER_VMAX); grep-zero confirmed before implementation/run (collision guard passed). ENTR numerator with V_max denominator — pairing not used in C125–C174. Distinct from C130 ENTR direct, C141 ENTR/%RR, C146 %DET/ENTR, C147 %LAM/ENTR, C148 ENTR/%LAM, C149 L_max/ENTR (ENTR denominator), C166 V_max/%LAM, C169 V_max/TREND, C171 RR/V_max, C172 TT/V_max, C173 DET/V_max (DET numerator with V_max denominator; C175 uses ENTR numerator). Family: RQA ENTR/V_max ratio shock on volume dynamics.",
-            "family": "RQA ENTR/V_max ratio (diagonal-line Shannon entropy ENTR normalized by max vertical line length V_max) shock on volume dynamics",
-            "distinct_from_c130_entr_direct": "C130 trades ENTR directly; C175 normalizes ENTR by V_max.",
-            "distinct_from_c141_entr_over_rr": "C141 trades ENTR/%RR (ENTR numerator, %RR denominator); C175 trades ENTR/V_max — distinct denominator token family.",
-            "distinct_from_c146_det_over_entr": "C146 trades %DET/ENTR (ENTR denominator); C175 trades ENTR/V_max (ENTR numerator) — distinct numerator/denominator orientation.",
-            "distinct_from_c147_lam_over_entr": "C147 trades %LAM/ENTR (ENTR denominator); C175 trades ENTR/V_max — distinct orientation.",
-            "distinct_from_c148_entr_over_lam": "C148 trades ENTR/%LAM (ENTR numerator, %LAM denominator); C175 trades ENTR/V_max — distinct denominator token family.",
-            "distinct_from_c149_lmax_over_entr": "C149 trades L_max/ENTR (L_max numerator, ENTR denominator); C175 trades ENTR/V_max — distinct numerator/denominator token family and orientation.",
-            "distinct_from_c166_vmax_over_lam": "C166 trades V_max/%LAM; C175 trades ENTR/V_max — distinct numerator/denominator token family.",
-            "distinct_from_c169_vmax_over_trend": "C169 trades V_max/TREND; C175 trades ENTR/V_max — distinct numerator/denominator token family.",
-            "distinct_from_c171_rr_over_vmax": "C171 trades RR/V_max (RR numerator, V_max denominator); C175 trades ENTR/V_max (ENTR numerator) — distinct numerator token family.",
-            "distinct_from_c172_tt_over_vmax": "C172 trades TT/V_max (TT numerator, V_max denominator); C175 trades ENTR/V_max — distinct numerator token family.",
-            "distinct_from_c173_det_over_vmax": "C173 trades DET/V_max (DET numerator, V_max denominator); C175 trades ENTR/V_max (ENTR numerator, V_max denominator) — distinct numerator token family.",
+            "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+            "selection_note": "Primary C175 candidate from HANDOFF/state.yaml (ENTR_OVER_VMAX); grep-zero confirmed. ENTR numerator with V_max denominator — pairing not used in C125-C174 (C173 used DET/V_max, different numerator).",
+            "family": "RQA ENTR/V_max ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
@@ -398,8 +381,8 @@ def main():
             "train": TRAIN, "test": TEST, "step": STEP, "cost_grid": COST_GRID,
             "feature_compute_step": 2,
             "feature_compute_note": "Causal trailing RQA computed every 2 bars and held (causal forward-hold) for runtime; signal/z/exec logic unchanged.",
-            "entr_definition": "ENTR = -sum p(l)*ln(p(l)) over qualifying diagonal line lengths l>=l_min (main diagonal k=0 excluded), natural log, raw (C130/C146/C149-consistent)",
-            "vmax_definition": "V_max = max vertical line length (max run of consecutive 1s in any column of R with run length >= l_min)",
+            "entr_definition": "ENTR = -sum p(l)*log(p(l)), p(l)=count(l)/N_diag over diagonal lines with l>=l_min (k!=0)",
+            "vmax_definition": "V_max = max vertical line length over vertical lines with l>=l_min",
         },
         "references": {
             "prior_registry": PRIOR_REGISTRY,

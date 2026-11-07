@@ -1,0 +1,36 @@
+{
+  "tool": "campaign175_execution_summary",
+  "generated_at_utc": "2026-11-07T21:37:08.000000+00:00",
+  "campaign": 175,
+  "strategy_id": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T213708Z.json",
+      "sha256": "ab813d27cc15f2e0b878a978ef9e29348a08e48a4ae4ebfb8a22c945b8d83ef1"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T213708Z.json",
+      "sha256": "ddf18651df1c0884c0c6c05e4291db5f094d0909db0851d2c6b13f981ab6dfb8"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T213708Z.json",
+      "sha256": "dc46c90a817ce03cb04af7ab87bfda3a9a6f2ae52134b395591a0c2074b80821"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "0b73dfea203346c8318bbb942d181ae01cacd50f4d25d5c7be4c65741c922e9a"
+    }
+  },
+  "all_new_c175_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T204909Z.json",
+    "prior_registry_sha256": "cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5",
+    "c174_oos": "reports/real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos_20261107T204909Z.json",
+    "c174_oos_sha256": "083ff5be33807d7f91e8b5a517a6945148f0809eeb0a84e3a46e9616b60a5141"
+  }
+}
