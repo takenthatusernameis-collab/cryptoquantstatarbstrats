@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T164010Z
-latest_campaign_done: C165
-next_campaign: C166
+updated_utc: 20261107T164400Z
+latest_campaign_done: C166
+next_campaign: C167
 readiness_verified_utc: 20261107T164010Z
 edge_claim: NONE
 global_oos_edge_proven: false
@@ -66,7 +66,7 @@ bottlenecks_removed:
   - nonspot ingest does not block R-B on real_quote_volume
   - "C165 TREND_OVER_LAM grep verified 0 at 20261107T163835Z (pre-impl/run); C166 VMAX_OVER_LAM grep verified 0 at 20261107T164010Z"
   - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
-  - "State is truthful (latest_campaign_done: C165, next_campaign: C166)"
+  - "State is truthful (latest_campaign_done: C166, next_campaign: C167)"
 mandatory:
   - "No status summary before >= 3 new concrete C166 report artifacts (OOS + ingest + registry/summary)"
   - "'Heavy work mandatory: implement/run + emit artifacts; no status-only replies'"
