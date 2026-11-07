@@ -1,0 +1,39 @@
+{
+  "tool": "campaign125_execution_summary",
+  "generated_at_utc": "20261107T050326Z",
+  "campaign": 125,
+  "status": "DONE",
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "new_artifacts": [
+    {
+      "path": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+      "sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e",
+      "type": "oos_costed"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
+      "sha256": "b85f7997bd5dbb1220151e009203805cc4579ba2085c5b147ecbdc256f087d88",
+      "type": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T050326Z.json",
+      "sha256": "6cbdac44a226296215589450f7b81144b21d285210d60a048b6cae920d4ca21f",
+      "type": "registry_superseding"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
+      "sha256": "922cd3e8690d57bae7579c925d605f3fc6dba83f547e6e761df41f97ffdb5403",
+      "type": "script"
+    }
+  ],
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T045938Z.json",
+    "prior_registry_sha256": "3ce0643763eec09bcd47a2944f4f8ab72638643318014606cbe16c9bef12c3e7",
+    "c124_oos": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
+    "c124_oos_sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410"
+  },
+  "pytest": "not_run_or_unavailable_recorded_honestly"
+}
