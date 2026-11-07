@@ -1,0 +1,38 @@
+{
+  "tool": "campaign142_execution_summary",
+  "generated_at_utc": "20261107T095654Z",
+  "campaign": 142,
+  "status": "completed",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos_20261107T095547Z.json",
+      "sha256": "bbdba5d6ccee31218c5bb3f2ab158981f0d3eedfd6add36d5dc9be0390487796",
+      "kind": "oos"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T091027Z.json",
+      "sha256": "00dee85236e3a6930fc4b81b059be31d51953eb03e9829bf56551e350e1fa421",
+      "kind": "ingest"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T095654Z.json",
+      "sha256": "adf7d58adb4151dab1769d739d938311131d955bf190221fae4a6afb0e9e2e72",
+      "kind": "registry"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos.py",
+      "sha256": "15130345d48f9241960ed0a573365788b25c9e3f8a60a8cd85a024a22c4b2184",
+      "kind": "script"
+    },
+    {
+      "path": "reports/real_quote_volume_rqa_det_over_tt_ratio_shock_mr_costed_oos_20261107T090953Z.json",
+      "sha256": "740b41df3c1fd65ad323102500ec461befd9de995744672eed08404d689a32c4",
+      "kind": "flawed_prior_oos_superseded"
+    }
+  ],
+  "notes": "C142 completed: DET/TT OOS regenerated with correct metadata/gates, ingest present, registry created superseding C141, state synced pending."
+}
