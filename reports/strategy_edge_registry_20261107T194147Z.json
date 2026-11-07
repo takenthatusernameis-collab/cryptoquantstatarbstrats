@@ -1,0 +1,70 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-07T19:41:47.628476+00:00",
+  "campaign": 169,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T193533Z.json",
+    "sha256": "b8f49687af816d799ba2196ed74968d59599a99a593fe03ed3d812cbb36cfbf2"
+  },
+  "references": {
+    "c168_oos": {
+      "path": "reports/real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos_20261107T193420Z.json",
+      "sha256": "a415fbb010ef42c91fef5d207f561afc30010a0a9bad96b836955517b88dd6a2"
+    }
+  },
+  "c168_oos": {
+    "path": "reports/real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos_20261107T193420Z.json",
+    "sha256": "a415fbb010ef42c91fef5d207f561afc30010a0a9bad96b836955517b88dd6a2",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.9804989925767054,
+      "fee5_slip5": -1.3364989925767057,
+      "fee10_slip10": -1.6924989925767058,
+      "fee20_slip20": -2.4044989925767055,
+      "fee40_slip40": -3.8284989925767055
+    }
+  },
+  "c169_oos": {
+    "path": "reports/real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos_20261107T193943Z.json",
+    "sha256": "06071d806fedc8eba2342f331fea23fbb061e952369b80ddbd3273689441f262",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.34109876958865837,
+      "fee5_slip5": -0.5930987695886586,
+      "fee10_slip10": -0.8450987695886587,
+      "fee20_slip20": -1.3490987695886587,
+      "fee40_slip40": -2.3570987695886583
+    }
+  },
+  "c169_ingest": {
+    "path": "reports/real_feed_ingest_attempt_20261107T194126Z.json",
+    "sha256": "76204842b3279beee2cc6d4ff5dde0eb6656c54ecd7caab0c89ca3e3fea3037f"
+  },
+  "c169_script": {
+    "path": "scripts/run_real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos.py",
+    "sha256": "915e47ba61a2a53a9fbec4f238d644f094d8965a8a5877c46568f9db6a4f3343"
+  },
+  "c170_preselected": {
+    "family_primary": "VOLUME_RQA_TREND_OVER_VMAX_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio TREND/V_max (TREND determinism normalized by max vertical line length V_max) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on V_max==0/undefined-non-finite, TREND undefined/non-finite (no qualifying diagonal lines), recurrence degenerate (sum(R)<=0), or undefined",
+    "distinctness_grep_primary": "grep -rn 'trend_over_vmax|TREND_OVER_VMAX|RQA_TREND_OVER_VMAX|rqa_ratio_trend_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T194147Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C170 (grep 0 at run time, post-C169). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND, C169 V_max/TREND (TREND/V_max token family unused in C125-C169). Re-verify at C170 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "lineage_note": "C169 V_max/TREND RQA ratio shock MR evaluated fail-closed on real_quote_volume OOS WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]]. No edge proven; edge_claim NONE. Supersedes C168 registry b8f49687."
+}

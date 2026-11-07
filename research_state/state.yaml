@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T193533Z
-latest_campaign_done: C168
-next_campaign: C169
-readiness_verified_utc: 20261107T193533Z
+updated_utc: 20261107T194509Z
+latest_campaign_done: C169
+next_campaign: C170
+readiness_verified_utc: 20261107T194509Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -12,75 +12,66 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T193533Z.json
-  sha256: b8f49687af816d799ba2196ed74968d59599a99a593fe03ed3d812cbb36cfbf2
-  supersedes: reports/strategy_edge_registry_20261107T184339Z.json
-  supersedes_sha256: 541298ffe161771ce67e775ce3a02dee643ca2d7cd979c0604dd4e7179e698fd
+  path: reports/strategy_edge_registry_20261107T194147Z.json
+  sha256: 19cc20be3105ed35e4691fda5a2147094a674fa504667d9598c30c1432eab104
+  supersedes: reports/strategy_edge_registry_20261107T193533Z.json
+  supersedes_sha256: b8f49687af816d799ba2196ed74968d59599a99a593fe03ed3d812cbb36cfbf2
 latest_oos:
-  campaign: C168
-  family: VOLUME_RQA_RR_OVER_TREND_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos_20261107T193420Z.json
-  sha256: a415fbb010ef42c91fef5d207f561afc30010a0a9bad96b836955517b88dd6a2
+  campaign: C169
+  family: VOLUME_RQA_VMAX_OVER_TREND_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos_20261107T193943Z.json
+  sha256: 06071d806fedc8eba2342f331fea23fbb061e952369b80ddbd3273689441f262
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.9804989925767054
-    fee5_slip5: -1.3364989925767057
-    fee10_slip10: -1.6924989925767058
-    fee20_slip20: -2.4044989925767055
-    fee40_slip40: -3.8284989925767055
-c168_completed:
-  campaign: C168
-  strategy_id: VOLUME_RQA_RR_OVER_TREND_RATIO_SHOCK_MR
+    fee0_slip0: -0.34109876958865837
+    fee5_slip5: -0.5930987695886586
+    fee10_slip10: -0.8450987695886587
+    fee20_slip20: -1.3490987695886587
+    fee40_slip40: -2.3570987695886583
+c169_completed:
+  campaign: C169
+  strategy_id: VOLUME_RQA_VMAX_OVER_TREND_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos_20261107T193420Z.json
-      sha256: a415fbb010ef42c91fef5d207f561afc30010a0a9bad96b836955517b88dd6a2
+      path: reports/real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos_20261107T193943Z.json
+      sha256: 06071d806fedc8eba2342f331fea23fbb061e952369b80ddbd3273689441f262
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T193533Z.json
-      sha256: 49af8d68142375429fd104f2d53a8d6ddbdd22304421fa0212dcc4b113fa6bc8
+      path: reports/real_feed_ingest_attempt_20261107T194126Z.json
+      sha256: 76204842b3279beee2cc6d4ff5dde0eb6656c54ecd7caab0c89ca3e3fea3037f
     registry:
-      path: reports/strategy_edge_registry_20261107T193533Z.json
-      sha256: b8f49687af816d799ba2196ed74968d59599a99a593fe03ed3d812cbb36cfbf2
+      path: reports/strategy_edge_registry_20261107T194147Z.json
+      sha256: 19cc20be3105ed35e4691fda5a2147094a674fa504667d9598c30c1432eab104
     script:
-      path: scripts/run_real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos.py
-      sha256: 5da9cb5ed7618c9702efe891ddb2e029334ce2de459c78ad94676fe3ae64d0e6
+      path: scripts/run_real_quote_volume_rqa_vmax_over_trend_ratio_shock_mr_costed_oos.py
+      sha256: 915e47ba61a2a53a9fbec4f238d644f094d8965a8a5877c46568f9db6a4f3343
     summary:
-      path: reports/campaign168_execution_summary_20261107T193533Z.json
-      sha256: ddc9a870aa82972acd527fad5196a050a01d715b7d0ac0400589967b69829718
-c169_preselected:
-  family_primary: VOLUME_RQA_VMAX_OVER_TREND_RATIO_SHOCK_MR
-  metric_primary: RQA ratio V_max/TREND (max vertical line V_max normalized by TREND
-    determinism) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2);
-    fail-closed on TREND==0/undefined-non-finite, V_max undefined/non-finite (no qualifying
-    vertical lines), recurrence degenerate (sum(R)<=0), or undefined
-  distinctness_grep_primary: grep -rn 'vmax_over_trend|trend_over_vmax|VMAX_OVER_TREND|RQA_VMAX_OVER_TREND|rqa_ratio_vmax_over_trend'
-    scripts/ strategies/ backtest/ utils/ 2>&1
-  grep_hits_observed_20261107T193533Z: 0
+      path: reports/campaign169_execution_summary_20261107T194215Z.json
+      sha256: 3a17d322bb00d1f64a7bbff025b369f5a9ea56894629bfae58358d18706db9a0
+c170_preselected:
+  family_primary: VOLUME_RQA_LMAX_OVER_DET_RATIO_SHOCK_MR
+  metric_primary: RQA ratio Lmax/DET (max vertical line length Lmax normalized by TREND/determinism) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on DET==0/undefined-non-finite, Lmax undefined/non-finite (no qualifying vertical lines), recurrence degenerate (sum(R)<=0), or undefined
+  distinctness_grep_primary: grep -rn 'lmax_over_det|det_over_lmax|LMAX_OVER_DET|RQA_LMAX_OVER_DET|rqa_ratio_lmax_over_det' scripts/ strategies/ backtest/ utils/ 2>&1
+  grep_hits_observed_20261107T194509Z: 0
   grep_verify_required: true
-  note: Preselected for C169 (grep 0 at 20261107T193533Z). Distinct from C165 TREND/%LAM,
-    C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND (V_max/TREND token family unused
-    in C125-C168). Re-verify at run time (0 non-self). If collides, pick next grep-zero
-    fallback and record evidence.
+  note: Preselected for C170 (grep 0 at run time, post-C169). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND, C169 V_max/TREND (Lmax/DET token family unused in C125-C169; does not collide with C169's vmax_over_trend guard tokens). Re-verify at C170 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence.
 bottlenecks_removed:
-- C104-C167 locked; no reruns unchanged
-- C168 completed at 20261107T193533Z (OOS+ingest+registry+summary+script, disk SHAs
-  recorded); state.yaml/HANDOFF synced to C168-done/C169-next
-- numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate
-  test results
+- C104-C168 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+- C169 completed at 20261107T194509Z (OOS+ingest+registry+summary+script, disk SHAs recorded); state.yaml/HANDOFF synced to C169-done/C170-next
+- numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate test results
 - nonspot ingest does not block R-B on real_quote_volume
-- C168 RR_OVER_TREND collision guard verified 0 non-self hits before implementation/run
-- C169 preselected candidate VMAX_OVER_TREND grep verified 0 at 20261107T193533Z
+- C168 RR_OVER_TREND collision guard verified 0 non-self before implementation/run
+- C169 VMAX_OVER_TREND collision guard verified 0 non-self before implementation/run
+- C170 preselect LMAX_OVER_DET grep verified 0 non-self at 20261107T194509Z (post-C169, incl. C169 script); eliminates collision-search delay
+- Single durable handoff (HANDOFF.md) + research_state/state.yaml are the only coordination sources; next agent must not produce status-only output
 - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
-- 'State is truthful (latest_campaign_done: C168, next_campaign: C169)'
 mandatory:
-- No status summary before >= 3 new concrete C169 report artifacts (OOS + ingest +
-  registry/summary)
+- No status summary before >= 3 new concrete C170 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
 - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-- 'C169: grep-verify distinctness before implementation/run; recheck VMAX_OVER_TREND
-  grep=0 at run time'
-handoff_refreshed_utc: 20261107T193533Z
+- 'C170: grep-verify distinctness before implementation/run; recheck LMAX_OVER_DET grep=0 at run time'
+- Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
+handoff_refreshed_utc: 20261107T194509Z
