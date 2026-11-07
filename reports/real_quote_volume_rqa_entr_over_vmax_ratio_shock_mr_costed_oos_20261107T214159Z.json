@@ -1,6 +1,6 @@
 {
   "tool": "real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos",
-  "generated_at_utc": "20261107T213708Z",
+  "generated_at_utc": "20261107T214159Z",
   "campaign": 175,
   "strategy_id": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR",
   "candidate": "VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR (RQA ratio ENTR/V_max, Shannon entropy of diagonal line length distribution normalized by max vertical line length, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade ratio shocks vs ALB=336)",
@@ -8,7 +8,7 @@
   "pre_stated_distinctness": {
     "grep_cmd": "grep -rEIn 'entr_over_vmax|ENTR_OVER_VMAX|vmax_over_entr|rqa_ratio_entr_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
     "grep_hits_at_selection": 0,
-    "grep_verified_at_utc": "20261107T213708Z",
+    "grep_verified_at_utc": "20261107T214159Z",
     "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
     "selection_note": "Primary C175 candidate from HANDOFF/state.yaml (ENTR_OVER_VMAX); grep-zero confirmed. ENTR numerator with V_max denominator \u2014 pairing not used in C125-C174 (C173 used DET/V_max, different numerator).",
     "family": "RQA ENTR/V_max ratio shock on volume dynamics",
