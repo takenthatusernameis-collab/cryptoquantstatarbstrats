@@ -1,4 +1,4 @@
-## READ THIS FIRST — C112 INITIAL TASK (20261107T001705Z, produced after C111 completion)
+## READ THIS FIRST — C113 INITIAL TASK (20261107T001705Z, produced after C111 completion)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
@@ -20,29 +20,29 @@ Fail-closed, real-data-only stat-arb edge validation — walk-forward OOS, coste
 - Real data preconditions OK: `data/cache/volume_1h_full.{pkl,meta.json,provenance.json}` and spot cache `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` present.
 - pytest: module NOT installed in this env (`python3 -m pytest` → `No module named pytest`); counts carried forward from lineage (928 passed/1 skipped/0 failed) — **record honestly, do not fabricate**.
 
-### NEXT FOCUS CAMPAIGN — C112 R-B `VOLUME_FISHER_INFORMATION_SHOCK_MR` (MANDATORY, HEAVY WORK)
+### NEXT FOCUS CAMPAIGN — C113 R-B `VOLUME_ATTENTION_ENTROPY_SHOCK_MR` (MANDATORY, HEAVY WORK)
 
-**Order is non-negotiable.** C104-C111 are done — do NOT rerun. C112 is PENDING and must be executed.
+**Order is non-negotiable.** C104-C111 are done — do NOT rerun. C113 is PENDING and must be executed.
 
 #### Step 0 — Grep-verify distinctness (required, fail-closed)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-grep -rl "fisher_information\|FISHER_INFORMATION\|FisherInfo" scripts/ reports/real_quote_volume_*fisher* 2>&1 | head -20
-# Expect: NO existing C112 fisher-information OOS script/report. If a C112-spec report exists (campaign 112, W_FI spec below), STOP and advance to C113 (VOLUME_ATTENTION_ENTROPY_SHOCK_MR; grep-verify).
-ls scripts/run_real_quote_volume_fisher_information* reports/real_quote_volume_fisher_information* 2>&1 | head
+grep -rl "attention_entropy\|FISHER_INFORMATION\|FisherInfo" scripts/ reports/real_quote_volume_*fisher* 2>&1 | head -20
+# Expect: NO existing C113 fisher-information OOS script/report. If a C113-spec report exists (campaign 112, W_FI spec below), STOP and advance to C113 (VOLUME_ATTENTION_ENTROPY_SHOCK_MR; grep-verify).
+ls scripts/run_real_quote_volume_attention_entropy* reports/real_quote_volume_attention_entropy* 2>&1 | head
 ```
 
-#### Step 1 — Implement + run C112 `VOLUME_FISHER_INFORMATION_SHOCK_MR` (PRIORITY 1)
-1. Create `scripts/run_real_quote_volume_fisher_information_shock_mr_costed_oos.py` mirroring `scripts/run_real_quote_volume_svd_entropy_shock_mr_costed_oos.py` structure (imports, wf_windows, load_spot/load_volume, run_asset, main, sha256, fail-closed), **campaign 112**.
+#### Step 1 — Implement + run C113 `VOLUME_ATTENTION_ENTROPY_SHOCK_MR` (PRIORITY 1)
+1. Create `scripts/run_real_quote_volume_attention_entropy_shock_mr_costed_oos.py` mirroring `scripts/run_real_quote_volume_svd_entropy_shock_mr_costed_oos.py` structure (imports, wf_windows, load_spot/load_volume, run_asset, main, sha256, fail-closed), **campaign 112**.
 2. **Feature (pre-stated, distinct):** rolling Fisher Information (discrete/amplitude form) over window `W_FI=168` on log-volume returns `r_t = log(v_t/v_{t-1})`. Within each window, build a probability mass function `p(x)` via histogram/binning of `r_t` (fail-closed: fixed bin count, e.g. 20 bins over window range or robust range; handle degenerate/zero-variance windows). Compute Fisher Information in amplitude form `q_i = sqrt(p_i)`, `FI = 4 * sum((q_{i+1}-q_i)^2)` (normalized by number of bins or max as appropriate, pre-state in script). Distinct from SVD/bubble/dispersion/permutation/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS entropies/complexities.
 3. **Signal (fail-closed MR):** `z = (FI - ALB_mean) / ALB_std`, baseline `ALB=336`. `shock = |z|`. `entry_z >= 1.5` -> if `z > 0` (high Fisher-information/sharpness shock) fade short (-1), if `z < 0` (low-information/flatness shock) fade long (+1); `exit_z < 0.5` or `max_hold=24` or flip. Execution `t -> t+1` (no lookahead). Apply only where real volume/spot bars exist.
 4. **WF/costs/B&H (exact):** WF `720/168/168`, cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]` (bps fee, bps slippage), B&H same OOS windows. Real data only; full provenance + sha256.
-5. Run and emit: `reports/real_quote_volume_fisher_information_shock_mr_costed_oos_<UTC>.json`.
+5. Run and emit: `reports/real_quote_volume_attention_entropy_shock_mr_costed_oos_<UTC>.json`.
 
 #### Step 2 — Registry + ingest evidence + pytest + summary (MANDATORY)
 1. Nonspot ingest evidence: emit `reports/real_feed_ingest_attempt_<UTC>.json` (FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT if none; record searched patterns + found_real_artifacts=[]). Does NOT block R-B.
 2. Pytest: `python3 -m pytest tests/ -q` (record counts/rc; if pytest missing record fail-closed note, do not fabricate).
-3. Registry: emit `reports/strategy_edge_registry_<UTC>.json` superseding `reports/strategy_edge_registry_20261107T001705Z.json` (sha `cdc4f409d85069adb3f35994b9647a3d24eb0203742b844f2c99390cd56899c4`), include C104-C112 (carry C104-C111, add C112). Set `edge_claim: NONE` unless edge rule holds.
+3. Registry: emit `reports/strategy_edge_registry_<UTC>.json` superseding `reports/strategy_edge_registry_20261107T001705Z.json` (sha `cdc4f409d85069adb3f35994b9647a3d24eb0203742b844f2c99390cd56899c4`), include C104-C113 (carry C104-C111, add C113). Set `edge_claim: NONE` unless edge rule holds.
 4. Summary: emit `reports/campaign112_execution_summary_<UTC>.json` (artifacts + sha256s + nonspot blocker + edge claim + next campaign).
 
 ### Fail-closed edge rule (exact)
@@ -54,22 +54,22 @@ ls scripts/run_real_quote_volume_fisher_information* reports/real_quote_volume_f
 - Edge claim ONLY if conditions above hold.
 - Reference `reports/real_feed_unblock_status_20261106T130243Z.json` and latest registry in outputs.
 - Pre-state distinctness; grep-verify not duplicated before implementation.
-- **No status summary before >= 3 new concrete report artifacts exist for C112** (C112 OOS report + ingest attempt + registry/summary — ensure >=3 new).
+- **No status summary before >= 3 new concrete report artifacts exist for C113** (C113 OOS report + ingest attempt + registry/summary — ensure >=3 new).
 - **Heavy work mandatory:** implement + run + artifact emission; no status-only replies.
 - Nonspot ingest blocker does **NOT** block R-B on `real_quote_volume`.
 
 ### Bottlenecks removed (this handoff)
 - C111 marked DONE with artifact/script SHAs; C104-C110 locked — no reruns.
-- Distinct C112 hypothesis pre-stated (Fisher Information, discrete amplitude form on binned returns) + grep-verify step — prevents duplicate-family waste.
+- Distinct C113 hypothesis pre-stated (Fisher Information, discrete amplitude form on binned returns) + grep-verify step — prevents duplicate-family waste.
 - Nonspot ingest explicitly decoupled from R-B — prevents blocker-loop paralysis.
 - "No status before >=3 new artifacts" + mandatory implementation/run — forces heavy work.
-- Fallback ladder if C112 already exists: `VOLUME_ATTENTION_ENTROPY_SHOCK_MR` → `VOLUME_INCREMENT_ENTROPY_SHOCK_MR` → `VOLUME_PERMUTATION_VARIANCE_SHOCK_MR` → `VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR` (grep-verify each) — no stalling.
+- Fallback ladder if C113 already exists: `VOLUME_ATTENTION_ENTROPY_SHOCK_MR` → `VOLUME_INCREMENT_ENTROPY_SHOCK_MR` → `VOLUME_PERMUTATION_VARIANCE_SHOCK_MR` → `VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR` (grep-verify each) — no stalling.
 
 ### Immediate first action (do this in order)
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-grep -rl "fisher_information\|FISHER_INFORMATION\|FisherInfo" scripts/ reports/real_quote_volume_*fisher* 2>&1 | head -15
+grep -rl "attention_entropy\|FISHER_INFORMATION\|FisherInfo" scripts/ reports/real_quote_volume_*fisher* 2>&1 | head -15
 python3 -c "import numpy,scipy,pandas; print('deps_ok')"
 ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl 2>&1 | head
 ```
-Then implement `scripts/run_real_quote_volume_fisher_information_shock_mr_costed_oos.py` (C112 spec), run it, emit C112 OOS report, then Step 2 (ingest + pytest + registry + summary). **Do not stop until Step 2 complete with >=3 new C112 artifacts.**
+Then implement `scripts/run_real_quote_volume_attention_entropy_shock_mr_costed_oos.py` (C113 spec), run it, emit C113 OOS report, then Step 2 (ingest + pytest + registry + summary). **Do not stop until Step 2 complete with >=3 new C113 artifacts.**

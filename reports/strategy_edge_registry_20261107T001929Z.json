@@ -1,0 +1,42 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T001929Z",
+  "campaign": 112,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": "strategy_edge_registry_20261107T001705Z.json",
+  "supersedes_sha256": "cdc4f409d85069adb3f35994b9647a3d24eb0203742b844f2c99390cd56899c4",
+  "edge_claim": "NONE",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]].",
+  "entries": [
+    {
+      "campaign": 111,
+      "candidate": "VOLUME_SVD_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_svd_entropy_shock_mr_costed_oos_20261107T001622Z.json",
+      "sha256": "61f0aba3623fe7aa4b54e529bb167551de6313d6471b8f8bb0140fb7aa6a3baf",
+      "script": "scripts/run_real_quote_volume_svd_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "085de015a1045d8e0db61cd24ffa2184a9198aaaf67eba55106719cb76a2025d",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "SVD entropy (Hankel embedding m=10,d=1, W_SVD=168, Shannon entropy of normalized singular values normalized by log(k)) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 112,
+      "candidate": "VOLUME_FISHER_INFORMATION_SHOCK_MR",
+      "artifact": "real_quote_volume_fisher_information_shock_mr_costed_oos_20261107T001916Z.json",
+      "sha256": "893fe91b513dc5a7f41e6d6104ce8d6d7eaf4bcd764091abade13905782a30f6",
+      "script": "scripts/run_real_quote_volume_fisher_information_shock_mr_costed_oos.py",
+      "script_sha256": "bc5430e543db920e0d5ab2ce9a9c5b50cb70592e510daa7f54d4b3686b3131a1",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "SVD entropy (Hankel embedding m=10,d=1, W_SVD=168, Shannon entropy of normalized singular values normalized by log(k)) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    }
+  ],
+  "nonspot_ingest": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "rb_unblocked": true,
+    "artifact": "real_feed_ingest_attempt_20261107T001929Z.json",
+    "sha256": "1fe1cab1f87a6f1cfa767f313ab866809d8ac6d49868e13aaa2aa7d9dbaf0524"
+  }
+}

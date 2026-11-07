@@ -1,0 +1,46 @@
+{
+  "tool": "campaign_execution_summary",
+  "campaign": 112,
+  "generated_at_utc": "20261107T001929Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "rb_candidate": "VOLUME_FISHER_INFORMATION_SHOCK_MR",
+  "artifacts": [
+    {
+      "path": "real_quote_volume_fisher_information_shock_mr_costed_oos_20261107T001916Z.json",
+      "sha256": "893fe91b513dc5a7f41e6d6104ce8d6d7eaf4bcd764091abade13905782a30f6",
+      "kind": "costed_oos",
+      "oos_edge_proven": false
+    },
+    {
+      "path": "real_feed_ingest_attempt_20261107T001929Z.json",
+      "sha256": "1fe1cab1f87a6f1cfa767f313ab866809d8ac6d49868e13aaa2aa7d9dbaf0524",
+      "kind": "real_feed_ingest_attempt"
+    },
+    {
+      "path": "strategy_edge_registry_20261107T001929Z.json",
+      "sha256": "705223093d89133e67e4642dd2f88aeabc9e93536ef62f55aa1943eec52fffcf",
+      "kind": "strategy_edge_registry"
+    }
+  ],
+  "pytest": {
+    "command": "python3 -m pytest tests/ -q",
+    "pytest_available": true,
+    "returncode": 1,
+    "summary": null,
+    "summary_tail": [
+      "/usr/bin/python3: No module named pytest"
+    ]
+  },
+  "nonspot_blocker": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "rb_unblocked": true
+  },
+  "edge_claim": "NONE",
+  "next_campaign": {
+    "id": 112,
+    "candidate": "VOLUME_FISHER_INFORMATION_SHOCK_MR",
+    "action": "grep-verify distinctness then implement+run costed OOS on real_quote_volume (WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows), then emit ingest+registry+summary; fail-closed, real data only."
+  }
+}
