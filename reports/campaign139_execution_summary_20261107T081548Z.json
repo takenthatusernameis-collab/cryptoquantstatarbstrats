@@ -1,0 +1,44 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T081548Z",
+  "campaign": 139,
+  "strategy_id": "VOLUME_RQA_RR_OVER_LAM_RATIO_SHOCK_MR",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "supersedes": "reports/strategy_edge_registry_20261107T081009Z.json",
+  "supersedes_sha256": "ebca08c085d91a93ea29a6d33c414898cd0a06d74b9cf055de76bd971476f8e0",
+  "pytest": {
+    "available": false,
+    "command": "python3 -m pytest -q --tb=no",
+    "output_excerpt": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true,
+    "fabricated": false
+  },
+  "artifacts": [
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_lam_ratio_shock_mr_costed_oos.py",
+      "sha256": "8cb1a152b91d2d12c20943d2aa769eb1cf7a4e91b1d37333960c4b5b0fb0e99a",
+      "kind": "script"
+    },
+    {
+      "path": "reports/real_quote_volume_rqa_rr_over_lam_ratio_shock_mr_costed_oos_20261107T081548Z.json",
+      "sha256": "3dcbe5b1c237d7fb5b87bc127084e2174806135f13b6f94fc9c0719d872530fd",
+      "kind": "oos_report"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T081548Z.json",
+      "sha256": "01bf06089b5d1176d4364b8a5032821e969492a9ca6bbcd13477ed0961e26acc",
+      "kind": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T081548Z.json",
+      "sha256": "329b291627ff6b3236f2d14de1efff1c4d5ed20c8b558d826e5df4ac6055338c",
+      "kind": "registry"
+    }
+  ],
+  "shas_computed_from_disk_bytes": true,
+  "internal_artifact_shas_verified": true
+}
