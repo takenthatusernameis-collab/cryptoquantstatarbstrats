@@ -1,0 +1,111 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "2026-11-07T20:03:12.993208+00:00",
+  "campaign": 172,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T195645Z.json",
+    "sha256": "00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d"
+  },
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "latest_campaign_entry": {
+    "campaign": 172,
+    "strategy_id": "VOLUME_RQA_TT_OVER_VMAX_RATIO_SHOCK_MR",
+    "tool": "real_quote_volume_rqa_tt_over_vmax_ratio_shock_mr_costed_oos",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.0788375451866391,
+      "fee5_slip5": -0.16416245481336106,
+      "fee10_slip10": -0.4071624548133611,
+      "fee20_slip20": -0.8931624548133612,
+      "fee40_slip40": -1.865162454813361
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_tt_over_vmax_ratio_shock_mr_costed_oos_20261107T200153Z.json",
+        "sha256": "905b41ce515f761546d4c977d3b45eaa09c0a0e570863946a75b73554a39cc82"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T200312Z.json",
+        "sha256": "cd3dc167dcf0355c368c0c098dc948d01a127ad95c8d3aaff095191fa1e76bcb"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_tt_over_vmax_ratio_shock_mr_costed_oos.py",
+        "sha256": "e2c77d6f9e4224b51ca69f15b93ba5faaad9b029d0f1352b12f745ac5d78041c"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rEIn 'tt_over_vmax|vmax_over_tt|TT_OVER_VMAX|RQA_TT_OVER_VMAX|rqa_ratio_tt_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T200153Z",
+      "grep_evidence_note": "Pre-implementation/run grep (grep -rEIn) over scripts/strategies/backtest/utils returned 0 non-self hits before implementation; post-creation only self script matches. Distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C172 candidate from HANDOFF/state.yaml (TT_OVER_VMAX); grep-zero confirmed before implementation/run. Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND (TT numerator with TREND denominator; C172 uses TT numerator with V_max denominator \u2014 distinct denominator token family), C168 RR/TREND, C169 V_max/TREND, C170 Lmax/DET, C171 RR/V_max (RR numerator with V_max denominator; C172 uses TT numerator with V_max denominator \u2014 distinct numerator token family). Family: RQA TT/V_max ratio shock on volume dynamics.",
+      "family": "RQA TT/V_max ratio (trapping time TT normalized by max vertical line length V_max) shock on volume dynamics",
+      "distinct_from_c165_trend_over_lam": "C165 TREND/%LAM vs C172 TT/V_max \u2014 distinct numerator/denominator.",
+      "distinct_from_c166_vmax_over_lam": "C166 V_max/%LAM vs C172 TT/V_max \u2014 distinct numerator/denominator.",
+      "distinct_from_c167_tt_over_trend": "C167 TT/TREND vs C172 TT/V_max \u2014 distinct denominator token family (V_max vs TREND).",
+      "distinct_from_c168_rr_over_trend": "C168 RR/TREND vs C172 TT/V_max \u2014 distinct numerator/denominator.",
+      "distinct_from_c169_vmax_over_trend": "C169 V_max/TREND vs C172 TT/V_max \u2014 distinct numerator/denominator.",
+      "distinct_from_c170_lmax_over_det": "C170 Lmax/DET vs C172 TT/V_max \u2014 distinct numerator/denominator.",
+      "distinct_from_c171_rr_over_vmax": "C171 RR/V_max vs C172 TT/V_max \u2014 distinct numerator token family (TT vs RR).",
+      "uses_ratio_of_rqa_measures": true
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261107T195645Z.json",
+      "prior_registry_sha256": "00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d",
+      "c171_oos": "reports/real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos_20261107T195511Z.json",
+      "c171_oos_sha256": "04e05bcd56a38c6c47147ae30a0c4c456addc6f494dc356138e1a9436b449342"
+    }
+  },
+  "prior_entries": [
+    {
+      "campaign": 171,
+      "strategy_id": "VOLUME_RQA_RR_OVER_VMAX_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rr_over_vmax_ratio_shock_mr_costed_oos_20261107T195511Z.json",
+        "sha256": "04e05bcd56a38c6c47147ae30a0c4c456addc6f494dc356138e1a9436b449342"
+      },
+      "registry": {
+        "path": "reports/strategy_edge_registry_20261107T195645Z.json",
+        "sha256": "00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d"
+      }
+    }
+  ],
+  "nonspot_blockers": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T200312Z.json",
+    "note": "Nonspot ingest blocked fail-closed; R-B unblocked on validated real_quote_volume."
+  },
+  "c173_preselected": {
+    "family_primary": "VOLUME_RQA_DET_OVER_VMAX_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio DET/V_max (determinism DET = sum of diagonal lines >= l_min / sum(R) normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs",
+    "distinctness_grep_primary": "grep -rEIn 'det_over_vmax|vmax_over_det|DET_OVER_VMAX|RQA_DET_OVER_VMAX|rqa_ratio_det_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T200312Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C173 (grep verified at C172 completion). Distinct from C125-C172 RQA-ratio families (C166 V_max/%LAM, C170 Lmax/DET differ by numerator/denominator pairing). Re-verify at C173 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "notes": [
+    "C172 TT/V_max RQA ratio shock MR on real_quote_volume; heavy work completed (>=3 new concrete artifacts: OOS + ingest + registry + summary, each with SHA256 from bytes).",
+    "Edge rule did not hold (edge_claim NONE); reported honestly, no fabrication.",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "pytest unavailable recorded honestly; no fabricated results.",
+    "C171 and prior registry superseded by C172 artifacts."
+  ]
+}

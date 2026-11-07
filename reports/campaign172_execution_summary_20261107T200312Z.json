@@ -1,0 +1,53 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "2026-11-07T20:03:12.993597+00:00",
+  "campaign": 172,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "strategy_id": "VOLUME_RQA_TT_OVER_VMAX_RATIO_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "supersedes_registry": {
+    "path": "reports/strategy_edge_registry_20261107T195645Z.json",
+    "sha256": "00fa95eb87598fd107f861766c0ce193ce24d32c06cb3db4ef30835adb16812d"
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_tt_over_vmax_ratio_shock_mr_costed_oos_20261107T200153Z.json",
+      "sha256": "905b41ce515f761546d4c977d3b45eaa09c0a0e570863946a75b73554a39cc82"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261107T200312Z.json",
+      "sha256": "cd3dc167dcf0355c368c0c098dc948d01a127ad95c8d3aaff095191fa1e76bcb"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261107T200312Z.json",
+      "sha256": "5903607f393fb8fd5c54436914624374ef6cf70afb661571f2dc943c5683c15b"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_tt_over_vmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "e2c77d6f9e4224b51ca69f15b93ba5faaad9b029d0f1352b12f745ac5d78041c"
+    }
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.0788375451866391,
+    "fee5_slip5": -0.16416245481336106,
+    "fee10_slip10": -0.4071624548133611,
+    "fee20_slip20": -0.8931624548133612,
+    "fee40_slip40": -1.865162454813361
+  },
+  "c173_preselected": {
+    "family_primary": "VOLUME_RQA_DET_OVER_VMAX_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio DET/V_max (determinism DET = sum of diagonal lines >= l_min / sum(R) normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs",
+    "distinctness_grep_primary": "grep -rEIn 'det_over_vmax|vmax_over_det|DET_OVER_VMAX|RQA_DET_OVER_VMAX|rqa_ratio_det_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T200312Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C173 (grep verified at C172 completion). Distinct from C125-C172 RQA-ratio families (C166 V_max/%LAM, C170 Lmax/DET differ by numerator/denominator pairing). Re-verify at C173 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  }
+}
