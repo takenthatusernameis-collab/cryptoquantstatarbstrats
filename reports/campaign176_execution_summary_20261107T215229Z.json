@@ -1,0 +1,36 @@
+{
+  "tool": "campaign176_execution_summary",
+  "generated_at_utc": "20261107T215229Z",
+  "campaign": 176,
+  "strategy_id": "VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json",
+      "sha256": "28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T215229Z.json",
+      "sha256": "db49c629f62205871a2cfc6e91b2b850f835c301c5856d5a917adffff40bbdd3"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T215229Z.json",
+      "sha256": "61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "d0b6d04d1e64ce96f2288c1bb6526089a4838250733588267c00fcb31b4647e7"
+    }
+  },
+  "all_new_c176_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T214345Z.json",
+    "prior_registry_sha256": "f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528",
+    "c175_oos": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json",
+    "c175_oos_sha256": "497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af"
+  }
+}

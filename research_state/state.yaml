@@ -1,8 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T214345Z
-latest_campaign_done: C175
-next_campaign: C176
-readiness_verified_utc: 20261107T204909Z
+updated_utc: 20261107T215229Z
+latest_campaign_done: C176
+next_campaign: C177
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -12,114 +11,68 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T214345Z.json
-  sha256: f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528
-  supersedes: reports/strategy_edge_registry_20261107T204909Z.json
-  supersedes_sha256: cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5
+  path: reports/strategy_edge_registry_20261107T215229Z.json
+  sha256: 61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649
+  supersedes: reports/strategy_edge_registry_20261107T214345Z.json
+  supersedes_sha256: f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528
 latest_oos:
-  campaign: C175
-  family: VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json
-  sha256: 497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af
+  campaign: C176
+  family: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json
+  sha256: 28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.080213502570049
-    fee5_slip5: -0.3982135025700493
-    fee10_slip10: -0.7162135025700493
-    fee20_slip20: -1.3522135025700492
-    fee40_slip40: -2.6242135025700493
-c175_provenance_reconciliation:
-  issue: "On-disk C175 script (scripts/run_real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos.py) was refactored in checkpoint b0cb5a0 AFTER the 213708Z reports were written; recorded script sha 0b73dfea... no longer matched on-disk sha 4cf42383.... C175 OOS re-run at 20261107T214159Z confirmed identical numeric results (edge_claim NONE, cross-asset nets unchanged to 1e-14). Ingest/registry/summary regenerated at 214345Z from bytes; stale 213708Z artifacts removed."
-  oos_rerun_sha: 497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af
-c174_completed:
-  campaign: C174
-  strategy_id: VOLUME_RQA_DET_OVER_TREND_RATIO_SHOCK_MR
+    fee0_slip0: 0.06871173009611908
+    fee5_slip5: -0.31228826990388125
+    fee10_slip10: -0.6932882699038814
+    fee20_slip20: -1.455288269903881
+    fee40_slip40: -2.979288269903881
+c176_completed:
+  campaign: C176
+  strategy_id: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos_20261107T204909Z.json
-      sha256: 083ff5be33807d7f91e8b5a517a6945148f0809eeb0a84e3a46e9616b60a5141
+      path: reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json
+      sha256: 28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T204909Z.json
-      sha256: a2d51089a1f5fde01abc54de8d9a57410560a4acb861c4da55259a8495485b40
+      path: reports/real_feed_ingest_attempt_20261107T215229Z.json
+      sha256: db49c629f62205871a2cfc6e91b2b850f835c301c5856d5a917adffff40bbdd3
     registry:
-      path: reports/strategy_edge_registry_20261107T204909Z.json
-      sha256: cf392ce4e8ed93c674d2ec0fd567eb4deae341485399e3c2b4dee53ee59a51b5
+      path: reports/strategy_edge_registry_20261107T215229Z.json
+      sha256: 61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649
     script:
-      path: scripts/run_real_quote_volume_rqa_det_over_trend_ratio_shock_mr_costed_oos.py
-      sha256: 295fe4629f975cb566c8b9d0850190f7e792c3385376386b73da46996d07eb4b
+      path: scripts/run_real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos.py
+      sha256: d0b6d04d1e64ce96f2288c1bb6526089a4838250733588267c00fcb31b4647e7
     summary:
-      path: reports/campaign174_execution_summary_20261107T204909Z.json
-      sha256: 01d1487a2ae6636b3ac1cc3fc5bd44a2e52d9cf5bbe176eda0e1787df0dfef64
-c175_preselected:
-  family_primary: VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR
-  metric_primary: RQA ratio ENTR/V_max (Shannon entropy ENTR of diagonal line length distribution, normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs
-  distinctness_grep_primary: grep -rEIn 'entr_over_vmax|ENTR_OVER_VMAX|vmax_over_entr|rqa_ratio_entr_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1
+      path: reports/campaign176_execution_summary_20261107T215229Z.json
+      sha256: 720fe3e7fd6138bb82dc9cd7f35d6c1a9d19eb68a1839521b8f3cd57a9aa674d
+c177_preselected:
+  family_primary: VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio LMAX/V_max (max diagonal line length LMAX normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs (V_max==0/no qualifying vertical lines, LMAX undefined, sum(R)<=0)"
+  distinctness_grep_primary: "grep -rEIn 'lmax_over_vmax|LMAX_OVER_VMAX|vmax_over_lmax|rqa_ratio_lmax_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261107T205043Z
+  grep_observed_utc: 20261107T215229Z
   grep_verify_required: true
-  note: Preselected for C175 (grep 0 at C174 completion). Distinct from C125-C174 RQA-ratio families (uses ENTR numerator with V_max denominator; ENTR-over-TREND/V_max pairing not previously used). Re-verify at C175 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence.
+  note: "Primary C177 candidate (grep 0 at 20261107T215229Z). Distinct from C125-C176 RQA-ratio families (LMAX numerator with V_max denominator; LMAX/V_max not previously used). Re-verify at C177 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
 bottlenecks_removed:
-- C104-C173 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold
-  weakening, no proxies labeled real
-- C174 completed at 20261107T204909Z (OOS+ingest+registry+summary+script, disk SHAs
-  recorded); state.yaml/HANDOFF synced to C174-done/C175-next
-- numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate
-  test results
-- nonspot ingest does not block R-B on real_quote_volume
-- C174 DET_OVER_TREND collision guard verified 0 non-self before implementation/run;
-  post-creation grep shows only self script
-- C175 ENTR_OVER_VMAX preselect grep verified 0 non-self at 20261107T205043Z
-- Single durable handoff (HANDOFF.md) + research_state/state.yaml are the only coordination
-  sources; next agent must not produce status-only output
-- '"No status before >=3 new artifacts" + mandatory heavy work enforced'
+  - C104-C176 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+  - C176 completed 20261107T215229Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C176-done/C177-next
+  - deps_ok numpy/scipy/pandas; pytest unavailable recorded honestly
+  - nonspot ingest does not block R-B on real_quote_volume
+  - C176 LAM_OVER_VMAX collision guard 0 non-self pre/post creation
+  - C177 LMAX_OVER_VMAX preselect grep 0 (20261107T215229Z)
+  - Single durable handoff (HANDOFF.md) + research_state/state.yaml; no status-only output
+  - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
 mandatory:
-- No status summary before >= 3 new concrete C175 report artifacts (OOS + ingest +
-  registry/summary), each with SHA256 computed from bytes
-- '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-- 'C175: grep-verify distinctness before implementation/run; recheck ENTR_OVER_VMAX
-  grep=0 at run time'
-- Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices
-  OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168,
-  cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-handoff_refreshed_utc: 20261107T213708Z
-
-c175_completed:
-  campaign: C175
-  strategy_id: VOLUME_RQA_ENTR_OVER_VMAX_RATIO_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos:
-      path: reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json
-      sha256: 497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af
-    ingest:
-      path: reports/real_feed_ingest_attempt_20261107T214345Z.json
-      sha256: 2c4f26c906fea7ad894939b84a2d19367f3a365bdb00958830e8eefbf62c7a09
-    registry:
-      path: reports/strategy_edge_registry_20261107T214345Z.json
-      sha256: f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528
-    script:
-      path: scripts/run_real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos.py
-      sha256: 4cf42383ef08f04cde54f87ad758c8275b603a0569ad6efef2e77a8dbace8133
-    summary:
-      path: reports/campaign175_execution_summary_20261107T214345Z.json
-      sha256: dc96f7bd1d87cb31e0818a248f33a8b114568a21832141556939585201006fa1
-
-c176_preselected:
-  family_primary: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
-  metric_primary: RQA ratio LAM/V_max (laminarity LAM normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs
-  distinctness_grep_primary: grep -rEIn 'lam_over_vmax|LAM_OVER_VMAX|rqa_ratio_lam_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1
-  grep_hits_observed: 0
-  grep_observed_utc: 20261107T214345Z
-  grep_verify_required: true
-  note: "Primary C176 candidate (grep 0 at 20261107T214345Z). Distinct from C125-C175 RQA-ratio families (LAM numerator with V_max denominator; LAM/V_max not previously used). Re-verify at C176 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
-  fallbacks:
-    - family: VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR
-      grep: grep -rEIn 'lmax_over_vmax|LMAX_OVER_VMAX|rqa_ratio_lmax_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1
-      hits_observed: 0
-      observed_utc: 20261107T214345Z
+  - No status summary before >= 3 new concrete C177 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
+  - 'C177: grep-verify distinctness before implementation/run; recheck LMAX_OVER_VMAX grep=0 at run time'
+  - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
+c175_provenance_reconciliation:
+  issue: "On-disk C175 script refactored post-213708Z; OOS re-run 214159Z confirmed identical numeric results (edge_claim NONE). Ingest/registry/summary regenerated 214345Z from bytes."
+  oos_rerun_sha: 497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af

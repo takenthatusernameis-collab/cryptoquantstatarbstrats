@@ -1,0 +1,76 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T215229Z",
+  "campaign": 176,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T214345Z.json",
+    "sha256": "f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "rb_family": "real_quote_volume"
+  },
+  "c176": {
+    "strategy_id": "VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR",
+    "family": "VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.06871173009611908,
+      "fee5_slip5": -0.31228826990388125,
+      "fee10_slip10": -0.6932882699038814,
+      "fee20_slip20": -1.455288269903881,
+      "fee40_slip40": -2.979288269903881
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rEIn 'lam_over_vmax|LAM_OVER_VMAX|rqa_ratio_lam_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T215128Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C176 candidate from HANDOFF/state.yaml (LAM_OVER_VMAX); grep-zero confirmed. LAM numerator with V_max denominator \u2014 pairing not used in C125-C175 (C173 DET/V_max, C175 ENTR/V_max).",
+      "family": "RQA LAM/V_max ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json",
+        "sha256": "28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T215229Z.json",
+        "sha256": "db49c629f62205871a2cfc6e91b2b850f835c301c5856d5a917adffff40bbdd3"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos.py",
+        "sha256": "d0b6d04d1e64ce96f2288c1bb6526089a4838250733588267c00fcb31b4647e7"
+      }
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261107T214345Z.json",
+      "prior_registry_sha256": "f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528",
+      "c175_oos": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json",
+      "c175_oos_sha256": "497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af"
+    }
+  },
+  "prior": {
+    "c175": {
+      "registry": {
+        "path": "reports/strategy_edge_registry_20261107T214345Z.json",
+        "sha256": "f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528"
+      },
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json",
+        "sha256": "497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af"
+      }
+    }
+  },
+  "note": "Superseding registry for C176; includes prior+C176 artifact paths/SHAs/scripts. Edge claim NONE unless fail-closed edge rule holds."
+}
