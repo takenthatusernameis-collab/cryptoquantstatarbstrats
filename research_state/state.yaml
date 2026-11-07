@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T155739Z
-latest_campaign_done: C163
-next_campaign: C164
-readiness_verified_utc: 20261107T155739Z
+updated_utc: 20261107T163607Z
+latest_campaign_done: C164
+next_campaign: C165
+readiness_verified_utc: 20261107T163607Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -12,62 +12,62 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T155739Z.json
-  sha256: b62a71b07e0b34c2ccb348b7163f5debd2ab57e95dbe7a0b42c3dc22558360fe
-  supersedes: reports/strategy_edge_registry_20261107T154835Z.json
-  supersedes_sha256: 02309b4b050c102114e000ef013f83202fe1f661a245efb2e93d8ea2ef3b6210
+  path: reports/strategy_edge_registry_20261107T163607Z.json
+  sha256: 62b25bde7526b02928df40c1a77bdf0a6930697cc4773640168024a20fa13e98
+  supersedes: reports/strategy_edge_registry_20261107T155739Z.json
+  supersedes_sha256: b62a71b07e0b34c2ccb348b7163f5debd2ab57e95dbe7a0b42c3dc22558360fe
 latest_oos:
-  campaign: C163
-  family: VOLUME_RQA_ENTR_OVER_TREND_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_entr_over_trend_ratio_shock_mr_costed_oos_20261107T155629Z.json
-  sha256: 1b2e6778d8087aa2ab133ead93ebde8c2d414077d2905e760b860724a40c1220
+  campaign: C164
+  family: VOLUME_RQA_LAM_OVER_TREND_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_lam_over_trend_ratio_shock_mr_costed_oos_20261107T163422Z.json
+  sha256: d0f1e3c286dcac0f131891aa69d844f7d7656afaa2892742abf8b5354632b0e3
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.5261356557443646
-    fee5_slip5: -0.960135655744365
-    fee10_slip10: -1.394135655744365
-    fee20_slip20: -2.2621356557443653
-    fee40_slip40: -3.998135655744365
-c163_completed:
-  campaign: C163
-  strategy_id: VOLUME_RQA_ENTR_OVER_TREND_RATIO_SHOCK_MR
+    fee0_slip0: -0.1235243399224849
+    fee5_slip5: -0.41252433992248516
+    fee10_slip10: -0.7015243399224853
+    fee20_slip20: -1.2795243399224852
+    fee40_slip40: -2.435524339922485
+c164_completed:
+  campaign: C164
+  strategy_id: VOLUME_RQA_LAM_OVER_TREND_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_entr_over_trend_ratio_shock_mr_costed_oos_20261107T155629Z.json
-      sha256: 1b2e6778d8087aa2ab133ead93ebde8c2d414077d2905e760b860724a40c1220
+      path: reports/real_quote_volume_rqa_lam_over_trend_ratio_shock_mr_costed_oos_20261107T163422Z.json
+      sha256: d0f1e3c286dcac0f131891aa69d844f7d7656afaa2892742abf8b5354632b0e3
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T155739Z.json
-      sha256: edfd66e22b2c843d32dd1c5e8c9f9542ec29ba92caf02907d4395b9db14082bd
+      path: reports/real_feed_ingest_attempt_20261107T163607Z.json
+      sha256: 44ab77a188aa2f3ffd4454a4b32cf94eac59c058dc0af3aa8e4125fac98f23ce
     registry:
-      path: reports/strategy_edge_registry_20261107T155739Z.json
-      sha256: b62a71b07e0b34c2ccb348b7163f5debd2ab57e95dbe7a0b42c3dc22558360fe
+      path: reports/strategy_edge_registry_20261107T163607Z.json
+      sha256: 62b25bde7526b02928df40c1a77bdf0a6930697cc4773640168024a20fa13e98
     script:
-      path: scripts/run_real_quote_volume_rqa_entr_over_trend_ratio_shock_mr_costed_oos.py
-      sha256: 125f12f177c74f32e538078304f7858ea45c5da96915ca4ccab9a4c5cc75b724
+      path: scripts/run_real_quote_volume_rqa_lam_over_trend_ratio_shock_mr_costed_oos.py
+      sha256: 6855c2ec0ea2862c040f6524aa3074124b062cbc8f60d301fa6d832fc00aa388
     summary:
-      path: reports/campaign163_execution_summary_20261107T155739Z.json
-      sha256: acbd8a5060169ccee23c13d7fa2a4dd428391fba7bcd6dc502b94e502d6898f2
-c164_preselected:
-  family_primary: VOLUME_RQA_LAM_OVER_TREND_RATIO_SHOCK_MR
-  metric_primary: "RQA ratio %LAM/TREND (laminarity, fraction of recurrence points forming vertical lines l>=l_min, normalized by diagonal recurrence TREND slope) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on TREND==0/undefined-non-finite, %LAM undefined/non-finite, no qualifying lines, offdiag/recurrence degenerate"
-  distinctness_grep_primary: "lam_over_trend|lam_trend_ratio|rqa_ratio_lam_trend|LAM_OVER_TREND"
-  grep_hits_observed_20261107T155739Z: 0
+      path: reports/campaign164_execution_summary_20261107T163607Z.json
+      sha256: 6de78f49e0fb3c754b87112d59d8e87465be8a8f086628b4e3099bd8140d2727
+c165_preselected:
+  family_primary: VOLUME_RQA_TREND_OVER_LAM_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio TREND/%LAM (diagonal recurrence TREND slope normalized by laminarity %LAM, fraction of recurrence points forming vertical lines l>=l_min) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on %LAM==0/undefined-non-finite, TREND undefined/non-finite, no qualifying lines, offdiag/recurrence degenerate"
+  distinctness_grep_primary: "trend_over_lam|rqa_ratio_trend_over_lam|TREND_OVER_LAM"
+  grep_hits_observed_20261107T163242Z: 0
   grep_verify_required: true
-  note: "Preselected for C164. Grep 0 at 20261107T155739Z. Distinct from C125-C163 (incl C158 %LAM/L_max — different denominator; C162/C163/C161/C160 TREND ratios — different numerator %LAM). Re-verify at run time (0 non-self). If collides, pick next grep-zero (vmax_over_trend/rr_over_trend/tt_over_trend verified 0 now) and record evidence."
+  note: "Preselected for C165. Grep 0 at 20261107T163242Z. Inverse ratio of C164 (%LAM/TREND) — distinct numerator/denominator; distinct from C158 %LAM/L_max (different denominator) and C160 TREND/L_max (different denominator %LAM vs L_max). Re-verify at run time (0 non-self). If collides, pick next grep-zero (vmax_over_trend/rr_over_trend verified 0 at 20261107T163242Z) and record evidence."
 bottlenecks_removed:
-  - C104-C162 locked; no reruns unchanged
-  - "C163 completed at 20261107T155739Z (OOS+ingest+registry+summary+script, disk SHAs recorded); state.yaml/HANDOFF synced to C163-done/C164-next"
+  - C104-C163 locked; no reruns unchanged
+  - "C164 completed at 20261107T163607Z (OOS+ingest+registry+summary+script, disk SHAs recorded); state.yaml/HANDOFF synced to C164-done/C165-next"
   - "numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate test results"
   - nonspot ingest does not block R-B on real_quote_volume
-  - "C163 ENTR/OVER_TREND grep verified 0 at run time; C164 LAM_OVER_TREND grep verified 0 at 20261107T155739Z"
+  - "C164 LAM_OVER_TREND grep verified 0 at run time; C165 TREND_OVER_LAM grep verified 0 at 20261107T163242Z"
   - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
-  - "State is truthful (latest_campaign_done: C163, next_campaign: C164)"
+  - "State is truthful (latest_campaign_done: C164, next_campaign: C165)"
 mandatory:
-  - "No status summary before >= 3 new concrete C164 report artifacts (OOS + ingest + registry/summary)"
+  - "No status summary before >= 3 new concrete C165 report artifacts (OOS + ingest + registry/summary)"
   - "'Heavy work mandatory: implement/run + emit artifacts; no status-only replies'"
-  - "C164: grep-verify distinctness before implementation/run; recheck LAM_OVER_TREND grep=0 at run time"
+  - "C165: grep-verify distinctness before implementation/run; recheck TREND_OVER_LAM grep=0 at run time"
