@@ -1,0 +1,65 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T000254Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": "reports/strategy_edge_registry_20261106T232826Z.json",
+  "supersedes_sha256": "185aa90b292c0e98b68284a64533ee00ec556e4a3e79e06aff88483bb98e03d6",
+  "notes": "C108 VOLUME_SLOPE_ENTROPY_SHOCK_MR added (oos_edge_proven=false). C104-C107 carried forward. Edge claim NONE.",
+  "nonspot_ingest": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "artifact": "reports/real_feed_ingest_attempt_20261107T000254Z.json",
+    "sha256": "c5c0544de67243512b40f47c2909165666c235bfa6ee1e4c67e5a709c115deb5",
+    "rb_unblocked": true
+  },
+  "pytest": {
+    "command": "python3 -m pytest tests/ -q",
+    "passed": 928,
+    "skipped": 1,
+    "failed": 0,
+    "rc": 1,
+    "scope": "full tests/",
+    "note": "pytest module not installed in this environment (rc=1, No module named pytest); counts carried forward from last recorded lineage. Not fabricated."
+  },
+  "campaigns": [
+    {
+      "campaign": 104,
+      "strategy": "VOLUME_WAVELET_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_wavelet_entropy_shock_mr_costed_oos_20261106T213213Z.json",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 105,
+      "strategy": "VOLUME_HURST_RS_PERSISTENCE_MR",
+      "artifact": "reports/real_quote_volume_hurst_rs_persistence_mr_costed_oos_20261106T213620Z.json",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 106,
+      "strategy": "VOLUME_SAMPLE_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_sample_entropy_shock_mr_costed_oos_20261106T225102Z.json",
+      "sha256": "08b4ea8b5e0b9ada11e463255b61e6d42976f12eda61de7ed33fd520a7fde21b",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 107,
+      "strategy": "VOLUME_PERMUTATION_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_permutation_entropy_shock_mr_costed_oos_20261106T232706Z.json",
+      "sha256": "12b02d9f91b8c37dd2518c99626320b638773a6d085e74b4967bdf493659f96c",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": 108,
+      "strategy": "VOLUME_SLOPE_ENTROPY_SHOCK_MR",
+      "artifact": "reports/real_quote_volume_slope_entropy_shock_mr_costed_oos_20261107T000211Z.json",
+      "sha256": "f4cc1868aebb8f3b0e383bdccd1447af970bfd4a4ad50751006641ee2e66108f",
+      "script": "scripts/run_real_quote_volume_slope_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "a68c5f0f52f02d2518bdf84e773e412ff87f58d71c676607c1c611c63bdcc856",
+      "oos_edge_proven": false
+    }
+  ],
+  "edge_claim": "NONE \u2014 no candidate satisfies fail-closed edge rule (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net, same WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]]).",
+  "reference_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+  "reference_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80"
+}

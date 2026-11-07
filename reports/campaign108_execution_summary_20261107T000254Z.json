@@ -1,0 +1,51 @@
+{
+  "tool": "campaign108_execution_summary",
+  "generated_at_utc": "20261107T000254Z",
+  "campaign": 108,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "precheck": {
+    "grep_distinctness": "no slope_entropy scripts/reports before impl",
+    "deps_ok": true,
+    "real_volume_cache_present": true
+  },
+  "artifacts": [
+    {
+      "path": "scripts/run_real_quote_volume_slope_entropy_shock_mr_costed_oos.py",
+      "sha256": "a68c5f0f52f02d2518bdf84e773e412ff87f58d71c676607c1c611c63bdcc856",
+      "type": "script"
+    },
+    {
+      "path": "reports/real_quote_volume_slope_entropy_shock_mr_costed_oos_20261107T000211Z.json",
+      "sha256": "f4cc1868aebb8f3b0e383bdccd1447af970bfd4a4ad50751006641ee2e66108f",
+      "type": "oos_report"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T000254Z.json",
+      "sha256": "c5c0544de67243512b40f47c2909165666c235bfa6ee1e4c67e5a709c115deb5",
+      "type": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T000254Z.json",
+      "sha256": "d8a2a826ade40575d0024b54ed4dfb6af23f7641fec2ee441f7a7f4b57af011a",
+      "type": "registry"
+    }
+  ],
+  "c108": {
+    "oos_edge_proven": false,
+    "edge_rule": "OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]])",
+    "wf": "720/168/168",
+    "costs": "[[0,0],[5,5],[10,10],[20,20],[40,40]]"
+  },
+  "nonspot_blocker": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocks_rb": false
+  },
+  "pytest": {
+    "installed": false,
+    "note": "python3 -m pytest failed: No module named pytest; counts not fabricated (carried forward lineage 928/1/0)."
+  },
+  "edge_claim": "NONE",
+  "next_campaign_suggestion": "C109 R-B VOLUME_DISPERSION_ENTROPY_SHOCK_MR (grep-verify distinctness first); if exists advance to VOLUME_BUBBLE_ENTROPY_SHOCK_MR / VOLUME_SVD_ENTROPY_SHOCK_MR / VOLUME_FISHER_INFORMATION_SHOCK_MR."
+}
