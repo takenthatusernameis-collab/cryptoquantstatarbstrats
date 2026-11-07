@@ -1,0 +1,25 @@
+{
+  "tool": "campaign118_execution_summary",
+  "generated_at_utc": "2026-11-07T02:07:12.149466+00:00",
+  "campaign": 118,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos_20261107T020658Z.json",
+      "sha256": "431472461c4c932beba68b9ba2a64e7d9f09b40685d009c991431e6bdc1118af"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T020706Z.json",
+      "sha256": "e336c89c5e2231067d7bae4c5b1b9966ab0b9cfea28818fc5d1beb96103ece04"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T020709Z.json",
+      "sha256": "c28f530de58334ee9e56ca2a2cc8e9eba752c6040c2b15ff75074a4163a8e478"
+    }
+  ],
+  "c118_rb": {
+    "candidate": "VOLUME_CUMULATIVE_RESIDUAL_ENTROPY_SHOCK_MR (rolling cumulative residual entropy over W_CRE=168 on log-volume returns; residuals from rolling mean, quantized into Q=10 bins; Shannon entropy of residual distribution normalized by log(Q)^2 clipped [0,1]; fade CRE shocks vs ALB=336)",
+    "oos_edge_proven": false
+  },
+  "result": "NO_OOS_EDGE_PROVEN",
+  "next_focus": "Continue distinct real_quote_volume R-B families."
+}
