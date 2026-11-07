@@ -1,15 +1,15 @@
-# READ THIS FIRST — C142 INITIAL TASK (20261107T090342Z; single durable handoff)
+# READ THIS FIRST — C142 INITIAL TASK (20261107T090753Z; single durable handoff)
 
 **Single durable handoff for `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Execute the next focus campaign NOW — no investigation-only work, no status-only replies. Produce heavy artifacts first. Real data only; fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.**
 
-**Readiness verified 20261107T090342Z:** `numpy,scipy,pandas` importable; required caches present (`volume_1h_full.{pkl,provenance.json}`, `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`); pytest unavailable (honest, `/usr/bin/python3: No module named pytest`); C142 primary candidate must be grep-zero in `scripts/ strategies/ backtest/ utils/` before implementation.
+**Readiness re-verified 20261107T090753Z:** `numpy,scipy,pandas` importable; required caches present (`volume_1h_full.{pkl,provenance.json}`, `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`); pytest unavailable (honest, `/usr/bin/python3: No module named pytest`); C142 primary candidate grep-zero in `scripts/ strategies/ backtest/ utils/` before implementation.
 
 ## Repo prioritization (from name `cryptoquantstatarbstrats`)
 Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Edge is claimed ONLY under the exact fail-closed edge rule. Nonspot ingest is a hard blocker only if a real nonspot artifact never appears; R-B proceeds on validated `real_quote_volume` family regardless.
 
 ## Verified current state (do not rerun unchanged)
-- C104–C140 DONE → `oos_edge_proven=false` (registry lineage). Do NOT rerun.
-- **C141 DONE (20261107T090342Z):** `VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR` (RQA ratio `RATIO_ENTR_RR = ENTR/%RR`, diagonal-line entropy normalized by recurrence rate, `l>=l_min` main diagonal excluded / `k!=0`; raw Shannon entropy, natural log, **not** normalized by `ln(K)` pre-stated fixed consistent with C130; delay-embedded log-volume returns `m=2,tau=1, eps=0.5*std(r_window)` fixed, `W_RR=168`, `l_min=2`; fail-closed on `%RR<=0`/no qualifying diagonal lines `N==0`/ENTR undefined/non-finite/offdiag-recurrence degenerate/undefined) — `oos_edge_proven=false`, `edge_claim: NONE`.
+- C104–C141 DONE → `oos_edge_proven=false` (registry lineage). Do NOT rerun.
+- **C141 DONE (20261107T090342Z):** `VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR` (RQA ratio `RATIO_ENTR_RR = ENTR/%RR`, diagonal-line entropy normalized by recurrence rate, `l>=l_min` main diagonal excluded / `k!=0`; raw Shannon entropy, natural log, **not** normalized by `ln(K)`, pre-stated fixed consistent with C130; delay-embedded log-volume returns `m=2,tau=1, eps=0.5*std(r_window)` fixed, `W_RR=168`, `l_min=2`; fail-closed on `%RR<=0`/no qualifying diagonal lines `N==0`/ENTR undefined/non-finite/offdiag-recurrence degenerate/undefined) — `oos_edge_proven=false`, `edge_claim: NONE`.
   - OOS: `reports/real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos_20261107T090342Z.json` (sha256 `2c1513ac8bf1142d622f52c5e076fa44706ad728ceb786d9fd99b74f7b66d746`, `real_data_only=true`, `fail_closed=true`, `oos_edge_proven=false`, `any_exposure_oos=true`, `all_cost_slices_positive_oos_net_sum=false`, `all_cost_slices_beat_bh_mean_rule=false`; cross-asset OOS net sums `fee0_slip0=0.45336506664510956`, `fee5_slip5=0.0503650666451092`, `fee10_slip10=-0.3526349333548909`, `fee20_slip20=-1.1586349333548909`, `fee40_slip40=-2.7706349333548905`). RQA computed every 2 bars (causal forward-hold) — disclosed.
   - Script: `scripts/run_real_quote_volume_rqa_entr_over_rr_ratio_shock_mr_costed_oos.py` (sha256 `8066bf1797b31fb6d311915bd2c2b0913951a702821c215a9bde8a9491b053d5`; `campaign:141`, `strategy_id: VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR`, top-level gate fields).
   - Ingest: `reports/real_feed_ingest_attempt_20261107T090342Z.json` (sha256 `af2839caaee45d39c915c6491ed6bb4a43ca461059eb1f44af0a6cb4c9695448`, fail-closed blocked/no real nonspot artifact; `rb_unblocked=true`).
@@ -23,6 +23,7 @@ Fail-closed, real-data-only stat-arb edge validation: walk-forward OOS, costed b
 
 ## Bottlenecks removed (this handoff)
 - C141 marked DONE with disk-verified SHAs and superseding registry emitted; C104–C141 locked — no reruns. Carry forward latest registry `strategy_edge_registry_20261107T090342Z.json` (sha `0fcfc9410fadb171b621a959029dccb4ec891fc8dd2543d3f7c1db8252706fa4`).
+- **state.yaml was stale (updated 20261107T082011Z, claimed latest_campaign_done C139 / next C140). Sync it to authoritative state: latest_campaign_done C141, next_campaign C142, registry sha `0fcfc9410fadb171b621a959029dccb4ec891fc8dd2543d3f7c1db8252706fa4`.** Remove this stale-state bottleneck before/while executing C142.
 - **C142 pre-selected (MUST grep-verify zero hits in `scripts/ strategies/ backtest/ utils/` before implementation):** Primary candidate `VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR` — ratio `%DET / TT_mean` (RQA diagonal-line determinism normalized by trapping time / mean vertical-line length) on delay-embedded log-volume returns, `m=2, tau=1, eps=0.5*std(r_window)` fixed, `W_RR=168`, `l_min=2`, fail-closed to NaN/no-signal when `TT_mean<=0`, no qualifying vertical lines, `%DET` undefined/non-finite, offdiag/recurrence degenerate, or undefined. **Collision guard (primary):** grep `det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT` must be 0 before implementation; distinct from C126 `%DET` direct, C128/C129 `TT`/`%LAM`-family direct context, and C133–C141 RQA ratios (`%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR`). If collision appears, pick next distinct alternative: `VOLUME_RQA_LAM_OVER_TT_RATIO_SHOCK_MR` (`%LAM/TT_mean`, fail-closed on `TT_mean<=0`/no qualifying vertical lines) — grep-verify `lam_over_tt|lam_tt_ratio|LAM_OVER_TT` zero. Second alternative: `VOLUME_RQA_ENTR_OVER_DET_RATIO_SHOCK_MR` (`ENTR/%DET`, fail-closed on `%DET<=0`/no qualifying diagonal lines; raw Shannon ENTR natural log, not normalized by `ln(K)`, pre-stated fixed consistent with C130) — grep-verify `entr_over_det|ENTR_OVER_DET` zero. **Pre-state chosen alternative, record grep-zero, justify distinctness in OOS `pre_stated_distinctness`**.
 - "No status before >=3 new artifacts" + mandatory run — forces heavy work.
 - pytest unavailable recorded honestly — do not fabricate test results.
@@ -39,6 +40,7 @@ python3 -c "import numpy,scipy,pandas; print('deps_ok')"
 ls data/cache/volume_1h_full.pkl data/cache/volume_1h_full.provenance.json data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl
 # primary candidate grep (must be 0 non-self before implementation); if not 0, apply collision guard and pick/verify alternative
 grep -rn 'det_over_tt\|det_tt_ratio\|rqa_ratio_det_tt\|DET_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head
+# sync stale state.yaml to authoritative C141-done / C142-next state
 ```
 Record grep result (or any alternative) in OOS `pre_stated_distinctness`.
 
