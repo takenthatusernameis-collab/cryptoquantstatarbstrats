@@ -1,0 +1,50 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T235740Z",
+  "campaign": 186,
+  "strategy_id": "VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json",
+      "sha256": "8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T235718Z.json",
+      "sha256": "cb5169c3905fb579384769be3c5f56a1cc08c7d7b0b15bc94ed58333239c50fd"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T235740Z.json",
+      "sha256": "32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos.py",
+      "sha256": "5bbf466567a838dfc9aa9cecd4647aa2e6957b26faa0de5480f9e221f0e8cba9"
+    }
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'ENTR_OVER_LAVG|entr_over_lavg|rqa_ratio_entr_over_lavg' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "verified_utc": "20261107T235445Z"
+  },
+  "c187_preselected": {
+    "family": "VOLUME_RQA_LAVG_OVER_ENTR_RATIO_SHOCK_MR",
+    "metric": "RQA ratio LAVG/ENTR on delay-embedded log-volume returns (inverse pairing of ENTR/LAVG); m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2; fail-closed NaN if ENTR==0/undefined/non-finite/degenerate or LAVG undefined/non-finite/degenerate; trailing/causal only",
+    "grep_cmd": "grep -rnE 'LAVG_OVER_ENTR|lavg_over_entr|rqa_ratio_lavg_over_entr|rqa_lavg_over_entr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T235740Z",
+    "grep_verify_required": true,
+    "note": "Distinct from C125-C186; not used before. Re-verify grep=0 non-self at C187 run time."
+  },
+  "prior_references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T234931Z.json",
+    "prior_registry_sha256": "12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44",
+    "c185_oos": "reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json",
+    "c185_oos_sha256": "f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4",
+    "c185_label_anomaly_note": "C185 in-file strategy_id label RR_OVER_LAVG vs TT family; SHA from bytes; no rerun."
+  }
+}
