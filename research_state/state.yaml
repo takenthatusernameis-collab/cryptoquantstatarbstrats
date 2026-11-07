@@ -1,68 +1,68 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T103803Z
-latest_campaign_done: C147
-next_campaign: C148
-readiness_verified_utc: 20261107T103803Z
+updated_utc: 20261107T104346Z
+latest_campaign_done: C148
+next_campaign: C149
+readiness_verified_utc: 20261107T104346Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
 fail_closed: true
 no_proxies_labeled_real: true
 pytest: unavailable (No module named pytest)
-deps: numpy/scipy/pandas importable (installed 20261107T103803Z)
+deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T102339Z.json
-  sha256: 68e8d689d99c0e8a09bcd11d72a8f27e572e1f63f3b6ea14c8f35c424fcf530c
-  supersedes: reports/strategy_edge_registry_20261107T101900Z.json
-  supersedes_sha256: 0dc859e3cdd77da6f177a2ec993f877d3410b3edcecf59b4532a9712323afb8c
+  path: reports/strategy_edge_registry_20261107T104346Z.json
+  sha256: 380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2
+  supersedes: reports/strategy_edge_registry_20261107T102339Z.json
+  supersedes_sha256: 68e8d689d99c0e8a09bcd11d72a8f27e572e1f63f3b6ea14c8f35c424fcf530c
 latest_oos:
-  campaign: C147
-  family: VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos_20261107T102339Z.json
-  sha256: d5a3831eb7c876cf3b502f8670ea3cbdc933e9daf973baa2880c1143e00f899f
+  campaign: C148
+  family: VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json
+  sha256: ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.36486379044774253
-    fee5_slip5: -0.6858637904477428
-    fee10_slip10: -1.0068637904477429
-    fee20_slip20: -1.648863790447743
-    fee40_slip40: -2.932863790447743
-c147_completion:
+    fee0_slip0: 0.3402904307702551
+    fee5_slip5: 0.015290430770254833
+    fee10_slip10: -0.30970956922974524
+    fee20_slip20: -0.9597095692297453
+    fee40_slip40: -2.259709569229745
+c148_completion:
   status: completed
-  completed_utc: 20261107T102339Z
-  oos_path: reports/real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos_20261107T102339Z.json
-  oos_sha256: d5a3831eb7c876cf3b502f8670ea3cbdc933e9daf973baa2880c1143e00f899f
-  ingest_path: reports/real_feed_ingest_attempt_20261107T102339Z.json
-  ingest_sha256: 08439605c4cd3541b357909fcce0fb1553e66d1fe41c8dbdbbed5b796e9d1a1b
-  registry_path: reports/strategy_edge_registry_20261107T102339Z.json
-  registry_sha256: 68e8d689d99c0e8a09bcd11d72a8f27e572e1f63f3b6ea14c8f35c424fcf530c
-  summary_path: reports/campaign147_execution_summary_20261107T102339Z.json
-  summary_sha256: 5c6d7ec6ff7757c717b41f48a77963389976638574eacf217e4f5ceab1e87dee
-  script_path: scripts/run_real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos.py
-  script_sha256: 82e459d74d021f1bcf08d09f5f97c3a4235fb9653abdb51ff124e22c747086e3
+  completed_utc: 20261107T104346Z
+  oos_path: reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json
+  oos_sha256: ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0
+  ingest_path: reports/real_feed_ingest_attempt_20261107T104346Z.json
+  ingest_sha256: 176149fa373c6c5e3fb15703da6e4811a8ec0c5da17baed0f49c51920c8a79d1
+  registry_path: reports/strategy_edge_registry_20261107T104346Z.json
+  registry_sha256: 380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2
+  summary_path: reports/campaign148_execution_summary_20261107T104346Z.json
+  summary_sha256: c9bc2a95b6d19e068d28c2ac8d5a56de57fd41277716a32ec33d8e8875a88b51
+  script_path: scripts/run_real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos.py
+  script_sha256: 5f780976f00fb75150bc3e5b16e21014a56c1c92a9b877b1d2c85e48d113a3a3
   distinctness_grep_hits_pre: 0
-  distinctness_grep_cmd: "grep -rn 'lam_over_entr|lam_entr_ratio|rqa_ratio_lam_entr|LAM_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
-c148_preselected:
-  family_primary: VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR
-  metric_primary: RQA ratio RATIO_ENTR_LAM = ENTR / %LAM (diagonal-line Shannon entropy normalized by laminarity) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if %LAM<=0, no qualifying vertical lines, ENTR undefined/non-finite (ENTR<=0), offdiag/recurrence degenerate, or undefined
-  alt1: VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR (L_max/ENTR; fail-closed on ENTR<=0/no qualifying diagonal lines/L_max undefined)
-  alt2: VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)
-  distinctness_grep_primary: "entr_over_lam|entr_lam_ratio|rqa_ratio_entr_lam|ENTR_OVER_LAM"
-  grep_hits_verified_utc: 20261107T103803Z
+  distinctness_grep_cmd: "grep -rn 'entr_over_lam|entr_lam_ratio|rqa_ratio_entr_lam|ENTR_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
+c149_preselected:
+  family_primary: VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR
+  metric_primary: RQA ratio RATIO_LMAX_ENTR = L_max / ENTR (max diagonal line length normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if ENTR<=0, no qualifying diagonal lines, L_max undefined/non-finite, offdiag/recurrence degenerate, or undefined
+  alt1: VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)
+  alt2: VOLUME_RQA_TT_OVER_LMAX_RATIO_SHOCK_MR (TT/L_max; fail-closed on L_max<=0/no qualifying diagonal lines/TT undefined/non-finite)
+  distinctness_grep_primary: "lmax_over_entr|lmax_entr_ratio|rqa_ratio_lmax_entr|LMAX_OVER_ENTR"
+  grep_hits_verified_utc: 20261107T104346Z
   grep_hits: 0
   grep_verify_required: true
-  note: C148 pre-stated; re-verify grep at run time. Distinct from C125-C147 (incl C127 %LAM direct, C130 ENTR direct, C147 %LAM/ENTR) — C148 trades ENTR/%LAM inverse.
+  note: C149 pre-stated; re-verify grep at run time. Distinct from C125-C148 (incl C129 L_max direct, C130 ENTR direct, C146 %DET/ENTR, C147 %LAM/ENTR, C148 ENTR/%LAM).
 bottlenecks_removed:
-  - C104-C146 locked; no reruns unchanged
-  - C147 completed at 20261107T102339Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF previously stale (said C147 next) — now synced to C147-done/C148-next
-  - numpy/scipy/pandas installed and importable (were missing); pytest unavailable recorded honestly, do not fabricate test results
+  - C104-C147 locked; no reruns unchanged
+  - C148 completed at 20261107T104346Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF synced to C148-done/C149-next
+  - numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate test results
   - nonspot ingest does not block R-B on real_quote_volume
 mandatory:
-  - No status summary before >= 3 new concrete C148 report artifacts (OOS + ingest + registry/summary)
+  - No status summary before >= 3 new concrete C149 report artifacts (OOS + ingest + registry/summary)
   - Heavy work mandatory: implement/run + emit artifacts; no status-only replies
   - Real data only; fail-closed; edge_claim NONE unless fail-closed edge rule holds
-  - Pre-state distinctness; grep-verify before implementation/run (C148 collision guard required; record chosen feature + grep evidence)
+  - Pre-state distinctness; grep-verify before implementation/run (C149 collision guard required; record chosen feature + grep evidence)

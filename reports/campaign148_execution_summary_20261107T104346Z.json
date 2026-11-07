@@ -1,0 +1,46 @@
+{
+  "tool": "campaign148_execution_summary",
+  "generated_at_utc": "20261107T104346Z",
+  "campaign": 148,
+  "status": "completed",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json",
+      "kind": "oos",
+      "sha256": "ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T104346Z.json",
+      "kind": "ingest",
+      "sha256": "176149fa373c6c5e3fb15703da6e4811a8ec0c5da17baed0f49c51920c8a79d1"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T104346Z.json",
+      "kind": "registry",
+      "sha256": "380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos.py",
+      "kind": "script",
+      "sha256": "5f780976f00fb75150bc3e5b16e21014a56c1c92a9b877b1d2c85e48d113a3a3"
+    }
+  ],
+  "distinctness_grep": {
+    "cmd": "grep -rn 'entr_over_lam|entr_lam_ratio|rqa_ratio_entr_lam|ENTR_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+    "hits_pre": 0,
+    "post_run_hits_only_self_script": true,
+    "verified_before_implementation_run": true
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.3402904307702551,
+    "fee5_slip5": 0.015290430770254833,
+    "fee10_slip10": -0.30970956922974524,
+    "fee20_slip20": -0.9597095692297453,
+    "fee40_slip40": -2.259709569229745
+  },
+  "notes": "C148 VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR (ENTR/%LAM inverse of C147) completed: OOS+ingest+registry+summary emitted, fail-closed, real_data_only. any_exposure_oos=true; cross-asset net sums mixed-to-negative at higher costs (fee0=+0.340290, fee5=+0.015290, fee10=-0.309710, fee20=-0.959710, fee40=-2.259710); all_cost_slices_positive false; B&H mean-beat rule false; edge_claim NONE. Nonspot ingest blocked fail-closed; R-B proceeds on real_quote_volume."
+}
