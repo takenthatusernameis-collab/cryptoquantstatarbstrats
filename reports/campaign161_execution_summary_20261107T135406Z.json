@@ -1,0 +1,74 @@
+{
+  "tool": "campaign161_execution_summary",
+  "generated_at_utc": "2026-11-07T13:54:06.596192+00:00",
+  "campaign": 161,
+  "mandate": "C161: implement/run distinct R-B L_max/TREND (inverse of C160 TREND/L_max) on real_quote_volume, emit OOS+ingest+registry+summary, sync state.yaml to C161-done/C162-next. Heavy work mandatory; no status-only.",
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_lmax_over_trend_ratio_shock_mr_costed_oos_20261107T135204Z.json",
+      "sha256": "de217c58dc141fffbd09e8b7a850094f3253e79788b612083e7b2a37200c95bf"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T135406Z.json",
+      "sha256": "fa05f26ec0920588318b49a441a7fee5602dd2da515677a9b38c823cb617e986"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T135406Z.json",
+      "sha256": "17048b6cb9a9c2aea40c2ad20cc8e4f1be1930fb00d12646fe6a47e9356cf2d0"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_lmax_over_trend_ratio_shock_mr_costed_oos.py",
+      "sha256": "0aa574faac5197a11eb2cb3e89314a3323bda89254c03853aa48795c2588c074"
+    }
+  ],
+  "c161_oos": {
+    "strategy_id": "VOLUME_RQA_LMAX_OVER_TREND_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.2883499737284637,
+      "fee5_slip5": 0.013349973728463471,
+      "fee10_slip10": -0.2616500262715366,
+      "fee20_slip20": -0.8116500262715366,
+      "fee40_slip40": -1.9116500262715361
+    }
+  },
+  "nonspot_blockers": {
+    "status": "blocked_fail_closed_rb_unblocked",
+    "blocked_families": [
+      "funding_basis_carry",
+      "cross_exchange_dual_venue_same_asset",
+      "term_structure_real_iv_vol_surface",
+      "intrabar_microstructure"
+    ],
+    "validated_only_family": "real_quote_volume",
+    "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T135406Z.json",
+    "ingest_attempt_sha256": "fa05f26ec0920588318b49a441a7fee5602dd2da515677a9b38c823cb617e986",
+    "no_stale_cache_rescan": true,
+    "note": "Nonspot ingest blocker does NOT block R-B on real_quote_volume."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T134336Z.json",
+    "prior_registry_sha256": "a58ce4fc7161ec10340d6ec1183deabd7cf647abd83ad890f32e59356eb1a86a",
+    "c160_oos": "reports/real_quote_volume_rqa_trend_over_lmax_ratio_shock_mr_costed_oos_20261107T134222Z.json",
+    "c160_oos_sha256": "90e7d1b0aa2d41d8d8af2446c4f4d28d80f1d605343318cb612f9740a2a6e3c8"
+  },
+  "rules_followed": [
+    "real_data_only",
+    "fail_closed",
+    "no_proxies_labeled_real",
+    "no_fabrication",
+    "edge_only_if_all_cost_slices_pass_and_beat_bh",
+    "grep_verified_distinctness",
+    "no_prior_campaign_rerun",
+    "no_stale_cache_rescan",
+    "sha_from_disk_bytes",
+    "no_status_before_3_artifacts",
+    "heavy_work_mandatory"
+  ],
+  "result": "NO_OOS_EDGE_PROVEN",
+  "next_focus": "C162: distinct grep-verified RQA-ratio candidate (TREND/ENTR preselected, grep 0 hits at preselect; re-verify at run time), then continue C125-C162 distinct real_quote_volume families only if mechanically distinct and grep-verified."
+}
