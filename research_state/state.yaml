@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T101205Z
+updated_utc: 20261107T101505Z
 latest_campaign_done: C145
 next_campaign: C146
-readiness_verified_utc: 20261107T101205Z
+readiness_verified_utc: 20261107T101505Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -46,7 +46,7 @@ c146_preselected:
   alt1: VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR (%LAM/ENTR; fail-closed on ENTR<=0/no qualifying diagonal lines)
   alt2: VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR (ENTR/%LAM; fail-closed on %LAM<=0/no qualifying vertical lines)
   distinctness_grep_primary: "det_over_entr|det_entr_ratio|rqa_ratio_det_entr|DET_OVER_ENTR"
-  grep_hits_verified_utc: 20261107T101205Z
+  grep_hits_verified_utc: 20261107T101505Z
   grep_hits: 0
   grep_verify_required: true
   note: C146 primary pre-stated; grep-zero verified 20261107T101205Z. Distinct from C125-C145 (incl C130 ENTR direct, C131-135 DET-family context, C141 ENTR/%RR, C144 ENTR/%DET inverse context) — C146 trades %DET/ENTR.
