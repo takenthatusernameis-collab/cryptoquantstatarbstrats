@@ -1,0 +1,38 @@
+{
+  "tool": "campaign143_execution_summary",
+  "generated_at_utc": "20261107T100055Z",
+  "campaign": 143,
+  "status": "completed",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_lam_over_tt_ratio_shock_mr_costed_oos_20261107T100021Z.json",
+      "sha256": "c1c0f65ccb1c8c58edd69879ee5eccef5ad05378cb67507286aec5af379848ee",
+      "kind": "oos"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T100055Z.json",
+      "sha256": "6aad7ec15cd64970474db8c0c68a3e835419acfd69aa2922da413defadb7d782",
+      "kind": "ingest"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T100055Z.json",
+      "sha256": "af23e5d52e5a401f77dc36acdf5aa86d1cd9d5f6f7475fab4593e1b537cb35eb",
+      "kind": "registry"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_lam_over_tt_ratio_shock_mr_costed_oos.py",
+      "sha256": "3e7a9aa048a54baab921edb9884700aca32b67c91d7f90fac13c7fcec88bdc15",
+      "kind": "script"
+    }
+  ],
+  "distinctness_grep": {
+    "cmd": "grep -rn 'lam_over_tt|lam_tt_ratio|rqa_ratio_lam_tt|LAM_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+    "hits": 0,
+    "verified_before_implementation": true
+  },
+  "notes": "C143 VOLUME_RQA_LAM_OVER_TT_RATIO_SHOCK_MR completed: OOS+ingest+registry emitted, fail-closed, real_data_only. any_exposure_oos=true but all cost slices negative on cross-asset net sums (fee0=-0.2115..fee40=-2.8755); B&H mean-beat rule false; edge_claim NONE."
+}
