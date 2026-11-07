@@ -57,8 +57,9 @@ c163_preselected:
   metric_primary: "RQA ratio ENTR/TREND (diagonal-line Shannon entropy normalized by diagonal recurrence TREND slope) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on TREND==0/undefined-non-finite, ENTR<=0/undefined"
   distinctness_grep_primary: "entr_over_trend|entr_trend_ratio|rqa_ratio_entr_trend|ENTR_OVER_TREND"
   grep_hits_observed_preselect: 0
+  grep_hits_reverified_20261107T155019Z: 0
   grep_verify_required: true
-  note: C163 pre-stated at C162 wrap-up. Operational primary ENTR/TREND (grep 0 hits verified); distinct from C125-C162 (incl C162 TREND/ENTR inverse). Re-verify primary grep at run time (must be 0 non-self hits).
+  note: C163 pre-stated at C162 wrap-up. ENTR/TREND grep 0 at preselect and reverified 0 this session; distinct from C125-C162 (incl C162 TREND/ENTR inverse). Re-verify at run time (0 non-self).
 bottlenecks_removed:
   - C104-C161 locked; no reruns unchanged
   - "C162 completed at 20261107T154835Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF synced to C162-done/C163-next"
@@ -67,6 +68,6 @@ bottlenecks_removed:
   - C160 collision guard verified 0 hits for TREND/LMAX; C161 primary (LMAX/TREND) grep verified 0 hits at run time
   - C162 primary (TREND/ENTR) grep verified 0 non-self hits at run time; C163 candidate (ENTR/OVER_TREND) grep verified 0 hits at preselect
 mandatory:
-  - "No status summary before >= 3 new concrete C162 report artifacts (OOS + ingest + registry/summary)"
+  - "No status summary before >= 3 new concrete C163 report artifacts (OOS + ingest + registry/summary)"
   - "'Heavy work mandatory: implement/run + emit artifacts; no status-only replies'"
-  - "C163: grep-verify distinctness before implementation/run; no status-only"
+  - "C163: grep-verify distinctness before implementation/run; no status-only (recheck ENTR/OVER_TREND grep=0 at 20261107T155019Z)"
