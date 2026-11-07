@@ -1,14 +1,14 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T194910Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (20261107T195219Z)
 
 Repo: `cryptoquantstatarbstrats` (crypto quant stat arb strategies).
 **Priority (from repo name):** fail-closed, **real-data-only** stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. Claim edge **ONLY** if the exact fail-closed edge rule holds. R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest.
 
-## VERIFIED NOW (20261107T194910Z) — no reruns needed
+## VERIFIED NOW (20261107T195219Z) — no reruns needed
 - `deps_ok`: numpy/scipy/pandas importable. `pytest` unavailable (do **NOT** fabricate tests).
 - Real caches present + SHA-verified (from bytes): `data/cache/volume_1h_full.pkl`=4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c, `volume_1h_full.meta.json`=4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616, `volume_1h_full.provenance.json`=c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89, spot `0bab5d6a...631fcf7.pkl`=5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b.
 - **C170 locked/verified on disk (SHAs):** OOS `reports/real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos_20261107T194830Z.json`=e88f0c061dd695efd7274295fd470e8833d5c04423100c78556664390d3c5f30 (`oos_edge_proven:false`, `edge_claim:NONE`, exposure true, cross-asset nets: fee0=+0.7898, fee5=+0.4108, fee10=+0.0318, fee20=-0.7262, fee40=-2.2422), ingest `reports/real_feed_ingest_attempt_20261107T194845Z.json`=dd9cf0316389cab53d4e0e0be0d1c4b0ac87775cf216e5c06768467ffac8f379, registry `reports/strategy_edge_registry_20261107T194900Z.json`=c89757fe45765de2ff7c9be8f0293f10909d93aa3146d466be05772b7940437e (supersedes C169 19cc20be), summary `reports/campaign170_execution_summary_20261107T194910Z.json`=60e0587af45ef41b45707b37acd2e10d004fa89368f7bba8f668ad7719f3e0c6, script `scripts/run_real_quote_volume_rqa_lmax_over_det_ratio_shock_mr_costed_oos.py`=3b62f67f9391ba2e6f5fc97625da537910ea878aa69b5870cea35d2246d18284. state.yaml synced C170-done/C171-next.
 - **Collision guards verified:** C169 `VMAX_OVER_TREND` => 0 non-self (pre-run). C170 `LMAX_OVER_DET` => **0** non-self (grep -rEIn, verified 20261107T194659Z pre-implementation/run). C171 preselected `RR_OVER_VMAX` => **0** non-self (grep -rEIn, verified 20261107T194840Z post-C170). Re-verify at run time (0 non-self) before implementation.
-- **No C171 artifacts exist yet** (`reports/*c171*`/`*campaign171*` absent). Prior C104–C170 remain locked.
+- **No C171 artifacts exist yet** (`reports/*c171*`/`*campaign171*` absent). Prior C104–C170 remain locked. Re-verified at 20261107T195219Z: `rr_over_vmax` collision guard = 0 non-self, C171 unstarted.
 
 ## C104–C170 DONE — LOCKED (DO NOT RERUN UNCHANGED)
 - No prior campaign reruns, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real.

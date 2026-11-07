@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T194910Z
+updated_utc: 20261107T195219Z
 latest_campaign_done: C170
 next_campaign: C171
-readiness_verified_utc: 20261107T194910Z
+readiness_verified_utc: 20261107T195219Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -74,4 +74,4 @@ mandatory:
 - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
 - 'C171: grep-verify distinctness before implementation/run; recheck RR_OVER_VMAX grep=0 at run time'
 - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-handoff_refreshed_utc: 20261107T194910Z
+handoff_refreshed_utc: 20261107T195219Z
