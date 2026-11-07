@@ -1,0 +1,61 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T012033Z",
+  "campaign": 116,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "c104_c115_status": "DONE_oos_edge_proven_false_no_rerun",
+  "step0_distinctness": {
+    "grep_verified_absent_before_impl": true,
+    "checked": [
+      "scripts/",
+      "reports/"
+    ],
+    "terms": [
+      "fluctuation_complexity",
+      "FluctuationComplexity"
+    ],
+    "result": "no existing C116 fluctuation-complexity OOS script/report found"
+  },
+  "step1_c116": {
+    "candidate": "VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR",
+    "feature": "Rolling Fluctuation Complexity over W_FC=168 on log-volume returns; Q=10 equal-width bins; adjacent transition matrix T_ij and marginals p_i; FC=sum_{T_ij>0} T_ij*(log(p_j/p_i))^2 (net-information-gain form) normalized by log(Q)^2 clipped [0,1]; fail-closed on non-finite/degenerate/zero-range windows",
+    "signal": "z=(FC-ALB_mean)/ALB_std ALB=336; entry_z>=1.5 fade shock (z>0 short, z<0 long); exit_z<0.5 or max_hold=24 or flip; execution t->t+1 no lookahead",
+    "wf": "720/168/168",
+    "cost_grid": "[[0,0],[5,5],[10,10],[20,20],[40,40]]",
+    "bh": "same OOS windows",
+    "script": "scripts/run_real_quote_volume_fluctuation_complexity_shock_mr_costed_oos.py",
+    "script_sha256": "0bc1a6126c9b3081a6d9ed1ac46aab8f8ee9b49f4b777f38eb6009b8c0c25c00",
+    "artifact": "real_quote_volume_fluctuation_complexity_shock_mr_costed_oos_20261107T012003Z.json",
+    "artifact_sha256": "d368ea4aadb05c49bdefd9aaf917afb8c2d86ab8911bc38a633a2c225d026c28",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE"
+  },
+  "step2": {
+    "ingest_attempt": {
+      "artifact": "real_feed_ingest_attempt_20261107T012033Z.json",
+      "sha256": "80f17a7c84b534baf2774d42deece3d043f83e03a701c60b43a1b58518993bb9",
+      "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+      "rb_unblocked": true
+    },
+    "pytest": {
+      "command": "python3 -m pytest tests/ -q",
+      "rc": 1,
+      "output_tail": "/usr/bin/python3: No module named pytest",
+      "recorded_honestly": true,
+      "note": "pytest not installed in this env; counts carried forward from lineage (928 passed/1 skipped/0 failed) — not fabricated in this run."
+    },
+    "registry": {
+      "artifact": "strategy_edge_registry_20261107T012033Z.json",
+      "sha256": "86a8d83e539729304aa2a4dcb90c84778706dbd12b5246fd990db676115b306d",
+      "supersedes": "strategy_edge_registry_20261107T011622Z.json",
+      "supersedes_sha256": "8671a00563e585535bdd3631260fd2874ecd2cff731fface7cf250f16e06b647"
+    }
+  },
+  "nonspot_blocker": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT (does not block R-B on real_quote_volume)",
+  "edge_claim": "NONE",
+  "next_campaign": "C117 R-B fallback per ladder (VOLUME_RANGE_ENTROPY_SHOCK_MR -> VOLUME_CUMULATIVE_RESIDUAL_ENTROPY_SHOCK_MR -> VOLUME_DISPERSION_ENTROPY_SHOCK_MR), grep-verify distinctness before impl; mandatory impl+run+>=3 artifacts, no status-only replies, real data only, fail-closed, edge rule exact.",
+  "new_artifacts_count": 4,
+  "min_artifacts_met": true
+}
