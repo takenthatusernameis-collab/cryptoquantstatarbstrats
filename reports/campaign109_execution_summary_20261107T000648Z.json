@@ -1,0 +1,51 @@
+{
+  "tool": "campaign109_execution_summary",
+  "generated_at_utc": "20261107T000648Z",
+  "campaign": 109,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "precheck": {
+    "grep_distinctness": "no dispersion_entropy scripts/reports before impl (grep + ls verified)",
+    "deps_ok": true,
+    "real_volume_cache_present": true
+  },
+  "artifacts": [
+    {
+      "path": "scripts/run_real_quote_volume_dispersion_entropy_shock_mr_costed_oos.py",
+      "sha256": "7b7372504699988991ad59396f5f014c464adc2a65443204c0025e16aca61d75",
+      "type": "script"
+    },
+    {
+      "path": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T000606Z.json",
+      "sha256": "6068210ad5c2e1911e891c94bc3609e6ddc3c0ee8a3bc4b038ebcbe64b9119c5",
+      "type": "oos_report"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T000648Z.json",
+      "sha256": "2c91eaaf82d66ec0a4310642876b81e74680e9fd2ea425d1bd554596fc57a5a8",
+      "type": "ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T000648Z.json",
+      "sha256": "658954a37951775fc797baebb2efe73631b874a63af0481c8b8c17d4d4a791c0",
+      "type": "registry"
+    }
+  ],
+  "c109": {
+    "oos_edge_proven": false,
+    "edge_rule": "OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]])",
+    "wf": "720/168/168",
+    "costs": "[[0,0],[5,5],[10,10],[20,20],[40,40]]"
+  },
+  "nonspot_blocker": {
+    "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+    "blocks_rb": false
+  },
+  "pytest": {
+    "installed": false,
+    "note": "python3 -m pytest failed: No module named pytest; counts not fabricated (carried forward lineage 928/1/0)."
+  },
+  "edge_claim": "NONE",
+  "next_campaign_suggestion": "C110 R-B VOLUME_BUBBLE_ENTROPY_SHOCK_MR (grep-verify distinctness first); fallback ladder: VOLUME_SVD_ENTROPY_SHOCK_MR -> VOLUME_FISHER_INFORMATION_SHOCK_MR -> VOLUME_ATTENTION_ENTROPY_SHOCK_MR."
+}

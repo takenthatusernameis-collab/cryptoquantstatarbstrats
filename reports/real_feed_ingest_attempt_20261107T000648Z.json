@@ -1,0 +1,27 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T000648Z",
+  "campaign": 109,
+  "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+  "rb_unblocked": true,
+  "nonspot_ingest_blocker_note": "Nonspot real feed artifact not found; does NOT block R-B on real_quote_volume.",
+  "searched_patterns": [
+    "data/cache/*funding*",
+    "data/cache/*oi*",
+    "data/cache/*open_interest*",
+    "data/cache/*basis*",
+    "data/cache/*perp*",
+    "data/cache/*futures*",
+    "reports/*funding*real*",
+    "reports/*oi*real*",
+    "reports/*basis*real*"
+  ],
+  "found_real_artifacts": [],
+  "blocked_routes": [
+    "No real nonspot (funding/OI/basis/perp) artifact available in cache/reports for this environment."
+  ],
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "reference": "reports/real_feed_unblock_status_20261106T130243Z.json"
+}
