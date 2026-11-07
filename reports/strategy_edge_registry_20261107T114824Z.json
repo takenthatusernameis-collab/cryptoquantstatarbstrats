@@ -1,0 +1,343 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T114824Z",
+  "campaign": 153,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "pytest": "unavailable (No module named pytest)",
+  "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+  "supersedes": "reports/strategy_edge_registry_20261107T114304Z.json",
+  "supersedes_sha256": "5b6747eddcf088d0c1f1faa544ab5638d19e0f4fbebf9e68dde41e6eec02bd3e",
+  "lineage": [
+    "reports/strategy_edge_registry_20261107T081009Z.json",
+    "reports/strategy_edge_registry_20261107T081548Z.json",
+    "reports/strategy_edge_registry_20261107T085403Z.json",
+    "reports/strategy_edge_registry_20261107T090342Z.json",
+    "reports/strategy_edge_registry_20261107T095654Z.json",
+    "reports/strategy_edge_registry_20261107T100055Z.json",
+    "reports/strategy_edge_registry_20261107T101205Z.json",
+    "reports/strategy_edge_registry_20261107T101900Z.json",
+    "reports/strategy_edge_registry_20261107T102339Z.json",
+    "reports/strategy_edge_registry_20261107T104346Z.json",
+    "reports/strategy_edge_registry_20261107T105953Z.json",
+    "reports/strategy_edge_registry_20261107T114304Z.json"
+  ],
+  "campaigns": {
+    "C140": {
+      "family": "VOLUME_RQA_RR_OVER_TT_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C141": {
+      "family": "VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C142": {
+      "family": "VOLUME_RQA_TT_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C143": {
+      "family": "VOLUME_RQA_LAM_OVER_TT_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C144": {
+      "family": "VOLUME_RQA_ENTR_OVER_DET_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C145": {
+      "family": "VOLUME_RQA_TT_OVER_LAM_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked"
+    },
+    "C146": {
+      "family": "VOLUME_RQA_DET_OVER_ENTR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "status": "completed_locked",
+      "oos_path": "reports/real_quote_volume_rqa_det_over_entr_ratio_shock_mr_costed_oos_20261107T101900Z.json",
+      "oos_sha256": "ccbb1b34621e899f9f598c3241f9a1e6f3da23ade5e82aeaf53115d08df2d3d4",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261107T101900Z.json",
+      "registry_path": "reports/strategy_edge_registry_20261107T101900Z.json",
+      "summary_path": "reports/campaign146_execution_summary_20261107T101900Z.json"
+    },
+    "C147": {
+      "family": "VOLUME_RQA_LAM_OVER_ENTR_RATIO_SHOCK_MR",
+      "metric": "RQA ratio RATIO_LAM_ENTR = %LAM / ENTR (laminarity normalized by diagonal-line Shannon entropy) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed on ENTR<=0/no qualifying diagonal lines/%LAM undefined/non-finite/offdiag-degenerate/undefined",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "edge_claim": "NONE",
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.36486379044774253,
+        "fee5_slip5": -0.6858637904477428,
+        "fee10_slip10": -1.0068637904477429,
+        "fee20_slip20": -1.648863790447743,
+        "fee40_slip40": -2.932863790447743
+      },
+      "status": "completed",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos_20261107T102339Z.json",
+          "sha256": "d5a3831eb7c876cf3b502f8670ea3cbdc933e9daf973baa2880c1143e00f899f"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T102339Z.json",
+          "sha256": "08439605c4cd3541b357909fcce0fb1553e66d1fe41c8dbdbbed5b796e9d1a1b"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos.py",
+          "sha256": "82e459d74d021f1bcf08d09f5f97c3a4235fb9653abdb51ff124e22c747086e3"
+        }
+      }
+    },
+    "C148": {
+      "campaign": 148,
+      "strategy_id": "VOLUME_RQA_ENTR_OVER_LAM_RATIO_SHOCK_MR",
+      "status": "completed",
+      "edge_claim": "NONE",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.3402904307702551,
+        "fee5_slip5": 0.015290430770254833,
+        "fee10_slip10": -0.30970956922974524,
+        "fee20_slip20": -0.9597095692297453,
+        "fee40_slip40": -2.259709569229745
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json",
+          "sha256": "ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T104346Z.json",
+          "sha256": "176149fa373c6c5e3fb15703da6e4811a8ec0c5da17baed0f49c51920c8a79d1"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos.py",
+          "sha256": "5f780976f00fb75150bc3e5b16e21014a56c1c92a9b877b1d2c85e48d113a3a3"
+        }
+      },
+      "references": {
+        "prior_registry": "reports/strategy_edge_registry_20261107T102339Z.json",
+        "prior_registry_sha256": "68e8d689d99c0e8a09bcd11d72a8f27e572e1f63f3b6ea14c8f35c424fcf530c",
+        "c147_oos": "reports/real_quote_volume_rqa_lam_over_entr_ratio_shock_mr_costed_oos_20261107T102339Z.json",
+        "c147_oos_sha256": "d5a3831eb7c876cf3b502f8670ea3cbdc933e9daf973baa2880c1143e00f899f"
+      },
+      "distinctness": {
+        "grep_cmd": "grep -rn 'entr_over_lam|entr_lam_ratio|rqa_ratio_entr_lam|ENTR_OVER_LAM' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+        "hits_pre": 0,
+        "verified_before_implementation_run": true,
+        "feature": "ENTR/%LAM (diagonal-line Shannon entropy normalized by laminarity)"
+      },
+      "real_data_only": true,
+      "fail_closed": true
+    },
+    "C149": {
+      "campaign": 149,
+      "strategy_id": "VOLUME_RQA_LMAX_OVER_ENTR_RATIO_SHOCK_MR",
+      "status": "completed",
+      "edge_claim": "NONE",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.17754795501776466,
+        "fee5_slip5": -0.18745204498223564,
+        "fee10_slip10": -0.5524520449822357,
+        "fee20_slip20": -1.2824520449822356,
+        "fee40_slip40": -2.7424520449822354
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos_20261107T105206Z.json",
+          "sha256": "3c3e70d9f85537e9287d18d508a9e2364252c2119bcb320d923e06ece2a8425c"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T105206Z.json",
+          "sha256": "75a536816bd6e5beef99bd9c66a1167112bb098b4cfea106e8c19f9a670db073"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_lmax_over_entr_ratio_shock_mr_costed_oos.py",
+          "sha256": "6f9ae9c60d41e58ba6c25a257112ede41dc60f630586a4e795c32a6fd32aeed4"
+        }
+      },
+      "references": {
+        "prior_registry": "reports/strategy_edge_registry_20261107T104346Z.json",
+        "prior_registry_sha256": "380aa7cc14e15f68547cafdc4a5ae36ab4e65ddf9e56e7ad6586c7440e823ac2",
+        "c148_oos": "reports/real_quote_volume_rqa_entr_over_lam_ratio_shock_mr_costed_oos_20261107T104346Z.json",
+        "c148_oos_sha256": "ad7edea11ebdc06367eebe06fb474aa71ef3860f06beffac74cb7ce79d0d31c0"
+      },
+      "distinctness": {
+        "grep_cmd": "grep -rn 'lmax_over_entr|lmax_entr_ratio|rqa_ratio_lmax_entr|LMAX_OVER_ENTR' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+        "hits_pre": 0,
+        "verified_before_implementation_run": true,
+        "feature": "L_max/ENTR (max diagonal line length normalized by diagonal-line Shannon entropy)"
+      },
+      "real_data_only": true,
+      "fail_closed": true
+    },
+    "151": {
+      "campaign": 151,
+      "ts": "20261107T105953Z",
+      "strategy_id": "VOLUME_RQA_TT_OVER_LMAX_RATIO_SHOCK_MR",
+      "status": "completed_oos_evaluated",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos_20261107T105953Z.json",
+          "sha256": "6caa21838b5bc5e8291586d8735896ad74ac00bf490f8746a98696ea4eb9e531"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T105953Z.json",
+          "sha256": "c8235c658fab1f9653dc0efcb2795d230776386dc39d0b7dd99e6cda29aca235"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos.py",
+          "sha256": "2851603d44c12b3e58232cdd11ff65e74bef809872bc69486c5b6c7c266910c4"
+        }
+      },
+      "distinctness": {
+        "grep_cmd": "grep -rn 'tt_over_lmax|tt_lmax_ratio|rqa_ratio_tt_lmax|TT_OVER_LMAX' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T105953Z",
+        "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+        "selection_note": "Primary C151 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C150 (incl C128 TT direct, C131 L_max direct, C144 TT/ENTR, C145 TT/%RR, C150 %DET/TT). C151 trades ratio TT_mean/L_max.",
+        "family": "RQA TT/L_max ratio (trapping time normalized by longest diagonal line) shock on volume dynamics",
+        "distinct_from_c128_tt_direct": "C128 trades TT directly; C151 normalizes TT by L_max.",
+        "distinct_from_c131_lmax_direct": "C131 trades L_max directly; C151 uses L_max as denominator with TT numerator.",
+        "distinct_from_c144_c145_c150_ratios": "C144 TT/ENTR, C145 TT/%RR, C150 %DET/TT \u2014 C151 uses TT numerator with L_max denominator, a distinct ratio.",
+        "uses_ratio_of_rqa_measures": true
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.31255898454604425,
+        "fee5_slip5": -0.6095589845460445,
+        "fee10_slip10": -0.9065589845460447,
+        "fee20_slip20": -1.5005589845460445,
+        "fee40_slip40": -2.6885589845460443
+      }
+    },
+    "152": {
+      "campaign": 152,
+      "ts": "20261107T114304Z",
+      "strategy_id": "VOLUME_RQA_TT_OVER_DET_RATIO_SHOCK_MR",
+      "status": "completed_oos_evaluated",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_tt_over_det_ratio_shock_mr_costed_oos_20261107T114304Z.json",
+          "sha256": "90664fdafa66226f33b0dce9c3dfb2ba007502571ecc86fac47c86fbec76030a"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T114304Z.json",
+          "sha256": "87475c4ef95ce2ab9513ed5307da39d9318d13044f0ed899e37386afcf5a6b08"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_tt_over_det_ratio_shock_mr_costed_oos.py",
+          "sha256": "961aee4ef067f0a78c706abfe77bc2b3d80475f2f5a2fd80984fe61937d3e789"
+        }
+      },
+      "distinctness": {
+        "grep_cmd": "grep -rn 'tt_over_det|tt_det_ratio|rqa_ratio_tt_det|TT_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T114304Z",
+        "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+        "selection_note": "Primary C152 candidate from HANDOFF/state.yaml; grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C151 (incl C128 TT direct, C126 %DET direct, C150 %DET/TT, C151 TT/L_max). C152 trades ratio TT_mean/%DET (inverse direction of C150 %DET/TT, a distinct ratio).",
+        "family": "RQA TT/%DET ratio (trapping time normalized by determinism) shock on volume dynamics",
+        "distinct_from_c126_det_direct": "C126 trades %DET directly; C152 normalizes TT_mean by %DET.",
+        "distinct_from_c128_tt_direct": "C128 trades TT directly; C152 uses TT as numerator with %DET denominator.",
+        "distinct_from_c150_det_over_tt": "C150 trades %DET/TT_mean; C152 uses TT_mean/%DET (inverse, distinct ratio).",
+        "distinct_from_c151_tt_over_lmax": "C151 trades TT_mean/L_max; C152 uses TT_mean/%DET, a distinct denominator.",
+        "uses_ratio_of_rqa_measures": true
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.2209506323849334,
+        "fee5_slip5": -0.5849506323849337,
+        "fee10_slip10": -0.9489506323849339,
+        "fee20_slip20": -1.6769506323849337,
+        "fee40_slip40": -3.1329506323849334
+      }
+    },
+    "153": {
+      "campaign": 153,
+      "ts": "20261107T114824Z",
+      "strategy_id": "VOLUME_RQA_ENTR_OVER_TT_RATIO_SHOCK_MR",
+      "status": "completed_oos_evaluated",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_entr_over_tt_ratio_shock_mr_costed_oos_20261107T114824Z.json",
+          "sha256": "1ae4628b44ed86249c0ea655505993aa42a079b9cb56d5f1276a227e34d160f8"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261107T114824Z.json",
+          "sha256": "8d941a8863552bf95a209193767d113401553ce4d1d04dd008aaf364255b9769"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_entr_over_tt_ratio_shock_mr_costed_oos.py",
+          "sha256": "ce676261959840878cdee5196a15fa02120d7225ff5e39b4da6cf6cd9b71ed91"
+        }
+      },
+      "distinctness": {
+        "grep_cmd": "grep -rn 'entr_over_tt|entr_tt_ratio|rqa_ratio_entr_tt|ENTR_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T114824Z",
+        "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+        "selection_note": "Primary C153 candidate from HANDOFF/state.yaml; grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C152 (incl C152 TT/%DET, C151 TT/L_max, C150 %DET/TT). C153 trades ENTR/TT_mean.",
+        "family": "RQA ENTR/TT ratio (diagonal-line entropy normalized by trapping time) shock on volume dynamics",
+        "distinct_from_c152_tt_over_det": "C152 trades TT_mean/%DET; C153 uses ENTR numerator with TT_mean denominator, a distinct ratio and numerator.",
+        "distinct_from_c151_tt_over_lmax": "C151 trades TT_mean/L_max; C153 uses ENTR/TT_mean, entirely different numerator/denominator.",
+        "distinct_from_c150_det_over_tt": "C150 trades %DET/TT_mean; C153 uses ENTR/TT_mean, a distinct numerator.",
+        "uses_ratio_of_rqa_measures": true
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.2829280166686726,
+        "fee5_slip5": -0.08807198333132768,
+        "fee10_slip10": -0.4590719833313277,
+        "fee20_slip20": -1.2010719833313275,
+        "fee40_slip40": -2.6850719833313277
+      }
+    },
+    "latest": 153
+  },
+  "c154_preselected": {
+    "family_primary": "VOLUME_RQA_LMAX_OVER_TT_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio RATIO_LMAX_TT = L_max / TT_mean (max diagonal line length normalized by mean trapping time) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if TT<=0, no qualifying vertical lines, L_max undefined/non-finite, offdiag/recurrence degenerate, or undefined",
+    "alt1": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)",
+    "alt2": "VOLUME_RQA_ENTR_OVER_LMAX_RATIO_SHOCK_MR (ENTR/L_max; fail-closed on L_max<=0/no qualifying diagonal lines/ENTR undefined/non-finite/offdiag-degenerate/undefined)",
+    "distinctness_grep_primary": "lmax_over_tt|lmax_tt_ratio|rqa_ratio_lmax_tt|LMAX_OVER_TT",
+    "grep_verify_required": true,
+    "note": "C154 pre-stated; re-verify grep at run time. Distinct from C125-C153 (incl C153 ENTR/TT, C152 TT/%DET, C151 TT/L_max, C150 %DET/TT). C154 trades L_max/TT_mean."
+  },
+  "latest_campaign_done": 153,
+  "lineage_note": "Structurally consistent campaign/supersedes/supersedes_sha256 lineage; carries forward prior context and adds C153."
+}

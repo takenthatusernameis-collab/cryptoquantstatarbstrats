@@ -1,8 +1,8 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T114304Z
-latest_campaign_done: C152
-next_campaign: C153
-readiness_verified_utc: 20261107T114304Z
+updated_utc: 20261107T114824Z
+latest_campaign_done: C153
+next_campaign: C154
+readiness_verified_utc: 20261107T114824Z
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -12,79 +12,70 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T114304Z.json
-  sha256: 5b6747eddcf088d0c1f1faa544ab5638d19e0f4fbebf9e68dde41e6eec02bd3e
-  supersedes: reports/strategy_edge_registry_20261107T105953Z.json
-  supersedes_sha256: ba60832be0eb86898d8d3da400a52aa5a6ca2261f7036060f1b5e64d91be4802
+  path: reports/strategy_edge_registry_20261107T114824Z.json
+  sha256: 98aa65897fac28b12f62c315627211242955eae82509923b1dc58a63ab39e606
+  supersedes: reports/strategy_edge_registry_20261107T114304Z.json
+  supersedes_sha256: 5b6747eddcf088d0c1f1faa544ab5638d19e0f4fbebf9e68dde41e6eec02bd3e
 latest_oos:
-  campaign: C152
-  family: VOLUME_RQA_TT_OVER_DET_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_tt_over_det_ratio_shock_mr_costed_oos_20261107T114304Z.json
-  sha256: 90664fdafa66226f33b0dce9c3dfb2ba007502571ecc86fac47c86fbec76030a
+  campaign: C153
+  family: VOLUME_RQA_ENTR_OVER_TT_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_entr_over_tt_ratio_shock_mr_costed_oos_20261107T114824Z.json
+  sha256: 1ae4628b44ed86249c0ea655505993aa42a079b9cb56d5f1276a227e34d160f8
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.2209506323849334
-    fee5_slip5: -0.5849506323849337
-    fee10_slip10: -0.9489506323849339
-    fee20_slip20: -1.6769506323849337
-    fee40_slip40: -3.1329506323849334
-c151_completion:
-  status: completed
-  completed_utc: 20261107T105953Z
-  oos_path: reports/real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos_20261107T105953Z.json
-  oos_sha256: 6caa21838b5bc5e8291586d8735896ad74ac00bf490f8746a98696ea4eb9e531
-  ingest_path: reports/real_feed_ingest_attempt_20261107T105953Z.json
-  ingest_sha256: c8235c658fab1f9653dc0efcb2795d230776386dc39d0b7dd99e6cda29aca235
-  registry_path: reports/strategy_edge_registry_20261107T105953Z.json
-  registry_sha256: ba60832be0eb86898d8d3da400a52aa5a6ca2261f7036060f1b5e64d91be4802
-  summary_path: reports/campaign151_execution_summary_20261107T105953Z.json
-  summary_sha256: 1fdfd943d51009c1f1a6925f3949f016debad80ecaaae5d1b4565e8d92442198
-  script_path: scripts/run_real_quote_volume_rqa_tt_over_lmax_ratio_shock_mr_costed_oos.py
-  script_sha256: 2851603d44c12b3e58232cdd11ff65e74bef809872bc69486c5b6c7c266910c4
-  distinctness_grep_hits_pre: 0
-  distinctness_grep_cmd: "grep -rn 'tt_over_lmax|tt_lmax_ratio|rqa_ratio_tt_lmax|TT_OVER_LMAX' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
-  collision_guard: "Re-verified before implementation/run (0 hits). Primary TT/L_max used. Distinct from C125-C150 (incl C128 TT, C131 L_max, C144 TT/ENTR, C145 TT/%RR, C150 %DET/TT)."
+    fee0_slip0: 0.2829280166686726
+    fee5_slip5: -0.08807198333132768
+    fee10_slip10: -0.4590719833313277
+    fee20_slip20: -1.2010719833313275
+    fee40_slip40: -2.6850719833313277
 c152_completion:
   status: completed_oos_evaluated
   completed_utc: 20261107T114304Z
   strategy_id: VOLUME_RQA_TT_OVER_DET_RATIO_SHOCK_MR
-  family: RQA TT/%DET ratio (trapping time normalized by determinism) shock on volume dynamics
   oos_path: reports/real_quote_volume_rqa_tt_over_det_ratio_shock_mr_costed_oos_20261107T114304Z.json
   oos_sha256: 90664fdafa66226f33b0dce9c3dfb2ba007502571ecc86fac47c86fbec76030a
-  ingest_path: reports/real_feed_ingest_attempt_20261107T114304Z.json
-  ingest_sha256: 87475c4ef95ce2ab9513ed5307da39d9318d13044f0ed899e37386afcf5a6b08
-  registry_path: reports/strategy_edge_registry_20261107T114304Z.json
-  registry_sha256: 5b6747eddcf088d0c1f1faa544ab5638d19e0f4fbebf9e68dde41e6eec02bd3e
-  summary_path: reports/campaign152_execution_summary_20261107T114304Z.json
-  summary_sha256: 18399a4e18927f4e70023e14da9320b80fdaa9879f6ce71810f3d6445afa2296
-  script_path: scripts/run_real_quote_volume_rqa_tt_over_det_ratio_shock_mr_costed_oos.py
-  script_sha256: 961aee4ef067f0a78c706abfe77bc2b3d80475f2f5a2fd80984fe61937d3e789
+  edge_claim: NONE
+  oos_edge_proven: false
+c153_completion:
+  status: completed_oos_evaluated
+  completed_utc: 20261107T114824Z
+  strategy_id: VOLUME_RQA_ENTR_OVER_TT_RATIO_SHOCK_MR
+  family: RQA ENTR/TT_mean ratio (diagonal-line Shannon entropy normalized by trapping time) shock on volume dynamics
+  oos_path: reports/real_quote_volume_rqa_entr_over_tt_ratio_shock_mr_costed_oos_20261107T114824Z.json
+  oos_sha256: 1ae4628b44ed86249c0ea655505993aa42a079b9cb56d5f1276a227e34d160f8
+  ingest_path: reports/real_feed_ingest_attempt_20261107T114824Z.json
+  ingest_sha256: 8d941a8863552bf95a209193767d113401553ce4d1d04dd008aaf364255b9769
+  registry_path: reports/strategy_edge_registry_20261107T114824Z.json
+  registry_sha256: 98aa65897fac28b12f62c315627211242955eae82509923b1dc58a63ab39e606
+  summary_path: reports/campaign153_execution_summary_20261107T114824Z.json
+  summary_sha256: 82fb372bcb0c7447364563efcd1d761bc6d1b707cf1e6d77abf6273eb25ed54a
+  script_path: scripts/run_real_quote_volume_rqa_entr_over_tt_ratio_shock_mr_costed_oos.py
+  script_sha256: ce676261959840878cdee5196a15fa02120d7225ff5e39b4da6cf6cd9b71ed91
   distinctness_grep_hits_pre: 0
-  distinctness_grep_cmd: "grep -rn 'tt_over_det|tt_det_ratio|rqa_ratio_tt_det|TT_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
-  collision_guard: "Re-verified before implementation/run (0 hits). Primary TT/%DET used. Distinct from C125-C151 (incl C128 TT direct, C126 %DET direct, C150 %DET/TT, C151 TT/L_max). Inverse direction of C150 %DET/TT, a distinct ratio."
+  distinctness_grep_cmd: "grep -rn 'entr_over_tt|entr_tt_ratio|rqa_ratio_entr_tt|ENTR_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l"
+  collision_guard: "Re-verified before implementation/run (0 hits). Primary ENTR/TT_mean used. Distinct from C125-C152 (incl C152 TT/%DET, C151 TT/L_max, C150 %DET/TT). C153 trades ENTR/TT_mean."
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
-c153_preselected:
-  family_primary: VOLUME_RQA_ENTR_OVER_TT_RATIO_SHOCK_MR
-  metric_primary: RQA ratio RATIO_ENTR_TT = ENTR / TT_mean (diagonal-line Shannon entropy normalized by trapping time) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if TT<=0, no qualifying vertical lines, ENTR undefined/non-finite (ENTR<=0), offdiag/recurrence degenerate, or undefined
-  alt1: VOLUME_RQA_LMAX_OVER_TT_RATIO_SHOCK_MR (L_max/TT; fail-closed on TT<=0/no qualifying vertical lines/L_max undefined)
-  alt2: VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)
-  distinctness_grep_primary: "entr_over_tt|entr_tt_ratio|rqa_ratio_entr_tt|ENTR_OVER_TT"
+c154_preselected:
+  family_primary: VOLUME_RQA_LMAX_OVER_TT_RATIO_SHOCK_MR
+  metric_primary: RQA ratio RATIO_LMAX_TT = L_max / TT_mean (max diagonal line length normalized by mean trapping time) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed NaN/no-signal if TT<=0, no qualifying vertical lines, L_max undefined/non-finite, offdiag/recurrence degenerate, or undefined
+  alt1: VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (%DET/TT; fail-closed on TT<=0/no qualifying vertical lines/%DET undefined/non-finite/offdiag-degenerate/undefined)
+  alt2: VOLUME_RQA_ENTR_OVER_LMAX_RATIO_SHOCK_MR (ENTR/L_max; fail-closed on L_max<=0/no qualifying diagonal lines/ENTR undefined/non-finite/offdiag-degenerate/undefined)
+  distinctness_grep_primary: "lmax_over_tt|lmax_tt_ratio|rqa_ratio_lmax_tt|LMAX_OVER_TT"
   grep_verify_required: true
-  note: C153 pre-stated; re-verify grep at run time. Distinct from C125-C152 (incl C152 TT/%DET, C151 TT/L_max, C150 %DET/TT). C153 trades ENTR/TT_mean.
+  note: C154 pre-stated; re-verify grep at run time. Distinct from C125-C153 (incl C153 ENTR/TT, C152 TT/%DET, C151 TT/L_max, C150 %DET/TT). C154 trades L_max/TT_mean.
 bottlenecks_removed:
-  - C104-C150 locked; no reruns unchanged
-  - C151 completed at 20261107T105953Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF synced to C151-done/C152-next
-  - C152 completed at 20261107T114304Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF synced to C152-done/C153-next
+  - C104-C152 locked; no reruns unchanged
+  - C153 completed at 20261107T114824Z (OOS+ingest+registry+summary+script, disk SHAs verified); state.yaml/HANDOFF synced to C153-done/C154-next
   - numpy/scipy/pandas importable; pytest unavailable recorded honestly, do not fabricate test results
   - nonspot ingest does not block R-B on real_quote_volume
 mandatory:
-  - No status summary before >= 3 new concrete C153 report artifacts (OOS + ingest + registry/summary)
+  - No status summary before >= 3 new concrete C154 report artifacts (OOS + ingest + registry/summary)
   - Heavy work mandatory: implement/run + emit artifacts; no status-only replies
   - Real data only; fail-closed; edge_claim NONE unless fail-closed edge rule holds
-  - Pre-state distinctness; grep-verify before implementation/run (C153 collision guard required; record chosen feature + grep evidence)
+  - Pre-state distinctness; grep-verify before implementation/run (C154 collision guard required; record chosen feature + grep evidence)
