@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
-"""C141: RQA ratio ENTR/%RR (diagonal-line entropy normalized by recurrence rate) shock on delay-embedded log-volume returns (real data only).
+"""C142: RQA ratio %DET/TT (diagonal-line determinism normalized by trapping time) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
-  VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
+  VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
   embedding X_i = (r_i, r_{i+tau}) with m=2, tau=1 over trailing window W_RR=168.
   Recurrence matrix R_{ij}=1 if ||X_i-X_j||_inf <= eps, else 0;
   eps = eps_scale * std(r_window) with pre-stated fixed eps_scale=0.5.
-  %RR = (offdiag recurrence sum) / (M*(M-1)), M = number of embedded points.
-  ENTR = Shannon entropy of diagonal-line length distribution p(l)=n(l)/N over qualifying
-  diagonal lines l>=l_min=2 (main diagonal excluded, both upper/lower k!=0 diagonals),
-  ENTR = -Σ p(l)*ln(p(l)) using natural log (raw Shannon entropy, NOT normalized by ln(K);
-  pre-stated fixed, consistent with C130). Fail-closed to NaN/no-signal if %RR<=0,
-  no qualifying diagonal-line lengths (N==0), ENTR undefined/non-finite, offdiag/recurrence
-  degenerate, or undefined.
-  RATIO_ENTR_RR = ENTR / %RR. Causal trailing only.
+  %DET = (sum of diagonal-line points for qualifying diagonal lines l>=l_min=2, main
+  diagonal excluded, k!=0) / (offdiag recurrence sum). TT_mean = mean length of qualifying
+  vertical lines (l>=l_min=2, main diagonal excluded) — RQA trapping time notion.
+  RATIO_DET_TT = %DET / TT_mean. Fail-closed to NaN/no-signal if TT_mean<=0, no qualifying
+  vertical lines, %DET undefined/non-finite, offdiag/recurrence degenerate, or undefined.
+  Causal trailing only.
 
-Distinctness (grep-zero pre-implementation): entr_over_rr|entr_rr_ratio|rqa_ratio_entr_rr|ENTR_OVER_RR
+Distinctness (grep-zero pre-implementation): det_over_tt|det_tt_ratio|rqa_ratio_det_tt|DET_OVER_TT
   over scripts/ strategies/ backtest/ utils/ returned zero non-self hits (recorded).
-  Collision guard: distinct from C125 %RR direct, C130 ENTR direct, and C133–C140 RQA ratios
-  (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT). C141 trades ratio ENTR/%RR.
+  Collision guard: distinct from C126 %DET direct, C128/C129 TT-family direct context,
+  and C133–C141 RQA ratios (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR).
+  C142 trades ratio %DET/TT_mean.
 
-Signal (fail-closed MR): z = (RATIO_ENTR_RR - ALB_mean) / ALB_std, ALB=336.
+Signal (fail-closed MR): z = (RATIO_DET_TT - ALB_mean) / ALB_std, ALB=336.
   entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
   max_hold=24 or flip. Exec t -> t+1.
 WF/costs/B&H (exact): 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]],
@@ -351,19 +350,18 @@ def main():
         "generated_at_utc": ts,
         "campaign": 142,
         "strategy_id": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR",
-        "candidate": "VOLUME_RQA_ENTR_OVER_RR_RATIO_SHOCK_MR (RQA ratio ENTR/%RR, diagonal-line entropy normalized by recurrence rate, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_ENTR_RR shocks vs ALB=336)",
-        "feature_definition": "RATIO_ENTR_RR = ENTR/%RR with %RR = (offdiag recurrence sum)/(M*(M-1)) (M embedded points), ENTR = Shannon entropy of diagonal-line length distribution p(l)=n(l)/N over qualifying diagonal lines l>=l_min (main diagonal excluded, k!=0), ENTR = -sum p(l)*ln(p(l)) natural log (raw, not normalized by ln(K), pre-stated fixed, consistent with C130); delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal on %RR<=0, no qualifying diagonal-line lengths (N==0), ENTR undefined/non-finite, offdiag/recurrence degenerate, or undefined",
+        "candidate": "VOLUME_RQA_DET_OVER_TT_RATIO_SHOCK_MR (RQA ratio %DET/TT_mean, diagonal-line determinism normalized by trapping time / mean vertical-line length, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_DET_TT shocks vs ALB=336)",
+        "feature_definition": "RATIO_DET_TT = %DET / TT_mean. %DET = (sum of diagonal-line points for qualifying diagonal lines l>=l_min=2, main diagonal excluded, k!=0) / (offdiag recurrence sum). TT_mean = mean length of qualifying vertical lines (l>=l_min=2, main diagonal excluded) — RQA trapping time notion. Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if TT_mean<=0, no qualifying vertical lines, %DET undefined/non-finite, offdiag/recurrence degenerate, or undefined.",
         "pre_stated_distinctness": {
-            "grep_cmd": "grep -rn 'entr_over_rr\\|entr_rr_ratio\\|rqa_ratio_entr_rr\\|ENTR_OVER_RR' scripts/ strategies/ backtest/ utils/ 2>&1",
+            "grep_cmd": "grep -rn 'det_over_tt\\|det_tt_ratio\\|rqa_ratio_det_tt\\|DET_OVER_TT' scripts/ strategies/ backtest/ utils/ 2>&1",
             "grep_hits_at_selection": 0,
             "grep_verified_at_utc": ts,
             "grep_evidence_note": "Pre-implementation grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
-            "selection_note": "Primary C141 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). No collision with C125 %RR direct, C130 ENTR direct, C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM, C140 %RR/TT. C141 trades ratio ENTR/%RR.",
-            "family": "RQA ENTR/%RR ratio (diagonal-line entropy normalized by recurrence density) shock on volume dynamics",
-            "distinct_from_c125": "C125 trades %RR directly; C141 normalizes ENTR by %RR.",
-            "distinct_from_c130": "C130 trades ENTR directly; C141 normalizes ENTR by %RR.",
-            "distinct_from_c133_c140_ratios": "C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM, C140 %RR/TT — C141 uses ENTR numerator with %RR denominator, a distinct ratio.",
-            "entr_definition": "raw Shannon entropy, natural log, not normalized by ln(K) (pre-stated fixed, consistent with C130)",
+            "selection_note": "Primary C142 candidate from HANDOFF; grep-zero confirmed before implementation/run (collision guard passed). No collision with C126 %DET direct, C128/C129 TT-family direct context, and C133–C141 RQA ratios (%DET/%RR,%LAM/%DET,%LAM/%RR,%RR/%DET,%DET/%LAM,%RR/%LAM,%RR/TT,ENTR/%RR). C142 trades ratio %DET/TT_mean.",
+            "family": "RQA %DET/TT ratio (diagonal-line determinism normalized by trapping time) shock on volume dynamics",
+            "distinct_from_c126": "C126 trades %DET directly; C142 normalizes %DET by TT_mean.",
+            "distinct_from_c128_c129_tt_family": "C128/C129 use TT directly; C142 normalizes %DET by TT_mean.",
+            "distinct_from_c133_c141_ratios": "C133 %DET/%RR, C134 %LAM/%DET, C136 %LAM/%RR, C137 %RR/%DET, C138 %DET/%LAM, C139 %RR/%LAM, C140 %RR/TT, C141 ENTR/%RR — C142 uses %DET numerator with TT_mean denominator, a distinct ratio.",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
