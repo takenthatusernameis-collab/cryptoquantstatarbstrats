@@ -1,0 +1,33 @@
+repo: cryptoquantstatarbstrats
+updated_utc: 20261107T060636Z
+latest_campaign_done: C127
+next_campaign: C128
+edge_claim: NONE
+global_oos_edge_proven: false
+real_data_only: true
+fail_closed: true
+no_proxies_labeled_real: true
+latest_registry:
+  path: reports/strategy_edge_registry_20261107T060613Z.json
+  sha256: 7b38b7010f2a7beefaf023945c55f65958e69e3a28ba88ca14faf9497a12fd29
+  supersedes: reports/strategy_edge_registry_20261107T060021Z.json
+  supersedes_sha256: 650bab78db4aed4e8d18f71bcc53a945700f8c3fce75d6d78b4a7b429cf3fd79
+  entries: 18
+latest_oos:
+  campaign: C127
+  family: VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR
+  path: reports/real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos_20261107T060312Z.json
+  sha256: e124581738988c773c80708222036bdb9409fa420032040647d204412c18886f
+  oos_edge_proven: false
+pytest: unavailable (No module named pytest)
+nonspot_ingest: blocked_fail_closed_rb_unblocked
+c128_preselected:
+  family: VOLUME_RQA_LAMINARITY_SHOCK_MR
+  metric: RQA laminarity %LAM (vertical-line fraction)
+  distinctness_grep: "%LAM|laminarity|trapping_time|TT_mean|rqa_tt|vert_line"
+  grep_zero_at_utc: 20261107T060636Z
+bottlenecks_removed:
+  - C104-C127 locked; no reruns
+  - C127 registry emitted
+  - C128 pre-stated/grep-verified to force heavy work
+  - nonspot ingest does not block R-B on real_quote_volume

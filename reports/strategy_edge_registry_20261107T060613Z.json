@@ -1,0 +1,688 @@
+{
+  "schema_version": "strategy_edge_registry.v1",
+  "generated_at_utc": "20261107T060613Z",
+  "campaign": "C127",
+  "supersedes": "reports/strategy_edge_registry_20261107T060021Z.json",
+  "supersedes_sha256": "650bab78db4aed4e8d18f71bcc53a945700f8c3fce75d6d78b4a7b429cf3fd79",
+  "lineage": [
+    {
+      "campaign": 118,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos_20261107T020658Z.json",
+      "oos_artifact_sha256": "431472461c4c932beba68b9ba2a64e7d9f09b40685d009c991431e6bdc1118af",
+      "edge_claim": "NONE"
+    },
+    {
+      "campaign": 119,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T021053Z.json",
+      "oos_artifact_sha256": "3eb0a9fb636afe31bd9b247d64dddc641bba3f70f7631faf0908c0415accd6d9",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T021112Z.json",
+      "ingest_artifact_sha256": "fbb6e9cbae0994b1fbb7b71fd967c895cb1161c91b3287b5308d323da723356"
+    },
+    {
+      "campaign": 120,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json",
+      "oos_artifact_sha256": "53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T030825Z.json",
+      "ingest_artifact_sha256": "4643ee44272b54d22df7c8f6e0b009cf42588a9e84ad58ee4c90ee14fe7360f2"
+    },
+    {
+      "campaign": 121,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+      "oos_artifact_sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T041147Z.json",
+      "ingest_artifact_sha256": "c17549a5160034a0c129febdcd25866436b5ce4746b86b9d89b7762861965971"
+    },
+    "C121",
+    "C122",
+    {
+      "campaign": 123,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_envelope_entropy_shock_mr_costed_oos_20261107T045310Z.json",
+      "oos_artifact_sha256": "4d5fced5db940833933fa3bf4f10683e12e41b6c2e0d7832fac957e30d67e780",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T045317Z.json",
+      "ingest_artifact_sha256": "c1168ed9e7eb6e2ecacf122e14c0431430bbdd6d78469128307a0244088208ef"
+    },
+    {
+      "campaign": 124,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
+      "oos_artifact_sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T045938Z.json",
+      "ingest_artifact_sha256": "3ecc6818f8d4ea8b3c1b25d60eda99fd28247f44710cfbd9b3b6f2c0161423a3"
+    },
+    {
+      "campaign": 125,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+      "oos_artifact_sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
+      "ingest_artifact_sha256": "b85f7997bd5dbb1220151e009203805cc4579ba2085c5b147ecbdc256f087d88",
+      "script": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
+      "script_sha256": "922cd3e8690d57bae7579c925d605f3fc6dba83f547e6e761df41f97ffdb5403",
+      "candidate": "VOLUME_RECURRENCE_RATE_SHOCK_MR (RQA %REC, m=2,tau=1,eps=0.15*sigma_embedded,W_RR=168)",
+      "distinct_from_c124": "Hilbert phase histogram entropy vs RQA recurrence matrix density"
+    },
+    {
+      "campaign": "C126",
+      "registry": "reports/strategy_edge_registry_20261107T060021Z.json",
+      "supersedes": "reports/strategy_edge_registry_20261107T050326Z.json",
+      "supersedes_sha256": "afc423bfb3e50e3d7821ffd70f2f7539aef8eadd2714dfd075f1b526dd98766d",
+      "oos_edge_proven": false
+    },
+    {
+      "campaign": "C127",
+      "registry": "reports/strategy_edge_registry_20261107T060613Z.json",
+      "oos_edge_proven": false
+    }
+  ],
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "entries": [
+    {
+      "campaign": 111,
+      "candidate": "VOLUME_SVD_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_svd_entropy_shock_mr_costed_oos_20261107T001622Z.json",
+      "sha256": "61f0aba3623fe7aa4b54e529bb167551de6313d6471b8f8bb0140fb7aa6a3baf",
+      "script": "scripts/run_real_quote_volume_svd_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "085de015a1045d8e0db61cd24ffa2184a9198aaaf67eba55106719cb76a2025d",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "SVD entropy (Hankel embedding m=10,d=1, W_SVD=168, Shannon entropy of normalized singular values normalized by log(k)) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 112,
+      "candidate": "VOLUME_FISHER_INFORMATION_SHOCK_MR",
+      "artifact": "real_quote_volume_fisher_information_shock_mr_costed_oos_20261107T001916Z.json",
+      "sha256": "893fe91b513dc5a7f41e6d6104ce8d6d7eaf4bcd764091abade13905782a30f6",
+      "script": "scripts/run_real_quote_volume_fisher_information_shock_mr_costed_oos.py",
+      "script_sha256": "bc5430e543db920e0d5ab2ce9a9c5b50cb70592e510daa7f54d4b3686b3131a1",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Fisher Information (amplitude form/PMF binning) on log-volume returns; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 113,
+      "candidate": "VOLUME_ATTENTION_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_attention_entropy_shock_mr_costed_oos_20261107T010650Z.json",
+      "sha256": "2f44c98d8cbd01e596aa21cc8990703bf69aba11c1b9d498a95838bb35d2980a",
+      "script": "scripts/run_real_quote_volume_attention_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "b67c93ee40aca8baaf0df0906f9ff2ae9f3ab49bb57a3b64b1630961299e05e4",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Attention entropy (softmax self-attention distribution entropy over scalar dot-product scores r_i*r_j within W_ATT=168, mean H_i) on log-volume returns; fade shocks vs ALB=336. Distinct from C112 Fisher Information. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 114,
+      "candidate": "VOLUME_INCREMENT_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_increment_entropy_shock_mr_costed_oos_20261107T011021Z.json",
+      "sha256": "de01ac8b96b8453ab728205d4d94e1939405d1b25f6bb43e91e2c307626d19d9",
+      "script": "scripts/run_real_quote_volume_increment_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "e6718f9fd1ac4eb43d84b10acf96b444f8a2251ec9476ddf542ada414fdef140",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Increment entropy (normalized Shannon entropy of quantized increment symbols d_t=r_t-r_{t-1} over log-volume returns within W_INC=168, Q=10 equal-width bins; fade shocks vs ALB=336). Distinct from C113 attention entropy and all prior entropy/complexity families (Fisher Information, SVD/bubble/dispersion/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS). WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 115,
+      "candidate": "VOLUME_PERMUTATION_VARIANCE_SHOCK_MR",
+      "artifact": "real_quote_volume_permutation_variance_shock_mr_costed_oos_20261107T011457Z.json",
+      "sha256": "89fcc7ef8a3e46cca630c8c7ebe4f9f1daa6dfdc1f88541987b8f84f288ea807",
+      "script": "scripts/run_real_quote_volume_permutation_variance_shock_mr_costed_oos.py",
+      "script_sha256": "20906dbb527728755ad901e37682fd36ff510bb3c4e45cbdb1d3b76cbd23024c",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Bandt-Pompe ordinal patterns m=4,tau=1 over log-volume returns within W_PV=168; PMF variance*24 normalized by (23/576) to [0,1]-like (stated in artifact); fade permutation-variance shocks vs ALB=336. Distinct from permutation-entropy families and C104-C114 (increment/attention/Fisher Information, SVD/bubble/dispersion/sample/approximate/spectral/wavelet/DFA/Hurst/slope/LZ/Petrosian/Higuchi/Katz/turning-point/variance-ratio/OU/BDS). WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 116,
+      "candidate": "VOLUME_FLUCTUATION_COMPLEXITY_SHOCK_MR",
+      "artifact": "real_quote_volume_fluctuation_complexity_shock_mr_costed_oos_20261107T012003Z.json",
+      "sha256": "d368ea4aadb05c49bdefd9aaf917afb8c2d86ab8911bc38a633a2c225d026c28",
+      "script": "scripts/run_real_quote_volume_fluctuation_complexity_shock_mr_costed_oos.py",
+      "script_sha256": "0bc1a6126c9b3081a6d9ed1ac46aab8f8ee9b49f4b777f38eb6009b8c0c25c00",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Rolling Fluctuation Complexity over W_FC=168 on log-volume returns; Q=10 equal-width bins; adjacent transition matrix T_ij and marginals p_i; FC=sum_{T_ij>0} T_ij*(log(p_j/p_i))^2 (net-information-gain form) normalized by log(Q)^2 clipped [0,1]; fade FC shocks vs ALB=336. Distinct from C115 permutation variance and C111-C114 (SVD entropy, Fisher Information, attention entropy, increment entropy) and all prior entropy/complexity families. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed."
+    },
+    {
+      "campaign": 117,
+      "candidate": "VOLUME_RANGE_ENTROPY_SHOCK_MR",
+      "artifact": "real_quote_volume_range_entropy_shock_mr_costed_oos_20261107T020310Z.json",
+      "sha256": "868acc4a4f1bca5ee9d411cff834afa4cdaa2d8c622a0ad3327071d8eccb70b7",
+      "script": "scripts/run_real_quote_volume_range_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "5a88e61c2b98f74a178941745408f7c00e6d2a50401136bbe4da516fc810eeea",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "notes": "Range entropy (rolling W_RE=168 on log-volume returns; Q=10 equal-width bins; adjacent transition matrix; FC normalized by log(Q)^2) shock MR; fade shocks vs ALB=336. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows. Real data only, fail-closed. oos_edge_proven=false."
+    },
+    {
+      "campaign": 118,
+      "candidate": "VOLUME_CUMULATIVE_RESIDUAL_ENTROPY_SHOCK_MR",
+      "script": "scripts/run_real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos.py",
+      "oos_artifact": "reports/real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos_20261107T020658Z.json",
+      "oos_artifact_sha256": "431472461c4c932beba68b9ba2a64e7d9f09b40685d009c991431e6bdc1118af",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "fail_closed": true
+    },
+    {
+      "campaign": 119,
+      "candidate": "VOLUME_DISPERSION_ENTROPY_SHOCK_MR",
+      "script": "scripts/run_real_quote_volume_dispersion_entropy_shock_mr_costed_oos.py",
+      "oos_artifact": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T021053Z.json",
+      "oos_artifact_sha256": "3eb0a9fb636afe31bd9b247d64dddc641bba3f70f7631faf0908c0415accd6d9",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "pre_stated_distinctness": "Dispersion Entropy (Rostaghi & Azami 2016, NCDF c=6, m=2, d=1) on log-volume returns W_DE=168, fade vs ALB=336; distinct from C111\u2013C118 (SVD entropy, Fisher Information, attention entropy, increment entropy, permutation variance, fluctuation complexity, range entropy, cumulative residual entropy). Fresh C119 run; prior C109 artifact not reused.",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "fail_closed": true
+    },
+    {
+      "campaign": 120,
+      "candidate": "VOLUME_MULTISCALE_SAMPLE_ENTROPY_SHOCK_MR",
+      "script": "scripts/run_real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "e85cc6de5487238e2e2a67f2a58e5ead34029020268f2ff2d2013c8fc6da52c7",
+      "oos_artifact": "reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json",
+      "oos_artifact_sha256": "53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "pre_stated_distinctness": "Fresh C120 execution of multiscale sample-entropy family. Grep-verified absent from scripts/ and reports/ before impl (no multiscale/coarse-grained/mse_shock). Genuinely distinct from C106 VOLUME_SAMPLE_ENTROPY_SHOCK_MR (single-scale SampEn m=2,r=0.2*std on raw dlogv, W_SE=168): C120 coarse-grains at tau>1 (smoothing high-frequency content) and averages SampEn across scales {2,3,5}, a different regularity functional not a monotonic transform of single-scale SampEn. Distinct from C111-C119 (SVD entropy, Fisher Information, attention entropy, increment entropy, permutation variance, fluctuation complexity, range entropy, cumulative residual entropy, dispersion entropy).",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "fail_closed": true
+    },
+    {
+      "campaign": 121,
+      "candidate": "VOLUME_FUZZY_ENTROPY_SHOCK_MR",
+      "script": "scripts/run_real_quote_volume_fuzzy_entropy_shock_mr_costed_oos.py",
+      "script_sha256": "138be16505e2235184a1fbaf58c73deda5d4ccb2ac058621fbcb7cd546ed1337",
+      "oos_artifact": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+      "oos_artifact_sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "pre_stated_distinctness": "Grep-verified absent before impl: fuzzy_entropy/fuzzyen/FuzzyEn not in scripts/ or reports/. Fuzzy Entropy (Chen et al. 2007/2009) on log-volume returns W_FE=168, m=2, r=0.2*std, n=2, demeaned m-vectors, Chebyshev distance, A=exp(-(d/r)^n), self-matches excluded, FuzzyEn=ln(phi^m)-ln(phi^(m+1)); fade shocks vs ALB=336. Distinct from C102 ApEn (hard Heaviside, includes self-matches) and C106/C120 SampEn/MSE (hard tolerance, SampEn=-ln(A/B); C120 coarse-grains tau={2,3,5}): continuous exponential membership on demeaned vectors, different similarity functional. Distinct from C104-C120 lineage and prior families (spectral/permutation entropy, bubble, slope, DFA, Higuchi/Petrosian/Katz FD, LZ76, Hjorth/TKEO, ZCR, OU halflife, variance ratio).",
+      "real_data_only": true,
+      "fabricated_data": false,
+      "fail_closed": true
+    },
+    {
+      "campaign": "C121",
+      "strategy_family": "VOLUME_FUZZY_ENTROPY_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+          "sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_fuzzy_entropy_shock_mr_costed_oos.py",
+          "sha256": "138be16505e2235184a1fbaf58c73deda5d4ccb2ac058621fbcb7cd546ed1337"
+        }
+      }
+    },
+    {
+      "campaign": "C122",
+      "timestamp_utc": "20261107T042055Z",
+      "strategy_family": "VOLUME_DISTRIBUTION_ENTROPY_SHOCK_MR",
+      "description": "Distribution Entropy (Li 2015) on log-volume returns: phase-space reconstruct m=2,delay=1; histogram entropy of all inter-vector Chebyshev distances into M_BINS=64 over [0,d_max], DistEn=H(p)/log2(M); W_DE=168, ALB=336, fade shocks (entry_z>=1.5 short, <=-1.5 long, exit |z|<0.5/max_hold 24/flip), t->t+1, WF 720/168/168.",
+      "pre_stated_distinctness": "Grep-verified before impl: no distribution_entropy/dist_en in scripts/ or reports/. DistEn uses empirical distribution (histogram entropy) of inter-vector Chebyshev distances \u2014 distinct from ApEn/SampEn/MSE/FuzzyEn (pair match/tolerance/membership counts, not full distance distribution) and dispersion entropy C119 (NCDF amplitude->class patterns), plus C104-C121 lineage and prior repo families (spectral/permutation/bubble/slope/wavelet, DFA, Hurst/RS, Higuchi/Petrosian/Katz FD, LZ76, Hjorth/TKEO, ZCR, OU halflife, variance ratio). renyi/tsallis only appeared as distinctness mentions in prior scripts.",
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_distribution_entropy_shock_mr_costed_oos_20261107T041843Z.json",
+          "sha256": "a18bb64d7f0f5b5dde049032a92d6503e9dc726ded273e658f2db1c9151cfba3"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_distribution_entropy_shock_mr_costed_oos.py",
+          "sha256": "0608fd06ae895e3878f9dd714d1d9b0b2ea31c7491d082c883942ab64e0baa0a"
+        },
+        "ingest_attempt": {
+          "path": "reports/real_feed_ingest_attempt_20261107T042055Z.json",
+          "sha256": "c43778aadd806e3c72a624a22cd814dc9932a6a655d47b06301361359d0256ef"
+        },
+        "prior_registry_superseded": {
+          "path": "reports/strategy_edge_registry_20261107T041147Z.json",
+          "sha256": "dd5492697d70ff3f79d0e8dbb8b0a72eb6cfa230eb4143f757f185c22392d684"
+        }
+      }
+    },
+    {
+      "campaign": "C123",
+      "timestamp_utc": "20261107T045317Z",
+      "strategy_family": "VOLUME_ENVELOPE_ENTROPY_SHOCK_MR",
+      "description": "Envelope entropy (Hilbert analytic-signal amplitude distribution entropy) on log-volume returns: envelope = |Hilbert(x)|; histogram entropy over M_BINS=64 bins over [0,emax], En=H(p)/log2(M); W=168, ALB=336, fade shocks (entry_z>=1.5 short, <=-1.5 long, exit |z|<0.5/max_hold 24/flip), t->t+1, WF 720/168/168.",
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_envelope_entropy_shock_mr_costed_oos_20261107T045310Z.json",
+          "sha256": "4d5fced5db940833933fa3bf4f10683e12e41b6c2e0d7832fac957e30d67e780"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_envelope_entropy_shock_mr_costed_oos.py",
+          "sha256": "d08e57023a94cea3a3aa750538aa9914ee5e5108fc70e3f5383f92931471b9c4"
+        },
+        "ingest_attempt": {
+          "path": "reports/real_feed_ingest_attempt_20261107T045317Z.json",
+          "sha256": "c1168ed9e7eb6e2ecacf122e14c0431430bbdd6d78469128307a0244088208ef"
+        },
+        "prior_registry_superseded": {
+          "path": "reports/strategy_edge_registry_20261107T042055Z.json",
+          "sha256": "09b4dac2185098e14be07ca9be18f9544703015cbd1ba6673c54862b9c0c1860"
+        }
+      }
+    },
+    {
+      "campaign": "C124",
+      "timestamp_utc": "20261107T045938Z",
+      "strategy_family": "VOLUME_PHASE_ENTROPY_SHOCK_MR",
+      "description": "Phase entropy (Hilbert analytic-signal instantaneous phase histogram entropy) on log-volume returns: wrapped phase=atan2(imag(hilbert(x)),real(hilbert(x))); histogram over fixed [-pi,pi) into M_BINS=64, PhEn=H(p)/log2(M); W=168, ALB=336, fade shocks (entry_z>=1.5 short, <=-1.5 long, exit |z|<0.5/max_hold 24/flip), t->t+1, WF 720/168/168. Fail-closed on non-finite/degenerate envelope.",
+      "pre_stated_distinctness": "Grep-verified 20261107T045530Z: zero hits for phase_entropy|instantaneous_phase|inst_phase|unwrapped_phase|hilbert_phase|analytic_phase in scripts/reports/strategies/backtest/utils before C124. Distinct from C123 VOLUME_ENVELOPE_ENTROPY_SHOCK_MR (Hilbert amplitude/envelope distribution entropy) \u2014 phase vs amplitude of analytic signal \u2014 and distinct from C104-C122 lineage and prior repo families.",
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_phase_entropy_shock_mr_costed_oos_20261107T045907Z.json",
+          "sha256": "4b876ec7f9212502affacf82c9f8e504f2833533810bbee9a0d8c22ad6107410"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_phase_entropy_shock_mr_costed_oos.py",
+          "sha256": "77d8c7cc63466d2e9f675738385d33d2b253e18116bf795b18121cc9f13a2e87"
+        },
+        "ingest_attempt": {
+          "path": "reports/real_feed_ingest_attempt_20261107T045938Z.json",
+          "sha256": "3ecc6818f8d4ea8b3c1b25d60eda99fd28247f44710cfbd9b3b6f2c0161423a3"
+        },
+        "prior_registry_superseded": {
+          "path": "reports/strategy_edge_registry_20261107T045317Z.json",
+          "sha256": "6ca91bf20058f115c2474b828ff21211872c3b06409b3d1d7a8189b558051f5b"
+        }
+      }
+    },
+    {
+      "campaign": "C125",
+      "timestamp_utc": "20261107T050326Z",
+      "strategy_family": "VOLUME_RECURRENCE_RATE_SHOCK_MR",
+      "description": "RQA recurrence rate (%REC = density of recurrence points) on delay-embedded (m=2,tau=1) log-volume returns over trailing window W=168; epsilon as pre-stated fraction of std (exact rule in OOS/script). Fade shocks via z(feature, ALB=336): entry_z>=1.5 short/<=-1.5 long, exit |z|<0.5/max_hold 24/flip, exec t->t+1, WF 720/168/168. Fail-closed on non-finite/degenerate.",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'recurrence_rate\\|%REC\\|recurrence_quant\\|rqa_' scripts/ reports/ strategies/ backtest/ utils/ 2>&1 | wc -l",
+        "grep_hits": 0,
+        "family": "RQA recurrence rate",
+        "distinct_from_c124": "Hilbert phase histogram entropy vs RQA recurrence matrix density; different domain (phase-space recurrence vs phase distribution)",
+        "verified_at_utc": "20261107T050257Z"
+      },
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos_report": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+        "oos_report_sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e",
+        "script": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
+        "script_sha256": "4fb5836a4478d8882412fc7f48562e01c799c350512e3c0b43c30e420b32b8a5",
+        "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
+        "ingest_attempt_sha256": "0679390cdf6afc6e4c8ed7b1fe9e34bc6d21e2c827b81ba6ceae25155f56c0fb"
+      },
+      "aggregate": {
+        "n_assets": 11,
+        "any_exposure_oos": true,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+        "all_cost_slices_beat_bh_mean_rule": false,
+        "oos_edge_proven": false,
+        "cross_asset_sum_oos_net_sum": {
+          "fee0_slip0": -1.5983838934893266,
+          "fee5_slip5": -3.262383893489328,
+          "fee10_slip10": -4.926383893489327,
+          "fee20_slip20": -8.254383893489328,
+          "fee40_slip40": -14.910383893489326
+        },
+        "cross_asset_mean_oos_net_mean": {
+          "fee0_slip0": -0.00036593037854609127,
+          "fee5_slip5": -0.0007468827594984725,
+          "fee10_slip10": -0.0011278351404508534,
+          "fee20_slip20": -0.0018897399023556152,
+          "fee40_slip40": -0.0034135494261651393
+        }
+      }
+    },
+    {
+      "campaign": "C126",
+      "timestamp_utc": "20261107T055735Z",
+      "strategy_family": "VOLUME_RQA_DETERMINISM_SHOCK_MR",
+      "description": "RQA determinism %DET on delay-embedded (m=2,tau=1) log-volume returns over trailing window W_RR=168; L-inf recurrence R_ij=1 if ||X_i-X_j||_inf <= eps, eps=0.5*std(r_window) (pre-stated fixed); %DET=(sum diagonal-line recurrence points l>=l_min)/total off-diagonal recurrence points, l_min=2; main diagonal excluded. Fade shocks via z(feature, ALB=336): entry_z>=1.5 short/<=-1.5 long, exit |z|<0.5/max_hold 24/flip, exec t->t+1, WF 720/168/168. Fail-closed on non-finite/degenerate/zero-recurrence.",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'recurrence_determinism\\|%DET\\|laminarity\\|%LAM\\|rqa_det' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T050614Z",
+        "selection_note": "Pre-selected in HANDOFF C126; grep-zero confirmed before implementation/run.",
+        "family": "RQA determinism (%DET diagonal-line structure)",
+        "distinct_from_c125": "C125 %REC is recurrence density (no line-structure); C126 %DET quantifies diagonal-line predictability structure.",
+        "distinct_from_bds": "BDS uses correlation-integral dependence; no recurrence-matrix diagonal-line quantification.",
+        "distinct_from_c104_c124": "Different from Hilbert phase/envelope entropy, distribution/fuzzy/multiscale/sample/approx entropy, SVD/Fisher/attention/increment/permutation-variance/fluctuation-complexity/range/CRE/DispEn, spectral/permutation/bubble/slope/DFA/Hurst/Higuchi/Petrosian/Katz FD, LZ76, Hjorth/TKEO/OU/VR families."
+      },
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": {
+        "train": 720,
+        "test": 168,
+        "step": 168
+      },
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ],
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos_report": "reports/real_quote_volume_rqa_determinism_shock_mr_costed_oos_20261107T055735Z.json",
+        "oos_report_sha256": "fa17cbb405d6839f2038e1a73905422741ebf211b2c3576ff789e9e8b5b42283",
+        "script": "scripts/run_real_quote_volume_rqa_determinism_shock_mr_costed_oos.py",
+        "script_sha256": "b384ad5edfb378e59c6dd4e3665aa49e52631c8635ca3df7994f902e7631c24b",
+        "ingest_attempt": "reports/real_feed_ingest_attempt_20261107T060021Z.json",
+        "ingest_attempt_sha256": "bd65fbcdaaf73f71c648c11a2bcb16da3fc84bb8cab10cf9653a95ab71cfea24"
+      },
+      "aggregate": {
+        "n_assets": 11,
+        "any_exposure_oos": true,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+        "all_cost_slices_beat_bh_mean_rule": false,
+        "oos_edge_proven": false,
+        "cross_asset_sum_oos_net_sum": {
+          "fee0_slip0": -2.0807358291848397,
+          "fee5_slip5": -3.351735829184841,
+          "fee10_slip10": -4.622735829184841,
+          "fee20_slip20": -7.164735829184841,
+          "fee40_slip40": -12.24873582918484
+        },
+        "cross_asset_mean_oos_net_mean": {
+          "fee0_slip0": -0.0004763589352529395,
+          "fee5_slip5": -0.0007673387887327933,
+          "fee10_slip10": -0.0010583186422126467,
+          "fee20_slip20": -0.0016402783491723536,
+          "fee40_slip40": -0.0028041977630917678
+        }
+      }
+    },
+    {
+      "campaign": "C127",
+      "timestamp_utc": "20261107T060312Z",
+      "strategy_family": "VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR",
+      "description": "RQA average diagonal line length L_MEAN on delay-embedded (m=2,tau=1) log-volume returns over trailing window W_RR=168; L-inf recurrence R_ij=1 if ||X_i-X_j||_inf <= eps, eps=0.5*std(r_window) pre-stated fixed; qualifying diagonal lines l>=l_min (l_min=2), main diagonal excluded, upper/lower k!=0; L_MEAN=(sum l_k)/N_lines over qualifying lines. Fail-closed to NaN/no-signal on non-finite, degenerate std/eps, zero recurrence, or no qualifying diagonal lines. Fade shocks via z(feature, ALB=336): entry_z>=1.5 short/<= -1.5 long, exit |z|<0.5/max_hold 24/flip, exec t->t+1, WF 720/168/168.",
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rn 'recurrence_determinism\\|%DET\\|laminarity\\|%LAM\\|rqa_det' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T050614Z",
+        "selection_note": "Pre-selected in HANDOFF C126; grep-zero confirmed before implementation/run.",
+        "family": "RQA determinism (%DET diagonal-line structure)",
+        "distinct_from_c125": "C125 %REC is recurrence density (no line-structure); C126 %DET quantifies diagonal-line predictability structure.",
+        "distinct_from_bds": "BDS uses correlation-integral dependence; no recurrence-matrix diagonal-line quantification.",
+        "distinct_from_c104_c124": "Different from Hilbert phase/envelope entropy, distribution/fuzzy/multiscale/sample/approx entropy, SVD/Fisher/attention/increment/permutation-variance/fluctuation-complexity/range/CRE/DispEn, spectral/permutation/bubble/slope/DFA/Hurst/Higuchi/Petrosian/Katz FD, LZ76, Hjorth/TKEO/OU/VR families."
+      },
+      "real_data_only": true,
+      "fail_closed": true,
+      "wf": null,
+      "cost_grid_bps": null,
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos_report": "reports/real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos_20261107T060312Z.json",
+        "oos_sha256": "e124581738988c773c80708222036bdb9409fa420032040647d204412c18886f",
+        "script": "scripts/run_real_quote_volume_rqa_avg_diagline_shock_mr_costed_oos.py",
+        "script_sha256": "965d67540a2c6db0825f7ccab3f24e6caa7eed00834e7ca48c9a88dbb52daeb6",
+        "ingest": "reports/real_feed_ingest_attempt_20261107T060514Z.json",
+        "ingest_sha256": "7155a54e17ac0f5f509c01427a5171afb773c6ccfaaace230e14b7c8c99561a8",
+        "summary": "reports/campaign127_execution_summary_20261107T060523Z.json",
+        "summary_sha256": "78e4bfde9fbe514214307f0031389ec68b662c9090aaff9b044737d891d59bc7"
+      },
+      "aggregate": {
+        "n_assets": 11,
+        "any_exposure_oos": true,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "mean_bh_oos_mean_across_assets": 1.4376095145558495e-05,
+        "all_cost_slices_beat_bh_mean_rule": false,
+        "oos_edge_proven": false,
+        "cross_asset_sum_oos_net_sum": {
+          "fee0_slip0": -1.4196963082265097,
+          "fee5_slip5": -2.6056963082265105,
+          "fee10_slip10": -3.791696308226511,
+          "fee20_slip20": -6.163696308226511,
+          "fee40_slip40": -10.90769630822651
+        },
+        "cross_asset_mean_oos_net_mean": {
+          "fee0_slip0": -0.0003250220485866551,
+          "fee5_slip5": -0.0005965421951068018,
+          "fee10_slip10": -0.0008680623416269485,
+          "fee20_slip20": -0.0014111026346672415,
+          "fee40_slip40": -0.002497183220747827
+        }
+      }
+    }
+  ],
+  "campaigns": [
+    {
+      "campaign": 118,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_cumulative_residual_entropy_shock_mr_costed_oos_20261107T020658Z.json",
+      "oos_artifact_sha256": "431472461c4c932beba68b9ba2a64e7d9f09b40685d009c991431e6bdc1118af",
+      "edge_claim": "NONE"
+    },
+    {
+      "campaign": 119,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T021053Z.json",
+      "oos_artifact_sha256": "3eb0a9fb636afe31bd9b247d64dddc641bba3f70f7631faf0908c0415accd6d9",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T021112Z.json",
+      "ingest_artifact_sha256": "fbb6e9cbae0994b1fbb7b71fd967c895cb1161c91b3287b5308d323da723356"
+    },
+    {
+      "campaign": 120,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json",
+      "oos_artifact_sha256": "53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T030825Z.json",
+      "ingest_artifact_sha256": "4643ee44272b54d22df7c8f6e0b009cf42588a9e84ad58ee4c90ee14fe7360f2"
+    },
+    {
+      "campaign": 121,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+      "oos_artifact_sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T041147Z.json",
+      "ingest_artifact_sha256": "c17549a5160034a0c129febdcd25866436b5ce4746b86b9d89b7762861965971"
+    },
+    "C121",
+    "C122",
+    "C123",
+    "C124",
+    {
+      "id": 125,
+      "campaign": 125,
+      "status": "DONE",
+      "oos_edge_proven": false,
+      "oos_artifact": "reports/real_quote_volume_recurrence_rate_shock_mr_costed_oos_20261107T050257Z.json",
+      "oos_artifact_sha256": "c210151797cdfc57fae1418fcbcd22fc1147dca4dc6bc4b474ea7cb11b39147e",
+      "edge_claim": "NONE",
+      "ingest_artifact": "reports/real_feed_ingest_attempt_20261107T050326Z.json",
+      "ingest_artifact_sha256": "b85f7997bd5dbb1220151e009203805cc4579ba2085c5b147ecbdc256f087d88",
+      "script": "scripts/run_real_quote_volume_recurrence_rate_shock_mr_costed_oos.py",
+      "script_sha256": "922cd3e8690d57bae7579c925d605f3fc6dba83f547e6e761df41f97ffdb5403",
+      "candidate": "VOLUME_RECURRENCE_RATE_SHOCK_MR (RQA %REC, m=2,tau=1,eps=0.15*sigma_embedded,W_RR=168)",
+      "distinct_from_c124": "Hilbert phase histogram entropy vs RQA recurrence matrix density"
+    },
+    "C125",
+    {
+      "campaign": "C126",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "family": "VOLUME_RQA_DETERMINISM_SHOCK_MR"
+    },
+    "C127"
+  ],
+  "notes": "C124 added (Phase Entropy shock MR, Hilbert instantaneous-phase histogram entropy). All C104-C124 oos_edge_proven=false; edge_claim NONE. Registry supersedes C123 (sha 6ca91bf2\u2026). | C127 VOLUME_RQA_AVG_DIAGLINE_SHOCK_MR added; oos_edge_proven=false; nonspot ingest blocked fail-closed; pytest unavailable recorded."
+}
