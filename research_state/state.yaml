@@ -1,33 +1,33 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T070514Z
-latest_campaign_done: C132
-next_campaign: C133
+updated_utc: 20261107T071212Z
+latest_campaign_done: C133
+next_campaign: C134
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
 fail_closed: true
 no_proxies_labeled_real: true
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T070514Z.json
-  sha256: bcd7a44806e2a4e7bb01ce560a9dc275bb7314cd21bf0946b1693913721be3f0
-  supersedes: reports/strategy_edge_registry_20261107T065559Z.json
-  supersedes_sha256: d45248d5de6fc4759e2ee0dfb1b8b9ab77fbde2089838d6da5d903a57558cc58
+  path: reports/strategy_edge_registry_20261107T071212Z.json
+  sha256: dcb3712281d9cbfb19d9fcf71651d5aa89ab10281f564c708b4244beab92131d
+  supersedes: reports/strategy_edge_registry_20261107T070514Z.json
+  supersedes_sha256: bcd7a44806e2a4e7bb01ce560a9dc275bb7314cd21bf0946b1693913721be3f0
 latest_oos:
-  campaign: C132
-  family: VOLUME_RQA_MAXVERTLINE_DIVERGENCE_SHOCK_MR
-  path: reports/real_quote_volume_rqa_maxvertline_divergence_shock_mr_costed_oos_20261107T070514Z.json
-  sha256: 602db16aa5d5874547b278ebd13b85772ea4ebfc236f8cd40e68cda76b5f3466
+  campaign: C133
+  family: VOLUME_RQA_DET_OVER_RR_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_det_over_rr_ratio_shock_mr_costed_oos_20261107T071212Z.json
+  sha256: ee4e2bc22de6ef65b1c230927e85a3a5322873f2a34a082315680f405a730e80
   oos_edge_proven: false
 pytest: unavailable (No module named pytest)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
-c133_preselected:
-  family: VOLUME_RQA_RR_ZSCORE_SHOCK_MR
-  metric: RQA recurrence-rate z-score / RR shock on delay-embedded log-volume returns (RR = off-diagonal recurrence fraction; or RR-based adaptive z as feature distinct from fixed-threshold %REC shock form) — MUST grep-verify a genuinely distinct implementation name/form before implementation (avoid collision with C125 %REC/VOLUME_RQA_RECURRENCE_RATE_SHOCK_MR)
-  note: If grep shows recurrence-rate-shock naming/form collision with C125, select next distinct RQA/volume feature (e.g., VOLUME_RQA_DET_OVER_RR_SHOCK_MR ratio %DET/%REC, or VOLUME_RQA_LAM_OVER_DET ratio, or vertical/horizontal combined line metric) — pre-state and grep-verify zero before implementation.
-  distinctness_grep: "rr_zscore|recurrence_rate_zscore|det_over_rec|det_rec_ratio|lam_over_det|rqa_ratio_det_rec"
+c134_preselected:
+  family: VOLUME_RQA_LAM_OVER_DET_RATIO_SHOCK_MR
+  metric: RQA ratio %LAM/%DET (laminarity normalized by determinism) on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std,W_RR=168,l_min=2) — MUST grep-verify a genuinely distinct implementation name/form before implementation (avoid collision with C126 %DET, C128 %LAM, C133 %DET/%RR ratio)
+  note: If grep shows lam_over_det|lam_det_ratio|rqa_ratio_lam_det collision, select next distinct RQA composite (e.g., VOLUME_RQA_VERT_HORIZ_LINE_MAX_RATIO_SHOCK_MR = L_MAX_V/L_MAX diagonal/vertical max-line ratio, grep vert_horiz_line_ratio|maxv_over_maxd|lmaxv_over_lmax) — pre-state, grep-verify zero, justify distinctness.
+  distinctness_grep: "lam_over_det|lam_det_ratio|rqa_ratio_lam_det|LAM_OVER_DET"
   grep_verify_required: true
 bottlenecks_removed:
-  - C104-C132 locked; no reruns
-  - C132 registry/OOS/ingest/summary emitted with disk SHAs
+  - C104-C133 locked; no reruns
+  - C133 registry/OOS/ingest/summary emitted with disk SHAs
   - state.yaml updated
   - nonspot ingest does not block R-B on real_quote_volume

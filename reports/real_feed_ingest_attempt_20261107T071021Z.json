@@ -1,0 +1,22 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T071021Z",
+  "campaign": 133,
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "rb_unblocked": true,
+  "nonspot_ingest": {
+    "status": "blocked",
+    "reason": "no_real_nonspot_artifact_available",
+    "fabricated": false
+  },
+  "real_quote_volume_family": {
+    "status": "available",
+    "cache": "data/cache/volume_1h_full.pkl",
+    "meta": "data/cache/volume_1h_full.meta.json",
+    "provenance": "data/cache/volume_1h_full.provenance.json",
+    "spot_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl"
+  },
+  "honest_note": "Nonspot ingest remains fail-closed blocked in this environment (no real nonspot feed artifact). R-B proceeds on validated real_quote_volume family only; blocker does not block R-B."
+}

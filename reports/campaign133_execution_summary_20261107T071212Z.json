@@ -1,0 +1,58 @@
+{
+  "campaign": 133,
+  "timestamp_utc": "20261107T071212Z",
+  "strategy_id": "VOLUME_RQA_DET_OVER_RR_RATIO_SHOCK_MR",
+  "family": "real_quote_volume",
+  "real_data_only": true,
+  "fail_closed": true,
+  "no_proxies_labeled_real": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "distinctness": {
+    "grep_cmd": "grep -rn 'det_over_rr|det_rec_ratio|rqa_ratio_det_rec|ratio_det_rr|DET_OVER_RR' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+    "grep_hits_at_selection": 0,
+    "verified": true,
+    "note": "C133 trades RATIO_DET_RR=%DET/%RR (diagonal determinism normalized by recurrence density) \u2014 distinct from C125 %RR shock and C126 %DET shock; grep-zero pre-implementation."
+  },
+  "pytest": {
+    "available": false,
+    "outcome": "/usr/bin/python3: No module named pytest",
+    "recorded_honestly": true
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T070514Z.json",
+    "prior_registry_sha256": "bcd7a44806e2a4e7bb01ce560a9dc275bb7314cd21bf0946b1693913721be3f0",
+    "c132_oos": "reports/real_quote_volume_rqa_maxvertline_divergence_shock_mr_costed_oos_20261107T070514Z.json",
+    "c132_oos_sha256": "602db16aa5d5874547b278ebd13b85772ea4ebfc236f8cd40e68cda76b5f3466"
+  },
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_det_over_rr_ratio_shock_mr_costed_oos_20261107T071212Z.json",
+      "sha256": "ee4e2bc22de6ef65b1c230927e85a3a5322873f2a34a082315680f405a730e80"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T071021Z.json",
+      "sha256": "21690356415b1c6adba8e09d6b8bde46a2302203eb00a4eb09810fdd6ad1f6e8"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "445874a18f46ef80ca55608e97f0c0841747c19dcaf18b2f51849f1aa160a81d"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T071212Z.json",
+      "sha256": "dcb3712281d9cbfb19d9fcf71651d5aa89ab10281f564c708b4244beab92131d"
+    }
+  },
+  "result": {
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "oos_net_sums": {
+      "fee0_slip0": 1.3002789426043142,
+      "fee5_slip5": 0.041278942604313085,
+      "fee10_slip10": -1.2177210573956874,
+      "fee20_slip20": -3.7357210573956867,
+      "fee40_slip40": -8.771721057395686
+    }
+  }
+}
