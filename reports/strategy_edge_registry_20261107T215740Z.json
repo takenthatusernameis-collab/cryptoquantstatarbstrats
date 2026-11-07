@@ -1,0 +1,88 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T215740Z",
+  "campaign": 177,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T215229Z.json",
+    "sha256": "61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "rb_family": "real_quote_volume"
+  },
+  "c177": {
+    "strategy_id": "VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR",
+    "family": "VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.40428387890362316,
+      "fee5_slip5": 0.11728387890362292,
+      "fee10_slip10": -0.16971612109637713,
+      "fee20_slip20": -0.743716121096377,
+      "fee40_slip40": -1.891716121096377
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rEIn 'lmax_over_vmax|LMAX_OVER_VMAX|vmax_over_lmax|rqa_ratio_lmax_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T215616Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C177 candidate from HANDOFF/state.yaml (LMAX_OVER_VMAX); grep-zero confirmed. LMAX numerator with V_max denominator \u2014 pairing not used in C125-C176 (C176 LAM/V_max).",
+      "family": "RQA LMAX/V_max ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_lmax_over_vmax_ratio_shock_mr_costed_oos_20261107T215616Z.json",
+        "sha256": "3305fe26f199d29aba85a931ac47cebe831b0e428191fadfbde938adacef2933"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T215740Z.json",
+        "sha256": "90efcd130fcc77200fff92164292666fe24ce93956010796158e0d0fda5ecc42"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_lmax_over_vmax_ratio_shock_mr_costed_oos.py",
+        "sha256": "73c3f1feec0c059e86eedd5b4f72ed86de1284144a219d3b3eeaeac811750070"
+      }
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261107T215229Z.json",
+      "prior_registry_sha256": "61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649",
+      "c176_oos": "reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json",
+      "c176_oos_sha256": "28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0",
+      "c175_oos": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json",
+      "c175_oos_sha256": "497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af"
+    }
+  },
+  "prior": {
+    "c176": {
+      "registry": {
+        "path": "reports/strategy_edge_registry_20261107T215229Z.json",
+        "sha256": "61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649"
+      },
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json",
+        "sha256": "28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0"
+      }
+    },
+    "c175": {
+      "registry": {
+        "path": "reports/strategy_edge_registry_20261107T214345Z.json",
+        "sha256": "f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528"
+      },
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_entr_over_vmax_ratio_shock_mr_costed_oos_20261107T214159Z.json",
+        "sha256": "497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af"
+      }
+    }
+  },
+  "note": "Superseding registry for C177; includes prior+C177 artifact paths/SHAs/scripts. Edge claim NONE unless fail-closed edge rule holds."
+}

@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T215229Z
-latest_campaign_done: C176
-next_campaign: C177
+updated_utc: 20261107T215740Z
+latest_campaign_done: C177
+next_campaign: C178
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,68 +11,65 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T215229Z.json
-  sha256: 61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649
-  supersedes: reports/strategy_edge_registry_20261107T214345Z.json
-  supersedes_sha256: f8fae5c72ff3d3a9f6740e61bcbf8662b1bd498cd676a47f9485d5fc0b1ab528
+  path: reports/strategy_edge_registry_20261107T215740Z.json
+  sha256: 85d34f8b20a4b8a20044879e46281d2546d917028ccb04036b2506d8ddbad0c4
+  supersedes: reports/strategy_edge_registry_20261107T215229Z.json
+  supersedes_sha256: 61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649
 latest_oos:
-  campaign: C176
-  family: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json
-  sha256: 28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0
+  campaign: C177
+  family: VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_lmax_over_vmax_ratio_shock_mr_costed_oos_20261107T215616Z.json
+  sha256: 3305fe26f199d29aba85a931ac47cebe831b0e428191fadfbde938adacef2933
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.06871173009611908
-    fee5_slip5: -0.31228826990388125
-    fee10_slip10: -0.6932882699038814
-    fee20_slip20: -1.455288269903881
-    fee40_slip40: -2.979288269903881
-c176_completed:
-  campaign: C176
-  strategy_id: VOLUME_RQA_LAM_OVER_VMAX_RATIO_SHOCK_MR
+    fee0_slip0: 0.40428387890362316
+    fee5_slip5: 0.11728387890362292
+    fee10_slip10: -0.16971612109637713
+    fee20_slip20: -0.743716121096377
+    fee40_slip40: -1.891716121096377
+c177_completed:
+  campaign: C177
+  strategy_id: VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos_20261107T215128Z.json
-      sha256: 28b9a7e03a1c695bbfda9c99e7a0c195daf08249de8c41a4b8348fc4122e23c0
+      path: reports/real_quote_volume_rqa_lmax_over_vmax_ratio_shock_mr_costed_oos_20261107T215616Z.json
+      sha256: 3305fe26f199d29aba85a931ac47cebe831b0e428191fadfbde938adacef2933
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T215229Z.json
-      sha256: db49c629f62205871a2cfc6e91b2b850f835c301c5856d5a917adffff40bbdd3
+      path: reports/real_feed_ingest_attempt_20261107T215740Z.json
+      sha256: 90efcd130fcc77200fff92164292666fe24ce93956010796158e0d0fda5ecc42
     registry:
-      path: reports/strategy_edge_registry_20261107T215229Z.json
-      sha256: 61d402b2b696b724637259e37f93ad4c1ba8633eb5d177c9d155cec5b4e0b649
+      path: reports/strategy_edge_registry_20261107T215740Z.json
+      sha256: 85d34f8b20a4b8a20044879e46281d2546d917028ccb04036b2506d8ddbad0c4
     script:
-      path: scripts/run_real_quote_volume_rqa_lam_over_vmax_ratio_shock_mr_costed_oos.py
-      sha256: d0b6d04d1e64ce96f2288c1bb6526089a4838250733588267c00fcb31b4647e7
+      path: scripts/run_real_quote_volume_rqa_lmax_over_vmax_ratio_shock_mr_costed_oos.py
+      sha256: 73c3f1feec0c059e86eedd5b4f72ed86de1284144a219d3b3eeaeac811750070
     summary:
-      path: reports/campaign176_execution_summary_20261107T215229Z.json
-      sha256: 720fe3e7fd6138bb82dc9cd7f35d6c1a9d19eb68a1839521b8f3cd57a9aa674d
-c177_preselected:
-  family_primary: VOLUME_RQA_LMAX_OVER_VMAX_RATIO_SHOCK_MR
-  metric_primary: "RQA ratio LMAX/V_max (max diagonal line length LMAX normalized by max vertical line length V_max) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on undefined/non-finite/degenerate inputs (V_max==0/no qualifying vertical lines, LMAX undefined, sum(R)<=0)"
-  distinctness_grep_primary: "grep -rEIn 'lmax_over_vmax|LMAX_OVER_VMAX|vmax_over_lmax|rqa_ratio_lmax_over_vmax' scripts/ strategies/ backtest/ utils/ 2>&1"
+      path: reports/campaign177_execution_summary_20261107T215740Z.json
+      sha256: 3b689d60487fc069c2c3e72052b868e4282e0b7116472fe8da5c517db51f9ba4
+c178_preselected:
+  family_primary: VOLUME_RQA_LMAX_OVER_LAM_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio LMAX/LAM (max diagonal line length LMAX normalized by laminarity LAM = sum of lengths of vertical lines v>=l_min divided by sum(R)) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2). Fail-closed NaN/no-signal if LAM==0 or undefined/non-finite/degenerate (no qualifying vertical lines or sum(R)<=0), LMAX undefined/non-finite/degenerate (no qualifying diagonal lines k>=1 excluding LOI), sum(R)<=0, or undefined. Trailing/causal only."
+  distinctness_grep_primary: "grep -rn 'LMAX_OVER_LAM\\|lmax_over_lam\\|rqa_ratio_lmax_over_lam' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261107T215229Z
+  grep_observed_utc: 20261107T215740Z
   grep_verify_required: true
-  note: "Primary C177 candidate (grep 0 at 20261107T215229Z). Distinct from C125-C176 RQA-ratio families (LMAX numerator with V_max denominator; LMAX/V_max not previously used). Re-verify at C177 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  note: "Primary C178 candidate (grep 0 across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at 20261107T215740Z). Distinct from C125-C177 RQA-ratio families (LMAX numerator with LAM denominator; LMAX/LAM pairing not previously used). Re-verify at C178 run time (0 non-self). If collides, pick next grep-zero fallback and record evidence (cmd/hits/choice)."
 bottlenecks_removed:
-  - C104-C176 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
-  - C176 completed 20261107T215229Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C176-done/C177-next
+  - C104-C177 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+  - C177 completed 20261107T215740Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C177-done/C178-next
   - deps_ok numpy/scipy/pandas; pytest unavailable recorded honestly
   - nonspot ingest does not block R-B on real_quote_volume
-  - C176 LAM_OVER_VMAX collision guard 0 non-self pre/post creation
-  - C177 LMAX_OVER_VMAX preselect grep 0 (20261107T215229Z)
+  - C177 LMAX_OVER_VMAX collision guard 0 non-self pre-creation; post-run self hits only
+  - C178 LMAX_OVER_LAM preselect grep 0 (20261107T215740Z)
   - Single durable handoff (HANDOFF.md) + research_state/state.yaml; no status-only output
   - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
 mandatory:
-  - No status summary before >= 3 new concrete C177 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - No status summary before >= 3 new concrete C178 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
   - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-  - 'C177: grep-verify distinctness before implementation/run; recheck LMAX_OVER_VMAX grep=0 at run time'
+  - 'C178: grep-verify distinctness before implementation/run; recheck LMAX_OVER_LAM grep=0 at run time'
   - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-c175_provenance_reconciliation:
-  issue: "On-disk C175 script refactored post-213708Z; OOS re-run 214159Z confirmed identical numeric results (edge_claim NONE). Ingest/registry/summary regenerated 214345Z from bytes."
-  oos_rerun_sha: 497b4e0ed839d3d92c9d9fe75d6ea124fa3811a593da7acc00db53cdaf7f72af
