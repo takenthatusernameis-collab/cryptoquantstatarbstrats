@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C165: RQA ratio V_max/%LAM (diagonal recurrence TREND slope normalized by laminarity) shock on delay-embedded log-volume returns (real data only).
+"""C166: RQA ratio V_max/%LAM (max vertical line length V_max normalized by laminarity %LAM) shock on delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_VMAX_OVER_LAM_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build delay
@@ -9,17 +9,14 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
   %LAM (laminarity) = (sum of lengths of vertical lines with l >= l_min) / (sum of all
   recurrence points in R), with l_min=2, computed over all columns (including main
   diagonal contribution consistent with standard RQA laminarity; total RR denominator is
-  sum(R)). TREND = linear regression slope (least squares) of recurrence point
-  displacement (1-based index j>=1 along each qualifying diagonal line, from its start)
-  against that index, computed over all qualifying diagonal-line recurrence points
-  (pooled, k!=0, l>=l_min). RATIO_VMAX_LAM = V_max / %LAM.
-  Fail-closed to NaN/no-signal if %LAM==0 or undefined/non-finite, TREND undefined/non-finite
-  (regression degenerate/insufficient qualifying diagonal points), no qualifying
-  vertical/diagonal lines as applicable, offdiag/recurrence degenerate (sum(R)<=0), or
-  undefined.
-  Causal trailing only. Distinct from C125-C164 (incl C164 %LAM/TREND — inverse ratio,
-  distinct numerator/denominator; C158 %LAM/L_max — different denominator; C160 TREND/L_max
-  — different denominator %LAM vs L_max).
+  sum(R)). V_max = maximum length among qualifying vertical lines (l>=l_min, all columns,
+  main diagonal included) — the longest column-wise run of recurrence points. RATIO_VMAX_LAM = V_max / %LAM.
+  Fail-closed to NaN/no-signal if %LAM==0 or undefined/non-finite, V_max undefined/non-finite
+  (no qualifying vertical lines), offdiag/recurrence degenerate (sum(R)<=0), or undefined.
+  Causal trailing only. Distinct from C125-C165 (incl C165 TREND/%LAM — different numerator
+  V_max vs TREND; C158 %LAM/L_max — inverse ratio, distinct numerator/denominator; C160
+  TREND/L_max — different numerator V_max vs TREND and denominator %LAM vs L_max; C164
+  %LAM/TREND — inverse ratio, distinct numerator/denominator).
 
 Signal (fail-closed MR): z = (RATIO_VMAX_LAM - ALB_mean) / ALB_std, ALB=336.
   entry_z >= 1.5 -> fade (short); entry_z <= -1.5 -> long; exit |z| < 0.5 or
@@ -352,18 +349,19 @@ def main():
         "generated_at_utc": ts,
         "campaign": 166,
         "strategy_id": "VOLUME_RQA_VMAX_OVER_LAM_RATIO_SHOCK_MR",
-        "candidate": "VOLUME_RQA_VMAX_OVER_LAM_RATIO_SHOCK_MR (RQA ratio V_max/%LAM, diagonal recurrence TREND slope normalized by laminarity %LAM, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_VMAX_LAM shocks vs ALB=336)",
-        "feature_definition": "RATIO_VMAX_LAM = V_max / %LAM. %LAM (laminarity) = (sum of lengths of vertical lines with l>=l_min) / sum(R), computed over all columns. TREND = least-squares slope of recurrence point displacement (1-based index j>=1 along each qualifying diagonal line, from its start) vs j, pooled over all qualifying diagonal-line recurrence points (k!=0, l>=l_min). Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if %LAM==0 or undefined/non-finite, TREND undefined/non-finite (regression degenerate/insufficient qualifying diagonal points), no qualifying vertical/diagonal lines as applicable, offdiag/recurrence degenerate (sum(R)<=0), or undefined. Distinct from C164 %LAM/TREND (inverse ratio — distinct numerator/denominator), C158 %LAM/L_max (different denominator), C160 TREND/L_max (different denominator %LAM vs L_max).",
+        "candidate": "VOLUME_RQA_VMAX_OVER_LAM_RATIO_SHOCK_MR (RQA ratio V_max/%LAM, max vertical line length V_max normalized by laminarity %LAM, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade RATIO_VMAX_LAM shocks vs ALB=336)",
+        "feature_definition": "RATIO_VMAX_LAM = V_max / %LAM. %LAM (laminarity) = (sum of lengths of vertical lines with l>=l_min) / sum(R), computed over all columns (main diagonal included). V_max = maximum length among qualifying vertical lines (l>=l_min, all columns, main diagonal included) — longest column-wise run of recurrence points. Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if %LAM==0 or undefined/non-finite, V_max undefined/non-finite (no qualifying vertical lines), offdiag/recurrence degenerate (sum(R)<=0), or undefined. Distinct from C165 TREND/%LAM (different numerator V_max vs TREND, same %LAM denominator), C164 %LAM/TREND (inverse ratio — distinct numerator/denominator), C158 %LAM/L_max (different denominator %LAM vs L_max), C160 TREND/L_max (different numerator V_max vs TREND and denominator %LAM vs L_max).",
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
             "grep_hits_at_selection": DISTINCTNESS_HITS_PRE,
             "grep_verified_at_utc": DISTINCTNESS_VERIFIED_UTC,
             "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
-            "selection_note": "Primary C165 candidate from HANDOFF/state.yaml (VMAX_OVER_LAM); grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C164 (incl C164 %LAM/TREND — inverse ratio, distinct numerator/denominator; C158 %LAM/L_max — different denominator; C160 TREND/L_max — different denominator %LAM vs L_max). C165 trades V_max/%LAM.",
-            "family": "RQA V_max/%LAM ratio (diagonal recurrence TREND slope normalized by laminarity) shock on volume dynamics",
-            "distinct_from_c164_lam_over_trend": "C164 trades %LAM/TREND (%LAM numerator, TREND denominator); C165 trades V_max/%LAM (TREND numerator, %LAM denominator) — inverse ratio, distinct numerator/denominator.",
-            "distinct_from_c158_lam_over_lmax": "C158 trades %LAM/L_max (L_max denominator); C165 trades V_max/%LAM (%LAM denominator, TREND numerator) — distinct numerator and denominator.",
-            "distinct_from_c160_trend_over_lmax": "C160 trades TREND/L_max (L_max denominator); C165 trades V_max/%LAM (%LAM denominator) — distinct denominator (%LAM vs L_max).",
+            "selection_note": "Primary C166 candidate from HANDOFF/state.yaml (VMAX_OVER_LAM); grep-zero confirmed before implementation/run (collision guard passed). Distinct from C125-C165 (incl C165 TREND/%LAM — different numerator V_max vs TREND, same %LAM denominator; C164 %LAM/TREND — inverse ratio, distinct numerator/denominator; C158 %LAM/L_max — different denominator %LAM vs L_max; C160 TREND/L_max — different numerator V_max vs TREND and denominator %LAM vs L_max). C166 trades V_max/%LAM.",
+            "family": "RQA V_max/%LAM ratio (max vertical line length V_max normalized by laminarity %LAM) shock on volume dynamics",
+            "distinct_from_c165_trend_over_lam": "C165 trades TREND/%LAM (TREND numerator, %LAM denominator); C166 trades V_max/%LAM (V_max numerator, %LAM denominator) — same denominator, distinct numerator (V_max = longest vertical-line run vs TREND = diagonal recurrence displacement slope).",
+            "distinct_from_c164_lam_over_trend": "C164 trades %LAM/TREND (%LAM numerator, TREND denominator); C166 trades V_max/%LAM (V_max numerator, %LAM denominator) — inverse ratio, distinct numerator/denominator.",
+            "distinct_from_c158_lam_over_lmax": "C158 trades %LAM/L_max (L_max denominator); C166 trades V_max/%LAM (%LAM denominator, V_max numerator) — distinct numerator and denominator.",
+            "distinct_from_c160_trend_over_lmax": "C160 trades TREND/L_max (L_max denominator); C166 trades V_max/%LAM (%LAM denominator, V_max numerator) — distinct numerator (V_max vs TREND) and denominator (%LAM vs L_max).",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
