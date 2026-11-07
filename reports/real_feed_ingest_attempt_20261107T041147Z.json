@@ -1,0 +1,25 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T041147Z",
+  "campaign": 121,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "nonspot_blocker_for_rb": false,
+  "rb_unblocked": true,
+  "rb_family": "real_quote_volume",
+  "attempt_summary": "No new real nonspot/funding/basis/OI artifact ingested this session (fail-closed). R-B proceeds on validated real_quote_volume cache/family; nonspot is not a blocker for R-B.",
+  "preconditions_checked": {
+    "volume_cache": "data/cache/volume_1h_full.pkl",
+    "volume_provenance": "data/cache/volume_1h_full.provenance.json",
+    "spot_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl"
+  },
+  "references": {
+    "prior_ingest": "reports/real_feed_ingest_attempt_20261107T030825Z.json",
+    "prior_registry": "reports/strategy_edge_registry_20261107T030825Z.json",
+    "prior_registry_sha256": "0b5aa8bd669e31480ffdc5ff0b34fd5f328e914fc9e0854adab538f54147836a",
+    "c121_oos": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+    "c121_oos_sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3"
+  }
+}

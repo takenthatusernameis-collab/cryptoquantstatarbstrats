@@ -1,0 +1,44 @@
+{
+  "tool": "campaign121_execution_summary",
+  "generated_at_utc": "20261107T041147Z",
+  "campaign": 121,
+  "status": "DONE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "candidate": "VOLUME_FUZZY_ENTROPY_SHOCK_MR",
+  "pre_stated_distinctness_verified": "grep for fuzzy_entropy/fuzzyen/FuzzyEn in scripts/reports before impl returned no hits; distinct from C102 ApEn, C106/C120 SampEn/MSE, and C104-C120 lineage.",
+  "pytest": {
+    "outcome": "unavailable",
+    "detail": "python3 -m pytest -> No module named pytest (recorded honestly; not fabricated)"
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_fuzzy_entropy_shock_mr_costed_oos_20261107T040732Z.json",
+      "sha256": "ff6d75383bb7d07772712a39d7eb4bcb1ac65e8ab34fd7f1190a3ea0a2e198b3",
+      "kind": "costed_oos"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T041147Z.json",
+      "sha256": "c17549a5160034a0c129febdcd25866436b5ce4746b86b9d89b7762861965971",
+      "kind": "real_feed_ingest_attempt"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T041147Z.json",
+      "sha256": "dd5492697d70ff3f79d0e8dbb8b0a72eb6cfa230eb4143f757f185c22392d684",
+      "kind": "strategy_edge_registry_superseding"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_fuzzy_entropy_shock_mr_costed_oos.py",
+      "sha256": "138be16505e2235184a1fbaf58c73deda5d4ccb2ac058621fbcb7cd546ed1337",
+      "kind": "script"
+    }
+  ],
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T030825Z.json",
+    "prior_registry_sha256": "0b5aa8bd669e31480ffdc5ff0b34fd5f328e914fc9e0854adab538f54147836a",
+    "c120_oos_sha256": "53103aa54e3f937c42904a6e3aaa1e2b3a6bb1f5562cd89d551fa77699e9b382"
+  }
+}
