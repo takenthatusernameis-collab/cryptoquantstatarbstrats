@@ -1,0 +1,392 @@
+{
+  "tool": "real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos",
+  "generated_at_utc": "20261107T224857Z",
+  "campaign": 183,
+  "strategy_id": "VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR",
+  "candidate": "VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR (RQA ratio DET/LAVG, DET = determinism = (sum of lengths of qualifying diagonal lines l>=l_min) / (sum of all recurrence points in R), qualifying diagonal lines k>=1 excluding LOI l>=l_min; LAVG = mean diagonal line length over qualifying diagonal lines k>=1 excluding LOI l>=l_min on the same recurrence matrix, on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fade ratio shocks vs ALB=336)",
+  "feature_definition": "RATIO_DET_LAVG = DET / LAVG. Qualifying diagonal lines are diagonal lines (k>=1, upper triangle, excluding LOI) with l>=l_min; LAVG = mean qualifying diagonal line length. DET = (sum of lengths of qualifying diagonal lines) / (sum of all recurrence points in R). Delay embedding m=2 tau=1 over trailing window W_RR=168, L-inf recurrence with eps=EPS_SCALE*std(window); causal trailing only; fail-closed to NaN/no-signal if LAVG==0 or undefined/non-finite/degenerate (no qualifying diagonal lines), DET undefined/non-finite/degenerate (no recurrence points or undefined), denominator/ratio non-finite, or undefined.",
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'DET_OVER_LAVG|det_over_lavg|rqa_ratio_det_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_verified_at_utc": "20261107T224857Z",
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+    "selection_note": "Primary C183 candidate from HANDOFF/state.yaml (DET_OVER_LAVG); grep-zero confirmed at run time. DET numerator with LAVG denominator \u2014 pairing not used in C125-C182. DET_OVER_LAVG tokens absent across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at selection (grep 0 at 20261107T224422Z).",
+    "family": "RQA DET/LAVG ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "data": {
+    "spot_cache": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "spot_cache_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "volume_meta": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "volume_loader_report": {
+      "ok": true,
+      "refused": false,
+      "family": "real_quote_volume",
+      "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "notes_limits_gaps": "",
+      "provenance_source": "<dict>",
+      "provenance_merged": true,
+      "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "multi_symbol_long_frame": {
+        "group_col": "symbol",
+        "n_groups": 16,
+        "global_duplicate_timestamps": 76680,
+        "within_group_duplicates": 0,
+        "checked": "per_symbol_monotonic_unique"
+      },
+      "reason": "passed_all_fail_closed_checks",
+      "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+      "rows": 81792,
+      "columns": [
+        "timestamp_utc",
+        "symbol",
+        "quote_volume_usdt"
+      ],
+      "family_spec": "real_quote_volume"
+    }
+  },
+  "params": {
+    "w_rr": 168,
+    "alb": 336,
+    "m_emb": 2,
+    "tau": 1,
+    "eps_scale": 0.5,
+    "l_min": 2,
+    "entry_z": 1.5,
+    "exit_z": 0.5,
+    "max_hold": 24,
+    "train": 720,
+    "test": 168,
+    "step": 168,
+    "cost_grid": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "feature_compute_step": 2,
+    "feature_compute_note": "Causal trailing RQA computed every 2 bars and held (causal forward-hold) for runtime; signal/z/exec logic unchanged.",
+    "lavg_definition": "LAVG = mean qualifying diagonal line length (k>=1, excluding LOI, l>=l_min)",
+    "det_definition": "DET = (sum of lengths of qualifying diagonal lines l>=l_min) / (sum of all recurrence points in R)",
+    "diag_scope": "k>=1 upper triangle, excluding main diagonal/LOI"
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T224422Z.json",
+    "prior_registry_sha256": "f3ad154d951cba8e0b41cc91d78dee04f8fe966aa4139cb1700536ce7d90c86c",
+    "c181_oos": "reports/real_quote_volume_rqa_vmax_over_lavg_ratio_shock_mr_costed_oos_20261107T223952Z.json",
+    "c181_oos_sha256": "f01fd9687b472f502cae3bde2cd038af93e44e8b199c2c337837150fcd1a6335",
+    "c182_oos": "reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json",
+    "c182_oos_sha256": "bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b"
+  },
+  "per_asset": {
+    "ADA": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1704,
+      "exposure_frac_oos": 0.3901098901098901,
+      "bh_oos_sum": -0.10850660556113201,
+      "bh_oos_mean": -2.4841255851907512e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": -0.3250812176707565,
+          "oos_net_sum": -0.3250812176707565,
+          "oos_net_mean": -7.442335569385451e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": -0.3250812176707565,
+          "oos_net_sum": -0.42008121767075657,
+          "oos_net_mean": -9.617243994293877e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": -0.3250812176707565,
+          "oos_net_sum": -0.5150812176707567,
+          "oos_net_mean": -0.00011792152419202304,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": -0.3250812176707565,
+          "oos_net_sum": -0.7050812176707567,
+          "oos_net_mean": -0.00016141969269019152,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": -0.3250812176707565,
+          "oos_net_sum": -1.0850812176707565,
+          "oos_net_mean": -0.0002484160296865286,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "BTC": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1680,
+      "exposure_frac_oos": 0.38461538461538464,
+      "bh_oos_sum": 0.056906054230617786,
+      "bh_oos_mean": 1.3027942818364878e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": 0.13533433352519997,
+          "oos_net_sum": 0.13533433352519997,
+          "oos_net_mean": 3.0983134964560433e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": true,
+          "beats_bh_mean": true
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": 0.13533433352519997,
+          "oos_net_sum": 0.02733433352519988,
+          "oos_net_mean": 6.25786023928569e-06,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": true,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": 0.13533433352519997,
+          "oos_net_sum": -0.08066566647480009,
+          "oos_net_mean": -1.8467414485989033e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": 0.13533433352519997,
+          "oos_net_sum": -0.2966656664748,
+          "oos_net_mean": -6.791796393653848e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": 0.13533433352519997,
+          "oos_net_sum": -0.7286656664748,
+          "oos_net_mean": -0.0001668190628376374,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "ETH": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1785,
+      "exposure_frac_oos": 0.40865384615384615,
+      "bh_oos_sum": 0.06087103021756268,
+      "bh_oos_mean": 1.3935675416108673e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": -0.015070804619245148,
+          "oos_net_sum": -0.015070804619245148,
+          "oos_net_mean": -3.450275782794219e-06,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": -0.015070804619245148,
+          "oos_net_sum": -0.11507080461924522,
+          "oos_net_mean": -2.634404867656713e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": -0.015070804619245148,
+          "oos_net_sum": -0.21507080461924521,
+          "oos_net_mean": -4.923782157034002e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": -0.015070804619245148,
+          "oos_net_sum": -0.41507080461924517,
+          "oos_net_mean": -9.50253673578858e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": -0.015070804619245148,
+          "oos_net_sum": -0.8150708046192452,
+          "oos_net_mean": -0.00018660045893297738,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "SOL": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1945,
+      "exposure_frac_oos": 0.44528388278388276,
+      "bh_oos_sum": 0.2228033848671428,
+      "bh_oos_mean": 5.100810093112243e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": 0.01955875437893806,
+          "oos_net_sum": 0.01955875437893806,
+          "oos_net_mean": 4.47773680836494e-06,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": true,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": 0.01955875437893806,
+          "oos_net_sum": -0.10144124562106205,
+          "oos_net_mean": -2.3223728393100285e-05,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": 0.01955875437893806,
+          "oos_net_sum": -0.2224412456210621,
+          "oos_net_mean": -5.09251935945655e-05,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": 0.01955875437893806,
+          "oos_net_sum": -0.46444124562106204,
+          "oos_net_mean": -0.0001063281239974959,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": 0.01955875437893806,
+          "oos_net_sum": -0.948441245621062,
+          "oos_net_mean": -0.0002171339848033567,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    }
+  },
+  "cross_asset": {
+    "oos_net_sums": {
+      "fee0_slip0": -0.1852589343858636,
+      "fee5_slip5": -0.609258934385864,
+      "fee10_slip10": -1.033258934385864,
+      "fee20_slip20": -1.881258934385864,
+      "fee40_slip40": -3.577258934385864
+    }
+  },
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}

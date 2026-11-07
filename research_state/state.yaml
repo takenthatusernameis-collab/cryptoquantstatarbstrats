@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T224422Z
-latest_campaign_done: C182
-next_campaign: C183
+updated_utc: 20261107T224857Z
+latest_campaign_done: C183
+next_campaign: C184
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,72 +11,72 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T224422Z.json
-  sha256: f3ad154d951cba8e0b41cc91d78dee04f8fe966aa4139cb1700536ce7d90c86c
-  supersedes: reports/strategy_edge_registry_20261107T223952Z.json
-  supersedes_sha256: b311d5ca8a55dacb113af6448f079711dca8d0071bb684aa6a29b0a0b6d26ee2
+  path: reports/strategy_edge_registry_20261107T224857Z.json
+  sha256: afcf51fb2b3488a2c6dd6054c59efde47763d161cb0ec0126c6ef19853b9488b
+  supersedes: reports/strategy_edge_registry_20261107T224422Z.json
+  supersedes_sha256: f3ad154d951cba8e0b41cc91d78dee04f8fe966aa4139cb1700536ce7d90c86c
 latest_oos:
-  campaign: C182
-  family: VOLUME_RQA_LAM_OVER_LAVG_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json
-  sha256: bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b
+  campaign: C183
+  family: VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos_20261107T224857Z.json
+  sha256: dc86746e22b019b321032d2349ba04acd129ca0dfc7c55eb3c68337a86b9e56b
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.03429475499240531
-    fee5_slip5: -0.3342947549924056
-    fee10_slip10: -0.6342947549924057
-    fee20_slip20: -1.2342947549924057
-    fee40_slip40: -2.434294754992406
-c182_completed:
-  campaign: C182
-  strategy_id: VOLUME_RQA_LAM_OVER_LAVG_RATIO_SHOCK_MR
+    fee0_slip0: -0.1852589343858636
+    fee5_slip5: -0.609258934385864
+    fee10_slip10: -1.033258934385864
+    fee20_slip20: -1.881258934385864
+    fee40_slip40: -3.577258934385864
+c183_completed:
+  campaign: C183
+  strategy_id: VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos_20261107T224422Z.json
-      sha256: bf6dc9a04f23998f3d364bb87ac4d115cb21b2f1b2c0c3c08c559bd08750d13b
+      path: reports/real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos_20261107T224857Z.json
+      sha256: dc86746e22b019b321032d2349ba04acd129ca0dfc7c55eb3c68337a86b9e56b
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T224422Z.json
-      sha256: 832bc3fa1307b207ab6feb80f33aaa90d19c24fda93b3312fb84b9683f22708b
+      path: reports/real_feed_ingest_attempt_20261107T224857Z.json
+      sha256: f9306527646a99ec2d70d49d692f25c45162253589bed1d255244b9d5450f21a
     registry:
-      path: reports/strategy_edge_registry_20261107T224422Z.json
-      sha256: f3ad154d951cba8e0b41cc91d78dee04f8fe966aa4139cb1700536ce7d90c86c
+      path: reports/strategy_edge_registry_20261107T224857Z.json
+      sha256: afcf51fb2b3488a2c6dd6054c59efde47763d161cb0ec0126c6ef19853b9488b
     script:
-      path: scripts/run_real_quote_volume_rqa_lam_over_lavg_ratio_shock_mr_costed_oos.py
-      sha256: fea1ccf31d8bf78731437dd7d8f3e64d590dc5e280d6285e055a78f87966ffe2
+      path: scripts/run_real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos.py
+      sha256: 7da03ba0647ad6a8b4780f38b87ea610a0244219b1f8282c1db9144f8663c24b
     summary:
-      path: reports/campaign182_execution_summary_20261107T224422Z.json
-      sha256: ca80d10d6c1396a7a549e70a67999672378ec1dbfe0948da84bd6fa4ed3e1b00
-c183_preselected:
-  family_primary: VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR
-  metric_primary: "RQA ratio DET/LAVG (DET = determinism = (sum of lengths of qualifying diagonal lines l>=l_min) / (sum of all recurrence points in R), LAVG = mean diagonal line length over qualifying diagonal lines k>=1 excluding LOI l>=l_min on the same recurrence matrix) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2). Fail-closed NaN/no-signal if LAVG==0 or undefined/non-finite/degenerate, DET undefined/non-finite/degenerate, denominator/ratio non-finite, or undefined. Trailing/causal only."
-  distinctness_grep_primary: "grep -rnE 'DET_OVER_LAVG|det_over_lavg|rqa_ratio_det_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
+      path: reports/campaign183_execution_summary_20261107T224857Z.json
+      sha256: 907520649a567e33cd3860de51fc277f77de2620ab8f768ff822155e9d03d411
+c184_preselected:
+  family_primary: VOLUME_RQA_RR_OVER_LAVG_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio RR/LAVG (RR = recurrence rate = (sum of all recurrence points in R) / M^2, total recurrence density over the M x M recurrence matrix; LAVG = mean diagonal line length over qualifying diagonal lines k>=1 excluding LOI l>=l_min on the same recurrence matrix) shock on delay-embedded log-volume returns (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2). Fail-closed NaN/no-signal if LAVG==0 or undefined/non-finite/degenerate (no qualifying diagonal lines), RR undefined/non-finite/degenerate, denominator/ratio non-finite, or undefined. Trailing/causal only."
+  distinctness_grep_primary: "grep -rnE 'RR_OVER_LAVG|rr_over_lavg|rqa_ratio_rr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261107T224422Z
+  grep_observed_utc: 20261107T224857Z
   grep_verify_required: true
-  note: "Primary C183 candidate (grep 0 across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at 20261107T224422Z). Distinct from C125-C182 RQA-ratio families (DET numerator with LAVG denominator; pairing not previously used). Re-verify at C183 run time (0 non-self). If collides, pick next grep-zero fallback (e.g., RR_OVER_LAVG, TT_OVER_LAVG; both grep 0 at 20261107T224422Z) and record evidence (cmd/hits/choice). Do not copy stale candidates."
-c183_fallbacks:
-  - family: VOLUME_RQA_RR_OVER_LAVG_RATIO_SHOCK_MR
-    grep_cmd: "grep -rnE 'RR_OVER_LAVG|rr_over_lavg|rqa_ratio_rr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
-    grep_hits: 0
+  note: "Primary C184 candidate (grep 0 across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at 20261107T224857Z). Distinct from C125-C183 RQA-ratio families (RR numerator with LAVG denominator; pairing not previously used). Re-verify at C184 run time (0 non-self). If collides, pick next grep-zero fallback (e.g., TT_OVER_LAVG, ENTR_OVER_LAVG; both grep 0 at 20261107T224857Z) and record evidence (cmd/hits/choice). Do not copy stale candidates."
+c184_fallbacks:
   - family: VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR
     grep_cmd: "grep -rnE 'TT_OVER_LAVG|tt_over_lavg|rqa_ratio_tt_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
     grep_hits: 0
+  - family: VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR
+    grep_cmd: "grep -rnE 'ENTR_OVER_LAVG|entr_over_lavg|rqa_ratio_entr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
+    grep_hits: 0
 bottlenecks_removed:
-  - C104-C181 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
-  - C182 completed 20261107T224422Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C182-done/C183-next
+  - C104-C182 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+  - C183 completed 20261107T224857Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C183-done/C184-next
   - deps_ok numpy/scipy/pandas; pytest unavailable recorded honestly
   - nonspot ingest does not block R-B on real_quote_volume
-  - C182 LAM_OVER_LAVG collision guard 0 non-self pre-creation (scripts/strategies/backtest/utils)
-  - C183 DET_OVER_LAVG / RR_OVER_LAVG / TT_OVER_LAVG preselect grep 0 (20261107T224422Z)
+  - C183 DET_OVER_LAVG collision guard 0 non-self pre-creation (scripts/strategies/backtest/utils) and 0 hits in research_state/HANDOFF.md/reports at preselect; script self-hits only post-creation
+  - C184 RR_OVER_LAVG / TT_OVER_LAVG / ENTR_OVER_LAVG preselect grep 0 (20261107T224857Z)
   - Single durable handoff (HANDOFF.md) + research_state/state.yaml; no status-only output
   - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
 mandatory:
-  - No status summary before >= 3 new concrete C183 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - No status summary before >= 3 new concrete C184 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
   - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-  - 'C183: grep-verify distinctness before implementation/run; recheck DET_OVER_LAVG grep=0 non-self at run time'
+  - 'C184: grep-verify distinctness before implementation/run; recheck RR_OVER_LAVG grep=0 non-self at run time'
   - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
