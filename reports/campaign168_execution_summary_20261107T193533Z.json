@@ -1,0 +1,47 @@
+{
+  "tool": "campaign168_execution_summary",
+  "generated_at_utc": "20261107T193533Z",
+  "campaign": 168,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos_20261107T193420Z.json",
+      "sha256": "a415fbb010ef42c91fef5d207f561afc30010a0a9bad96b836955517b88dd6a2"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261107T193533Z.json",
+      "sha256": "49af8d68142375429fd104f2d53a8d6ddbdd22304421fa0212dcc4b113fa6bc8"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261107T193533Z.json",
+      "sha256": "b8f49687af816d799ba2196ed74968d59599a99a593fe03ed3d812cbb36cfbf2"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_trend_ratio_shock_mr_costed_oos.py",
+      "sha256": "5da9cb5ed7618c9702efe891ddb2e029334ce2de459c78ad94676fe3ae64d0e6"
+    },
+    "superseded_registry": {
+      "path": "reports/strategy_edge_registry_20261107T184339Z.json",
+      "sha256": "541298ffe161771ce67e775ce3a02dee643ca2d7cd979c0604dd4e7179e698fd"
+    }
+  },
+  "c169_preselected": {
+    "family_primary": "VOLUME_RQA_VMAX_OVER_TREND_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio V_max/TREND (max vertical line V_max normalized by TREND determinism) shock on volume dynamics (m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2); fail-closed on TREND==0/undefined-non-finite, V_max undefined/non-finite (no qualifying vertical lines), recurrence degenerate (sum(R)<=0), or undefined",
+    "distinctness_grep_primary": "grep -rn 'vmax_over_trend|trend_over_vmax|VMAX_OVER_TREND|RQA_VMAX_OVER_TREND|rqa_ratio_vmax_over_trend' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261107T193533Z",
+    "grep_verify_required": true,
+    "note": "Preselected for C169 (grep 0 at 20261107T193533Z). Distinct from C165 TREND/%LAM, C166 V_max/%LAM, C167 TT/TREND, C168 RR/TREND (V_max/TREND token family unused in C125-C168). Re-verify at run time (0 non-self). If collides, pick next grep-zero fallback and record evidence."
+  },
+  "notes": [
+    "C168 RR/TREND RQA ratio shock MR on real_quote_volume; heavy work completed (>=3 new concrete artifacts: OOS + ingest + registry + summary).",
+    "Edge rule did not hold (edge_claim NONE); reported honestly, no fabrication.",
+    "Nonspot ingest blocked fail-closed; R-B unblocked on real_quote_volume.",
+    "pytest unavailable recorded honestly; no fabricated results."
+  ]
+}
