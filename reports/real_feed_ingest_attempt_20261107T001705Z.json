@@ -1,0 +1,28 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T001705Z",
+  "campaign": 111,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "status": "FAIL_CLOSED_BLOCKED_NO_REAL_ARTIFACT",
+  "rb_unblocked": true,
+  "note": "Nonspot ingest hard blocker only if a real nonspot artifact never appears. R-B proceeds on validated real_quote_volume family regardless. No proxies labeled real; no fabricated feeds/provenance/results.",
+  "searched_patterns": [
+    "data/cache/nonspot*.pkl",
+    "data/cache/*funding*.pkl",
+    "data/cache/*perp*.pkl",
+    "data/cache/*futures*.pkl",
+    "data/cache/*open_interest*.pkl",
+    "reports/*nonspot*real*.json",
+    "reports/*funding*real*.json"
+  ],
+  "found_candidates_raw_count": 0,
+  "found_real_artifacts_validated": [],
+  "references": {
+    "prior_unblock": "reports/real_feed_unblock_status_20261106T130243Z.json",
+    "prior_unblock_sha256": "49699fad6ce626b2b3edf99650e21a5f305778c55b9b83e1980ddbdfd67a6d80",
+    "prior_ingest_c110": "reports/real_feed_ingest_attempt_20261107T001203Z.json",
+    "prior_ingest_c110_sha256": "14fdfd7b37861d3c336166a07362dc7c42adb6ab820194290bbd0c9deae42f0f"
+  }
+}
