@@ -1,0 +1,22 @@
+{
+  "report": "real_feed_ingest_attempt",
+  "campaign": 130,
+  "timestamp_utc": "20261107T065319Z",
+  "iso_utc": "2026-11-07T06:53:19Z",
+  "fail_closed": true,
+  "real_data_only": true,
+  "nonspot_attempted": false,
+  "nonspot_artifact_found": false,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "rb_unblocked": true,
+  "rb_basis": "validated real_quote_volume family; C130 RQA recurrence entropy ENTR executed on real data",
+  "notes": [
+    "No fabricated feeds/provenance/results. Nonspot ingest blocker does not block R-B on real_quote_volume."
+  ],
+  "references": {
+    "c130_oos": "reports/real_quote_volume_rqa_recurrence_entropy_shock_mr_costed_oos_20261107T065053Z.json",
+    "c130_oos_sha256": "9c1d8b38f90fca82cdb93269cdaf24fa531c211e2468a2aa47e0efd1f48ad326",
+    "prior_registry": "reports/strategy_edge_registry_20261107T062733Z.json",
+    "prior_registry_sha256": "434e1530cb282a045f4b80ef7c62fca385df3285b5d3fe3e37847c43f8e93d5c"
+  }
+}
