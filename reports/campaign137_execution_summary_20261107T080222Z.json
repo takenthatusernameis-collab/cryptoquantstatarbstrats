@@ -1,0 +1,66 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261107T080222Z",
+  "campaign": 137,
+  "strategy_id": "VOLUME_RQA_RR_OVER_DET_RATIO_SHOCK_MR",
+  "status": "DONE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "pytest": {
+    "attempted": true,
+    "command": "python3 -m pytest -q --tb=no",
+    "available": false,
+    "outcome": "unavailable",
+    "note": "/usr/bin/python3: No module named pytest (recorded honestly; not fabricated)"
+  },
+  "distinctness": {
+    "grep_cmd": "grep -rn 'rr_over_det|rr_det_ratio|rqa_ratio_rr_det|RR_OVER_DET' scripts/ strategies/ backtest/ utils/ 2>/dev/null | head",
+    "grep_hits_at_selection": 0,
+    "verified": true
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos_20261107T080021Z.json",
+      "sha256": "0acefbc7dfdaf656291ffad9d6900f483800707bc7878c7f2503baa6a9414f37",
+      "kind": "oos"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rr_over_det_ratio_shock_mr_costed_oos.py",
+      "sha256": "e37e5fb742bdce26cb495aa2f1dc1b996b14ef63b63de5456ea068f708847bae",
+      "kind": "script"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261107T080222Z.json",
+      "sha256": "4caff2e3c20aa1faf10c547631d51fc18b831b5d576a34323729fe926aa3a754",
+      "kind": "ingest"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261107T080222Z.json",
+      "sha256": "0afcf580807f83dc82519ffbd8dac1283bb17621d2a813abad9ec33f8a73e5c3",
+      "kind": "registry"
+    },
+    {
+      "path": "reports/campaign137_execution_summary_20261107T080222Z.json",
+      "sha256": "39ddc2d4f97ee407da5b0891fb8e02fbaa0b0bf0a11af12a8fcdd1f32519d762",
+      "kind": "summary"
+    }
+  ],
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261107T075344Z.json",
+    "sha256": "0c199afadd2a2aea7032bacef2997622402e883567d36d48153dd1376c033b3d"
+  },
+  "references": {
+    "c136_oos": "reports/real_quote_volume_rqa_lam_over_rr_ratio_shock_mr_costed_oos_20261107T075344Z.json",
+    "c136_oos_sha256": "1e9e562d79d561b4266f6bb3bf5fe447e99668787f76d63519af1cb7b57b99cc"
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -1.0874977508831756,
+    "fee5_slip5": -2.1474977508831765,
+    "fee10_slip10": -3.207497750883177,
+    "fee20_slip20": -5.327497750883176,
+    "fee40_slip40": -9.567497750883176
+  }
+}

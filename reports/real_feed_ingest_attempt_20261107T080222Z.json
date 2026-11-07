@@ -1,0 +1,18 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261107T080222Z",
+  "campaign": 137,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "nonspot_status": "blocked_no_real_nonspot_artifact",
+  "nonspot_probe": "no new real nonspot funding/OI artifact detected in repo; fail-closed (no proxies labeled real)",
+  "rb_unblocked": true,
+  "rb_feed": "real_quote_volume",
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T075344Z.json",
+    "prior_registry_sha256": "0c199afadd2a2aea7032bacef2997622402e883567d36d48153dd1376c033b3d",
+    "c136_oos": "reports/real_quote_volume_rqa_lam_over_rr_ratio_shock_mr_costed_oos_20261107T075344Z.json",
+    "c136_oos_sha256": "1e9e562d79d561b4266f6bb3bf5fe447e99668787f76d63519af1cb7b57b99cc"
+  }
+}
