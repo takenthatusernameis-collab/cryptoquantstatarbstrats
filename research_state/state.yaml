@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
 updated_utc: 20261107T232110Z
-latest_campaign_done: C184
-next_campaign: C185
+latest_campaign_done: C185
+next_campaign: C186
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,25 +11,25 @@ pytest: unavailable (No module named pytest)
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T232110Z.json
-  sha256: f1df4ec5626cbe025c9b43837d30d4b04cd75c7b67f089e24d7ab72ad67fda45
-  supersedes: reports/strategy_edge_registry_20261107T224857Z.json
-  supersedes_sha256: afcf51fb2b3488a2c6dd6054c59efde47763d161cb0ec0126c6ef19853b9488b
+  path: reports/strategy_edge_registry_20261107T234931Z.json
+  sha256: 12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44
+  supersedes: reports/strategy_edge_registry_20261107T232110Z.json
+  supersedes_sha256: f1df4ec5626cbe025c9b43837d30d4b04cd75c7b67f089e24d7ab72ad67fda45
 latest_oos:
-  campaign: C184
-  family: VOLUME_RQA_RR_OVER_LAVG_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rr_over_lavg_ratio_shock_mr_costed_oos_20261107T232110Z.json
-  sha256: 98094a4533fa0a17a24f0d4d05b88dce785de0b76054909eeef0daf55d7e29be
+  campaign: C185
+  family: VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json
+  sha256: f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -1.1137172605480297
-    fee5_slip5: -1.43371726054803
-    fee10_slip10: -1.75371726054803
-    fee20_slip20: -2.39371726054803
-    fee40_slip40: -3.6737172605480293
+    fee0_slip0: -0.6085737738475036
+    fee5_slip5: -0.9095737738475038
+    fee10_slip10: -1.210573773847504
+    fee20_slip20: -1.8125737738475038
+    fee40_slip40: -3.016573773847504
 c183_completed:
   campaign: C183
   strategy_id: VOLUME_RQA_DET_OVER_LAVG_RATIO_SHOCK_MR
@@ -72,18 +72,37 @@ c184_completed:
     summary:
       path: reports/campaign184_execution_summary_20261107T232110Z.json
       sha256: e86205cbd2747271ee694bd8d81328e14e4cb7483f9898a66afc0041631ca5e4
-c185_preselected:
-  family_primary: VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR
-  metric_primary: "RQA ratio TT/LAVG (TT = trapping time = mean diagonal line length over qualifying diagonal lines k>=1 excluding LOI l>=l_min; LAVG = mean diagonal line length over qualifying diagonal lines on the same recurrence matrix — distinct measure pairing TT numerator with LAVG denominator; on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed NaN/no-signal if LAVG==0 or undefined/non-finite/degenerate, TT undefined/non-finite/degenerate, denominator/ratio non-finite, or undefined; trailing/causal only)"
-  distinctness_grep_primary: "grep -rnE 'TT_OVER_LAVG|tt_over_lavg|rqa_ratio_tt_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
+
+c185_completed:
+  campaign: C185
+  strategy_id: VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos:
+      path: reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json
+      sha256: f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4
+    ingest:
+      path: reports/real_feed_ingest_attempt_20261107T234818Z.json
+      sha256: 5fa176cd3f6056b9784d620d581f3ffa88451d1210cf77f656beaa52bf1e01e8
+    registry:
+      path: reports/strategy_edge_registry_20261107T234931Z.json
+      sha256: 12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44
+    script:
+      path: scripts/run_real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos.py
+      sha256: e6768a5a7512138b5525b0b4e9bb2e720f2f812fba499a8e82a33ff4d34cd1b4
+    summary:
+      path: reports/campaign185_execution_summary_20261107T234931Z.json
+      sha256: 85950a5b6770b27586b90a4ed9172a071dc661500ff8630eebd292ceaf7538ff
+
+c186_preselected:
+  family_primary: VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio ENTR/LAVG (ENTR = entropy of diagonal line lengths over qualifying diagonal lines k>=1 excluding LOI l>=l_min; LAVG = mean diagonal line length over qualifying diagonal lines on the same recurrence matrix) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed NaN/no-signal if LAVG==0 or undefined/non-finite/degenerate, ENTR undefined/non-finite/degenerate, denominator/ratio non-finite, or undefined; trailing/causal only"
+  distinctness_grep_primary: "grep -rnE 'ENTR_OVER_LAVG|entr_over_lavg|rqa_ratio_entr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261107T232110Z
+  grep_observed_utc: 20261107T234931Z
   grep_verify_required: true
-  note: "Primary C185 candidate (grep 0 across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at 20261107T232110Z). Distinct from C125-C184 RQA-ratio families (TT numerator with LAVG denominator; pairing not previously used). Re-verify at C185 run time (0 non-self). If collides, pick next grep-zero fallback (e.g., ENTR_OVER_LAVG; grep 0 at 20261107T232110Z) and record evidence (cmd/hits/choice). Do not copy stale candidates."
-c185_fallbacks:
-  - family: VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR
-    grep_cmd: "grep -rnE 'ENTR_OVER_LAVG|entr_over_lavg|rqa_ratio_entr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1"
-    grep_hits: 0
+  note: "C186 primary candidate (grep 0 across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at preselect time). Distinct from C125-C185 RQA-ratio families (ENTR numerator with LAVG denominator). Re-verify at C186 run time (0 non-self)."
 bottlenecks_removed:
   - C104-C183 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
   - C183 completed 20261107T224857Z (OOS+ingest+registry+summary+script, SHAs from bytes); C184 completed 20261107T232110Z (OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C184-done/C185-next

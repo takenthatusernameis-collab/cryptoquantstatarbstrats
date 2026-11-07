@@ -1,0 +1,128 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261107T232110Z",
+  "campaign": 184,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 184,
+    "strategy_id": "VOLUME_RQA_RR_OVER_LAVG_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rr_over_lavg_ratio_shock_mr_costed_oos_20261107T232110Z.json",
+        "sha256": "98094a4533fa0a17a24f0d4d05b88dce785de0b76054909eeef0daf55d7e29be"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261107T232110Z.json",
+        "sha256": "0267f6f314dd030f57206fce6113af0289611eee2fcf55df5bf29b470ddf88d0"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rr_over_lavg_ratio_shock_mr_costed_oos.py",
+        "sha256": "19208e6d5d834ef576b6e1709803f9186ae8eac5790d9e6c77f43d22abf76be5"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RR_OVER_LAVG|rr_over_lavg|rqa_ratio_rr_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T232110Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C184 candidate from HANDOFF/state.yaml (RR_OVER_LAVG); grep-zero confirmed at run time. RR numerator with LAVG denominator \u2014 pairing not used in C125-C183. RR_OVER_LAVG tokens absent across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at selection (grep 0 at 20261107T224857Z).",
+      "family": "RQA RR/LAVG ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261107T224857Z.json",
+      "prior_registry_sha256": "afcf51fb2b3488a2c6dd6054c59efde47763d161cb0ec0126c6ef19853b9488b",
+      "c183_oos": "reports/real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos_20261107T224857Z.json",
+      "c183_oos_sha256": "dc86746e22b019b321032d2349ba04acd129ca0dfc7c55eb3c68337a86b9e56b"
+    }
+  },
+  "supersedes": "strategy_edge_registry_20261107T232110Z.json",
+  "prior_latest_entry": "reports/strategy_edge_registry_20261107T224857Z.json",
+  "c183_oos_cited": {
+    "path": "reports/real_quote_volume_rqa_det_over_lavg_ratio_shock_mr_costed_oos_20261107T224857Z.json",
+    "sha256": "dc86746e22b019b321032d2349ba04acd129ca0dfc7c55eb3c68337a86b9e56b"
+  },
+  "registry_id": "20261107T234931Z",
+  "supersedes_sha256": "f1df4ec5626cbe025c9b43837d30d4b04cd75c7b67f089e24d7ab72ad67fda45",
+  "updated_utc": "20261107T234931Z",
+  "campaign_added": 185,
+  "entries": [
+    {
+      "campaign": 185,
+      "strategy_id": "VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR",
+      "family": "RQA TT/LAVG ratio shock on volume dynamics",
+      "oos_path": "reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json",
+      "oos_sha256": "f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261107T234818Z.json",
+      "ingest_sha256": "5fa176cd3f6056b9784d620d581f3ffa88451d1210cf77f656beaa52bf1e01e8",
+      "script_path": "scripts/run_real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "73033702c79fbf5b86de8f52b1ae1ae709345cd70ce0a888ebdae30a47e4155d",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.6085737738475036,
+        "fee5_slip5": -0.9095737738475038,
+        "fee10_slip10": -1.210573773847504,
+        "fee20_slip20": -1.8125737738475038,
+        "fee40_slip40": -3.016573773847504
+      },
+      "edge_claim": "NONE",
+      "real_data_only": true,
+      "fail_closed": true,
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'TT_OVER_LAVG|tt_over_lavg|rqa_ratio_tt_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_verified_at_utc": "20261107T234714Z",
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+        "selection_note": "Primary C184 candidate from HANDOFF/state.yaml (RR_OVER_LAVG); grep-zero confirmed at run time. RR numerator with LAVG denominator \u2014 pairing not used in C125-C183. RR_OVER_LAVG tokens absent across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at selection (grep 0 at 20261107T224857Z).",
+        "family": "RQA RR/LAVG ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      }
+    }
+  ],
+  "latest": {
+    "campaign": 185,
+    "strategy_id": "VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR",
+    "family": "RQA TT/LAVG ratio shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json",
+    "oos_sha256": "f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4",
+    "ingest_path": "reports/real_feed_ingest_attempt_20261107T234818Z.json",
+    "ingest_sha256": "5fa176cd3f6056b9784d620d581f3ffa88451d1210cf77f656beaa52bf1e01e8",
+    "script_path": "scripts/run_real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos.py",
+    "script_sha256": "73033702c79fbf5b86de8f52b1ae1ae709345cd70ce0a888ebdae30a47e4155d",
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.6085737738475036,
+      "fee5_slip5": -0.9095737738475038,
+      "fee10_slip10": -1.210573773847504,
+      "fee20_slip20": -1.8125737738475038,
+      "fee40_slip40": -3.016573773847504
+    },
+    "edge_claim": "NONE",
+    "real_data_only": true,
+    "fail_closed": true,
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'TT_OVER_LAVG|tt_over_lavg|rqa_ratio_tt_over_lavg' scripts/ strategies/ backtest/ utils/ research_state/ HANDOFF.md reports/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261107T234714Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C184 candidate from HANDOFF/state.yaml (RR_OVER_LAVG); grep-zero confirmed at run time. RR numerator with LAVG denominator \u2014 pairing not used in C125-C183. RR_OVER_LAVG tokens absent across scripts/strategies/backtest/utils/research_state/HANDOFF.md/reports at selection (grep 0 at 20261107T224857Z).",
+      "family": "RQA RR/LAVG ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  }
+}
