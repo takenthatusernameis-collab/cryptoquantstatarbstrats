@@ -1,4 +1,4 @@
-updated_at_utc: 20261108T143601Z
+updated_at_utc: 20261108T161131Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net
@@ -29,9 +29,9 @@ caches_verified:
   - data/cache/volume_1h_full.pkl
   - data/cache/volume_1h_full.meta.json
   - data/cache/volume_1h_full.provenance.json
-latest_campaign_done: C218
-next_campaign: C219
-locked_campaigns: C104-C218
+latest_campaign_done: C219
+next_campaign: C220
+locked_campaigns: C104-C219
 oos_edge_proven: false
 latest_registry:
   path: reports/strategy_edge_registry_20261108T143601Z.json
