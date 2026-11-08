@@ -1,0 +1,67 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T102523Z",
+  "campaign": 206,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos_20261108T102523Z.json",
+      "sha256": "03d77e679c417b128d5d793f86961a45f820ae38840547910eda655ec5aa7058"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T102523Z.json",
+      "sha256": "3296884ee715193f235f1e84b2a162a5017e44b2af754abcbb8c867f947a7823"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T102523Z.json",
+      "sha256": "d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos.py",
+      "sha256": "df54a9bc92fa9f8956492615c3aad0f98bb5ff27debc7ee9c4492802357711cb"
+    },
+    {
+      "kind": "summary",
+      "path": "reports/campaign206_execution_summary_20261108T102523Z.json",
+      "sha256": "eac07cb05e1e1ae7e6caf56109a8390d8a21c027837277fc238748404e403c1c"
+    }
+  ],
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_TREND|rte_over_trend|rqa_ratio_rte_over_trend|rqa_rte_over_trend_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_total": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T102523Z",
+    "grep_output_note": "0 non-self hits; RTE_OVER_TREND occurrences confined to the C206 script stem/path (self).",
+    "selection_note": "Primary C206 candidate RTE_OVER_TREND executed; grep-zero non-self confirmed at run time before implementation/run. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205. RTE_OVER_TREND not used C125-C205. Edge rule NOT proven: fee20_slip20 and fee40_slip40 cross-asset OOS net sums negative; edge_claim NONE."
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 1.0930684191547377,
+    "fee5_slip5": 0.7580684191547373,
+    "fee10_slip10": 0.42306841915473725,
+    "fee20_slip20": -0.24693158084526265,
+    "fee40_slip40": -1.5869315808452626
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T101655Z.json",
+    "sha256": "0ac163a703bddc32c1681c1fe7d33cb59a15bb306ebbba9ccdd7235f32492832"
+  },
+  "artifact_integrity_note": "C206 OOS JSON grep_output_at_run contains self-hit lines only (0 non-self); authoritative fields (strategy_id VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR, metrics, edge rule result, cross_asset sums, pre_stated_distinctness) present. Real data only; no fabrication; edge_claim NONE.",
+  "c207_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR",
+    "fallback_candidates": [
+      "VOLUME_RQA_RTE_OVER_LMAX_RATIO_SHOCK_MR",
+      "VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR_ALT"
+    ],
+    "grep_cmd": "grep -rnE 'RTE_OVER_VMAX|rte_over_vmax|rqa_ratio_rte_over_vmax|rqa_rte_over_vmax_ratio|RTE_OVER_LMAX|rte_over_lmax|rqa_ratio_rte_over_lmax|rqa_rte_over_lmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_verify_required": true,
+    "selection_note": "C207 preselect must be a distinct grep-verified RQA-ratio candidate not used C125-C206. RTE_OVER_VMAX and RTE_OVER_LMAX observed grep 0 at 20261108T045258Z; re-verify 0 non-self at C207 run time before implementation. RTE_OVER_TREND used C206; RTE_OVER_TT used C205; RTE_OVER_LAM used C204. Execute C207 immediately after C206 sync; no status-only replies; no stop between campaigns."
+  }
+}
