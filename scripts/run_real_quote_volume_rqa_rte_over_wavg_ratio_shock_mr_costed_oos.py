@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""C209: RQA ratio RTE/WAVG (recurrence-time entropy / max vertical line length) shock on
-delay-embedded log-volume returns (real data only).
+"""C210: RQA ratio RTE/WAVG (recurrence-time entropy / mean white vertical line
+length per mean recurrence-time gap) shock on delay-embedded log-volume returns
+(real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
   VOLUME_RQA_RTE_OVER_WAVG_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build
@@ -13,14 +14,20 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
         trivial self at i==j). Qualifying w>=w_min with count n_w>0;
         p_w=n_w/sum_u n_u; RTE=-sum_w p_w*ln(p_w). Fail-closed if <2 distinct
         qualifying gap lengths or entropy non-finite/non-positive/degenerate.
-  WAVG (denominator) = max vertical line length: max length of all vertical
-        lines (consecutive runs of 1s down any column) with run length >= l_min.
-        Fail-closed if no qualifying vertical lines or WAVG<=0/non-finite.
+  WAVG (denominator) = mean white vertical line length / mean recurrence-time
+        gap length. White vertical lines are runs of consecutive 0s (non-
+        recurrences) down any column with run length >= l_min; mean white =
+        mean of those run lengths. Mean recurrence-time gap = mean of the
+        qualifying recurrence-time gap lengths (w>=w_min, excluding trivial
+        self). Fail-closed if no qualifying white lines or no qualifying gaps
+        or either mean <=0/non-finite.
   RATIO_RTE_WAVG = RTE / WAVG.
   Fail-closed to NaN/no-signal if RTE/WAVG/ratio undefined/non-finite/degenerate
   or insufficient qualifying lines/gaps. Causal trailing only.
-  Distinct from C208 RTE/LAVG (WAVG is max vertical line length vs LAVG mean;
-  RTE_OVER_WAVG not used C125-C208). Grep 0 non-self required at run time.
+  Distinct from C209 RTE/LMAX (WAVG is mean white line / mean gap vs LMAX max
+  vertical line length), C208 RTE/LAVG (LAVG mean of black vertical lines),
+  C207 RTE/VMAX (VMAX max black vertical line), C205 TT, C206 TREND.
+  RTE_OVER_WAVG not used C125-C209). Grep 0 non-self required at run time.
 """
 
 from __future__ import annotations
@@ -407,16 +414,17 @@ def main():
     out = {
         "tool": "real_quote_volume_rqa_rte_over_wavg_ratio_shock_mr_costed_oos",
         "generated_at_utc": ts,
-        "campaign": 209,
+        "campaign": 210,
         "strategy_id": "VOLUME_RQA_RTE_OVER_WAVG_RATIO_SHOCK_MR",
         "candidate": (
             "VOLUME_RQA_RTE_OVER_WAVG_RATIO_SHOCK_MR (RQA ratio RTE/WAVG on "
             "delay-embedded log-volume returns; RTE=Shannon entropy (nats) of "
             "white vertical line length (recurrence-time gap) distribution over "
-            "qualifying gaps w>=w_min excluding trivial self; WAVG=max vertical "
-            "line length (max of all qualifying vertical lines with run length "
-            ">= l_min); RATIO_RTE_WAVG=RTE/WAVG; m=2,tau=1,eps=0.5*std(r_window),W_RR="
-            "168,w_min=1,l_min=2)"
+            "qualifying gaps w>=w_min excluding trivial self; WAVG=mean white "
+            "vertical line length / mean recurrence-time gap length (mean of "
+            "consecutive-0 runs with run length >= l_min divided by mean of "
+            "qualifying recurrence-time gaps); RATIO_RTE_WAVG=RTE/WAVG; "
+            "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2)"
         ),
         "feature_definition": (
             "RATIO_RTE_WAVG = RTE / WAVG. RTE = Shannon entropy (nats) of white "
@@ -425,13 +433,17 @@ def main():
             "points excluding i==j; qualifying w>=w_min (w_min=1), "
             "p_w=n_w/sum_u n_u, RTE=-sum_w p_w*ln(p_w); fail-closed if <2 "
             "distinct qualifying gap lengths or entropy non-finite/"
-            "non-positive. WAVG = max vertical line length (max of all "
-            "qualifying vertical line lengths, consecutive 1s down any column "
-            "with run length >= l_min=2); fail-closed if no qualifying vertical "
-            "lines or WAVG<=0/non-finite. "
-            "On trailing delay embedding (m=2,tau=1), L-inf recurrence eps=0.5*std(window). "
-            "Causal trailing only; fail-closed to NaN/no-signal if RTE/WAVG/ratio undefined/"
-            "non-finite/degenerate or insufficient qualifying lines/gaps."
+            "non-positive. WAVG = mean white vertical line length / mean "
+            "recurrence-time gap length: white vertical lines are runs of "
+            "consecutive 0s (non-recurrences) down any column with run length "
+            ">= l_min=2; mean white = mean of those run lengths; mean gap = "
+            "mean of qualifying recurrence-time gap lengths (w>=w_min, "
+            "excluding trivial self); fail-closed if no qualifying white lines "
+            "or no qualifying gaps or either mean <=0/non-finite. "
+            "On trailing delay embedding (m=2,tau=1), L-inf recurrence "
+            "eps=0.5*std(window). Causal trailing only; fail-closed to NaN/"
+            "no-signal if RTE/WAVG/ratio undefined/non-finite/degenerate or "
+            "insufficient qualifying lines/gaps."
         ),
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
@@ -446,15 +458,17 @@ def main():
                 "Primary candidate used."
             ),
             "selection_note": (
-                "Primary C209 candidate RTE_OVER_WAVG; grep-zero non-self confirmed "
+                "Primary C210 candidate RTE_OVER_WAVG; grep-zero non-self confirmed "
                 "at run time. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; "
                 "LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible "
                 "(nonzero grep); RTE_OVER_TT used C205; RTE_OVER_TREND used C206; "
-                "RTE_OVER_VMAX used C207; RTE_OVER_LAVG used C208. "
-                "RTE_OVER_WAVG not used C125-C208. "
-                "WAVG denominator (max vertical line length) distinct from "
-                "LAVG mean used C208, VMAX max black vertical line used C207, "
-                "TT used C205, TREND used C206."
+                "RTE_OVER_VMAX used C207; RTE_OVER_LAVG used C208; RTE_OVER_LMAX used "
+                "C209. RTE_OVER_WAVG not used C125-C209. "
+                "WAVG denominator (mean white vertical line length / mean "
+                "recurrence-time gap length) distinct from LMAX max vertical line "
+                "length used C209, LAVG mean black vertical line used C208, "
+                "VMAX max black vertical line used C207, TT used C205, "
+                "TREND used C206."
             ),
             "family": "RQA RTE/WAVG ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
@@ -487,10 +501,13 @@ def main():
                 "gap lengths or entropy non-finite/non-positive"
             ),
             "wavg_definition": (
-                "WAVG = max vertical line length (max of all qualifying "
-                "vertical line lengths, consecutive 1s down any column with run "
-                "length >= l_min=2); fail-closed if no qualifying vertical lines "
-                "or WAVG<=0/non-finite"
+                "WAVG = mean white vertical line length / mean recurrence-time "
+                "gap length. White vertical lines are runs of consecutive 0s "
+                "(non-recurrences) down any column with run length >= l_min=2; "
+                "mean white = mean of those run lengths; mean gap = mean of "
+                "qualifying recurrence-time gap lengths (w>=w_min, excluding "
+                "trivial self). Fail-closed if no qualifying white lines or no "
+                "qualifying gaps or either mean <=0/non-finite."
             ),
             "gap_definition": (
                 "gap length w = number of consecutive 0-cells between "
