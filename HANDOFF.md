@@ -1,10 +1,10 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T181900Z, C104–C223 LOCKED — edge_claim NONE, C224 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T182525Z, C104–C223 LOCKED — edge_claim NONE, C224 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C223 LOCKED (no reruns). C224 preselected and grep-zero — execute C224 next, no status-first.**
 
-## TIMESTAMPED INITIAL TASK MESSAGE (20261108T181900Z) — HEAVY WORK MANDATORY
+## TIMESTAMPED INITIAL TASK MESSAGE (20261108T182525Z) — HEAVY WORK MANDATORY
 **PRIORITY 1: EXECUTE C224.** C223 is complete on disk (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR, `edge_claim:NONE`; cross-asset net sums fee0=1.2046801384777068, fee5=0.6086801384777063, fee10=0.012680138477706188, fee20=-1.1793198615222935, fee40=-3.5633198615222934 — fails all-cost-positive / B&H mean rule at fee20+). **Do not summarize status. Do not stop at status. Implement + run C224 + emit >=4 artifacts with SHA256 from bytes + sync state.yaml + HANDOFF.**
 
-## VERIFIED BASELINE (20261108T181900Z)
+## VERIFIED BASELINE (20261108T182525Z)
 - deps_ok (numpy/scipy/pandas 2.5.4/1.18.1/3.1.1).
 - Caches: `data/cache/volume_1h_full.pkl/meta/provenance` (43658953.../4d321584.../c7ff2f27...), spot `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` (56075733...).
 - **C222 DONE (locked):** OOS 62fc4bca... (VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR, edge_claim NONE).
@@ -25,9 +25,9 @@
 - **Distinctness enforced.** Grep-verify candidate before implementation/run and record evidence.
 - **Heavy work mandatory.** No status-only replies. No stop between campaigns.
 
-## C224 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T181900Z)
+## C224 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T182525Z)
 **Primary candidate:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR` — RQA ratio RTE / WHITE_DIAG_LINE_DENSITY_VARIANCE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_DENSITY_VARIANCE = sample variance ddof=1 of rho_k_white over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s meeting `w_min=2`, where rho_k_white = (sum of qualifying white segment lengths on diagonal k)/(M_pts-|k|); fail-closed if <2 qualifying diagonals or variance <=0/non-finite/undefined). Distinct from WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C223 families. Params: `m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2` (white diagonal segment definition explicit and trailing/causal).
-**Fallbacks (grep-zero 20261108T181900Z):** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR` (0), `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR` (0).
+**Fallbacks (grep-zero 20261108T182525Z):** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR` (0), `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR` (0).
 
 ### COLLISION GUARD (RUN AT START)
 ```bash
