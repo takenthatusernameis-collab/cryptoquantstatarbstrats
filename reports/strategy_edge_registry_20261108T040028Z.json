@@ -1,0 +1,48 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T040028Z",
+  "campaign": 200,
+  "real_data_only": true,
+  "fail_closed": true,
+  "global_oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T035536Z.json",
+    "sha256": "12ee3349bbe59ec258d925f73a41ece80069c06ab45bbf7010b14a4e113a843f"
+  },
+  "latest_campaign": {
+    "campaign": 200,
+    "strategy_id": "VOLUME_RQA_DET_OVER_RTE_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_det_over_rte_ratio_shock_mr_costed_oos_20261108T040028Z.json",
+      "sha256": "dba56c09c695278b78ea451c17d4dff35c82bbb283f505b18b03560802bef35e"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T040028Z.json",
+      "sha256": "c6ffe4b2d7239ac6231653e14b1fba3052e3280f3897bd07b7f2f70e1caf864b"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_det_over_rte_ratio_shock_mr_costed_oos.py",
+      "sha256": "1b86dcc884c8a3b5ead3cee4c21d87bf0743c11d9df038e1c2f46c781fab6ed3"
+    },
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.527800647949167,
+      "fee5_slip5": -0.9138006479491674,
+      "fee10_slip10": -1.2998006479491675,
+      "fee20_slip20": -2.0718006479491673,
+      "fee40_slip40": -3.6158006479491673
+    },
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false
+  },
+  "prior_reference": {
+    "c199_oos": {
+      "path": "reports/real_quote_volume_rqa_lam_over_rte_ratio_shock_mr_costed_oos_20261108T035536Z.json",
+      "sha256": "71ebc9ce4071f552ee0c4d75535059d2289e7369d055de84c838b35aeb2d798e"
+    }
+  },
+  "history_note": "C104-C199 LOCKED (no edge proven). C200 executed; DET/RTE RQA ratio shock MR, no edge claimed."
+}
