@@ -1,0 +1,40 @@
+{
+  "tool": "campaign195_execution_summary",
+  "generated_at_utc": "20261108T025136Z",
+  "campaign": 195,
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "artifacts_sha256_from_bytes": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_lam_over_div_ratio_shock_mr_costed_oos_20261108T025007Z.json",
+      "sha256": "a8b0d41e770bbe174f95b64c9874c902b74f2154b1ae5ff4c4a6e713097af2cd"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T025136Z.json",
+      "sha256": "2529ebcb394caaa8d2480b16291d93263673ae97629f567126ab63f12321eec1"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T025136Z.json",
+      "sha256": "e185079d39770b6cb8ae5b426d07f1459e585780bb513349478d5190749a2700"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_lam_over_div_ratio_shock_mr_costed_oos.py",
+      "sha256": "a35fbe12cacb8289a7dc590506b2cca069f45fb000ea353b327d36cfe4476f0a"
+    }
+  ],
+  "c196_preselected": {
+    "family_primary": "VOLUME_RQA_ENTR_OVER_DIV_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio ENTR/DIV on delay-embedded log-volume returns. ENTR = entropy of the qualifying diagonal line length distribution (Shannon, nats), computed as -sum_k p_k*ln(p_k) over k>=l_min with n_k>0 (standard RQA ENTR; same distribution shape but used as ratio numerator). DIV = divergence = 1/L_MAX where L_MAX=max qualifying diagonal line length k>=l_min excl LOI. RATIO_ENTR_DIV = ENTR/DIV. m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2. Fail-closed NaN/no-signal if ENTR undefined/non-finite/degenerate (<2 distinct qualifying lengths or entropy non-finite/non-positive), DIV/L_MAX invalid (L_MAX<=0/non-finite or no qualifying diagonal lines), ratio non-finite, or insufficient qualifying lines/points. Trailing/causal only.",
+    "distinctness_grep_primary": "grep -rnE 'ENTR_OVER_DIV|entr_over_div|rqa_ratio_entr_over_div|rqa_entr_over_div_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261108T025136Z",
+    "grep_verify_required": true,
+    "selection_note": "Distinct pairing (ENTR/DIV) not used in C125-C195; preselect grep 0 observed at C195 completion. Re-verify 0 non-self at C196 run time."
+  }
+}
