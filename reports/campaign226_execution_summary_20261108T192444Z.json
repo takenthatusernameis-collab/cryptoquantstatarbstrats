@@ -1,0 +1,58 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T192444Z",
+  "campaign": 226,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.7869153295896248,
+    "fee5_slip5": -1.2579153295896253,
+    "fee10_slip10": -1.7289153295896253,
+    "fee20_slip20": -2.670915329589625,
+    "fee40_slip40": -4.554915329589625
+  },
+  "artifacts_sha256_from_bytes": [
+    {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos_20261108T192253Z.json",
+      "sha256": "c670c83caea7b53b58eb5138b3a17b74ae138569fb7a01557a212df550583665"
+    },
+    {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos_20261108T192131Z.json",
+      "sha256": "31b95ecea91be4979e10a7f3c385a70f91791144db15d4ce251825b3cf7e665f",
+      "note": "earlier C226 run, same nets"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261108T192444Z.json",
+      "sha256": "cc38b0f37894227679ef4176a865a5347e01044222b09b89d3a3ed699e94f8da"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261108T192444Z.json",
+      "sha256": "22eca308e0b063c2603ea1132ad102e5070c31755c643c113036dcf8f928c3db"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos.py",
+      "sha256": "9bf2cb2925f199beb1505c7e91a26ebebbd6c6b7252c0e21f4af6a1744ea2ce2"
+    }
+  ],
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE|rte_over_white_diag_line_length_variance|WHITE_DIAG_LINE_LENGTH_VARIANCE|white_diag_line_length_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_at_utc": "20261108T192253Z",
+    "primary_used": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR",
+    "fallback_used": null,
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE/WHITE_DIAG_LINE_LENGTH_VARIANCE patterns (verified before run); distinctness confirmed. Primary candidate used (no collision fallback). Note: C226 OOS script emitted campaign field 225 in-artifact (template carryover); this summary/registry/ingest record canonical campaign 226.",
+    "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T191700Z.json",
+    "prior_registry_sha256": "fdc5be628b4c2da0c6d004f9566e14e35d0bdc8cd04e258649e5775d5185ca6d",
+    "c225_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T191100Z.json",
+    "c225_oos_sha256": "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67ff",
+    "correct_c224_oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_density_variance_shock_mr_costed_oos_20261108T182721Z.json",
+    "correct_c224_oos_sha256": "01e730107d1e671e2bba1672e5a92dba3d2c589f36c130a6349efe5dd3e87e7d"
+  },
+  "known_anomaly": "C226 OOS artifacts carry campaign=225 (template carryover); canonical campaign 226 recorded here. Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE."
+}
