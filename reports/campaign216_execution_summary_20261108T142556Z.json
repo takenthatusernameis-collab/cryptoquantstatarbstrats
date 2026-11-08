@@ -1,0 +1,60 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T142556Z",
+  "campaign": 216,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_VERT_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "pre_stated_distinctness": {
+    "primary_candidate": "VOLUME_RQA_RTE_OVER_VERT_HORIZ_LINE_MAX_RATIO_SHOCK_MR",
+    "primary_grep_cmd": "grep -rnE 'RTE_OVER_VERT_HORIZ_LINE_MAX_RATIO|rte_over_vert_horiz_line_max_ratio|VERT_HORIZ_LINE_MAX_RATIO' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "primary_grep_hits_nonself": 5,
+    "primary_collision_evidence": "Matched existing scripts/run_real_quote_volume_rqa_vert_horiz_line_max_ratio_shock_mr_costed_oos.py and report references (VERT_HORIZ_LINE_MAX_RATIO L_MAX_V/L_MAX). Primary rejected fail-closed.",
+    "fallback_candidate": "VOLUME_RQA_RTE_OVER_VERT_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+    "fallback_grep_cmd": "grep -rnE 'RTE_OVER_VERT_LINE_COUNT_DIVERGENCE|rte_over_vert_line_count_divergence' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "fallback_grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T142556Z"
+  },
+  "result": {
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.1630888786317075,
+      "fee5_slip5": -0.5980888786317079,
+      "fee10_slip10": -1.0330888786317078,
+      "fee20_slip20": -1.9030888786317077,
+      "fee40_slip40": -3.6430888786317075
+    }
+  },
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_vert_line_count_divergence_shock_mr_costed_oos_20261108T142556Z.json",
+      "sha256": "5d4049b1e66ddb55eee14dd68e08c00b6d6352a99173acf308025e336414b45d"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T142556Z.json",
+      "sha256": "7c7a07ca74ce52a4f8db833c572a666185dba646d6defaf280b429d5df9b7e11"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T142556Z.json",
+      "sha256": "ff6f8cd53ceb24d9090b8c4f051f16b1113431824ae70522212c942886c26ffc"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_vert_line_count_divergence_shock_mr_costed_oos.py",
+      "sha256": "1bef745abf0b951c1b11dbee802de4217fb6676a8032309ba49a6a2700894104"
+    },
+    {
+      "kind": "summary",
+      "path": "reports/campaign216_execution_summary_20261108T142556Z.json",
+      "sha256": "44fb69f967463b831cf472be3408e512ec4f00693cdd5c03076a917690a60106"
+    }
+  ]
+}

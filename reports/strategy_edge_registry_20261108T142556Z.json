@@ -1,0 +1,61 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T142556Z",
+  "campaign": 216,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T133543Z.json",
+    "sha256": "93d680e08abae269ac846a2dad5a18fb338ab11e0c708648b3300e5d41af053e"
+  },
+  "latest_campaign": 216,
+  "latest_oos": {
+    "campaign": 216,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_VERT_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+    "path": "reports/real_quote_volume_rqa_rte_over_vert_line_count_divergence_shock_mr_costed_oos_20261108T142556Z.json",
+    "sha256": "5d4049b1e66ddb55eee14dd68e08c00b6d6352a99173acf308025e336414b45d",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.1630888786317075,
+      "fee5_slip5": -0.5980888786317079,
+      "fee10_slip10": -1.0330888786317078,
+      "fee20_slip20": -1.9030888786317077,
+      "fee40_slip40": -3.6430888786317075
+    }
+  },
+  "artifacts_c216": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_vert_line_count_divergence_shock_mr_costed_oos_20261108T142556Z.json",
+      "sha256": "5d4049b1e66ddb55eee14dd68e08c00b6d6352a99173acf308025e336414b45d"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T142556Z.json",
+      "sha256": "7c7a07ca74ce52a4f8db833c572a666185dba646d6defaf280b429d5df9b7e11"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_vert_line_count_divergence_shock_mr_costed_oos.py",
+      "sha256": "1bef745abf0b951c1b11dbee802de4217fb6676a8032309ba49a6a2700894104"
+    },
+    "summary": {
+      "path": "reports/campaign216_execution_summary_20261108T142556Z.json",
+      "sha256": "44fb69f967463b831cf472be3408e512ec4f00693cdd5c03076a917690a60106"
+    }
+  },
+  "prior_refs": {
+    "prior_registry": {
+      "path": "reports/strategy_edge_registry_20261108T133543Z.json",
+      "sha256": "93d680e08abae269ac846a2dad5a18fb338ab11e0c708648b3300e5d41af053e"
+    },
+    "c215_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_maxvertline_divergence_shock_mr_costed_oos_20261108T133543Z.json",
+      "sha256": "d6f8a8633e8b062f051299b4a2e14cbbec67b943bc0ebb00de96898907848d13"
+    }
+  },
+  "edge_claim": "NONE",
+  "notes": "C216 executed with distinctness grep-verified (fallback used after primary collision). No edge proven."
+}
