@@ -1,10 +1,10 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T211144Z, C104–C230 LOCKED — edge_claim NONE, C230 DONE, C231 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T211554Z, C104–C230 LOCKED — edge_claim NONE, C230 DONE, C231 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C230 LOCKED (no reruns). C230 DONE on disk (edge_claim NONE). C231 preselected grep-zero (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS_SHOCK_MR) — execute C231 next, no status-first.** Latest registry = `reports/strategy_edge_registry_20261108T211144Z.json` (6b01e3d2...). Latest OOS = C230 `b92adc7c...` (oos_edge_proven false).
 
-## TIMESTAMPED INITIAL TASK MESSAGE (20261108T211144Z) — HEAVY WORK MANDATORY
+## TIMESTAMPED INITIAL TASK MESSAGE (20261108T211554Z) — HEAVY WORK MANDATORY
 **PRIORITY 1: EXECUTE C231.** C230 is complete on disk (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR, edge_claim NONE; cross-asset net sums fee0=-0.17438866897960414, fee5=-0.4853886689796044, fee10=-0.7963886689796046, fee20=-1.4183886689796044, fee40=-2.6623886689796046 — fails all-cost-positive / B&H mean rule). C230 artifacts emitted with SHA256 from bytes: OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos_20261108T211144Z.json` (sha b92adc7c...), ingest `reports/real_feed_ingest_attempt_20261108T211144Z.json` (sha 6179ee09...), registry `reports/strategy_edge_registry_20261108T211144Z.json` (sha 6b01e3d2...), script `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py` (sha acca7132...), summary `reports/campaign230_execution_summary_20261108T211144Z.json` (sha 8960224c...). state.yaml + HANDOFF synced (latest_campaign_done C230, next_campaign C231). **Do not summarize status. Do not stop at status. Implement + run C231 + emit >=4 artifacts with SHA256 from bytes + sync state.yaml + HANDOFF.**
 
-## VERIFIED BASELINE (20261108T211144Z)
+## VERIFIED BASELINE (20261108T211554Z)
 - deps_ok (numpy/scipy/pandas 2.5.4/1.18.1/3.1.1).
 - Caches: `data/cache/volume_1h_full.pkl/meta/provenance` (43658953.../4d321584.../c7ff2f27...), spot `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` (56075733...).
 - **C223–C228 DONE (locked):** edge_claim NONE, all oos_edge_proven false.
@@ -34,9 +34,9 @@
 - **Distinctness enforced.** Grep-verify candidate before implementation/run and record evidence.
 - **Heavy work mandatory.** No status-only replies. No stop between campaigns.
 
-## C231 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T211144Z)
+## C231 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T211554Z)
 **Primary candidate:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS_SHOCK_MR` — RQA ratio RTE / WHITE_DIAG_LINE_LENGTH_KURTOSIS on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_LENGTH_KURTOSIS = Fisher-Pearson adjusted kurtosis (sample, bias-corrected where finite; fail-closed if <4 qualifying white diagonal segment lengths or variance<=0/non-finite) of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if kurtosis non-finite/undefined or insufficient segments). Distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229), WHITE_DIAG_LINE_LENGTH_SKEWNESS(C230), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), and prior C125-C230 families.
-**grep evidence (20261108T211144Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS|rte_over_white_diag_line_length_kurtosis|WHITE_DIAG_LINE_LENGTH_KURTOSIS|white_diag_line_length_kurtosis' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
+**grep evidence (20261108T211554Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS|rte_over_white_diag_line_length_kurtosis|WHITE_DIAG_LINE_LENGTH_KURTOSIS|white_diag_line_length_kurtosis' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
 **Fallback:** none preselected; at C231 start, grep-verify a distinct grep-zero RQA-ratio candidate not used C125–C230 and record evidence.
 
 ### COLLISION GUARD (RUN AT START)
