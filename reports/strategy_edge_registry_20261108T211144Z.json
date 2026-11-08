@@ -1,0 +1,143 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T211144Z",
+  "campaign": 230,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T203312Z.json",
+    "sha256": "d0e372129157ef70ecabbe0fba8608d2835a7c26548a6d893ba8bf5c184f51a2"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 230,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.17438866897960414,
+      "fee5_slip5": -0.4853886689796044,
+      "fee10_slip10": -0.7963886689796046,
+      "fee20_slip20": -1.4183886689796044,
+      "fee40_slip40": -2.6623886689796046
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos_20261108T211144Z.json",
+        "sha256": "b92adc7c512c7bded370ba7ceb04b4dbdd2ff29becf0ce0a40a7d11b696222f7"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T211144Z.json",
+        "sha256": "6179ee09162edb2b91e02631890dd4f22847c9c876b75af6142aa1eb51d13e72"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py",
+        "sha256": "acca713261c79ab98e152f44bb111422434904fdace2d5d49531919bba5bf824"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS|rte_over_white_diag_line_length_skewness|WHITE_DIAG_LINE_LENGTH_SKEWNESS|white_diag_line_length_skewness' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_hits_nonself_at_run": 0,
+      "grep_output_at_run": "",
+      "grep_verified_at_utc": "20261108T211144Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS/WHITE_DIAG_LINE_LENGTH_SKEWNESS patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+      "selection_note": "Primary C230 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS (WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments of consecutive 0s/non-recurrent, length>=w_min=2, pooled over off-diagonal diagonals k!=0); grep-zero non-self confirmed at run time. Distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229; sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C229 families. RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS not used C125-C229.",
+      "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "history_refs": {
+    "c229_registry": {
+      "path": "reports/strategy_edge_registry_20261108T203312Z.json",
+      "sha256": "d0e372129157ef70ecabbe0fba8608d2835a7c26548a6d893ba8bf5c184f51a2"
+    },
+    "c229_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json",
+      "sha256": "98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6"
+    },
+    "c228_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json",
+      "sha256": "4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "campaigns": {
+    "C229": {
+      "campaign": 229,
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.015478741990794798,
+        "fee5_slip5": -1.3914787419907952,
+        "fee10_slip10": -2.767478741990795,
+        "fee20_slip20": -5.519478741990795,
+        "fee40_slip40": -11.023478741990795
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json",
+          "sha256": "98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T203312Z.json",
+          "sha256": "8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py",
+          "sha256": "70f30d070c36dc8fbdb571067edddb116cc7e7015c428ac9c08a6451f4e6a1bb"
+        }
+      }
+    },
+    "C230": {
+      "campaign": 230,
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.17438866897960414,
+        "fee5_slip5": -0.4853886689796044,
+        "fee10_slip10": -0.7963886689796046,
+        "fee20_slip20": -1.4183886689796044,
+        "fee40_slip40": -2.6623886689796046
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos_20261108T211144Z.json",
+          "sha256": "b92adc7c512c7bded370ba7ceb04b4dbdd2ff29becf0ce0a40a7d11b696222f7"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T211144Z.json",
+          "sha256": "6179ee09162edb2b91e02631890dd4f22847c9c876b75af6142aa1eb51d13e72"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py",
+          "sha256": "acca713261c79ab98e152f44bb111422434904fdace2d5d49531919bba5bf824"
+        }
+      },
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS|rte_over_white_diag_line_length_skewness|WHITE_DIAG_LINE_LENGTH_SKEWNESS|white_diag_line_length_skewness' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_hits_nonself_at_run": 0,
+        "grep_output_at_run": "",
+        "grep_verified_at_utc": "20261108T211144Z",
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS/WHITE_DIAG_LINE_LENGTH_SKEWNESS patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+        "selection_note": "Primary C230 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS (WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments of consecutive 0s/non-recurrent, length>=w_min=2, pooled over off-diagonal diagonals k!=0); grep-zero non-self confirmed at run time. Distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229; sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C229 families. RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS not used C125-C229.",
+        "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      }
+    }
+  }
+}

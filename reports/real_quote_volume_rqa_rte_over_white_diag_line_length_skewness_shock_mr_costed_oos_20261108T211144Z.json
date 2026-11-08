@@ -1,0 +1,396 @@
+{
+  "tool": "real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos",
+  "generated_at_utc": "20261108T211144Z",
+  "campaign": 230,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR",
+  "candidate": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR (RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS on delay-embedded log-volume returns; RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution over qualifying gaps w>=w_min excluding trivial self; WHITE_DIAG_LINE_LENGTH_SKEWNESS=Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments (consecutive 0s/non-recurrent, length>=w_min) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS=RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2)",
+  "feature_definition": "RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS = RTE / WHITE_DIAG_LINE_LENGTH_SKEWNESS. RTE = Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution: per column j, gap lengths w of consecutive zeros between recurrent points excluding i==j; qualifying w>=w_min (w_min=2), p_w=n_w/sum_u n_u, RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap lengths or entropy non-finite/non-positive. WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments (consecutive 0s/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segment lengths, variance<=0/non-finite, or skewness non-finite/undefined. On trailing delay embedding (m=2,tau=1), L-inf recurrence eps=0.5*std(window). Causal trailing only; fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS/ratio undefined/non-finite/degenerate or insufficient qualifying segments/gaps.",
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS|rte_over_white_diag_line_length_skewness|WHITE_DIAG_LINE_LENGTH_SKEWNESS|white_diag_line_length_skewness' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_output_at_run": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:2:\"\"\"C230: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_LENGTH_SKEWNESS (denominator) = Fisher-Pearson adjusted\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:22:  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS = RTE / WHITE_DIAG_LINE_LENGTH_SKEWNESS.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:23:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:30:  C125-C229 families. RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS not used C125-C229.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:81:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:82:    \"rte_over_white_diag_line_length_skewness|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:83:    \"WHITE_DIAG_LINE_LENGTH_SKEWNESS|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:84:    \"white_diag_line_length_skewness\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:105:        and (\"white_diag_line_length_skewness\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:189:def _white_diag_line_length_skewness(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:190:    \"\"\"WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:217:def rqa_rte_over_white_diag_line_length_skewness_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:220:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS = RTE / WHITE_DIAG_LINE_LENGTH_SKEWNESS.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:255:    # WHITE_DIAG_LINE_LENGTH_SKEWNESS (denominator)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:256:    sk = _white_diag_line_length_skewness(R, w_min)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:297:                last_val = rqa_rte_over_white_diag_line_length_skewness_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:397:            f\"for RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS:\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:433:        \"tool\": \"real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:436:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:438:            \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR (RQA ratio \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:439:            \"RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS on delay-embedded log-volume returns; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:442:            \"excluding trivial self; WHITE_DIAG_LINE_LENGTH_SKEWNESS=Fisher-Pearson adjusted \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:446:            \"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS=RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:450:            \"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_SKEWNESS = RTE / WHITE_DIAG_LINE_LENGTH_SKEWNESS. \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:457:            \"WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:475:                \"SKEWNESS/WHITE_DIAG_LINE_LENGTH_SKEWNESS patterns \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:480:                \"Primary C230 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:481:                \"(WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:491:                \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS not used C125-C229.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:493:            \"family\": \"RQA RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS ratio shock on volume dynamics\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:523:            \"white_diag_line_length_skewness_definition\": (\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:524:                \"WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:548:            \"c229_note\": \"C229 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR, oos_edge_proven false). C230 uses WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0, distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C229 families.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py:565:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos\"",
+    "grep_verified_at_utc": "20261108T211144Z",
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS/WHITE_DIAG_LINE_LENGTH_SKEWNESS patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+    "selection_note": "Primary C230 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS (WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments of consecutive 0s/non-recurrent, length>=w_min=2, pooled over off-diagonal diagonals k!=0); grep-zero non-self confirmed at run time. Distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229; sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C229 families. RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS not used C125-C229.",
+    "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_SKEWNESS ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "data": {
+    "spot_cache": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "spot_cache_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "volume_meta": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "volume_loader_report": {
+      "ok": true,
+      "refused": false,
+      "family": "real_quote_volume",
+      "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "notes_limits_gaps": "",
+      "provenance_source": "<dict>",
+      "provenance_merged": true,
+      "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "multi_symbol_long_frame": {
+        "group_col": "symbol",
+        "n_groups": 16,
+        "global_duplicate_timestamps": 76680,
+        "within_group_duplicates": 0,
+        "checked": "per_symbol_monotonic_unique"
+      },
+      "reason": "passed_all_fail_closed_checks",
+      "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+      "rows": 81792,
+      "columns": [
+        "timestamp_utc",
+        "symbol",
+        "quote_volume_usdt"
+      ],
+      "family_spec": "real_quote_volume"
+    }
+  },
+  "params": {
+    "w_rr": 168,
+    "alb": 336,
+    "m_emb": 2,
+    "tau": 1,
+    "eps_scale": 0.5,
+    "w_min": 2,
+    "entry_z": 1.5,
+    "exit_z": 0.5,
+    "max_hold": 24,
+    "train": 720,
+    "test": 168,
+    "step": 168,
+    "cost_grid": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "feature_compute_step": 2,
+    "feature_compute_note": "Causal trailing RQA computed every 2 bars and held (causal forward-hold) for runtime; signal/z/exec logic unchanged.",
+    "rte_definition": "RTE = Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution p_w=n_w/sum_u n_u over qualifying gaps w>=w_min (w_min=2) excluding i==j; RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap lengths or entropy non-finite/non-positive",
+    "white_diag_line_length_skewness_definition": "WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments (consecutive 0s/non-recurrent, length >= w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segment lengths, variance<=0/non-finite, or skewness non-finite/undefined.",
+    "white_segment_definition": "white diagonal segment = run of consecutive 0-cells (non-recurrent) along an off-diagonal diagonal k!=0 of the RP; qualifying if length >= w_min",
+    "gap_definition": "white vertical gap length w = number of consecutive 0-cells between successive recurrent points in a column (excluding trivial self at i==j); qualifying if w>=w_min"
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T203312Z.json",
+    "prior_registry_sha256": "d0e372129157ef70ecabbe0fba8608d2835a7c26548a6d893ba8bf5c184f51a2",
+    "c229_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json",
+    "c229_oos_sha256": "98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6",
+    "c228_oos": "reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json",
+    "c228_oos_sha256": "4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae",
+    "c229_note": "C229 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR, oos_edge_proven false). C230 uses WHITE_DIAG_LINE_LENGTH_SKEWNESS = Fisher-Pearson adjusted skewness (sample, bias-corrected) of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0, distinct from WHITE_DIAG_LINE_COUNT_VARIANCE(C229), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C229 families."
+  },
+  "per_asset": {
+    "ADA": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1228,
+      "exposure_frac_oos": 0.28113553113553114,
+      "bh_oos_sum": -0.10850660556113201,
+      "bh_oos_mean": -2.4841255851907512e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": 0.2617166896639319,
+          "oos_net_sum": 0.2617166896639319,
+          "oos_net_mean": 5.991682455676097e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": true,
+          "beats_bh_mean": true
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": 0.2617166896639319,
+          "oos_net_sum": 0.18271668966393184,
+          "oos_net_mean": 4.183074397068037e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": true,
+          "beats_bh_mean": true
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": 0.2617166896639319,
+          "oos_net_sum": 0.10371668966393177,
+          "oos_net_mean": 2.3744663384599764e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": true,
+          "beats_bh_mean": true
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": 0.2617166896639319,
+          "oos_net_sum": -0.05428331033606826,
+          "oos_net_mean": -1.242749778756139e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": true
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": 0.2617166896639319,
+          "oos_net_sum": -0.37028331033606815,
+          "oos_net_mean": -8.477182013188373e-05,
+          "oos_bh_sum": -0.10850660556113201,
+          "oos_bh_mean": -2.4841255851907512e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "BTC": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1214,
+      "exposure_frac_oos": 0.27793040293040294,
+      "bh_oos_sum": 0.056906054230617786,
+      "bh_oos_mean": 1.3027942818364878e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": -0.02362899210423952,
+          "oos_net_sum": -0.02362899210423952,
+          "oos_net_mean": -5.409567789432125e-06,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": -0.02362899210423952,
+          "oos_net_sum": -0.09362899210423958,
+          "oos_net_mean": -2.1435208815073164e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": -0.02362899210423952,
+          "oos_net_sum": -0.1636289921042396,
+          "oos_net_mean": -3.746084984071419e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": -0.02362899210423952,
+          "oos_net_sum": -0.30362899210423955,
+          "oos_net_mean": -6.951213189199625e-05,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": -0.02362899210423952,
+          "oos_net_sum": -0.5836289921042395,
+          "oos_net_mean": -0.00013361469599456032,
+          "oos_bh_sum": 0.056906054230617786,
+          "oos_bh_mean": 1.3027942818364878e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "ETH": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1099,
+      "exposure_frac_oos": 0.2516025641025641,
+      "bh_oos_sum": 0.06087103021756268,
+      "bh_oos_mean": 1.3935675416108673e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": 0.011880580596399959,
+          "oos_net_sum": 0.011880580596399959,
+          "oos_net_mean": 2.7199131402014556e-06,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": true,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": 0.011880580596399959,
+          "oos_net_sum": -0.06511941940360011,
+          "oos_net_mean": -1.4908291988003688e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": 0.011880580596399959,
+          "oos_net_sum": -0.1421194194036001,
+          "oos_net_mean": -3.253649711620883e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": 0.011880580596399959,
+          "oos_net_sum": -0.2961194194036001,
+          "oos_net_mean": -6.779290737261908e-05,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": 0.011880580596399959,
+          "oos_net_sum": -0.6041194194036001,
+          "oos_net_mean": -0.00013830572788543958,
+          "oos_bh_sum": 0.06087103021756268,
+          "oos_bh_mean": 1.3935675416108673e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    },
+    "SOL": {
+      "n_bars": 5112,
+      "window_start": "2026-04-01 00:00:00+00:00",
+      "window_end": "2026-10-30 23:00:00+00:00",
+      "n_wf_folds": 26,
+      "has_exposure_oos": true,
+      "n_active_bars_oos": 1170,
+      "exposure_frac_oos": 0.26785714285714285,
+      "bh_oos_sum": 0.2228033848671428,
+      "bh_oos_mean": 5.100810093112243e-05,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_gross_sum": -0.4243569471356965,
+          "oos_net_sum": -0.4243569471356965,
+          "oos_net_mean": -9.715131573619425e-05,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee5_slip5": {
+          "oos_gross_sum": -0.4243569471356965,
+          "oos_net_sum": -0.5093569471356966,
+          "oos_net_mean": -0.00011661102269590123,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee10_slip10": {
+          "oos_gross_sum": -0.4243569471356965,
+          "oos_net_sum": -0.5943569471356966,
+          "oos_net_mean": -0.0001360707296556082,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee20_slip20": {
+          "oos_gross_sum": -0.4243569471356965,
+          "oos_net_sum": -0.7643569471356966,
+          "oos_net_mean": -0.0001749901435750221,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        },
+        "fee40_slip40": {
+          "oos_gross_sum": -0.4243569471356965,
+          "oos_net_sum": -1.1043569471356967,
+          "oos_net_mean": -0.00025282897141385,
+          "oos_bh_sum": 0.2228033848671428,
+          "oos_bh_mean": 5.100810093112243e-05,
+          "positive": false,
+          "beats_bh_mean": false
+        }
+      },
+      "edge_proven_oos": false
+    }
+  },
+  "cross_asset": {
+    "oos_net_sums": {
+      "fee0_slip0": -0.17438866897960414,
+      "fee5_slip5": -0.4853886689796044,
+      "fee10_slip10": -0.7963886689796046,
+      "fee20_slip20": -1.4183886689796044,
+      "fee40_slip40": -2.6623886689796046
+    }
+  },
+  "oos_edge_proven": false,
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
