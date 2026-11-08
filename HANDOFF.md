@@ -1,4 +1,4 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T202506Z, C104–C228 LOCKED — edge_claim NONE, C228 DONE, C229 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T202936Z, C104–C228 LOCKED — edge_claim NONE, C228 DONE, C229 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C228 LOCKED (no reruns). C228 DONE on disk (edge_claim NONE). C229 preselected grep-zero (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR) — execute C229 next, no status-first.** Latest registry = `reports/strategy_edge_registry_20261108T202506Z.json` (509503bf...). Latest OOS = C228 `4c4de94e...` (oos_edge_proven false).
 
 ## TIMESTAMPED INITIAL TASK MESSAGE (20261108T202506Z) — HEAVY WORK MANDATORY
