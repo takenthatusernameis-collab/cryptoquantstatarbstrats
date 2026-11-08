@@ -31,13 +31,13 @@ latest_oos:
     fee20_slip20: -0.8705951328098539
     fee40_slip40: -2.4505951328098536
 
-c206_completed:
-  campaign: C206
-  strategy_id: VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos_20261108T102523Z.json, sha256: 03d77e679c417b128d5d793f86961a45f820ae38840547910eda655ec5aa7058}
+c211_preselected:
+  candidate: VOLUME_RQA_RTE_OVER_L_RATIO_SHOCK_MR
+  feature: RQA ratio RTE/L (RTE = recurrence time entropy; L = mean diagonal line length) on delay-embedded log-volume returns, distinct from LMAX/LAVG/VMAX/TT/TREND/WAVG/DET/DIV/ENTR/LAM/RR/VMAX.
+  grep_cmd: "grep -rnE 'RTE_OVER_L\\b|rte_over_l' scripts/ strategies/ backtest/ utils/"
+  grep_hits: 0
+  params: "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2"
+  collision_guard: required at run; pick only grep-zero fallback if collision"
     ingest: {path: reports/real_feed_ingest_attempt_20261108T102523Z.json, sha256: 3296884ee715193f235f1e84b2a162a5017e44b2af754abcbb8c867f947a7823}
     registry: {path: reports/strategy_edge_registry_20261108T102523Z.json, sha256: d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a}
     script: {path: scripts/run_real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos.py, sha256: df54a9bc92fa9f8956492615c3aad0f98bb5ff27debc7ee9c4492802357711cb}
