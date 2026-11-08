@@ -1,0 +1,52 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261108T005205Z",
+  "campaign": 188,
+  "strategy_id": "VOLUME_RQA_TREND_OVER_DET_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "nonspot_feeds": {
+    "status": "blocked_fail_closed",
+    "blocker": "nonspot/perp/funding/basis feeds not ingested as validated real feeds in this environment; no proxies labeled real",
+    "rb_unblocked": true,
+    "rb_unblocked_on": "real_quote_volume (validated local cache+provenance)"
+  },
+  "real_quote_volume": {
+    "status": "validated_local_cache",
+    "cache_sha256s": {
+      "spot_cache": {
+        "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+        "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+        "exists": true
+      },
+      "spot_meta": {
+        "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+        "sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d",
+        "exists": true
+      },
+      "volume_pkl": {
+        "path": "data/cache/volume_1h_full.pkl",
+        "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+        "exists": true
+      },
+      "volume_meta": {
+        "path": "data/cache/volume_1h_full.meta.json",
+        "sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+        "exists": true
+      },
+      "volume_prov": {
+        "path": "data/cache/volume_1h_full.provenance.json",
+        "sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89",
+        "exists": true
+      }
+    }
+  },
+  "prior_references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T004812Z.json",
+    "prior_registry_sha256": "1aca1a556e00763cec77945c6c48085b2ba77b1c486932444510d8221124eeb9",
+    "c187_oos": "reports/real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos_20261108T004708Z.json",
+    "c187_oos_sha256": "0f5b82f91352ab34741936164e6d1888e93b4865342ab1f7975c017ee896cd63",
+    "c187_note": "C187 LAVG_OVER_ENTR OOS SHA verified from bytes; oos_edge_proven false; C188 uses TREND/DET."
+  }
+}

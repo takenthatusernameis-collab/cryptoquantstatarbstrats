@@ -1,0 +1,54 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T004812Z",
+  "campaign": 187,
+  "strategy_id": "VOLUME_RQA_LAVG_OVER_ENTR_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos_20261108T004708Z.json",
+      "sha256": "0f5b82f91352ab34741936164e6d1888e93b4865342ab1f7975c017ee896cd63"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T004812Z.json",
+      "sha256": "4fdf046ce1e35322f62ee5902e09da083a78e1bc11de9ded2f58774c08d4aaf6"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T004812Z.json",
+      "sha256": "1aca1a556e00763cec77945c6c48085b2ba77b1c486932444510d8221124eeb9"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos.py",
+      "sha256": "4785c5b3d8e872ecf073d18dbf40a50b76726303d9754e7a396ddcb8d914725a"
+    }
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'LAVG_OVER_ENTR|lavg_over_entr|rqa_ratio_lavg_over_entr|rqa_lavg_over_entr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_verified_at_utc": "20261108T004708Z",
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+    "selection_note": "Primary C187 candidate from HANDOFF/state.yaml (LAVG_OVER_ENTR); grep-zero confirmed at run time. LAVG numerator with ENTR denominator \u2014 inverse of C186 ENTR_OVER_LAVG; pairing not used in C125-C186.",
+    "family": "RQA LAVG/ENTR ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "c188_preselected": {
+    "family": "VOLUME_RQA_TREND_OVER_DET_RATIO_SHOCK_MR",
+    "metric": "RQA ratio TREND/DET (TREND = linear regression slope or trend measure of RR over lag windows as defined fail-closed on recurrence plot; DET = determinism = sum of qualifying diagonal line points / recurrence points, k>=1 excluding LOI l>=l_min) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed NaN if DET==0 or undefined/non-finite/degenerate, TREND undefined/non-finite/degenerate, ratio non-finite; trailing/causal only",
+    "grep_cmd": "grep -rnE 'TREND_OVER_DET|trend_over_det|rqa_ratio_trend_over_det|rqa_trend_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261108T004812Z",
+    "grep_verify_required": true,
+    "note": "Distinct from C125-C187; not used before. Re-verify grep=0 non-self at C188 run time. If collides, pick another grep-zero RQA-ratio candidate not used C125-C187 with evidence."
+  },
+  "prior_references": {
+    "prior_registry": "reports/strategy_edge_registry_20261107T235740Z.json",
+    "prior_registry_sha256": "32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61",
+    "c186_oos": "reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json",
+    "c186_oos_sha256": "8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df",
+    "c186_note": "C186 ENTR_OVER_LAVG OOS SHA verified from bytes; C187 uses inverse LAVG/ENTR."
+  }
+}

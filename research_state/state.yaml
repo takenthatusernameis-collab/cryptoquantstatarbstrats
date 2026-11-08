@@ -1,101 +1,105 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261107T235740Z
-latest_campaign_done: C186
-next_campaign: C187
+updated_utc: 20261108T005205Z
+latest_campaign_done: C188
+next_campaign: C189
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
 fail_closed: true
 no_proxies_labeled_real: true
-pytest: available (9.2.0 observed at 20261107T235445Z); earlier handoffs recorded unavailable — treat as available now, do not fabricate results
+pytest: available (9.2.0 observed); do not fabricate results
 deps: numpy/scipy/pandas importable
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261107T235740Z.json
-  sha256: 32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61
-  supersedes: reports/strategy_edge_registry_20261107T234931Z.json
-  supersedes_sha256: 12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44
+  path: reports/strategy_edge_registry_20261108T005205Z.json
+  sha256: aadd225ddaf2bcc83cff6a1c41bb35105c7b8e651e994f152cedb2bb2a04d640
+  supersedes: reports/strategy_edge_registry_20261108T004812Z.json
+  supersedes_sha256: 1aca1a556e00763cec77945c6c48085b2ba77b1c486932444510d8221124eeb9
 latest_oos:
-  campaign: C186
-  family: VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json
-  sha256: 8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df
+  campaign: C188
+  family: VOLUME_RQA_TREND_OVER_DET_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos_20261108T005102Z.json
+  sha256: efe782e49e1fa6219f05e424d1d9901a12e2cb020cd6d8d6f13d39cc7269ec4e
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.6928474302642706
-    fee5_slip5: -1.116847430264271
-    fee10_slip10: -1.5408474302642712
-    fee20_slip20: -2.388847430264271
-    fee40_slip40: -4.08484743026427
-c185_completed:
-  campaign: C185
-  strategy_id: VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR
+    fee0_slip0: 0.4024570403877654
+    fee5_slip5: 0.028457040387765115
+    fee10_slip10: -0.3455429596122351
+    fee20_slip20: -1.0935429596122348
+    fee40_slip40: -2.589542959612235
+
+c187_completed:
+  campaign: C187
+  strategy_id: VOLUME_RQA_LAVG_OVER_ENTR_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json
-      sha256: f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4
+      path: reports/real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos_20261108T004708Z.json
+      sha256: 0f5b82f91352ab34741936164e6d1888e93b4865342ab1f7975c017ee896cd63
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T234818Z.json
-      sha256: 5fa176cd3f6056b9784d620d581f3ffa88451d1210cf77f656beaa52bf1e01e8
+      path: reports/real_feed_ingest_attempt_20261108T004812Z.json
+      sha256: 4fdf046ce1e35322f62ee5902e09da083a78e1bc11de9ded2f58774c08d4aaf6
     registry:
-      path: reports/strategy_edge_registry_20261107T234931Z.json
-      sha256: 12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44
+      path: reports/strategy_edge_registry_20261108T004812Z.json
+      sha256: 1aca1a556e00763cec77945c6c48085b2ba77b1c486932444510d8221124eeb9
     script:
-      path: scripts/run_real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos.py
-      sha256: 73033702c79fbf5b86de8f52b1ae1ae709345cd70ce0a888ebdae30a47e4155d
+      path: scripts/run_real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos.py
+      sha256: 4785c5b3d8e872ecf073d18dbf40a50b76726303d9754e7a396ddcb8d914725a
     summary:
-      path: reports/campaign185_execution_summary_20261107T234931Z.json
-      sha256: 85950a5b6770b27586b90a4ed9172a071dc661500ff8630eebd292ceaf7538ff
-  note: "C185 OOS in-file strategy_id label anomaly (RR_OVER_LAVG vs TT family) recorded; artifact SHA verified from bytes; no rerun."
+      path: reports/campaign187_execution_summary_20261108T004812Z.json
+      sha256: 61cac13022c7636b0551ba7205cdfc3b4de6627e4cc9f6ea4cfa310c0eb54844
 
-c186_completed:
-  campaign: C186
-  strategy_id: VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR
+c188_completed:
+  campaign: C188
+  strategy_id: VOLUME_RQA_TREND_OVER_DET_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
     oos:
-      path: reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json
-      sha256: 8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df
+      path: reports/real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos_20261108T005102Z.json
+      sha256: efe782e49e1fa6219f05e424d1d9901a12e2cb020cd6d8d6f13d39cc7269ec4e
     ingest:
-      path: reports/real_feed_ingest_attempt_20261107T235718Z.json
-      sha256: cb5169c3905fb579384769be3c5f56a1cc08c7d7b0b15bc94ed58333239c50fd
+      path: reports/real_feed_ingest_attempt_20261108T005205Z.json
+      sha256: 512c4cd75525e519bd72aef01f9b825d569f7af3575c8c14b1f2e5acd821bac6
     registry:
-      path: reports/strategy_edge_registry_20261107T235740Z.json
-      sha256: 32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61
+      path: reports/strategy_edge_registry_20261108T005205Z.json
+      sha256: aadd225ddaf2bcc83cff6a1c41bb35105c7b8e651e994f152cedb2bb2a04d640
     script:
-      path: scripts/run_real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos.py
-      sha256: 5bbf466567a838dfc9aa9cecd4647aa2e6957b26faa0de5480f9e221f0e8cba9
+      path: scripts/run_real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos.py
+      sha256: 7f83353fa022dbce8e3dd41bf9e9a4dfeac6ed27b5a5ddc758fde09b1ded97dd
     summary:
-      path: reports/campaign186_execution_summary_20261107T235740Z.json
-      sha256: 628270e55a6e0619db50b7a3c5e456062f5e200af8fc50522a0f366a395f18b1
+      path: reports/campaign188_execution_summary_20261108T005205Z.json
+      sha256: 8de537217997a3ff773579fc6661b8c6ad198892e8052f2f1dc60c6028865bc0
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'TREND_OVER_DET|trend_over_det|rqa_ratio_trend_over_det|rqa_trend_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_nonself_at_run: 0
+    grep_verified_utc: 20261108T005015Z
+    selection_note: "Primary C188 TREND_OVER_DET from C187 state; grep-zero confirmed pre-implementation/run."
 
-c187_preselected:
-  family_primary: VOLUME_RQA_LAVG_OVER_ENTR_RATIO_SHOCK_MR
-  metric_primary: "RQA ratio LAVG/ENTR (LAVG = mean diagonal line length over qualifying diagonal lines k>=1 excluding LOI l>=l_min; ENTR = Shannon entropy of diagonal line lengths over qualifying diagonal lines, normalized distribution, natural log) on delay-embedded log-volume returns; m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2; fail-closed NaN/no-signal if ENTR==0 or ENTR undefined/non-finite/degenerate, LAVG undefined/non-finite/degenerate, denominator/ratio non-finite, or undefined; trailing/causal only"
-  distinctness_grep_primary: "grep -rnE 'LAVG_OVER_ENTR|lavg_over_entr|rqa_ratio_lavg_over_entr|rqa_lavg_over_entr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+c189_preselected:
+  family_primary: VOLUME_RQA_LAVG_OVER_RR_RATIO_SHOCK_MR
+  metric_primary: "RQA ratio LAVG/RR on delay-embedded log-volume returns. LAVG = mean diagonal line length over qualifying diagonal lines (k>=1, l>=l_min, excluding LOI). RR = recurrence rate = number of recurrent pairs / M_pts^2 on the full recurrence matrix (pre-stated). RATIO_LAVG_RR = LAVG / RR. m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2. Fail-closed NaN if RR==0 or undefined/non-finite/degenerate, LAVG undefined/non-finite/degenerate, ratio non-finite. Trailing/causal only."
+  distinctness_grep_primary: "grep -rnE 'LAVG_OVER_RR|lavg_over_rr|rqa_ratio_lavg_over_rr|rqa_lavg_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261107T235740Z
+  grep_observed_utc: 20261108T005230Z
   grep_verify_required: true
-  note: "C187 primary candidate (grep 0 across scripts/strategies/backtest/utils at preselect time). Inverse ENTR/LAVG pairing of C186; not used in C125-C186. Re-verify at C187 run time (0 non-self). Fallback if collides: TREND_OVER_DET (grep 0 observed 20261107T235740Z) or other grep-zero candidate not used in C125-C186 — record grep cmd/hits/evidence."
+  note: "Distinct from C125-C188; grep 0. LAM_OVER_DET considered but collided with existing script(s) in repo; LAVG_OVER_RR selected as grep-zero fallback with evidence. Re-verify 0 non-self at C189 run time."
 
 bottlenecks_removed:
-  - C104-C186 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
-  - C185 completed (TT_OVER_LAVG family; label anomaly noted) and C186 completed 20261107T235740Z (ENTR_OVER_LAVG, OOS+ingest+registry+summary+script, SHAs from bytes); state/HANDOFF synced to C186-done/C187-next
-  - deps_ok numpy/scipy/pandas; pytest 9.2.0 available (20261107T235445Z)
+  - C104-C188 locked; no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
+  - C187+C188 completed (LAVG_OVER_ENTR, TREND_OVER_DET) with OOS+ingest+registry+summary+script, SHAs from bytes; state synced
+  - deps_ok numpy/scipy/pandas; pytest 9.2.0 available
   - nonspot ingest does not block R-B on real_quote_volume
-  - C186 ENTR_OVER_LAVG collision guard 0 non-self in implementation dirs at run time (20261107T235445Z)
-  - C187 LAVG_OVER_ENTR preselect grep 0 (20261107T235740Z); TREND_OVER_DET fallback grep 0
-  - Single durable handoff (HANDOFF.md) + research_state/state.yaml; no status-only output
-  - '"No status before >=3 new artifacts" + mandatory heavy work enforced'
+  - C188 TREND_OVER_DET collision guard 0 non-self at run time (20261108T005015Z)
+  - C189 preselect LAVG_OVER_RR grep 0 (20261108T005230Z); LAM_OVER_DET collided and was replaced with evidence
+  - Single durable handoff (HANDOFF.md) + research_state/state.yaml
 
 mandatory:
-  - No status summary before >= 3 new concrete C187 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - No status summary before >= 3 new concrete C189 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
   - '"Heavy work mandatory: implement/run + emit artifacts; no status-only replies"'
-  - 'C187: grep-verify distinctness before implementation/run; recheck LAVG_OVER_ENTR grep=0 non-self at run time'
+  - 'C189: grep-verify distinctness before implementation/run; recheck LAVG_OVER_RR grep=0 non-self at run time'
   - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]

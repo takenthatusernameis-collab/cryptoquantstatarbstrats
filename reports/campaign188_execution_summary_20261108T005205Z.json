@@ -1,0 +1,54 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T005205Z",
+  "campaign": 188,
+  "strategy_id": "VOLUME_RQA_TREND_OVER_DET_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos_20261108T005102Z.json",
+      "sha256": "efe782e49e1fa6219f05e424d1d9901a12e2cb020cd6d8d6f13d39cc7269ec4e"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T005205Z.json",
+      "sha256": "512c4cd75525e519bd72aef01f9b825d569f7af3575c8c14b1f2e5acd821bac6"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T005205Z.json",
+      "sha256": "aadd225ddaf2bcc83cff6a1c41bb35105c7b8e651e994f152cedb2bb2a04d640"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos.py",
+      "sha256": "7f83353fa022dbce8e3dd41bf9e9a4dfeac6ed27b5a5ddc758fde09b1ded97dd"
+    }
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'TREND_OVER_DET|trend_over_det|rqa_ratio_trend_over_det|rqa_trend_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_verified_at_utc": "20261108T005102Z",
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+    "selection_note": "Primary C188 candidate from C187 state.yaml (TREND_OVER_DET); grep-zero confirmed at run time. TREND numerator with DET denominator \u2014 pairing not used in C125-C187.",
+    "family": "RQA TREND/DET ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "c189_preselected": {
+    "family": "VOLUME_RQA_LAVG_OVER_RR_RATIO_SHOCK_MR",
+    "metric": "RQA ratio LAVG/RR on delay-embedded log-volume returns. LAVG = mean diagonal line length over qualifying diagonal lines (k>=1, l>=l_min, excluding LOI). RR = recurrence rate = sum of recurrence points / (M_pts*M_pts) (or over valid diagonals as pre-stated fail-closed; use standard RR = number of recurrent pairs / M_pts^2 on the full recurrence matrix). RATIO_LAVG_RR = LAVG / RR. m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2. Fail-closed NaN if RR==0 or undefined/non-finite/degenerate, LAVG undefined/non-finite/degenerate, ratio non-finite. Trailing/causal only.",
+    "grep_cmd": "grep -rnE 'LAVG_OVER_RR|lavg_over_rr|rqa_ratio_lavg_over_rr|rqa_lavg_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261108T005230Z",
+    "grep_verify_required": true,
+    "note": "Distinct from C125-C188; not used before (grep 0). LAM_OVER_DET was considered but collides with existing script(s); LAVG_OVER_RR selected as grep-zero fallback. Re-verify grep=0 non-self at C189 run time."
+  },
+  "prior_references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T004812Z.json",
+    "prior_registry_sha256": "1aca1a556e00763cec77945c6c48085b2ba77b1c486932444510d8221124eeb9",
+    "c187_oos": "reports/real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos_20261108T004708Z.json",
+    "c187_oos_sha256": "0f5b82f91352ab34741936164e6d1888e93b4865342ab1f7975c017ee896cd63",
+    "c187_note": "C187 LAVG_OVER_ENTR OOS SHA verified from bytes; C188 uses TREND/DET."
+  }
+}

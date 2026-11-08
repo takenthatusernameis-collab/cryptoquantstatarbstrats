@@ -1,0 +1,72 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T004812Z",
+  "campaign": 187,
+  "registry_supersedes": "reports/strategy_edge_registry_20261107T235740Z.json",
+  "registry_supersedes_sha256": "32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "campaigns": [
+    {
+      "campaign": 185,
+      "strategy_id": "VOLUME_RQA_TT_OVER_LAVG_RATIO_SHOCK_MR",
+      "oos": "reports/real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos_20261107T234714Z.json",
+      "oos_sha256": "f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4",
+      "ingest": "reports/real_feed_ingest_attempt_20261107T234818Z.json",
+      "ingest_sha256": "5fa176cd3f6056b9784d620d581f3ffa88451d1210cf77f656beaa52bf1e01e8",
+      "script": "scripts/run_real_quote_volume_rqa_tt_over_lavg_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "73033702c79fbf5b86de8f52b1ae1ae709345cd70ce0a888ebdae30a47e4155d",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "note": "C185 in-file strategy_id label anomaly (RR_OVER_LAVG vs TT family) recorded; artifact SHA from bytes; no rerun."
+    },
+    {
+      "campaign": 186,
+      "strategy_id": "VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR",
+      "oos": "reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json",
+      "oos_sha256": "8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df",
+      "ingest": "reports/real_feed_ingest_attempt_20261107T235718Z.json",
+      "ingest_sha256": "cb5169c3905fb579384769be3c5f56a1cc08c7d7b0b15bc94ed58333239c50fd",
+      "script": "scripts/run_real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "5bbf466567a838dfc9aa9cecd4647aa2e6957b26faa0de5480f9e221f0e8cba9",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.6928474302642706,
+        "fee5_slip5": -1.116847430264271,
+        "fee10_slip10": -1.5408474302642712,
+        "fee20_slip20": -2.388847430264271,
+        "fee40_slip40": -4.08484743026427
+      }
+    },
+    {
+      "campaign": 187,
+      "strategy_id": "VOLUME_RQA_LAVG_OVER_ENTR_RATIO_SHOCK_MR",
+      "oos": "reports/real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos_20261108T004708Z.json",
+      "oos_sha256": "0f5b82f91352ab34741936164e6d1888e93b4865342ab1f7975c017ee896cd63",
+      "ingest": "reports/real_feed_ingest_attempt_20261108T004812Z.json",
+      "ingest_sha256": "4fdf046ce1e35322f62ee5902e09da083a78e1bc11de9ded2f58774c08d4aaf6",
+      "script": "scripts/run_real_quote_volume_rqa_lavg_over_entr_ratio_shock_mr_costed_oos.py",
+      "script_sha256": "4785c5b3d8e872ecf073d18dbf40a50b76726303d9754e7a396ddcb8d914725a",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.5562567597620807,
+        "fee5_slip5": 0.14225675976208033,
+        "fee10_slip10": -0.2717432402379198,
+        "fee20_slip20": -1.0997432402379197,
+        "fee40_slip40": -2.7557432402379196
+      }
+    }
+  ],
+  "prior_registry_chain_note": "Supersedes C186 registry (32245884\u2026). C104-C185 prior history retained in prior registries/artifacts; see prior_registry file for chain."
+}
