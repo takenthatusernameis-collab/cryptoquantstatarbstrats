@@ -1,0 +1,36 @@
+{
+  "campaign": 231,
+  "generated_at_utc": "20261108T212828Z",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.9927292321067769,
+    "fee5_slip5": -1.6447292321067775,
+    "fee10_slip10": -2.296729232106778,
+    "fee20_slip20": -3.600729232106778,
+    "fee40_slip40": -6.208729232106778
+  },
+  "artifacts": [
+    {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_kurtosis_shock_mr_costed_oos_20261108T212312Z.json",
+      "sha256": "9a4fb5c0952efb56d90e3a686a919f22208c68a9d810573a30599684d4602391"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261108T212828Z.json",
+      "sha256": "ae6851be9d4ccf23b0b3b8179f704e1ac939c2929fb3c89618ba9856a33d9d2a"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261108T212828Z.json",
+      "sha256": "96fa421aea6f1a3a2bfd4d15d444638046e07b1e30988116bbf774a779fb3e40"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_kurtosis_shock_mr_costed_oos.py",
+      "sha256": "9be645dc51bfeae9a1e08cf41b8a45879998722288f304f04ef3f3b29fcad877"
+    }
+  ],
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T211144Z.json",
+    "sha256": "6b01e3d24d5f60e52fb7a2284b686d15d000eeebe5d39c058e2ad0f11df79a14"
+  }
+}
