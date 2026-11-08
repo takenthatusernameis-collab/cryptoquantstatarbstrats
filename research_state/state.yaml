@@ -62,7 +62,7 @@ latest_oos:
     sha256: 8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e
   summary:
     path: reports/campaign229_execution_summary_20261108T203312Z.json
-    sha256: b84fba4267ee48dae71d9d3e3a90d6a4604e60265b7afef5f830f37c87963201
+    sha256: c3f9a51697ec77cc21a6e1872bf7f9da7dde552760e99d21272540f8888556d7
   pre_stated_distinctness:
     grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|rte_over_white_diag_line_count_variance|WHITE_DIAG_LINE_COUNT_VARIANCE|white_diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
@@ -95,7 +95,7 @@ c229_completed:
     ingest: {path: reports/real_feed_ingest_attempt_20261108T203312Z.json, sha256: 8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e}
     registry: {path: reports/strategy_edge_registry_20261108T203312Z.json, sha256: d0e372129157ef70ecabbe0fba8608d2835a7c26548a6d893ba8bf5c184f51a2}
     script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py, sha256: 70f30d070c36dc8fbdb571067edddb116cc7e7015c428ac9c08a6451f4e6a1bb}
-    summary: {path: reports/campaign229_execution_summary_20261108T203312Z.json, sha256: b84fba4267ee48dae71d9d3e3a90d6a4604e60265b7afef5f830f37c87963201}
+    summary: {path: reports/campaign229_execution_summary_20261108T203312Z.json, sha256: c3f9a51697ec77cc21a6e1872bf7f9da7dde552760e99d21272540f8888556d7}
   pre_stated_distinctness:
     grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|rte_over_white_diag_line_count_variance|WHITE_DIAG_LINE_COUNT_VARIANCE|white_diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
