@@ -1,0 +1,43 @@
+{
+  "tool": "campaign193_execution_summary",
+  "generated_at_utc": "20261108T015950Z",
+  "campaign": 193,
+  "strategy_id": "VOLUME_RQA_DIV_OVER_RR_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_div_over_rr_ratio_shock_mr_costed_oos_20261108T015857Z.json",
+      "sha256": "ce7c1e69b8553b0a47f63ee9be77145e92a1d0b94678e151fbbe69b0b541704e"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T015950Z.json",
+      "sha256": "670f86779fee0649aaaa953b4543bc613d736dd18d56c7e18be509e0cc97faa3"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T015950Z.json",
+      "sha256": "7471b609d6fcab19362eb051e70e42e438021ab5b14dab23b59b0e530c970f4a"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_div_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "a6745538c4c1c60b26a886561867f0b39012957e7a715339491999ed9a8adcd6"
+    }
+  },
+  "all_new_c193_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c193_preselected": {
+    "family_primary": "VOLUME_RQA_DIV_OVER_RR_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'DIV_OVER_RR|div_over_rr|rqa_ratio_div_over_rr|rqa_div_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C193 primary DIV_OVER_RR grep 0 verified before implementation/run; now consumed by C193."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T015434Z.json",
+    "prior_registry_sha256": "78d3fc45a916b81ba3ecc7f8251995c927691ed4335f7e97b454679ad01b0193",
+    "c192_oos": "reports/real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos_20261108T015314Z.json",
+    "c192_oos_sha256": "4ea5074e8a8e89544a61eab06ae7e02d942d8a1bbb2b3a962f0f9bbeb77722f0"
+  }
+}

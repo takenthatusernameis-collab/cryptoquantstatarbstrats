@@ -1,0 +1,35 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T015950Z",
+  "supersedes": "reports/strategy_edge_registry_20261108T015434Z.json",
+  "supersedes_sha256": "78d3fc45a916b81ba3ecc7f8251995c927691ed4335f7e97b454679ad01b0193",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "campaign_latest": 193,
+  "c192": null,
+  "c193": {
+    "campaign": 193,
+    "strategy_id": "VOLUME_RQA_DIV_OVER_RR_RATIO_SHOCK_MR",
+    "family": "RQA DIV/RR ratio shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_div_over_rr_ratio_shock_mr_costed_oos_20261108T015857Z.json",
+    "oos_sha256": "ce7c1e69b8553b0a47f63ee9be77145e92a1d0b94678e151fbbe69b0b541704e",
+    "ingest_path": "reports/real_feed_ingest_attempt_20261108T015950Z.json",
+    "ingest_sha256": "670f86779fee0649aaaa953b4543bc613d736dd18d56c7e18be509e0cc97faa3",
+    "script_path": "scripts/run_real_quote_volume_rqa_div_over_rr_ratio_shock_mr_costed_oos.py",
+    "script_sha256": "a6745538c4c1c60b26a886561867f0b39012957e7a715339491999ed9a8adcd6",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'DIV_OVER_RR|div_over_rr|rqa_ratio_div_over_rr|rqa_div_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261108T015439Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C193 candidate from state/HANDOFF (DIV_OVER_RR); grep-zero confirmed at run time. DIV/RR pairing not used in C125-C192.",
+      "family": "RQA DIV/RR ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "artifact_index": []
+}
