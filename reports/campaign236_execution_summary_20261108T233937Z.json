@@ -1,0 +1,37 @@
+{
+  "generated_at_utc": "20261108T233937Z",
+  "campaign": 236,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GINI_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_gini_shock_mr_costed_oos_20261108T232527Z.json",
+      "sha256": "81d9a4ae5708ce29cd2e5dcde1c163fa1e87379f3aa766dd65a344378f22d0ff"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T233900Z.json",
+      "sha256": "4ac43bd46cab20e389b8091b3cdbb6fe4a6a9ec148bdd1e6a1610509a1eb9cc6"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T233928Z.json",
+      "sha256": "86c477648ec8565fdabd90faefdb647f1a3517bd32da35c25d5fe8e78b88e11c"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_gini_shock_mr_costed_oos.py",
+      "sha256": "07f2a3ec85319802df7a93a347c09bc5d481dffcd69a63b20058cc63d7861e85"
+    }
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.9786825692034395,
+    "fee5_slip5": 0.022682569203438696,
+    "fee10_slip10": -0.9333174307965618,
+    "fee20_slip20": -2.845317430796562,
+    "fee40_slip40": -6.6693174307965615
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": true,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "note": "C236 completed. OOS exposure true, fee0 and fee5 positive, fee10-40 negative. Beat B&H mean rule true. Edge claim NONE (not all cost slices positive)."
+}
