@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C218: RQA ratio RTE/DIAG_LINE_LENGTH_VARIANCE shock on delay-embedded
+"""C218: RQA ratio RTE/DIAG_LINE_COUNT_DIVERGENCE shock on delay-embedded
 log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
@@ -13,14 +13,14 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
         trivial self at i==j). Qualifying w>=w_min with count n_w>0;
         p_w=n_w/sum_u n_u; RTE=-sum_w p_w*ln(p_w). Fail-closed if <2 distinct
         qualifying gap lengths or entropy non-finite/non-positive/degenerate.
-  DIAG_LINE_LENGTH_VARIANCE (denominator) = max(d_k) - mean(d_k) over
+  DIAG_LINE_COUNT_DIVERGENCE (denominator) = max(d_k) - mean(d_k) over
         off-diagonal diagonals k!=0 that have >=1 qualifying diagonal line,
         where d_k is the number of qualifying diagonal runs of consecutive 1s
         with length l>=l_min on diagonal k (LOI excluded by k!=0).
         Fail-closed if <2 diagonals with qualifying lines or divergence <=0/
         non-finite/undefined.
-  RATIO_RTE_DIAG_LINE_LENGTH_VARIANCE = RTE / DIAG_LINE_LENGTH_VARIANCE.
-  Fail-closed to NaN/no-signal if RTE/DIAG_LINE_LENGTH_VARIANCE/ratio undefined/
+  RATIO_RTE_DIAG_LINE_COUNT_DIVERGENCE = RTE / DIAG_LINE_COUNT_DIVERGENCE.
+  Fail-closed to NaN/no-signal if RTE/DIAG_LINE_COUNT_DIVERGENCE/ratio undefined/
   non-finite/degenerate or insufficient qualifying lines/gaps. Causal trailing only.
   Distinct from VERT_LINE_COUNT_DIVERGENCE(C216), VERT_LINE_LENGTH_VARIANCE(C217),
   MAXVERTLINE_DIVERGENCE(C215), MAXDIAGLINE_DIVERGENCE(C214), WMAX(C213),
@@ -58,12 +58,12 @@ VOL_META = cache_dir / "volume_1h_full.meta.json"
 VOL_PROV = cache_dir / "volume_1h_full.provenance.json"
 
 PRIOR_REGISTRY = "reports/strategy_edge_registry_20261108T143601Z.json"
-PRIOR_REGISTRY_SHA = "1dbf7764063fd7cb559614d6b5440a38ea43802856d5a150b6da1a01deb1eb49"
-PRIOR_C217_OOS = (
-    "reports/real_quote_volume_rqa_rte_over_diag_line_count_divergence_shock_mr_costed_oos_"
+PRIOR_REGISTRY_SHA = "1dbf7764063fd7cb559614d6b5440a38ea43802856d4a150b6da1a01deb1eb49"
+PRIOR_C218_OOS = (
+    "reports/real_quote_volume_rqa_rte_over_diag_line_length_variance_shock_mr_costed_oos_"
     "20261108T143601Z.json"
 )
-PRIOR_C217_OOS_SHA = "3aecb9d9f04c7915c010f774d296c70ef2152020807e2069b774a3470f7b820c"
+PRIOR_C218_OOS_SHA = "3aecb9d9f04c7915c010f774d296c70ef2152020807e2069b774a3470f7b820c"
 
 W_RR = 168
 ALB = 336
@@ -193,21 +193,23 @@ def _runs_of_ones(arr: np.ndarray, l_min: int) -> list[int]:
 
 
 def _diag_line_length_variance(R: np.ndarray, l_min: int) -> float:
-    """DIAG_LINE_LENGTH_VARIANCE = sample variance (ddof=1) of qualifying diagonal
-    run lengths l>=l_min pooled across all off-diagonal diagonals k!=0. Fail-closed
-    if <2 qualifying lengths total or variance <=0/non-finite/undefined."""
+    """DIAG_LINE_COUNT_DIVERGENCE = max(d_k) - mean(d_k) over off-diagonal
+    diagonals k!=0 that have >=1 qualifying diagonal run (length >= l_min).
+    d_k is the number of qualifying diagonal runs on diagonal k. Fail-closed
+    if <2 qualifying diagonals or divergence <= 0/non-finite."""
     M_pts = R.shape[0]
-    lengths: list[int] = []
+    pooled: list[int] = []
+    # Off-diagonals k!=0: range -(M_pts-1) .. -1 and 1 .. M_pts-1
     for k in range(-(M_pts - 1), M_pts):
         if k == 0:
             continue
         diag = np.diag(R, k=k)
         runs = _runs_of_ones(diag, l_min)
         if len(runs) >= 1:
-            lengths.extend(runs)
-    if len(lengths) < 2:
+            pooled.extend(runs)
+    if len(pooled) < 2:
         return np.nan
-    arr = np.array(lengths, dtype=float)
+    arr = np.array(pooled, dtype=float)
     var = float(np.var(arr, ddof=1))
     if not np.isfinite(var) or var <= 0:
         return np.nan
@@ -217,7 +219,7 @@ def _diag_line_length_variance(R: np.ndarray, l_min: int) -> float:
 def rqa_rte_over_diag_line_length_variance_window(
     rw: np.ndarray, eps_scale: float, w_min: int, l_min: int
 ) -> float:
-    """RATIO_RTE_DIAG_LINE_LENGTH_VARIANCE = RTE / DIAG_LINE_LENGTH_VARIANCE.
+    """RATIO_RTE_DIAG_LINE_COUNT_DIVERGENCE = RTE / DIAG_LINE_COUNT_DIVERGENCE.
     Fail-closed to NaN."""
     if rw is None or len(rw) < (M_EMB - 1) * TAU + 3:
         return np.nan
@@ -252,7 +254,7 @@ def rqa_rte_over_diag_line_length_variance_window(
     rte = _entropy_nats_from_counts(r_counts)
     if not np.isfinite(rte) or rte <= 0:
         return np.nan
-    # DIAG_LINE_LENGTH_VARIANCE (denominator)
+    # DIAG_LINE_COUNT_DIVERGENCE (denominator)
     dlcd = _diag_line_length_variance(R, l_min)
     if not np.isfinite(dlcd) or dlcd <= 0:
         return np.nan
@@ -436,31 +438,31 @@ def main():
         "strategy_id": "VOLUME_RQA_RTE_OVER_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR",
         "candidate": (
             "VOLUME_RQA_RTE_OVER_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR (RQA ratio "
-            "RTE/DIAG_LINE_LENGTH_VARIANCE on delay-embedded log-volume returns; "
+            "RTE/DIAG_LINE_COUNT_DIVERGENCE on delay-embedded log-volume returns; "
             "RTE=Shannon entropy (nats) of white vertical line length "
             "(recurrence-time gap) distribution over qualifying gaps w>=w_min "
-            "excluding trivial self; DIAG_LINE_LENGTH_VARIANCE=max(d_k)-mean(d_k) "
+            "excluding trivial self; DIAG_LINE_COUNT_DIVERGENCE=max(d_k)-mean(d_k) "
             "over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run "
             "(d_k = number of qualifying diagonal runs of consecutive 1s, "
             "length>=l_min, on diagonal k; LOI excluded by k!=0); "
-            "RATIO_RTE_DIAG_LINE_LENGTH_VARIANCE=RTE/DIAG_LINE_LENGTH_VARIANCE; "
+            "RATIO_RTE_DIAG_LINE_COUNT_DIVERGENCE=RTE/DIAG_LINE_COUNT_DIVERGENCE; "
             "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2)"
         ),
         "feature_definition": (
-            "RATIO_RTE_DIAG_LINE_LENGTH_VARIANCE = RTE / DIAG_LINE_LENGTH_VARIANCE. "
+            "RATIO_RTE_DIAG_LINE_COUNT_DIVERGENCE = RTE / DIAG_LINE_COUNT_DIVERGENCE. "
             "RTE = Shannon entropy (nats) of white vertical line length "
             "(recurrence-time gap) distribution: per column j, gap lengths w of "
             "consecutive zeros between recurrent points excluding i==j; "
             "qualifying w>=w_min (w_min=1), p_w=n_w/sum_u n_u, "
             "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap "
             "lengths or entropy non-finite/non-positive. "
-            "DIAG_LINE_LENGTH_VARIANCE = max(d_k)-mean(d_k) over off-diagonal "
+            "DIAG_LINE_COUNT_DIVERGENCE = max(d_k)-mean(d_k) over off-diagonal "
             "diagonals k!=0 that have >=1 qualifying diagonal run of consecutive 1s "
             "with run length >=l_min (l_min=2); d_k is the count of qualifying runs "
             "on diagonal k. Fail-closed if <2 qualifying diagonals or divergence "
             "<=0/non-finite/undefined. On trailing delay embedding (m=2,tau=1), "
             "L-inf recurrence eps=0.5*std(window). Causal trailing only; "
-            "fail-closed to NaN/no-signal if RTE/DIAG_LINE_LENGTH_VARIANCE/ratio "
+            "fail-closed to NaN/no-signal if RTE/DIAG_LINE_COUNT_DIVERGENCE/ratio "
             "undefined/non-finite/degenerate or insufficient qualifying lines/gaps."
         ),
         "pre_stated_distinctness": {
@@ -477,7 +479,7 @@ def main():
             ),
             "selection_note": (
                 "Primary C218 candidate RTE_OVER_DIAG_LINE_LENGTH_VARIANCE "
-                "(DIAG_LINE_LENGTH_VARIANCE = max(d_k)-mean(d_k) over off-diagonal "
+                "(DIAG_LINE_COUNT_DIVERGENCE = max(d_k)-mean(d_k) over off-diagonal "
                 "diagonals k!=0 with >=1 qualifying diagonal run; d_k = number of "
                 "qualifying diagonal runs of length>=l_min on diagonal k); "
                 "grep-zero non-self confirmed at run time. Distinct from "
@@ -488,7 +490,7 @@ def main():
                 "ENTR(C202), existing VERT_HORIZ_LINE_MAX_RATIO. "
                 "RTE_OVER_DIAG_LINE_LENGTH_VARIANCE not used C125-C217."
             ),
-            "family": "RQA RTE/DIAG_LINE_LENGTH_VARIANCE ratio shock on volume dynamics",
+            "family": "RQA RTE/DIAG_LINE_COUNT_DIVERGENCE ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
@@ -519,7 +521,7 @@ def main():
                 "gap lengths or entropy non-finite/non-positive"
             ),
             "diag_line_count_divergence_definition": (
-                "DIAG_LINE_LENGTH_VARIANCE = max(d_k)-mean(d_k) over off-diagonal "
+                "DIAG_LINE_COUNT_DIVERGENCE = max(d_k)-mean(d_k) over off-diagonal "
                 "diagonals k!=0 with >=1 qualifying diagonal run of consecutive 1s "
                 "(length >= l_min=2); d_k = number of qualifying runs on diagonal k. "
                 "Fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/"
@@ -534,8 +536,8 @@ def main():
         "references": {
             "prior_registry": PRIOR_REGISTRY,
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c217_oos": PRIOR_C217_OOS,
-            "c217_oos_sha256": PRIOR_C217_OOS_SHA,
+            "c217_oos": PRIOR_C218_OOS,
+            "c217_oos_sha256": PRIOR_C218_OOS_SHA,
             "c217_note": (
                 "C217 OOS SHA verified from bytes (VOLUME_RQA_RTE_OVER_"
                 "VERT_LINE_LENGTH_VARIANCE_SHOCK_MR, oos_edge_proven false). "
