@@ -1,0 +1,59 @@
+{
+  "campaign": 233,
+  "generated_at_utc": "20261108T220650Z",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_real",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "any_exposure_oos": true,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -1.859703456753104,
+    "fee5_slip5": -3.003703456753105,
+    "fee10_slip10": -4.1477034567531055,
+    "fee20_slip20": -6.435703456753105,
+    "fee40_slip40": -11.011703456753104
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "new_artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos_20261108T215934Z.json",
+      "sha256": "d4322c91bb23f8a8f274d404c6e59fb4730db7d06857f0bada5de50778aa639e"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T220650Z.json",
+      "sha256": "a7812c0918209236c2434f63090ad09567929cf3d3b4249d83b1167aa88485d5"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T220650Z.json",
+      "sha256": "8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6",
+      "supersedes": "reports/strategy_edge_registry_20261108T213825Z.json",
+      "supersedes_sha256": "3877682020aced181d3411860e2cbce53ea64e3fab8a8bfb7e22c0f3fb273e54"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py",
+      "sha256": "891485e841d4bd073728e42d0058a38d28ee70056c4313e951f2c1f5177f0e99"
+    }
+  ],
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR|rte_over_white_diag_line_length_iqr|WHITE_DIAG_LINE_LENGTH_IQR|white_diag_line_length_iqr' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:2:\"\"\"C233: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_IQR shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_LENGTH_IQR (denominator) = interquartile range Q3-Q1\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:21:  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_IQR = RTE / WHITE_DIAG_LINE_LENGTH_IQR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:22:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_IQR/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:29:  RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR not used C125-C232.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:79:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:80:    \"rte_over_white_diag_line_length_iqr|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:81:    \"WHITE_DIAG_LINE_LENGTH_IQR|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:82:    \"white_diag_line_length_iqr\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:103:        and (\"white_diag_line_length_iqr\" in ln.lower()\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:104:             or \"rte_over_white_diag_line_length_iqr\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:188:def _white_diag_line_length_iqr(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:189:    \"\"\"WHITE_DIAG_LINE_LENGTH_IQR = interquartile range Q3-Q1 (scale=1, numpy\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:214:def rqa_rte_over_white_diag_line_length_iqr_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:217:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_IQR = RTE / WHITE_DIAG_LINE_LENGTH_IQR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:252:    # WHITE_DIAG_LINE_LENGTH_IQR (denominator)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:253:    iqr = _white_diag_line_length_iqr(R, w_min)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:295:                rqa_rte_over_white_diag_line_length_iqr_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:372:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:373:        \"strategy_family\": \"volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_real\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:379:            \"RTE / WHITE_DIAG_LINE_LENGTH_IQR on delay-embedded (m=2,tau=1) log-volume \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:382:            \"WHITE_DIAG_LINE_LENGTH_IQR=denominator (interquartile range Q3-Q1, scale=1, \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:430:            \"c233_note\": \"C232 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR, oos_edge_proven false). C233 uses WHITE_DIAG_LINE_LENGTH_IQR = interquartile range Q3-Q1 (scale=1) of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0 (>=3 segments required), distinct from C125-C232 families.\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py:447:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos\"",
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_MAD (C232)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230)",
+      "WHITE_DIAG_LINE_COUNT_VARIANCE (C229)",
+      "DIAG_LINE_COUNT_VARIANCE (C228)",
+      "WHITE_DIAG_LINE_LENGTH_DIVERGENCE (C227)",
+      "WHITE_DIAG_LINE_LENGTH_VARIANCE (C226)",
+      "C125-C232 prior RQA ratio families"
+    ]
+  },
+  "note": "Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE. C232 locked; no reruns of locked C104-C232."
+}

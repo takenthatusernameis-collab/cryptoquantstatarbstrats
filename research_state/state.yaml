@@ -1,4 +1,4 @@
-updated_at_utc: 20261108T213825Z
+updated_at_utc: 20261108T220650Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
@@ -23,86 +23,45 @@ caches_verified:
   - data/cache/volume_1h_full.pkl
   - data/cache/volume_1h_full.meta.json
   - data/cache/volume_1h_full.provenance.json
-latest_campaign_done: C232
-next_campaign: C233
-locked_campaigns: C104-C232
+latest_campaign_done: C233
+next_campaign: C234
+locked_campaigns: C104-C233
 oos_edge_proven: false
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T213825Z.json
-  sha256: 3877682020aced181d3411860e2cbce53ea64e3fab8a8bfb7e22c0f3fb273e54
-  supersedes: reports/strategy_edge_registry_20261108T212828Z.json
-  supersedes_sha256: 96fa421aea6f1a3a2bfd4d15d444638046e07b1e30988116bbf774a779fb3e40
+  path: reports/strategy_edge_registry_20261108T220650Z.json
+  sha256: 8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6
+  supersedes: reports/strategy_edge_registry_20261108T213825Z.json
+  supersedes_sha256: 3877682020aced181d3411860e2cbce53ea64e3fab8a8bfb7e22c0f3fb273e54
 latest_oos:
-  campaign: C232
-  family: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_median_abs_dev_shock_mr_costed_oos_20261108T213355Z.json
-  sha256: 7b9bd417b0ba4b9820f9bf30d61e5f4b017f005ac3304e40208115a3edaf2fc1
+  campaign: C233
+  family: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos_20261108T215934Z.json
+  sha256: d4322c91bb23f8a8f274d404c6e59fb4730db7d06857f0bada5de50778aa639e
   oos_edge_proven: false
   edge_claim: NONE
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -1.3490544354441005
-    fee5_slip5: -2.4850544354441015
-    fee10_slip10: -3.621054435444102
-    fee20_slip20: -5.8930544354441015
-    fee40_slip40: -10.437054435444102
+    fee0_slip0: -1.859703456753104
+    fee5_slip5: -3.003703456753105
+    fee10_slip10: -4.1477034567531055
+    fee20_slip20: -6.435703456753105
+    fee40_slip40: -11.011703456753104
   script:
-    path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_abs_dev_shock_mr_costed_oos.py
-    sha256: cae160cec40ea01863b55d805b64db56b3dd283dc99946146582ddefde662b54
+    path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py
+    sha256: 891485e841d4bd073728e42d0058a38d28ee70056c4313e951f2c1f5177f0e99
   ingest:
-    path: reports/real_feed_ingest_attempt_20261108T213825Z.json
-    sha256: 65209b45e7cf7385855f3d0abe76792c8769748e21b60f992c5c8e29fd82099b
+    path: reports/real_feed_ingest_attempt_20261108T220650Z.json
+    sha256: a7812c0918209236c2434f63090ad09567929cf3d3b4249d83b1167aa88485d5
   summary:
-    path: reports/campaign232_execution_summary_20261108T213825Z.json
-    sha256: 9e37c43d080e36610b887674d62ee51575035c073c8afa407b41beb233f7aaef
+    path: reports/campaign233_execution_summary_20261108T220650Z.json
+    sha256: edf86c24831d7dd403284acb4c95fc15af0815154b3a5440d3b3f80f0bc761bd
   pre_stated_distinctness:
-    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD|rte_over_white_diag_line_length_mad|RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV|WHITE_DIAG_LINE_LENGTH_MAD|WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV|white_diag_line_length_mad|white_diag_line_length_median_abs_dev' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR|rte_over_white_diag_line_length_iqr|WHITE_DIAG_LINE_LENGTH_IQR|white_diag_line_length_iqr' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
     grep_hits_at_selection: 0
-    grep_verified_utc: 20261108T213825Z
-c229_completed:
-  campaign: C229
-  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json, sha256: 98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6}
-    ingest: {path: reports/real_feed_ingest_attempt_20261108T203312Z.json, sha256: 8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e}
-    registry: {path: reports/strategy_edge_registry_20261108T203312Z.json, sha256: d0e372129157ef70ecabbe0fba8608d2835a7c26548a6d893ba8bf5c184f51a2}
-    script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py, sha256: 70f30d070c36dc8fbdb571067edddb116cc7e7015c428ac9c08a6451f4e6a1bb}
-    summary: {path: reports/campaign229_execution_summary_20261108T203312Z.json, sha256: c3f9a51697ec77cc21a6e1872bf7f9da7dde552760e99d21272540f8888556d7}
-c230_completed:
-  campaign: C230
-  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos_20261108T211144Z.json, sha256: b92adc7c512c7bded370ba7ceb04b4dbdd2ff29becf0ce0a40a7d11b696222f7}
-    ingest: {path: reports/real_feed_ingest_attempt_20261108T211144Z.json, sha256: 6179ee09162edb2b91e02631890dd4f22847c9c876b75af6142aa1eb51d13e72}
-    registry: {path: reports/strategy_edge_registry_20261108T211144Z.json, sha256: 6b01e3d24d5f60e52fb7a2284b686d15d000eeebe5d39c058e2ad0f11df79a14}
-    script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_shock_mr_costed_oos.py, sha256: acca713261c79ab98e152f44bb111422434904fdace2d5d49531919bba5bf824}
-    summary: {path: reports/campaign230_execution_summary_20261108T211144Z.json, sha256: 8960224c3b7c3d48bdf783322b5a4c1d0cb5dec834c04450ebc09a5259e01f55}
-  cross_asset_oos_net_sums: {fee0_slip0: -0.17438866897960414, fee5_slip5: -0.4853886689796044, fee10_slip10: -0.7963886689796046, fee20_slip20: -1.4183886689796044, fee40_slip40: -2.6623886689796046}
-c231_completed:
-  campaign: C231
-  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_kurtosis_shock_mr_costed_oos_20261108T212312Z.json, sha256: 9a4fb5c0952efb56d90e3a686a919f22208c68a9d810573a30599684d4602391}
-    ingest: {path: reports/real_feed_ingest_attempt_20261108T212828Z.json, sha256: ae6851be9d4ccf23b0b3b8179f704e1ac939c2929fb3c89618ba9856a33d9d2a}
-    registry: {path: reports/strategy_edge_registry_20261108T212828Z.json, sha256: 96fa421aea6f1a3a2bfd4d15d444638046e07b1e30988116bbf774a779fb3e40}
-    script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_kurtosis_shock_mr_costed_oos.py, sha256: 9be645dc51bfeae9a1e08cf41b8a45879998722288f304f04ef3f3b29fcad877}
-    summary: {path: reports/campaign231_execution_summary_20261108T212828Z.json, sha256: 936aa12e0376f1266c573f9c6327b2d0df0b57dd9d2f49189cdbd98e4359f55c}
-  pre_stated_distinctness:
-    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS|rte_over_white_diag_line_length_kurtosis|WHITE_DIAG_LINE_LENGTH_KURTOSIS|white_diag_line_length_kurtosis' scripts/ strategies/ backtest/ utils/ 2>&1"
-    grep_hits_nonself_at_run: 0
-    grep_hits_at_selection: 0
-    grep_verified_utc: 20261108T212312Z
-  cross_asset_oos_net_sums: {fee0_slip0: -0.9927292321067769, fee5_slip5: -1.6447292321067775, fee10_slip10: -2.296729232106778, fee20_slip20: -3.600729232106778, fee40_slip40: -6.208729232106778}
-  edge_note: Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE.
+    grep_verified_utc: 20261108T215934Z
 c232_completed:
   campaign: C232
   strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR
@@ -121,20 +80,38 @@ c232_completed:
     grep_verified_utc: 20261108T213825Z
   cross_asset_oos_net_sums: {fee0_slip0: -1.3490544354441005, fee5_slip5: -2.4850544354441015, fee10_slip10: -3.621054435444102, fee20_slip20: -5.8930544354441015, fee40_slip40: -10.437054435444102}
   edge_note: Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE.
-c233_preselected:
-  candidate: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR
-  feature: RQA ratio RTE / WHITE_DIAG_LINE_LENGTH_IQR on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_LENGTH_IQR = interquartile range Q3-Q1 of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segments or IQR<=0/non-finite). Distinct from WHITE_DIAG_LINE_LENGTH_MAD(C232), WHITE_DIAG_LINE_LENGTH_KURTOSIS(C231), WHITE_DIAG_LINE_LENGTH_SKEWNESS(C230), WHITE_DIAG_LINE_COUNT_VARIANCE(C229), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), and prior C125-C232 families.
-  grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR|rte_over_white_diag_line_length_iqr|WHITE_DIAG_LINE_LENGTH_IQR|white_diag_line_length_iqr' scripts/ strategies/ backtest/ utils/ 2>&1"
+c233_completed:
+  campaign: C233
+  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos_20261108T215934Z.json, sha256: d4322c91bb23f8a8f274d404c6e59fb4730db7d06857f0bada5de50778aa639e}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T220650Z.json, sha256: a7812c0918209236c2434f63090ad09567929cf3d3b4249d83b1167aa88485d5}
+    registry: {path: reports/strategy_edge_registry_20261108T220650Z.json, sha256: 8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6}
+    script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py, sha256: 891485e841d4bd073728e42d0058a38d28ee70056c4313e951f2c1f5177f0e99}
+    summary: {path: reports/campaign233_execution_summary_20261108T220650Z.json, sha256: 6d4831c3022c00baebc79ae71976bf44e8760ea115c75f3d3e51cdccf9fe8d71}
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR|rte_over_white_diag_line_length_iqr|WHITE_DIAG_LINE_LENGTH_IQR|white_diag_line_length_iqr' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_nonself_at_run: 0
+    grep_hits_at_selection: 0
+    grep_verified_utc: 20261108T215934Z
+  cross_asset_oos_net_sums: {fee0_slip0: -1.859703456753104, fee5_slip5: -3.003703456753105, fee10_slip10: -4.1477034567531055, fee20_slip20: -6.435703456753105, fee40_slip40: -11.011703456753104}
+  edge_note: Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE.
+c234_preselected:
+  candidate: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV_SHOCK_MR
+  feature: RQA ratio RTE / WHITE_DIAG_LINE_LENGTH_CV on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_LENGTH_CV = coefficient of variation = std(ddof=1)/mean of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segments or mean<=0 or std<=0 or CV<=0/non-finite). Distinct from WHITE_DIAG_LINE_LENGTH_IQR(C233), WHITE_DIAG_LINE_LENGTH_MAD(C232), WHITE_DIAG_LINE_LENGTH_KURTOSIS(C231), WHITE_DIAG_LINE_LENGTH_SKEWNESS(C230), WHITE_DIAG_LINE_COUNT_VARIANCE(C229), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), and prior C125-C233 families.
+  grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV|rte_over_white_diag_line_length_cv|WHITE_DIAG_LINE_LENGTH_CV|white_diag_line_length_cv' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_nonself_at_selection: 0
-  grep_verified_utc: 20261108T213825Z
-  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2 (trailing/causal; fail-closed if <3 qualifying segments or IQR<=0/non-finite)
-  fallback_note: at C233 start grep-verify; if collision, pick distinct grep-zero RQA-ratio candidate not used C125-C232 and record evidence.
+  grep_verified_utc: 20261108T220650Z
+  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2 (trailing/causal; fail-closed if <3 qualifying segments or mean<=0 or std<=0 or CV<=0/non-finite)
+  fallback_note: at C234 start grep-verify; if collision, pick distinct grep-zero RQA-ratio candidate not used C125-C233 and record evidence.
 bottlenecks_removed:
-- C231 completed (20261108T212312Z/212828Z): VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KURTOSIS_SHOCK_MR, grep-zero distinct (0 non-self), oos_edge_proven false/edge_claim NONE, >=4 artifacts with SHA256 from bytes; registry supersedes 20261108T211144Z (6b01e3d2...). C231 no longer blocks C232.
-- C232 completed (20261108T213355Z/213825Z): VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR, grep-zero distinct (0 non-self), oos_edge_proven false/edge_claim NONE, >=4 artifacts with SHA256 from bytes (OOS+ingest+registry+script+summary); registry supersedes 20261108T212828Z (96fa421a...). C232 no longer blocks C233.
-- No reruns of locked C104-C232. No gate/threshold weakening; no proxies labeled real; nonspot fail-closed.
+- C232 completed (20261108T213355Z/213825Z): VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR, grep-zero distinct, oos_edge_proven false/edge_claim NONE, >=4 artifacts with SHA256 from bytes; registry supersedes 20261108T212828Z. C232 no longer blocks C233.
+- C233 completed (20261108T215934Z/20261108T220650Z): VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR, grep-zero distinct (0 non-self), oos_edge_proven false/edge_claim NONE, >=4 artifacts with SHA256 from bytes (OOS+ingest+registry+script+summary); registry supersedes 20261108T213825Z (38776820...). C233 no longer blocks C234.
+- No reruns of locked C104-C233. No gate/threshold weakening; no proxies labeled real; nonspot fail-closed.
 - Distinctness grep-verified before run and recorded (collision handling fail-closed).
 mandatory:
-- 'No status-only replies. Heavy work mandatory: C232 complete; execute C233 immediately under same template (grep-verify distinctness 0 non-self before implementation/run; handle collisions fail-closed to a distinct grep-zero fallback and record evidence).'
-- 'C233 deliverables: OOS script + run + ingest + registry (superseding reports/strategy_edge_registry_20261108T213825Z.json) + summary listing all new artifact paths + sha256 from bytes; sync state.yaml + HANDOFF; set campaign: 233, no carryover template text.'
+- 'No status-only replies. Heavy work mandatory: C233 complete; execute C234 immediately under same template (grep-verify distinctness 0 non-self before implementation/run; handle collisions fail-closed to a distinct grep-zero fallback and record evidence).'
+- 'C234 deliverables: OOS script + run + ingest + registry (superseding reports/strategy_edge_registry_20261108T220650Z.json) + summary listing all new artifact paths + sha256 from bytes; sync state.yaml + HANDOFF; set campaign: 234, no carryover template text.'
 - 'Edge claim ONLY if OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], real data only).'
