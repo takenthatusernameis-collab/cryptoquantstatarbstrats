@@ -1,4 +1,4 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (UPDATED: 20261108T025328Z, C195 COMPLETE/LOCKED, NEXT=C196 MANDATORY INITIAL TASK)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (UPDATED: 20261108T025353Z, C195 COMPLETE/LOCKED, NEXT=C196 MANDATORY INITIAL TASK)
 **Repo:** `cryptoquantstatarbstrats`. Fail-closed, **real-data-only** stat-arb edge validation — WF OOS 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C195 LOCKED.**
 
 ## VERIFIED BASELINE (20261108T025136Z — current)
