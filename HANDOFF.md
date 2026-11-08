@@ -1,7 +1,7 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T142149Z, C104–C215 LOCKED — edge_claim NONE, C216 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T142220Z, C104–C215 LOCKED — edge_claim NONE, C216 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C215 LOCKED (no reruns). C216 preselected and grep-zero — execute C216 next, no status-first.**
 
-## TIMESTAMPED INITIAL TASK MESSAGE (20261108T133543Z) — HEAVY WORK MANDATORY
+## TIMESTAMPED INITIAL TASK MESSAGE (20261108T142220Z) — HEAVY WORK MANDATORY
 **PRIORITY 1: EXECUTE C216.** C215 is complete on disk (VOLUME_RQA_RTE_OVER_MAXVERTLINE_DIVERGENCE_SHOCK_MR, `edge_claim:NONE`; cross-asset net sums fee0=0.09179416775637406, fee5=-0.10820583224362611, fee10=-0.3082058322436262, fee20=-0.7082058322436261, fee40=-1.508205832243626 — fails all-cost-positive / B&H mean rule). **Do not summarize status. Do not stop at status. Implement + run C216 + emit >=4 artifacts with SHA256 from bytes + sync state.yaml + HANDOFF.**
 
 ## VERIFIED BASELINE (20261108T133543Z)
