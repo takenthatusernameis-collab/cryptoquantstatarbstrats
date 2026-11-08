@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C203: RQA ratio RTE/LAM (recurrence-time entropy / lamerminism) shock on
+"""C205: RQA ratio RTE/TT (recurrence-time entropy / trapping time) shock on
 delay-embedded log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
@@ -13,17 +13,16 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
         trivial self at i==j). Qualifying w>=w_min with count n_w>0;
         p_w=n_w/sum_u n_u; RTE=-sum_w p_w*ln(p_w). Fail-closed if <2 distinct
         qualifying gap lengths or entropy non-finite/non-positive/degenerate.
-  DET (denominator) = RQA lamerminism = (2 * sum of upper-triangle diagonal
-        line lengths l>=v_min_lam over diagonals k>=1) / sum of off-diagonal
-        recurrent points R_ij (i!=j). Fail-closed if denominator <= 0, DET
-        non-finite, or DET <= 0 / > (1+tol).
-  RATIO_RTE_DET = RTE / DET.
-  Fail-closed to NaN/no-signal if RTE undefined/non-finite/degenerate, DET
-  undefined/non-finite/degenerate, ratio non-finite, or insufficient qualifying
-  lines/gaps. Causal trailing only.
-  Distinct from C125-C202 (RTE/LAM pairing not used; ENTR_OVER_DET ineligible
-  nonzero grep; DET_OVER_RTE used C200; LAM_OVER_DET ineligible nonzero grep).
-  Grep 0 non-self required at run time.
+  TT (denominator) = RQA trapping time = average length of vertical lines with
+        v>=v_min (v_min=2): mean of all qualifying vertical line lengths in
+        the trailing window. Fail-closed if no qualifying vertical lines, TT
+        non-finite, or TT <= 0.
+  RATIO_RTE_TT = RTE / TT.
+  Fail-closed to NaN/no-signal if RTE/TT/ratio undefined/non-finite/degenerate
+  or insufficient qualifying lines/gaps. Causal trailing only.
+  Distinct from C125-C204 (RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used
+  C202; LAM_OVER_RTE used C199 is a different pairing; RTE_OVER_RR ineligible
+  nonzero grep). Grep 0 non-self required at run time.
 """
 
 from __future__ import annotations
@@ -66,7 +65,7 @@ ALB = 336
 M_EMB = 2
 TAU = 1
 EPS_SCALE = 0.5
-V_MIN_LAM = 2
+V_MIN_TT = 2
 W_MIN = 1
 ENTRY_Z = 1.5
 EXIT_Z = 0.5
@@ -130,27 +129,6 @@ def wf_splits(n: int, train: int, test: int, step: int):
     return out
 
 
-def _diagonal_line_lengths(R: np.ndarray, v_min_lam: int) -> list[int]:
-    """Qualifying diagonal line lengths l >= v_min_lam (standard RQA DET).
-    Counts diagonals k = j-i for k >= 1 (upper triangle, off main) to avoid
-    double-counting; main diagonal excluded (trivial)."""
-    M_pts = R.shape[0]
-    lengths: list[int] = []
-    for k in range(1, M_pts):
-        diag = np.diag(R, k=k)
-        run = 0
-        for val in diag:
-            if val:
-                run += 1
-            else:
-                if run >= v_min_lam:
-                    lengths.append(run)
-                run = 0
-        if run >= v_min_lam:
-            lengths.append(run)
-    return lengths
-
-
 def _vertical_line_lengths(R: np.ndarray, v_min: int) -> list[int]:
     """Vertical line lengths v >= v_min (standard RQA LAM). Counts runs of
     consecutive 1s in each column (vertical structures), excluding trivial? include all."""
@@ -204,9 +182,9 @@ def _entropy_nats_from_counts(counts: dict[int, int]) -> float:
 
 
 def rqa_rte_over_tt_ratio_window(
-    rw: np.ndarray, eps_scale: float, v_min_lam: int, w_min: int
+    rw: np.ndarray, eps_scale: float, v_min: int, w_min: int
 ) -> float:
-    """RATIO_RTE_DET = RTE / DET. Fail-closed to NaN."""
+    """RATIO_RTE_TT = RTE / TT. Fail-closed to NaN."""
     if rw is None or len(rw) < (M_EMB - 1) * TAU + 3:
         return np.nan
     if not np.all(np.isfinite(rw)):
@@ -231,7 +209,7 @@ def rqa_rte_over_tt_ratio_window(
     # TT (denominator): trapping time = mean of vertical line lengths v>=v_min
     # (v_min=2) in trailing window. Fail-closed if no qualifying vertical lines
     # or TT non-finite or TT<=0.
-    v_lengths = _vertical_line_lengths(R, v_min_lam)
+    v_lengths = _vertical_line_lengths(R, v_min)
     if len(v_lengths) == 0:
         return np.nan
     tt = float(np.mean(v_lengths))
@@ -288,7 +266,7 @@ def run_asset(spot: pd.Series, vol: pd.Series):
             w = rvol[i - W_RR + 1 : i + 1]
             wf = w[np.isfinite(w)]
             if len(wf) >= int(0.9 * W_RR):
-                last_val = rqa_rte_over_tt_ratio_window(wf, EPS_SCALE, V_MIN_LAM, W_MIN)
+                last_val = rqa_rte_over_tt_ratio_window(wf, EPS_SCALE, V_MIN_TT, W_MIN)
             else:
                 last_val = np.nan
         feat[i] = last_val
@@ -424,33 +402,31 @@ def main():
     out = {
         "tool": "real_quote_volume_rqa_rte_over_tt_ratio_shock_mr_costed_oos",
         "generated_at_utc": ts,
-        "campaign": 204,
+        "campaign": 205,
         "strategy_id": "VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR",
         "candidate": (
-            "VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR (RQA ratio RTE/LAM on "
+            "VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR (RQA ratio RTE/TT on "
             "delay-embedded log-volume returns; RTE=Shannon entropy (nats) of "
             "white vertical line length (recurrence-time gap) distribution over "
-            "qualifying gaps w>=w_min excluding trivial self; DET=lamerminism "
-            "=(2*sum upper-triangle diagonal line lengths l>=v_min_lam)/sum(off-diag "
-            "R); RATIO_RTE_DET=RTE/LAM; m=2,tau=1,eps=0.5*std(r_window),W_RR="
-            "168,v_min_lam=2,w_min=1)"
+            "qualifying gaps w>=w_min excluding trivial self; TT=RQA trapping "
+            "time = mean of vertical line lengths v>=v_min (v_min=2); "
+            "RATIO_RTE_TT=RTE/TT; m=2,tau=1,eps=0.5*std(r_window),W_RR="
+            "168,w_min=1,v_min=2)"
         ),
         "feature_definition": (
-            "RATIO_RTE_DET = RTE / DET. RTE = Shannon entropy (nats) of white "
+            "RATIO_RTE_TT = RTE / TT. RTE = Shannon entropy (nats) of white "
             "vertical line length (recurrence-time gap) distribution: per "
             "column j, gap lengths w of consecutive zeros between recurrent "
             "points excluding i==j; qualifying w>=w_min (w_min=1), "
             "p_w=n_w/sum_u n_u, RTE=-sum_w p_w*ln(p_w); fail-closed if <2 "
             "distinct qualifying gap lengths or entropy non-finite/"
-            "non-positive. DET = lamerminism = (2*sum of upper-triangle "
-            "diagonal line lengths l>=v_min_lam over diagonals k>=1) / sum of "
-            "off-diagonal recurrent points R_ij (i!=j); fail-closed if "
-            "off-diag<=0 or DET not in (0,1]. On trailing W_RR=168 delay "
-            "embedding (m=2,tau=1), L-inf recurrence eps=0.5*std(window). "
-            "Causal trailing only; fail-closed to NaN/no-signal if RTE "
-            "undefined/non-finite/degenerate, DET undefined/non-finite/"
-            "degenerate, ratio non-finite, or insufficient qualifying "
-            "lines/gaps."
+            "non-positive. TT = trapping time = mean of all vertical line "
+            "lengths v>=v_min (v_min=2) in the trailing W_RR=168 window; "
+            "fail-closed if no qualifying vertical lines, TT non-finite, or "
+            "TT <= 0. On trailing delay embedding (m=2,tau=1), L-inf "
+            "recurrence eps=0.5*std(window). Causal trailing only; "
+            "fail-closed to NaN/no-signal if RTE/TT/ratio undefined/"
+            "non-finite/degenerate or insufficient qualifying lines/gaps."
         ),
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
@@ -465,13 +441,13 @@ def main():
                 "Primary candidate used."
             ),
             "selection_note": (
-                "Primary C203 candidate from state/HANDOFF (RTE_OVER_TT); "
-                "grep-zero confirmed at run time. ENTR_OVER_DET/LAM_OVER_DET/"
-                "DET_OVER_ENTR/TT_OVER_ENTR ineligible (nonzero grep). "
-                "DET_OVER_RTE used C200; ENTR_OVER_RTE used C201; RTE_OVER_ENTR "
-                "used C202."
+                "Primary C205 candidate from state/HANDOFF (RTE_OVER_TT); "
+                "grep-zero confirmed at run time. RTE/LAM used C204; RTE/DET "
+                "used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 "
+                "(different pairing); RTE_OVER_RR ineligible (nonzero grep). "
+                "RTE_OVER_TT not used C125-C204."
             ),
-            "family": "RQA RTE/LAM ratio shock on volume dynamics",
+            "family": "RQA RTE/TT ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
@@ -487,7 +463,7 @@ def main():
         },
         "params": {
             "w_rr": W_RR, "alb": ALB, "m_emb": M_EMB, "tau": TAU, "eps_scale": EPS_SCALE,
-            "v_min_lam": V_MIN_LAM, "w_min": W_MIN, "entry_z": ENTRY_Z, "exit_z": EXIT_Z,
+            "v_min": V_MIN_TT, "w_min": W_MIN, "entry_z": ENTRY_Z, "exit_z": EXIT_Z,
             "max_hold": MAX_HOLD, "train": TRAIN, "test": TEST, "step": STEP,
             "cost_grid": COST_GRID, "feature_compute_step": 2,
             "feature_compute_note": (
@@ -501,10 +477,11 @@ def main():
                 "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying "
                 "gap lengths or entropy non-finite/non-positive"
             ),
-            "lam_definition": (
-                "DET = lamerminism = (2*sum of upper-triangle diagonal line "
-                "lengths l>=v_min_lam, k>=1) / sum(off-diag R_ij); fail-closed if "
-                "off-diag<=0 or DET not in (0,1]"
+            "tt_definition": (
+                "TT = trapping time = mean of all vertical line lengths "
+                "v>=v_min (v_min=2) in the trailing W_RR=168 window; "
+                "fail-closed if no qualifying vertical lines, TT non-finite, "
+                "or TT <= 0"
             ),
             "gap_definition": (
                 "gap length w = number of consecutive 0-cells between "
