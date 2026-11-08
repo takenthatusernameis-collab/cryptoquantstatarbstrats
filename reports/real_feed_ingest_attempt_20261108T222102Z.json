@@ -1,0 +1,84 @@
+{
+  "generated_at_utc": "20261108T222102Z",
+  "campaign": 234,
+  "scope": "real_feed_ingest_attempt_c234",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "nonspot_ingest": "blocked_fail_closed",
+  "rb_unblocked": true,
+  "rb_unblocked_feed": "real_quote_volume",
+  "cache_verified": {
+    "spot": {
+      "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+      "meta_path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+      "meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d"
+    },
+    "real_quote_volume": {
+      "pkl": {
+        "path": "data/cache/volume_1h_full.pkl",
+        "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c"
+      },
+      "meta": {
+        "path": "data/cache/volume_1h_full.meta.json",
+        "sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616"
+      },
+      "provenance": {
+        "path": "data/cache/volume_1h_full.provenance.json",
+        "sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+      }
+    }
+  },
+  "validation": {
+    "ok": true,
+    "refused": false,
+    "family": "real_quote_volume",
+    "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "fail_closed": true,
+    "real_data_only_required": true,
+    "fabricated_data_allowed": false,
+    "notes_limits_gaps": "",
+    "provenance_source": "<dict>",
+    "provenance_merged": true,
+    "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "multi_symbol_long_frame": {
+      "group_col": "symbol",
+      "n_groups": 16,
+      "global_duplicate_timestamps": 76680,
+      "within_group_duplicates": 0,
+      "checked": "per_symbol_monotonic_unique"
+    },
+    "reason": "passed_all_fail_closed_checks",
+    "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+    "rows": 81792,
+    "columns": [
+      "timestamp_utc",
+      "symbol",
+      "quote_volume_usdt"
+    ],
+    "family_spec": "real_quote_volume"
+  },
+  "fail_closed_notes": [
+    "Nonspot feeds remain blocked fail-closed; no proxies labeled real; no fabricated feeds/provenance/results.",
+    "R-B unblocked only for validated real_quote_volume cache with provenance/meta/pkl SHA256 recorded."
+  ],
+  "artifacts": {
+    "c234_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos_20261108T221325Z.json",
+      "sha256": "3fb43291866383c8a7b710ac531f4ca8ed82aea08a5d88e1052f5693c1e39ff9"
+    },
+    "c234_script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py",
+      "sha256": "cd8c82ca495c468a6cf0b1261c329911fe08fb6cdc7f0e2683c2061e62e7c6db"
+    },
+    "prior_registry": {
+      "path": "reports/strategy_edge_registry_20261108T220650Z.json",
+      "sha256": "8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6"
+    },
+    "c233_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos_20261108T215934Z.json",
+      "sha256": "d4322c91bb23f8a8f274d404c6e59fb4730db7d06857f0bada5de50778aa639e"
+    }
+  }
+}

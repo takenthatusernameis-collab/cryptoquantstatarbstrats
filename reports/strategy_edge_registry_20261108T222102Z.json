@@ -1,0 +1,99 @@
+{
+  "generated_at_utc": "20261108T222102Z",
+  "campaign": 234,
+  "scope": "strategy_edge_registry_c234_superseding",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T220650Z.json",
+    "sha256": "8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6"
+  },
+  "locked_campaigns": "C104-C233",
+  "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+  "c234": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV_SHOCK_MR",
+    "strategy_family": "volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_real",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": true,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.5621939679802503,
+      "fee5_slip5": -0.32780603201975045,
+      "fee10_slip10": -1.217806032019751,
+      "fee20_slip20": -2.997806032019751,
+      "fee40_slip40": -6.55780603201975
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos_20261108T221325Z.json",
+        "sha256": "3fb43291866383c8a7b710ac531f4ca8ed82aea08a5d88e1052f5693c1e39ff9"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py",
+        "sha256": "cd8c82ca495c468a6cf0b1261c329911fe08fb6cdc7f0e2683c2061e62e7c6db"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T222102Z.json",
+        "sha256": "e50cbcaf70594bf7faa295259a9f6af58b4bdddb40e97b960ce31c628cc08561"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV|rte_over_white_diag_line_length_cv|WHITE_DIAG_LINE_LENGTH_CV|white_diag_line_length_cv' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:2:\"\"\"C234: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_CV shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_LENGTH_CV (denominator) = coefficient of variation = std(ddof=1)/mean\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:20:  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_CV = RTE / WHITE_DIAG_LINE_LENGTH_CV.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:21:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_CV/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:28:  RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV not used C125-C233.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:78:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:79:    \"rte_over_white_diag_line_length_cv|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:80:    \"WHITE_DIAG_LINE_LENGTH_CV|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:81:    \"white_diag_line_length_cv\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:102:        and (\"white_diag_line_length_cv\" in ln.lower()\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:103:             or \"rte_over_white_diag_line_length_cv\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:187:def _white_diag_line_length_cv(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:188:    \"\"\"WHITE_DIAG_LINE_LENGTH_CV = coefficient of variation = std(ddof=1)/mean\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:216:def rqa_rte_over_white_diag_line_length_cv_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:219:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_CV = RTE / WHITE_DIAG_LINE_LENGTH_CV.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:254:    # WHITE_DIAG_LINE_LENGTH_CV (denominator)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:255:    cv = _white_diag_line_length_cv(R, w_min)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:297:                rqa_rte_over_white_diag_line_length_cv_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:374:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:375:        \"strategy_family\": \"volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_real\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:381:            \"RTE / WHITE_DIAG_LINE_LENGTH_CV on delay-embedded (m=2,tau=1) log-volume \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:384:            \"WHITE_DIAG_LINE_LENGTH_CV=denominator (coefficient of variation = std(ddof=1)/mean) \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:433:            \"c234_note\": \"C233 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR, oos_edge_proven false). C234 uses WHITE_DIAG_LINE_LENGTH_CV = coefficient of variation std(ddof=1)/mean of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0 (>=3 segments required, mean>0, std>0), distinct from C125-C233 families.\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py:450:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos\"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_IQR (C233)",
+        "WHITE_DIAG_LINE_LENGTH_MAD (C232)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231)",
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230)",
+        "WHITE_DIAG_LINE_COUNT_VARIANCE (C229)",
+        "DIAG_LINE_COUNT_VARIANCE (C228)",
+        "WHITE_DIAG_LINE_LENGTH_DIVERGENCE (C227)",
+        "WHITE_DIAG_LINE_LENGTH_VARIANCE (C226)",
+        "C125-C233 prior RQA ratio families"
+      ]
+    }
+  },
+  "prior_context": {
+    "c233": {
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_IQR_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos_20261108T215934Z.json",
+          "sha256": "d4322c91bb23f8a8f274d404c6e59fb4730db7d06857f0bada5de50778aa639e"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_iqr_shock_mr_costed_oos.py",
+          "sha256": "891485e841d4bd073728e42d0058a38d28ee70056c4313e951f2c1f5177f0e99"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T220650Z.json",
+          "sha256": "a7812c0918209236c2434f63090ad09567929cf3d3b4249d83b1167aa88485d5"
+        },
+        "registry": {
+          "path": "reports/strategy_edge_registry_20261108T220650Z.json",
+          "sha256": "8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6"
+        },
+        "summary": {
+          "path": "reports/campaign233_execution_summary_20261108T220650Z.json",
+          "sha256": "edf86c24831d7dd403284acb4c95fc15af0815154b3a5440d3b3f80f0bc761bd"
+        }
+      }
+    },
+    "prior_registry_included_keys": [
+      "campaign",
+      "generated_at_utc",
+      "supersedes",
+      "prior_registry_preserved",
+      "edge_rule",
+      "c233_entry"
+    ]
+  }
+}
