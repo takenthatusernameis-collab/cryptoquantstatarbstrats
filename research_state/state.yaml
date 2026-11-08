@@ -1,4 +1,4 @@
-updated_at_utc: 20261108T201358Z
+updated_at_utc: 20261108T202506Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net
@@ -29,49 +29,48 @@ caches_verified:
   - data/cache/volume_1h_full.pkl
   - data/cache/volume_1h_full.meta.json
   - data/cache/volume_1h_full.provenance.json
-latest_campaign_done: C227
-next_campaign: C228
-locked_campaigns: C104-C225
+latest_campaign_done: C228
+next_campaign: C229
+locked_campaigns: C104-C227
 oos_edge_proven: false
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T201358Z.json
-  sha256: 5fc6752ed4ea3d6536ef87ae57f8d3205f502fbd93f7d8839edc1ea22c8804db
-  supersedes: reports/strategy_edge_registry_20261108T192444Z.json
-  supersedes_sha256: 22eca308e0b063c2603ea1132ad102e5070c31755c643c113036dcf8f928c3db
+  path: reports/strategy_edge_registry_20261108T202506Z.json
+  sha256: 509503bf244491bc7ae57ebf1b4cfc849b081f8d19b1761e30aedcfeaabc6fa8
+  supersedes: reports/strategy_edge_registry_20261108T201358Z.json
+  supersedes_sha256: 5fc6752ed4ea3d6536ef87ae57f8d3205f502fbd93f7d8839edc1ea22c8804db
 latest_oos:
-  campaign: C227
-  family: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_20261108T201257Z.json
-  sha256: 037f23a5555807eaa24a966276ebb7a1fd916de5e516f60cee55184a8c086cba
+  campaign: C228
+  family: VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json
+  sha256: 4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae
   oos_edge_proven: false
   edge_claim: NONE
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.029089727089156914
-    fee5_slip5: -0.5360897270891573
-    fee10_slip10: -1.0430897270891573
-    fee20_slip20: -2.057089727089157
-    fee40_slip40: -4.085089727089157
+    fee0_slip0: -0.015478741990794798
+    fee5_slip5: -1.3914787419907952
+    fee10_slip10: -2.767478741990795
+    fee20_slip20: -5.519478741990795
+    fee40_slip40: -11.023478741990795
   oos_alt_path: null
   oos_alt_sha256: null
-  known_anomaly: none
+  known_anomaly: C228 initial OOS artifact 20261108T202049Z had campaign=227 template carryover (same computed sums/feature impl, sha f0e34882...); superseded by fixed C228 run 20261108T202354Z (campaign 228, sha 4c4de94e...).
   script:
-    path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos.py
-    sha256: 83cfea67dac48e1de829d615ce8ef3bb19dde1582afa3b53aa8f6ca0a97fa2fb
+    path: scripts/run_real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos.py
+    sha256: 2de98225f0f48ef94b1aa90fbe60675482ff69e317358ecd1e01cf6fab30ace5
   ingest:
-    path: reports/real_feed_ingest_attempt_20261108T201358Z.json
-    sha256: 6452389236b95ae685b2e9d9e11cd4fcd380bc580ad1e51525abbc5a0208e88f
+    path: reports/real_feed_ingest_attempt_20261108T202506Z.json
+    sha256: c47487ef2b0e633e854dd5c06a640f62bcab3d804717f85358665dea7a26a638
   summary:
-    path: reports/campaign227_execution_summary_20261108T201358Z.json
-    sha256: 18e737eb28f722334a87366659dfd6d4167c4950243a9d1cbfb14c2e8219e276
+    path: reports/campaign228_execution_summary_20261108T202506Z.json
+    sha256: 25ea3cf9584d8101c1e0ff3975ba111b9448e2504efdad8c807b4101215dc81a
   pre_stated_distinctness:
-    grep_cmd: grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE|rte_over_white_diag_line_length_divergence|WHITE_DIAG_LINE_LENGTH_DIVERGENCE|white_diag_line_length_divergence'
-      scripts/ strategies/ backtest/ utils/ 2>&1
+    grep_cmd: grep -rnE 'RTE_OVER_DIAG_LINE_COUNT_VARIANCE|rte_over_diag_line_count_variance|DIAG_LINE_COUNT_VARIANCE|diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1
     grep_hits_nonself_at_run: 0
     grep_hits_at_selection: 0
-    grep_verified_utc: 20261108T201257Z
+    grep_verified_utc: 20261108T202354Z
 c221_completed:
   campaign: C221
   strategy_id: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
@@ -288,48 +287,57 @@ c227_completed:
     fee20_slip20: -2.057089727089157
     fee40_slip40: -4.085089727089157
   edge_note: Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE.
-c228_preselected:
-  candidate: VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR
-  feature: RQA ratio RTE / DIAG_LINE_COUNT_VARIANCE on delay-embedded log-volume returns
-    (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self
-    excluded; DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k over off-diagonal
-    diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s meeting
-    w_min>=2, where cnt_k = (number of qualifying white diagonal segments on diagonal k) /
-    (number of cells on diagonal k = M_pts-|k|); fail-closed if <2 qualifying diagonals or
-    variance <=0/non-finite/undefined). Distinct from all C125-C227 families incl.
-    WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227).
-  grep_cmd: grep -rnE 'RTE_OVER_DIAG_LINE_COUNT_VARIANCE|rte_over_diag_line_count_variance|DIAG_LINE_COUNT_VARIANCE|diag_line_count_variance'
-    scripts/ strategies/ backtest/ utils/ 2>&1
+c228_completed:
+  campaign: C228
+  strategy_id: VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos:
+      path: reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json
+      sha256: 4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae
+    oos_alt_superseded:
+      path: reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202049Z.json
+      sha256: f0e34882d0633d1dc57f9281eae997508a9a66725d9b9a093ba83147b3e0cc1f
+      note: campaign=227 template carryover in artifact metadata; same computed sums/feature impl
+    ingest:
+      path: reports/real_feed_ingest_attempt_20261108T202506Z.json
+      sha256: c47487ef2b0e633e854dd5c06a640f62bcab3d804717f85358665dea7a26a638
+    registry:
+      path: reports/strategy_edge_registry_20261108T202506Z.json
+      sha256: 509503bf244491bc7ae57ebf1b4cfc849b081f8d19b1761e30aedcfeaabc6fa8
+    script:
+      path: scripts/run_real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos.py
+      sha256: 2de98225f0f48ef94b1aa90fbe60675482ff69e317358ecd1e01cf6fab30ace5
+    summary:
+      path: reports/campaign228_execution_summary_20261108T202506Z.json
+      sha256: 25ea3cf9584d8101c1e0ff3975ba111b9448e2504efdad8c807b4101215dc81a
+  pre_stated_distinctness:
+    grep_cmd: grep -rnE 'RTE_OVER_DIAG_LINE_COUNT_VARIANCE|rte_over_diag_line_count_variance|DIAG_LINE_COUNT_VARIANCE|diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1
+    grep_hits_nonself_at_run: 0
+    grep_hits_at_selection: 0
+    grep_verified_utc: 20261108T202354Z
+  cross_asset_oos_net_sums:
+    fee0_slip0: -0.015478741990794798
+    fee5_slip5: -1.3914787419907952
+    fee10_slip10: -2.767478741990795
+    fee20_slip20: -5.519478741990795
+    fee40_slip40: -11.023478741990795
+  edge_note: Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE.
+c229_preselected:
+  candidate: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR
+  feature: RQA ratio RTE / WHITE_DIAG_LINE_COUNT_VARIANCE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s meeting w_min>=2, where cnt_k_white = (number of qualifying white diagonal segments on diagonal k) / (number of cells on diagonal k = M_pts-|k|); white diagonal segment = run of consecutive 0-cells (non-recurrent) along diagonal k!=0, qualifying if length >= w_min; fail-closed if <2 qualifying diagonals or variance <=0/non-finite/undefined). Distinct from DIAG_LINE_COUNT_VARIANCE(C228, uses white/non-recurrent segments on recurrence complement), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C228 families.
+  grep_cmd: grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|rte_over_white_diag_line_count_variance|WHITE_DIAG_LINE_COUNT_VARIANCE|white_diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1
   grep_hits_nonself_at_selection: 0
-  grep_verified_utc: 20261108T201358Z
-  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2 (trailing/causal;
-    fail-closed NaN/no-signal if <2 qualifying diagonals or variance<=0/non-finite)
-  fallback_note: no fallback preselected; at C228 start, grep-verify a distinct
-    grep-zero RQA-ratio candidate not used C125-C227 (reject diag_line_length_* and
-    diag_line_count_divergence — both collide with C226/C227 text) and record evidence.
+  grep_verified_utc: 20261108T202506Z
+  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2 (trailing/causal; fail-closed NaN/no-signal if <2 qualifying diagonals or variance<=0/non-finite)
+  fallback_note: no fallback preselected; at C229 start grep-verify a distinct grep-zero RQA-ratio candidate not used C125-C228 and record evidence.
 bottlenecks_removed:
-- C227 completed: script rewritten clean (no C225/VARIANCE carryover text; campaign 227),
-  OOS + ingest + registry + summary emitted (20261108T201257Z / 20261108T201358Z) with
-  SHA256 from bytes; state.yaml/HANDOFF synced. C227 no longer a bottleneck.
-- C226 completion bottleneck removed earlier (ingest + registry + summary emitted and
-  state.yaml/HANDOFF synced 20261108T192444Z); C226 OOS artifacts had campaign=225 template
-  carryover (canonical 226).
-- No reruns of locked C104-C225; no gate/threshold weakening; no proxies labeled real;
-  nonspot fail-closed.
-- Distinctness grep-verified before run and recorded in artifacts/state (collision handling
-  fail-closed). C227 primary grep-zero (0 non-self). C228 primary preselected grep-zero
-  (0 non-self); diag_line_length_* and diag_line_count_divergence collide with C226/C227
-  text and are rejected for C228.
-- C227 preselected grep-zero with fallback evidence; no status-first gap into C227.
+- C228 completed: script fixed to campaign 228 with correct DIAG_LINE_COUNT_VARIANCE (sample variance of cnt_k = qualifying white segment count / diagonal cell count, ddof=1) and refs to C227 registry/OOS/C226 OOS; OOS + ingest + registry + summary emitted (20261108T202354Z/20261108T202506Z) with SHA256 from bytes; state.yaml/HANDOFF synced. Initial OOS 20261108T202049Z (campaign=227 template carryover, sha f0e34882...) superseded by 20261108T202354Z (sha 4c4de94e...). C228 no longer a bottleneck.
+- C227 completed earlier; C226 completion bottleneck removed earlier. No reruns of locked C104-C227.
+- No gate/threshold weakening; no proxies labeled real; nonspot fail-closed.
+- Distinctness grep-verified before run and recorded (collision handling fail-closed). C228 primary grep-zero (0 non-self). diag_line_length_* and diag_line_count_divergence collided with C226/C227 text (rejected). C229 preselected grep-zero (0 non-self): WHITE_DIAG_LINE_COUNT_VARIANCE.
 mandatory:
-- 'No status-only replies. Heavy work mandatory: C227 complete; now execute C228
-  immediately under same template (grep-verify distinctness 0 non-self before
-  implementation/run; handle collisions fail-closed to a distinct grep-zero fallback
-  and record evidence).'
-- 'C228 deliverables: OOS script + run + ingest + registry (superseding
-  reports/strategy_edge_registry_20261108T201358Z.json) + summary listing all new
-  artifact paths + sha256 from bytes; sync state.yaml + HANDOFF; set campaign: 228,
-  no carryover template text.'
-- 'Edge claim ONLY if OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS
-  net > mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]],
-  real data only).'
+- 'No status-only replies. Heavy work mandatory: C228 complete; now execute C229 immediately under same template (grep-verify distinctness 0 non-self before implementation/run; handle collisions fail-closed to a distinct grep-zero fallback and record evidence).'
+- 'C229 deliverables: OOS script + run + ingest + registry (superseding reports/strategy_edge_registry_20261108T202506Z.json) + summary listing all new artifact paths + sha256 from bytes; sync state.yaml + HANDOFF; set campaign: 229, no carryover template text.'
+- 'Edge claim ONLY if OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], real data only).'

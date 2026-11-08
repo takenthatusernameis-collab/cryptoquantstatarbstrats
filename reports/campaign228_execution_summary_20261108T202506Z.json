@@ -1,0 +1,52 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T202506Z",
+  "campaign": 228,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.015478741990794798,
+    "fee5_slip5": -1.3914787419907952,
+    "fee10_slip10": -2.767478741990795,
+    "fee20_slip20": -5.519478741990795,
+    "fee40_slip40": -11.023478741990795
+  },
+  "artifacts_sha256_from_bytes": [
+    {
+      "path": "reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json",
+      "sha256": "4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae"
+    },
+    {
+      "path": "reports/real_feed_ingest_attempt_20261108T202506Z.json",
+      "sha256": "c47487ef2b0e633e854dd5c06a640f62bcab3d804717f85358665dea7a26a638"
+    },
+    {
+      "path": "reports/strategy_edge_registry_20261108T202506Z.json",
+      "sha256": "509503bf244491bc7ae57ebf1b4cfc849b081f8d19b1761e30aedcfeaabc6fa8"
+    },
+    {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos.py",
+      "sha256": "2de98225f0f48ef94b1aa90fbe60675482ff69e317358ecd1e01cf6fab30ace5"
+    }
+  ],
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_DIAG_LINE_COUNT_VARIANCE|rte_over_diag_line_count_variance|DIAG_LINE_COUNT_VARIANCE|diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_at_utc": "20261108T202354Z",
+    "primary_used": "VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+    "fallback_used": null,
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_DIAG_LINE_COUNT_VARIANCE/DIAG_LINE_COUNT_VARIANCE patterns (verified before run); distinctness confirmed. Primary candidate used (no collision fallback). diag_line_length_* and diag_line_count_divergence collided with C226/C227 text (rejected for C228).",
+    "family": "RQA RTE/DIAG_LINE_COUNT_VARIANCE ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T201358Z.json",
+    "prior_registry_sha256": "5fc6752ed4ea3d6536ef87ae57f8d3205f502fbd93f7d8839edc1ea22c8804db",
+    "c227_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_20261108T201257Z.json",
+    "c227_oos_sha256": "037f23a5555807eaa24a966276ebb7a1fd916de5e516f60cee55184a8c086cba",
+    "c226_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos_20261108T192253Z.json",
+    "c226_oos_sha256": "c670c83caea7b53b58eb5138b3a17b74ae138569fb7a01557a212df550583665"
+  }
+}
