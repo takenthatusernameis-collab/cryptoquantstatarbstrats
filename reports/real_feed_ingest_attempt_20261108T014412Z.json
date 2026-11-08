@@ -1,0 +1,58 @@
+{
+  "campaign": 191,
+  "generated_at_utc": "20261108T014412Z",
+  "real_data_only": true,
+  "fail_closed": true,
+  "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+  "rb_unblocked": true,
+  "validated_feed": "real_quote_volume",
+  "caches": {
+    "volume_pkl": {
+      "path": "data/cache/volume_1h_full.pkl",
+      "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c"
+    },
+    "volume_meta": {
+      "path": "data/cache/volume_1h_full.meta.json",
+      "sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616"
+    },
+    "volume_provenance": {
+      "path": "data/cache/volume_1h_full.provenance.json",
+      "sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+    },
+    "spot_pkl": {
+      "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+    }
+  },
+  "volume_loader_report": {
+    "ok": true,
+    "refused": false,
+    "family": "real_quote_volume",
+    "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "fail_closed": true,
+    "real_data_only_required": true,
+    "fabricated_data_allowed": false,
+    "notes_limits_gaps": "",
+    "provenance_source": "<dict>",
+    "provenance_merged": true,
+    "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "multi_symbol_long_frame": {
+      "group_col": "symbol",
+      "n_groups": 16,
+      "global_duplicate_timestamps": 76680,
+      "within_group_duplicates": 0,
+      "checked": "per_symbol_monotonic_unique"
+    },
+    "reason": "passed_all_fail_closed_checks",
+    "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+    "rows": 81792,
+    "columns": [
+      "timestamp_utc",
+      "symbol",
+      "quote_volume_usdt"
+    ],
+    "family_spec": "real_quote_volume"
+  },
+  "notes": "R-B unblocked on validated real_quote_volume; nonspot blocked fail-closed. No proxies labeled real."
+}
