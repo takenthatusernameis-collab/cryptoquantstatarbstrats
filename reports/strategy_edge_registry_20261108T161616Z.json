@@ -1,0 +1,65 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T161616Z",
+  "campaign": 219,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T143601Z.json",
+    "sha256": "1dbf7764063fd7cb559614d6b5440a38ea43802856d5a150b6da1a01deb1eb49"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 219,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.45961062411649733,
+      "fee5_slip5": 0.12961062411649704,
+      "fee10_slip10": -0.20038937588350308,
+      "fee20_slip20": -0.8603893758835028,
+      "fee40_slip40": -2.180389375883503
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_diag_line_length_variance_shock_mr_costed_oos_20261108T161616Z.json",
+        "sha256": "c11d71057300dcce0f9e14a6b9b7f50baf7ca877617757896eddc3f3f535f1d6"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T161616Z.json",
+        "sha256": "4a4ab9883ad949ecd20784d432b3e0658456a878006c7fa9732830f217a07749"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_diag_line_length_variance_shock_mr_costed_oos.py",
+        "sha256": "2935d5fa8374fbe5c5fc81a3e02324e0dffac7b59f9338f5216b394836254b3b"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_DIAG_LINE_LENGTH_VARIANCE|rte_over_diag_line_length_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "primary_used": "VOLUME_RQA_RTE_OVER_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR",
+      "fallback_used": null
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261108T143601Z.json",
+      "prior_registry_sha256": "1dbf7764063fd7cb559614d6b5440a38ea43802856d5a150b6da1a01deb1eb49",
+      "c218_oos": "reports/real_quote_volume_rqa_rte_over_diag_line_count_divergence_shock_mr_costed_oos_20261108T143601Z.json",
+      "c218_oos_sha256": "3aecb9d9f04c7915c010f774d296c70ef2152020807e2069b774a3470f7b820c"
+    }
+  },
+  "history_refs": {
+    "c218": {
+      "registry": "reports/strategy_edge_registry_20261108T143601Z.json",
+      "registry_sha256": "1dbf7764063fd7cb559614d6b5440a38ea43802856d5a150b6da1a01deb1eb49",
+      "oos": "reports/real_quote_volume_rqa_rte_over_diag_line_count_divergence_shock_mr_costed_oos_20261108T143601Z.json",
+      "oos_sha256": "3aecb9d9f04c7915c010f774d296c70ef2152020807e2069b774a3470f7b820c"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only."
+}
