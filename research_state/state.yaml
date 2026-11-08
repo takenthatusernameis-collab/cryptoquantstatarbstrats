@@ -1,4 +1,4 @@
-updated_at_utc: 20261108T172359Z
+updated_at_utc: 20261108T180900Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net
@@ -24,45 +24,31 @@ caches_verified:
   - data/cache/volume_1h_full.pkl
   - data/cache/volume_1h_full.meta.json
   - data/cache/volume_1h_full.provenance.json
-latest_campaign_done: C221
-next_campaign: C222
-locked_campaigns: C104-C221
+latest_campaign_done: C222
+next_campaign: C223
+locked_campaigns: C104-C222
 oos_edge_proven: false
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T171915Z.json
-  sha256: dd512fef5216c6fc9d4758c1bfb6f75211ba55e8f6ed9bb18ee82bc750348bec
-  supersedes: reports/strategy_edge_registry_20261108T162135Z.json
-  supersedes_sha256: 2bdd04e7a3a43df9236abe09315d35489129be062b0658cc81b0bf56588a327f
+  path: reports/strategy_edge_registry_20261108T172610Z.json
+  sha256: e933070ee91d895e34c3ea6bc58861b62ba39f520d1e83410112e6f0d27e6506
+  supersedes: reports/strategy_edge_registry_20261108T171915Z.json
+  supersedes_sha256: dd512fef5216c6fc9d4758c1bfb6f75211ba55e8f6ed9bb18ee82bc750348bec
 latest_oos:
-  campaign: C221
-  family: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_diag_line_density_divergence_shock_mr_costed_oos_20261108T171915Z.json
-  sha256: a9113bcaa3a8d4dd7819774962bceabb463728b6b199bd7115118d033e005671
+  campaign: C222
+  family: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_diag_line_density_variance_shock_mr_costed_oos_20261108T172610Z.json
+  sha256: 62fc4bcaa896c87095b2c976047196fdf50d9c88e5636127022a736ddea6db82
   oos_edge_proven: false
   edge_claim: NONE
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: -0.011321488706244054
-    fee5_slip5: -0.8213214887062446
-    fee10_slip10: -1.6313214887062444
-    fee20_slip20: -3.2513214887062443
-    fee40_slip40: -6.4913214887062445
-c220_completed:
-  campaign: C220
-  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_white_vert_line_count_divergence_shock_mr_costed_oos_20261108T162135Z.json, sha256: a40a41178c6785fabed93c61d234adf50011b83878bd8599f0a0bd4fa2c2ee7e}
-    ingest: {path: reports/real_feed_ingest_attempt_20261108T162135Z.json, sha256: 8fe26d17853e84eb153d6c0158406e9cd2b7ccffb09db8867fbfe7f3b6803b4c}
-    registry: {path: reports/strategy_edge_registry_20261108T162135Z.json, sha256: 2bdd04e7a3a43df9236abe09315d35489129be062b0658cc81b0bf56588a327f}
-    script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_vert_line_count_divergence_shock_mr_costed_oos.py, sha256: 69d7b1d9e9d862803e7228c7167e60dd298a8997eee3617a3f3437d261705d1e}
-    summary: {path: reports/campaign220_execution_summary_20261108T162135Z.json, sha256: f85bac3621c1d5982849a675404e45f1deabc2c8c6ec39b9518d95a004fb1b71}
-  pre_stated_distinctness:
-    grep_hits_nonself_at_run: 0
-    grep_verified_utc: 20261108T162135Z
+    fee0_slip0: 0.46703030248531685
+    fee5_slip5: -0.4909696975146838
+    fee10_slip10: -1.4489696975146835
+    fee20_slip20: -3.3649696975146832
+    fee40_slip40: -7.1969696975146835
 c221_completed:
   campaign: C221
   strategy_id: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
@@ -79,28 +65,44 @@ c221_completed:
     grep_hits_nonself_at_run: 0
     grep_hits_at_selection: 0
     grep_verified_utc: 20261108T171915Z
-    selection_note: DIAG_LINE_DENSITY_DIVERGENCE = max(rho_k)-mean(rho_k) over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run (rho_k = qualifying run-length sum / M_pts-|k|). Distinct from WHITE_VERT_LINE_COUNT_DIVERGENCE(C220), DIAG_LINE_LENGTH_VARIANCE(C219), DIAG_LINE_COUNT_DIVERGENCE(C218), VERT_LINE_LENGTH_VARIANCE(C217), VERT_LINE_COUNT_DIVERGENCE(C216), MAXDIAGLINE_DIVERGENCE(C214), diagonal L(C211), LMAX(C209), VMAX(C207). Edge rule NOT proven (fee0+ negative net sum); edge_claim NONE.
+c222_completed:
+  campaign: C222
+  strategy_id: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos: {path: reports/real_quote_volume_rqa_rte_over_diag_line_density_variance_shock_mr_costed_oos_20261108T172610Z.json, sha256: 62fc4bcaa896c87095b2c976047196fdf50d9c88e5636127022a736ddea6db82}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T172610Z.json, sha256: 9ce706dd195ef55bac084bb8fe5c9fb0cb68c3075b41239c2f641e6b9b795b14}
+    registry: {path: reports/strategy_edge_registry_20261108T172610Z.json, sha256: e933070ee91d895e34c3ea6bc58861b62ba39f520d1e83410112e6f0d27e6506}
+    script: {path: scripts/run_real_quote_volume_rqa_rte_over_diag_line_density_variance_shock_mr_costed_oos.py, sha256: aa00ef84d4294f8c790c57bb554bee30934d03891ff84915cd379a347f1dccd6}
+    summary: {path: reports/campaign222_execution_summary_20261108T172610Z.json, sha256: 1ede787954666ae536171a889bf8378994fe4479bcf5090597e536f1e69d6ef3}
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'RTE_OVER_DIAG_LINE_DENSITY_VARIANCE|rte_over_diag_line_density_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_nonself_at_run: 0
+    grep_hits_at_selection: 0
+    grep_verified_utc: 20261108T172610Z
+    selection_note: DIAG_LINE_DENSITY_VARIANCE = sample variance ddof=1 of rho_k over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run (rho_k = qualifying run-length sum / M_pts-|k|). Distinct from DIAG_LINE_DENSITY_DIVERGENCE(C221) and prior C125-C221 families. Edge rule NOT proven (net sums non-positive at fee>=5); edge_claim NONE.
 bottlenecks_removed:
-- No reruns of locked C104-C221; no gate/threshold weakening; no proxies labeled real; nonspot fail-closed.
+- No reruns of locked C104-C222; no gate/threshold weakening; no proxies labeled real; nonspot fail-closed.
 - Distinctness grep-verified before run and recorded in artifacts/state (collision handling fail-closed).
 mandatory:
 - 'No status-only replies. Heavy work mandatory: implement/run + emit >=4 artifacts with SHAs from bytes + sync state.yaml + HANDOFF.'
 - 'Next campaign: grep-verify distinctness (0 non-self) before implementation/run; handle collisions fail-closed to a distinct grep-zero fallback and record evidence.'
 - Edge claim ONLY if OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], real data only).
-c222_preselected:
-  candidate: VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR
-  feature: RQA ratio RTE / DIAG_LINE_DENSITY_VARIANCE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; DIAG_LINE_DENSITY_VARIANCE = sample variance ddof=1 of rho_k over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run, where rho_k = (sum of qualifying run lengths l>=l_min on diagonal k) / (number of cells on diagonal k M_pts-|k|); fail-closed if <2 qualifying diagonals or variance <=0/non-finite/undefined). Distinct from DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_VERT_LINE_COUNT_DIVERGENCE(C220), DIAG_LINE_LENGTH_VARIANCE(C219), DIAG_LINE_COUNT_DIVERGENCE(C218), VERT_LINE_LENGTH_VARIANCE(C217), VERT_LINE_COUNT_DIVERGENCE(C216), MAXDIAGLINE_DIVERGENCE(C214), diagonal L(C211), LMAX(C209), VMAX(C207).
-  grep_cmd: "grep -rnE 'RTE_OVER_DIAG_LINE_DENSITY_VARIANCE|rte_over_diag_line_density_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
+c223_preselected:
+  candidate: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
+  feature: RQA ratio RTE / WHITE_DIAG_LINE_DENSITY_DIVERGENCE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_DENSITY_DIVERGENCE = max(rho_k_white)-mean(rho_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal gap/run segment meeting w_min>=2 or analogous white-run definition, where rho_k_white is white-run density/coverage on diagonal k relative to M_pts-|k|; fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/undefined). Distinct from DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_VERT_LINE_COUNT_DIVERGENCE(C220), and prior C125-C221 families.
+  grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE|rte_over_white_diag_line_density_divergence|WHITE_DIAG_LINE_DENSITY_DIVERGENCE|white_diag_line_density_divergence' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_nonself_at_selection: 0
-  grep_verified_utc: 20261108T172246Z
-  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=1 (DIAG_LINE_DENSITY_VARIANCE = var(rho_k, ddof=1); fail-closed NaN/no-signal if <2 qualifying diagonals or variance<=0/non-finite)
+  grep_verified_utc: 20261108T180900Z
+  params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=2 (white diagonal run/gap definition must be explicit and trailing/causal; fail-closed NaN/no-signal if <2 qualifying diagonals or divergence<=0/non-finite)
   fallback_candidates:
-  - VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
   - VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR
-  fallback_grep_evidence_utc_20261108T172246Z:
-    white_diag_line_density_divergence:
-      grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE|rte_over_white_diag_line_density_divergence' scripts/ strategies/ backtest/ utils/ 2>&1"
-      hits: 0
+  - VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR
+  fallback_grep_evidence_utc_20261108T180900Z:
     white_diag_line_count_divergence:
-      grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE|rte_over_white_diag_line_count_divergence' scripts/ strategies/ backtest/ utils/ 2>&1"
+      grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE|rte_over_white_diag_line_count_divergence|WHITE_DIAG_LINE_COUNT_DIVERGENCE|white_diag_line_count_divergence' scripts/ strategies/ backtest/ utils/ 2>&1"
+      hits: 0
+    white_diag_line_density_variance:
+      grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_DENSITY_VARIANCE|rte_over_white_diag_line_density_variance|WHITE_DIAG_LINE_DENSITY_VARIANCE|white_diag_line_density_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
       hits: 0
