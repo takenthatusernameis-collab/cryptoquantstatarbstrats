@@ -1,0 +1,47 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T010105Z",
+  "campaign": 190,
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T005732Z.json",
+    "sha256": "f6af7d1836b30576f4193ea0ddd2d79db41a19ff224b904e30ccf1e7e2420ee8"
+  },
+  "prior_references": {
+    "c189_oos": "reports/real_quote_volume_rqa_lavg_over_rr_ratio_shock_mr_costed_oos_20261108T005624Z.json",
+    "c189_oos_sha256": "dce56d7da8c20d31bf8e3e9436785a3e938c1280288a09db990a7405fa9104c9"
+  },
+  "campaigns": [
+    {
+      "campaign": 190,
+      "strategy_id": "VOLUME_RQA_TT_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_tt_over_rr_ratio_shock_mr_costed_oos_20261108T010005Z.json",
+          "sha256": "5929c7d0467665ec0a7f80ee19b9c3088ae423d0917ab18614c4e729a9b3d04a"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T010105Z.json",
+          "sha256": "1a443faee0053688808d5e97c8ba7ece8c70f698a00210ae13d675dbd81beed5"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_tt_over_rr_ratio_shock_mr_costed_oos.py",
+          "sha256": "17604acc2a7bc329d9f0b21cfb0f6f0cd13d4b1be0bfd0bd2a5143faaaca90de"
+        }
+      },
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'TT_OVER_RR|tt_over_rr|rqa_ratio_tt_over_rr|rqa_tt_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_nonself_hits": 0,
+        "grep_evidence": "Hits found only in C190 script self (tool/strategy_id/candidate/function/filenames/grep string); no prior non-self usage in scripts/strategies/backtest/utils.",
+        "verified_at_utc": "20261108T010105Z"
+      }
+    }
+  ],
+  "notes": "C190 RQA TT/RR ratio shock on real_quote_volume; OOS exposure true but cost/B&H rule not satisfied. Nonspot blocked fail-closed; R-B unblocked on validated real_quote_volume. No edge claim."
+}

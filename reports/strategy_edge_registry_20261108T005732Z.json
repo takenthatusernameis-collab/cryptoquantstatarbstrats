@@ -1,0 +1,47 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T005732Z",
+  "campaign": 189,
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T005205Z.json",
+    "sha256": "aadd225ddaf2bcc83cff6a1c41bb35105c7b8e651e994f152cedb2bb2a04d640"
+  },
+  "prior_references": {
+    "c188_oos": "reports/real_quote_volume_rqa_trend_over_det_ratio_shock_mr_costed_oos_20261108T005102Z.json",
+    "c188_oos_sha256": "efe782e49e1fa6219f05e424d1d9901a12e2cb020cd6d8d6f13d39cc7269ec4e"
+  },
+  "campaigns": [
+    {
+      "campaign": 189,
+      "strategy_id": "VOLUME_RQA_LAVG_OVER_RR_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_lavg_over_rr_ratio_shock_mr_costed_oos_20261108T005624Z.json",
+          "sha256": "dce56d7da8c20d31bf8e3e9436785a3e938c1280288a09db990a7405fa9104c9"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T005732Z.json",
+          "sha256": "ad2c787ae4cc23a4e9e544e788ed9aadd715e13d84566395daf81af3e83e7fde"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_lavg_over_rr_ratio_shock_mr_costed_oos.py",
+          "sha256": "ecd31bdaea66e2151cc339cb11ffc5d608e0308a3d0f0a38abb8a501106b7397"
+        }
+      },
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'LAVG_OVER_RR|lavg_over_rr|rqa_ratio_lavg_over_rr|rqa_lavg_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_nonself_hits": 0,
+        "grep_evidence": "Hits found only in C189 script self (tool/strategy_id/candidate/function/filenames/grep string); no prior non-self usage in scripts/strategies/backtest/utils.",
+        "verified_at_utc": "20261108T005732Z"
+      }
+    }
+  ],
+  "notes": "C189 RQA LAVG/RR ratio shock on real_quote_volume; OOS exposure true but cost/B&H rule not satisfied. Nonspot blocked fail-closed; R-B unblocked on validated real_quote_volume. No edge claim."
+}

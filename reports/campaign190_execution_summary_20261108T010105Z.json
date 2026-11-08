@@ -1,0 +1,51 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T010105Z",
+  "campaign": 190,
+  "strategy_id": "VOLUME_RQA_TT_OVER_RR_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fail_closed": true,
+  "fabricated_data": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_tt_over_rr_ratio_shock_mr_costed_oos_20261108T010005Z.json",
+      "sha256": "5929c7d0467665ec0a7f80ee19b9c3088ae423d0917ab18614c4e729a9b3d04a"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T010105Z.json",
+      "sha256": "1a443faee0053688808d5e97c8ba7ece8c70f698a00210ae13d675dbd81beed5"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T010105Z.json",
+      "sha256": "e052c69a35c2fd0551781831391c44b7104b0d8dfe5534b7fe7e6115af26245a"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_tt_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "17604acc2a7bc329d9f0b21cfb0f6f0cd13d4b1be0bfd0bd2a5143faaaca90de"
+    }
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'TT_OVER_RR|tt_over_rr|rqa_ratio_tt_over_rr|rqa_tt_over_rr_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_nonself_hits": 0,
+    "grep_evidence": "Hits found only in C190 script self (tool/strategy_id/candidate/function/filenames/grep string); no prior non-self usage in scripts/strategies/backtest/utils.",
+    "verified_at_utc": "20261108T010105Z"
+  },
+  "oos_result": {
+    "oos_net_sums": {
+      "fee0_slip0": 0.10468840997309581,
+      "fee5_slip5": -0.22131159002690448,
+      "fee10_slip10": -0.5473115900269048,
+      "fee20_slip20": -1.1993115900269045,
+      "fee40_slip40": -2.5033115900269043
+    }
+  },
+  "c191_preselected": {
+    "family": "VOLUME_RQA_LMAX_OVER_LAVG_RATIO_SHOCK_MR",
+    "metric": "RQA ratio LMAX/LAVG on delay-embedded log-volume returns. LMAX = longest qualifying diagonal line length (k>=1,l>=l_min,excluding LOI). LAVG = mean qualifying diagonal line length. RATIO_LMAX_LAVG = LMAX/LAVG. m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2. Fail-closed NaN if LAVG==0 or undefined/non-finite/degenerate, LMAX undefined/non-finite/degenerate, ratio non-finite. Trailing/causal only.",
+    "grep_cmd": "grep -rnE 'LMAX_OVER_LAVG|lmax_over_lavg|rqa_ratio_lmax_over_lavg|rqa_lmax_over_lavg_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_verify_required": true,
+    "note": "C191 must grep-verify 0 non-self before implementation/run; choose alternate if collision."
+  }
+}
