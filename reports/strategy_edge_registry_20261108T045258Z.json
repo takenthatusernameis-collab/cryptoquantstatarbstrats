@@ -1,0 +1,52 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T045258Z",
+  "campaign": 203,
+  "real_data_only": true,
+  "fail_closed": true,
+  "global_oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T044616Z.json",
+    "sha256": "78a5906062f4eabdcf88ea06107fb4d0bc0dea69095213f9e21a636d48db4eab"
+  },
+  "latest_campaign": {
+    "campaign": 203,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos_20261108T045258Z.json",
+      "sha256": "30d5beb900963bb0fe840cfdef77adcadfaf980a9eb4a1e07c9d28621b979f42"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T045258Z.json",
+      "sha256": "e569dc850c0d0e8474b4c16db4c1611a71907cc03efcc07879396acd1ac625c8"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos.py",
+      "sha256": "a5a3b5c5d2ffd7504e0f7d08cc7cd04d81a704fe43da3eef9d3f1169f81c19df"
+    },
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.7245816627743846,
+      "fee5_slip5": 0.3585816627743843,
+      "fee10_slip10": -0.007418337225615801,
+      "fee20_slip20": -0.7394183372256157,
+      "fee40_slip40": -2.2034183372256155
+    },
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false
+  },
+  "prior_reference": {
+    "c202_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_entr_ratio_shock_mr_costed_oos_20261108T044616Z.json",
+      "sha256": "9992f000f7ba3514f7c3c8f192befcfb95979f161dbef1287334d18d3090d392"
+    },
+    "c200_oos": {
+      "path": "reports/real_quote_volume_rqa_det_over_rte_ratio_shock_mr_costed_oos_20261108T040028Z.json",
+      "sha256": "dba56c09c695278b78ea451c17d4dff35c82bbb283f505b18b03560802bef35e"
+    }
+  },
+  "history_note": "C104-C201 LOCKED (no edge proven). C202 RTE/ENTR no edge claimed. C203 RTE/DET RQA ratio shock MR executed; no edge claimed (oos_edge_proven false). Distinctness grep 0 non-self at run time."
+}

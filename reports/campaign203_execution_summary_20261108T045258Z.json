@@ -1,0 +1,59 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T045258Z",
+  "campaign": 203,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos_20261108T045258Z.json",
+      "sha256": "30d5beb900963bb0fe840cfdef77adcadfaf980a9eb4a1e07c9d28621b979f42"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T045258Z.json",
+      "sha256": "e569dc850c0d0e8474b4c16db4c1611a71907cc03efcc07879396acd1ac625c8"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T045258Z.json",
+      "sha256": "d9a3cfe58c9637cd2e5f466cb8389fd129398cf9ac0ffa2708a7baa4a06d62fb"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos.py",
+      "sha256": "a5a3b5c5d2ffd7504e0f7d08cc7cd04d81a704fe43da3eef9d3f1169f81c19df"
+    }
+  ],
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_DET|rte_over_det|rqa_ratio_rte_over_det|rqa_rte_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T045258Z",
+    "grep_output_at_run": "",
+    "selection_note": "Primary C203 candidate from state/HANDOFF (RTE_OVER_DET); grep-zero confirmed at run time before implementation. ENTR_OVER_DET/LAM_OVER_DET/DET_OVER_ENTR/TT_OVER_ENTR ineligible (nonzero grep). DET_OVER_RTE used C200; ENTR_OVER_RTE used C201; RTE_OVER_ENTR used C202."
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.7245816627743846,
+    "fee5_slip5": 0.3585816627743843,
+    "fee10_slip10": -0.007418337225615801,
+    "fee20_slip20": -0.7394183372256157,
+    "fee40_slip40": -2.2034183372256155
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T044616Z.json",
+    "sha256": "78a5906062f4eabdcf88ea06107fb4d0bc0dea69095213f9e21a636d48db4eab"
+  },
+  "c204_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_LAM_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_LAM|rte_over_lam|rqa_ratio_rte_over_lam|rqa_rte_over_lam_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261108T045258Z",
+    "grep_verify_required": true,
+    "metric_primary": "RQA ratio RTE/LAM on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution over qualifying gaps w>=w_min excluding trivial self; LAM=RQA laminarism = (sum of vertical line lengths v>=v_min)/(sum of all recurrent points off main diagonal); RATIO_RTE_LAM=RTE/LAM. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168. Fail-closed NaN/no-signal if RTE undefined/non-finite/degenerate, LAM undefined/non-finite/degenerate (denominator<=0), ratio non-finite, or insufficient qualifying lines/gaps. Trailing/causal only.",
+    "selection_note": "RTE_OVER_RR had 11 grep hits (ineligible). RTE_OVER_LAM/RTE_OVER_TT/RTE_OVER_TREND/RTE_OVER_VMAX grep 0 observed 20261108T045258Z. RTE_OVER_LAM selected as C204 primary (RTE/LAM pairing not used C125-C203; LAM_OVER_RTE used C199 is a different pairing). Re-verify 0 non-self at C204 run time before implementation; fall back only to another grep-zero RQA-ratio candidate not used C125-C204."
+  }
+}

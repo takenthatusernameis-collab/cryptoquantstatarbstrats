@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261108T044616Z
-latest_campaign_done: C202
-next_campaign: C203
+updated_utc: 20261108T045258Z
+latest_campaign_done: C203
+next_campaign: C204
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,25 +11,25 @@ pytest: available (9.2.0 observed); do not fabricate results
 deps: numpy/scipy/pandas importable (2.5.4/1.18.1/3.1.1 observed)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T044616Z.json
-  sha256: 78a5906062f4eabdcf88ea06107fb4d0bc0dea69095213f9e21a636d48db4eab
-  supersedes: reports/strategy_edge_registry_20261108T040927Z.json
-  supersedes_sha256: f85e6bf3d4cae044a1097887559961349955021906e34513e1b2eb7e2c7a388c
+  path: reports/strategy_edge_registry_20261108T045258Z.json
+  sha256: d9a3cfe58c9637cd2e5f466cb8389fd129398cf9ac0ffa2708a7baa4a06d62fb
+  supersedes: reports/strategy_edge_registry_20261108T044616Z.json
+  supersedes_sha256: 78a5906062f4eabdcf88ea06107fb4d0bc0dea69095213f9e21a636d48db4eab
 latest_oos:
-  campaign: C202
-  family: VOLUME_RQA_RTE_OVER_ENTR_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_entr_ratio_shock_mr_costed_oos_20261108T044616Z.json
-  sha256: 9992f000f7ba3514f7c3c8f192befcfb95979f161dbef1287334d18d3090d392
+  campaign: C203
+  family: VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos_20261108T045258Z.json
+  sha256: 30d5beb900963bb0fe840cfdef77adcadfaf980a9eb4a1e07c9d28621b979f42
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.7819749231630726
-    fee5_slip5: 0.36897492316307223
-    fee10_slip10: -0.044025076836927884
-    fee20_slip20: -0.8700250768369278
-    fee40_slip40: -2.5220250768369277
+    fee0_slip0: 0.7245816627743846
+    fee5_slip5: 0.3585816627743843
+    fee10_slip10: -0.007418337225615801
+    fee20_slip20: -0.7394183372256157
+    fee40_slip40: -2.2034183372256155
 
 c201_completed:
   campaign: C201
@@ -65,28 +65,46 @@ c202_completed:
     grep_output_at_run: ""
     selection_note: "Primary C202 candidate (RTE_OVER_ENTR, inverse of C201 ENTR/RTE); grep-zero confirmed at run time. ENTR_OVER_RTE used C201; DET_OVER_RTE used C200; LAM_OVER_RTE used C199; RR_OVER_ENTR ineligible (C157-family script, nonzero grep)."
 
-c203_preselected:
-  family_primary: VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR
-  fallback_candidates: []
-  metric_primary: "RQA ratio RTE/DET on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution (qualifying gaps w>=w_min=1, excluding trivial self i==j; p_w=n_w/sum_u n_u, RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap lengths or entropy non-finite/non-positive). DET=RQA determinism = (sum of recurrent points belonging to diagonal lines of length>=l_min) / (sum of all off-diagonal recurrent points) in trailing window (standard RQA; fail-closed if denominator <=0 or DET non-finite). RATIO_RTE_DET=RTE/DET. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=1. Fail-closed NaN/no-signal if RTE undefined/non-finite/degenerate, DET undefined/non-finite/degenerate, ratio non-finite, or insufficient qualifying lines/gaps. Trailing/causal only."
-  distinctness_grep_primary: "grep -rnE 'RTE_OVER_DET|rte_over_det|rqa_ratio_rte_over_det|rqa_rte_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+c203_completed:
+  campaign: C203
+  strategy_id: VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos: {path: reports/real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos_20261108T045258Z.json, sha256: 30d5beb900963bb0fe840cfdef77adcadfaf980a9eb4a1e07c9d28621b979f42}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T045258Z.json, sha256: e569dc850c0d0e8474b4c16db4c1611a71907cc03efcc07879396acd1ac625c8}
+    registry: {path: reports/strategy_edge_registry_20261108T045258Z.json, sha256: d9a3cfe58c9637cd2e5f466cb8389fd129398cf9ac0ffa2708a7baa4a06d62fb}
+    script: {path: scripts/run_real_quote_volume_rqa_rte_over_det_ratio_shock_mr_costed_oos.py, sha256: a5a3b5c5d2ffd7504e0f7d08cc7cd04d81a704fe43da3eef9d3f1169f81c19df}
+    summary: {path: reports/campaign203_execution_summary_20261108T045258Z.json, sha256: 9b2ce415a367fed681a8e025692bafa4852b1d58991cd2d4968264c27e64bd1a}
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'RTE_OVER_DET|rte_over_det|rqa_ratio_rte_over_det|rqa_rte_over_det_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_nonself_at_run: 0
+    grep_verified_utc: 20261108T045258Z
+    grep_output_at_run: ""
+    selection_note: "Primary C203 candidate (RTE_OVER_DET); grep-zero confirmed at run time. ENTR_OVER_DET/LAM_OVER_DET/DET_OVER_ENTR/TT_OVER_ENTR ineligible (nonzero grep). DET_OVER_RTE used C200; ENTR_OVER_RTE used C201; RTE_OVER_ENTR used C202."
+
+c204_preselected:
+  family_primary: VOLUME_RQA_RTE_OVER_LAM_RATIO_SHOCK_MR
+  fallback_candidates: [VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR, VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR, VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR]
+  metric_primary: "RQA ratio RTE/LAM on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution over qualifying gaps w>=w_min excluding trivial self; LAM=RQA laminarism = (sum of vertical line lengths v>=v_min)/(sum of all recurrent points off main diagonal); RATIO_RTE_LAM=RTE/LAM. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168. Fail-closed NaN/no-signal if RTE undefined/non-finite/degenerate, LAM undefined/non-finite/degenerate (denominator<=0), ratio non-finite, or insufficient qualifying lines/gaps. Trailing/causal only."
+  distinctness_grep_primary: "grep -rnE 'RTE_OVER_LAM|rte_over_lam|rqa_ratio_rte_over_lam|rqa_rte_over_lam_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261108T044616Z
+  grep_observed_utc: 20261108T045258Z
   grep_verify_required: true
-  selection_note: "DET_OVER_ENTR/LAM_OVER_ENTR/ENTR_OVER_DET/TT_OVER_ENTR had grep hits (10/10/10/14) and are ineligible for C203; RTE_OVER_DET grep 0 verified 20261108T044616Z. Re-verify 0 non-self at C203 run time before implementation; fall back only to another grep-zero RQA-ratio candidate not used C125-C203."
+  selection_note: "RTE_OVER_RR had 11 grep hits (ineligible). RTE_OVER_LAM/RTE_OVER_TT/RTE_OVER_TREND/RTE_OVER_VMAX grep 0 observed 20261108T045258Z. RTE_OVER_LAM selected as C204 primary (RTE/LAM pairing not used C125-C203; LAM_OVER_RTE used C199 is a different pairing). Re-verify 0 non-self at C204 run time before implementation; fall back only to another grep-zero RQA-ratio candidate not used C125-C204."
 
 bottlenecks_removed:
-  - C104-C201 locked; C202 completed (RTE_OVER_ENTR) with OOS+ingest+registry+summary+script, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; state/HANDOFF synced
+  - C104-C201 locked; C202 completed (RTE_OVER_ENTR); C203 completed (RTE_OVER_DET) with OOS+ingest+registry+summary+script, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; state/HANDOFF synced
   - deps_ok numpy/scipy/pandas (2.5.4/1.18.1/3.1.1); caches present; pytest 9.2.0 available
   - no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
   - nonspot ingest does not block R-B on validated real_quote_volume
-  - C202 RTE_OVER_ENTR collision guard 0 non-self at run time; executed with >=4 artifacts on disk, SHAs from bytes
-  - C203 preselect RTE_OVER_DET grep 0 observed (20261108T044616Z); DET_OVER_ENTR/LAM_OVER_ENTR/ENTR_OVER_DET/TT_OVER_ENTR ineligible (nonzero grep)
+  - C202/C203 collision guards 0 non-self at run time; executed with >=4 artifacts on disk, SHAs from bytes
+  - C204 preselect RTE_OVER_LAM grep 0 observed (20261108T045258Z); RTE_OVER_RR ineligible (11 hits); fallbacks RTE_OVER_TT/TREND/VMAX grep 0
   - Single durable handoff (HANDOFF.md) + research_state/state.yaml
 
 mandatory:
-  - No status summary before >= 3 new concrete C202 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - No status summary before >= 3 new concrete C203 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
   - "Heavy work mandatory: implement/run + emit artifacts; no status-only replies"
-  - C202: grep-verify distinctness before implementation/run (done, 0 hits RTE_OVER_ENTR)
+  - C203: grep-verify distinctness before implementation/run (done, 0 hits RTE_OVER_DET)
   - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  - C203 NEXT: grep-verify distinctness before implementation/run; preselect distinct candidate (RTE_OVER_DET grep 0); execute C203 under same template; no status-only replies; no stop after status
+  - C204 NEXT: grep-verify distinctness before implementation/run; preselect distinct candidate (RTE_OVER_LAM grep 0); execute C204 under same template; no status-only replies; no stop after status
