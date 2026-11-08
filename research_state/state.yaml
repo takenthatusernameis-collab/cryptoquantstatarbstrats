@@ -1,4 +1,4 @@
-updated_at_utc: 20261108T171945Z
+updated_at_utc: 20261108T172246Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net
@@ -92,12 +92,12 @@ c222_preselected:
   feature: RQA ratio RTE / DIAG_LINE_DENSITY_VARIANCE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; DIAG_LINE_DENSITY_VARIANCE = sample variance ddof=1 of rho_k over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run, where rho_k = (sum of qualifying run lengths l>=l_min on diagonal k) / (number of cells on diagonal k M_pts-|k|); fail-closed if <2 qualifying diagonals or variance <=0/non-finite/undefined). Distinct from DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_VERT_LINE_COUNT_DIVERGENCE(C220), DIAG_LINE_LENGTH_VARIANCE(C219), DIAG_LINE_COUNT_DIVERGENCE(C218), VERT_LINE_LENGTH_VARIANCE(C217), VERT_LINE_COUNT_DIVERGENCE(C216), MAXDIAGLINE_DIVERGENCE(C214), diagonal L(C211), LMAX(C209), VMAX(C207).
   grep_cmd: "grep -rnE 'RTE_OVER_DIAG_LINE_DENSITY_VARIANCE|rte_over_diag_line_density_variance' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_nonself_at_selection: 0
-  grep_verified_utc: 20261108T171945Z
+  grep_verified_utc: 20261108T172246Z
   params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=1 (DIAG_LINE_DENSITY_VARIANCE = var(rho_k, ddof=1); fail-closed NaN/no-signal if <2 qualifying diagonals or variance<=0/non-finite)
   fallback_candidates:
   - VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE_SHOCK_MR
   - VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR
-  fallback_grep_evidence_utc_20261108T171945Z:
+  fallback_grep_evidence_utc_20261108T172246Z:
     white_diag_line_density_divergence:
       grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_DENSITY_DIVERGENCE|rte_over_white_diag_line_density_divergence' scripts/ strategies/ backtest/ utils/ 2>&1"
       hits: 0
