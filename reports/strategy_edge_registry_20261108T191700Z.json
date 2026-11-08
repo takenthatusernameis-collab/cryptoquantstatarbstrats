@@ -1,0 +1,112 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T191700Z",
+  "campaign": 225,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T183000Z.json",
+    "sha256": "50bc0974e68fa4069c94f0558e8749189f7594319027d3e096d9522e8fc7b5a2"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 225,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.11622082026510105,
+      "fee5_slip5": -1.6537791797348993,
+      "fee10_slip10": -3.423779179734899,
+      "fee20_slip20": -6.9637791797349,
+      "fee40_slip40": -14.0437791797349
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T191100Z.json",
+        "sha256": "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67ff"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T191700Z.json",
+        "sha256": "36b5f35bd8f6f694f913479e2c6cb3e99cd658c10e3e557789d15029df10059c"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos.py",
+        "sha256": "5d493f73fb1727ddf92ae8423a818f3668763b44d10b416e64a4eb915620ea7f"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE|rte_over_white_diag_line_count_divergence|WHITE_DIAG_LINE_COUNT_DIVERGENCE|white_diag_line_count_divergence' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261108T191100Z",
+      "primary_used": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+      "fallback_used": null,
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE/WHITE_DIAG_LINE_COUNT_DIVERGENCE patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+      "selection_note": "Primary C225 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE (WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(cnt_k_white)-mean(cnt_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s meeting w_min>=2, where cnt_k_white = number of qualifying white diagonal segments / diagonal cell count M_pts-|k|); grep-zero non-self confirmed at run time. Distinct from WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C224 families. RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE not used C125-C224. Edge rule NOT proven (fee>=5 cross-asset net sums non-positive); edge_claim NONE.",
+      "family": "RQA RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "history_refs": {
+    "c224_registry": {
+      "path": "reports/strategy_edge_registry_20261108T183000Z.json",
+      "sha256": "50bc0974e68fa4069c94f0558e8749189f7594319027d3e096d9522e8fc7b5a2"
+    },
+    "c224_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_density_variance_shock_mr_costed_oos_20261108T182721Z.json",
+      "sha256": "01e730107d1e671e2bba1672e5a92dba3d2c589f36c130a6349efe5dd3e87e7d"
+    },
+    "c223_registry": {
+      "path": "reports/strategy_edge_registry_20261108T181704Z.json",
+      "sha256": "e8b90fc1a95ed33c853c18b620bf43c2529a34a43e702ea1359c09b53623594d"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "campaign_context": {
+    "latest_campaign": 225,
+    "c225_completed": true,
+    "c225_strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+    "note": "Supersedes C224 registry; C225 executed with preselected primary, grep-verified distinct. C225 OOS edge not proven (edge_claim NONE). Known anomaly: C225 OOS artifacts' references.c224_oos path cites C222's path (...diag_line_density_variance..._20261108T172610Z.json) with C224's SHA 01e73010...; correct C224 OOS path is ...white_diag_line_density_variance..._20261108T182721Z.json. C225 OOS was run twice (190907Z sha 32776161..., 191100Z sha 62da7c25...); 191100Z cited as canonical."
+  },
+  "campaigns": {
+    "C225": {
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE_SHOCK_MR",
+      "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T191100Z.json",
+      "oos_sha256": "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67ff",
+      "oos_alt_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T190907Z.json",
+      "oos_alt_sha256": "32776161fadaf1092f99be1b3e3e74a01e8179d3fa1d9f3027e559076edd1a1e",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261108T191700Z.json",
+      "ingest_sha256": "36b5f35bd8f6f694f913479e2c6cb3e99cd658c10e3e557789d15029df10059c",
+      "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos.py",
+      "script_sha256": "5d493f73fb1727ddf92ae8423a818f3668763b44d10b416e64a4eb915620ea7f",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.11622082026510105,
+        "fee5_slip5": -1.6537791797348993,
+        "fee10_slip10": -3.423779179734899,
+        "fee20_slip20": -6.9637791797349,
+        "fee40_slip40": -14.0437791797349
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE|rte_over_white_diag_line_count_divergence|WHITE_DIAG_LINE_COUNT_DIVERGENCE|white_diag_line_count_divergence' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_hits_nonself_at_run": 0,
+        "grep_verified_at_utc": "20261108T191100Z",
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE/WHITE_DIAG_LINE_COUNT_DIVERGENCE patterns; distinctness confirmed. Primary candidate used (no collision fallback needed).",
+        "selection_note": "WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(cnt_k_white)-mean(cnt_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s meeting w_min>=2 (cnt_k_white = number of qualifying white diagonal segments / diagonal cell count M_pts-|k|); distinct from WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), prior C125-C224. Edge rule NOT proven; edge_claim NONE.",
+        "family": "RQA RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      }
+    }
+  }
+}
