@@ -1,0 +1,64 @@
+{
+  "campaign": 232,
+  "generated_at_utc": "20261108T213825Z",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_median_abs_dev_shock_mr_real",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "any_exposure_oos": true,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -1.3490544354441005,
+    "fee5_slip5": -2.4850544354441015,
+    "fee10_slip10": -3.621054435444102,
+    "fee20_slip20": -5.8930544354441015,
+    "fee40_slip40": -10.437054435444102
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "new_artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_median_abs_dev_shock_mr_costed_oos_20261108T213355Z.json",
+      "sha256": "7b9bd417b0ba4b9820f9bf30d61e5f4b017f005ac3304e40208115a3edaf2fc1"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T213825Z.json",
+      "sha256": "65209b45e7cf7385855f3d0abe76792c8769748e21b60f992c5c8e29fd82099b"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T213825Z.json",
+      "sha256": "3877682020aced181d3411860e2cbce53ea64e3fab8a8bfb7e22c0f3fb273e54",
+      "supersedes": "reports/strategy_edge_registry_20261108T212828Z.json",
+      "supersedes_sha256": "96fa421aea6f1a3a2bfd4d15d444638046e07b1e30988116bbf774a779fb3e40"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_abs_dev_shock_mr_costed_oos.py",
+      "sha256": "cae160cec40ea01863b55d805b64db56b3dd283dc99946146582ddefde662b54"
+    },
+    {
+      "kind": "summary",
+      "path": "reports/campaign232_execution_summary_20261108T213825Z.json",
+      "sha256": "8d6d2ac5b3d9e99ac0499c52214a7d283cf129f7f141b95233ad3dc3bec54436"
+    }
+  ],
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD|rte_over_white_diag_line_length_mad|RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV|WHITE_DIAG_LINE_LENGTH_MAD|WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV|white_diag_line_length_mad|white_diag_line_length_median_abs_dev' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_hits_at_selection": 0,
+    "grep_verified_utc": "20261108T213825Z",
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230)",
+      "WHITE_DIAG_LINE_COUNT_VARIANCE (C229)",
+      "DIAG_LINE_COUNT_VARIANCE (C228)",
+      "WHITE_DIAG_LINE_LENGTH_DIVERGENCE (C227)",
+      "WHITE_DIAG_LINE_LENGTH_VARIANCE (C226)",
+      "C125-C231 prior RQA ratio families"
+    ]
+  },
+  "note": "Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE. C231 (kurtosis) remains locked; no reruns of locked C104-C231."
+}
