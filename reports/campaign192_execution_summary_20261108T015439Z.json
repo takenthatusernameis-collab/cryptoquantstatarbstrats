@@ -1,0 +1,43 @@
+{
+  "tool": "campaign192_execution_summary",
+  "generated_at_utc": "20261108T015439Z",
+  "campaign": 192,
+  "strategy_id": "VOLUME_RQA_LAVG_OVER_TT_RATIO_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos_20261108T015314Z.json",
+      "sha256": "4ea5074e8a8e89544a61eab06ae7e02d942d8a1bbb2b3a962f0f9bbeb77722f0"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T015434Z.json",
+      "sha256": "9dd2ccd4f316d3632a6a538b8601a92297b28a9bccc44346b17cf054b7ec2b42"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T015434Z.json",
+      "sha256": "78d3fc45a916b81ba3ecc7f8251995c927691ed4335f7e97b454679ad01b0193"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos.py",
+      "sha256": "720a1fa004f2471eb1ff0fa13d54864057b0c8cf39a08fe55369f2a3310dbb22"
+    }
+  },
+  "all_new_c192_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c192_preselected": {
+    "family_primary": "VOLUME_RQA_LAVG_OVER_TT_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'LAVG_OVER_TT|lavg_over_tt|rqa_ratio_lavg_over_tt|rqa_lavg_over_tt_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C192 primary LAVG_OVER_TT grep 0 verified before implementation/run; now consumed by C192."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T014412Z.json",
+    "prior_registry_sha256": "7d2e0861e67726b03924550d7be29a68154010d79d3c6c2fa1177077edc848e0",
+    "c191_oos": "reports/real_quote_volume_rqa_lmax_over_lavg_ratio_shock_mr_costed_oos_20261108T014311Z.json",
+    "c191_oos_sha256": "313f6e904c049905b8ce87596b1af6953eaf36076be50c9a65f547e54b87768e"
+  }
+}

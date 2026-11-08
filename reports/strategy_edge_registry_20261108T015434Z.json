@@ -1,0 +1,35 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T015434Z",
+  "supersedes": "reports/strategy_edge_registry_20261108T014412Z.json",
+  "supersedes_sha256": "7d2e0861e67726b03924550d7be29a68154010d79d3c6c2fa1177077edc848e0",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "campaign_latest": 192,
+  "c191": null,
+  "c192": {
+    "campaign": 192,
+    "strategy_id": "VOLUME_RQA_LAVG_OVER_TT_RATIO_SHOCK_MR",
+    "family": "RQA LAVG/TT ratio shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos_20261108T015314Z.json",
+    "oos_sha256": "4ea5074e8a8e89544a61eab06ae7e02d942d8a1bbb2b3a962f0f9bbeb77722f0",
+    "ingest_path": "reports/real_feed_ingest_attempt_20261108T015434Z.json",
+    "ingest_sha256": "9dd2ccd4f316d3632a6a538b8601a92297b28a9bccc44346b17cf054b7ec2b42",
+    "script_path": "scripts/run_real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos.py",
+    "script_sha256": "720a1fa004f2471eb1ff0fa13d54864057b0c8cf39a08fe55369f2a3310dbb22",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'LAVG_OVER_TT|lavg_over_tt|rqa_ratio_lavg_over_tt|rqa_lavg_over_tt_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_verified_at_utc": "20261108T014412Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C192 candidate from state/HANDOFF (LAVG_OVER_TT); grep-zero confirmed at run time. LAVG/TT pairing not used in C125-C191.",
+      "family": "RQA LAVG/TT ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "artifact_index": []
+}
