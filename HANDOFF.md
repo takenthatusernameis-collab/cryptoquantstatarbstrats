@@ -1,7 +1,7 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T050324Z, C203 DONE — C204 NOT DONE, EXECUTE IMMEDIATELY, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T054621Z, C203 DONE — C204 NOT DONE, EXECUTE IMMEDIATELY, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C203 LOCKED (no reruns). C204 preselected, grep-zero observed, not yet executed — no artifacts on disk.**
 
-## TIMESTAMPED INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (20261108T050324Z)
+## TIMESTAMPED INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (20261108T054621Z)
 **PRIORITY 1 (HEAVY WORK): EXECUTE C204 NOW.** C203 complete (VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR, no edge: cross-asset net sums fee0=+0.7245817, fee5=+0.3585817, fee10=-0.0074183, fee20=-0.7394183, fee40=-2.2034183 — fails all-cost-slices-positive / B&H mean rule; `edge_claim:NONE`). **C204 artifacts do NOT yet exist on disk — do not summarize status. Do not stop at status. Implement + run + emit artifacts.**
 
 Produce **>= 4 NEW concrete C204 artifacts on disk** with **SHA256 computed from bytes**:
