@@ -1,10 +1,10 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T222102Z, C104–C234 LOCKED — edge_claim NONE, C234 DONE, C235 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T222452Z, C104–C234 LOCKED — edge_claim NONE, C234 DONE, C235 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C234 LOCKED (no reruns). C234 DONE on disk (edge_claim NONE). C235 preselected grep-zero (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RANGE_SHOCK_MR) — execute C235 next, no status-first.** Latest registry = `reports/strategy_edge_registry_20261108T222102Z.json` (b3fb37ce883d...). Latest OOS = C234 `3fb432918663...` (oos_edge_proven false).
 
-## TIMESTAMPED INITIAL TASK MESSAGE (20261108T222102Z) — HEAVY WORK MANDATORY
+## TIMESTAMPED INITIAL TASK MESSAGE (20261108T222452Z) — HEAVY WORK MANDATORY
 **PRIORITY 1: EXECUTE C235.** C234 is complete on disk (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_CV_SHOCK_MR, edge_claim NONE; cross-asset net sums fee0=+0.5621939679802503, fee5=-0.32780603201975045, fee10=-1.217806032019751, fee20=-2.997806032019751, fee40=-6.55780603201975 — fails all-cost-positive rule though beat_bh_mean_rule true; oos_edge_proven false). C234 artifacts emitted with SHA256 from bytes: OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos_20261108T221325Z.json` (sha 3fb43291866383c8a7b710ac531f4ca8ed82aea08a5d88e1052f5693c1e39ff9), ingest `reports/real_feed_ingest_attempt_20261108T222102Z.json` (sha e50cbcaf70594bf7faa295259a9f6af58b4bdddb40e97b960ce31c628cc08561), registry `reports/strategy_edge_registry_20261108T222102Z.json` (sha b3fb37ce883d57cc12447443ead96e5f6c5fdc618979bcc65b997bd9a83eef16) superseding 20261108T220650Z (8c493deb7c96e9dc3acee1cbf7c18791677c49f1e15ea482fec8fd050e3b22f6), script `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_cv_shock_mr_costed_oos.py` (sha cd8c82ca495c468a6cf0b1261c329911fe08fb6cdc7f0e2683c2061e62e7c6db), summary `reports/campaign234_execution_summary_20261108T222102Z.json` (sha 656db6801b4e5f29ffdb16983fdef7e47c59fe0f76899e10693bbe20a19ae108). state.yaml + HANDOFF synced (latest_campaign_done C234, next_campaign C235). **Do not summarize status. Do not stop at status. Implement + run C235 + emit >=4 artifacts with SHA256 from bytes + sync state.yaml + HANDOFF.**
 
-## VERIFIED BASELINE (20261108T222102Z)
+## VERIFIED BASELINE (20261108T222452Z)
 - deps_ok (numpy/scipy/pandas 2.5.4/1.18.1/3.1.1, `/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python`).
 - Caches: `data/cache/volume_1h_full.pkl/meta/provenance` (43658953.../4d321584.../c7ff2f27...), spot `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` (56075733...).
 - **C232 DONE (locked):** VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABS_DEV_SHOCK_MR, oos 7b9bd417..., edge_claim NONE.
@@ -28,9 +28,9 @@
 - **Distinctness enforced.** Grep-verify candidate before implementation/run and record evidence.
 - **Heavy work mandatory.** No status-only replies. No stop between campaigns.
 
-## C235 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T222102Z)
+## C235 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261108T222452Z)
 **Primary candidate:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RANGE_SHOCK_MR` — RQA ratio RTE / WHITE_DIAG_LINE_LENGTH_RANGE on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_LENGTH_RANGE = max-min of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segments or range<=0/non-finite). Distinct from WHITE_DIAG_LINE_LENGTH_CV(C234), WHITE_DIAG_LINE_LENGTH_IQR(C233), WHITE_DIAG_LINE_LENGTH_MAD(C232), WHITE_DIAG_LINE_LENGTH_KURTOSIS(C231), WHITE_DIAG_LINE_LENGTH_SKEWNESS(C230), WHITE_DIAG_LINE_COUNT_VARIANCE(C229), DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), and prior C125-C234 families.
-**grep evidence (20261108T222102Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RANGE|WHITE_DIAG_LINE_LENGTH_RANGE' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
+**grep evidence (20261108T222452Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RANGE|WHITE_DIAG_LINE_LENGTH_RANGE' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
 **Fallback:** at C235 start grep-verify; if collision, pick a distinct grep-zero RQA-ratio candidate not used C125–C234 and record evidence.
 
 ### COLLISION GUARD (RUN AT START)
