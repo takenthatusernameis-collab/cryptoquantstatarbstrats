@@ -13,20 +13,20 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
         trivial self at i==j). Qualifying w>=w_min with count n_w>0;
         p_w=n_w/sum_u n_u; RTE=-sum_w p_w*ln(p_w). Fail-closed if <2 distinct
         qualifying gap lengths or entropy non-finite/non-positive/degenerate.
-  WHITE_DIAG_LINE_COUNT_DIVERGENCE (denominator) = max(rho_k_white)-mean(rho_k_white)
+  WHITE_DIAG_LINE_COUNT_DIVERGENCE (denominator) = max(cnt_k_white)-mean(cnt_k_white)
         over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal
         segment of consecutive 0s with length w>=w_min (LOI excluded by k!=0),
-        where rho_k_white = (sum of qualifying white segment lengths w>=w_min
-        on diagonal k) / (number of cells on diagonal k in embedded RP = M_pts-|k|).
+        where cnt_k_white = (number of qualifying white diagonal segments on
+        diagonal k) / (number of cells on diagonal k in embedded RP = M_pts-|k|).
         White diagonal definition explicit and trailing/causal on RP.
         Fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/
         undefined.
   RATIO_RTE_WHITE_DIAG_LINE_COUNT_DIVERGENCE = RTE / WHITE_DIAG_LINE_COUNT_DIVERGENCE.
   Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE/ratio
   undefined/non-finite/degenerate or insufficient qualifying segments/gaps.
-  Causal trailing only. Distinct from DIAG_LINE_DENSITY_VARIANCE(C224),
-  DIAG_LINE_DENSITY_VARIANCE(C221), WHITE_VERT_LINE_COUNT_VARIANCE(C220),
-  and prior C125-C221 families.
+  Causal trailing only. Distinct from DIAG_LINE_DENSITY_VARIANCE(C222),
+  DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223),
+  WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families.
   RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE not used C125-C224.
   Grep 0 non-self required at run time.
 """
@@ -191,13 +191,15 @@ def _qualifying_white_diag_segments(diag: np.ndarray, w_min: int) -> list[int]:
 
 
 def _white_diag_line_count_divergence(R: np.ndarray, w_min: int) -> float:
-    """WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(rho_k_white)-mean(rho_k_white)
+    """WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(cnt_k_white)-mean(cnt_k_white)
     over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment
-    of consecutive 0s with length w>=w_min, where rho_k_white = (sum of
-    qualifying white segment lengths on diagonal k) / (M_pts-|k|).
+    of consecutive 0s with length w>=w_min, where cnt_k_white = (number of
+    qualifying white diagonal segments on diagonal k) / (M_pts-|k|).
+    Distinct from WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223) which sums segment
+    LENGTHS; here we COUNT segments.
     Fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/undefined."""
     M_pts = R.shape[0]
-    rhos: list[float] = []
+    cnts: list[float] = []
     for k in range(-(M_pts - 1), M_pts):
         if k == 0:
             continue
@@ -208,19 +210,19 @@ def _white_diag_line_count_divergence(R: np.ndarray, w_min: int) -> float:
         cells = M_pts - abs(k)
         if cells <= 0:
             continue
-        rho_k = float(sum(segs)) / float(cells)
-        if not np.isfinite(rho_k):
+        cnt_k = float(len(segs)) / float(cells)
+        if not np.isfinite(cnt_k):
             continue
-        rhos.append(rho_k)
-    if len(rhos) < 2:
+        cnts.append(cnt_k)
+    if len(cnts) < 2:
         return np.nan
-    arr = np.array(rhos, dtype=float)
+    arr = np.array(cnts, dtype=float)
     if len(arr) < 2:
         return np.nan
-    var = float(np.var(arr, ddof=1))
-    if not np.isfinite(var) or var <= 0:
+    div = float(np.max(arr) - np.mean(arr))
+    if not np.isfinite(div) or div <= 0:
         return np.nan
-    return var
+    return div
 
 
 def rqa_rte_over_white_diag_line_count_divergence_window(
@@ -463,15 +465,15 @@ def main():
             "qualifying w>=w_min (w_min=2), p_w=n_w/sum_u n_u, "
             "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap "
             "lengths or entropy non-finite/non-positive. "
-            "WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(rho_k_white)-mean(rho_k_white) over "
-            "off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of "
-            "consecutive 0s with segment length >=w_min (w_min=2), where rho_k_white = "
-            "(sum of qualifying white segment lengths w>=w_min on diagonal k) / (number of cells "
-            "on diagonal k in embedded RP = M_pts-|k|). Fail-closed if <2 qualifying "
-            "diagonals or divergence <=0/non-finite/undefined. On trailing delay embedding "
-            "(m=2,tau=1), L-inf recurrence eps=0.5*std(window). Causal trailing only; "
-            "fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE/ratio "
-            "undefined/non-finite/degenerate or insufficient qualifying segments/gaps."
+"WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(cnt_k_white)-mean(cnt_k_white) over "
+                "off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of "
+                "consecutive 0s with segment length >=w_min (w_min=2), where cnt_k_white = "
+                "(number of qualifying white diagonal segments on diagonal k) / (number of cells "
+                "on diagonal k in embedded RP = M_pts-|k|). Fail-closed if <2 qualifying "
+                "diagonals or divergence <=0/non-finite/undefined. On trailing delay embedding "
+                "(m=2,tau=1), L-inf recurrence eps=0.5*std(window). Causal trailing only; "
+                "fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE/ratio "
+                "undefined/non-finite/degenerate or insufficient qualifying segments/gaps."
         ),
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
@@ -482,19 +484,20 @@ def main():
             "grep_evidence_note": (
                 "Pre-implementation/run grep over scripts/strategies/backtest/"
                 "utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_"
-                "DENSITY_VARIANCE/WHITE_DIAG_LINE_COUNT_DIVERGENCE patterns "
+                "COUNT_DIVERGENCE/WHITE_DIAG_LINE_COUNT_DIVERGENCE patterns "
                 "(verified before implementation/run); distinctness confirmed. "
                 "Primary candidate used (no collision fallback needed)."
             ),
             "selection_note": (
-                "Primary C223 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE "
+                "Primary C225 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE "
                 "(WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(rho_k_white)-mean(rho_k_white) "
                 "over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal "
                 "segment of consecutive 0s, length>=w_min=2; rho_k_white = qualifying "
                 "white segment-length sum / diagonal cell count M_pts-|k|); "
                 "grep-zero non-self confirmed at run time. Distinct from "
-                "DIAG_LINE_DENSITY_VARIANCE(C224), DIAG_LINE_DENSITY_VARIANCE(C221), "
-                "WHITE_VERT_LINE_COUNT_VARIANCE(C220), and prior C125-C221 families. "
+                "DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), "
+                "WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), "
+                "WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families. "
                 "RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE not used C125-C224."
             ),
             "family": "RQA RTE/WHITE_DIAG_LINE_COUNT_DIVERGENCE ratio shock on volume dynamics",
@@ -527,11 +530,11 @@ def main():
                 "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying "
                 "gap lengths or entropy non-finite/non-positive"
             ),
-            "white_diag_line_count_divergence_definition": (
-                "WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(rho_k_white)-mean(rho_k_white) "
+"white_diag_line_count_divergence_definition": (
+                "WHITE_DIAG_LINE_COUNT_DIVERGENCE = max(cnt_k_white)-mean(cnt_k_white) "
                 "over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal "
-                "segment of consecutive 0s (length >= w_min=2); rho_k_white = (sum of "
-                "qualifying white segment lengths w>=w_min on diagonal k) / (number of cells "
+                "segment of consecutive 0s (length >= w_min=2); cnt_k_white = (number of "
+                "qualifying white diagonal segments on diagonal k) / (number of cells "
                 "on diagonal k in embedded RP = M_pts-|k|). Fail-closed if <2 qualifying "
                 "diagonals or divergence <=0/non-finite/undefined."
             ),
@@ -550,16 +553,16 @@ def main():
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
             "c224_oos": PRIOR_C224_OOS,
             "c224_oos_sha256": PRIOR_C224_OOS_SHA,
-            "c222_note": (
+            "c224_note": (
                 "C224 OOS SHA verified from bytes (VOLUME_RQA_RTE_OVER_"
-                "DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR, oos_edge_proven false). "
-                "C223 uses RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE where "
+                "WHITE_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR, oos_edge_proven false). "
+                "C225 uses RTE_OVER_WHITE_DIAG_LINE_COUNT_DIVERGENCE where "
                 "denominator is max(rho_k_white)-mean(rho_k_white) over off-diagonal "
                 "diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s "
                 "(length>=w_min=2; rho_k_white = qualifying white segment-length sum / "
-                "diagonal cell count M_pts-|k|), distinct from DIAG_LINE_DENSITY_VARIANCE(C224), "
-                "DIAG_LINE_DENSITY_VARIANCE(C221), WHITE_VERT_LINE_COUNT_VARIANCE(C220), "
-                "and prior C125-C221 families."
+                "diagonal cell count M_pts-|k|), distinct from DIAG_LINE_DENSITY_VARIANCE(C222), "
+                "DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), "
+                "WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families."
             ),
         },
         "per_asset": assets,
