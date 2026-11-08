@@ -1,0 +1,37 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261108T103205Z",
+  "campaign": 207,
+  "real_data_only": true,
+  "fail_closed": true,
+  "rb_unblocked": true,
+  "notes": "Nonspot routes blocked fail-closed; R-B unblocked on validated real_quote_volume cache/provenance for C207. No new external ingest; reused validated caches.",
+  "caches": {
+    "spot": {
+      "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+      "meta_path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+      "meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d"
+    },
+    "real_quote_volume": {
+      "path": "data/cache/volume_1h_full.pkl",
+      "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "meta_path": "data/cache/volume_1h_full.meta.json",
+      "meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+      "provenance_path": "data/cache/volume_1h_full.provenance.json",
+      "provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+    }
+  },
+  "nonspot_status": "blocked_fail_closed",
+  "rb_status": "unblocked_validated_real_quote_volume",
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T102523Z.json",
+    "prior_registry_sha256": "d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a",
+    "c206_oos": "reports/real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos_20261108T102523Z.json",
+    "c206_oos_sha256": "03d77e679c417b128d5d793f86961a45f820ae38840547910eda655ec5aa7058",
+    "c207_oos": "reports/real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos_20261108T103205Z.json",
+    "c207_oos_sha256": "41890be468f48f1fe71cf8c9e758cfb8a7afa7d8b32a669740ccacee626c09c8",
+    "c207_script": "scripts/run_real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos.py",
+    "c207_script_sha256": "7cf8c85c6c99725472f3560aa9b2c2ac9255612a9beb2c8b92bfe3e845588aeb"
+  }
+}

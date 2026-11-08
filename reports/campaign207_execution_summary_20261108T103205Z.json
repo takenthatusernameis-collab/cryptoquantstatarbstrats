@@ -1,0 +1,89 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T103205Z",
+  "campaign": 207,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos_20261108T103205Z.json",
+      "sha256": "41890be468f48f1fe71cf8c9e758cfb8a7afa7d8b32a669740ccacee626c09c8"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T103205Z.json",
+      "sha256": "8e3c95120b71ba34f379a11d3d61958579e49782d6f1c3f1a8a64ed337d240ec"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T103205Z.json",
+      "sha256": "e69a4090e7c768436049a6d880d7d16a946eb305aa651898e0a59d72a637ff45"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "7cf8c85c6c99725472f3560aa9b2c2ac9255612a9beb2c8b92bfe3e845588aeb"
+    },
+    {
+      "kind": "summary",
+      "path": "reports/campaign207_execution_summary_20261108T103205Z.json",
+      "sha256": "31ab0120e7e8c2f2d44f354be6ed0e415765bcdc1062dff93e7bfb56a4d3c3f5"
+    }
+  ],
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_VMAX|rte_over_vmax|rqa_ratio_rte_over_vmax|rqa_rte_over_vmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_total": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T103205Z",
+    "grep_output_note": "0 non-self hits; RTE_OVER_VMAX occurrences confined to the C207 script stem/path (self).",
+    "selection_note": "Primary C207 candidate RTE_OVER_VMAX executed; grep-zero non-self confirmed at run time before implementation/run. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205; RTE_OVER_TREND used C206. RTE_OVER_VMAX not used C125-C206. VMAX denominator distinct from TT used C205 and TREND used C206. Edge rule NOT proven: fee10_slip10, fee20_slip20 and fee40_slip40 cross-asset OOS net sums negative; edge_claim NONE."
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.26628127869299845,
+    "fee5_slip5": 0.06028127869299828,
+    "fee10_slip10": -0.14571872130700184,
+    "fee20_slip20": -0.5577187213070018,
+    "fee40_slip40": -1.3817187213070017
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T102523Z.json",
+    "sha256": "d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a"
+  },
+  "artifact_integrity_note": "C207 OOS JSON grep_output_at_run contains self-hit lines only (0 non-self); authoritative fields (strategy_id VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR, metrics, edge rule result, cross_asset sums, pre_stated_distinctness) present. Real data only; no fabrication; edge_claim NONE.",
+  "c207_completed": {
+    "campaign": 207,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "artifacts": {
+      "oos": {"path": "reports/real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos_20261108T103205Z.json", "sha256": "41890be468f48f1fe71cf8c9e758cfb8a7afa7d8b32a669740ccacee626c09c8"},
+      "ingest": {"path": "reports/real_feed_ingest_attempt_20261108T103205Z.json", "sha256": "8e3c95120b71ba34f379a11d3d61958579e49782d6f1c3f1a8a64ed337d240ec"},
+      "registry": {"path": "reports/strategy_edge_registry_20261108T103205Z.json", "sha256": "e69a4090e7c768436049a6d880d7d16a946eb305aa651898e0a59d72a637ff45"},
+      "script": {"path": "scripts/run_real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos.py", "sha256": "7cf8c85c6c99725472f3560aa9b2c2ac9255612a9beb2c8b92bfe3e845588aeb"},
+      "summary": {"path": "reports/campaign207_execution_summary_20261108T103205Z.json",       "sha256": "eaa4a7d4c96df43a0b81ff6a744496db4577a06959207836f00eb07e913df5e7"}
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_VMAX|rte_over_vmax|rqa_ratio_rte_over_vmax|rqa_rte_over_vmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_total": 0,
+      "grep_hits_nonself_at_run": 0,
+      "grep_verified_utc": "20261108T103205Z",
+      "grep_output_note": "0 non-self hits; RTE_OVER_VMAX occurrences confined to the C207 script stem/path (self).",
+      "selection_note": "Primary C207 candidate RTE_OVER_VMAX executed; grep-zero non-self confirmed at run time before implementation/run. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205; RTE_OVER_TREND used C206. RTE_OVER_VMAX not used C125-C206. VMAX denominator distinct from TT used C205 and TREND used C206. Edge rule NOT proven: fee10_slip10, fee20_slip20 and fee40_slip40 cross-asset OOS net sums negative; edge_claim NONE."
+    }
+  },
+  "c208_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR",
+    "fallback_candidates": ["VOLUME_RQA_RTE_OVER_LMAX_RATIO_SHOCK_MR"],
+    "metric_primary": "RQA ratio RTE/LAVG on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length distribution over qualifying gaps; LAVG=mean vertical line length (denominator distinct from VMAX used C207, TT used C205, TREND used C206). Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2.",
+    "distinctness_grep_primary": "grep -rnE 'RTE_OVER_LAVG|rte_over_lavg|rqa_ratio_rte_over_lavg|rqa_rte_over_lavg_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "fallback_grep_cmds": {
+      "lmax": "grep -rnE 'RTE_OVER_LMAX|rte_over_lmax|rqa_ratio_rte_over_lmax|rqa_rte_over_lmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+    },
+    "grep_verify_required": true,
+    "selection_note": "C208 preselect must be a distinct grep-verified RQA-ratio candidate not used C125-C207. RTE_OVER_LAVG and RTE_OVER_LMAX candidates to be grep-verified at C208 run time (0 non-self required). Execute C208 immediately after C207 sync; no status-only replies; no stop between campaigns."
+  }
+}

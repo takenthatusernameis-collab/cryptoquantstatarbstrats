@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261108T102523Z
-latest_campaign_done: C206
-next_campaign: C207
+updated_utc: 20261108T103205Z
+latest_campaign_done: C207
+next_campaign: C208
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,25 +11,25 @@ pytest: available (9.2.0 observed); do not fabricate results
 deps: numpy/scipy/pandas importable (2.5.4/1.18.1/3.1.1 observed)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T102523Z.json
-  sha256: d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a
-  supersedes: reports/strategy_edge_registry_20261108T101655Z.json
-  supersedes_sha256: 0ac163a703bddc32c1681c1fe7d33cb59a15bb306ebbba9ccdd7235f32492832
+  path: reports/strategy_edge_registry_20261108T103205Z.json
+  sha256: e69a4090e7c768436049a6d880d7d16a946eb305aa651898e0a59d72a637ff45
+  supersedes: reports/strategy_edge_registry_20261108T102523Z.json
+  supersedes_sha256: d061ab66a0126c1ef248959c1ff6e1d86b07b88e5562b366d52a5829ed38b75a
 latest_oos:
-  campaign: C206
-  family: VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_trend_ratio_shock_mr_costed_oos_20261108T102523Z.json
-  sha256: 03d77e679c417b128d5d793f86961a45f820ae38840547910eda655ec5aa7058
+  campaign: C207
+  family: VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos_20261108T103205Z.json
+  sha256: 41890be468f48f1fe71cf8c9e758cfb8a7afa7d8b32a669740ccacee626c09c8
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 1.0930684191547377
-    fee5_slip5: 0.7580684191547373
-    fee10_slip10: 0.42306841915473725
-    fee20_slip20: -0.24693158084526265
-    fee40_slip40: -1.5869315808452626
+    fee0_slip0: 0.26628127869299845
+    fee5_slip5: 0.06028127869299828
+    fee10_slip10: -0.14571872130700184
+    fee20_slip20: -0.5577187213070018
+    fee40_slip40: -1.3817187213070017
 
 c206_completed:
   campaign: C206
@@ -49,6 +49,25 @@ c206_completed:
     grep_verified_utc: 20261108T102523Z
     grep_output_note: "0 non-self hits; RTE_OVER_TREND occurrences confined to the C206 script stem/path (self)."
     selection_note: "Primary C206 candidate RTE_OVER_TREND executed; grep-zero non-self confirmed at run time before implementation/run. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205. RTE_OVER_TREND not used C125-C205. Edge rule NOT proven: fee20_slip20 and fee40_slip40 cross-asset OOS net sums negative; edge_claim NONE."
+
+c207_completed:
+  campaign: C207
+  strategy_id: VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos: {path: reports/real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos_20261108T103205Z.json, sha256: 41890be468f48f1fe71cf8c9e758cfb8a7afa7d8b32a669740ccacee626c09c8}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T103205Z.json, sha256: 8e3c95120b71ba34f379a11d3d61958579e49782d6f1c3f1a8a64ed337d240ec}
+    registry: {path: reports/strategy_edge_registry_20261108T103205Z.json, sha256: e69a4090e7c768436049a6d880d7d16a946eb305aa651898e0a59d72a637ff45}
+    script: {path: scripts/run_real_quote_volume_rqa_rte_over_vmax_ratio_shock_mr_costed_oos.py, sha256: 7cf8c85c6c99725472f3560aa9b2c2ac9255612a9beb2c8b92bfe3e845588aeb}
+    summary: {path: reports/campaign207_execution_summary_20261108T103205Z.json, sha256: eaa4a7d4c96df43a0b81ff6a744496db4577a06959207836f00eb07e913df5e7}
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'RTE_OVER_VMAX|rte_over_vmax|rqa_ratio_rte_over_vmax|rqa_rte_over_vmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_total: 0
+    grep_hits_nonself_at_run: 0
+    grep_verified_utc: 20261108T103205Z
+    grep_output_note: "0 non-self hits; RTE_OVER_VMAX occurrences confined to the C207 script stem/path (self)."
+    selection_note: "Primary C207 candidate RTE_OVER_VMAX executed; grep-zero non-self confirmed at run time before implementation/run. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205; RTE_OVER_TREND used C206. RTE_OVER_VMAX not used C125-C206. VMAX denominator distinct from TT used C205 and TREND used C206. Edge rule NOT proven: fee10_slip10, fee20_slip20 and fee40_slip40 cross-asset OOS net sums negative; edge_claim NONE."
 
 c205_completed:
   campaign: C205
@@ -88,22 +107,21 @@ c204_completed:
     grep_output_note: "13 hits all in C204 script (self); 0 non-self."
     selection_note: "Primary C204 candidate RTE_OVER_LAM executed; grep-zero non-self confirmed. RTE/LAM pairing not used C125-C203 (LAM_OVER_RTE used C199 is different pairing). RTE_OVER_RR ineligible (11 hits)."
 
-c207_preselected:
-  family_primary: VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR
+c208_preselected:
+  family_primary: VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR
   fallback_candidates: [VOLUME_RQA_RTE_OVER_LMAX_RATIO_SHOCK_MR]
-  metric_primary: "RQA ratio RTE/VMAX on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution over qualifying gaps w>=w_min excluding trivial self; VMAX=RQA max vertical line measure (denominator candidate distinct from TT used C205 and TREND used C206); RATIO_RTE_VMAX=RTE/VMAX. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1. Fail-closed NaN/no-signal if RTE/VMAX/ratio undefined/non-finite/degenerate or insufficient qualifying lines/gaps. Trailing/causal only."
-  distinctness_grep_primary: "grep -rnE 'RTE_OVER_VMAX|rte_over_vmax|rqa_ratio_rte_over_vmax|rqa_rte_over_vmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+  metric_primary: "RQA ratio RTE/LAVG on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length distribution over qualifying gaps w>=w_min excluding trivial self; LAVG=mean vertical line length (denominator distinct from VMAX used C207, TT used C205, TREND used C206); RATIO_RTE_LAVG=RTE/LAVG. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2. Fail-closed NaN/no-signal if RTE/LAVG/ratio undefined/non-finite/degenerate or insufficient qualifying lines/gaps. Trailing/causal only."
+  distinctness_grep_primary: "grep -rnE 'RTE_OVER_LAVG|rte_over_lavg|rqa_ratio_rte_over_lavg|rqa_rte_over_lavg_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
   fallback_grep_cmds:
     lmax: "grep -rnE 'RTE_OVER_LMAX|rte_over_lmax|rqa_ratio_rte_over_lmax|rqa_rte_over_lmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
-  grep_hits_observed: 0
-  grep_observed_utc: 20261108T045258Z
   grep_verify_required: true
-  selection_note: "C207 preselect must be a distinct grep-verified RQA-ratio candidate not used C125-C206. RTE_OVER_VMAX/RTE_OVER_LMAX observed grep 0 at 20261108T045258Z; re-verify 0 non-self at C207 run time before implementation. RTE_OVER_TREND used C206; RTE_OVER_TT used C205; RTE_OVER_LAM used C204. Execute C207 immediately after C206 sync; no status-only replies; no stop between campaigns."
+  selection_note: "C208 preselect must be a distinct grep-verified RQA-ratio candidate not used C125-C207. RTE_OVER_LAVG and RTE_OVER_LMAX to be grep-verified at C208 run time (0 non-self required). RTE_OVER_VMAX used C207; RTE_OVER_TREND used C206; RTE_OVER_TT used C205; RTE_OVER_LAM used C204. Execute C208 immediately after C207 sync; no status-only replies; no stop between campaigns."
 
 bottlenecks_removed:
   - C104-C204 LOCKED; C204 completed (RTE_OVER_LAM) with OOS+ingest+registry+summary+script, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; state/HANDOFF synced
   - C205 completed (RTE_OVER_TT) with OOS+ingest+registry+summary+script on disk, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; no edge proven (fee20/fee40 cross-asset OOS net sums negative)
   - C206 completed (RTE_OVER_TREND) with OOS+ingest+registry+summary+script on disk, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; no edge proven (fee20/fee40 cross-asset OOS net sums negative); grep-verified distinctness 0 non-self at run time; >=4 artifacts on disk
+  - C207 completed (RTE_OVER_VMAX) with OOS+ingest+registry+summary+script on disk, SHAs from bytes; oos_edge_proven=false, edge_claim=NONE; no edge proven (fee10/fee20/fee40 cross-asset OOS net sums negative); grep-verified distinctness 0 non-self at run time; >=4 artifacts on disk
   - deps_ok numpy/scipy/pandas (2.5.4/1.18.1/3.1.1); caches present; pytest 9.2.0 available
   - no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
   - nonspot ingest does not block R-B on validated real_quote_volume
@@ -112,6 +130,6 @@ bottlenecks_removed:
 
 mandatory:
   - "No status-only replies. Heavy work mandatory: implement/run + emit artifacts."
-  - "C207: grep-verify distinctness before implementation/run (0 non-self required)."
+  - "C208: grep-verify distinctness before implementation/run (0 non-self required)."
   - "Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
-  - "No reruns of locked C104-C206, no gate/threshold weakening, no proxies labeled real, no fabricated feeds/provenance/results."
+  - "No reruns of locked C104-C207, no gate/threshold weakening, no proxies labeled real, no fabricated feeds/provenance/results."
