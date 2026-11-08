@@ -1,0 +1,89 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T111915Z",
+  "campaign": 208,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "role": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos_20261108T111915Z.json",
+      "sha256": "c5f181d3af540d8ff000ee77139711ed38aef9e4be5d3edea90537e9e2519ffa"
+    },
+    {
+      "role": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T111915Z.json",
+      "sha256": "680c245084c9fddb3a6446b37a7d6adb1badbb05633b178beec68a2b5cee853c"
+    },
+    {
+      "role": "registry",
+      "path": "reports/strategy_edge_registry_20261108T111915Z.json",
+      "sha256": "b398c199ac0a478aa5c8814c7cc36b0f0f7002f782e205435405ba47352612e3"
+    },
+    {
+      "role": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py",
+      "sha256": "6854366e8229a1d363274a2c6297648b1a27e348eb9493d20286ecb580f8b29a"
+    }
+  ],
+  "distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_LAVG|rte_over_lavg|rqa_ratio_rte_over_lavg|rqa_rte_over_lavg_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_at_selection": 0,
+    "grep_hits_nonself_at_run": 0,
+    "grep_output_at_run": "scripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:22:  Distinct from C207 RTE/VMAX (VMAX denominator swapped to LAVG; RTE_OVER_LAVG\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:78:    \"grep -rnE 'RTE_OVER_LAVG|rte_over_lavg|rqa_ratio_rte_over_lavg|\"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:79:    \"rqa_rte_over_lavg_ratio' scripts/ strategies/ backtest/ utils/ 2>&1\"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:96:        ln for ln in lines if self_stem not in ln and \"rte_over_lavg\" in ln.lower()\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:188:def rqa_rte_over_lavg_ratio_window(\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:268:                last_val = rqa_rte_over_lavg_ratio_window(wf, EPS_SCALE, W_MIN, L_MIN)\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:366:            f\"for RTE_OVER_LAVG:\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:402:        \"tool\": \"real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos\",\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:405:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:407:            \"VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR (RQA ratio RTE/LAVG on \"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:438:                \"utils returned 0 non-self hits for RTE_OVER_LAVG patterns \"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:443:                \"Primary C208 candidate RTE_OVER_LAVG; grep-zero non-self confirmed \"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:447:                \"RTE_OVER_VMAX used C207. RTE_OVER_LAVG not used C125-C207. LAVG \"\nscripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py:518:    out_path = reports / f\"real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos_{ts}.json\"",
+    "grep_verified_at_utc": "20261108T111915Z",
+    "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_LAVG patterns (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+    "selection_note": "Primary C208 candidate RTE_OVER_LAVG; grep-zero non-self confirmed at run time. RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202; LAM_OVER_RTE used C199 (different pairing); RTE_OVER_RR ineligible (nonzero grep); RTE_OVER_TT used C205; RTE_OVER_TREND used C206; RTE_OVER_VMAX used C207. RTE_OVER_LAVG not used C125-C207. LAVG denominator distinct from VMAX used C207, TT used C205, TREND used C206.",
+    "family": "RQA RTE/LAVG ratio shock on volume dynamics",
+    "uses_ratio_of_rqa_measures": true
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.7819609868750175,
+    "fee5_slip5": 0.4829609868750172,
+    "fee10_slip10": 0.1839609868750172,
+    "fee20_slip20": -0.41403901312498287,
+    "fee40_slip40": -1.6100390131249827
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T103205Z.json",
+    "sha256": "e69a4090e7c768436049a6d880d7d16a946eb305aa651898e0a59d72a637ff45"
+  },
+  "c208_completed": {
+    "campaign": 208,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_LAVG_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos_20261108T111915Z.json",
+        "sha256": "c5f181d3af540d8ff000ee77139711ed38aef9e4be5d3edea90537e9e2519ffa"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T111915Z.json",
+        "sha256": "680c245084c9fddb3a6446b37a7d6adb1badbb05633b178beec68a2b5cee853c"
+      },
+      "registry": {
+        "path": "reports/strategy_edge_registry_20261108T111915Z.json",
+        "sha256": "b398c199ac0a478aa5c8814c7cc36b0f0f7002f782e205435405ba47352612e3"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_lavg_ratio_shock_mr_costed_oos.py",
+        "sha256": "6854366e8229a1d363274a2c6297648b1a27e348eb9493d20286ecb580f8b29a"
+      }
+    }
+  },
+  "c209_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_LMAX_RATIO_SHOCK_MR",
+    "fallback_candidates": [
+      "VOLUME_RQA_RTE_OVER_WAVG_RATIO_SHOCK_MR",
+      "VOLUME_RQA_RTE_OVER_WMAX_RATIO_SHOCK_MR"
+    ],
+    "metric_primary": "RQA ratio RTE/LMAX on delay-embedded log-volume returns (LMAX=max white vertical line / recurrence-time gap length, distinct from LAVG mean used C208, VMAX max black vertical line used C207, TT C205, TREND C206). Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2. Fail-closed NaN/no-signal if RTE/LMAX/ratio undefined/non-finite/degenerate or insufficient qualifying lines/gaps. Trailing/causal only.",
+    "distinctness_grep_primary": "grep -rnE 'RTE_OVER_LMAX|rte_over_lmax|rqa_ratio_rte_over_lmax|rqa_rte_over_lmax_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_verified_preselect_hint": "RTE_OVER_LMAX observed 0 hits at C208 preflight; re-verify 0 non-self at C209 run.",
+    "grep_verify_required": true,
+    "selection_note": "C209 preselect: distinct grep-verified RQA-ratio candidate not used C125-C208. RTE_OVER_LMAX to be re-verified at C209 run (0 non-self required). RTE_OVER_LAVG used C208; RTE_OVER_VMAX used C207; RTE_OVER_TREND used C206; RTE_OVER_TT used C205; RTE_OVER_LAM used C204. Execute C209 immediately after C208 sync; no status-only replies; no stop between campaigns."
+  }
+}
