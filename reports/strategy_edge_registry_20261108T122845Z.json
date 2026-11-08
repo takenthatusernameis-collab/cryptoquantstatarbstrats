@@ -1,0 +1,60 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T122845Z",
+  "campaign": 211,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T121953Z.json",
+    "sha256": "bb367557184ea9e36470d5aca9d5a2d585f8ace7ff2cbaed3061c64670707ec6"
+  },
+  "campaigns_included": [
+    {
+      "campaign": 211,
+      "strategy_id": "VOLUME_RQA_RTE_OVER_L_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 1.0481886475258184,
+        "fee5_slip5": 0.6531886475258181,
+        "fee10_slip10": 0.2581886475258179,
+        "fee20_slip20": -0.5318113524741819,
+        "fee40_slip40": -2.1118113524741813
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos_20261108T122845Z.json",
+          "sha256": "f987b29947f1a252c3a656315b89d6903fc0d6395d001b376bf5a63d2e68aa03"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T122845Z.json",
+          "sha256": "a3caf9596dbd7a309cd1e31349092b4238fe40a4907f7f89c045648effef03a9"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos.py",
+          "sha256": "2b561e31092c9cfd5c6fb1c157555d2348bd8a2ebc450289796c746c68d0bfe5"
+        }
+      },
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'RTE_OVER_L\\\\b|rte_over_l[^a-z]' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_hits_nonself_at_run": 0,
+        "grep_verified_at_utc": "20261108T122845Z",
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_L patterns (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+        "selection_note": "Primary C211 candidate RTE_OVER_L (L = mean diagonal line length, LAVG, k>=1 excluding LOI). Distinct from RTE_OVER_WAVG(C210), RTE_OVER_LMAX(C209), RTE_OVER_LAVG black-vertical(C208), RTE_OVER_VMAX(C207), RTE_OVER_TREND(C206), RTE_OVER_TT(C205), RTE/LAM(C204), RTE/DET(C203), RTE/ENTR(C202) and RTE/L diagonal numerator form not used C125-C210.",
+        "family": "RQA RTE/L ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      }
+    }
+  ],
+  "prior_registry": {
+    "path": "reports/strategy_edge_registry_20261108T121953Z.json",
+    "sha256": "bb367557184ea9e36470d5aca9d5a2d585f8ace7ff2cbaed3061c64670707ec6"
+  },
+  "notes": "C211 RQA RTE/L ratio shock MR (real quote volume) evaluated WF OOS with full cost grid; no edge proven (fee20/40 negative cross-asset net sums; fails all-cost-positive and B&H mean rule). Nonspot blocked fail-closed."
+}

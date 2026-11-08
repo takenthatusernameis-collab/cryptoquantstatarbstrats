@@ -1,0 +1,33 @@
+{
+  "tool": "real_feed_ingest_attempt",
+  "generated_at_utc": "20261108T122845Z",
+  "campaign": 211,
+  "real_data_only": true,
+  "fail_closed": true,
+  "rb_unblocked": true,
+  "notes": "Nonspot routes blocked fail-closed; R-B unblocked on validated real_quote_volume cache/provenance for C211. No new external ingest; reused validated caches.",
+  "caches": {
+    "spot_cache": {
+      "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+      "meta_path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+      "meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d"
+    },
+    "volume_1h_full": {
+      "pkl_path": "data/cache/volume_1h_full.pkl",
+      "pkl_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "meta_path": "data/cache/volume_1h_full.meta.json",
+      "meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+      "provenance_path": "data/cache/volume_1h_full.provenance.json",
+      "provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+    }
+  },
+  "nonspot_status": "blocked_fail_closed",
+  "rb_status": "unblocked_validated_real_quote_volume",
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261108T121953Z.json",
+    "prior_registry_sha256": "bb367557184ea9e36470d5aca9d5a2d585f8ace7ff2cbaed3061c64670707ec6",
+    "c210_oos": "reports/real_quote_volume_rqa_rte_over_wavg_ratio_shock_mr_costed_oos_20261108T121953Z.json",
+    "c210_oos_sha256": "99643e3535f41703519bcc3c33081e370c02f38d5d8d7cae8ac81077d23c741c"
+  }
+}
