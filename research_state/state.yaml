@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261108T121907Z
-latest_campaign_done: C209
-next_campaign: C210
+updated_utc: 20261108T121953Z
+latest_campaign_done: C210
+next_campaign: C211
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -16,20 +16,20 @@ latest_registry:
   supersedes: reports/strategy_edge_registry_20261108T111915Z.json
   supersedes_sha256: b398c199ac0a478aa5c8814c7cc36b0f0f7002f782e205435405ba47352612e3
 latest_oos:
-  campaign: C209
-  family: VOLUME_RQA_RTE_OVER_LMAX_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_lmax_ratio_shock_mr_costed_oos_20261108T113012Z.json
-  sha256: 5421892e2efe996d1af52835be9174d8b88b62cdab3cd6bd2e6e5041da5420be
+  campaign: C210
+  family: VOLUME_RQA_RTE_OVER_WAVG_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_wavg_ratio_shock_mr_costed_oos_20261108T121953Z.json
+  sha256: 99643e3535f41703519bcc3c33081e370c02f38d5d8d7cae8ac81077d23c741c
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.26628127869299845
-    fee5_slip5: 0.06028127869299828
-    fee10_slip10: -0.14571872130700184
-    fee20_slip20: -0.5577187213070018
-    fee40_slip40: -1.3817187213070017
+    fee0_slip0: 0.7094048671901464
+    fee5_slip5: 0.31440486719014604
+    fee10_slip10: -0.08059513280985406
+    fee20_slip20: -0.8705951328098539
+    fee40_slip40: -2.4505951328098536
 
 c206_completed:
   campaign: C206
