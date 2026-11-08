@@ -1,0 +1,134 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T203312Z",
+  "campaign": 229,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T202506Z.json",
+    "sha256": "509503bf244491bc7ae57ebf1b4cfc849b081f8d19b1761e30aedcfeaabc6fa8"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 229,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.015478741990794798,
+      "fee5_slip5": -1.3914787419907952,
+      "fee10_slip10": -2.767478741990795,
+      "fee20_slip20": -5.519478741990795,
+      "fee40_slip40": -11.023478741990795
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json",
+        "sha256": "98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T203312Z.json",
+        "sha256": "8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py",
+        "sha256": "70f30d070c36dc8fbdb571067edddb116cc7e7015c428ac9c08a6451f4e6a1bb"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|rte_over_white_diag_line_count_variance|WHITE_DIAG_LINE_COUNT_VARIANCE|white_diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_hits_nonself_at_run": 0,
+      "grep_output_at_run": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:2:\"\"\"C229: RQA ratio RTE/WHITE_DIAG_LINE_COUNT_VARIANCE shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_COUNT_VARIANCE (denominator) = sample variance (ddof=1) of\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:24:  RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:25:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_VARIANCE/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:32:  C125-C228 families. RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:82:    \"RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:83:    \"rte_over_white_diag_line_count_variance|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:84:    \"WHITE_DIAG_LINE_COUNT_VARIANCE|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:85:    \"white_diag_line_count_variance\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:106:        and (\"white_diag_line_count_variance\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:190:def _white_diag_line_count_variance(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:191:    \"\"\"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:222:def rqa_rte_over_white_diag_line_count_variance_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:225:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:260:    # WHITE_DIAG_LINE_COUNT_VARIANCE (denominator)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:261:    div = _white_diag_line_count_variance(R, w_min)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:302:                last_val = rqa_rte_over_white_diag_line_count_variance_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:402:            f\"for RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE:\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:438:        \"tool\": \"real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:441:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:443:            \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR (RQA ratio \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:444:            \"RTE/WHITE_DIAG_LINE_COUNT_VARIANCE on delay-embedded log-volume returns; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:447:            \"excluding trivial self; WHITE_DIAG_LINE_COUNT_VARIANCE=sample variance (ddof=1) \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:452:            \"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE=RTE/WHITE_DIAG_LINE_COUNT_VARIANCE; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:456:            \"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE. \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:463:            \"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:470:            \"fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_VARIANCE/ratio \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:482:                \"VARIANCE/WHITE_DIAG_LINE_COUNT_VARIANCE patterns \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:487:                \"Primary C229 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:488:                \"(WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:498:                \"RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:500:            \"family\": \"RQA RTE/WHITE_DIAG_LINE_COUNT_VARIANCE ratio shock on volume dynamics\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:530:            \"white_diag_line_count_variance_definition\": (\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:531:                \"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:555:            \"c228_note\": \"C228 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR, oos_edge_proven false). C229 uses WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0 with >=1 qualifying WHITE diagonal segment of consecutive 0s/non-recurrent (length>=w_min=2; cnt_k_white=qualifying white segment count on diagonal k / cells on diagonal k=M_pts-|k|), with explicit WHITE_/non-recurrent qualifier, distinct from DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C228 families.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:572:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos\"",
+      "grep_verified_at_utc": "20261108T203235Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE/WHITE_DIAG_LINE_COUNT_VARIANCE patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+      "selection_note": "Primary C229 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE (WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0 with >=1 qualifying WHITE diagonal segment of consecutive 0s/non-recurrent, length>=w_min=2; cnt_k_white=(number of qualifying white diagonal segments on diagonal k)/(cells on diagonal k=M_pts-|k|)); grep-zero non-self confirmed at run time. Distinct from DIAG_LINE_COUNT_VARIANCE(C228; explicit WHITE_/white non-recurrent segment definition), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C228 families. RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.",
+      "family": "RQA RTE/WHITE_DIAG_LINE_COUNT_VARIANCE ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "history_refs": {
+    "c228_registry": {
+      "path": "reports/strategy_edge_registry_20261108T202506Z.json",
+      "sha256": "509503bf244491bc7ae57ebf1b4cfc849b081f8d19b1761e30aedcfeaabc6fa8"
+    },
+    "c228_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json",
+      "sha256": "4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae"
+    },
+    "c227_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_20261108T201257Z.json",
+      "sha256": "037f23a5555807eaa24a966276ebb7a1fd916de5e516f60cee55184a8c086cba"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "campaigns": {
+    "C228": {
+      "strategy_id": "VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+      "oos_path": "reports/real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos_20261108T202354Z.json",
+      "oos_sha256": "4c4de94e3064a0176f24bc817d7fed1ab56c712543b3d4c5aa7bd216b87504ae",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261108T202506Z.json",
+      "ingest_sha256": "c47487ef2b0e633e854dd5c06a640f62bcab3d804717f85358665dea7a26a638",
+      "script_path": "scripts/run_real_quote_volume_rqa_rte_over_diag_line_count_variance_shock_mr_costed_oos.py",
+      "script_sha256": "2de98225f0f48ef94b1aa90fbe60675482ff69e317358ecd1e01cf6fab30ace5",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.015478741990794798,
+        "fee5_slip5": -1.3914787419907952,
+        "fee10_slip10": -2.767478741990795,
+        "fee20_slip20": -5.519478741990795,
+        "fee40_slip40": -11.023478741990795
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    "C229": {
+      "campaign": 229,
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.015478741990794798,
+        "fee5_slip5": -1.3914787419907952,
+        "fee10_slip10": -2.767478741990795,
+        "fee20_slip20": -5.519478741990795,
+        "fee40_slip40": -11.023478741990795
+      },
+      "artifacts": {
+        "oos": {
+          "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos_20261108T203235Z.json",
+          "sha256": "98a2d1f07e25d57bf31260ee6cfd6c10c1af4a69938bb9f446774ddeb79acbd6"
+        },
+        "ingest": {
+          "path": "reports/real_feed_ingest_attempt_20261108T203312Z.json",
+          "sha256": "8b97ae6fb039b6d03a126284a9e0044905b69af26310ffaa37e762f023ba7d0e"
+        },
+        "script": {
+          "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py",
+          "sha256": "70f30d070c36dc8fbdb571067edddb116cc7e7015c428ac9c08a6451f4e6a1bb"
+        }
+      },
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|rte_over_white_diag_line_count_variance|WHITE_DIAG_LINE_COUNT_VARIANCE|white_diag_line_count_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_hits_nonself_at_run": 0,
+        "grep_output_at_run": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:2:\"\"\"C229: RQA ratio RTE/WHITE_DIAG_LINE_COUNT_VARIANCE shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_COUNT_VARIANCE (denominator) = sample variance (ddof=1) of\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:24:  RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:25:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_VARIANCE/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:32:  C125-C228 families. RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:82:    \"RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:83:    \"rte_over_white_diag_line_count_variance|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:84:    \"WHITE_DIAG_LINE_COUNT_VARIANCE|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:85:    \"white_diag_line_count_variance\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:106:        and (\"white_diag_line_count_variance\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:190:def _white_diag_line_count_variance(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:191:    \"\"\"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:222:def rqa_rte_over_white_diag_line_count_variance_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:225:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:260:    # WHITE_DIAG_LINE_COUNT_VARIANCE (denominator)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:261:    div = _white_diag_line_count_variance(R, w_min)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:302:                last_val = rqa_rte_over_white_diag_line_count_variance_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:402:            f\"for RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE:\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:438:        \"tool\": \"real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:441:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:443:            \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR (RQA ratio \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:444:            \"RTE/WHITE_DIAG_LINE_COUNT_VARIANCE on delay-embedded log-volume returns; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:447:            \"excluding trivial self; WHITE_DIAG_LINE_COUNT_VARIANCE=sample variance (ddof=1) \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:452:            \"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE=RTE/WHITE_DIAG_LINE_COUNT_VARIANCE; \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:456:            \"RATIO_RTE_WHITE_DIAG_LINE_COUNT_VARIANCE = RTE / WHITE_DIAG_LINE_COUNT_VARIANCE. \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:463:            \"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:470:            \"fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_COUNT_VARIANCE/ratio \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:482:                \"VARIANCE/WHITE_DIAG_LINE_COUNT_VARIANCE patterns \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:487:                \"Primary C229 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:488:                \"(WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:498:                \"RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:500:            \"family\": \"RQA RTE/WHITE_DIAG_LINE_COUNT_VARIANCE ratio shock on volume dynamics\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:530:            \"white_diag_line_count_variance_definition\": (\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:531:                \"WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:555:            \"c228_note\": \"C228 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_DIAG_LINE_COUNT_VARIANCE_SHOCK_MR, oos_edge_proven false). C229 uses WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0 with >=1 qualifying WHITE diagonal segment of consecutive 0s/non-recurrent (length>=w_min=2; cnt_k_white=qualifying white segment count on diagonal k / cells on diagonal k=M_pts-|k|), with explicit WHITE_/non-recurrent qualifier, distinct from DIAG_LINE_COUNT_VARIANCE(C228), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C228 families.\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos.py:572:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_count_variance_shock_mr_costed_oos\"",
+        "grep_verified_at_utc": "20261108T203235Z",
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE/WHITE_DIAG_LINE_COUNT_VARIANCE patterns (verified before implementation/run); distinctness confirmed. Primary candidate used (no collision fallback needed).",
+        "selection_note": "Primary C229 candidate RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE (WHITE_DIAG_LINE_COUNT_VARIANCE = sample variance (ddof=1) of cnt_k_white over off-diagonal diagonals k!=0 with >=1 qualifying WHITE diagonal segment of consecutive 0s/non-recurrent, length>=w_min=2; cnt_k_white=(number of qualifying white diagonal segments on diagonal k)/(cells on diagonal k=M_pts-|k|)); grep-zero non-self confirmed at run time. Distinct from DIAG_LINE_COUNT_VARIANCE(C228; explicit WHITE_/white non-recurrent segment definition), WHITE_DIAG_LINE_LENGTH_DIVERGENCE(C227), WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C228 families. RTE_OVER_WHITE_DIAG_LINE_COUNT_VARIANCE not used C125-C228.",
+        "family": "RQA RTE/WHITE_DIAG_LINE_COUNT_VARIANCE ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      }
+    }
+  }
+}
