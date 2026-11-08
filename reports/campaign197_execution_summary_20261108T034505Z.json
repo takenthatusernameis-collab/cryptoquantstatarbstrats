@@ -1,0 +1,53 @@
+{
+  "generated_at_utc": "20261108T034505Z",
+  "campaign": 197,
+  "latest_campaign_done": "C197",
+  "next_campaign": "C198",
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_DIV_RATIO_SHOCK_MR",
+  "artifacts": [
+    {
+      "role": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_div_ratio_shock_mr_costed_oos_20261108T034505Z.json",
+      "sha256": "2cecf4d65ade16f4fe7688249622ccf0be1d271366e7fc1a89c84e8d47b2641b"
+    },
+    {
+      "role": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T034505Z.json",
+      "sha256": "cf89c8e360a955c45abb2ea4059979ec9489db94216a981dcc3505e3e7733360"
+    },
+    {
+      "role": "registry",
+      "path": "reports/strategy_edge_registry_20261108T034505Z.json",
+      "sha256": "cf71df3a31b6656bfef0cf6aa658f095758d8de9ec4491a0c570be267a314e2a",
+      "note": "sha256 computed from registry file bytes (point-in-time)"
+    },
+    {
+      "role": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_div_ratio_shock_mr_costed_oos.py",
+      "sha256": "cc4c74eee754a9e3064eb511dd703344c7fada1869123c7c03a0b906aec1af8c"
+    }
+  ],
+  "oos_summary": {
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 1.187570235678757,
+      "fee5_slip5": 0.8555702356787565,
+      "fee10_slip10": 0.5235702356787564,
+      "fee20_slip20": -0.1404297643212436,
+      "fee40_slip40": -1.4684297643212432
+    }
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_DIV|rte_over_div|rqa_ratio_rte_over_div|rqa_rte_over_div_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T034505Z",
+    "note": "Primary RTE/DIV pairing not used C125-C196; verified before implementation/run (0 non-self excluding self script hits)."
+  },
+  "sha256_note": "Artifacts list sha256 computed from each file bytes; cross-file SHA cycle avoided by omitting registry->summary sha."
+}
