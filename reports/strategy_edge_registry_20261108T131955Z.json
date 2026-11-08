@@ -1,0 +1,12 @@
+{
+  "campaign": 213,
+  "generated_at_utc": "20261108T131955Z",
+  "supersedes": "reports/strategy_edge_registry_20261108T123534Z.json",
+  "supersedes_sha256": "6ba3d270c2cc07deae16a03580bfee474d99cc4acfcf91ce21ec5f29e2538387",
+  "latest_oos": "reports/real_quote_volume_rqa_rte_over_wmax_ratio_shock_mr_costed_oos_20261108T131955Z.json",
+  "latest_oos_sha256": "a19284df4be82279f89a8bdb715f672bfc0abade1ee8eead400b40dd9a41319f",
+  "script": "scripts/run_real_quote_volume_rqa_rte_over_wmax_ratio_shock_mr_costed_oos.py",
+  "script_sha256": "f22df79b9f8c00eae82b5c5a40b8aeb8989b6e640d48d76a51c3901419cd1f80",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false
+}

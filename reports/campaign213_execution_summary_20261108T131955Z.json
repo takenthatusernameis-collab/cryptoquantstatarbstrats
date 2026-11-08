@@ -1,0 +1,22 @@
+{
+  "campaign": 213,
+  "generated_at_utc": "20261108T131955Z",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_wmax_ratio_shock_mr_costed_oos_20261108T131955Z.json",
+      "sha256": "a19284df4be82279f89a8bdb715f672bfc0abade1ee8eead400b40dd9a41319f"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T131955Z.json",
+      "sha256": "97c2f94bbf489b2955b0f835cbaa8edf773a9d1f74e5ecbcc9a96b202609e8fe"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261108T131955Z.json",
+      "sha256": "e27c5e4668701f71fc762eb14e1279742a96bd4b6f70bb837510e4089aeaed22"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_wmax_ratio_shock_mr_costed_oos.py",
+      "sha256": "f22df79b9f8c00eae82b5c5a40b8aeb8989b6e640d48d76a51c3901419cd1f80"
+    }
+  }
+}
