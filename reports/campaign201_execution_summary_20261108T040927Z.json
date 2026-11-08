@@ -1,0 +1,52 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T040927Z",
+  "campaign": 201,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_entr_over_rte_ratio_shock_mr_costed_oos_20261108T040927Z.json",
+      "sha256": "7c60d462cb08337d3994f342e76a0fa8e99cb073f9e936e30bd4bb8f14e5253b"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T040927Z.json",
+      "sha256": "7cb0cf5ef12577eabbcfd7e1770183b26a705b6306a2db3cd34e07b75d188955"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T040927Z.json",
+      "sha256": "f85e6bf3d4cae044a1097887559961349955021906e34513e1b2eb7e2c7a388c"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_rte_ratio_shock_mr_costed_oos.py",
+      "sha256": "fa65d9ada96bd172de1e29e359092d06d9d3b02baf00eec4de89792e6ac53dae"
+    }
+  ],
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_ENTR_OVER_RTE_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'ENTR_OVER_RTE|entr_over_rte|rqa_ratio_entr_over_rte|rqa_entr_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T040927Z"
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.8040735287438145,
+    "fee5_slip5": -1.2290735287438148,
+    "fee10_slip10": -1.654073528743815,
+    "fee20_slip20": -2.504073528743815,
+    "fee40_slip40": -4.204073528743815
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T040028Z.json",
+    "sha256": "2273f16a9e39fb7b6e3c495a4eba0040e307fc9a9599094d3c913987f8e55799"
+  },
+  "c202_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_ENTR_RATIO_SHOCK_MR",
+    "note": "C201 done; next campaign C202 must be a distinct grep-verified RQA-ratio candidate not used C125-C201 (ENTR_OVER_RTE now used; RR_OVER_ENTR already exists as C157-family script \u2014 grep nonzero, ineligible). Grep-verify a fresh candidate (e.g. RTE_OVER_ENTR, DET_OVER_ENTR, or LAM_OVER_ENTR) before C202 implementation/run."
+  }
+}
