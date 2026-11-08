@@ -1,0 +1,105 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T201358Z",
+  "campaign": 227,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T192444Z.json",
+    "sha256": "22eca308e0b063c2603ea1132ad102e5070c31755c643c113036dcf8f928c3db"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 227,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.029089727089156914,
+      "fee5_slip5": -0.5360897270891573,
+      "fee10_slip10": -1.0430897270891573,
+      "fee20_slip20": -2.057089727089157,
+      "fee40_slip40": -4.085089727089157
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_20261108T201257Z.json",
+        "sha256": "037f23a5555807eaa24a966276ebb7a1fd916de5e516f60cee55184a8c086cba"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T201358Z.json",
+        "sha256": "6452389236b95ae685b2e9d9e11cd4fcd380bc580ad1e51525abbc5a0208e88f"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos.py",
+        "sha256": "83cfea67dac48e1de829d615ce8ef3bb19dde1582afa3b53aa8f6ca0a97fa2fb"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE|rte_over_white_diag_line_length_divergence|WHITE_DIAG_LINE_LENGTH_DIVERGENCE|white_diag_line_length_divergence' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_hits_nonself_at_run": 0,
+      "grep_verified_at_utc": "20261108T201257Z",
+      "primary_used": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR",
+      "fallback_used": null,
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE patterns (verified before run); distinctness confirmed. Primary candidate used (no collision fallback).",
+      "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "history_refs": {
+    "c226_registry": {
+      "path": "reports/strategy_edge_registry_20261108T192444Z.json",
+      "sha256": "22eca308e0b063c2603ea1132ad102e5070c31755c643c113036dcf8f928c3db"
+    },
+    "c226_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos_20261108T192253Z.json",
+      "sha256": "c670c83caea7b53b58eb5138b3a17b74ae138569fb7a01557a212df550583665"
+    },
+    "c225_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T191100Z.json",
+      "sha256": "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67ff"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "campaigns": {
+    "C227": {
+      "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR",
+      "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_20261108T201257Z.json",
+      "oos_sha256": "037f23a5555807eaa24a966276ebb7a1fd916de5e516f60cee55184a8c086cba",
+      "ingest_path": "reports/real_feed_ingest_attempt_20261108T201358Z.json",
+      "ingest_sha256": "6452389236b95ae685b2e9d9e11cd4fcd380bc580ad1e51525abbc5a0208e88f",
+      "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos.py",
+      "script_sha256": "83cfea67dac48e1de829d615ce8ef3bb19dde1582afa3b53aa8f6ca0a97fa2fb",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE",
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.029089727089156914,
+        "fee5_slip5": -0.5360897270891573,
+        "fee10_slip10": -1.0430897270891573,
+        "fee20_slip20": -2.057089727089157,
+        "fee40_slip40": -4.085089727089157
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "pre_stated_distinctness": {
+        "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE|rte_over_white_diag_line_length_divergence|WHITE_DIAG_LINE_LENGTH_DIVERGENCE|white_diag_line_length_divergence' scripts/ strategies/ backtest/ utils/ 2>&1",
+        "grep_hits_at_selection": 0,
+        "grep_hits_nonself_at_run": 0,
+        "grep_verified_at_utc": "20261108T201257Z",
+        "primary_used": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR",
+        "fallback_used": null,
+        "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE patterns (verified before run); distinctness confirmed. Primary candidate used (no collision fallback).",
+        "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE ratio shock on volume dynamics",
+        "uses_ratio_of_rqa_measures": true
+      },
+      "edge_note": "Edge rule NOT proven (all cost-slice cross-asset net sums negative); edge_claim NONE."
+    }
+  }
+}

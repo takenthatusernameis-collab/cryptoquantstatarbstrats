@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C225: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE shock on delay-embedded
+"""C227: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE shock on delay-embedded
 log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
@@ -13,21 +13,21 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
         trivial self at i==j). Qualifying w>=w_min with count n_w>0;
         p_w=n_w/sum_u n_u; RTE=-sum_w p_w*ln(p_w). Fail-closed if <2 distinct
         qualifying gap lengths or entropy non-finite/non-positive/degenerate.
-  WHITE_DIAG_LINE_LENGTH_VARIANCE (denominator) = max(cnt_k_white)-mean(cnt_k_white)
+  WHITE_DIAG_LINE_LENGTH_DIVERGENCE (denominator) = max(len_k_white)-mean(len_k_white)
         over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal
         segment of consecutive 0s with length w>=w_min (LOI excluded by k!=0),
-        where cnt_k_white = (number of qualifying white diagonal segments on
-        diagonal k) / (number of cells on diagonal k in embedded RP = M_pts-|k|).
+        where len_k_white = mean qualifying white segment length on diagonal k.
         White diagonal definition explicit and trailing/causal on RP.
         Fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/
         undefined.
-  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_VARIANCE = RTE / WHITE_DIAG_LINE_LENGTH_VARIANCE.
-  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE/ratio
+  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_DIVERGENCE = RTE / WHITE_DIAG_LINE_LENGTH_DIVERGENCE.
+  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE/ratio
   undefined/non-finite/degenerate or insufficient qualifying segments/gaps.
-  Causal trailing only. Distinct from DIAG_LINE_DENSITY_VARIANCE(C222),
-  DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223),
-  WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families.
-  RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE not used C125-C224.
+  Causal trailing only. Distinct from WHITE_DIAG_LINE_LENGTH_VARIANCE(C226),
+  WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224),
+  WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222),
+  DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C226 families.
+  RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE not used C125-C226.
   Grep 0 non-self required at run time.
 """
 
@@ -60,16 +60,6 @@ VOL_PROV = cache_dir / "volume_1h_full.provenance.json"
 
 PRIOR_REGISTRY = "reports/strategy_edge_registry_20261108T192444Z.json"
 PRIOR_REGISTRY_SHA = "22eca308e0b063c2603ea1132ad102e5070c31755c643c113036dcf8f928c3db"
-PRIOR_C224_OOS = (
-    "reports/real_quote_volume_rqa_rte_over_white_diag_line_density_variance_shock_mr_costed_oos_"
-    "20261108T182721Z.json"
-)
-PRIOR_C224_OOS_SHA = "01e730107d1e671e2bba1672e5a92dba3d2c589f36c130a6349efe5dd3e87e7d"
-PRIOR_C225_OOS = (
-    "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_divergence_shock_mr_costed_oos_"
-    "20261108T191100Z.json"
-)
-PRIOR_C225_OOS_SHA = "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67f7"
 
 W_RR = 168
 ALB = 336
@@ -196,11 +186,11 @@ def _qualifying_white_diag_segments(diag: np.ndarray, w_min: int) -> list[int]:
 
 
 def _white_diag_line_length_divergence(R: np.ndarray, w_min: int) -> float:
-    """WHITE_DIAG_LINE_LENGTH_VARIANCE = sample variance (ddof=1) of
-    len_k_white over off-diagonal diagonals k!=0 with >=1 qualifying white
-    diagonal segment of consecutive 0s with length w>=w_min, where
+    """WHITE_DIAG_LINE_LENGTH_DIVERGENCE = max(len_k_white)-mean(len_k_white)
+    over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal
+    segment of consecutive 0s with length w>=w_min, where
     len_k_white = mean qualifying white segment length on diagonal k.
-    Fail-closed if <2 qualifying diagonals or variance <=0/non-finite/undefined."""
+    Fail-closed if <2 qualifying diagonals or divergence <=0/non-finite/undefined."""
     M_pts = R.shape[0]
     lens: list[float] = []
     for k in range(-(M_pts - 1), M_pts):
@@ -226,7 +216,7 @@ def _white_diag_line_length_divergence(R: np.ndarray, w_min: int) -> float:
 def rqa_rte_over_white_diag_line_length_divergence_window(
     rw: np.ndarray, eps_scale: float, w_min: int
 ) -> float:
-    """RATIO_RTE_WHITE_DIAG_LINE_LENGTH_VARIANCE = RTE / WHITE_DIAG_LINE_LENGTH_VARIANCE.
+    """RATIO_RTE_WHITE_DIAG_LINE_LENGTH_DIVERGENCE = RTE / WHITE_DIAG_LINE_LENGTH_DIVERGENCE.
     Fail-closed to NaN."""
     if rw is None or len(rw) < (M_EMB - 1) * TAU + 3:
         return np.nan
@@ -261,7 +251,7 @@ def rqa_rte_over_white_diag_line_length_divergence_window(
     rte = _entropy_nats_from_counts(r_counts)
     if not np.isfinite(rte) or rte <= 0:
         return np.nan
-    # WHITE_DIAG_LINE_LENGTH_VARIANCE (denominator)
+    # WHITE_DIAG_LINE_LENGTH_DIVERGENCE (denominator)
     div = _white_diag_line_length_divergence(R, w_min)
     if not np.isfinite(div) or div <= 0:
         return np.nan
@@ -403,7 +393,7 @@ def main():
     if grep_hits > 0:
         msg = (
             f"COLLISION: distinctness grep returned {grep_hits} non-self hits "
-            f"for RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE:\n{grep_out}"
+            f"for RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE:\n{grep_out}"
         )
         raise SystemExit(msg)
     spot_df, spot_meta, spot_sha = load_spot()
@@ -445,33 +435,32 @@ def main():
         "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR",
         "candidate": (
             "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE_SHOCK_MR (RQA ratio "
-            "RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE on delay-embedded log-volume returns; "
+            "RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE on delay-embedded log-volume returns; "
             "RTE=Shannon entropy (nats) of white vertical line length "
             "(recurrence-time gap) distribution over qualifying gaps w>=w_min "
-            "excluding trivial self; WHITE_DIAG_LINE_LENGTH_VARIANCE=max(rho_k_white)-"
-            "mean(rho_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying "
+            "excluding trivial self; WHITE_DIAG_LINE_LENGTH_DIVERGENCE=max(len_k_white)-"
+            "mean(len_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying "
             "white diagonal segment of consecutive 0s (length>=w_min, LOI excluded by k!=0), "
-            "where rho_k_white=(sum of qualifying white segment lengths on diagonal k)/(M_pts-|k|); "
-            "RATIO_RTE_WHITE_DIAG_LINE_LENGTH_VARIANCE=RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE; "
+            "where len_k_white=mean qualifying white segment length on diagonal k; "
+            "RATIO_RTE_WHITE_DIAG_LINE_LENGTH_DIVERGENCE=RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE; "
             "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=2)"
         ),
         "feature_definition": (
-            "RATIO_RTE_WHITE_DIAG_LINE_LENGTH_VARIANCE = RTE / WHITE_DIAG_LINE_LENGTH_VARIANCE. "
+            "RATIO_RTE_WHITE_DIAG_LINE_LENGTH_DIVERGENCE = RTE / WHITE_DIAG_LINE_LENGTH_DIVERGENCE. "
             "RTE = Shannon entropy (nats) of white vertical line length "
             "(recurrence-time gap) distribution: per column j, gap lengths w of "
             "consecutive zeros between recurrent points excluding i==j; "
             "qualifying w>=w_min (w_min=2), p_w=n_w/sum_u n_u, "
             "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying gap "
             "lengths or entropy non-finite/non-positive. "
-"WHITE_DIAG_LINE_LENGTH_VARIANCE = max(cnt_k_white)-mean(cnt_k_white) over "
-                "off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of "
-                "consecutive 0s with segment length >=w_min (w_min=2), where cnt_k_white = "
-                "(number of qualifying white diagonal segments on diagonal k) / (number of cells "
-                "on diagonal k in embedded RP = M_pts-|k|). Fail-closed if <2 qualifying "
-                "diagonals or divergence <=0/non-finite/undefined. On trailing delay embedding "
-                "(m=2,tau=1), L-inf recurrence eps=0.5*std(window). Causal trailing only; "
-                "fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE/ratio "
-                "undefined/non-finite/degenerate or insufficient qualifying segments/gaps."
+            "WHITE_DIAG_LINE_LENGTH_DIVERGENCE = max(len_k_white)-mean(len_k_white) over "
+            "off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of "
+            "consecutive 0s with segment length >=w_min (w_min=2), where len_k_white = "
+            "mean qualifying white segment length on diagonal k. Fail-closed if <2 qualifying "
+            "diagonals or divergence <=0/non-finite/undefined. On trailing delay embedding "
+            "(m=2,tau=1), L-inf recurrence eps=0.5*std(window). Causal trailing only; "
+            "fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE/ratio "
+            "undefined/non-finite/degenerate or insufficient qualifying segments/gaps."
         ),
         "pre_stated_distinctness": {
             "grep_cmd": DISTINCTNESS_GREP,
@@ -481,24 +470,24 @@ def main():
             "grep_verified_at_utc": ts,
             "grep_evidence_note": (
                 "Pre-implementation/run grep over scripts/strategies/backtest/"
-                "utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_"
-                "COUNT_DIVERGENCE/WHITE_DIAG_LINE_LENGTH_VARIANCE patterns "
+                "utils returned 0 non-self hits for RTE_OVER_WHITE_DIAG_LINE_LENGTH_"
+                "DIVERGENCE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE patterns "
                 "(verified before implementation/run); distinctness confirmed. "
                 "Primary candidate used (no collision fallback needed)."
             ),
             "selection_note": (
-                "Primary C225 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE "
-                "(WHITE_DIAG_LINE_LENGTH_VARIANCE = max(rho_k_white)-mean(rho_k_white) "
+                "Primary C227 candidate RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE "
+                "(WHITE_DIAG_LINE_LENGTH_DIVERGENCE = max(len_k_white)-mean(len_k_white) "
                 "over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal "
-                "segment of consecutive 0s, length>=w_min=2; rho_k_white = qualifying "
-                "white segment-length sum / diagonal cell count M_pts-|k|); "
-                "grep-zero non-self confirmed at run time. Distinct from "
-                "DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), "
-                "WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), "
-                "WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families. "
-                "RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE not used C125-C224."
+                "segment of consecutive 0s, length>=w_min=2; len_k_white = mean qualifying "
+                "white segment length on diagonal k); grep-zero non-self confirmed at run time. "
+                "Distinct from WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), "
+                "WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), "
+                "WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), "
+                "DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C226 families. "
+                "RTE_OVER_WHITE_DIAG_LINE_LENGTH_DIVERGENCE not used C125-C226."
             ),
-            "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_VARIANCE ratio shock on volume dynamics",
+            "family": "RQA RTE/WHITE_DIAG_LINE_LENGTH_DIVERGENCE ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
         },
         "real_data_only": True,
@@ -528,12 +517,11 @@ def main():
                 "RTE=-sum_w p_w*ln(p_w); fail-closed if <2 distinct qualifying "
                 "gap lengths or entropy non-finite/non-positive"
             ),
-"white_diag_line_length_divergence_definition": (
-                "WHITE_DIAG_LINE_LENGTH_VARIANCE = max(cnt_k_white)-mean(cnt_k_white) "
+            "white_diag_line_length_divergence_definition": (
+                "WHITE_DIAG_LINE_LENGTH_DIVERGENCE = max(len_k_white)-mean(len_k_white) "
                 "over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal "
-                "segment of consecutive 0s (length >= w_min=2); cnt_k_white = (number of "
-                "qualifying white diagonal segments on diagonal k) / (number of cells "
-                "on diagonal k in embedded RP = M_pts-|k|). Fail-closed if <2 qualifying "
+                "segment of consecutive 0s (length >= w_min=2), where len_k_white = "
+                "mean qualifying white segment length on diagonal k. Fail-closed if <2 qualifying "
                 "diagonals or divergence <=0/non-finite/undefined."
             ),
             "white_segment_definition": (
@@ -549,19 +537,11 @@ def main():
         "references": {
             "prior_registry": PRIOR_REGISTRY,
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c224_oos": PRIOR_C224_OOS,
-            "c224_oos_sha256": PRIOR_C224_OOS_SHA,
-            "c224_note": (
-                "C224 OOS SHA verified from bytes (VOLUME_RQA_RTE_OVER_"
-                "WHITE_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR, oos_edge_proven false). "
-                "C225 uses RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE where "
-                "denominator is max(rho_k_white)-mean(rho_k_white) over off-diagonal "
-                "diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s "
-                "(length>=w_min=2; rho_k_white = qualifying white segment-length sum / "
-                "diagonal cell count M_pts-|k|), distinct from DIAG_LINE_DENSITY_VARIANCE(C222), "
-                "DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), "
-                "WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), and prior C125-C224 families."
-            ),
+            "c226_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_variance_shock_mr_costed_oos_20261108T192253Z.json",
+            "c226_oos_sha256": "c670c83caea7b53b58eb5138b3a17b74ae138569fb7a01557a212df550583665",
+            "c225_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_count_divergence_shock_mr_costed_oos_20261108T191100Z.json",
+            "c225_oos_sha256": "62da7c2594bdba7be3b30903c7dd0a529a15491898a42690178ab3e690fc67ff",
+            "c226_note": "C226 OOS canonical SHA verified from bytes (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR, oos_edge_proven false). C227 uses WHITE_DIAG_LINE_LENGTH_DIVERGENCE = max(len_k_white)-mean(len_k_white) over off-diagonal diagonals k!=0 with >=1 qualifying white diagonal segment of consecutive 0s (length>=w_min=2; len_k_white = mean qualifying white segment length on diagonal k), distinct from WHITE_DIAG_LINE_LENGTH_VARIANCE(C226), WHITE_DIAG_LINE_COUNT_DIVERGENCE(C225), WHITE_DIAG_LINE_DENSITY_VARIANCE(C224), WHITE_DIAG_LINE_DENSITY_DIVERGENCE(C223), DIAG_LINE_DENSITY_VARIANCE(C222), DIAG_LINE_DENSITY_DIVERGENCE(C221), and prior C125-C226 families."
         },
         "per_asset": assets,
         "cross_asset": {"oos_net_sums": cross},
