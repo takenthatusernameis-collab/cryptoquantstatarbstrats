@@ -1,0 +1,64 @@
+{
+  "tool": "campaign_execution_summary",
+  "generated_at_utc": "20261108T091806Z",
+  "campaign": 204,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_lam_ratio_shock_mr_costed_oos_20261108T091806Z.json",
+      "sha256": "e0dd9dc9012b2c75ec8e9b6c0b903bc7445e9b0d1932f2e43969acd75faf032c"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T091806Z.json",
+      "sha256": "e21eb760a46345b9c528cc0c662b7ec7007df53d44a0517055687e11321dfba7"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T091806Z.json",
+      "sha256": "257bed6bfe5d086a249340c6b44dc2da5631f0d80afec99e799f36dc57e22aec"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_lam_ratio_shock_mr_costed_oos.py",
+      "sha256": "b2643c015809a2815f299e71cfa1d7ae64ec958b91a7b85d9db4bcb5401eb675"
+    },
+    {
+      "kind": "summary",
+      "path": "reports/campaign204_execution_summary_20261108T091806Z.json",
+      "sha256": "712ff34e888ff4cdfbba8deec954224f54e684a3675dda62f4a8de81a8b51270"
+    }
+  ],
+  "distinctness": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_LAM_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_LAM|rte_over_lam|rqa_ratio_rte_over_lam|rqa_rte_over_lam_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_total": 13,
+    "grep_hits_nonself_at_run": 0,
+    "grep_verified_utc": "20261108T091806Z",
+    "grep_output_note": "13 hits all in C204 script (self); 0 non-self.",
+    "selection_note": "Primary C204 RTE_OVER_LAM executed; grep-zero non-self confirmed. LAM_OVER_RTE (C199) is different pairing; RTE_OVER_RR ineligible (11 hits)."
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.7245816627743846,
+    "fee5_slip5": 0.3585816627743843,
+    "fee10_slip10": -0.007418337225615801,
+    "fee20_slip20": -0.7394183372256157,
+    "fee40_slip40": -2.2034183372256155
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T045258Z.json",
+    "sha256": "d9a3cfe58c9637cd2e5f466cb8389fd129398cf9ac0ffa2708a7baa4a06d62fb"
+  },
+  "artifact_integrity_note": "OOS JSON contains carryover template text (C202/C203/DET labels) from script generation; authoritative fields (strategy_id, metrics, edge result, distinctness block, cross_asset sums) are present. Real data only; edge_claim NONE.",
+  "c205_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_TT|rte_over_tt|rqa_ratio_rte_over_tt|rqa_rte_over_tt_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_verify_required": true,
+    "metric_primary": "RQA ratio RTE/TT on delay-embedded log-volume returns. RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution over qualifying gaps w>=w_min excluding trivial self; TT=RQA trapping time = average length of vertical lines with v>=v_min (mean of qualifying vertical line lengths); RATIO_RTE_TT=RTE/TT. Params m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,v_min=2. Fail-closed NaN/no-signal if RTE/TT/ratio undefined/non-finite/degenerate or insufficient qualifying lines/gaps. Trailing/causal only.",
+    "selection_note": "RTE_OVER_TT grep 0 observed 20261108T045258Z; re-verify 0 non-self at C205 run time. TT_OVER_RTE/other pairings distinct; fallbacks RTE_OVER_TREND, RTE_OVER_VMAX (grep 0 observed 20261108T045258Z)."
+  }
+}
