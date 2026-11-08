@@ -1,13 +1,13 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T045750Z, C203 DONE — C204 EXECUTE IMMEDIATELY, NO STATUS-FIRST)
-**Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C203 LOCKED.**
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261108T050324Z, C203 DONE — C204 NOT DONE, EXECUTE IMMEDIATELY, NO STATUS-FIRST)
+**Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C203 LOCKED (no reruns). C204 preselected, grep-zero observed, not yet executed — no artifacts on disk.**
 
-## TIMESTAMPED INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (20261108T045750Z)
-**PRIORITY 1 (HEAVY WORK): EXECUTE C204 NOW.** C203 complete (VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR, no edge: cross-asset net sums fee0=+0.7245817, fee5=+0.3585817, fee10=-0.0074183, fee20=-0.7394183, fee40=-2.2034183 — fails all-cost-slices-positive / B&H mean rule). **If C204 artifacts do not yet exist on disk, do not summarize. Do not stop at status. Implement + run + emit artifacts.**
+## TIMESTAMPED INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION (20261108T050324Z)
+**PRIORITY 1 (HEAVY WORK): EXECUTE C204 NOW.** C203 complete (VOLUME_RQA_RTE_OVER_DET_RATIO_SHOCK_MR, no edge: cross-asset net sums fee0=+0.7245817, fee5=+0.3585817, fee10=-0.0074183, fee20=-0.7394183, fee40=-2.2034183 — fails all-cost-slices-positive / B&H mean rule; `edge_claim:NONE`). **C204 artifacts do NOT yet exist on disk — do not summarize status. Do not stop at status. Implement + run + emit artifacts.**
 
 Produce **>= 4 NEW concrete C204 artifacts on disk** with **SHA256 computed from bytes**:
-1) OOS result JSON  2) Ingest attempt JSON (campaign 204)  3) Superseding strategy_edge_registry JSON  4) Campaign summary JSON listing every new artifact + its sha256.  Also produce/update the OOS script and `research_state/state.yaml`.
+1) OOS result JSON  2) Ingest attempt JSON (campaign 204)  3) Superseding strategy_edge_registry JSON  4) Campaign summary JSON listing every new artifact + its sha256. Also produce/update the OOS script and `research_state/state.yaml`.
 
-## VERIFIED BASELINE (20261108T045750Z)
+## VERIFIED BASELINE (20261108T050324Z)
 - deps_ok (numpy/scipy/pandas 2.5.4/1.18.1/3.1.1). pytest 9.2.0 available.
 - Caches: `data/cache/volume_1h_full.pkl/meta/provenance`, spot `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`.
 - C202 LOCKED: OOS 9992f000f7ba3514f7c3c8f192befcfb95979f161dbef1287334d18d3090d392 (`reports/real_quote_volume_rqa_rte_over_entr_ratio_shock_mr_costed_oos_20261108T044616Z.json`, VOLUME_RQA_RTE_OVER_ENTR_RATIO_SHOCK_MR, edge_claim NONE). Registry 78a5906062f4eabdcf88ea06107fb4d0bc0dea69095213f9e21a636d48db4eab supersedes C201 f85e6bf3d4cae044a1097887559961349955021906e34513e1b2eb7e2c7a388c.
@@ -16,22 +16,22 @@ Produce **>= 4 NEW concrete C204 artifacts on disk** with **SHA256 computed from
 - Single durable handoff = this file + `research_state/state.yaml`.
 
 ## BOTTLENECKS REMOVED / MANDATES (NO EXCUSES)
-- **No status-first.** Artifacts on disk are deliverable.
+- **No status-first.** Artifacts on disk are the deliverable.
 - **No reruns of locked campaigns C104–C203.** No gate/threshold weakening, no proxies labeled real, no fabricated feeds/provenance/results.
 - **Real-data-only, fail-closed.** Nonspot blocked fail-closed; R-B unblocked on validated `real_quote_volume`.
 - **Distinctness enforced.** Grep-verify candidate before implementation/run and record evidence in artifacts + state.
 - **Heavy work mandatory.** Implement and run C204 now. No status-only replies. No stop between campaigns.
 
-## C204 — PRIMARY CANDIDATE (PRESELECTED, GREP-ZERO OBSERVED 20261108T045750Z)
+## C204 — PRIMARY CANDIDATE (PRESELECTED, GREP-ZERO OBSERVED 20261108T045258Z; RUN-TIME RE-VERIFY REQUIRED)
 **Strategy:** `VOLUME_RQA_RTE_OVER_LAM_RATIO_SHOCK_MR`
 **Feature (pre-stated):** RQA ratio RTE/LAM on delay-embedded log-volume returns
 - `r_t = ln(v_t)-ln(v_{t-1})`, embedding `X_i=(r_i,r_{i+tau})`, `m=2,tau=1`, trailing `W_RR=168`, `eps = 0.5*std(r_window)`, L-inf
 - `RTE` (numerator) = Recurrence Time Entropy = Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution: per column j, lengths w of consecutive zeros between recurrent points (excluding trivial self at i==j), qualifying `w>=w_min` with count `n_w>0`, `p_w=n_w/sum_u n_u`, `RTE = -sum_w p_w*ln(p_w)`. Fail-closed if `<2` distinct qualifying gap lengths or entropy non-finite/non-positive.
-- `LAM` (denominator) = RQA laminarity = (sum of vertical line lengths `v>=v_min_lam` belonging to vertical structures) / (sum of all off-diagonal recurrent points) in the trailing window. Use standard RQA vertical-line laminarity (compute over columns; count recurrent points in vertical lines of length >= `v_min_lam`; exclude main diagonal contribution as appropriate per standard definition; fail-closed if ambiguous — document exact method). Fail-closed if denominator <= 0, LAM non-finite, or LAM <= 0.
+- `LAM` (denominator) = RQA laminarity = (sum of vertical line lengths `v>=v_min_lam` belonging to vertical structures) / (sum of all off-diagonal recurrent points) in the trailing window. Fail-closed if denominator <= 0, LAM non-finite, or LAM <= 0.
 - `RATIO_RTE_LAM = RTE / LAM`. Params: `m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,v_min_lam=2`.
 - Fail-closed NaN/no-signal if RTE/LAM/ratio undefined/non-finite/degenerate or insufficient qualifying lines/gaps. Trailing/causal only.
-**Distinctness:** Not used C125–C203. Grep `grep -rnE 'RTE_OVER_LAM|rte_over_lam|rqa_ratio_rte_over_lam|rqa_rte_over_lam_ratio' scripts/ strategies/ backtest/ utils/` returned **0 hits (20261108T045750Z)**. **Re-verify 0 non-self at run time before implementation.** (Ineligible: RTE_OVER_RR 11 hits; LAM_OVER_RTE used C199 is a different pairing — RTE/LAM pairing not used C125–C203.)
-**Fallbacks (grep-zero observed 20261108T045750Z; verify at run):** `VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR`, `VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR`, `VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR` (each grep returned 0). Pick only a distinct grep-zero RQA-ratio candidate not used C125–C204.
+**Distinctness:** Not used C125–C203. Grep `grep -rnE 'RTE_OVER_LAM|rte_over_lam|rqa_ratio_rte_over_lam|rqa_rte_over_lam_ratio' scripts/ strategies/ backtest/ utils/` returned **0 hits (20261108T045258Z)**. **Re-verify 0 non-self at run time before implementation.** (Ineligible: RTE_OVER_RR 11 hits; LAM_OVER_RTE used C199 is a different pairing — RTE/LAM pairing not used C125–C203.)
+**Fallbacks (grep-zero observed 20261108T045258Z; verify at run):** `VOLUME_RQA_RTE_OVER_TT_RATIO_SHOCK_MR`, `VOLUME_RQA_RTE_OVER_TREND_RATIO_SHOCK_MR`, `VOLUME_RQA_RTE_OVER_VMAX_RATIO_SHOCK_MR` (each grep returned 0). Pick only a distinct grep-zero RQA-ratio candidate not used C125–C204.
 
 ### Collision guard (RUN AT START)
 ```bash
