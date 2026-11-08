@@ -1,7 +1,7 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (UPDATED: 20261108T015439Z, C192 COMPLETE, NEXT=C193)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (UPDATED: 20261108T015622Z, C192 COMPLETE/LOCKED, NEXT=C193 MANDATORY INITIAL TASK)
 **Repo:** `cryptoquantstatarbstrats`. Fail-closed, **real-data-only** stat-arb edge validation — WF OOS 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C192 LOCKED.**
 
-## VERIFIED BASELINE (20261108T015439Z)
+## VERIFIED BASELINE (20261108T015622Z — current, unchanged from 20261108T015439Z)
 - deps_ok (numpy/scipy/pandas). pytest 9.2.0 available.
 - Caches present: `data/cache/volume_1h_full.pkl/meta/provenance`, spot `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl/meta`.
 - **C192 COMPLETE/LOCKED**: OOS `reports/real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos_20261108T015314Z.json`=4ea5074e8a8e89544a61eab06ae7e02d942d8a1bbb2b3a962f0f9bbeb77722f0 (`VOLUME_RQA_LAVG_OVER_TT_RATIO_SHOCK_MR`, `oos_edge_proven:false`, `edge_claim:NONE`). Ingest `reports/real_feed_ingest_attempt_20261108T015434Z.json`=9dd2ccd4f316d3632a6a538b8601a92297b28a9bccc44346b17cf054b7ec2b42. Registry `reports/strategy_edge_registry_20261108T015434Z.json`=78d3fc45a916b81ba3ecc7f8251995c927691ed4335f7e97b454679ad01b0193 supersedes C191 7d2e0861e67726b03924550d7be29a68154010d79d3c6c2fa1177077edc848e0. Script `scripts/run_real_quote_volume_rqa_lavg_over_tt_ratio_shock_mr_costed_oos.py`. Summary `reports/campaign192_execution_summary_20261108T015439Z.json`=e18902daa7ee37d1ae14f973b6f9202eda963b90671533bf2331f53ec977e2e3. All SHAs verified from bytes 20261108T015439Z.
