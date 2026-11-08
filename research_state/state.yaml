@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261108T035016Z
-latest_campaign_done: C198
-next_campaign: C199
+updated_utc: 20261108T035536Z
+latest_campaign_done: C199
+next_campaign: C200
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,51 +11,25 @@ pytest: available (9.2.0 observed); do not fabricate results
 deps: numpy/scipy/pandas importable (2.5.4/1.18.1/3.1.1 observed)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T035016Z.json
-  sha256: 2a3eace23f2f877fb076bf3c579959776b466ab63ee30765047d56d1e3656830
-  supersedes: reports/strategy_edge_registry_20261108T034505Z.json
-  supersedes_sha256: cf71df3a31b6656bfef0cf6aa658f095758d8de9ec4491a0c570be267a314e2a
+  path: reports/strategy_edge_registry_20261108T035536Z.json
+  sha256: 12ee3349bbe59ec258d925f73a41ece80069c06ab45bbf7010b14a4e113a843f
+  supersedes: reports/strategy_edge_registry_20261108T035016Z.json
+  supersedes_sha256: 2a3eace23f2f877fb076bf3c579959776b466ab63ee30765047d56d1e3656830
 latest_oos:
-  campaign: C198
-  family: VOLUME_RQA_TT_OVER_DIV_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_tt_over_div_ratio_shock_mr_costed_oos_20261108T035016Z.json
-  sha256: b724cc55140e72bfd389ec4222ce7b36d670c4997ff17e7244d114d393c12b95
+  campaign: C199
+  family: VOLUME_RQA_LAM_OVER_RTE_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_lam_over_rte_ratio_shock_mr_costed_oos_20261108T035536Z.json
+  sha256: 71ebc9ce4071f552ee0c4d75535059d2289e7369d055de84c838b35aeb2d798e
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 0.07880244662796365
-    fee5_slip5: -0.3411975533720367
-    fee10_slip10: -0.7611975533720368
-    fee20_slip20: -1.6011975533720366
-    fee40_slip40: -3.281197553372037
-
-c197_completed:
-  campaign: C197
-  strategy_id: VOLUME_RQA_RTE_OVER_DIV_RATIO_SHOCK_MR
-  oos_edge_proven: false
-  edge_claim: NONE
-  artifacts:
-    oos:
-      path: reports/real_quote_volume_rqa_rte_over_div_ratio_shock_mr_costed_oos_20261108T034505Z.json
-      sha256: 2cecf4d65ade16f4fe7688249622ccf0be1d271366e7fc1a89c84e8d47b2641b
-    ingest:
-      path: reports/real_feed_ingest_attempt_20261108T034505Z.json
-      sha256: cf89c8e360a955c45abb2ea4059979ec9489db94216a981dcc3505e3e7733360
-    registry:
-      path: reports/strategy_edge_registry_20261108T034505Z.json
-      sha256: cf71df3a31b6656bfef0cf6aa658f095758d8de9ec4491a0c570be267a314e2a
-    script:
-      path: scripts/run_real_quote_volume_rqa_rte_over_div_ratio_shock_mr_costed_oos.py
-      sha256: cc4c74eee754a9e3064eb511dd703344c7fada1869123c7c03a0b906aec1af8c
-    summary:
-      path: reports/campaign197_execution_summary_20261108T034505Z.json
-      sha256: 8c1fcbe6b4105fd90b78f1524f8987c8e176209477a3d41692a378cd2b35bb2b
-  pre_stated_distinctness:
-    grep_cmd: "grep -rnE 'RTE_OVER_DIV|rte_over_div|rqa_ratio_rte_over_div|rqa_rte_over_div_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
-    grep_hits_nonself_at_run: 0
-    grep_verified_utc: 20261108T034505Z
+    fee0_slip0: -0.4628169730475371
+    fee5_slip5: -0.7518169730475374
+    fee10_slip10: -1.0408169730475374
+    fee20_slip20: -1.6188169730475375
+    fee40_slip40: -2.774816973047537
 
 c198_completed:
   campaign: C198
@@ -63,52 +37,56 @@ c198_completed:
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
-    oos:
-      path: reports/real_quote_volume_rqa_tt_over_div_ratio_shock_mr_costed_oos_20261108T035016Z.json
-      sha256: b724cc55140e72bfd389ec4222ce7b36d670c4997ff17e7244d114d393c12b95
-    ingest:
-      path: reports/real_feed_ingest_attempt_20261108T035016Z.json
-      sha256: 753c9f5d1e999030a3eb2dfb4cd2d04551bdadf33b3c25219f3b4124b5fc7622
-    registry:
-      path: reports/strategy_edge_registry_20261108T035016Z.json
-      sha256: 2a3eace23f2f877fb076bf3c579959776b466ab63ee30765047d56d1e3656830
-    script:
-      path: scripts/run_real_quote_volume_rqa_tt_over_div_ratio_shock_mr_costed_oos.py
-      sha256: d5f14a16fe6ea1937d15b00da591d7ed7a40fd7a8af1de4925744cdcc034b03d
-    summary:
-      path: reports/campaign198_execution_summary_20261108T035016Z.json
-      sha256: 6b6084c0296e3e1463522c2b43d922f61eb831f8180d1bcd926a1cba620a29b0
+    oos: {path: reports/real_quote_volume_rqa_tt_over_div_ratio_shock_mr_costed_oos_20261108T035016Z.json, sha256: b724cc55140e72bfd389ec4222ce7b36d670c4997ff17e7244d114d393c12b95}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T035016Z.json, sha256: 753c9f5d1e999030a3eb2dfb4cd2d04551bdadf33b3c25219f3b4124b5fc7622}
+    registry: {path: reports/strategy_edge_registry_20261108T035016Z.json, sha256: 2a3eace23f2f877fb076bf3c579959776b466ab63ee30765047d56d1e3656830}
+    script: {path: scripts/run_real_quote_volume_rqa_tt_over_div_ratio_shock_mr_costed_oos.py, sha256: d5f14a16fe6ea1937d15b00da591d7ed7a40fd7a8af1de4925744cdcc034b03d}
+    summary: {path: reports/campaign198_execution_summary_20261108T035016Z.json, sha256: 6b6084c0296e3e1463522c2b43d922f61eb831f8180d1bcd926a1cba620a29b0}
   pre_stated_distinctness:
     grep_cmd: "grep -rnE 'TT_OVER_DIV|tt_over_div|rqa_ratio_tt_over_div|rqa_tt_over_div_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
     grep_verified_utc: 20261108T034857Z
-    selection_note: "Distinct TT/DIV diagonal pairing (C198 pre-stated TT = mean qualifying diagonal line length k>=l_min); not used C125-C197; grep 0 verified before implementation/run."
 
-c199_preselected:
-  family_primary: VOLUME_RQA_LAM_OVER_RTE_RATIO_SHOCK_MR
-  fallback_candidates: [VOLUME_RQA_DET_OVER_RTE_RATIO_SHOCK_MR, VOLUME_RQA_ENTR_OVER_RTE_RATIO_SHOCK_MR]
-  metric_primary: "RQA ratio LAM/RTE on delay-embedded log-volume returns. LAM = laminarity = (sum of vertical line lengths l>=l_min) / sum(R) (RQA LAM; main diagonal convention consistent with implementation). RTE = Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution p_w=n_w/sum_u n_u over qualifying gaps w>=w_min excluding trivial self: RTE=-sum_w p_w*ln(p_w). RATIO_LAM_RTE = LAM/RTE. Params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=1. Fail-closed NaN/no-signal if LAM undefined/non-finite/degenerate, RTE undefined/non-finite/degenerate (<2 distinct qualifying gap lengths or entropy non-finite/non-positive), ratio non-finite, or insufficient qualifying lines/gaps. Trailing/causal only."
-  distinctness_grep_primary: "grep -rnE 'LAM_OVER_RTE|lam_over_rte|rqa_ratio_lam_over_rte|rqa_lam_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+c199_completed:
+  campaign: C199
+  strategy_id: VOLUME_RQA_LAM_OVER_RTE_RATIO_SHOCK_MR
+  oos_edge_proven: false
+  edge_claim: NONE
+  artifacts:
+    oos: {path: reports/real_quote_volume_rqa_lam_over_rte_ratio_shock_mr_costed_oos_20261108T035536Z.json, sha256: 71ebc9ce4071f552ee0c4d75535059d2289e7369d055de84c838b35aeb2d798e}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T035536Z.json, sha256: 70912f43d4fd7d21c1b5925cde5d271468bc7c49678e172b259fc199c14904bc}
+    registry: {path: reports/strategy_edge_registry_20261108T035536Z.json, sha256: 12ee3349bbe59ec258d925f73a41ece80069c06ab45bbf7010b14a4e113a843f}
+    script: {path: scripts/run_real_quote_volume_rqa_lam_over_rte_ratio_shock_mr_costed_oos.py, sha256: d93f667558c1e5fb489eed2c381124a4c3fa217f37e7e6e97a91e74e82ff4f28}
+    summary: {path: reports/campaign199_execution_summary_20261108T035536Z.json, sha256: ab649b06f4a34e6d0387ffa87c0e7b0d4b37e272aba81c652751db2a2d1d0c2f}
+  pre_stated_distinctness:
+    grep_cmd: "grep -rnE 'LAM_OVER_RTE|lam_over_rte|rqa_ratio_lam_over_rte|rqa_lam_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_hits_nonself_at_run: 0
+    grep_verified_utc: 20261108T035536Z
+
+c200_preselected:
+  family_primary: VOLUME_RQA_DET_OVER_RTE_RATIO_SHOCK_MR
+  fallback_candidates: [VOLUME_RQA_ENTR_OVER_RTE_RATIO_SHOCK_MR]
+  metric_primary: "RQA ratio DET/RTE on delay-embedded log-volume returns. DET=determinism=(sum of diagonal line lengths l>=l_min)/sum(R) (RQA DET, l_min=2). RTE=Shannon entropy (nats) of white vertical line length (recurrence-time gap) distribution p_w=n_w/sum_u n_u over qualifying gaps w>=w_min excluding trivial self: RTE=-sum_w p_w*ln(p_w). RATIO_DET_RTE=DET/RTE. Params: m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,w_min=1. Fail-closed NaN/no-signal if DET undefined/non-finite/degenerate (sum(R)<=0 or out of (0,1]), RTE undefined/non-finite/degenerate (<2 distinct qualifying gap lengths or entropy non-finite/non-positive), ratio non-finite, or insufficient qualifying lines/gaps. Trailing/causal only."
+  distinctness_grep_primary: "grep -rnE 'DET_OVER_RTE|det_over_rte|rqa_ratio_det_over_rte|rqa_det_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_observed: 0
-  grep_observed_utc: 20261108T035016Z
+  grep_observed_utc: 20261108T035536Z
   grep_verify_required: true
   fallback_grep_evidence:
-    VOLUME_RQA_DET_OVER_RTE_RATIO_SHOCK_MR: {grep_cmd: "grep -rnE 'DET_OVER_RTE|det_over_rte|rqa_ratio_det_over_rte|rqa_det_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1", grep_hits_observed: 0, grep_observed_utc: 20261108T035016Z}
-    VOLUME_RQA_ENTR_OVER_RTE_RATIO_SHOCK_MR: {grep_cmd: "grep -rnE 'ENTR_OVER_RTE|entr_over_rte|rqa_ratio_entr_over_rte|rqa_entr_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1", grep_hits_observed: 0, grep_observed_utc: 20261108T035016Z}
-  selection_note: "LAM/RTE pairing not observed C125-C198; grep 0 observed 20261108T035016Z. Re-verify 0 non-self at C199 run time before implementation. DET_OVER_RTE, ENTR_OVER_RTE grep 0 fallbacks; LAM_OVER_ENTR collides (not selected)."
+    VOLUME_RQA_ENTR_OVER_RTE_RATIO_SHOCK_MR: {grep_cmd: "grep -rnE 'ENTR_OVER_RTE|entr_over_rte|rqa_ratio_entr_over_rte|rqa_entr_over_rte_ratio' scripts/ strategies/ backtest/ utils/ 2>&1", grep_hits_observed: 0, grep_observed_utc: 20261108T035536Z}
+  selection_note: "DET/RTE pairing not observed C125-C199 (LAM/RTE used C199); grep 0 observed 20261108T035536Z. Re-verify 0 non-self at C200 run time before implementation. ENTR_OVER_RTE grep 0 fallback. LAM_OVER_ENTR collides (not selected)."
 
 bottlenecks_removed:
-  - C104-C197 locked; C198 completed (TT_OVER_DIV) with OOS+ingest+registry+summary+script, SHAs from bytes; state/HANDOFF synced; no edge claimed (net sums negative at fee5+/all higher slices)
+  - C104-C198 locked; C199 completed (LAM_OVER_RTE) with OOS+ingest+registry+summary+script, SHAs from bytes; state/HANDOFF synced; no edge claimed (all cost-slice net sums negative)
   - deps_ok numpy/scipy/pandas (2.5.4/1.18.1/3.1.1); caches present; pytest 9.2.0 available
   - no reruns unchanged, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real
   - nonspot ingest does not block R-B on validated real_quote_volume
-  - C198 TT_OVER_DIV collision guard 0 non-self at run time; executed with >=4 artifacts on disk, SHAs from bytes
-  - C199 preselect LAM_OVER_RTE grep 0 observed (20261108T035016Z); DET_OVER_RTE/ENTR_OVER_RTE fallbacks grep 0; re-verify at C199 run time
+  - C199 LAM_OVER_RTE collision guard 0 non-self at run time; executed with >=4 artifacts on disk, SHAs from bytes
+  - C200 preselect DET_OVER_RTE grep 0 observed (20261108T035536Z); ENTR_OVER_RTE fallback grep 0; re-verify at C200 run time
   - Single durable handoff (HANDOFF.md) + research_state/state.yaml
 
 mandatory:
-  - No status summary before >= 3 new concrete C199 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
+  - No status summary before >= 3 new concrete C200 report artifacts (OOS + ingest + registry/summary), each with SHA256 computed from bytes
   - "Heavy work mandatory: implement/run + emit artifacts; no status-only replies"
-  - "C199: grep-verify distinctness before implementation/run; recheck LAM_OVER_RTE grep=0 non-self at run time"
+  - "C200: grep-verify distinctness before implementation/run; recheck DET_OVER_RTE grep=0 non-self at run time"
   - Edge claim ONLY if fail-closed edge rule holds (OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net). Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  - C200 NEXT: grep-verify distinctness before implementation/run; preselect distinct candidate; execute C200 under same template; no status-only replies; no stop after status
+  - C201 NEXT: grep-verify distinctness before implementation/run; preselect distinct candidate; execute C201 under same template; no status-only replies; no stop after status
