@@ -1,0 +1,40 @@
+{
+  "tool": "campaign_execution_summary",
+  "campaign": 212,
+  "generated_at_utc": "20261108T123534Z",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos_20261108T123534Z.json",
+      "sha256": "bd8b0f0f727572f1f69c3479b0dfb3d444a26ea2ef1cf569a94527cc82ae2057"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T123534Z.json",
+      "sha256": "85cfc5968413f72bfd49d5931b9fe00bbde55d7c323eebfc84793c2d57264f18"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T123534Z.json",
+      "sha256": "6ba3d270c2cc07deae16a03580bfee474d99cc4acfcf91ce21ec5f29e2538387"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py",
+      "sha256": "aac627f24304eac1a54d21ed8ad4a2fabd3a3a2e3af1a9ce69967e8615324cf6"
+    }
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.8890509562115201,
+    "fee5_slip5": 0.6020509562115198,
+    "fee10_slip10": 0.31505095621151985,
+    "fee20_slip20": -0.25894904378848027,
+    "fee40_slip40": -1.4069490437884802
+  },
+  "distinctness_grep_hits_nonself": 0
+}

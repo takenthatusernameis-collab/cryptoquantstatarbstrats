@@ -1,7 +1,7 @@
 repo: cryptoquantstatarbstrats
-updated_utc: 20261108T123055Z
-latest_campaign_done: C211
-next_campaign: C212
+updated_utc: 20261108T123656Z
+latest_campaign_done: C212
+next_campaign: C213
 edge_claim: NONE
 global_oos_edge_proven: false
 real_data_only: true
@@ -11,62 +11,63 @@ pytest: available (9.2.0 observed); do not fabricate results
 deps: numpy/scipy/pandas importable (2.5.4/1.18.1/3.1.1 observed)
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 latest_registry:
-  path: reports/strategy_edge_registry_20261108T122845Z.json
-  sha256: 2a0bb7b0cca78d9732b7ecf650b2611017bfcd17c9b16d6cfde71c5f44fceeda
-  supersedes: reports/strategy_edge_registry_20261108T121953Z.json
-  supersedes_sha256: bb367557184ea9e36470d5aca9d5a2d585f8ace7ff2cbaed3061c64670707ec6
+  path: reports/strategy_edge_registry_20261108T123534Z.json
+  sha256: 6ba3d270c2cc07deae16a03580bfee474d99cc4acfcf91ce21ec5f29e2538387
+  supersedes: reports/strategy_edge_registry_20261108T122845Z.json
+  supersedes_sha256: 2a0bb7b0cca78d9732b7ecf650b2611017bfcd17c9b16d6cfde71c5f44fceeda
 latest_oos:
-  campaign: C211
-  family: VOLUME_RQA_RTE_OVER_L_RATIO_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos_20261108T122845Z.json
-  sha256: f987b29947f1a252c3a656315b89d6903fc0d6395d001b376bf5a63d2e68aa03
+  campaign: C212
+  family: VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos_20261108T123534Z.json
+  sha256: bd8b0f0f727572f1f69c3479b0dfb3d444a26ea2ef1cf569a94527cc82ae2057
   oos_edge_proven: false
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
   all_cost_slices_beat_bh_mean_rule: false
   cross_asset_oos_net_sums:
-    fee0_slip0: 1.0481886475258184
-    fee5_slip5: 0.6531886475258181
-    fee10_slip10: 0.2581886475258179
-    fee20_slip20: -0.5318113524741819
-    fee40_slip40: -2.1118113524741813
+    fee0_slip0: 0.8890509562115201
+    fee5_slip5: 0.6020509562115198
+    fee10_slip10: 0.31505095621151985
+    fee20_slip20: -0.25894904378848027
+    fee40_slip40: -1.4069490437884802
 
-c211_completed:
-  campaign: C211
-  strategy_id: VOLUME_RQA_RTE_OVER_L_RATIO_SHOCK_MR
+c212_completed:
+  campaign: C212
+  strategy_id: VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR
   oos_edge_proven: false
   edge_claim: NONE
   artifacts:
-    oos: {path: reports/real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos_20261108T122845Z.json, sha256: f987b29947f1a252c3a656315b89d6903fc0d6395d001b376bf5a63d2e68aa03}
-    ingest: {path: reports/real_feed_ingest_attempt_20261108T122845Z.json, sha256: a3caf9596dbd7a309cd1e31349092b4238fe40a4907f7f89c045648effef03a9}
-    registry: {path: reports/strategy_edge_registry_20261108T122845Z.json, sha256: 2a0bb7b0cca78d9732b7ecf650b2611017bfcd17c9b16d6cfde71c5f44fceeda}
-    script: {path: scripts/run_real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos.py, sha256: 2b561e31092c9cfd5c6fb1c157555d2348bd8a2ebc450289796c746c68d0bfe5}
-    summary: {path: reports/campaign211_execution_summary_20261108T122845Z.json, sha256: 2c53cb5480ab95eaa2267a29c14fee85a03be94f46ce17d5fb8b7f277bd56ab1}
+    oos: {path: reports/real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos_20261108T123534Z.json, sha256: bd8b0f0f727572f1f69c3479b0dfb3d444a26ea2ef1cf569a94527cc82ae2057}
+    ingest: {path: reports/real_feed_ingest_attempt_20261108T123534Z.json, sha256: 85cfc5968413f72bfd49d5931b9fe00bbde55d7c323eebfc84793c2d57264f18}
+    registry: {path: reports/strategy_edge_registry_20261108T123534Z.json, sha256: 6ba3d270c2cc07deae16a03580bfee474d99cc4acfcf91ce21ec5f29e2538387}
+    script: {path: scripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py, sha256: aac627f24304eac1a54d21ed8ad4a2fabd3a3a2e3af1a9ce69967e8615324cf6}
+    summary: {path: reports/campaign212_execution_summary_20261108T123534Z.json, sha256: 06157a870ac5a964b73affd7b974a79e8730147b616a8e213cba340f881d32dc}
   pre_stated_distinctness:
-    grep_cmd: "grep -rnE 'RTE_OVER_L\\b|rte_over_l[^a-z]' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_cmd: "grep -rnE 'RTE_OVER_VAVG|rte_over_vavg' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
-    grep_verified_utc: 20261108T122845Z
-    selection_note: "RTE/L (L=mean diagonal line length/LAVG, k>=1 excluding LOI) distinct from WAVG(C210), LMAX(C209), black-vertical LAVG(C208), VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), ENTR(C202) pairings. Edge rule NOT proven: fee20/40 cross-asset OOS net sums negative; edge_claim NONE."
+    grep_verified_utc: 20261108T123534Z
+    selection_note: "RTE/VAVG (VAVG=mean vertical/laminar black line length, LOI/self excluded for laminar counting) distinct from diagonal L(C211), WAVG(C210), LMAX(C209), black-vertical LAVG context(C208), VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), ENTR(C202). Edge rule NOT proven: fee20/40 cross-asset OOS net sums negative; edge_claim NONE."
 
-c212_preselected:
-  candidate: VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR
-  feature: "RQA ratio RTE/VAVG (RTE = recurrence time entropy; VAVG = mean vertical/laminar line length of qualifying black vertical lines, excluding main diagonal context as appropriate, l>=l_min) on delay-embedded log-volume returns; distinct from L(diagonal, C211), WAVG(C210), LMAX(C209), LAVG-black(C208 naming context), VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), ENTR(C202)."
-  grep_cmd: "grep -rnE 'RTE_OVER_VAVG|rte_over_vavg' scripts/ strategies/ backtest/ utils/ 2>&1"
+c213_preselected:
+  candidate: VOLUME_RQA_RTE_OVER_WMAX_RATIO_SHOCK_MR
+  feature: "RQA ratio RTE/WMAX (RTE = recurrence time entropy on white vertical/gap lengths; WMAX = maximum qualifying white vertical/gap length, gaps of consecutive 0s between recurrent points excluding trivial self, w>=w_min) on delay-embedded log-volume returns; distinct from VAVG(C212), L diagonal(C211), WAVG(C210), LMAX(C209), black-vertical LAVG(C208), VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), ENTR(C202)."
+  grep_cmd: "grep -rnE 'RTE_OVER_WMAX|rte_over_wmax' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_nonself_at_selection: 0
-  grep_verified_utc: 20261108T123055Z
-  params: "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2"
-  collision_guard: "required at run start; if collision, pick distinct grep-zero fallback not used C125-C211 and record evidence"
-  fallback_candidates: [VOLUME_RQA_RTE_OVER_WMAX_RATIO_SHOCK_MR, VOLUME_RQA_RTE_OVER_LVAR_RATIO_SHOCK_MR]
+  grep_verified_utc: 20261108T123656Z
+  params: "m=2,tau=1,eps=0.5*std(r_window),W_RR=168,w_min=1,l_min=2 (l_min unused if WMAX is gap-based; define explicitly at run)"
+  collision_guard: "required at run start; if collision, pick distinct grep-zero fallback not used C125-C212 and record evidence"
+  fallback_candidates: [VOLUME_RQA_RTE_OVER_LVAR_RATIO_SHOCK_MR, VOLUME_RQA_RTE_OVER_VVAR_RATIO_SHOCK_MR]
   fallback_grep_cmds:
-    wmax: "grep -rnE 'RTE_OVER_WMAX|rte_over_wmax' scripts/ strategies/ backtest/ utils/ 2>&1"
     lvar: "grep -rnE 'RTE_OVER_LVAR|rte_over_lvar' scripts/ strategies/ backtest/ utils/ 2>&1"
+    vvar: "grep -rnE 'RTE_OVER_VVAR|rte_over_vvar' scripts/ strategies/ backtest/ utils/ 2>&1"
+  fallback_grep_hits_nonself_utc_20261108T123656Z: {lvar: 0, vvar: 0}
 
-locked_campaigns: C104-C211
+locked_campaigns: C104-C212
 notes:
-  - "C211 completed with >=4 artifacts on disk, SHAs from bytes; no edge proven (fee20/40 negative)."
-  - "C212 preselected RTE_OVER_VAVG (grep-zero 20261108T123055Z). Execute C212 next under same heavy template if continuing; no status-only replies."
+  - "C212 completed with >=4 artifacts on disk, SHAs from bytes; no edge proven (fee20/40 negative)."
+  - "C213 preselected RTE_OVER_WMAX (grep-zero 20261108T123656Z). Execute C213 next under same heavy template if continuing; no status-only replies."
 bottlenecks_removed:
-  - "No reruns of locked C104-C211; no gate/threshold weakening; no proxies labeled real; nonspot fail-closed."
+  - "No reruns of locked C104-C212; no gate/threshold weakening; no proxies labeled real; nonspot fail-closed."
   - "Distinctness grep-verified before run and recorded in artifacts/state."
 mandatory:
   - "No status-only replies. Heavy work mandatory: implement/run + emit artifacts."

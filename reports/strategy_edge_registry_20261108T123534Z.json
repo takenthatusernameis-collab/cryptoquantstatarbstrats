@@ -1,0 +1,60 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T123534Z",
+  "campaign": 212,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T122845Z.json",
+    "sha256": "2a0bb7b0cca78d9732b7ecf650b2611017bfcd17c9b16d6cfde71c5f44fceeda"
+  },
+  "c212": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR",
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.8890509562115201,
+      "fee5_slip5": 0.6020509562115198,
+      "fee10_slip10": 0.31505095621151985,
+      "fee20_slip20": -0.25894904378848027,
+      "fee40_slip40": -1.4069490437884802
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos_20261108T123534Z.json",
+        "sha256": "bd8b0f0f727572f1f69c3479b0dfb3d444a26ea2ef1cf569a94527cc82ae2057"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T123534Z.json",
+        "sha256": "85cfc5968413f72bfd49d5931b9fe00bbde55d7c323eebfc84793c2d57264f18"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py",
+        "sha256": "aac627f24304eac1a54d21ed8ad4a2fabd3a3a2e3af1a9ce69967e8615324cf6"
+      }
+    },
+    "references": {
+      "prior_registry": "reports/strategy_edge_registry_20261108T122845Z.json",
+      "prior_registry_sha256": "2a0bb7b0cca78d9732b7ecf650b2611017bfcd17c9b16d6cfde71c5f44fceeda",
+      "c211_oos": "reports/real_quote_volume_rqa_rte_over_l_ratio_shock_mr_costed_oos_20261108T122845Z.json",
+      "c211_oos_sha256": "f987b29947f1a252c3a656315b89d6903fc0d6395d001b376bf5a63d2e68aa03"
+    },
+    "distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_VAVG|rte_over_vavg' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_at_selection": 0,
+      "grep_hits_nonself_at_run": 0,
+      "grep_output_at_run": "scripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}), build\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:33:  RTE/VAVG form as used C125-C211. RTE_OVER_VAVG not used C125-C211.\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:89:    r\"grep -rnE 'RTE_OVER_VAVG|rte_over_vavg' scripts/ strategies/ backtest/ utils/ 2>&1\"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:108:        if self_stem not in ln and \"rte_over_vavg\" in ln.lower()\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:198:def rqa_rte_over_vavg_ratio_window(\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:282:                last_val = rqa_rte_over_vavg_ratio_window(wf, EPS_SCALE, W_MIN, L_MIN)\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:380:            f\"for RTE_OVER_VAVG:\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:416:        \"tool\": \"real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos\",\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:419:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:421:            \"VOLUME_RQA_RTE_OVER_VAVG_RATIO_SHOCK_MR (RQA ratio RTE/VAVG on \"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:456:                \"utils returned 0 non-self hits for RTE_OVER_VAVG patterns \"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:461:                \"Primary C212 candidate RTE_OVER_VAVG (VAVG = mean vertical/\"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:467:                \"RTE/DET used C203; RTE/ENTR used C202. RTE_OVER_VAVG not used \"\nscripts/run_real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos.py:545:    out_path = reports / f\"real_quote_volume_rqa_rte_over_vavg_ratio_shock_mr_costed_oos_{ts}.json\"",
+      "grep_verified_at_utc": "20261108T123534Z",
+      "grep_evidence_note": "Pre-implementation/run grep over scripts/strategies/backtest/utils returned 0 non-self hits for RTE_OVER_VAVG patterns (verified before implementation/run); distinctness confirmed. Primary candidate used.",
+      "selection_note": "Primary C212 candidate RTE_OVER_VAVG (VAVG = mean vertical/laminar black line length, LOI-excluded for laminar counting); grep-zero non-self confirmed at run time. RTE/L (diagonal mean, LAVG) used C211; RTE/WAVG used C210; RTE/LMAX used C209; RTE/LAVG-black-vertical naming/context used C208; RTE/VMAX used C207; RTE/TREND used C206; RTE/TT used C205; RTE/LAM used C204; RTE/DET used C203; RTE/ENTR used C202. RTE_OVER_VAVG not used C125-C211. VAVG denominator (explicit mean vertical laminar length, LOI-excluded counting) is distinct from VMAX(C207), diagonal L(C211), WAVG(C210), LMAX(C209), black-vertical LAVG context(C208), TT(C205), TREND(C206).",
+      "family": "RQA RTE/VAVG ratio shock on volume dynamics",
+      "uses_ratio_of_rqa_measures": true
+    }
+  },
+  "prior_locked": "C104-C211",
+  "notes": "C212 RTE/VAVG completed on real data; edge NOT proven (fee20/40 cross-asset OOS net sums negative). No reruns of locked C104-C211. edge_claim NONE."
+}
