@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C218: RQA ratio RTE/WHITE_VERT_LINE_COUNT_DIVERGENCE shock on delay-embedded
+"""C220: RQA ratio RTE/WHITE_VERT_LINE_COUNT_DIVERGENCE shock on delay-embedded
 log-volume returns (real data only).
 
 Feature (pre-stated, distinct, grep-verified before implementation/run):
@@ -26,7 +26,7 @@ Feature (pre-stated, distinct, grep-verified before implementation/run):
   MAXVERTLINE_DIVERGENCE(C215), MAXDIAGLINE_DIVERGENCE(C214), WMAX(C213),
   VAVG(C212), diagonal L(C211), WAVG(C210), LMAX(C209), VMAX(C207), TREND(C206),
   TT(C205), LAM(C204), DET(C203), ENTR(C202), existing VERT_HORIZ_LINE_MAX_RATIO.
-  RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE not used C125-C217.
+  RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE not used C125-C219.
   Grep 0 non-self required at run time.
 """
 
@@ -57,13 +57,13 @@ VOL_PKL = cache_dir / "volume_1h_full.pkl"
 VOL_META = cache_dir / "volume_1h_full.meta.json"
 VOL_PROV = cache_dir / "volume_1h_full.provenance.json"
 
-PRIOR_REGISTRY = "reports/strategy_edge_registry_20261108T143035Z.json"
-PRIOR_REGISTRY_SHA = "66ae83a784ef617b320b913307b8d81bac62a02435b2c104d508870db41af560"
-PRIOR_C217_OOS = (
-    "reports/real_quote_volume_rqa_rte_over_vert_line_length_variance_shock_mr_costed_oos_"
-    "20261108T143035Z.json"
+PRIOR_REGISTRY = "reports/strategy_edge_registry_20261108T161616Z.json"
+PRIOR_REGISTRY_SHA = "15ad27422c563b6cdb0286174803f138893a004f80dd9f3d852bacd8c200b60a"
+PRIOR_C219_OOS = (
+    "reports/real_quote_volume_rqa_rte_over_diag_line_length_variance_shock_mr_costed_oos_"
+    "20261108T161616Z.json"
 )
-PRIOR_C217_OOS_SHA = "bea428a8623ca02c6c64cf87ac5014519d4c537de49a40cf238fa2728afc52be"
+PRIOR_C219_OOS_SHA = "c11d71057300dcce0f9e14a6b9b7f50baf7ca877617757896eddc3f3f535f1d6"
 
 W_RR = 168
 ALB = 336
@@ -466,22 +466,22 @@ def main():
             "grep_verified_at_utc": ts,
             "grep_evidence_note": (
                 "Pre-implementation/run grep over scripts/strategies/backtest/"
-                "utils returned 0 non-self hits for RTE_OVER_DIAG_LINE_COUNT_"
-                "DIVERGENCE patterns (verified before implementation/run); "
+                "utils returned 0 non-self hits for RTE_OVER_WHITE_VERT_LINE_"
+                "COUNT_DIVERGENCE patterns (verified before implementation/run); "
                 "distinctness confirmed. Primary candidate used."
             ),
             "selection_note": (
-                "Primary C218 candidate RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE "
+                "Primary C220 candidate RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE "
                 "(WHITE_VERT_LINE_COUNT_DIVERGENCE = max(d_k)-mean(d_k) over off-diagonal "
                 "diagonals k!=0 with >=1 qualifying diagonal run; d_k = number of "
                 "qualifying diagonal runs of length>=l_min on diagonal k); "
                 "grep-zero non-self confirmed at run time. Distinct from "
                 "VERT_LINE_COUNT_DIVERGENCE(C216), VERT_LINE_LENGTH_VARIANCE(C217), "
-                "MAXVERTLINE_DIVERGENCE(C215), MAXDIAGLINE_DIVERGENCE(C214), "
-                "WMAX(C213), VAVG(C212), diagonal L(C211), WAVG(C210), LMAX(C209), "
-                "VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), "
-                "ENTR(C202), existing VERT_HORIZ_LINE_MAX_RATIO. "
-                "RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE not used C125-C217."
+                "DIAG_LINE_LENGTH_VARIANCE(C219), MAXVERTLINE_DIVERGENCE(C215), "
+                "MAXDIAGLINE_DIVERGENCE(C214), WMAX(C213), VAVG(C212), diagonal L(C211), "
+                "WAVG(C210), LMAX(C209), VMAX(C207), TREND(C206), TT(C205), LAM(C204), "
+                "DET(C203), ENTR(C202), existing VERT_HORIZ_LINE_MAX_RATIO. "
+                "RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE not used C125-C219."
             ),
             "family": "RQA RTE/WHITE_VERT_LINE_COUNT_DIVERGENCE ratio shock on volume dynamics",
             "uses_ratio_of_rqa_measures": True,
@@ -529,12 +529,12 @@ def main():
         "references": {
             "prior_registry": PRIOR_REGISTRY,
             "prior_registry_sha256": PRIOR_REGISTRY_SHA,
-            "c217_oos": PRIOR_C217_OOS,
-            "c217_oos_sha256": PRIOR_C217_OOS_SHA,
-            "c217_note": (
-                "C217 OOS SHA verified from bytes (VOLUME_RQA_RTE_OVER_"
-                "VERT_LINE_LENGTH_VARIANCE_SHOCK_MR, oos_edge_proven false). "
-                "C218 uses RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE where denominator "
+            "c219_oos": PRIOR_C219_OOS,
+            "c219_oos_sha256": PRIOR_C219_OOS_SHA,
+            "c219_note": (
+                "C219 OOS SHA verified from bytes (VOLUME_RQA_RTE_OVER_"
+                "DIAG_LINE_LENGTH_VARIANCE_SHOCK_MR, oos_edge_proven false). "
+                "C220 uses RTE_OVER_WHITE_VERT_LINE_COUNT_DIVERGENCE where denominator "
                 "is max(d_k)-mean(d_k) over off-diagonal diagonals k!=0 with "
                 ">=1 qualifying diagonal run (d_k = number of qualifying diagonal "
                 "runs of length>=l_min on diagonal k), distinct from "
