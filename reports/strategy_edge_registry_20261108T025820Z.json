@@ -1,0 +1,59 @@
+{
+  "generated_at_utc": "20261108T025820Z",
+  "campaign": 196,
+  "tool": "strategy_edge_registry",
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "global_oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T025136Z.json",
+    "sha256": "e185079d39770b6cb8ae5b426d07f1459e585780bb513349478d5190749a2700"
+  },
+  "prior_references": {
+    "c195_oos": {
+      "path": "reports/real_quote_volume_rqa_lam_over_div_ratio_shock_mr_costed_oos_20261108T025007Z.json",
+      "sha256": "a8b0d41e770bbe174f95b64c9874c902b74f2154b1ae5ff4c4a6e713097af2cd",
+      "oos_edge_proven": false,
+      "edge_claim": "NONE"
+    },
+    "c195_registry": {
+      "path": "reports/strategy_edge_registry_20261108T025136Z.json",
+      "sha256": "e185079d39770b6cb8ae5b426d07f1459e585780bb513349478d5190749a2700"
+    }
+  },
+  "c196_artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_entr_over_div_ratio_shock_mr_costed_oos_20261108T025803Z.json",
+      "sha256": "ffb28900b1750067cd8da2be960cf54c3b6c42a198741dc8e82bb9831825a256",
+      "strategy_id": "VOLUME_RQA_ENTR_OVER_DIV_RATIO_SHOCK_MR",
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.5765044133311339,
+        "fee5_slip5": -1.0145044133311343,
+        "fee10_slip10": -1.4525044133311342,
+        "fee20_slip20": -2.3285044133311343,
+        "fee40_slip40": -4.080504413331134
+      },
+      "edge_claim": "NONE"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261108T025820Z.json",
+      "sha256": "2f7f297302086c1391949a2ff36ae031fed3f32bf8c21867218e23aeb92d1975"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_entr_over_div_ratio_shock_mr_costed_oos.py",
+      "sha256": "ceb12d8ad24a67bef28d1c06addbcbc426a3e9f773b6e29ba2ffedcc34720d3b"
+    },
+    "summary": {
+      "path": "reports/campaign196_execution_summary_20261108T025820Z.json",
+      "sha256": null,
+      "sha256_note": "Omitted to avoid cross-file SHA cycle; see summary artifact for authoritative list."
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.",
+  "status": "LOCKED_C196_NO_EDGE"
+}
