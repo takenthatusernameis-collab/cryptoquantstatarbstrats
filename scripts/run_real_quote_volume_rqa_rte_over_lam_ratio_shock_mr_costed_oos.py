@@ -489,7 +489,7 @@ def main():
         },
         "params": {
             "w_rr": W_RR, "alb": ALB, "m_emb": M_EMB, "tau": TAU, "eps_scale": EPS_SCALE,
-            "v_min_lam": L_MIN, "w_min": W_MIN, "entry_z": ENTRY_Z, "exit_z": EXIT_Z,
+            "v_min_lam": V_MIN_LAM, "w_min": W_MIN, "entry_z": ENTRY_Z, "exit_z": EXIT_Z,
             "max_hold": MAX_HOLD, "train": TRAIN, "test": TEST, "step": STEP,
             "cost_grid": COST_GRID, "feature_compute_step": 2,
             "feature_compute_note": (
