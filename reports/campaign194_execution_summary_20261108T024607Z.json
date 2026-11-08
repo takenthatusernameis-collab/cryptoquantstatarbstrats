@@ -1,0 +1,39 @@
+{
+  "tool": "campaign194_execution_summary",
+  "generated_at_utc": "20261108T024607Z",
+  "campaign": 194,
+  "real_data_only": true,
+  "fail_closed": true,
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "artifacts_sha256_from_bytes": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_rr_ratio_shock_mr_costed_oos_20261108T024453Z.json",
+      "sha256": "d648afa35d9626670a2f133f326a5c266da0b5458c1537567652ebdd7760fdab"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T024607Z.json",
+      "sha256": "314d9e27fe7a3b8c4accec8fc75d51367a29a4f6af9b7396c5ae1c383e6212b2"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T024607Z.json",
+      "sha256": "6b2454d43d0d053426c40e25b4857f0383997fa83be2c861f3cee548f7d34c96"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_rr_ratio_shock_mr_costed_oos.py",
+      "sha256": "a5d553f4abd1369600fefc7f2ae43062de0a2a4dd702fc7033a3d5e47690beb2"
+    }
+  ],
+  "c195_preselected": {
+    "family_primary": "VOLUME_RQA_LAM_OVER_DIV_RATIO_SHOCK_MR",
+    "metric_primary": "RQA ratio LAM/DIV on delay-embedded log-volume returns. LAM = laminarity = fraction of recurrence points forming vertical lines of length >= v_min (pre-stated v_min=2), excluding trivial points. DIV = divergence = 1/L_MAX where L_MAX=max qualifying diagonal line length k>=l_min excl LOI. RATIO_LAM_DIV = LAM/DIV. m=2,tau=1,eps=0.5*std(r_window),W_RR=168,l_min=2,v_min=2. Fail-closed NaN/no-signal if LAM undefined/non-finite/degenerate, DIV/L_MAX invalid, ratio non-finite, or insufficient qualifying lines/points. Trailing/causal only.",
+    "distinctness_grep_primary": "grep -rnE 'LAM_OVER_DIV|lam_over_div|rqa_ratio_lam_over_div|rqa_lam_over_div_ratio' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_observed": 0,
+    "grep_observed_utc": "20261108T024607Z",
+    "grep_verify_required": true
+  }
+}
