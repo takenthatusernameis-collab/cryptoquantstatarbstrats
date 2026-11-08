@@ -1,0 +1,67 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261108T172610Z",
+  "campaign": 222,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T171915Z.json",
+    "sha256": "dd512fef5216c6fc9d4758c1bfb6f75211ba55e8f6ed9bb18ee82bc750348bec"
+  },
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "latest_entry": {
+    "campaign": 222,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.46703030248531685,
+      "fee5_slip5": -0.4909696975146838,
+      "fee10_slip10": -1.4489696975146835,
+      "fee20_slip20": -3.3649696975146832,
+      "fee40_slip40": -7.1969696975146835
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_diag_line_density_variance_shock_mr_costed_oos_20261108T172610Z.json",
+        "sha256": "62fc4bcaa896c87095b2c976047196fdf50d9c88e5636127022a736ddea6db82"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261108T172610Z.json",
+        "sha256": "9ce706dd195ef55bac084bb8fe5c9fb0cb68c3075b41239c2f641e6b9b795b14"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_diag_line_density_variance_shock_mr_costed_oos.py",
+        "sha256": "aa00ef84d4294f8c790c57bb554bee30934d03891ff84915cd379a347f1dccd6"
+      }
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_DIAG_LINE_DENSITY_VARIANCE|rte_over_diag_line_density_variance' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_hits_at_selection": 0,
+      "primary_used": "VOLUME_RQA_RTE_OVER_DIAG_LINE_DENSITY_VARIANCE_SHOCK_MR",
+      "fallback_used": null,
+      "selection_note": "DIAG_LINE_DENSITY_VARIANCE = sample variance ddof=1 of rho_k over off-diagonal diagonals k!=0 with >=1 qualifying diagonal run (rho_k = qualifying run-length sum / M_pts-|k|). Distinct from DIAG_LINE_DENSITY_DIVERGENCE(C221), WHITE_VERT_LINE_COUNT_DIVERGENCE(C220), DIAG_LINE_LENGTH_VARIANCE(C219), DIAG_LINE_COUNT_DIVERGENCE(C218), VERT_LINE_LENGTH_VARIANCE(C217), VERT_LINE_COUNT_DIVERGENCE(C216), MAXDIAGLINE_DIVERGENCE(C214), diagonal L(C211), LMAX(C209), VMAX(C207). Edge rule NOT proven (fee5+ net sums negative); edge_claim NONE."
+    }
+  },
+  "history_refs": {
+    "c221_registry": {
+      "path": "reports/strategy_edge_registry_20261108T171915Z.json",
+      "sha256": "dd512fef5216c6fc9d4758c1bfb6f75211ba55e8f6ed9bb18ee82bc750348bec"
+    },
+    "c221_oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_diag_line_density_divergence_shock_mr_costed_oos_20261108T171915Z.json",
+      "sha256": "a9113bcaa3a8d4dd7819774962bceabb463728b6b199bd7115118d033e005671"
+    },
+    "c220_registry": {
+      "path": "reports/strategy_edge_registry_20261108T162135Z.json",
+      "sha256": "2bdd04e7a3a43df9236abe09315d35489129be062b0658cc81b0bf56588a327f"
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
