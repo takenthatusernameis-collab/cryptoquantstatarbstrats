@@ -1,0 +1,44 @@
+{
+  "campaign": 215,
+  "generated_at_utc": "20261108T133543Z",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_MAXVERTLINE_DIVERGENCE_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "artifacts": [
+    {
+      "kind": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_maxvertline_divergence_shock_mr_costed_oos_20261108T133543Z.json",
+      "sha256": "d6f8a8633e8b062f051299b4a2e14cbbec67b943bc0ebb00de96898907848d13"
+    },
+    {
+      "kind": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261108T133543Z.json",
+      "sha256": "24cb675c9fcf38650606fa622753fe648e2ecc843d77f1fc50474ba1fe60cd9f"
+    },
+    {
+      "kind": "registry",
+      "path": "reports/strategy_edge_registry_20261108T133543Z.json",
+      "sha256": "93d680e08abae269ac846a2dad5a18fb338ab11e0c708648b3300e5d41af053e"
+    },
+    {
+      "kind": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_maxvertline_divergence_shock_mr_costed_oos.py",
+      "sha256": "c36930d4ba54b514ce649bf3dcbe6f6c84dbcb23874e154903e53875ea8334c0"
+    }
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.09179416775637406,
+    "fee5_slip5": -0.10820583224362611,
+    "fee10_slip10": -0.3082058322436262,
+    "fee20_slip20": -0.7082058322436261,
+    "fee40_slip40": -1.508205832243626
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "grep_hits_nonself_at_run": 0,
+  "grep_verified_at_utc": "20261108T133543Z",
+  "distinctness_note": "RTE_OVER_MAXVERTLINE_DIVERGENCE grep 0 non-self at run; distinct from MAXDIAGLINE_DIVERGENCE(C214), WMAX(C213), VAVG(C212), diagonal L(C211), WAVG(C210), LMAX(C209), black-vertical LAVG(C208), VMAX(C207), TREND(C206), TT(C205), LAM(C204), DET(C203), ENTR(C202).",
+  "summary_sha256": "dae899db33d042854ab22386f2ff277585b40fe21d505c1a1aca3216f63c8ec2"
+}
