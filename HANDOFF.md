@@ -1,14 +1,14 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (NEXT AGENT START: 2026-11-08T00:43:14Z)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (NEXT AGENT START: 2026-11-08T00:45:27Z)
 **Repo:** `cryptoquantstatarbstrats` (crypto quant stat arb strategies). Priority (inferred from repo name): fail-closed, **real-data-only** stat-arb edge validation — walk-forward OOS, costed backtests, B&H comparison, full provenance/SHA256. **Claim edge ONLY if the exact fail-closed edge rule holds.** R-B proceeds on validated `real_quote_volume` regardless of nonspot ingest. **C104–C186 are LOCKED — do not rerun unchanged.**
 
-## VERIFIED BASELINE (20261107T235740Z state; rechecked 2026-11-08T00:43Z) — no reruns
+## VERIFIED BASELINE (20261107T235740Z state; rechecked 2026-11-08T00:45:27Z) — no reruns
 - `deps_ok`: numpy/scipy/pandas importable. `pytest 9.2.0` available.
 - Caches present: `data/cache/volume_1h_full.pkl`, `volume_1h_full.meta.json`, `volume_1h_full.provenance.json`, spot `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`.
 - C186 complete/locked (SHAs from bytes): OOS `reports/real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos_20261107T235627Z.json`=8c249216f6e7fdd0805782248185741a1eb2c5f5ab265d0b804f03da2fddc1df (`VOLUME_RQA_ENTR_OVER_LAVG_RATIO_SHOCK_MR`, `oos_edge_proven:false`, `edge_claim:NONE`, exposure true, all-cost-positive false, beats-BH-mean false). Ingest `reports/real_feed_ingest_attempt_20261107T235718Z.json`=cb5169c3905fb579384769be3c5f56a1cc08c7d7b0b15bc94ed58333239c50fd (nonspot blocked fail-closed, `rb_unblocked:true` for validated `real_quote_volume`). Registry `reports/strategy_edge_registry_20261107T235740Z.json`=32245884262f787ae8889d77dcb606b367a6f2f5d3f64a026af085615bc9bc61 supersedes C185 registry 12839fa67ac4d6ac6b82e8aaace9ed1a9b2a27f0164c594ea4c4e626b0809e44. Script `scripts/run_real_quote_volume_rqa_entr_over_lavg_ratio_shock_mr_costed_oos.py`=5bbf466567a838dfc9aa9cecd4647aa2e6957b26faa0de5480f9e221f0e8cba9. Summary `reports/campaign186_execution_summary_20261107T235740Z.json` present.
 - C185 anomaly recorded (no rerun): C185 in-file `strategy_id` label RR_OVER_LAVG vs TT family; SHA f3960f34d4cf93494d59ed808c27c94b59150c72abece500ce1b0512344da4f4 verified; `edge_claim:NONE`.
 - C187 primary grep precheck (20261107T235740Z): `LAVG_OVER_ENTR|lavg_over_entr|rqa_ratio_lavg_over_entr|rqa_lavg_over_entr_ratio` => **0 non-self hits** in `scripts/ strategies/ backtest/ utils/`. **Re-verify 0 non-self at C187 run time before implementation.**
 
-## BOTTLENECKS REMOVED / NO EXCUSES (2026-11-08T00:43Z)
+## BOTTLENECKS REMOVED / NO EXCUSES (2026-11-08T00:45:27Z)
 - C104–C186 locked; artifact SHAs verified; no reruns, no stale cache re-scans, no gate/threshold weakening, no proxies labeled real.
 - Deps/caches ready; pytest available. Nonspot ingest blocker does **not** block R-B on `real_quote_volume`.
 - Single durable handoff = `HANDOFF.md` + `research_state/state.yaml`. No other TODO/NEXT/SESSION files.
