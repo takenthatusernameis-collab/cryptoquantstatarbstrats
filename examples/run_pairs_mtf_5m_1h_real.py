@@ -47,7 +47,9 @@ M5_START, M5_END = "2026-08-01", "2026-10-30"
 OUT = Path(__file__).resolve().parent.parent / "reports" / "pairs_mtf_5m_1h.json"
 
 
-def _load_interval(symbols: list[str], start: str, end: str, interval: str) -> tuple[Any, dict[str, Any]]:
+def _load_interval(
+    symbols: list[str], start: str, end: str, interval: str
+) -> tuple[Any, dict[str, Any]]:
     loader = DataLoader()
     blocked_routes: list[Any] = []
     provenance: dict[str, Any] = {
@@ -130,7 +132,10 @@ def main() -> None:
         "status": "blocked",
         "blocked_routes": blocked_routes,
         "data_sources": {
-            "provider": "Binance public spot klines (via data.loader.DataLoader / data.cache.load_cached)",
+            "provider": (
+                "Binance public spot klines via "
+                "data.loader.DataLoader / data.cache.load_cached"
+            ),
             "symbols_requested": SYMBOLS,
             "intervals": {
                 "context_1h": {"start": H1_START, "end": H1_END, "provenance": h1_prov},
@@ -142,7 +147,10 @@ def main() -> None:
         ),
         },
         "method": {
-            "strategy": "Multi-timeframe pairs: 1h trailing cointegration/hedge/spread context gates + 5m z-score entry/exit.",
+            "strategy": (
+                "Multi-timeframe pairs: 1h trailing cointegration/hedge/spread "
+                "context gates + 5m z-score entry/exit."
+            ),
             "causal_alignment": (
             "1h bar at index t (open label) becomes available at t+1h (close). "
             "merge_asof backward on available_at maps to 5m bars at/after close; "
@@ -184,7 +192,10 @@ def main() -> None:
 
     if h1 is None or h1.empty or m5 is None or m5.empty:
         report["status"] = "blocked"
-        report["notes"].append("Required 1h and/or 5m real data unavailable; artifact remains honest/blocked.")
+        report["notes"].append(
+            "Required 1h and/or 5m real data unavailable; "
+            "artifact remains honest/blocked."
+        )
         OUT.parent.mkdir(parents=True, exist_ok=True)
         OUT.write_text(json.dumps(report, indent=2, default=str) + "\n")
         print(f"Wrote {OUT} status=blocked")
@@ -218,19 +229,35 @@ def main() -> None:
 
     if run.get("status") == "ok":
         report["status"] = "ok"
-    elif run.get("status") == "partial" or run.get("aggregate", {}).get("pairs_ok", 0) > 0:
+    elif (
+        run.get("status") == "partial"
+        or run.get("aggregate", {}).get("pairs_ok", 0) > 0
+    ):
         report["status"] = "partial"
     else:
         report["status"] = "blocked"
     report["notes"].append(
-        "OOS/edge: results are reported honestly from real data; any non-positive/weak metrics are not hidden. No claim of profitable edge."
+        "OOS/edge: results are reported honestly from real data; any "
+        "non-positive/weak metrics are not hidden. No claim of profitable edge."
     )
-    if all(r.get("activity", {}).get("trade_events", 0) == 0 for r in run.get("results", []) if isinstance(r, dict)):
-        report["notes"].append("All evaluated pairs produced zero trade events under fail-closed gates/cost-aware 5m logic (honest).")
+    results_list = run.get("results", []) or []
+    if all(
+        r.get("activity", {}).get("trade_events", 0) == 0
+        for r in results_list
+        if isinstance(r, dict)
+    ):
+        report["notes"].append(
+            "All evaluated pairs produced zero trade events under fail-closed "
+            "gates/cost-aware 5m logic (honest)."
+        )
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, indent=2, default=str) + "\n")
-    print(f"Wrote {OUT} status={report['status']} pairs_ok={run.get('aggregate',{}).get('pairs_ok')} blocked_routes={len(blocked_routes)}")
+    pairs_ok = run.get("aggregate", {}).get("pairs_ok")
+    print(
+        f"Wrote {OUT} status={report['status']} "
+        f"pairs_ok={pairs_ok} blocked_routes={len(blocked_routes)}"
+    )
 
 
 if __name__ == "__main__":

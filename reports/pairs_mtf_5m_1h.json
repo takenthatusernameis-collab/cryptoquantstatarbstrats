@@ -1,0 +1,1077 @@
+{
+  "real_data_only": true,
+  "fabricated_data": false,
+  "generated_at_utc": "2026-11-09T19:39:54.204195+00:00",
+  "campaign": "Campaign #4 - HF/multi-timeframe cointegration",
+  "status": "ok",
+  "blocked_routes": [],
+  "data_sources": {
+    "provider": "Binance public spot klines (via data.loader.DataLoader / data.cache.load_cached)",
+    "symbols_requested": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "intervals": {
+      "context_1h": {
+        "start": "2026-04-01",
+        "end": "2026-10-30",
+        "provenance": {
+          "interval": "1h",
+          "start": "2026-04-01",
+          "end": "2026-10-30",
+          "symbols_requested": [
+            "ADA",
+            "AVAX",
+            "BNB",
+            "BTC",
+            "DOT",
+            "ETH",
+            "LINK",
+            "LTC",
+            "POL",
+            "SOL",
+            "XRP"
+          ],
+          "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+          "symbols": [
+            "ADA",
+            "AVAX",
+            "BNB",
+            "BTC",
+            "DOT",
+            "ETH",
+            "LINK",
+            "LTC",
+            "POL",
+            "SOL",
+            "XRP"
+          ],
+          "quote_asset": "USDT",
+          "cache_hit": true,
+          "fetch_attempts": [],
+          "hosts_tried": [],
+          "errors": [],
+          "blocked_routes": [],
+          "disk_cache": true,
+          "fetch_success": true
+        }
+      },
+      "execution_5m": {
+        "start": "2026-08-01",
+        "end": "2026-10-30",
+        "provenance": {
+          "interval": "5m",
+          "start": "2026-08-01",
+          "end": "2026-10-30",
+          "symbols_requested": [
+            "ADA",
+            "AVAX",
+            "BNB",
+            "BTC",
+            "DOT",
+            "ETH",
+            "LINK",
+            "LTC",
+            "POL",
+            "SOL",
+            "XRP"
+          ],
+          "cache_key": "90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263",
+          "symbols": [
+            "ADA",
+            "AVAX",
+            "BNB",
+            "BTC",
+            "DOT",
+            "ETH",
+            "LINK",
+            "LTC",
+            "POL",
+            "SOL",
+            "XRP"
+          ],
+          "quote_asset": "USDT",
+          "cache_hit": false,
+          "fetch_attempts": [
+            {
+              "symbols": [
+                "ADA",
+                "AVAX",
+                "BNB",
+                "BTC",
+                "DOT",
+                "ETH",
+                "LINK",
+                "LTC",
+                "POL",
+                "SOL",
+                "XRP"
+              ],
+              "interval": "5m",
+              "success": true,
+              "rows": 26208
+            }
+          ],
+          "hosts_tried": [],
+          "errors": [],
+          "blocked_routes": [],
+          "blocked_hosts": []
+        }
+      }
+    },
+    "notes": "Only real fetched/cached candles used. No synthetic candles, IV, volume, fills, order books, labels, or metrics fabricated as evidence.",
+    "symbols_used": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "pairs_evaluated": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ],
+      [
+        "BNB",
+        "BTC"
+      ],
+      [
+        "BNB",
+        "ETH"
+      ],
+      [
+        "SOL",
+        "BNB"
+      ],
+      [
+        "ADA",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "BTC"
+      ],
+      [
+        "AVAX",
+        "BTC"
+      ],
+      [
+        "LINK",
+        "BTC"
+      ],
+      [
+        "LTC",
+        "BTC"
+      ],
+      [
+        "POL",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "ETH"
+      ]
+    ],
+    "h1_shape": [
+      5112,
+      11
+    ],
+    "m5_shape": [
+      26208,
+      11
+    ],
+    "h1_range_utc": [
+      "2026-04-01 00:00:00+00:00",
+      "2026-10-30 23:00:00+00:00"
+    ],
+    "m5_range_utc": [
+      "2026-08-01 00:00:00+00:00",
+      "2026-10-30 23:55:00+00:00"
+    ]
+  },
+  "method": {
+    "strategy": "Multi-timeframe pairs: 1h trailing cointegration/hedge/spread context gates + 5m z-score entry/exit.",
+    "causal_alignment": "1h bar at index t (open label) becomes available at t+1h (close). merge_asof backward on available_at maps to 5m bars at/after close; no 5m bar uses 1h information before close.",
+    "gates": {
+      "trailing_only": true,
+      "fail_closed": true,
+      "1h": [
+        "OLS hedge beta",
+        "Engle-Granger/coint p-value (AIC) when available else ADF-on-spread proxy",
+        "rolling correlation",
+        "OU half-life bounds"
+      ],
+      "5m": [
+        "rolling z-score from causally aligned spread",
+        "entry/exit/stop thresholds",
+        "gate_ok required"
+      ]
+    },
+    "wf_leakage_controls": "No train/test optimization on this artifact; evaluation uses causal rolling trailing windows and causal 1h->5m availability. Purged WF not separately claimed beyond causal construction; leakage sanity checked.",
+    "cost_model": "Per-bar turnover * (fee_rate + slippage_bps/10000) on 5m positions shifted by 1 bar; gross-normalized pair legs; no fabricated fills/order books.",
+    "limitations": [
+      "Historical L2/intrabar replay not publicly available from public routes used; fills/order books are not fabricated.",
+      "5m execution is close-to-close proxy with explicit fee+slippage+turnover costs, not exchange matching-engine replay.",
+      "1h cointegration/half-life/correlation gates are trailing statistical diagnostics on real candles; fail-closed and not proof of future edge.",
+      "Universe/windows limited to real data successfully fetched/cached in this environment; any unavailable route/symbol is recorded honestly."
+    ]
+  },
+  "results": {
+    "status": "ok",
+    "aggregate": {
+      "pairs_total": 14,
+      "pairs_ok": 14,
+      "pairs_partial": 0,
+      "pairs_blocked": 0,
+      "mean_sharpe_ok": -5.1042020497568314,
+      "mean_total_return_ok": -0.06483075220656437,
+      "mean_max_drawdown_ok": -0.07120789651055094,
+      "mean_gate_ok_share": 0.12921899529042385
+    },
+    "results": [
+      {
+        "status": "ok",
+        "pair": [
+          "BTC",
+          "ETH"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.15705128205128205,
+          "active_share": 0.07200091575091574,
+          "trade_events": 36,
+          "avg_turnover_per_bar": 0.0013983216335740855,
+          "total_cost_drag": 0.054970820059064444
+        },
+        "metrics": {
+          "total_return": -0.05994989394743078,
+          "sharpe": -7.157804859263535,
+          "sortino": -2.0380737485525606,
+          "max_drawdown": -0.061819871492595824,
+          "calmar": -4.001463502136811,
+          "final_equity_multiple": 0.9400501060525692
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.21890884398570987,
+          "sharpe": 2.1713579041040147,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "ETH",
+          "SOL"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.15796703296703296,
+          "active_share": 0.10057997557997558,
+          "trade_events": 51,
+          "avg_turnover_per_bar": 0.001992801755765453,
+          "total_cost_drag": 0.0783410226226515
+        },
+        "metrics": {
+          "total_return": 0.014639896546285946,
+          "sharpe": 0.7311131099130868,
+          "sortino": 0.34628152426628944,
+          "max_drawdown": -0.03646854293798174,
+          "calmar": 1.6965890128879215,
+          "final_equity_multiple": 1.014639896546286
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.2658054911006713,
+          "sharpe": 2.1020490481871184,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "BTC",
+          "SOL"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.12362637362637363,
+          "active_share": 0.08039529914529915,
+          "trade_events": 54,
+          "avg_turnover_per_bar": 0.002086213507954927,
+          "total_cost_drag": 0.08201322542472408
+        },
+        "metrics": {
+          "total_return": -0.0790973651301996,
+          "sharpe": -6.21445918427269,
+          "sortino": -2.2777908642942992,
+          "max_drawdown": -0.0790973651301996,
+          "calmar": -4.160777126434371,
+          "final_equity_multiple": 0.9209026348698004
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.27994524165270396,
+          "sharpe": 2.4333294260491725,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "BNB",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.06593406593406594,
+          "active_share": 0.03384462759462759,
+          "trade_events": 28,
+          "avg_turnover_per_bar": 0.0010871733270470384,
+          "total_cost_drag": 0.04273895783287318
+        },
+        "metrics": {
+          "total_return": -0.03595765098185233,
+          "sharpe": -4.707540275088876,
+          "sortino": -1.1504575288457917,
+          "max_drawdown": -0.04328077185998935,
+          "calmar": -3.382539992177304,
+          "final_equity_multiple": 0.9640423490181477
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.21601361226739324,
+          "sharpe": 2.431647548951051,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "BNB",
+          "ETH"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.12683150183150182,
+          "active_share": 0.06704059829059829,
+          "trade_events": 32,
+          "avg_turnover_per_bar": 0.0012495824436895358,
+          "total_cost_drag": 0.049123585026323024
+        },
+        "metrics": {
+          "total_return": -0.06207600953023418,
+          "sharpe": -5.4298502036193055,
+          "sortino": -1.6663578281096112,
+          "max_drawdown": -0.06814176341121359,
+          "calmar": -3.755960595912265,
+          "final_equity_multiple": 0.9379239904697658
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.2047796960206809,
+          "sharpe": 2.030144094417404,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "SOL",
+          "BNB"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.15705128205128205,
+          "active_share": 0.07852564102564102,
+          "trade_events": 36,
+          "avg_turnover_per_bar": 0.0014209496133608477,
+          "total_cost_drag": 0.05586037120044164
+        },
+        "metrics": {
+          "total_return": -0.07506012735201228,
+          "sharpe": -5.716667855792713,
+          "sortino": -2.026477317162424,
+          "max_drawdown": -0.0794212959787407,
+          "calmar": -3.921846329949397,
+          "final_equity_multiple": 0.9249398726479877
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.264440044648407,
+          "sharpe": 2.2823535701337265,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "ADA",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.15567765567765568,
+          "active_share": 0.08749236874236874,
+          "trade_events": 58,
+          "avg_turnover_per_bar": 0.0022334346545485623,
+          "total_cost_drag": 0.0878007831396131
+        },
+        "metrics": {
+          "total_return": -0.11538447874964175,
+          "sharpe": -6.911239313921315,
+          "sortino": -2.1673930033874234,
+          "max_drawdown": -0.11851673980320376,
+          "calmar": -4.128068039178301,
+          "final_equity_multiple": 0.8846155212503582
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.20854206088052774,
+          "sharpe": 1.634460197959637,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "XRP",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.15979853479853479,
+          "active_share": 0.07112332112332112,
+          "trade_events": 36,
+          "avg_turnover_per_bar": 0.0013921405693616774,
+          "total_cost_drag": 0.05472783006274627
+        },
+        "metrics": {
+          "total_return": -0.04054664073815295,
+          "sharpe": -3.5139078573823466,
+          "sortino": -1.156263241465389,
+          "max_drawdown": -0.04277625906086324,
+          "calmar": -3.8553969677939515,
+          "final_equity_multiple": 0.959453359261847
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.215408850555165,
+          "sharpe": 1.819061391320708,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "DOT",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.039377289377289376,
+          "active_share": 0.021062271062271064,
+          "trade_events": 26,
+          "avg_turnover_per_bar": 0.0010055551506180543,
+          "total_cost_drag": 0.03953038408109696
+        },
+        "metrics": {
+          "total_return": -0.07274859933972555,
+          "sharpe": -6.661117030271017,
+          "sortino": -1.3454002920860737,
+          "max_drawdown": -0.0729142570546556,
+          "calmar": -4.140810927825697,
+          "final_equity_multiple": 0.9272514006602744
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.2783472362547379,
+          "sharpe": 2.0207236785780065,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "AVAX",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.0815018315018315,
+          "active_share": 0.05555555555555555,
+          "trade_events": 30,
+          "avg_turnover_per_bar": 0.0011624259242778018,
+          "total_cost_drag": 0.04569728793520894
+        },
+        "metrics": {
+          "total_return": -0.0804300507916118,
+          "sharpe": -5.097400423900223,
+          "sortino": -1.69931115056961,
+          "max_drawdown": -0.0804300507916118,
+          "calmar": -4.154773602202574,
+          "final_equity_multiple": 0.9195699492083882
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.29814647796023297,
+          "sharpe": 2.2604437358866734,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "LINK",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.1543040293040293,
+          "active_share": 0.08527930402930403,
+          "trade_events": 54,
+          "avg_turnover_per_bar": 0.002081071396486261,
+          "total_cost_drag": 0.08181107873866789
+        },
+        "metrics": {
+          "total_return": -0.11963246737302291,
+          "sharpe": -7.451435399153095,
+          "sortino": -2.815261246403624,
+          "max_drawdown": -0.12298123338373579,
+          "calmar": -4.136652526146432,
+          "final_equity_multiple": 0.8803675326269771
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.3232602233970967,
+          "sharpe": 2.496890761294784,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "LTC",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.13278388278388278,
+          "active_share": 0.04304029304029304,
+          "trade_events": 46,
+          "avg_turnover_per_bar": 0.0017684476385368565,
+          "total_cost_drag": 0.0695212135661609
+        },
+        "metrics": {
+          "total_return": -0.08589616281461754,
+          "sharpe": -6.607441771415584,
+          "sortino": -1.7242913276121803,
+          "max_drawdown": -0.08867676912838474,
+          "calmar": -4.045665867759365,
+          "final_equity_multiple": 0.9141038371853825
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.2556794201894914,
+          "sharpe": 2.2878703488781214,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "POL",
+          "BTC"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.18315018315018314,
+          "active_share": 0.0689484126984127,
+          "trade_events": 38,
+          "avg_turnover_per_bar": 0.0014698433431102078,
+          "total_cost_drag": 0.05778248150434849
+        },
+        "metrics": {
+          "total_return": -0.056598502017532026,
+          "sharpe": -2.9854616553126516,
+          "sortino": -0.9926616306538504,
+          "max_drawdown": -0.056598502017532026,
+          "calmar": -4.076174003054686,
+          "final_equity_multiple": 0.943401497982468
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.30268546067971003,
+          "sharpe": 2.2576747840098133,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      },
+      {
+        "status": "ok",
+        "pair": [
+          "XRP",
+          "ETH"
+        ],
+        "bars_5m": 26208,
+        "bars_h1_context": 5112,
+        "start_utc": "2026-08-01 00:00:00+00:00",
+        "end_utc": "2026-10-30 23:55:00+00:00",
+        "causal_alignment": {
+          "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+          "lookahead_detected": false
+        },
+        "gates": {
+          "h1_lookback": 168,
+          "h1_pvalue_max": 0.1,
+          "h1_hl_bounds": [
+            1.0,
+            500.0
+          ],
+          "h1_min_corr": 0.2,
+          "m5_z_lookback": 288,
+          "m5_z_entry": 2.0,
+          "m5_z_exit": 0.5,
+          "fail_closed": true
+        },
+        "activity": {
+          "gate_ok_share": 0.11401098901098901,
+          "active_share": 0.04884004884004884,
+          "trade_events": 36,
+          "avg_turnover_per_bar": 0.001386294299382586,
+          "total_cost_drag": 0.05449800149732822
+        },
+        "metrics": {
+          "total_return": -0.0388924786721534,
+          "sharpe": -3.735615977115392,
+          "sortino": -1.067160011804562,
+          "max_drawdown": -0.04578712909700533,
+          "calmar": -3.4554420897061444,
+          "final_equity_multiple": 0.9611075213278466
+        },
+        "benchmark_equal_weight_buy_hold_gross": {
+          "total_return": 0.20169306251468888,
+          "sharpe": 1.5993733101901764,
+          "note": "Gross equal-weight 5m close-to-close reference; not a tradable fill model."
+        },
+        "blocked_routes": [],
+        "limitations": [
+          "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
+          "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
+          "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
+          "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched."
+        ]
+      }
+    ],
+    "blocked_routes": []
+  },
+  "cost_sensitivity": [
+    {
+      "scenario": "low",
+      "fee_rate": 0.0005,
+      "slippage_bps": 2.0,
+      "status": "ok",
+      "pairs_ok": 8,
+      "mean_sharpe_ok": -2.3876580332986572,
+      "mean_total_return_ok": -0.024350598435983778,
+      "mean_max_drawdown_ok": -0.04261857512933381,
+      "blocked_routes": []
+    },
+    {
+      "scenario": "base",
+      "fee_rate": 0.001,
+      "slippage_bps": 5.0,
+      "status": "ok",
+      "pairs_ok": 8,
+      "mean_sharpe_ok": -4.8650445549284616,
+      "mean_total_return_ok": -0.05667903373540474,
+      "mean_max_drawdown_ok": -0.06619032620934848,
+      "blocked_routes": []
+    },
+    {
+      "scenario": "high",
+      "fee_rate": 0.002,
+      "slippage_bps": 10.0,
+      "status": "ok",
+      "pairs_ok": 8,
+      "mean_sharpe_ok": -8.0679680731072,
+      "mean_total_return_ok": -0.11433055823828858,
+      "mean_max_drawdown_ok": -0.11735718287325322,
+      "blocked_routes": []
+    }
+  ],
+  "limitations": [
+    "Historical L2/intrabar replay not publicly available from public routes used; fills/order books are not fabricated.",
+    "5m execution is close-to-close proxy with explicit fee+slippage+turnover costs, not exchange matching-engine replay.",
+    "1h cointegration/half-life/correlation gates are trailing statistical diagnostics on real candles; fail-closed and not proof of future edge.",
+    "Universe/windows limited to real data successfully fetched/cached in this environment; any unavailable route/symbol is recorded honestly."
+  ],
+  "notes": [
+    "OOS/edge: results are reported honestly from real data; any non-positive/weak metrics are not hidden. No claim of profitable edge."
+  ]
+}

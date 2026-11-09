@@ -36,8 +36,14 @@ def test_align_h1_to_m5_causal_no_lookahead():
 
 def test_generate_mtf_signals_fail_closed_on_missing_or_bad_gate():
     m5 = _m5_index(periods=400)
-    p1 = pd.Series(100 * np.exp(np.cumsum(np.random.default_rng(0).normal(0, 0.001, len(m5)))), index=m5)
-    p2 = pd.Series(50 * np.exp(np.cumsum(np.random.default_rng(1).normal(0, 0.001, len(m5)))), index=m5)
+    rng0 = np.random.default_rng(0)
+    rng1 = np.random.default_rng(1)
+    p1 = pd.Series(
+        100 * np.exp(np.cumsum(rng0.normal(0, 0.001, len(m5)))), index=m5
+    )
+    p2 = pd.Series(
+        50 * np.exp(np.cumsum(rng1.normal(0, 0.001, len(m5)))), index=m5
+    )
     ctx = pd.DataFrame({"beta": np.nan, "gate_ok": False}, index=m5)
     cfg = MTFPairConfig(pair=("A", "B"), min_shared_m5=100)
     sig = generate_mtf_signals(p1, p2, ctx, cfg)

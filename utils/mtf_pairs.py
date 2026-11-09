@@ -17,7 +17,6 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-
 H1_SECONDS = 3600
 M5_SECONDS = 300
 # 1h close timestamp (period-end label) is open + 3600s for our candle labels;
@@ -41,6 +40,15 @@ class MTFPairConfig:
     max_gross: float = 1.0
     min_shared_h1: int = 240
     min_shared_m5: int = 600
+
+
+def _config_kwargs(cfg: MTFPairConfig) -> dict[str, Any]:
+    """Return all non-pair fields of an MTFPairConfig as kwargs."""
+    return {
+        k: v
+        for k, v in cfg.__dict__.items()
+        if k != "pair"
+    }
 
 
 def _as_utc_index(idx: pd.Index) -> pd.DatetimeIndex:
@@ -209,7 +217,10 @@ def generate_mtf_signals(
     ctx = h1_context_m5.reindex(idx)
     beta = pd.to_numeric(ctx.get("beta"), errors="coerce")
     gate = ctx.get("gate_ok", False)
-    gate = gate.fillna(False).astype(bool) if isinstance(gate, pd.Series) else pd.Series(False, index=idx)
+    if isinstance(gate, pd.Series):
+        gate = gate.fillna(False).astype(bool)
+    else:
+        gate = pd.Series(False, index=idx)
 
     spread_m5 = a - beta * b
     z = robust_zscore(spread_m5, config.m5_z_lookback)
@@ -307,7 +318,8 @@ def backtest_mtf_pair(
     sd = float(net.std(ddof=0))
     sharpe = float(mu / sd * ann_factor) if sd > 1e-12 else 0.0
     neg = net[net < 0]
-    sortino = float(mu / float(neg.std(ddof=0)) * ann_factor) if len(neg) > 1 and float(neg.std(ddof=0)) > 1e-12 else 0.0
+    neg_sd = float(neg.std(ddof=0)) if len(neg) > 1 else 0.0
+    sortino = float(mu / neg_sd * ann_factor) if neg_sd > 1e-12 else 0.0
     total = float(eq.iloc[-1] - 1.0) if n else 0.0
     dd = eq / eq.cummax() - 1.0
     mdd = float(dd.min()) if n else 0.0
@@ -334,12 +346,23 @@ def backtest_mtf_pair(
         avail_ok = False
 
     status = "ok" if n >= config.min_shared_m5 and avail_ok else "partial"
-    limitations = [
-        "Historical L2/intrabar replay not publicly available; fills/order books are not fabricated.",
-        "Execution uses 5m close-to-close proxy with explicit fee+slippage+turnover costs (not exchange-matching-engine replay).",
-        "1h gates are trailing/statistical diagnostics on available real candles; pass/fail is fail-closed and not proof of future edge.",
-        "Public Binance spot data only; region/host availability can vary by environment and is recorded in provenance when fetched.",
-    ]
+    l2_note = (
+        "Historical L2/intrabar replay not publicly available; "
+        "fills/order books are not fabricated."
+    )
+    exec_note = (
+        "Execution uses 5m close-to-close proxy with explicit "
+        "fee+slippage+turnover costs (not exchange-matching-engine replay)."
+    )
+    gate_note = (
+        "1h gates are trailing/statistical diagnostics on available real "
+        "candles; pass/fail is fail-closed and not proof of future edge."
+    )
+    region_note = (
+        "Public Binance spot data only; region/host availability can vary "
+        "by environment and is recorded in provenance when fetched."
+    )
+    limitations = [l2_note, exec_note, gate_note, region_note]
     return {
         "status": status,
         "pair": list(config.pair),
@@ -348,7 +371,10 @@ def backtest_mtf_pair(
         "start_utc": str(sig.index.min()) if n else None,
         "end_utc": str(sig.index.max()) if n else None,
         "causal_alignment": {
-            "rule": "1h bar at t informs 5m bars only at/after t + 1h (bar close); merge_asof backward on availability timestamp",
+            "rule": (
+                "1h bar at t informs 5m bars only at/after t + 1h (bar close); "
+                "merge_asof backward on availability timestamp"
+            ),
             "lookahead_detected": not avail_ok,
         },
         "gates": {
@@ -396,30 +422,35 @@ def run_mtf_universe(
     blocked_routes: list[Any] = []
     for p in pairs:
         a, b = p
-        if a not in h1.columns or b not in h1.columns or a not in m5.columns or b not in m5.columns:
-            results.append({"pair": list(p), "status": "blocked", "reason": "missing_symbol_data", "blocked_routes": []})
+        if (
+            a not in h1.columns
+            or b not in h1.columns
+            or a not in m5.columns
+            or b not in m5.columns
+        ):
+            results.append(
+                {
+                    "pair": list(p),
+                    "status": "blocked",
+                    "reason": "missing_symbol_data",
+                    "blocked_routes": [],
+                }
+            )
             continue
         cfg = MTFPairConfig(pair=p) if config_template is None else MTFPairConfig(
             pair=p,
-            h1_lookback=config_template.h1_lookback,
-            h1_pvalue_max=config_template.h1_pvalue_max,
-            h1_hl_min=config_template.h1_hl_min,
-            h1_hl_max=config_template.h1_hl_max,
-            h1_min_corr=config_template.h1_min_corr,
-            m5_z_lookback=config_template.m5_z_lookback,
-            m5_z_entry=config_template.m5_z_entry,
-            m5_z_exit=config_template.m5_z_exit,
-            m5_z_stop=config_template.m5_z_stop,
-            fee_rate=config_template.fee_rate,
-            slippage_bps=config_template.slippage_bps,
-            max_gross=config_template.max_gross,
-            min_shared_h1=config_template.min_shared_h1,
-            min_shared_m5=config_template.min_shared_m5,
+            **_config_kwargs(config_template),
         )
         try:
             res = backtest_mtf_pair(m5[a], m5[b], h1[a], h1[b], cfg)
         except Exception as e:
-            res = {"pair": list(p), "status": "blocked", "reason": f"error:{type(e).__name__}", "error": str(e)[:300], "blocked_routes": []}
+            res = {
+                "pair": list(p),
+                "status": "blocked",
+                "reason": f"error:{type(e).__name__}",
+                "error": str(e)[:300],
+                "blocked_routes": [],
+            }
         results.append(res)
         for r in res.get("blocked_routes", []) or []:
             if r not in blocked_routes:
@@ -433,10 +464,35 @@ def run_mtf_universe(
         "pairs_ok": len(ok),
         "pairs_partial": len(partial),
         "pairs_blocked": len(blocked),
-        "mean_sharpe_ok": float(np.mean([r["metrics"]["sharpe"] for r in ok])) if ok else None,
-        "mean_total_return_ok": float(np.mean([r["metrics"]["total_return"] for r in ok])) if ok else None,
-        "mean_max_drawdown_ok": float(np.mean([r["metrics"]["max_drawdown"] for r in ok])) if ok else None,
-        "mean_gate_ok_share": float(np.mean([r["activity"]["gate_ok_share"] for r in ok + partial])) if (ok or partial) else None,
+        "mean_sharpe_ok": (
+            float(np.mean([r["metrics"]["sharpe"] for r in ok])) if ok else None
+        ),
+        "mean_total_return_ok": (
+            float(np.mean([r["metrics"]["total_return"] for r in ok]))
+            if ok
+            else None
+        ),
+        "mean_max_drawdown_ok": (
+            float(np.mean([r["metrics"]["max_drawdown"] for r in ok]))
+            if ok
+            else None
+        ),
+        "mean_gate_ok_share": (
+            float(
+                np.mean(
+                    [r["activity"]["gate_ok_share"] for r in ok + partial]
+                )
+            )
+            if (ok or partial)
+            else None
+        ),
     }
-    status = "ok" if ok and not blocked else ("partial" if (ok or partial) else "blocked")
-    return {"status": status, "aggregate": agg, "results": results, "blocked_routes": blocked_routes}
+    status = "ok" if ok and not blocked else (
+        "partial" if (ok or partial) else "blocked"
+    )
+    return {
+        "status": status,
+        "aggregate": agg,
+        "results": results,
+        "blocked_routes": blocked_routes,
+    }
