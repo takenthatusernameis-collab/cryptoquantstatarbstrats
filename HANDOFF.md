@@ -1,7 +1,7 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` present; tools present (`ruff 0.17.4`, `mypy 2.4.1`, `pytest 9.2.0`); `utils/regime.py` remains a quantile stub (no HMM); `backtest/sweep.py` has no regime conditioning; prior recorded test state `928 passed, 1 skipped, 0 failures` (2026-11-09T06:47:30Z, **no code changes since; full suite not re-run this session**). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
+> Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` present; tools present (`ruff 0.17.4`, `mypy 2.4.1`, `pytest 9.2.0`); `utils/regime.py` remains a quantile stub (no HMM); `backtest/sweep.py` has no regime conditioning; test state `928 passed, 1 skipped, 0 failures` **re-verified 2026-11-09T07:11:23Z** (`pytest -q`, `ruff check`, `mypy` all green, working tree clean, no code changes since). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
@@ -19,7 +19,7 @@
 
 **Bottlenecks removed (verified 2026-11-09T07:05:00Z): NONE.** Working tree clean; only `HANDOFF.md` exists as durable handoff; `hmmlearn 0.3.3` import OK; `from utils.regime import detect_regimes` OK; no HMM/sweep-regime implementation detected. **Proceed immediately — no planning detour, no blocker triage.**
 
-**Handoff timestamp (UTC)**: 2026-11-09T07:05:00Z (verified this session)
+**Handoff timestamp (UTC)**: 2026-11-09T07:11:23Z (re-verified this session — all gates green, no blockers)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main`
@@ -28,14 +28,15 @@
 
 ---
 
-## 1) Verified state (bottlenecks cleared)
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T07:11:23Z
 
 - **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`).
 - **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`.
 - **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`).
-- **Dependencies**: `hmmlearn==0.3.3` present in active interpreter.
+- **Dependencies**: `hmmlearn==0.3.3` present in active interpreter; `from utils.regime import detect_regimes` OK; `from hmmlearn.hmm import GaussianHMM` OK.
 - **Real data path**: Binance spot fetch works via loader host chain (`www.binance.com`; `api.binance.com` 451 is never relied upon). **Never fabricate data**; report `blocked_routes` honestly when a series cannot be reconstructed.
 - **Bottlenecks**: **NONE** (no missing deps, no failing gates, no loader blocker).
+- **Working tree**: clean on `main`, no uncommitted changes.
 
 ## 2) CURRENT GAP vs Campaign #1 (close ALL)
 
