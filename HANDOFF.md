@@ -2,11 +2,12 @@
 
 > **NEXT AGENT: START HERE. DO HEAVY WORK NOW.** Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). No blockers exist; gates are green; `hmmlearn` is installed. **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
-**Handoff timestamp (UTC)**: 2026-11-09T05:50:19Z (verified this session)
+**Handoff timestamp (UTC)**: 2026-11-09T05:53:25Z (verified this session)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies). Repo-name priority: crypto quant stat arb — **regime-adaptive signal generation is the #1 critical path**.
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main` (clean working tree at verification)
 **Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers).
+**Campaign #1 status**: NOT STARTED — `utils/regime.py` is still the quantile-based stub; `backtest/sweep.py` has no regime conditioning; `backtest/execution.py` has no regime transition handling. Heavy implementation work starts now; there are no blockers.
 
 ---
 
