@@ -1,6 +1,6 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
-**Handoff timestamp (UTC)**: 2026-11-09T04:48:47Z
+**Handoff timestamp (UTC)**: 2026-11-09T04:52:00Z
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies)
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main` (clean at handoff)
@@ -13,7 +13,7 @@
 - **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -x -q`)
 - **Ruff**: clean across `backtest/ data/ strategies/ utils/ tests/ examples/`
 - **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`)
-- **Bottlenecks**: none observed. No sessions blocked by repo health. If you encounter an environment/network blocker (e.g., Binance host restrictions), route via existing loader host chain and report honestly with provenance — never fabricate data.
+- **Bottlenecks**: RESOLVED at this handoff. `hmmlearn==0.3.3` was missing from the environment (the HMM regime detector in Campaign #1 depends on it) and is now installed into the active interpreter. No other environment blockers. Real Binance spot data fetches succeed via the loader host chain (`www.binance.com` first; `api.binance.com` returns HTTP 451 here and is never relied upon). Verified: `DataLoader().load_binance_data(['BTC','ETH','SOL'], '2026-10-01', '2026-11-08', '1h')` returns 936 rows with empty `blocked_routes`. Never fabricate data; report `blocked_routes` honestly when a series cannot be reconstructed.
 
 **Repo context**: Real-market research framework (public Binance spot candles, no API keys, no fabricated data). Static strategies underperform buy-and-hold OOS on real data; cost sensitivity is high; cointegration gates are fail-closed. Highest-leverage unblocked work is regime-adaptive signal generation.
 

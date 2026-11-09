@@ -24,6 +24,7 @@ dev = [
     "pytest>=7",
     "ruff>=0.4",
     "mypy>=1.8",
+    "hmmlearn>=0.3.2",
 ]
 
 [project.scripts]
