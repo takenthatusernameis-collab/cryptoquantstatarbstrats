@@ -2,7 +2,11 @@
 
 > **NEXT AGENT: START HERE. DO HEAVY WORK NOW.** Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). No blockers exist; gates are green; `hmmlearn` is installed. **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
-**Handoff timestamp (UTC)**: 2026-11-09T05:53:25Z (verified this session)
+## 0) Timestamped initial task message (single durable directive for next session)
+
+**[2026-11-09T05:55:54Z] INITIAL TASK — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK).** Implement HMM-based regime detection in `utils/regime.py` (`GaussianHMM` on returns/realized-vol features; causal fit only, zero lookahead; `hmm_regimes`, `regime_transition_probs`, integrated with `detect_regimes`; deterministic seeding). Extend `backtest/sweep.py` for regime-conditioned/per-regime parameter sweeps with walk-forward discipline. Add regime transition cost/handling in `backtest/execution.py` consistent with the execution model (no fabricated fills). Validate on real Binance spot candles (OOS 2026-11+ where available) via `examples/run_regime_detection_real.py` and emit `reports/regime_adaptive_sweep.json` with per-regime OOS metrics + full provenance (`real_data_only: true`, `fabricated_data: false`, timestamps, source, `blocked_routes` if any). Evaluate held-out classifier accuracy (target >65%; report honestly if unmet) and check for ≥1 regime with positive OOS Sharpe after costs (report honestly if none). Keep cointegration gates fail-closed; no lookahead; gates green (`pytest`, `ruff`, `mypy`). **Bottlenecks removed: NONE** — proceed immediately.
+
+**Handoff timestamp (UTC)**: 2026-11-09T05:55:54Z (verified this session)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies). Repo-name priority: crypto quant stat arb — **regime-adaptive signal generation is the #1 critical path**.
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main` (clean working tree at verification)
