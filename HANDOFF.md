@@ -2,7 +2,7 @@
 
 > **NEXT AGENT: START HERE. DO HEAVY WORK NOW.** Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). No blockers exist; gates are green; `hmmlearn` is installed. **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
-**Handoff timestamp (UTC)**: 2026-11-09T05:47:05Z (verified this session)
+**Handoff timestamp (UTC)**: 2026-11-09T05:48:32Z (verified this session)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies). Repo-name priority: crypto quant stat arb — **regime-adaptive signal generation is the #1 critical path**.
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main` (clean working tree at verification)
