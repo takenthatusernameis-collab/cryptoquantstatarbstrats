@@ -1,6 +1,6 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
-**Handoff timestamp (UTC)**: 2026-11-09T04:47:19Z
+**Handoff timestamp (UTC)**: 2026-11-09T04:48:47Z
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies)
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main` (clean at handoff)
