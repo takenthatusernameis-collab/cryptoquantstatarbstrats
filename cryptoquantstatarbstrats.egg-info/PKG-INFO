@@ -16,6 +16,7 @@ Provides-Extra: dev
 Requires-Dist: pytest>=7; extra == "dev"
 Requires-Dist: ruff>=0.4; extra == "dev"
 Requires-Dist: mypy>=1.8; extra == "dev"
+Requires-Dist: hmmlearn>=0.3.2; extra == "dev"
 
 # CryptoQuant Stat Arb Strategies
 
