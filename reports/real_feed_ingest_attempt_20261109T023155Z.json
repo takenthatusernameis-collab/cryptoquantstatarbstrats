@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "20261109T023155Z",
+  "campaign": 245,
+  "ingest_type": "real_feed_ingest_attempt",
+  "real_data_only": true,
+  "fail_closed": true,
+  "nonspot_ingest": {
+    "status": "blocked_fail_closed",
+    "rb_unblocked": true,
+    "rb_source": "validated_real_quote_volume",
+    "note": "Non-spot ingest blocked fail-closed; R-B unblocked on validated real_quote_volume."
+  },
+  "cache_provenance": {
+    "spot_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "spot_cache_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d",
+    "volume_pkl": "data/cache/volume_1h_full.pkl",
+    "volume_pkl_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "volume_meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+    "volume_provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+  },
+  "artifacts": {
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_midhinge_shock_mr_costed_oos_20261109T022447Z.json",
+    "oos_sha256": "39d97b75b78b377015e2a944a36ad1c5b8d15f6aff4160d552f0fa1acc899ddc",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_midhinge_shock_mr_costed_oos.py",
+    "script_sha256": "55bdefdbbba24e3f4aa20efe111d6c636fda7a91a06f2f31c19072da33b69f81"
+  }
+}
