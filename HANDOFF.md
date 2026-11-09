@@ -1,9 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
-**Handoff timestamp (UTC)**: 2026-11-09T05:03:26Z
+> **NEXT AGENT: START HERE. DO HEAVY WORK NOW.** Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). No blockers exist; gates are green; `hmmlearn` is installed. **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
+
+**Handoff timestamp (UTC)**: 2026-11-09T05:04:23Z (verified this session)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies). Repo-name priority: crypto quant stat arb — **regime-adaptive signal generation is the #1 critical path**.
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch**: `main`
+**Branch**: `main` (clean working tree at verification)
 **Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers).
 
 ---
@@ -18,12 +20,16 @@
 - **Bottlenecks**: **NONE** (no missing deps, no failing gates, no loader blocker). Heavy implementation work can start immediately.
 - **Research context**: Real-market framework (public Binance spot candles, no API keys). Static strategies underperform buy-and-hold OOS; cost sensitivity is high; cointegration gates are fail-closed — do not weaken.
 
-## 2) CURRENT GAP vs Campaign #1 (work NOT done — next session must close it)
+## 2) CURRENT GAP vs Campaign #1 (verified gaps — close ALL of them)
 
-- `utils/regime.py` is a **quantile-based stub** (`volatility_regime`, `trend_detection`, `detect_regimes`). **Missing**: HMM (`GaussianHMM`), `hmm_regimes(...)`, `regime_transition_probs(...)`, causal fit contract, lookahead guard, deterministic seeding.
-- `backtest/sweep.py` has sweeps/walk-forward but **no regime-conditioned parameter selection** (`regime_labels` / per-regime grids).
-- `backtest/execution.py` has fill simulation but **no regime transition costs/handling**.
-- **Missing artifacts**: `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`.
+| Area | Current state | Required |
+|---|---|---|
+| `utils/regime.py` | Quantile-based stub (`volatility_regime`, `trend_detection`, `detect_regimes`) | HMM (`GaussianHMM`), `hmm_regimes(...)`, `regime_transition_probs(...)`, causal fit, no lookahead, deterministic seeding, feature/window contracts |
+| `backtest/sweep.py` | Sweeps/walk-forward; no regime conditioning | Accept `regime_labels` and/or per-regime grids; per-regime sweeps with walk-forward discipline |
+| `backtest/execution.py` | Fill simulation; no regime transition handling | Regime transition costs/handling consistent with execution model (no fabricated fills) |
+| Artifacts | Missing | `examples/run_regime_detection_real.py` (real data only) + `reports/regime_adaptive_sweep.json` (per-regime OOS, provenance) |
+
+**First 10 minutes (mandatory):** 1) `pip install -e ".[dev]"` (if needed), 2) confirm `hmmlearn` import, 3) read `utils/regime.py`, `backtest/sweep.py`, `backtest/execution.py`, 4) start implementing HMM in `utils/regime.py` with tests. No alternate planning phase.
 
 ## 3) MANDATORY INITIAL TASK — Campaign #1 (HEAVY WORK, NON-OPTIONAL)
 
