@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist (re-verified 2026-11-09T09:37:46Z).** `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**; `examples/run_regime_detection_real.py` **MISSING**; `reports/regime_adaptive_sweep.json` **MISSING**. Last verified gates on `main@5a1a016` (2026-11-09T09:09:30Z): `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean (tree unchanged since; only checkpoint commits since). **Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) are installed and verified.** **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
+> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist (re-verified 2026-11-09T09:41:32Z).** `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**; `examples/run_regime_detection_real.py` **MISSING**; `reports/regime_adaptive_sweep.json` **MISSING**. Last verified gates on `main@11d0038` (2026-11-09T09:41:32Z): `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean. **Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) are installed and verified.** **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T09:37:46Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
+**[2026-11-09T09:41:32Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
 
 **NEXT AGENTIC SESSION: EXECUTE CAMPAIGN #1 NOW.** This is the only authorized starting point and focus campaign. Absence of new user direction does **not** permit lighter work. First-hour work must be Campaign #1 implementation, tests, real-data validation, or required artifacts — never planning, summaries, alternate handoffs, cleanup, or `research_state/`/C249 registry/status work.
 
@@ -17,12 +17,12 @@
 6. **Evaluation** — Held-out regime-classifier accuracy (target >65%; report honestly if unmet). Check ≥1 regime with positive OOS Sharpe after costs (report honestly with diagnostics if none). **Artifacts required regardless of outcome.**
 7. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Bottlenecks removed (re-verified 2026-11-09T09:37:46Z): NONE.** No missing source deps, no failing gates (last verified clean on `main@5a1a016`), no loader blocker, no parallel handoffs, no uncommitted work, working tree clean. Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) are installed via `pip install -e ".[dev]"` and verified. **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
+**Bottlenecks removed (re-verified 2026-11-09T09:41:32Z): NONE.** No missing source deps, no failing gates (last verified clean on `main@11d0038`), no loader blocker, no parallel handoffs, no uncommitted work, working tree clean. Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) are installed via `pip install -e ".[dev]"` and verified. **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
 
-**Handoff timestamp (UTC)**: 2026-11-09T09:37:46Z (state re-verified — gates green, dev deps installed)
+**Handoff timestamp (UTC)**: 2026-11-09T09:41:32Z (state re-verified — gates green, dev deps installed)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch/HEAD**: `main @ a4cf2cf` (clean; two checkpoint commits ahead of the last gate-verified `5a1a016`, source unchanged)
+**Branch/HEAD**: `main @ 11d0038` (clean; source unchanged since last gate verification, only checkpoint commits since)
 **Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers, accuracy/Sharpe outcomes).
 **Campaign #1 status**: NOT STARTED — heavy implementation work starts now. No blockers.
 
@@ -30,14 +30,14 @@
 
 ## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T09:37:46Z
 
-- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Last verified on `main@5a1a016` (2026-11-09T09:09:30Z); tree unchanged since — re-run after `pip install -e ".[dev]"`.
-- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Last verified on `main@5a1a016`.
-- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Last verified on `main@5a1a016`.
+- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Last verified on `main@11d0038` (2026-11-09T09:41:32Z); tree unchanged since.
+- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Last verified on `main@11d0038`.
+- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Last verified on `main@11d0038`.
 - **Dependencies**: `hmmlearn==0.3.3` listed in `[project.optional-dependencies] dev`; installed via `pip install -e ".[dev]"` and confirmed `from utils.regime import detect_regimes` and `from hmmlearn.hmm import GaussianHMM` work.
 - **Real data path**: Binance spot fetch works via loader host chain (`www.binance.com`; `api.binance.com` 451 is never relied upon). **Never fabricate data**; report `blocked_routes` honestly when a series cannot be reconstructed.
 - **Campaign #1 artifacts missing (expected)**: no `examples/run_regime_detection_real.py`, no `reports/regime_adaptive_sweep.json`.
 - **Bottlenecks**: **NONE** (no missing source deps, no failing gates, no loader blocker, no stale parallel handoff, no uncommitted WIP; dev deps installed and verified).
-- **Working tree**: clean on `main` (`a4cf2cf`), no uncommitted changes.
+- **Working tree**: clean on `main` (`11d0038`), no uncommitted changes.
 
 ## 1.1) Parallel-track caution (do not let it block Campaign #1)
 
