@@ -50,7 +50,12 @@ OUT = Path(__file__).resolve().parent.parent / "reports" / "pairs_mtf_5m_1h.json
 def _load_interval(symbols: list[str], start: str, end: str, interval: str) -> tuple[Any, dict[str, Any]]:
     loader = DataLoader()
     blocked_routes: list[Any] = []
-    provenance: dict[str, Any] = {"interval": interval, "start": start, "end": end, "symbols_requested": symbols}
+    provenance: dict[str, Any] = {
+        "interval": interval,
+        "start": start,
+        "end": end,
+        "symbols_requested": symbols,
+    }
     try:
         data, prov = load_cached(loader, symbols, start, end, interval=interval)
         provenance.update(prov)
@@ -75,7 +80,11 @@ def _cost_sensitivity(h1, m5, pairs: list[tuple[str, str]]) -> list[dict[str, An
     ]
     out = []
     for sc in scenarios:
-        cfg = MTFPairConfig(pair=("BTC", "ETH"), fee_rate=sc["fee_rate"], slippage_bps=sc["slippage_bps"])
+        cfg = MTFPairConfig(
+        pair=("BTC", "ETH"),
+        fee_rate=sc["fee_rate"],
+        slippage_bps=sc["slippage_bps"],
+    )
         run = run_mtf_universe(h1, m5, pairs, config_template=cfg)
         agg = run.get("aggregate", {})
         out.append({
@@ -96,10 +105,14 @@ def main() -> None:
     generated_at = datetime.now(timezone.utc).isoformat()
     blocked_routes: list[Any] = []
     limitations: list[str] = [
-        "Historical L2/intrabar replay not publicly available from public routes used; fills/order books are not fabricated.",
-        "5m execution is close-to-close proxy with explicit fee+slippage+turnover costs, not exchange matching-engine replay.",
-        "1h cointegration/half-life/correlation gates are trailing statistical diagnostics on real candles; fail-closed and not proof of future edge.",
-        "Universe/windows limited to real data successfully fetched/cached in this environment; any unavailable route/symbol is recorded honestly.",
+        "Historical L2/intrabar replay not publicly available from public routes used; "
+        "fills/order books are not fabricated.",
+        "5m execution is close-to-close proxy with explicit fee+slippage+turnover costs, "
+        "not exchange matching-engine replay.",
+        "1h cointegration/half-life/correlation gates are trailing statistical diagnostics "
+        "on real candles; fail-closed and not proof of future edge.",
+        "Universe/windows limited to real data successfully fetched/cached in this "
+        "environment; any unavailable route/symbol is recorded honestly.",
     ]
 
     h1, h1_prov = _load_interval(SYMBOLS, H1_START, H1_END, "1h")
@@ -123,19 +136,44 @@ def main() -> None:
                 "context_1h": {"start": H1_START, "end": H1_END, "provenance": h1_prov},
                 "execution_5m": {"start": M5_START, "end": M5_END, "provenance": m5_prov},
             },
-            "notes": "Only real fetched/cached candles used. No synthetic candles, IV, volume, fills, order books, labels, or metrics fabricated as evidence.",
+            "notes": (
+            "Only real fetched/cached candles used. No synthetic candles, IV, volume, "
+            "fills, order books, labels, or metrics fabricated as evidence."
+        ),
         },
         "method": {
             "strategy": "Multi-timeframe pairs: 1h trailing cointegration/hedge/spread context gates + 5m z-score entry/exit.",
-            "causal_alignment": "1h bar at index t (open label) becomes available at t+1h (close). merge_asof backward on available_at maps to 5m bars at/after close; no 5m bar uses 1h information before close.",
+            "causal_alignment": (
+            "1h bar at index t (open label) becomes available at t+1h (close). "
+            "merge_asof backward on available_at maps to 5m bars at/after close; "
+            "no 5m bar uses 1h information before close."
+        ),
             "gates": {
                 "trailing_only": True,
                 "fail_closed": True,
-                "1h": ["OLS hedge beta", "Engle-Granger/coint p-value (AIC) when available else ADF-on-spread proxy", "rolling correlation", "OU half-life bounds"],
-                "5m": ["rolling z-score from causally aligned spread", "entry/exit/stop thresholds", "gate_ok required"],
+"1h": [
+                "OLS hedge beta",
+                "Engle-Granger/coint p-value (AIC) when available else "
+                "ADF-on-spread proxy",
+                "rolling correlation",
+                "OU half-life bounds",
+            ],
+            "5m": [
+                "rolling z-score from causally aligned spread",
+                "entry/exit/stop thresholds",
+                "gate_ok required",
+            ],
             },
-            "wf_leakage_controls": "No train/test optimization on this artifact; evaluation uses causal rolling trailing windows and causal 1h->5m availability. Purged WF not separately claimed beyond causal construction; leakage sanity checked.",
-            "cost_model": "Per-bar turnover * (fee_rate + slippage_bps/10000) on 5m positions shifted by 1 bar; gross-normalized pair legs; no fabricated fills/order books.",
+            "wf_leakage_controls": (
+            "No train/test optimization on this artifact; evaluation uses causal "
+            "rolling trailing windows and causal 1h->5m availability. Purged WF "
+            "not separately claimed beyond causal construction; leakage sanity checked."
+        ),
+        "cost_model": (
+            "Per-bar turnover * (fee_rate + slippage_bps/10000) on 5m positions "
+            "shifted by 1 bar; gross-normalized pair legs; no fabricated "
+            "fills/order books."
+        ),
             "limitations": limitations,
         },
         "results": None,

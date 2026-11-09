@@ -1,5 +1,4 @@
-"""
-Causal multi-timeframe cointegration-pairs utilities (Campaign #4).
+"""Causal multi-timeframe cointegration-pairs utilities (Campaign #4).
 
 Design constraints (must hold):
 - Real data only in emitted artifacts; no fabricated candles/fills/order books.
@@ -393,7 +392,7 @@ def run_mtf_universe(
     pairs: list[tuple[str, str]],
     config_template: MTFPairConfig | None = None,
 ) -> dict[str, Any]:
-    results = []
+    results: list[dict[str, Any]] = []
     blocked_routes: list[Any] = []
     for p in pairs:
         a, b = p

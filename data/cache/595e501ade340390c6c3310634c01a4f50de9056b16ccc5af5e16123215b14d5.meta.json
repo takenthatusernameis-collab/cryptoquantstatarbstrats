@@ -1,0 +1,36 @@
+{
+  "cache_key": "595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5",
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "start": "2026-08-01",
+  "end": "2026-10-30",
+  "interval": "5m",
+  "quote_asset": "USDT",
+  "fetch_success": true,
+  "rows": 26208,
+  "columns": [
+    "BTC",
+    "ETH",
+    "SOL"
+  ],
+  "fetch_blocked_hosts": [],
+  "fetch_blocked_routes": [],
+  "fetch_attempts": [
+    {
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "interval": "5m",
+      "success": true,
+      "rows": 26208
+    }
+  ],
+  "fetch_errors": [],
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false
+}
