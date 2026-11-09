@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE** (verified 2026-11-09T10:43:00Z). Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). Last verified gates on `main@11d0038`/clean tree: `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), `from hmmlearn.hmm import GaussianHMM` OK. **Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) installed/verified.** **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before the next focus campaign. Produce real artifacts with provenance.
+> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE** (verified 2026-11-09T10:43:00Z). Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). Last verified gates on `main@fc32a87`/clean tree: `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), `from hmmlearn.hmm import GaussianHMM` OK. **Dev deps (`pytest`, `ruff`, `mypy`, `hmmlearn`, `numpy`) installed/verified.** **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before the next focus campaign. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T10:43:00Z | INITIAL TASK MESSAGE — Campaign #1 COMPLETE; Next Focus: Alternative Data / Funding Rates (HIGH, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
+**[2026-11-09T10:54:21Z | INITIAL TASK MESSAGE — Campaign #1 COMPLETE; Next Focus: Alternative Data / Funding Rates (HIGH, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
 
 **NEXT AGENTIC SESSION: EXECUTE THE NEXT FOCUS CAMPAIGN NOW.** Campaign #1 is complete (implementation, tests, real-data validation, and artifact all done; gates green). Absence of new user direction does **not** permit lighter work. First-hour work must be the next focus campaign implementation, tests, real-data validation, or required artifacts — never planning, summaries, alternate handoffs, cleanup, or `research_state/`/C249 registry/status work. This message is the **single clear initial task** for the next session; do not create or follow parallel handoffs.
 
@@ -13,34 +13,34 @@
 2. **Evaluation** — Held-out validation; report metrics honestly even if unmet. Artifacts required regardless of outcome.
 3. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Bottlenecks removed (verified 2026-11-09T10:43:00Z): NONE.** No missing source deps, no failing gates, no loader blocker, no competing root handoff/TODO docs (only `HANDOFF.md`), no blocked sessions detected in repo state, no uncommitted work, working tree clean on `main@11d0038`. Dev deps installed and verified (`GaussianHMM` import OK). **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before the next focus campaign. Produce real artifacts with provenance.
+**Bottlenecks removed (verified 2026-11-09T10:54:21Z): NONE.** No missing source deps, no failing gates, no loader blocker, no competing root handoff/TODO docs (only `HANDOFF.md`), no blocked sessions detected in repo state, no uncommitted work, working tree clean on `main@fc32a87`. Dev deps installed and verified (`GaussianHMM` import OK). **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before the next focus campaign. Produce real artifacts with provenance.
 
-**Handoff timestamp (UTC)**: 2026-11-09T10:43:00Z (state re-verified — gates green, deps OK, no bottlenecks)
+**Handoff timestamp (UTC)**: 2026-11-09T10:54:21Z (state re-verified — gates green, deps OK, no bottlenecks)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch/HEAD**: `main @ 11d0038` (clean at verification time)
+**Branch/HEAD**: `main @ fc32a87` (clean at verification time)
 **Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers, outcomes).
 **Campaign #1 status**: COMPLETE — HMM regime detection (`utils/regime.py`), regime-conditioned sweeps (`backtest/sweep.py`), regime transition costs (`backtest/execution.py`), real-data example (`examples/run_regime_detection_real.py`), and artifact (`reports/regime_adaptive_sweep.json`) all done. Next focus: Alternative data / funding rates.
 
 ---
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T10:43:00Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T10:54:21Z
 
-- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Last verified on `main@11d0038` (2026-11-09T10:43:00Z); tree unchanged since.
-- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Last verified on `main@11d0038`. (Fixed E501 line-too-long at `backtest/execution.py:358` and removed unused `pandas` import in `examples/run_regime_detection_real.py`.)
-- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Last verified on `main@11d0038`.
+- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Last verified on `main@fc32a87` (2026-11-09T10:54:21Z); tree unchanged since.
+- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Last verified on `main@fc32a87`. (Fixed E501 line-too-long at `backtest/execution.py:358` and removed unused `pandas` import in `examples/run_regime_detection_real.py`.)
+- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Last verified on `main@fc32a87`.
 - **Dependencies**: `hmmlearn==0.3.3` listed in `[project.optional-dependencies] dev`; installed via `pip install -e ".[dev]"` and confirmed `from hmmlearn.hmm import GaussianHMM` OK.
 - **Real data path**: Binance spot fetch works via loader host chain (`www.binance.com`; `api.binance.com` 451 is never relied upon). **Never fabricate data**; report `blocked_routes` honestly when a series cannot be reconstructed.
 - **Campaign #1 artifacts**: `examples/run_regime_detection_real.py` (fixed broken `load_real_ohlcv` import → `DataLoader.load_binance_data`) and `reports/regime_adaptive_sweep.json` (written 2026-11-09T10:42:35Z).
 - **Campaign #1 outcomes (honest)**: held-out classifier accuracy proxy 0.473 (< 0.65 target, `meets_accuracy_target: false`); best OOS mean return 0.0 (no regime with positive OOS Sharpe after costs); `blocked_routes: []`. Reported honestly, not fabricated.
 - **Bottlenecks**: **NONE** (no missing source deps, no failing gates, no loader blocker, no stale parallel handoff, no uncommitted WIP; dev deps installed and verified).
-- **Working tree**: clean on `main` (`11d0038`), no uncommitted changes.
+- **Working tree**: clean on `main` (`fc32a87`), no uncommitted changes.
 
 ## 1.1) Parallel-track caution (do not let it block the next focus campaign)
 
 `research_state/state.yaml` (updated `20261109T032725Z`, `next_campaign: C249`) records a locked C104-C248 RQA/volume costed-OOS artifact line with `oos_edge_proven: false`. This is **real repository state** but **not** the next heavy-work priority for this handoff. The next agent must **not** spend the session on C249 registry/status bookkeeping instead of the next focus campaign. If C249 work is explicitly requested by the user in a future turn, treat it as a separate request; otherwise ignore it and execute the next focus campaign.
 
-## 2) CAMPAIGN #1 — COMPLETED (verified 2026-11-09T10:43:00Z)
+## 2) CAMPAIGN #1 — COMPLETED (verified 2026-11-09T10:54:21Z)
 
 | Area | State | Verified |
 |---|---|---|
