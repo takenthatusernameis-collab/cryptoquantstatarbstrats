@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` import OK; `ruff`, `mypy`, `pytest` present; `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**. Gates re-verified **2026-11-09T08:51:01Z** on `main@7265026`: `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean. **Do not** do docs-only edits, cleanup, refactors, planning detours, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
+> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` import OK; `ruff`, `mypy`, `pytest` present; `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**. Gates re-verified **2026-11-09T08:52:40Z** on `main@7265026`: `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean. **Do not** do docs-only edits, cleanup, refactors, planning detours, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T08:51:01Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK — NO SUBSTITUTES)]**
+**[2026-11-09T08:52:40Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK — NO SUBSTITUTES)]**
 
 **NEXT AGENTIC SESSION MUST EXECUTE CAMPAIGN #1 IMMEDIATELY.** This is the only authorized starting point. Do not plan, summarize, refactor, or create alternate handoffs.
 
@@ -17,9 +17,9 @@
 6. **Evaluation** — Held-out regime-classifier accuracy (target >65%, report honestly if unmet). Check ≥1 regime with positive OOS Sharpe after costs (report honestly with diagnostics if none). **Artifacts required regardless of outcome.**
 7. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Bottlenecks removed (verified 2026-11-09T08:51:01Z): NONE.** No missing deps, no failing gates, no loader blocker, no parallel handoffs, working tree clean. `research_state/state.yaml` tracks a separate locked C248/C249 artifact campaign — **it does not displace Campaign #1 priority**. **Proceed immediately — no blocker triage.**
+**Bottlenecks removed (verified 2026-11-09T08:52:40Z): NONE.** No missing deps, no failing gates, no loader blocker, no parallel handoffs, working tree clean. `research_state/state.yaml` tracks a separate locked C248/C249 artifact campaign — **it does not displace Campaign #1 priority**. **Proceed immediately — no blocker triage.**
 
-**Handoff timestamp (UTC)**: 2026-11-09T08:51:01Z (re-verified)
+**Handoff timestamp (UTC)**: 2026-11-09T08:52:40Z (re-verified)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch/HEAD**: `main @ 7265026`
@@ -28,7 +28,7 @@
 
 ---
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T08:48:47Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T08:52:40Z
 
 - **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`).
 - **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`.
