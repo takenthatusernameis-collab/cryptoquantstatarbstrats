@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist (re-verified 2026-11-09T08:59:32Z).** `hmmlearn` + `utils.regime` imports OK; `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**; `examples/run_regime_detection_real.py` **MISSING**; `reports/regime_adaptive_sweep.json` **MISSING**. Last verified gates on `main@5a1a016` (2026-11-09T08:58:19Z): `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean. **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
+> Repo priority (name-inferred): **cryptoquantstatarbstrats = crypto quant stat-arb strategies**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist (re-verified 2026-11-09T09:07:20Z).** `hmmlearn` + `utils.regime` imports OK; `utils/regime.py` is still a **quantile stub (no HMM)**; `backtest/sweep.py` has **no regime conditioning**; `backtest/execution.py` has **no regime transition handling**; `examples/run_regime_detection_real.py` **MISSING**; `reports/regime_adaptive_sweep.json` **MISSING**. Last verified gates on `main@5a1a016` (2026-11-09T09:07:20Z): `928 passed, 1 skipped, 0 failures`, `ruff check` clean, `mypy` clean (32 source files), working tree clean. **Do not** do docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, or continue the separate C248/C249 `research_state/` artifact track before Campaign #1 implementation/tests/validation/artifacts. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T08:59:32Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
+**[2026-11-09T09:07:20Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL)]**
 
 **NEXT AGENTIC SESSION: EXECUTE CAMPAIGN #1 NOW.** This is the only authorized starting point and focus campaign. Absence of new user direction does **not** permit lighter work. First-hour work must be Campaign #1 implementation, tests, real-data validation, or required artifacts — never planning, summaries, alternate handoffs, cleanup, or `research_state/`/C249 registry/status work.
 
@@ -17,9 +17,9 @@
 6. **Evaluation** — Held-out regime-classifier accuracy (target >65%; report honestly if unmet). Check ≥1 regime with positive OOS Sharpe after costs (report honestly with diagnostics if none). **Artifacts required regardless of outcome.**
 7. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Bottlenecks removed (re-verified 2026-11-09T08:59:32Z): NONE.** No missing deps, no failing gates, no loader blocker, no parallel handoffs, no uncommitted work, working tree clean. `research_state/state.yaml` C248/C249 is a separate locked artifact track (`oos_edge_proven:false`) — **it does not displace Campaign #1 and must not be used to avoid heavy implementation work**. **Proceed immediately — no blocker triage, no alternate campaigns.**
+**Bottlenecks removed (re-verified 2026-11-09T09:07:20Z): NONE.** No missing deps, no failing gates, no loader blocker, no parallel handoffs, no uncommitted work, working tree clean. `research_state/state.yaml` C248/C249 is a separate locked artifact track (`oos_edge_proven:false`) — **it does not displace Campaign #1 and must not be used to avoid heavy implementation work**. **Proceed immediately — no blocker triage, no alternate campaigns.**
 
-**Handoff timestamp (UTC)**: 2026-11-09T08:59:32Z (state re-verified)
+**Handoff timestamp (UTC)**: 2026-11-09T09:07:20Z (state re-verified)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch/HEAD**: `main @ 5a1a016` (clean)
@@ -28,7 +28,7 @@
 
 ---
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T08:58:19Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T09:07:20Z
 
 - **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`).
 - **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`.
