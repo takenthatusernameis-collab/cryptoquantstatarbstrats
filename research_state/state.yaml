@@ -1,4 +1,4 @@
-updated_at_utc: 20261109T014330Z
+updated_at_utc: 20261109T020225Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
