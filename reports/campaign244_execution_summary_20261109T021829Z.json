@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "20261109T021829Z",
+  "campaign": 244,
+  "status": "DONE",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_winsorized_mean_shock_mr_costed_oos_20261109T021110Z.json",
+      "sha256": "2fc63905932fb6c53db6aa02d411cd7e36ea866dc7bfbfa429e95364fb04f5f2"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T021829Z.json",
+      "sha256": "29c51a57898e997db9b3d0a114ad8daaadaa0198b2bdc3df2aa4adfa8cbb7d22"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261109T021829Z.json",
+      "sha256": "abdac7c759d7af3f7be8fa7596d552b643eca37b4cea0a3c1b5ad20a1cdef75b"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_winsorized_mean_shock_mr_costed_oos.py",
+      "sha256": "4fbd87613aeab6d200eafc0763387c49bdd6e57057e1e3558f1d02ba0eaf5a41"
+    }
+  }
+}
