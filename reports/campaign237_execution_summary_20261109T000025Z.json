@@ -1,0 +1,36 @@
+{
+  "generated_at_utc": "20261109T000025Z",
+  "campaign": 237,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ENTROPY_SHOCK_MR",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_entropy_shock_mr_costed_oos_20261108T235238Z.json",
+      "sha256": "ca975ead97434b958a2c7dc7e03a1b472aeaceadcf0b99abea6213ab0e6d4ce5"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_entropy_shock_mr_costed_oos.py",
+      "sha256": "1ff0e463478b2c656c1744e4abbe6b72959dbad029e0cdd05569985eeb27fa01"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T000025Z.json",
+      "sha256": "18e204bd4f2bc3feb11fef43f8227341f2014f461bf8a935c5b556065f7071f2"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261109T000025Z.json",
+      "sha256": "e135272fd9a0251e50f252d58c3643216c6c8ec4347be41afa459fbdfac2f95c"
+    }
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.5566570076333333,
+    "fee5_slip5": -0.22534299236666744,
+    "fee10_slip10": -1.0073429923666681,
+    "fee20_slip20": -2.571342992366668,
+    "fee40_slip40": -5.699342992366668
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": true,
+  "edge_note": "Edge rule NOT proven (exposure>0 and beats B&H mean rule, but not all cost slices OOS net sum>0: fee0=+0.556657, fee5..40 negative); edge_claim NONE."
+}

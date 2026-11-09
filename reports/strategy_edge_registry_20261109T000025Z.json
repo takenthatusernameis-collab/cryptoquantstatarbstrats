@@ -1,0 +1,44 @@
+{
+  "generated_at_utc": "20261109T000025Z",
+  "campaign": 237,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261108T233928Z.json",
+    "sha256": "86c477648ec8565fdabd90faefdb647f1a3517bd32da35c25d5fe8e78b88e11c"
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.",
+  "c237": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ENTROPY_SHOCK_MR",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_entropy_shock_mr_costed_oos_20261108T235238Z.json",
+      "sha256": "ca975ead97434b958a2c7dc7e03a1b472aeaceadcf0b99abea6213ab0e6d4ce5"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_entropy_shock_mr_costed_oos.py",
+      "sha256": "1ff0e463478b2c656c1744e4abbe6b72959dbad029e0cdd05569985eeb27fa01"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T000025Z.json",
+      "sha256": "18e204bd4f2bc3feb11fef43f8227341f2014f461bf8a935c5b556065f7071f2"
+    },
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.5566570076333333,
+      "fee5_slip5": -0.22534299236666744,
+      "fee10_slip10": -1.0073429923666681,
+      "fee20_slip20": -2.571342992366668,
+      "fee40_slip40": -5.699342992366668
+    },
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": true,
+    "pre_stated_distinctness": {
+      "grep_hits_nonself_at_run": 0
+    }
+  },
+  "refs": {
+    "c236_oos_sha256": "81d9a4ae5708ce29cd2e5dcde1c163fa1e87379f3aa766dd65a344378f22d0ff",
+    "c235_oos_sha256": "b1ea67400604f627f2232cfdf2511d6e06650e4968793f016d7dcbda8f49892b",
+    "c234_oos_sha256": "3fb43291866383c8a7b710ac531f4ca8ed82aea08a5d88e1052f5693c1e39ff9"
+  }
+}
