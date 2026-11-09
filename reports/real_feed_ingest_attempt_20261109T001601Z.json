@@ -1,0 +1,39 @@
+{
+  "generated_at_utc": "20261109T001601Z",
+  "campaign": 238,
+  "family": "real_quote_volume",
+  "rb_unblocked": true,
+  "validated_feeds": [
+    {
+      "meta_path": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+      "pkl_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89",
+      "validation": {
+        "ok": true,
+        "refused": false,
+        "family": "real_quote_volume",
+        "reason": "passed_all_fail_closed_checks",
+        "rows": 81792,
+        "columns": [
+          "timestamp_utc",
+          "symbol",
+          "quote_volume_usdt"
+        ],
+        "family_spec": "real_quote_volume"
+      }
+    }
+  ],
+  "blocked_families": [
+    "funding_basis_carry",
+    "cross_exchange_dual_venue_same_asset",
+    "term_structure_real_iv_vol_surface",
+    "intrabar_microstructure"
+  ],
+  "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "references": {
+    "c237_oos_sha256": "ca975ead97434b958a2c7dc7e03a1b472aeaceadcf0b99abea6213ab0e6d4ce5",
+    "prior_registry_sha256": "e135272fd9a0251e50f252d58c3643216c6c8ec4347be41afa459fbdfac2f95c"
+  }
+}

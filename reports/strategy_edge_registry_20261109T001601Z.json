@@ -1,0 +1,45 @@
+{
+  "generated_at_utc": "20261109T001601Z",
+  "campaign": 238,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261109T000025Z.json",
+    "sha256": "e135272fd9a0251e50f252d58c3643216c6c8ec4347be41afa459fbdfac2f95c"
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.",
+  "c238": {
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RMS_SHOCK_MR",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_rms_shock_mr_costed_oos_20261109T000841Z.json",
+      "sha256": "55af89a05949ac522c05f83fc35fc962cc6d25d448834d690e51f43fac95b23e"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_rms_shock_mr_costed_oos.py",
+      "sha256": "ae24105dcefa6f6b49288afb19ef334e54cca1d68365379ae244ca48709ade99"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T001601Z.json",
+      "sha256": "390b22eb98b7b9efbf9787ca70a228934b30f15b24943ef6d92147751d83178c"
+    },
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -3.0442090804512474,
+      "fee5_slip5": -3.732209080451248,
+      "fee10_slip10": -4.420209080451248,
+      "fee20_slip20": -5.796209080451249,
+      "fee40_slip40": -8.54820908045125
+    },
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "pre_stated_distinctness": {
+      "grep_hits_nonself_at_run": 0,
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RMS|WHITE_DIAG_LINE_LENGTH_RMS' scripts/ strategies/ backtest/ utils/ 2>&1"
+    }
+  },
+  "refs": {
+    "c237_oos_sha256": "ca975ead97434b958a2c7dc7e03a1b472aeaceadcf0b99abea6213ab0e6d4ce5",
+    "c236_oos_sha256": "81d9a4ae5708ce29cd2e5dcde1c163fa1e87379f3aa766dd65a344378f22d0ff",
+    "c235_oos_sha256": "b1ea67400604f627f2232cfdf2511d6e06650e4968793f016d7dcbda8f49892b"
+  }
+}
