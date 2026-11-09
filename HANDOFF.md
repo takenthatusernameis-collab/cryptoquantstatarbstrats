@@ -1,7 +1,7 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE**. Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). **Re-verified 2026-11-09T14:47:38Z on `main@abbdbdec827a0bf748444d4ea55e7949314568af` (clean):** core deps importable (`numpy`, `pandas`, `scipy`, `hmmlearn/GaussianHMM OK`). Campaign #1 artifacts present: `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Quality gates **re-run and PASS this pass**: `928 passed, 1 skipped, 0 failures`; `ruff` All checks passed; `mypy` Success (32 source files) — **re-run gates before claiming done on Campaign #2 changes.** **Campaign #2 required artifacts MISSING:** `reports/funding_carry_real.json`, `reports/execution_lob_real.json`. **No setup bottlenecks found** (clean tree, deps OK, no competing handoffs). Loader families `funding_basis_carry`/`intrabar_microstructure` already exist in `data/real_feed_loader.py` (specs/validation hooks present); real-public-route fetch + artifact emission remain the assigned work, not excuses. **Forbidden before Campaign #2 artifacts exist:** docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, alternate handoffs/TODOs, or `research_state/` C249 registry/status work.
+> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE**. Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). **Re-verified 2026-11-09T15:01:57Z on `main@7eab453` (clean):** core deps importable (`numpy`, `pandas`, `scipy`, `hmmlearn/GaussianHMM OK`). Campaign #1 artifacts present: `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Quality gates **re-run and PASS this pass**: `928 passed, 1 skipped, 0 failures`; `ruff` All checks passed; `mypy` Success (32 source files) — **re-run gates before claiming done on Campaign #2 changes.** **Campaign #2 required artifacts MISSING:** `reports/funding_carry_real.json`, `reports/execution_lob_real.json`. **No setup bottlenecks found** (clean tree, deps OK, no competing handoffs). Loader families `funding_basis_carry`/`intrabar_microstructure` already exist in `data/real_feed_loader.py` (specs/validation hooks present); real-public-route fetch + artifact emission remain the assigned work, not excuses. **Forbidden before Campaign #2 artifacts exist:** docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, alternate handoffs/TODOs, or `research_state/` C249 registry/status work.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
@@ -31,25 +31,25 @@
 
 **Bottlenecks removed (re-verified 2026-11-09T14:47:38Z): NONE.** No missing source deps (`numpy/pandas/scipy/hmmlearn` present), clean working tree on `main@abbdbdec827a0bf748444d4ea55e7949314568af`, no competing root handoff/TODO docs, no uncommitted WIP. Loader `funding_basis_carry`/`intrabar_microstructure` blocked-route families are the assigned implementation targets — attempt real public routes, implement honestly, and emit required artifacts. C249 (`research_state/state.yaml`, `next_campaign: C249`) is a separate locked RQA/volume track; **do not spend this session on C249 registry/status work** unless explicitly requested by the user.
 
-**Handoff timestamp (UTC)**: 2026-11-09T14:47:38Z (re-verified: HEAD, deps, artifact presence, cleanliness, quality gates PASS)
+**Handoff timestamp (UTC)**: 2026-11-09T15:01:57Z (re-verified: HEAD, deps, artifact presence, cleanliness, quality gates PASS)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch/HEAD**: `main @ abbdbdec827a0bf748444d4ea55e7949314568af` (clean at verification time)
+**Branch/HEAD**: `main @ 7eab453` (clean at verification time)
 **Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes.
 **Campaign #1 status**: COMPLETE — HMM regime detection (`utils/regime.py`), regime-conditioned sweeps (`backtest/sweep.py`), regime transition costs (`backtest/execution.py`), real-data example (`examples/run_regime_detection_real.py`), artifact (`reports/regime_adaptive_sweep.json`).
 **Campaign #2 status**: **NOT STARTED / REQUIRED** — `reports/funding_carry_real.json` and `reports/execution_lob_real.json` **MISSING**. Next agent must produce both with real public data/provenance or honest evidenced blockers.
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T14:47:38Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T15:01:57Z
 
-- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Re-verified 2026-11-09T14:47:38Z on `main@abbdbdec827a0bf748444d4ea55e7949314568af`.
-- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Re-verified 2026-11-09T14:47:38Z on `main@abbdbdec827a0bf748444d4ea55e7949314568af`.
-- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Re-verified 2026-11-09T14:47:38Z on `main@abbdbdec827a0bf748444d4ea55e7949314568af`.
+- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Re-verified 2026-11-09T15:01:57Z on `main@7eab453`.
+- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Re-verified 2026-11-09T15:01:57Z on `main@7eab453`.
+- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Re-verified 2026-11-09T15:01:57Z on `main@7eab453`.
 - **Dependencies**: `hmmlearn==0.3.3` listed in `[project.optional-dependencies] dev`; installed via `pip install -e ".[dev]"` and confirmed `from hmmlearn.hmm import GaussianHMM` OK.
 - **Real data path**: Binance spot fetch works via loader host chain (`www.binance.com`; `api.binance.com` 451 is never relied upon). **Never fabricate data**; report `blocked_routes` honestly when a series cannot be reconstructed.
 - **Campaign #1 artifacts**: `examples/run_regime_detection_real.py` and `reports/regime_adaptive_sweep.json` present (`real_data_only: true`, `fabricated_data: false`).
 - **Campaign #1 outcomes (honest)**: held-out classifier accuracy proxy 0.473 (< 0.65 target, `meets_accuracy_target: false`); best OOS mean return 0.0 (no regime with positive OOS Sharpe after costs); `blocked_routes: []`. Reported honestly, not fabricated.
 - **Bottlenecks**: **NONE** (no missing source deps, no failing gates, no loader blocker, no stale parallel handoff, no uncommitted WIP; dev deps installed and verified).
-- **Working tree**: clean on `main` (`abbdbdec827a0bf748444d4ea55e7949314568af`), no uncommitted changes.
+- **Working tree**: clean on `main` (`7eab453`), no uncommitted changes.
 
 ## 1.1) Parallel-track caution (do not let it block the next focus campaign)
 
