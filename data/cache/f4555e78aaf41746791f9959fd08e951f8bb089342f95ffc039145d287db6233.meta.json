@@ -1,0 +1,48 @@
+{
+  "cache_key": "f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233",
+  "symbols": [
+    "ADA",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "SOL",
+    "XRP"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-10-30",
+  "interval": "1h",
+  "quote_asset": "USDT",
+  "fetch_success": true,
+  "rows": 5112,
+  "columns": [
+    "ADA",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "SOL",
+    "XRP"
+  ],
+  "fetch_blocked_hosts": [],
+  "fetch_blocked_routes": [],
+  "fetch_attempts": [
+    {
+      "symbols": [
+        "ADA",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "SOL",
+        "XRP"
+      ],
+      "interval": "1h",
+      "success": true,
+      "rows": 5112
+    }
+  ],
+  "fetch_errors": [],
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false
+}

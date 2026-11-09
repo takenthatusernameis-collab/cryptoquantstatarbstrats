@@ -1,0 +1,757 @@
+{
+  "real_data_only": true,
+  "fabricated_data": false,
+  "generated_at_utc": "2026-11-09T17:29:34.063754+00:00",
+  "campaign": "Campaign #3 - ML-augmented signal filtering for cointegration persistence",
+  "status": "ok",
+  "data_sources": {
+    "provider": "Binance public spot (via DataLoader/cache)",
+    "symbols_requested": [
+      "ADA",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "SOL",
+      "XRP"
+    ],
+    "pairs": [
+      "BTC/ETH",
+      "ETH/SOL",
+      "BTC/SOL",
+      "ADA/ETH",
+      "XRP/BTC",
+      "BNB/ETH",
+      "BTC/BNB",
+      "DOT/BTC"
+    ],
+    "time_window": {
+      "start_utc": "2026-04-01",
+      "end_utc": "2026-10-30"
+    },
+    "interval": "1h",
+    "rows_loaded": 5112,
+    "columns": [
+      "ADA",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "SOL",
+      "XRP"
+    ],
+    "provenance": {
+      "requested_symbols": [
+        "ADA",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "per_symbol": {
+        "ADA": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "BNB": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "BTC": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "DOT": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "ETH": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "SOL": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        },
+        "XRP": {
+          "status": "ok",
+          "bars": 5112,
+          "first": "2026-04-01 00:00:00+00:00",
+          "last": "2026-10-30 23:00:00+00:00"
+        }
+      },
+      "excluded": [],
+      "cache": {
+        "cache_key": "f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233",
+        "symbols": [
+          "ADA",
+          "BNB",
+          "BTC",
+          "DOT",
+          "ETH",
+          "SOL",
+          "XRP"
+        ],
+        "start": "2026-04-01",
+        "end": "2026-10-30",
+        "interval": "1h",
+        "quote_asset": "USDT",
+        "cache_hit": true,
+        "fetch_attempts": [
+          {
+            "symbols": [
+              "ADA",
+              "BNB",
+              "BTC",
+              "DOT",
+              "ETH",
+              "SOL",
+              "XRP"
+            ],
+            "interval": "1h",
+            "success": true,
+            "rows": 5112
+          }
+        ],
+        "hosts_tried": [],
+        "errors": [],
+        "blocked_routes": [],
+        "disk_cache": true,
+        "fetch_success": true,
+        "fetch_blocked_hosts": [],
+        "fetch_blocked_routes": [],
+        "fetch_errors": [],
+        "fetch_real_data_only": true,
+        "fetch_fabricated_data": false,
+        "blocked_hosts": []
+      }
+    }
+  },
+  "blocked_routes": [],
+  "methodology": {
+    "classifier": "LogisticRegression(pipeline: StandardScaler+LogReg, class_weight=balanced)",
+    "features": [
+      "eg_pvalue",
+      "eg_stat",
+      "johansen_trace0",
+      "johansen_trace1",
+      "half_life",
+      "hurst",
+      "spread_vol",
+      "spread_z_abs",
+      "hedge_ratio",
+      "ret_corr",
+      "price_ratio_z",
+      "regime_vol",
+      "regime_trend"
+    ],
+    "purged_walk_forward_cv": {
+      "train_size": 60,
+      "test_size": 20,
+      "step": 10,
+      "embargo": 1,
+      "note": "Embargo/purge gap applied between train and test; label horizon is strictly future of features."
+    },
+    "leakage_controls": [
+      "Features computed from trailing windows only (no future bars).",
+      "Labels computed from future window [t+embargo, t+embargo+horizon] only; never used as features.",
+      "Purged walk-forward splits with embargo gap between train/test.",
+      "Fail-closed when model/features/data insufficient."
+    ],
+    "ml_gating": {
+      "threshold": 0.55,
+      "fail_closed": true,
+      "sizing_effect": "Candidate entries blocked when gate fails; exits not blocked."
+    }
+  },
+  "dataset": {
+    "rows": 544,
+    "labeled_rows": 544,
+    "pairs_with_labels": 8,
+    "diagnostics": {
+      "pairs": {
+        "BTC/ETH": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "ETH/SOL": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "BTC/SOL": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "ADA/ETH": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "XRP/BTC": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "BNB/ETH": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "BTC/BNB": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        },
+        "DOT/BTC": {
+          "rows": 68,
+          "labeled": 68,
+          "skipped_missing": 0
+        }
+      },
+      "sampled_points": 544,
+      "labeled_points": 544
+    },
+    "label_definition": {
+      "feature_window": "trailing 120 bars, causal only",
+      "embargo_bars": 120,
+      "horizon_bars": 48,
+      "persistence_rule": "EG pvalue <= 0.1 AND 1 < half_life < 500.0 on future [t+embargo,t+embargo+horizon)"
+    }
+  },
+  "cv_evaluation": {
+    "ok": true,
+    "reason": "ok",
+    "splits": 47,
+    "oos_predictions": [],
+    "oos_actuals": [],
+    "metrics": {
+      "accuracy": 0.5542553191489362,
+      "precision_pos": 0.17473118279569894,
+      "recall_pos": 0.3672316384180791,
+      "f1_pos": 0.23679417122040075,
+      "positive_rate_actual": 0.18829787234042553,
+      "positive_rate_pred": 0.39574468085106385,
+      "threshold": 0.55
+    },
+    "feature_names": [
+      "eg_pvalue",
+      "eg_stat",
+      "johansen_trace0",
+      "johansen_trace1",
+      "half_life",
+      "hurst",
+      "spread_vol",
+      "spread_z_abs",
+      "hedge_ratio",
+      "ret_corr",
+      "price_ratio_z",
+      "regime_vol",
+      "regime_trend"
+    ],
+    "evaluated_splits": 47,
+    "split_meta": [
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 59,
+        "test_start": 61,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 69,
+        "test_start": 71,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 79,
+        "test_start": 81,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 89,
+        "test_start": 91,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 99,
+        "test_start": 101,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 109,
+        "test_start": 111,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 119,
+        "test_start": 121,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 129,
+        "test_start": 131,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 139,
+        "test_start": 141,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 149,
+        "test_start": 151,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 159,
+        "test_start": 161,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 169,
+        "test_start": 171,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 179,
+        "test_start": 181,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 189,
+        "test_start": 191,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 199,
+        "test_start": 201,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 209,
+        "test_start": 211,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 219,
+        "test_start": 221,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 229,
+        "test_start": 231,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 239,
+        "test_start": 241,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 249,
+        "test_start": 251,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 259,
+        "test_start": 261,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 269,
+        "test_start": 271,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 279,
+        "test_start": 281,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 289,
+        "test_start": 291,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 299,
+        "test_start": 301,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 309,
+        "test_start": 311,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 319,
+        "test_start": 321,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 329,
+        "test_start": 331,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 339,
+        "test_start": 341,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 349,
+        "test_start": 351,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 359,
+        "test_start": 361,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 369,
+        "test_start": 371,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 379,
+        "test_start": 381,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 389,
+        "test_start": 391,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 399,
+        "test_start": 401,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 409,
+        "test_start": 411,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 419,
+        "test_start": 421,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 429,
+        "test_start": 431,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 439,
+        "test_start": 441,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 449,
+        "test_start": 451,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 459,
+        "test_start": 461,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 469,
+        "test_start": 471,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 479,
+        "test_start": 481,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 489,
+        "test_start": 491,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 499,
+        "test_start": 501,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 509,
+        "test_start": 511,
+        "embargo": 1
+      },
+      {
+        "train_n": 60,
+        "test_n": 20,
+        "train_end": 519,
+        "test_start": 521,
+        "embargo": 1
+      }
+    ],
+    "oos_n": 940,
+    "oos_preview": {
+      "probs_head": [
+        0.5648587829050968,
+        0.09426239087999097,
+        0.13661733928414055,
+        0.026508007807153185,
+        0.18881679561399925,
+        0.11126752247771993,
+        0.7941877917798353,
+        0.36495270363122473,
+        0.04673931606411251,
+        0.48345046198835606,
+        0.00986603546056828,
+        0.01816450190016935,
+        0.08552466508149975,
+        0.8598660904541006,
+        0.11131710761917187,
+        0.13593684656990349,
+        0.5278584759644743,
+        0.35479502643063865,
+        0.5895503216986494,
+        0.5196120059359074
+      ],
+      "preds_head": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "actuals_head": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    }
+  },
+  "final_model": {
+    "ok": true,
+    "reason": "ok",
+    "rows": 544,
+    "artifact_model_persisted": false,
+    "reason_not_persisted": "no binary model artifact committed; evaluation/provenance recorded in JSON"
+  },
+  "oos_proxy": {
+    "status": "ok",
+    "eval_window": {
+      "start": "2026-09-13 09:00:00+00:00",
+      "end": "2026-10-30 23:00:00+00:00",
+      "rows": 1143
+    },
+    "split_index": 4089,
+    "total_gated_active_bars": 1577,
+    "total_ungated_active_bars": 0,
+    "gate_fail_closed_effective": false,
+    "per_pair": {
+      "BTC/ETH": {
+        "gated_active_bars": 264,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "ETH/SOL": {
+        "gated_active_bars": 259,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "BTC/SOL": {
+        "gated_active_bars": 239,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "ADA/ETH": {
+        "gated_active_bars": 82,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "XRP/BTC": {
+        "gated_active_bars": 301,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "BNB/ETH": {
+        "gated_active_bars": 321,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "BTC/BNB": {
+        "gated_active_bars": 30,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      },
+      "DOT/BTC": {
+        "gated_active_bars": 81,
+        "ungated_active_bars": 0,
+        "gate_reduced_or_equal": false,
+        "model_present": true
+      }
+    },
+    "note": "Proxy counts only (active signal bars on tail segment). Not a PnL/profitability claim."
+  },
+  "checksums": {
+    "data_index_sha256": "e3cf52999ec1ca293ccdb5167901132dcd8ae6ed662d612f182ee0e9406f4693",
+    "config_sha256": "bbede9b7f02328624b9d3966c820d2816153c5641948a0903a356c0f4440a6c8"
+  },
+  "limitations": [
+    "Research artifact only; not evidence of trading edge or investment advice.",
+    "Cointegration persistence labels are heuristic (EG p-value + half-life on forward window) and may be noisy.",
+    "OOS proxy reports signal-bar counts on a tail segment, not PnL/profitability.",
+    "Purged CV uses sampled points (step) for tractability; embargo set from lookback/horizon policy.",
+    "No fabricated data/fills/order books/labels/metrics; blocked routes recorded honestly."
+  ],
+  "errors": [],
+  "notes": []
+}
