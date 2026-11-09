@@ -1,4 +1,4 @@
-updated_at_utc: 20261109T031259Z
+updated_at_utc: 20261109T032725Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
@@ -12,42 +12,42 @@ caches_verified:
   volume_pkl: {path: data/cache/volume_1h_full.pkl, sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c}
   volume_meta: {path: data/cache/volume_1h_full.meta.json, sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616}
   volume_provenance: {path: data/cache/volume_1h_full.provenance.json, sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89}
-latest_campaign_done: C247
-next_campaign: C248
-locked_campaigns: C104-C247
+latest_campaign_done: C248
+next_campaign: C249
+locked_campaigns: C104-C248
 oos_edge_proven: false
 latest_registry:
-  path: reports/strategy_edge_registry_20261109T031259Z.json
-  sha256: 87b0265771b4902b8954390d11aaf162069e739e10133781f8f9db5aec5e4d60
-  supersedes: reports/strategy_edge_registry_20261109T030527Z.json
-  supersedes_sha256: ae20f66baec069066bc82c41156e314832512dc136b0b2f514b6df6682c2b67c
+  path: reports/strategy_edge_registry_20261109T032725Z.json
+  sha256: a1a3bfed5579037f2c1d6ccd6c9411421cd166415cdcca95ad1b0c218dd7f04e
+  supersedes: reports/strategy_edge_registry_20261109T031259Z.json
+  supersedes_sha256: 87b0265771b4902b8954390d11aaf162069e739e10133781f8f9db5aec5e4d60
 latest_oos:
-  campaign: C247
-  family: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW_SHOCK_MR
-  path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_bowley_skew_shock_mr_costed_oos_20261109T031259Z.json
-  sha256: def2f1fc07104e4ecadaa87700327aab3c1d3d5df3e2d95801597ce3c94f7638
+  campaign: C248
+  family: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KELLY_SKEW_SHOCK_MR
+  path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_kelly_skew_shock_mr_costed_oos_20261109T032725Z.json
+  sha256: af6b0717577928cfb6b6d543d0753d4427c44069d0a2055ea7983fffd7054933
   oos_edge_proven: false
   edge_claim: NONE
   any_exposure_oos: true
   all_cost_slices_positive_oos_net_sum: false
-  all_cost_slices_beat_bh_mean_rule: false
-  cross_asset_oos_net_sums: {fee0_slip0: -0.09919678846577296, fee5_slip5: -0.3931967884657732, fee10_slip10: -0.6871967884657735, fee20_slip20: -1.275196788465774, fee40_slip40: -2.4511967884657744}
-  script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_bowley_skew_shock_mr_costed_oos.py, sha256: 10d00599e0e04b2d3a9ddc7b88be44c2c6d50a079961f26d8481d5f744b0dc52}
-  ingest: {path: reports/real_feed_ingest_attempt_20261109T031259Z.json, sha256: d03d3f4c1c2404067d789cfe733e889694ed2c0570338c431b90ac008b9cbb43}
-  summary: {path: reports/campaign247_execution_summary_20261109T031259Z.json, sha256: 66f8b75515b1cceea860acb13c1daa796405e05661785185aa53195dedf2a7a9}
+  all_cost_slices_beat_bh_mean_rule: true
+  cross_asset_oos_net_sums: {fee0_slip0: 0.30197803228898, fee5_slip5: -1.1400219677110213, fee10_slip10: -2.5820219677110217, fee20_slip20: -5.466021967711021, fee40_slip40: -11.23402196771102}
+  script: {path: scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_kelly_skew_shock_mr_costed_oos.py, sha256: f254fe693ac704feab2fcc6281a864f35de1cbae7a387d4a6cca100b30a77038}
+  ingest: {path: reports/real_feed_ingest_attempt_20261109T032725Z.json, sha256: 057e1d04821c0a3cebfb6acb479173b7dc09ca8949480cf2c11ba9849ea8e018}
+  summary: {path: reports/campaign248_execution_summary_20261109T032725Z.json, sha256: 5152b99e7f3dfb13dc19fd9b8cff06114620fe4f41137e5ecb2fa0ec3045e125}
   pre_stated_distinctness:
-    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW|WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1"
+    grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_KELLY_SKEW|WHITE_DIAG_LINE_LENGTH_KELLY_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
-grep_verified_utc: 20261109T031259Z
+grep_verified_utc: 20261109T032725Z
 refs:
+  c247_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_bowley_skew_shock_mr_costed_oos_20261109T031259Z.json, sha256: def2f1fc07104e4ecadaa87700327aab3c1d3d5df3e2d95801597ce3c94f7638}
   c246_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_trimean_shock_mr_costed_oos_20261109T025803Z.json, sha256: d329801a5c06bd49fbc129da4930011abca1c5920d464c5e420a5399e889f83c}
   c245_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_midhinge_shock_mr_costed_oos_20261109T022447Z.json, sha256: 39d97b75b78b377015e2a944a36ad1c5b8d15f6aff4160d552f0fa1acc899ddc}
-  c244_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_winsorized_mean_shock_mr_costed_oos_20261109T021110Z.json, sha256: 2fc63905932fb6c53db6aa02d411cd7e36ea866dc7bfbfa429e95364fb04f5f2}
-c248_preselected:
-  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_KELLY_SKEW_SHOCK_MR
-  feature: RTE / WHITE_DIAG_LINE_LENGTH_KELLY_SKEW (Kelly skewness = (P90 + P10 - 2*median)/(P90 - P10) of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; P10/median/P90 = numpy.percentile 10/50/90, method='linear', pre-stated fixed; fail-closed if <3 qualifying segment lengths or (P90-P10)<=0 or Kelly skewness non-finite or resulting ratio/feature undefined — handle near-zero denominator fail-closed). Distinct from BOWLEY_SKEW(C247, quartile-based) and single-percentile P10(C242)/P90(C241) and TRIMEAN(C246)/MIDHINGE(C245)/WINSORIZED_MEAN(C244)/TRIMMED_MEAN(C243)/HARMONIC_MEAN(C240)/GEOMEAN(C239)/RMS(C238)/ENTROPY(C237)/GINI(C236)/RANGE(C235)/CV(C234)/IQR(C233)/MAD(C232)/KURTOSIS(C231)/SKEWNESS(C230)/COUNT_VARIANCE(C229)/DIAG_COUNT_VARIANCE(C228)/DIVERGENCE(C227)/VARIANCE(C226) and prior C125-C247 families.
-  grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_KELLY_SKEW|WHITE_DIAG_LINE_LENGTH_KELLY_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1"
+c249_preselected:
+  strategy_id: VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW_SHOCK_MR
+  feature: RTE / WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW (Groeneveld-Meeden robust skewness = (mean - median) / mean(|X - median|) of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; mean/median/E|X-median| computed on pooled segment lengths (numpy, pre-stated fixed). Fail-closed if <3 qualifying segment lengths or mean(|X-median|)<=0/non-finite or Groeneveld-Meeden skew non-finite or resulting ratio/feature undefined — near-zero denominator handled fail-closed). Distinct from KELLY_SKEW(C248, P10/P90-based), BOWLEY_SKEW(C247, quartile-based), moment SKEWNESS(C230), and single-percentile P10(C242)/P90(C241) and TRIMEAN(C246)/MIDHINGE(C245)/WINSORIZED_MEAN(C244)/TRIMMED_MEAN(C243)/HARMONIC_MEAN(C240)/GEOMEAN(C239)/RMS(C238)/ENTROPY(C237)/GINI(C236)/RANGE(C235)/CV(C234)/IQR(C233)/MAD(C232)/KURTOSIS(C231)/COUNT_VARIANCE(C229)/DIAG_COUNT_VARIANCE(C228)/DIVERGENCE(C227)/VARIANCE(C226) and prior C125-C248 families.
+  grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW|WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1"
   grep_hits_at_selection: 0
-  grep_verified_utc: 20261109T031259Z
-  fallback_candidates_grep_zero: [RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K, RTE_OVER_WHITE_DIAG_LINE_LENGTH_MIDRANGE]
-mandates: [no_reruns_c104_c247, real_data_only, fail_closed, deps_ok_required, grep_zero_distinctness_required, no_status_only, heavy_work_mandatory, collision_fail_closed_pick_distinct_fallback_record_evidence, sha256_from_bytes_for_all_new_artifacts, sync_state_and_handoff]
+  grep_verified_utc: 20261109T032725Z
+  fallback_candidates_grep_zero: [RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K, RTE_OVER_WHITE_DIAG_LINE_LENGTH_MIDRANGE, RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW]
+mandates: [no_reruns_c104_c248, real_data_only, fail_closed, deps_ok_required, grep_zero_distinctness_required, no_status_only, heavy_work_mandatory, collision_fail_closed_pick_distinct_fallback_record_evidence, sha256_from_bytes_for_all_new_artifacts, sync_state_and_handoff]
