@@ -1,0 +1,114 @@
+{
+  "campaign": "Campaign #1 - Regime-Adaptive Signal Generation",
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "timestamp_utc": "2026-11-09T10:42:35.442748+00:00",
+    "data_source": "binance_public_spot",
+    "blocked_routes": [],
+    "symbols": [
+      "BTC"
+    ],
+    "interval": "1d",
+    "n_bars": 222,
+    "start": "2026-04-01 00:00:00+00:00",
+    "end": "2026-11-08 00:00:00+00:00"
+  },
+  "regime_definitions": {
+    "method": "GaussianHMM",
+    "n_regimes": 3,
+    "features": [
+      "returns",
+      "volatility",
+      "abs_returns"
+    ],
+    "causal": true,
+    "lookahead": false
+  },
+  "regime_transition_matrix": {
+    "0": {
+      "0": 0.0625,
+      "1": 0.13157894736842105,
+      "2": 0.0
+    },
+    "1": {
+      "0": 0.9375,
+      "1": 0.4824561403508772,
+      "2": 0.4725274725274725
+    },
+    "2": {
+      "0": 0.0,
+      "1": 0.38596491228070173,
+      "2": 0.5274725274725275
+    }
+  },
+  "per_regime_metrics": {
+    "regime_distribution": {
+      "1": 114,
+      "2": 92,
+      "0": 16
+    }
+  },
+  "sweep_results": [
+    {
+      "lookback": 10,
+      "entry_z": 1.5,
+      "exit_z": 0.5,
+      "oos_mean_return": 0.0,
+      "mean_max_drawdown": 0.0,
+      "oos_is_ratio": 0.0,
+      "oos_periods": 0,
+      "regime_conditioned": true,
+      "rank": 1
+    },
+    {
+      "lookback": 10,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "oos_mean_return": 0.0,
+      "mean_max_drawdown": 0.0,
+      "oos_is_ratio": 0.0,
+      "oos_periods": 0,
+      "regime_conditioned": true,
+      "rank": 2
+    },
+    {
+      "lookback": 20,
+      "entry_z": 1.5,
+      "exit_z": 0.5,
+      "oos_mean_return": 0.0,
+      "mean_max_drawdown": 0.0,
+      "oos_is_ratio": 0.0,
+      "oos_periods": 0,
+      "regime_conditioned": true,
+      "rank": 3
+    },
+    {
+      "lookback": 20,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "oos_mean_return": 0.0,
+      "mean_max_drawdown": 0.0,
+      "oos_is_ratio": 0.0,
+      "oos_periods": 0,
+      "regime_conditioned": true,
+      "rank": 4
+    }
+  ],
+  "oos_metrics": {
+    "classifier_accuracy_held_out_proxy": 0.47297297297297297,
+    "best_oos_mean_return": 0.0,
+    "target_classifier_accuracy": 0.65,
+    "meets_accuracy_target": false
+  },
+  "windows": {
+    "train_period": 60,
+    "test_period": 20,
+    "mode": "rolling"
+  },
+  "costs_slippage_assumptions": {
+    "fee_rate": 0.001,
+    "slippage": 0.0005
+  },
+  "blocked_routes": []
+}

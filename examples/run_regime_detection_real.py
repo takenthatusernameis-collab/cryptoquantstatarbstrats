@@ -10,10 +10,9 @@ import os
 from datetime import datetime, timezone
 
 import numpy as np
-import pandas as pd
 
 from backtest.sweep import run_parameter_sweep
-from data.real_feed_loader import load_real_ohlcv
+from data.loader import DataLoader
 from strategies.mean_reversion import MeanReversionStrategy
 from utils.regime import detect_regimes, hmm_regimes, regime_transition_probs
 
@@ -24,41 +23,29 @@ def main() -> None:
         "real_data_only": True,
         "fabricated_data": False,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-        "data_source": "binance_spot_real",
+        "data_source": "binance_public_spot",
         "blocked_routes": blocked_routes,
     }
 
-    # Try to load real data
-    symbols = ["BTCUSDT"]
+    # Load real Binance spot candles (1d preferred, 1h fallback). No fabrication.
+    loader = DataLoader()
     data = None
-    for sym in symbols:
+    tried = []
+    for interval in ("1d", "1h"):
         try:
-            df = load_real_ohlcv(sym, interval="1d", start=None, end=None)
+            df = loader.load_binance_data(["BTC"], "2026-04-01", "2026-11-08", interval=interval)
+            df = loader.clean_data(df)
             if df is not None and not df.empty and len(df) > 100:
-                # Use close prices
-                data = pd.DataFrame({sym: df["close"]})
-                provenance["symbols"] = [sym]
-                provenance["interval"] = "1d"
-                provenance["n_bars"] = len(df)
+                data = df[["BTC"]] if "BTC" in df.columns else df
+                provenance["symbols"] = ["BTC"]
+                provenance["interval"] = interval
+                provenance["n_bars"] = int(len(data))
+                provenance["start"] = str(data.index.min())
+                provenance["end"] = str(data.index.max())
                 break
         except Exception as e:
-            blocked_routes.append({"route": f"load_real_ohlcv_{sym}_1d", "error": str(e)})
-            continue
-
-    if data is None or data.empty:
-        # Try 1h
-        for sym in symbols:
-            try:
-                df = load_real_ohlcv(sym, interval="1h", start=None, end=None)
-                if df is not None and not df.empty and len(df) > 200:
-                    data = pd.DataFrame({sym: df["close"]})
-                    provenance["symbols"] = [sym]
-                    provenance["interval"] = "1h"
-                    provenance["n_bars"] = len(df)
-                    break
-            except Exception as e:
-                blocked_routes.append({"route": f"load_real_ohlcv_{sym}_1h", "error": str(e)})
-                continue
+            tried.append({"route": f"load_binance_BTC_{interval}", "error": str(e)})
+    blocked_routes.extend(tried)
 
     if data is None or data.empty:
         raise RuntimeError(f"No real data available. blocked_routes={blocked_routes}")

@@ -355,7 +355,9 @@ class ExecutionSimulator:
         # Slippage
         slip = self.slippage_bps / 10000.0
         if regime_transition:
-            slip += (self.regime_transition_slippage_bps + self.regime_transition_cost_bps) / 10000.0
+            slip += (
+                self.regime_transition_slippage_bps + self.regime_transition_cost_bps
+            ) / 10000.0
         if side == "buy":
             fill_price = base_price * (1.0 + slip)
         else:
