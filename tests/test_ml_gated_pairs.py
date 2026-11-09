@@ -52,7 +52,11 @@ def test_train_persistence_classifier_insufficient_data():
     y = pd.Series([0, 1, 0, 1, 0])
     out = train_persistence_classifier(X, y, train_size=10, test_size=5, step=5, embargo=2)
     assert out["ok"] is False
-    assert out["reason"] in {"insufficient_rows_after_dropna", "no_purged_splits", "no_valid_oos_predictions"}
+    assert out["reason"] in {
+        "insufficient_rows_after_dropna",
+        "no_purged_splits",
+        "no_valid_oos_predictions",
+    }
 
 
 def test_ml_gated_strategy_generates_expected_columns():

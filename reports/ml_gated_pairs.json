@@ -1,7 +1,7 @@
 {
   "real_data_only": true,
   "fabricated_data": false,
-  "generated_at_utc": "2026-11-09T17:29:34.063754+00:00",
+  "generated_at_utc": "2026-11-09T18:10:44.513039+00:00",
   "campaign": "Campaign #3 - ML-augmented signal filtering for cointegration persistence",
   "status": "ok",
   "data_sources": {
@@ -172,7 +172,7 @@
     },
     "leakage_controls": [
       "Features computed from trailing windows only (no future bars).",
-      "Labels computed from future window [t+embargo, t+embargo+horizon] only; never used as features.",
+      "Labels computed from future window [t+embargo,t+embargo+horizon] only; never used as features.",
       "Purged walk-forward splits with embargo gap between train/test.",
       "Fail-closed when model/features/data insufficient."
     ],
@@ -246,12 +246,12 @@
     "oos_predictions": [],
     "oos_actuals": [],
     "metrics": {
-      "accuracy": 0.5542553191489362,
-      "precision_pos": 0.17473118279569894,
-      "recall_pos": 0.3672316384180791,
-      "f1_pos": 0.23679417122040075,
+      "accuracy": 0.55,
+      "precision_pos": 0.1746031746031746,
+      "recall_pos": 0.3728813559322034,
+      "f1_pos": 0.23783783783783785,
       "positive_rate_actual": 0.18829787234042553,
-      "positive_rate_pred": 0.39574468085106385,
+      "positive_rate_pred": 0.4021276595744681,
       "threshold": 0.55
     },
     "feature_names": [
@@ -604,26 +604,26 @@
     "oos_n": 940,
     "oos_preview": {
       "probs_head": [
-        0.5648587829050968,
-        0.09426239087999097,
-        0.13661733928414055,
-        0.026508007807153185,
-        0.18881679561399925,
-        0.11126752247771993,
-        0.7941877917798353,
-        0.36495270363122473,
-        0.04673931606411251,
-        0.48345046198835606,
-        0.00986603546056828,
-        0.01816450190016935,
-        0.08552466508149975,
-        0.8598660904541006,
-        0.11131710761917187,
-        0.13593684656990349,
-        0.5278584759644743,
-        0.35479502643063865,
-        0.5895503216986494,
-        0.5196120059359074
+        0.5652901542365251,
+        0.09419494382219389,
+        0.1371726922577542,
+        0.026612347123730843,
+        0.18918054582091878,
+        0.11151646180385912,
+        0.7923181155015689,
+        0.36549108838788447,
+        0.04680235449228403,
+        0.48480943019730705,
+        0.009931620592747522,
+        0.018124965097901596,
+        0.08558393698066687,
+        0.8594180103324935,
+        0.11149418616094722,
+        0.1359342794092402,
+        0.5278425980248247,
+        0.35524753693386457,
+        0.5896853559466964,
+        0.5195246714686927
       ],
       "preds_head": [
         1,
@@ -686,12 +686,12 @@
       "rows": 1143
     },
     "split_index": 4089,
-    "total_gated_active_bars": 1577,
+    "total_gated_active_bars": 1523,
     "total_ungated_active_bars": 0,
     "gate_fail_closed_effective": false,
     "per_pair": {
       "BTC/ETH": {
-        "gated_active_bars": 264,
+        "gated_active_bars": 209,
         "ungated_active_bars": 0,
         "gate_reduced_or_equal": false,
         "model_present": true
@@ -703,25 +703,25 @@
         "model_present": true
       },
       "BTC/SOL": {
-        "gated_active_bars": 239,
+        "gated_active_bars": 254,
         "ungated_active_bars": 0,
         "gate_reduced_or_equal": false,
         "model_present": true
       },
       "ADA/ETH": {
-        "gated_active_bars": 82,
+        "gated_active_bars": 99,
         "ungated_active_bars": 0,
         "gate_reduced_or_equal": false,
         "model_present": true
       },
       "XRP/BTC": {
-        "gated_active_bars": 301,
+        "gated_active_bars": 268,
         "ungated_active_bars": 0,
         "gate_reduced_or_equal": false,
         "model_present": true
       },
       "BNB/ETH": {
-        "gated_active_bars": 321,
+        "gated_active_bars": 323,
         "ungated_active_bars": 0,
         "gate_reduced_or_equal": false,
         "model_present": true
