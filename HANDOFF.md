@@ -1,11 +1,12 @@
-# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261109T014330Z, C104–C243 LOCKED — edge_claim NONE, C243 DONE, C244 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
+# READ THIS FIRST — SINGLE DURABLE HANDOFF (REFRESHED 20261109T020010Z, C104–C243 LOCKED — edge_claim NONE, C243 DONE, C244 PRESELECTED HEAVY — EXECUTE NEXT, NO STATUS-FIRST)
 **Repo:** `cryptoquantstatarbstrats` | **Focus:** crypto quant stat-arb strategies — fail-closed, **real-data-only** edge validation. WF OOS 720/168/168, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, B&H same windows. **Claim edge ONLY if** OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net. R-B unblocked on validated `real_quote_volume`; nonspot blocked fail-closed. **C104–C243 LOCKED (no reruns). C243 DONE on disk (edge_claim NONE). C244 preselected grep-zero (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN_SHOCK_MR) — execute C244 next, no status-first.** Latest registry = `reports/strategy_edge_registry_20261109T014330Z.json` (9751625c168c58db60e03180a156f167e6039e816aa7cc4edb94494e7d39a381). Latest OOS = C243 `35bd7caf8c10d0c333219c5df005d614efe57a87bb193e817dab02bd4dc1c712` (oos_edge_proven false).
 
-## TIMESTAMPED INITIAL TASK MESSAGE (20261109T014330Z) — HEAVY WORK MANDATORY
+## TIMESTAMPED INITIAL TASK MESSAGE (20261109T020010Z) — HEAVY WORK MANDATORY
 **PRIORITY 1: EXECUTE C244.** C243 is complete on disk (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN_SHOCK_MR, edge_claim NONE; cross-asset net sums fee0=-2.5609096071284805, fee5=-3.4009096071284812, fee10=-4.240909607128482, fee20=-5.920909607128482, fee40=-9.28090960712848 — all cost slices negative; exposure true; oos_edge_proven false). C244 script does NOT yet exist on disk. **Do not summarize status. Do not stop at status. Implement + run C244 + emit >=4 artifacts with SHA256 from bytes + sync state.yaml + HANDOFF.**
 
-## VERIFIED BASELINE (20261109T014330Z)
+## VERIFIED BASELINE (20261109T020010Z)
 - deps_ok (numpy/scipy/pandas 2.5.4/1.18.1/3.1.1, `/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python`).
+- Collision guard verified 0 hits for `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN_SHOCK_MR` at 20261109T020010Z — C244 primary is collision-free, runnable now.
 - Caches: spot `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` (56075733...), spot meta (d03556ba...), volume `data/cache/volume_1h_full.pkl/meta/provenance` (43658953.../4d321584.../c7ff2f27...).
 - **C240 DONE (locked):** HARMONIC_MEAN, oos d24b0a8b45ec2ef767b53ff1f4493586fb8ac66d6208b60d6833cf8429093f23, edge_claim NONE.
 - **C241 DONE (locked):** P90, oos 94914f1f2ec9c0b8f15c159a3665019573c639ba2cb888754fcac103996be3db, registry bb9b240eb748942a36e28f5da8279a656ca6da3ed8aff1f463e740871247d8fa, edge_claim NONE.
@@ -15,12 +16,11 @@
   - Ingest 4e5b15e06d67f85c752758e0bf8fa5ba3113e4be126ef18864eb62c08bdce11c (`reports/real_feed_ingest_attempt_20261109T014330Z.json`, rb_unblocked true, nonspot blocked fail-closed).
   - Registry 9751625c168c58db60e03180a156f167e6039e816aa7cc4edb94494e7d39a381 (`reports/strategy_edge_registry_20261109T014330Z.json`) supersedes `reports/strategy_edge_registry_20261109T012706Z.json` d7100bc45fff0a3d9ef26fa7aa07dd52133bf6c865af4fc9768f96218ed974bf.
   - Script f0172936a8b9ea7fc6a2dfaa7bea6874ac006a1c07536926461705ab73f029f8 (`scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py`, campaign 243, WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = scipy.stats.trim_mean proportiontocut=0.1 (10% each tail) of qualifying WHITE diagonal segments, >=3 segments, trimmed mean>0; fail-closed). Distinctness grep 0 non-self at run.
-  - Summary 040d86e40136a7af1bf598c476691b3482bfd2fecfe2668a313318bca2eadb95 (`reports/campaign243_execution_summary_20261109T014330Z.json`).
 - Single durable handoff = this file + `research_state/state.yaml`.
 
 ## BOTTLENECKS REMOVED / MANDATES (NO EXCUSES)
 - **Env bottleneck cleared.** Reuse `/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python` (deps_ok). Runs are CPU-heavy; allow sufficient timeout (~30 min) — **must complete C244 in this session**; no status-only replies.
-- **Collision guard required at start.** C244 primary candidate is grep-zero verified 20261109T014330Z.
+- **Collision guard verified 0 at start.** C244 primary candidate grep-zero verified 20261109T020010Z — proceed without fallback.
 - **No status-first.** Artifacts on disk are the deliverable.
 - **No reruns of locked campaigns C104–C243.** No gate/threshold weakening, no proxies labeled real, no fabricated feeds/provenance/results.
 - **Collision handling is fail-closed:** if a preselected candidate collides on grep, reject it, pick a distinct grep-zero fallback, record primary/fallback grep cmd/hits/evidence in all artifacts + state + HANDOFF.
@@ -28,9 +28,9 @@
 - **Distinctness enforced.** Grep-verify candidate before implementation/run and record evidence.
 - **Heavy work mandatory.** No status-only replies. No stop between campaigns.
 
-## C244 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261109T014330Z)
+## C244 — NEXT FOCUS CAMPAIGN (PRESELECTED, GREP-ZERO VERIFIED 20261109T020010Z)
 **Primary candidate:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN_SHOCK_MR` — RQA ratio RTE / WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN on delay-embedded log-volume returns (RTE = recurrence time entropy of white vertical gap distribution, w>=w_min, LOI/self excluded; WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN = winsorized mean — apply `scipy.stats.mstats.winsorize` with limits `[0.1,0.1]` = 10% each tail then arithmetic mean — of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment; fail-closed if <3 qualifying segments or winsorized mean non-finite/non-positive). Distinct from TRIMMED_MEAN(C243), P10(C242), P90(C241), HARMONIC_MEAN(C240), GEOMEAN(C239), RMS(C238), ENTROPY(C237), GINI(C236), RANGE(C235), CV(C234), IQR(C233), MAD(C232), KURTOSIS(C231), SKEWNESS(C230), COUNT_VARIANCE(C229), DIAG_COUNT_VARIANCE(C228), DIVERGENCE(C227), VARIANCE(C226), and prior C125-C243 families.
-**grep evidence (20261109T014330Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN|WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
+**grep evidence (20261109T020010Z):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN|WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN' scripts/ strategies/ backtest/ utils/ 2>&1` → 0 hits.
 **Fallbacks (grep-zero verified candidates):** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MIDHINGE_SHOCK_MR`, `RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMEAN_SHOCK_MR` (verify at start). At C244 start grep-verify; if collision, pick a distinct grep-zero fallback not used C125–C243 and record evidence.
 
 ### COLLISION GUARD (RUN AT START)
