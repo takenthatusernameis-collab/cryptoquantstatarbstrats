@@ -1,139 +1,79 @@
-# HANDOFF: CryptoQuant Stat Arb Strategies — Next Agentic Work Session
+# DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
-**Timestamp**: 2026-11-09T04:45:02Z
+**Handoff timestamp (UTC)**: 2026-11-09T04:47:19Z
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies)
-**Working Directory**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch**: `main` (up to date with origin/main, working tree clean)
+**Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
+**Branch**: `main` (clean at handoff)
+**This file is the single durable handoff for the next session. Do not create parallel handoff docs; update this file if state changes.**
 
 ---
 
-## 🟢 PROJECT STATE — VERIFIED AT HANDOFF
+## 1) Verified state (gates run at handoff)
 
-**Health Status**: ✅ EXCELLENT — All quality gates pass
-- **Tests**: 928 passed, 1 skipped, 0 failures (`python -m pytest tests/ -x -q`)
-- **Linting**: `ruff` — 0 errors across `backtest/ data/ strategies/ utils/ tests/ examples/`
-- **Type Checking**: `mypy` — 0 issues across 32 source files
+- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -x -q`)
+- **Ruff**: clean across `backtest/ data/ strategies/ utils/ tests/ examples/`
+- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`)
+- **Bottlenecks**: none observed. No sessions blocked by repo health. If you encounter an environment/network blocker (e.g., Binance host restrictions), route via existing loader host chain and report honestly with provenance — never fabricate data.
 
-**Architecture**: Production-grade research framework for cryptocurrency statistical arbitrage:
-- 6 strategies: Pairs (cointegration), Mean Reversion, Momentum, Cross-Exchange, Term Structure, Volatility Surface
-- Real-market validation on public Binance spot candles (2026-04-01 to 2026-10-30), no API keys, no fabricated data
-- Walk-forward infrastructure, cointegration diagnostics (Engle-Granger, Johansen, ADF/KPSS, half-life bounds, rolling stability, structural breaks), execution models (Market/VWAP/TWAP/LOB/Iceberg), portfolio construction with CVaR caps and drawdown circuit breakers
-- 38+ cointegration campaigns with fail-closed gating, provenance chains, blocking invariants
-
-**Key finding**: All static strategies underperform buy-and-hold OOS on real data; cost sensitivity is high; cointegration gates are fail-closed (strategy mostly in cash by design). Regime-adaptive signal generation is the highest-leverage unblocked workstream.
+**Repo context**: Real-market research framework (public Binance spot candles, no API keys, no fabricated data). Static strategies underperform buy-and-hold OOS on real data; cost sensitivity is high; cointegration gates are fail-closed. Highest-leverage unblocked work is regime-adaptive signal generation.
 
 ---
 
-## 🔴 BOTTLENECKS — ALL REMOVED
+## 2) MANDATORY INITIAL TASK (do this first; heavy work, non-optional)
 
-| Issue | Status | Resolution |
-|-------|--------|------------|
-| 28 E501 line-too-long lint errors | ✅ FIXED | Refactored across `backtest/`, `data/`, `examples/`, `tests/` |
-| Import sorting (I001) in test file | ✅ FIXED | Organized imports |
-| Missing newline at EOF (W292) | ✅ FIXED | Trailing newline added |
-| All quality gates | ✅ PASSING | Tests, ruff, mypy all clean |
+**Campaign #1 — REGIME-ADAPTIVE SIGNAL GENERATION (CRITICAL PATH)**
 
-No open bottlenecks. Nothing is blocked. The next session can begin heavy implementation immediately.
+**Objective**: Replace static parameter behavior with regime-conditioned, causally fit signal/parameter selection that is validated out-of-sample with full provenance.
 
----
+**Execute in order (do not skip steps):**
+1. **`utils/regime.py`** — Implement HMM-based regime detection (e.g., GaussianHMM on returns/realized-vol features). **Causal fit only, no lookahead**. Provide/extend APIs such as `hmm_regimes(...)`, `regime_transition_probs(...)`, and integrate with `detect_regimes(...)`. Deterministic seeding; clear feature/window contracts.
+2. **`backtest/sweep.py`** — Add regime-conditioned parameter selection: accept `regime_labels` and/or per-regime grids; run parameter sweeps per regime with walk-forward discipline.
+3. **`backtest/execution.py`** — Add regime transition costs/handling consistent with the execution model (no fabricated fills).
+4. **Validation** — Run on extended OOS window (2026-11 onward where data is available via real Binance candles). Create `examples/run_regime_detection_real.py` (or equivalent) if missing; it must load real data only and emit artifacts.
+5. **Artifact** — Write `reports/regime_adaptive_sweep.json` with per-regime OOS metrics, regime definitions, windows, costs/slippage assumptions, and provenance (`real_data_only: true`, `fabricated_data: false`, timestamps, data source).
 
-## 🎯 INITIAL TASK — NEXT SESSION (MANDATORY, NON-AVOIDABLE)
+**Acceptance criteria (session incomplete until all true):**
+- HMM regime detection in `utils/regime.py` is causal (no lookahead), tested, and documented in code/docstrings.
+- `reports/regime_adaptive_sweep.json` exists with per-regime OOS metrics and full provenance.
+- Regime classifier evaluated on held-out data; report accuracy (target **> 65%**). If target not met, document why and iterate — do not claim success.
+- At least one regime shows **positive OOS Sharpe after costs**; if none, report honestly with diagnostics and propose next targeted experiment (still produce artifacts).
+- `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` all pass.
 
-**Campaign #1: REGIME-ADAPTIVE SIGNAL GENERATION (Priority: CRITICAL)**
-
-**Problem**: Current strategies are static parameter sweeps. Walk-forward selection picks parameters that fail OOS because regime shifts invalidate cointegration/mean-reversion assumptions. `utils/regime.py` exists but only has basic volatility quantile bins and trend MA crossover — no HMM, no regime-conditioned parameters, no regime-aware walk-forward.
-
-**Required work (execute in order, do not skip)**:
-1. Implement **HMM-based regime detection** in `utils/regime.py` (GaussianHMM on returns/volatility features, causal fit only, no lookahead). Export `hmm_regimes(series, n_regimes=3, window=...)`, `regime_transition_probs()`, and extend `detect_regimes()`.
-2. Build **regime-conditioned parameter selection**: separate parameter grids per regime in `backtest/sweep.py` (add `regime_labels` / `regime_grids` support to `run_parameter_sweep`).
-3. Create **regime-aware walk-forward**: train/test splits must respect regime boundaries; add regime transition costs to execution model in `backtest/execution.py`.
-4. Validate on **extended OOS window** (2026-11 onwards) with regime labels.
-5. Produce artifact: `reports/regime_adaptive_sweep.json` with per-regime OOS metrics.
-
-**Acceptance criteria** (session is not done until met):
-- `utils/regime.py` has HMM regime detection, causally fit, no lookahead
-- `reports/regime_adaptive_sweep.json` exists with per-regime OOS metrics
-- Regime classifier accuracy > 65% on held-out data
-- At least one regime shows positive OOS Sharpe after costs
-- `python -m pytest tests/ -q`, `ruff check`, `mypy` all pass
+**Rules (non-negotiable):**
+- ❌ No fabricated data/synthetic results presented as real. Synthetic allowed only in isolated tests explicitly flagged `fabricated_data: true`.
+- ❌ Do not weaken cointegration gates (fail-closed).
+- ❌ No lookahead in features, labels, regime assignment used for decisions, or walk-forward splits.
+- ✅ Walk-forward validation for any new/changed strategy behavior.
+- ✅ Keep quality gates green before finishing.
 
 ---
 
-## 🎯 NEXT FOCUS CAMPAIGNS (after Campaign #1 completes)
+## 3) Follow-on campaigns (after Campaign #1)
 
-### 2. ALTERNATIVE DATA — FUNDING RATES & ORDER BOOK (HIGH)
-Implement funding rate fetcher in `data/loader.py` (Binance `/fapi/v1/fundingRate`), L2 order book loader, basis/carry strategy, microstructure features. Unblock `funding_basis_carry` and `intrabar_microstructure` families in `data/real_feed_loader.py`.
-Artifacts: `reports/funding_carry_real.json`, `reports/execution_lob_real.json`, Campaign #39+.
-
-### 3. ML-AUGMENTED SIGNAL FILTERING (HIGH)
-Gradient boosting classifier (XGBoost/LightGBM) predicting cointegration persistence; features: rolling EG p-value, Johansen trace, half-life, Hurst, spread vol, regime indicators; ML-gated entry sizing; purged walk-forward CV.
-Artifact: `reports/ml_gated_pairs.json`; ML gate improves OOS Sharpe by > 0.3 vs static gates.
-
-### 4. HIGH-FREQUENCY / MULTI-TIMEFRAME (MEDIUM)
-5m/15m loading, multi-timeframe cointegration (1h hedge ratio, 5m signals), intraday seasonality filters, 5m VWAP/TWAP execution.
-Artifact: `reports/pairs_mtf_5m_1h.json`.
-
-### 5. PRODUCTION DEPLOYMENT BRIDGE (MEDIUM)
-Paper trading engine, OMS (OCO/bracket/TWAP slicing), risk dashboard, deployment checklist.
-Artifact: `examples/run_paper_trading_live.py` connecting to Binance testnet.
+1. **Alternative data (HIGH)** — Funding rates (`/fapi/v1/fundingRate` via appropriate host handling), L2/order-book features where feasible; basis/carry; unblock `funding_basis_carry` / `intrabar_microstructure` in `data/real_feed_loader.py`. Artifacts: `reports/funding_carry_real.json`, `reports/execution_lob_real.json`.
+2. **ML-augmented signal filtering (HIGH)** — Classifier for cointegration persistence (rolling EG p, Johansen trace, half-life, Hurst, spread vol, regime); ML-gated sizing; purged WF CV. Artifact: `reports/ml_gated_pairs.json`.
+3. **HF/multi-timeframe (MEDIUM)** — 5m/15m, multi-TF cointegration (1h hedge, 5m signals), seasonality, realistic 5m execution. Artifact: `reports/pairs_mtf_5m_1h.json`.
+4. **Production bridge (MEDIUM)** — Paper trading/testnet path, OMS primitives, risk dashboard. Artifact: `examples/run_paper_trading_live.py`.
 
 ---
 
-## 📁 KEY FILES TO MODIFY
-
-| File | Purpose | Campaign |
-|------|---------|----------|
-| `utils/regime.py` | HMM regime detection & classification | #1 |
-| `backtest/sweep.py` | Regime-aware parameter sweeps | #1, #3 |
-| `backtest/execution.py` | L2-driven execution + transition costs | #1, #2, #4 |
-| `data/loader.py` | Funding rate / L2 fetching | #2 |
-| `data/real_feed_loader.py` | Unblock non-spot feed families | #2 |
-| `strategies/pairs_trading.py` | ML-gated entry logic | #3 |
-| `examples/run_paper_trading_live.py` | Live paper trading (testnet) | #5 |
-
----
-
-## 🚫 EXPLICIT PROHIBITIONS (DO NOT DO)
-
-- ❌ Do not weaken cointegration gates — fail-closed is non-negotiable
-- ❌ Do not fabricate data — all artifacts must have `real_data_only: true, fabricated_data: false`
-- ❌ Do not add synthetic-only tests without `fabricated_data: true` flag
-- ❌ Do not skip walk-forward validation — every new strategy needs a WF sweep
-- ❌ Do not commit without passing all gates — tests, ruff, mypy mandatory
-
----
-
-## 📋 IMMEDIATE NEXT ACTIONS (Session 1)
-
-1. Open `utils/regime.py`; implement HMM-based regime detection (causal, no lookahead)
-2. Run validation: `python examples/run_regime_detection_real.py` (create if missing)
-3. Produce artifact: `reports/regime_adaptive_sweep.json` with per-regime OOS metrics
-4. Integrate: modify `backtest/sweep.py` to accept `regime_labels` / regime grids
-5. Test: run `test_regime.py` and full gate suite (`pytest`, `ruff check`, `mypy`)
-
----
-
-## 🔗 REPRODUCTION COMMANDS
+## 4) Reproduction commands
 
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 pip install -e ".[dev]"
-python -m pytest tests/ -x -q
+python -m pytest tests/ -q
 python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 python -m mypy backtest/ strategies/ utils/
-
 python examples/run_pairs_multi.py
 python examples/run_mean_reversion_real.py
 python examples/run_portfolio_real.py
-python examples/run_paper_trading_real.py
-python examples/run_execution_realism_real.py
-python examples/run_monte_carlo_real.py
 ```
 
 ---
 
-## 🏁 HANDOFF COMPLETE
+## 5) Handoff contract for the executing session
 
-Repository is in optimal state for heavy research engineering work. All bottlenecks removed; quality gates enforce rigor. The next session MUST begin with Campaign #1 — implement HMM regime detection in `utils/regime.py` and integrate regime-aware walk-forward sweeps. Do not defer to lighter campaigns.
-
-*Generated by Kilo agentic session — 2026-11-09T04:45:02Z*
+- Start with **Campaign #1** immediately. Do not substitute lighter refactors/docs-only work unless required to unblock Campaign #1 (and document why).
+- Produce real artifacts with provenance. Report blockers honestly (`blocked_routes`, rationale) if data/access prevents completion.
+- Update this `HANDOFF.md` only to reflect materially changed truth (new timestamp, gate results, completed artifacts, new blockers). Keep it the single durable handoff.
