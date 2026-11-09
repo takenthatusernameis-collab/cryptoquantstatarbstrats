@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261109T030527Z",
+  "campaign": 246,
+  "status": "DONE",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMEAN_SHOCK_MR",
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -2.74688519798545,
+    "fee5_slip5": -3.812885197985451,
+    "fee10_slip10": -4.8788851979854515,
+    "fee20_slip20": -7.010885197985451,
+    "fee40_slip40": -11.27488519798545
+  },
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_trimean_shock_mr_costed_oos_20261109T025803Z.json",
+      "sha256": "d329801a5c06bd49fbc129da4930011abca1c5920d464c5e420a5399e889f83c"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T030527Z.json",
+      "sha256": "68493346f251164a87921de108fb76d9ed1a8d15d2ddc2edbcbd74515c5f5b97"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261109T030527Z.json",
+      "sha256": "ae20f66baec069066bc82c41156e314832512dc136b0b2f514b6df6682c2b67c"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimean_shock_mr_costed_oos.py",
+      "sha256": "850ece086849d084d97b8d9d15228134528593b57ef14a985be243559b1b941e"
+    },
+    "summary_self": {
+      "path": "reports/campaign246_execution_summary_20261109T030527Z.json",
+      "sha256": "51ec2446624436ea9a35750a881b19711f5405cb99b23775a21c7ad52844ad2e"
+    }
+  },
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261109T023208Z.json",
+    "sha256": "dbdd9fcc75b7e9f8419b6788c37c86a3516d3d81cc86185f62b945337ca817c6"
+  },
+  "refs": {
+    "c245_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_midhinge_shock_mr_costed_oos_20261109T022447Z.json",
+    "c245_oos_sha256": "39d97b75b78b377015e2a944a36ad1c5b8d15f6aff4160d552f0fa1acc899ddc",
+    "c244_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_winsorized_mean_shock_mr_costed_oos_20261109T021110Z.json",
+    "c244_oos_sha256": "2fc63905932fb6c53db6aa02d411cd7e36ea866dc7bfbfa429e95364fb04f5f2",
+    "c243_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos_20261109T014330Z.json",
+    "c243_oos_sha256": "35bd7caf8c10d0c333219c5df005d614efe57a87bb193e817dab02bd4dc1c712"
+  }
+}
