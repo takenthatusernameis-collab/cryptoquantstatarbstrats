@@ -1,4 +1,4 @@
-updated_at_utc: 20261109T020225Z
+updated_at_utc: 20261109T020731Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only edge validation
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
@@ -38,7 +38,7 @@ latest_oos:
   pre_stated_distinctness:
     grep_cmd: "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|rte_over_white_diag_line_length_trimmed_mean|WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|white_diag_line_length_trimmed_mean' scripts/ strategies/ backtest/ utils/ 2>&1"
     grep_hits_nonself_at_run: 0
-    grep_verified_utc: 20261109T014330Z
+grep_verified_utc: 20261109T020731Z
 refs:
   c242_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_p10_shock_mr_costed_oos_20261109T012706Z.json, sha256: 5655c52e9bae7e7a7b90b1aef133497bbd6e6eb1bbecec58e977ca0e13242808}
   c241_oos: {path: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_p90_shock_mr_costed_oos_20261109T011345Z.json, sha256: 94914f1f2ec9c0b8f15c159a3665019573c639ba2cb888754fcac103996be3db}
