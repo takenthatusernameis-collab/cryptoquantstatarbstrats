@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261109T031259Z",
+  "campaign": 247,
+  "real_data_only": true,
+  "fail_closed": true,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261109T030527Z.json",
+    "sha256": "ae20f66baec069066bc82c41156e314832512dc136b0b2f514b6df6682c2b67c"
+  },
+  "prior_campaigns_locked": "C104-C246",
+  "locked_campaigns": "C104-C246,C247",
+  "latest": {
+    "campaign": 247,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW_SHOCK_MR",
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_bowley_skew_shock_mr_costed_oos_20261109T031259Z.json",
+      "sha256": "def2f1fc07104e4ecadaa87700327aab3c1d3d5df3e2d95801597ce3c94f7638"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261109T031259Z.json",
+      "sha256": "d03d3f4c1c2404067d789cfe733e889694ed2c0570338c431b90ac008b9cbb43"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_bowley_skew_shock_mr_costed_oos.py",
+      "sha256": "10d00599e0e04b2d3a9ddc7b88be44c2c6d50a079961f26d8481d5f744b0dc52"
+    },
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -0.09919678846577296,
+      "fee5_slip5": -0.3931967884657732,
+      "fee10_slip10": -0.6871967884657735,
+      "fee20_slip20": -1.275196788465774,
+      "fee40_slip40": -2.4511967884657744
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW|WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_verified_utc": "20261109T031259Z"
+    },
+    "refs": {
+      "c246_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_trimean_shock_mr_costed_oos_20261109T025803Z.json",
+      "c246_oos_sha256": "d329801a5c06bd49fbc129da4930011abca1c5920d464c5e420a5399e889f83c",
+      "c245_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_midhinge_shock_mr_costed_oos_20261109T022447Z.json",
+      "c245_oos_sha256": "39d97b75b78b377015e2a944a36ad1c5b8d15f6aff4160d552f0fa1acc899ddc",
+      "c244_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_winsorized_mean_shock_mr_costed_oos_20261109T021110Z.json",
+      "c244_oos_sha256": "2fc63905932fb6c53db6aa02d411cd7e36ea866dc7bfbfa429e95364fb04f5f2"
+    }
+  },
+  "prior_registry_content_ref": "reports/strategy_edge_registry_20261109T030527Z.json",
+  "notes": "Superseding registry adds C247 VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW_SHOCK_MR (edge_claim NONE, oos_edge_proven false). C104-C247 locked; no reruns."
+}
