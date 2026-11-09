@@ -1,15 +1,15 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE**. Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). **Re-verified 2026-11-09T13:06:27Z on `main@d636876f` (clean):** core deps importable (`numpy`, `pandas`, `scipy`, `hmmlearn/GaussianHMM OK`). Campaign #1 artifacts present: `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Quality gates re-verified 2026-11-09T13:06:27Z: `928 passed, 1 skipped, 0 failures`; `ruff` All checks passed; `mypy` Success (32 source files) — **re-run gates before claiming done on new work.** **Next-campaign required artifacts MISSING:** `reports/funding_carry_real.json`, `reports/execution_lob_real.json`. **No setup bottlenecks found** (clean tree, deps OK, no competing handoffs). Loader families `funding_basis_carry`/`intrabar_microstructure` specs already exist in `data/real_feed_loader.py`; real-public-route fetch + artifact emission remain the assigned work, not excuses. **Forbidden before next-campaign artifacts exist:** docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, alternate handoffs/TODOs, or `research_state/` C249 registry/status work.
+> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaign #1 — Regime-Adaptive Signal Generation is COMPLETE**. Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). **Re-verified 2026-11-09T13:47:33Z on `main@d636876f` (clean):** core deps importable (`numpy`, `pandas`, `scipy`, `hmmlearn/GaussianHMM OK`). Campaign #1 artifacts present: `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Quality gates re-verified 2026-11-09T13:47:33Z: `928 passed, 1 skipped, 0 failures`; `ruff` All checks passed; `mypy` Success (32 source files) — **re-run gates before claiming done on new work.** **Next-campaign required artifacts MISSING:** `reports/funding_carry_real.json`, `reports/execution_lob_real.json`. **No setup bottlenecks found** (clean tree, deps OK, no competing handoffs). Loader families `funding_basis_carry`/`intrabar_microstructure` specs already exist in `data/real_feed_loader.py`; real-public-route fetch + artifact emission remain the assigned work, not excuses. **Forbidden before next-campaign artifacts exist:** docs-only edits, cleanup, refactors, planning detours, exploratory side quests, status-only bookkeeping, alternate handoffs/TODOs, or `research_state/` C249 registry/status work.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T13:06:27Z | INITIAL TASK MESSAGE — Campaign #1 COMPLETE; CAMPAIGN #2 (FUNDING/BASIS-CARRY + LOB/INTRABAR FEASIBILITY) IS THE ONLY VALID NEXT WORK. HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL, NO FABRICATION.]**
+**[2026-11-09T13:47:33Z | INITIAL TASK MESSAGE — Campaign #1 COMPLETE; CAMPAIGN #2 (FUNDING/BASIS-CARRY + LOB/INTRABAR FEASIBILITY) IS THE ONLY VALID NEXT WORK. HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL, NO FABRICATION.]**
 
 **NEXT AGENTIC SESSION: EXECUTE CAMPAIGN #2 NOW.** Campaign #1 is complete. Absence of new user direction does **not** permit lighter work. Your first actions must be implementation, tests, real-data fetch/validation, and artifact emission — **never** planning, summaries, alternate handoffs, cleanup, refactors, `research_state/`/C249 registry/status work, or gate-only reruns without producing artifacts. This file is the **only** durable handoff.
 
-**Required Campaign #2 deliverables (both required; “blocked” must still be evidenced):**
+**Required Campaign #2 deliverables (both required; "blocked" must still be evidenced):**
 
 1. **`reports/funding_carry_real.json` (REQUIRED):** real public funding-rate/basis-carry analysis.
    - Fetch real public funding-rate data (`/fapi/v1/fundingRate` semantics or equivalent). **Do not rely on `api.binance.com`/`fapi.binance.com` 451**; attempt a working public host chain consistent with loader policy and record every route attempted.
@@ -29,9 +29,9 @@
 
 6. **Handoff update (required at material checkpoint/completion):** update **only** `HANDOFF.md` in place with verified truth — timestamp, `HEAD`, gate results, artifact paths/status, outcomes, exact blockers. Keep it the single durable handoff. Do not create competing docs.
 
-**Bottlenecks removed (verified 2026-11-09T13:06:27Z): NONE.** No missing source deps (`numpy/pandas/scipy/hmmlearn` present), clean working tree on `main@d636876`, no competing root handoff/TODO docs, no uncommitted WIP. Loader `funding_basis_carry`/`intrabar_microstructure` blocked-route families are the assigned implementation targets — attempt real public routes, implement honestly, and emit required artifacts.
+**Bottlenecks removed (verified 2026-11-09T13:47:33Z): NONE.** No missing source deps (`numpy/pandas/scipy/hmmlearn` present), clean working tree on `main@d636876`, no competing root handoff/TODO docs, no uncommitted WIP. Loader `funding_basis_carry`/`intrabar_microstructure` blocked-route families are the assigned implementation targets — attempt real public routes, implement honestly, and emit required artifacts.
 
-**Handoff timestamp (UTC)**: 2026-11-09T13:06:27Z (re-verified: HEAD, deps, artifacts, cleanliness)
+**Handoff timestamp (UTC)**: 2026-11-09T13:47:33Z (re-verified: HEAD, deps, artifacts, cleanliness)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch/HEAD**: `main @ d636876f` (clean at verification time)
@@ -39,17 +39,17 @@
 **Campaign #1 status**: COMPLETE — HMM regime detection (`utils/regime.py`), regime-conditioned sweeps (`backtest/sweep.py`), regime transition costs (`backtest/execution.py`), real-data example (`examples/run_regime_detection_real.py`), artifact (`reports/regime_adaptive_sweep.json`).
 **Campaign #2 status**: **NOT STARTED / REQUIRED** — `reports/funding_carry_real.json` and `reports/execution_lob_real.json` **MISSING**. Next agent must produce both with real public data/provenance or honest evidenced blockers.
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T13:06:27Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T13:47:33Z
 
-- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Re-verified 2026-11-09T13:06:27Z on `main@d636876`; tree unchanged since.
-- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Re-verified 2026-11-09T13:06:27Z on `main@d636876`.
-- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Re-verified 2026-11-09T13:06:27Z on `main@d636876`.
+- **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`). Re-verified 2026-11-09T13:47:33Z on `main@d636876`; tree unchanged since.
+- **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`. Re-verified 2026-11-09T13:47:33Z on `main@d636876`.
+- **mypy**: `Success: no issues found in 32 source files` (`backtest/ strategies/ utils/`). Re-verified 2026-11-09T13:47:33Z on `main@d636876`.
 - **Dependencies**: `hmmlearn==0.3.3` listed in `[project.optional-dependencies] dev`; installed via `pip install -e ".[dev]"` and confirmed `from hmmlearn.hmm import GaussianHMM` OK.
 - **Real data path**: Binance spot fetch works via loader host chain (`www.binance.com`; `api.binance.com` 451 is never relied upon). **Never fabricate data**; report `blocked_routes` honestly when a series cannot be reconstructed.
 - **Campaign #1 artifacts**: `examples/run_regime_detection_real.py` and `reports/regime_adaptive_sweep.json` present (`real_data_only: true`, `fabricated_data: false`).
 - **Campaign #1 outcomes (honest)**: held-out classifier accuracy proxy 0.473 (< 0.65 target, `meets_accuracy_target: false`); best OOS mean return 0.0 (no regime with positive OOS Sharpe after costs); `blocked_routes: []`. Reported honestly, not fabricated.
 - **Bottlenecks**: **NONE** (no missing source deps, no failing gates, no loader blocker, no stale parallel handoff, no uncommitted WIP; dev deps installed and verified).
-- **Working tree**: clean on `main` (`7ac9607`), no uncommitted changes.
+- **Working tree**: clean on `main` (`d636876f`), no uncommitted changes.
 
 ## 1.1) Parallel-track caution (do not let it block the next focus campaign)
 
