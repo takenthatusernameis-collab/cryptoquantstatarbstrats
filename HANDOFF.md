@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` present; tools present (`ruff 0.17.4`, `mypy 2.4.1`, `pytest 9.2.0`); `utils/regime.py` remains a quantile stub (no HMM); `backtest/sweep.py` has no regime conditioning; test state `928 passed, 1 skipped, 0 failures` **re-verified 2026-11-09T08:10:17Z** (`pytest -q`, `ruff check`, `mypy` all green, working tree clean, no code changes since). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
+ > Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` present; tools present (`ruff 0.17.4`, `mypy 2.4.1`, `pytest 9.2.0`); `utils/regime.py` remains a quantile stub (no HMM); `backtest/sweep.py` has no regime conditioning; test state `928 passed, 1 skipped, 0 failures` **re-verified 2026-11-09T08:48:47Z** (`pytest -q`, `ruff check`, `mypy` all green, working tree clean, no code changes since). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T08:07:34Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK — NO SUBSTITUTES)]**
+**[2026-11-09T08:48:47Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK — NO SUBSTITUTES)]**
 
 **NEXT AGENTIC SESSION MUST EXECUTE CAMPAIGN #1 IMMEDIATELY.** This is the only authorized starting point. Do not spend the session planning, summarizing, refactoring, or creating alternate handoffs.
 
@@ -17,9 +17,9 @@
 6. **Evaluation** — Held-out regime-classifier accuracy (target >65%, report honestly if unmet). Check ≥1 regime with positive OOS Sharpe after costs (report honestly with diagnostics if none). **Artifacts required regardless of outcome.**
 7. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Bottlenecks removed (verified 2026-11-09T08:10:17Z): NONE.** Working tree clean; only `HANDOFF.md` exists as durable handoff; `hmmlearn 0.3.3` import OK; `from utils.regime import detect_regimes` OK; no HMM/sweep-regime implementation detected. **Proceed immediately — no planning detour, no blocker triage.**
+**Bottlenecks removed (verified 2026-11-09T08:48:47Z): NONE.** Working tree clean; only `HANDOFF.md` exists as durable handoff; `hmmlearn 0.3.3` import OK; `from utils.regime import detect_regimes` OK; no HMM/sweep-regime implementation detected. **Proceed immediately — no planning detour, no blocker triage.**
 
-**Handoff timestamp (UTC)**: 2026-11-09T08:10:17Z (re-verified this session — all gates green, no blockers)
+**Handoff timestamp (UTC)**: 2026-11-09T08:48:47Z (re-verified this session — all gates green, no blockers)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch**: `main`
@@ -28,7 +28,7 @@
 
 ---
 
-## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T08:10:17Z
+## 1) Verified state (bottlenecks cleared) — re-confirmed 2026-11-09T08:48:47Z
 
 - **Tests**: `928 passed, 1 skipped, 0 failures` (`python -m pytest tests/ -q`).
 - **Ruff**: `All checks passed!` across `backtest/ data/ strategies/ utils/ tests/ examples/`.
