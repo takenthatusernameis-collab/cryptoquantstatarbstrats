@@ -182,6 +182,8 @@ class ExecutionSimulator:
     lob_slippage_bps: float = 0.0
     lob_level_liquidity: list[float] | None = None
     lob_queue_position: float = 0.0
+    regime_transition_slippage_bps: float = 0.0
+    regime_transition_cost_bps: float = 0.0
     _fills: list[dict[str, Any]] = field(default_factory=list, repr=False)
     _iceberg: IcebergExecution | None = field(default=None, repr=False)
     _lob: LimitOrderBookExecution | None = field(default=None, repr=False)
@@ -238,6 +240,7 @@ class ExecutionSimulator:
         symbol: Any = None,
         timestamp: Any = None,
         fee_rate: float = 0.0,
+        regime_transition: bool = False,
     ) -> dict[str, Any]:
         """Simulate a single order.
 
@@ -351,6 +354,8 @@ class ExecutionSimulator:
 
         # Slippage
         slip = self.slippage_bps / 10000.0
+        if regime_transition:
+            slip += (self.regime_transition_slippage_bps + self.regime_transition_cost_bps) / 10000.0
         if side == "buy":
             fill_price = base_price * (1.0 + slip)
         else:

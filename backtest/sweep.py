@@ -133,6 +133,7 @@ def _evaluate_combo(
     mode = payload["mode"]
     anchor = payload.get("anchor")
     n_splits = payload.get("n_splits")
+    regime_labels = payload.get("regime_labels")
 
     strat = _build_strategy(strategy, params, strategy_kwargs)
     try:
@@ -146,6 +147,7 @@ def _evaluate_combo(
             mode=mode,
             anchor=anchor,
             n_splits=n_splits,
+            regime_labels=regime_labels,
         )
     except Exception:
         res = {}
@@ -168,6 +170,8 @@ def _evaluate_combo(
             "oos_periods": len(results_list),
         }
     )
+    if regime_labels is not None:
+        row["regime_conditioned"] = True
     return _to_json_safe(row), oos_returns
 
 
@@ -182,23 +186,42 @@ def engine_walk_forward(
     mode: str,
     anchor: Any,
     n_splits: int | None,
+    regime_labels: Any = None,
 ) -> dict[str, Any]:
     """Run a walk-forward on a freshly constructed engine (subprocess-safe)."""
     from backtest.engine import BacktestEngine
 
     engine = BacktestEngine(initial_capital=100_000.0)
     try:
-        return engine.walk_forward(
-            strategy,
-            data,
-            train_period=train_period,
-            test_period=test_period,
-            fee_rate=float(fee_rate),
-            slippage=float(slippage),
-            mode=mode,
-            anchor=anchor,
-            n_splits=n_splits,
-        )
+        kwargs = {
+            "strategy": strategy,
+            "data": data,
+            "train_period": train_period,
+            "test_period": test_period,
+            "fee_rate": float(fee_rate),
+            "slippage": float(slippage),
+            "mode": mode,
+            "anchor": anchor,
+            "n_splits": n_splits,
+        }
+        if regime_labels is not None:
+            kwargs["regime_labels"] = regime_labels
+        return engine.walk_forward(**kwargs)
+    except TypeError:
+        try:
+            return engine.walk_forward(
+                strategy,
+                data,
+                train_period=train_period,
+                test_period=test_period,
+                fee_rate=float(fee_rate),
+                slippage=float(slippage),
+                mode=mode,
+                anchor=anchor,
+                n_splits=n_splits,
+            )
+        except Exception:
+            return {}
     except Exception:
         return {}
 
@@ -225,6 +248,8 @@ def run_parameter_sweep(
     replay_best: bool = False,
     parallel: bool = False,
     max_workers: int | None = None,
+    regime_labels: Any = None,
+    regime_grids: Mapping[Any, Mapping[str, Any]] | None = None,
 ) -> List[Dict[str, Any]]:
     """
     Run a parameter grid search with walk-forward validation.
@@ -340,6 +365,7 @@ def run_parameter_sweep(
                 "mode": mode,
                 "anchor": anchor,
                 "n_splits": n_splits,
+                "regime_labels": regime_labels,
             }
         )
 
