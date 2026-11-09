@@ -1,0 +1,90 @@
+{
+  "generated_at_utc": "20261109T014330Z",
+  "campaign": 243,
+  "registry_type": "strategy_edge_registry_superseding",
+  "real_data_only": true,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "supersedes": {
+    "path": "reports/strategy_edge_registry_20261109T012706Z.json",
+    "sha256": "d7100bc45fff0a3d9ef26fa7aa07dd52133bf6c865af4fc9768f96218ed974bf"
+  },
+  "prior_registry_content_sha256_for_reference": "d7100bc45fff0a3d9ef26fa7aa07dd52133bf6c865af4fc9768f96218ed974bf",
+  "prior_registry_summary": {
+    "latest_campaign_done_in_prior": 242,
+    "prior_edge_claim": null,
+    "prior_oos_edge_proven": null
+  },
+  "c243_entry": {
+    "campaign": 243,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN_SHOCK_MR",
+    "edge_claim": "NONE",
+    "oos_edge_proven": false,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": -2.5609096071284805,
+      "fee5_slip5": -3.4009096071284812,
+      "fee10_slip10": -4.240909607128482,
+      "fee20_slip20": -5.920909607128482,
+      "fee40_slip40": -9.28090960712848
+    },
+    "artifacts": {
+      "oos": {
+        "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos_20261109T014330Z.json",
+        "sha256": "35bd7caf8c10d0c333219c5df005d614efe57a87bb193e817dab02bd4dc1c712"
+      },
+      "ingest": {
+        "path": "reports/real_feed_ingest_attempt_20261109T014330Z.json",
+        "sha256": "4e5b15e06d67f85c752758e0bf8fa5ba3113e4be126ef18864eb62c08bdce11c"
+      },
+      "script": {
+        "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py",
+        "sha256": "f0172936a8b9ea7fc6a2dfaa7bea6874ac006a1c07536926461705ab73f029f8"
+      },
+      "prior_registry": {
+        "path": "reports/strategy_edge_registry_20261109T012706Z.json",
+        "sha256": "d7100bc45fff0a3d9ef26fa7aa07dd52133bf6c865af4fc9768f96218ed974bf"
+      }
+    },
+    "refs": {
+      "prior_registry": "reports/strategy_edge_registry_20261109T012706Z.json",
+      "prior_registry_sha256": "d7100bc45fff0a3d9ef26fa7aa07dd52133bf6c865af4fc9768f96218ed974bf",
+      "c242_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_p10_shock_mr_costed_oos_20261109T012706Z.json",
+      "c242_oos_sha256": "5655c52e9bae7e7a7b90b1aef133497bbd6e6eb1bbecec58e977ca0e13242808",
+      "c241_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_p90_shock_mr_costed_oos_20261109T011345Z.json",
+      "c241_oos_sha256": "94914f1f2ec9c0b8f15c159a3665019573c639ba2cb888754fcac103996be3db",
+      "c240_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_harmonic_mean_shock_mr_costed_oos_20261109T003419Z.json",
+      "c240_oos_sha256": "d24b0a8b45ec2ef767b53ff1f4493586fb8ac66d6208b60d6833cf8429093f23",
+      "c243_note": "C242 OOS (P10, 5655c52e9bae7e7a7b90b1aef133497bbd6e6eb1bbecec58e977ca0e13242808, oos_edge_proven false, exposure true, all cost slices not all positive). C241 OOS (P90, 94914f1f2ec9c0b8f15c159a3665019573c639ba2cb888754fcac103996be3db, oos_edge_proven false). C240 OOS (HARMONIC_MEAN, d24b0a8b45ec2ef767b53ff1f4493586fb8ac66d6208b60d6833cf8429093f23, oos_edge_proven false). C243 uses WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = trimmed mean (scipy.stats.trim_mean proportiontocut=0.1, 10% each tail) of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0 (>=3 segments, trimmed mean>0), distinct from P10(C242), P90(C241), HARMONIC_MEAN(C240) and C125-C242 families."
+    },
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|rte_over_white_diag_line_length_trimmed_mean|WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|white_diag_line_length_trimmed_mean' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:2:\"\"\"C243: RQA ratio RTE/WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN_SHOCK_MR. On r_t = ln(v_t)-ln(v_{t-1}),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:16:  WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN (denominator) = trimmed mean (scipy.stats.trim_mean,\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:21:  RATIO_RTE_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = RTE / WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:22:  Fail-closed to NaN/no-signal if RTE/WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN/ratio\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:34:  RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN not used C125-C242.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:86:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:87:    \"rte_over_white_diag_line_length_trimmed_mean|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:88:    \"WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:89:    \"white_diag_line_length_trimmed_mean\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:109:        and (\"white_diag_line_length_trimmed_mean\" in ln.lower()\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:110:             or \"rte_over_white_diag_line_length_trimmed_mean\" in ln.lower())\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:189:def _white_diag_line_length_trimmed_mean(R: np.ndarray, w_min: int, trim: float) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:190:    \"\"\"WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = trimmed mean (proportiontocut=trim from each tail)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:214:def rqa_rte_over_white_diag_line_length_trimmed_mean_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:217:    \"\"\"RATIO_RTE_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = RTE / WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:251:    dtm = _white_diag_line_length_trimmed_mean(R, w_min, trim)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:299:                rqa_rte_over_white_diag_line_length_trimmed_mean_window(\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:378:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:379:        \"strategy_family\": \"volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_real\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:385:            \"RTE / WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN on delay-embedded (m=2,tau=1) log-volume \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:388:            \"WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN=denominator (trimmed mean, scipy.stats.trim_mean \"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:449:            \"c243_note\": \"C242 OOS (P10, 5655c52e9bae7e7a7b90b1aef133497bbd6e6eb1bbecec58e977ca0e13242808, oos_edge_proven false, exposure true, all cost slices not all positive). C241 OOS (P90, 94914f1f2ec9c0b8f15c159a3665019573c639ba2cb888754fcac103996be3db, oos_edge_proven false). C240 OOS (HARMONIC_MEAN, d24b0a8b45ec2ef767b53ff1f4493586fb8ac66d6208b60d6833cf8429093f23, oos_edge_proven false). C243 uses WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN = trimmed mean (scipy.stats.trim_mean proportiontocut=0.1, 10% each tail) of lengths of qualifying WHITE diagonal segments pooled over off-diagonal diagonals k!=0 (>=3 segments, trimmed mean>0), distinct from P10(C242), P90(C241), HARMONIC_MEAN(C240) and C125-C242 families.\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos.py:466:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_trimmed_mean_shock_mr_costed_oos\"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_P10 (C242)",
+        "WHITE_DIAG_LINE_LENGTH_P90 (C241)",
+        "WHITE_DIAG_LINE_LENGTH_HARMONIC_MEAN (C240)",
+        "WHITE_DIAG_LINE_LENGTH_GEOMEAN (C239)",
+        "WHITE_DIAG_LINE_LENGTH_RMS (C238)",
+        "WHITE_DIAG_LINE_LENGTH_ENTROPY (C237)",
+        "WHITE_DIAG_LINE_LENGTH_GINI (C236)",
+        "WHITE_DIAG_LINE_LENGTH_RANGE (C235)",
+        "WHITE_DIAG_LINE_LENGTH_CV (C234)",
+        "WHITE_DIAG_LINE_LENGTH_IQR (C233)",
+        "WHITE_DIAG_LINE_LENGTH_MAD (C232)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231)",
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230)",
+        "WHITE_DIAG_LINE_COUNT_VARIANCE (C229)",
+        "DIAG_LINE_COUNT_VARIANCE (C228)",
+        "WHITE_DIAG_LINE_LENGTH_DIVERGENCE (C227)",
+        "WHITE_DIAG_LINE_LENGTH_VARIANCE (C226)",
+        "C125-C242 prior RQA ratio families"
+      ]
+    }
+  },
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "notes": "C243 executed (VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN_SHOCK_MR). Distinct grep-zero verified. All cost slices negative in C243 OOS net sums; edge claim NONE. No reruns of C104-C242."
+}
