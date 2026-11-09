@@ -5,7 +5,7 @@
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T18:16:45Z | INITIAL TASK MESSAGE — VERIFIED STATE: Campaigns #1-#3 COMPLETE. Artifacts present: `reports/funding_carry_real.json` (ok), `reports/execution_lob_real.json` (partial/honest), `reports/regime_adaptive_sweep.json` (present), `reports/ml_gated_pairs.json` (ok). Gates last verified at 2026-11-09T18:13:07Z: `940 passed, 1 skipped, 0 failures`; ruff clean; mypy clean (34 files) on `main@2a82c21` (clean tree at check). NEXT/ONLY FOCUS: Campaign #4 — HF/multi-timeframe cointegration (HIGH). EXPLICIT DIRECTIONS ABSENT => EXECUTE CAMPAIGN #4. HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL, NO FABRICATION, NO LIGHTER TASKS.]**
+**[2026-11-09T18:18:35Z | INITIAL TASK MESSAGE — VERIFIED STATE: Campaigns #1-#3 COMPLETE. Artifacts present: `reports/funding_carry_real.json` (ok), `reports/execution_lob_real.json` (partial/honest), `reports/regime_adaptive_sweep.json` (present), `reports/ml_gated_pairs.json` (ok). Gates last verified at 2026-11-09T18:18:00Z: `940 passed, 1 skipped, 0 failures`; ruff clean; mypy clean (34 files) on `main@2a82c21` (clean tree at check). NEXT/ONLY FOCUS: Campaign #4 — HF/multi-timeframe cointegration (HIGH). EXPLICIT DIRECTIONS ABSENT => EXECUTE CAMPAIGN #4. HEAVY WORK, NON-OPTIONAL, NO SUBSTITUTES, NO DEFERRAL, NO FABRICATION, NO LIGHTER TASKS.]**
 
 **NEXT AGENTIC SESSION: EXECUTE CAMPAIGN #4 NOW.** First actions in the session must be **code+tests+real-data validation+artifact emission** for Campaign #4 (or a user-explicit override). Campaigns #1-#3 artifacts exist and are honest; **do not redo them** unless a concrete defect is found and fixed with evidence. The absence of new user direction does **not** permit planning-only work, summaries as deliverables, exploratory reading without implementation, cleanup-only work, alternate handoffs, `research_state/`/C249 registry/status work, or reruns of locked C104-C248 or completed campaigns. If a real route is blocked, record exact `blocked_routes`, keep `real_data_only`/`fabricated_data` honest, and still ship the heaviest valid implementation/tests/artifact possible under fail-closed rules. **Future agents must not avoid heavy work:** this directive remains active until `reports/pairs_mtf_5m_1h.json` exists with honest schema/provenance **and** Campaign #4 implementation/tests/gates are materially complete; then update only `HANDOFF.md` and advance to the production-bridge follow-on.
 
@@ -18,19 +18,19 @@
 - Quality gates before done (rerun after changes): `PYTHONPATH=. python -m pytest tests/ -q`; `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`; `python -m mypy backtest/ strategies/ utils/`. Fix regressions caused by your changes.
 - Update **only** `HANDOFF.md` at material checkpoint/completion.
 
-**Bottlenecks removed (verified 2026-11-09T18:16:45Z):** **NONE**. No competing handoffs/TODOs. Deps import OK. Required artifacts present. Stale-handoff refreshed in place. Known real-data constraint (not a blocker to skip heavy work): **no 5m/15m cache files found in `data/cache/`** at verification; historical L2/intrabar replay not available from current public routes (`reports/execution_lob_real.json` partial, honest). Fetch 5m/15m via real public routes with provenance if feasible, or record exact `blocked_routes` and still implement/test/emit the heaviest honest artifact possible. Do not create setup/blocker artifacts as a substitute for Campaign #4.
+**Bottlenecks removed (verified 2026-11-09T18:18:35Z):** **NONE**. No competing handoffs/TODOs. Deps import OK. Required artifacts present. Stale-handoff refreshed in place. Known real-data constraint (not a blocker to skip heavy work): **no 5m/15m cache files found in `data/cache/`** at verification; historical L2/intrabar replay not available from current public routes (`reports/execution_lob_real.json` partial, honest). Fetch 5m/15m via real public routes with provenance if feasible, or record exact `blocked_routes` and still implement/test/emit the heaviest honest artifact possible. Do not create setup/blocker artifacts as a substitute for Campaign #4.
 
-**Handoff timestamp (UTC)**: 2026-11-09T18:16:45Z
+**Handoff timestamp (UTC)**: 2026-11-09T18:18:35Z
 **Repository**: `cryptoquantstatarbstrats`
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
 **Branch/HEAD (at verification check)**: `main @ 2a82c21` (handoff-only refresh in this session)
 **Single durable handoff rule**: ONLY `HANDOFF.md`. Do not create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes.
 **Campaign #1 status**: COMPLETE. **Campaign #2 status**: COMPLETE (honest). **Campaign #3 status**: COMPLETE. **Campaign #4 status**: NOT STARTED / REQUIRED NEXT.
 
-## 1) Verified state (2026-11-09T18:16:45Z)
+## 1) Verified state (2026-11-09T18:18:35Z)
 
 - **Deps**: numpy/pandas/scipy/statsmodels/scikit-learn/hmmlearn/pytest/ruff/mypy importable.
-- **Gates (last fresh run 2026-11-09T18:13:07Z)**: `pytest` → `940 passed, 1 skipped, 0 failures`; `ruff` → All checks passed; `mypy` → Success, no issues in 34 source files. **Rerun after any source change and before declaring Campaign #4 complete.**
+- **Gates (last fresh run 2026-11-09T18:18:00Z)**: `pytest` → `940 passed, 1 skipped, 0 failures`; `ruff` → All checks passed; `mypy` → Success, no issues in 34 source files. **Rerun after any source change and before declaring Campaign #4 complete.**
 - **Real data**: Binance public host chain works; 451 routes handled/recorded where encountered. **Never fabricate data/fills/order books.**
 - **Artifacts:** `reports/funding_carry_real.json` `ok/true/false`; `reports/execution_lob_real.json` `partial/true/false` (historical L2 replay infeasible from public routes, honest); `reports/regime_adaptive_sweep.json` present; `reports/ml_gated_pairs.json` `ok/true/false` (544 rows, cv_ok true, 0 blocked/0 errors).
 - **Cached 1h data available:** `data/cache/` has 11-symbol 1h frame `2026-04-01→2026-10-30` (`0bab5d6a...pkl`, 5112×11: ADA/AVAX/BNB/BTC/DOT/ETH/LINK/LTC/POL/SOL/XRP), plus BTC/ETH/SOL subsets and per-symbol 1h series; provenance flags present (`fetch_real_data_only`/`fetch_fabricated_data`). **No 5m/15m cache files found** — C4 must fetch real 5m/15m with provenance or record `blocked_routes`.
