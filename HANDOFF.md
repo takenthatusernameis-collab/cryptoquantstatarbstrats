@@ -1,22 +1,30 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. DO HEAVY WORK NOW.**
-> Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). No blockers exist; `hmmlearn` is installed; Ruff/mypy clean re-verified 2026-11-09T06:47:30Z; prior recorded test state `928 passed, 1 skipped, 0 failures` (2026-11-09T06:47:30Z, no code changes since). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
+> Repo priority (name-inferred): **crypto quant stat arb**. The single non-optional focus is **Campaign #1 — Regime-Adaptive Signal Generation** (§3). **No blockers exist.** `hmmlearn==0.3.3` present; tools present (`ruff 0.17.4`, `mypy 2.4.1`, `pytest 9.2.0`); `utils/regime.py` remains a quantile stub (no HMM); `backtest/sweep.py` has no regime conditioning; prior recorded test state `928 passed, 1 skipped, 0 failures` (2026-11-09T06:47:30Z, **no code changes since; full suite not re-run this session**). **Do not** do docs-only edits, cleanup, refactors, or exploratory side quests before Campaign #1 implementation. Produce real artifacts with provenance.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-09T06:47:30Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK)]**
+**[2026-11-09T07:05:00Z | INITIAL TASK MESSAGE — Campaign #1 Regime-Adaptive Signal Generation (MANDATORY, HEAVY WORK — NO SUBSTITUTES)]**
 
-Implement HMM-based regime detection in `utils/regime.py` (`GaussianHMM` on returns/realized-vol features; **causal fit only, zero lookahead**; `hmm_regimes`, `regime_transition_probs`, integrated with `detect_regimes`; deterministic seeding). Extend `backtest/sweep.py` for regime-conditioned/per-regime parameter sweeps with walk-forward discipline. Add regime transition cost/handling in `backtest/execution.py` consistent with the execution model (no fabricated fills). Validate on real Binance spot candles (OOS 2026-11+ where available) via `examples/run_regime_detection_real.py` and emit `reports/regime_adaptive_sweep.json` with per-regime OOS metrics + full provenance (`real_data_only: true`, `fabricated_data: false`, timestamps, source, `blocked_routes` if any). Evaluate held-out classifier accuracy (target >65%; report honestly if unmet) and check for ≥1 regime with positive OOS Sharpe after costs (report honestly if none). Keep cointegration gates fail-closed; no lookahead; gates green (`pytest`, `ruff`, `mypy`).
+**NEXT AGENTIC SESSION MUST EXECUTE CAMPAIGN #1 IMMEDIATELY.** This is the only authorized starting point. Do not spend the session planning, summarizing, refactoring, or creating alternate handoffs.
 
-**Bottlenecks removed: NONE.** No parallel handoff docs found; working tree clean; `hmmlearn==0.3.3` present; Binance spot loader smoke OK (`from utils.regime import detect_regimes`). Ruff/mypy clean re-verified 2026-11-09T06:47:30Z. **Proceed immediately — no planning detour.**
+1. **`utils/regime.py`** — Implement HMM-based regime detection (`GaussianHMM`/`hmmlearn` on returns + realized-vol features). **Causal fit only, zero lookahead**. Add/extend `hmm_regimes(...)`, `regime_transition_probs(...)`, integrate with `detect_regimes(...)`. Deterministic seeding; explicit feature/window contracts; docstrings.
+2. **`backtest/sweep.py`** — Regime-conditioned/per-regime parameter sweeps with walk-forward discipline (accept `regime_labels` and/or per-regime grids).
+3. **`backtest/execution.py`** — Regime transition costs/handling consistent with execution model (**no fabricated fills**).
+4. **Real-data validation** — Create `examples/run_regime_detection_real.py`; use **real Binance spot candles only** (OOS 2026-11+ where available). **Never fabricate data.** Record `blocked_routes` honestly if a route fails.
+5. **Artifact** — Write `reports/regime_adaptive_sweep.json` with per-regime OOS metrics, regime definitions, windows, costs/slippage assumptions, full provenance (`real_data_only: true`, `fabricated_data: false`, timestamps, data source, `blocked_routes` if any).
+6. **Evaluation** — Held-out regime-classifier accuracy (target >65%, report honestly if unmet). Check ≥1 regime with positive OOS Sharpe after costs (report honestly with diagnostics if none). **Artifacts required regardless of outcome.**
+7. **Gates** — `python -m pytest tests/ -q`, `python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `python -m mypy backtest/ strategies/ utils/` must pass. Cointegration gates fail-closed; no lookahead.
 
-**Handoff timestamp (UTC)**: 2026-11-09T06:47:30Z (verified this session)
+**Bottlenecks removed (verified 2026-11-09T07:05:00Z): NONE.** Working tree clean; only `HANDOFF.md` exists as durable handoff; `hmmlearn 0.3.3` import OK; `from utils.regime import detect_regimes` OK; no HMM/sweep-regime implementation detected. **Proceed immediately — no planning detour, no blocker triage.**
+
+**Handoff timestamp (UTC)**: 2026-11-09T07:05:00Z (verified this session)
 **Repository**: `cryptoquantstatarbstrats` (Crypto Quantitative Statistical Arbitrage Strategies).
 **Path**: `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`
-**Branch**: `main` (clean working tree at verification)
-**Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers).
-**Campaign #1 status**: NOT STARTED — `utils/regime.py` is still the quantile-based stub; `backtest/sweep.py` has no regime conditioning; `backtest/execution.py` has no regime transition handling. Heavy implementation work starts now.
+**Branch**: `main`
+**Single durable handoff rule**: this is the ONLY handoff document for the next session. Do **not** create parallel handoff docs, summary notes, or alternate TODOs. Update this file in place only when materially verified state changes (timestamp, gates, artifacts, blockers, accuracy/Sharpe outcomes).
+**Campaign #1 status**: NOT STARTED — `utils/regime.py` quantile-based stub; `backtest/sweep.py` no regime conditioning; `backtest/execution.py` no regime transition handling. Heavy implementation work starts now.
 
 ---
 
