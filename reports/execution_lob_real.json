@@ -1,0 +1,190 @@
+{
+  "real_data_only": true,
+  "fabricated_data": false,
+  "generated_at_utc": "2026-11-09T16:18:24.088560+00:00",
+  "campaign": "Campaign #2 - Funding/Basis-Carry + LOB/Intrabar Feasibility (LOB/intrabar component)",
+  "status": "partial",
+  "data_sources": {
+    "family": "intrabar_microstructure_feasibility",
+    "provider": "Binance public spot depth/aggTrades snapshot endpoints",
+    "hosts_routes_attempted": [
+      "https://www.binance.com/api/v3/depth",
+      "https://data-api.binance.vision/api/v3/depth",
+      "https://www.binance.com/api/v3/aggTrades",
+      "https://data-api.binance.vision/api/v3/aggTrades"
+    ]
+  },
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "time_window": {
+    "type": "point_in_time_snapshot",
+    "captured_at_utc": "2026-11-09T16:18:24.088560+00:00"
+  },
+  "freq": "snapshot_not_historical_intrabar",
+  "row_counts": {
+    "BTCUSDT": {
+      "agg_trades_n": 100,
+      "bid_levels": 20,
+      "ask_levels": 20
+    },
+    "ETHUSDT": {
+      "agg_trades_n": 100,
+      "bid_levels": 20,
+      "ask_levels": 20
+    }
+  },
+  "checksums": {
+    "snapshot_sha256": {
+      "BTCUSDT": "baf0dcd1de0ec3195aa2d2eada11be72093edfb67708c46f64faa126be8efe82",
+      "ETHUSDT": "5b54f8a70681a0aaaa029c1657bfaea90692b5b3e262304ac1ead9caa4fcb4a2"
+    }
+  },
+  "blocked_routes": [],
+  "feasibility": {
+    "real_public_snapshot_feasible": true,
+    "historical_l2_intrabar_replay_feasible_from_public_routes": false,
+    "observed_limits": [
+      "Public depth/aggTrades endpoints provide current/limited snapshots, not full historical L2 replay in this environment.",
+      "Historical tick/L2 reconstruction would require authenticated exchange archives, licensed data, or a persistent recorder not present in-repo."
+    ],
+    "schema_provenance_expectations_for_real_history": {
+      "family": "intrabar_microstructure",
+      "required_provenance_keys": [
+        "source_provider",
+        "endpoints_or_files",
+        "retrieved_at_utc",
+        "symbol_map",
+        "kind",
+        "row_count",
+        "sha256_pkl",
+        "real_data_only",
+        "fabricated_data"
+      ],
+      "required_columns_trades": [
+        "timestamp_utc",
+        "symbol",
+        "price",
+        "qty"
+      ],
+      "required_columns_book": [
+        "timestamp_utc",
+        "symbol",
+        "bid_px_levels",
+        "ask_px_levels",
+        "bid_sz_levels",
+        "ask_sz_levels",
+        "depth"
+      ],
+      "honesty_rules": [
+        "no fabricated fills/order books",
+        "no resampled 1h presented as microstructure",
+        "real_data_only true",
+        "fabricated_data false",
+        "sha256_pkl must match bytes"
+      ]
+    },
+    "findings": [
+      {
+        "symbol": "BTCUSDT",
+        "snapshot_captured": true,
+        "attempts": {
+          "symbol": "BTCUSDT",
+          "hosts": [
+            "https://www.binance.com",
+            "https://data-api.binance.vision"
+          ],
+          "blocked_routes": [],
+          "endpoints": [
+            {
+              "url": "https://www.binance.com/api/v3/depth?symbol=BTCUSDT&limit=20",
+              "ok": true,
+              "status": 200,
+              "latency_ms": 259,
+              "endpoint": "depth"
+            },
+            {
+              "url": "https://www.binance.com/api/v3/aggTrades?symbol=BTCUSDT&limit=100",
+              "ok": true,
+              "status": 200,
+              "latency_ms": 198,
+              "endpoint": "aggTrades"
+            }
+          ],
+          "depth_fetched": true,
+          "aggTrades_fetched": true
+        },
+        "summary": {
+          "status": "ok",
+          "best_bid": 75081.99,
+          "best_ask": 75082.0,
+          "mid": 75081.995,
+          "spread_abs": 0.00999999999476131,
+          "spread_bps": 0.0013318772356490144,
+          "bid_levels": 20,
+          "ask_levels": 20,
+          "agg_trades_n": 100,
+          "trade_price_min": 75078.16,
+          "trade_price_max": 75091.25,
+          "trade_qty_sum": 0.94908
+        },
+        "notes": "Point-in-time public snapshot only; not historical L2/intrabar replay."
+      },
+      {
+        "symbol": "ETHUSDT",
+        "snapshot_captured": true,
+        "attempts": {
+          "symbol": "ETHUSDT",
+          "hosts": [
+            "https://www.binance.com",
+            "https://data-api.binance.vision"
+          ],
+          "blocked_routes": [],
+          "endpoints": [
+            {
+              "url": "https://www.binance.com/api/v3/depth?symbol=ETHUSDT&limit=20",
+              "ok": true,
+              "status": 200,
+              "latency_ms": 216,
+              "endpoint": "depth"
+            },
+            {
+              "url": "https://www.binance.com/api/v3/aggTrades?symbol=ETHUSDT&limit=100",
+              "ok": true,
+              "status": 200,
+              "latency_ms": 189,
+              "endpoint": "aggTrades"
+            }
+          ],
+          "depth_fetched": true,
+          "aggTrades_fetched": true
+        },
+        "summary": {
+          "status": "ok",
+          "best_bid": 2136.13,
+          "best_ask": 2136.14,
+          "mid": 2136.135,
+          "spread_abs": 0.009999999999763531,
+          "spread_bps": 0.0468135206799361,
+          "bid_levels": 20,
+          "ask_levels": 20,
+          "agg_trades_n": 100,
+          "trade_price_min": 2136.07,
+          "trade_price_max": 2137.15,
+          "trade_qty_sum": 201.04630000000003
+        },
+        "notes": "Point-in-time public snapshot only; not historical L2/intrabar replay."
+      }
+    ]
+  },
+  "notes": [
+    "No fabricated fills or order books.",
+    "Snapshot metrics (spread/trade counts) are descriptive only; not execution PnL.",
+    "451/403/404 routes recorded as blocked_routes when encountered."
+  ],
+  "limitations": [
+    "Point-in-time feasibility, not a backtestable historical intrabar dataset.",
+    "Slippage/queue models require historical event data and are not inferred from snapshots."
+  ]
+}

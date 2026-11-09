@@ -14,11 +14,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 REAL_ONLY_FLAGS = {"real_data_only": True, "fabricated_data": False}
@@ -207,17 +209,17 @@ def _check_flags(meta: dict[str, Any], report: dict[str, Any]) -> None:
             _refuse(f"provenance notes admit proxy/fabricated-as-real: {bad!r}", report)
 
 
-def _check_provenance_keys(
-    meta: dict[str, Any], spec: FamilySpec, report: dict[str, Any]
-) -> None:
+def _check_provenance_keys(meta: dict[str, Any], spec: FamilySpec, report: dict[str, Any]) -> None:
     missing = [k for k in spec.required_provenance_keys if k not in meta]
     if missing:
         _refuse(f"missing required provenance keys: {missing}", report)
 
 
 def _check_integrity(meta_path: Path, meta: dict[str, Any], report: dict[str, Any]) -> Path:
-    pkl_name = meta.get("pkl_file") or meta.get("data_file") or meta_path.name.replace(
-        ".meta.json", ".pkl"
+    pkl_name = (
+        meta.get("pkl_file")
+        or meta.get("data_file")
+        or meta_path.name.replace(".meta.json", ".pkl")
     )
     pkl_path = (meta_path.parent / pkl_name).resolve()
     if not pkl_path.exists():
@@ -611,9 +613,7 @@ def _candidate_families_for_meta(meta: dict[str, Any], path_hint: str) -> list[s
     return families
 
 
-def _discover_provenance_certificate(
-    cache_dir: Path, meta_path: Path
-) -> dict[str, Any] | None:
+def _discover_provenance_certificate(cache_dir: Path, meta_path: Path) -> dict[str, Any] | None:
     """Return a validated provenance certificate dict for *meta_path*, if any.
 
     Looks for a sibling ``<stem>.provenance.json`` (or ``<stem>_provenance.json``)
@@ -659,8 +659,7 @@ def scan_cache_for_real_nonspot_feeds(
         "real_data_only_required": True,
         "fabricated_data_allowed": False,
         "families": {
-            fam: {"status": "blocked_no_real_feed", "valid_artifacts": []}
-            for fam in FAMILY_SPECS
+            fam: {"status": "blocked_no_real_feed", "valid_artifacts": []} for fam in FAMILY_SPECS
         },
         "meta_files_scanned": 0,
         "candidate_hits": [],
@@ -986,7 +985,8 @@ def generate_unblock_status_report(
                 entry["read_error"] = f"{type(exc).__name__}:{exc}"
         specs.append(entry)
     blocked = [
-        fam for fam, info in audit["families"].items()
+        fam
+        for fam, info in audit["families"].items()
         if info.get("status") != "real_feed_with_provenance_present"
     ]
     report: dict[str, Any] = {
@@ -1189,10 +1189,8 @@ def build_unblock_trend_report(
                 "to_campaign": cur.get("campaign"),
                 "blocked_families_changed": prev.get("blocked_families")
                 != cur.get("blocked_families"),
-                "path_r_changed": prev.get("path_r_triggered")
-                != cur.get("path_r_triggered"),
-                "conclusion_changed": prev.get("conclusion")
-                != cur.get("conclusion"),
+                "path_r_changed": prev.get("path_r_triggered") != cur.get("path_r_triggered"),
+                "conclusion_changed": prev.get("conclusion") != cur.get("conclusion"),
                 "audit_conclusion_changed": prev.get("audit_conclusion")
                 != cur.get("audit_conclusion"),
             }
@@ -1284,10 +1282,14 @@ def build_cache_provenance_gap_audit(
         except Exception as exc:
             read_error = f"{type(exc).__name__}:{exc}"
         flags_ok = (
-            isinstance(obj, dict)
-            and obj.get("real_data_only") is True
-            and obj.get("fabricated_data") is False
-        ) if obj is not None else None
+            (
+                isinstance(obj, dict)
+                and obj.get("real_data_only") is True
+                and obj.get("fabricated_data") is False
+            )
+            if obj is not None
+            else None
+        )
         meta_inventory.append(
             {
                 "meta": meta_name,
@@ -1304,7 +1306,8 @@ def build_cache_provenance_gap_audit(
         )
 
     blocked_families = sorted(
-        fam for fam, info in (audit.get("families") or {}).items()
+        fam
+        for fam, info in (audit.get("families") or {}).items()
         if isinstance(info, dict) and not info.get("valid_artifacts")
     )
     path_r_triggered = scan.get("new_real_feeds_with_provenance_found") is True and any(
@@ -1351,7 +1354,8 @@ def build_cache_provenance_gap_audit(
             "candidate_validation_count": len(audit.get("candidate_validation") or []),
             "refused_candidates": refused_candidates,
             "valid_candidates": sum(
-                1 for v in (audit.get("candidate_validation") or [])
+                1
+                for v in (audit.get("candidate_validation") or [])
                 if isinstance(v, dict) and v.get("ok") and not v.get("refused")
             ),
             "new_real_feeds_with_provenance_found": bool(
@@ -1458,6 +1462,287 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(payload, end="")
     return 0
+
+
+# ----------------------------
+# Campaign #2 helpers (real public data; no fabrication)
+# ----------------------------
+
+
+def _http_get_json(
+    url: str, timeout: float = 20.0, user_agent: str = "curl/8"
+) -> tuple[Any, dict[str, Any]]:
+    import urllib.request
+
+    t0 = time.monotonic()
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": user_agent})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            body = resp.read()
+            ms = int((time.monotonic() - t0) * 1000)
+            payload = json.loads(body.decode("utf-8"))
+            status = getattr(resp, "status", 200)
+            return payload, {"url": url, "ok": True, "status": status, "latency_ms": ms}
+    except Exception as exc:
+        ms = int((time.monotonic() - t0) * 1000)
+        status = getattr(exc, "code", None)
+        body = ""
+        try:
+            body = exc.read(180).decode("utf-8", "ignore")  # type: ignore[union-attr]
+        except Exception:
+            pass
+        return None, {
+            "url": url,
+            "ok": False,
+            "status": status,
+            "error": str(exc)[:220],
+            "body": body,
+            "latency_ms": ms,
+        }
+
+
+def fetch_binance_funding_rates(
+    symbols: list[str],
+    start_utc: str,
+    end_utc: str,
+    *,
+    timeout: float = 20.0,
+    limit: int = 1000,
+    hosts: list[str] | None = None,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Fetch real public Binance USD-M funding rates.
+
+    Fail-open across hosts; records blocked routes honestly. Never fabricates rows.
+    """
+    from urllib.parse import urlencode
+
+    if hosts is None:
+        hosts = ["https://www.binance.com", "https://fapi.binance.com"]
+    start_ms = int(pd.Timestamp(start_utc, tz="UTC").timestamp() * 1000)
+    end_ms = int(pd.Timestamp(end_utc, tz="UTC").timestamp() * 1000)
+    if end_ms < start_ms:
+        raise ValueError("end_utc must not precede start_utc")
+    attempts: dict[str, Any] = {
+        "hosts": list(hosts),
+        "blocked_routes": [],
+        "per_symbol": {},
+        "source_family": "binance_usdm_funding_rate",
+        "start_utc": pd.Timestamp(start_utc, tz="UTC").isoformat(),
+        "end_utc": pd.Timestamp(end_utc, tz="UTC").isoformat(),
+    }
+    rows: list[dict[str, Any]] = []
+    for symbol in symbols:
+        sym = str(symbol).upper().replace("/", "").replace("-", "")
+        if not sym.endswith("USDT") and not sym.endswith("USD"):
+            sym = f"{sym}USDT"
+        sym_attempts: list[dict[str, Any]] = []
+        fetched = False
+        for host in hosts:
+            if host in attempts["blocked_routes"]:
+                continue
+            cursor = start_ms
+            host_rows: list[dict[str, Any]] = []
+            host_ok = True
+            while cursor <= end_ms:
+                q = urlencode(
+                    {"symbol": sym, "startTime": cursor, "endTime": end_ms, "limit": limit}
+                )
+                url = f"{host}/fapi/v1/fundingRate?{q}"
+                payload, meta = _http_get_json(url, timeout=timeout)
+                sym_attempts.append(meta)
+                if not meta.get("ok"):
+                    status = meta.get("status")
+                    if status in (451, 403, 404):
+                        attempts["blocked_routes"].append(
+                            {
+                                "host": host,
+                                "path": "/fapi/v1/fundingRate",
+                                "status": status,
+                                "error": meta.get("error", ""),
+                            }
+                        )
+                    host_ok = False
+                    break
+                if not isinstance(payload, list):
+                    host_ok = False
+                    sym_attempts[-1]["error"] = f"unexpected_payload:{type(payload).__name__}"
+                    break
+                if not payload:
+                    break
+                for item in payload:
+                    try:
+                        ft = int(item["fundingTime"])
+                        if start_ms <= ft <= end_ms:
+                            mark = item.get("markPrice") or item.get("mark_price")
+                            host_rows.append(
+                                {
+                                    "timestamp_utc": pd.to_datetime(ft, unit="ms", utc=True),
+                                    "symbol": sym,
+                                    "funding_rate": float(item["fundingRate"]),
+                                    "mark_price_or_close": (
+                                    float(mark) if mark is not None else float("nan")
+                                ),
+                                    "source_host": host,
+                                }
+                            )
+                    except Exception as exc:
+                        sym_attempts.append({"url": url, "ok": False, "error": f"row_parse:{exc}"})
+                last_ft = int(payload[-1].get("fundingTime", cursor))
+                if len(payload) < limit or last_ft >= end_ms:
+                    break
+                nxt = last_ft + 1
+                if nxt <= cursor:
+                    host_ok = False
+                    break
+                cursor = nxt
+            if host_ok and host_rows:
+                rows.extend(host_rows)
+                fetched = True
+                break
+        attempts["per_symbol"][sym] = {
+            "fetched": fetched,
+            "attempts": sym_attempts,
+            "rows": int(sum(1 for r in rows if r.get("symbol") == sym)),
+        }
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df = (
+            df.sort_values(["symbol", "timestamp_utc"])
+            .drop_duplicates(["symbol", "timestamp_utc"])
+            .reset_index(drop=True)
+        )
+    attempts["row_count"] = int(len(df))
+    attempts["symbols_fetched"] = sorted(df["symbol"].unique().tolist()) if not df.empty else []
+    return df, attempts
+
+
+def compute_funding_carry_metrics(
+    df: pd.DataFrame, *, intervals_per_day: int = 3
+) -> dict[str, Any]:
+    """Compute honest funding/basis-carry summary metrics. No claims of edge."""
+    if df.empty:
+        return {"status": "no_data", "per_symbol": {}, "cross_symbol": {}}
+    work = df.copy()
+    work["funding_rate"] = pd.to_numeric(work["funding_rate"], errors="coerce")
+    out: dict[str, Any] = {
+        "intervals_per_day": intervals_per_day,
+        "annualization_factor": intervals_per_day * 365,
+        "per_symbol": {},
+    }
+    for sym, g in work.groupby("symbol"):
+        rates = g["funding_rate"].dropna()
+        if rates.empty:
+            out["per_symbol"][str(sym)] = {"status": "no_numeric_rows"}
+            continue
+        mean_r = float(rates.mean())
+        ann = mean_r * intervals_per_day * 365
+        cum = float(rates.sum())
+        out["per_symbol"][str(sym)] = {
+            "rows": int(len(rates)),
+            "start_utc": str(g["timestamp_utc"].min()),
+            "end_utc": str(g["timestamp_utc"].max()),
+            "mean_funding_rate": mean_r,
+            "median_funding_rate": float(rates.median()),
+            "std_funding_rate": float(rates.std(ddof=1)) if len(rates) > 1 else 0.0,
+            "min_funding_rate": float(rates.min()),
+            "max_funding_rate": float(rates.max()),
+            "cumulative_funding_rate_sum": cum,
+            "annualized_carry_simple": ann,
+            "positive_interval_share": float((rates > 0).mean()),
+            "negative_interval_share": float((rates < 0).mean()),
+        }
+    means = [
+        v["mean_funding_rate"]
+        for v in out["per_symbol"].values()
+        if isinstance(v, dict) and "mean_funding_rate" in v
+    ]
+    out["cross_symbol"] = {
+        "n_symbols": int(len(means)),
+        "mean_of_symbol_means": float(np.mean(means)) if means else None,
+        "median_of_symbol_means": float(np.median(means)) if means else None,
+    }
+    return out
+
+
+def fetch_spot_microstructure_snapshot(
+    symbol: str = "BTCUSDT",
+    *,
+    depth_limit: int = 20,
+    trades_limit: int = 100,
+    timeout: float = 20.0,
+    hosts: list[str] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Fetch real point-in-time spot microstructure snapshots. No fills fabricated."""
+    if hosts is None:
+        hosts = ["https://www.binance.com", "https://data-api.binance.vision"]
+    sym = str(symbol).upper().replace("/", "").replace("-", "")
+    if not sym.endswith("USDT") and not sym.endswith("USD"):
+        sym = f"{sym}USDT"
+    attempts: dict[str, Any] = {
+        "symbol": sym,
+        "hosts": list(hosts),
+        "blocked_routes": [],
+        "endpoints": [],
+    }
+    snapshot: dict[str, Any] = {"symbol": sym, "depth": None, "agg_trades": None}
+    for name, path_tpl in (
+        ("depth", f"/api/v3/depth?symbol={sym}&limit={int(depth_limit)}"),
+        ("aggTrades", f"/api/v3/aggTrades?symbol={sym}&limit={int(trades_limit)}"),
+    ):
+        got = False
+        for host in hosts:
+            url = host + path_tpl
+            payload, meta = _http_get_json(url, timeout=timeout)
+            meta["endpoint"] = name
+            attempts["endpoints"].append(meta)
+            if not meta.get("ok"):
+                if meta.get("status") in (451, 403, 404):
+                    attempts["blocked_routes"].append(
+                        {
+                            "host": host,
+                            "path": path_tpl.split("?")[0],
+                            "status": meta.get("status"),
+                            "error": meta.get("error", ""),
+                        }
+                    )
+                continue
+            snapshot[name if name != "aggTrades" else "agg_trades"] = payload
+            got = True
+            break
+        attempts[f"{name}_fetched"] = got
+    return snapshot, attempts
+
+
+def summarize_microstructure_snapshot(snapshot: dict[str, Any]) -> dict[str, Any]:
+    out: dict[str, Any] = {"status": "ok"}
+    depth = snapshot.get("depth") or {}
+    bids = depth.get("bids") or []
+    asks = depth.get("asks") or []
+    if bids and asks:
+        bb = float(bids[0][0])
+        ba = float(asks[0][0])
+        mid = (bb + ba) / 2.0 if (bb + ba) else None
+        spread = ba - bb
+        out["best_bid"] = bb
+        out["best_ask"] = ba
+        out["mid"] = mid
+        out["spread_abs"] = spread
+        out["spread_bps"] = (spread / mid * 10000.0) if mid else None
+        out["bid_levels"] = len(bids)
+        out["ask_levels"] = len(asks)
+    else:
+        out["status"] = "partial_no_depth"
+    trades = snapshot.get("agg_trades") or []
+    if trades:
+        px = [float(t.get("p", "nan")) for t in trades]
+        qty = [float(t.get("q", "nan")) for t in trades]
+        out["agg_trades_n"] = len(trades)
+        out["trade_price_min"] = float(np.nanmin(px)) if px else None
+        out["trade_price_max"] = float(np.nanmax(px)) if px else None
+        out["trade_qty_sum"] = float(np.nansum(qty)) if qty else None
+    else:
+        out["agg_trades_n"] = 0
+    return out
 
 
 if __name__ == "__main__":
