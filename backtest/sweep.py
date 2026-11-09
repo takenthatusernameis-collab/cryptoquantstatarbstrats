@@ -455,9 +455,15 @@ def run_parameter_sweep(
                     "trades_count": trades_count,
                     "n_bars_in_position": in_pos,
                     "n_bars_total": int(len(w)),
-                    "max_gross_exposure": _to_json_safe(float(gross.max()) if len(gross) else 0.0),
-                    "mean_gross_exposure": _to_json_safe(float(gross.mean()) if len(gross) else 0.0),
-                    "total_turnover": _to_json_safe(float(turnover.sum()) if len(turnover) else 0.0),
+                    "max_gross_exposure": _to_json_safe(
+                        float(gross.max()) if len(gross) else 0.0
+                    ),
+                    "mean_gross_exposure": _to_json_safe(
+                        float(gross.mean()) if len(gross) else 0.0
+                    ),
+                    "total_turnover": _to_json_safe(
+                        float(turnover.sum()) if len(turnover) else 0.0
+                    ),
                 }
         except Exception:
             pass

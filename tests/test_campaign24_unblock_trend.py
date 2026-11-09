@@ -42,7 +42,10 @@ def test_build_unblock_trend_report_never_proves_edge(tmp_path: Path):
                     "term_structure_real_iv_vol_surface",
                 ],
                 "scan_summary": {"candidate_hits": 1, "meta_files_scanned": 21},
-                "campaign_delta": {"changed": True, "honest_assessment": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED"},
+                "campaign_delta": {
+                    "changed": True,
+                    "honest_assessment": "UNBLOCK_STATE_CHANGED_REVIEW_REQUIRED",
+                },
             }
         ),
         encoding="utf-8",
@@ -50,7 +53,7 @@ def test_build_unblock_trend_report_never_proves_edge(tmp_path: Path):
     (reports / "real_feed_unblock_status_20261105T184300Z.json").write_text(
         json.dumps(
             {
-                "campaign": 25,  # intentionally odd numbering in legacy artifact name; trend reads fields
+                "campaign": 25,
                 "path_r_triggered": True,
                 "conclusion": "PATH_R_ELIGIBLE_VALID_NONSPOT_FEED_PRESENT",
                 "blocked_families": [
@@ -60,7 +63,10 @@ def test_build_unblock_trend_report_never_proves_edge(tmp_path: Path):
                     "term_structure_real_iv_vol_surface",
                 ],
                 "scan_summary": {"candidate_hits": 1, "meta_files_scanned": 21},
-                "campaign_delta": {"changed": False, "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"},
+                "campaign_delta": {
+                    "changed": False,
+                    "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+                },
             }
         ),
         encoding="utf-8",

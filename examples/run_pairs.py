@@ -81,13 +81,20 @@ def main() -> None:
         prov.get("blocked_routes", []) or cache_detail.get("blocked_routes", []) or []
     )
     if not blocked_routes:
-        blocked_routes = ["api.binance.com (HTTP 451 in this environment, established in prior sessions)"]
+        blocked_routes = [
+            "api.binance.com (HTTP 451 in this environment, "
+            "established in prior sessions)"
+        ]
     data_provenance = {
         "source": "real public Binance spot klines",
         "real_data_only": True,
         "fabricated_data": False,
         "hosts_tried": hosts_tried,
-        "blocked_hosts": list(prov.get("blocked_hosts", []) or cache_detail.get("blocked_hosts", []) or []),
+        "blocked_hosts": list(
+            prov.get("blocked_hosts", [])
+            or cache_detail.get("blocked_hosts", [])
+            or []
+        ),
         "blocked_routes": blocked_routes,
         "per_symbol": prov.get("per_symbol", {}),
         "cache_used": bool(cache_detail.get("disk_cache", cache_detail.get("cache_hit", False))),

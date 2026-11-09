@@ -209,7 +209,14 @@ def test_scan_cache_rejects_spot_meta_as_nonspot_feed(tmp_path: Path):
     cache.mkdir()
     # existing spot-style meta (no non-spot family/provenance keys) must not count
     (cache / "BTC_2026-04-01_2026-10-30_1h.meta.json").write_text(
-        json.dumps({"symbols": ["BTC"], "start": "2026-04-01", "real_data_only": True, "fabricated_data": False}),
+        json.dumps(
+            {
+                "symbols": ["BTC"],
+                "start": "2026-04-01",
+                "real_data_only": True,
+                "fabricated_data": False,
+            }
+        ),
         encoding="utf-8",
     )
     r = scan_cache_for_real_nonspot_feeds(cache)
@@ -713,7 +720,9 @@ def test_intrabar_microstructure_refuses_real_data_only_false(tmp_path: Path):
 
 
 def test_intrabar_microstructure_refuses_missing_data_file(tmp_path: Path):
-    meta_path, pkl = _write_intrabar_microstructure_artifact(tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    meta_path, pkl = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades"
+    )
     pkl.unlink()
     with pytest.raises(RealFeedValidationError, match="data file missing"):
         validate_and_load_real_feed(meta_path, "intrabar_microstructure")
@@ -766,14 +775,19 @@ def test_intrabar_microstructure_refuses_duplicate_timestamps(tmp_path: Path):
 
 def test_intrabar_microstructure_refuses_row_count_mismatch(tmp_path: Path):
     meta_path, _ = _write_intrabar_microstructure_artifact(
-        tmp_path, _valid_intrabar_microstructure_df("trades"), {"row_count": 999}, kind="trades"
+        tmp_path,
+        _valid_intrabar_microstructure_df("trades"),
+        {"row_count": 999},
+        kind="trades",
     )
     with pytest.raises(RealFeedValidationError, match="row_count mismatch"):
         validate_and_load_real_feed(meta_path, "intrabar_microstructure")
 
 
 def test_intrabar_microstructure_refuses_unknown_family(tmp_path: Path):
-    meta_path, _ = _write_intrabar_microstructure_artifact(tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        tmp_path, _valid_intrabar_microstructure_df("trades"), kind="trades"
+    )
     with pytest.raises(RealFeedValidationError, match="unknown/unsupported family"):
         validate_and_load_real_feed(meta_path, "nonexistent_family")
 
@@ -803,7 +817,9 @@ def test_intrabar_microstructure_refuses_proxy_labeled_real_in_notes(tmp_path: P
 def test_intrabar_microstructure_accepts_real_feed_in_cache_when_provenance_valid(tmp_path: Path):
     cache = tmp_path / "data" / "cache"
     cache.mkdir(parents=True)
-    meta_path, _ = _write_intrabar_microstructure_artifact(cache, _valid_intrabar_microstructure_df("trades"), kind="trades")
+    meta_path, _ = _write_intrabar_microstructure_artifact(
+        cache, _valid_intrabar_microstructure_df("trades"), kind="trades"
+    )
     df, report = validate_and_load_real_feed(meta_path, "intrabar_microstructure")
     assert report["ok"] and report["rows"] == 5
 
@@ -874,7 +890,11 @@ def test_audit_cache_records_candidate_refusal(tmp_path: Path):
 
 
 # --- Campaign #18: generate_unblock_status_report (fail-closed infrastructure) ---
-from data.real_feed_loader import build_unblock_trend_report, compare_unblock_status, generate_unblock_status_report  # noqa: E402
+from data.real_feed_loader import (  # noqa: E402
+    build_unblock_trend_report,
+    compare_unblock_status,
+    generate_unblock_status_report,
+)
 
 
 def test_generate_unblock_status_report_no_candidates(tmp_path: Path):
@@ -1261,11 +1281,17 @@ def test_build_unblock_trend_report_aggregates_and_detects_no_change(tmp_path: P
             "candidate_hits": 0,
             "new_real_feeds_with_provenance_found": False,
         },
-        "campaign_delta": {"prior_available": True, "changed": False, "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED"},
+        "campaign_delta": {
+            "prior_available": True,
+            "changed": False,
+            "honest_assessment": "NO_CHANGE_STILL_BLOCKED_FAIL_CLOSED",
+        },
     }
     for camp, ts in [(19, "20261105T163015Z"), (20, "20261105T163640Z")]:
         obj = {**base, "campaign": camp, "generated_at_utc": ts}
-        (reports / f"real_feed_unblock_status_{ts}.json").write_text(json.dumps(obj), encoding="utf-8")
+        (reports / f"real_feed_unblock_status_{ts}.json").write_text(
+            json.dumps(obj), encoding="utf-8"
+        )
     trend = build_unblock_trend_report(reports, campaign=21)
     assert trend["status_files_found"] == 2
     assert trend["status_reports_read"] == 2
@@ -1306,7 +1332,9 @@ def test_build_unblock_trend_report_records_unreadable_and_path_r_history(tmp_pa
         ),
         encoding="utf-8",
     )
-    (reports / "real_feed_unblock_status_20261105T000003Z.json").write_text("{broken", encoding="utf-8")
+    (reports / "real_feed_unblock_status_20261105T000003Z.json").write_text(
+        "{broken", encoding="utf-8"
+    )
     trend = build_unblock_trend_report(reports, campaign=21)
     assert trend["status_files_found"] == 3
     assert trend["status_reports_read"] == 2
@@ -1322,7 +1350,14 @@ def test_build_unblock_trend_report_limit(tmp_path: Path):
     reports.mkdir()
     for camp, ts in [(18, "20261105T135404Z"), (19, "20261105T163015Z"), (20, "20261105T163640Z")]:
         (reports / f"real_feed_unblock_status_{ts}.json").write_text(
-            json.dumps({"campaign": camp, "path_r_triggered": False, "blocked_families": ["x"], "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED"}),
+            json.dumps(
+                {
+                    "campaign": camp,
+                    "path_r_triggered": False,
+                    "blocked_families": ["x"],
+                    "conclusion": "PATH_C_MAINTAIN_STILL_BLOCKED",
+                }
+            ),
             encoding="utf-8",
         )
     trend = build_unblock_trend_report(reports, campaign=21, limit=2)
@@ -1392,10 +1427,17 @@ def test_build_cache_provenance_gap_audit_empty_cache(tmp_path: Path):
     assert audit["scan_summary"]["candidate_hits"] == 0
     assert audit["meta_inventory"] == []
     assert audit["honest_assessment"] == "NO_CANDIDATE_NONSPOT_FEEDS_STILL_BLOCKED_FAIL_CLOSED"
-    for fam in ["funding_basis_carry", "cross_exchange_dual_venue_same_asset", "term_structure_real_iv_vol_surface", "intrabar_microstructure"]:
+    blocked_fams = [
+        "funding_basis_carry",
+        "cross_exchange_dual_venue_same_asset",
+        "term_structure_real_iv_vol_surface",
+        "intrabar_microstructure",
+    ]
+    for fam in blocked_fams:
         assert fam in audit["blocked_families"]
     # real_quote_volume is also tracked as a blocked family in current loader; honest.
-    assert isinstance(audit["blocked_families"], list) and audit["blocked_families"] == sorted(audit["blocked_families"])
+    blocked = audit["blocked_families"]
+    assert isinstance(blocked, list) and blocked == sorted(blocked)
 
 
 def test_build_cache_provenance_gap_audit_refused_candidate_records_gap(tmp_path: Path):
@@ -1420,7 +1462,11 @@ def test_build_cache_provenance_gap_audit_refused_candidate_records_gap(tmp_path
     assert audit["scan_summary"]["refused_candidates"] >= 1
     assert audit["scan_summary"]["valid_candidates"] == 0
     assert audit["path_r_triggered"] is False
-    assert "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS" in audit["conclusion"] or audit["blocked_families"]
+    conclusion_ok = (
+        "NO_VALID_NONSPOT_PROVENANCE_ARTIFACTS" in audit["conclusion"]
+        or audit["blocked_families"]
+    )
+    assert conclusion_ok
     assert audit["honest_assessment"] in {
         "CANDIDATES_PRESENT_BUT_FAIL_CLOSED_REFUSED_STILL_BLOCKED",
         "NO_CANDIDATE_NONSPOT_FEEDS_STILL_BLOCKED_FAIL_CLOSED",

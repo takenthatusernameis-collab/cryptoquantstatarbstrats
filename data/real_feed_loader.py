@@ -447,7 +447,13 @@ def validate_and_load_real_feed(
                 _refuse(f"payload entry {sym!r} is not a pandas Series", report)
             s = pd.to_numeric(s, errors="coerce")
             for ts, val in s.items():
-                rows.append({"timestamp_utc": pd.Timestamp(ts), "symbol": str(sym), "quote_volume_usdt": float(val)})
+                rows.append(
+                    {
+                        "timestamp_utc": pd.Timestamp(ts),
+                        "symbol": str(sym),
+                        "quote_volume_usdt": float(val),
+                    }
+                )
         if not rows:
             _refuse("dict payload contains no usable rows", report)
         # Canonical long layout: symbol-major sort so per-symbol timestamp
@@ -753,7 +759,8 @@ def audit_cache_for_real_nonspot_feeds(
         prov = _discover_provenance_certificate(cache_dir, mp)
         if prov is not None:
             audit["provenance_certificates"] = audit.get("provenance_certificates", []) or []
-            audit["provenance_certificates"].append(str(mp.with_name(meta_name[: -len(".meta.json")] + ".provenance.json")))
+            prov_name = meta_name[: -len(".meta.json")] + ".provenance.json"
+            audit["provenance_certificates"].append(str(mp.with_name(prov_name)))
         for fam in hit.get("families_considered", []):
             entry: dict[str, Any] = {"meta": meta_name, "family": fam, "ok": False}
             try:
@@ -1162,7 +1169,12 @@ def build_unblock_trend_report(
                 "campaign_delta_honest_assessment": delta.get("honest_assessment"),
             }
         )
-    entries.sort(key=lambda e: (e.get("campaign") if isinstance(e.get("campaign"), int) else -1, e.get("name") or ""))
+    entries.sort(
+        key=lambda e: (
+            e.get("campaign") if isinstance(e.get("campaign"), int) else -1,
+            e.get("name") or "",
+        )
+    )
     if limit is not None and limit >= 0:
         entries = entries[-limit:] if limit else []
     campaigns = [e.get("campaign") for e in entries if isinstance(e.get("campaign"), int)]
@@ -1175,10 +1187,14 @@ def build_unblock_trend_report(
             {
                 "from_campaign": prev.get("campaign"),
                 "to_campaign": cur.get("campaign"),
-                "blocked_families_changed": prev.get("blocked_families") != cur.get("blocked_families"),
-                "path_r_changed": prev.get("path_r_triggered") != cur.get("path_r_triggered"),
-                "conclusion_changed": prev.get("conclusion") != cur.get("conclusion"),
-                "audit_conclusion_changed": prev.get("audit_conclusion") != cur.get("audit_conclusion"),
+                "blocked_families_changed": prev.get("blocked_families")
+                != cur.get("blocked_families"),
+                "path_r_changed": prev.get("path_r_triggered")
+                != cur.get("path_r_triggered"),
+                "conclusion_changed": prev.get("conclusion")
+                != cur.get("conclusion"),
+                "audit_conclusion_changed": prev.get("audit_conclusion")
+                != cur.get("audit_conclusion"),
             }
         )
     any_transition_change = any(
@@ -1300,9 +1316,15 @@ def build_cache_provenance_gap_audit(
         for v in (audit.get("candidate_validation") or [])
     )
     candidate_hits_list = scan.get("candidate_hits") or []
-    candidate_hits = len(candidate_hits_list) if isinstance(candidate_hits_list, list) else int(candidate_hits_list or 0)
+    candidate_hits = (
+        len(candidate_hits_list)
+        if isinstance(candidate_hits_list, list)
+        else int(candidate_hits_list or 0)
+    )
     refused_candidates = sum(
-        1 for v in (audit.get("candidate_validation") or []) if isinstance(v, dict) and v.get("refused")
+        1
+        for v in (audit.get("candidate_validation") or [])
+        if isinstance(v, dict) and v.get("refused")
     )
     return {
         "tool": "data.real_feed_loader.build_cache_provenance_gap_audit",
