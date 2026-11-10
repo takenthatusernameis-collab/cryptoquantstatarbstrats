@@ -31,7 +31,7 @@ dev = [
 cryptoquant = "backtest.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["strategies*", "backtest*", "data*", "utils*", "tests*"]
+include = ["strategies*", "backtest*", "data*", "utils*", "tests*", "execution*"]
 
 [tool.ruff]
 line-length = 100

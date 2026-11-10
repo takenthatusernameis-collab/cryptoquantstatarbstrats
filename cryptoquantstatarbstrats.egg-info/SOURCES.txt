@@ -23,6 +23,7 @@ strategies/__init__.py
 strategies/base.py
 strategies/cross_exchange.py
 strategies/mean_reversion.py
+strategies/ml_gated_pairs.py
 strategies/momentum.py
 strategies/pairs_trading.py
 strategies/term_structure.py
@@ -34,6 +35,7 @@ tests/test_benchmark_dashboard.py
 tests/test_binance_loader.py
 tests/test_cache_provenance_replay.py
 tests/test_campaign24_unblock_trend.py
+tests/test_campaign2_funding_lob_feasibility.py
 tests/test_capital_allocation_gating_mt.py
 tests/test_capital_preservation_failover_hardening_mt.py
 tests/test_cli.py
@@ -85,6 +87,7 @@ tests/test_live_production_deployment_mt.py
 tests/test_mean_reversion_parity_regression.py
 tests/test_mean_reversion_real_market.py
 tests/test_metrics.py
+tests/test_ml_gated_pairs.py
 tests/test_momentum_parity_regression.py
 tests/test_momentum_real_market.py
 tests/test_monte_carlo.py
@@ -97,6 +100,7 @@ tests/test_operational_risk_controls_gating.py
 tests/test_optimization.py
 tests/test_order_routing_schema.py
 tests/test_pairs_cost_sensitivity.py
+tests/test_pairs_mtf.py
 tests/test_pairs_real_market.py
 tests/test_paper_trading.py
 tests/test_paper_trading_advanced.py
@@ -162,7 +166,9 @@ utils/cointegration.py
 utils/costs.py
 utils/data_utils.py
 utils/metrics.py
+utils/ml_gating.py
 utils/monte_carlo.py
+utils/mtf_pairs.py
 utils/optimization.py
 utils/portfolio.py
 utils/portfolio_risk.py

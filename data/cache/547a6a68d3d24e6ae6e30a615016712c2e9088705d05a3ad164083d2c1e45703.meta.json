@@ -1,0 +1,30 @@
+{
+  "cache_key": "547a6a68d3d24e6ae6e30a615016712c2e9088705d05a3ad164083d2c1e45703",
+  "symbols": [
+    "BTC"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-04-02",
+  "interval": "1h",
+  "quote_asset": "USDT",
+  "fetch_success": true,
+  "rows": 48,
+  "columns": [
+    "BTC"
+  ],
+  "fetch_blocked_hosts": [],
+  "fetch_blocked_routes": [],
+  "fetch_attempts": [
+    {
+      "symbols": [
+        "BTC"
+      ],
+      "interval": "1h",
+      "success": true,
+      "rows": 48
+    }
+  ],
+  "fetch_errors": [],
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false
+}

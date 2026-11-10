@@ -1,0 +1,2192 @@
+{
+  "campaign": "Campaign #5 - Production bridge",
+  "generated_at_utc": "2026-11-10T00:31:40.485037+00:00",
+  "status": "halted",
+  "environment": {
+    "mode": "paper_bounded_session",
+    "exchange_submission": "disabled_fail_closed",
+    "testnet_credentials_present": false,
+    "live_submission_allowed": false,
+    "broker": {
+      "execution_environment": "paper_public_data",
+      "simulated_fills": true,
+      "real_exchange_fills": false,
+      "allow_live_submission": false,
+      "testnet_credentials_present": false,
+      "fee_rate": 0.001,
+      "slippage_bps": 5.0,
+      "fill_count": 22,
+      "blocked_routes": [
+        {
+          "route": "live_exchange_order_submission",
+          "status": "blocked_fail_closed",
+          "reason": "live/testnet order submission disabled; Campaign #5 uses paper simulation only",
+          "credentials_present": false,
+          "capability_probe": {}
+        },
+        {
+          "route": "exchange_testnet_authenticated_api",
+          "status": "blocked",
+          "reason": "testnet/exchange credentials not present in environment; not assumed"
+        }
+      ]
+    }
+  },
+  "data_sources": {
+    "type": "real_cached_public_binance",
+    "provider": "Binance public spot via data.loader.DataLoader.load_binance_data/data.cache",
+    "symbol": "BTC",
+    "start": "2026-04-01",
+    "end": "2026-05-15",
+    "interval": "1h",
+    "provenance": {
+      "cache_key": "f481053c6225c06e317e360187cdb4bd4b4a09dad3af6d643d58db65db8a8385",
+      "symbols": [
+        "BTC"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-05-15",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "cache_hit": true,
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 1080
+        }
+      ],
+      "hosts_tried": [],
+      "errors": [],
+      "blocked_routes": [],
+      "disk_cache": true,
+      "fetch_success": true,
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "blocked_hosts": []
+    },
+    "test_fixture": false
+  },
+  "blocked_routes": [
+    {
+      "route": "live_exchange_order_submission",
+      "status": "blocked_fail_closed",
+      "reason": "live/testnet order submission disabled; Campaign #5 uses paper simulation only",
+      "credentials_present": false,
+      "capability_probe": {}
+    },
+    {
+      "route": "exchange_testnet_authenticated_api",
+      "status": "blocked",
+      "reason": "testnet/exchange credentials not present in environment; not assumed"
+    }
+  ],
+  "risk_state": {
+    "timestamp_utc": "2026-11-10T00:31:40.485050+00:00",
+    "kill_switch": {
+      "active": true,
+      "reason": "drawdown_kill_switch",
+      "history": [
+        {
+          "timestamp_utc": "2026-11-10T00:31:40.482873+00:00",
+          "action": "trip",
+          "reason": "drawdown_kill_switch",
+          "details": {
+            "drawdown": 1.0,
+            "max_drawdown_fraction": 0.25
+          }
+        }
+      ]
+    },
+    "drawdown": 0.0017539870109242362,
+    "peak_equity": 100055.66796632048,
+    "turnover_notional": 109914.09983530648,
+    "config": {
+      "max_notional_per_order": 15000.0,
+      "max_position_notional_per_symbol": 30000.0,
+      "max_gross_exposure": 60000.0,
+      "max_net_exposure": 60000.0,
+      "max_symbol_concentration": 0.8,
+      "max_turnover_notional": 500000.0,
+      "max_cost_bps": 100.0,
+      "max_drawdown_fraction": 0.25,
+      "stale_data_seconds": 3600.0,
+      "require_market_price": true,
+      "fail_closed_on_missing_data": true,
+      "allow_historical_replay": true,
+      "replay_timestamp_skew_seconds": 86400.0
+    },
+    "portfolio_state": {
+      "cash": 99880.17162433821,
+      "equity": 99880.17162433821,
+      "gross_exposure": 0.0,
+      "net_exposure": 0.0,
+      "unrealized_pnl": 0.0,
+      "realized_pnl": -9.914298347861084,
+      "fees_paid": 109.91407731393068,
+      "positions": {
+        "BTC": {
+          "symbol": "BTC",
+          "quantity": 0.0,
+          "avg_cost": 0.0,
+          "side": "flat",
+          "last_price": 79113.21,
+          "market_value": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": -9.914298347861084
+        }
+      }
+    },
+    "breaches": [
+      {
+        "code": "kill_switch_active",
+        "message": "kill switch active",
+        "severity": "high",
+        "details": {
+          "reason": "drawdown_kill_switch"
+        }
+      }
+    ],
+    "events_count": 22,
+    "recent_events": [
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.470294+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06094254470958378,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-10T22:00:00+00:00-sell",
+            "timestamp": "2026-05-10T22:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": -1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 82044.49,
+          "data_timestamp_utc": "2026-05-10T22:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100028.2234488858,
+            "equity": 100028.2234488858,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 38.180268617177354,
+            "fees_paid": 9.956819731382826,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 82044.49,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 38.180268617177354
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.470615+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06094254470958378,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-11T00:00:00+00:00-buy",
+            "timestamp": "2026-05-11T00:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81471.13,
+          "data_timestamp_utc": "2026-05-11T00:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4965.057982565313,
+          "portfolio_state": {
+            "cash": 105020.7259488858,
+            "equity": 100055.66796632048,
+            "gross_exposure": 4965.057982565313,
+            "net_exposure": -4965.057982565313,
+            "unrealized_pnl": 32.44201743468699,
+            "realized_pnl": 38.180268617177354,
+            "fees_paid": 14.954319731382826,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": -0.06094254470958378,
+                "avg_cost": 82003.467755,
+                "side": "short",
+                "last_price": 81471.13,
+                "market_value": -4965.057982565313,
+                "unrealized_pnl": 32.44201743468699,
+                "realized_pnl": 38.180268617177354
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.472597+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06101944701980411,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-11T17:00:00+00:00-sell",
+            "timestamp": "2026-05-11T17:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": -1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81941.09,
+          "data_timestamp_utc": "2026-05-11T17:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100048.21789681764,
+            "equity": 100048.21789681764,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 68.13975706058196,
+            "fees_paid": 19.921860242939424,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 81941.09,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 68.13975706058196
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.472806+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06101944701980411,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-11T18:00:00+00:00-buy",
+            "timestamp": "2026-05-11T18:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81858.96,
+          "data_timestamp_utc": "2026-05-11T18:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4994.988472816264,
+          "portfolio_state": {
+            "cash": 105040.72039681765,
+            "equity": 100045.73192400139,
+            "gross_exposure": 4994.988472816264,
+            "net_exposure": -4994.988472816264,
+            "unrealized_pnl": 2.5115271837365656,
+            "realized_pnl": 68.13975706058196,
+            "fees_paid": 24.919360242939426,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": -0.06101944701980411,
+                "avg_cost": 81900.11945500001,
+                "side": "short",
+                "last_price": 81858.96,
+                "market_value": -4994.988472816264,
+                "unrealized_pnl": 2.5115271837365656,
+                "realized_pnl": 68.13975706058196
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.473052+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06100388728970587,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-11T19:00:00+00:00-sell",
+            "timestamp": "2026-05-11T19:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": -1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81961.99,
+          "data_timestamp_utc": "2026-05-11T19:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100038.23694379792,
+            "equity": 100038.23694379792,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 68.1537900079109,
+            "fees_paid": 29.916846209992098,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 81961.99,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 68.1537900079109
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.473250+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06100388728970587,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-11T20:00:00+00:00-buy",
+            "timestamp": "2026-05-11T20:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81821.02,
+          "data_timestamp_utc": "2026-05-11T20:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4991.40028200877,
+          "portfolio_state": {
+            "cash": 105030.73944379792,
+            "equity": 100039.33916178916,
+            "gross_exposure": 4991.40028200877,
+            "net_exposure": -4991.40028200877,
+            "unrealized_pnl": 6.099717991230469,
+            "realized_pnl": 68.1537900079109,
+            "fees_paid": 34.9143462099921,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": -0.06100388728970587,
+                "avg_cost": 81921.00900500001,
+                "side": "short",
+                "last_price": 81821.02,
+                "market_value": -4991.40028200877,
+                "unrealized_pnl": 6.099717991230469,
+                "realized_pnl": 68.1537900079109
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.474506+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06183114162546652,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T07:00:00+00:00-buy",
+            "timestamp": "2026-05-12T07:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80865.4,
+          "data_timestamp_utc": "2026-05-12T07:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100031.84956566601,
+            "equity": 100031.84956566601,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 71.75780785813689,
+            "fees_paid": 39.90824219214187,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80865.4,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 71.75780785813689
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.474705+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06183114162546652,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T08:00:00+00:00-sell",
+            "timestamp": "2026-05-12T08:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80843.31,
+          "data_timestamp_utc": "2026-05-12T08:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4998.634150081493,
+          "portfolio_state": {
+            "cash": 95024.347065666,
+            "equity": 100022.9812157475,
+            "gross_exposure": 4998.634150081493,
+            "net_exposure": 4998.634150081493,
+            "unrealized_pnl": -3.8658499185057393,
+            "realized_pnl": 71.75780785813689,
+            "fees_paid": 44.91074219214187,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.06183114162546652,
+                "avg_cost": 80905.83269999998,
+                "side": "long",
+                "last_price": 80843.31,
+                "market_value": 4998.634150081493,
+                "unrealized_pnl": -3.8658499185057393,
+                "realized_pnl": 71.75780785813689
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.475033+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06198369903095925,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T10:00:00+00:00-buy",
+            "timestamp": "2026-05-12T10:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80666.37,
+          "data_timestamp_utc": "2026-05-12T10:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100015.48576383945,
+            "equity": 100015.48576383945,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 65.3926408645905,
+            "fees_paid": 49.90687702514832,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80666.37,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 65.3926408645905
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.475227+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06198369903095925,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T11:00:00+00:00-sell",
+            "timestamp": "2026-05-12T11:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80784.87,
+          "data_timestamp_utc": "2026-05-12T11:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5007.345068335168,
+          "portfolio_state": {
+            "cash": 95007.98326383944,
+            "equity": 100015.32833217461,
+            "gross_exposure": 5007.345068335168,
+            "net_exposure": 5007.345068335168,
+            "unrealized_pnl": 4.845068335168928,
+            "realized_pnl": 65.3926408645905,
+            "fees_paid": 54.909377025148316,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.06198369903095925,
+                "avg_cost": 80706.70318499999,
+                "side": "long",
+                "last_price": 80784.87,
+                "market_value": 5007.345068335168,
+                "unrealized_pnl": 4.845068335168928,
+                "realized_pnl": 65.3926408645905
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.475529+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06213734316379242,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T13:00:00+00:00-buy",
+            "timestamp": "2026-05-12T13:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80466.91,
+          "data_timestamp_utc": "2026-05-12T13:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 100007.81981824465,
+            "equity": 100007.81981824465,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 67.73403666559174,
+            "fees_paid": 59.91421842094932,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80466.91,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 67.73403666559174
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.475720+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06213734316379242,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T14:00:00+00:00-sell",
+            "timestamp": "2026-05-12T14:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80540.0,
+          "data_timestamp_utc": "2026-05-12T14:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5004.541618411841,
+          "portfolio_state": {
+            "cash": 95000.31731824465,
+            "equity": 100004.85893665648,
+            "gross_exposure": 5004.541618411841,
+            "net_exposure": 5004.541618411841,
+            "unrealized_pnl": 2.0416184118417355,
+            "realized_pnl": 67.73403666559174,
+            "fees_paid": 64.91671842094932,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.06213734316379242,
+                "avg_cost": 80507.143455,
+                "side": "long",
+                "last_price": 80540.0,
+                "market_value": 5004.541618411841,
+                "unrealized_pnl": 2.0416184118417355,
+                "realized_pnl": 67.73403666559174
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.475944+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.0622385901415816,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T15:00:00+00:00-buy",
+            "timestamp": "2026-05-12T15:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80336.01,
+          "data_timestamp_utc": "2026-05-12T15:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 99997.35462649968,
+            "equity": 99997.35462649968,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 67.27338426822821,
+            "fees_paid": 69.91875776855196,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80336.01,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 67.27338426822821
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.476234+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.0622385901415816,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-12T17:00:00+00:00-sell",
+            "timestamp": "2026-05-12T17:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80527.69,
+          "data_timestamp_utc": "2026-05-12T17:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5011.929892958339,
+          "portfolio_state": {
+            "cash": 94989.85212649968,
+            "equity": 100001.78201945803,
+            "gross_exposure": 5011.929892958339,
+            "net_exposure": 5011.929892958339,
+            "unrealized_pnl": 9.42989295833886,
+            "realized_pnl": 67.27338426822821,
+            "fees_paid": 74.92125776855195,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0622385901415816,
+                "avg_cost": 80376.178005,
+                "side": "long",
+                "last_price": 80527.69,
+                "market_value": 5011.929892958339,
+                "unrealized_pnl": 9.42989295833886,
+                "realized_pnl": 67.27338426822821
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.477326+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.061690314620604564,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-13T02:00:00+00:00-sell",
+            "timestamp": "2026-05-13T02:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": -1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81050.0,
+          "data_timestamp_utc": "2026-05-13T02:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 99994.26663058353,
+            "equity": 99994.26663058353,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 74.19731228008827,
+            "fees_paid": 79.93068169656381,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 81050.0,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 74.19731228008827
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.477742+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.061690314620604564,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-13T05:00:00+00:00-buy",
+            "timestamp": "2026-05-13T05:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81019.99,
+          "data_timestamp_utc": "2026-05-13T05:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4998.148673658236,
+          "portfolio_state": {
+            "cash": 104986.76913058353,
+            "equity": 99988.6204569253,
+            "gross_exposure": 4998.148673658236,
+            "net_exposure": -4998.148673658236,
+            "unrealized_pnl": -0.6486736582356211,
+            "realized_pnl": 74.19731228008827,
+            "fees_paid": 84.92818169656381,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": -0.061690314620604564,
+                "avg_cost": 81009.475,
+                "side": "short",
+                "last_price": 81019.99,
+                "market_value": -4998.148673658236,
+                "unrealized_pnl": -0.6486736582356211,
+                "realized_pnl": 74.19731228008827
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.478602+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.06234197866956732,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-13T12:00:00+00:00-buy",
+            "timestamp": "2026-05-13T12:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80202.78,
+          "data_timestamp_utc": "2026-05-13T12:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 99981.12073484047,
+            "equity": 99981.12073484047,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 71.04956428502351,
+            "fees_paid": 89.92882944455887,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80202.78,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 71.04956428502351
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.479302+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.06234197866956732,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-13T17:00:00+00:00-sell",
+            "timestamp": "2026-05-13T17:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 79514.97,
+          "data_timestamp_utc": "2026-05-13T17:00:00+00:00",
+          "replay_mode": true,
+          "notional": 4957.120563651285,
+          "portfolio_state": {
+            "cash": 94973.61823484047,
+            "equity": 99930.73879849176,
+            "gross_exposure": 4957.120563651285,
+            "net_exposure": 4957.120563651285,
+            "unrealized_pnl": -45.37943634871471,
+            "realized_pnl": 71.04956428502351,
+            "fees_paid": 94.93132944455887,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.06234197866956732,
+                "avg_cost": 80242.88139,
+                "side": "long",
+                "last_price": 79514.97,
+                "market_value": 4957.120563651285,
+                "unrealized_pnl": -45.37943634871471,
+                "realized_pnl": 71.04956428502351
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.481627+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "sell",
+            "quantity": 0.061755193766183714,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-14T14:00:00+00:00-sell",
+            "timestamp": "2026-05-14T14:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": -1,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 80964.85,
+          "data_timestamp_utc": "2026-05-14T14:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5000.0,
+          "portfolio_state": {
+            "cash": 99923.30559620656,
+            "equity": 99923.30559620656,
+            "gross_exposure": 0.0,
+            "net_exposure": 0.0,
+            "unrealized_pnl": 0.0,
+            "realized_pnl": 23.191567654483485,
+            "fees_paid": 99.88597144792833,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": 0.0,
+                "avg_cost": 0.0,
+                "side": "flat",
+                "last_price": 80964.85,
+                "market_value": 0.0,
+                "unrealized_pnl": 0.0,
+                "realized_pnl": 23.191567654483485
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp_utc": "2026-11-10T00:31:40.482257+00:00",
+        "event_type": "pre_trade",
+        "allowed": true,
+        "reason": null,
+        "breaches": [],
+        "context": {
+          "order": {
+            "symbol": "BTC",
+            "side": "buy",
+            "quantity": 0.061755193766183714,
+            "order_type": "market",
+            "limit_price": null,
+            "client_order_id": "BTC-2026-05-14T19:00:00+00:00-buy",
+            "timestamp": "2026-05-14T19:00:00+00:00",
+            "metadata": {
+              "strategy": "mean_reversion_real_data_path",
+              "target": 0,
+              "paper_bounded": true
+            }
+          },
+          "market_price": 81419.74,
+          "data_timestamp_utc": "2026-05-14T19:00:00+00:00",
+          "replay_mode": true,
+          "notional": 5028.091820092299,
+          "portfolio_state": {
+            "cash": 104915.80809620656,
+            "equity": 99887.71627611425,
+            "gross_exposure": 5028.091820092299,
+            "net_exposure": -5028.091820092299,
+            "unrealized_pnl": -30.591820092298946,
+            "realized_pnl": 23.191567654483485,
+            "fees_paid": 104.88347144792833,
+            "positions": {
+              "BTC": {
+                "symbol": "BTC",
+                "quantity": -0.061755193766183714,
+                "avg_cost": 80924.36757500001,
+                "side": "short",
+                "last_price": 81419.74,
+                "market_value": -5028.091820092299,
+                "unrealized_pnl": -30.591820092298946,
+                "realized_pnl": 23.191567654483485
+              }
+            }
+          }
+        }
+      }
+    ],
+    "status": "halted"
+  },
+  "events": [
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.469619+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06139652787899678,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-10T19:00:00+00:00-sell",
+          "timestamp": "2026-05-10T19:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81437.83,
+        "data_timestamp_utc": "2026-05-10T19:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100000.0,
+          "equity": 100000.0,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 0.0,
+          "fees_paid": 0.0,
+          "positions": {}
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.469929+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06139652787899678,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-10T20:00:00+00:00-buy",
+          "timestamp": "2026-05-10T20:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80734.88,
+        "data_timestamp_utc": "2026-05-10T20:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4956.84131072746,
+        "portfolio_state": {
+          "cash": 104992.5025,
+          "equity": 100035.66118927255,
+          "gross_exposure": 4956.84131072746,
+          "net_exposure": -4956.84131072746,
+          "unrealized_pnl": 40.658689272541196,
+          "realized_pnl": 0.0,
+          "fees_paid": 4.997500000000001,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.06139652787899678,
+              "avg_cost": 81397.11108500001,
+              "side": "short",
+              "last_price": 80734.88,
+              "market_value": -4956.84131072746,
+              "unrealized_pnl": 40.658689272541196,
+              "realized_pnl": 0.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.470294+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06094254470958378,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-10T22:00:00+00:00-sell",
+          "timestamp": "2026-05-10T22:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 82044.49,
+        "data_timestamp_utc": "2026-05-10T22:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100028.2234488858,
+          "equity": 100028.2234488858,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 38.180268617177354,
+          "fees_paid": 9.956819731382826,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 82044.49,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 38.180268617177354
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.470615+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06094254470958378,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-11T00:00:00+00:00-buy",
+          "timestamp": "2026-05-11T00:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81471.13,
+        "data_timestamp_utc": "2026-05-11T00:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4965.057982565313,
+        "portfolio_state": {
+          "cash": 105020.7259488858,
+          "equity": 100055.66796632048,
+          "gross_exposure": 4965.057982565313,
+          "net_exposure": -4965.057982565313,
+          "unrealized_pnl": 32.44201743468699,
+          "realized_pnl": 38.180268617177354,
+          "fees_paid": 14.954319731382826,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.06094254470958378,
+              "avg_cost": 82003.467755,
+              "side": "short",
+              "last_price": 81471.13,
+              "market_value": -4965.057982565313,
+              "unrealized_pnl": 32.44201743468699,
+              "realized_pnl": 38.180268617177354
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.472597+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06101944701980411,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-11T17:00:00+00:00-sell",
+          "timestamp": "2026-05-11T17:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81941.09,
+        "data_timestamp_utc": "2026-05-11T17:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100048.21789681764,
+          "equity": 100048.21789681764,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 68.13975706058196,
+          "fees_paid": 19.921860242939424,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 81941.09,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 68.13975706058196
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.472806+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06101944701980411,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-11T18:00:00+00:00-buy",
+          "timestamp": "2026-05-11T18:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81858.96,
+        "data_timestamp_utc": "2026-05-11T18:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4994.988472816264,
+        "portfolio_state": {
+          "cash": 105040.72039681765,
+          "equity": 100045.73192400139,
+          "gross_exposure": 4994.988472816264,
+          "net_exposure": -4994.988472816264,
+          "unrealized_pnl": 2.5115271837365656,
+          "realized_pnl": 68.13975706058196,
+          "fees_paid": 24.919360242939426,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.06101944701980411,
+              "avg_cost": 81900.11945500001,
+              "side": "short",
+              "last_price": 81858.96,
+              "market_value": -4994.988472816264,
+              "unrealized_pnl": 2.5115271837365656,
+              "realized_pnl": 68.13975706058196
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.473052+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06100388728970587,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-11T19:00:00+00:00-sell",
+          "timestamp": "2026-05-11T19:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81961.99,
+        "data_timestamp_utc": "2026-05-11T19:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100038.23694379792,
+          "equity": 100038.23694379792,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 68.1537900079109,
+          "fees_paid": 29.916846209992098,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 81961.99,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 68.1537900079109
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.473250+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06100388728970587,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-11T20:00:00+00:00-buy",
+          "timestamp": "2026-05-11T20:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81821.02,
+        "data_timestamp_utc": "2026-05-11T20:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4991.40028200877,
+        "portfolio_state": {
+          "cash": 105030.73944379792,
+          "equity": 100039.33916178916,
+          "gross_exposure": 4991.40028200877,
+          "net_exposure": -4991.40028200877,
+          "unrealized_pnl": 6.099717991230469,
+          "realized_pnl": 68.1537900079109,
+          "fees_paid": 34.9143462099921,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.06100388728970587,
+              "avg_cost": 81921.00900500001,
+              "side": "short",
+              "last_price": 81821.02,
+              "market_value": -4991.40028200877,
+              "unrealized_pnl": 6.099717991230469,
+              "realized_pnl": 68.1537900079109
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.474506+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06183114162546652,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T07:00:00+00:00-buy",
+          "timestamp": "2026-05-12T07:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80865.4,
+        "data_timestamp_utc": "2026-05-12T07:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100031.84956566601,
+          "equity": 100031.84956566601,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 71.75780785813689,
+          "fees_paid": 39.90824219214187,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80865.4,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 71.75780785813689
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.474705+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06183114162546652,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T08:00:00+00:00-sell",
+          "timestamp": "2026-05-12T08:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80843.31,
+        "data_timestamp_utc": "2026-05-12T08:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4998.634150081493,
+        "portfolio_state": {
+          "cash": 95024.347065666,
+          "equity": 100022.9812157475,
+          "gross_exposure": 4998.634150081493,
+          "net_exposure": 4998.634150081493,
+          "unrealized_pnl": -3.8658499185057393,
+          "realized_pnl": 71.75780785813689,
+          "fees_paid": 44.91074219214187,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.06183114162546652,
+              "avg_cost": 80905.83269999998,
+              "side": "long",
+              "last_price": 80843.31,
+              "market_value": 4998.634150081493,
+              "unrealized_pnl": -3.8658499185057393,
+              "realized_pnl": 71.75780785813689
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.475033+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06198369903095925,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T10:00:00+00:00-buy",
+          "timestamp": "2026-05-12T10:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80666.37,
+        "data_timestamp_utc": "2026-05-12T10:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100015.48576383945,
+          "equity": 100015.48576383945,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 65.3926408645905,
+          "fees_paid": 49.90687702514832,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80666.37,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 65.3926408645905
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.475227+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06198369903095925,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T11:00:00+00:00-sell",
+          "timestamp": "2026-05-12T11:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80784.87,
+        "data_timestamp_utc": "2026-05-12T11:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5007.345068335168,
+        "portfolio_state": {
+          "cash": 95007.98326383944,
+          "equity": 100015.32833217461,
+          "gross_exposure": 5007.345068335168,
+          "net_exposure": 5007.345068335168,
+          "unrealized_pnl": 4.845068335168928,
+          "realized_pnl": 65.3926408645905,
+          "fees_paid": 54.909377025148316,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.06198369903095925,
+              "avg_cost": 80706.70318499999,
+              "side": "long",
+              "last_price": 80784.87,
+              "market_value": 5007.345068335168,
+              "unrealized_pnl": 4.845068335168928,
+              "realized_pnl": 65.3926408645905
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.475529+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06213734316379242,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T13:00:00+00:00-buy",
+          "timestamp": "2026-05-12T13:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80466.91,
+        "data_timestamp_utc": "2026-05-12T13:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 100007.81981824465,
+          "equity": 100007.81981824465,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 67.73403666559174,
+          "fees_paid": 59.91421842094932,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80466.91,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 67.73403666559174
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.475720+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06213734316379242,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T14:00:00+00:00-sell",
+          "timestamp": "2026-05-12T14:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80540.0,
+        "data_timestamp_utc": "2026-05-12T14:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5004.541618411841,
+        "portfolio_state": {
+          "cash": 95000.31731824465,
+          "equity": 100004.85893665648,
+          "gross_exposure": 5004.541618411841,
+          "net_exposure": 5004.541618411841,
+          "unrealized_pnl": 2.0416184118417355,
+          "realized_pnl": 67.73403666559174,
+          "fees_paid": 64.91671842094932,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.06213734316379242,
+              "avg_cost": 80507.143455,
+              "side": "long",
+              "last_price": 80540.0,
+              "market_value": 5004.541618411841,
+              "unrealized_pnl": 2.0416184118417355,
+              "realized_pnl": 67.73403666559174
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.475944+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.0622385901415816,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T15:00:00+00:00-buy",
+          "timestamp": "2026-05-12T15:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80336.01,
+        "data_timestamp_utc": "2026-05-12T15:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 99997.35462649968,
+          "equity": 99997.35462649968,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 67.27338426822821,
+          "fees_paid": 69.91875776855196,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80336.01,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 67.27338426822821
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.476234+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.0622385901415816,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-12T17:00:00+00:00-sell",
+          "timestamp": "2026-05-12T17:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80527.69,
+        "data_timestamp_utc": "2026-05-12T17:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5011.929892958339,
+        "portfolio_state": {
+          "cash": 94989.85212649968,
+          "equity": 100001.78201945803,
+          "gross_exposure": 5011.929892958339,
+          "net_exposure": 5011.929892958339,
+          "unrealized_pnl": 9.42989295833886,
+          "realized_pnl": 67.27338426822821,
+          "fees_paid": 74.92125776855195,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0622385901415816,
+              "avg_cost": 80376.178005,
+              "side": "long",
+              "last_price": 80527.69,
+              "market_value": 5011.929892958339,
+              "unrealized_pnl": 9.42989295833886,
+              "realized_pnl": 67.27338426822821
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.477326+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.061690314620604564,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-13T02:00:00+00:00-sell",
+          "timestamp": "2026-05-13T02:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81050.0,
+        "data_timestamp_utc": "2026-05-13T02:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 99994.26663058353,
+          "equity": 99994.26663058353,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 74.19731228008827,
+          "fees_paid": 79.93068169656381,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 81050.0,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 74.19731228008827
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.477742+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.061690314620604564,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-13T05:00:00+00:00-buy",
+          "timestamp": "2026-05-13T05:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81019.99,
+        "data_timestamp_utc": "2026-05-13T05:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4998.148673658236,
+        "portfolio_state": {
+          "cash": 104986.76913058353,
+          "equity": 99988.6204569253,
+          "gross_exposure": 4998.148673658236,
+          "net_exposure": -4998.148673658236,
+          "unrealized_pnl": -0.6486736582356211,
+          "realized_pnl": 74.19731228008827,
+          "fees_paid": 84.92818169656381,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.061690314620604564,
+              "avg_cost": 81009.475,
+              "side": "short",
+              "last_price": 81019.99,
+              "market_value": -4998.148673658236,
+              "unrealized_pnl": -0.6486736582356211,
+              "realized_pnl": 74.19731228008827
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.478602+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.06234197866956732,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-13T12:00:00+00:00-buy",
+          "timestamp": "2026-05-13T12:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80202.78,
+        "data_timestamp_utc": "2026-05-13T12:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 99981.12073484047,
+          "equity": 99981.12073484047,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 71.04956428502351,
+          "fees_paid": 89.92882944455887,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80202.78,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 71.04956428502351
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.479302+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.06234197866956732,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-13T17:00:00+00:00-sell",
+          "timestamp": "2026-05-13T17:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 79514.97,
+        "data_timestamp_utc": "2026-05-13T17:00:00+00:00",
+        "replay_mode": true,
+        "notional": 4957.120563651285,
+        "portfolio_state": {
+          "cash": 94973.61823484047,
+          "equity": 99930.73879849176,
+          "gross_exposure": 4957.120563651285,
+          "net_exposure": 4957.120563651285,
+          "unrealized_pnl": -45.37943634871471,
+          "realized_pnl": 71.04956428502351,
+          "fees_paid": 94.93132944455887,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.06234197866956732,
+              "avg_cost": 80242.88139,
+              "side": "long",
+              "last_price": 79514.97,
+              "market_value": 4957.120563651285,
+              "unrealized_pnl": -45.37943634871471,
+              "realized_pnl": 71.04956428502351
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.481627+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "sell",
+          "quantity": 0.061755193766183714,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-14T14:00:00+00:00-sell",
+          "timestamp": "2026-05-14T14:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": -1,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 80964.85,
+        "data_timestamp_utc": "2026-05-14T14:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5000.0,
+        "portfolio_state": {
+          "cash": 99923.30559620656,
+          "equity": 99923.30559620656,
+          "gross_exposure": 0.0,
+          "net_exposure": 0.0,
+          "unrealized_pnl": 0.0,
+          "realized_pnl": 23.191567654483485,
+          "fees_paid": 99.88597144792833,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": 0.0,
+              "avg_cost": 0.0,
+              "side": "flat",
+              "last_price": 80964.85,
+              "market_value": 0.0,
+              "unrealized_pnl": 0.0,
+              "realized_pnl": 23.191567654483485
+            }
+          }
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-10T00:31:40.482257+00:00",
+      "event_type": "pre_trade",
+      "allowed": true,
+      "reason": null,
+      "breaches": [],
+      "context": {
+        "order": {
+          "symbol": "BTC",
+          "side": "buy",
+          "quantity": 0.061755193766183714,
+          "order_type": "market",
+          "limit_price": null,
+          "client_order_id": "BTC-2026-05-14T19:00:00+00:00-buy",
+          "timestamp": "2026-05-14T19:00:00+00:00",
+          "metadata": {
+            "strategy": "mean_reversion_real_data_path",
+            "target": 0,
+            "paper_bounded": true
+          }
+        },
+        "market_price": 81419.74,
+        "data_timestamp_utc": "2026-05-14T19:00:00+00:00",
+        "replay_mode": true,
+        "notional": 5028.091820092299,
+        "portfolio_state": {
+          "cash": 104915.80809620656,
+          "equity": 99887.71627611425,
+          "gross_exposure": 5028.091820092299,
+          "net_exposure": -5028.091820092299,
+          "unrealized_pnl": -30.591820092298946,
+          "realized_pnl": 23.191567654483485,
+          "fees_paid": 104.88347144792833,
+          "positions": {
+            "BTC": {
+              "symbol": "BTC",
+              "quantity": -0.061755193766183714,
+              "avg_cost": 80924.36757500001,
+              "side": "short",
+              "last_price": 81419.74,
+              "market_value": -5028.091820092299,
+              "unrealized_pnl": -30.591820092298946,
+              "realized_pnl": 23.191567654483485
+            }
+          }
+        }
+      }
+    }
+  ],
+  "breaches": [
+    {
+      "code": "kill_switch_active",
+      "message": "kill switch active",
+      "severity": "high",
+      "details": {
+        "reason": "drawdown_kill_switch"
+      }
+    }
+  ],
+  "limitations": [
+    "Paper fills are simulated from real/public market prices with deterministic slippage/fees; not real exchange fills.",
+    "No live/testnet authenticated exchange order submission performed; credentials not assumed.",
+    "Bounded session for production-bridge validation; not proof of profitability or live readiness.",
+    "Historical intrabar/L2 replay not fabricated."
+  ],
+  "notes": [
+    "Risk controls are fail-closed on missing/invalid/stale inputs where configured.",
+    "This dashboard reports paper/runtime state only; it does not claim real exchange risk coverage."
+  ],
+  "market_data_real_only": true,
+  "fabricated_data": false,
+  "simulated_fills_context": true,
+  "session_artifact_ref": "reports/paper_trading_session.json"
+}
