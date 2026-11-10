@@ -3,12 +3,11 @@
 import asyncio
 import socket
 import time
-from abc import ABC, abstractmethod
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, List, Optional
-import uuid
+from typing import Awaitable, Callable, Dict, List, Optional
 
 
 class CheckStatus(str, Enum):
@@ -64,8 +63,11 @@ class PreflightChecker:
     """Automated preflight checklist."""
 
     def __init__(self, checks: Optional[List[PreflightCheck]] = None):
-        self.checks = checks or []
-        self._default_checks()
+        if checks is None:
+            self.checks = []
+            self._default_checks()
+        else:
+            self.checks = list(checks)
 
     def _default_checks(self) -> None:
         """Add default preflight checks."""
@@ -194,7 +196,6 @@ class PreflightChecker:
 
     async def run(self) -> PreflightReport:
         """Run all preflight checks."""
-        import time
         start = time.perf_counter()
 
         report = PreflightReport()
@@ -206,7 +207,7 @@ class PreflightChecker:
                 status = await asyncio.wait_for(check.check_fn(), timeout=check.timeout_seconds)
             except asyncio.TimeoutError:
                 status = CheckStatus.ERROR
-            except Exception as e:
+            except Exception:
                 status = CheckStatus.ERROR
 
             latency_ms = (time.perf_counter() - check_start) * 1000
@@ -228,8 +229,6 @@ class PreflightChecker:
 
         # Determine overall status
         if report.critical_failures > 0:
-            report.overall_status = CheckStatus.FAIL
-        elif report.failed_checks > 0:
             report.overall_status = CheckStatus.FAIL
         else:
             report.overall_status = CheckStatus.PASS

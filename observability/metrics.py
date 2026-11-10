@@ -1,12 +1,12 @@
 """Prometheus-compatible metrics emission for fills, latency, slippage, rejections, and risk breaches."""
 
-import time
 import threading
+import time
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
 from contextlib import contextmanager
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
 
 
 class MetricType(str):
@@ -47,7 +47,9 @@ class Metric(ABC):
         """Create a key from labels."""
         if not labels:
             return ()
-        return tuple(sorted((k, labels.get(k, "")) for k in self.label_names))
+        if self.label_names:
+            return tuple(sorted((k, labels.get(k, "")) for k in self.label_names))
+        return tuple(sorted(labels.items()))
 
 
 class Counter(Metric):
@@ -367,28 +369,58 @@ class MetricsCollector:
         with self._lock:
             self._metrics[metric.name] = metric
 
+    def create_counter(self, name: str, description: str = "", labels: Optional[List[str]] = None) -> Counter:
+        """Create and register an ad-hoc counter metric."""
+        metric = Counter(name, description, labels)
+        self._register(metric)
+        return metric
+
+    def create_gauge(self, name: str, description: str = "", labels: Optional[List[str]] = None) -> Gauge:
+        """Create and register an ad-hoc gauge metric."""
+        metric = Gauge(name, description, labels)
+        self._register(metric)
+        return metric
+
+    def create_histogram(
+        self,
+        name: str,
+        description: str = "",
+        labels: Optional[List[str]] = None,
+        buckets: Optional[List[float]] = None,
+    ) -> Histogram:
+        """Create and register an ad-hoc histogram metric."""
+        metric = Histogram(name, description, labels, buckets)
+        self._register(metric)
+        return metric
+
     def get(self, name: str) -> Optional[Metric]:
         """Get a metric by name."""
         with self._lock:
             return self._metrics.get(name)
 
     def counter(self, name: str) -> Counter:
-        """Get a counter metric."""
+        """Get or create a counter metric."""
         metric = self.get(name)
+        if metric is None:
+            return self.create_counter(name)
         if not isinstance(metric, Counter):
             raise TypeError(f"Metric {name} is not a Counter")
         return metric
 
     def gauge(self, name: str) -> Gauge:
-        """Get a gauge metric."""
+        """Get or create a gauge metric."""
         metric = self.get(name)
+        if metric is None:
+            return self.create_gauge(name)
         if not isinstance(metric, Gauge):
             raise TypeError(f"Metric {name} is not a Gauge")
         return metric
 
     def histogram(self, name: str) -> Histogram:
-        """Get a histogram metric."""
+        """Get or create a histogram metric."""
         metric = self.get(name)
+        if metric is None:
+            return self.create_histogram(name)
         if not isinstance(metric, Histogram):
             raise TypeError(f"Metric {name} is not a Histogram")
         return metric

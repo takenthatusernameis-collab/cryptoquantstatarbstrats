@@ -3,11 +3,11 @@
 import asyncio
 import os
 import threading
+import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, List, Optional
-import uuid
+from typing import Awaitable, Callable, Dict, List, Optional
 
 
 class IncidentType(str, Enum):

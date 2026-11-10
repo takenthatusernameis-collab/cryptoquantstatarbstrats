@@ -2,11 +2,11 @@
 
 import asyncio
 import time
-from dataclasses import asdict, dataclass, field
+import uuid
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, List, Optional
-import uuid
+from typing import Awaitable, Callable, Dict, List, Optional
 
 
 class DryRunPhase(str, Enum):
@@ -90,8 +90,13 @@ class DryRunValidator:
     """Dry-run validation for full stack without live capital."""
 
     def __init__(self, config: Optional[DryRunConfig] = None):
-        self.config = config or DryRunConfig()
-        self._default_steps()
+        if config is None:
+            self.config = DryRunConfig()
+            self._default_steps()
+        else:
+            self.config = config
+            if not self.config.steps:
+                self._default_steps()
 
     def _default_steps(self) -> None:
         """Add default dry-run steps."""
@@ -178,8 +183,8 @@ class DryRunValidator:
     async def _validate_config(self) -> bool:
         """Validate configuration."""
         try:
-            from config import load_config, validate_config
-            config = load_config()
+            from config import load_config
+            load_config()
             return True
         except Exception:
             return False
@@ -228,13 +233,13 @@ class DryRunValidator:
     async def _test_order_lifecycle(self) -> bool:
         """Test order lifecycle with paper broker."""
         try:
-            from execution.paper_broker import PaperBroker
             from execution.oms import OrderManagementSystem
+            from execution.paper_broker import PaperBroker
             from execution.risk import RiskManager
 
             broker = PaperBroker()
             oms = OrderManagementSystem(broker)
-            risk = RiskManager()
+            RiskManager()
 
             # Create and submit a test order
             order_id = oms.create_order(
@@ -274,9 +279,10 @@ class DryRunValidator:
     async def _test_reconciliation(self) -> bool:
         """Test reconciliation."""
         try:
-            from reconciliation import ReconciliationOrchestrator, ReconciliationConfig
-            from reconciliation.position import PositionSnapshot
             from decimal import Decimal
+
+            from reconciliation import ReconciliationConfig, ReconciliationOrchestrator
+            from reconciliation.position import PositionSnapshot
 
             config = ReconciliationConfig()
             orchestrator = ReconciliationOrchestrator(config)
@@ -301,7 +307,7 @@ class DryRunValidator:
     async def _test_metrics(self) -> bool:
         """Test metrics emission."""
         try:
-            from observability.metrics import get_metrics, Counter
+            from observability.metrics import get_metrics
             metrics = get_metrics()
             counter = metrics.counter("cryptoquant_fills_total")
             counter.inc(1, {"symbol": "BTCUSDT", "exchange": "binance", "side": "buy"})

@@ -1,24 +1,17 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
-> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaigns #1-#6 COMPLETE (Campaign #6 honest/paper, bounded)**. Required C6 artifacts present: `reports/live_testnet_readiness.json`, `reports/testnet_order_lifecycle.json`, `reports/paper_microstructure_validation.json`. **Campaign #7 IMPLEMENTED BUT INCOMPLETE**: artifacts exist (`reports/operator_deployment_readiness.json`, `reports/reconciliation_audit.json`), modules created (`config/`, `observability/`, `playbooks/`, `reconciliation/`, example scripts), but **TESTS FAILING (14 failures)** and **LINTING ERRORS (97 ruff issues)**. Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`; historical handoff JSON/scripts live under `reports/` and `scripts/` and are not active directives). **No fabrication.** `research_state/state.yaml` (C249 RQA/volume line, `oos_edge_proven: false`, locked C104-C248) is a **separate/locked line — DO NOT work it** unless explicitly requested by the user. **Forbidden:** docs-only edits as the session outcome, cleanup/refactors without requested value, status-only bookkeeping, alternate handoffs/TODOs/plans, rerunning C104-C248, rerunning completed Campaigns #1-#6 without a concrete defect, or fabricating data/fills/order books/labels/metrics/exchange responses.
+> Repo priority (name-inferred): `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Campaigns #1-#6 COMPLETE (Campaign #6 honest/paper, bounded)**. Required C6 artifacts present: `reports/live_testnet_readiness.json`, `reports/testnet_order_lifecycle.json`, `reports/paper_microstructure_validation.json`. **Campaign #7 IN PROGRESS (PARTIAL)**: C7 code/test bugs fixed in this session (`reconciliation/fill_audit.py`, `config/profiles.py`, `observability/metrics.py`, `tests/test_observability.py`, `playbooks/preflight.py`, `playbooks/dry_run.py`, `pyproject.toml` pytest asyncio mode); `pytest tests/ -q` => **1064 passed, 1 skipped** and `mypy backtest/ strategies/ utils/` => **Success** (verified 2026-11-10T05:32Z), but **ruff is NOT clean** (`python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => 35 errors; `python -m ruff check config/ observability/ playbooks/ reconciliation/ examples/run_operator_deployment_readiness.py examples/run_reconciliation_audit.py tests/test_config.py tests/test_observability.py tests/test_playbooks.py tests/test_reconciliation.py` => 74 errors, mostly E501/F841 in new C7 modules/examples/tests). Competing handoff/TODO docs at repo root: **NONE** (only `HANDOFF.md`). **No fabrication.** `research_state/state.yaml` (C249 RQA/volume line, `oos_edge_proven: false`, locked C104-C248) is a **separate/locked line — DO NOT work it** unless explicitly requested by the user. **Forbidden:** docs-only edits as the session outcome, cleanup/refactors without requested value, status-only bookkeeping, alternate handoffs/TODOs/plans, rerunning C104-C248, rerunning completed Campaigns #1-#6 without a concrete defect, or fabricating data/fills/order books/labels/metrics/exchange responses.
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-10T05:21:23Z | VERIFIED NOW | `HANDOFF.md` is the ONLY active root handoff/TODO — no competing root handoff/TODO docs found (`./HANDOFF.md` only; historical/non-directive artifacts remain under `reports/`/`scripts/`). `git status` clean at inspection time (nothing staged/unstaged). No blocked/stale sessions, lock markers, or session bottlenecks detected — all sessions unblocked to proceed. Toolchain present: `/home/runner/work/_temp/kilo-home/.local/bin` and deps `/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages`. Baseline gates last run 2026-11-10T05:21:23Z: `pytest tests/ -q` => **14 failed, 1050 passed, 1 skipped** (pre-existing C6 flake `test_adapter_lifecycle_microstructure_integration` passes in isolation; 13 new C7 failures); `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **97 errors**; `mypy backtest/ strategies/ utils/` => **Success, 36 source files**. C7 artifacts present (`reports/operator_deployment_readiness.json`, `reports/reconciliation_audit.json`) with honest schema/provenance. **EXPLICIT DIRECTIONS ABSENT => FIX C7 TEST FAILURES + LINTING IMMEDIATELY** to complete Campaign #7 with heavy work. Do NOT stop at reading/summarizing/status-checking/planning without implementing fixes.]**
+**[2026-11-10T05:32:00Z | VERIFIED NOW | `HANDOFF.md` is the ONLY active root handoff/TODO. Baseline before this session: `14 failed, 1050 passed, 1 skipped`; C7 failures fixed and gates rerun after source changes: `pytest tests/ -q` => **1064 passed, 1 skipped** (4033 warnings, env/deprecation), `mypy backtest/ strategies/ utils/` => **Success (36 source files)**. `pytest-asyncio` installed and `asyncio_mode = "auto"` added in `pyproject.toml`. Ruff remains failing (see §1/§2) — C7 NOT complete. **EXPLICIT DIRECTIONS ABSENT => CONTINUE HEAVY WORK: make ruff clean for C7 scope (and full repo if feasible without unrelated behavior changes), then rerun gates and update this handoff with truth.** No blocked/stale sessions detected; no credentials/testnet keys; no public historical L2/intrabar replay — do not fabricate.]**
 
-**NEXT AGENTIC SESSION: FIX C7 TEST FAILURES + LINTING NOW (HEAVY WORK, NON-OPTIONAL, NO EXIT WITHOUT GREEN GATES).**
-- **First substantive actions MUST produce fixes + passing tests + clean lint.** Do **NOT** stop after reading/summarizing/status-checking/planning without implementing fixes. Planning/summaries without committed fixes = **failure**.
+**NEXT AGENTIC SESSION: FINISH C7 BY CLEARING RUFF (HEAVY WORK, NON-OPTIONAL, NO EXIT WITHOUT GREEN GATES).**
+- **First substantive actions MUST produce code fixes + passing lint/tests.** Do **NOT** stop after reading/summarizing/status-checking/planning without implementing fixes.
 - **Do NOT redo Campaigns #1-#6** unless you find a concrete defect and fix it with evidence. Do NOT touch `research_state/state.yaml` / C249 / locked C104-C248.
-- **No fabrication. Ever.** No synthetic/fabricated fills, order books, exchange responses, balances, PnL, or metrics presented as real/testnet evidence. Exchange credentials/testnet keys are not assumed.
-- **Bottleneck removal (2026-11-10T05:21:23Z):** clean git tree; toolchain present; baseline gates recorded — no blocked/stale sessions or lock markers detected. Standing constraints: rerun gates after source changes; no exchange/testnet credentials present; historical L2/intrabar replay not publicly available — do not fabricate.
-- **Heavy-work mandate:** Fix all 14 test failures and 97 ruff errors. At minimum:
-  1. Fix `FillAuditor.audit()` logic bug in `reconciliation/fill_audit.py:116-121` — when internal fill has `exchange_order_id` but no matching exchange fill exists, add `client_order_id` to `unmatched_client_orders` (not `exchange_order_id` to `unmatched_exchange_orders`)
-  2. Install `pytest-asyncio` and add `@pytest.mark.asyncio` to async tests in `test_playbooks.py` (7 tests, already decorated) + `test_observability.py` (4 tests: `test_liveness_probe`, `test_readiness_probe_no_deps`, `test_readiness_probe_with_deps`, `test_readiness_probe_critical_failure` — add missing decorators)
-  3. Fix pydantic attribute error in `config/profiles.py:260` — `validate_config()` returns `ConfigSchema` directly, remove `.config` accessor
-  4. Fix prometheus exporter in `observability/metrics.py` — add `create_counter()`, `create_gauge()`, `create_histogram()` factory methods to `MetricsCollector` so tests can create ad-hoc metrics
-  5. Run `ruff check --fix` on all directories, then manually fix remaining lint issues (import sorting, unused imports, line length, trailing newlines)
-  6. **Rerun full gates** until all pass
+- **No fabrication. Ever.**
+- **Focus:** resolve remaining ruff errors (primarily line-length/format/style in `config/`, `observability/`, `playbooks/`, `reconciliation/`, C7 example runners, and touched tests) without changing behavior or weakening tests; prefer safe refactors/wrapping. Also check `backtest/ data/ strategies/ utils/ tests/ examples/` scope if needed for project gate cleanliness as used in this repo.
 - **Quality gates before declaring C7 complete (rerun after changes):**
     ```bash
     cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
@@ -31,50 +24,47 @@
     Fix regressions caused by your changes. Record outcomes truthfully.
 - **Handoff update:** Update **only** `HANDOFF.md` at material checkpoint/completion with verified truth. Keep it the single durable handoff.
 
-**This directive remains active until** all C7 tests pass, ruff is clean, and mypy passes.
+**This directive remains active until** ruff is clean (at least for C7-relevant code and repo standard checks as applicable), tests/mypy remain green, and C7 is honestly complete.
 
-## 1) Verified state (2026-11-10T05:21:23Z)
+## 1) Verified state (2026-11-10T05:32:00Z)
 
-- **Deps/gates env:** local deps in `/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages`; tools in `/home/runner/work/_temp/kilo-home/.local/bin`.
-- **Last recorded full gates (2026-11-10T05:21:23Z):** `14 failed, 1050 passed, 1 skipped`; C6 flake `test_adapter_lifecycle_microstructure_integration` passes in isolation; **13 C7 failures**: `test_reconciliation.py::TestFillAudit::test_fill_audit_unmatched` (1), `test_playbooks.py` async tests (7), `test_config.py::TestConfigProfiles::test_load_config_from_file` (1), `test_observability.py` async tests (4) + prometheus exporter (1); `ruff` 97 errors; `mypy` success (36 source files). **Rerun after any source change.**
-- **Real data:** Binance public spot klines/cached data available and used for C5/C6 bounded sessions; 451/blocked-route handling honest. Never fabricate.
-- **Artifacts C1-C7:** `reports/funding_carry_real.json`, `reports/execution_lob_real.json`, `reports/regime_adaptive_sweep.json`, `reports/ml_gated_pairs.json`, `reports/pairs_mtf_5m_1h.json`, `reports/paper_trading_session.json`, `reports/risk_dashboard.json`, `reports/live_testnet_readiness.json`, `reports/testnet_order_lifecycle.json`, `reports/paper_microstructure_validation.json`, `reports/operator_deployment_readiness.json`, `reports/reconciliation_audit.json` present.
-- **Bottlenecks:** none blocking start; toolchain/clean tree present. Constraints: no exchange/testnet credentials; no public historical L2/intrabar replay.
+- **Deps/gates env:** local deps in `/home/runner/work/_temp/kilo-home/.local/lib/python3.12/site-packages`; tools in `/home/runner/work/_temp/kilo-home/.local/bin`; `pytest-asyncio 1.4.1.post1` installed.
+- **Gates after this session's fixes:** `pytest tests/ -q` => **1064 passed, 1 skipped, 4033 warnings in 59.29s**. `mypy backtest/ strategies/ utils/` => **Success: no issues found in 36 source files**. Ruff failing: `backtest/ data/ strategies/ utils/ tests/ examples/` => **35 errors**; `config/ observability/ playbooks/ reconciliation/ examples/run_operator_deployment_readiness.py examples/run_reconciliation_audit.py tests/test_config.py tests/test_observability.py tests/test_playbooks.py tests/test_reconciliation.py` => **74 errors** (E501 line-length dominant; plus minor style issues in C7 modules). **Rerun after any source change.**
+- **C7 fixes applied this session (behavioral, verified by tests):**
+  - `reconciliation/fill_audit.py`: unmatched internal fill with missing exchange match now recorded in `unmatched_client_orders` (not `unmatched_exchange_orders`).
+  - `config/profiles.py`: `load_config(config_file=...)` returns `validate_config(...)` directly (Pydantic schema object).
+  - `observability/metrics.py`: `_make_key` preserves passed labels when label schema unspecified; added `create_counter/gauge/histogram`; `counter/gauge/histogram` now auto-create missing ad-hoc metrics.
+  - `tests/test_observability.py`: import `DependencyCheck` from `observability.health`.
+  - `playbooks/preflight.py`: only inject default checks when none provided; overall status fails only on critical failures (non-critical failures reported but do not fail overall) — aligns with existing tests.
+  - `playbooks/dry_run.py`: only inject default steps when config/steps not provided.
+  - `pyproject.toml`: added `asyncio_mode = "auto"` for pytest.
+- **Real data/provenance constraints unchanged:** no exchange/testnet credentials; no public historical L2/intrabar replay; Binance 451/blocked-route handling remains honest in prior artifacts. Never fabricate.
+- **Artifacts C1-C7 present** as previously recorded.
 
 ## 1.1) Parallel-track caution
-`research_state/state.yaml` (locked C104-C248, `next_campaign: C249`, `oos_edge_proven: false`) is a separate locked RQA/volume line. **Do not** work C249/registry/status instead of fixing C7 unless explicitly requested.
+`research_state/state.yaml` (locked C104-C248, `next_campaign: C249`, `oos_edge_proven: false`) is a separate locked RQA/volume line. **Do not** work C249/registry/status instead of C7 completion unless explicitly requested.
 
-## 2) C7 failure details (fix these now)
+## 2) Remaining C7 work (fix now)
 
-| Module | Failures | Root cause | Exact fix |
-|--------|----------|------------|-----------|
-| `reconciliation/fill_audit.py` | 1 (`test_fill_audit_unmatched`) | When internal fill has `exchange_order_id` set but no matching exchange fill exists, audit adds `exchange_order_id` to `unmatched_exchange_orders` instead of `client_order_id` to `unmatched_client_orders` | In `audit()` method lines 116-121: change `result.unmatched_exchange_orders.append(fill.exchange_order_id)` to `result.unmatched_client_orders.append(fill.client_order_id)` |
-| `playbooks/` | 7 (all async tests) | Missing `pytest-asyncio` plugin; tests use `async def` with `@pytest.mark.asyncio` but plugin not installed | `pip install pytest-asyncio` |
-| `config/` | 1 (`test_load_config_from_file`) | Pydantic v2: `validate_config()` returns `ConfigSchema` directly but `load_config()` tries to access `.config` attribute | `config/profiles.py:260`: change `return validate_config(load_config_file(config_file)).config` to `return validate_config(load_config_file(config_file))` |
-| `observability/` | 5 (4 async + 1 prometheus) | Missing `pytest-asyncio`; 3 async tests missing `@pytest.mark.asyncio` decorator; `PrometheusMetricsExporter` test fails because `MetricsCollector.counter()` expects pre-registered metric | 1) `pip install pytest-asyncio`, 2) Add `@pytest.mark.asyncio` to `test_readiness_probe_no_deps`, `test_readiness_probe_with_deps`, `test_readiness_probe_critical_failure` in `test_observability.py`, 3) Add `create_counter()`, `create_gauge()`, `create_histogram()` factory methods to `MetricsCollector` class in `observability/metrics.py` |
+| Area | State | Notes |
+|---|---|---|
+| Tests (C7) | **GREEN** | Prior 14 failures resolved; full suite 1064 passed, 1 skipped. |
+| Mypy | **GREEN** | `backtest/ strategies/ utils/` clean. |
+| Ruff | **RED** | 74 errors in C7-focused scope + 35 in broader standard dirs (overlapping examples/tests). Mostly E501 from new C7 code/config schema strings/example runners and a few F841/other in C7 modules. Clear without semantic changes. |
 
-## 3) Immediate fix sequence (execute in order)
-
-1. **Install `pytest-asyncio`** and add `@pytest.mark.asyncio` to async tests in `test_observability.py` (3 missing decorators)
-2. **Fix `FillAuditor.audit()`** in `reconciliation/fill_audit.py:116-121` to populate `unmatched_client_orders` when internal fills have `exchange_order_id` but lack exchange matches
-3. **Fix pydantic attribute error** in `config/profiles.py:260` — remove `.config` accessor from `validate_config()` return value
-4. **Add metric factory methods** to `MetricsCollector` in `observability/metrics.py` — `create_counter()`, `create_gauge()`, `create_histogram()` that register and return new metric instances
-5. **Run `ruff check --fix`** on all directories, then manually fix remaining lint issues (import sorting, unused imports, line length, trailing newlines)
-6. **Rerun full gates** until all pass
-
-## 4) Campaign outcomes summary
+## 3) Campaign outcomes summary
 
 | Campaign | State | Key artifacts / notes |
 |---|---|---|
-| #1 Regime-Adaptive Signal Generation | COMPLETE | `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Honest (held-out proxy 0.473 < 0.65; best OOS mean return 0.0). |
-| #2 Funding/Basis-Carry + LOB/Intrabar Feasibility | COMPLETE (honest) | `reports/funding_carry_real.json` (ok, 2296 real rows). `reports/execution_lob_real.json` (partial; snapshots ok; historical L2 replay infeasible; no fabricated fills/order books). |
-| #3 ML-augmented signal filtering | COMPLETE | `reports/ml_gated_pairs.json` (ok, real-data-only, 544 labeled rows, cv_ok). `strategies/ml_gated_pairs.py`, `utils/ml_gating.py`, tests, runner. |
-| #4 HF/multi-timeframe cointegration | COMPLETE (honest) | `reports/pairs_mtf_5m_1h.json` (ok,true,false), `utils/mtf_pairs.py`, `examples/run_pairs_mtf_5m_1h_real.py`, `tests/test_pairs_mtf.py`. 14 pairs evaluated; base cost sensitivity 8 ok; negative mean Sharpe reported honestly — no profitable edge claimed. |
-| #5 Production bridge (paper OMS + risk) | COMPLETE (bounded/paper, honest) | `reports/paper_trading_session.json` (ok,true,true,false,true,false; 22 paper fills, all labeled simulated/not real exchange; real cached Binance BTC 1h; blocked live/testnet routes recorded). `reports/risk_dashboard.json`. Code: `execution/oms.py`, `execution/paper_broker.py`, `execution/risk.py`, `utils/risk_dashboard.py`, `examples/run_paper_trading_live.py`. Tests: `tests/test_production_bridge_campaign5.py` (11). Full gates green as recorded. |
-| #6 Live/testnet execution validation | COMPLETE (honest/paper/bounded) | `reports/live_testnet_readiness.json` (capability probes, blocked routes, preflight, go/no-go), `reports/testnet_order_lifecycle.json` (9/9 lifecycle scenarios passed), `reports/paper_microstructure_validation.json` (8 fills with latency/slippage/impact/queue/partial-fill stats). Code: `execution/adapter.py`, `execution/lifecycle.py`, `execution/microstructure.py`, `examples/run_live_testnet_readiness.py`. Tests: `tests/test_live_testnet_execution_campaign6.py` (41). Full gates green as recorded. |
-| #7 Operator deployment hardening | **IMPLEMENTED / TESTS FAILING** | Artifacts exist; modules created; **14 test failures + 97 lint errors to fix** (see §2-3). |
+| #1 Regime-Adaptive Signal Generation | COMPLETE | `reports/regime_adaptive_sweep.json`, `examples/run_regime_detection_real.py`. Honest. |
+| #2 Funding/Basis-Carry + LOB/Intrabar Feasibility | COMPLETE (honest) | `reports/funding_carry_real.json`; `reports/execution_lob_real.json` partial/blocked where required. |
+| #3 ML-augmented signal filtering | COMPLETE | `reports/ml_gated_pairs.json`, `strategies/ml_gated_pairs.py`, `utils/ml_gating.py`. |
+| #4 HF/multi-timeframe cointegration | COMPLETE (honest) | `reports/pairs_mtf_5m_1h.json`, `utils/mtf_pairs.py`. |
+| #5 Production bridge (paper OMS + risk) | COMPLETE (bounded/paper, honest) | `reports/paper_trading_session.json`, `reports/risk_dashboard.json`. |
+| #6 Live/testnet execution validation | COMPLETE (honest/paper/bounded) | `reports/live_testnet_readiness.json`, `reports/testnet_order_lifecycle.json`, `reports/paper_microstructure_validation.json`. |
+| #7 Operator deployment hardening | **IN PROGRESS (tests/mypy green, ruff red)** | Artifacts/modules present; lint cleanup remaining before completion claim. |
 
-## 5) Reproduction / gate commands
+## 4) Reproduction / gate commands
 
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
@@ -82,14 +72,13 @@ export PYTHONPATH=/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbs
 export PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH
 python -m pytest tests/ -q
 python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
+python -m ruff check config/ observability/ playbooks/ reconciliation/ examples/run_operator_deployment_readiness.py examples/run_reconciliation_audit.py tests/test_config.py tests/test_observability.py tests/test_playbooks.py tests/test_reconciliation.py
 python -m mypy backtest/ strategies/ utils/
-python examples/run_paper_trading_live.py  # regenerates C5 artifacts from real cached data
-python examples/run_live_testnet_readiness.py  # regenerates C6 artifacts
 ```
 
-## 6) Handoff contract
-- Start with fixing C7 test failures + linting immediately. Do not redo #1-#6 unless fixing a concrete defect.
-- Produce real/public-data artifacts with provenance. Any simulated/testnet/paper fill must be explicitly labeled; never claim real exchange evidence. If blocked, record exact `blocked_routes`/rationale — do not fabricate.
-- At material checkpoint/completion, update **only** `HANDOFF.md` with verified truth. Keep it the single durable handoff.
+## 5) Handoff contract
+- Continue with heavy implementation: clear ruff, keep tests/mypy green, no behavior regressions, no fabrication.
+- Do not redo #1-#6 unless fixing a concrete defect. Do not touch locked C104-C248/state RQA line.
+- Update **only** `HANDOFF.md` at next material checkpoint/completion with verified truth.
 
 (End of file)

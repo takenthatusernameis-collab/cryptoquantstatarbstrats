@@ -1,10 +1,10 @@
 """Fill audit trail with client_order_id ↔ exchange_order_id linkage."""
 
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
 from decimal import Decimal
-import uuid
+from typing import Dict, List, Optional
 
 
 @dataclass
@@ -76,7 +76,6 @@ class FillAuditor:
         matched_client_ids = set()
         matched_exchange_ids = set()
         seen_client_ids = set()
-        seen_exchange_ids = set()
 
         for fill in self._fill_sequence:
             # Check for duplicate client_order_ids
@@ -114,7 +113,7 @@ class FillAuditor:
                         })
                         result.passed = False
                 else:
-                    result.unmatched_exchange_orders.append(fill.exchange_order_id)
+                    result.unmatched_client_orders.append(fill.client_order_id)
                     result.passed = False
             else:
                 result.unmatched_client_orders.append(fill.client_order_id)

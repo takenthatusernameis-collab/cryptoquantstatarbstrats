@@ -1,14 +1,13 @@
 """Operational state management with persistence."""
 
 import json
-import os
 import threading
-from dataclasses import asdict, dataclass, field
+import uuid
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
-import uuid
 
 
 class OperationalState(str, Enum):

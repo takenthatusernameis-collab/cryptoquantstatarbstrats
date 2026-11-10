@@ -1,28 +1,28 @@
 """Observability module for structured logging, metrics, and health checks."""
 
-from .logging import (
-    StructuredLogger,
-    get_logger,
-    configure_logging,
-    OrderLifecycleLogger,
-    RiskDecisionLogger,
-    AdapterProbeLogger,
-    MicrostructureEventLogger,
-)
-from .metrics import (
-    MetricsCollector,
-    get_metrics,
-    PrometheusMetricsExporter,
-    Counter,
-    Histogram,
-    Gauge,
-)
 from .health import (
+    DependencyStatus,
     HealthCheckServer,
     LivenessProbe,
     ReadinessProbe,
-    DependencyStatus,
     start_health_server,
+)
+from .logging import (
+    AdapterProbeLogger,
+    MicrostructureEventLogger,
+    OrderLifecycleLogger,
+    RiskDecisionLogger,
+    StructuredLogger,
+    configure_logging,
+    get_logger,
+)
+from .metrics import (
+    Counter,
+    Gauge,
+    Histogram,
+    MetricsCollector,
+    PrometheusMetricsExporter,
+    get_metrics,
 )
 
 __all__ = [

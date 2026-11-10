@@ -1,10 +1,10 @@
 """Order lifecycle state machine audit."""
 
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Set
-import uuid
 
 
 class OrderState(str, Enum):
@@ -178,7 +178,6 @@ class LifecycleAuditor:
                 result.passed = False
 
             # Check each transition
-            prev_state = OrderState.CREATED
             seen_transitions = set()
 
             for transition in order.transitions:
@@ -202,7 +201,6 @@ class LifecycleAuditor:
                     })
                     result.passed = False
 
-                prev_state = transition.to_state
 
             # Check for orphan orders (stuck in non-terminal state)
             if order.current_state not in TERMINAL_STATES:

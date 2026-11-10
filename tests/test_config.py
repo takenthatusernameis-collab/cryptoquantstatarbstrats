@@ -2,22 +2,21 @@
 
 import os
 import tempfile
-from pathlib import Path
 
 import pytest
 
 from config import (
-    load_config,
     ConfigProfile,
     Environment,
-    validate_config,
-    RiskConfigSchema,
     ExchangeConfigSchema,
     ObservabilityConfigSchema,
-    ReconciliationConfigSchema,
     PlaybookConfigSchema,
+    ReconciliationConfigSchema,
+    RiskConfigSchema,
+    load_config,
+    validate_config,
 )
-from config.env import SecretFreeEnvTemplate, EnvVarSpec
+from config.env import EnvVarSpec, SecretFreeEnvTemplate
 
 
 class TestConfigSchemas:

@@ -10,14 +10,12 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config import load_config, ConfigProfile, Environment
-from config.env import SecretFreeEnvTemplate
-from observability import configure_logging, get_metrics, get_logger, start_health_server
-from observability.health import DependencyCheck
-from playbooks import PreflightChecker, StateManager, IncidentResponse, DryRunValidator
-from playbooks.incident import IncidentType, IncidentSeverity
+from config import load_config
+from observability import configure_logging, get_logger, get_metrics
+from playbooks import DryRunValidator, IncidentResponse, PreflightChecker, StateManager
 from playbooks.dry_run import DryRunStatus
-from reconciliation import ReconciliationOrchestrator, ReconciliationConfig
+from playbooks.incident import IncidentSeverity, IncidentType
+from reconciliation import ReconciliationConfig, ReconciliationOrchestrator
 
 
 def run_capability_probes() -> dict:
@@ -76,8 +74,9 @@ def run_capability_probes() -> dict:
 
     # Exchange capability probe - may fail in test env
     try:
-        import aiohttp
         import asyncio
+
+        import aiohttp
 
         async def probe_exchange():
             async with aiohttp.ClientSession() as session:
@@ -102,8 +101,9 @@ def run_capability_probes() -> dict:
 
     # Data feed validation - may fail in test env
     try:
-        import aiohttp
         import asyncio
+
+        import aiohttp
 
         async def probe_data():
             async with aiohttp.ClientSession() as session:
@@ -209,8 +209,9 @@ def run_observability_checks() -> dict:
 
     # Health checks
     try:
-        from observability.health import LivenessProbe, ReadinessProbe
         import asyncio
+
+        from observability.health import LivenessProbe, ReadinessProbe
 
         liveness = LivenessProbe()
         liveness_result = asyncio.run(liveness.check())
@@ -249,10 +250,11 @@ def run_reconciliation_checks() -> dict:
         orchestrator = ReconciliationOrchestrator(config)
 
         # Add test data
-        from reconciliation.position import PositionSnapshot
+        from decimal import Decimal
+
         from reconciliation.cash import CashSnapshot
         from reconciliation.equity import EquitySnapshot
-        from decimal import Decimal
+        from reconciliation.position import PositionSnapshot
 
         orchestrator.update_internal_position(PositionSnapshot(
             source="internal", symbol="BTCUSDT", quantity=Decimal("1.0")

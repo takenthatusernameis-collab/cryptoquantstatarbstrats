@@ -3,34 +3,31 @@
 import pytest
 
 from observability import (
-    StructuredLogger,
-    get_logger,
-    configure_logging,
-    OrderLifecycleLogger,
-    RiskDecisionLogger,
     AdapterProbeLogger,
-    MicrostructureEventLogger,
-    MetricsCollector,
-    get_metrics,
     Counter,
+    DependencyStatus,
     Gauge,
     Histogram,
-    PrometheusMetricsExporter,
-    HealthCheckServer,
     LivenessProbe,
+    MetricsCollector,
+    MicrostructureEventLogger,
+    OrderLifecycleLogger,
+    PrometheusMetricsExporter,
     ReadinessProbe,
-    DependencyStatus,
+    RiskDecisionLogger,
+    StructuredLogger,
+    get_logger,
 )
+from observability.health import DependencyCheck
 from observability.logging import (
-    LogEventType,
-    OrderEventType,
-    RiskDecisionType,
+    AdapterProbeEvent,
     AdapterProbeType,
+    MicrostructureEvent,
     MicrostructureEventType,
+    OrderEventType,
     OrderLifecycleEvent,
     RiskDecisionEvent,
-    AdapterProbeEvent,
-    MicrostructureEvent,
+    RiskDecisionType,
 )
 
 
@@ -305,7 +302,6 @@ class TestHealthChecks:
         assert result.name == "liveness"
         assert "uptime_seconds" in result.details
 
-    @pytest.mark.asyncio
     async def test_readiness_probe_no_deps(self):
         """Test readiness probe with no dependencies."""
         probe = ReadinessProbe()
@@ -313,7 +309,6 @@ class TestHealthChecks:
         assert result.status == DependencyStatus.HEALTHY
         assert result.name == "readiness"
 
-    @pytest.mark.asyncio
     async def test_readiness_probe_with_deps(self):
         """Test readiness probe with dependencies."""
         async def healthy_check():
@@ -330,7 +325,6 @@ class TestHealthChecks:
         assert result.status == DependencyStatus.DEGRADED
         assert "dependencies" in result.details
 
-    @pytest.mark.asyncio
     async def test_readiness_probe_critical_failure(self):
         """Test readiness probe with critical dependency failure."""
         async def unhealthy_check():

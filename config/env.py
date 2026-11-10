@@ -1,10 +1,9 @@
 """Secret-free environment variable templates."""
 
 import os
-import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set
 from pathlib import Path
+from typing import Dict, List, Optional, Set
 
 
 @dataclass
@@ -58,9 +57,9 @@ class SecretFreeEnvTemplate:
             if var.example:
                 lines.append(f"# Example: {var.example}")
             if var.sensitive:
-                lines.append(f"# ⚠️  SECRET - Never commit actual values")
+                lines.append("# ⚠️  SECRET - Never commit actual values")
             else:
-                lines.append(f"# Non-sensitive")
+                lines.append("# Non-sensitive")
             if var.required:
                 lines.append(f"{var.name}=")
             else:
@@ -300,7 +299,6 @@ def load_env_template(path: str) -> SecretFreeEnvTemplate:
 
     current_desc = ""
     current_example = None
-    current_required = True
     current_sensitive = True
 
     for line in content.splitlines():
@@ -337,7 +335,6 @@ def load_env_template(path: str) -> SecretFreeEnvTemplate:
             )
             current_desc = ""
             current_example = None
-            current_required = True
             current_sensitive = True
 
     return template

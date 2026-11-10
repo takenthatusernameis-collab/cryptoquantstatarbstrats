@@ -3,14 +3,12 @@
 import json
 import logging
 import sys
-import time
+import threading
 import uuid
-from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Dict, Optional, Callable
-import threading
+from typing import Any, Dict, Optional
 
 
 class LogEventType(str, Enum):

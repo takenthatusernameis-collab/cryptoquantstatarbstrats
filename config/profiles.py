@@ -1,19 +1,18 @@
 """Configuration profiles for dev/staging/prod environments."""
 
 import os
-from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from .schemas import (
     ConfigSchema,
     Environment,
-    validate_config,
-    load_config_file,
     ExchangeConfigSchema,
-    RiskConfigSchema,
     ObservabilityConfigSchema,
-    ReconciliationConfigSchema,
     PlaybookConfigSchema,
+    ReconciliationConfigSchema,
+    RiskConfigSchema,
+    load_config_file,
+    validate_config,
 )
 
 
@@ -257,7 +256,7 @@ class ConfigProfile:
 def load_config(profile: Optional[str] = None, config_file: Optional[str] = None) -> ConfigSchema:
     """Load configuration from profile or file."""
     if config_file:
-        return validate_config(load_config_file(config_file)).config
+        return validate_config(load_config_file(config_file))
 
     if profile:
         if profile == "development":

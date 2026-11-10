@@ -1,15 +1,15 @@
 """Health check endpoints (liveness/readiness) with dependency status."""
 
 import asyncio
-import json
+import threading
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Awaitable, Callable, Dict, List, Optional
+
 from aiohttp import web
-import threading
 
 
 class DependencyStatus(str, Enum):
