@@ -43,6 +43,8 @@ tests/test_binance_loader.py
 tests/test_cache_provenance_replay.py
 tests/test_campaign24_unblock_trend.py
 tests/test_campaign2_funding_lob_feasibility.py
+tests/test_campaign8_edge_robustness.py
+tests/test_campaign9_causal_gate_edge_search.py
 tests/test_capital_allocation_gating_mt.py
 tests/test_capital_preservation_failover_hardening_mt.py
 tests/test_cli.py
