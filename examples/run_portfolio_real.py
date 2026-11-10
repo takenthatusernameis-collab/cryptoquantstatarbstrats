@@ -219,6 +219,31 @@ class PortfolioRiskController:
             (self.max_gross_exposure / gross.replace(0, np.nan)).clip(upper=1.0).fillna(1.0)
         )
         w = w.multiply(scale_gross, axis=0)
+        # Drawdown circuit breaker: track running peak equity and, once the
+        # trailing drawdown breaches the threshold, zero all subsequent weights.
+        # This is the risk controller's OWN enforcement; the engine's separate
+        # DrawdownCircuitBreaker is a second, independent layer.
+        if (
+            self.drawdown_circuit_breaker is not None
+            and returns is not None
+            and len(w.columns) > 0
+        ):
+            try:
+                cols = [c for c in w.columns if c in returns.columns]
+                if cols:
+                    rets = returns[cols].reindex(w.index).fillna(0.0)
+                    shifted = w[cols].shift(1).fillna(0.0)
+                    port_rets = (shifted * rets).sum(axis=1)
+                    equity = (1.0 + port_rets).cumprod()
+                    running_peak = equity.cummax()
+                    drawdown = equity / running_peak - 1.0
+                    breached_mask = drawdown <= float(self.drawdown_circuit_breaker)
+                    if bool(breached_mask.any()):
+                        first_idx = breached_mask.idxmax()
+                        w.loc[first_idx:] = 0.0
+                        self._circuit_breached = True
+            except Exception:
+                pass
         return w.fillna(0.0)
 
 
