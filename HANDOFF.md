@@ -3,15 +3,15 @@
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
 > Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:37Z, only `HANDOFF.md`; historical handoff-named JSON/scripts in `reports/` and `scripts/` are artifacts, not competing directives). **No fabrication. Ever.**
 > **Separate locked line — DO NOT WORK/MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Unrelated to Campaign #8 and must not block it.
-> **BOTTLENECK STATUS (2026-11-10T12:00Z):** No in-workspace env/data/credential blockers. Campaign #8 primary deliverable produced this session (script + timestamped real-data artifact + deterministic tests) with all required gates green. Remaining blocker to a provable positive OOS edge is evidentiary (fail-closed enriched gates block tradable exposure on tested cached-real pairs/windows/costs); no fabrication/credentials can remove it.
+> **BOTTLENECK STATUS (2026-11-10T12:07Z):** No in-workspace env/data/credential blockers. Campaign #8 COMPLETE (honest, `no_edge`, gates green: pytest 1070/1 skipped, ruff clean, mypy 36 files). Campaign #9 is now the active mandatory heavy work. Remaining blocker to a provable positive OOS edge is evidentiary (causal per-bar enriched-gate path not yet evidenced on cached-real data); no fabrication/credentials can remove it.
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T11:37:58Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, session bootstrap check complete]**
+**[2026-11-10T12:07:22Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, session bootstrap check complete]**
 
-**NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign8_edge_robustness.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign8_edge_robustness_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
+**NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign9_causal_gate_edge_search.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign9_causal_gate_edge_search_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
 
-**MISSION (repo-priority, evidence-first):** Determine with reproducible real-data evidence **under which real-data cost, regime, window, and enriched-gate conditions (if any) do pairs/portfolio strategies show positive OOS net after costs vs buy-and-hold, and how do enriched gates and portfolio risk controls affect that result?** Negative or insufficient findings are valid **only** if honest, reproducible, fully evidenced, and never fabricated. Negative/insufficient outcomes do **not** excuse skipping heavy implementation, tests, or artifact generation.
+**MISSION (repo-priority, evidence-first):** Determine with reproducible real-data evidence **whether any cost-aware OOS net edge exists for BTC/ETH, ETH/SOL, BTC/SOL and portfolio slices consistent with `reports/portfolio_real.json` when enriched gates are evaluated causally/per-bar on trailing windows (not via static aggregate fail-closed shortcuts), and how causal per-bar gates affect trade/exposure accounting vs the C8 `no_edge` baseline.** Negative or insufficient findings are valid **only** if honest, reproducible, fully evidenced, and never fabricated. Negative/insufficient outcomes do **not** excuse skipping heavy implementation, tests, or artifact generation.
 
 ### BOTTLENECKS CLEARED / READY STATE (re-verified 2026-11-10T11:35Z)
 
@@ -161,5 +161,12 @@ $PY -m mypy backtest/ strategies/ utils/
 2. **Deterministic tests:** add/tighten tests proving causal/per-bar gate enforcement parity and fail-closed behavior for missing/unassessable/failed gates and structural breaks on cached-real subsets (no synthetic unless explicitly flagged, avoid if possible).
 3. **Gates:** pass `$PT tests/ -q`, main ruff, C7 ruff, `$PY -m mypy backtest/ strategies/ utils/` and record exact outcomes.
 4. **Handoff:** update only `HANDOFF.md` at completion/checkpoint with verified UTC, commands, artifact paths+SHA256, gate outcomes, concrete findings, and next unambiguous heavy directive (Campaign #10 or evidenced blockers). No fabrication, no deferral.
+
+### SESSION 2026-11-10T12:07Z — HANDOFF REFRESH (C8 complete, C9 active)
+
+- Verified: single root handoff is `HANDOFF.md`; no root TODO/NEXT/plan files. `c7-venv` exists at `/home/runner/work/_temp/kilo-tmp/c7-venv`; cached spot/volume data present in `data/cache/` (SHA256-verified in `research_state/state.yaml`).
+- Campaign #8 complete: `examples/run_campaign8_edge_robustness.py`, `reports/campaign8_edge_robustness_20261110T115802Z.json` (SHA256 `5064aea1688751d063b01349743ef8d3997299bced107f91217c1b35b3c95d42`), `tests/test_campaign8_edge_robustness.py`; gates green (pytest 1070 passed, 1 skipped; ruff main+C7 clean; mypy 36 files success). Honest conclusion: `no_edge` under fail-closed enriched gates on tested cached-real slices.
+- Campaign #8 §0 directive satisfied; **next agent must execute §0 immediately and produce Campaign #9 item 1 (code + timestamped real-data artifact) before any status-only work.**
+- Do not modify `research_state/state.yaml` RQA C104–C249 line. No env/data/credential blockers in-workspace.
 
 **END OF DURABLE HANDOFF — NEXT AGENT MUST START WITH §0 BOOTSTRAP (if needed), THEN EXECUTE CAMPAIGN #9 HEAVY WORK IMMEDIATELY.**
