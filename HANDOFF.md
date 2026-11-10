@@ -1,45 +1,49 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (verified 2026-11-10T17:05:10Z; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (verified 2026-11-10T17:12:23Z; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid; status-only work is not.
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). This is a separate research line and must not be edited to block/replace C1–C11 progress.
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C11 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T17:10:00Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T17:12:23Z UTC)
 
-**STATE:** Campaigns #1–#11 COMPLETE on the cached-real enriched-gate line; line **EXHAUSTED** under current gate schema/thresholds — `rolling_stable_ok` blocks 5112/5112 bars, conclusion `no_edge`, zero gate-pass slices, cost-aware OOS infeasible. Cached-real/gate research line cannot produce edge without weakening thresholds or fabrication (both forbidden). RQA `research_state/state.yaml` line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`) is SEPARATE and MUST NOT be edited. C249 (`VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW_SHOCK_MR`) OOS artifact + script pre-existed but were un-emitted — THIS SESSION emitted `reports/strategy_edge_registry_20261110T170949Z.json` (SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`) and `reports/campaign249_execution_summary_20261110T170949Z.json` (SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`); C249 outcome confirmed `oos_edge_proven: False`, `edge_claim: NONE`, `all_cost_slices_positive_oos_net_sum: False` (another `no_edge` on volume-RQA line). `state.yaml` untouched (locked line).
+**Initial task (execute immediately, no status-only work):** Run **Campaign #12 — causal per-bar enriched-gate evaluation on unevaluated real caches** to seek any honest `edge`/`no_edge`/`insufficient_or_blocked` under **unmodified gate thresholds** (no fabrication, no network refetch). C1–C11 proved the 1h `0bab5d6a...fcf7` (5112 bars) line exhausted (`rolling_stable_ok` blocks 5112/5112, zero gate-pass slices). C12 is the unblock: evaluate every real cache below not in `state.yaml` `caches_verified` and not yet run on C1–C11.
 
-**MANDATORY HEAVY ACTION (do not do status-only work):** Only proceed if you can produce **new, real-data, evidence-backed progress** without weakening gate thresholds and without fabrication/refetch. Prioritize in order:
-1. **§0.P1 — Evaluate unevaluated real caches on the gate line (CAMPAIGN #12).** `data/cache/` holds real cached spot/volume NOT in `state.yaml` `caches_verified` and NOT evaluated on C1–C11. Prime targets (materially different window/coverage vs the C1–C11 1h `0bab5d6a...fcf7` 5112-bar cache):
-   - `90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263` — 11 symbols (ADA..XRP), **5m**, 2026-08-01..2026-10-30, 26,208 rows (intraday, Aug–Oct)
-   - `595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5` — BTC,ETH,SOL, **5m**, 2026-08-01..2026-10-30, 26,208 rows
-   - `4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd` — BTC,ETH,SOL, 1h, 2026-10-01..2026-11-09, 944 rows (post-Oct / new OOS window)
-   - `dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796` — BTC,ETH,SOL, 1h, 2026-10-29..2026-11-09, 272 rows (post-Oct)
-   - `4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d` — 11 symbols, 1h, 2026-04-01..2026-10-28, 5,064 rows (pairs validation window)
-   For each: audit `*.meta.json` (SHA from bytes), run a timestamped causal per-bar campaign → `examples/run_campaign12_<cachekey>_<UTC>.py`, `reports/campaign12_<cachekey>_<UTC>.json`, `tests/test_campaign12_<cachekey>.py`, record SHA256, report honest `edge`/`no_edge`/`insufficient_or_blocked`.
-2. **Orthogonal, real-data-only strategy research** in-repo (not re-running C1–C11), no threshold weakening, strict provenance → code + timestamped artifact + tests.
-3. **If (1)-(2) are concretely impossible:** record an evidence-backed `insufficient_or_blocked` closeout note in this handoff (what searched, why blocked, no refetch/credentials/synthetic) and stop; do **not** invent work, do **not** weaken thresholds, do **not** modify `research_state/state.yaml`.
+**STATE (verified 2026-11-10T17:12:23Z):** `main`, clean WT; `pytest tests/ -q` => 1080 passed, 1 skipped (baseline). C249 emission bottleneck cleared: `reports/strategy_edge_registry_20261110T170949Z.json` (SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`) and `reports/campaign249_execution_summary_20261110T170949Z.json` (SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`) emitted; C249 `oos_edge_proven: false`, `edge_claim: NONE`. `state.yaml` untouched (locked).
 
-Do not redo Campaigns #1–#11 except evidence-backed defect fixes. Any continuation must create new timestamped deliverables and keep gates green.
+**MANDATORY HEAVY ACTION (prioritized):**
+1. **§0.P1 — Campaign #12 cache evaluations (required).** For each target cache, audit `*.pkl`+`*.meta.json` (SHA from bytes, `fetch_real_data_only:true`, `fetch_fabricated_data:false`), then run a timestamped causal per-bar enriched-gate campaign (reuse/adapt C9–C11 methodology, thresholds unchanged) producing `examples/run_campaign12_<cache8>_<UTC>.py`, `reports/campaign12_<cache8>_<UTC>.json`, `tests/test_campaign12_<cache8>.py` with full provenance and recorded SHA256s.
+   Unevaluated real-cache targets (verified in `data/cache/`):
+   - `90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263` — 11 sym (ADA,AVAX,BNB,BTC,DOT,ETH,LINK,LTC,POL,SOL,XRP), **5m**, 2026-08-01..2026-10-30, 26208 rows, real-only. pkl SHA `d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f`, meta SHA `e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e`.
+   - `595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5` — BTC,ETH,SOL, **5m**, 2026-08-01..2026-10-30, 26208 rows, real-only. pkl SHA `414b9cca7c785b6abf0164c0b2b2c892fbf65400631b594b84e6c17511a8c574`, meta SHA `53ce62467ea2e848d1a63d07be5d512e1b1384a67676bff6b0c5ab886c8f011f`.
+   - `4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d` — 11 sym, **1h**, 2026-04-01..2026-10-28, 5064 rows (pairs window), real-only. pkl SHA `4d04e74ed1338f5b7955941603d867fe3190e31696a98f170fdc6f42e578f671`, meta SHA `621346a8feebefa6dd1ffdc76995236b663662ff8ced5cd0f26793934897fa32`.
+   - `4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd` — BTC,ETH,SOL, **1h**, 2026-10-01..2026-11-09, 944 rows (post-Oct), real-only. pkl SHA `dec04f719339480ac1dce151d153d90ff385f0e7bfb95c59425ed45f5edfbb06`, meta SHA `5ad256a381afd6d1b1d39ae50092b8b8a28ebac2aab24a22ad680b5c3c7fd2b1`.
+   - `dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796` — BTC,ETH,SOL, **1h**, 2026-10-29..2026-11-09, 272 rows (may be `insufficient_or_blocked` for rolling-stability windows) — evaluate and report honestly with evidence. pkl SHA `8404aa7f7b7ee67a635f4b1d0df334c4b442cb46c84c774ea869af81dced1fe3`, meta SHA `a78255571a3b4ed56eae31f74577a4977f507b5b3414bbec354a9169d4602c90`.
+2. **Orthogonal real-data-only strategy research** in-repo (not re-running C1–C11), no threshold weakening, strict provenance → code + timestamped artifact + tests.
+3. **If (1)-(2) concretely impossible:** record an evidence-backed `insufficient_or_blocked` closeout in this handoff (what searched, why blocked, no refetch/credentials/synthetic) and stop; do **not** invent work, do **not** weaken thresholds, do **not** modify `research_state/state.yaml`.
 
-## BOTTLENECK REMOVAL (executed this session, 2026-11-10T17:09:49Z UTC)
+Do not redo Campaigns #1–C11 except evidence-backed defect fixes. Any continuation must create new timestamped deliverables and keep gates green.
 
-- **C249 emission bottleneck removed:** C249 OOS artifact (`...groeneveld_meeden_skew_shock_mr_costed_oos_20261109T034759Z.json`) and script pre-existed but `latest_campaign_done` still read C248 and no registry/summary existed. Emitted C249 registry + summary via `scripts/emit_campaign249_registry.py` + `scripts/emit_campaign249_summary.py` (`state.yaml` NOT edited — locked line). C249 confirmed `oos_edge_proven: False`, `edge_claim: NONE`.
-- **§0.P1 unblock identified:** C1–C11 evaluated only the 1h `0bab5d6a...fcf7` cache. `data/cache/` contains additional real caches NOT in `state.yaml` `caches_verified` and NOT yet run on the enriched-gate line: 5m intraday `90d10b...`/`595e501...`, post-Oct `4c3bc2f...`/`dcd5764...`, pairs window `4fd3e87...`. These are the concrete escape-hatch targets (§0 priority #1).
-- **Two parallel lines kept separate:** HANDOFF C1–C11 (enriched gates) vs `state.yaml` RQA C104–C248 (volume). Both `oos_edge_proven: false`. Do not merge or substitute one for the other.
+## BOTTLENECK REMOVAL (executed 2026-11-10T17:09:49Z–17:12:23Z UTC)
 
-## NEXT FOCUS CAMPAIGN — CAMPAIGN #12 (FOCUS CAMPAIGN; HEAVY WORK MANDATORY)
+- **C249 emission bottleneck removed:** emitted C249 registry/summary (SHAs above) via `scripts/emit_campaign249_registry.py` + `scripts/emit_campaign249_summary.py`; `state.yaml` NOT edited. C249 confirmed `oos_edge_proven: false`, `edge_claim: NONE` (volume-RQA `no_edge`).
+- **§0.P1 unblocked with audited targets:** identified and SHA/meta-audited 5 real unevaluated caches above (5m intraday, post-Oct windows, pairs window) as concrete Campaign #12 escape hatches.
+- **Parallel lines kept separate:** HANDOFF C1–C11/C12 (enriched gates) vs `state.yaml` RQA C104–C248 (volume). Both `oos_edge_proven: false`. Do not merge/substitute.
 
-**Objective:** Determine whether any unevaluated real cache in `data/cache/` yields a causal per-bar enriched-gate edge (any bar passes all enriched gates under unmodified thresholds) on any pair, across trailing configs, without weakening thresholds and without fabrication — producing honest `edge`/`no_edge`/`insufficient_or_blocked` per cache.
+## NEXT FOCUS CAMPAIGN — CAMPAIGN #12 (MANDATORY; HEAVY WORK)
+
+**Objective:** Determine whether any unevaluated real cache in `data/cache/` yields a causal per-bar enriched-gate edge (any bar passes all enriched gates under **unmodified** thresholds) on any pair across trailing configs, without weakening thresholds and without fabrication — producing honest `edge`/`no_edge`/`insufficient_or_blocked` per cache.
+
+**Targets (5 caches, all real-only/fetch_fabricated_data:false):** `90d10b...` (11sym,5m,26208,Aug–Oct), `595e501...` (3sym,5m,26208,Aug–Oct), `4fd3e87...` (11sym,1h,5064,Apr–Oct28), `4c3bc2f...` (3sym,1h,944,Oct1–Nov9), `dcd5764...` (3sym,1h,272,Oct29–Nov9; may be `insufficient_or_blocked` for rolling windows — must be evidenced).
 
 **Mandatory deliverables per cache evaluated (no status-only work):**
-- `examples/run_campaign12_<cachekey>_<UTC>.py` — causal per-bar gate script (real cache only, no network refetch, no synthetic)
-- `reports/campaign12_<cachekey>_<UTC>.json` — timestamped artifact + SHA256 + full provenance (`real_data_only`, `fabricated_data: false`, `blocked_routes`, `rationale`)
-- `tests/test_campaign12_<cachekey>.py` — deterministic test asserting schema/provenance and recording the outcome
+- `examples/run_campaign12_<cache8>_<UTC>.py` — causal per-bar gate script (real cache only, no network refetch, no synthetic)
+- `reports/campaign12_<cache8>_<UTC>.json` — timestamped artifact + SHA256 + full provenance (`real_data_only`, `fabricated_data: false`, `blocked_routes`, rationale)
+- `tests/test_campaign12_<cache8>.py` — deterministic test asserting schema/provenance and recording the outcome
 - SHA256 of all new artifacts recorded in this handoff
 
-**Completion gate (non-negotiable):** Session is NOT complete until every unevaluated real cache has been either evaluated with a timestamped campaign + tests + gates green, OR concretely evidenced as `insufficient_or_blocked` with `blocked_routes` and rationale. Then update only HANDOFF.md with UTC timestamp, commands run, artifact paths + SHA256, gate outcomes, findings, and the next unambiguous heavy directive.
+**Completion gate (non-negotiable):** Session NOT complete until every target cache is either evaluated with timestamped campaign + tests + gates green, OR concretely evidenced as `insufficient_or_blocked` with `blocked_routes` and rationale. Then update **only** `HANDOFF.md` with UTC timestamp, commands run, artifact paths + SHA256, gate outcomes, findings, and the next unambiguous heavy directive.
 
-**Future-agent lock:** This focus campaign is mandatory — future sessions must not substitute status-only work, threshold weakening, fabrication, or re-runs of C1–C11 for Campaign #12 cache evaluation or the closeout above.
+**Future-agent lock:** Do not substitute status-only work, threshold weakening, fabrication, or re-runs of C1–C11 for Campaign #12.
 
 ### READY STATE (verified context)
 
