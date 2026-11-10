@@ -4,7 +4,7 @@
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid; status-only work is not.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). This is a separate research line and must not be edited to block/replace C7–C10 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T16:10:00Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T16:47:15Z UTC)
 
 **MANDATORY FIRST ACTION (non-optional, heavy work):** Execute **Campaign #11 — Rolling-Stability Blocker Diagnosis & Gate-Pass Feasibility on the Wider Universe**. Status-only work is forbidden. Do not redo Campaigns #1–#10 except evidence-backed defect fixes.
 
@@ -25,7 +25,7 @@
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (MANDATORY FIRST ACTION)
 
-**[2026-11-10T16:10:00Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, bootstrap verified]** — **START CAMPAIGN #11 NOW.**
+**[2026-11-10T16:47:15Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, bootstrap verified]** — **START CAMPAIGN #11 NOW.** (Prior session left this directive unfulfilled; Campaign #11 is still ACTIVE — NOT YET EXECUTED. No status-only work: producing Campaign #11's code + artifact + tests + gate verification IS the required progress.)
 
 **SUBSTANTIVE ACTION REQUIRED (all deliverables must be produced):**
 1. Create `examples/run_campaign11_rolling_stability_blocker.py` (pattern from C10 `run_campaign10_wider_universe_causal_gates.py`, gate logic unmodified).
@@ -69,7 +69,7 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 - **Campaigns #1–#8:** COMPLETE (honest/evidence-first). C8 conclusion `no_edge` (fail-closed enriched gates on tested cached-real BTC/ETH,ETH/SOL,BTC/SOL + portfolio slices/costs/windows).
 - **Campaign #9:** COMPLETE — `examples/run_campaign9_causal_gate_edge_search.py` + `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` (SHA256 `7e48865e...ad43b0`) produced; deterministic tests added; gates green; conclusion `no_edge` (causal per-bar gates fail-closed on 100% of bars; dominant blocker `rolling_stable_ok` fails all bars due to 720-bar rolling-stability window insufficiency).
 - **Campaign #10:** COMPLETE — `examples/run_campaign10_wider_universe_causal_gates.py` + `reports/campaign10_wider_universe_causal_gates_20261110T160625Z.json` (SHA256 `8c3c5d5785c0d7bd33c805f939528771809494dba400e6f990d269dd3369b895`) produced over the full 17-pair `reports/portfolio_real.json` wider universe (ADA/ETH, XRP/BTC, BNB/ETH, BTC/BNB, SOL/BNB, ADA/BTC, XRP/ETH, BNB/BTC, DOT/BTC, DOT/ETH, POL/BTC, AVAX/BTC, LINK/BTC, LTC/BTC, BTC/ETH, ETH/SOL, BTC/SOL) on cached real data only; deterministic tests added; gates green; conclusion `insufficient_or_blocked` (zero trades on every pair under causal per-bar gates; fail_rate 1.0 / `rolling_stable_ok` fails 5112/5112 bars on every pair; no positive OOS net edge vs buy-and-hold; replay 0.0 cash merely exceeds *negative* buy-and-hold on down-market pairs — not an edge; gate thresholds not weakened).
-- **Campaign #11:** ACTIVE — NOT YET EXECUTED (rolling-stability blocker diagnosis & gate-pass feasibility).
+- **Campaign #11:** ACTIVE — NOT YET EXECUTED (rolling-stability blocker diagnosis & gate-pass feasibility). **PRIOR SESSION DID NOT EXECUTE IT.** Next session must start here with Campaign #11; do not redo Campaigns #1–#10 except evidence-backed defect fixes.
 - **Baseline gates (2026-11-10T16:10Z, c7-venv):** `pytest tests/ -q` => **1078 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
 - **Key real artifacts:** `reports/campaign8_edge_robustness_20261110T115802Z.json` (SHA256 `5064aea1...c95d42`, cached-real, `no_edge`), `reports/pairs_real_market.json` (BTC/ETH,ETH/SOL,BTC/SOL 0 trades/OOS mean 0/replay 0; B&H +15.50%/+17.60%/+21.59%), `reports/portfolio_real.json`, `reports/cost_sensitivity_real.json`, `reports/cost_sensitivity_real_portfolio.json`, `reports/regime_cost_stress_extended.json`.
 - **C7 modules:** `config/`, `observability/`, `playbooks/`, `reconciliation/` with examples/tests; ops artifacts pass.
@@ -125,7 +125,7 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 
 ## 3c) CAMPAIGN #11 — ACTIVE DIRECTIVE (START HERE; NOT YET EXECUTED)
 
-**Timestamped handoff directive (2026-11-10T16:10:00Z UTC):** Execute Campaign #11 now — rolling-stability blocker diagnosis & gate-pass feasibility on the wider universe (see §0 for full scope/deliverables/constraints).
+**Timestamped handoff directive (2026-11-10T16:47:15Z UTC):** Execute Campaign #11 now — rolling-stability blocker diagnosis & gate-pass feasibility on the wider universe (see §0 for full scope/deliverables/constraints). Previous session left this unfulfilled; start the next session here and do not stop until the code+artifact+tests are produced and gates are green.
 
 ## 4) REPRODUCTION / GATE COMMANDS
 
@@ -155,4 +155,4 @@ $PY -m mypy backtest/ strategies/ utils/
 
 ---
 
-**END OF DURABLE HANDOFF — CAMPAIGN #10 COMPLETE (`insufficient_or_blocked`, gates green: 1078 passed/1 skipped). NEXT SESSION STARTS WITH CAMPAIGN #11 ROLLING-STABILITY BLOCKER DIAGNOSIS & GATE-PASS FEASIBILITY (§0/§3c directive). NO STATUS-ONLY WORK.**
+**END OF DURABLE HANDOFF — CAMPAIGN #10 COMPLETE (`insufficient_or_blocked`, gates green: 1078 passed/1 skipped). NEXT SESSION STARTS AT §0 WITH CAMPAIGN #11 ROLLING-STABILITY BLOCKER DIAGNOSIS & GATE-PASS FEASIBILITY (directive 2026-11-10T16:47:15Z UTC — STILL UNFULFILLED). NO STATUS-ONLY WORK.**
