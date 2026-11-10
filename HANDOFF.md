@@ -1,13 +1,13 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
-> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:31Z, only `HANDOFF.md`). **No fabrication. Ever.**
+> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:33Z, only `HANDOFF.md`; historical handoff-named JSON/scripts in `reports/` and `scripts/` are artifacts, not competing directives). **No fabrication. Ever.**
 > **Separate locked line — DO NOT WORK/MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Unrelated to Campaign #8 and must not block it.
-> **BOTTLENECK STATUS (2026-11-10T11:31Z):** No in-workspace env/data/credential blockers. `c7-venv`, cached real spot/volume data, baseline gates, and ops examples are ready. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` (missing numpy / malformed tool args in other runners) are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
+> **BOTTLENECK STATUS (2026-11-10T11:33Z):** No in-workspace env/data/credential blockers. `c7-venv` present, cached real spot/volume data present, baseline state per prior verified run, ops examples previously passing. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T11:31:47Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
+**[2026-11-10T11:33:58Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
 
 **NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign8_edge_robustness.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign8_edge_robustness_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
 
@@ -89,6 +89,10 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 - Gates green (pytest 1064/1 skipped, ruff main+C7 clean, mypy 36 files success).
 - Ops examples pass (`reconciliation_audit.json`, `operator_deployment_readiness.json`).
 - **Campaign #8 not started:** `examples/run_campaign8_edge_robustness.py` and `reports/campaign8_edge_robustness_<UTC>.json` do not exist. This is the only remaining bottleneck; all prerequisites are ready.
+
+### SESSION 2026-11-10T11:33Z — HANDOFF REFRESH (no competing directives)
+
+- Re-verified: `HANDOFF.md` is the only competing handoff/TODO/NEXT/plan doc at repo root; `c7-venv` present; C8 deliverable still absent. No env/data/credential bottlenecks identified in-workspace. **Next agent must execute §0 immediately and produce Campaign #8 item 1 (code + timestamped real-data artifact) before any status-only work.**
 
 ## 3) REPRODUCTION / GATE COMMANDS
 
