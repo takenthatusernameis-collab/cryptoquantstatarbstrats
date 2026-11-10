@@ -1,13 +1,13 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
-> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:35Z, only `HANDOFF.md`; historical handoff-named JSON/scripts in `reports/` and `scripts/` are artifacts, not competing directives). **No fabrication. Ever.**
+> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:37Z, only `HANDOFF.md`; historical handoff-named JSON/scripts in `reports/` and `scripts/` are artifacts, not competing directives). **No fabrication. Ever.**
 > **Separate locked line — DO NOT WORK/MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Unrelated to Campaign #8 and must not block it.
-> **BOTTLENECK STATUS (2026-11-10T11:35Z):** No in-workspace env/data/credential blockers. `c7-venv` present, cached real spot/volume data present, baseline state per prior verified run, ops examples previously passing. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
+> **BOTTLENECK STATUS (2026-11-10T11:37Z):** No in-workspace env/data/credential blockers. `c7-venv` present at `/home/runner/work/_temp/kilo-tmp/c7-venv`, cached real spot/volume data present under `data/cache/`, prior baseline gates/ops reported green. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T11:35:25Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
+**[2026-11-10T11:37:58Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, session bootstrap check complete]**
 
 **NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign8_edge_robustness.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign8_edge_robustness_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
 
@@ -93,6 +93,13 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 ### SESSION 2026-11-10T11:35Z — HANDOFF REFRESH (no competing directives)
 
 - Re-verified: `HANDOFF.md` is the only competing handoff/TODO/NEXT/plan doc at repo root; `c7-venv` present; C8 deliverable still absent. No env/data/credential bottlenecks identified in-workspace. **Next agent must execute §0 immediately and produce Campaign #8 item 1 (code + timestamped real-data artifact) before any status-only work.**
+
+
+### SESSION 2026-11-10T11:37Z — HANDOFF BOOTSTRAP CHECK (no competing directives/bottlenecks cleared)
+
+- Verified: single root handoff is `HANDOFF.md`; no root TODO/NEXT/plan files. `c7-venv` exists at `/home/runner/work/_temp/kilo-tmp/c7-venv`; cached spot/volume pkl data present in `data/cache/`. `examples/run_campaign8_edge_robustness.py` and `reports/campaign8_edge_robustness_<UTC>.json` **still absent**.
+- **Unblocked state:** env/data/credentials-in-workspace not blocking; next agent must immediately execute §0 bootstrap and produce Campaign #8 item 1 (script + timestamped real-data artifact), then items 2–4 and gates. Do not modify `research_state/state.yaml` RQA C104–C249 line.
+
 
 ## 3) REPRODUCTION / GATE COMMANDS
 
