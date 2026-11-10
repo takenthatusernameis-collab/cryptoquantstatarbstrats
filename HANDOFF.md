@@ -6,14 +6,16 @@
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (MANDATORY FIRST ACTION)
 
-**[2026-11-10T12:40:45Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, bootstrap verified]**
+**[2026-11-10T12:40:45Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, bootstrap verified]** — **EXECUTED & COMPLETE 2026-11-10T12:50:28Z**.
 
-**NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (before any other non-trivial work):**
-1. Create `examples/run_campaign9_causal_gate_edge_search.py`.
-2. Run it with `c7-venv` and produce `reports/campaign9_causal_gate_edge_search_<UTC>.json` from **cached real data only** (no refetch, no synthetic/fabricated inputs).
-3. The artifact must include real-data provenance (cache paths/hashes/meta), WF/OOS splits, fee×slippage grid, regime slices, B&H benchmarks, **causal/per-bar enriched-gate** pass/fail/trade/exposure accounting, and explicit conclusion `edge` / `no_edge` / `insufficient_or_blocked`.
+**SUBSTANTIVE ACTION DONE (all three deliverables produced):**
+1. Created `examples/run_campaign9_causal_gate_edge_search.py`.
+2. Ran it with `c7-venv`; produced `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` (SHA256 `7e48865eab5b478a4c9d810901ec9edd6a91352ae71e29cbb647955842ad43b0`) from **cached real data only** (no refetch, no synthetic/fabricated inputs).
+3. Added deterministic tests `tests/test_campaign9_causal_gate_edge_search.py` (causal per-bar gate breakdown recorded + fail-closed; cached-vs-causal parity fail-closed; artifact provenance honesty).
 
-Creating this code+artifact is the definition of progress. Re-planning, re-reading, or status-only updates without it is failure. **Campaigns #1–#8 are COMPLETE** — do not redo them except evidence-backed defect fixes. **Campaign #9 is ACTIVE and not started.**
+Artifact includes real-data provenance (cache paths/hashes/meta), WF/OOS splits, fee×slippage grid, regime slices, B&H benchmarks, causal per-bar gate pass/fail/trade/exposure accounting, cached-aggregate reference path, path comparison vs Campaign #8 baseline, and explicit conclusion.
+
+Creating this code+artifact is the definition of progress. **Campaigns #1–#8 are COMPLETE** — do not redo them except evidence-backed defect fixes. **Campaign #9 is COMPLETE.**
 
 ### MISSION (evidence-first, repo-priority)
 
@@ -46,8 +48,8 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 
 - **Repo state:** `main`, single durable handoff `HANDOFF.md`.
 - **Campaigns #1–#8:** COMPLETE (honest/evidence-first). C8 conclusion `no_edge` (fail-closed enriched gates on tested cached-real BTC/ETH,ETH/SOL,BTC/SOL + portfolio slices/costs/windows).
-- **Campaign #9:** ACTIVE — **NOT STARTED** (`examples/run_campaign9_causal_gate_edge_search.py` and `reports/campaign9_causal_gate_edge_search_*.json` absent).
-- **Baseline gates (C8, 2026-11-10T12:00Z, c7-venv):** `pytest tests/ -q` => **1070 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; C7-focused ruff => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
+- **Campaign #9:** COMPLETE — `examples/run_campaign9_causal_gate_edge_search.py` + `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` (SHA256 `7e48865e...ad43b0`) produced; deterministic tests added; gates green.
+- **Baseline gates (C9, 2026-11-10T12:50Z, c7-venv):** `pytest tests/ -q` => **1074 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; C7-focused ruff => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
 - **Key real artifacts:** `reports/campaign8_edge_robustness_20261110T115802Z.json` (SHA256 `5064aea1688751d063b01349743ef8d3997299bced107f91217c1b35b3c95d42`, cached-real, `no_edge`), `reports/pairs_real_market.json` (BTC/ETH,ETH/SOL,BTC/SOL 0 trades/OOS mean 0/replay 0; B&H +15.50%/+17.60%/+21.59%), `reports/portfolio_real.json`, `reports/cost_sensitivity_real.json`, `reports/cost_sensitivity_real_portfolio.json`, `reports/regime_cost_stress_extended.json`.
 - **C7 modules:** `config/`, `observability/`, `playbooks/`, `reconciliation/` with examples/tests; ops artifacts pass.
 
@@ -63,18 +65,29 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 | #6 Live/testnet execution validation | COMPLETE (honest/paper/bounded) | `reports/live_testnet_readiness.json`, `reports/testnet_order_lifecycle.json`, `reports/paper_microstructure_validation.json` |
 | #7 Operator deployment hardening | COMPLETE | config/observability/playbooks/reconciliation + artifacts; gates green |
 | #8 Stat-arb edge hardening & honest real-data extension | COMPLETE (`no_edge`) | `examples/run_campaign8_edge_robustness.py`, `reports/campaign8_edge_robustness_20261110T115802Z.json`, `tests/test_campaign8_edge_robustness.py` |
-| **#9 Enriched-gate causal/per-bar edge discovery & robustness** | **ACTIVE — NOT STARTED** | Execute §0/§3 now |
+| **#9 Enriched-gate causal/per-bar edge discovery & robustness** | **COMPLETE** | `examples/run_campaign9_causal_gate_edge_search.py`, `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` (SHA256 `7e48865eab5b478a4c9d810901ec9edd6a91352ae71e29cbb647955842ad43b0`), `tests/test_campaign9_causal_gate_edge_search.py`; conclusion `no_edge` |
 
-## 3) ACTIVE CAMPAIGN #9 — REQUIRED HEAVY WORK (NO DEFERRAL)
+## 3) CAMPAIGN #9 — EXECUTION RECORD (COMPLETE)
 
 **Objective:** Close the causal-vs-cached enriched-gate evidence gap and determine if any reproducible, cost-aware OOS net edge exists for BTC/ETH, ETH/SOL, BTC/SOL or portfolio configs when gates are evaluated **causally/per-bar on trailing windows** (not via static aggregate fail-closed shortcut), while preserving fail-closed safety for unassessable/missing/failed gates and structural breaks.
 
-**Constraints:** No network refetch, no synthetic/fabricated data/labels/metrics/fills/IV/volume. Do not weaken gate thresholds to manufacture trades/edge. Do not touch `research_state/state.yaml` RQA C104–C249 line. Do not redo Campaigns #1–#8 except evidence-backed defect fixes.
+**Constraints honored:** No network refetch, no synthetic/fabricated data/labels/metrics/fills/IV/volume. Did not weaken gate thresholds to manufacture trades/edge. Did not touch `research_state/state.yaml` RQA C104–C249 line. Did not redo Campaigns #1–#8.
 
-1. **Causal enriched-gate parity implementation + evidence (deliver first):** implement/adjust strategy path so cached diagnostics are not misused as causal per-bar passes and per-bar trailing diagnostics (interval-cached/causal) are the enforceable path for signal generation where feasible; document behavior. Produce `examples/run_campaign9_causal_gate_edge_search.py` and timestamped `reports/campaign9_causal_gate_edge_search_<UTC>.json` with real-data-only provenance (cache hashes/meta), WF/OOS splits, fee×slippage grid, regime slices, B&H benchmarks, per-bar gate pass/fail/trade/exposure accounting, and explicit conclusion `edge`/`no_edge`/`insufficient_or_blocked`.
-2. **Deterministic tests:** add/tighten tests proving causal/per-bar gate enforcement parity and fail-closed behavior for missing/unassessable/failed gates and structural breaks on cached-real subsets (avoid synthetic; if unavoidable, flag explicitly).
-3. **Gates:** pass `$PT tests/ -q`, `$PY -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, C7 ruff scope, `$PY -m mypy backtest/ strategies/ utils/` and record exact outcomes.
-4. **Handoff update:** update only `HANDOFF.md` with verified UTC, commands, artifact paths+SHA256, gate outcomes, concrete findings, and next unambiguous heavy directive (Campaign #10 or evidenced blockers).
+**Done (all four items):**
+1. **Causal enriched-gate implementation + evidence:** `examples/run_campaign9_causal_gate_edge_search.py` exercises both paths per pair: (a) cached-aggregate fail-closed (Campaign #8 reference) and (b) causal per-bar trailing diagnostics recomputed every `cointegration_check_interval` bars, forward-filled, fail-closed under strict. Produced timestamped `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` with real-data-only provenance (cache hashes/meta), WF/OOS splits (train=500/test=100, 4 splits, rolling), fee×slippage grid, regime slices, B&H benchmarks, per-bar gate pass/fail/trade/exposure accounting, path comparison vs C8 baseline, explicit conclusion.
+2. **Deterministic tests:** `tests/test_campaign9_causal_gate_edge_search.py` — causal per-bar gate breakdown recorded + fail-closed (no exposure) on real subset; cached-vs-causal parity fail-closed; artifact provenance honesty; portfolio risk controller controls.
+3. **Gates:** `pytest tests/ -q` => **1074 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; C7 ruff scope => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
+4. **Handoff update:** this section (verified UTC, commands, artifact path+SHA256, gate outcomes, concrete findings, next directive below).
+
+**Concrete findings (honest, reproducible, never fabricated):**
+- **Conclusion: `no_edge`** (edge_claim: false). Across tested cached-real-data pairs/portfolio, walk-forward OOS cost slices and replay cost slices under causal per-bar enriched gates (with cached-aggregate fail-closed reference), no positive OOS net edge and no replay outperformance vs buy-and-hold were observed under stated costs/windows. Buy-and-hold benchmark +11.66% (portfolio); strategy returns 0.0% on all cost slices for all pairs.
+- **Causal per-bar gates fail-closed on 100% of bars** for all three pairs (pass_rate 0.0, fail_rate 1.0, 5112 bars each). Dominant blocker: `rolling_stable_ok` fails all bars (720-bar rolling-stability window is insufficient on trailing samples); `leg_stationarity_ok` 4872/5112, `eg_pass` 4752/5112, `johansen_pass` 3912/5112, `spread_mr_pass` 3839/5112, `no_structural_break` 1799/5112 fail. Zero trades, zero exposure under all cost slices.
+- **Cached-aggregate and causal-per-bar paths agree** (`no_edge` both), closing the causal-vs-cached evidence gap from Campaign #8.
+
+**NEXT UNAMBIGUOUS HEAVY DIRECTIVE — CAMPAIGN #10:**
+**Objective:** Replicate causal per-bar gate evaluation across the wider `reports/portfolio_real.json` universe (>=10 pairs: ADA/ETH, XRP/BTC, BNB/ETH, BTC/BNB, SOL/BNB, ADA/BTC, XRP/ETH, BNB/BTC, DOT/BTC, DOT/ETH, POL/BTC, AVAX/BTC, LINK/BTC, LTC/BTC) on cached real data only, and document whether the `rolling_stable_ok` trailing-window insufficiency is a structural blocker (no_edge) or whether any causal gate configuration yields a reproducible cost-aware OOS net edge vs buy-and-hold **without weakening gate thresholds**.
+**Deliverables:** `examples/run_campaign10_wider_universe_causal_gates.py`, timestamped `reports/campaign10_wider_universe_causal_gates_<UTC>.json` (real-data provenance, WF/OOS, fee×slippage grid, per-bar gate accounting, B&H benchmarks, explicit edge/no_edge/insufficient_or_blocked conclusion), deterministic causal-gate tests, gates green.
+**Constraint:** Do not weaken gate thresholds to manufacture trades/edge; no network refetch; no synthetic/fabricated data; do not touch `research_state/state.yaml` RQA line.
 
 ## 4) REPRODUCTION / GATE COMMANDS
 
@@ -96,11 +109,12 @@ $PY -m mypy backtest/ strategies/ utils/
 ## 5) KEY FILES
 
 - **C8 baseline:** `examples/run_campaign8_edge_robustness.py`, `tests/test_campaign8_edge_robustness.py`, `reports/campaign8_edge_robustness_20261110T115802Z.json`
-- **C9 deliverables (required):** `examples/run_campaign9_causal_gate_edge_search.py`, `reports/campaign9_causal_gate_edge_search_<UTC>.json`, deterministic causal-gate parity tests
+- **C9 deliverables (complete):** `examples/run_campaign9_causal_gate_edge_search.py`, `reports/campaign9_causal_gate_edge_search_20261110T125028Z.json` (SHA256 `7e48865eab5b478a4c9d810901ec9edd6a91352ae71e29cbb647955842ad43b0`), `tests/test_campaign9_causal_gate_edge_search.py`; conclusion `no_edge`.
+- **C10 deliverables (next):** `examples/run_campaign10_wider_universe_causal_gates.py`, `reports/campaign10_wider_universe_causal_gates_<UTC>.json`, deterministic causal-gate tests; conclusion `edge`/`no_edge`/`insufficient_or_blocked`.
 - **Strategy/gates:** `strategies/pairs_trading.py` (`CointegrationPairsStrategy`, `_evaluate_enriched_gates_strict`, `generate_signals`)
 - **Portfolio/risk:** `examples/run_portfolio_real.py:PortfolioRiskController.apply`, `backtest/engine.py:run_portfolio`
 - **Key real reports:** `reports/pairs_real_market.json`, `reports/portfolio_real.json`, `reports/cost_sensitivity_real.json`, `reports/cost_sensitivity_real_portfolio.json`
 
 ---
 
-**END OF DURABLE HANDOFF — START WITH §0 BOOTSTRAP, THEN EXECUTE CAMPAIGN #9 ITEM 1 (CODE + TIMESTAMPED CACHED-REAL ARTIFACT) IMMEDIATELY. NO STATUS-ONLY WORK.**
+**END OF DURABLE HANDOFF — CAMPAIGN #9 COMPLETE (`no_edge`, gates green). NEXT SESSION STARTS WITH CAMPAIGN #10 WIDER-UNIVERSE CAUSAL PER-BAR GATE VALIDATION (§3 directive). NO STATUS-ONLY WORK.**
