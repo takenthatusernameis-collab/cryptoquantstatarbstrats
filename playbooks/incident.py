@@ -1,4 +1,5 @@
-"""Incident response runbook with kill-switch activation, position flattening, and alert escalation."""
+"""Incident response runbook with kill-switch activation, position flattening, and alert escalation.
+"""
 
 import asyncio
 import os
@@ -89,7 +90,9 @@ class IncidentResponse:
         self._incidents: Dict[str, IncidentRecord] = {}
         self._lock = threading.RLock()
         self._kill_switch_activated = False
-        self._callbacks: List[Callable[[IncidentRecord], None]] = []
+        self._callbacks: List[
+            Callable[[IncidentRecord], None]
+        ] = []
 
     def register_callback(self, callback: Callable[[IncidentRecord], None]) -> None:
         """Register incident callback."""
@@ -185,7 +188,11 @@ class IncidentResponse:
         with self._lock:
             return [
                 i for i in self._incidents.values()
-                if i.status in {IncidentStatus.OPEN, IncidentStatus.ACKNOWLEDGED, IncidentStatus.MITIGATING}
+                if i.status in {
+                    IncidentStatus.OPEN,
+                    IncidentStatus.ACKNOWLEDGED,
+                    IncidentStatus.MITIGATING,
+                }
             ]
 
     def get_all_incidents(self) -> List[IncidentRecord]:

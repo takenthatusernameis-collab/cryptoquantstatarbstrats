@@ -208,8 +208,9 @@ class DryRunValidator:
             import aiohttp
             async with aiohttp.ClientSession() as session:
                 async with session.get(
-                    "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=1",
-                    timeout=aiohttp.ClientTimeout(total=5)
+                    "https://api.binance.com/api/v3/klines"
+                    "?symbol=BTCUSDT&interval=1h&limit=1",
+                    timeout=aiohttp.ClientTimeout(total=5),
                 ) as resp:
                     if resp.status == 200:
                         data = await resp.json()
@@ -367,14 +368,24 @@ class DryRunValidator:
                     result.step_results.append(step_result)
 
                     # Fail fast
-                    if self.config.fail_fast and step_result.status == DryRunStatus.FAILED and step.critical:
+                    if (
+                        self.config.fail_fast
+                        and step_result.status == DryRunStatus.FAILED
+                        and step.critical
+                    ):
                         break
 
         result.end_time = datetime.now(timezone.utc)
         result.total_duration_ms = (time.perf_counter() - start_time) * 1000
-        result.passed_steps = sum(1 for r in result.step_results if r.status == DryRunStatus.PASSED)
-        result.failed_steps = sum(1 for r in result.step_results if r.status == DryRunStatus.FAILED)
-        result.skipped_steps = sum(1 for r in result.step_results if r.status == DryRunStatus.SKIPPED)
+        result.passed_steps = sum(
+            1 for r in result.step_results if r.status == DryRunStatus.PASSED
+        )
+        result.failed_steps = sum(
+            1 for r in result.step_results if r.status == DryRunStatus.FAILED
+        )
+        result.skipped_steps = sum(
+            1 for r in result.step_results if r.status == DryRunStatus.SKIPPED
+        )
 
         if result.failed_steps == 0:
             result.overall_status = DryRunStatus.PASSED

@@ -19,6 +19,13 @@ data/__init__.py
 data/cache.py
 data/loader.py
 data/real_feed_loader.py
+execution/__init__.py
+execution/adapter.py
+execution/lifecycle.py
+execution/microstructure.py
+execution/oms.py
+execution/paper_broker.py
+execution/risk.py
 strategies/__init__.py
 strategies/base.py
 strategies/cross_exchange.py
@@ -53,6 +60,7 @@ tests/test_cointegration_diagnostics_schema.py
 tests/test_cointegration_parity_regression.py
 tests/test_cointegration_recertification_audit_mt.py
 tests/test_cointegration_threshold_invariance.py
+tests/test_config.py
 tests/test_config_validation.py
 tests/test_continuous_improvement_autoscaling_mt.py
 tests/test_continuous_monitoring_hardening_mt.py
@@ -84,6 +92,7 @@ tests/test_live_go_live_authorization_final_mt.py
 tests/test_live_operational_readiness_signoff_mt.py
 tests/test_live_operations_continuity_incident_response_mt.py
 tests/test_live_production_deployment_mt.py
+tests/test_live_testnet_execution_campaign6.py
 tests/test_mean_reversion_parity_regression.py
 tests/test_mean_reversion_real_market.py
 tests/test_metrics.py
@@ -91,6 +100,7 @@ tests/test_ml_gated_pairs.py
 tests/test_momentum_parity_regression.py
 tests/test_momentum_real_market.py
 tests/test_monte_carlo.py
+tests/test_observability.py
 tests/test_oos_cointegration_validation_gating.py
 tests/test_oos_portfolio_execution_gating.py
 tests/test_oos_portfolio_performance_schema.py
@@ -108,6 +118,7 @@ tests/test_paper_trading_bridge_gating.py
 tests/test_paper_trading_monitoring.py
 tests/test_paper_trading_report.py
 tests/test_permanent_production_certification_mt.py
+tests/test_playbooks.py
 tests/test_portfolio_gating_mt.py
 tests/test_portfolio_guardrails_schema.py
 tests/test_portfolio_real.py
@@ -118,6 +129,7 @@ tests/test_portfolio_risk_controls.py
 tests/test_position_sizing_enforcement_schema.py
 tests/test_post_deployment_live_readiness_signoff_mt.py
 tests/test_post_deployment_validation_remediation_mt.py
+tests/test_production_bridge_campaign5.py
 tests/test_production_go_live_authorization_mt.py
 tests/test_production_go_nogo_certification_mt.py
 tests/test_provenance_artifacts.py
@@ -126,6 +138,7 @@ tests/test_real_data_paper_trading_execution_monte_carlo.py
 tests/test_real_feed_loader_validation.py
 tests/test_realtime_monitoring_gating.py
 tests/test_rebalancing.py
+tests/test_reconciliation.py
 tests/test_reconciliation_audit_hardening_mt.py
 tests/test_regime.py
 tests/test_regime_integration.py
@@ -176,4 +189,5 @@ utils/rebalance.py
 utils/regime.py
 utils/reporting.py
 utils/risk.py
+utils/risk_dashboard.py
 utils/sizing.py

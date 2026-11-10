@@ -140,7 +140,14 @@ def run_preflight() -> dict:
     report = asyncio.run(checker.run())
 
     # Count skipped as not failed for test env
-    failed_critical = sum(1 for r in report.results if r.status.value == "fail" and any(c.name == r.check_name and c.critical for c in checker.checks))
+    failed_critical = sum(
+        1
+        for r in report.results
+        if r.status.value == "fail"
+        and any(
+            c.name == r.check_name and c.critical for c in checker.checks
+        )
+    )
 
     return {
         "overall_status": report.overall_status.value,
@@ -168,7 +175,13 @@ def run_dry_run() -> dict:
     result = asyncio.run(validator.run())
 
     # In test env, some steps are expected to fail
-    expected_failures = {"preflight_checks", "exchange_connectivity", "data_feed", "order_lifecycle", "position_management"}
+    expected_failures = {
+        "preflight_checks",
+        "exchange_connectivity",
+        "data_feed",
+        "order_lifecycle",
+        "position_management",
+    }
     actual_failures = [r.step_name for r in result.step_results if r.status == DryRunStatus.FAILED]
     unexpected_failures = [f for f in actual_failures if f not in expected_failures]
 
@@ -360,18 +373,50 @@ def run_reconciliation_checks() -> dict:
                 for r in result.cash_results
             ],
             "equity": {
-                "within_tolerance": result.equity_result.within_tolerance if result.equity_result else None,
-                "equity_diff": str(result.equity_result.equity_diff) if result.equity_result else None,
+                "within_tolerance": (
+                    result.equity_result.within_tolerance
+                    if result.equity_result
+                    else None
+                ),
+                "equity_diff": (
+                    str(result.equity_result.equity_diff)
+                    if result.equity_result
+                    else None
+                ),
             },
             "fill_audit": {
-                "passed": result.fill_audit_result.passed if result.fill_audit_result else None,
-                "total_fills": result.fill_audit_result.total_fills if result.fill_audit_result else None,
-                "matched_fills": result.fill_audit_result.matched_fills if result.fill_audit_result else None,
+                "passed": (
+                    result.fill_audit_result.passed
+                    if result.fill_audit_result
+                    else None
+                ),
+                "total_fills": (
+                    result.fill_audit_result.total_fills
+                    if result.fill_audit_result
+                    else None
+                ),
+                "matched_fills": (
+                    result.fill_audit_result.matched_fills
+                    if result.fill_audit_result
+                    else None
+                ),
             },
             "lifecycle_audit": {
-                "passed": result.lifecycle_audit_result.passed if result.lifecycle_audit_result else None,
-                "total_orders": result.lifecycle_audit_result.total_orders if result.lifecycle_audit_result else None,
-                "valid_transitions": result.lifecycle_audit_result.valid_transitions if result.lifecycle_audit_result else None,
+                "passed": (
+                    result.lifecycle_audit_result.passed
+                    if result.lifecycle_audit_result
+                    else None
+                ),
+                "total_orders": (
+                    result.lifecycle_audit_result.total_orders
+                    if result.lifecycle_audit_result
+                    else None
+                ),
+                "valid_transitions": (
+                    result.lifecycle_audit_result.valid_transitions
+                    if result.lifecycle_audit_result
+                    else None
+                ),
             },
         }
     except Exception as e:
@@ -458,7 +503,11 @@ def main():
             return True
         # For preflight, check if critical failures are only expected ones
         if "critical_failures" in v and "checks" in v:
-            expected_fail_names = {"credential_presence", "exchange_capability_probe", "data_feed_validation"}
+            expected_fail_names = {
+                "credential_presence",
+                "exchange_capability_probe",
+                "data_feed_validation",
+            }
             actual_critical_failures = [
                 c["name"] for c in v["checks"]
                 if c["status"] == "fail" and c["name"] in expected_fail_names
@@ -499,7 +548,10 @@ def main():
             "Dry-run uses paper trading only",
             "Health check dependencies not fully configured in test",
         ],
-        "notes": "Operator deployment readiness validation for Campaign #7. All checks use simulated/testnet data only.",
+        "notes": (
+            "Operator deployment readiness validation for Campaign #7. "
+            "All checks use simulated/testnet data only."
+        ),
     }
 
     # Write artifact

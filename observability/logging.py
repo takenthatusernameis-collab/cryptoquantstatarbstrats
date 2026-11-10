@@ -1,4 +1,5 @@
-"""Structured JSON logging for order lifecycle, risk decisions, adapter probes, and microstructure events."""
+"""Structured JSON logging for order lifecycle, risk, adapter probes, and microstructure."""
+
 
 import json
 import logging

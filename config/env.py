@@ -340,6 +340,8 @@ def load_env_template(path: str) -> SecretFreeEnvTemplate:
     return template
 
 
-def render_env_template(template: SecretFreeEnvTemplate, values: Optional[Dict[str, str]] = None) -> str:
+def render_env_template(
+    template: SecretFreeEnvTemplate, values: Optional[Dict[str, str]] = None
+) -> str:
     """Render environment template with optional values."""
     return template.render(values)

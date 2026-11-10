@@ -25,16 +25,38 @@ class OrderState(str, Enum):
 VALID_TRANSITIONS: Dict[OrderState, Set[OrderState]] = {
     OrderState.CREATED: {OrderState.SUBMITTED, OrderState.CANCELLED, OrderState.REJECTED},
     OrderState.SUBMITTED: {OrderState.ACKNOWLEDGED, OrderState.REJECTED, OrderState.CANCELLED},
-    OrderState.ACKNOWLEDGED: {OrderState.PARTIAL_FILL, OrderState.FILLED, OrderState.CANCELLED, OrderState.EXPIRED, OrderState.MODIFIED},
-    OrderState.PARTIAL_FILL: {OrderState.PARTIAL_FILL, OrderState.FILLED, OrderState.CANCELLED, OrderState.EXPIRED},
+    OrderState.ACKNOWLEDGED: {
+        OrderState.PARTIAL_FILL,
+        OrderState.FILLED,
+        OrderState.CANCELLED,
+        OrderState.EXPIRED,
+        OrderState.MODIFIED,
+    },
+    OrderState.PARTIAL_FILL: {
+        OrderState.PARTIAL_FILL,
+        OrderState.FILLED,
+        OrderState.CANCELLED,
+        OrderState.EXPIRED,
+    },
     OrderState.FILLED: set(),  # Terminal state
     OrderState.CANCELLED: set(),  # Terminal state
     OrderState.REJECTED: set(),  # Terminal state
     OrderState.EXPIRED: set(),  # Terminal state
-    OrderState.MODIFIED: {OrderState.PARTIAL_FILL, OrderState.FILLED, OrderState.CANCELLED, OrderState.EXPIRED, OrderState.MODIFIED},
+    OrderState.MODIFIED: {
+        OrderState.PARTIAL_FILL,
+        OrderState.FILLED,
+        OrderState.CANCELLED,
+        OrderState.EXPIRED,
+        OrderState.MODIFIED,
+    },
 }
 
-TERMINAL_STATES = {OrderState.FILLED, OrderState.CANCELLED, OrderState.REJECTED, OrderState.EXPIRED}
+TERMINAL_STATES = {
+    OrderState.FILLED,
+    OrderState.CANCELLED,
+    OrderState.REJECTED,
+    OrderState.EXPIRED,
+}
 
 
 @dataclass
@@ -81,7 +103,9 @@ class LifecycleAuditResult:
     valid_transitions: int = 0
     invalid_transitions: List[Dict] = field(default_factory=list)
     orphan_orders: List[str] = field(default_factory=list)  # Orders stuck in non-terminal state
-    terminal_without_fill: List[str] = field(default_factory=list)  # Cancelled/rejected without fill
+    terminal_without_fill: List[str] = field(
+        default_factory=list
+    )  # Cancelled/rejected without fill
     missing_initial_state: List[str] = field(default_factory=list)
     duplicate_transitions: List[str] = field(default_factory=list)
     passed: bool = True
@@ -132,7 +156,9 @@ class LifecycleAuditor:
         valid = to_state in VALID_TRANSITIONS.get(from_state, set())
         transition_error = None
         if not valid:
-            transition_error = f"Invalid transition: {from_state.value} -> {to_state.value}"
+            transition_error = (
+                f"Invalid transition: {from_state.value} -> {to_state.value}"
+            )
 
         transition = StateTransition(
             order_id=order_id,
@@ -208,7 +234,11 @@ class LifecycleAuditor:
                 result.passed = False
 
             # Check terminal states without fills
-            if order.current_state in {OrderState.CANCELLED, OrderState.REJECTED, OrderState.EXPIRED}:
+            if order.current_state in {
+                OrderState.CANCELLED,
+                OrderState.REJECTED,
+                OrderState.EXPIRED,
+            }:
                 if order.filled_quantity == 0:
                     result.terminal_without_fill.append(order_id)
 

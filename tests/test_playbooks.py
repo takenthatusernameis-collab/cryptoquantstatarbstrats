@@ -98,7 +98,8 @@ class TestPreflightChecker:
         checker = PreflightChecker([check])
         report = await checker.run()
 
-        assert report.overall_status == CheckStatus.PASS  # Non-critical failure doesn't fail overall
+        # Non-critical failure doesn't fail overall
+        assert report.overall_status == CheckStatus.PASS
         assert report.failed_checks == 1
         assert report.critical_failures == 0
 
@@ -258,8 +259,12 @@ class TestIncidentResponse:
     def test_get_incidents(self):
         """Test getting incidents."""
         response = IncidentResponse()
-        inc1 = response.create_incident(IncidentType.MANUAL, IncidentSeverity.LOW, "Test 1", "Desc 1")
-        inc2 = response.create_incident(IncidentType.MANUAL, IncidentSeverity.HIGH, "Test 2", "Desc 2")
+        inc1 = response.create_incident(
+            IncidentType.MANUAL, IncidentSeverity.LOW, "Test 1", "Desc 1"
+        )
+        inc2 = response.create_incident(
+            IncidentType.MANUAL, IncidentSeverity.HIGH, "Test 2", "Desc 2"
+        )
 
         open_incidents = response.get_open_incidents()
         assert len(open_incidents) == 2

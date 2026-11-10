@@ -46,19 +46,37 @@ def run_full_reconciliation() -> dict:
             source="internal",
             symbol=symbol,
             quantity=Decimal("1.0"),
-            avg_entry_price=Decimal("50000") if "BTC" in symbol else Decimal("3000") if "ETH" in symbol else Decimal("100"),
+            avg_entry_price=(
+                Decimal("50000")
+                if "BTC" in symbol
+                else Decimal("3000")
+                if "ETH" in symbol
+                else Decimal("100")
+            ),
         ))
         orchestrator.update_exchange_position(PositionSnapshot(
             source="exchange",
             symbol=symbol,
             quantity=Decimal("1.0"),
-            avg_entry_price=Decimal("50000") if "BTC" in symbol else Decimal("3000") if "ETH" in symbol else Decimal("100"),
+            avg_entry_price=(
+                Decimal("50000")
+                if "BTC" in symbol
+                else Decimal("3000")
+                if "ETH" in symbol
+                else Decimal("100")
+            ),
         ))
         orchestrator.update_paper_position(PositionSnapshot(
             source="paper",
             symbol=symbol,
             quantity=Decimal("1.0"),
-            avg_entry_price=Decimal("50000") if "BTC" in symbol else Decimal("3000") if "ETH" in symbol else Decimal("100"),
+            avg_entry_price=(
+                Decimal("50000")
+                if "BTC" in symbol
+                else Decimal("3000")
+                if "ETH" in symbol
+                else Decimal("100")
+            ),
         ))
 
     # Simulate cash data
@@ -196,30 +214,106 @@ def run_full_reconciliation() -> dict:
             for r in result.cash_results
         ],
         "equity": {
-            "within_tolerance": result.equity_result.within_tolerance if result.equity_result else None,
-            "equity_diff": str(result.equity_result.equity_diff) if result.equity_result else None,
-            "tolerance": str(result.equity_result.tolerance) if result.equity_result else None,
-            "details": result.equity_result.details if result.equity_result else None,
+            "within_tolerance": (
+                result.equity_result.within_tolerance
+                if result.equity_result else None
+            ),
+            "equity_diff": (
+                str(result.equity_result.equity_diff)
+                if result.equity_result else None
+            ),
+            "tolerance": (
+                str(result.equity_result.tolerance)
+                if result.equity_result else None
+            ),
+            "details": (
+                result.equity_result.details
+                if result.equity_result else None
+            ),
         },
         "fill_audit": {
-            "passed": result.fill_audit_result.passed if result.fill_audit_result else None,
-            "total_fills": result.fill_audit_result.total_fills if result.fill_audit_result else None,
-            "matched_fills": result.fill_audit_result.matched_fills if result.fill_audit_result else None,
-            "unmatched_client_orders": result.fill_audit_result.unmatched_client_orders if result.fill_audit_result else None,
-            "unmatched_exchange_orders": result.fill_audit_result.unmatched_exchange_orders if result.fill_audit_result else None,
-            "quantity_mismatches": result.fill_audit_result.quantity_mismatches if result.fill_audit_result else None,
-            "price_mismatches": result.fill_audit_result.price_mismatches if result.fill_audit_result else None,
-            "duplicate_fills": result.fill_audit_result.duplicate_fills if result.fill_audit_result else None,
+            "passed": (
+                result.fill_audit_result.passed
+                if result.fill_audit_result
+                else None
+            ),
+            "total_fills": (
+                result.fill_audit_result.total_fills
+                if result.fill_audit_result
+                else None
+            ),
+            "matched_fills": (
+                result.fill_audit_result.matched_fills
+                if result.fill_audit_result
+                else None
+            ),
+            "unmatched_client_orders": (
+                result.fill_audit_result.unmatched_client_orders
+                if result.fill_audit_result
+                else None
+            ),
+            "unmatched_exchange_orders": (
+                result.fill_audit_result.unmatched_exchange_orders
+                if result.fill_audit_result
+                else None
+            ),
+            "quantity_mismatches": (
+                result.fill_audit_result.quantity_mismatches
+                if result.fill_audit_result
+                else None
+            ),
+            "price_mismatches": (
+                result.fill_audit_result.price_mismatches
+                if result.fill_audit_result
+                else None
+            ),
+            "duplicate_fills": (
+                result.fill_audit_result.duplicate_fills
+                if result.fill_audit_result
+                else None
+            ),
         },
         "lifecycle_audit": {
-            "passed": result.lifecycle_audit_result.passed if result.lifecycle_audit_result else None,
-            "total_orders": result.lifecycle_audit_result.total_orders if result.lifecycle_audit_result else None,
-            "valid_transitions": result.lifecycle_audit_result.valid_transitions if result.lifecycle_audit_result else None,
-            "invalid_transitions": result.lifecycle_audit_result.invalid_transitions if result.lifecycle_audit_result else None,
-            "orphan_orders": result.lifecycle_audit_result.orphan_orders if result.lifecycle_audit_result else None,
-            "terminal_without_fill": result.lifecycle_audit_result.terminal_without_fill if result.lifecycle_audit_result else None,
-            "missing_initial_state": result.lifecycle_audit_result.missing_initial_state if result.lifecycle_audit_result else None,
-            "duplicate_transitions": result.lifecycle_audit_result.duplicate_transitions if result.lifecycle_audit_result else None,
+            "passed": (
+                result.lifecycle_audit_result.passed
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "total_orders": (
+                result.lifecycle_audit_result.total_orders
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "valid_transitions": (
+                result.lifecycle_audit_result.valid_transitions
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "invalid_transitions": (
+                result.lifecycle_audit_result.invalid_transitions
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "orphan_orders": (
+                result.lifecycle_audit_result.orphan_orders
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "terminal_without_fill": (
+                result.lifecycle_audit_result.terminal_without_fill
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "missing_initial_state": (
+                result.lifecycle_audit_result.missing_initial_state
+                if result.lifecycle_audit_result
+                else None
+            ),
+            "duplicate_transitions": (
+                result.lifecycle_audit_result.duplicate_transitions
+                if result.lifecycle_audit_result
+                else None
+            ),
         },
     }
 
@@ -246,7 +340,10 @@ def main():
             "Fill audit uses test order IDs",
             "Lifecycle audit uses simulated order transitions",
         ],
-        "notes": "Reconciliation audit for Campaign #7. All data is simulated for validation purposes.",
+        "notes": (
+            "Reconciliation audit for Campaign #7. "
+            "All data is simulated for validation purposes."
+        ),
     }
 
     output_path = Path(__file__).parent.parent / "reports" / "reconciliation_audit.json"

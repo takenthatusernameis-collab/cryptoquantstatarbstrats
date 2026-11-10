@@ -1,4 +1,5 @@
-"""Operational playbooks for preflight checks, start/stop/pause/resume, incident response, and dry-run validation."""
+"""Operational playbooks for preflight, lifecycle, incident response, and dry-run validation."""
+
 
 from .dry_run import DryRunConfig, DryRunPhase, DryRunStatus, DryRunStep, DryRunValidator
 from .incident import (

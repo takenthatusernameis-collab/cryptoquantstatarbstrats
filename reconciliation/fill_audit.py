@@ -68,7 +68,11 @@ class FillAuditor:
             return True
         return False
 
-    def audit(self, quantity_tolerance: Decimal = Decimal("1e-8"), price_tolerance: Decimal = Decimal("1e-8")) -> FillAuditResult:
+    def audit(
+        self,
+        quantity_tolerance: Decimal = Decimal("1e-8"),
+        price_tolerance: Decimal = Decimal("1e-8"),
+    ) -> FillAuditResult:
         """Perform fill audit."""
         result = FillAuditResult()
         result.total_fills = len(self._fill_sequence)

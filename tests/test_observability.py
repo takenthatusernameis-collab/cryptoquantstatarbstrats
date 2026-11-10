@@ -261,7 +261,12 @@ class TestMetrics:
 
     def test_histogram(self):
         """Test histogram metric."""
-        histogram = Histogram("test_histogram", "Test histogram", ["label1"], buckets=[1, 5, 10, float("inf")])
+        histogram = Histogram(
+            "test_histogram",
+            "Test histogram",
+            ["label1"],
+            buckets=[1, 5, 10, float("inf")],
+        )
         histogram.observe(2, {"label1": "value1"})
         histogram.observe(7, {"label1": "value1"})
         assert histogram.get_count({"label1": "value1"}) == 2

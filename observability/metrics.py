@@ -1,4 +1,5 @@
-"""Prometheus-compatible metrics emission for fills, latency, slippage, rejections, and risk breaches."""
+"""Prometheus-compatible metrics for fills, latency, slippage, rejections, and risk breaches."""
+
 
 import threading
 import time
@@ -369,13 +370,17 @@ class MetricsCollector:
         with self._lock:
             self._metrics[metric.name] = metric
 
-    def create_counter(self, name: str, description: str = "", labels: Optional[List[str]] = None) -> Counter:
+    def create_counter(
+        self, name: str, description: str = "", labels: Optional[List[str]] = None
+    ) -> Counter:
         """Create and register an ad-hoc counter metric."""
         metric = Counter(name, description, labels)
         self._register(metric)
         return metric
 
-    def create_gauge(self, name: str, description: str = "", labels: Optional[List[str]] = None) -> Gauge:
+    def create_gauge(
+        self, name: str, description: str = "", labels: Optional[List[str]] = None
+    ) -> Gauge:
         """Create and register an ad-hoc gauge metric."""
         metric = Gauge(name, description, labels)
         self._register(metric)

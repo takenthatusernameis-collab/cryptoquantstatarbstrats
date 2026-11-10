@@ -103,7 +103,10 @@ class ReadinessProbe(HealthProbe):
                         overall_status = DependencyStatus.UNHEALTHY
                     elif overall_status == DependencyStatus.HEALTHY:
                         overall_status = DependencyStatus.DEGRADED
-                elif status == DependencyStatus.DEGRADED and overall_status == DependencyStatus.HEALTHY:
+                elif (
+                    status == DependencyStatus.DEGRADED
+                    and overall_status == DependencyStatus.HEALTHY
+                ):
                     overall_status = DependencyStatus.DEGRADED
             except asyncio.TimeoutError:
                 results[dep.name] = {
