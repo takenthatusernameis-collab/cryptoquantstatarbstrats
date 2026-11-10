@@ -1,16 +1,19 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
-> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T10:35Z, only `HANDOFF.md`). **No fabrication. Ever.**
+> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T10:46Z, only `HANDOFF.md`). **No fabrication. Ever.**
 > **Separate locked line — DO NOT WORK/MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Unrelated to Campaign #8 and must not block it.
+> **BOTTLENECK STATUS (2026-11-10T10:46Z):** No env/data/credential blockers in-workspace. `c7-venv`, cached real spot/volume data, baseline gates, and ops examples are ready. **Only remaining blocker to progress is missing Campaign #8 primary deliverable** — you must remove it by creating code+artifact+tests this session.
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T10:35:00Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
+**[2026-11-10T10:46:11Z | DURABLE INITIAL TASK (REFRESHED) | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
+
+**NON-NEGOTIABLE FIRST ACTION:** in this session, **create `examples/run_campaign8_edge_robustness.py` and execute it to produce a timestamped `reports/campaign8_edge_robustness_<UTC>.json` from cached real data only** (no refetch, no fabrication). Do this before any other non-trivial work. Status-only updates, re-planning, or re-reading without producing this artifact/test/code progress is failure.
 
 **YOUR FIRST SUBSTANTIVE ACTIONS THIS SESSION MUST PRODUCE CODE/TESTS/ARTIFACTS AND PASSING VERIFICATION** (not reading, not planning, not status-only narration). Begin implementation immediately.
 
-**MISSION (repo-priority, evidence-first):** Answer with reproducible real-data evidence: **under which real-data cost/regime/window/enriched-gate conditions (if any) do pairs/portfolio strategies show positive OOS net after costs vs buy-and-hold, and how do enriched gates and portfolio risk controls affect that result?** Negative or insufficient findings are valid only if honest, reproducible, fully evidenced, and never fabricated.
+**MISSION (repo-priority, evidence-first):** Answer with reproducible real-data evidence: **under which real-data cost/regime/window/enriched-gate conditions (if any) do pairs/portfolio strategies show positive OOS net after costs vs buy-and-hold, and how do enriched gates and portfolio risk controls affect that result?** Negative or insufficient findings are valid only if honest, reproducible, fully evidenced, and never fabricated. Negative/insufficient outcomes do **not** excuse skipping heavy implementation, tests, or artifact generation.
 
 ### BOTTLENECKS CLEARED / READY STATE (re-verified 2026-11-10T10:35Z)
 
