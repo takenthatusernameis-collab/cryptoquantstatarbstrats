@@ -54,7 +54,7 @@ from execution.microstructure import (  # noqa: E402
     create_microstructure_broker_from_env,
 )
 from execution.oms import OMS, AccountState  # noqa: E402
-from execution.oms import OrderIntent as OMSOrderIntent
+from execution.oms import OrderIntent as OMSOrderIntent  # noqa: E402
 from execution.paper_broker import PaperBroker  # noqa: E402
 from execution.risk import RiskConfig, RiskDashboard  # noqa: E402
 
@@ -719,7 +719,13 @@ class TestFailClosedBehavior:
         decision = dashboard.pre_trade_check(
             {"symbol": "BTC", "side": "buy", "quantity": 0.001},
             market_price=50000.0,
-            portfolio_state={"gross_exposure": 0, "net_exposure": 0, "equity": 100000, "cash": 100000, "positions": {}},
+            portfolio_state={
+                "gross_exposure": 0,
+                "net_exposure": 0,
+                "equity": 100000,
+                "cash": 100000,
+                "positions": {},
+            },
             data_timestamp_utc=old_ts,
         )
         assert decision["allowed"] is False

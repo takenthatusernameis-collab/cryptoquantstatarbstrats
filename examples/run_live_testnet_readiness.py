@@ -114,31 +114,69 @@ def _build_preflight_checklist(
             {
                 "item": "Credential values present in environment",
                 "status": "ok" if has_credentials else "missing",
-                "detail": str(creds_config.get("values_present", {})) if creds_config else "no credentials config",
+                "detail": (
+                    str(creds_config.get("values_present", {}))
+                    if creds_config else "no credentials config"
+                ),
             },
             {
                 "item": "Network connectivity to testnet endpoints",
-                "status": "ok" if any(p.get("probe_name", "").startswith("tcp_testnet") and p.get("success") for p in probes) else "failed",
+                "status": (
+                    "ok"
+                    if any(
+                        p.get("probe_name", "").startswith("tcp_testnet") and p.get("success")
+                        for p in probes
+                    )
+                    else "failed"
+                ),
                 "detail": "TCP connect to testnet.binance.vision",
             },
             {
                 "item": "Network connectivity to live endpoints",
-                "status": "ok" if any(p.get("probe_name", "").startswith("tcp_live") and p.get("success") for p in probes) else "failed",
+                "status": (
+                    "ok"
+                    if any(
+                        p.get("probe_name", "").startswith("tcp_live") and p.get("success")
+                        for p in probes
+                    )
+                    else "failed"
+                ),
                 "detail": "TCP connect to api.binance.com",
             },
             {
                 "item": "Public API reachability (testnet)",
-                "status": "ok" if any(p.get("probe_name", "").startswith("http_testnet") and p.get("success") for p in probes) else "failed",
+                "status": (
+                    "ok"
+                    if any(
+                        p.get("probe_name", "").startswith("http_testnet") and p.get("success")
+                        for p in probes
+                    )
+                    else "failed"
+                ),
                 "detail": "HTTP GET to testnet /api/v3/ping and /api/v3/exchangeInfo",
             },
             {
                 "item": "Public API reachability (live)",
-                "status": "ok" if any(p.get("probe_name", "").startswith("http_live") and p.get("success") for p in probes) else "failed",
+                "status": (
+                    "ok"
+                    if any(
+                        p.get("probe_name", "").startswith("http_live") and p.get("success")
+                        for p in probes
+                    )
+                    else "failed"
+                ),
                 "detail": "HTTP GET to live /api/v3/ping and /api/v3/exchangeInfo",
             },
             {
                 "item": "Authenticated API access (testnet)",
-                "status": "ok" if any(p.get("probe_name") == "authenticated_account" and p.get("success") for p in probes) else "not_tested",
+                "status": (
+                    "ok"
+                    if any(
+                        p.get("probe_name") == "authenticated_account" and p.get("success")
+                        for p in probes
+                    )
+                    else "not_tested"
+                ),
                 "detail": "Requires valid testnet credentials",
             },
             {
@@ -149,7 +187,10 @@ def _build_preflight_checklist(
             {
                 "item": "Microstructure configuration validated",
                 "status": "ok",
-                "detail": f"Latency: {microstructure_config.get('base_latency_ms')}ms base, {microstructure_config.get('latency_jitter_ms')}ms jitter",
+                "detail": (
+                    f"Latency: {microstructure_config.get('base_latency_ms')}ms base, "
+                    f"{microstructure_config.get('latency_jitter_ms')}ms jitter"
+                ),
             },
             {
                 "item": "Lifecycle state machine validated",
@@ -369,7 +410,11 @@ def run_live_testnet_readiness() -> tuple[dict[str, Any], dict[str, Any], dict[s
     # Run bounded paper session with new adapter/microstructure
     acct = AccountState.with_cash(100000.0)
     oms = OMS(acct)
-    broker = PaperBroker(fee_rate=0.001, slippage_bps=5.0, execution_environment="paper_c6_readiness")
+    broker = PaperBroker(
+        fee_rate=0.001,
+        slippage_bps=5.0,
+        execution_environment="paper_c6_readiness",
+    )
     dashboard = RiskDashboard(
         RiskConfig(
             max_notional_per_order=15_000.0,
@@ -425,7 +470,12 @@ def run_live_testnet_readiness() -> tuple[dict[str, Any], dict[str, Any], dict[s
         orders_out.append(rec.to_dict())
         mtm = acct.mark_to_market({"BTC": px})
         dashboard.update_drawdown(float(mtm["equity"]))
-        bars.append({"timestamp_utc": ts_iso, "price": px, "equity": mtm["equity"], "cash": mtm["cash"]})
+        bars.append({
+            "timestamp_utc": ts_iso,
+            "price": px,
+            "equity": mtm["equity"],
+            "cash": mtm["cash"],
+        })
 
     final_state = acct.mark_to_market({"BTC": float(df["BTC"].iloc[-1])})
     risk_artifact = build_risk_dashboard_artifact(
@@ -504,7 +554,9 @@ def main() -> int:
     print(f"Wrote {microstructure_path}")
     print(json.dumps({
         "readiness_status": readiness["status"],
-        "lifecycle_scenarios_passed": f"{lifecycle['scenarios_passed']}/{lifecycle['scenarios_tested']}",
+        "lifecycle_scenarios_passed": (
+            f"{lifecycle['scenarios_passed']}/{lifecycle['scenarios_tested']}"
+        ),
         "microstructure_fills": microstructure["fill_count"],
         "go_live": readiness["preflight_checklist"]["go_no_go"]["live_trading"],
         "go_testnet": readiness["preflight_checklist"]["go_no_go"]["testnet_trading"],

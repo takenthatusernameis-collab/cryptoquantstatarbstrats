@@ -1,0 +1,354 @@
+{
+  "campaign": "Campaign #6 - Live/testnet execution validation",
+  "status": "ok",
+  "generated_at_utc": "2026-11-10T03:16:29.964871+00:00",
+  "mode": "paper_lifecycle_validation",
+  "simulated": true,
+  "real_exchange_interaction": false,
+  "execution_environment": "paper",
+  "scenarios_tested": 9,
+  "scenarios_passed": 9,
+  "scenario_results": {
+    "market_fill": {
+      "valid": true,
+      "errors": [],
+      "final_state": "filled",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964583+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-091cd1908643"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964590+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "fill",
+          "to_state": "filled",
+          "timestamp_utc": "2026-11-10T03:16:29.964599+00:00",
+          "metadata": {
+            "fill_qty": 0.01,
+            "fill_price": 50000.0,
+            "fee": 0.0,
+            "trade_id": null
+          }
+        }
+      ]
+    },
+    "limit_cross_fill": {
+      "valid": true,
+      "errors": [],
+      "final_state": "filled",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964631+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-200ead679f3f"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964636+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "fill",
+          "to_state": "filled",
+          "timestamp_utc": "2026-11-10T03:16:29.964643+00:00",
+          "metadata": {
+            "fill_qty": 0.01,
+            "fill_price": 50000.0,
+            "fee": 0.0,
+            "trade_id": null
+          }
+        }
+      ]
+    },
+    "limit_expire": {
+      "valid": true,
+      "errors": [],
+      "final_state": "expired",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964664+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-2d02fb9ecd18"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964669+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "expire",
+          "to_state": "expired",
+          "timestamp_utc": "2026-11-10T03:16:29.964672+00:00",
+          "metadata": {}
+        }
+      ]
+    },
+    "partial_then_full": {
+      "valid": true,
+      "errors": [],
+      "final_state": "filled",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964689+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-a1a52288dc2e"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964693+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "partial_fill",
+          "to_state": "partially_filled",
+          "timestamp_utc": "2026-11-10T03:16:29.964699+00:00",
+          "metadata": {
+            "fill_qty": 0.005,
+            "fill_price": 50000.0,
+            "fee": 0.0,
+            "trade_id": null
+          }
+        },
+        {
+          "from_state": "partially_filled",
+          "event": "fill",
+          "to_state": "filled",
+          "timestamp_utc": "2026-11-10T03:16:29.964703+00:00",
+          "metadata": {
+            "fill_qty": 0.005,
+            "fill_price": 50100.0,
+            "fee": 0.0,
+            "trade_id": null
+          }
+        }
+      ]
+    },
+    "cancel_before_fill": {
+      "valid": true,
+      "errors": [],
+      "final_state": "canceled",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964722+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-815da11179eb"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964726+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "cancel_request",
+          "to_state": "cancel_requested",
+          "timestamp_utc": "2026-11-10T03:16:29.964729+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "cancel_requested",
+          "event": "cancel_acknowledge",
+          "to_state": "canceled",
+          "timestamp_utc": "2026-11-10T03:16:29.964732+00:00",
+          "metadata": {}
+        }
+      ]
+    },
+    "cancel_after_partial": {
+      "valid": true,
+      "errors": [],
+      "final_state": "canceled",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964748+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-dcb9f918ce35"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964752+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "partial_fill",
+          "to_state": "partially_filled",
+          "timestamp_utc": "2026-11-10T03:16:29.964757+00:00",
+          "metadata": {
+            "fill_qty": 0.005,
+            "fill_price": 50000.0,
+            "fee": 0.0,
+            "trade_id": null
+          }
+        },
+        {
+          "from_state": "partially_filled",
+          "event": "cancel_request",
+          "to_state": "cancel_requested",
+          "timestamp_utc": "2026-11-10T03:16:29.964760+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "cancel_requested",
+          "event": "cancel_acknowledge",
+          "to_state": "canceled",
+          "timestamp_utc": "2026-11-10T03:16:29.964763+00:00",
+          "metadata": {}
+        }
+      ]
+    },
+    "replace_order": {
+      "valid": true,
+      "errors": [],
+      "final_state": "replaced",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964781+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-f240d3ae1011"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964784+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "acknowledged",
+          "event": "replace_request",
+          "to_state": "replace_requested",
+          "timestamp_utc": "2026-11-10T03:16:29.964787+00:00",
+          "metadata": {
+            "new_client_order_id": "test-replace_order-a925e1a1-replaced"
+          }
+        },
+        {
+          "from_state": "replace_requested",
+          "event": "replace_acknowledge",
+          "to_state": "replaced",
+          "timestamp_utc": "2026-11-10T03:16:29.964791+00:00",
+          "metadata": {}
+        }
+      ]
+    },
+    "reject": {
+      "valid": true,
+      "errors": [],
+      "final_state": "rejected",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964807+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-78877633cdde"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "reject",
+          "to_state": "rejected",
+          "timestamp_utc": "2026-11-10T03:16:29.964811+00:00",
+          "metadata": {
+            "reason": "insufficient_balance",
+            "message": "Simulated rejection"
+          }
+        }
+      ]
+    },
+    "timeout_retry": {
+      "valid": true,
+      "errors": [],
+      "final_state": "acknowledged",
+      "transitions": [
+        {
+          "from_state": "created",
+          "event": "submit",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964851+00:00",
+          "metadata": {
+            "exchange_order_id": "exch-b70cfce56c7f"
+          }
+        },
+        {
+          "from_state": "submitted",
+          "event": "timeout",
+          "to_state": "timeout",
+          "timestamp_utc": "2026-11-10T03:16:29.964856+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "timeout",
+          "event": "retry",
+          "to_state": "submitted",
+          "timestamp_utc": "2026-11-10T03:16:29.964859+00:00",
+          "metadata": {}
+        },
+        {
+          "from_state": "submitted",
+          "event": "acknowledge",
+          "to_state": "acknowledged",
+          "timestamp_utc": "2026-11-10T03:16:29.964862+00:00",
+          "metadata": {}
+        }
+      ]
+    }
+  },
+  "validator_strict": true,
+  "notes": [
+    "All lifecycle scenarios executed against formal state machine.",
+    "Paper/simulated only - no real exchange interaction.",
+    "Transitions validated for correctness."
+  ]
+}

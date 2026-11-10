@@ -1,0 +1,203 @@
+{
+  "campaign": "Campaign #6 - Live/testnet execution validation",
+  "status": "ok",
+  "generated_at_utc": "2026-11-10T03:16:29.965322+00:00",
+  "mode": "paper",
+  "simulated": true,
+  "real_exchange_interaction": false,
+  "real_data_only": false,
+  "fabricated_data": false,
+  "environment": {
+    "adapter_mode": "paper",
+    "adapter_capability_summary": {
+      "mode": "paper",
+      "probes": [],
+      "blocked_routes": [
+        {
+          "route": "live_exchange_order_submission",
+          "status": "blocked_fail_closed",
+          "reason": "Adapter mode is PAPER; live/testnet order submission disabled",
+          "credentials_present": {}
+        },
+        {
+          "route": "exchange_authenticated_api",
+          "status": "blocked",
+          "reason": "Paper mode does not contact real exchange APIs"
+        }
+      ],
+      "credentials_config": null,
+      "environment": {
+        "testnet_base_url": "https://testnet.binance.vision",
+        "live_base_url": "https://api.binance.com",
+        "request_timeout_s": 10.0
+      }
+    },
+    "microstructure_config": {
+      "base_latency_ms": 10.0,
+      "latency_jitter_ms": 5.0,
+      "network_latency_distribution": "lognormal",
+      "enable_queue_simulation": true,
+      "partial_fill_probability": 0.1,
+      "partial_fill_min_ratio": 0.1,
+      "partial_fill_max_ratio": 0.9,
+      "queue_position_impact_bps": 0.5,
+      "base_slippage_bps": 5.0,
+      "volatility_slippage_multiplier": 1.0,
+      "impact_model": "square_root",
+      "impact_coefficient": 0.1,
+      "adv_usd": 1000000.0,
+      "enable_data_gap_handling": true,
+      "max_gap_tolerance_bars": 5,
+      "gap_fill_strategy": "last_known",
+      "random_seed": null
+    },
+    "lifecycle_validation": "completed"
+  },
+  "capability_probes": [],
+  "blocked_routes": [
+    {
+      "route": "live_exchange_order_submission",
+      "status": "blocked_fail_closed",
+      "reason": "Adapter mode is PAPER; live/testnet order submission disabled",
+      "credentials_present": {}
+    },
+    {
+      "route": "exchange_authenticated_api",
+      "status": "blocked",
+      "reason": "Paper mode does not contact real exchange APIs"
+    }
+  ],
+  "required_credentials": {
+    "testnet": [
+      "BINANCE_TESTNET_API_KEY",
+      "BINANCE_TESTNET_API_SECRET"
+    ],
+    "live": [
+      "BINANCE_LIVE_API_KEY",
+      "BINANCE_LIVE_API_SECRET"
+    ]
+  },
+  "preflight_checklist": {
+    "checklist": [
+      {
+        "item": "Exchange adapter mode configured",
+        "status": "ok",
+        "detail": "Mode: paper"
+      },
+      {
+        "item": "Credential environment variables defined",
+        "status": "warning",
+        "detail": "Required: BINANCE_TESTNET_API_KEY/SECRET or BINANCE_LIVE_API_KEY/SECRET"
+      },
+      {
+        "item": "Credential values present in environment",
+        "status": "missing",
+        "detail": "no credentials config"
+      },
+      {
+        "item": "Network connectivity to testnet endpoints",
+        "status": "failed",
+        "detail": "TCP connect to testnet.binance.vision"
+      },
+      {
+        "item": "Network connectivity to live endpoints",
+        "status": "failed",
+        "detail": "TCP connect to api.binance.com"
+      },
+      {
+        "item": "Public API reachability (testnet)",
+        "status": "failed",
+        "detail": "HTTP GET to testnet /api/v3/ping and /api/v3/exchangeInfo"
+      },
+      {
+        "item": "Public API reachability (live)",
+        "status": "failed",
+        "detail": "HTTP GET to live /api/v3/ping and /api/v3/exchangeInfo"
+      },
+      {
+        "item": "Authenticated API access (testnet)",
+        "status": "not_tested",
+        "detail": "Requires valid testnet credentials"
+      },
+      {
+        "item": "Authenticated API access (live)",
+        "status": "not_tested",
+        "detail": "Live authenticated access not probed in paper mode"
+      },
+      {
+        "item": "Microstructure configuration validated",
+        "status": "ok",
+        "detail": "Latency: 10.0ms base, 5.0ms jitter"
+      },
+      {
+        "item": "Lifecycle state machine validated",
+        "status": "ok",
+        "detail": "All canonical transitions tested"
+      },
+      {
+        "item": "Risk controls active (fail-closed)",
+        "status": "ok",
+        "detail": "Kill switch, stale data, notional limits enforced"
+      }
+    ],
+    "go_no_go": {
+      "live_trading": false,
+      "testnet_trading": false,
+      "paper_trading": true,
+      "rationale": "Paper trading always available. Testnet/live require valid credentials and successful authenticated probe."
+    }
+  },
+  "risk_state": {
+    "timestamp_utc": "2026-11-10T03:16:29.969688+00:00",
+    "kill_switch": {
+      "active": false,
+      "reason": null,
+      "history": []
+    },
+    "drawdown": 0.0,
+    "peak_equity": 100000.0,
+    "turnover_notional": 0.0,
+    "config": {
+      "max_notional_per_order": 15000.0,
+      "max_position_notional_per_symbol": 30000.0,
+      "max_gross_exposure": 60000.0,
+      "max_net_exposure": 60000.0,
+      "max_symbol_concentration": 0.6,
+      "max_turnover_notional": 500000.0,
+      "max_cost_bps": 100.0,
+      "max_drawdown_fraction": 0.25,
+      "stale_data_seconds": 3600.0,
+      "require_market_price": true,
+      "fail_closed_on_missing_data": true,
+      "allow_historical_replay": true,
+      "replay_timestamp_skew_seconds": 86400.0
+    },
+    "portfolio_state": {
+      "cash": 100000.0,
+      "equity": 100000.0,
+      "gross_exposure": 0.0,
+      "net_exposure": 0.0,
+      "unrealized_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "fees_paid": 0.0,
+      "positions": {}
+    },
+    "breaches": [],
+    "events_count": 0,
+    "recent_events": [],
+    "status": "ok"
+  },
+  "limitations": [
+    "No authenticated testnet/live exchange credentials present in environment.",
+    "All order lifecycle and microstructure validation performed in paper/simulated mode.",
+    "Capability probes test network reachability only; authenticated access not verified.",
+    "Historical L2/intrabar replay not available - not fabricated.",
+    "Microstructure parameters are configurable via MICRO_* environment variables."
+  ],
+  "notes": [
+    "Fail-closed capability detection: all probes recorded honestly.",
+    "Order lifecycle state machine validated against all canonical transitions.",
+    "Microstructure simulation includes latency, queue, partial fills, slippage, impact.",
+    "Artifacts contain no secrets; credential presence reported by name only."
+  ]
+}

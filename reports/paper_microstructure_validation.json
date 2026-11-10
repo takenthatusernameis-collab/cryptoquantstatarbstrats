@@ -1,0 +1,302 @@
+{
+  "campaign": "Campaign #6 - Live/testnet execution validation",
+  "status": "ok",
+  "generated_at_utc": "2026-11-10T03:16:29.965196+00:00",
+  "mode": "paper_microstructure_validation",
+  "simulated": true,
+  "real_exchange_interaction": false,
+  "execution_environment": "paper_microstructure",
+  "config": {
+    "base_latency_ms": 10.0,
+    "latency_jitter_ms": 5.0,
+    "network_latency_distribution": "lognormal",
+    "enable_queue_simulation": true,
+    "partial_fill_probability": 0.1,
+    "partial_fill_min_ratio": 0.1,
+    "partial_fill_max_ratio": 0.9,
+    "queue_position_impact_bps": 0.5,
+    "base_slippage_bps": 5.0,
+    "volatility_slippage_multiplier": 1.0,
+    "impact_model": "square_root",
+    "impact_coefficient": 0.1,
+    "adv_usd": 1000000.0,
+    "enable_data_gap_handling": true,
+    "max_gap_tolerance_bars": 5,
+    "gap_fill_strategy": "last_known",
+    "random_seed": null
+  },
+  "fills": [
+    {
+      "order_id": "micro-ord-2",
+      "client_order_id": "micro-coid-ec0a4d4ffd3e",
+      "symbol": "BTCUSDT",
+      "side": "buy",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 50025.536691520225,
+      "reference_price": 50000.0,
+      "fee": 0.5002553669152023,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.107338304045476,
+      "impact_bps": 0.10733830404547628,
+      "queue_position": 0,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 0.0,
+        "total_ms": 10.0,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.964997+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 50000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-4",
+      "client_order_id": "micro-coid-c164f01c2bcc",
+      "symbol": "BTCUSDT",
+      "side": "buy",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 50030.54059347981,
+      "reference_price": 50000.0,
+      "fee": 0.5003054059347981,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.607838304045477,
+      "impact_bps": 0.6078383040454769,
+      "queue_position": 1,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 0.0,
+        "total_ms": 10.0,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965029+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 50000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-10",
+      "client_order_id": "micro-coid-388f8d53f0b3",
+      "symbol": "BTCUSDT",
+      "side": "sell",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 49974.48881966011,
+      "reference_price": 50000.0,
+      "fee": 0.4997448881966011,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.1022360679775,
+      "impact_bps": 0.10223606797749962,
+      "queue_position": 0,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 8.207576706963192,
+        "total_ms": 18.20757670696319,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965070+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 50000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-12",
+      "client_order_id": "micro-coid-8ca8a0a25bff",
+      "symbol": "BTCUSDT",
+      "side": "sell",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 49969.49022021913,
+      "reference_price": 50000.0,
+      "fee": 0.4996949022021913,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.6022360679775,
+      "impact_bps": 0.6022360679774996,
+      "queue_position": 1,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 12.257272567043234,
+        "total_ms": 22.257272567043234,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965086+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 50000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-18",
+      "client_order_id": "micro-coid-8473e762bf57",
+      "symbol": "ETHUSDT",
+      "side": "buy",
+      "requested_qty": 0.01,
+      "filled_qty": 0.002229972547051613,
+      "fill_price": 3001.5316944810843,
+      "reference_price": 3000.0,
+      "fee": 0.0066933332777981275,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.105648270280062,
+      "impact_bps": 0.10564827028006185,
+      "queue_position": 0,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 1.004942351241091,
+        "total_ms": 11.004942351241091,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965119+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 3000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-20",
+      "client_order_id": "micro-coid-ced4e987ef59",
+      "symbol": "ETHUSDT",
+      "side": "buy",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 3001.8319285733087,
+      "reference_price": 3000.0,
+      "fee": 0.030018319285733088,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.606148270280062,
+      "impact_bps": 0.6061482702800616,
+      "queue_position": 1,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 0.0,
+        "total_ms": 10.0,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965135+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 3000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-26",
+      "client_order_id": "micro-coid-7a0ddfcacc7b",
+      "symbol": "ETHUSDT",
+      "side": "sell",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 2998.4698356832328,
+      "reference_price": 3000.0,
+      "fee": 0.029984698356832328,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.100547722557505,
+      "impact_bps": 0.1005477225575051,
+      "queue_position": 0,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 0.2990762734588248,
+        "total_ms": 10.299076273458825,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965164+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 3000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    },
+    {
+      "order_id": "micro-ord-28",
+      "client_order_id": "micro-coid-24e518f85efb",
+      "symbol": "ETHUSDT",
+      "side": "sell",
+      "requested_qty": 0.01,
+      "filled_qty": 0.01,
+      "fill_price": 2998.1699196914487,
+      "reference_price": 3000.0,
+      "fee": 0.02998169919691449,
+      "fee_asset": "USDT",
+      "slippage_bps": 5.600547722557505,
+      "impact_bps": 0.6005477225575051,
+      "queue_position": 1,
+      "latency": {
+        "base_ms": 10.0,
+        "jitter_ms": 0.0,
+        "total_ms": 10.0,
+        "distribution": "lognormal"
+      },
+      "timestamp_utc": "2026-11-10T03:16:29.965177+00:00",
+      "simulated": true,
+      "real_exchange_fill": false,
+      "execution_environment": "paper_microstructure",
+      "metadata": {
+        "order_type": "market",
+        "market_price": 3000.0,
+        "simulated_execution_model": "paper_microstructure_full",
+        "volatility": 0.02
+      }
+    }
+  ],
+  "fill_count": 8,
+  "latency_stats": {
+    "count": 8,
+    "mean_ms": 12.721108487338293,
+    "min_ms": 10.0,
+    "max_ms": 22.257272567043234,
+    "p50_ms": 10.299076273458825
+  },
+  "slippage_stats": {
+    "count": 8,
+    "mean_bps": 5.354067591215136,
+    "min_bps": 5.100547722557505,
+    "max_bps": 5.607838304045477
+  },
+  "partial_fill_stats": {
+    "total_fills": 8,
+    "partial_fills": 1,
+    "partial_fill_rate": 0.125
+  },
+  "notes": [
+    "Microstructure simulation with latency, queue, partial fill, slippage, impact.",
+    "All fills labeled simulated=True, real_exchange_fill=False.",
+    "Configuration via environment variables (MICRO_*)."
+  ]
+}
