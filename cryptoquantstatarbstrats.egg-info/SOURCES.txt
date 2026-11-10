@@ -41,6 +41,8 @@ tests/test_attribution_reporting.py
 tests/test_benchmark_dashboard.py
 tests/test_binance_loader.py
 tests/test_cache_provenance_replay.py
+tests/test_campaign10_wider_universe_causal_gates.py
+tests/test_campaign11_rolling_stability_blocker.py
 tests/test_campaign24_unblock_trend.py
 tests/test_campaign2_funding_lob_feasibility.py
 tests/test_campaign8_edge_robustness.py
