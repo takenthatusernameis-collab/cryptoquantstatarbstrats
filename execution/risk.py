@@ -269,10 +269,23 @@ class RiskDashboard:
         symbol = str(order.get("symbol", "")).upper()
         side = str(order.get("side", "")).lower()
         qty = order.get("quantity")
-        if not symbol or side not in {"buy", "sell"} or not _finite(qty) or float(qty) <= 0:
+        if not symbol or side not in {"buy", "sell"}:
             return self._deny(
                 "pre_trade",
                 [Breach("invalid_order", "invalid order fields", details={"order": order})],
+                ctx,
+            )
+        if not _finite(qty):
+            return self._deny(
+                "pre_trade",
+                [Breach("invalid_order", "quantity not finite", details={"order": order})],
+                ctx,
+            )
+        qty_f = float(qty)  # type: ignore[arg-type]
+        if qty_f <= 0:
+            return self._deny(
+                "pre_trade",
+                [Breach("invalid_order", "quantity must be positive", details={"order": order})],
                 ctx,
             )
         px = market_price
