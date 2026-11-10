@@ -1,14 +1,14 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-10T21:42:29Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-10T21:45:35Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C12 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T21:42:29Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-10T21:45:35Z UTC)
 
 **Initial task (execute immediately, heavy work, no status-only work):** Run **Campaign #12 — causal per-bar enriched-gate evaluation on unevaluated real caches** to seek any honest `edge`/`no_edge`/`insufficient_or_blocked` under **unmodified gate thresholds** (no fabrication, no network refetch). C1–C11 exhausted the 1h `0bab5d6a...fcf7` (5112 bars) line (`rolling_stable_ok` blocks 5112/5112). C12 is the unblock: evaluate every real cache below not in `state.yaml` `caches_verified` and not yet run on C1–C11. **Work is not complete until every target cache is evaluated with new timestamped artifacts+tests+gates green, OR concretely evidenced `insufficient_or_blocked` with rationale/blocked_routes.**
 
-**STATE (verified 2026-11-10T21:42:29Z UTC):** `main`; only durable handoff is `HANDOFF.md`. Baseline (last verified 2026-11-10T17:12:23Z, re-confirmed this session): `pytest tests/ -q` => **1080 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. Env bootstrap bottleneck cleared: `/home/runner/work/_temp/kilo-tmp/c7-venv` created + `pip install -e ".[dev]" pydantic aiohttp pytest-asyncio` installed; all gates green. C249 emission bottleneck cleared earlier: `reports/strategy_edge_registry_20261110T170949Z.json` (SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`) and `reports/campaign249_execution_summary_20261110T170949Z.json` (SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`); C249 `oos_edge_proven: False`, `edge_claim: NONE`. `state.yaml` untouched (locked). **No C12 artifacts exist yet** (`reports/campaign12_*` absent).
+**STATE (verified 2026-11-10T21:45:35Z UTC):** `main`; only durable handoff is `HANDOFF.md`. Baseline (last verified 2026-11-10T17:12:23Z, re-confirmed this session): `pytest tests/ -q` => **1080 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. Env bootstrap bottleneck cleared: `/home/runner/work/_temp/kilo-tmp/c7-venv` created + `pip install -e ".[dev]" pydantic aiohttp pytest-asyncio` installed; all gates green. **C249 executed (RQA line):** `reports/strategy_edge_registry_20261110T170949Z.json` (SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`) and `reports/campaign249_execution_summary_20261110T170949Z.json` (SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`); C249 `oos_edge_proven: False`, `edge_claim: NONE`. `state.yaml` untouched (locked; `next_campaign: C249`, `oos_edge_proven: false`). **No C12 artifacts exist yet** (`reports/campaign12_*` absent; no `examples/run_campaign12_*`; no `tests/test_campaign12_*`).
 
 **MANDATORY HEAVY ACTION (prioritized, non-deferrable):**
 1. **§0.P1 — Campaign #12 cache evaluations (required).** For each target cache: re-verify SHA256 from bytes of `data/cache/<hash>.pkl`+`.meta.json` (done 2026-11-10T21:29:15Z, all match), confirm `fetch_real_data_only:true`, `fetch_fabricated_data:false`, then run a timestamped causal per-bar enriched-gate campaign (reuse/adapt C9–C11 methodology, **thresholds unchanged**, trailing/causal, fail-closed). Produce per cache: `examples/run_campaign12_<cache8>_<UTC>.py`, `reports/campaign12_<cache8>_<UTC>.json` (SHA256 recorded, full provenance incl. `real_data_only`, `fabricated_data: false`, `blocked_routes`, rationale, per-pair/slice gate accounting, conclusion `edge`/`no_edge`/`insufficient_or_blocked`), and `tests/test_campaign12_<cache8>.py`.
@@ -28,7 +28,7 @@
 
 - **Environment bootstrap bottleneck:** CLEARED — `/home/runner/work/_temp/kilo-tmp/c7-venv` created and `pip install -e ".[dev]" pydantic aiohttp pytest-asyncio` installed; `pytest tests/ -q` => 1080 passed, 1 skipped; ruff all checks passed; mypy Success. Next session can run Campaign #12 immediately with `PYTHONPATH=$PWD`.
 - **C12 target audit bottleneck:** CLEARED — all 5 unevaluated caches SHA/meta/provenance audited from bytes and match recorded hashes; targets enumerated above with priorities. No ambiguity remains on what to evaluate. No C12 artifacts exist yet (`reports/campaign12_*` absent; no `examples/run_campaign12_*`; no `tests/test_campaign12_*`).
-- **C249 emission bottleneck:** cleared (artifacts present; `oos_edge_proven:false`, `edge_claim:NONE`).
+- **C249 emission bottleneck:** EXECUTED — `strategy_edge_registry_20261110T170949Z.json` + `campaign249_execution_summary_20261110T170949Z.json` present; `oos_edge_proven:false`, `edge_claim:NONE`. RQA line (`state.yaml` C104–C248 locked, `next_campaign: C249`) remains SEPARATE and untouched; do not merge/substitute into C1–C12.
 
 - **Parallel lines separated:** HANDOFF C1–C11/C12 (enriched gates) vs `state.yaml` RQA C104–C248 (volume, locked). Both `oos_edge_proven:false`. Do not merge/substitute.
 
@@ -46,7 +46,7 @@
 
 **Completion gate (non-negotiable):** Session NOT complete until every target cache is either evaluated with timestamped campaign + tests + gates green, OR concretely evidenced as `insufficient_or_blocked` with `blocked_routes` and rationale. Then update **only** `HANDOFF.md` with UTC timestamp, commands run, artifact paths + SHA256, gate outcomes, findings, and the next unambiguous heavy directive.
 
-**Future-agent lock:** Do not substitute status-only work, threshold weakening, fabrication, or re-runs of C1–C11 for Campaign #12.
+**Future-agent lock:** Do not substitute status-only work, threshold weakening, fabrication, or re-runs of C1–C11 for Campaign #12. Campaign #12 cannot be deferred, bypassed, or marked complete without the per-cache deliverables above and gates green on every target cache (or evidenced `insufficient_or_blocked`).
 
 ### READY STATE (verified context)
 
@@ -129,4 +129,4 @@ $PY -m mypy backtest/ strategies/ utils/
 
 ---
 
-**END OF DURABLE HANDOFF — CAMPAIGNS #1–#11 COMPLETE (`no_edge` on cached-real enriched-gate line; exhausted under current gates/thresholds). NEXT SESSION: execute §0 (new real cached data or orthogonal real-data-only work without threshold-weakening/fabrication, else evidence-backed closeout). NO STATUS-ONLY WORK.**
+**END OF DURABLE HANDOFF — CAMPAIGNS #1–#11 COMPLETE (`no_edge` on cached-real enriched-gate line; exhausted under current gates/thresholds). C249 EXECUTED (`oos_edge_proven:false`, `edge_claim:NONE`, RQA line locked/untouched). NEXT SESSION: execute §0 Campaign #12 across all 5 unevaluated real caches (new timestamped deliverables + tests + gates green, or evidenced `insufficient_or_blocked`). NO STATUS-ONLY WORK.**
