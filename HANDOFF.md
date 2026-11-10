@@ -7,9 +7,9 @@
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T12:07:22Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, session bootstrap check complete]**
+**[2026-11-10T12:34:29Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`, session bootstrap check complete]**
 
-**NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign9_causal_gate_edge_search.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign9_causal_gate_edge_search_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
+**NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign9_causal_gate_edge_search.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign9_causal_gate_edge_search_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**. Campaign #8 is complete (`no_edge`, gates green); do NOT redo it. Campaign #9 is the active mandatory heavy work — start immediately.
 
 **MISSION (repo-priority, evidence-first):** Determine with reproducible real-data evidence **whether any cost-aware OOS net edge exists for BTC/ETH, ETH/SOL, BTC/SOL and portfolio slices consistent with `reports/portfolio_real.json` when enriched gates are evaluated causally/per-bar on trailing windows (not via static aggregate fail-closed shortcuts), and how causal per-bar gates affect trade/exposure accounting vs the C8 `no_edge` baseline.** Negative or insufficient findings are valid **only** if honest, reproducible, fully evidenced, and never fabricated. Negative/insufficient outcomes do **not** excuse skipping heavy implementation, tests, or artifact generation.
 
@@ -129,7 +129,7 @@ $PY -m mypy backtest/ strategies/ utils/
 
 ---
 
-**END OF DURABLE HANDOFF — NEXT AGENT MUST START WITH §0 BOOTSTRAP, THEN IMMEDIATELY PRODUCE CAMPAIGN #8 ITEM 1 CODE+ARTIFACT, THEN ITEMS 2–4.**
+**END OF DURABLE HANDOFF — NEXT AGENT MUST START WITH §0 BOOTSTRAP, THEN IMMEDIATELY PRODUCE CAMPAIGN #9 ITEM 1 CODE+ARTIFACT (`examples/run_campaign9_causal_gate_edge_search.py` + `reports/campaign9_causal_gate_edge_search_<UTC>.json`), THEN ITEMS 2–4.**
 
 ### SESSION 2026-11-10T12:00Z — CAMPAIGN #8 COMPLETED (HONEST, NO EDGE, GATES GREEN)
 
