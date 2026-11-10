@@ -6,7 +6,7 @@
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-10T08:49:52Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main` | last verified baseline 2026-11-10T07:35:00Z in `/home/runner/work/_temp/kilo-tmp/c7-venv` with `PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH`: `pytest tests/ -q` => 1064 passed, 1 skipped, 4042 warnings in 59.24s; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => All checks passed; C7-focused `ruff check config/ observability/ playbooks/ reconciliation/ examples/run_operator_deployment_readiness.py examples/run_reconciliation_audit.py tests/test_config.py tests/test_observability.py tests/test_playbooks.py tests/test_reconciliation.py` => All checks passed; `mypy backtest/ strategies/ utils/` => Success (36 source files).]**
+**[2026-11-10T09:38:12Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main` | last verified baseline 2026-11-10T09:38:12Z in `/home/runner/work/_temp/kilo-tmp/c7-venv` with `PATH=/home/runner/work/_temp/kilo-home/.local/bin:$PATH`: `pytest tests/ -q` => 1064 passed, 1 skipped, 4032 warnings in 58.90s; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => All checks passed; C7-focused `ruff check config/ observability/ playbooks/ reconciliation/ examples/run_operator_deployment_readiness.py examples/run_reconciliation_audit.py tests/test_config.py tests/test_observability.py tests/test_playbooks.py tests/test_reconciliation.py` => All checks passed; `mypy backtest/ strategies/ utils/` => Success (36 source files).]**
 
 **Bottlenecks cleared for immediate progress (verified 2026-11-10T08:49:52Z):**
 - Env ready: `/home/runner/work/_temp/kilo-tmp/c7-venv` with project+dev deps present (`numpy`, `pandas`, `scipy`, `pydantic`, `aiohttp`, `pytest 9.2.0`, `ruff 0.17.4` in PATH, `mypy`); `PYTHONPATH` must be repo root.
@@ -57,10 +57,10 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 - **Not complete** until Campaign #8 produces verified real-data artifacts/tests/code improvements with gates green, **or** every remaining blocker is concretely evidenced and unblocked as far as possible without fabrication/credentials.
 - Update **only** `HANDOFF.md` at material checkpoint/completion with: verified timestamp, commands run, created artifact paths (+ SHA256 if new), exact gate outcomes, concrete findings (edge/no-edge/blocked), and the next unambiguous heavy directive (C9 or remaining evidenced C8 blockers). No status-only completion. No deferral.
 
-## 1) Verified state snapshot (2026-11-10T08:49:52Z)
+## 1) Verified state snapshot (2026-11-10T09:38:12Z)
 
 - **Repo:** `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats` (`main`, git). Single durable handoff: `HANDOFF.md` only.
-- **Baseline gates (last full run 2026-11-10T07:35:00Z, c7-venv):** pytest 1064 passed, 1 skipped; ruff (main scopes + C7 scope) all passed; mypy 36 files success.
+- **Baseline gates (last full run 2026-11-10T09:38:12Z, c7-venv):** pytest 1064 passed, 1 skipped; ruff (main scopes + C7 scope) all passed; mypy 36 files success.
 - **C7 modules present:** `config/`, `observability/`, `playbooks/`, `reconciliation/` with examples/tests; lint cleaned (E501) in prior session, no intended behavior change.
 - **Real data (cached, verified):** 12 symbols hourly spot 2026-04-01..2026-10-30 + full 1h quote-volume series; see `research_state/state.yaml` cache SHA256s and `reports/portfolio_real.json`.
 - **Locked/separate track:** `research_state/state.yaml` RQA C104-C248/C249 preselected, `oos_edge_proven: false` — do not modify.
