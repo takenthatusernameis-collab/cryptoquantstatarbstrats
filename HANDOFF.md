@@ -1,27 +1,27 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (Next Agentic Session)
 
 > **SINGLE DURABLE HANDOFF. NEXT AGENT: START HERE. HEAVY WORK ONLY. NO EXCEPTIONS.**
-> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T10:47Z, only `HANDOFF.md`). **No fabrication. Ever.**
+> Repo: `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Campaigns #1–#7 COMPLETE (honest/bounded/paper where stated). Competing handoff/TODO/NEXT/plan docs at repo root: **NONE** (re-verified 2026-11-10T11:31Z, only `HANDOFF.md`). **No fabrication. Ever.**
 > **Separate locked line — DO NOT WORK/MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Unrelated to Campaign #8 and must not block it.
-> **BOTTLENECK STATUS (2026-11-10T10:47Z):** No in-workspace env/data/credential blockers. `c7-venv`, cached real spot/volume data, baseline gates, and ops examples are ready. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` (missing numpy / malformed tool args in other runners) are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
+> **BOTTLENECK STATUS (2026-11-10T11:31Z):** No in-workspace env/data/credential blockers. `c7-venv`, cached real spot/volume data, baseline gates, and ops examples are ready. External CI/workflow log failures in `research_state/workflow_run_diagnostics.jsonl` (missing numpy / malformed tool args in other runners) are **not blockers here** — use `c7-venv`. **The only remaining blocker to meaningful progress is the missing Campaign #8 primary deliverable; remove it by creating code + artifact + tests and passing gates this session.**
 
 ## 0) TIMESTAMPED INITIAL TASK MESSAGE (SINGLE DURABLE DIRECTIVE FOR NEXT SESSION)
 
-**[2026-11-10T10:47:21Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
+**[2026-11-10T11:31:47Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`]**
 
 **NON-NEGOTIABLE FIRST SUBSTANTIVE ACTION (do before any other non-trivial work):** create `examples/run_campaign8_edge_robustness.py` and execute it with `c7-venv` to produce a timestamped `reports/campaign8_edge_robustness_<UTC>.json` generated from **cached real data only** (no refetch, no synthetic/fabricated prices/IV/volume/fills/order books/labels/metrics). Status-only updates, re-planning, or re-reading without producing this code+artifact is **failure**.
 
 **MISSION (repo-priority, evidence-first):** Determine with reproducible real-data evidence **under which real-data cost, regime, window, and enriched-gate conditions (if any) do pairs/portfolio strategies show positive OOS net after costs vs buy-and-hold, and how do enriched gates and portfolio risk controls affect that result?** Negative or insufficient findings are valid **only** if honest, reproducible, fully evidenced, and never fabricated. Negative/insufficient outcomes do **not** excuse skipping heavy implementation, tests, or artifact generation.
 
-### BOTTLENECKS CLEARED / READY STATE (re-verified 2026-11-10T10:47Z)
+### BOTTLENECKS CLEARED / READY STATE (re-verified 2026-11-10T11:31Z)
 
 - **Env ready:** `/home/runner/work/_temp/kilo-tmp/c7-venv` (numpy/pandas/scipy/pydantic/aiohttp/pytest 9.2.0, ruff 0.17.4, mypy available). Use `PYTHONPATH` = repo root.
 - **Cached real data (SHA256-verified, do not refetch/fabricate):**
   - Spot cache: `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` + `.meta.json` (11 symbols: ADA,AVAX,BNB,BTC,DOT,ETH,LINK,LTC,POL,SOL,XRP; hourly 2026-04-01..2026-10-30 UTC; 5112 bars) — hashes recorded in `research_state/state.yaml`.
   - Volume: `data/cache/volume_1h_full.pkl` + `.meta.json` + `.provenance.json` (hashes in `research_state/state.yaml`).
 - **Key real baseline artifacts:** `reports/pairs_real_market.json` (BTC/ETH,ETH/SOL,BTC/SOL, 5064 bars, wf train=500/test=100/n_splits=4 rolling, fee=0.001 slip=0.0005: **0 trades, OOS mean 0, replay total 0** for all 3; B&H +15.50%/+17.60%/+21.59%; fail-closed enriched gates), `reports/portfolio_real.json` (14 pairs/12 symbols, risk controls gross=1.4/per-pair=0.32/corr=0.5/CVaR=0.25/DD breaker=-10%), `reports/cost_sensitivity_real.json`, `reports/cost_sensitivity_real_portfolio.json`, `reports/regime_cost_stress_extended.json` — all real-data-only, no fabrication.
-- **Baseline gates (re-verified 2026-11-10T10:35Z, c7-venv):** `pytest tests/ -q` => **1064 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; C7-focused ruff => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
-- **Ops examples (re-verified 2026-11-10T10:35Z):** `examples/run_reconciliation_audit.py` => `reports/reconciliation_audit.json` **pass**; `examples/run_operator_deployment_readiness.py` => `reports/operator_deployment_readiness.json` **pass**.
+- **Baseline gates (re-verified 2026-11-10T11:31Z, c7-venv):** `pytest tests/ -q` => **1064 passed, 1 skipped**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; C7-focused ruff => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success (36 source files)**.
+- **Ops examples (re-verified 2026-11-10T11:31Z):** `examples/run_reconciliation_audit.py` => `reports/reconciliation_audit.json` **pass**; `examples/run_operator_deployment_readiness.py` => `reports/operator_deployment_readiness.json` **pass**.
 - **Known non-blockers:** no exchange/testnet creds, no public historical L2/intrabar replay. If genuinely blocked, emit honest `blocked_or_insufficient_data`/partial artifacts with `blocked_routes` and rationale; **never fabricate**.
 
 ### ACTIVE CAMPAIGN #8 — STAT-ARB EDGE HARDENING & HONEST REAL-DATA EXTENSION (MANDATORY)
@@ -66,7 +66,7 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 ## 1) VERIFIED STATE SNAPSHOT
 
 - **Repo:** `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats` (`main`). Single durable handoff: `HANDOFF.md` only.
-- **Baseline gates (2026-11-10T10:35Z, c7-venv):** pytest 1064 passed, 1 skipped; ruff (main + C7 scopes) all passed; mypy 36 files success.
+- **Baseline gates (2026-11-10T11:31Z, c7-venv):** pytest 1064 passed, 1 skipped; ruff (main + C7 scopes) all passed; mypy 36 files success.
 - **C7 modules:** `config/`, `observability/`, `playbooks/`, `reconciliation/` with examples/tests; ops artifacts pass.
 - **Real data (cached, verified):** 11-symbol hourly spot 2026-04-01..2026-10-30 + full 1h quote-volume series; see `research_state/state.yaml` cache SHA256s and `reports/portfolio_real.json`.
 - **Locked/separate track:** `research_state/state.yaml` RQA C104–C248/C249 preselected, `oos_edge_proven: false` — do not modify.
@@ -84,11 +84,11 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 | #7 Operator deployment hardening | COMPLETE (verified 2026-11-10) | config/observability/playbooks/reconciliation + artifacts; gates green |
 | **#8 Stat-arb edge hardening & honest real-data extension** | **ACTIVE — NEXT HEAVY WORK** | §0: produce `examples/run_campaign8_edge_robustness.py` + timestamped `reports/campaign8_edge_robustness_<UTC>.json` from cached real data, tests, gates |
 
-### SESSION 2026-11-10T10:35Z — VERIFIED OUTCOMES (baseline checkpoint)
+### SESSION 2026-11-10T11:31Z — VERIFIED OUTCOMES (baseline checkpoint)
 
 - Gates green (pytest 1064/1 skipped, ruff main+C7 clean, mypy 36 files success).
 - Ops examples pass (`reconciliation_audit.json`, `operator_deployment_readiness.json`).
-- **Campaign #8 not started:** `examples/run_campaign8_edge_robustness.py` and `reports/campaign8_*.json` do not exist. This is the only remaining bottleneck; all prerequisites are ready.
+- **Campaign #8 not started:** `examples/run_campaign8_edge_robustness.py` and `reports/campaign8_edge_robustness_<UTC>.json` do not exist. This is the only remaining bottleneck; all prerequisites are ready.
 
 ## 3) REPRODUCTION / GATE COMMANDS
 
