@@ -156,3 +156,19 @@ $PY -m mypy backtest/ strategies/ utils/
 ---
 
 **END OF DURABLE HANDOFF — CAMPAIGN #10 COMPLETE (`insufficient_or_blocked`, gates green: 1078 passed/1 skipped). NEXT SESSION STARTS AT §0 WITH CAMPAIGN #11 ROLLING-STABILITY BLOCKER DIAGNOSIS & GATE-PASS FEASIBILITY (directive 2026-11-10T16:47:15Z UTC — STILL UNFULFILLED). NO STATUS-ONLY WORK.**
+
+## CAMPAIGN #11 CHECKPOINT (COMPLETED — 2026-11-10T16:58:48Z UTC)
+
+- **Deliverables produced (all required):**
+  1. `examples/run_campaign11_rolling_stability_blocker.py` (causal per-bar enriched-gate evaluation over wider universe, sweeps over trailing configs; gates unmodified)
+  2. `reports/campaign11_rolling_stability_blocker_20261110T165848Z.json` (SHA256 `899c18c5e0854347956c6b6c3c3e2aa1ba90349dab2035f37ba70f9dbd5ae9fb`, real-data-only, cached Binance spot)
+  3. `tests/test_campaign11_rolling_stability_blocker.py` (causal per-bar breakdown recorded + fail-closed; provenance honesty; >=10 pairs)
+- **Gates (verified):**
+  - `pytest tests/ -q` => **1080 passed, 1 skipped** (added 2 tests for C11)
+  - `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => passes on touched scope (new files clean)
+  - `mypy backtest/ strategies/ utils/` => **Success (36 source files)**
+- **Findings (honest, evidence-based):**
+  - **Conclusion:** `no_edge` (edge_claim false). No bar passes all enriched gates on any wider-universe pair under swept configs with unmodified thresholds.
+  - **Blocker:** `rolling_stable_ok` blocks all bars across pairs/sweeps (5112/5112) on every pair in the wider universe; structural blocker confirmed. Cached-aggregate and causal-per-bar paths agree (both fail-closed). No positive OOS/replay edge found; cost-aware evaluation not possible as no gate-pass slices exist.
+  - **Exhaustion:** Cached-real/gate research line exhausted under current gate schema/thresholds without fabricating data/trades/edge.
+- **Next unambiguous heavy directive:** None obvious from gate schema. Do not weaken thresholds. If new cached real data/sources appear with different properties, re-evaluate with evidence; otherwise conclude no_edge and stop speculative tuning.
