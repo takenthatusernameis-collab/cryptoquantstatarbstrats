@@ -6,7 +6,7 @@
 
 ## 0) Timestamped initial task message (single durable directive for next session)
 
-**[2026-11-10T08:39:15Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`. Last verified C7 baseline (2026-11-10T07:35:00Z, `/home/runner/work/_temp/kilo-tmp/c7-venv`, ruff in `/home/runner/work/_temp/kilo-home/.local/bin`): `pytest tests/ -q` => 1064 passed, 1 skipped, 4042 warnings in 59.24s; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => All checks passed; C7-focused ruff scope => All checks passed; `mypy backtest/ strategies/ utils/` => Success (36 source files). System Python lacks deps/tools — use/create venv with project+dev deps incl. `pydantic`, `aiohttp`, `pytest-asyncio`, `pytest`, `ruff`, `mypy`. No exchange/testnet credentials; no public historical L2/intrabar replay; never fabricate data/fills/order books/labels/metrics/exchange responses. EXPLICIT DIRECTIONS ABSENT => CONTINUE HEAVY WORK: EXECUTE CAMPAIGN #8 NOW.]**
+**[2026-11-10T08:42:09Z | DURABLE INITIAL TASK | `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats`, branch `main`. Last verified C7 baseline (2026-11-10T07:35:00Z, `/home/runner/work/_temp/kilo-tmp/c7-venv`, ruff in `/home/runner/work/_temp/kilo-home/.local/bin`): `pytest tests/ -q` => 1064 passed, 1 skipped, 4042 warnings in 59.24s; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => All checks passed; C7-focused ruff scope => All checks passed; `mypy backtest/ strategies/ utils/` => Success (36 source files). System Python lacks deps/tools — use/create venv with project+dev deps incl. `pydantic`, `aiohttp`, `pytest-asyncio`, `pytest`, `ruff`, `mypy`. No exchange/testnet credentials; no public historical L2/intrabar replay; never fabricate data/fills/order books/labels/metrics/exchange responses. EXPLICIT DIRECTIONS ABSENT => CONTINUE HEAVY WORK: EXECUTE CAMPAIGN #8 NOW.]**
 
 **NEXT AGENTIC SESSION: CAMPAIGN #8 — STAT-ARB EDGE HARDENING & HONEST REAL-DATA EXTENSION (HEAVY WORK, MANDATORY, NON-DEFERRABLE).**
 
@@ -46,7 +46,7 @@
 - Update **only** `HANDOFF.md` at material checkpoint/completion with: verified timestamp, commands/artifacts run, artifact paths + SHA256 if created, exact gate outcomes, concrete findings, and the next unambiguous heavy directive (C9 or remaining C8 blockers evidenced).
 - **This directive remains active until** Campaign #8 produces verified real-data artifacts/tests/code improvements with gates green (or every remaining blocker is concretely evidenced and unblocked as far as possible without fabrication/credentials). No status-only completion. No deferral.
 
-## 1) Verified state (2026-11-10T07:41:07Z)
+## 1) Verified state (2026-11-10T08:42:09Z)
 
 - **Repo:** `/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats` (git repo, `main`).
 - **Single durable handoff:** `HANDOFF.md` only at root.
