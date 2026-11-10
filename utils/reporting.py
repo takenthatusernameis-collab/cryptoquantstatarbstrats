@@ -1268,7 +1268,7 @@ def generate_walk_forward_report(
     try:
         import numpy as _np
     except Exception:
-        _np = None  # type: ignore[assignment]
+        _np = None
 
     rows: list[dict[str, Any]] = []
     equity_segments: list[pd.Series] = []
