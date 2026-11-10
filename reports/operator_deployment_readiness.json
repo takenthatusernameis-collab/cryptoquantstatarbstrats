@@ -2,7 +2,7 @@
   "campaign": "C7",
   "artifact": "operator_deployment_readiness",
   "status": "pass",
-  "generated_at_utc": "2026-11-10T04:38:26.940187+00:00",
+  "generated_at_utc": "2026-11-10T09:48:17.489138+00:00",
   "real_data_only": true,
   "fabricated_data": false,
   "simulated": true,
@@ -54,36 +54,36 @@
     "passed": 2,
     "failed": 3,
     "critical_failures": 3,
-    "duration_ms": 89.313027998287,
+    "duration_ms": 64.31186599911598,
     "checks": [
       {
         "name": "network_reachability",
         "status": "pass",
-        "latency_ms": 67.26862200048345,
+        "latency_ms": 43.640551000862615,
         "error": null
       },
       {
         "name": "credential_presence",
         "status": "fail",
-        "latency_ms": 0.020077999579370953,
+        "latency_ms": 0.0466780002170708,
         "error": null
       },
       {
         "name": "risk_config_validation",
         "status": "pass",
-        "latency_ms": 0.05635399975290056,
+        "latency_ms": 0.10505699901841581,
         "error": null
       },
       {
         "name": "exchange_capability_probe",
         "status": "fail",
-        "latency_ms": 10.253985001327237,
+        "latency_ms": 10.820395000337157,
         "error": null
       },
       {
         "name": "data_feed_validation",
         "status": "fail",
-        "latency_ms": 11.664035999274347,
+        "latency_ms": 9.589710000000196,
         "error": null
       }
     ]
@@ -95,13 +95,13 @@
     "failed": 0,
     "expected_failures": 5,
     "skipped": 0,
-    "duration_ms": 412.22717799973907,
+    "duration_ms": 84.44715800033009,
     "steps": [
       {
         "name": "preflight_checks",
         "phase": "preflight",
         "status": "failed",
-        "duration_ms": 306.2532170006307,
+        "duration_ms": 45.89411400047538,
         "error": "Step returned False",
         "expected_failure": true
       },
@@ -109,7 +109,7 @@
         "name": "config_validation",
         "phase": "config_validation",
         "status": "passed",
-        "duration_ms": 0.05546300053538289,
+        "duration_ms": 0.09725299969431944,
         "error": null,
         "expected_failure": false
       },
@@ -117,7 +117,7 @@
         "name": "exchange_connectivity",
         "phase": "exchange_connectivity",
         "status": "failed",
-        "duration_ms": 10.076061000290792,
+        "duration_ms": 12.555975999930524,
         "error": "Step returned False",
         "expected_failure": true
       },
@@ -125,7 +125,7 @@
         "name": "data_feed",
         "phase": "data_feed",
         "status": "failed",
-        "duration_ms": 80.67512100024032,
+        "duration_ms": 10.447517001011875,
         "error": "Step returned False",
         "expected_failure": true
       },
@@ -133,7 +133,7 @@
         "name": "risk_checks",
         "phase": "risk_checks",
         "status": "passed",
-        "duration_ms": 0.06635400131926872,
+        "duration_ms": 0.09184099872072693,
         "error": null,
         "expected_failure": false
       },
@@ -141,7 +141,7 @@
         "name": "order_lifecycle",
         "phase": "order_lifecycle",
         "status": "failed",
-        "duration_ms": 14.658498999779113,
+        "duration_ms": 14.932607000446296,
         "error": "Step returned False",
         "expected_failure": true
       },
@@ -149,7 +149,7 @@
         "name": "position_management",
         "phase": "position_management",
         "status": "failed",
-        "duration_ms": 0.01672100006544497,
+        "duration_ms": 0.018014001398114488,
         "error": "Step returned False",
         "expected_failure": true
       },
@@ -157,7 +157,7 @@
         "name": "reconciliation",
         "phase": "reconciliation",
         "status": "passed",
-        "duration_ms": 0.16675099868734833,
+        "duration_ms": 0.14601399925595615,
         "error": null,
         "expected_failure": false
       },
@@ -165,7 +165,7 @@
         "name": "metrics_emission",
         "phase": "metrics_emission",
         "status": "passed",
-        "duration_ms": 0.163443999554147,
+        "duration_ms": 0.08555100066587329,
         "error": null,
         "expected_failure": false
       },
@@ -173,7 +173,7 @@
         "name": "health_checks",
         "phase": "health_checks",
         "status": "passed",
-        "duration_ms": 0.028302998543949798,
+        "duration_ms": 0.03143799949612003,
         "error": null,
         "expected_failure": false
       }
@@ -185,11 +185,11 @@
     },
     "health_liveness": {
       "status": "pass",
-      "latency_ms": 0.000981999619398266
+      "latency_ms": 0.0011920001270482317
     },
     "health_readiness": {
       "status": "pass",
-      "latency_ms": 0.0010219991963822395,
+      "latency_ms": 0.0012519994925241917,
       "dependencies": {}
     },
     "structured_logging": {
@@ -199,7 +199,7 @@
   "reconciliation": {
     "overall_passed": true,
     "failed_checks": [],
-    "duration_ms": 0.08538800102542154,
+    "duration_ms": 0.09840399980021175,
     "position": [
       {
         "symbol": "BTCUSDT",
