@@ -5,22 +5,22 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C265 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T20:01:11Z UTC — C265 done; next session starts at C266) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T20:45:00Z UTC — C266 runner in progress; next session must complete C266 packaging + start C267) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line: **real cached quote/volume RQA shock mean-reversion costed-OOS**, real-data-only, fail-closed gates. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
-**IMMEDIATE NON-DEFERRABLE ACTION:** Run **Campaign #266** end-to-end now (C265 complete, `edge_claim: NONE`). No planning phase. No "explore first" substitution.
+**IMMEDIATE NON-DEFERRABLE ACTION:** Complete **Campaign #266** end-to-end now (runner launched this session; C265 complete, `edge_claim: NONE`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T20:01:11Z UTC — path clear, no bottlenecks)
+### Preflight (re-verified 2026-11-11T20:45:00Z UTC — path clear, no blocking bottlenecks)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
-grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN|mad_from_median|WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN|white_diag_line_length_mad_from_median' scripts/ strategies/ backtest/ utils/ | grep -v mad_from_median_shock_mr_costed_oos | wc -l  # must be 0 nonself before C266 run
+grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE|WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE|relative_mean_absolute_difference' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # C266 primary self-only expected (13); must be 0 non-self
 ls data/cache/*.pkl data/cache/*.meta.json | wc -l  # expect 66
 git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats status --short | head
 ```
-- **Verified now:** deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); C266 primary distinctness grep = **0** (re-verified 2026-11-11T20:01:11Z); real caches present (**66** `.pkl`/`.meta.json` in `data/cache/`); no blocking bottlenecks observed. C265 artifacts complete on disk.
+- **Verified this session:** deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); C266 primary token present only in self script `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py` (13 self hits, **0 non-self**); real caches present (**66** `.pkl`/`.meta.json` in `data/cache/`); git clean. No blocking bottlenecks observed. C265 artifacts complete on disk.
+- **C266 run status (2026-11-11T20:45:00Z UTC):** OOS runner script exists and was launched this session (`python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py`). It is compute-heavy and produced no stdout before observation windows ended; **no `reports/*relative_mean_absolute_difference*` OOS artifact observed yet at handoff write time**. Next agent must first check for a newly emitted C266 OOS report; if absent, (re)run the script to completion (foreground or monitored) and then package required artifacts. Do not treat missing artifact as edge/no-edge without a completed, evidenced run.
 - If deps missing → fix environment or fail closed with concrete evidence (no status-only downgrade).
-- If grep >0 nonself → pick next grep-zero fallback (re-verify, record evidence), proceed.
 - If caches/provenance missing → fail closed with evidence, **no network refetch**.
 - If a background process blocks disk/CPU → stop it.
 
@@ -34,15 +34,15 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats statu
 - **Distinctness gate:** grep 0 nonself for the exact `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` / `relative_mean_absolute_difference` / `WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` token family before run; if non-distinct, fail-closed switch to next pre-stated grep-zero variant and record evidence.
 
 ### UNINTERRUPTED PIPELINE (so future agents cannot avoid heavy work)
-C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). **Now:** C266 (primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE`, grep-zero to re-verify at run time).
-**C267+:** continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family. Fallback chain if C266 collides/invalid: next pre-stated grep-zero variant (e.g. `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, `STANDARDIZED_MOMENT` family, or other not-yet-run dispersion/shape forms) — for each re-verify grep-zero, pre-state fail-closed formula, record evidence. For each: distinctness gate 0 nonself, fail-closed formula pre-stated, same WF/costs/edge rule, required artifacts+SHA256, update handoff. Never re-run C1–C15/C249–C265 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
+C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). **Now:** finish C266 end-to-end (primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE`, self-only distinct; runner launched 2026-11-11T20:45:00Z UTC) — wait for/produce OOS JSON, then emit ingest attempt, strategy edge registry, campaign execution summary with SHA256-from-bytes, record result/evidence, update this handoff.
+**C267+:** only after C266 fully packaged, continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family. Fallback chain if C266 collides/invalid: next pre-stated grep-zero variant (e.g. `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, `STANDARDIZED_MOMENT` family, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`, or other not-yet-run dispersion/shape forms) — for each re-verify grep-zero, pre-state fail-closed formula, record evidence. For each: distinctness gate 0 nonself, fail-closed formula pre-stated, same WF/costs/edge rule, required artifacts+SHA256, update handoff. Never re-run C1–C15/C249–C265 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
 
-## STATE SNAPSHOT (2026-11-11T20:01:11Z UTC)
+## STATE SNAPSHOT (2026-11-11T20:45:00Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C265:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
-- **C266:** **NOT STARTED / READY TO RUN NOW (IMMEDIATE PRIORITY).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` grep-zero to re-verify at run time. No bottlenecks.
-- **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance); **no refetch**.
-- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1.
+- **C266:** **IN PROGRESS (runner launched this session, compute-heavy).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` distinct (0 non-self). Runner: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py`. OOS/ingest/registry/summary artifacts and SHA256/handoff finalization **pending completion** — no C266 `reports/*relative_mean_absolute_difference*` artifact present at handoff write time.
+- **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance, 66 files); **no refetch**.
+- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1. Git clean at handoff.
 
 ## C265 — COMPLETE (2026-11-11T20:10:37Z UTC run / 2026-11-11T20:10:37Z UTC packaged)
 - **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN_SHOCK_MR` (MAD_FROM_MEDIAN=median(|L_i-med|), med=median(L), N>=3, fail-closed).
@@ -77,5 +77,5 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). **No
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T20:01:11Z UTC (C265 complete, NONE with evidence; preflight re-verified clear, no bottlenecks).**
-**NEXT AGENTIC SESSION: EXECUTE C266 NOW (HEAVY). DO NOT ASK. DO NOT PLAN. EMIT SHA256-BACKED ARTIFACTS OR HONEST NONE WITH EVIDENCE. UPDATE THIS HANDOFF. THEN CONTINUE PIPELINE C267+.**
+**END OF DURABLE HANDOFF — 2026-11-11T20:45:00Z UTC (C266 runner launched/in progress, OOS artifact not yet observed; preflight clear, no bottlenecks removed).**
+**NEXT AGENTIC SESSION: COMPLETE C266 NOW (HEAVY) — obtain C266 OOS artifact (wait or rerun to completion), emit ingest/registry/summary with SHA256-from-bytes, record NONE/edge with evidence, update this handoff. THEN CONTINUE PIPELINE C267+. DO NOT ASK. DO NOT PLAN.**
