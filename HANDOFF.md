@@ -5,7 +5,7 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C257 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T14:44:28Z UTC) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T14:46:11Z UTC) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line for this repo: **real cached quote/volume RQA shock mean-reversion costed-OOS**. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
@@ -22,6 +22,7 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats log -
 - If grep returns >0 nonself hits → pick next grep-zero distinct fallback from the list below (re-verify each), record evidence, proceed.
 - If caches missing/provenance unclear → fail closed with evidence, do not refetch network.
 - If a background process blocks disk/CPU → stop it.
+- **Preflight verified 2026-11-11T14:46:11Z UTC:** deps (numpy 2.5.4, pandas 3.1.1, scipy 1.18.1) OK; distinctness grep for NORMALIZED_RANGE = 0 nonself hits; 66 cache files (33 .pkl + 33 .meta.json) present; git clean @ 13a3459; no background processes. Path clear — proceed to C258.
 
 ### C258 Directive (execute, not plan)
 - **Strategy ID:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_NORMALIZED_RANGE_SHOCK_MR` (primary; grep-zero pre-verified).
@@ -95,10 +96,10 @@ After completing C258 (with artifacts + handoff update), **immediately** proceed
 
 [... C255–C249, C14/C15 as in prior handoff ...]
 
-## STATE SNAPSHOT (verified 2026-11-11T14:44:28Z UTC)
+## STATE SNAPSHOT (verified 2026-11-11T14:46:11Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C257:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
-- **C258:** NOT STARTED (no C258 artifacts/scripts in `reports/`/`scripts/` at this timestamp).
+- **C258:** NOT STARTED / READY TO RUN (preflight verified: deps OK, distinctness grep 0 nonself, caches present, git clean, no background processes). No C258 artifacts/scripts in `reports/`/`scripts/` yet.
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance); no refetch.
 - **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1.
 
