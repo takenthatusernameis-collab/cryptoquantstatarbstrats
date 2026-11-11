@@ -265,7 +265,9 @@ def _run_pair_sweep(pair: tuple[str, str], data: pd.DataFrame) -> dict[str, Any]
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description=f"Campaign #{CAMPAIGN_LABEL} causal per-bar enriched-gate evaluation")
+    ap = argparse.ArgumentParser(
+        description=f"Campaign #{CAMPAIGN_LABEL} causal per-bar enriched-gate evaluation"
+    )
     ap.add_argument("--cache", required=True, help="Full cache key hash (data/cache/<hash>.pkl)")
     ap.add_argument(
         "--pairs",
