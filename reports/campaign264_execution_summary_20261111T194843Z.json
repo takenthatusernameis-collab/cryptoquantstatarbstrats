@@ -1,0 +1,43 @@
+{
+  "tool": "campaign264_execution_summary",
+  "generated_at_utc": "20261111T194843Z",
+  "campaign": 264,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_coefficient_of_dispersion_shock_mr_costed_oos_20261111T193410Z.json",
+      "sha256": "5d9665d4ba39692ac3ffe397a5b90f383d3bf72f0d2d50930944d02534e37a4a"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_coefficient_of_dispersion_shock_mr_costed_oos.py",
+      "sha256": "ea3818b184eb89b139deb4f15471272cfdacb38231b16d01185bc18622c66442"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261111T194843Z.json",
+      "sha256": "aa88643d4ef17ab8e3230f6aa2c4ef5fd2e578454cd8504c2a417cf137494d72"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261111T194843Z.json",
+      "sha256": "8e2f1e233980bf2328738452c0198c5eeab698630c51c298a98a626ce6a54867"
+    }
+  },
+  "all_new_c264_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c264_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION|WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C264 primary QUARTILE_COEFFICIENT_OF_DISPERSION=(Q3-Q1)/(Q3+Q1) over qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or Q1/Q3 undefined/non-finite or (Q3+Q1)<=0 or QCD<=0/degenerate/non-finite. grep 0 nonself verified before run."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261111T190903Z.json",
+    "prior_registry_sha256": "7ec6c1607b95729bbb0130ce1a61ffc2d05b9cde4dc255bd072b4ed269d7f627",
+    "c263_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_index_of_dispersion_shock_mr_costed_oos_20261111T190430Z.json",
+    "c263_oos_sha256": "02490c3c839435ad4a6040d8eaeb97721c10f130983a91ed3de3875dd398953e"
+  }
+}
