@@ -4,11 +4,11 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C255 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T13:41:30Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T13:50:12Z UTC, re-verified)
 
 **IMMEDIATE NON-DEFERRABLE ACTION (heavy execution, no planning/status-only substitute): run Campaign #256 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search.**
 
-**Bottlenecks cleared/re-verified (2026-11-11T13:41:30Z UTC):**
+**Bottlenecks cleared/re-verified (2026-11-11T13:50:12Z UTC):**
 - `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 — available.
 - Real caches present in `data/cache/` (`.pkl` + `.meta.json`); **no network refetch**.
 - Distinctness pre-check: `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE|WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE' scripts/ strategies/ backtest/ utils/` → **0 hits** (re-verify before implementation/run).
@@ -112,4 +112,4 @@ python3 scripts/emit_campaign256_summary.py
 - Caches (real-only): `data/cache/*.{pkl,meta.json}`, `data/cache/volume_1h_full.provenance.json`.
 - Locked separate line (do not edit): `research_state/state.yaml`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T13:41:30Z UTC.** Next heavy action: **Campaign #256 `RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`** (grep-zero re-verified, deps/caches ready). Execute now, emit SHA256-backed artifacts, record honest edge/no-edge with evidence, update this handoff.
+**END OF DURABLE HANDOFF — 2026-11-11T13:50:12Z UTC.** Next heavy action: **Campaign #256 `RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`** (grep-zero re-verified, deps/caches ready). Execute now, emit SHA256-backed artifacts, record honest edge/no-edge with evidence, update this handoff.
