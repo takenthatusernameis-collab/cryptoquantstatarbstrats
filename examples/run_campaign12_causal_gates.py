@@ -211,7 +211,11 @@ def _run_pair_sweep(pair: tuple[str, str], data: pd.DataFrame) -> dict[str, Any]
             # time). all_pass True -> 1.0, False -> 0.0, pre-refresh NaN -> fill 0.0 strict.
             if breakdown is not None and not breakdown.empty and "all_pass" in breakdown.columns:
                 ap = breakdown["all_pass"]
-                enriched_ok = pd.Series(np.where(ap.to_numpy(dtype=bool), 1.0, 0.0), index=df.index, dtype=float)
+                enriched_ok = pd.Series(
+                    np.where(ap.to_numpy(dtype=bool), 1.0, 0.0),
+                    index=df.index,
+                    dtype=float,
+                )
                 enriched_ok = enriched_ok.where(ap.notna(), np.nan)
                 enriched_ok = enriched_ok.bfill().ffill().fillna(0.0)
             else:

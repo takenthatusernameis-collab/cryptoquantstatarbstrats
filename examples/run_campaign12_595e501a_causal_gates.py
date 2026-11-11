@@ -2,8 +2,9 @@
 """Campaign #12 causal per-bar enriched-gate evaluation for cache 595e501a.
 
 Wraps ``examples/run_campaign12_causal_gates.py`` for cache
-``595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5``. Real cached spot only; no network refetch; no synthetic
-inputs; gate thresholds unmodified.
+``595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5``.
+Real cached spot only; no network refetch; no synthetic inputs; gate
+thresholds unmodified.
 """
 
 from __future__ import annotations

@@ -29,7 +29,8 @@ def _sha256(path: Path) -> str:
 
 
 def _report_paths() -> list[Path]:
-    return sorted((ROOT / "reports").glob(f"campaign12_causal_per_bar_enriched_gates_{CACHE8}_*.json"))
+    pattern = f"campaign12_causal_per_bar_enriched_gates_{CACHE8}_*.json"
+    return sorted((ROOT / "reports").glob(pattern))
 
 
 def test_c12_90d10b87_cache_present_and_real_only():
