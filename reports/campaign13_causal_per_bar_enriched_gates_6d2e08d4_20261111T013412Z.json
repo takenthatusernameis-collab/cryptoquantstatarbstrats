@@ -1,0 +1,214 @@
+{
+  "type": "campaign13_causal_per_bar_enriched_gates",
+  "campaign": 13,
+  "computed_at": "2026-11-11T01:34:12.536208+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "provenance": {
+    "source": "examples.run_campaign13_causal_gates",
+    "cache_spot_pkl": "data/cache/6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.pkl",
+    "cache_spot_meta": "data/cache/6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.meta.json",
+    "cache_spot_pkl_sha256": "977ba2e94a40e4423197ce43377e229cf7d428b0d8a9cb1daf2531383f26fa28",
+    "cache_spot_meta_sha256": "85ba6c631e3e79b8b9e1c391b7dbaafdb014e044a399c9726dad949c63778504",
+    "cache_meta_content": {
+      "cache_key": "6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383",
+      "symbols": [
+        "POL",
+        "BTC"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 5112,
+      "columns": [
+        "POL",
+        "BTC"
+      ]
+    },
+    "network_fetch_performed": false,
+    "no_synthetic_fabricated_inputs": true,
+    "symbols": [
+      "POL",
+      "BTC"
+    ],
+    "pairs": [
+      [
+        "POL",
+        "BTC"
+      ]
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "freq": "1h",
+    "fetch_real_data_only": null,
+    "fetch_fabricated_data": null
+  },
+  "thresholds_unmodified": {
+    "entry_threshold": 2.0,
+    "cointegration_pvalue": 0.05,
+    "lookbacks": [
+      120,
+      240
+    ],
+    "check_intervals": [
+      24,
+      48
+    ],
+    "fee_rate": 0.001,
+    "slippage": 0.0005,
+    "strict_enriched_gates": true,
+    "use_enriched_gates": true
+  },
+  "sweeps": {
+    "lookbacks": [
+      120,
+      240
+    ],
+    "check_intervals": [
+      24,
+      48
+    ]
+  },
+  "pairs": {
+    "POL/BTC": {
+      "pair": [
+        "POL",
+        "BTC"
+      ],
+      "symbols": [
+        "POL",
+        "BTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3816,
+              "spread_mr_pass": 4128,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5111,
+              "no_structural_break": 3648
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3816,
+              "spread_mr_pass": 4152,
+              "hl_bounds_pass": 935,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5111,
+              "no_structural_break": 3768
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3888,
+              "spread_mr_pass": 4344,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3504
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3912,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 959,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3503
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    }
+  },
+  "conclusion": {
+    "status": "insufficient_or_blocked",
+    "reason": "Mixed blocker pattern / unassessable gates on real data.",
+    "edge_claim": false,
+    "honest": true,
+    "cache_bars_min": 5112
+  }
+}

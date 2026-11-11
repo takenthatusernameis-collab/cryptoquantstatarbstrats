@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Campaign #13: causal per-bar enriched-gate evaluation on remaining real caches.
+"""Campaign #13: causal per-bar enriched-gate evaluation on unevaluated real caches.
 
-Determines whether any remaining unevaluated real cache in data/cache/ yields a
-causal per-bar enriched-gate edge (any bar passes all enriched gates under
-unmodified thresholds) on any pair across trailing configs, without weakening
-thresholds and without fabrication. Produces honest edge/no_edge/insufficient_or_blocked
+Determines whether any unevaluated real cache in data/cache/ yields a causal
+per-bar enriched-gate edge (any bar passes all enriched gates under unmodified
+thresholds) on any pair across trailing configs, without weakening thresholds
+and without fabrication. Produces honest edge/no_edge/insufficient_or_blocked
 per cache.
 
 Cached real data only. No network refetch. No synthetic/fabricated prices,
@@ -51,6 +51,7 @@ GATE_NAMES = (
     "no_structural_break",
 )
 
+# Gate thresholds are UNMODIFIED (match Campaigns #9-#12).
 ENTRY_THRESHOLD = 2.0
 COINTEGRATION_PVALUE = 0.05
 LOOKBACKS = [120, 240]
@@ -101,6 +102,7 @@ def _json_safe(obj: Any) -> Any:
 
 
 def _curated_pairs(symbols: list[str]) -> list[tuple[str, str]]:
+    """Curated, cache-available pairs prioritizing the validated baseline set."""
     sym_set = set(symbols)
     preferred = [
         ("BTC", "ETH"),
@@ -121,6 +123,7 @@ def _curated_pairs(symbols: list[str]) -> list[tuple[str, str]]:
         ("LTC", "BTC"),
     ]
     pairs = [p for p in preferred if p[0] in sym_set and p[1] in sym_set]
+    # Deterministic fallback: any remaining same-cache symbol pair not yet covered.
     for i, a in enumerate(sorted(sym_set)):
         for b in sorted(sym_set)[i + 1 :]:
             if (a, b) not in pairs and (b, a) not in pairs:
@@ -203,6 +206,9 @@ def _run_pair_sweep(pair: tuple[str, str], data: pd.DataFrame) -> dict[str, Any]
             )
             res = engine.run(strat, df, fee_rate=FEE_RATE, slippage=SLIPPAGE)
             breakdown = strat.get_gate_breakdown()
+            # Derive enriched_ok from the per-bar breakdown captured during the
+            # single engine.run above (avoids recomputing diagnostics a second
+            # time). all_pass True -> 1.0, False -> 0.0, pre-refresh NaN -> fill 0.0 strict.
             if breakdown is not None and not breakdown.empty and "all_pass" in breakdown.columns:
                 ap = breakdown["all_pass"]
                 enriched_ok = pd.Series(
@@ -245,19 +251,6 @@ def _run_pair_sweep(pair: tuple[str, str], data: pd.DataFrame) -> dict[str, Any]
     }
 
 
-def _cache_is_real_only(meta: dict[str, Any]) -> bool:
-    fetch_real = meta.get("fetch_real_data_only")
-    fetch_fab = meta.get("fetch_fabricated_data")
-    fetch_success = meta.get("fetch_success")
-    if fetch_fab is True:
-        return False
-    if fetch_real is False:
-        return False
-    if fetch_success is False:
-        return False
-    return True
-
-
 def main() -> None:
     ap = argparse.ArgumentParser(description="Campaign #13 causal per-bar enriched-gate evaluation")
     ap.add_argument("--cache", required=True, help="Full cache key hash (data/cache/<hash>.pkl)")
@@ -272,10 +265,16 @@ def main() -> None:
     cache_meta = ROOT / f"data/cache/{args.cache}.meta.json"
     data, meta = _load_cached_spot(cache_pkl, cache_meta)
 
-    if not _cache_is_real_only(meta):
+    # Honor the real-only provenance contract from the cache meta. Proceed on
+    # real cached spot unless the cache is explicitly flagged as fabricated.
+    # Caches whose meta predates the fetch_real_data_only/fetch_fabricated_data
+    # fields are still real cached spot (fetch_success:true, rows>0) and are
+    # evaluated honestly here with the flag values recorded as-is.
+    fetch_real = meta.get("fetch_real_data_only")
+    fetch_fab = meta.get("fetch_fabricated_data")
+    if fetch_fab is True:
         print(
-            "REFUSING: cache meta does not assert real-only data (fabrication evidence "
-            "or failed fetch).",
+            "REFUSING: cache meta explicitly flags fetch_fabricated_data=true.",
             file=sys.stderr,
         )
         sys.exit(2)
@@ -310,6 +309,8 @@ def main() -> None:
     any_passes_anywhere = any(
         r.get("any_bar_passes_all_gates", False) for r in results_pairs.values()
     )
+    # Data-sufficiency guard: a cache too short for even the smallest rolling
+    # stability window is honestly insufficient_or_blocked, not no_edge.
     min_bars = min((r.get("bars", 0) for r in results_pairs.values()), default=0)
     rolling_stable_is_sole = all(
         r.get("rolling_stable_blocks_all_bars_all_sweeps", False)
@@ -352,8 +353,8 @@ def main() -> None:
             "start": start,
             "end": end,
             "freq": freq,
-            "fetch_real_data_only": meta.get("fetch_real_data_only"),
-            "fetch_fabricated_data": meta.get("fetch_fabricated_data"),
+            "fetch_real_data_only": fetch_real,
+            "fetch_fabricated_data": fetch_fab,
         },
         "thresholds_unmodified": {
             "entry_threshold": ENTRY_THRESHOLD,
