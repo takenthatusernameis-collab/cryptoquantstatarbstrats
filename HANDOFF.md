@@ -1,14 +1,14 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-11T04:20:22Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-11T04:29:53Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C13 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T04:20:22Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T04:29:53Z UTC)
 
 **Initial task (execute immediately, heavy work, no status-only work):** **Campaign #13 is COMPLETE (3/3 evaluated with timestamped artifacts+SHA256).** All three C13 caches have final reports with honest conclusions (`no_edge`/`insufficient_or_blocked`). Next priority: **Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement** (or as directed by user). No status-only work.
 
-**STATE (verified 2026-11-11T04:20:22Z UTC):** `main`. Baseline gates: `pytest tests/ -q` => **1088 passed, 2 skipped, 16 failed (pre-existing, unrelated to C13)**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. **Env/bootstrap bottleneck CLEARED:** venv at `/home/runner/work/_temp/kilo-tmp/c7-venv` (Python 3.12.3) with deps incl. `pandas/numpy/scipy/statsmodels/pytest/ruff/mypy/hmmlearn/pydantic/aiohttp` (`deps_ok`). Use `export PYTHONPATH=$PWD` and `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`. **C249 (RQA, locked, untouched):** `reports/strategy_edge_registry_20261110T170949Z.json` SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`, `reports/campaign249_execution_summary_20261110T170949Z.json` SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`; `edge_claim:NONE`. `research_state/state.yaml` untouched.
+**STATE (verified 2026-11-11T04:29:53Z UTC):** `main`. Baseline gates: `pytest tests/ -q` => **1089 passed, 2 skipped, 15 failed (pre-existing, unrelated to C13)**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. **Env/bootstrap bottleneck CLEARED:** venv at `/home/runner/work/_temp/kilo-tmp/c7-venv` (Python 3.12.3) with deps incl. `pandas/numpy/scipy/statsmodels/pytest/ruff/mypy/hmmlearn/pydantic/aiohttp` (`deps_ok`). Use `export PYTHONPATH=$PWD` and `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`. **C249 (RQA, locked, untouched):** `reports/strategy_edge_registry_20261110T170949Z.json` SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`, `reports/campaign249_execution_summary_20261110T170949Z.json` SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`; `edge_claim:NONE`. `research_state/state.yaml` untouched.
 
 **C13 FINAL (real-data-only, no refetch, thresholds unmodified):**
 - **DONE (SHA-verified, all 3/3 caches):**
@@ -43,7 +43,7 @@ Execute the following immediately:
 
 **Hard bans:** no status-only work; no re-runs of C1–C13 except evidence-backed defect fix; no network refetch; no synthetic data; no threshold weakening; no edits to `research_state/state.yaml`.
 
-## BOTTLENECK REMOVAL (verified 2026-11-11T04:20:22Z UTC)
+## BOTTLENECK REMOVAL (verified 2026-11-11T04:29:53Z UTC)
 
 - **Environment bootstrap:** CLEARED — `/home/runner/work/_temp/kilo-tmp/c7-venv` rebuilt with required deps (incl. `pydantic`, `aiohttp` for observability/playbooks).
 - **C12:** COMPLETE (5/5).
@@ -84,4 +84,4 @@ $PY examples/run_campaign13_causal_gates.py --cache 90d10b876bb8eda9619cbba73ed1
 
 ---
 
-**END OF DURABLE HANDOFF — 2026-11-11T04:20:22Z UTC. C12 COMPLETE (5/5). C13 COMPLETE (3/3) — 385aae3f `no_edge` (SHA `53397daf5e60af0ad960214b06b0b68b361cbb78ce589d0ba15d94dd3df5de52`), 6d2e08d4 `insufficient_or_blocked` (SHA `90bba86d82fa05b4cf8a37c80f75fd8f3dd7d03d31caa3afa7c1ef94bc9a9284`), 0bab5d6a `insufficient_or_blocked` (SHA `0113bb115395a5d908e715cc246dce009ebf9c7d5867f8d1fd865b6255610b69`). ALL C13 CACHES HAVE FINAL TIMESTAMPED ARTIFACTS+SHA256+PROVENANCE+HONEST CONCLUSIONS. NEXT SESSION: Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement. Run per-cache evaluation on unevaluated caches (90d10b87, 595e501a, 4fd3e87f, 74e86e8e, 76dedb82, a74dcf38, 749b2218) using examples/run_campaign13_causal_gates.py pattern extended to full curated pair set. Timestamped artifact+SHA256 per cache. Honest conclusion. NO STATUS-ONLY WORK. NO FABRICATION. NO REFETCH. NO STATE.YAML EDITS.**
+**END OF DURABLE HANDOFF — 2026-11-11T04:29:53Z UTC. C12 COMPLETE (5/5). C13 COMPLETE (3/3) — 385aae3f `no_edge` (SHA `53397daf5e60af0ad960214b06b0b68b361cbb78ce589d0ba15d94dd3df5de52`), 6d2e08d4 `insufficient_or_blocked` (SHA `90bba86d82fa05b4cf8a37c80f75fd8f3dd7d03d31caa3afa7c1ef94bc9a9284`), 0bab5d6a `insufficient_or_blocked` (SHA `0113bb115395a5d908e715cc246dce009ebf9c7d5867f8d1fd865b6255610b69`). ALL C13 CACHES HAVE FINAL TIMESTAMPED ARTIFACTS+SHA256+PROVENANCE+HONEST CONCLUSIONS. NEXT SESSION: Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement. Run per-cache evaluation on unevaluated caches (90d10b87, 595e501a, 4fd3e87f, 74e86e8e, 76dedb82, a74dcf38, 749b2218) using examples/run_campaign13_causal_gates.py pattern extended to full curated pair set. Timestamped artifact+SHA256 per cache. Honest conclusion. NO STATUS-ONLY WORK. NO FABRICATION. NO REFETCH. NO STATE.YAML EDITS.**
