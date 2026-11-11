@@ -5,13 +5,13 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C265 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T22:56:14Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:11:55Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line: **real cached quote/volume RQA shock mean-reversion costed-OOS**, real-data-only, fail-closed gates. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
 **IMMEDIATE NON-DEFERRABLE ACTION:** Start **Campaign #267** end-to-end now (C266 complete, `edge_claim: NONE`, `oos_edge_proven: false`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T22:56:14Z UTC — path clear, no blocking bottlenecks)
+### Preflight (re-verified 2026-11-11T23:11:55Z UTC — path clear, no blocking bottlenecks)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|STANDARDIZED_MOMENT|PEARSON_MODE_SKEW|MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN|INTERQUARTILE_MEAN|BIWEIGHT_MIDVARIANCE' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # C267 candidate grep-zero; must be 0 non-self
@@ -25,7 +25,7 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats statu
 - If a background process blocks disk/CPU → stop it.
 
 ### C267 SPEC (pre-stated, fail-closed — next grep-zero WHITE-diag line-length dispersion/shape variant)
-- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` — select next pre-stated grep-zero variant from fallback chain (e.g. `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, `STANDARDIZED_MOMENT`, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`, or other not-yet-run dispersion/shape forms). Re-verify grep-zero before run.
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` — select next pre-stated grep-zero variant from fallback chain (first candidate `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, then `STANDARDIZED_MOMENT`, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`, or other not-yet-run dispersion/shape forms). Re-verify grep-zero before run.
 - **Feature:** dispersion/shape statistic of qualifying WHITE diagonal segment lengths (pooled over off-diagonal diagonals k!=0, length>=w_min=2, N>=3). Fail-closed formula pre-stated per variant. Distinct from C266 RELATIVE_MEAN_ABSOLUTE_DIFFERENCE, C265 MAD_FROM_MEDIAN, C264 QCD, C254 MEAN_ABSOLUTE_DEVIATION, and all prior C125-C265 RQA families.
 - **Fail-closed:** if `<3` segments; intermediate statistics undefined/non-finite; feature<=0, degenerate, or non-finite; or any intermediate undefined/non-finite.
 - **WF/costs:** `train=720, test=168, step=168`; cost grid bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
@@ -36,7 +36,7 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats statu
 ### UNINTERRUPTED PIPELINE (so future agents cannot avoid heavy work)
 C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266 complete (`NONE` with evidence). **Now:** start C267 end-to-end (next grep-zero WHITE-diag line-length RQA variant, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, update handoff). **C268+:** continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family. Fallback chain if C267 collides/invalid: next pre-stated grep-zero variant — for each re-verify grep-zero, pre-state fail-closed formula, record evidence. Never re-run C1–C15/C249–C266 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
 
-## STATE SNAPSHOT (2026-11-11T22:56:14Z UTC)
+## STATE SNAPSHOT (2026-11-11T23:11:55Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C265:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
 - **C266:** **COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T22:56:14Z UTC packaged).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` distinct (0 non-self). Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
@@ -88,5 +88,5 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T22:56:14Z UTC (C266 complete with all artifacts; C267 next).**
-**NEXT AGENTIC SESSION: START C267 NOW (HEAVY) — select next grep-zero WHITE-diag line-length RQA variant, pre-state fail-closed formula, re-verify distinctness (grep 0 nonself), run OOS costed walk-forward, emit ingest/registry/summary with SHA256-from-bytes, record NONE/edge with evidence, update this handoff. THEN CONTINUE PIPELINE C268+. DO NOT ASK. DO NOT PLAN.**
+**END OF DURABLE HANDOFF — 2026-11-11T23:11:55Z UTC (C266 complete with all artifacts; C267 next).**
+**NEXT AGENTIC SESSION: START C267 NOW (HEAVY) — select next grep-zero WHITE-diag line-length RQA variant (first candidate ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN, all 6 fallback variants grep-zero), pre-state fail-closed formula, re-verify distinctness (grep 0 nonself), run OOS costed walk-forward, emit ingest/registry/summary with SHA256-from-bytes, record NONE/edge with evidence, update this handoff. THEN CONTINUE PIPELINE C268+. DO NOT ASK. DO NOT PLAN.**
