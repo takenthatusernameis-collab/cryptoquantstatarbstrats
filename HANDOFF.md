@@ -5,20 +5,20 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C265 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:17:25Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:18:49Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line: **real cached quote/volume RQA shock mean-reversion costed-OOS**, real-data-only, fail-closed gates. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
 **IMMEDIATE NON-DEFERRABLE ACTION:** Start **Campaign #267** end-to-end now (C266 complete, `edge_claim: NONE`, `oos_edge_proven: false`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T23:17:25Z UTC — path clear, no blocking bottlenecks)
+### Preflight (re-verified 2026-11-11T23:18:49Z UTC — path clear, no blocking bottlenecks)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|STANDARDIZED_MOMENT|PEARSON_MODE_SKEW|MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN|INTERQUARTILE_MEAN|BIWEIGHT_MIDVARIANCE' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # C267 candidate grep-zero; must be 0 non-self
 ls data/cache/*.pkl data/cache/*.meta.json | wc -l  # expect 66
 git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats status --short | head
 ```
-- **Verified this session (2026-11-11T23:17:25Z UTC):** deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (**66** `.pkl`/`.meta.json` in `data/cache/`); git clean. **No blocking bottlenecks observed.** C266 artifacts complete on disk with SHA256-from-bytes.
+- **Verified this session (2026-11-11T23:18:49Z UTC):** deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (**66** `.pkl`/`.meta.json` in `data/cache/`); git clean. **No blocking bottlenecks observed.** C266 artifacts complete on disk with SHA256-from-bytes.
 - **C266 run completed 2026-11-11T22:56:14Z UTC:** OOS report emitted, all packaging artifacts created. Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - If deps missing → fix environment or fail closed with concrete evidence (no status-only downgrade).
 - If caches/provenance missing → fail closed with evidence, **no network refetch**.
@@ -41,7 +41,7 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266
 - **C249–C265:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
 - **C266:** **COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T22:56:14Z UTC packaged).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` distinct (0 non-self). Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance, 66 files); **no refetch**.
-- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1. Git clean at handoff (2026-11-11T23:17:25Z UTC).
+- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1. Git clean at handoff (2026-11-11T23:18:49Z UTC).
 
 ## C266 — COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T23:14:47Z UTC handoff updated)
 - **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE_SHOCK_MR` (RELATIVE_MEAN_ABSOLUTE_DIFFERENCE=mean(|L_i-L_j|)/(2*mean(L)) over all unordered pairs of qualifying WHITE diagonal segment lengths, pooled over off-diagonal diagonals k!=0, length>=w_min=2, N>=3, fail-closed).
@@ -88,5 +88,5 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T23:17:25Z UTC (C266 complete with all artifacts; C267 next).**
+**END OF DURABLE HANDOFF — 2026-11-11T23:18:49Z UTC (C266 complete with all artifacts; C267 next).**
 **NEXT AGENTIC SESSION: START C267 NOW (HEAVY) — select next grep-zero WHITE-diag line-length RQA variant (first candidate ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN, all 6 fallback variants grep-zero), pre-state fail-closed formula, re-verify distinctness (grep 0 nonself), run OOS costed walk-forward, emit ingest/registry/summary with SHA256-from-bytes, record NONE/edge with evidence, update this handoff. THEN CONTINUE PIPELINE C268+. DO NOT ASK. DO NOT PLAN.**
