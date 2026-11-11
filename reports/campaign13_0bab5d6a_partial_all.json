@@ -1,7 +1,7 @@
 {
   "cache": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
-  "updated_utc": "2026-11-11T03:47:38.423076+00:00",
-  "completed": 24,
+  "updated_utc": "2026-11-11T04:05:02.507144+00:00",
+  "completed": 55,
   "total": 55,
   "results_pairs": {
     "BTC/ETH": {
@@ -3137,6 +3137,4067 @@
               "leg_stationarity_ok": 5112,
               "rolling_stable_ok": 5112,
               "no_structural_break": 2207
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/BNB": {
+      "pair": [
+        "AVAX",
+        "BNB"
+      ],
+      "symbols": [
+        "AVAX",
+        "BNB"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4007,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3167
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 4008,
+              "spread_mr_pass": 3911,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3239
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4704,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 4296,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3264
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4824,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 4344,
+              "hl_bounds_pass": 815,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3336
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/DOT": {
+      "pair": [
+        "AVAX",
+        "DOT"
+      ],
+      "symbols": [
+        "AVAX",
+        "DOT"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3719,
+              "spread_mr_pass": 3672,
+              "hl_bounds_pass": 383,
+              "leg_stationarity_ok": 4944,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 2615
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4296,
+              "johansen_pass": 3671,
+              "spread_mr_pass": 3768,
+              "hl_bounds_pass": 407,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5064,
+              "no_structural_break": 2615
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3432,
+              "spread_mr_pass": 3672,
+              "hl_bounds_pass": 455,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2471
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3384,
+              "spread_mr_pass": 3720,
+              "hl_bounds_pass": 479,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2447
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "AVAX/ETH": {
+      "pair": [
+        "AVAX",
+        "ETH"
+      ],
+      "symbols": [
+        "AVAX",
+        "ETH"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3624,
+              "spread_mr_pass": 4271,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2927
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3432,
+              "spread_mr_pass": 4343,
+              "hl_bounds_pass": 503,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3143
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4487,
+              "johansen_pass": 3383,
+              "spread_mr_pass": 4103,
+              "hl_bounds_pass": 743,
+              "leg_stationarity_ok": 4944,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3071
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3240,
+              "spread_mr_pass": 4175,
+              "hl_bounds_pass": 767,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3167
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/LINK": {
+      "pair": [
+        "AVAX",
+        "LINK"
+      ],
+      "symbols": [
+        "AVAX",
+        "LINK"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4272,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 3768,
+              "hl_bounds_pass": 551,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1967
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4344,
+              "johansen_pass": 3528,
+              "spread_mr_pass": 3864,
+              "hl_bounds_pass": 503,
+              "leg_stationarity_ok": 4824,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1943
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4056,
+              "johansen_pass": 3288,
+              "spread_mr_pass": 3912,
+              "hl_bounds_pass": 743,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2399
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4008,
+              "johansen_pass": 3263,
+              "spread_mr_pass": 3768,
+              "hl_bounds_pass": 815,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2472
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/LTC": {
+      "pair": [
+        "AVAX",
+        "LTC"
+      ],
+      "symbols": [
+        "AVAX",
+        "LTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3936,
+              "spread_mr_pass": 4128,
+              "hl_bounds_pass": 743,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3095
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 695,
+              "leg_stationarity_ok": 4824,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2951
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3623,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3239
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3624,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3288
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/POL": {
+      "pair": [
+        "AVAX",
+        "POL"
+      ],
+      "symbols": [
+        "AVAX",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3840,
+              "spread_mr_pass": 4008,
+              "hl_bounds_pass": 983,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3767
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 983,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3719
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4560,
+              "johansen_pass": 3936,
+              "spread_mr_pass": 4344,
+              "hl_bounds_pass": 1367,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3912
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 1295,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3912
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/SOL": {
+      "pair": [
+        "AVAX",
+        "SOL"
+      ],
+      "symbols": [
+        "AVAX",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3647,
+              "spread_mr_pass": 3743,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2471
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3575,
+              "spread_mr_pass": 3671,
+              "hl_bounds_pass": 263,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2807
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4416,
+              "johansen_pass": 3215,
+              "spread_mr_pass": 3551,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 4896,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2423
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3336,
+              "spread_mr_pass": 3599,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2351
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "AVAX/XRP": {
+      "pair": [
+        "AVAX",
+        "XRP"
+      ],
+      "symbols": [
+        "AVAX",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4392,
+              "johansen_pass": 3624,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 455,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 3048
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4392,
+              "johansen_pass": 3816,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 407,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3336
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3456,
+              "spread_mr_pass": 4128,
+              "hl_bounds_pass": 551,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3047
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 623,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2975
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "BNB/DOT": {
+      "pair": [
+        "BNB",
+        "DOT"
+      ],
+      "symbols": [
+        "BNB",
+        "DOT"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 671,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3528
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 695,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3576
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 4176,
+              "spread_mr_pass": 4320,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3312
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 4200,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 792,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3192
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "BNB/LINK": {
+      "pair": [
+        "BNB",
+        "LINK"
+      ],
+      "symbols": [
+        "BNB",
+        "LINK"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 4008,
+              "spread_mr_pass": 3960,
+              "hl_bounds_pass": 671,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2712
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 4344,
+              "spread_mr_pass": 4008,
+              "hl_bounds_pass": 743,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3144
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4176,
+              "hl_bounds_pass": 791,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 2664
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3720,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 815,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2760
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "BNB/LTC": {
+      "pair": [
+        "BNB",
+        "LTC"
+      ],
+      "symbols": [
+        "BNB",
+        "LTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4560,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4152,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2880
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 4104,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2952
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4656,
+              "johansen_pass": 3744,
+              "spread_mr_pass": 4272,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3360
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3336
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "BNB/POL": {
+      "pair": [
+        "BNB",
+        "POL"
+      ],
+      "symbols": [
+        "BNB",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4752,
+              "johansen_pass": 4176,
+              "spread_mr_pass": 4320,
+              "hl_bounds_pass": 1031,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3911
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 4152,
+              "spread_mr_pass": 4632,
+              "hl_bounds_pass": 1127,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3815
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 4032,
+              "spread_mr_pass": 4152,
+              "hl_bounds_pass": 1343,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3743
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 1487,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3720
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "BNB/XRP": {
+      "pair": [
+        "BNB",
+        "XRP"
+      ],
+      "symbols": [
+        "BNB",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4512,
+              "johansen_pass": 3648,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 359,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2616
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3912,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2808
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4896,
+              "johansen_pass": 3528,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 791,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2592
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4968,
+              "johansen_pass": 3624,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 815,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2664
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "DOT/LINK": {
+      "pair": [
+        "DOT",
+        "LINK"
+      ],
+      "symbols": [
+        "DOT",
+        "LINK"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4560,
+              "johansen_pass": 3743,
+              "spread_mr_pass": 4128,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2448
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3623,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 935,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2472
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 3960,
+              "hl_bounds_pass": 791,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2495
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3624,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 767,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2520
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "DOT/LTC": {
+      "pair": [
+        "DOT",
+        "LTC"
+      ],
+      "symbols": [
+        "DOT",
+        "LTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4752,
+              "johansen_pass": 3815,
+              "spread_mr_pass": 4296,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3048
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3719,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 887,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3192
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4656,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 671,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2975
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4152,
+              "hl_bounds_pass": 623,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2952
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "DOT/POL": {
+      "pair": [
+        "DOT",
+        "POL"
+      ],
+      "symbols": [
+        "DOT",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4656,
+              "johansen_pass": 4080,
+              "spread_mr_pass": 4224,
+              "hl_bounds_pass": 1151,
+              "leg_stationarity_ok": 5088,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3792
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 4104,
+              "spread_mr_pass": 4296,
+              "hl_bounds_pass": 1175,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3960
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3984,
+              "spread_mr_pass": 4224,
+              "hl_bounds_pass": 1008,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3792
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 4200,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 959,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3576
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "DOT/SOL": {
+      "pair": [
+        "DOT",
+        "SOL"
+      ],
+      "symbols": [
+        "DOT",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3456,
+              "spread_mr_pass": 4272,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2927
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3144,
+              "spread_mr_pass": 4296,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2999
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4704,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 4080,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 4896,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2904
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3720,
+              "spread_mr_pass": 4127,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2783
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "DOT/XRP": {
+      "pair": [
+        "DOT",
+        "XRP"
+      ],
+      "symbols": [
+        "DOT",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4752,
+              "johansen_pass": 3936,
+              "spread_mr_pass": 4320,
+              "hl_bounds_pass": 503,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 3072
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4824,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4392,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2856
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4080,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2832
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4872,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2760
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "ETH/LINK": {
+      "pair": [
+        "ETH",
+        "LINK"
+      ],
+      "symbols": [
+        "ETH",
+        "LINK"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4512,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 3936,
+              "hl_bounds_pass": 431,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1871
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3432,
+              "spread_mr_pass": 3816,
+              "hl_bounds_pass": 455,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2087
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3552,
+              "spread_mr_pass": 3816,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2111
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4415,
+              "johansen_pass": 3480,
+              "spread_mr_pass": 3839,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2111
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "ETH/LTC": {
+      "pair": [
+        "ETH",
+        "LTC"
+      ],
+      "symbols": [
+        "ETH",
+        "LTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3888,
+              "spread_mr_pass": 3984,
+              "hl_bounds_pass": 359,
+              "leg_stationarity_ok": 4896,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 3191
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 3912,
+              "hl_bounds_pass": 359,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5064,
+              "no_structural_break": 3191
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4368,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 3816,
+              "hl_bounds_pass": 431,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2999
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4392,
+              "johansen_pass": 3672,
+              "spread_mr_pass": 3816,
+              "hl_bounds_pass": 383,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3071
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "ETH/POL": {
+      "pair": [
+        "ETH",
+        "POL"
+      ],
+      "symbols": [
+        "ETH",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4656,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4344,
+              "hl_bounds_pass": 863,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3791
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4296,
+              "hl_bounds_pass": 935,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3767
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4416,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 936,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3720
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4392,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3672
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "LINK/LTC": {
+      "pair": [
+        "LINK",
+        "LTC"
+      ],
+      "symbols": [
+        "LINK",
+        "LTC"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2543
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 3912,
+              "hl_bounds_pass": 599,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2519
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3623,
+              "spread_mr_pass": 3959,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 5088,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2615
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2639
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "LINK/POL": {
+      "pair": [
+        "LINK",
+        "POL"
+      ],
+      "symbols": [
+        "LINK",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4704,
+              "johansen_pass": 4080,
+              "spread_mr_pass": 4368,
+              "hl_bounds_pass": 959,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 3503
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4584,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4392,
+              "hl_bounds_pass": 1127,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3383
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4512,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4008,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3455
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 4056,
+              "spread_mr_pass": 4056,
+              "hl_bounds_pass": 911,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3359
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "LINK/SOL": {
+      "pair": [
+        "LINK",
+        "SOL"
+      ],
+      "symbols": [
+        "LINK",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4704,
+              "johansen_pass": 3984,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 479,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1967
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4632,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4248,
+              "hl_bounds_pass": 551,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2087
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4848,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 623,
+              "leg_stationarity_ok": 4944,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2544
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4920,
+              "johansen_pass": 3743,
+              "spread_mr_pass": 4536,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2495
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "LINK/XRP": {
+      "pair": [
+        "LINK",
+        "XRP"
+      ],
+      "symbols": [
+        "LINK",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4416,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 3983,
+              "hl_bounds_pass": 551,
+              "leg_stationarity_ok": 4968,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2063
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3432,
+              "spread_mr_pass": 4055,
+              "hl_bounds_pass": 647,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2087
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3384,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 647,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2351
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3384,
+              "spread_mr_pass": 4104,
+              "hl_bounds_pass": 575,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2255
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "LTC/POL": {
+      "pair": [
+        "LTC",
+        "POL"
+      ],
+      "symbols": [
+        "LTC",
+        "POL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3816,
+              "spread_mr_pass": 3936,
+              "hl_bounds_pass": 1007,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3767
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 3768,
+              "hl_bounds_pass": 983,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3815
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4608,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4392,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3768
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4536,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4440,
+              "hl_bounds_pass": 815,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3791
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "LTC/SOL": {
+      "pair": [
+        "LTC",
+        "SOL"
+      ],
+      "symbols": [
+        "LTC",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4464,
+              "johansen_pass": 3936,
+              "spread_mr_pass": 3960,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2735
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3912,
+              "spread_mr_pass": 4008,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2903
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4368,
+              "johansen_pass": 3384,
+              "spread_mr_pass": 3864,
+              "hl_bounds_pass": 503,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 2280
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4248,
+              "johansen_pass": 3480,
+              "spread_mr_pass": 3864,
+              "hl_bounds_pass": 479,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5064,
+              "no_structural_break": 2184
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "LTC/XRP": {
+      "pair": [
+        "LTC",
+        "XRP"
+      ],
+      "symbols": [
+        "LTC",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3840,
+              "spread_mr_pass": 3816,
+              "hl_bounds_pass": 407,
+              "leg_stationarity_ok": 4944,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2736
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4488,
+              "johansen_pass": 3912,
+              "spread_mr_pass": 3912,
+              "hl_bounds_pass": 359,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2760
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4464,
+              "johansen_pass": 3504,
+              "spread_mr_pass": 4080,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2496
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4440,
+              "johansen_pass": 3576,
+              "spread_mr_pass": 4152,
+              "hl_bounds_pass": 527,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2664
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "POL/SOL": {
+      "pair": [
+        "POL",
+        "SOL"
+      ],
+      "symbols": [
+        "POL",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4752,
+              "johansen_pass": 3936,
+              "spread_mr_pass": 4176,
+              "hl_bounds_pass": 983,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3504
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 3768,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 1079,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3528
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4728,
+              "johansen_pass": 4128,
+              "spread_mr_pass": 4368,
+              "hl_bounds_pass": 983,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3576
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4680,
+              "johansen_pass": 4200,
+              "spread_mr_pass": 4344,
+              "hl_bounds_pass": 1007,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3624
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    },
+    "POL/XRP": {
+      "pair": [
+        "POL",
+        "XRP"
+      ],
+      "symbols": [
+        "POL",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4848,
+              "johansen_pass": 3888,
+              "spread_mr_pass": 4464,
+              "hl_bounds_pass": 959,
+              "leg_stationarity_ok": 5040,
+              "rolling_stable_ok": 5088,
+              "no_structural_break": 3696
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4824,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4392,
+              "hl_bounds_pass": 839,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5064,
+              "no_structural_break": 3528
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4848,
+              "johansen_pass": 3960,
+              "spread_mr_pass": 4512,
+              "hl_bounds_pass": 1175,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3504
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4920,
+              "johansen_pass": 4008,
+              "spread_mr_pass": 4536,
+              "hl_bounds_pass": 1151,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 3503
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": false
+    },
+    "SOL/XRP": {
+      "pair": [
+        "SOL",
+        "XRP"
+      ],
+      "symbols": [
+        "SOL",
+        "XRP"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4224,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 4992,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2376
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4776,
+              "johansen_pass": 3816,
+              "spread_mr_pass": 4200,
+              "hl_bounds_pass": 311,
+              "leg_stationarity_ok": 4920,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2232
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4944,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4584,
+              "hl_bounds_pass": 695,
+              "leg_stationarity_ok": 5016,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2039
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 5112,
+          "gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4968,
+              "johansen_pass": 3864,
+              "spread_mr_pass": 4680,
+              "hl_bounds_pass": 623,
+              "leg_stationarity_ok": 5064,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1919
             },
             "per_gate_fail_count_all_pass": 5112,
             "breakdown_recorded": true
