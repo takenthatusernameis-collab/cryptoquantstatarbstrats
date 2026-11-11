@@ -1,12 +1,12 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T09:10:54Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T09:12:53Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C15 progress. Do not touch it for C15; it cannot block C15.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T09:10:54Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T09:12:53Z UTC)
 
-**Initial task (execute immediately, heavy work, no status-only):** Campaign #14 is COMPLETE (7/7 evaluated, all with timestamped artifacts+SHA256 and honest conclusions; zero `edge` found → no cost-aware OOS validation triggered). **Bottlenecks removed — none remain.** All 7 candidate C15 caches verified present in `data/cache/` with `.pkl`+`.meta.json`; `fetch_success: True`, none flagged fabricated; c7-venv python present at `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`; no network refetch needed. Next unambiguous heavy focus: **Campaign #15 — causal gate edge search on remaining unevaluated real spot caches (wider-universe + OOS windows), real-data-only enforcement, unmodified thresholds.** Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts. Every eligible cache must produce a timestamped artifact + SHA256 or an honest blocked conclusion with evidence. Stop only if `edge` found (then run cost-aware OOS validation immediately).
+**Initial task (execute immediately, heavy work, no status-only):** Campaign #14 is COMPLETE (7/7 evaluated, all with timestamped artifacts+SHA256 and honest conclusions; zero `edge` found → no cost-aware OOS validation triggered). Campaign #15 STARTED (1/7 evaluated). **Bottlenecks removed — none remain.** All 7 candidate C15 caches verified present in `data/cache/` with `.pkl`+`.meta.json`; `fetch_success: True`, none flagged fabricated; c7-venv python present at `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`; no network refetch needed. Next unambiguous heavy focus: **Campaign #15 — causal gate edge search on remaining 6 unevaluated real spot caches (wider-universe + OOS windows), real-data-only enforcement, unmodified thresholds.** Cache #1 (`f4555e78`) COMPLETE: `insufficient_or_blocked` (mixed blocker pattern, `rolling_stable_ok` blocks all bars on 11/13 pairs). Every remaining eligible cache must produce a timestamped artifact + SHA256 or an honest blocked conclusion with evidence. Stop only if `edge` found (then run cost-aware OOS validation immediately).
 
 **C14 FINAL (verified 2026-11-11T08:56:40Z UTC):**
 | # | Cache8 | SHA256 (artifact) | Conclusion |
@@ -21,9 +21,16 @@
 
 All artifacts: `reports/campaign14_causal_per_bar_enriched_gates_<cache8>_<UTC>.json`. No edge found in any completed cache; no cost-aware OOS validation triggered.
 
+**C15 PROGRESS (verified 2026-11-11T09:09:45Z UTC):**
+| # | Cache8 | SHA256 (artifact) | Conclusion |
+|---|--------|--------|------------|
+| 1 | `f4555e78` | `a08d48a7e53cee307ba008cd59271cc0c59017d7c804618266bb08326846571f` | insufficient_or_blocked (mixed blockers; rolling_stable_ok blocks all bars on 11/13 pairs) |
+
+Artifact: `reports/campaign15_causal_per_bar_enriched_gates_f4555e78_campaign15_causal_per_bar_enriched_gates_f4555e78_20261111T090945Z.json`. No edge found; no cost-aware OOS validation triggered.
+
 ## MANDATORY HEAVY ACTION — CAMPAIGN #15 (NON-DEFERRABLE)
 
-**Goal:** Extend the causal per-bar enriched-gate edge search to the remaining unevaluated real spot caches (wider-universe and OOS windows) with real-data-only enforcement and unmodified thresholds. Each run MUST produce a timestamped artifact + SHA256. Stop ONLY if `edge` found (then run cost-aware OOS validation immediately). All eligible caches must complete otherwise.
+**Goal:** Extend the causal per-bar enriched-gate edge search to the remaining 6 unevaluated real spot caches (wider-universe and OOS windows) with real-data-only enforcement and unmodified thresholds. Each run MUST produce a timestamped artifact + SHA256. Stop ONLY if `edge` found (then run cost-aware OOS validation immediately). All eligible caches must complete otherwise.
 
 **Runner (from repo root):**
 ```bash
@@ -38,8 +45,8 @@ $PY examples/run_campaign13_causal_gates.py --cache <full_hash>
 
 | Priority | Cache8 | Symbols | Interval | Bars | Window | Notes |
 |----------|--------|---------|----------|------|--------|-------|
-| 1 | `f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233` | 7: ADA,BNB,BTC,DOT,ETH,SOL,XRP | 1h | 5112 | 2026-04-01..2026-10-30 | Wider universe, full window — heaviest |
-| 2 | `d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76` | 2: BTC,ETH | 1h | 5112 | 2026-04-01..2026-10-30 | Full window; `fetch_real_data_only` unset — verify provenance |
+| 1 ✅ DONE | `f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233` | 7: ADA,BNB,BTC,DOT,ETH,SOL,XRP | 1h | 5112 | 2026-04-01..2026-10-30 | Wider universe, full window — heaviest |
+| 2 👉 NEXT | `d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76` | 2: BTC,ETH | 1h | 5112 | 2026-04-01..2026-10-30 | Full window; `fetch_real_data_only` unset — verify provenance |
 | 3 | `afe337ed9ac6917a0133e12ec296ff39435ec045e7933d72e244b9748b976af5` | 2: BTC,ETH | 5m | 2016 | 2026-10-01..2026-10-07 | OOS / 5m window |
 | 4 | `f6df44264750176ca006536352e43009bf0e24d365a4dc552cac469d61845c49` | 2: BTC,ETH | 5m | 2016 | 2026-10-24..2026-10-30 | Recent 5m window |
 | 5 | `dd9bc604a203b3e20eec78508484f267c3061b791de88d1ff108b1683031c1b0` | 2: BTC,ETH | 5m | 864 | 2026-10-01..2026-10-03 | 5m window |
@@ -62,6 +69,7 @@ $PY examples/run_campaign13_causal_gates.py --cache <full_hash>
 - `research_state/state.yaml` locked — do not touch; it cannot block C15.
 - No status-only work counts toward C15; every cache must produce an artifact+SHA256 or an honest blocked conclusion with evidence.
 - Stale "cache still running" claims cleared — no background process active for C14 cache #1 (90d10b87 completed 2026-11-11T08:33:45Z).
+- C15 cache #1 (f4555e78) complete 2026-11-11T09:09:45Z UTC — no blockers remain for cache #2 (d275256c).
 
 ## HARD BANS
 - ❌ No status-only work
@@ -79,4 +87,4 @@ $PY examples/run_campaign13_causal_gates.py --cache <full_hash>
 - Caches (real-only): `data/cache/*.{pkl,meta.json}`
 - Locked separate line (do not edit): `research_state/state.yaml`
 
-**END OF DURABLE HANDOFF — 2026-11-11T09:10:54Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge found. Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts. Next: **Campaign #15 — run all eligible caches in priority order; produce artifacts+SHA256 per cache; honest conclusion per cache; validate on `edge` only with cost-aware OOS; update this handoff. No status-only work. Bottlenecks pre-cleared; heavy work is mandatory, not optional.**
+**END OF DURABLE HANDOFF — 2026-11-11T09:12:53Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge found. Campaign #15 STARTED (1/7): cache #1 `f4555e78` → `insufficient_or_blocked` (SHA256 `a08d48a7...`). Next: **Campaign #15 cache #2 `d275256c` — run causal per-bar enriched-gate evaluation; produce artifact+SHA256; honest conclusion; validate on `edge` only with cost-aware OOS; update this handoff. No status-only work. Bottlenecks pre-cleared; heavy work is mandatory, not optional.**
