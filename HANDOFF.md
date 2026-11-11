@@ -1,41 +1,51 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T12:20:52Z UTC, this session). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T12:48:32Z UTC, this session). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (stale at `latest_campaign_done: C248` / `next_campaign: C249`; C249–C252 complete on disk). Separate research line; must not be edited to block/replace C1–C15 progress. Sync `state.yaml` only if explicitly requested by the user.
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (stale at `latest_campaign_done: C248` / `next_campaign: C249`; C249–C253 complete on disk). Separate research line; must not be edited to block/replace C1–C15 progress. Sync `state.yaml` only if explicitly requested by the user.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T12:20:52Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T12:48:32Z UTC)
 
-**DO THIS FIRST (heavy execution, no status-only, no planning substitute): Campaign #253 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search. Primary preselected: `RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION` (quartile deviation = (Q3-Q1)/2 of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula/quantile definition, fail-closed if <3 qualifying segments or Q1/Q3/denom undefined/non-finite or denominator <= 0/degenerate or ratio undefined). Verify distinctness before implementation/run. Use `python3` (3.12.3); deps `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 available.**
+**DO THIS FIRST (heavy execution, no status-only, no planning substitute): Campaign #254 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search. Primary preselected: `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION` (mean absolute deviation = mean(|x_i - mean(x)|) of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula, fail-closed if <3 qualifying segments or mean/MAD undefined/non-finite or MAD <= 0/degenerate or ratio undefined). Verify distinctness before implementation/run. Use `python3` (3.12.3); deps `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 available.**
 
-**State (verified 2026-11-11T12:20:52Z UTC):** C12 5/5, C13 3/3, C14 7/7 (zero edge), C15 7/7 (zero edge). C249–C251 COMPLETE (NONE). **C252 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts + SHA256 from bytes on disk (see C252 section). **C253 NOT STARTED** — zero C253 artifacts in `reports/`/`scripts/`. Caches present in `data/cache/` (68 files incl. `.pkl`+`.meta.json`); no network refetch. **Bottlenecks cleared:** deps OK (no c7-venv blocker); grep-zero pre-check for `QUARTILE_DEVIATION` = 0 hits (scripts/strategies/backtest/utils); no blocking background process. Stop only if `oos_edge_proven: true`; otherwise record honest `edge_claim: NONE` with evidence and update this handoff. Do not edit `research_state/state.yaml` unless explicitly requested by user.
+**State (verified 2026-11-11T12:48:32Z UTC):** C12 5/5, C13 3/3, C14 7/7 (zero edge), C15 7/7 (zero edge). C249–C252 COMPLETE (NONE). **C253 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts + SHA256 from bytes on disk (see C253 section). **C254 NOT STARTED** — zero C254 artifacts in `reports/`/`scripts/`. Caches present in `data/cache/` (`.pkl`+`.meta.json`); no network refetch. **Bottlenecks cleared:** deps OK (no c7-venv blocker); grep-zero pre-check for `MEAN_ABSOLUTE_DEVIATION` = 0, `MEDIAN_ABSOLUTE_DEVIATION` = 0, `SEMI_VARIANCE` = 0 (scripts/strategies/backtest/utils); no blocking background process. Stop only if `oos_edge_proven: true`; otherwise record honest `edge_claim: NONE` with evidence and update this handoff. Do not edit `research_state/state.yaml` unless explicitly requested by user.
 
-**C253 plan (non-deferrable):**
-- **Preselected strategy:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION` (quartile deviation of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula/quantile method, fail-closed on undefined/degenerate/insufficient segments).
-- **Distinctness gate (must re-confirm before implementation/run):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION|WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION' scripts/ strategies/ backtest/ utils/` → **0 nonself hits required**.
-- **If blocked/fails distinctness:** select next grep-zero distinct fallback (e.g. `WHITE_DIAG_LINE_LENGTH_ABSOLUTE_DEVIATION` or `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`, both grep-zero pre-checked 2026-11-11T12:20:52Z), record evidence, and proceed (no status-only stop).
-- **Implement by adapting C252 pattern:** copy/edit `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py` → C253 script; preserve fail-closed, real-data-only, SHA256-from-bytes, and artifact/registry/summary/ingest emission patterns. Prior registry for C253 = `reports/strategy_edge_registry_20261111T122051Z.json` (sha256 `30b19d73024700bd855fd7a507a6c93fcbe527cb2347f769155becfb555f9851`).
+**C254 plan (non-deferrable):**
+- **Preselected strategy:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION` (mean absolute deviation of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula, fail-closed on undefined/degenerate/insufficient segments).
+- **Distinctness gate (must re-confirm before implementation/run):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION|WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION' scripts/ strategies/ backtest/ utils/` → **0 nonself hits required**.
+- **If blocked/fails distinctness:** select next grep-zero distinct fallback (e.g. `WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION` or `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`, both grep-zero pre-checked 2026-11-11T12:48:32Z), record evidence, and proceed (no status-only stop).
+- **Implement by adapting C253 pattern:** copy/edit `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py` → C254 script; preserve fail-closed, real-data-only, SHA256-from-bytes, and artifact/registry/summary/ingest emission patterns. Prior registry for C254 = `reports/strategy_edge_registry_20261111T124803Z.json` (sha256 `6829a6dd9598892636c021da790c9c71e893902855b698629a08df555faf2494`).
 - **Required outputs (all SHA256 from bytes):** timestamped costed-OOS artifact, script, ingest attempt, strategy-edge-registry entry, campaign execution summary.
 - **Edge rule (honest, fail-closed):** `oos_edge_proven: true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows (real data only). Otherwise `edge_claim: NONE` with evidence: `cross_asset_oos_net_sums`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`.
 - **Stop only if `oos_edge_proven: true`.** Otherwise record honest blocked/no-edge conclusion with evidence and update this handoff (paths, SHA256s, conclusion, next directive). No planning/researching as substitute for execution. Do **not** edit `research_state/state.yaml` unless explicitly requested by user.
 
-## C252 (MAIN LINE — COMPLETE, 2026-11-11T12:20:52Z UTC)
+## C253 (MAIN LINE — COMPLETE, 2026-11-11T12:48:32Z UTC)
 
-- Campaign 252, strategy `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW_SHOCK_MR` (Pearson's second skewness coefficient, pre-stated fixed formula `3*(mean-median)/std` of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or std<=0/non-finite or mean/median/skew non-finite/undefined or denominator==0), edge_claim **NONE**, oos_edge_proven **false**, all_new_c252_artifact_paths_sha256_from_bytes **true**.
-- **Distinctness (pre-run, required):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW' scripts/ strategies/ backtest/ utils/` → 0 nonself hits at run (`grep_hits_nonself_at_run: 0`; self + own campaign emit/ingest scripts excluded in-script).
-- **Commands run (from repo root):** distinctness grep; created `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py`, `scripts/run_real_feed_ingest_attempt_252.py`, `scripts/emit_campaign252_registry.py`, `scripts/emit_campaign252_summary.py`; `python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py`; `python3 scripts/run_real_feed_ingest_attempt_252.py`; `python3 scripts/emit_campaign252_registry.py`; `python3 scripts/emit_campaign252_summary.py`.
+- Campaign 253, strategy `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION_SHOCK_MR` (quartile deviation / semi-interquartile range, pre-stated fixed `QD=(Q3-Q1)/2` with `Q1=np.percentile(arr,25)`, `Q3=np.percentile(arr,75)`, NumPy default linear interpolation, of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or Q1/Q3 non-finite or (Q3-Q1)<=0 or QD<=0/degenerate or ratio undefined/non-finite), edge_claim **NONE**, oos_edge_proven **false**, all_new_c253_artifact_paths_sha256_from_bytes **true**.
+- **Distinctness (pre-run, required):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION|WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION' scripts/ strategies/ backtest/ utils/` → 0 nonself hits at run (`grep_hits_nonself_at_run: 0`; self + own campaign emit/ingest scripts excluded in-script).
+- **Commands run (from repo root):** distinctness grep; created `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py`, `scripts/run_real_feed_ingest_attempt_253.py`, `scripts/emit_campaign253_registry.py`, `scripts/emit_campaign253_summary.py`; `python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py`; `python3 scripts/run_real_feed_ingest_attempt_253.py`; `python3 scripts/emit_campaign253_registry.py`; `python3 scripts/emit_campaign253_summary.py`.
 - **Artifacts (SHA256 from bytes):**
-  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos_20261111T121511Z.json` — `6f7fb512d2c3eded0d9634337b5e787ab46699e1ca057d7ecf69d1d9b36dbe7b`
-  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py` — `57a6e0db98f07e596ea28c7ca0fdcaceb05f3f3d27ea8ec960fe7d00f6e6c04b`
-  - Ingest: `reports/real_feed_ingest_attempt_20261111T121310Z.json` — `35c71d6e0ac4172bf6897bf347021162b936c5ea7955a7c4906a240b0090b316`
-  - Registry: `reports/strategy_edge_registry_20261111T122051Z.json` — `30b19d73024700bd855fd7a507a6c93fcbe527cb2347f769155becfb555f9851`
-  - Summary: `reports/campaign252_execution_summary_20261111T122052Z.json` — `4d2b6ae8541e3abfdbc2c1a58760214be1fac5709a157272d4c42906ba179aba`
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos_20261111T124208Z.json` — `9145124daa97ff0ac8ed9b676eff0fadad92bbfb1c4d7ba5940655482267c33f`
+  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py` — `f3011b61b1a9b3dc4edd90e640a6ce0cab3308d0c16095e7ff6eba8105a642ca`
+  - Ingest: `reports/real_feed_ingest_attempt_20261111T124802Z.json` — `ad077d81b75cfa167695bd6b99ca3f74bd8b64d91f5a4e46a604095f769cb1f7`
+  - Registry: `reports/strategy_edge_registry_20261111T124803Z.json` — `6829a6dd9598892636c021da790c9c71e893902855b698629a08df555faf2494`
+  - Summary: `reports/campaign253_execution_summary_20261111T124803Z.json` — `4382f884e0bf07c421dfe533edbfaffa709d6b2bc6a1be4de274d0c8ffd1b90d`
 - **Evidence (real data, WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]]):**
-  - `cross_asset_oos_net_sums`: fee0_slip0=2.3437845178451764, fee5_slip5=0.6557845178451747, fee10_slip10=-1.0322154821548257, fee20_slip20=-4.408215482154825, fee40_slip40=-11.160215482154824
+  - `cross_asset_oos_net_sums`: fee0_slip0=-1.859703456753104, fee5_slip5=-3.003703456753105, fee10_slip10=-4.1477034567531055, fee20_slip20=-6.435703456753105, fee40_slip40=-11.011703456753104
   - `any_exposure_oos: true`
   - `all_cost_slices_positive_oos_net_sum: false`
-  - `all_cost_slices_beat_bh_mean_rule: true`
-  - **Conclusion:** `oos_edge_proven: false`, `edge_claim: NONE`. No edge found (fails all-cost-slices-positive rule); honest no-edge recorded.
+  - `all_cost_slices_beat_bh_mean_rule: false`
+  - **Conclusion:** `oos_edge_proven: false`, `edge_claim: NONE`. No edge found (fails all-cost-slices-positive and BH-beat rules); honest no-edge recorded.
+
+## C252 (MAIN LINE — COMPLETE, 2026-11-11T12:20:52Z UTC)
+
+- Campaign 252, strategy `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW_SHOCK_MR`, edge_claim **NONE**, oos_edge_proven **false**.
+- OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos_20261111T121511Z.json` — `6f7fb512d2c3eded0d9634337b5e787ab46699e1ca057d7ecf69d1d9b36dbe7b`
+- Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py` — `57a6e0db98f07e596ea28c7ca0fdcaceb05f3f3d27ea8ec960fe7d00f6e6c04b`
+- Ingest: `reports/real_feed_ingest_attempt_20261111T121310Z.json` — `35c71d6e0ac4172bf6897bf347021162b936c5ea7955a7c4906a240b0090b316`
+- Registry: `reports/strategy_edge_registry_20261111T122051Z.json` — `30b19d73024700bd855fd7a507a6c93fcbe527cb2347f769155becfb555f9851`
+- Summary: `reports/campaign252_execution_summary_20261111T122052Z.json` — `4d2b6ae8541e3abfdbc2c1a58760214be1fac5709a157272d4c42906ba179aba`
+- Evidence: cross_asset_oos_net_sums fee0_slip0=2.3437845178451764, fee5_slip5=0.6557845178451747, fee10_slip10=-1.0322154821548257, fee20_slip20=-4.408215482154825, fee40_slip40=-11.160215482154824; any_exposure_oos true; all_cost_slices_positive_oos_net_sum false; all_cost_slices_beat_bh_mean_rule true. No edge (fails all-cost-slices-positive).
 
 ## C251 (MAIN LINE — COMPLETE)
 
@@ -66,54 +76,57 @@
 
 - C14 7/7 `insufficient_or_blocked`/`no_edge`; no cost-aware OOS triggered. C15 7/7 `no_edge`/`insufficient_or_blocked`; no cost-aware OOS triggered. No re-runs except evidence-backed defect fix.
 
-## BOTTLENECK REMOVAL (pre-cleared — 2026-11-11T12:20:52Z UTC)
+## BOTTLENECK REMOVAL (pre-cleared — 2026-11-11T12:48:32Z UTC)
 
-- C12–C15, C249–C252 complete — no re-runs permitted except evidence-backed defect fix.
+- C12–C15, C249–C253 complete — no re-runs permitted except evidence-backed defect fix.
 - All caches `.pkl`+`.meta.json` present in `data/cache/`; no network refetch (real cached spot/volume only).
 - **Python/deps:** `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 (missing c7-venv not a blocker).
-- `research_state/state.yaml` locked/stale — do not touch; does not block C253.
-- **Grep-zero pre-checked (C253):** `QUARTILE_DEVIATION`=0, `ABSOLUTE_DEVIATION`=0, `SEMI_VARIANCE`=0 (fallback candidates).
+- `research_state/state.yaml` locked/stale — do not touch; does not block C254.
+- **Grep-zero pre-checked (C254):** `MEAN_ABSOLUTE_DEVIATION`=0, `MEDIAN_ABSOLUTE_DEVIATION`=0, `SEMI_VARIANCE`=0 (fallback candidates).
 - No blocking background process. No status-only work.
 
 ## HARD BANS
 
 - ❌ No status-only work
-- ❌ No re-runs of C1–C15 or C249–C252 except evidence-backed defect fix
+- ❌ No re-runs of C1–C15 or C249–C253 except evidence-backed defect fix
 - ❌ No network refetch (use `data/cache/` only)
 - ❌ No synthetic/fabricated data
 - ❌ No threshold weakening (ENTRY_THRESHOLD=2.0, COINTEGRATION_PVALUE=0.05 locked for C1–C15)
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user
-- ❌ No early exit — C253 run must complete unless `oos_edge_proven: true`
+- ❌ No early exit — C254 run must complete unless `oos_edge_proven: true`
 - ❌ No "planning" or "researching" as substitute for running the script and producing artifacts
 
 ## KEY FILES
 
-- C252 (latest pattern): `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py`, `scripts/run_real_feed_ingest_attempt_252.py`, `scripts/emit_campaign252_registry.py`, `scripts/emit_campaign252_summary.py`, `reports/campaign252_execution_summary_20261111T122052Z.json`, `reports/strategy_edge_registry_20261111T122051Z.json`
-- C251 pattern: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_midrange_shock_mr_costed_oos.py`, `reports/campaign251_execution_summary_20261111T112427Z.json`
+- C253 (latest pattern): `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py`, `scripts/run_real_feed_ingest_attempt_253.py`, `scripts/emit_campaign253_registry.py`, `scripts/emit_campaign253_summary.py`, `reports/campaign253_execution_summary_20261111T124803Z.json`, `reports/strategy_edge_registry_20261111T124803Z.json`
+- C252 pattern: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py`, `reports/campaign252_execution_summary_20261111T122052Z.json`
 - Strategy/gates (C1–C15 line): `strategies/pairs_trading.py`, `utils/cointegration.py`
 - Caches (real-only): `data/cache/*.{pkl,meta.json}`
 - Locked separate line (do not edit): `research_state/state.yaml`
 
-## EXACT COMMANDS TO RUN FOR C253 (from repo root)
+## EXACT COMMANDS TO RUN FOR C254 (from repo root)
 
 ```bash
-# 1. Re-verify grep-zero distinctness for QUARTILE_DEVIATION (MUST return 0 nonself hits)
-grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION|WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION' scripts/ strategies/ backtest/ utils/
+# 1. Re-verify grep-zero distinctness for MEAN_ABSOLUTE_DEVIATION (MUST return 0 nonself hits)
+grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION|WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION' scripts/ strategies/ backtest/ utils/
 
-# 2. Copy C252 pattern script and adapt for QUARTILE_DEVIATION
-cp scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos.py \
-   scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py
+# 2. Copy C253 pattern script and adapt for MEAN_ABSOLUTE_DEVIATION
+cp scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py \
+   scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_mean_absolute_deviation_shock_mr_costed_oos.py
 
-# 3. Edit: replace PEARSON_SKEW/pearson_skew with QUARTILE_DEVIATION/quartile_deviation; update strategy_id, feature docstring/formula
-#    (pre-state exact quartile deviation (Q3-Q1)/2 and quantile method on qualifying WHITE diagonal segment lengths), grep-distinctness strings,
-#    artifact/report naming, campaign=253, prior registry -> strategy_edge_registry_20261111T122051Z.json (sha 30b19d73024700bd855fd7a507a6c93fcbe527cb2347f769155becfb555f9851).
-#    Update own_campaign exclusion set to include C253 helper stems. Reference C252 OOS sha 6f7fb512d2c3eded0d9634337b5e787ab46699e1ca057d7ecf69d1d9b36dbe7b.
+# 3. Edit: replace QUARTILE_DEVIATION/quartile_deviation with MEAN_ABSOLUTE_DEVIATION/mean_absolute_deviation;
+#    update strategy_id, feature docstring/formula (pre-state exact MAD = mean(|x_i - mean(x)|) of qualifying
+#    WHITE diagonal segment lengths; fail-closed if <3 segments or mean/MAD undefined/non-finite or MAD <= 0/degenerate),
+#    grep-distinctness strings, artifact/report naming, campaign=254, prior registry ->
+#    strategy_edge_registry_20261111T124803Z.json (sha 6829a6dd9598892636c021da790c9c71e893902855b698629a08df555faf2494).
+#    Update own_campaign exclusion set to include C254 helper stems. Reference C253 OOS sha
+#    9145124daa97ff0ac8ed9b676eff0fadad92bbfb1c4d7ba5940655482267c33f.
 
 # 4. Run script (heavy work) and emit ingest/registry/summary artifacts
-python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py
-python3 scripts/run_real_feed_ingest_attempt_253.py
-python3 scripts/emit_campaign253_registry.py
-python3 scripts/emit_campaign253_summary.py
+python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_mean_absolute_deviation_shock_mr_costed_oos.py
+python3 scripts/run_real_feed_ingest_attempt_254.py
+python3 scripts/emit_campaign254_registry.py
+python3 scripts/emit_campaign254_summary.py
 
 # 5. Record SHA256-from-bytes for: OOS artifact, script, ingest attempt, registry, summary.
 
@@ -121,6 +134,6 @@ python3 scripts/emit_campaign253_summary.py
 #    Do NOT edit research_state/state.yaml unless explicitly requested by user.
 ```
 
-**If QUARTILE_DEVIATION fails grep-zero or is blocked:** pick next grep-zero distinct fallback (e.g. `ABSOLUTE_DEVIATION` or `SEMI_VARIANCE`, both grep-zero pre-checked), record evidence, implement/run it (no status-only stop).
+**If MEAN_ABSOLUTE_DEVIATION fails grep-zero or is blocked:** pick next grep-zero distinct fallback (e.g. `MEDIAN_ABSOLUTE_DEVIATION` or `SEMI_VARIANCE`, both grep-zero pre-checked), record evidence, implement/run it (no status-only stop).
 
-**END OF DURABLE HANDOFF — updated 2026-11-11T12:20:52Z UTC.** C12–C15 complete (zero edge). C249–C251 complete (NONE). **C252 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts+SHA256 from bytes recorded above. **C253 NOT STARTED.** **IMMEDIATE NEXT ACTION (non-deferrable): Campaign #253 — implement/run `RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION` (grep-zero pre-checked) via `python3` from C252 pattern, produce timestamped OOS/script/ingest/registry/summary artifacts with SHA256-from-bytes, record honest edge/no-edge with evidence, then update this handoff. Do not stop at planning. No status-only work.**
+**END OF DURABLE HANDOFF — updated 2026-11-11T12:48:32Z UTC.** C12–C15 complete (zero edge). C249–C252 complete (NONE). **C253 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts+SHA256 from bytes recorded above. **C254 NOT STARTED.** **IMMEDIATE NEXT ACTION (non-deferrable): Campaign #254 — implement/run `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION` (grep-zero pre-checked) via `python3` from C253 pattern, produce timestamped OOS/script/ingest/registry/summary artifacts with SHA256-from-bytes, record honest edge/no-edge with evidence, then update this handoff. Do not stop at planning. No status-only work.**

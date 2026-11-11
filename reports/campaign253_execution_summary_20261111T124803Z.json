@@ -1,0 +1,45 @@
+{
+  "tool": "campaign253_execution_summary",
+  "generated_at_utc": "20261111T124803Z",
+  "campaign": 253,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos_20261111T124208Z.json",
+      "sha256": "9145124daa97ff0ac8ed9b676eff0fadad92bbfb1c4d7ba5940655482267c33f"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_deviation_shock_mr_costed_oos.py",
+      "sha256": "f3011b61b1a9b3dc4edd90e640a6ce0cab3308d0c16095e7ff6eba8105a642ca"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261111T124802Z.json",
+      "sha256": "ad077d81b75cfa167695bd6b99ca3f74bd8b64d91f5a4e46a604095f769cb1f7"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261111T124803Z.json",
+      "sha256": "6829a6dd9598892636c021da790c9c71e893902855b698629a08df555faf2494"
+    }
+  },
+  "all_new_c253_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c253_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION|WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C253 primary QUARTILE_DEVIATION (QD=(Q3-Q1)/2, Q1/Q3 via np.percentile 25/75 linear interpolation, pre-stated fixed) grep 0 verified before implementation/run."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261111T122051Z.json",
+    "prior_registry_sha256": "30b19d73024700bd855fd7a507a6c93fcbe527cb2347f769155becfb555f9851",
+    "c252_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_skew_shock_mr_costed_oos_20261111T121511Z.json",
+    "c252_oos_sha256": "6f7fb512d2c3eded0d9634337b5e787ab46699e1ca057d7ecf69d1d9b36dbe7b",
+    "c251_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_midrange_shock_mr_costed_oos_20261111T111904Z.json",
+    "c251_oos_sha256": "8764897cf3b1b7746568bb43f6c088c504f167d10c12ccdfdd18c990c77883ef"
+  }
+}
