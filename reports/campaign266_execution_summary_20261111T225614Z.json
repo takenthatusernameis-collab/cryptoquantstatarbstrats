@@ -1,0 +1,54 @@
+{
+  "tool": "campaign266_execution_summary",
+  "generated_at_utc": "20261111T225614Z",
+  "campaign": 266,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos_20261111T225614Z.json",
+      "sha256": "b14dd3d3d997c3e9ada30bacaba140ac85938e35a82738bbcc626fe33d008092"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py",
+      "sha256": "1de611abb384e878ba373b854bbe01f4febeb3f20b899d05c77fdbd181d9b44a"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261111T225614Z.json",
+      "sha256": "49aec224913311c7af628e890509a0b570f6bdc85d2b42d91b5ce3846546ce64"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261111T225614Z.json",
+      "sha256": "7d581f43e06994ab7a1a36d61d7afeb41bb3b486b52ba8c83d0c8409bb18f815"
+    }
+  },
+  "all_new_c266_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c266_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE|WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C266 primary RELATIVE_MEAN_ABSOLUTE_DIFFERENCE=mean(|L_i-L_j|)/(2*mean(L)) over all unordered pairs of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or mean(L)<=0/non-finite or R_MAD non-finite/degenerate. grep 0 nonself verified before run. Distinct from C265 MAD_FROM_MEDIAN (median-centered), C254 mean-absolute-deviation, C264 QCD by token and pre-stated formula."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261111T201037Z.json",
+    "prior_registry_sha256": "10baa10b4c5d4584240373ee3f3d989bec5bbe06ea4fd3fb8c2d5e9a6dd9e418",
+    "c265_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_mad_from_median_shock_mr_costed_oos_20261111T201037Z.json",
+    "c265_oos_sha256": "0297d22a42bb8c980e4730958cd19e4006751518374d0b311f84e1b3071a1c07"
+  },
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -44.26754432579919,
+    "fee5_slip5": -82.22254432579824,
+    "fee10_slip10": -120.17754432579859,
+    "fee20_slip20": -196.08754432579923,
+    "fee40_slip40": -347.90754432579945
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
