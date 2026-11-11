@@ -1,14 +1,14 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-11T04:06:47Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (re-verified 2026-11-11T04:20:22Z UTC; no competing root TODO/NEXT/plan/handoff docs). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C13 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T04:06:47Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T04:20:22Z UTC)
 
-**Initial task (execute immediately, heavy work, no status-only work):** **Campaign #13 is now COMPLETE (3/3 evaluated with timestamped artifacts+SHA256).** All three C13 caches have final reports. Next priority: **Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement** (or as directed by user). No status-only work.
+**Initial task (execute immediately, heavy work, no status-only work):** **Campaign #13 is COMPLETE (3/3 evaluated with timestamped artifacts+SHA256).** All three C13 caches have final reports with honest conclusions (`no_edge`/`insufficient_or_blocked`). Next priority: **Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement** (or as directed by user). No status-only work.
 
-**STATE (verified 2026-11-11T04:06:47Z UTC):** `main`. Baseline gates: `pytest tests/ -q` => **1088 passed, 2 skipped, 16 failed (pre-existing, unrelated to C13)**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. **Env/bootstrap bottleneck CLEARED:** venv at `/home/runner/work/_temp/kilo-tmp/c7-venv` (Python 3.12.3) with deps incl. `pandas/numpy/scipy/statsmodels/pytest/ruff/mypy/hmmlearn/pydantic/aiohttp` (`deps_ok`). Use `export PYTHONPATH=$PWD` and `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`. **C249 (RQA, locked, untouched):** `reports/strategy_edge_registry_20261110T170949Z.json` SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`, `reports/campaign249_execution_summary_20261110T170949Z.json` SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`; `edge_claim:NONE`. `research_state/state.yaml` untouched.
+**STATE (verified 2026-11-11T04:20:22Z UTC):** `main`. Baseline gates: `pytest tests/ -q` => **1088 passed, 2 skipped, 16 failed (pre-existing, unrelated to C13)**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. **Env/bootstrap bottleneck CLEARED:** venv at `/home/runner/work/_temp/kilo-tmp/c7-venv` (Python 3.12.3) with deps incl. `pandas/numpy/scipy/statsmodels/pytest/ruff/mypy/hmmlearn/pydantic/aiohttp` (`deps_ok`). Use `export PYTHONPATH=$PWD` and `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`. **C249 (RQA, locked, untouched):** `reports/strategy_edge_registry_20261110T170949Z.json` SHA `e3a17b7c880da04429f269cbaeec9b4fe5364ee9d865962b68304bdeda782c00`, `reports/campaign249_execution_summary_20261110T170949Z.json` SHA `e86e2e4b4d3014f9e6c17fddb967380b895bd891eb90305f0227fa9f996c9565`; `edge_claim:NONE`. `research_state/state.yaml` untouched.
 
 **C13 FINAL (real-data-only, no refetch, thresholds unmodified):**
 - **DONE (SHA-verified, all 3/3 caches):**
@@ -18,15 +18,32 @@
 
 ## MANDATORY HEAVY ACTION (next session, non-deferrable)
 
-1. **C13 COMPLETE — no further C13 work required.** All three caches have timestamped final artifacts with SHA256, full provenance (`real_data_only:true`, `fabricated_data:false`, `no_network_refetch:true`, `blocked_routes:[]`, rationale documented), and honest conclusions.
-2. **Next campaign focus:** Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement, or as explicitly directed by user. Must follow same rigor: real cached data only, unmodified thresholds, timestamped artifact+SHA256, honest conclusion.
-3. **Gates baseline for next work:** `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest tests/ -q`, `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/`, `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python -m mypy backtest/ strategies/ utils/`. Fix any regressions introduced by new work.
-4. **If any gate-pass/edge signal appears in future campaigns:** immediately run cost-aware OOS/replay validation on real data (WF splits, fee×slippage grid, B&H benchmark) and record outcome with evidence.
-5. **Update this HANDOFF only** with verified UTC, commands, all artifact paths+SHA256, conclusions, gate outcomes, and next unambiguous heavy directive. **Do not** edit `research_state/state.yaml`. No fabrication, no refetch, no threshold weakening.
+**CAMPAIGN #14 — CAUSAL GATE EDGE SEARCH ON WIDER UNIVERSE (REAL-DATA-ONLY)**
+
+Execute the following immediately:
+
+1. **Identify unevaluated real-data caches** in `data/cache/` (exclude C13-evaluated: `0bab5d6a`, `385aae3f`, `6d2e08d4`). Prioritize caches with ≥10 symbols and ≥5000 bars (e.g., `90d10b87`, `595e501a`, `4fd3e87f`, `74e86e8e`, `76dedb82`, `a74dcf38`, `749b2218`).
+
+2. **For each cache:** Run causal per-bar enriched-gate evaluation on **all curated pairs** available in that cache (same pattern as `examples/run_campaign13_causal_gates.py` but extended to wider universe like Campaign #10):
+   - Use `data/cache/<cache_hash>.pkl` + `.meta.json` only (no network refetch)
+   - Thresholds **UNMODIFIED**: `ENTRY_THRESHOLD=2.0`, `COINTEGRATION_PVALUE=0.05`, `LOOKBACKS=[120,240]`, `CHECK_INTERVALS=[24,48]`, `FEE_RATE=0.001`, `SLIPPAGE=0.0005`
+   - `use_enriched_gates=True`, `strict_enriched_gates=True` (fail-closed)
+   - Curated pairs: BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH, XRP/BTC, BNB/ETH, BTC/BNB, SOL/BNB, ADA/BTC, XRP/ETH, BNB/BTC, DOT/BTC, DOT/ETH, POL/BTC, AVAX/BTC, LINK/BTC, LTC/BTC (filter to cache-available symbols)
+   - Per-bar gate accounting across all enriched gates: `eg_pass`, `johansen_pass`, `spread_mr_pass`, `hl_bounds_pass`, `leg_stationarity_ok`, `rolling_stable_ok`, `no_structural_break`
+
+3. **Produce timestamped artifact per cache** at `reports/campaign14_causal_per_bar_enriched_gates_<cache8>_<UTC>.json` with:
+   - Full provenance: cache paths, SHA256 of .pkl/.meta, meta content, `network_fetch_performed: false`, `no_synthetic_fabricated_inputs: true`, `fetch_real_data_only`/`fetch_fabricated_data` from meta
+   - All thresholds recorded, all pairs evaluated, per-bar pass/fail/unassessable counts per gate
+   - Honest conclusion: `edge` / `no_edge` / `insufficient_or_blocked` with evidence-based rationale
+   - Report SHA256 printed to stdout
+
+4. **If ANY cache yields `edge` (bars_pass > 0):** Immediately run cost-aware OOS/replay validation on real data (WF splits, fee×slippage grid, B&H benchmark) and record outcome with evidence.
+
+5. **Update THIS HANDOFF only** with verified UTC, commands, all artifact paths+SHA256, conclusions, gate outcomes, and next unambiguous heavy directive. **Do not** edit `research_state/state.yaml`.
 
 **Hard bans:** no status-only work; no re-runs of C1–C13 except evidence-backed defect fix; no network refetch; no synthetic data; no threshold weakening; no edits to `research_state/state.yaml`.
 
-## BOTTLENECK REMOVAL (verified 2026-11-11T04:06:47Z UTC)
+## BOTTLENECK REMOVAL (verified 2026-11-11T04:20:22Z UTC)
 
 - **Environment bootstrap:** CLEARED — `/home/runner/work/_temp/kilo-tmp/c7-venv` rebuilt with required deps (incl. `pydantic`, `aiohttp` for observability/playbooks).
 - **C12:** COMPLETE (5/5).
@@ -52,6 +69,9 @@ PT=/home/runner/work/_temp/kilo-tmp/c7-venv/bin/pytest
 $PT tests/ -q
 $PY -m ruff check backtest/ data/ strategies/ utils/ tests/ examples/
 $PY -m mypy backtest/ strategies/ utils/
+
+# Campaign #14 example (run per cache):
+$PY examples/run_campaign13_causal_gates.py --cache 90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263
 ```
 
 ## KEY FILES
@@ -59,8 +79,9 @@ $PY -m mypy backtest/ strategies/ utils/
 - **C13 (COMPLETE 3/3):** `scripts/run_campaign13_0bab5d6a_chunked.py`, `examples/run_campaign13_{0bab5d6a,385aae3f,6d2e08d4}_causal_gates.py`, `tests/test_campaign13_{0bab5d6a,385aae3f,6d2e08d4}.py`, `reports/campaign13_causal_per_bar_enriched_gates_{385aae3f,6d2e08d4,0bab5d6a}_*.json`
 - **C12:** `examples/run_campaign12_causal_gates.py`, `reports/campaign12_*.json`, `tests/test_campaign12_*.py`
 - **Strategy/gates:** `strategies/pairs_trading.py`, `utils/cointegration.py`
-- **Caches (real-only, do not refetch):** `data/cache/{0bab5d6a,385aae3f,6d2e08d4}*.{pkl,meta.json}`
+- **Caches (real-only, do not refetch):** `data/cache/{0bab5d6a,385aae3f,6d2e08d4,90d10b87,595e501a,4fd3e87f,74e86e8e,76dedb82,a74dcf38,749b2218}*.{pkl,meta.json}`
+- **Campaign #10 reference (wider universe):** `examples/run_campaign10_wider_universe_causal_gates.py`
 
 ---
 
-**END OF DURABLE HANDOFF — 2026-11-11T04:06:47Z UTC. C12 COMPLETE (5/5). C13 COMPLETE (3/3) — 385aae3f `no_edge` (SHA `53397daf5e60af0ad960214b06b0b68b361cbb78ce589d0ba15d94dd3df5de52`), 6d2e08d4 `insufficient_or_blocked` (SHA `90bba86d82fa05b4cf8a37c80f75fd8f3dd7d03d31caa3afa7c1ef94bc9a9284`), 0bab5d6a `insufficient_or_blocked` (SHA `0113bb115395a5d908e715cc246dce009ebf9c7d5867f8d1fd865b6255610b69`). ALL C13 CACHES HAVE FINAL TIMESTAMPED ARTIFACTS+SHA256+PROVENANCE+HONEST CONCLUSIONS. NEXT SESSION: Campaign #14 or as directed — real-data-only, unmodified thresholds, timestamped artifact+SHA256, honest conclusion. NO STATUS-ONLY WORK. NO FABRICATION. NO REFETCH. NO STATE.YAML EDITS.**
+**END OF DURABLE HANDOFF — 2026-11-11T04:20:22Z UTC. C12 COMPLETE (5/5). C13 COMPLETE (3/3) — 385aae3f `no_edge` (SHA `53397daf5e60af0ad960214b06b0b68b361cbb78ce589d0ba15d94dd3df5de52`), 6d2e08d4 `insufficient_or_blocked` (SHA `90bba86d82fa05b4cf8a37c80f75fd8f3dd7d03d31caa3afa7c1ef94bc9a9284`), 0bab5d6a `insufficient_or_blocked` (SHA `0113bb115395a5d908e715cc246dce009ebf9c7d5867f8d1fd865b6255610b69`). ALL C13 CACHES HAVE FINAL TIMESTAMPED ARTIFACTS+SHA256+PROVENANCE+HONEST CONCLUSIONS. NEXT SESSION: Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement. Run per-cache evaluation on unevaluated caches (90d10b87, 595e501a, 4fd3e87f, 74e86e8e, 76dedb82, a74dcf38, 749b2218) using examples/run_campaign13_causal_gates.py pattern extended to full curated pair set. Timestamped artifact+SHA256 per cache. Honest conclusion. NO STATUS-ONLY WORK. NO FABRICATION. NO REFETCH. NO STATE.YAML EDITS.**
