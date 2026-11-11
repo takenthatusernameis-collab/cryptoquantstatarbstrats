@@ -82,7 +82,12 @@ def run_distinctness_grep() -> tuple[int, str]:
     out = (proc.stdout + proc.stderr).strip()
     lines = [ln for ln in out.splitlines() if ln.strip()]
     self_stem = Path(__file__).stem
-    own_campaign = {self_stem}
+    own_campaign = {
+        self_stem,
+        "emit_campaign266_registry",
+        "emit_campaign266_summary",
+        "run_real_feed_ingest_attempt_266",
+    }
     nonself = []
     for ln in lines:
         if any(stem in ln for stem in own_campaign):
@@ -126,18 +131,14 @@ def wf_splits(n: int, train: int, test: int, step: int):
 
 
 def _qualifying_white_diag_segments(diag: np.ndarray, w_min: int) -> list[int]:
-    segs: list[int] = []
-    run = 0
-    for val in diag:
-        if int(val) == 0:
-            run += 1
-        else:
-            if run >= w_min:
-                segs.append(run)
-            run = 0
-    if run >= w_min:
-        segs.append(run)
-    return segs
+    diag = np.asarray(diag)
+    if diag.size == 0:
+        return []
+    padded = np.concatenate(([1.0], diag, [1.0]))
+    ones = np.flatnonzero(padded)
+    gaps = np.diff(ones) - 1
+    gaps = gaps[gaps >= w_min]
+    return gaps.astype(int).tolist()
 
 
 def _white_diag_line_length_relative_mean_absolute_difference(R: np.ndarray, w_min: int) -> float:
@@ -161,10 +162,8 @@ def _white_diag_line_length_relative_mean_absolute_difference(R: np.ndarray, w_m
     if not np.isfinite(mean_l) or mean_l <= 0:
         return np.nan
     n = len(arr)
-    s = 0.0
-    for i in range(n):
-        for j in range(i + 1, n):
-            s += abs(arr[i] - arr[j])
+    # vectorized: sum of |a-b| over unordered pairs = sum of upper triangle
+    s = float(np.abs(np.subtract.outer(arr, arr)).sum()) / 2.0
     mad_rel = s / (n * (n - 1) / 2.0) / (2.0 * mean_l)
     if not np.isfinite(mad_rel) or mad_rel <= 0 or mad_rel < 0:
         return np.nan
@@ -212,10 +211,8 @@ def main() -> None:
                 continue
             X = np.column_stack([win[:-1], win[1:]])
             eps = EPS_SCALE * std_w
-            R = np.zeros((X.shape[0], X.shape[0]), dtype=float)
-            for i in range(X.shape[0]):
-                di = np.max(np.abs(X - X[i : i + 1]), axis=1)
-                R[i] = (di <= eps + 1e-18).astype(float)
+            d = np.max(np.abs(X[:, None, :] - X[None, :, :]), axis=2)
+            R = (d <= eps + 1e-18).astype(float)
             val = _white_diag_line_length_relative_mean_absolute_difference(R, W_MIN)
             feats.append(val)
         feat = pd.Series(feats, index=r.index[ALB : ALB + len(feats)])
