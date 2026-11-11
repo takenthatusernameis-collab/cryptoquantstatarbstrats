@@ -5,15 +5,15 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C265 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:19:46Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:21:10Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
-**Bottleneck check (2026-11-11T23:19:46Z UTC):** none blocking. Deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (`66` files in `data/cache/`, no refetch); git path clear; C266 artifacts/SHA256 present. No stalled background processes or missing-input blockers observed.
+**Bottleneck check (2026-11-11T23:21:10Z UTC):** none blocking. Deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (`66` files in `data/cache/`, no refetch); git path clear; C266 artifacts/SHA256 present. No stalled background processes or missing-input blockers observed.
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW):** Run **Campaign #267** end-to-end: `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` on real cached quote/volume, WF `train=720/test=168/step=168`, costs bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`. Produce OOS report + runner + ingest attempt + strategy edge registry + campaign summary with SHA256-from-bytes, then update this handoff. No planning/exploration phase.
 
-**Preflight (re-verified 2026-11-11T23:19:46Z UTC):**
+**Preflight (re-verified 2026-11-11T23:21:10Z UTC):**
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|STANDARDIZED_MOMENT|PEARSON_MODE_SKEW|MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN|INTERQUARTILE_MEAN|BIWEIGHT_MIDVARIANCE' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # expect 0 non-self
@@ -87,5 +87,5 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T23:19:46Z UTC (C266 complete, no blockers; C267 mandated next).**
+**END OF DURABLE HANDOFF — 2026-11-11T23:21:10Z UTC (C266 complete, no blockers; C267 mandated next).**
 **NEXT AGENTIC SESSION: START C267 NOW (HEAVY). Select first grep-zero candidate `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN` (fallbacks: `STANDARDIZED_MOMENT`, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`), re-verify grep 0 non-self, pre-state fail-closed formula, run OOS costed walk-forward, emit ingest/registry/summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, then continue C268+. DO NOT ASK. DO NOT PLAN. NO STATUS-ONLY.**
