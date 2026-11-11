@@ -1,0 +1,43 @@
+{
+  "tool": "campaign255_execution_summary",
+  "generated_at_utc": "20261111T133343Z",
+  "campaign": 255,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos_20261111T132821Z.json",
+      "sha256": "d5aa64cfd5270e0c4af4909998fb59ca078edd200ac29e82e81981d6e04c76e2"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos.py",
+      "sha256": "905b3bd4532ce38da290aec265ebc6539e3c79e3a39679c9f2890ee8abfee706"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261111T132612Z.json",
+      "sha256": "d64ffe064c77714571955e5ffca29455c74d0b8c09e11edc42735c0dedab3e48"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261111T133343Z.json",
+      "sha256": "d676c82467a421eae715340d2b1e9b0aa81a26ab8cc1f04b56d47441332756e7"
+    }
+  },
+  "all_new_c255_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c255_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION|WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C255 primary MEDIAN_ABSOLUTE_DEVIATION (MAD = median(|x_i - median(x)|) of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or median/MAD undefined/non-finite or MAD<=0/degenerate) grep 0 verified before implementation/run."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261111T130410Z.json",
+    "prior_registry_sha256": "4b546a84990fa52fb3ada2ddf713b5959aabade58653819fdb94206a45af9a7d",
+    "c254_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_mean_absolute_deviation_shock_mr_costed_oos_20261111T125847Z.json",
+    "c254_oos_sha256": "fa6324e99b8ead1dec745f0e27142799ae6b0819d10b6ada7c7df046fcc61cd4"
+  }
+}
