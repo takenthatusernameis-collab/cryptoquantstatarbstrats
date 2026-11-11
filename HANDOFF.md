@@ -5,13 +5,13 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C263 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T19:15:37Z UTC — C263 done; next session starts at C264) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T19:17:00Z UTC — C263 done; next session starts at C264) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line: **real cached quote/volume RQA shock mean-reversion costed-OOS**, real-data-only, fail-closed gates. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
 **IMMEDIATE NON-DEFERRABLE ACTION:** Run **Campaign #264** end-to-end now (C263 complete, `edge_claim: NONE`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T19:15:37Z UTC — path clear, no bottlenecks)
+### Preflight (re-verified 2026-11-11T19:17:00Z UTC — path clear, no bottlenecks)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION|WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION' scripts/ strategies/ backtest/ utils/ | wc -l  # must be 0 nonself before run
@@ -36,7 +36,7 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats statu
 C263 complete (`NONE` with evidence). **Now:** C264 (primary `QUARTILE_COEFFICIENT_OF_DISPERSION`, grep-zero verified).
 **C265+:** continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family (dispersion/shape/relative-spread forms not yet run). Fallback chain if C264 collides/invalid: `MAD_FROM_MEDIAN` -> `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` (re-verify grep-zero, pre-state fail-closed formula, record evidence). For each: distinctness gate 0 nonself, fail-closed formula pre-stated, same WF/costs/edge rule, required artifacts+SHA256, update handoff. Never re-run C1–C15/C249–C263 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
 
-## STATE SNAPSHOT (2026-11-11T19:15:37Z UTC)
+## STATE SNAPSHOT (2026-11-11T19:17:00Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C263:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
 - **C264:** **NOT STARTED / READY TO RUN NOW.** Primary `QUARTILE_COEFFICIENT_OF_DISPERSION` grep-zero verified. No bottlenecks.
@@ -75,5 +75,5 @@ C263 complete (`NONE` with evidence). **Now:** C264 (primary `QUARTILE_COEFFICIE
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T19:15:37Z UTC (C263 complete, NONE with evidence; preflight clear, no bottlenecks).**
+**END OF DURABLE HANDOFF — 2026-11-11T19:17:00Z UTC (C263 complete, NONE with evidence; preflight clear, no bottlenecks).**
 **NEXT AGENTIC SESSION: EXECUTE C264 NOW (HEAVY). DO NOT ASK. DO NOT PLAN. EMIT SHA256-BACKED ARTIFACTS OR HONEST NONE WITH EVIDENCE. UPDATE THIS HANDOFF. THEN CONTINUE PIPELINE C265+.**
