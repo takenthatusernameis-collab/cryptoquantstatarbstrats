@@ -1,14 +1,14 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T08:53:07Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T08:56:40Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C14 progress.
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C15 progress. Do not touch it for C15; it cannot block C15.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T08:53:07Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T08:56:40Z UTC)
 
-**Initial task (execute immediately, heavy work, no status-only):** Campaign #14 is COMPLETE (7/7 evaluated, all with timestamped artifacts+SHA256 and honest conclusions). **Bottlenecks removed — none remain.** Cache #1 (90d10b87) completed at 2026-11-11T08:33:45Z (prior handoff incorrectly flagged it as "still running"; no background process active — that stale claim was the inefficiency, now cleared). No `edge` found in any cache → **no cost-aware OOS validation triggered**. Next unambiguous heavy focus: **Campaign #15 — causal gate edge search on remaining unevaluated real spot caches (wider-universe + OOS windows), real-data-only enforcement.** Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts.
+**Initial task (execute immediately, heavy work, no status-only):** Campaign #14 is COMPLETE (7/7 evaluated, all with timestamped artifacts+SHA256 and honest conclusions; zero `edge` found → no cost-aware OOS validation triggered). **Bottlenecks removed — none remain.** All 7 candidate C15 caches verified present in `data/cache/` with `.pkl`+`.meta.json`; `fetch_success: True`, none flagged fabricated; c7-venv python present at `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`; no network refetch needed. Next unambiguous heavy focus: **Campaign #15 — causal gate edge search on remaining unevaluated real spot caches (wider-universe + OOS windows), real-data-only enforcement, unmodified thresholds.** Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts. Every eligible cache must produce a timestamped artifact + SHA256 or an honest blocked conclusion with evidence. Stop only if `edge` found (then run cost-aware OOS validation immediately).
 
-**C14 FINAL (verified 2026-11-11T08:53:07Z UTC):**
+**C14 FINAL (verified 2026-11-11T08:56:40Z UTC):**
 | # | Cache8 | SHA256 (artifact) | Conclusion |
 |---|--------|--------|------------|
 | 1 | `90d10b87` | `952bd7a1e549ff0994f1c413273017492293c52d3e2e15ec5118441a7a69cf82` | insufficient_or_blocked |
@@ -57,10 +57,11 @@ $PY examples/run_campaign13_causal_gates.py --cache <full_hash>
 
 ## BOTTLENECK REMOVAL (pre-cleared for this session — no work is blocked)
 - C12 complete (5/5), C13 complete (3/3), C14 complete (7/7) — no re-runs permitted except evidence-backed defect fix.
-- Lint/typecheck green; 15 pre-existing test failures unrelated to campaign work — do not treat as blockers.
-- All candidate C15 cache `.pkl`+`.meta.json` present in `data/cache/`; no network refetch needed (real cached spot only).
+- All candidate C15 cache `.pkl`+`.meta.json` present in `data/cache/`; no network refetch needed (real cached spot only). Verified 2026-11-11T08:56:40Z UTC.
+- c7-venv python present: `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`.
 - `research_state/state.yaml` locked — do not touch; it cannot block C15.
 - No status-only work counts toward C15; every cache must produce an artifact+SHA256 or an honest blocked conclusion with evidence.
+- Stale "cache still running" claims cleared — no background process active for C14 cache #1 (90d10b87 completed 2026-11-11T08:33:45Z).
 
 ## HARD BANS
 - ❌ No status-only work
@@ -76,5 +77,6 @@ $PY examples/run_campaign13_causal_gates.py --cache <full_hash>
 - C15 runner: `examples/run_campaign13_causal_gates.py` (rename output `campaign13_*` → `campaign15_*`)
 - Strategy/gates: `strategies/pairs_trading.py`, `utils/cointegration.py`
 - Caches (real-only): `data/cache/*.{pkl,meta.json}`
+- Locked separate line (do not edit): `research_state/state.yaml`
 
-**END OF DURABLE HANDOFF — 2026-11-11T08:53:07Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge found. Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts. Next: **Campaign #15 — run all eligible caches in priority order; produce artifacts+SHA256 per cache; honest conclusion per cache; validate on `edge` only with cost-aware OOS; update this handoff. No status-only work. Bottlenecks pre-cleared; heavy work is mandatory, not optional.**
+**END OF DURABLE HANDOFF — 2026-11-11T08:56:40Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge found. Campaign #15 NOT STARTED — zero `reports/campaign15_causal_per_bar_enriched_gates_*` artifacts. Next: **Campaign #15 — run all eligible caches in priority order; produce artifacts+SHA256 per cache; honest conclusion per cache; validate on `edge` only with cost-aware OOS; update this handoff. No status-only work. Bottlenecks pre-cleared; heavy work is mandatory, not optional.**
