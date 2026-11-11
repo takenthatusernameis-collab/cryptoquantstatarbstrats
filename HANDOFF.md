@@ -1,14 +1,14 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T13:04:10Z UTC, this session; C254 complete). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (verified/updated 2026-11-11T13:13:44Z UTC, this session; C254 complete, C255 is the next non-deferrable run). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (stale at `latest_campaign_done: C248` / `next_campaign: C249`; C249–C253 complete on disk). Separate research line; must not be edited to block/replace C1–C15 progress. Sync `state.yaml` only if explicitly requested by the user.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T13:04:10Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T13:13:44Z UTC)
 
 **DO THIS FIRST (heavy execution, no status-only, no planning substitute): Campaign #255 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search, next grep-zero distinct fallback. Primary preselected: `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION` (median absolute deviation = median(|x_i - median(x)|) of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula, fail-closed if <3 qualifying segments or median/MAD undefined/non-finite or MAD <= 0/degenerate or ratio undefined). Fallback if blocked: `RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE` (semi-variance of qualifying segment lengths; fail-closed on undefined/degenerate/insufficient). Both grep-zero pre-checked 2026-11-11T13:04:10Z UTC (see BOTTLENECK REMOVAL). Verify distinctness before implementation/run. Use `python3` (3.12.3); deps `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 available.**
 
-**State (verified 2026-11-11T13:04:10Z UTC):** C12 5/5, C13 3/3, C14 7/7 (zero edge), C15 7/7 (zero edge). C249–C253 COMPLETE (NONE). **C254 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts + SHA256 from bytes on disk (see C254 section). **C255 NOT STARTED** — zero C255 artifacts in `reports/`/`scripts/`. Caches present in `data/cache/` (`.pkl`+`.meta.json`); no network refetch. **Bottlenecks cleared:** deps OK (no c7-venv blocker); grep-zero pre-check for `MEDIAN_ABSOLUTE_DEVIATION` = 0 and `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE` = 0 (scripts/strategies/backtest/utils); no blocking background process. Stop only if `oos_edge_proven: true`; otherwise record honest `edge_claim: NONE` with evidence and update this handoff. Do not edit `research_state/state.yaml` unless explicitly requested by user.
+**State (verified 2026-11-11T13:13:44Z UTC; C254 artifacts confirmed on disk):** C12 5/5, C13 3/3, C14 7/7 (zero edge), C15 7/7 (zero edge). C249–C253 COMPLETE (NONE). **C254 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts + SHA256 from bytes on disk (see C254 section). **C255 NOT STARTED** — zero C255 artifacts in `reports/`/`scripts/`. Caches present in `data/cache/` (`.pkl`+`.meta.json`); no network refetch. **Bottlenecks cleared:** deps OK (no c7-venv blocker); grep-zero pre-check for `MEDIAN_ABSOLUTE_DEVIATION` = 0 and `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE` = 0 (scripts/strategies/backtest/utils); no blocking background process. Stop only if `oos_edge_proven: true`; otherwise record honest `edge_claim: NONE` with evidence and update this handoff. Do not edit `research_state/state.yaml` unless explicitly requested by user.
 
 **C255 plan (non-deferrable):**
 - **Preselected strategy:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION` (median absolute deviation = median(|x_i - median(x)|) of qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; pre-state exact formula, fail-closed on undefined/degenerate/insufficient segments).
@@ -124,13 +124,13 @@ python3 scripts/emit_campaign255_summary.py
 
 - C14 7/7 `insufficient_or_blocked`/`no_edge`; no cost-aware OOS triggered. C15 7/7 `no_edge`/`insufficient_or_blocked`; no cost-aware OOS triggered. No re-runs except evidence-backed defect fix.
 
-## BOTTLENECK REMOVAL (pre-cleared — 2026-11-11T12:48:32Z UTC)
+## BOTTLENECK REMOVAL (pre-cleared/re-verified — 2026-11-11T13:13:44Z UTC)
 
 - C12–C15, C249–C254 complete — no re-runs permitted except evidence-backed defect fix.
 - All caches `.pkl`+`.meta.json` present in `data/cache/`; no network refetch (real cached spot/volume only).
 - **Python/deps:** `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 (missing c7-venv not a blocker).
 - `research_state/state.yaml` locked/stale — do not touch; does not block C255.
-- **Grep-zero pre-checked (C255):** `MEDIAN_ABSOLUTE_DEVIATION`=0 and `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`=0 (fallback candidates).
+- **Grep-zero re-verified this session:** `MEDIAN_ABSOLUTE_DEVIATION`=0 and `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`=0 (primary/fallback). `python3` 3.12.3 + numpy 2.5.4/pandas 3.1.1/scipy 1.18.1 available.
 - No blocking background process. No status-only work.
 
 ## HARD BANS
@@ -155,4 +155,4 @@ python3 scripts/emit_campaign255_summary.py
 
 **If MEDIAN_ABSOLUTE_DEVIATION fails grep-zero or is blocked:** pick next grep-zero distinct fallback (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE` / `WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`, grep-zero pre-checked 2026-11-11T13:04:10Z), record evidence, implement/run it (no status-only stop).
 
-**END OF DURABLE HANDOFF — updated 2026-11-11T13:04:10Z UTC.** C12–C15 complete (zero edge). C249–C254 complete (NONE). **C254 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts+SHA256 from bytes recorded in C254 section. **C255 NOT STARTED.** **IMMEDIATE NEXT ACTION (non-deferrable): Campaign #255 — implement/run `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION` (grep-zero pre-checked) via `python3` from C254 pattern, produce timestamped OOS/script/ingest/registry/summary artifacts with SHA256-from-bytes, record honest edge/no-edge with evidence, then update this handoff. Do not stop at planning. No status-only work.**
+**END OF DURABLE HANDOFF — verified/updated 2026-11-11T13:13:44Z UTC.** C12–C15 complete (zero edge). C249–C254 complete (NONE). **C254 COMPLETE** (`RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION`, `edge_claim: NONE`, `oos_edge_proven: false`) — 5 artifacts+SHA256 from bytes recorded in C254 section. **C255 NOT STARTED.** **IMMEDIATE NEXT ACTION (non-deferrable): Campaign #255 — implement/run `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION` (grep-zero pre-checked) via `python3` from C254 pattern, produce timestamped OOS/script/ingest/registry/summary artifacts with SHA256-from-bytes, record honest edge/no-edge with evidence, then update this handoff. Do not stop at planning. No status-only work.**
