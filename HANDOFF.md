@@ -1,20 +1,23 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T10:17:01Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
-> **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C15 progress. Do not touch it for C250; it cannot block C250. NOTE: `state.yaml` is stale (still reads `latest_campaign_done: C248` / `next_campaign: C249`) but C249 is already complete (see below); syncing it is part of the C250 heavy-work mandate (`sync_state_and_handoff`) but remains a user-requested edit.
+> **Repo:** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Core mission: real-data-only edge search (fail-closed enriched cointegration gates), no fabrication, no status-only work. **Single durable handoff at repo root: `HANDOFF.md` only** (updated 2026-11-11T10:20:30Z UTC). Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
+> **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line (C104–C248 locked, currently stale at `latest_campaign_done: C248` / `next_campaign: C249`; C249 is already complete — see below). Separate research line; must not be edited to block/replace C1–C15 progress. Syncing `state.yaml` is only permitted if explicitly requested by the user.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T10:17:01Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T10:20:30Z UTC)
 
-**Initial task (execute immediately, heavy work, no status-only):** Campaign #15 is COMPLETE (7/7 evaluated, all with timestamped artifacts+SHA256 and honest conclusions; zero `edge` found → no cost-aware OOS validation triggered). Research line C249 is COMPLETE (`edge_claim: NONE`, `oos_edge_proven: false`; execution summary + OOS + script + registry artifacts present, all SHA256-verified). **Bottlenecks removed — none remain.** All candidate caches verified present in `data/cache/` with `.pkl`+`.meta.json`; `fetch_success: True`, none flagged fabricated; c7-venv python present at `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`; no network refetch needed.
+**Execute immediately (heavy work, no status-only): Campaign #250 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search.**
 
-Next unambiguous heavy focus: **Campaign #250** (research-line continuation after C249) — real-data-only, fail-closed volume RQA shock mean-reversion edge search on a preselected distinct strategy.
-- **Preselect strategy:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K`. **Verify grep-zero distinctness first:** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K|WHITE_DIAG_LINE_LENGTH_YULE_K' scripts/ strategies/ backtest/ utils/ 2>&1` must return 0 nonself hits before implementation/run.
-- **Ordered fallbacks (if preselected fails grep-zero or is blocked):** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MIDRANGE`, then `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW` (each must independently pass grep-zero distinctness).
-- **Each run MUST produce:** timestamped costed-OOS artifact + SHA256 (from bytes), script + SHA256, ingest attempt + SHA256, strategy-edge-registry entry + SHA256, campaign execution summary + SHA256.
-- **Honest conclusion:** `oos_edge_proven: true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows (real data only); otherwise `edge_claim: NONE` with evidence (`cross_asset_oos_net_sums` per cost slice, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`).
-- **Stop only if `oos_edge_proven: true`.** Otherwise record honest blocked/no-edge conclusion with evidence and update this handoff.
-- **Do not** edit `research_state/state.yaml` unless explicitly requested by the user.
+**State (verified 2026-11-11T10:20:30Z UTC):** C12 5/5, C13 3/3, C14 7/7 (zero edge), C15 7/7 (zero edge) — no re-runs except evidence-backed defect fix. Research line C249 COMPLETE (`edge_claim: NONE`, `oos_edge_proven: false`; artifacts present & referenced below). Caches present in `data/cache/` (68 files incl. `.pkl`+`.meta.json`); no network refetch. Scientific deps available: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1. **Bottleneck removed:** handoff previously referenced `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python` which is absent in this environment — use `python3` instead (verified working). Grep-zero distinctness pre-verified now for all C250 candidates (0 hits): YULE_K, MIDRANGE, PEARSON_SKEW.
+
+**C250 plan (non-deferrable):**
+- **Preselected strategy:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K` (Yule's K = (Q3−Q1)/(Q3+Q1) on qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if denominator/feature undefined or insufficient qualifying segments per pre-stated rules — follow C249 script conventions).
+- **Distinctness gate (must re-confirm before implementation/run):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K|WHITE_DIAG_LINE_LENGTH_YULE_K' scripts/ strategies/ backtest/ utils/` → **0 nonself hits required**.
+- **Ordered fallbacks if blocked/fails distinctness:** (1) `RTE_OVER_WHITE_DIAG_LINE_LENGTH_MIDRANGE`, (2) `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW` — each must pass grep-zero independently.
+- **Implement by adapting C249 pattern:** `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_groeneveld_meeden_skew_shock_mr_costed_oos.py` → new script for chosen strategy; preserve fail-closed, real-data-only, SHA256-from-bytes, and artifact/registry/summary/ingest emission patterns.
+- **Required outputs (all SHA256 from bytes):** timestamped costed-OOS artifact, script, ingest attempt, strategy-edge-registry entry, campaign execution summary (all under `reports/`/`scripts/` as appropriate).
+- **Edge rule (honest, fail-closed):** `oos_edge_proven: true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows (real data only). Otherwise `edge_claim: NONE` with evidence: `cross_asset_oos_net_sums` per cost slice, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`.
+- **Stop only if `oos_edge_proven: true`.** Otherwise record honest blocked/no-edge conclusion with evidence and update this handoff (paths, SHA256s, conclusion, next directive). No planning/researching as a substitute for execution. Do **not** edit `research_state/state.yaml` unless explicitly requested by user.
 
 ## C14 FINAL (verified 2026-11-11T08:56:40Z UTC)
 
@@ -65,16 +68,16 @@ Artifacts: `reports/campaign15_causal_per_bar_enriched_gates_<cache8>_<UTC>.json
 - Record honest conclusion: `oos_edge_proven` / `edge_claim: NONE` with evidence (`cross_asset_oos_net_sums` per cost slice, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`).
 - Update **THIS HANDOFF** with verified UTC, commands run, artifact paths+SHA256, conclusions, and next unambiguous directive. **Do not** edit `research_state/state.yaml` unless explicitly requested by the user.
 
-## BOTTLENECK REMOVAL (pre-cleared for this session — no work is blocked)
+## BOTTLENECK REMOVAL (pre-cleared — 2026-11-11T10:20:30Z UTC)
 
 - C12 complete (5/5), C13 complete (3/3), C14 complete (7/7), C15 complete (7/7) — no re-runs permitted except evidence-backed defect fix.
 - C249 complete (research line) — no re-run permitted except evidence-backed defect fix.
-- All caches `.pkl`+`.meta.json` present in `data/cache/`; no network refetch needed (real cached spot only). Verified 2026-11-11T10:17:01Z UTC.
-- c7-venv python present: `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`.
-- `research_state/state.yaml` locked — do not touch; stale `next_campaign: C249` does not block C250 (C249 already complete).
-- No status-only work counts toward C250; every run must produce artifact+SHA256 or an honest blocked/no-edge conclusion with evidence.
-- No background process active; no stale "cache still running" claims.
-- **Grep-zero pre-verified at 2026-11-11T10:17:01Z UTC:** YULE_K (0 hits), MIDRANGE (0 hits), PEARSON_SKEW (0 hits) — all three candidates distinct.
+- All caches `.pkl`+`.meta.json` present in `data/cache/` (68 files); no network refetch needed (real cached spot/volume only). Verified 2026-11-11T10:20:30Z UTC.
+- **Python/deps bottleneck cleared:** `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python` absent; use `python3` (3.12.3) with `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 (verified).
+- `research_state/state.yaml` locked/stale (shows `next_campaign: C249`) — do not touch; does not block C250.
+- No status-only work counts; every run must produce artifact+SHA256 or an honest blocked/no-edge conclusion with evidence.
+- No background process active.
+- **Grep-zero pre-verified (2026-11-11T10:20:30Z UTC):** YULE_K (0 hits), MIDRANGE (0 hits), PEARSON_SKEW (0 hits).
 
 ## HARD BANS
 
@@ -100,29 +103,27 @@ Artifacts: `reports/campaign15_causal_per_bar_enriched_gates_<cache8>_<UTC>.json
 ## EXACT COMMANDS TO RUN FOR C250 (from repo root)
 
 ```bash
-# 1. Verify grep-zero distinctness for YULE_K (MUST return 0 nonself hits)
-grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K|WHITE_DIAG_LINE_LENGTH_YULE_K' scripts/ strategies/ backtest/ utils/ 2>&1
+# 1. Re-verify grep-zero distinctness for YULE_K (MUST return 0 nonself hits)
+grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K|WHITE_DIAG_LINE_LENGTH_YULE_K' scripts/ strategies/ backtest/ utils/
 
 # 2. Copy C249 pattern script and adapt for YULE_K
 cp scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_groeneveld_meeden_skew_shock_mr_costed_oos.py \
    scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_yule_k_shock_mr_costed_oos.py
 
-# 3. Edit the new script: replace all "GROENEVELD_MEEDEN_SKEW" with "YULE_K", update strategy_id, feature docstring, grep pattern, etc.
-#    (The YULE_K feature = Yule's K = (Q3 - Q1) / (Q3 + Q1) on qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0)
+# 3. Edit the new script: replace all "GROENEVELD_MEEDEN_SKEW"/"groeneveld_meeden_skew" with "YULE_K"/"yule_k",
+#    update strategy_id, feature docstring/formula (Yule's K = (Q3-Q1)/(Q3+Q1) on qualifying WHITE diagonal segment
+#    lengths pooled over off-diagonal diagonals k!=0), grep-distinctness check string, and artifact/report naming.
 
-# 4. Run the script (heavy work — will take several minutes)
-/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_yule_k_shock_mr_costed_oos.py
+# 4. Run the script (heavy work — produces timestamped artifacts; use system python, not missing c7-venv)
+python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_yule_k_shock_mr_costed_oos.py
 
-# 5. Verify artifacts produced with SHA256 (all must exist and have valid SHA256 from bytes)
-#    - OOS artifact: reports/real_quote_volume_rqa_rte_over_white_diag_line_length_yule_k_shock_mr_costed_oos_<UTC>.json
-#    - Script SHA256
-#    - Ingest attempt SHA256
-#    - Registry entry SHA256
-#    - Campaign execution summary SHA256
+# 5. Verify all required artifacts exist and record SHA256-from-bytes for: OOS artifact, script, ingest attempt,
+#    strategy-edge-registry entry, campaign execution summary.
 
-# 6. Update THIS HANDOFF.md with: UTC timestamp, commands run, artifact paths+SHA256, conclusion, next directive
+# 6. Update THIS HANDOFF.md with: UTC timestamp, commands run, artifact paths+SHA256, conclusion, next directive.
+#    Do NOT edit research_state/state.yaml unless explicitly requested by user.
 ```
 
-**If YULE_K fails grep-zero or is blocked:** repeat steps 1-6 for MIDRANGE, then PEARSON_SKEW (each independently grep-zero verified).
+**If YULE_K fails grep-zero or is blocked:** repeat for MIDRANGE, then PEARSON_SKEW (each independently grep-zero verified).
 
-**END OF DURABLE HANDOFF — 2026-11-11T10:17:01Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge. C15 COMPLETE (7/7), zero edge. C249 COMPLETE (research line), edge_claim NONE, oos_edge_proven false. **Next: Campaign #250 — preselect `RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K` (grep-zero distinctness pre-verified 0 hits; fallbacks MIDRANGE, PEARSON_SKEW also 0 hits), run real-data-only fail-closed costed-OOS edge evaluation, produce all artifacts+SHA256, honest conclusion, update this handoff. No status-only work. Bottlenecks pre-cleared; heavy work is mandatory, not optional.**
+**END OF DURABLE HANDOFF — 2026-11-11T10:20:30Z UTC.** C12 COMPLETE (5/5). C13 COMPLETE (3/3). C14 COMPLETE (7/7), zero edge. C15 COMPLETE (7/7), zero edge. C249 COMPLETE (research line), edge_claim NONE, oos_edge_proven false. **Next: Campaign #250 — `RTE_OVER_WHITE_DIAG_LINE_LENGTH_YULE_K` (grep-zero pre-verified 0; fallbacks MIDRANGE/PEARSON_SKEW 0), run real-data-only fail-closed costed-OOS with `python3`, produce all artifacts+SHA256, honest conclusion, update this handoff. No status-only work.**
