@@ -4,9 +4,22 @@
 > **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked` with evidence is valid. **Status-only work is forbidden.**
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA (C104–C248 locked, `next_campaign: C249`, `oos_edge_proven: false`, SHA/provenance locked). Separate research line; must not be edited to block/replace C1–C14 progress.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T05:22:56Z UTC)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T05:22:56Z UTC; UPDATED 2026-11-11T07:10Z UTC)
 
-**Initial task (execute immediately, heavy work, no status-only):** Campaign #13 is COMPLETE (3/3 evaluated, all with timestamped artifacts+SHA256 and honest conclusions). **Bottlenecks removed — none remain.** Next unambiguous heavy focus: **Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement.** Campaign #14 has NOT been run yet (zero `reports/campaign14_causal_per_bar_enriched_gates_*` artifacts exist). Do **NOT** summarize state; run the commands below and produce one timestamped artifact + SHA256 per cache.
+**Initial task (execute immediately, heavy work, no status-only):** Campaign #13 is COMPLETE (3/3 evaluated, all with timestamped artifacts+SHA256 and honest conclusions). **Bottlenecks removed — none remain.** Next unambiguous heavy focus: **Campaign #14 — causal gate edge search on wider universe with real-data-only enforcement.** Campaign #14 IN PROGRESS — 6/7 caches complete (all honest `no_edge`/`insufficient_or_blocked`, zero edge found). **ONLY CACHE #1 (90d10b87) REMAINS — it is the heaviest (11 sym, 5m, 26208 bars) and is still running in background.** Do **NOT** summarize state; finish cache #1 then update this handoff with all 7 results.
+
+**C14 RESULTS SO FAR (verified 2026-11-11T07:10Z UTC):**
+| # | Cache8 | SHA256 | Conclusion |
+|---|--------|--------|------------|
+| 1 | 90d10b87 | **PENDING** (running) | — |
+| 2 | 595e501a | `cf4c6cabc68a179d6391bc4dedebcf23d4c060c685ee3563af44b4fceeb7530e` | insufficient_or_blocked |
+| 3 | 4fd3e87f | `aaf7a2ca32cb5b884e239f5daf3804270cb31d971cb47c802ed6dcf8187c9c84` | insufficient_or_blocked |
+| 4 | 74e86e8e | `657ecf30b12a30839f08372e41275b4cbaec9f65a4400bfb57ba1071a9218bd4` | insufficient_or_blocked |
+| 5 | 76dedb82 | `1902a2c2ed6b5e0ad6d275983e1b1e31c0226fef15d2bf3e18fbe4460543cd1e` | insufficient_or_blocked |
+| 6 | a74dcf38 | `123b866fda7977aea4d13fe9c4edd04b0366838bc77b43cd56378534da402c9d` | no_edge (rolling_stable_ok blocks all bars) |
+| 7 | 749b2218 | `e9631e325dd617efef53ec64ead0d105746d5abd0669ee0bd2017098058fad1d` | insufficient_or_blocked |
+
+All artifacts: `reports/campaign14_causal_per_bar_enriched_gates_<cache8>_<UTC>.json`. Runner writes `campaign13_*` prefix by design — copy/rename to `campaign14_*` after each run. No edge found in any completed cache; no cost-aware OOS validation triggered.
 
 **Verified state (2026-11-11T05:22:56Z UTC):** `main` @ `22ca033` (HEAD), prior handoff baseline `4fed0a3`; working tree was clean at check. Gates (prior verified): `pytest tests/ -q` => **1089 passed, 2 skipped, 15 failed (pre-existing, unrelated)**; `ruff check backtest/ data/ strategies/ utils/ tests/ examples/` => **All checks passed**; `mypy backtest/ strategies/ utils/` => **Success**. Env: venv `/home/runner/work/_temp/kilo-tmp/c7-venv` (Python 3.12.3) present, deps expected ok; use `export PYTHONPATH=$PWD` and `/home/runner/work/_temp/kilo-tmp/c7-venv/bin/python`. All 7 Campaign #14 cache `.pkl`+`.meta.json` present in `data/cache/`. Runner exists: `examples/run_campaign13_causal_gates.py`. `research_state/state.yaml` untouched (locked RQA line). No blockers identified for Campaign #14 heavy execution.
 
