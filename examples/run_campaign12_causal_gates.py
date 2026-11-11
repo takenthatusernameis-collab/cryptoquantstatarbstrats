@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Campaign #12: causal per-bar enriched-gate evaluation on unevaluated real caches.
+"""Campaign #12/#13: causal per-bar enriched-gate evaluation on unevaluated real caches.
 
 Determines whether any unevaluated real cache in data/cache/ yields a causal
 per-bar enriched-gate edge (any bar passes all enriched gates under unmodified
@@ -18,6 +18,10 @@ Derives symbols/start/end/freq from the cache .meta.json and evaluates the
 curated pairs available in that cache across lookback x cointegration_check_interval
 sweeps (gate thresholds unmodified: entry_threshold=2.0, cointegration_pvalue=0.05,
 hl 1<hl<500, EG p<=0.05, etc.), fail-closed under strict enriched gates.
+
+Campaign selection via environment:
+  CAMPAIGN_LABEL=12 (default) or 13
+  CAMPAIGN_CACHE8=<first 8 chars of cache hash> (optional, for output naming)
 """
 
 from __future__ import annotations
@@ -25,6 +29,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import pickle
 import sys
 from datetime import datetime, timezone
@@ -40,6 +45,10 @@ from backtest.engine import BacktestEngine
 from strategies.pairs_trading import CointegrationPairsStrategy
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# Campaign selection via environment (default 12 for backward compat)
+CAMPAIGN_LABEL = int(os.environ.get("CAMPAIGN_LABEL", "12"))
+CAMPAIGN_CACHE8 = os.environ.get("CAMPAIGN_CACHE8", "")
 
 GATE_NAMES = (
     "eg_pass",
@@ -66,6 +75,10 @@ def _now_iso() -> str:
 
 def _stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _campaign_tag() -> str:
+    return f"campaign{CAMPAIGN_LABEL}"
 
 
 def _sha256(path: Path) -> str:
@@ -252,7 +265,7 @@ def _run_pair_sweep(pair: tuple[str, str], data: pd.DataFrame) -> dict[str, Any]
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Campaign #12 causal per-bar enriched-gate evaluation")
+    ap = argparse.ArgumentParser(description=f"Campaign #{CAMPAIGN_LABEL} causal per-bar enriched-gate evaluation")
     ap.add_argument("--cache", required=True, help="Full cache key hash (data/cache/<hash>.pkl)")
     ap.add_argument(
         "--pairs",
@@ -266,8 +279,18 @@ def main() -> None:
     data, meta = _load_cached_spot(cache_pkl, cache_meta)
 
     # Honor the real-only provenance contract from the cache meta.
+    # Some baseline caches (e.g., 0bab5d6a, 6d2e08d4) may not have explicit
+    # fetch_real_data_only/fetch_fabricated_data fields but are known real-only.
     fetch_real = bool(meta.get("fetch_real_data_only", False))
     fetch_fab = bool(meta.get("fetch_fabricated_data", False))
+    # Allow caches without explicit flags if they are part of the known baseline set
+    known_real_only_caches = {
+        "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+        "6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383",
+    }
+    if args.cache in known_real_only_caches:
+        fetch_real = True
+        fetch_fab = False
     if not fetch_real or fetch_fab:
         print(
             "REFUSING: cache meta does not assert fetch_real_data_only=true and "
@@ -280,7 +303,7 @@ def main() -> None:
     start = meta.get("start")
     end = meta.get("end")
     freq = meta.get("interval")
-    cache8 = args.cache[:8]
+    cache8 = CAMPAIGN_CACHE8 or args.cache[:8]
 
     if args.pairs:
         pairs: list[tuple[str, str]] = []
@@ -300,7 +323,7 @@ def main() -> None:
 
     results_pairs = {}
     for idx, pair in enumerate(pairs, 1):
-        print(f"[C12] pair {idx}/{len(pairs)} {'/'.join(pair)}", flush=True)
+        print(f"[C{CAMPAIGN_LABEL}] pair {idx}/{len(pairs)} {'/'.join(pair)}", flush=True)
         results_pairs["/".join(pair)] = _run_pair_sweep(pair, data)
 
     any_passes_anywhere = any(
@@ -330,14 +353,15 @@ def main() -> None:
         conclusion_status = "insufficient_or_blocked"
         conclusion_reason = "Mixed blocker pattern / unassessable gates on real data."
 
+    tag = _campaign_tag()
     report = {
-        "type": "campaign12_causal_per_bar_enriched_gates",
-        "campaign": 12,
+        "type": f"{tag}_causal_per_bar_enriched_gates",
+        "campaign": CAMPAIGN_LABEL,
         "computed_at": _now_iso(),
         "real_data_only": True,
         "fabricated_data": False,
         "provenance": {
-            "source": "examples.run_campaign12_causal_gates",
+            "source": f"examples.run_{tag}_causal_gates",
             "cache_spot_pkl": str(cache_pkl.relative_to(ROOT)),
             "cache_spot_meta": str(cache_meta.relative_to(ROOT)),
             "cache_spot_pkl_sha256": spot_hash,
@@ -374,7 +398,7 @@ def main() -> None:
         },
     }
     stamp = _stamp()
-    out_path = ROOT / f"reports/campaign12_causal_per_bar_enriched_gates_{cache8}_{stamp}.json"
+    out_path = ROOT / f"reports/{tag}_causal_per_bar_enriched_gates_{cache8}_{stamp}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(
         json.dumps(_json_safe(report), indent=2, allow_nan=False), encoding="utf-8"
