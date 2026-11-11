@@ -5,13 +5,13 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C262 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T18:19:20Z UTC) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T18:21:24Z UTC) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line for this repo (`cryptoquantstatarbstrats` = crypto quant stat-arb strategies): **real cached quote/volume RQA shock mean-reversion costed-OOS**, real-data-only edge search, fail-closed gates. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
 **IMMEDIATE NON-DEFERRABLE ACTION:** Run **Campaign #263** end-to-end now (C262 complete, `edge_claim: NONE`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T18:19:20Z UTC — path clear, no bottlenecks)
+### Preflight (re-verified 2026-11-11T18:21:24Z UTC — path clear, no bottlenecks)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_INDEX_OF_DISPERSION|WHITE_DIAG_LINE_LENGTH_INDEX_OF_DISPERSION' scripts/ strategies/ backtest/ utils/ | wc -l  # must be 0 nonself
@@ -99,10 +99,10 @@ C262 complete (NONE with evidence). **Immediately** proceed in order:
   - Registry: `reports/strategy_edge_registry_20261111T171038Z.json` — `e94e065ed8094fff2ac086fcf4a8bcfb5ecd9665974ded055a8ca2c319c26b18`
   - Summary: `reports/campaign260_execution_summary_20261111T171039Z.json` — `58d96f1274cd5896ee5f555ed047f93d2d5edf82fa657541a004c34637826946`
 
-## STATE SNAPSHOT (2026-11-11T18:19:20Z UTC)
+## STATE SNAPSHOT (2026-11-11T18:21:24Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C262:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
-- **C263:** NOT STARTED / **READY TO RUN NOW**. Primary `INDEX_OF_DISPERSION` grep-zero re-verified 2026-11-11T18:19:20Z. No bottlenecks. C262 template exists; C263 script must be created.
+- **C263:** NOT STARTED / **READY TO RUN NOW**. Primary `INDEX_OF_DISPERSION` grep-zero re-verified 2026-11-11T18:21:24Z. No bottlenecks. C262 template exists; C263 script must be created.
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance); no refetch.
 - **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1.
 
@@ -115,5 +115,5 @@ C262 complete (NONE with evidence). **Immediately** proceed in order:
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T18:19:20Z UTC (C262 complete, NONE with evidence; preflight clear, no bottlenecks).**
+**END OF DURABLE HANDOFF — 2026-11-11T18:21:24Z UTC (C262 complete, NONE with evidence; preflight clear, no bottlenecks).**
 **NEXT AGENTIC SESSION: EXECUTE C263 NOW (HEAVY). DO NOT ASK. DO NOT PLAN. EMIT SHA256-BACKED ARTIFACTS OR HONEST NONE WITH EVIDENCE. UPDATE THIS HANDOFF. THEN CONTINUE PIPELINE C264+.**
