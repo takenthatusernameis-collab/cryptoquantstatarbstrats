@@ -1,0 +1,43 @@
+{
+  "tool": "campaign257_execution_summary",
+  "generated_at_utc": "20261111T144404Z",
+  "campaign": 257,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE_SHOCK_MR",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "artifacts": {
+    "oos": {
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_range_shock_mr_costed_oos_20261111T143936Z.json",
+      "sha256": "214678ab7f408e34e590d3e260ad62fc430fc79d7938a9a1721d2dcb8f146286"
+    },
+    "script": {
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_range_shock_mr_costed_oos.py",
+      "sha256": "de800865c3ef6587eab3faa4e9ba159e7e9eadbc684a972b202eb60f8a9216d0"
+    },
+    "ingest": {
+      "path": "reports/real_feed_ingest_attempt_20261111T144342Z.json",
+      "sha256": "3cb139ba9f9b5d516a40673648d07ee38222550fe4fd9eb0666f1978ee7c4e48"
+    },
+    "registry": {
+      "path": "reports/strategy_edge_registry_20261111T144354Z.json",
+      "sha256": "6e0d1088fc12a841f18104dc40fd7861cca15fba0662d6da6339b4c134dff945"
+    }
+  },
+  "all_new_c256_artifact_paths_sha256_from_bytes": true,
+  "oos_edge_proven": false,
+  "c257_preselected": {
+    "family_primary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE_SHOCK_MR",
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_verify_required": true,
+    "note": "C257 primary COEFFICIENT_OF_RANGE ((mx-mn)/(mx+mn) over qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0; fail-closed if <3 segments or mx/mn undefined/non-finite or (mx+mn)<=0 or COEFFICIENT_OF_RANGE<=0/degenerate/non-finite) grep 0 verified before implementation/run."
+  },
+  "references": {
+    "prior_registry": "reports/strategy_edge_registry_20261111T142620Z.json",
+    "prior_registry_sha256": "d8fb6e98ec5e4bf60fc3edf1f8161d9e24dc14a156dbced1748896ba489be7c6",
+    "c256_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos_20261111T142022Z.json",
+    "c256_oos_sha256": "7165c6067b9cdf7782285b538c4c891db6d21415e5b364c5bd32db07b9bcd260"
+  }
+}
