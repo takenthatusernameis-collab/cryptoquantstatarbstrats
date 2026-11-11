@@ -2,60 +2,74 @@
 
 > **Repo:** `cryptoquantstatarbstrats` (crypto quant stat-arb strategies). Core mission: real-data-only edge search with fail-closed enriched cointegration gates. **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C255 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C256 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T13:50:12Z UTC, re-verified)
+## NEXT SESSION: START HERE NOW (TIMESTAMPED INITIAL TASK — 2026-11-11T14:26:28Z UTC)
 
-**IMMEDIATE NON-DEFERRABLE ACTION (heavy execution, no planning/status-only substitute): run Campaign #256 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search.**
+**IMMEDIATE NON-DEFERRABLE ACTION (heavy execution, no planning/status-only substitute): run Campaign #257 — real-data-only fail-closed volume RQA shock mean-reversion costed-OOS edge search.**
 
-**Bottlenecks cleared/re-verified (2026-11-11T13:50:12Z UTC):**
+**Bottlenecks cleared/re-verified (2026-11-11T14:26:28Z UTC):**
 - `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1 — available.
 - Real caches present in `data/cache/` (`.pkl` + `.meta.json`); **no network refetch**.
-- Distinctness pre-check: `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE|WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE' scripts/ strategies/ backtest/ utils/` → **0 hits** (re-verify before implementation/run).
-- No C256 artifacts present in `reports/`/`scripts/`. No blocking background process.
-- C12–C15 and C249–C255 complete (all `edge_claim: NONE`, `oos_edge_proven: false`) — no re-runs except evidence-backed defect fix.
+- Distinctness pre-check (fallback candidate): `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE' scripts/ strategies/ backtest/ utils/` → **0 hits** (re-verify before implementation/run).
+- No C257 artifacts present in `reports/`/`scripts/`. No blocking background process.
+- C12–C15 and C249–C256 complete (all `edge_claim: NONE`, `oos_edge_proven: false`) — no re-runs except evidence-backed defect fix.
 
-**C256 directive (must execute, not plan):**
-- **Primary strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE_SHOCK_MR`.
-- **Feature (pre-state exact formula before implementation; fail-closed):** semi-variance of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=`w_min=2`) pooled over off-diagonal diagonals `k!=0`. Before coding, state exact formula/reference (e.g. mean of squared deviations below the pre-specified central reference over qualifying segment lengths, with the chosen reference explicitly defined) and enforce fail-closed on `<3` qualifying segments, undefined/non-finite reference/semi-variance, `semi_variance <= 0`/degenerate, or undefined/non-finite ratio/feature.
-- **Distinctness gate:** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE|WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE' scripts/ strategies/ backtest/ utils/` must return **0 nonself hits** before run. If blocked/fails distinctness, pick next grep-zero distinct fallback, record evidence, and proceed (no status-only stop).
-- **Prior registry/input:** `reports/strategy_edge_registry_20261111T133343Z.json` (sha256 `d676c82467a421eae715340d2b1e9b0aa81a26ab8cc1f04b56d47441332756e7`). Use C255 artifacts/pattern as template:
-  - script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos.py` (sha256 `905b3bd4532ce38da290aec265ebc6539e3c79e3a39679c9f2890ee8abfee706`)
-  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos_20261111T132821Z.json` (sha256 `d5aa64cfd5270e0c4af4909998fb59ca078edd200ac29e82e81981d6e04c76e2`)
+**C257 directive (must execute, not plan):**
+- **Primary strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE_SHOCK_MR` (fallback candidate; pre-selected as grep-zero distinct from C125–C256).
+- **Feature (pre-state exact formula before implementation; fail-closed):** coefficient of range of lengths of qualifying WHITE diagonal segments (consecutive 0-cells/non-recurrent, length>=`w_min=2`) pooled over off-diagonal diagonals `k!=0`. Before coding, state exact formula/reference: let `L={L_i}`, `N>=3`; `mx=max(L)`, `mn=min(L)`; `COEFFICIENT_OF_RANGE=(mx-mn)/(mx+mn)` (pre-stated). Enforce fail-closed on `<3` qualifying segments, undefined/non-finite `mx/mn`, `(mx+mn)<=0`, `COEFFICIENT_OF_RANGE<=0`/degenerate/non-finite, or undefined/non-finite ratio/feature.
+- **Distinctness gate:** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE' scripts/ strategies/ backtest/ utils/` must return **0 nonself hits** before run. If blocked/fails distinctness, pick next grep-zero distinct fallback (e.g. `RTE_OVER_WHITE_DIAG_LINE_LENGTH_NORMALIZED_RANGE`, `RTE_OVER_WHITE_DIAG_LINE_LENGTH_DECILE_RANGE`, `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION` — re-verify each), record evidence, and proceed (no status-only stop).
+- **Prior registry/input:** `reports/strategy_edge_registry_20261111T142620Z.json` (sha256 `d8fb6e98ec5e4bf60fc3edf1f8161d9e24dc14a156dbced1748896ba489be7c6`). Use C256 artifacts/pattern as template:
+  - script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py` (sha256 `720b9358d1c4952b3ddbf2c79c05070455d7d6037c8ddb58c56af0029bf8fb6a`)
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos_20261111T142022Z.json` (sha256 `7165c6067b9cdf7782285b538c4c891db6d21415e5b364c5bd32db07b9bcd260`)
 - **Evaluation (locked):** real cached data only; WF `train=720/test=168/step=168`; costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
 - **Edge rule (fail-closed, honest):** `oos_edge_proven: true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows (real data only). Otherwise `edge_claim: NONE` with evidence (`cross_asset_oos_net_sums`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`, exposure).
-- **Required outputs (all SHA256 from bytes):** timestamped C256 costed-OOS artifact, run script, ingest attempt, strategy-edge-registry, campaign execution summary. Emit via `python3` from repo root (adapt C255 emit/run pattern; include C256 helper stems in own-campaign exclusions).
+- **Required outputs (all SHA256 from bytes):** timestamped C257 costed-OOS artifact, run script, ingest attempt, strategy-edge-registry, campaign execution summary. Emit via `python3` from repo root (adapt C256 emit/run pattern; include C257 helper stems in own-campaign exclusions).
 - **Stop condition:** stop early **only** if `oos_edge_proven: true`. Otherwise record honest `NONE`/blocked conclusion with evidence and update this handoff (UTC timestamp, commands, artifact paths+SHA256s, conclusion, next directive). **Do not edit `research_state/state.yaml` unless explicitly requested by user.**
 
 **Exact execution skeleton (from repo root):**
 ```bash
 # 1) Re-verify distinctness (must be 0 nonself hits)
-grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE|WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE' scripts/ strategies/ backtest/ utils/
+grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE' scripts/ strategies/ backtest/ utils/
 
-# 2) Create/adapt C255-pattern script for SEMI_VARIANCE (state exact formula/reference + fail-closed)
-cp scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos.py \
-   scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py
-# edit: strategy_id/feature/formula, grep strings, campaign=256, prior registry -> strategy_edge_registry_20261111T133343Z.json (d676c824...), prior/C255 OOS sha d5aa64cf..., own_campaign exclusions, artifact naming
+# 2) Create/adapt C256-pattern script (state exact formula/reference + fail-closed)
+cp scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py \
+   scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_range_shock_mr_costed_oos.py
+# edit: strategy_id/feature/formula, grep strings, campaign=257, prior registry -> strategy_edge_registry_20261111T142620Z.json (d8fb6e98...), prior/C256 OOS sha 7165c606..., own_campaign exclusions, artifact naming
 
 # 3) Run heavy work + emit artifacts
-python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py
-python3 scripts/run_real_feed_ingest_attempt_256.py
-python3 scripts/emit_campaign256_registry.py
-python3 scripts/emit_campaign256_summary.py
+python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_range_shock_mr_costed_oos.py
+python3 scripts/run_real_feed_ingest_attempt_257.py
+python3 scripts/emit_campaign257_registry.py
+python3 scripts/emit_campaign257_summary.py
 
 # 4) Compute/record SHA256-from-bytes for OOS, script, ingest, registry, summary
 # 5) Update HANDOFF.md with timestamp, commands, paths+SHA256s, conclusion, next directive
 ```
 
-## STATE SNAPSHOT (verified 2026-11-11T13:41:30Z UTC)
+## STATE SNAPSHOT (verified 2026-11-11T14:26:28Z UTC)
 
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
-- **C249–C255:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
-- **C256:** NOT STARTED (no C256 artifacts/scripts in `reports/`/`scripts/` at this timestamp).
+- **C249–C256:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
+- **C257:** NOT STARTED (no C257 artifacts/scripts in `reports/`/`scripts/` at this timestamp).
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance); no refetch.
 - **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1.
 
 ## CAMPAIGN LOG (main line, latest first)
+
+### C256 — COMPLETE (2026-11-11T14:26:28Z UTC)
+- **Commands:** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE|WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE' scripts/ strategies/ backtest/ utils/` (0 nonself hits pre-run) → created `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py`, `scripts/run_real_feed_ingest_attempt_256.py`, `scripts/emit_campaign256_registry.py`, `scripts/emit_campaign256_summary.py` → `python3 scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py` → `python3 scripts/run_real_feed_ingest_attempt_256.py` → `python3 scripts/emit_campaign256_registry.py` → `python3 scripts/emit_campaign256_summary.py`.
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE_SHOCK_MR`. Feature (pre-stated, fail-closed): RTE/WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE on delay-embedded (m=2,tau=1) log-volume returns, W_RR=168, eps=0.5*std, L_inf. Denominator = lower semi-variance about mean of qualifying WHITE diagonal segment lengths `L={L_i}`, `N>=3`, pooled over off-diagonal diagonals k!=0, `w_min=2`: `mu=mean(L)`, `SEMI_VARIANCE=(1/N)*sum_{i=1}^{N}(max(mu-L_i,0))^2` (mean squared shortfall below mean over all qualifying segments). Fail-closed if `<3` qualifying segments, undefined/non-finite `mu/SEMI_VARIANCE`, `SEMI_VARIANCE<=0`/degenerate (incl. no below-mean shortfall), or undefined/non-finite RTE/ratio.
+- **Distinctness:** grep 0 nonself hits at run. WF 720/168/168, cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]`, real cached data only, no refetch.
+- **Result:** `edge_claim: NONE`, `oos_edge_proven: false`. `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **Evidence:** `cross_asset_oos_net_sums` fee0_slip0=-2.515911002863758, fee5_slip5=-3.2339110028637585, fee10_slip10=-3.951911002863759, fee20_slip20=-5.38791100286376, fee40_slip40=-8.259911002863758.
+- **Artifacts (SHA256 from bytes):**
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos_20261111T142022Z.json` — `7165c6067b9cdf7782285b538c4c891db6d21415e5b364c5bd32db07b9bcd260`
+  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py` — `720b9358d1c4952b3ddbf2c79c05070455d7d6037c8ddb58c56af0029bf8fb6a`
+  - Ingest: `reports/real_feed_ingest_attempt_20261111T142620Z.json` — `a7b8fc042f7c6907a7a46ffab37821b0253816c9e02b2db723dd682383ff215c`
+  - Registry: `reports/strategy_edge_registry_20261111T142620Z.json` — `d8fb6e98ec5e4bf60fc3edf1f8161d9e24dc14a156dbced1748896ba489be7c6`
+  - Summary: `reports/campaign256_execution_summary_20261111T142621Z.json` — `d0a5b8a628a3ca7d1aa3c72de63cc1f0add6511fa354ea73ac4b792816d3e840`
+- **Next directive:** Campaign #257 `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE_SHOCK_MR` (primary, grep-zero pre-verified). State exact formula/reference pre-implementation, enforce fail-closed, run WF/costs locked, emit SHA256-backed artifacts, update handoff.
 
 ### C255 — COMPLETE (2026-11-11T13:33:43Z UTC)
 - Strategy: `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION_SHOCK_MR` (median absolute deviation of qualifying WHITE diagonal segment lengths; exact pre-stated formula in artifacts). `edge_claim: NONE`, `oos_edge_proven: false`. Distinctness grep nonself hits at run: 0.
@@ -106,10 +120,10 @@ python3 scripts/emit_campaign256_summary.py
 
 ## KEY FILES
 
-- Latest template/pattern (C255): `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_median_absolute_deviation_shock_mr_costed_oos.py`, `reports/campaign255_execution_summary_20261111T133343Z.json`, `reports/strategy_edge_registry_20261111T133343Z.json`.
-- Prior patterns: C254/C253/C252/C251/C250 scripts and summaries in `scripts/` and `reports/`.
+- Latest template/pattern (C256): `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_semi_variance_shock_mr_costed_oos.py`, `reports/campaign256_execution_summary_20261111T142621Z.json`, `reports/strategy_edge_registry_20261111T142620Z.json`.
+- Prior patterns: C255/C254/C253/C252/C251/C250 scripts and summaries in `scripts/` and `reports/`.
 - Strategy/gates (C1–C15 line): `strategies/pairs_trading.py`, `utils/cointegration.py`.
 - Caches (real-only): `data/cache/*.{pkl,meta.json}`, `data/cache/volume_1h_full.provenance.json`.
 - Locked separate line (do not edit): `research_state/state.yaml`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T13:50:12Z UTC.** Next heavy action: **Campaign #256 `RTE_OVER_WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE`** (grep-zero re-verified, deps/caches ready). Execute now, emit SHA256-backed artifacts, record honest edge/no-edge with evidence, update this handoff.
+**END OF DURABLE HANDOFF — 2026-11-11T14:26:28Z UTC.** Next heavy action: **Campaign #257 `RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE`** (grep-zero pre-verified, deps/caches ready). Execute now, emit SHA256-backed artifacts, record honest edge/no-edge with evidence, update this handoff.
