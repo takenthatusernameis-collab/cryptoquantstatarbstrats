@@ -5,20 +5,20 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C259 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T16:59:08Z UTC) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T17:01:13Z UTC) — START HERE, DO NOT DEVIATE
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY):** Continue the proven main line for this repo: **real cached quote/volume RQA shock mean-reversion costed-OOS**. Do **not** pivot to research, docs, refactors, or status summaries. Produce artifacts or honest `NONE` with evidence.
 
 **IMMEDIATE NON-DEFERRABLE ACTION:** Run **Campaign #260** end-to-end now (C259 complete, `edge_claim: NONE`). No planning phase. No "explore first" substitution.
 
-### Preflight (re-verified 2026-11-11T16:59:08Z UTC — path clear)
+### Preflight (re-verified 2026-11-11T17:01:13Z UTC — path clear)
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
 grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION|WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION' scripts/ strategies/ backtest/ utils/ | wc -l  # must be 0 nonself
 ls data/cache/*.pkl data/cache/*.meta.json | wc -l
 git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats log --oneline -1
 ```
-- **Verified 2026-11-11T16:59:08Z:** deps OK (python3 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); distinctness grep for `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION|WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION` = **0 nonself hits** (re-verify before run); real caches present in `data/cache/` (33 `.pkl` + 33 `.meta.json`); git HEAD `536add6 chore(kilo): checkpoint agent session`; working tree clean; no blocking background processes.
+- **Verified 2026-11-11T17:01:13Z:** deps OK (python3 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); distinctness grep for `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION|WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION` = **0 nonself hits** (re-verify before run); real caches present in `data/cache/` (66 `.pkl`/`.meta.json` files total); git HEAD `536add6 chore(kilo): checkpoint agent session`; working tree clean; no blocking background processes. No bottlenecks found.
 - If `python3`/deps missing → fix environment or state concrete blocker with evidence (do not downgrade to status-only).
 - If grep returns >0 nonself hits → pick next grep-zero distinct fallback from the list below (re-verify each), record evidence, proceed.
 - If caches missing/provenance unclear → fail closed with evidence, do not refetch network.
@@ -85,7 +85,7 @@ C259 complete (NONE with evidence). **Immediately** proceed in order:
 - **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE_SHOCK_MR`. Feature (fail-closed): (mx-mn)/(mx+mn). Result: NONE. Sums: 3.414663798428485, 2.6966637984284847, 1.978663798428484, 0.5426637984284839, -2.329336201571515.
 - **Artifacts:** OOS `...coefficient_of_range_shock_mr_costed_oos_20261111T143936Z.json` `214678ab...6286`, script `de800865...216d0`, ingest `3cb139ba...c4e48`, registry `6e0d1088...f945`, summary `a8f10869...da25`.
 
-## STATE SNAPSHOT (2026-11-11T16:59:08Z UTC)
+## STATE SNAPSHOT (2026-11-11T17:01:13Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C259:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
 - **C260:** NOT STARTED / **READY TO RUN NOW**. Primary `PEARSON_VARIATION` grep-zero verified. No bottlenecks.
@@ -101,5 +101,5 @@ C259 complete (NONE with evidence). **Immediately** proceed in order:
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T16:59:08Z UTC (C259 complete, NONE with evidence; no bottlenecks found).**
+**END OF DURABLE HANDOFF — 2026-11-11T17:01:13Z UTC (C259 complete, NONE with evidence; no bottlenecks found).**
 **NEXT AGENTIC SESSION: EXECUTE C260 NOW (HEAVY). DO NOT ASK. DO NOT PLAN. EMIT SHA256-BACKED ARTIFACTS OR HONEST NONE WITH EVIDENCE. UPDATE THIS HANDOFF. THEN CONTINUE PIPELINE C261+.**
