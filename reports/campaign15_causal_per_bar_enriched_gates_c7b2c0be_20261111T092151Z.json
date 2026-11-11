@@ -1,0 +1,230 @@
+{
+  "type": "campaign13_causal_per_bar_enriched_gates",
+  "campaign": 13,
+  "computed_at": "2026-11-11T09:21:51.383698+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "provenance": {
+    "source": "examples.run_campaign13_causal_gates",
+    "cache_spot_pkl": "data/cache/c7b2c0bea881c17a001ba69aca5641638bad92f47c800e5b03cff0129b2fca28.pkl",
+    "cache_spot_meta": "data/cache/c7b2c0bea881c17a001ba69aca5641638bad92f47c800e5b03cff0129b2fca28.meta.json",
+    "cache_spot_pkl_sha256": "f2ee4906da3b1259ec383aedf95a30ba9faa6436ad0cd73fe98fd1b63918f01b",
+    "cache_spot_meta_sha256": "7d6dbab0cc4417d632cdc35d8947546f9280e40828282a2a4ac14e5eaee5cf71",
+    "cache_meta_content": {
+      "cache_key": "c7b2c0bea881c17a001ba69aca5641638bad92f47c800e5b03cff0129b2fca28",
+      "symbols": [
+        "BTC",
+        "ETH"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-04-03",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 72,
+      "columns": [
+        "BTC",
+        "ETH"
+      ],
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC",
+            "ETH"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 72
+        }
+      ],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false
+    },
+    "network_fetch_performed": false,
+    "no_synthetic_fabricated_inputs": true,
+    "symbols": [
+      "BTC",
+      "ETH"
+    ],
+    "pairs": [
+      [
+        "BTC",
+        "ETH"
+      ]
+    ],
+    "start": "2026-04-01",
+    "end": "2026-04-03",
+    "freq": "1h",
+    "fetch_real_data_only": true,
+    "fetch_fabricated_data": false
+  },
+  "thresholds_unmodified": {
+    "entry_threshold": 2.0,
+    "cointegration_pvalue": 0.05,
+    "lookbacks": [
+      120,
+      240
+    ],
+    "check_intervals": [
+      24,
+      48
+    ],
+    "fee_rate": 0.001,
+    "slippage": 0.0005,
+    "strict_enriched_gates": true,
+    "use_enriched_gates": true
+  },
+  "sweeps": {
+    "lookbacks": [
+      120,
+      240
+    ],
+    "check_intervals": [
+      24,
+      48
+    ]
+  },
+  "pairs": {
+    "BTC/ETH": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "symbols": [
+        "BTC",
+        "ETH"
+      ],
+      "bars": 72,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-04-03 23:00:00+00:00"
+      },
+      "sweeps": [
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 24,
+          "bars": 72,
+          "gate_accounting": {
+            "bars_total": 72,
+            "bars_assessable": 72,
+            "bars_pass": 0,
+            "bars_fail": 72,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 72,
+              "johansen_pass": 72,
+              "spread_mr_pass": 72,
+              "hl_bounds_pass": 72,
+              "leg_stationarity_ok": 72,
+              "rolling_stable_ok": 72,
+              "no_structural_break": 72
+            },
+            "per_gate_fail_count_all_pass": 72,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 120,
+          "cointegration_check_interval": 48,
+          "bars": 72,
+          "gate_accounting": {
+            "bars_total": 72,
+            "bars_assessable": 72,
+            "bars_pass": 0,
+            "bars_fail": 72,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 72,
+              "johansen_pass": 72,
+              "spread_mr_pass": 72,
+              "hl_bounds_pass": 72,
+              "leg_stationarity_ok": 72,
+              "rolling_stable_ok": 72,
+              "no_structural_break": 72
+            },
+            "per_gate_fail_count_all_pass": 72,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 24,
+          "bars": 72,
+          "gate_accounting": {
+            "bars_total": 72,
+            "bars_assessable": 72,
+            "bars_pass": 0,
+            "bars_fail": 72,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 72,
+              "johansen_pass": 72,
+              "spread_mr_pass": 72,
+              "hl_bounds_pass": 72,
+              "leg_stationarity_ok": 72,
+              "rolling_stable_ok": 72,
+              "no_structural_break": 72
+            },
+            "per_gate_fail_count_all_pass": 72,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        },
+        {
+          "lookback": 240,
+          "cointegration_check_interval": 48,
+          "bars": 72,
+          "gate_accounting": {
+            "bars_total": 72,
+            "bars_assessable": 72,
+            "bars_pass": 0,
+            "bars_fail": 72,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 72,
+              "johansen_pass": 72,
+              "spread_mr_pass": 72,
+              "hl_bounds_pass": 72,
+              "leg_stationarity_ok": 72,
+              "rolling_stable_ok": 72,
+              "no_structural_break": 72
+            },
+            "per_gate_fail_count_all_pass": 72,
+            "breakdown_recorded": true
+          },
+          "total_return": 0.0,
+          "trades_count": 0
+        }
+      ],
+      "any_bar_passes_all_gates": false,
+      "rolling_stable_blocks_all_bars_all_sweeps": true
+    }
+  },
+  "conclusion": {
+    "status": "no_edge",
+    "reason": "No bar passes all gates; rolling_stable_ok blocks all bars.",
+    "edge_claim": false,
+    "honest": true,
+    "cache_bars_min": 72
+  }
+}
