@@ -5,26 +5,27 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C267 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:24:15Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:25:51Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
-**Bottleneck check (verified 2026-11-12T01:24:15Z UTC):** none blocking.
+**Bottleneck check (verified 2026-11-12T01:25:51Z UTC):** none blocking.
 - Deps OK: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1
-- Real caches present: `68` files in `data/cache/` (**no refetch**)
-- Git working tree clean; no stalled background processes observed
+- Real caches present: `68` files in `data/cache/` (**no refetch**); git working tree clean at check time; no stalled background processes observed
 - C268 artifacts/SHA256 present and recorded below
+- `research_state/state.yaml` remains locked/stale per mandate (C249 next in file; do not edit unless explicitly requested)
 
 **PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW): Run Campaign #269 end-to-end.** No planning/exploration phase. No status-only work.
 
 ### C269 SPEC (pre-stated, fail-closed)
-- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR` (grep-zero re-verified in `scripts/ strategies/ backtest/ utils/` at 2026-11-12T01:24:15Z UTC; count 0). Fallbacks if collision/invalid after recheck: `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN` → `INTERQUARTILE_MEAN` → `BIWEIGHT_MIDVARIANCE` (re-verify grep 0 non-self before run; record evidence). Pick the FIRST grep-zero variant in this chain; do not skip to a later one while an earlier one is grep-zero.
-- **Feature family:** dispersion/shape statistic of qualifying WHITE diagonal segment lengths (pooled over off-diagonal diagonals `k!=0`, segment = consecutive 0-cells/non-recurrent run, `length >= w_min=2`; require `N >= 3` qualifying segment lengths unless pre-stated formula requires stricter). **Pre-state a fixed, fail-closed formula for the chosen variant** (e.g. which standardized moment/order/definition, numpy/scipy-free closed form where possible, exact handling of zero/undefined denominators/degeneracy) consistent with prior C125–C268 RQA line-length family and record it in artifacts/handoff. Distinct from all prior C125–C268 families (incl. C268 `STANDARDIZED_MOMENT` = mean((L_i-med)^3)/mean(|L_i-med|)^3 about the median, C267 `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, C266 `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE`, C265 `MAD_FROM_MEDIAN`, C264 `QCD`, C254 `MEAN_ABSOLUTE_DEVIATION`, etc.).
-- **Fail-closed:** if `<3` (or stricter pre-stated minimum) segments; any intermediate undefined/non-finite/degenerate; feature `<= 0` when positivity required by pre-stated definition or otherwise invalid/non-finite → no exposure for that window/asset as per pipeline conventions (record explicitly, no fabrication).
+- **Strategy (first choice, grep-zero):** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR`
+  - **Distinctness (re-verify before run, must be 0 non-self):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW' scripts/ strategies/ backtest/ utils/`
+  - **Pre-stated formula (fail-closed, fixed):** on qualifying WHITE diagonal segment lengths `L` pooled over off-diagonal diagonals `k!=0` (consecutive 0-cells/non-recurrent runs, `length >= w_min=2`), require `N>=3`. Compute `mean = mean(L)`, `mode` as the most frequent value in `L` with a deterministic tie-break (if tie, use smallest length value so result is reproducible); compute `std = population_std(L)` (or sample std — **pick one and record explicitly in artifacts**, consistent with numpy default you document). Feature = `(mean - mode) / std`. **Fail-closed** if `N<3`, if mode undefined, if `std <= 0` or non-finite, or if feature non-finite/undefined → no exposure for that window/asset per pipeline conventions (record explicitly, no fabrication). Distinct from all prior C125–C268 families (incl. C268 `STANDARDIZED_MOMENT`, C267 `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, C266 `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE`, C265 `MAD_FROM_MEDIAN`, C264 `QCD`, etc.).
+- **Fallbacks if collision/invalid after recheck (pick FIRST grep-zero in chain; re-verify and record evidence):** `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN` → `INTERQUARTILE_MEAN` → `BIWEIGHT_MIDVARIANCE` (pre-state a fixed, fail-closed formula for whichever is chosen).
 - **WF/costs:** `train=720, test=168, step=168`; cost grid bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
 - **Edge rule:** `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
 - **Required artifacts (SHA256 from bytes):** costed OOS report, runner script, ingest attempt, strategy edge registry, campaign execution summary under `reports/`/`scripts/` with campaign timestamping. Update this handoff with results/evidence/hashes and next campaign.
-- **Distinctness gate:** `grep -rnE '<EXACT_VARIANT_TOKENS>' scripts/ strategies/ backtest/ utils/` must be 0 non-self before run.
+- **Execution discipline:** do not stop at planning; produce runnable artifacts + executed OOS outputs + hashes in this campaign. No early exit except `oos_edge_proven: true`. If environment/runtime blocks, emit fail-closed evidence artifacts and document exact blocker (do not claim progress without evidence).
 
 ### UNINTERRUPTED PIPELINE (future agents must not avoid heavy work)
 C264–C268 complete (`NONE` with evidence). **Now:** complete C269 end-to-end (next grep-zero WHITE-diag line-length RQA variant, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, record evidence, update handoff). **C270+:** continue enumerating grep-zero WHITE-diag line-length RQA dispersion/shape variants in same family. For each: re-verify grep-zero, pre-state fail-closed formula, run, package artifacts+SHA256, record evidence, update handoff. Never re-run C1–C15 or C249–C268 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
