@@ -5,17 +5,17 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C267 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T03:10:00Z UTC — C269 complete; START C270 NOW) — DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T03:20:00Z UTC — C270 complete; START C271 NOW) — DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
-**Bottleneck check (verified 2026-11-12T03:10:00Z UTC):** none blocking.
+**Bottleneck check (verified 2026-11-12T03:20:00Z UTC):** none blocking.
 - Deps OK: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1
 - Real caches present: `68` files in `data/cache/` (**no refetch**); git working tree clean; no stalled background processes
-- C269 complete end-to-end: OOS + ingest + registry + summary artifacts + SHA256-from-bytes recorded below; `oos_edge_proven: false` → chain continues per no-early-exit rule
+- C270 complete end-to-end: OOS + ingest + registry + summary artifacts + SHA256-from-bytes recorded below; `oos_edge_proven: false` → chain continues per no-early-exit rule
 - `research_state/state.yaml` remains locked/stale per mandate (C249 next in file; do not edit unless explicitly requested)
 
-**PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW): Run Campaign #270 end-to-end.** Grep-zero chain pick (candidates 1–6 below), re-verify grep-zero at run, pre-state fail-closed formula, run costed OOS WF, emit all artifacts + SHA256, record evidence, update handoff. No planning/exploration phase. No status-only work.
+**PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW): Run Campaign #271 end-to-end.** Grep-zero chain pick (candidates 2–6 below, continuing from C270 chain), re-verify grep-zero at run, pre-state fail-closed formula, run costed OOS WF, emit all artifacts + SHA256, record evidence, update handoff. No planning/exploration phase. No status-only work.
 
 ## C269 — COMPLETE (2026-11-12T02:58:37Z ingest / 2026-11-12T02:58:40Z run / 2026-11-12T03:04:21Z packaged)
 - **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR` (PEARSON_MODE_SKEW = (mean(L) - mode(L)) / std(L); mode = most frequent value in L, deterministic tie-break -> smallest value; std = population std ddof=0; N>=3 over qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed if N<3, mode undefined, std<=0/non-finite, or PMS non-finite). Pre-stated distinctness grep verified 0 non-self at run.
@@ -29,25 +29,36 @@
   - Summary: `reports/campaign269_execution_summary_20261112T025840Z.json` — `d583b6a500d2fc23e8754f05544f779d48edba3ba6ba53d392053846d3a42718`
 - **Distinctness:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW` = 0 non-self hits at run.
 
-## C270 SPEC (chain pick — grep-zero gate at run time)
-- **Rule:** iterate candidates 1–6 in order; for each, run `grep -rnE '<candidate-patterns>|white_diag_line_length_<variant-lower>' scripts/ strategies/ backtest/ utils/` excluding own-campaign files (`run_<variant>_shock_mr_costed_oos.py`, `emit_campaign270_registry`, `emit_campaign270_summary`, `run_real_feed_ingest_attempt_270`); pick FIRST with 0 non-self hits; re-verify at run inside the runner and record `grep_hits_nonself_at_run: 0` evidence. Do not skip an earlier candidate because a later one looks more promising. Note: CV/skewness/kurtosis/gini white-diag variants already exist as prior campaigns (C230/C231/C234) — expect early-chain collisions and keep walking the chain.
+## C270 — COMPLETE (2026-11-12T03:08:58Z UTC run / 2026-11-12T03:14:36Z UTC packaged)
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR` (COEFFICIENT_OF_VARIATION = std(L)/mean(L); std = population std ddof=0; N>=3 over qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed if N<3, mean<=0/non-finite, std<=0/non-finite, or CV non-finite). Pre-stated distinctness grep verified 0 non-self at run.
+- **Result:** `edge_claim: NONE`, `oos_edge_proven: false`. `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **Evidence:** `cross_asset.oos_net_sums` fee0_slip0=60.66987660868122, fee5_slip5=23.27387660868215, fee10_slip10=-14.122123391318166, fee20_slip20=-88.91412339131878, fee40_slip40=-238.49812339131904. 11 assets tested, all OK, zero insufficient/feature_insufficient/no_splits.
+- **Artifacts (SHA256 from bytes):**
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos_20261112T030858Z.json` — `de7a5a1783602d5cafdca3e8a84fc1968f7b3030970522bb1471e868c90f57ad`
+  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py` — `3f841ba86ecbea02aa4eb7eef10dfbe4838d48c438fa5d2d01ca0a9e4d37f97c`
+  - Ingest: `reports/real_feed_ingest_attempt_20261112T031410Z.json` — `f7152ad8b404624b23225d1c76391e3a9eefc687042c1ed1784f0475275cc9d5`
+  - Registry: `reports/strategy_edge_registry_20261112T031436Z.json` — `65d17f06f9ab8bb855163aa31ac5642915c8362e87957c8f6d941ea44d21e7e3`
+  - Summary: `reports/campaign270_execution_summary_20261112T030858Z.json` — `f03bc9c4200ad714a4895985c263dcab88bfb82da6cd5a288dc06668ccc38f2d`
+- **Distinctness:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|COEFFICIENT_OF_VARIATION` = 0 non-self hits at run.
+
+## C271 SPEC (chain pick — grep-zero gate at run time)
+- **Rule:** continue the C270 chain from candidate 2 (candidate 1 CV consumed by C270); iterate candidates 2–6 in order; for each, run `grep -rnE '<candidate-patterns>|white_diag_line_length_<variant-lower>' scripts/ strategies/ backtest/ utils/` excluding own-campaign files (`run_<variant>_shock_mr_costed_oos.py`, `emit_campaign271_registry`, `emit_campaign271_summary`, `run_real_feed_ingest_attempt_271`); pick FIRST with 0 non-self hits; re-verify at run inside the runner and record `grep_hits_nonself_at_run: 0` evidence. Do not skip an earlier candidate because a later one looks more promising.
 - **Candidates (ordered):**
-  1. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR` — `CV = std(L)/mean(L)` (std choice recorded explicitly; population ddof=0 used here unless documented otherwise), N>=3; fail-closed if N<3, mean<=0/non-finite, std non-finite, CV non-finite.
-  2. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR` — `mean((L_i-mean)^3)/std(L)^3` (population std), N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite. Distinct from C230 SKEWNESS (different series) — confirm grep-zero anyway.
-  3. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS_SHOCK_MR` — `mean((L_i-mean)^4)/std(L)^4 - 3`, N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite.
-  4. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR` — `(P75(L) - P25(L)) / median(L)`, N>=3; fail-closed if median<=0/non-finite, result non-finite.
-  5. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GINI_COEFFICIENT_SHOCK_MR` — Gini of L, N>=3; fail-closed if N<3, mean<=0/non-finite, result non-finite.
-  6. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_HERMITE_DISSIPATION_SHOCK_MR` — `mean((L_i-mean)^2 * sign(L_i-mean)) / N`, N>=3; fail-closed if N<3, result non-finite.
+  1. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR` — `mean((L_i-mean)^3)/std(L)^3` (population std), N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite. Distinct from C230 SKEWNESS (different series) — confirm grep-zero anyway.
+  2. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS_SHOCK_MR` — `mean((L_i-mean)^4)/std(L)^4 - 3`, N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite.
+  3. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR` — `(P75(L) - P25(L)) / median(L)`, N>=3; fail-closed if median<=0/non-finite, result non-finite.
+  4. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GINI_COEFFICIENT_SHOCK_MR` — Gini of L, N>=3; fail-closed if N<3, mean<=0/non-finite, result non-finite.
+  5. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_HERMITE_DISSIPATION_SHOCK_MR` — `mean((L_i-mean)^2 * sign(L_i-mean)) / N`, N>=3; fail-closed if N<3, result non-finite.
 - **WF/costs:** `train=720, test=168, step=168`; cost grid bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
 - **Edge rule:** `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
 - **Required artifacts (SHA256 from bytes):** costed OOS report, runner script, ingest attempt, strategy edge registry, campaign execution summary under `reports/`/`scripts/` with campaign timestamping. Update this handoff with results/evidence/hashes and next campaign.
 - **Execution discipline:** do not stop at planning; produce runnable artifacts + executed OOS outputs + hashes in this campaign. No early exit except `oos_edge_proven: true`. If environment/runtime blocks, emit fail-closed evidence artifacts and document exact blocker (do not claim progress without evidence).
 
 ### UNINTERRUPTED PIPELINE (future agents must not avoid heavy work)
-C264–C269 complete (`NONE` with evidence). **Now:** complete C270 end-to-end (first grep-zero variant from the C270 chain, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, record evidence, update handoff). **C271+:** continue enumerating grep-zero WHITE-diag line-length RQA dispersion/shape variants in same family. For each: re-verify grep-zero, pre-state fail-closed formula, run, package artifacts+SHA256, record evidence, update handoff. Never re-run C1–C15 or C249–C269 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
+C264–C270 complete (`NONE` with evidence). **Now:** complete C271 end-to-end (first grep-zero variant from the C271 chain, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, record evidence, update handoff). **C272+:** continue enumerating grep-zero WHITE-diag line-length RQA dispersion/shape variants in same family. For each: re-verify grep-zero, pre-state fail-closed formula, run, package artifacts+SHA256, record evidence, update handoff. Never re-run C1–C15 or C249–C270 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
 
-#### NEXT FOCUS CAMPAIGN (C271+) — MANDATORY ENUMERATION, DO NOT DEFER
-Same rule set as C270: run campaigns sequentially C270 → C271 → …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality.
+#### NEXT FOCUS CAMPAIGN (C272+) — MANDATORY ENUMERATION, DO NOT DEFER
+Same rule set as C271: run campaigns sequentially C271 → C272 → …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality.
 
 ## STATE SNAPSHOT (2026-11-12T00:11:40Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
@@ -56,6 +67,7 @@ Same rule set as C270: run campaigns sequentially C270 → C271 → …; each mu
 - **C267:** **COMPLETE** — `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN` (0 non-self). `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **C268:** **COMPLETE** — `STANDARDIZED_MOMENT` = mean((L_i-med)^3)/mean(|L_i-med|)^3 about the median, N>=3, fail-closed (0 non-self). `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **C269:** **COMPLETE** — `PEARSON_MODE_SKEW` = (mean(L) - mode(L)) / std(L), mode = most frequent value tie-break smallest, std = population std ddof=0, N>=3, fail-closed (0 non-self). `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **C270:** **COMPLETE** — `COEFFICIENT_OF_VARIATION` = std(L)/mean(L), std = population std ddof=0, N>=3, fail-closed (0 non-self). `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance, 66 files); **no refetch**.
 - **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1.
 
@@ -107,5 +119,5 @@ Same rule set as C270: run campaigns sequentially C270 → C271 → …; each mu
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-12T03:10:00Z UTC (C269 complete, no blockers; C270 mandated next via grep-zero chain pick).**
-**NEXT AGENT: START C270 NOW (HEAVY). Walk candidates 1–6 in order, re-verify grep-zero at run and pick FIRST grep-zero, pre-state fail-closed formula for the chosen variant, run costed OOS WF 720/168/168 with cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], emit OOS + ingest + registry + summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C271+ per NEXT FOCUS CAMPAIGN. NO STATUS-ONLY.**
+**END OF DURABLE HANDOFF — 2026-11-12T03:20:00Z UTC (C270 complete, no blockers; C271 mandated next via grep-zero chain pick).**
+**NEXT AGENT: START C271 NOW (HEAVY). Walk candidates 2–6 in order, re-verify grep-zero at run and pick FIRST grep-zero, pre-state fail-closed formula for the chosen variant, run costed OOS WF 720/168/168 with cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], emit OOS + ingest + registry + summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C272+ per NEXT FOCUS CAMPAIGN. NO STATUS-ONLY.**
