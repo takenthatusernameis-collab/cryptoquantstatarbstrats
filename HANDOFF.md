@@ -1,31 +1,35 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T11:56:13Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+## INITIAL TASK MESSAGE — 2026-11-12T12:07:42Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
-**Repo-prioritized focus (verified 2026-11-12T11:52:15Z UTC; re-confirmed 2026-11-12T11:56:13Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. C273 complete (`promotion_readiness: READY_FOR_REVIEW`, evidence preserved, unchanged). C274 corrected run = **NO EDGE** (verified + split-decomposed, preserved). **No status-only work.**
+**Repo-prioritized focus (re-verified 2026-11-12T12:07:42Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. C273 preserved (`promotion_readiness: READY_FOR_REVIEW`). C274 corrected = **NO EDGE** (preserved). **No status-only work.**
 
-**BOTTLENECK CLEARED:** Prior HANDOFF (10:23:48Z) confirmed no active bg runs for C274 param sensitivity and C275 OOS. At 11:52Z **none are running** and **no artifacts exist** for:
-- `reports/campaign274_param_sensitivity_*.json` — **MISSING** (script exists, not run)
-- `reports/*medcouple*_oos_*.json`, `reports/real_feed_ingest_attempt_275_*.json`, `reports/strategy_edge_registry_275_*.json`, `reports/campaign275_execution_summary_*.json` — **MISSING** (C275 runner exists, not run)
+**BOTTLENECKS REMOVED / HEAVY WORK IN FLIGHT (started this session 2026-11-12 ~12:00Z):**
+- **C274 param sensitivity RUNNING (bgp_1cfa1cc85001jEBdrKhfsl0kGe, PID 4903):** `python3 scripts/run_c274_second_pearson_skew_param_sensitivity.py` > `/tmp/c274_sens.log`. Script sha256 `75d7d6d12a341af7597d630e3b75bda3405f84a2dc3a33ddd063f110e827da3a`. Expected artifact: `reports/campaign274_param_sensitivity_*.json` (not yet emitted as of 12:07:42Z). **Next agent must wait for completion, then record artifact path + SHA256-from-bytes here.**
+- **C275 OOS RUNNING (PID 5314):** `python3 scripts/run_c275_rte_over_white_diag_medcouple_shock_mr_costed_oos.py` > `/tmp/c275_oos.log`. Script sha256 `8ce8fda46800d92ca2333120fed1ab11b285bec9e86164491004d0830735c9d9`. Expected artifacts: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_medcouple_shock_mr_costed_oos_*.json`, `reports/real_feed_ingest_attempt_275_*.json`, `reports/strategy_edge_registry_275_*.json`, `reports/campaign275_execution_summary_*.json` (none emitted yet as of 12:07:42Z). **Next agent must wait for completion, then record all paths + SHA256-from-bytes here.**
+- **C275 downstream scripts IMPLEMENTED (ready to run after C275 OOS artifacts exist):**
+  - `scripts/verify_c275_medcouple_edge.py` sha256 `282ba827b4b7857fda9b7fb76c68293f16cd9ea1b58267b57bb3d66ada960e50`
+  - `scripts/run_c275_medcouple_split_decomposition.py` sha256 `9bac5d1e76488d21e7e0ccd1c470a241e9d46f60bbd0d0b5c5d11bb9ae29ae9d`
+  - `scripts/run_c275_medcouple_param_sensitivity.py` sha256 `02be7056f65f84c256c4f522d3e9a9fb92bb83afb6a2a219ad0080ecaa3b8aca`
 
 **IMMEDIATE MANDATORY HEAVY CAMPAIGN FOR NEXT SESSION (non-optional, in order):**
 
-1. **Run C274 param sensitivity to completion:** execute `python3 scripts/run_c274_second_pearson_skew_param_sensitivity.py` (real cached data only, fail-closed, no network). Emit `reports/campaign274_param_sensitivity_*.json`. Compute **SHA256-from-bytes** and record path+SHA here. Do not trust prior claims without artifacts.
+1. **Finalize C274 param sensitivity:** confirm PID 4903 completed and `/tmp/c274_sens.log` shows artifact. Record `reports/campaign274_param_sensitivity_*.json` path + **SHA256-from-bytes** here. If failed, fix defect with evidence and rerun (only allowed rerun for evidenced defect).
 
-2. **Run C275 OOS end-to-end:** execute `python3 scripts/run_c275_rte_over_white_diag_medcouple_shock_mr_costed_oos.py` (real cached data only, fail-closed, grep-zero distinctness enforced, same WF/costs/edge rule). Emit OOS/ingest/registry/summary artifacts with SHA256s. Record all paths+SHAs here.
+2. **Finalize C275 OOS:** confirm PID 5314 completed and `/tmp/c275_oos.log` shows 4 artifacts. Record OOS/ingest/registry/summary paths + **SHA256-from-bytes** here. If failed, fix evidenced defect and rerun.
 
-3. **Implement and run C275 downstream (after C275 OOS artifacts exist):** create and execute:
-   - `scripts/verify_c275_medcouple_edge.py` → `reports/campaign275_verification_*.json`
-   - `scripts/run_c275_medcouple_split_decomposition.py` → `reports/campaign275_split_decomposition_*.json`
-   - `scripts/run_c275_medcouple_param_sensitivity.py` → `reports/campaign275_param_sensitivity_*.json`
-   All with SHA256-from-bytes and honest edge evaluation. (These scripts **do not yet exist** — must be implemented.)
+3. **Run C275 downstream (after C275 OOS artifacts exist):** execute in order:
+   - `python3 scripts/verify_c275_medcouple_edge.py` → record `reports/campaign275_verification_*.json` path+SHA256
+   - `python3 scripts/run_c275_medcouple_split_decomposition.py` → record `reports/campaign275_split_decomposition_*.json` path+SHA256
+   - `python3 scripts/run_c275_medcouple_param_sensitivity.py` → record `reports/campaign275_param_sensitivity_*.json` path+SHA256
+   All real cached data only, fail-closed, no network, honest edge evaluation.
 
-4. **Post-C275 decision/action:** if edge proven → build promotion evidence package with full provenance (`READY_FOR_REVIEW` or `NOT_READY` with reasons). If **no edge** → document concrete failing condition, **identify+prove grep-zero distinctness and prepare C276** (new strategy/hypothesis), then **begin execution** to emit C276 OOS+core artifacts with SHA256s. Do not stop at planning.
+4. **Post-C275 decision/action (based on artifacts):** if edge proven → build promotion evidence package with full provenance (`READY_FOR_REVIEW` or `NOT_READY` with reasons). If **no edge** → document concrete failing condition, **identify+prove grep-zero distinctness and prepare C276** (new strategy/hypothesis), then **begin execution** to emit C276 OOS+core artifacts with SHA256s. Do not stop at planning.
 
 5. **No status-only work.** No reruns of C1–C274 except evidence-backed defect fix. No network refetch. No synthetic/fabricated data. No threshold weakening.
 
-### STATE SNAPSHOT (re-verified 2026-11-12T11:56:13Z UTC — unchanged from 11:54:06Z)
-- **Env:** `python3 3.12.3`, `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `pydantic 2.14.3`, `aiohttp 3.14.5`. `data/cache/` = **66 real files** (33 `.pkl` + 33 `.meta.json` pairs). No refetch. `git status` clean.
+### STATE SNAPSHOT (re-verified 2026-11-12T12:07:42Z UTC)
+- **Env:** `python3 3.12.3`, `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`. `data/cache/` = **66 real files** (33 `.pkl` + 33 `.meta.json` pairs). No refetch. `git status` clean at session start (handoff/scripts edits this session uncommitted).
 - **HANDOFF:** this file only (`HANDOFF.md`). `research_state/state.yaml` stale at C248, locked.
 - **C1–C15, C249–C272:** complete, `oos_edge_proven:false`.
 - **C273:** `CONDITIONAL_EDGE_PROVEN` / verified / replication-matched / split-decomposed / param sensitivity `robust_neighborhood` (21/27). Promotion `READY_FOR_REVIEW`. JSON sha256 `b02ca846eebcdc1253c45b0686e28bef787714b9373e8e0c5118322b3ffe8fad`; MD sha256 `d03eab43502bd8c53845e692d981cb9d020c1f728bcb3afb21b7bb5453ba72b3`; builder sha256 `48ed28d0fc808092188939c44e04d3112ed489215b1b40be0e49d3552715ec33`. **Preserved/unchanged.**
@@ -37,16 +41,16 @@
   - Verify `reports/campaign274_verification_20261112T062244Z.json` sha256 `1cff4cf55dddc058556e61dc6ab12186ceea6febe17a094cfe5082ef68e76826` (`verification_passed:true, internal_consistency_passed:true, edge_rule_satisfied:false`)
   - Split `reports/campaign274_split_decomposition_20261112T062431Z.json` sha256 `61b3d6e7a16d35f6536d924b1ab693223f458433b05c196e2b23b4d79d73ea9e`
   - Scripts: `scripts/run_c274_second_pearson_skew_oos_fast.py` sha256 `f7009f24c837169d4ee2057ed805071ee9637acf3b2d8a1c91629ef37cdba550`; `scripts/verify_c274_second_pearson_skew_edge.py` sha256 `066523af9b2c54eb97c6554c7d7d8b326e5988205aa05d7f4d4c052d9d85d7e6`; `scripts/run_c274_second_pearson_skew_split_decomposition.py` sha256 `8f93642db396a499cda88e2c0645ad5def3d46bbb28a215e5c279bf615c135ce`; `scripts/run_c274_second_pearson_skew_param_sensitivity.py` sha256 `75d7d6d12a341af7597d630e3b75bda3405f84a2dc3a33ddd063f110e827da3a`.
-  - **Param sensitivity artifact:** **MISSING** — must run `scripts/run_c274_second_pearson_skew_param_sensitivity.py` and record `reports/campaign274_param_sensitivity_*.json` path+SHA256-from-bytes.
-- **C275 (MEDCOUPLE) — NOT STARTED:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDCOUPLE_SHOCK_MR` (`RTE/WHITE_DIAG_LINE_LENGTH_MEDCOUPLE`), grep-zero by design + runtime fail-closed in runner. Script `scripts/run_c275_rte_over_white_diag_medcouple_shock_mr_costed_oos.py` sha256 `8ce8fda46800d92ca2333120fed1ab11b285bec9e86164491004d0830735c9d9`. **OOS/ingest/registry/summary artifacts MISSING** — must run script. C275 verify/split/sensitivity scripts **not yet created** (must be implemented after C275 OOS artifacts exist).
+  - **Param sensitivity artifact:** **RUNNING (PID 4903, started 2026-11-12 ~12:00Z, log `/tmp/c274_sens.log`)** — no artifact emitted yet at 12:07:42Z. Must record `reports/campaign274_param_sensitivity_*.json` path+SHA256-from-bytes on completion.
+- **C275 (MEDCOUPLE) — OOS RUNNING:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDCOUPLE_SHOCK_MR` (`RTE/WHITE_DIAG_LINE_LENGTH_MEDCOUPLE`), grep-zero by design + runtime fail-closed. Runner `scripts/run_c275_rte_over_white_diag_medcouple_shock_mr_costed_oos.py` sha256 `8ce8fda46800d92ca2333120fed1ab11b285bec9e86164491004d0830735c9d9` **RUNNING (PID 5314, log `/tmp/c275_oos.log`)** — no artifacts emitted yet at 12:07:42Z. Downstream scripts implemented (not run): `scripts/verify_c275_medcouple_edge.py` sha256 `282ba827b4b7857fda9b7fb76c68293f16cd9ea1b58267b57bb3d66ada960e50`, `scripts/run_c275_medcouple_split_decomposition.py` sha256 `9bac5d1e76488d21e7e0ccd1c470a241e9d46f60bbd0d0b5c5d11bb9ae29ae9d`, `scripts/run_c275_medcouple_param_sensitivity.py` sha256 `02be7056f65f84c256c4f522d3e9a9fb92bb83afb6a2a219ad0080ecaa3b8aca`.
 
-### VERIFIED-BY-THIS-SESSION BLOCK (2026-11-12T11:56:13Z UTC — independent re-check, no prior claim trusted)
-- **Bottleneck status:** `ps aux | grep run_c27[45]` → **0 active processes**. No heavy run in flight; nothing blocked on a running job.
-- **C274 param sensitivity artifact:** `reports/campaign274_param_sensitivity_*.json` → **MISSING** (glob returns nothing). Script exists, sha256 `75d7d6d12a341af7597d630e3b75bda3405f84a2dc3a33ddd063f110e827da3a` (matches). **Step 1 is unrun.**
-- **C275 artifacts:** `reports/*medcouple*_oos_*.json`, `reports/real_feed_ingest_attempt_275_*.json`, `reports/strategy_edge_registry_275_*.json`, `reports/campaign275_execution_summary_*.json` → **all MISSING**. Runner sha256 `8ce8fda46800d92ca2333120fed1ab11b285bec9e86164491004d0830735c9d9` (matches). **Step 2 is unrun.**
-- **C275 downstream scripts:** `scripts/verify_c275_medcouple_edge.py`, `scripts/run_c275_medcouple_split_decomposition.py`, `scripts/run_c275_medcouple_param_sensitivity.py` → **all MISSING** (implement in Step 3 after C275 OOS artifacts exist).
-- **Env:** `data/cache/` = **66 real files** (33 `.pkl`+`.meta.json` pairs). No refetch needed. `git status` clean, branch `main` up to date with `origin/main`. No uncommitted work.
-- **C273 promotion package** (`scripts/build_c273_promotion_evidence_package.py`, 05:46Z) preserved/unchanged; `READY_FOR_REVIEW`. C274 corrected (061632Z) = NO EDGE, 7 artifacts + 4 scripts with SHAs preserved above. **Do not re-run, do not weaken.**
+### VERIFIED-BY-THIS-SESSION BLOCK (2026-11-12T12:07:42Z UTC)
+- **Processes:** C274 sensitivity PID **4903 RUNNING** (started ~12:00Z), C275 OOS PID **5314 RUNNING** (started ~12:07Z). No prior claims trusted.
+- **C274 param sensitivity artifact:** `reports/campaign274_param_sensitivity_*.json` → **MISSING** (not yet emitted). Script sha256 verified.
+- **C275 artifacts:** `reports/*medcouple*_oos_*.json`, `reports/real_feed_ingest_attempt_275_*.json`, `reports/strategy_edge_registry_275_*.json`, `reports/campaign275_execution_summary_*.json` → **all MISSING** (not yet emitted). Runner sha256 verified.
+- **C275 downstream scripts:** created this session — verify `282ba827...`, split `9bac5d1e...`, sensitivity `02be7056...` (SHA256 verified). Not yet runnable until C275 OOS artifacts exist.
+- **Env/data:** `data/cache/` = **66 real files**. No network refetch. `git status` clean at start. C273/C274 evidence preserved, SHAs match.
+- **Bottlenecks cleared:** installed deps, started C274 sensitivity and C275 OOS, implemented C275 downstream scripts — future agent must complete heavy pipeline, not re-plan.
 
 ## HARD BANS
 - ❌ No status-only work.
@@ -68,4 +72,4 @@
 3. The handoff records all prior SHA256s so no rework is possible
 4. Hard bans prevent low-value activity
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T11:56:13Z UTC. No active heavy runs. Next session: run C274 param sensitivity (record SHA256), run C275 OOS end-to-end (record SHA256s), implement+run C275 verify/split/sensitivity, then honest edge decision + promotion or C276 prep/exec. C273 preserved (READY_FOR_REVIEW).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T12:07:42Z UTC. C274 param sensitivity PID 4903 RUNNING (`/tmp/c274_sens.log`), C275 OOS PID 5314 RUNNING (`/tmp/c275_oos.log`), C275 verify/split/sensitivity scripts implemented (SHAs above). Next session: finalize both runs and record artifact paths+SHA256s, run C275 verify/split/sensitivity, then honest edge decision + promotion or C276 prep/exec. C273 preserved (READY_FOR_REVIEW). No status-only work.**
