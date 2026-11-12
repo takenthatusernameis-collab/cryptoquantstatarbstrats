@@ -3,9 +3,13 @@
 > **Repo:** `cryptoquantstatarbstrats` (crypto quant stat-arb strategies).
 > **Core mission (non-negotiable):** real-data-only edge search with fail-closed enriched cointegration/gates. **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
-> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C267 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
+> **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C270 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T03:20:00Z UTC — C270 complete; START C271 NOW) — DO NOT DEVIATE
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION — 2026-11-12T03:16:15Z UTC (AUTHORITATIVE)
+
+**START C271 NOW (HEAVY, NON-NEGOTIABLE).** This is the active directive. Do not plan, summarize, or ask questions; execute. The next session must produce runnable artifacts + executed costed OOS outputs + SHA256-from-bytes + evidence in `HANDOFF.md` for C271, then continue C272+ until `oos_edge_proven: true`.
+
+## PRIORITIZED EXECUTION DIRECTIVE (C270 complete; C271 next) — DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
@@ -119,5 +123,5 @@ Same rule set as C271: run campaigns sequentially C271 → C272 → …; each mu
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-12T03:20:00Z UTC (C270 complete, no blockers; C271 mandated next via grep-zero chain pick).**
+**END OF DURABLE HANDOFF — updated 2026-11-12T03:16:15Z UTC (C270 complete, no blockers; C271 mandated next via grep-zero chain pick).**
 **NEXT AGENT: START C271 NOW (HEAVY). Walk candidates 2–6 in order, re-verify grep-zero at run and pick FIRST grep-zero, pre-state fail-closed formula for the chosen variant, run costed OOS WF 720/168/168 with cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], emit OOS + ingest + registry + summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C272+ per NEXT FOCUS CAMPAIGN. NO STATUS-ONLY.**
