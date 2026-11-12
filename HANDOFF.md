@@ -1,6 +1,6 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T17:11:23Z UTC (AUTHORITATIVE)
+## INITIAL TASK MESSAGE — 2026-11-12T17:18:47Z UTC (AUTHORITATIVE)
 
 **Repo-prioritized focus:** `cryptoquantstatarbstrats` means crypto quant stat-arb strategies. The only economically relevant question is whether a signal produces costed out-of-sample PnL from real spot prices. The prior handoff's C273 "edge" is not tradable: it computes PnL from log quote-volume changes, not price. The next session must stop hardening volume-return PnL and run the price-PnL tradability gate below.
 
@@ -59,12 +59,12 @@ The session is NOT complete until:
 - Robustness `reports/campaign273_robustness_dossier_20261112T051659Z.json` sha256 `f7f51f9d84fe0f42207cfffe77e26e552ff8c10636017889fed706c029e716e6`
 - Sensitivity `reports/campaign273_param_sensitivity_20261112T052846Z.json` sha256 `15e4bf307b373c9c57a533dc69232d19855933ce8b7956d84e90b9f5d0e96b9d`
 - Promotion JSON `reports/campaign273_promotion_evidence_package_20261112T054614Z.json` sha256 `7aff2e6031d5ca0aa9a00c05d1320800b13cc767328df4c5664b9b5964c0975c`
-- Split `reports/campaign273_split_decomposition_20261112T052106Z.json` sha256 `2b4da1e685cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d`
+- Split `reports/campaign273_split_decomposition_20261112T052106Z.json` sha256 `2b4da1e65cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d`
 - Volume-return cross-asset OOS net sums: fee0 +80.68, fee5 +79.42, fee10 +78.16, fee20 +75.64, fee40 +70.60. These are not spot-price PnL.
 - Fragility: only 9/11 assets positive (DOT -2.18, SOL -2.22 at fee0); top1 (BNB) = 23.9% and top3 = 64.7% of positive fee0 net.
 - Sensitivity: 21/27 edge-positive; all 6 failures are W_RR=192. Baseline W_RR=168 reproduces.
 
-## STATE SNAPSHOT (verified 2026-11-12T17:11Z UTC)
+## STATE SNAPSHOT (verified 2026-11-12T17:18Z UTC)
 - **Env:** `python3 3.12.3`; `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`. Ruff/mypy not installed here; skip lint/typecheck until available.
 - **Data:** `data/cache/` = 68 real files. Spot cache `0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b`; volume pkl sha256 `4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c`; volume meta sha256 `4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616`; provenance sha256 `c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89`. No network refetch. No synthetic data.
 - **Git:** clean at `main`, HEAD `b36e3cd`, up to date with `origin/main`.
@@ -73,4 +73,4 @@ The session is NOT complete until:
 - **C274/C275/C276:** NO EDGE. No action needed.
 - **C277:** PENDING. No C277 artifacts exist yet; C277A is the sole immediate deliverable.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T17:11:23Z UTC.**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T17:18:47Z UTC.**
