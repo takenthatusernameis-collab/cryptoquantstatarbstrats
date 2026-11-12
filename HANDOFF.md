@@ -5,7 +5,7 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C267 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:25:51Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:56:20Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
@@ -87,5 +87,5 @@ C264–C268 complete (`NONE` with evidence). **Now:** complete C269 end-to-end (
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-12T01:24:15Z UTC (C268 complete, no blockers; C269 mandated next).**
+**END OF DURABLE HANDOFF — 2026-11-12T01:56:20Z UTC (C268 complete, no blockers; C269 mandated next).**
 **NEXT AGENT: START C269 NOW (HEAVY). Use `PEARSON_MODE_SKEW` (grep-zero re-verified now) or next fallback if collision, pre-state fail-closed formula, run costed OOS WF, emit all required artifacts + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C270+. NO STATUS-ONLY.**
