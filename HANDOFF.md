@@ -1,5 +1,32 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
+## INITIAL TASK MESSAGE — 2026-11-12T03:59:13Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+
+**Repo-prioritized focus (verified 2026-11-12T03:59:13Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — i.e. continue the C271+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
+
+**Bottleneck audit (verified 2026-11-12T03:59:13Z UTC): NONE — no blockers to remove.**
+- `git status --short` empty (working tree clean).
+- Deps present: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1.
+- `data/cache/` = 68 real files (`.pkl`+`.meta.json`+provenance); **no refetch**; spot + volume caches verified.
+- No stalled/available background processes.
+- C269 + C270 artifacts confirmed on disk (OOS/ingest/registry/summary + SHA256-from-bytes recorded below).
+- C271 artifacts absent (as expected — not yet run). No duplicate/stale work to clear.
+
+**IMMEDIATE MANDATORY HEAVY WORK (non-optional, no planning phase): EXECUTE CAMPAIGN C271 END-TO-END NOW.**
+Do not plan, summarize, explore, or ask questions — start implementation/execution immediately.
+1. **Grep-zero chain pick (candidates 2–6; candidate 1 CV consumed by C270):** walk in order `SKEWNESS_ABOUT_MEAN`, `EXCESS_KURTOSIS`, `PERCENTILE_SPREAD`, `GINI_COEFFICIENT`, `HERMITE_DISSIPATION`; for each run `grep -rnE '<patterns>|white_diag_line_length_<variant-lower>' scripts/ strategies/ backtest/ utils/` excluding own-campaign files; pick FIRST with 0 non-self hits; re-verify 0 non-self at run and record `grep_hits_nonself_at_run: 0`. Do not skip an earlier candidate because a later one looks more promising.
+2. **Pre-state fail-closed formula** for chosen variant (N>=3 qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed on insufficient N / undefined / non-finite / invalid denominators per spec).
+3. **Run costed OOS WF** (`train=720, test=168, step=168`; cost bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`) on real cached data only.
+4. **Emit required artifacts** under `reports/`/`scripts/` with campaign timestamps: OOS report, runner script, ingest attempt, strategy edge registry, campaign execution summary. Compute SHA256 from bytes for each and record in this handoff.
+5. **Record result/evidence** (`edge_claim`, `oos_edge_proven`, exposure/cost/B&H flags, `cross_asset.oos_net_sums`, distinctness proof). Edge rule: `oos_edge_proven=true` IFF OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on same WF windows.
+6. If `oos_edge_proven: false` (expected unless proven), **immediately continue C272+** per NEXT FOCUS CAMPAIGN — no early exit except proven edge. Honest `NONE` with evidence is valid; status-only work is not.
+
+**Next focus campaign (C272+) — mandatory enumeration, future agents cannot avoid heavy work:**
+Same rule set as C271, run sequentially C271 → C272 → …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality. Never re-run C1–C15 or C249–C270 except evidence-backed defect fix.
+
+**Hard rules:** no planning/status-only work, no refetch/synthetic data, no reruns except evidence-backed defect fix, no `research_state/state.yaml` edits unless explicitly requested by user, no threshold weakening. Honest `NONE` with evidence is valid.
+
+---
 ## INITIAL TASK MESSAGE — 2026-11-12T03:24:55Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
 **Repo-prioritized focus (verified 2026-11-12T03:24:55Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — i.e. continue the C271+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
