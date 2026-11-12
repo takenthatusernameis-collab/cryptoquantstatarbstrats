@@ -1,10 +1,10 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T06:14:27Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+## INITIAL TASK MESSAGE — 2026-11-12T06:49:38Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
 **Repo-prioritized focus (verified 2026-11-12T06:05:20Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. C273 is complete and `promotion_readiness: READY_FOR_REVIEW` (evidence preserved, unchanged). The next session must **not** revert to status-only work — it must complete the **C274** real-data costed OOS campaign (identified/prepared this session) on `data/cache/` only.
 
-**Bottleneck audit (2026-11-12T06:14:27Z UTC): bottlenecks removed / path unblocked.**
+**Bottleneck audit (2026-11-12T06:49:38Z UTC): bottlenecks removed / path unblocked.**
 - `HANDOFF.md` consolidated to this single authoritative block.
 - Deps present: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1.
 - `data/cache/` = 68 real files (`.pkl`+`.meta.json`+provenance); **no refetch**, no network needed.
@@ -23,6 +23,9 @@
 - **Prepared scripts:**
   - Fast corrected OOS runner (preferred): `scripts/run_c274_second_pearson_skew_oos_fast.py`
   - Reference runner: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_second_pearson_skew_shock_mr_costed_oos.py`
+  - Verification: `scripts/verify_c274_second_pearson_skew_edge.py`
+  - Split decomposition: `scripts/run_c274_second_pearson_skew_split_decomposition.py`
+  - Param sensitivity: `scripts/run_c274_second_pearson_skew_param_sensitivity.py`
   Both implement corrected `W_RR`-length return windows and include distinctness checks + full artifact emission (OOS, ingest attempt, registry, execution summary) with SHA256-from-bytes. Spot sanity check on first asset (fixed logic): `4944/4944` finite features, mean≈`0.917`, std≈`0.107`, `frac(|z|>=1.5)=0.0` (signalable distribution present; actual OOS outcome must be determined by full run).
 - **Invalid/superseded (do not cite):** `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_second_pearson_skew_shock_mr_costed_oos_20261112T055039Z.json`, `reports/real_feed_ingest_attempt_274_20261112T055039Z.json`, `reports/strategy_edge_registry_274_20261112T055039Z.json`, `reports/campaign274_execution_summary_20261112T055039Z.json` (buggy `bad_window_len`).
 
@@ -38,7 +41,7 @@ Execute immediately. Do not plan, summarize, or ask questions — produce concre
 3. **If C274 proves an edge (`oos_edge_proven: true` and all compliance flags true):** build `scripts/build_c274_promotion_evidence_package.py` (mirror C273 builder), emit `reports/campaign274_promotion_evidence_package_<ts>.json` + `.md`, compute SHA256-from-bytes for both + builder, set `promotion_readiness` (`READY_FOR_REVIEW` if complete/consistent/robust, else `NOT_READY` with reasons), and refresh this handoff in-place with C274 paths/SHA256/readiness and the next concrete step.
 4. **If C274 does NOT prove an edge (expected possible):** document the specific failing condition concretely from artifacts (exact `cross_asset_oos_net_sums` by slice, `any_exposure_oos`, `all_cost_slices_positive_oos_net_sum`, `all_cost_slices_beat_bh_mean_rule`, per-asset breakdown). Do **not** weaken thresholds, do **not** rerun C1–C15/C249–C273, do **not** refetch. Update this handoff with C274 final result (paths/SHA256) and **identify+prepare C275** as the next distinct (grep-zero) real-data fail-closed costed OOS candidate to run immediately — future agents must not revert to status-only work.
 
-## STATE SNAPSHOT (2026-11-12T06:14:27Z UTC)
+## STATE SNAPSHOT (2026-11-12T06:49:38Z UTC)
 - **C1–C15, C249–C272:** complete, `oos_edge_proven: false`.
 - **C273:** `CONDITIONAL_EDGE_PROVEN` / verified / replication-matched / split-decomposed / param-sensitivity `robust_neighborhood` (21/27). Promotion package BUILT `promotion_readiness: READY_FOR_REVIEW`.
   - JSON: `reports/campaign273_promotion_evidence_package_20261112T054614Z.json` — sha256 `b02ca846eebcdc1253c45b0686e28bef787714b9373e8e0c5118322b3ffe8fad`
@@ -61,4 +64,4 @@ Execute immediately. Do not plan, summarize, or ask questions — produce concre
 - **C273:** conditional proven edge (PERCENTILE_SPREAD), verified, replication-matched, split-decomposed, param sensitivity robust_neighborhood (21/27); promotion package READY_FOR_REVIEW.
 - **C274:** SECOND_PEARSON_SKEW identified/prepared (grep-zero), corrected run pending; 055039Z buggy artifacts superseded.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T06:14:27Z UTC (immediate mandatory heavy work = run/verify/decompose/sensitize/package C274 real-data campaign end-to-end; C273 evidence preserved, READY_FOR_REVIEW).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T06:49:38Z UTC (immediate mandatory heavy work = run/verify/decompose/sensitize/package C274 real-data campaign end-to-end; C273 evidence preserved, READY_FOR_REVIEW).**
