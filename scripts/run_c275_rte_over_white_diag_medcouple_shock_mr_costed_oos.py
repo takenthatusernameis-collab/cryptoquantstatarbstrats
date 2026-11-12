@@ -81,62 +81,7 @@ def load_volume():
     df = df.pivot_table(index='timestamp_utc', columns='symbol', values='quote_volume_usdt', aggfunc='first').sort_index()
     return df, report
 
-def white_diag_segment_lengths(rec, w_min):
-    n = rec.shape[0]; segs = []
-    for k in range(-(n - 1), n):
-        if k == 0:
-            continue
-        diag = np.diag(rec, k=k); count = 0
-        for v in diag:
-            if v == 0:
-                count += 1
-            else:
-                if count >= w_min:
-                    segs.append(count)
-                count = 0
-        if count >= w_min:
-            segs.append(count)
-    return segs
-
-def _medcouple_kernel(xi, xj, m):
-    denom = xj - xi
-    if denom == 0.0:
-        # both equal m: define deterministically as 0 (symmetric)
-        return 0.0
-    return ((xj - m) - (m - xi)) / denom
-
-def medcouple(values: np.ndarray):
-    """Brys-Hubert-Struyf medcouple, deterministic. Fail-closed on invalid."""
-    x = np.sort(np.asarray(values, dtype=float))
-    n = len(x)
-    if n < 3 or not np.all(np.isfinite(x)):
-        return None
-    # median
-    if n % 2 == 1:
-        mid = n // 2
-        xm = float(x[mid])
-        left = x[:mid + 1]  # <= m
-        right = x[mid:]     # >= m
-        hvals = []
-        for xi in left:
-            for xj in right:
-                hvals.append(_medcouple_kernel(float(xi), float(xj), xm))
-    else:
-        # even: use standard median value
-        xm = float(0.5 * (x[n // 2 - 1] + x[n // 2]))
-        # split into <= xm and >= xm
-        left = x[x <= xm]
-        right = x[x >= xm]
-        hvals = []
-        for xi in left:
-            for xj in right:
-                hvals.append(_medcouple_kernel(float(xi), float(xj), xm))
-    if not hvals:
-        return None
-    mc = float(np.median(np.asarray(hvals, dtype=float)))
-    if not np.isfinite(mc):
-        return None
-    return mc
+from scripts._vec_rqa import white_diag_segment_lengths, medcouple, black_diag_segment_lengths  # noqa: E402
 
 def compute_feature_series(log_vol):
     T = len(log_vol)
@@ -174,21 +119,7 @@ def compute_feature_series(log_vol):
         # Shannon entropy of recurrence point (black) diagonal line length distribution (>=1)
         # over off-diagonals; fail-closed if undefined.
         # Build black diagonal segment lengths
-        bsegs = []
-        nrec = rec.shape[0]
-        for k in range(-(nrec - 1), nrec):
-            if k == 0:
-                continue
-            diag = np.diag(rec, k=k); count = 0
-            for v in diag:
-                if v != 0:
-                    count += 1
-                else:
-                    if count >= 1:
-                        bsegs.append(count)
-                    count = 0
-            if count >= 1:
-                bsegs.append(count)
+        bsegs = black_diag_segment_lengths(rec, min_len=1)
         if not bsegs:
             continue
         b = np.asarray(bsegs, dtype=float)

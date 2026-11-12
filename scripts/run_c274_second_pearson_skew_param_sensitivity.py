@@ -45,6 +45,7 @@ def load_volume():
     return df, report
 
 def compute_feature_series(log_vol: np.ndarray, w_rr: int):
+    from scripts._vec_rqa import white_diag_segment_lengths  # noqa: E402
     T = len(log_vol)
     feat = np.full(T, np.nan, dtype=float)
     r_all = np.diff(log_vol)
@@ -62,22 +63,7 @@ def compute_feature_series(log_vol: np.ndarray, w_rr: int):
         X = np.column_stack([r_win[j:j + n_emb] for j in range(M_EMB)])
         d_inf = np.max(np.abs(X[:, None, :] - X[None, :, :]), axis=2)
         rec = (d_inf <= eps)
-        segs = []
-        n = rec.shape[0]
-        for k in range(-(n - 1), n):
-            if k == 0:
-                continue
-            diag = np.diag(rec, k=k)
-            count = 0
-            for v in diag:
-                if v == 0:
-                    count += 1
-                else:
-                    if count >= W_MIN:
-                        segs.append(count)
-                    count = 0
-            if count >= W_MIN:
-                segs.append(count)
+        segs = white_diag_segment_lengths(rec.astype(np.uint8), W_MIN)
         if len(segs) < 3:
             continue
         arr = np.asarray(segs, dtype=float)
@@ -122,7 +108,7 @@ def eval_asset(c, feat, entry_z, exit_z):
         for si, (s0, tr_e, te_e) in enumerate(splits):
             end = min(te_e - 1, T)
             seg = net[s0:end] if end > s0 else np.array([])
-            bh_seg = c[tr_e:te_e] / c[tr_e:te_e - 1] - 1.0 if te_e <= T else np.array([])
+            bh_seg = c[tr_e + 1:te_e] / c[tr_e:te_e - 1] - 1.0 if te_e <= T else np.array([])
             split_nets[ck].append(float(np.sum(seg)) if seg.size else 0.0)
             bh_split_nets[ck].append(float(np.sum(bh_seg)) if bh_seg.size else 0.0)
             cross[ck] += float(np.sum(seg)) if seg.size else 0.0
