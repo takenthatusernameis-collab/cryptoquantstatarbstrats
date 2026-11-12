@@ -1,0 +1,289 @@
+{
+  "tool": "strategy_edge_registry",
+  "generated_at_utc": "20261112T040827Z",
+  "supersedes": "reports/strategy_edge_registry_20261112T031436Z.json",
+  "supersedes_sha256": "65d17f06f9ab8bb855163aa31ac5642915c8362e87957c8f6d941ea44d21e7e3",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "edge_claim": "NONE",
+  "campaign_latest": 271,
+  "c264": {
+    "campaign": 264,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_coefficient_of_dispersion_shock_mr_costed_oos_20261111T193410Z.json",
+    "oos_sha256": "5d9665d4ba39692ac3ffe397a5b90f383d3bf72f0d2d50930944d02534e37a4a",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_quartile_coefficient_of_dispersion_shock_mr_costed_oos.py",
+    "script_sha256": "ea3818b184eb89b139deb4f15471272cfdacb38231b16d01185bc18622c66442",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "ingest_path": "reports/real_feed_ingest_attempt_20261111T194843Z.json",
+    "ingest_sha256": "aa88643d4ef17ab8e3230f6aa2c4ef5fd2e578454cd8504c2a417cf137494d72"
+  },
+  "c265": {
+    "campaign": 265,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_mad_from_median_shock_mr_costed_oos_20261111T201037Z.json",
+    "oos_sha256": "0297d22a42bb8c980e4730958cd19e4006751518374d0b311f84e1b3071a1c07",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_mad_from_median_shock_mr_costed_oos.py",
+    "script_sha256": "aee3bcdc8e6b1a3972ea134a7d9211c5e2400081a2eb0633351fe2e3b697931b",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN|rte_over_white_diag_line_length_mad_from_median|WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN|white_diag_line_length_mad_from_median' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "self-only hits in scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_mad_from_median_shock_mr_costed_oos.py"
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION (C264, (Q3-Q1)/(Q3+Q1))",
+      "WHITE_DIAG_LINE_LENGTH_INDEX_OF_DISPERSION (C263, sigma2_pop/mu)",
+      "WHITE_DIAG_LINE_LENGTH_COEFF_OF_VARIATION (C261, sigma_pop/mu)",
+      "WHITE_DIAG_LINE_LENGTH_PEARSON_VARIATION (C260, population variance)",
+      "WHITE_DIAG_LINE_LENGTH_INTERDECILE_RANGE (C262, p90-p10)",
+      "WHITE_DIAG_LINE_LENGTH_DECILE_RANGE (C259)",
+      "WHITE_DIAG_LINE_LENGTH_NORMALIZED_RANGE (C258, (mx-mn)/mid)",
+      "WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_RANGE (C257, (mx-mn)/(mx+mn))",
+      "WHITE_DIAG_LINE_LENGTH_SEMI_VARIANCE (C256)",
+      "WHITE_DIAG_LINE_LENGTH_MEDIAN_ABSOLUTE_DEVIATION (C255)",
+      "WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION (C254)",
+      "WHITE_DIAG_LINE_LENGTH_QUARTILE_DEVIATION (C253)",
+      "WHITE_DIAG_LINE_LENGTH_PEARSON_SKEW (C252)",
+      "WHITE_DIAG_LINE_LENGTH_MIDRANGE (C251)",
+      "WHITE_DIAG_LINE_LENGTH_YULE_K (C250)",
+      "WHITE_DIAG_LINE_LENGTH_GROENEVELD_MEEDEN_SKEW (C249)",
+      "WHITE_DIAG_LINE_LENGTH_KELLY_SKEW (C248, P10/P90-based)",
+      "WHITE_DIAG_LINE_LENGTH_BOWLEY_SKEW (C247, quartile-based skew)",
+      "WHITE_DIAG_LINE_LENGTH_TRIMEAN (C246)",
+      "WHITE_DIAG_LINE_LENGTH_MIDHINGE (C245)",
+      "WHITE_DIAG_LINE_LENGTH_WINSORIZED_MEAN (C244)",
+      "WHITE_DIAG_LINE_LENGTH_TRIMMED_MEAN (C243)",
+      "WHITE_DIAG_LINE_LENGTH_P10 (C242)",
+      "WHITE_DIAG_LINE_LENGTH_P90 (C241)",
+      "WHITE_DIAG_LINE_LENGTH_HARMONIC_MEAN (C240)",
+      "WHITE_DIAG_LINE_LENGTH_GEOMEAN (C239)",
+      "WHITE_DIAG_LINE_LENGTH_RMS (C238)",
+      "WHITE_DIAG_LINE_LENGTH_ENTROPY (C237)",
+      "WHITE_DIAG_LINE_LENGTH_GINI (C236)",
+      "WHITE_DIAG_LINE_LENGTH_RANGE (C235)",
+      "WHITE_DIAG_LINE_LENGTH_CV (C234)",
+      "WHITE_DIAG_LINE_LENGTH_IQR (C233)",
+      "WHITE_DIAG_LINE_LENGTH_MAD (C232)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230)",
+      "WHITE_DIAG_LINE_COUNT_VARIANCE (C229)",
+      "DIAG_LINE_COUNT_VARIANCE (C228)",
+      "WHITE_DIAG_LINE_LENGTH_DIVERGENCE (C227)",
+      "WHITE_DIAG_LINE_LENGTH_VARIANCE (C226)",
+      "C125-C264 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261111T201037Z.json",
+    "ingest_sha256": "a8abbd340d2474ddc8b069f6f2b9fb34bf255c577f5ba83ffefab9684d2c794f"
+  },
+  "c266": {
+    "campaign": 266,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos_20261111T225614Z.json",
+    "oos_sha256": "b14dd3d3d997c3e9ada30bacaba140ac85938e35a82738bbcc626fe33d008092",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py",
+    "script_sha256": "1de611abb384e878ba373b854bbe01f4febeb3f20b899d05c77fdbd181d9b44a",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE|rte_over_white_diag_line_length_relative_mean_absolute_difference|WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE|white_diag_line_length_relative_mean_absolute_difference' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "self-only hits in scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_relative_mean_absolute_difference_shock_mr_costed_oos.py"
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265, median-centered)",
+      "WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION (C254)",
+      "WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION (C264)",
+      "C125-C265 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261111T225614Z.json",
+    "ingest_sha256": "49aec224913311c7af628e890509a0b570f6bdc85d2b42d91b5ce3846546ce64"
+  },
+  "artifact_index": [],
+  "c267": {
+    "campaign": 267,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos_20261112T000046Z.json",
+    "oos_sha256": "062692ba2eaba2fba51ffc368b45a6a4d174106617fc895bdc83cb14191ab589",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py",
+    "script_sha256": "4a870e5c6fc8dcfe58dab966a79e8bdde22af598ab852ee29b19d537e35a1bfc",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|rte_over_white_diag_line_length_root_mean_square_deviation_from_median|WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|white_diag_line_length_root_mean_square_deviation_from_median' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:2:\"\"\"C267: RQA WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN shock on\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:70:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:71:    \"rte_over_white_diag_line_length_root_mean_square_deviation_from_median|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:72:    \"WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:73:    \"white_diag_line_length_root_mean_square_deviation_from_median\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:102:            or \"rte_over_white_diag_line_length_root_mean_square_deviation_from_median\" in low\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:148:def _white_diag_line_length_root_mean_square_deviation_from_median(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:220:            val = _white_diag_line_length_root_mean_square_deviation_from_median(R, W_MIN)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:304:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:305:        \"strategy_family\": \"volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_real\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py:376:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos\"\nscripts/emit_campaign267_summary.py:11:oos_files = list(reports.glob(\"real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos_*.json\"))\nscripts/emit_campaign267_summary.py:54:    \"script_path\": \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py\",\nscripts/emit_campaign267_summary.py:55:    \"script_sha256\": hashlib.sha256((root / \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py\").read_bytes()).hexdigest(),\nscripts/emit_campaign267_registry.py:11:oos_files = list(reports.glob(\"real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos_*.json\"))",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265, median absolute deviation from median)",
+        "WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION (C254, mean absolute deviation from mean)",
+        "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266, pairwise relative)",
+        "WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION (C264, QCD)",
+        "C125-C265 prior RQA families"
+      ]
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265, median absolute deviation from median)",
+      "WHITE_DIAG_LINE_LENGTH_MEAN_ABSOLUTE_DEVIATION (C254, mean absolute deviation from mean)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266, pairwise relative)",
+      "WHITE_DIAG_LINE_LENGTH_QUARTILE_COEFFICIENT_OF_DISPERSION (C264, QCD)",
+      "C125-C265 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261112T000633Z.json",
+    "ingest_sha256": "59c19e51c99b97c6bd75f0dd2b15d11faaf5a55f90f858029bbf1a592aa08445"
+  },
+  "c268": {
+    "campaign": 268,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos_20261112T010635Z.json",
+    "oos_sha256": "2d79ea9e7a770689e820e6f15fb390cfe74426e991d42f1759cfd20c5db51360",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py",
+    "script_sha256": "b9c1b88de660e31b910514f9f2736b03826891b7d1fef36551b527a749e725d7",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT|rte_over_white_diag_line_length_standardized_moment|WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT|white_diag_line_length_standardized_moment' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/emit_campaign268_registry.py:12:oos_files = list(reports.glob(\"real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos_*.json\"))\nscripts/emit_campaign268_registry.py:31:    \"family\": \"RQA WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT shock on volume dynamics\",\nscripts/emit_campaign268_registry.py:34:    \"script_path\": \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py\",\nscripts/emit_campaign268_registry.py:35:    \"script_sha256\": hashlib.sha256((root / \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py\").read_bytes()).hexdigest(),\nscripts/emit_campaign268_summary.py:11:oos_files = list(reports.glob(\"real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos_*.json\"))\nscripts/emit_campaign268_summary.py:54:    \"script_path\": \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py\",\nscripts/emit_campaign268_summary.py:55:    \"script_sha256\": hashlib.sha256((root / \"scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py\").read_bytes()).hexdigest(),\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:2:\"\"\"C268: RQA WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:70:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:71:    \"rte_over_white_diag_line_length_standardized_moment|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:72:    \"WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:73:    \"white_diag_line_length_standardized_moment\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:102:            or \"rte_over_white_diag_line_length_standardized_moment\" in low\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:148:def _white_diag_line_length_standardized_moment(R: np.ndarray, w_min: int) -> float:\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:223:            val = _white_diag_line_length_standardized_moment(R, W_MIN)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:307:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:308:        \"strategy_family\": \"volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_real\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py:381:    out_prefix = \"real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos\"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+        "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265, median absolute deviation from median)",
+        "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266, pairwise relative)",
+        "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+        "C125-C267 prior RQA families"
+      ]
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265, median absolute deviation from median)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266, pairwise relative)",
+      "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+      "C125-C267 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261112T010635Z.json",
+    "ingest_sha256": null
+  },
+  "c269": {
+    "campaign": 269,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos_20261112T025840Z.json",
+    "oos_sha256": "ba85d5901b25646d2bab626ed330db3373af96e00211d78f08f408806ccba352",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py",
+    "script_sha256": "e293917083a1da1bc8f3825ddf05488d82a28d6a273d9d4dfaabd3de7bd6fa67",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:2:\"\"\"C269: RQA WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:11:  PEARSON_MODE_SKEW (signal): (mean(L) - mode(L)) / std(L) of qualifying\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:69:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:70:    \"WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:71:    \"PEARSON_MODE_SKEW\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:185:            f\"DISTINCTNESS_FAIL: non-self grep hits for PEARSON_MODE_SKEW = {grep_hits}\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:308:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:315:            \"PEARSON_MODE_SKEW = (mean(L) - mode(L)) / std(L), mode=most frequent value in L with \"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+        "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+        "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+        "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+        "C125-C268 prior RQA families"
+      ]
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+      "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+      "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+      "C125-C268 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261112T025840Z.json",
+    "ingest_sha256": null
+  },
+  "c270": {
+    "campaign": 270,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos_20261112T030858Z.json",
+    "oos_sha256": "de7a5a1783602d5cafdca3e8a84fc1968f7b3030970522bb1471e868c90f57ad",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py",
+    "script_sha256": "3f841ba86ecbea02aa4eb7eef10dfbe4838d48c438fa5d2d01ca0a9e4d37f97c",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|COEFFICIENT_OF_VARIATION' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:2:\"\"\"C270: RQA WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:11:  COEFFICIENT_OF_VARIATION (signal): CV = std(L)/mean(L) of qualifying\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:68:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:69:    \"WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:70:    \"COEFFICIENT_OF_VARIATION\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:180:            f\"DISTINCTNESS_FAIL: non-self grep hits for COEFFICIENT_OF_VARIATION = {grep_hits}\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:303:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_coefficient_of_variation_shock_mr_costed_oos.py:310:            \"COEFFICIENT_OF_VARIATION = std(L)/mean(L), std=population_std(L) (ddof=0), \"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW (C269)",
+        "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+        "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+        "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+        "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+        "C125-C269 prior RQA families"
+      ]
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW (C269)",
+      "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+      "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+      "C125-C269 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261112T030858Z.json",
+    "ingest_sha256": null
+  },
+  "c271": {
+    "campaign": 271,
+    "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR",
+    "family": "RQA WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN shock on volume dynamics",
+    "oos_path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos_20261112T040322Z.json",
+    "oos_sha256": "b57646fc54a0227bd8d3854082f4817311e3983d06c75c407c8fa908a79eb400",
+    "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py",
+    "script_sha256": "4146e998b3771ff667dc5db45a9b9ac2f39c7d9ec82b966d58ff879b46795dba",
+    "oos_edge_proven": false,
+    "edge_claim": "NONE",
+    "pre_stated_distinctness": {
+      "grep_cmd": "grep -rnE 'SKEWNESS_ABOUT_MEAN|RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN|WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN' scripts/ strategies/ backtest/ utils/ 2>&1",
+      "grep_hits_nonself_at_run": 0,
+      "grep_output": "scripts/emit_campaign271_registry.py:31:    \"family\": \"RQA WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN shock on volume dynamics\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:2:\"\"\"C271: RQA WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:11:  SKEWNESS_ABOUT_MEAN (signal): mean((L_i-mean)^3)/std(L)^3 (population std)\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:67:    \"SKEWNESS_ABOUT_MEAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:68:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:69:    \"WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:145:    \"\"\"SKEWNESS_ABOUT_MEAN = mean((L_i-mean)^3)/std(L)^3 over qualifying WHITE\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:177:            f\"DISTINCTNESS_FAIL: non-self grep hits for SKEWNESS_ABOUT_MEAN = {grep_hits}\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:300:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_skewness_about_mean_shock_mr_costed_oos.py:307:            \"SKEWNESS_ABOUT_MEAN = mean((L_i-mean)^3)/std(L)^3, std=population_std(L) (ddof=0), \"",
+      "distinct_from": [
+        "WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION (C270)",
+        "WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW (C269)",
+        "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+        "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+        "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+        "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+        "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+        "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+        "C125-C269 prior RQA families"
+      ]
+    },
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION (C270)",
+      "WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW (C269)",
+      "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+      "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+      "C125-C269 prior RQA families"
+    ],
+    "ingest_path": "reports/real_feed_ingest_attempt_20261112T040322Z.json",
+    "ingest_sha256": null
+  }
+}
