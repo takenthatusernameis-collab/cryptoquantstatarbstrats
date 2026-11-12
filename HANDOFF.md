@@ -1,5 +1,47 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
+## INITIAL TASK MESSAGE — 2026-11-12T05:01:22Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+
+**Repo-prioritized focus (verified 2026-11-12T05:01:22Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — continue the C273+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
+
+**Bottleneck audit (verified 2026-11-12T05:01:22Z UTC): NONE — no blockers to remove.**
+- `git status --short`: working tree has new C272 artifacts/scripts and this handoff update (no stalled work).
+- Deps present: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1.
+- `data/cache/` = 68 real files (`.pkl`+`.meta.json`+provenance); **no refetch**; spot + volume caches verified.
+- No stalled/available background processes.
+- C272 artifacts confirmed on disk with SHA256-from-bytes (recorded below). No duplicate/stale work to clear.
+
+**C272 — COMPLETE (2026-11-12T04:57:22Z run / 2026-11-12T05:01:14Z packaged).** `oos_edge_proven: false` → chain continues per no-early-exit rule. Grep-zero chain pick (candidates remaining after C271): walked in order `EXCESS_KURTOSIS`, `PERCENTILE_SPREAD`, `GINI_COEFFICIENT`, `HERMITE_DISSIPATION`; FIRST grep-zero = **EXCESS_KURTOSIS** (`grep_hits_nonself_at_run: 0`, re-verified at run).
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS_SHOCK_MR` (EXCESS_KURTOSIS = mean((L_i-mean)^4)/std(L)^4 - 3; std = population std ddof=0; N>=3 over qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed if N<3, std<=0/non-finite, or excess kurtosis non-finite/degenerate). Distinctness grep verified 0 non-self at run.
+- **Result:** `edge_claim: NONE`, `oos_edge_proven: false`. `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **Evidence:** `cross_asset.oos_net_sums` fee0_slip0=-3.277143034378751, fee5_slip5=-3.5021430343787285, fee10_slip10=-3.72714303437874, fee20_slip20=-4.17714303437875, fee40_slip40=-5.077143034378753. 11 assets tested (status ok), zero insufficient/feature_insufficient/no_splits.
+- **Artifacts (SHA256 from bytes):**
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_excess_kurtosis_shock_mr_costed_oos_20261112T045722Z.json` — `a471da651d2009356d41ecb932a0b19bd4dcdf76567a036dd3ec1053f9ea659d`
+  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_excess_kurtosis_shock_mr_costed_oos.py` — `c42b5537c05f94e13c490bea2ec9f9c6445fe008a23f4e480fce4fddbede0658`
+  - Ingest: `reports/real_feed_ingest_attempt_20261112T045441Z.json` — `9c0e95d4fcc29051308e130c706167ff174c865f6ff2b464f24c381f10ba8e58`
+  - Registry: `reports/strategy_edge_registry_20261112T050114Z.json` — `1038b38760f70b52505cd09cf7a59b52ce61bc0d01b1cd3803cd2d747d3e8d19`
+  - Summary: `reports/campaign272_execution_summary_20261112T045722Z.json` — `042ccaee28d72c89024f7cee1f97c13bb0f3a502276866b57718bb981c4bc2fa`
+- **Distinctness:** `RTE_OVER_WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS|WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS|EXCESS_KURTOSIS` = 0 non-self hits at run.
+
+**IMMEDIATE MANDATORY HEAVY WORK (non-optional, no planning phase): EXECUTE CAMPAIGN C273 END-TO-END NOW.**
+Do not plan, summarize, explore, or ask questions — start implementation/execution immediately.
+1. **Grep-zero chain pick (candidates remaining 3–5; SKEWNESS_ABOUT_MEAN consumed by C271, EXCESS_KURTOSIS consumed by C272):** walk in order `PERCENTILE_SPREAD`, `GINI_COEFFICIENT`, `HERMITE_DISSIPATION`; for each run `grep -rnE '<patterns>|white_diag_line_length_<variant-lower>' scripts/ strategies/ backtest/ utils/` excluding own-campaign files; pick FIRST with 0 non-self hits; re-verify 0 non-self at run and record `grep_hits_nonself_at_run: 0`. Do not skip an earlier candidate because a later one looks more promising.
+2. **Pre-state fail-closed formula** for chosen variant (N>=3 qualifying WHITE diagonal segment lengths pooled over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed on insufficient N / undefined / non-finite / invalid denominators per spec).
+3. **Run costed OOS WF** (`train=720, test=168, step=168`; cost bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`) on real cached data only.
+4. **Emit required artifacts** under `reports/`/`scripts/` with campaign timestamps: OOS report, runner script, ingest attempt, strategy edge registry, campaign execution summary. Compute SHA256 from bytes for each and record in this handoff.
+5. **Record result/evidence** (`edge_claim`, `oos_edge_proven`, exposure/cost/B&H flags, `cross_asset.oos_net_sums`, distinctness proof). Edge rule: `oos_edge_proven=true` IFF OOS exposure>0 AND ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on same WF windows.
+6. If `oos_edge_proven: false` (expected unless proven), **immediately continue C274+** per NEXT FOCUS CAMPAIGN — no early exit except proven edge. Honest `NONE` with evidence is valid; status-only work is not.
+
+**Next focus campaign (C274+) — mandatory enumeration, future agents cannot avoid heavy work:**
+Same rule set as C273, run sequentially C273 → C274 → …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality. Never re-run C1–C15 or C249–C272 except evidence-backed defect fix.
+
+**Hard rules:** no planning/status-only work, no refetch/synthetic data, no reruns except evidence-backed defect fix, no `research_state/state.yaml` edits unless explicitly requested by user, no threshold weakening. Honest `NONE` with evidence is valid.
+
+**END OF AUTHORITATIVE BLOCK — refreshed 2026-11-12T05:01:22Z UTC (repo focus = crypto quant stat-arb strategies; bottlenecks cleared: none; C273 is the immediate mandatory heavy task — execute end-to-end now, then continue C274+ until `oos_edge_proven: true`).**
+**NEXT AGENT: EXECUTE C273 NOW. Produce runnable+executed C273 artifacts (OOS/ingest/registry/summary/script) with SHA256-from-bytes and evidence in this file, then continue C274+ until `oos_edge_proven: true`. NO STATUS-ONLY.**
+
+
+
 ## INITIAL TASK MESSAGE — 2026-11-12T04:16:48Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
 **Repo-prioritized focus (verified 2026-11-12T04:16:48Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — continue the C272+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
