@@ -5,27 +5,27 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C265 complete on disk). Must not be edited to block/replace C1–C15/C249+ progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-11T23:55:04Z UTC — C266 complete; next session must start C267) — START HERE, DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T00:10:00Z UTC — C267 complete; next session must start C268) — START HERE, DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
-**Bottleneck check (2026-11-11T23:55:04Z UTC):** none blocking. Deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (`66` files in `data/cache/`, no refetch); git path clear; C266 artifacts/SHA256 verified present. No stalled background processes or missing-input blockers observed.
+**Bottleneck check (2026-11-12T00:10:00Z UTC):** none blocking. Deps OK (`python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1); real caches present (`66` files in `data/cache/`, no refetch); git path clear; C267 artifacts/SHA256 verified present. No stalled background processes or missing-input blockers observed.
 
-**PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW):** Run **Campaign #267** end-to-end: `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` on real cached quote/volume, WF `train=720/test=168/step=168`, costs bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`. Produce OOS report + runner + ingest attempt + strategy edge registry + campaign summary with SHA256-from-bytes, then update this handoff. No planning/exploration phase.
+**PRIORITY 1 (HEAVY EXECUTION — MANDATORY, NOW):** Run **Campaign #268** end-to-end: `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` on real cached quote/volume, WF `train=720/test=168/step=168`, costs bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`. Produce OOS report + runner + ingest attempt + strategy edge registry + campaign summary with SHA256-from-bytes, then update this handoff. No planning/exploration phase.
 
-**Preflight (re-verified 2026-11-11T23:55:04Z UTC):**
+**Preflight (re-verified 2026-11-12T00:10:00Z UTC):**
 ```bash
 python3 -c "import numpy,pandas,scipy; print('ok')"
-grep -rnE 'ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|STANDARDIZED_MOMENT|PEARSON_MODE_SKEW|MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN|INTERQUARTILE_MEAN|BIWEIGHT_MIDVARIANCE' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # expect 0 non-self
+grep -rnE 'STANDARDIZED_MOMENT|PEARSON_MODE_SKEW|MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN|INTERQUARTILE_MEAN|BIWEIGHT_MIDVARIANCE' scripts/ strategies/ backtest/ utils/ 2>&1 | wc -l  # expect 0 non-self
 ls data/cache/*.pkl data/cache/*.meta.json | wc -l  # expect 66
 git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats status --short | head
 ```
-- C266 result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false` (artifacts complete, SHA256 recorded below).
-- If deps/caches missing → fail closed with concrete evidence (no network refetch, no status-only downgrade). If a process blocks disk/CPU → stop it. Continue pipeline C267→C268+ without early exit except `oos_edge_proven: true`.
+- C267 result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false` (artifacts complete, SHA256 recorded below).
+- If deps/caches missing → fail closed with concrete evidence (no network refetch, no status-only downgrade). If a process blocks disk/CPU → stop it. Continue pipeline C268→C269+ without early exit except `oos_edge_proven: true`.
 
-### C267 SPEC (pre-stated, fail-closed — next grep-zero WHITE-diag line-length dispersion/shape variant)
-- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` — select next pre-stated grep-zero variant from fallback chain (first candidate `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, then `STANDARDIZED_MOMENT`, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`, or other not-yet-run dispersion/shape forms). Re-verify grep-zero before run.
-- **Feature:** dispersion/shape statistic of qualifying WHITE diagonal segment lengths (pooled over off-diagonal diagonals k!=0, length>=w_min=2, N>=3). Fail-closed formula pre-stated per variant. Distinct from C266 RELATIVE_MEAN_ABSOLUTE_DIFFERENCE, C265 MAD_FROM_MEDIAN, C264 QCD, C254 MEAN_ABSOLUTE_DEVIATION, and all prior C125-C265 RQA families.
+### C268 SPEC (pre-stated, fail-closed — next grep-zero WHITE-diag line-length dispersion/shape variant)
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_<NEXT_VARIANT>_SHOCK_MR` — select next pre-stated grep-zero variant from fallback chain (next candidate `STANDARDIZED_MOMENT`, then `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`, or other not-yet-run dispersion/shape forms). Re-verify grep-zero before run.
+- **Feature:** dispersion/shape statistic of qualifying WHITE diagonal segment lengths (pooled over off-diagonal diagonals k!=0, length>=w_min=2, N>=3). Fail-closed formula pre-stated per variant. Distinct from C267 ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN, C266 RELATIVE_MEAN_ABSOLUTE_DIFFERENCE, C265 MAD_FROM_MEDIAN, C264 QCD, C254 MEAN_ABSOLUTE_DEVIATION, and all prior C125-C265 RQA families.
 - **Fail-closed:** if `<3` segments; intermediate statistics undefined/non-finite; feature<=0, degenerate, or non-finite; or any intermediate undefined/non-finite.
 - **WF/costs:** `train=720, test=168, step=168`; cost grid bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
 - **Edge rule:** `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
@@ -33,16 +33,29 @@ git -C /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats statu
 - **Distinctness gate:** grep 0 nonself for the exact variant token family before run; if non-distinct, fail-closed switch to next pre-stated grep-zero variant and record evidence.
 
 ### UNINTERRUPTED PIPELINE (so future agents cannot avoid heavy work)
-C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266 complete (`NONE` with evidence). **Now:** start C267 end-to-end (next grep-zero WHITE-diag line-length RQA variant, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, update handoff). **C268+:** continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family. Fallback chain if C267 collides/invalid: next pre-stated grep-zero variant — for each re-verify grep-zero, pre-state fail-closed formula, record evidence. Never re-run C1–C15/C249–C266 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
+C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266 complete (`NONE` with evidence). C267 complete (`NONE` with evidence). **Now:** start C268 end-to-end (next grep-zero WHITE-diag line-length RQA variant, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, update handoff). **C269+:** continue enumerating grep-zero WHITE-diag line-length RQA variants in the same family. Fallback chain if C268 collides/invalid: next pre-stated grep-zero variant — for each re-verify grep-zero, pre-state fail-closed formula, record evidence. Never re-run C1–C15/C249–C267 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
 
-## STATE SNAPSHOT (2026-11-11T23:17:25Z UTC)
+## STATE SNAPSHOT (2026-11-12T00:10:00Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
 - **C249–C265:** COMPLETE, all `edge_claim: NONE`, `oos_edge_proven: false` (artifacts on disk with SHA256-from-bytes).
-- **C266:** **COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T22:56:14Z UTC packaged).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` distinct (0 non-self). Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **C266:** **COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T23:14:47Z UTC packaged).** Primary `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE` distinct (0 non-self). Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **C267:** **COMPLETE (2026-11-12T00:00:46Z UTC run / 2026-11-12T00:06:33Z UTC packaged).** Primary `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN` distinct (0 non-self). Result: `edge_claim: NONE`, `oos_edge_proven: false`, `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **Caches:** real spot/volume caches present in `data/cache/` (`.pkl`+`.meta.json`+provenance, 66 files); **no refetch**.
-- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1. Git clean at handoff (2026-11-11T23:18:49Z UTC).
+- **Environment:** `python3` 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1. Git clean at handoff (2026-11-12T00:10:00Z UTC).
 
-## C266 — COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T23:14:47Z UTC handoff updated)
+## C267 — COMPLETE (2026-11-12T00:00:46Z UTC run / 2026-11-12T00:06:33Z UTC packaged)
+- **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN_SHOCK_MR` (ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN=sqrt(mean((L_i-med)^2)), med=median(L), N>=3, fail-closed).
+- **Result:** `edge_claim: NONE`, `oos_edge_proven: false`. `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
+- **Evidence:** `cross_asset.oos_net_sums` fee0_slip0=32.17419158920375, fee5_slip5=-2.6758084107954136, fee10_slip10=-37.525808410795655, fee20_slip20=-107.22580841079625, fee40_slip40=-246.62580841079648.
+- **Artifacts (SHA256 from bytes):**
+  - OOS: `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos_20261112T000046Z.json` — `062692ba2eaba2fba51ffc368b45a6a4d174106617fc895bdc83cb14191ab589`
+  - Script: `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py` — `4a870e5c6fc8dcfe58dab966a79e8bdde22af598ab852ee29b19d537e35a1bfc`
+  - Ingest: `reports/real_feed_ingest_attempt_20261112T000633Z.json` — `59c19e51c99b97c6bd75f0dd2b15d11faaf5a55f90f858029bbf1a592aa08445`
+  - Registry: `reports/strategy_edge_registry_20261112T000608Z.json` — `208157e15a84897f4e3f3d4dea9109de85fd0b2dec72b6cfc34e425eab7c7338`
+  - Summary: `reports/campaign267_execution_summary_20261112T000046Z.json` — `65ed1d0c7249faccfae02a17871e98387949e716fc329be93f47ba4e8505a5d9`
+- **Distinctness (pre-stated, self-only hits):** grep for `RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN|WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN` returned 0 nonself hits at run.
+
+## C266 — COMPLETE (2026-11-11T22:56:14Z UTC run / 2026-11-11T23:14:47Z UTC packaged)
 - **Strategy:** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE_SHOCK_MR` (RELATIVE_MEAN_ABSOLUTE_DIFFERENCE=mean(|L_i-L_j|)/(2*mean(L)) over all unordered pairs of qualifying WHITE diagonal segment lengths, pooled over off-diagonal diagonals k!=0, length>=w_min=2, N>=3, fail-closed).
 - **Result:** `edge_claim: NONE`, `oos_edge_proven: false`. `any_exposure_oos: true`, `all_cost_slices_positive_oos_net_sum: false`, `all_cost_slices_beat_bh_mean_rule: false`.
 - **Evidence:** `cross_asset.oos_net_sums` fee0_slip0=-44.26754432579919, fee5_slip5=-82.22254432579824, fee10_slip10=-120.17754432579859, fee20_slip20=-196.08754432579923, fee40_slip40=-347.90754432579945.
@@ -80,12 +93,12 @@ C264 complete (`NONE` with evidence). C265 complete (`NONE` with evidence). C266
 
 ## HARD BANS
 - ❌ No status-only work; no "planning/researching" as substitute for producing artifacts.
-- ❌ No re-runs of C1–C15 or C249–C266 except evidence-backed defect fix.
+- ❌ No re-runs of C1–C15 or C249–C267 except evidence-backed defect fix.
 - ❌ No network refetch (use `data/cache/` only).
 - ❌ No synthetic/fabricated data.
 - ❌ No threshold weakening (ENTRY_THRESHOLD=2.0, COINTEGRATION_PVALUE=0.05 locked for C1–C15).
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-11T23:55:04Z UTC (C266 complete, no blockers; C267 mandated next).**
-**NEXT AGENTIC SESSION: START C267 NOW (HEAVY). Select first grep-zero candidate `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN` (fallbacks: `STANDARDIZED_MOMENT`, `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`), re-verify grep 0 non-self, pre-state fail-closed formula, run OOS costed walk-forward, emit ingest/registry/summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, then continue C268+. DO NOT ASK. DO NOT PLAN. NO STATUS-ONLY.**
+**END OF DURABLE HANDOFF — 2026-11-12T00:10:00Z UTC (C267 complete, no blockers; C268 mandated next).**
+**NEXT AGENTIC SESSION: START C268 NOW (HEAVY). Select next grep-zero candidate `STANDARDIZED_MOMENT` (fallbacks: `PEARSON_MODE_SKEW`, `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN`, `INTERQUARTILE_MEAN`, `BIWEIGHT_MIDVARIANCE`), re-verify grep 0 non-self, pre-state fail-closed formula, run OOS costed walk-forward, emit ingest/registry/summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, then continue C269+. DO NOT ASK. DO NOT PLAN. NO STATUS-ONLY.**

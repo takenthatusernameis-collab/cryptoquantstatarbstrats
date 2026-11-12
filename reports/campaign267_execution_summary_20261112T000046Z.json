@@ -1,0 +1,61 @@
+{
+  "campaign": 267,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_real",
+  "generated_at_utc": "20261112T000046Z",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "walk_forward": {
+    "train": 720,
+    "test": 168,
+    "step": 168
+  },
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 32.17419158920375,
+    "fee5_slip5": -2.6758084107954136,
+    "fee10_slip10": -37.525808410795655,
+    "fee20_slip20": -107.22580841079625,
+    "fee40_slip40": -246.62580841079648
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "total_assets_tested": 11,
+  "assets_insufficient": 0,
+  "assets_feature_insufficient": 0,
+  "assets_no_splits": 0,
+  "oos_report": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos_20261112T000046Z.json",
+  "oos_report_sha256": "062692ba2eaba2fba51ffc368b45a6a4d174106617fc895bdc83cb14191ab589",
+  "registry": "reports/strategy_edge_registry_20261112T000608Z.json",
+  "registry_sha256": "208157e15a84897f4e3f3d4dea9109de85fd0b2dec72b6cfc34e425eab7c7338",
+  "ingest_attempt": "reports/real_feed_ingest_attempt_20261112T000633Z.json",
+  "ingest_attempt_sha256": "59c19e51c99b97c6bd75f0dd2b15d11faaf5a55f90f858029bbf1a592aa08445",
+  "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_root_mean_square_deviation_from_median_shock_mr_costed_oos.py",
+  "script_sha256": "4a870e5c6fc8dcfe58dab966a79e8bdde22af598ab852ee29b19d537e35a1bfc",
+  "distinctness_grep_hits_nonself": 0,
+  "prior_registry": "reports/strategy_edge_registry_20261111T225614Z.json",
+  "prior_registry_sha256": "7d581f43e06994ab7a1a36d61d7afeb41bb3b486b52ba8c83d0c8409bb18f815",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
