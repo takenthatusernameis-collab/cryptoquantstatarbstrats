@@ -5,9 +5,21 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C270 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION — 2026-11-12T03:16:15Z UTC (AUTHORITATIVE)
+## INITIAL TASK MESSAGE FOR NEXT AGENTIC SESSION — 2026-11-12T03:23:02Z UTC (AUTHORITATIVE)
 
-**START C271 NOW (HEAVY, NON-NEGOTIABLE).** This is the active directive. Do not plan, summarize, or ask questions; execute. The next session must produce runnable artifacts + executed costed OOS outputs + SHA256-from-bytes + evidence in `HANDOFF.md` for C271, then continue C272+ until `oos_edge_proven: true`.
+**START C271 NOW (HEAVY, NON-NEGOTIABLE).** Do not plan, summarize, explore, or ask questions—execute immediately.
+
+**Bottleneck check (2026-11-12T03:23:02Z UTC): NONE.** Deps present (`python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1), real caches in `data/cache/` (68 files, **no refetch**), git clean, no stalled background work, C270 packaged with SHA256-from-bytes evidence. No blocker removal required.
+
+**Mandatory C271 execution (in this session):**
+1. Pick first grep-zero candidate from C271 chain (walk candidates 2–6 in order: SKEWNESS_ABOUT_MEAN, EXCESS_KURTOSIS, PERCENTILE_SPREAD, GINI_COEFFICIENT, HERMITE_DISSIPATION; candidate 1 CV consumed by C270). For each: `grep -rnE '<patterns>|white_diag_line_length_<variant-lower>' scripts/ strategies/ backtest/ utils/` excluding own-campaign files; re-verify 0 non-self hits at run and record evidence.
+2. Pre-state fail-closed formula for chosen variant (N>=3 qualifying WHITE diagonal segment lengths over off-diagonal diagonals k!=0, length>=w_min=2; fail-closed on insufficient N/undefined/non-finite/invalid denominators per spec).
+3. Run costed OOS WF (`train=720, test=168, step=168`, costs bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`) on real cached data only.
+4. Emit required artifacts under `reports/`/`scripts/` with campaign timestamps: OOS report, runner script, ingest attempt, strategy edge registry, campaign execution summary. Compute SHA256 from bytes for each and record in this handoff.
+5. Record result/evidence here (`edge_claim`, `oos_edge_proven`, exposure/cost/B&H flags, `cross_asset.oos_net_sums`, distinctness grep proof). Edge rule: `oos_edge_proven=true` IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net on same WF windows.
+6. If `oos_edge_proven: false` (expected unless proven), immediately continue C272+ per NEXT FOCUS CAMPAIGN—no early exit except proven edge.
+
+**Hard rules:** no planning/status-only work, no refetch/synthetic data, no reruns C1–C15/C249–C270 except evidence-backed defect fix, no `research_state/state.yaml` edits unless explicitly requested, no threshold weakening. Honest `NONE` with evidence is valid.
 
 ## PRIORITIZED EXECUTION DIRECTIVE (C270 complete; C271 next) — DO NOT DEVIATE
 
@@ -123,5 +135,5 @@ Same rule set as C271: run campaigns sequentially C271 → C272 → …; each mu
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — updated 2026-11-12T03:16:15Z UTC (C270 complete, no blockers; C271 mandated next via grep-zero chain pick).**
-**NEXT AGENT: START C271 NOW (HEAVY). Walk candidates 2–6 in order, re-verify grep-zero at run and pick FIRST grep-zero, pre-state fail-closed formula for the chosen variant, run costed OOS WF 720/168/168 with cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], emit OOS + ingest + registry + summary + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C272+ per NEXT FOCUS CAMPAIGN. NO STATUS-ONLY.**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T03:23:02Z UTC (C270 complete, no blockers; C271 is the immediate mandatory heavy task).**
+**NEXT AGENT: EXECUTE C271 NOW. Produce runnable+executed C271 artifacts (OOS/ingest/registry/summary/script) with SHA256-from-bytes and evidence in this file, then continue C272+ until `oos_edge_proven: true`. NO STATUS-ONLY.**
