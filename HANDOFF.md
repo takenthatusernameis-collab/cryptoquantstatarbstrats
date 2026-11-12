@@ -1,6 +1,6 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T19:43:11Z UTC (AUTHORITATIVE)
+## INITIAL TASK MESSAGE — 2026-11-12T19:46:55Z UTC (AUTHORITATIVE)
 
 **Repo-prioritized focus:** `cryptoquantstatarbstrats` = crypto quant **statistical arbitrage**, whose core edge is **cointegration pairs** (README: "Cointegration is the core edge of this repo"). The only economically relevant question is whether a signal produces **costed out-of-sample PnL from real spot prices**. Anything measured in quote-volume return units is not a PnL and is not tradable.
 
@@ -53,8 +53,8 @@ The session is NOT complete until:
 - Frozen C273 volume-return baseline (evidence only, NOT tradable): OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json` sha256 `1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf`; cross-asset volume-return fee0 +80.68 … fee40 +70.60 (not spot-price PnL).
 - `reports/portfolio_real.json` sha256 `b573077ae2aaf4b0234c426d17b3b017867c4822438031a6979e6df184aa9e07` (all 17 pairs `blocked_or_insufficient_data`, `all_pass=false`).
 
-## STATE SNAPSHOT (verified 2026-11-12T19:43Z UTC)
-- **Env:** `/usr/bin/python3` 3.12.3 with deps installed this session (see top). Lint/typecheck not installed (ruff/mypy absent) — skip until available. `pytest` works.
+## STATE SNAPSHOT (verified 2026-11-12T19:46Z UTC)
+- **Env:** `/usr/bin/python3` 3.12.3 with deps installed and verified (see top). `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `statsmodels 0.15.0`, `scikit-learn 1.9.1`, `hmmlearn 0.3.3`, `pytest 9.2.0`, `pydantic 2.14.3`, `aiohttp 3.14.5` — user site. `pytest tests/ --collect-only` collects **1106 tests**; `-k "mean_reversion or momentum or pairs or coint"` → **191 passed**. `ruff` and `mypy` NOT installed — skip lint/typecheck until available. Ignore the stale venv path in `research_state/state.yaml` — use `/usr/bin/python3`.
 - **Data:** `data/cache/` = 68 real files; spot cache sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b` (11 assets, 5112 hourly bars, 2026-04-01→2026-10-30). Volume pkl sha256 `4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c`. No network refetch; no synthetic data.
 - **Git:** HEAD `eb602b3` on `main`; only `HANDOFF.md` is modified (this handoff). New artifacts/scripts stay untracked unless committed. No active heavy process.
 - **Canonical handoff:** this file only. `research_state/state.yaml` is stale (`latest_campaign_done: C248`, `next_campaign: C249`, nonexistent venv path); this HANDOFF supersedes it.
@@ -63,4 +63,4 @@ The session is NOT complete until:
 - **C277/C278:** DONE (both `price_*_edge_proven=false`).
 - **C279:** PENDING. Neither `scripts/run_c279_causal_pairs_sweep.py` nor `scripts/run_c279_price_only_sweep.py` exists yet. C279A is the sole immediate deliverable.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T19:43:11Z UTC (C279 causal pairs sweep is the sole mandatory next action; deps and methodology bottlenecks removed and verified).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T19:46:55Z UTC (C279 causal pairs sweep is the sole mandatory next action; deps and methodology bottlenecks removed and verified).**
