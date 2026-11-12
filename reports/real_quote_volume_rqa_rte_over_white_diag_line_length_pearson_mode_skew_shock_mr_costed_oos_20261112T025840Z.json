@@ -1,0 +1,582 @@
+{
+  "generated_at_utc": "20261112T025840Z",
+  "campaign": 269,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_real",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "walk_forward": {
+    "train": 720,
+    "test": 168,
+    "step": 168
+  },
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "feature": "PEARSON_MODE_SKEW = (mean(L) - mode(L)) / std(L), mode=most frequent value in L with deterministic tie-break (if tie, smallest length value), std=population_std(L) (ddof=0), over all qualifying WHITE diagonal segment lengths (consecutive 0-cells/non-recurrent, length>=w_min=2) pooled over off-diagonal diagonals k!=0 with >=1 qualifying segment, on delay-embedded (m=2,tau=1) log-volume returns over trailing W_RR; eps=0.5*std(r_window), L_inf recurrence. Let L={L_1,..,L_N}, N>=3. PMS = (mean - mode) / std. Fail-closed if <3 qualifying segment lengths or mode undefined or std<=0/non-finite or PMS non-finite/degenerate. Causal trailing only. Distinct from C268 STANDARDIZED_MOMENT, C267 ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN, C266 RELATIVE_MEAN_ABSOLUTE_DIFFERENCE, C265 MAD_FROM_MEDIAN, C230 SKEWNESS (3rd central moment about the mean), C231 KURTOSIS (4th central moment), and all prior C125-C268 RQA families.",
+  "params": {
+    "W_RR": 168,
+    "alb": 336,
+    "m": 2,
+    "tau": 1,
+    "eps_scale": 0.5,
+    "w_min": 2,
+    "entry_z": 1.5,
+    "exit_z": 0.5,
+    "max_hold": 24
+  },
+  "pre_stated_distinctness": {
+    "grep_cmd": "grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW' scripts/ strategies/ backtest/ utils/ 2>&1",
+    "grep_hits_nonself_at_run": 0,
+    "grep_output": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:2:\"\"\"C269: RQA WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW shock on delay-embedded\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:6:  VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR.\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:11:  PEARSON_MODE_SKEW (signal): (mean(L) - mode(L)) / std(L) of qualifying\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:69:    \"RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:70:    \"WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:71:    \"PEARSON_MODE_SKEW\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:185:            f\"DISTINCTNESS_FAIL: non-self grep hits for PEARSON_MODE_SKEW = {grep_hits}\\n{grep_out}\"\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:308:        \"strategy_id\": \"VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR\",\nscripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_pearson_mode_skew_shock_mr_costed_oos.py:315:            \"PEARSON_MODE_SKEW = (mean(L) - mode(L)) / std(L), mode=most frequent value in L with \"",
+    "distinct_from": [
+      "WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT (C268)",
+      "WHITE_DIAG_LINE_LENGTH_ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN (C267)",
+      "WHITE_DIAG_LINE_LENGTH_RELATIVE_MEAN_ABSOLUTE_DIFFERENCE (C266)",
+      "WHITE_DIAG_LINE_LENGTH_MAD_FROM_MEDIAN (C265)",
+      "WHITE_DIAG_LINE_LENGTH_SKEWNESS (C230, 3rd central moment about the mean)",
+      "WHITE_DIAG_LINE_LENGTH_KURTOSIS (C231, 4th central moment)",
+      "C125-C268 prior RQA families"
+    ]
+  },
+  "data_sources": {
+    "spot_cache": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "spot_cache_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "spot_meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d",
+    "volume_pkl_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "volume_meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+    "volume_provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89",
+    "volume_validation": {
+      "ok": true,
+      "refused": false,
+      "family": "real_quote_volume",
+      "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+      "fail_closed": true,
+      "real_data_only_required": true,
+      "fabricated_data_allowed": false,
+      "notes_limits_gaps": "",
+      "provenance_source": "<dict>",
+      "provenance_merged": true,
+      "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "multi_symbol_long_frame": {
+        "group_col": "symbol",
+        "n_groups": 16,
+        "global_duplicate_timestamps": 76680,
+        "within_group_duplicates": 0,
+        "checked": "per_symbol_monotonic_unique"
+      },
+      "reason": "passed_all_fail_closed_checks",
+      "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+      "rows": 81792,
+      "columns": [
+        "timestamp_utc",
+        "symbol",
+        "quote_volume_usdt"
+      ],
+      "family_spec": "real_quote_volume"
+    }
+  },
+  "artifacts": {
+    "prior_registry": "reports/strategy_edge_registry_20261112T011400Z.json",
+    "prior_registry_sha256": "ac2bb2d1310ea5469be2c6603aba985305ec5d9d7577c13f497649c00dd996c6",
+    "c268_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos_20261112T010635Z.json",
+    "c268_oos_sha256": "2d79ea9e7a770689e820e6f15fb390cfe74426e991d42f1759cfd20c5db51360"
+  },
+  "per_asset": {
+    "ADA": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -68.80952822180538,
+          "oos_net_mean": -0.017065855213741415,
+          "bh_oos_net_mean": 0.000335486335793834,
+          "oos_n": 4032,
+          "exposure_bars": 2214.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -72.48052822180529,
+          "oos_net_mean": -0.01797632148358266,
+          "bh_oos_net_mean": 0.000335486335793834,
+          "oos_n": 4032,
+          "exposure_bars": 2214.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -76.15152822180532,
+          "oos_net_mean": -0.01888678775342394,
+          "bh_oos_net_mean": 0.000335486335793834,
+          "oos_n": 4032,
+          "exposure_bars": 2214.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -83.49352822180538,
+          "oos_net_mean": -0.020707720293106493,
+          "bh_oos_net_mean": 0.000335486335793834,
+          "oos_n": 4032,
+          "exposure_bars": 2214.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -98.1775282218054,
+          "oos_net_mean": -0.024349585372471578,
+          "bh_oos_net_mean": 0.000335486335793834,
+          "oos_n": 4032,
+          "exposure_bars": 2214.0
+        }
+      }
+    },
+    "AVAX": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -0.34687828115941244,
+          "oos_net_mean": -8.603131973199713e-05,
+          "bh_oos_net_mean": 0.00020386369262533573,
+          "oos_n": 4032,
+          "exposure_bars": 2160.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -4.0998782811592855,
+          "oos_net_mean": -0.0010168348911605372,
+          "bh_oos_net_mean": 0.00020386369262533573,
+          "oos_n": 4032,
+          "exposure_bars": 2160.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -7.852878281159347,
+          "oos_net_mean": -0.0019476384625891237,
+          "bh_oos_net_mean": 0.00020386369262533573,
+          "oos_n": 4032,
+          "exposure_bars": 2160.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -15.358878281159424,
+          "oos_net_mean": -0.0038092456054462857,
+          "bh_oos_net_mean": 0.00020386369262533573,
+          "oos_n": 4032,
+          "exposure_bars": 2160.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -30.370878281159438,
+          "oos_net_mean": -0.007532459891160575,
+          "bh_oos_net_mean": 0.00020386369262533573,
+          "oos_n": 4032,
+          "exposure_bars": 2160.0
+        }
+      }
+    },
+    "BNB": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": 11.349510135335231,
+          "oos_net_mean": 0.0028148586645176665,
+          "bh_oos_net_mean": 0.00039310417329122655,
+          "oos_n": 4032,
+          "exposure_bars": 2209.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 7.602510135335313,
+          "oos_net_mean": 0.0018855431883272105,
+          "bh_oos_net_mean": 0.00039310417329122655,
+          "oos_n": 4032,
+          "exposure_bars": 2209.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 3.8555101353352885,
+          "oos_net_mean": 0.0009562277121367283,
+          "bh_oos_net_mean": 0.00039310417329122655,
+          "oos_n": 4032,
+          "exposure_bars": 2209.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -3.638489864664778,
+          "oos_net_mean": -0.0009024032402442405,
+          "bh_oos_net_mean": 0.00039310417329122655,
+          "oos_n": 4032,
+          "exposure_bars": 2209.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -18.626489864664798,
+          "oos_net_mean": -0.0046196651450061505,
+          "bh_oos_net_mean": 0.00039310417329122655,
+          "oos_n": 4032,
+          "exposure_bars": 2209.0
+        }
+      }
+    },
+    "BTC": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -25.35132893357553,
+          "oos_net_mean": -0.0062875319775732965,
+          "bh_oos_net_mean": 0.00034449052599233544,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -29.156328933575438,
+          "oos_net_mean": -0.00723123237439867,
+          "bh_oos_net_mean": 0.00034449052599233544,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -32.961328933575466,
+          "oos_net_mean": -0.008174932771224074,
+          "bh_oos_net_mean": 0.00034449052599233544,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -40.57132893357554,
+          "oos_net_mean": -0.010062333564874886,
+          "bh_oos_net_mean": 0.00034449052599233544,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -55.79132893357556,
+          "oos_net_mean": -0.013837135152176477,
+          "bh_oos_net_mean": 0.00034449052599233544,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        }
+      }
+    },
+    "DOT": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -78.4401648587903,
+          "oos_net_mean": -0.01945440596696188,
+          "bh_oos_net_mean": 0.00046561736778710826,
+          "oos_n": 4032,
+          "exposure_bars": 2121.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -81.97716485879018,
+          "oos_net_mean": -0.020331638109818993,
+          "bh_oos_net_mean": 0.00046561736778710826,
+          "oos_n": 4032,
+          "exposure_bars": 2121.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -85.51416485879022,
+          "oos_net_mean": -0.021208870252676145,
+          "bh_oos_net_mean": 0.00046561736778710826,
+          "oos_n": 4032,
+          "exposure_bars": 2121.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -92.5881648587903,
+          "oos_net_mean": -0.02296333453839045,
+          "bh_oos_net_mean": 0.00046561736778710826,
+          "oos_n": 4032,
+          "exposure_bars": 2121.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -106.73616485879032,
+          "oos_net_mean": -0.026472263109819028,
+          "bh_oos_net_mean": 0.00046561736778710826,
+          "oos_n": 4032,
+          "exposure_bars": 2121.0
+        }
+      }
+    },
+    "ETH": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": 1.3200583840241045,
+          "oos_net_mean": 0.0003273954325456608,
+          "bh_oos_net_mean": 0.00030182572568361355,
+          "oos_n": 4032,
+          "exposure_bars": 2163.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -2.435941615975791,
+          "oos_net_mean": -0.0006041521865019323,
+          "bh_oos_net_mean": 0.00030182572568361355,
+          "oos_n": 4032,
+          "exposure_bars": 2163.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -6.191941615975832,
+          "oos_net_mean": -0.0015356998055495615,
+          "bh_oos_net_mean": 0.00030182572568361355,
+          "oos_n": 4032,
+          "exposure_bars": 2163.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -13.703941615975902,
+          "oos_net_mean": -0.003398795043644817,
+          "bh_oos_net_mean": 0.00030182572568361355,
+          "oos_n": 4032,
+          "exposure_bars": 2163.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -28.72794161597592,
+          "oos_net_mean": -0.0071249855198352975,
+          "bh_oos_net_mean": 0.00030182572568361355,
+          "oos_n": 4032,
+          "exposure_bars": 2163.0
+        }
+      }
+    },
+    "LINK": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -20.88364569230108,
+          "oos_net_mean": -0.005179475618130228,
+          "bh_oos_net_mean": 0.00032959262184109785,
+          "oos_n": 4032,
+          "exposure_bars": 2200.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -24.578645692300977,
+          "oos_net_mean": -0.006095894268923854,
+          "bh_oos_net_mean": 0.00032959262184109785,
+          "oos_n": 4032,
+          "exposure_bars": 2200.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -28.273645692301006,
+          "oos_net_mean": -0.007012312919717511,
+          "bh_oos_net_mean": 0.00032959262184109785,
+          "oos_n": 4032,
+          "exposure_bars": 2200.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -35.663645692301074,
+          "oos_net_mean": -0.00884515022130483,
+          "bh_oos_net_mean": 0.00032959262184109785,
+          "oos_n": 4032,
+          "exposure_bars": 2200.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -50.443645692301104,
+          "oos_net_mean": -0.01251082482447944,
+          "bh_oos_net_mean": 0.00032959262184109785,
+          "oos_n": 4032,
+          "exposure_bars": 2200.0
+        }
+      }
+    },
+    "LTC": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -1.4422074709615273,
+          "oos_net_mean": -0.00035769034498053754,
+          "bh_oos_net_mean": 0.00023030034187913642,
+          "oos_n": 4032,
+          "exposure_bars": 2158.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -5.257207470961436,
+          "oos_net_mean": -0.0013038709005360706,
+          "bh_oos_net_mean": 0.00023030034187913642,
+          "oos_n": 4032,
+          "exposure_bars": 2158.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -9.072207470961505,
+          "oos_net_mean": -0.002250051456091643,
+          "bh_oos_net_mean": 0.00023030034187913642,
+          "oos_n": 4032,
+          "exposure_bars": 2158.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -16.70220747096154,
+          "oos_net_mean": -0.004142412567202763,
+          "bh_oos_net_mean": 0.00023030034187913642,
+          "oos_n": 4032,
+          "exposure_bars": 2158.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -31.96220747096156,
+          "oos_net_mean": -0.00792713478942499,
+          "bh_oos_net_mean": 0.00023030034187913642,
+          "oos_n": 4032,
+          "exposure_bars": 2158.0
+        }
+      }
+    },
+    "POL": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": 48.656455524706075,
+          "oos_net_mean": 0.012067573294817975,
+          "bh_oos_net_mean": 0.0003648637797278234,
+          "oos_n": 4032,
+          "exposure_bars": 2198.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 44.92345552470617,
+          "oos_net_mean": 0.011141730040849744,
+          "bh_oos_net_mean": 0.0003648637797278234,
+          "oos_n": 4032,
+          "exposure_bars": 2198.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 41.19045552470615,
+          "oos_net_mean": 0.010215886786881486,
+          "bh_oos_net_mean": 0.0003648637797278234,
+          "oos_n": 4032,
+          "exposure_bars": 2198.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 33.72445552470608,
+          "oos_net_mean": 0.00836420027894496,
+          "bh_oos_net_mean": 0.0003648637797278234,
+          "oos_n": 4032,
+          "exposure_bars": 2198.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 18.792455524706046,
+          "oos_net_mean": 0.004660827263071936,
+          "bh_oos_net_mean": 0.0003648637797278234,
+          "oos_n": 4032,
+          "exposure_bars": 2198.0
+        }
+      }
+    },
+    "SOL": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": -15.899274050096396,
+          "oos_net_mean": -0.0039432723338532726,
+          "bh_oos_net_mean": 0.00024630216057703697,
+          "oos_n": 4032,
+          "exposure_bars": 2125.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": -19.757274050096314,
+          "oos_net_mean": -0.00490011757194849,
+          "bh_oos_net_mean": 0.00024630216057703697,
+          "oos_n": 4032,
+          "exposure_bars": 2125.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": -23.61527405009636,
+          "oos_net_mean": -0.00585696281004374,
+          "bh_oos_net_mean": 0.00024630216057703697,
+          "oos_n": 4032,
+          "exposure_bars": 2125.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": -31.33127405009641,
+          "oos_net_mean": -0.007770653286234229,
+          "bh_oos_net_mean": 0.00024630216057703697,
+          "oos_n": 4032,
+          "exposure_bars": 2125.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -46.76327405009643,
+          "oos_net_mean": -0.011598034238615185,
+          "bh_oos_net_mean": 0.00024630216057703697,
+          "oos_n": 4032,
+          "exposure_bars": 2125.0
+        }
+      }
+    },
+    "XRP": {
+      "status": "ok",
+      "bars": 5112,
+      "ratio_finite_bars": 4774,
+      "per_cost": {
+        "fee0_slip0": {
+          "oos_net_sum": 19.26720946875151,
+          "oos_net_mean": 0.004778573776972101,
+          "bh_oos_net_mean": 0.00016008126691261214,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 15.459209468751592,
+          "oos_net_mean": 0.0038341293325276763,
+          "bh_oos_net_mean": 0.00016008126691261214,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 11.651209468751553,
+          "oos_net_mean": 0.0028896848880832224,
+          "bh_oos_net_mean": 0.00016008126691261214,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 4.0352094687514946,
+          "oos_net_mean": 0.0010007959991943192,
+          "bh_oos_net_mean": 0.00016008126691261214,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        },
+        "fee40_slip40": {
+          "oos_net_sum": -11.196790531248517,
+          "oos_net_mean": -0.0027769817785834616,
+          "bh_oos_net_mean": 0.00016008126691261214,
+          "oos_n": 4032,
+          "exposure_bars": 2156.0
+        }
+      }
+    }
+  },
+  "cross_asset": {
+    "oos_net_sums": {
+      "fee0_slip0": -130.5797939958727,
+      "fee5_slip5": -171.75779399587162,
+      "fee10_slip10": -212.93579399587207,
+      "fee20_slip20": -295.29179399587275,
+      "fee40_slip40": -460.00379399587297
+    }
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
