@@ -1,0 +1,20 @@
+{
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "any_exposure_oos": false,
+  "campaign": 274,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.0,
+    "fee10_slip10": 0.0,
+    "fee20_slip20": 0.0,
+    "fee40_slip40": 0.0,
+    "fee5_slip5": 0.0
+  },
+  "edge_claim": "NONE",
+  "generated_at_utc": "20261112T055039Z",
+  "oos_artifact": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_second_pearson_skew_shock_mr_costed_oos_20261112T055039Z.json",
+  "oos_edge_proven": false,
+  "oos_sha256": "0b3b853621f38fe84a7ec905a2d1396097e9d92111bd8fce45cf3cb4a8c2e6a9",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SECOND_PEARSON_SKEW_SHOCK_MR",
+  "supersedes": "reports/strategy_edge_registry_20261112T051504Z.json"
+}
