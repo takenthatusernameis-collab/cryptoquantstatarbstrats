@@ -1,10 +1,10 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T04:08:34Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+## INITIAL TASK MESSAGE — 2026-11-12T04:14:41Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
-**Repo-prioritized focus (verified 2026-11-12T04:08:34Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — continue the C271+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
+**Repo-prioritized focus (verified 2026-11-12T04:14:41Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. The single most relevant, highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge discovery** — continue the C271+ WHITE-diag line-length RQA dispersion/shape enumeration. Nothing else (docs, refactor, status, state.yaml sync) competes with this.
 
-**Bottleneck audit (verified 2026-11-12T04:08:34Z UTC): NONE — no blockers to remove.**
+**Bottleneck audit (verified 2026-11-12T04:14:41Z UTC): NONE — no blockers to remove.**
 - `git status --short` empty (working tree clean).
 - Deps present: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1.
 - `data/cache/` = 68 real files (`.pkl`+`.meta.json`+provenance); **no refetch**; spot + volume caches verified.
@@ -37,6 +37,8 @@ Do not plan, summarize, explore, or ask questions — start implementation/execu
 Same rule set as C271, run sequentially C271 → C272 → …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality. Never re-run C1–C15 or C249–C271 except evidence-backed defect fix.
 
 **Hard rules:** no planning/status-only work, no refetch/synthetic data, no reruns except evidence-backed defect fix, no `research_state/state.yaml` edits unless explicitly requested by user, no threshold weakening. Honest `NONE` with evidence is valid.
+
+## INITIAL TASK MESSAGE — 2026-11-12T04:08:34Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
 ## INITIAL TASK MESSAGE — 2026-11-12T03:59:13Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
