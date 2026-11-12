@@ -5,11 +5,11 @@
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
 > **Locked/separate line — DO NOT MODIFY unless explicitly requested by user:** `research_state/state.yaml` RQA line is stale (`latest_campaign_done: C248`, `next_campaign: C249`; C249–C267 complete on disk). Must not be edited to block/replace progress. Sync only if explicitly requested by user.
 
-## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:56:20Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
+## PRIORITIZED TIMESTAMPED INITIAL TASK MESSAGE (2026-11-12T01:58:00Z UTC — C268 complete; START C269 NOW) — DO NOT DEVIATE
 
 **Repo focus (priority driver):** `cryptoquantstatarbstrats` = crypto quant stat-arb strategies. Next agent must pursue **real-data-only, fail-closed, costed OOS stat-arb edge discovery** (heavy execution), not status/docs/refactors.
 
-**Bottleneck check (verified 2026-11-12T01:25:51Z UTC):** none blocking.
+**Bottleneck check (verified 2026-11-12T01:58:00Z UTC):** none blocking.
 - Deps OK: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1
 - Real caches present: `68` files in `data/cache/` (**no refetch**); git working tree clean at check time; no stalled background processes observed
 - C268 artifacts/SHA256 present and recorded below
@@ -19,7 +19,7 @@
 
 ### C269 SPEC (pre-stated, fail-closed)
 - **Strategy (first choice, grep-zero):** `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW_SHOCK_MR`
-  - **Distinctness (re-verify before run, must be 0 non-self):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW' scripts/ strategies/ backtest/ utils/`
+  - **Distinctness (re-verify before run, must be 0 non-self):** `grep -rnE 'RTE_OVER_WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|WHITE_DIAG_LINE_LENGTH_PEARSON_MODE_SKEW|PEARSON_MODE_SKEW' scripts/ strategies/ backtest/ utils/` — **re-verified grep-zero 2026-11-12T01:58:00Z UTC.**
   - **Pre-stated formula (fail-closed, fixed):** on qualifying WHITE diagonal segment lengths `L` pooled over off-diagonal diagonals `k!=0` (consecutive 0-cells/non-recurrent runs, `length >= w_min=2`), require `N>=3`. Compute `mean = mean(L)`, `mode` as the most frequent value in `L` with a deterministic tie-break (if tie, use smallest length value so result is reproducible); compute `std = population_std(L)` (or sample std — **pick one and record explicitly in artifacts**, consistent with numpy default you document). Feature = `(mean - mode) / std`. **Fail-closed** if `N<3`, if mode undefined, if `std <= 0` or non-finite, or if feature non-finite/undefined → no exposure for that window/asset per pipeline conventions (record explicitly, no fabrication). Distinct from all prior C125–C268 families (incl. C268 `STANDARDIZED_MOMENT`, C267 `ROOT_MEAN_SQUARE_DEVIATION_FROM_MEDIAN`, C266 `RELATIVE_MEAN_ABSOLUTE_DIFFERENCE`, C265 `MAD_FROM_MEDIAN`, C264 `QCD`, etc.).
 - **Fallbacks if collision/invalid after recheck (pick FIRST grep-zero in chain; re-verify and record evidence):** `MEDIAN_ABSOLUTE_DEVIATION_FROM_MEAN` → `INTERQUARTILE_MEAN` → `BIWEIGHT_MIDVARIANCE` (pre-state a fixed, fail-closed formula for whichever is chosen).
 - **WF/costs:** `train=720, test=168, step=168`; cost grid bps `[[0,0],[5,5],[10,10],[20,20],[40,40]]`.
@@ -29,6 +29,17 @@
 
 ### UNINTERRUPTED PIPELINE (future agents must not avoid heavy work)
 C264–C268 complete (`NONE` with evidence). **Now:** complete C269 end-to-end (next grep-zero WHITE-diag line-length RQA variant, pre-stated fail-closed formula, same WF/costs/edge rule, required artifacts+SHA256, record evidence, update handoff). **C270+:** continue enumerating grep-zero WHITE-diag line-length RQA dispersion/shape variants in same family. For each: re-verify grep-zero, pre-state fail-closed formula, run, package artifacts+SHA256, record evidence, update handoff. Never re-run C1–C15 or C249–C268 except evidence-backed defect fix. **No early exit except `oos_edge_proven: true`.**
+
+#### NEXT FOCUS CAMPAIGN (C270+) — MANDATORY ENUMERATION, DO NOT DEFER
+Priority-ordered candidate variants (pick FIRST grep-zero in chain; re-verify grep-zero at run; pre-state fail-closed formula; identical WF train=720/test=168/step=168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], same edge rule, same artifacts+SHA256):
+1. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_COEFFICIENT_OF_VARIATION_SHOCK_MR` — `CV = std(L)/mean(L)` over qualifying WHITE diagonal segment lengths pooled k!=0, length>=w_min=2, N>=3; fail-closed if N<3, mean<=0/non-finite, std non-finite, CV non-finite.
+2. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SKEWNESS_ABOUT_MEAN_SHOCK_MR` — `mean((L_i-mean)^3)/std(L)^3` (population std), N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite. Distinct from C230 SKEWNESS (that one is about the mean of a different series? no — C230 is 3rd central moment about the mean but confirm grep-zero anyway; this one is explicitly on white-diag line lengths).
+3. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_EXCESS_KURTOSIS_SHOCK_MR` — `mean((L_i-mean)^4)/std(L)^4 - 3`, N>=3; fail-closed if N<3, std<=0/non-finite, result non-finite.
+4. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR` — `(P75(L) - P25(L)) / median(L)`, N>=3; fail-closed if median<=0/non-finite, result non-finite.
+5. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_GINI_COEFFICIENT_SHOCK_MR` — Gini of L, N>=3; fail-closed if N<3, mean<=0/non-finite, result non-finite.
+6. `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_HERMITE_DISSIPATION_SHOCK_MR` — `mean((L_i-mean)^2 * sign(L_i-mean))` / N-normalized shape; N>=3; fail-closed if N<3, result non-finite.
+
+Rule: run campaigns sequentially C269 → C270 → C271 …; each must produce executed costed-OOS output + all required artifacts + SHA256-from-bytes + evidence recorded in this handoff + next campaign noted. Stop the chain ONLY on `oos_edge_proven: true`. No status-only substitutions. Grep-zero re-verification is a hard gate, not a formality.
 
 ## STATE SNAPSHOT (2026-11-12T00:11:40Z UTC)
 - **C12:** 5/5 complete. **C13:** 3/3 complete. **C14:** 7/7 complete (zero edge). **C15:** 7/7 complete (zero edge).
@@ -87,5 +98,5 @@ C264–C268 complete (`NONE` with evidence). **Now:** complete C269 end-to-end (
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — 2026-11-12T01:56:20Z UTC (C268 complete, no blockers; C269 mandated next).**
-**NEXT AGENT: START C269 NOW (HEAVY). Use `PEARSON_MODE_SKEW` (grep-zero re-verified now) or next fallback if collision, pre-state fail-closed formula, run costed OOS WF, emit all required artifacts + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C270+. NO STATUS-ONLY.**
+**END OF DURABLE HANDOFF — 2026-11-12T01:58:00Z UTC (C268 complete, no blockers; C269 mandated next).**
+**NEXT AGENT: START C269 NOW (HEAVY). Use `PEARSON_MODE_SKEW` (grep-zero re-verified at 2026-11-12T01:58:00Z UTC) or next fallback if collision, pre-state fail-closed formula, run costed OOS WF, emit all required artifacts + SHA256-from-bytes, record NONE/edge with evidence, update this handoff, continue C270+ per NEXT FOCUS CAMPAIGN. NO STATUS-ONLY.**
