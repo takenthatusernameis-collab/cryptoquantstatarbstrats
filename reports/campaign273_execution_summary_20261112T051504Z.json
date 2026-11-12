@@ -1,0 +1,57 @@
+{
+  "campaign": 273,
+  "generated_at_utc": "20261112T051504Z",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_real",
+  "oos_edge_proven": true,
+  "edge_claim": "CONDITIONAL_EDGE_PROVEN",
+  "walk_forward": {
+    "train": 720,
+    "test": 168,
+    "step": 168
+  },
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 80.68391844301627,
+    "fee5_slip5": 79.42291844301636,
+    "fee10_slip10": 78.16191844301629,
+    "fee20_slip20": 75.63991844301627,
+    "fee40_slip40": 70.59591844301625
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": true,
+  "all_cost_slices_beat_bh_mean_rule": true,
+  "oos_report": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json",
+  "oos_report_sha256": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+  "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py",
+  "script_sha256": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+  "ingest_attempt": "reports/real_feed_ingest_attempt_20261112T051504Z.json",
+  "ingest_attempt_sha256": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446",
+  "registry": "reports/strategy_edge_registry_20261112T051504Z.json",
+  "registry_sha256": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6",
+  "distinctness_grep_hits_nonself": 0,
+  "prior_registry": "reports/strategy_edge_registry_20261112T050114Z.json",
+  "prior_registry_sha256": "1038b38760f70b52505cd09cf7a59b52ce61bc0d01b1cd3803cd2d747d3e8d19",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}

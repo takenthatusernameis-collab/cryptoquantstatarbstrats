@@ -1,0 +1,384 @@
+{
+  "generated_at_utc": "20261112T054614Z",
+  "campaign": 273,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_real",
+  "edge_claim": "CONDITIONAL_EDGE_PROVEN",
+  "oos_edge_proven": true,
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows.",
+  "edge_rule_compliance": {
+    "oos_edge_proven": true,
+    "any_exposure_oos": true,
+    "all_cost_slices_positive_oos_net_sum": true,
+    "all_cost_slices_beat_bh_mean_rule": true,
+    "compliant_with_saved_flags": true
+  },
+  "baseline_metrics": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 80.68391844301627,
+      "fee5_slip5": 79.42291844301636,
+      "fee10_slip10": 78.16191844301629,
+      "fee20_slip20": 75.63991844301627,
+      "fee40_slip40": 70.59591844301625
+    },
+    "distinctness_grep_hits_nonself_at_run": 0
+  },
+  "verification": {
+    "verification_passed": true,
+    "artifact": "reports/campaign273_verification_20261112T051659Z.json",
+    "sha256": "42b3341d04e6c141fde5e0b88a8a2444a0b2c4a9270c56ce66149d21ca02c229"
+  },
+  "robustness_dossier": {
+    "assessment": "CONDITIONAL_EDGE_VERIFIED_BUT_REQUIRES_HARDENING_REVIEW",
+    "fragility_flags": [
+      "some_assets_nonpositive_at_fee0",
+      "not_all_assets_positive_in_every_cost_slice"
+    ],
+    "artifact": "reports/campaign273_robustness_dossier_20261112T051659Z.json",
+    "sha256": "f7f51f9d84fe0f42207cfffe77e26e552ff8c10636017889fed706c029e716e6"
+  },
+  "split_stability": {
+    "replication_matches_c273": true,
+    "replication_diffs_recomputed_minus_reported": {
+      "fee0_slip0": 0.0,
+      "fee5_slip5": 0.0,
+      "fee10_slip10": 1.4210854715202004e-14,
+      "fee20_slip20": 1.4210854715202004e-14,
+      "fee40_slip40": 1.4210854715202004e-14
+    },
+    "n_splits_per_asset": 24,
+    "cross_asset_split_stats_fee0": {
+      "count": 24,
+      "positive": 16,
+      "negative_or_zero": 8,
+      "positive_share": 0.6666666666666666,
+      "min": -12.116630665422184,
+      "max": 27.10148575154885,
+      "mean": 3.361829935125678,
+      "values": [
+        27.10148575154885,
+        15.854898994845907,
+        -1.349558329428742,
+        12.41304228201954,
+        6.0637106706956425,
+        1.1242834508121966,
+        1.8652803923397574,
+        -5.326059807579258,
+        1.4550276074215418,
+        -9.12051505823894,
+        4.652588862247848,
+        -12.116630665422184,
+        11.938474279214436,
+        -1.798811175791136,
+        4.00708137596599,
+        9.937365244918269,
+        10.901713668744547,
+        5.913202537570932,
+        -5.682923989482152,
+        3.5510077579358486,
+        -5.967862044734948,
+        -1.9052045554669181,
+        0.3226703325510174,
+        6.84965086032822
+      ]
+    },
+    "stability_assessment": {
+      "fee0_positive_split_share": 0.6666666666666666,
+      "fee0_positive_splits": 16,
+      "fee0_total_splits": 24,
+      "assets_positive_net_fee0": 9,
+      "assets_total_ok": 11,
+      "cross_asset_positive_all_cost_slices_recomputed": true,
+      "broad_split_support_fee0_ge_60pct": true,
+      "note": "Computed from deterministic replication on real cached data only; no refetch/synthetic."
+    },
+    "artifact": "reports/campaign273_split_decomposition_20261112T052106Z.json",
+    "sha256": "2b4da1e685cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d"
+  },
+  "parameter_sensitivity": {
+    "sensitivity_assessment": "robust_neighborhood",
+    "total_combos": 27,
+    "edge_positive_combos": 21,
+    "edge_positive_share": 0.7777777777777778,
+    "combos_all_cost_slices_positive": 21,
+    "baseline_reproduced_in_grid": true,
+    "grid_spec": {
+      "W_RR": [
+        144,
+        168,
+        192
+      ],
+      "ENTRY_Z": [
+        1.25,
+        1.5,
+        1.75
+      ],
+      "EXIT_Z": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "constraint": "EXIT_Z < ENTRY_Z",
+      "fixed": {
+        "ALB": 336,
+        "m": 2,
+        "tau": 1,
+        "eps_scale": 0.5,
+        "w_min": 2,
+        "MAX_HOLD": 24,
+        "TRAIN": 720,
+        "TEST": 168,
+        "STEP": 168,
+        "cost_grid_bps": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            40,
+            40
+          ]
+        ]
+      },
+      "rationale": "Bounded local perturbations around C273 baseline to assess edge stability over window length and z-thresholds on identical real cached data/WF/cost framework; ALB fixed at 336 >=2*max(W_RR)."
+    },
+    "failing_combos_count": 6,
+    "failing_combos_summary": [
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.25,
+          "EXIT_Z": 0.25
+        },
+        "fee40_slip40": -23.068169522391372,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      },
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.25,
+          "EXIT_Z": 0.5
+        },
+        "fee40_slip40": -23.068169522391372,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      },
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.25,
+          "EXIT_Z": 0.75
+        },
+        "fee40_slip40": -23.068169522391372,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      },
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.5,
+          "EXIT_Z": 0.25
+        },
+        "fee40_slip40": -44.7833781134085,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      },
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.5,
+          "EXIT_Z": 0.5
+        },
+        "fee40_slip40": -44.7833781134085,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      },
+      {
+        "params": {
+          "W_RR": 192,
+          "ENTRY_Z": 1.5,
+          "EXIT_Z": 0.75
+        },
+        "fee40_slip40": -44.7833781134085,
+        "all_cost_slices_positive_oos_net_sum": false,
+        "all_cost_slices_beat_bh_mean_rule": false
+      }
+    ],
+    "artifact": "reports/campaign273_param_sensitivity_20261112T052846Z.json",
+    "sha256": "15e4bf307b373c9c57a533dc69232d19855933ce8b7956d84e90b9f5d0e96b9d"
+  },
+  "artifact_manifest": [
+    {
+      "name": "oos",
+      "path": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json",
+      "exists": true,
+      "sha256": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+      "expected_sha256": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "script",
+      "path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py",
+      "exists": true,
+      "sha256": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+      "expected_sha256": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "ingest",
+      "path": "reports/real_feed_ingest_attempt_20261112T051504Z.json",
+      "exists": true,
+      "sha256": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446",
+      "expected_sha256": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "registry",
+      "path": "reports/strategy_edge_registry_20261112T051504Z.json",
+      "exists": true,
+      "sha256": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6",
+      "expected_sha256": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "summary",
+      "path": "reports/campaign273_execution_summary_20261112T051504Z.json",
+      "exists": true,
+      "sha256": "d2694387c152b6659a041dd946fda79de415d9d1747bac447418c090cae153dd",
+      "expected_sha256": "d2694387c152b6659a041dd946fda79de415d9d1747bac447418c090cae153dd",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "verification_script",
+      "path": "scripts/verify_c273_percentile_spread_edge.py",
+      "exists": true,
+      "sha256": "fde5d4fe45f1d3ac5c316a640b11d4f03e352765141bb28aeaad99794bc9e1e0",
+      "expected_sha256": null,
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "verification",
+      "path": "reports/campaign273_verification_20261112T051659Z.json",
+      "exists": true,
+      "sha256": "42b3341d04e6c141fde5e0b88a8a2444a0b2c4a9270c56ce66149d21ca02c229",
+      "expected_sha256": "42b3341d04e6c141fde5e0b88a8a2444a0b2c4a9270c56ce66149d21ca02c229",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "robustness",
+      "path": "reports/campaign273_robustness_dossier_20261112T051659Z.json",
+      "exists": true,
+      "sha256": "f7f51f9d84fe0f42207cfffe77e26e552ff8c10636017889fed706c029e716e6",
+      "expected_sha256": "f7f51f9d84fe0f42207cfffe77e26e552ff8c10636017889fed706c029e716e6",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "split_script",
+      "path": "scripts/run_c273_percentile_spread_split_decomposition.py",
+      "exists": true,
+      "sha256": "21059d45026d8ba09362526f9ec6b5fe810fc5a7c70d7d64f98efc695a9f5d11",
+      "expected_sha256": null,
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "split_decomposition",
+      "path": "reports/campaign273_split_decomposition_20261112T052106Z.json",
+      "exists": true,
+      "sha256": "2b4da1e685cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d",
+      "expected_sha256": "2b4da1e685cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "sensitivity_script",
+      "path": "scripts/run_c273_percentile_spread_param_sensitivity.py",
+      "exists": true,
+      "sha256": "73832091f61282a3e1d2199284ba5af3fd79d1df66a1a512e9ea65a2c2252d98",
+      "expected_sha256": "73832091f61282a3e1d2199284ba5af3fd79d1df66a1a512e9ea65a2c2252d98",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "sensitivity",
+      "path": "reports/campaign273_param_sensitivity_20261112T052846Z.json",
+      "exists": true,
+      "sha256": "15e4bf307b373c9c57a533dc69232d19855933ce8b7956d84e90b9f5d0e96b9d",
+      "expected_sha256": "15e4bf307b373c9c57a533dc69232d19855933ce8b7956d84e90b9f5d0e96b9d",
+      "hash_match_or_unpinned": true
+    },
+    {
+      "name": "builder_script",
+      "path": "scripts/build_c273_promotion_evidence_package.py",
+      "exists": true,
+      "sha256": "48ed28d0fc808092188939c44e04d3112ed489215b1b40be0e49d3552715ec33",
+      "expected_sha256": null,
+      "hash_match_or_unpinned": true
+    }
+  ],
+  "risks_and_caveats": [
+    "Fragility flags from robustness dossier: some_assets_nonpositive_at_fee0; not_all_assets_positive_in_every_cost_slice (cross-asset edge positive but not uniform across all assets/cost slices).",
+    "Split stability: fee0 cross-asset positive splits 16/24 (66.67%), 8/24 negative splits (min -12.116630665422184, max 27.10148575154885, mean 3.361829935125678); assets positive net at fee0 9/11.",
+    "Parameter sensitivity: 21/27 combos edge-positive overall, but 6/27 fail edge rule \u2014 all failures at W_RR=192 (ENTRY_Z 1.25 with EXIT_Z 0.25/0.5/0.75 and ENTRY_Z 1.5 with EXIT_Z 0.25/0.5/0.75) due to fee40/high-cost negativity and BH-beat failure (e.g. fee40 nets -23.068169522391372 and -44.7833781134085). Baseline W_RR=168/ENTRY_Z=1.5/EXIT_Z=0.5 reproduced.",
+    "Evidence is real-cached-data OOS on fixed WF/cost framework; no live/refetched/synthetic validation and no out-of-sample beyond cached history."
+  ],
+  "promotion_readiness": "READY_FOR_REVIEW",
+  "promotion_readiness_reasons": [
+    "All required artifacts present with matching/pinned hashes (where expected), verification passed, replication matched, and parameter sensitivity shows robust neighborhood (21/27 = 77.78%) with baseline reproduced. Risks/non-uniformities and W_RR=192 failures are explicitly documented for reviewer judgment."
+  ],
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "network_refetch": false,
+    "basis": "saved C273 artifacts on cached real data only"
+  },
+  "builder_script": "scripts/build_c273_promotion_evidence_package.py",
+  "package_artifacts": {
+    "json": {
+      "path": "reports/campaign273_promotion_evidence_package_20261112T054614Z.json",
+      "sha256": "b02ca846eebcdc1253c45b0686e28bef787714b9373e8e0c5118322b3ffe8fad"
+    },
+    "md": {
+      "path": "reports/campaign273_promotion_evidence_package_20261112T054614Z.md",
+      "sha256": "d03eab43502bd8c53845e692d981cb9d020c1f728bcb3afb21b7bb5453ba72b3"
+    },
+    "builder_script_sha256": "48ed28d0fc808092188939c44e04d3112ed489215b1b40be0e49d3552715ec33"
+  }
+}

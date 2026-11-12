@@ -1,0 +1,345 @@
+{
+  "generated_at_utc": "20261112T051659Z",
+  "campaign": 273,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+  "verification_passed": true,
+  "artifacts": {
+    "oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json",
+    "script": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py",
+    "ingest": "reports/real_feed_ingest_attempt_20261112T051504Z.json",
+    "registry": "reports/strategy_edge_registry_20261112T051504Z.json",
+    "summary": "reports/campaign273_execution_summary_20261112T051504Z.json"
+  },
+  "artifact_sha256": {
+    "oos": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+    "script": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+    "ingest": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446",
+    "registry": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6",
+    "summary": "d2694387c152b6659a041dd946fda79de415d9d1747bac447418c090cae153dd"
+  },
+  "checks": [
+    {
+      "check": "oos_exists",
+      "ok": true,
+      "detail": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json"
+    },
+    {
+      "check": "oos_sha256_match",
+      "ok": true,
+      "detail": {
+        "computed": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+        "expected": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf"
+      }
+    },
+    {
+      "check": "script_exists",
+      "ok": true,
+      "detail": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py"
+    },
+    {
+      "check": "script_sha256_match",
+      "ok": true,
+      "detail": {
+        "computed": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+        "expected": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e"
+      }
+    },
+    {
+      "check": "ingest_exists",
+      "ok": true,
+      "detail": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/real_feed_ingest_attempt_20261112T051504Z.json"
+    },
+    {
+      "check": "ingest_sha256_match",
+      "ok": true,
+      "detail": {
+        "computed": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446",
+        "expected": "dd704efab8d6c3650e5c872f0b8b3462185e960b136382ea260e139370d70446"
+      }
+    },
+    {
+      "check": "registry_exists",
+      "ok": true,
+      "detail": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/strategy_edge_registry_20261112T051504Z.json"
+    },
+    {
+      "check": "registry_sha256_match",
+      "ok": true,
+      "detail": {
+        "computed": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6",
+        "expected": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6"
+      }
+    },
+    {
+      "check": "summary_exists",
+      "ok": true,
+      "detail": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign273_execution_summary_20261112T051504Z.json"
+    },
+    {
+      "check": "summary_sha256_match",
+      "ok": true,
+      "detail": {
+        "computed": "d2694387c152b6659a041dd946fda79de415d9d1747bac447418c090cae153dd",
+        "expected": "d2694387c152b6659a041dd946fda79de415d9d1747bac447418c090cae153dd"
+      }
+    },
+    {
+      "check": "registry_points_to_oos_sha",
+      "ok": true,
+      "detail": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf"
+    },
+    {
+      "check": "summary_points_to_oos_sha",
+      "ok": true,
+      "detail": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf"
+    },
+    {
+      "check": "summary_registry_sha_match",
+      "ok": true,
+      "detail": "7fb2ceeaccbb2c8499e5d8203479c7c9c309f41acd57ccc2c5e5685308b7c6b6"
+    },
+    {
+      "check": "strategy_id_consistent",
+      "ok": true,
+      "detail": {
+        "oos": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+        "registry": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+        "summary": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR"
+      }
+    },
+    {
+      "check": "campaign_consistent",
+      "ok": true,
+      "detail": {
+        "oos": 273,
+        "registry": 273,
+        "summary": 273,
+        "ingest": 273
+      }
+    },
+    {
+      "check": "cross_asset_has_all_cost_keys",
+      "ok": true,
+      "detail": [
+        "fee0_slip0",
+        "fee5_slip5",
+        "fee10_slip10",
+        "fee20_slip20",
+        "fee40_slip40"
+      ]
+    },
+    {
+      "check": "all_cost_slices_positive_from_values",
+      "ok": true,
+      "detail": {
+        "fee0_slip0": 80.68391844301627,
+        "fee5_slip5": 79.42291844301636,
+        "fee10_slip10": 78.16191844301629,
+        "fee20_slip20": 75.63991844301627,
+        "fee40_slip40": 70.59591844301625
+      }
+    },
+    {
+      "check": "flag_all_cost_positive_matches_values",
+      "ok": true,
+      "detail": {
+        "flag": true,
+        "from_values": true
+      }
+    },
+    {
+      "check": "edge_rule_internal_consistency",
+      "ok": true,
+      "detail": {
+        "edge_flag": true,
+        "expected_from_flags": true,
+        "any_exposure": true,
+        "all_pos_flag": true,
+        "beat_bh": true
+      }
+    },
+    {
+      "check": "edge_claim_consistent",
+      "ok": true,
+      "detail": {
+        "edge_flag": true,
+        "edge_claim": "CONDITIONAL_EDGE_PROVEN"
+      }
+    },
+    {
+      "check": "cross_asset_cost_monotonic_nondecreasing_cost_degrades_net",
+      "ok": true,
+      "detail": [
+        80.68391844301627,
+        79.42291844301636,
+        78.16191844301629,
+        75.63991844301627,
+        70.59591844301625
+      ]
+    },
+    {
+      "check": "assets_present",
+      "ok": true,
+      "detail": 11
+    },
+    {
+      "check": "ok_assets_present",
+      "ok": true,
+      "detail": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    {
+      "check": "per_asset_cost_keys_complete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "recomputed_cross_sum_fee0_slip0_matches",
+      "ok": true,
+      "detail": {
+        "recomputed": 80.68391844301627,
+        "reported": 80.68391844301627
+      }
+    },
+    {
+      "check": "recomputed_cross_sum_fee5_slip5_matches",
+      "ok": true,
+      "detail": {
+        "recomputed": 79.42291844301636,
+        "reported": 79.42291844301636
+      }
+    },
+    {
+      "check": "recomputed_cross_sum_fee10_slip10_matches",
+      "ok": true,
+      "detail": {
+        "recomputed": 78.16191844301629,
+        "reported": 78.16191844301629
+      }
+    },
+    {
+      "check": "recomputed_cross_sum_fee20_slip20_matches",
+      "ok": true,
+      "detail": {
+        "recomputed": 75.63991844301627,
+        "reported": 75.63991844301627
+      }
+    },
+    {
+      "check": "recomputed_cross_sum_fee40_slip40_matches",
+      "ok": true,
+      "detail": {
+        "recomputed": 70.59591844301625,
+        "reported": 70.59591844301625
+      }
+    },
+    {
+      "check": "oos_real_data_only_flags_not_false",
+      "ok": true,
+      "detail": {
+        "has_fabricated_field": false
+      }
+    },
+    {
+      "check": "ingest_real_data_only",
+      "ok": true,
+      "detail": {
+        "generated_at_utc": "20261112T051504Z",
+        "campaign": 273,
+        "real_data_only": true,
+        "fabricated_data": false,
+        "nonspot_ingest": "blocked_fail_closed_rb_unblocked",
+        "network_refetch": false,
+        "caches_verified": [
+          {
+            "label": "spot_pkl",
+            "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+            "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+          },
+          {
+            "label": "spot_meta",
+            "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+            "sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d"
+          },
+          {
+            "label": "volume_pkl",
+            "path": "data/cache/volume_1h_full.pkl",
+            "sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c"
+          },
+          {
+            "label": "volume_meta",
+            "path": "data/cache/volume_1h_full.meta.json",
+            "sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616"
+          },
+          {
+            "label": "volume_provenance",
+            "path": "data/cache/volume_1h_full.provenance.json",
+            "sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+          }
+        ]
+      }
+    },
+    {
+      "check": "wf_params_match",
+      "ok": true,
+      "detail": {
+        "wf": {
+          "train": 720,
+          "test": 168,
+          "step": 168
+        },
+        "costs": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            40,
+            40
+          ]
+        ]
+      }
+    }
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 80.68391844301627,
+    "fee5_slip5": 79.42291844301636,
+    "fee10_slip10": 78.16191844301629,
+    "fee20_slip20": 75.63991844301627,
+    "fee40_slip40": 70.59591844301625
+  },
+  "recomputed_cross_asset_oos_net_sums": {
+    "fee0_slip0": 80.68391844301627,
+    "fee5_slip5": 79.42291844301636,
+    "fee10_slip10": 78.16191844301629,
+    "fee20_slip20": 75.63991844301627,
+    "fee40_slip40": 70.59591844301625
+  },
+  "ok_asset_count": 11,
+  "total_asset_count": 11,
+  "edge_claim": "CONDITIONAL_EDGE_PROVEN",
+  "oos_edge_proven": true
+}

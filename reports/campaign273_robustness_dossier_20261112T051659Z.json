@@ -1,0 +1,223 @@
+{
+  "generated_at_utc": "20261112T051659Z",
+  "campaign": 273,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+  "source_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json",
+  "source_oos_sha256": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf",
+  "verification_passed": true,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": 80.68391844301627,
+    "fee5_slip5": 79.42291844301636,
+    "fee10_slip10": 78.16191844301629,
+    "fee20_slip20": 75.63991844301627,
+    "fee40_slip40": 70.59591844301625
+  },
+  "cost_monotonic_degradation": true,
+  "ok_asset_count": 11,
+  "per_asset_net_fee0_sorted_desc": [
+    [
+      "BNB",
+      19.30014444961686
+    ],
+    [
+      "ADA",
+      17.8927317124908
+    ],
+    [
+      "LINK",
+      15.026828214936868
+    ],
+    [
+      "XRP",
+      11.421824308535967
+    ],
+    [
+      "AVAX",
+      11.379428878898084
+    ],
+    [
+      "POL",
+      4.208864919732935
+    ],
+    [
+      "ETH",
+      3.051933245324202
+    ],
+    [
+      "LTC",
+      1.92120315038534
+    ],
+    [
+      "BTC",
+      0.8806354264867409
+    ],
+    [
+      "DOT",
+      -2.1842415793755876
+    ],
+    [
+      "SOL",
+      -2.215434284015947
+    ]
+  ],
+  "positive_contributors_fee0": [
+    [
+      "BNB",
+      19.30014444961686,
+      0.23920683107684906
+    ],
+    [
+      "ADA",
+      17.8927317124908,
+      0.22176329630207164
+    ],
+    [
+      "LINK",
+      15.026828214936868,
+      0.18624316350661252
+    ],
+    [
+      "XRP",
+      11.421824308535967,
+      0.1415625880466221
+    ],
+    [
+      "AVAX",
+      11.379428878898084,
+      0.14103713724482664
+    ],
+    [
+      "POL",
+      4.208864919732935,
+      0.05216485516510311
+    ],
+    [
+      "ETH",
+      3.051933245324202,
+      0.03782579359330022
+    ],
+    [
+      "LTC",
+      1.92120315038534,
+      0.023811475538861027
+    ],
+    [
+      "BTC",
+      0.8806354264867409,
+      0.01091463383882003
+    ]
+  ],
+  "nonpositive_contributors_fee0": [
+    [
+      "DOT",
+      -2.1842415793755876
+    ],
+    [
+      "SOL",
+      -2.215434284015947
+    ]
+  ],
+  "top1_share_of_positive_fee0": 0.23920683107684906,
+  "top3_share_of_positive_fee0": 0.6472132908855333,
+  "per_cost_stats": {
+    "fee0_slip0": {
+      "cross_sum_reported": 80.68391844301627,
+      "cross_sum_recomputed": 80.68391844301627,
+      "assets_positive": 9,
+      "assets_nonpositive": 2,
+      "best": [
+        "BNB",
+        19.30014444961686
+      ],
+      "worst": [
+        "SOL",
+        -2.215434284015947
+      ],
+      "all_assets_positive": false
+    },
+    "fee5_slip5": {
+      "cross_sum_reported": 79.42291844301636,
+      "cross_sum_recomputed": 79.42291844301636,
+      "assets_positive": 9,
+      "assets_nonpositive": 2,
+      "best": [
+        "BNB",
+        19.193144449616867
+      ],
+      "worst": [
+        "SOL",
+        -2.3884342840159354
+      ],
+      "all_assets_positive": false
+    },
+    "fee10_slip10": {
+      "cross_sum_reported": 78.16191844301629,
+      "cross_sum_recomputed": 78.16191844301629,
+      "assets_positive": 9,
+      "assets_nonpositive": 2,
+      "best": [
+        "BNB",
+        19.08614444961686
+      ],
+      "worst": [
+        "SOL",
+        -2.5614342840159425
+      ],
+      "all_assets_positive": false
+    },
+    "fee20_slip20": {
+      "cross_sum_reported": 75.63991844301627,
+      "cross_sum_recomputed": 75.63991844301627,
+      "assets_positive": 9,
+      "assets_nonpositive": 2,
+      "best": [
+        "BNB",
+        18.87214444961686
+      ],
+      "worst": [
+        "SOL",
+        -2.907434284015946
+      ],
+      "all_assets_positive": false
+    },
+    "fee40_slip40": {
+      "cross_sum_reported": 70.59591844301625,
+      "cross_sum_recomputed": 70.59591844301625,
+      "assets_positive": 9,
+      "assets_nonpositive": 2,
+      "best": [
+        "BNB",
+        18.444144449616857
+      ],
+      "worst": [
+        "SOL",
+        -3.599434284015948
+      ],
+      "all_assets_positive": false
+    }
+  },
+  "exposure_summary_fee0_field_basis": {
+    "min": 3998.0,
+    "max": 4053.0,
+    "mean": 4038.181818181818,
+    "per_asset": {
+      "ADA": 4053.0,
+      "AVAX": 4053.0,
+      "BNB": 4047.0,
+      "BTC": 4035.0,
+      "DOT": 4033.0,
+      "ETH": 4045.0,
+      "LINK": 4026.0,
+      "LTC": 4053.0,
+      "POL": 4029.0,
+      "SOL": 3998.0,
+      "XRP": 4048.0
+    }
+  },
+  "fragility_flags": [
+    "some_assets_nonpositive_at_fee0",
+    "not_all_assets_positive_in_every_cost_slice"
+  ],
+  "assessment": "CONDITIONAL_EDGE_VERIFIED_BUT_REQUIRES_HARDENING_REVIEW",
+  "notes": "Computed only from saved C273 OOS artifact (real cached data provenance). No network refetch, no synthetic data. Concentration/fragility flags indicate need for further real-data hardening tests if present."
+}
