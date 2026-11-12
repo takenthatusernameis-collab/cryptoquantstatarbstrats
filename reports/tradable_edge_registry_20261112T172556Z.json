@@ -1,0 +1,160 @@
+{
+  "generated_at_utc": "20261112T172556Z",
+  "campaign": 278,
+  "return_basis_legend": {
+    "spot_price": "tradable PnL basis",
+    "quote_volume": "NOT_TRADABLE"
+  },
+  "overall_price_only_edge_proven": false,
+  "entries": [
+    {
+      "candidate": "C273_VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_PERCENTILE_SPREAD_SHOCK_MR",
+      "campaign": 273,
+      "return_basis": "quote_volume",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NOT_TRADABLE",
+      "note": "C277A recomputed same feature/positions/WF/cost grid on spot prices: cross-asset price PnL negative at all cost slices."
+    },
+    {
+      "candidate": "C277_C273_PRICE_PNL_REVALIDATION",
+      "campaign": 277,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NOT_PROMOTED",
+      "note": "Same feature as C273; PnL from real spot log-price returns."
+    },
+    {
+      "candidate": "C278_PAIRS_BTC_ETH",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "BLOCKED_BY_GATES",
+      "note": "strict enriched cointegration gates fail closed on the real cached diagnostics (eg/johansen/spread_mr/leg_stationarity/rolling_stable all fail); no causal pass -> zero exposure."
+    },
+    {
+      "candidate": "C278_PAIRS_ETH_SOL",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "BLOCKED_BY_GATES",
+      "note": "strict enriched cointegration gates fail closed on the real cached diagnostics (eg/johansen/spread_mr/leg_stationarity/rolling_stable all fail); no causal pass -> zero exposure."
+    },
+    {
+      "candidate": "C278_PAIRS_BTC_SOL",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "BLOCKED_BY_GATES",
+      "note": "strict enriched cointegration gates fail closed on the real cached diagnostics (eg/johansen/spread_mr/leg_stationarity/rolling_stable all fail); no causal pass -> zero exposure."
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_ADA",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-4.6103, B&H mean=-0.000063, break-even bps=-107.9690083895222"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_AVAX",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-4.2828, B&H mean=-0.000023, break-even bps=-104.20388743605126"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_BNB",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-2.4179, B&H mean=+0.000028, break-even bps=-61.52499567529715"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_BTC",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-2.2188, B&H mean=+0.000002, break-even bps=-51.9617315969575"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_DOT",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-4.8101, B&H mean=-0.000067, break-even bps=-107.1295972123944"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_ETH",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-3.1014, B&H mean=-0.000004, break-even bps=-75.82828174825465"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_LINK",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-3.8695, B&H mean=+0.000033, break-even bps=-91.91118091211189"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_LTC",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-3.3317, B&H mean=-0.000003, break-even bps=-73.54722251983176"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_POL",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-4.3180, B&H mean=-0.000020, break-even bps=-98.8107474124947"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_SOL",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-3.5925, B&H mean=+0.000030, break-even bps=-80.73036219725807"
+    },
+    {
+      "candidate": "C278_MEAN_REVERSION_XRP",
+      "campaign": 278,
+      "return_basis": "spot_price",
+      "price_pnl_edge_proven": false,
+      "tradable": false,
+      "status": "NO_EDGE",
+      "note": "fee0 OOS net sum=-3.6762, B&H mean=-0.000026, break-even bps=-79.39946878044942"
+    }
+  ],
+  "summary": {
+    "n_candidates": 16,
+    "n_tradable": 0,
+    "n_not_tradable": 16
+  }
+}

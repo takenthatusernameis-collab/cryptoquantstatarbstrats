@@ -1,0 +1,22 @@
+{
+  "generated_at_utc": "20261112T172258Z",
+  "campaign": 277,
+  "sub_campaign": "C277A",
+  "finding": "C273 METRIC VALIDITY",
+  "verdict": "NON_TRADABLE_METRIC_UNTIL_PRICE_PNL_GATE",
+  "verdict_resolved_by": "reports/campaign277_c273_price_pnl_revalidation_20261112T172258Z.json",
+  "verdict_resolved_by_sha256": "3b5bf3094ccd46d6afa985022232c245424a9634711a5a49df71c09f62e12f1b",
+  "price_pnl_edge_proven": false,
+  "evidence": {
+    "c273_script": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py",
+    "c273_script_sha256": "4d91581133c6ca5a8613c644f137f2c24bf5fefa0d1086d2d735d85d813a117e",
+    "c273_volume_return_basis_line": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py:199",
+    "c273_volume_return_basis_code": "r = np.log(vv).diff().dropna()  # vv = quote volume",
+    "c273_pnl_line": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos.py:271-277",
+    "c273_pnl_code": "npn = rets; strat = ppn * npn - trades * tc  # rets are volume returns",
+    "spot_price_used_for_pnl_in_c273": false,
+    "frozen_c273_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json",
+    "frozen_c273_oos_sha256": "1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf"
+  },
+  "conclusion": "C273 oos_edge_proven=true is a volume-return metric. C277A recomputes the same feature/positions/WF/cost grid with spot-price returns; price_pnl_edge_proven=False. Volume-return-only candidates remain NOT_TRADABLE."
+}
