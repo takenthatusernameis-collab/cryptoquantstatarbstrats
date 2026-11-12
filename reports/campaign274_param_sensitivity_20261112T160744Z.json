@@ -1,0 +1,4956 @@
+{
+  "generated_at_utc": "20261112T160744Z",
+  "campaign": 274,
+  "analysis": "parameter_perturbation_sensitivity",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_SECOND_PEARSON_SKEW_SHOCK_MR",
+  "source_c274_oos": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_second_pearson_skew_shock_mr_costed_oos_20261112T061632Z.json",
+  "source_c274_oos_sha256": "57b86c398b4ae041c0ada5c77f6cf3ba3b235a9f12d891921f84a7e41f580669",
+  "baseline_cross_asset_oos_net_sums": {
+    "fee0_slip0": 0.0,
+    "fee10_slip10": 0.0,
+    "fee20_slip20": 0.0,
+    "fee40_slip40": 0.0,
+    "fee5_slip5": 0.0
+  },
+  "grid_spec": {
+    "W_RR": [
+      144,
+      168,
+      192
+    ],
+    "ENTRY_Z": [
+      1.25,
+      1.5,
+      1.75
+    ],
+    "EXIT_Z": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "constraint": "EXIT_Z < ENTRY_Z",
+    "fixed": {
+      "ALB": 336,
+      "m": 2,
+      "tau": 1,
+      "eps_scale": 0.5,
+      "w_min": 2,
+      "MAX_HOLD": 24,
+      "TRAIN": 720,
+      "TEST": 168,
+      "STEP": 168,
+      "cost_grid_bps": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          40,
+          40
+        ]
+      ]
+    },
+    "rationale": "Bounded local perturbations around C274 baseline to assess edge stability over window length and z-thresholds on identical real cached data/WF/cost framework; ALB fixed at 336."
+  },
+  "total_combos": 27,
+  "edge_positive_combos": 0,
+  "edge_positive_share": 0.0,
+  "combos_all_cost_slices_positive": 0,
+  "baseline_reproduced_in_grid": true,
+  "baseline_grid_result": {
+    "params": {
+      "W_RR": 168,
+      "ENTRY_Z": 1.5,
+      "EXIT_Z": 0.5
+    },
+    "is_baseline": true,
+    "cross_asset_oos_net_sums": {
+      "fee0_slip0": 0.0,
+      "fee5_slip5": 0.0,
+      "fee10_slip10": 0.0,
+      "fee20_slip20": 0.0,
+      "fee40_slip40": 0.0
+    },
+    "oos_edge_proven": false,
+    "any_exposure_oos": false,
+    "all_cost_slices_positive_oos_net_sum": false,
+    "all_cost_slices_beat_bh_mean_rule": false,
+    "ok_assets": 11,
+    "baseline_diff_vs_saved_oos": {
+      "fee0_slip0": 0.0,
+      "fee5_slip5": 0.0,
+      "fee10_slip10": 0.0,
+      "fee20_slip20": 0.0,
+      "fee40_slip40": 0.0
+    },
+    "baseline_matches_saved_oos": true,
+    "per_asset": {
+      "ADA": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": -3.2090196863429203e-05
+      },
+      "AVAX": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 1.1386346440221631e-05
+      },
+      "BNB": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 3.575366556357674e-05
+      },
+      "BTC": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 1.1373617113656398e-05
+      },
+      "DOT": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": -4.820982877044611e-05
+      },
+      "ETH": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 1.216043299127387e-05
+      },
+      "LINK": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 5.827452304104739e-05
+      },
+      "LTC": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 8.631475392426641e-06
+      },
+      "POL": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 8.338762348937582e-06
+      },
+      "SOL": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": 4.9827141425313046e-05
+      },
+      "XRP": {
+        "cross_asset_oos_net_sums": {
+          "fee0_slip0": 0.0,
+          "fee5_slip5": 0.0,
+          "fee10_slip10": 0.0,
+          "fee20_slip20": 0.0,
+          "fee40_slip40": 0.0
+        },
+        "any_exposure": false,
+        "strat_mean_oos": 0.0,
+        "bh_mean_oos": -4.1354192354215664e-06
+      }
+    }
+  },
+  "sensitivity_assessment": "fragile_to_params",
+  "failing_combos_count": 27,
+  "failing_combos_summary": [
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.2925187310869827,
+        "fee5_slip5": -0.04748126891301763,
+        "fee10_slip10": -0.3874812689130178,
+        "fee20_slip20": -1.0674812689130178,
+        "fee40_slip40": -2.4274812689130174
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.2925187310869827,
+        "fee5_slip5": -0.04748126891301763,
+        "fee10_slip10": -0.3874812689130178,
+        "fee20_slip20": -1.0674812689130178,
+        "fee40_slip40": -2.4274812689130174
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.18759572771780542,
+        "fee5_slip5": -0.15140427228219488,
+        "fee10_slip10": -0.49040427228219513,
+        "fee20_slip20": -1.1684042722821952,
+        "fee40_slip40": -2.5244042722821947
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.15925562307423768,
+        "fee5_slip5": -0.2682556230742378,
+        "fee10_slip10": -0.37725562307423777,
+        "fee20_slip20": -0.5952556230742377,
+        "fee40_slip40": -1.0312556230742378
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.15925562307423768,
+        "fee5_slip5": -0.2682556230742378,
+        "fee10_slip10": -0.37725562307423777,
+        "fee20_slip20": -0.5952556230742377,
+        "fee40_slip40": -1.0312556230742378
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.08528524533596027,
+        "fee5_slip5": -0.19528524533596034,
+        "fee10_slip10": -0.3052852453359603,
+        "fee20_slip20": -0.5252852453359603,
+        "fee40_slip40": -0.9652852453359604
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0486397834707436,
+        "fee5_slip5": -0.011360216529256449,
+        "fee10_slip10": -0.07136021652925645,
+        "fee20_slip20": -0.19136021652925644,
+        "fee40_slip40": -0.43136021652925643
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0486397834707436,
+        "fee5_slip5": -0.011360216529256449,
+        "fee10_slip10": -0.07136021652925645,
+        "fee20_slip20": -0.19136021652925644,
+        "fee40_slip40": -0.43136021652925643
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.032416860950665316,
+        "fee5_slip5": -0.027583139049334727,
+        "fee10_slip10": -0.08758313904933474,
+        "fee20_slip20": -0.20758313904933473,
+        "fee40_slip40": -0.4475831390493347
+      },
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false
+    }
+  ],
+  "grid_results": [
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.2925187310869827,
+        "fee5_slip5": -0.04748126891301763,
+        "fee10_slip10": -0.3874812689130178,
+        "fee20_slip20": -1.0674812689130178,
+        "fee40_slip40": -2.4274812689130174
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.11732442815292188,
+            "fee5_slip5": 0.09832442815292186,
+            "fee10_slip10": 0.07932442815292186,
+            "fee20_slip20": 0.04132442815292184,
+            "fee40_slip40": -0.034675571847078125
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.615750071672963e-06,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3372351172537683,
+            "fee5_slip5": -0.37523511725376835,
+            "fee10_slip10": -0.4132351172537684,
+            "fee20_slip20": -0.4892351172537684,
+            "fee40_slip40": -0.6412351172537684
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.9566174540532843e-05,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.0837358339651264,
+            "fee5_slip5": -0.09573583396512642,
+            "fee10_slip10": -0.10773583396512641,
+            "fee20_slip20": -0.13173583396512642,
+            "fee40_slip40": -0.17973583396512643
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -5.191910240444298e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.012936113616084599,
+            "fee5_slip5": -0.03493611361608461,
+            "fee10_slip10": -0.05693611361608461,
+            "fee20_slip20": -0.1009361136160846,
+            "fee40_slip40": -0.18893611361608464
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.422778320010606e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3864428364616198,
+            "fee5_slip5": -0.44544283646161986,
+            "fee10_slip10": -0.5044428364616199,
+            "fee20_slip20": -0.6224428364616199,
+            "fee40_slip40": -0.85844283646162
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.4431655383818396e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.07594899804721267,
+            "fee5_slip5": -0.13494899804721272,
+            "fee10_slip10": -0.1939489980472127,
+            "fee20_slip20": -0.3119489980472127,
+            "fee40_slip40": -0.5479489980472128
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.0968216028410922e-05,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.07301908323677675,
+            "fee5_slip5": 0.06901908323677675,
+            "fee10_slip10": 0.06501908323677674,
+            "fee20_slip20": 0.05701908323677675,
+            "fee40_slip40": 0.04101908323677675
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.645871270348484e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.44440006184946834,
+            "fee5_slip5": 0.4234000618494683,
+            "fee10_slip10": 0.4024000618494683,
+            "fee20_slip20": 0.3604000618494683,
+            "fee40_slip40": 0.2764000618494683
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.6538030606602566e-05,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.2675491772622196,
+            "fee5_slip5": 0.2575491772622196,
+            "fee10_slip10": 0.2475491772622196,
+            "fee20_slip20": 0.2275491772622196,
+            "fee40_slip40": 0.1875491772622196
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.0300458644619704e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.1332615565968952,
+            "fee5_slip5": 0.08326155659689516,
+            "fee10_slip10": 0.03326155659689517,
+            "fee20_slip20": -0.06673844340310482,
+            "fee40_slip40": -0.2667384434031048
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -7.258018993627962e-07,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.1532633233325127,
+            "fee5_slip5": 0.10726332333251265,
+            "fee10_slip10": 0.061263323332512665,
+            "fee20_slip20": -0.030736676667487313,
+            "fee40_slip40": -0.2147366766674873
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 6.618386667467125e-07,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.2925187310869827,
+        "fee5_slip5": -0.04748126891301763,
+        "fee10_slip10": -0.3874812689130178,
+        "fee20_slip20": -1.0674812689130178,
+        "fee40_slip40": -2.4274812689130174
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.11732442815292188,
+            "fee5_slip5": 0.09832442815292186,
+            "fee10_slip10": 0.07932442815292186,
+            "fee20_slip20": 0.04132442815292184,
+            "fee40_slip40": -0.034675571847078125
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.615750071672963e-06,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3372351172537683,
+            "fee5_slip5": -0.37523511725376835,
+            "fee10_slip10": -0.4132351172537684,
+            "fee20_slip20": -0.4892351172537684,
+            "fee40_slip40": -0.6412351172537684
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.9566174540532843e-05,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.0837358339651264,
+            "fee5_slip5": -0.09573583396512642,
+            "fee10_slip10": -0.10773583396512641,
+            "fee20_slip20": -0.13173583396512642,
+            "fee40_slip40": -0.17973583396512643
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -5.191910240444298e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.012936113616084599,
+            "fee5_slip5": -0.03493611361608461,
+            "fee10_slip10": -0.05693611361608461,
+            "fee20_slip20": -0.1009361136160846,
+            "fee40_slip40": -0.18893611361608464
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.422778320010606e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3864428364616198,
+            "fee5_slip5": -0.44544283646161986,
+            "fee10_slip10": -0.5044428364616199,
+            "fee20_slip20": -0.6224428364616199,
+            "fee40_slip40": -0.85844283646162
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.4431655383818396e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.07594899804721267,
+            "fee5_slip5": -0.13494899804721272,
+            "fee10_slip10": -0.1939489980472127,
+            "fee20_slip20": -0.3119489980472127,
+            "fee40_slip40": -0.5479489980472128
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.0968216028410922e-05,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.07301908323677675,
+            "fee5_slip5": 0.06901908323677675,
+            "fee10_slip10": 0.06501908323677674,
+            "fee20_slip20": 0.05701908323677675,
+            "fee40_slip40": 0.04101908323677675
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.645871270348484e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.44440006184946834,
+            "fee5_slip5": 0.4234000618494683,
+            "fee10_slip10": 0.4024000618494683,
+            "fee20_slip20": 0.3604000618494683,
+            "fee40_slip40": 0.2764000618494683
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.6538030606602566e-05,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.2675491772622196,
+            "fee5_slip5": 0.2575491772622196,
+            "fee10_slip10": 0.2475491772622196,
+            "fee20_slip20": 0.2275491772622196,
+            "fee40_slip40": 0.1875491772622196
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.0300458644619704e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.1332615565968952,
+            "fee5_slip5": 0.08326155659689516,
+            "fee10_slip10": 0.03326155659689517,
+            "fee20_slip20": -0.06673844340310482,
+            "fee40_slip40": -0.2667384434031048
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -7.258018993627962e-07,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.1532633233325127,
+            "fee5_slip5": 0.10726332333251265,
+            "fee10_slip10": 0.061263323332512665,
+            "fee20_slip20": -0.030736676667487313,
+            "fee40_slip40": -0.2147366766674873
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 6.618386667467125e-07,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.18759572771780542,
+        "fee5_slip5": -0.15140427228219488,
+        "fee10_slip10": -0.49040427228219513,
+        "fee20_slip20": -1.1684042722821952,
+        "fee40_slip40": -2.5244042722821947
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.11732442815292188,
+            "fee5_slip5": 0.09832442815292186,
+            "fee10_slip10": 0.07932442815292186,
+            "fee20_slip20": 0.04132442815292184,
+            "fee40_slip40": -0.034675571847078125
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.615750071672963e-06,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3892855354275696,
+            "fee5_slip5": -0.42728553542756964,
+            "fee10_slip10": -0.4652855354275697,
+            "fee20_slip20": -0.5412855354275696,
+            "fee40_slip40": -0.6932855354275697
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.182315217360028e-05,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.0837358339651264,
+            "fee5_slip5": -0.09573583396512642,
+            "fee10_slip10": -0.10773583396512641,
+            "fee20_slip20": -0.13173583396512642,
+            "fee40_slip40": -0.17973583396512643
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -5.191910240444298e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.012936113616084599,
+            "fee5_slip5": -0.03493611361608461,
+            "fee10_slip10": -0.05693611361608461,
+            "fee20_slip20": -0.1009361136160846,
+            "fee40_slip40": -0.18893611361608464
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.422778320010606e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.32637916006051393,
+            "fee5_slip5": -0.385379160060514,
+            "fee10_slip10": -0.44437916006051403,
+            "fee20_slip20": -0.5623791600605141,
+            "fee40_slip40": -0.798379160060514
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.1827211866295808e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.09223150153826332,
+            "fee5_slip5": -0.15023150153826337,
+            "fee10_slip10": -0.20823150153826334,
+            "fee20_slip20": -0.32423150153826336,
+            "fee40_slip40": -0.5562315015382634
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.1544163625802762e-05,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.07301908323677675,
+            "fee5_slip5": 0.06901908323677675,
+            "fee10_slip10": 0.06501908323677674,
+            "fee20_slip20": 0.05701908323677675,
+            "fee40_slip40": 0.04101908323677675
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.645871270348484e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.44440006184946834,
+            "fee5_slip5": 0.4234000618494683,
+            "fee10_slip10": 0.4024000618494683,
+            "fee20_slip20": 0.3604000618494683,
+            "fee40_slip40": 0.2764000618494683
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.6538030606602566e-05,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.2675491772622196,
+            "fee5_slip5": 0.2575491772622196,
+            "fee10_slip10": 0.2475491772622196,
+            "fee20_slip20": 0.2275491772622196,
+            "fee40_slip40": 0.1875491772622196
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.0300458644619704e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.027823622095120903,
+            "fee5_slip5": -0.02217637790487914,
+            "fee10_slip10": -0.07217637790487917,
+            "fee20_slip20": -0.17217637790487916,
+            "fee40_slip40": -0.37217637790487923
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -5.297735578218677e-06,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.1620474997288558,
+            "fee5_slip5": 0.11604749972885575,
+            "fee10_slip10": 0.07004749972885577,
+            "fee20_slip20": -0.02195250027114421,
+            "fee40_slip40": -0.2059525002711442
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.0427326220126523e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 144,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.15925562307423768,
+        "fee5_slip5": -0.2682556230742378,
+        "fee10_slip10": -0.37725562307423777,
+        "fee20_slip20": -0.5952556230742377,
+        "fee40_slip40": -1.0312556230742378
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.058541605214862735,
+            "fee5_slip5": -0.06854160521486274,
+            "fee10_slip10": -0.07854160521486274,
+            "fee20_slip20": -0.09854160521486274,
+            "fee40_slip40": -0.13854160521486275
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.839285630685229e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.03004278328020904,
+            "fee5_slip5": -0.03804278328020904,
+            "fee10_slip10": -0.04604278328020904,
+            "fee20_slip20": -0.06204278328020904,
+            "fee40_slip40": -0.09404278328020904
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.3433693209699526e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.12252447281430079,
+            "fee5_slip5": 0.07352447281430075,
+            "fee10_slip10": 0.024524472814300778,
+            "fee20_slip20": -0.0734755271856992,
+            "fee40_slip40": -0.2694755271856992
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.0612924805177012e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.06046035027052199,
+            "fee5_slip5": -0.070460350270522,
+            "fee10_slip10": -0.080460350270522,
+            "fee20_slip20": -0.100460350270522,
+            "fee40_slip40": -0.140460350270522
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.9224850520562825e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.08361047186222881,
+            "fee5_slip5": -0.10361047186222883,
+            "fee10_slip10": -0.12361047186222882,
+            "fee20_slip20": -0.16361047186222882,
+            "fee40_slip40": -0.24361047186222884
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -6.227147335973845e-06,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.008871873863670388,
+            "fee5_slip5": 0.0068718738636703875,
+            "fee10_slip10": 0.0048718738636703875,
+            "fee20_slip20": 0.0008718738636703874,
+            "fee40_slip40": -0.007128126136329613
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.245283957883266e-07,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.05799675912438629,
+            "fee5_slip5": -0.0679967591243863,
+            "fee10_slip10": -0.07799675912438629,
+            "fee20_slip20": -0.0979967591243863,
+            "fee40_slip40": -0.1379967591243863
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.815660355753459e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.15925562307423768,
+        "fee5_slip5": -0.2682556230742378,
+        "fee10_slip10": -0.37725562307423777,
+        "fee20_slip20": -0.5952556230742377,
+        "fee40_slip40": -1.0312556230742378
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.058541605214862735,
+            "fee5_slip5": -0.06854160521486274,
+            "fee10_slip10": -0.07854160521486274,
+            "fee20_slip20": -0.09854160521486274,
+            "fee40_slip40": -0.13854160521486275
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.839285630685229e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.03004278328020904,
+            "fee5_slip5": -0.03804278328020904,
+            "fee10_slip10": -0.04604278328020904,
+            "fee20_slip20": -0.06204278328020904,
+            "fee40_slip40": -0.09404278328020904
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.3433693209699526e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.12252447281430079,
+            "fee5_slip5": 0.07352447281430075,
+            "fee10_slip10": 0.024524472814300778,
+            "fee20_slip20": -0.0734755271856992,
+            "fee40_slip40": -0.2694755271856992
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.0612924805177012e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.06046035027052199,
+            "fee5_slip5": -0.070460350270522,
+            "fee10_slip10": -0.080460350270522,
+            "fee20_slip20": -0.100460350270522,
+            "fee40_slip40": -0.140460350270522
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.9224850520562825e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.08361047186222881,
+            "fee5_slip5": -0.10361047186222883,
+            "fee10_slip10": -0.12361047186222882,
+            "fee20_slip20": -0.16361047186222882,
+            "fee40_slip40": -0.24361047186222884
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -6.227147335973845e-06,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.008871873863670388,
+            "fee5_slip5": 0.0068718738636703875,
+            "fee10_slip10": 0.0048718738636703875,
+            "fee20_slip20": 0.0008718738636703874,
+            "fee40_slip40": -0.007128126136329613
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.245283957883266e-07,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.05799675912438629,
+            "fee5_slip5": -0.0679967591243863,
+            "fee10_slip10": -0.07799675912438629,
+            "fee20_slip20": -0.0979967591243863,
+            "fee40_slip40": -0.1379967591243863
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.815660355753459e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": -0.08528524533596027,
+        "fee5_slip5": -0.19528524533596034,
+        "fee10_slip10": -0.3052852453359603,
+        "fee20_slip20": -0.5252852453359603,
+        "fee40_slip40": -0.9652852453359604
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.058541605214862735,
+            "fee5_slip5": -0.06854160521486274,
+            "fee10_slip10": -0.07854160521486274,
+            "fee20_slip20": -0.09854160521486274,
+            "fee40_slip40": -0.13854160521486275
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.839285630685229e-06,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.03004278328020904,
+            "fee5_slip5": -0.03804278328020904,
+            "fee10_slip10": -0.04604278328020904,
+            "fee20_slip20": -0.06204278328020904,
+            "fee40_slip40": -0.09404278328020904
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -2.3433693209699526e-06,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.10535858200132509,
+            "fee5_slip5": 0.05535858200132505,
+            "fee10_slip10": 0.0053585820013250796,
+            "fee20_slip20": -0.09464141799867491,
+            "fee40_slip40": -0.29464141799867494
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.935713207816969e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.06046035027052199,
+            "fee5_slip5": -0.070460350270522,
+            "fee10_slip10": -0.080460350270522,
+            "fee20_slip20": -0.100460350270522,
+            "fee40_slip40": -0.140460350270522
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.9224850520562825e-06,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.01992186159578191,
+            "fee5_slip5": -7.813840421809493e-05,
+            "fee10_slip10": -0.020078138404218092,
+            "fee20_slip20": -0.06007813840421809,
+            "fee40_slip40": -0.1400781384042181
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.7378431360774473e-06,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.0035241910430872103,
+            "fee5_slip5": -0.00552419104308721,
+            "fee10_slip10": -0.00752419104308721,
+            "fee20_slip20": -0.01152419104308721,
+            "fee40_slip40": -0.01952419104308721
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -4.1298200689823996e-07,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.05799675912438629,
+            "fee5_slip5": -0.0679967591243863,
+            "fee10_slip10": -0.07799675912438629,
+            "fee20_slip20": -0.0979967591243863,
+            "fee40_slip40": -0.1379967591243863
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.815660355753459e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": true,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "baseline_matches_saved_oos": true,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 168,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0486397834707436,
+        "fee5_slip5": -0.011360216529256449,
+        "fee10_slip10": -0.07136021652925645,
+        "fee20_slip20": -0.19136021652925644,
+        "fee40_slip40": -0.43136021652925643
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3815141441464992,
+            "fee5_slip5": -0.3915141441464992,
+            "fee10_slip10": -0.4015141441464992,
+            "fee20_slip20": -0.42151414414649924,
+            "fee40_slip40": -0.4615141441464992
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.7843818582364895e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.08168014366820187,
+            "fee5_slip5": 0.07168014366820186,
+            "fee10_slip10": 0.06168014366820186,
+            "fee20_slip20": 0.041680143668201865,
+            "fee40_slip40": 0.001680143668201864
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.2409220218628853e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.33285149522793656,
+            "fee5_slip5": 0.32285149522793655,
+            "fee10_slip10": 0.31285149522793654,
+            "fee20_slip20": 0.2928514952279365,
+            "fee40_slip40": 0.25285149522793654
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.3132056856644547e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.015622288721104383,
+            "fee5_slip5": -0.014377711278895642,
+            "fee10_slip10": -0.04437771127889562,
+            "fee20_slip20": -0.10437771127889561,
+            "fee40_slip40": -0.2243777112788956
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.2251197328460507e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0486397834707436,
+        "fee5_slip5": -0.011360216529256449,
+        "fee10_slip10": -0.07136021652925645,
+        "fee20_slip20": -0.19136021652925644,
+        "fee40_slip40": -0.43136021652925643
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3815141441464992,
+            "fee5_slip5": -0.3915141441464992,
+            "fee10_slip10": -0.4015141441464992,
+            "fee20_slip20": -0.42151414414649924,
+            "fee40_slip40": -0.4615141441464992
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.7843818582364895e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.08168014366820187,
+            "fee5_slip5": 0.07168014366820186,
+            "fee10_slip10": 0.06168014366820186,
+            "fee20_slip20": 0.041680143668201865,
+            "fee40_slip40": 0.001680143668201864
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.2409220218628853e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.33285149522793656,
+            "fee5_slip5": 0.32285149522793655,
+            "fee10_slip10": 0.31285149522793654,
+            "fee20_slip20": 0.2928514952279365,
+            "fee40_slip40": 0.25285149522793654
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.3132056856644547e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.015622288721104383,
+            "fee5_slip5": -0.014377711278895642,
+            "fee10_slip10": -0.04437771127889562,
+            "fee20_slip20": -0.10437771127889561,
+            "fee40_slip40": -0.2243777112788956
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.2251197328460507e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.25,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.032416860950665316,
+        "fee5_slip5": -0.027583139049334727,
+        "fee10_slip10": -0.08758313904933474,
+        "fee20_slip20": -0.20758313904933473,
+        "fee40_slip40": -0.4475831390493347
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": true,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.3815141441464992,
+            "fee5_slip5": -0.3915141441464992,
+            "fee10_slip10": -0.4015141441464992,
+            "fee20_slip20": -0.42151414414649924,
+            "fee40_slip40": -0.4615141441464992
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -1.7843818582364895e-05,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.08168014366820187,
+            "fee5_slip5": 0.07168014366820186,
+            "fee10_slip10": 0.06168014366820186,
+            "fee20_slip20": 0.041680143668201865,
+            "fee40_slip40": 0.001680143668201864
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 2.2409220218628853e-06,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.33285149522793656,
+            "fee5_slip5": 0.32285149522793655,
+            "fee10_slip10": 0.31285149522793654,
+            "fee20_slip20": 0.2928514952279365,
+            "fee40_slip40": 0.25285149522793654
+          },
+          "any_exposure": true,
+          "strat_mean_oos": 1.3132056856644547e-05,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": -0.0006006337989739041,
+            "fee5_slip5": -0.03060063379897392,
+            "fee10_slip10": -0.06060063379897391,
+            "fee20_slip20": -0.1206006337989739,
+            "fee40_slip40": -0.2406006337989739
+          },
+          "any_exposure": true,
+          "strat_mean_oos": -3.928567938555802e-06,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.5,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.25
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.5
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    },
+    {
+      "params": {
+        "W_RR": 192,
+        "ENTRY_Z": 1.75,
+        "EXIT_Z": 0.75
+      },
+      "is_baseline": false,
+      "cross_asset_oos_net_sums": {
+        "fee0_slip0": 0.0,
+        "fee5_slip5": 0.0,
+        "fee10_slip10": 0.0,
+        "fee20_slip20": 0.0,
+        "fee40_slip40": 0.0
+      },
+      "oos_edge_proven": false,
+      "any_exposure_oos": false,
+      "all_cost_slices_positive_oos_net_sum": false,
+      "all_cost_slices_beat_bh_mean_rule": false,
+      "ok_assets": 11,
+      "baseline_diff_vs_saved_oos": null,
+      "baseline_matches_saved_oos": null,
+      "per_asset": {
+        "ADA": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -3.2090196863429203e-05
+        },
+        "AVAX": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1386346440221631e-05
+        },
+        "BNB": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 3.575366556357674e-05
+        },
+        "BTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.1373617113656398e-05
+        },
+        "DOT": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.820982877044611e-05
+        },
+        "ETH": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 1.216043299127387e-05
+        },
+        "LINK": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 5.827452304104739e-05
+        },
+        "LTC": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.631475392426641e-06
+        },
+        "POL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 8.338762348937582e-06
+        },
+        "SOL": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": 4.9827141425313046e-05
+        },
+        "XRP": {
+          "cross_asset_oos_net_sums": {
+            "fee0_slip0": 0.0,
+            "fee5_slip5": 0.0,
+            "fee10_slip10": 0.0,
+            "fee20_slip20": 0.0,
+            "fee40_slip40": 0.0
+          },
+          "any_exposure": false,
+          "strat_mean_oos": 0.0,
+          "bh_mean_oos": -4.1354192354215664e-06
+        }
+      }
+    }
+  ],
+  "volume_validation": {
+    "ok": true,
+    "refused": false,
+    "family": "real_quote_volume",
+    "meta_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.meta.json",
+    "fail_closed": true,
+    "real_data_only_required": true,
+    "fabricated_data_allowed": false,
+    "notes_limits_gaps": "",
+    "provenance_source": "<dict>",
+    "provenance_merged": true,
+    "sha256_pkl_actual": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "sha256_pkl_expected": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "multi_symbol_long_frame": {
+      "group_col": "symbol",
+      "n_groups": 16,
+      "global_duplicate_timestamps": 76680,
+      "within_group_duplicates": 0,
+      "checked": "per_symbol_monotonic_unique"
+    },
+    "reason": "passed_all_fail_closed_checks",
+    "pkl_path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/volume_1h_full.pkl",
+    "rows": 81792,
+    "columns": [
+      "timestamp_utc",
+      "symbol",
+      "quote_volume_usdt"
+    ],
+    "family_spec": "real_quote_volume"
+  },
+  "provenance": {
+    "real_data_only": true,
+    "network_refetch": false,
+    "synthetic_data": false,
+    "caches": {
+      "spot": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+      "spot_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b"
+    }
+  }
+}
