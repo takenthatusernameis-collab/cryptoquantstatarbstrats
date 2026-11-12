@@ -1,0 +1,19 @@
+{
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "any_exposure_oos": true,
+  "campaign": 275,
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -0.48331027543955307,
+    "fee10_slip10": -0.48331027543955307,
+    "fee20_slip20": -0.48331027543955307,
+    "fee40_slip40": -0.48331027543955307,
+    "fee5_slip5": -0.48331027543955307
+  },
+  "edge_claim": "NONE",
+  "generated_at_utc": "20261112T140800Z",
+  "oos_artifact": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_medcouple_shock_mr_costed_oos_20261112T140800Z.json",
+  "oos_edge_proven": false,
+  "oos_sha256": "001cc43f94d660abe08be2d67947bf23324250ff5f85ba432f336205214b367d",
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDCOUPLE_SHOCK_MR"
+}
