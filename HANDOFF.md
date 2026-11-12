@@ -1,16 +1,16 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T08:11:01Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+## INITIAL TASK MESSAGE — 2026-11-12T08:33:00Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
-**Repo-prioritized focus (verified 2026-11-12T08:11:01Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. C273 is complete and `promotion_readiness: READY_FOR_REVIEW` (evidence preserved, unchanged). C274 corrected run is executed and verified as **NO EDGE** on real cached data; end-to-end artifacts (OOS/ingest/registry/summary/verify/split-decomp) are complete. **C274 param sensitivity is NOT complete: the background process (bgp_1cece02f0001TEgltXy872dLn4, started ~08:02Z) is NOT running and no `reports/campaign274_param_sensitivity_*.json` artifact exists — this is the open bottleneck.** Next session must **rerun C274 param sensitivity to completion** (`python3 scripts/run_c274_second_pearson_skew_param_sensitivity.py`, bounded foreground run on `data/cache/`), confirm `reports/campaign274_param_sensitivity_*.json` exists, compute SHA256-from-bytes, record path+SHA256 in this HANDOFF, then immediately **identify/prepare/execute C275 end-to-end**. No status-only work.
+**Repo-prioritized focus (verified 2026-11-12T08:33:00Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. C273 is complete and `promotion_readiness: READY_FOR_REVIEW` (evidence preserved, unchanged). C274 corrected run is executed and verified as **NO EDGE** on real cached data; end-to-end artifacts (OOS/ingest/registry/summary/verify/split-decomp) are complete. **C274 param sensitivity is RUNNING in background** (bgp_1ceddf986001wEsLUwWQcBBYvI, started ~08:26Z, PID 25433, 100% CPU, ~4+ min elapsed) on `data/cache/` only. **Next session must: (1) confirm `reports/campaign274_param_sensitivity_*.json` artifact exists; (2) compute SHA256-from-bytes; (3) record path+SHA256 in this HANDOFF; (4) immediately identify/prepare/execute C275 end-to-end.** No status-only work. If artifact not yet present, wait for background process or re-run `python3 scripts/run_c274_second_pearson_skew_param_sensitivity.py` foreground.
 
-**Bottleneck audit (2026-11-12T08:11:01Z UTC): blockers removed/unblocked for heavy progress.**
+**Bottleneck audit (2026-11-12T08:33:00Z UTC): blockers removed/unblocked for heavy progress.**
 - `HANDOFF.md` is the single durable root handoff (this file).
 - Deps: `python3` 3.12.3, `numpy` 2.5.4, `pandas` 3.1.1, `scipy` 1.18.1, `pydantic` 2.14.3, `aiohttp` 3.14.5.
 - `data/cache/` = 68 real files; **no refetch**, no network needed.
 - C273 promotion evidence preserved/unchanged (`READY_FOR_REVIEW`) — do not undo/modify.
 - C274 corrected core artifacts emitted (061632Z run) and verification + split decomposition complete. C274 **did not prove edge** (`edge_claim:NONE`, `oos_edge_proven:false`, `any_exposure_oos:false`, all OOS nets 0). Superseded buggy 055039Z artifacts must not be cited.
-- **Removed blocker / open item:** C274 param sensitivity background process is dead and produced NO artifact (`reports/campaign274_param_sensitivity_*.json` absent). Rerun the script in the foreground; it reads only cached real data and writes the artifact deterministically.
+- **Active blocker / open item:** C274 param sensitivity **background process RUNNING** (bgp_1ceddf986001wEsLUwWQcBBYvI, PID 25433, ~08:26Z start, 100% CPU) — **no artifact yet** (`reports/campaign274_param_sensitivity_*.json` absent). Next session must confirm artifact completion, compute SHA256, record here.
 - C275 is **pre-staged below** with grep-zero distinctness verified 2026-11-12T08:03Z (must re-verify at run) so next session cannot avoid heavy implementation/execution.
 - Test suite: 1082 passed, 4 failed (campaign13 cache schema issues — known, non-blocking), 2 skipped.
 
@@ -29,8 +29,8 @@
   - Verification: `reports/campaign274_verification_20261112T062244Z.json` — sha256 `1cff4cf55dddc058556e61dc6ab12186ceea6febe17a094cfe5082ef68e76826` (`verification_passed:true, internal_consistency_passed:true, edge_rule_satisfied:false`)
   - Split decomposition: `reports/campaign274_split_decomposition_20261112T062431Z.json` — sha256 `61b3d6e7a16d35f6536d924b1ab693223f458433b05c196e2b23b4d79d73ea9e`
   - Split script: `scripts/run_c274_second_pearson_skew_split_decomposition.py` — sha256 `8f93642db396a499cda88e2c0645ad5def3d46bbb28a215e5c279bf615c135ce`
-  - Param sensitivity script (prepared, **process dead — rerun**): `scripts/run_c274_second_pearson_skew_param_sensitivity.py` — sha256 `75d7d6d12a341af7597d630e3b75bda3405f84a2dc3a33ddd063f110e827da3a`
-  - **Param sensitivity artifact:** `reports/campaign274_param_sensitivity_*.json` — **MISSING (background process dead, no artifact)**; rerun script, confirm artifact exists, record path+SHA256-from-bytes.
+  - Param sensitivity script (prepared, **background RUNNING**): `scripts/run_c274_second_pearson_skew_param_sensitivity.py` — sha256 `75d7d6d12a341af7597d630e3b75bda3405f84a2dc3a33ddd063f110e827da3a`
+  - **Param sensitivity artifact:** `reports/campaign274_param_sensitivity_*.json` — **RUNNING (bgp_1ceddf986001wEsLUwWQcBBYvI, PID 25433, ~08:26Z start, 100% CPU, ~4+ min elapsed)**; next session must confirm artifact exists, compute SHA256-from-bytes, record path+SHA256 here.
 - **Superseded/invalid (do not cite):** 055039Z OOS/ingest/registry/summary (`bad_window_len`/zero-exposure bug artifacts).
 
 ### C275 — PRE-STAGED NEXT CAMPAIGN (MUST PREPARE AND EXECUTE IMMEDIATELY AFTER C274 SENSITIVITY CLOSES)
@@ -44,16 +44,16 @@
 - **Rules:** same edge rule, real data only, no threshold weakening, no reruns of C1–C274 except evidence-backed defect fix, no network refetch.
 
 **IMMEDIATE MANDATORY HEAVY WORK (non-optional, in order):**
-1. **Close C274 sensitivity:** rerun `python3 scripts/run_c274_second_pearson_skew_param_sensitivity.py` (foreground; cached real data only); confirm `reports/campaign274_param_sensitivity_*.json` exists; compute SHA256-from-bytes and record path+SHA256 in this HANDOFF (and summary notes as appropriate). No promotion package (edge not proven).
+1. **Close C274 sensitivity:** background process **already running** (bgp_1ceddf986001wEsLUwWQcBBYvI, PID 25433, ~08:26Z). **Wait for/confirm** `reports/campaign274_param_sensitivity_*.json` exists; if not yet, wait or re-run foreground. Compute SHA256-from-bytes, record path+SHA256 in this HANDOFF. No promotion package (edge not proven).
 2. **Implement C275 (MEDCOUPLE, grep-zero re-verified):** write deterministic OOS/verify/split-decomp/param-sensitivity scripts with pre-stated feature/params/fail-closed logic and recorded distinctness grep.
 3. **Execute C275 end-to-end on cached real data:** OOS → ingest/registry/summary → verification → split decomposition → param sensitivity; emit all artifacts with SHA256-from-bytes. Evaluate edge rule honestly.
 4. **If C275 no edge:** document failing condition, identify+prepare grep-zero C276 and begin execution. If edge proven: produce promotion evidence package with full provenance.
 
-## STATE SNAPSHOT (2026-11-12T08:11:01Z UTC)
+## STATE SNAPSHOT (2026-11-12T08:33:00Z UTC)
 - **C1–C15, C249–C272:** complete, `oos_edge_proven: false`.
 - **C273:** `CONDITIONAL_EDGE_PROVEN` / verified / replication-matched / split-decomposed / param-sensitivity `robust_neighborhood` (21/27). Promotion package `READY_FOR_REVIEW`.
   - JSON sha256 `b02ca846eebcdc1253c45b0686e28bef787714b9373e8e0c5118322b3ffe8fad`; MD sha256 `d03eab43502bd8c53845e692d981cb9d020c1f728bcb3afb21b7bb5453ba72b3`; builder sha256 `48ed28d0fc808092188939c44e04d3112ed489215b1b40be0e49d3552715ec33`.
-- **C274:** `edge_claim:NONE`, `oos_edge_proven:false`, `any_exposure_oos:false`, nets all zero (061632Z corrected artifacts, verified & split-decomposed). **Param sensitivity NOT complete** — background process dead, artifact missing; must rerun `scripts/run_c274_second_pearson_skew_param_sensitivity.py` and record artifact path+SHA256.
+- **C274:** `edge_claim:NONE`, `oos_edge_proven:false`, `any_exposure_oos:false`, nets all zero (061632Z corrected artifacts, verified & split-decomposed). **Param sensitivity RUNNING** (bgp_1ceddf986001wEsLUwWQcBBYvI, PID 25433, ~08:26Z) — artifact pending; next session must confirm completion, compute SHA256, record here.
 - **C275:** pre-staged as `VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_MEDCOUPLE_SHOCK_MR` (grep-zero 08:03Z, must re-verify) — to be implemented and executed end-to-end next.
 - **Environment:** python3 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, pydantic 2.14.3, aiohttp 3.14.5. Caches: `data/cache/` 68 real files.
 - **state.yaml:** stale at C248, locked — do not edit unless explicitly requested.
@@ -68,6 +68,6 @@
 ## HISTORICAL RECORD (condensed)
 - **C249–C272:** all `edge_claim: NONE`, `oos_edge_proven: false`.
 - **C273:** conditional proven edge (PERCENTILE_SPREAD), verified, replication-matched, split-decomposed, param sensitivity robust_neighborhood (21/27); promotion package READY_FOR_REVIEW.
-- **C274:** SECOND_PEARSON_SKEW identified/prepared (grep-zero), corrected run executed & verified; 055039Z buggy artifacts superseded. Param sensitivity process dead, artifact missing — rerun `scripts/run_c274_second_pearson_skew_param_sensitivity.py`.
+- **C274:** SECOND_PEARSON_SKEW identified/prepared (grep-zero), corrected run executed & verified; 055039Z buggy artifacts superseded. **Param sensitivity RUNNING** (bgp_1ceddf986001wEsLUwWQcBBYvI, ~08:26Z) — artifact pending; next session must confirm completion.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T08:11:01Z UTC (immediate mandatory heavy work = rerun C274 param sensitivity + record SHA256, then implement and execute C275 MEDCOUPLE real-data campaign end-to-end; C273 evidence preserved, READY_FOR_REVIEW).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T08:33:00Z UTC (immediate mandatory heavy work = confirm C274 param sensitivity artifact completion + record SHA256, then implement and execute C275 MEDCOUPLE real-data campaign end-to-end; C273 evidence preserved, READY_FOR_REVIEW).**
