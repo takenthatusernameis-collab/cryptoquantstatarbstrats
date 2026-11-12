@@ -1,0 +1,61 @@
+{
+  "campaign": 268,
+  "strategy_id": "VOLUME_RQA_RTE_OVER_WHITE_DIAG_LINE_LENGTH_STANDARDIZED_MOMENT_SHOCK_MR",
+  "strategy_family": "volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_real",
+  "generated_at_utc": "20261112T010635Z",
+  "oos_edge_proven": false,
+  "edge_claim": "NONE",
+  "walk_forward": {
+    "train": 720,
+    "test": 168,
+    "step": 168
+  },
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "cross_asset_oos_net_sums": {
+    "fee0_slip0": -31.450501547906214,
+    "fee5_slip5": -68.46150154790529,
+    "fee10_slip10": -105.47250154790555,
+    "fee20_slip20": -179.49450154790617,
+    "fee40_slip40": -327.53850154790644
+  },
+  "any_exposure_oos": true,
+  "all_cost_slices_positive_oos_net_sum": false,
+  "all_cost_slices_beat_bh_mean_rule": false,
+  "total_assets_tested": 11,
+  "assets_insufficient": 0,
+  "assets_feature_insufficient": 0,
+  "assets_no_splits": 0,
+  "oos_report": "reports/real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos_20261112T010635Z.json",
+  "oos_report_sha256": "2d79ea9e7a770689e820e6f15fb390cfe74426e991d42f1759cfd20c5db51360",
+  "registry": "reports/strategy_edge_registry_20261112T011400Z.json",
+  "registry_sha256": "ac2bb2d1310ea5469be2c6603aba985305ec5d9d7577c13f497649c00dd996c6",
+  "ingest_attempt": "reports/real_feed_ingest_attempt_20261112T005857Z.json",
+  "ingest_attempt_sha256": "d6106b2b2b92b688a3117b5ed89c77dcde4e8d73f90cc3f6180cba4d4980dd00",
+  "script_path": "scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_standardized_moment_shock_mr_costed_oos.py",
+  "script_sha256": "b9c1b88de660e31b910514f9f2736b03826891b7d1fef36551b527a749e725d7",
+  "distinctness_grep_hits_nonself": 0,
+  "prior_registry": "reports/strategy_edge_registry_20261112T000608Z.json",
+  "prior_registry_sha256": "208157e15a84897f4e3f3d4dea9109de85fd0b2dec72b6cfc34e425eab7c7338",
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only. WF 720/168/168, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]], B&H same OOS windows."
+}
