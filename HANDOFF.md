@@ -76,4 +76,4 @@ The session is NOT complete until:
 - **C278:** DONE (`price_only_edge_proven=false`; pairs blocked; mean reversion no edge).
 - **C279:** PENDING. `scripts/run_c279_price_only_sweep.py` does not exist yet; C279A is the sole immediate deliverable.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T17:26:17Z UTC.**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T17:27:00Z UTC (verified current; C279 is sole mandatory next action).**
