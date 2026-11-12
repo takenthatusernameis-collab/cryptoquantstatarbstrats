@@ -1,5 +1,16 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
+## INITIAL TASK MESSAGE — 2026-11-12T03:24:12Z UTC (NEXT SESSION: START HERE)
+
+**Bottleneck audit (verified 2026-11-12T03:24:12Z UTC): NONE.** git clean, deps present (python3 3.12.3, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1), `data/cache/` has 68 real files (no refetch), C270 fully packaged with SHA256-from-bytes, no stalled background work. No blocking/inefficient state to remove.
+
+**IMMEDIATE HEAVY WORK (non-optional): EXECUTE CAMPAIGN C271 END-TO-END NOW.**
+- Do **not** plan, summarize, explore, or ask questions. Start implementation/execution immediately.
+- Follow the C271 execution steps/spec below: grep-zero chain pick (candidates 2–6, CV consumed), re-verify 0 non-self hits at run, pre-state fail-closed formula, run costed OOS WF (`train=720,test=168,step=168`, costs `[[0,0],[5,5],[10,10],[20,20],[40,40]]`) on real cached data only.
+- Emit required artifacts under `reports/`/`scripts/` (OOS, runner, ingest attempt, strategy edge registry, campaign execution summary) with SHA256 computed from bytes and recorded in this handoff.
+- Record result/evidence (`edge_claim`, `oos_edge_proven`, exposure/cost/B&H flags, `cross_asset.oos_net_sums`, distinctness proof). Edge rule: `oos_edge_proven=true` IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean OOS net>mean B&H OOS net.
+- If `oos_edge_proven: false`, immediately continue C272+ per pipeline—no early exit except proven edge. Honest `NONE` with evidence is valid; status-only work is not.
+
 > **Repo:** `cryptoquantstatarbstrats` (crypto quant stat-arb strategies).
 > **Core mission (non-negotiable):** real-data-only edge search with fail-closed enriched cointegration/gates. **No fabrication. Ever.** No synthetic/fabricated prices, IV, volume, fills, order books, labels, or metrics. No network refetch of cached data. Honest `no_edge`/`insufficient_or_blocked`/`NONE` with evidence is valid. **Status-only work is forbidden.**
 > **Single durable handoff:** `HANDOFF.md` (repo root) only. Historical handoff-named files under `reports/`/`scripts/` are artifacts, not directives.
@@ -135,5 +146,5 @@ Same rule set as C271: run campaigns sequentially C271 → C272 → …; each mu
 - ❌ No edits to `research_state/state.yaml` unless explicitly requested by user.
 - ❌ No early exit from pipeline except `oos_edge_proven: true`.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T03:23:02Z UTC (C270 complete, no blockers; C271 is the immediate mandatory heavy task).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T03:24:12Z UTC (C270 complete, bottlenecks cleared: none; C271 is the immediate mandatory heavy task).**
 **NEXT AGENT: EXECUTE C271 NOW. Produce runnable+executed C271 artifacts (OOS/ingest/registry/summary/script) with SHA256-from-bytes and evidence in this file, then continue C272+ until `oos_edge_proven: true`. NO STATUS-ONLY.**
