@@ -1,62 +1,56 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T16:24:40Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
+## INITIAL TASK MESSAGE — 2026-11-12T16:35:45Z UTC (AUTHORITATIVE — NEXT SESSION STARTS HERE)
 
-**Repo-prioritized focus (re-verified 2026-11-12T16:24:40Z UTC):** `cryptoquantstatarbstrats` = **crypto quant stat-arb strategies**. Highest-impact work is **real-data-only, fail-closed, costed OOS stat-arb edge validation and hardening**. **No status-only work. No planning-only turn. Every session must advance heavy validation/hardening with verifiable artifacts (paths + SHA256 from file bytes) and update this handoff.**
+**Repo-prioritized focus (re-derived from repo name `cryptoquantstatarbstrats` = crypto quant stat-arb strategies):** the only defensible, highest-value work is **real-data-only, fail-closed, costed OOS stat-arb edge VALIDATION and HARDENING**. This repo has produced **exactly ONE edge-positive family (C273 PERCENTILE_SPREAD)**; everything else (C274, C275, C276, and the 7 "C277 pool" families) is **NO EDGE**. The correct next move is **NOT** another speculative feature — it is **hardening the only real edge into (or out of) promotion** via deterministic stability testing. **Every session must advance heavy validation with verifiable artifacts (paths + SHA256 from file bytes) and update this handoff.**
 
-### BOTTLENOCKS REMOVED (2026-11-12, all resolved — NONE REMAIN)
-- **C274 (SECOND_PEARSON_SKEW):** NO EDGE — sensitivity rerun complete, 0/27 edge-positive, `fragile_to_params`, baseline reproduced.
-- **C275 (MEDCOUPLE):** NO EDGE — all core+downstream artifacts emitted and SHA-verified from bytes; `verification_passed:true`.
-- **C276 (FIRST_PEARSON_SKEW):** NO EDGE — grep-zero distinctness proven (0 non-self hits pre- and at run time, fail-closed); OOS executed over 11 assets; `verification_passed:true`.
-- **No active processes. No blocked or inefficient sessions. Working tree clean at `main`, up to date with origin/main.**
-- Nothing blocks the next session: proceed directly into C277 execution.
+### ⚠️ BOTTLENECK REMOVED — STALE "UNRUN POOL" CLAIM IS FALSE (verified 2026-11-12T16:35Z)
+The prior handoff told the next agent to "execute the unrun C277 candidate pool." **That claim is factually wrong and is itself the bottleneck** — it would waste a full session re-running completed work. Verified truth:
+- **All 7 pool candidates were already executed on 2026-11-06/07 and all are `oos_edge_proven:false` (NO EDGE):**
+  - `reports/real_quote_volume_approximate_entropy_shock_mr_costed_oos_20261106T201839Z.json`
+  - `reports/real_quote_volume_dispersion_entropy_shock_mr_costed_oos_20261107T000606Z.json` (+ `..._20261107T021053Z.json`)
+  - `reports/real_quote_volume_fisher_information_shock_mr_costed_oos_20261107T001916Z.json`
+  - `reports/real_quote_volume_higuchi_fd_shock_mr_costed_oos_20261106T151757Z.json`
+  - `reports/real_quote_volume_hurst_rs_persistence_shock_mr_costed_oos_20261106T213620Z.json`
+  - `reports/real_quote_volume_lz76_complexity_shock_mr_costed_oos_20261106T143358Z.json`
+  - `reports/real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos_20261107T030455Z.json`
+- **Coverage is effectively exhausted, not "one candidate away":** 49 RQA diag-line-length feature families + ~216 non-RQA volume families are already run, all NO EDGE except C273. **Do NOT add another single-feature "try the next statistic" run** — that pattern is the actual dead end.
+- **No active processes. Working tree clean at `main`, up to date with origin/main.**
 
-## IMMEDIATE MANDATORY HEAVY CAMPAIGN (NON-OPTIONAL, IN ORDER) — C277
+### IMMEDIATE MANDATORY HEAVY CAMPAIGN (NON-OPTIONAL) — C277 = C273 HARDENING / STABILITY SUITE
+C273 is the **only** `oos_edge_proven:true` result, but its own robustness dossier classifies it `CONDITIONAL_EDGE_VERIFIED_BUT_REQUIRES_HARDENING_REVIEW` with documented fragility. C277 is therefore **deterministic stress/hardening of C273**, computed **only from saved real cached data** (`data/cache/`, no network, no synthetic), **reusing the exact C273 feature/params spec**, to decide **PROMOTE vs REJECT**. This is the single most decision-relevant heavy task remaining.
 
-**C277 — next distinct grep-zero `real_quote_volume` family (heavy, real cached data only, fail-closed, no network):** preselect one candidate from the implemented-but-unrun pool, verify grep-zero distinctness at run time (fail closed on any non-self hit), implement runner if missing, execute OOS over all 11 assets, emit OOS + ingest + registry + summary (+verify) with **paths + SHA256 from file bytes**, record verdict.
+**C273 baseline to defend (all verified from file bytes, 2026-11-12T16:35Z):**
+- OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json` sha256 `1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf`
+- Spec: W_RR=168, ALB=336, m=2, tau=1, eps_scale=0.5, w_min=2, ENTRY_Z=1.5, EXIT_Z=0.5, MAX_HOLD=24; WF train=720/test=168/step=168; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps.
+- Cross-asset OOS net sums: fee0 +80.68, fee5 +79.42, fee10 +78.16, fee20 +75.64, fee40 +70.60 (all >0).
+- Fragility (from `campaign273_robustness_dossier_20261112T051659Z.json` sha256 `f7f51f9d84fe0f42207cfffe77e26e552ff8c10636017889fed706c029e716e6`): only 9/11 assets positive (DOT −2.18, SOL −2.22 at fee0); top1 (BNB) = 23.9% and top3 = 64.7% of positive fee0 net; **not all assets positive in every cost slice**.
+- Sensitivity (`campaign273_param_sensitivity_20261112T052846Z.json` sha256 `15e4bf307b373c9c57a533dc69232d19855933ce8b7956d84e90b9f5d0e96b9d`): 21/27 edge-positive (`robust_neighborhood`); **all 6 failures are W_RR=192** (ENTRY_Z 1.25 & 1.5 → fee0 as low as −33.22, fee40 −44.78). Baseline W_RR=168 reproduces.
 
-- Candidate pool (implemented scripts, grep-verify before use): `run_real_quote_volume_approximate_entropy_shock_mr_costed_oos.py`, `run_real_quote_volume_dispersion_entropy_shock_mr_costed_oos.py`, `run_real_quote_volume_fisher_information_shock_mr_costed_oos.py`, `run_real_quote_volume_higuchi_fd_shock_mr_costed_oos.py`, `run_real_quote_volume_hurst_rs_persistence_mr_costed_oos.py`, `run_real_quote_volume_lz76_complexity_shock_mr_costed_oos.py`, `run_real_quote_volume_multiscale_sample_entropy_shock_mr_costed_oos.py`.
-- **Session completion rule:** the session is NOT complete until one C277 family has been preselected, run-time grep-zero distinctness verified, OOS executed over all 11 assets, OOS+ingest+registry+summary(+verify) emitted with paths+SHA256s, and this handoff updated. A planning-only or status-only turn fails this rule.
-- If edge proven (`oos_edge_proven:true`, exposure>0, all cost slices OOS net sum > 0, mean OOS net > mean B&H): build promotion evidence package (`READY_FOR_REVIEW` or `NOT_READY` with reasons), record artifact paths + SHA256s.
-- If **no edge**: document failing condition, pick the next grep-zero distinct family from the pool, implement + run + emit + hash in the **same session**. Do **not** stop at planning.
-- If the pool is exhausted with no edge: record honest exhaustion conclusion (fail-closed) + propose next structural step; do not fabricate or weaken thresholds.
+**C277 deliverables (ALL required, in order; each emitted with path + SHA256 from file bytes):**
+1. **Cost break-even curve** — for C273 baseline, sweep total round-trip cost from 0 → 60 bps (1 bps steps) and report the **break-even cost bps** where cross-asset OOS net sum crosses 0; report net-sum and mean-per-bar at 0/5/10/20/40/break-even. Answers "is the edge real after realistic fees?"
+2. **Per-asset statistical significance** — per asset, block-bootstrap (stationary/circular, ≥2000 resamples, fixed seed) the OOS net-sum distribution; report 95% CI and fraction of resamples > 0, plus a cross-asset combined p-value (e.g. sign/permutation test on the 24 WF split sums). Identify which assets are statistically indistinguishable from zero.
+3. **Regime / subperiod stability** — split the OOS window chronologically into ≥3 contiguous subperiods; per subperiod report cross-asset net sum and exposure, and flag any subperiod with negative net. Tests whether the edge is time-localized (data-snooping risk).
+4. **Concentration / leave-one-asset-out** — recompute cross-asset net at each cost slice dropping each of the 11 assets in turn; report the range of cross-asset net across drops (does BNB/top1 carry it?) and identify assets whose removal flips the sign.
+5. **Verdict + promotion update** — emit a C277 verdict artifact: `PROMOTE_READY` only if break-even cost ≥ a stated conservative threshold (e.g. ≥20 bps) AND all subperiods non-negative AND LOO never flips cross-asset sign to negative; otherwise `NOT_PROMOTED` with the precise failing condition. Append C277 result to the handoff.
 
-2. **No status-only work.** Every turn must produce or advance heavy validation artifacts and update this handoff with paths+SHA256s.
+- **Reuse existing code, do not re-derive the feature:** import from `scripts/run_c273_percentile_spread_split_decomposition.py` (`_white_diag_line_length_percentile_spread`, `wf_splits`, `load_spot`, `load_volume`) and the C273 runner. Copy the exact feature/params/spec from the C273 OOS artifact. **Fail-closed:** any missing cache / non-finite / spec mismatch → abort with a clear error, never fabricate.
+- **Session completion rule:** the session is NOT complete until C277 items 1–5 exist on disk as JSON with SHA256s recorded and this handoff updated. A planning-only, status-only, or "add another feature" turn FAILS this rule.
 
-## STATE SNAPSHOT (re-verified 2026-11-12T16:24:40Z UTC)
-- **Env:** `python3 3.12.3`; `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`. Ruff/mypy not installed in this env — skip lint until available.
-- **Data:** `data/cache/` = 68 real files. **No network refetch. No synthetic/fabricated data.**
-- **Git:** working tree clean at verification; branch `main` up to date with origin/main.
-- **Canonical handoff:** this file only. `research_state/state.yaml` stale at C248 (locked) — do not edit.
-- **C273 (PERCENTILE_SPREAD):** `CONDITIONAL_EDGE_PROVEN` / verified / `READY_FOR_REVIEW`. Preserved.
-  - OOS sha256 `b02ca846eebcdc1253c45b0686e28bef787714b9373e8e0c5118322b3ffe8fad`; promotion MD sha256 `d03eab43502bd8c53845e692d981cb9d020c1f728bcb3afb21b7bb5453ba72b3`; builder sha256 `48ed28d0fc808092188939c44e04d3112ed489215b1b40be0e49d3552715ec33`.
-- **C274 (SECOND_PEARSON_SKEW, corrected) — NO EDGE (preserved):** edge_claim:NONE, oos_edge_proven:false; all cost slices −0.48331027543955307; sensitivity `reports/campaign274_param_sensitivity_20261112T160744Z.json` sha256 `25a0747acbc48192bb87cc27842652dad231fd4852bf32a461f03f16aab904c8` (0/27 edge-positive, `fragile_to_params`, baseline reproduced, baseline_reproduced_in_grid:true).
-- **C275 (MEDCOUPLE) — NO EDGE:** all core+downstream artifacts emitted, all hashes verified from bytes:
-  - OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_medcouple_shock_mr_costed_oos_20261112T140800Z.json` sha256 `001cc43f94d660abe08be2d67947bf23324250ff5f85ba432f336205214b367d`
-  - Ingest `reports/real_feed_ingest_attempt_275_20261112T140800Z.json` sha256 `693849ce08d20a34dade712decd8e92d91c6b4f920db308e9e3f39c9e441433c`
-  - Registry `reports/strategy_edge_registry_275_20261112T140800Z.json` sha256 `6b44c935d4ff9c6f3d387b6700ad4518ad4c11bf814b4c52e2c51b8cc50b7fdf`
-  - Summary `reports/campaign275_execution_summary_20261112T140800Z.json` sha256 `04ca5162465884a5d05db3f89bb6eaac40917a388c9572a39ae0175ba755d646`
-  - Verify `reports/campaign275_verification_20261112T142319Z.json` sha256 `636e0375f50ebc6ef14dffdc89e8c8d65c461f11c34af5a9ff50b8e3195b634d` (`verification_passed:true`)
-  - Split `reports/campaign275_split_decomposition_20261112T142319Z.json` sha256 `7f2fe54d562ac515f3b155c9d24e0903ddc60eed89088b8ccbbaa13b348efa01`
-  - Sensitivity `reports/campaign275_param_sensitivity_20261112T143610Z.json` sha256 `1bcf4a199aac1164dccd61254f1f830305a5a7b327242f65766089b7b3987030` (0/27 edge-positive, `fragile_to_params`, baseline reproduced)
-  - Script `scripts/run_c275_rte_over_white_diag_medcouple_shock_mr_costed_oos.py` sha256 `9d0e0bc7cabcf8b6c6aa4e91ab932fbc9a8dadcc54777c8943057d67d08e1aa0`
-- **C276 (FIRST_PEARSON_SKEW) — NO EDGE (new family executed this session):**
-  - Runner `scripts/run_real_quote_volume_rqa_rte_over_white_diag_line_length_first_pearson_skew_shock_mr_costed_oos.py` sha256 `71a89045a1cfc768f2cf3088b46ed555b03797618ee46cbdd4bc731de6c8c90c`
-  - Verify `scripts/verify_c276_first_pearson_skew_edge.py`
-  - OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_first_pearson_skew_shock_mr_costed_oos_20261112T161642Z.json` sha256 `cae6cff377b7303bdc3e56cba49ff52072f55e49713a8006a2a98cf56a0543ee`
-  - Ingest `reports/real_feed_ingest_attempt_276_20261112T161642Z.json` sha256 `86981a2a78a6aedc9a728c11b41b87a966c96f0487d636d76ec540ce91c05af7`
-  - Registry `reports/strategy_edge_registry_276_20261112T161642Z.json` sha256 `40d4602945ad953c0eb665ceec8997c7a97efbe6500376c7b8fdb8959b7bd80e`
-  - Summary `reports/campaign276_execution_summary_20261112T161642Z.json` sha256 `1f3cdd25a74ae0ef515265c065decf842dbb33aab9bd90d1e3bcb84fdd16de55`
-  - Verify `reports/campaign276_verification_20261112T162335Z.json` sha256 `3d86e81623f56016ba03c125e812650008d39f69dc8409cbb16fae8d6ea9ba03` (`verification_passed:true`, distinctness live grep hits 0)
-- **C277 (next distinct real_quote_volume family) — PENDING:** no artifacts yet. First family to execute from the candidate pool above.
-
-## HARD BANS
-- No status-only work. No planning-only turns.
-- No C277 planning-only turn — execution required before handoff update.
-- No reruns of C1–C276 except evidence-backed defect fix.
-- No network refetch; no synthetic/fabricated data. No threshold weakening.
-- No edits to `research_state/state.yaml` unless explicitly requested.
+### HARD BANS
+- No status-only work. No planning-only turns. No re-running any completed family (C1–C276, and all 7 "pool" families) — evidence already exists.
+- No network refetch; no synthetic/fabricated data; no threshold weakening; no edits to `research_state/state.yaml` unless explicitly requested.
+- No edits to the frozen C273 artifacts. C277 reads them; it does not rewrite them.
 - Record all new/updated artifact SHA256s **from file bytes**.
-- Distinctness: grep-verified zero non-self hits before implementation AND at run time; fail-closed on collision.
+- Do not repeat the dead-end pattern of "next single statistic feature"; the value now is decision-grade hardening of the only edge.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T16:24:40Z UTC.**
+## STATE SNAPSHOT (verified 2026-11-12T16:35Z UTC)
+- **Env:** `python3 3.12.3`; `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1` (has `scipy.stats`). Ruff/mypy not installed here — skip lint/typecheck until available.
+- **Data:** `data/cache/` = 68 real files; volume feed `volume_1h_full.pkl` (dict keyed by symbol) + meta + provenance; spot cache `0bab5d6a...pkl`. **No network refetch. No synthetic data.**
+- **Git:** working tree clean at `main`, HEAD `df50966`, up to date with origin/main.
+- **Canonical handoff:** this file only.
+- **C273 (PERCENTILE_SPREAD) — CONDITIONAL_EDGE_PROVEN / READY_FOR_REVIEW (the only positive):** see OOS sha `1e4fd598...` above. Supporting artifacts: promotion MD `campaign273_promotion_evidence_package_20261112T054614Z.md`; promotion JSON `..._20261112T054614Z.json` sha256 `7aff2e6031d5ca0aa9a00c05d1320800b13cc767328df4c5664b9b5964c0975c`; split `campaign273_split_decomposition_20261112T052106Z.json` sha256 `2b4da1e685cee4eb8033e37d6a2844ba9639b7b3ba69b92c50ef7ea4a95a707d`; verification `campaign273_verification_20261112T051659Z.json` (verification_passed:true).
+- **C274/C275/C276 — NO EDGE (preserved):** C274 SECOND_PEARSON_SKEW (0/27 edge-positive); C275 MEDCOUPLE (verification_passed:true, all slices −0.4833); C276 FIRST_PEARSON_SKEW (verification_passed:true, all slices −0.4833). No action needed.
+- **C277 (C273 HARDENING SUITE) — PENDING:** no artifacts yet; this session's sole mandated deliverable.
+
+**END OF DURABLE HANDOFF — refreshed 2026-11-12T16:35:45Z UTC.**
