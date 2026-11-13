@@ -1,0 +1,102 @@
+{
+  "generated_at_utc": "20261113T210906Z",
+  "campaign": 294,
+  "part": "tradable_edge_registry",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "analysis": "tradable_edge_registry",
+  "n_tradable": 0,
+  "tradable_configs": [],
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 185
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "iv_rv_spread",
+      "iv_z",
+      "dvol_x_spread"
+    ],
+    "lookbacks_1h": [
+      24,
+      168,
+      720
+    ],
+    "K_requested": 2,
+    "K_effective": 1,
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 27,
+    "min_periods_rule": "max(3, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "cost_rule": "tc * sum|dw| across both legs (BTC and ETH), charged on BOTH legs",
+    "pnl_primary": "w_btc*r_btc - w_eth*r_eth from real Binance BTC/ETH 1h returns",
+    "pnl_diagnostic": "variance_swap_proxy: notional*(RV_realized^2 - IV_entry^2)*sign(w); executed_fills=false",
+    "score_definition": {
+      "iv_rv_spread": "DVOL - trailing annualized realized vol over L 1h bars (per asset)",
+      "iv_z": "rolling z(DVOL) over L 1h bars (per asset)",
+      "dvol_x_spread": "z(DVOL_BTC - DVOL_ETH) over L 1h bars; BTC=+z, ETH=-z"
+    },
+    "signal_direction": "higher score = long that asset (pairwise long top-1 / short bottom-1)"
+  },
+  "universe": {
+    "n_assets": 2,
+    "assets": [
+      "BTC",
+      "ETH"
+    ]
+  },
+  "data_source": {
+    "cache": "data/cache/campaign294_deribit_dvol.pkl",
+    "cache_sha256": "6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080",
+    "meta": "data/cache/campaign294_deribit_dvol.meta.json",
+    "meta_sha256": "31baa147afb75a782e3a00d04d99340a28b46581b93ad02f50c64f0c3dd4e3f9",
+    "provenance": "data/cache/campaign294_deribit_dvol.provenance.json",
+    "provenance_sha256": "dc21804a717f7571bda1f0f50df106b455a3150b7f1b7e67dc775e03c2a96ec8",
+    "bars": 31928,
+    "interval": "1h",
+    "assets": [
+      "BTC",
+      "ETH"
+    ],
+    "n_assets": 2,
+    "window": {
+      "start": "2023-03-24 14:00:00+00:00",
+      "end": "2026-11-13 21:00:00+00:00"
+    },
+    "iv_definition": "deribit_dvol_index",
+    "rv_definition": "annualized_std_of_1h_log_returns_times_sqrt_8760",
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign294_oos_sweep_20261113T210906Z.json",
+  "oos_sweep_sha256": "9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537",
+  "sha256_from_bytes": "9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537"
+}

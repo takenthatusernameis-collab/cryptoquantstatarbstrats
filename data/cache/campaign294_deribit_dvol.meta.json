@@ -1,0 +1,99 @@
+{
+  "generated_at_utc": "20261113T210505Z",
+  "campaign": 294,
+  "part": "ingest",
+  "interval": "1h",
+  "symbols": [
+    "BTC",
+    "ETH"
+  ],
+  "n_symbols": 2,
+  "rows": 31928,
+  "expected_rows": 31928,
+  "window_start_utc": "2023-03-24 14:00:00+00:00",
+  "window_end_utc": "2026-11-13 21:00:00+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "iv_definition": "deribit_dvol_index",
+  "rv_definition": "annualized_std_of_1h_log_returns_times_sqrt_8760",
+  "rv_source": "binance_spot_1h_closes (data-api.binance.vision/api/v3/klines)",
+  "source_host_deribit": "https://www.deribit.com",
+  "source_endpoint_dvol": "/api/v2/public/get_volatility_index_data",
+  "source_endpoint_hv": "/api/v2/public/get_historical_volatility",
+  "source_endpoint_option": "/api/v2/public/get_book_summary_by_currency",
+  "source_host_binance": "https://data-api.binance.vision",
+  "source_endpoint_binance": "/api/v3/klines",
+  "dvol_pages": {
+    "BTC": 50,
+    "ETH": 50
+  },
+  "dvol_earliest": {
+    "BTC": "2021-03-24 00:00:00+00:00",
+    "ETH": "2021-03-24 00:00:00+00:00"
+  },
+  "dvol_latest": {
+    "BTC": "2026-11-13 21:00:00+00:00",
+    "ETH": "2026-11-13 21:00:00+00:00"
+  },
+  "dvol_gaps": {
+    "BTC": {
+      "n_points": 49462,
+      "span_hours": 49461.0,
+      "expected_points": 49462,
+      "n_gaps_gt_1h": 0,
+      "max_gap_hours": 1.0,
+      "n_nan": 0,
+      "n_non_finite": 0,
+      "min": 31.47,
+      "max": 166.39
+    },
+    "ETH": {
+      "n_points": 49462,
+      "span_hours": 49461.0,
+      "expected_points": 49462,
+      "n_gaps_gt_1h": 0,
+      "max_gap_hours": 1.0,
+      "n_nan": 0,
+      "n_non_finite": 0,
+      "min": 30.16,
+      "max": 203.03
+    }
+  },
+  "dropped_bars": [
+    {
+      "start": "2021-04-20 02:00:00+00:00",
+      "end": "2021-04-20 03:00:00+00:00",
+      "bars": 2,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-04-25 05:00:00+00:00",
+      "end": "2021-04-25 07:00:00+00:00",
+      "bars": 3,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-08-13 02:00:00+00:00",
+      "end": "2021-08-13 05:00:00+00:00",
+      "bars": 4,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-09-29 07:00:00+00:00",
+      "end": "2021-09-29 08:00:00+00:00",
+      "bars": 2,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2023-03-24 13:00:00+00:00",
+      "end": "2023-03-24 13:00:00+00:00",
+      "bars": 1,
+      "reason": "non_finite"
+    }
+  ],
+  "n_dropped_bars": 12,
+  "sha256_from_bytes": "6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080",
+  "pkl_path": "data/cache/campaign294_deribit_dvol.pkl"
+}

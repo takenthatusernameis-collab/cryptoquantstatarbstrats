@@ -1,0 +1,40 @@
+{
+  "generated_at_utc": "20261113T210906Z",
+  "campaign": 294,
+  "part": "verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "edge_claim": "NONE",
+  "explanation": "No costed OOS edge proven on the real implied-vol VRP / BTC-vs-ETH relative-value family (27 runs, 0 edge, 27 with exposure).",
+  "universe": {
+    "n_assets": 2,
+    "assets": [
+      "BTC",
+      "ETH"
+    ]
+  },
+  "aggregate": {
+    "n_total_runs": 27,
+    "n_with_exposure": 27,
+    "n_edge_proven": 0,
+    "n_zero_exposure": 0,
+    "benchmark_btc_eth_bh_oos_mean": 1.7756780105833478e-05,
+    "benchmark_always_long_vol_oos_mean": 0.02899454366770272
+  },
+  "oos_sweep_artifact": "reports/campaign294_oos_sweep_20261113T210906Z.json",
+  "oos_sweep_sha256": "9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537",
+  "registry_artifact": "reports/campaign294_tradable_edge_registry_20261113T210906Z.json",
+  "registry_sha256": "b3171c1198c433269e3492d5f8786f758c5879961300468412f56c499ba64fa4",
+  "summary_artifact": "reports/campaign294_summary_20261113T210906Z.json",
+  "summary_sha256": "5960389029f03587fc5b5c43c68e9a6f9ae50258da2cb894b7a42b056bbedabf",
+  "artifacts": {
+    "sweep": "reports/campaign294_oos_sweep_20261113T210906Z.json",
+    "registry": "reports/campaign294_tradable_edge_registry_20261113T210906Z.json",
+    "summary": "reports/campaign294_summary_20261113T210906Z.json",
+    "binding_constraint": "reports/campaign294_binding_constraint_20261113T210906Z.json"
+  },
+  "binding_constraint_artifact": "reports/campaign294_binding_constraint_20261113T210906Z.json",
+  "binding_constraint_sha256": "f2806ae802987515ab4cb15352fc062f4b84632297a0cafcde8409e508d18300"
+}

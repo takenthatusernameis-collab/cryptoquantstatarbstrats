@@ -1,0 +1,107 @@
+{
+  "generated_at_utc": "20261113T210505Z",
+  "campaign": 294,
+  "part": "provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "mechanism": "real_implied_vol_variance_risk_premium_and_btc_eth_relative_value_stat_arb",
+  "universe_rule": "Real Deribit DVOL index (30-day constant-maturity implied vol, 1h) for BTC and ETH, paginated backward (1000 points/request) over the full contiguous history from 2021-03-24T00:00Z. Realized vol is computed from real Binance BTC/ETH spot 1h closes (data-api.binance.vision/api/v3/klines). Deribit get_historical_volatility (~16d, shallow) is a recorded cross-check only, never the backtest RV. IV is genuine implied volatility (iv_definition=deribit_dvol_index), not a realized-vol proxy. No forward-fill across gaps.",
+  "n_assets": 2,
+  "assets": [
+    "BTC",
+    "ETH"
+  ],
+  "window": {
+    "start": "2023-03-24 14:00:00+00:00",
+    "end": "2026-11-13 21:00:00+00:00"
+  },
+  "bars": 31928,
+  "dvol_contiguous": {
+    "BTC": {
+      "n_points": 49462,
+      "span_hours": 49461.0,
+      "expected_points": 49462,
+      "n_gaps_gt_1h": 0,
+      "max_gap_hours": 1.0,
+      "n_nan": 0,
+      "n_non_finite": 0,
+      "min": 31.47,
+      "max": 166.39
+    },
+    "ETH": {
+      "n_points": 49462,
+      "span_hours": 49461.0,
+      "expected_points": 49462,
+      "n_gaps_gt_1h": 0,
+      "max_gap_hours": 1.0,
+      "n_nan": 0,
+      "n_non_finite": 0,
+      "min": 30.16,
+      "max": 203.03
+    }
+  },
+  "dropped_bars": [
+    {
+      "start": "2021-04-20 02:00:00+00:00",
+      "end": "2021-04-20 03:00:00+00:00",
+      "bars": 2,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-04-25 05:00:00+00:00",
+      "end": "2021-04-25 07:00:00+00:00",
+      "bars": 3,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-08-13 02:00:00+00:00",
+      "end": "2021-08-13 05:00:00+00:00",
+      "bars": 4,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2021-09-29 07:00:00+00:00",
+      "end": "2021-09-29 08:00:00+00:00",
+      "bars": 2,
+      "reason": "non_finite"
+    },
+    {
+      "start": "2023-03-24 13:00:00+00:00",
+      "end": "2023-03-24 13:00:00+00:00",
+      "bars": 1,
+      "reason": "non_finite"
+    }
+  ],
+  "deribit_hv_crosscheck": {
+    "BTC": {
+      "rows": 384,
+      "earliest": "2026-10-29 00:00:00+00:00",
+      "latest": "2026-11-13 22:00:00+00:00"
+    },
+    "ETH": {
+      "rows": 384,
+      "earliest": "2026-10-29 00:00:00+00:00",
+      "latest": "2026-11-13 22:00:00+00:00"
+    }
+  },
+  "option_chain_snapshot": {
+    "BTC": {
+      "n_instruments": 978,
+      "n_finite_mark_iv": 978,
+      "mark_iv_min": 20.74,
+      "mark_iv_max": 131.55
+    },
+    "ETH": {
+      "n_instruments": 790,
+      "n_finite_mark_iv": 790,
+      "mark_iv_min": 31.32,
+      "mark_iv_max": 152.32
+    }
+  },
+  "blocked_routes": {
+    "fapi.binance.com": 451,
+    "testnet.binance.vision": 451,
+    "api.binance.com": 451,
+    "api.bybit.com": 403
+  }
+}
