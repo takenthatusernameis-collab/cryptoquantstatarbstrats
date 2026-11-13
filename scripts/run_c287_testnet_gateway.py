@@ -563,8 +563,8 @@ def deterministic_signal_from_caches(spot_df: pd.DataFrame, volume_df: pd.DataFr
     - qv_vol: rolling_std(log_qv.diff(), L)
     1h volume at bar t usable only at 5m bars >= t+1h; signal uses data through t-1.
     """
-    # volume_df expected: index datetime, columns symbols (USDT), quote volume values
-    qv = volume_df[[s for s in SYMBOLS]].astype(float)
+    # volume_df expected: index datetime, columns assets (USDT stripped), quote volume values
+    qv = volume_df[[a for a in ASSETS]].astype(float)
     log_qv = np.log(qv.replace(0, np.nan))
     if feature == "z_logqv":
         rolled = log_qv.rolling(window=lookback, min_periods=max(20, lookback // 3))
@@ -579,6 +579,105 @@ def deterministic_signal_from_caches(spot_df: pd.DataFrame, volume_df: pd.DataFr
     # Signal at 1h bar t uses data through t-1 -> shift by 1
     sig = sig.shift(1)
     return sig
+
+
+def align_1h_to_5m(df_1h: pd.DataFrame, idx_5m: pd.DatetimeIndex) -> pd.DataFrame:
+    """Causal 1h -> 5m alignment mirroring C286.
+
+    A 1h observation at bar t is available at 5m bars >= t+1h. Shift the 1h index
+    forward by 1h (availability time) then backward-fill onto the 5m index so each
+    5m bar T receives the latest 1h observation whose availability time <= T.
+    """
+    avail = df_1h.copy()
+    avail.index = avail.index + pd.Timedelta(hours=1)
+    return avail.reindex(idx_5m, method="bfill")
+
+
+def generate_signal_parquet() -> dict:
+    """Deterministically generate the C286-aligned signal parquet from verified caches.
+
+    Features z_logqv/qv_ratio/qv_vol x lookbacks {168, 336, 720} 1h bars, computed
+    with the C286 causal definitions (signal at t uses data through t-1) and aligned
+    to the 5m execution index (1h bar t usable only at 5m bars >= t+1h). Persisted
+    as parquet with SHA256-from-bytes plus meta/provenance sidecars. No exchange
+    access, no credentials, no fabricated data.
+    """
+    cache = load_cache_verified()
+    if not cache["ok"]:
+        raise RuntimeError(f"cache verification failed: {cache['blockers']}")
+    spot_df = cache["spot_df"]
+    volume_raw = cache["volume_df"]
+    volume_df = pd.DataFrame({a: volume_raw[a] for a in ASSETS}, index=volume_raw[ASSETS[0]].index)
+    idx_5m = spot_df.index
+    data: dict[str, np.ndarray] = {}
+    for feature in FEATURES:
+        for lookback in LOOKBACKS:
+            sig_1h = deterministic_signal_from_caches(spot_df, volume_df, feature, lookback)
+            sig_5m = align_1h_to_5m(sig_1h, idx_5m)
+            for a in ASSETS:
+                data[f"{feature}__{lookback}__{a}"] = np.asarray(sig_5m[a].values, dtype=float)
+    signal_df = pd.DataFrame(data, index=idx_5m)
+    signal_df.index.name = "timestamp"
+    signal_df = signal_df.reindex(sorted(signal_df.columns), axis=1)
+
+    path = CACHE / "signal_c286_5m_aligned.parquet"
+    signal_df.to_parquet(path, engine="pyarrow", index=True)
+    raw = path.read_bytes()
+    sha = hashlib.sha256(raw).hexdigest()
+
+    meta = {
+        "artifact": "c287_signal_parquet",
+        "path": str(path.relative_to(ROOT)),
+        "sha256_from_bytes": sha,
+        "generated_at_utc": utc_now(),
+        "real_data_only": True,
+        "fabricated_data": False,
+        "source_spot_5m": {"path": str(SPOT_5M.relative_to(ROOT)), "sha256": SPOT_5M_SHA},
+        "source_volume_1h": {
+            "path": str(VOLUME.relative_to(ROOT)), "sha256": VOLUME_SHA,
+            "meta_sha256": VOLUME_META_SHA, "provenance_sha256": VOLUME_PROVENANCE_SHA,
+        },
+        "source_spot_5m_meta": {"path": str(SPOT_5M_META.relative_to(ROOT)), "sha256": SPOT_5M_META_SHA},
+        "universe": list(ASSETS),
+        "features": list(FEATURES),
+        "lookbacks_1h": list(LOOKBACKS),
+        "alignment": "1h volume at bar t usable only at 5m bars >= t+1h; signal uses data through t-1 (shift 1); 1h index shifted +1h availability then bfill onto 5m index; execution applies weights.shift(1).fillna(0.0)",
+        "index_start": str(signal_df.index[0]),
+        "index_end": str(signal_df.index[-1]),
+        "n_bars": int(len(signal_df)),
+        "interval": "5m",
+        "columns": list(signal_df.columns),
+        "derivation": "scripts/run_c287_testnet_gateway.py deterministic_signal_from_caches (C286 feature definitions) + align_1h_to_5m",
+    }
+    prov = {
+        "artifact": "c287_signal_parquet_provenance",
+        "parquet_path": str(path.relative_to(ROOT)),
+        "parquet_sha256": sha,
+        "generated_at_utc": utc_now(),
+        "real_data_only": True,
+        "fabricated_data": False,
+        "derived_from": [
+            f"{SPOT_5M.name} (sha256 {SPOT_5M_SHA})",
+            f"{VOLUME.name} (sha256 {VOLUME_SHA})",
+        ],
+        "blocked_routes": [],
+        "note": "Derived deterministically from verified real Binance caches; no fabricated data; no simulated fills.",
+    }
+    meta_path = path.with_suffix(".meta.json")
+    prov_path = path.with_suffix(".provenance.json")
+    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    prov_path.write_text(json.dumps(prov, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return {
+        "signal_parquet_path": str(path.relative_to(ROOT)),
+        "signal_parquet_sha256": sha,
+        "signal_parquet_meta_path": str(meta_path.relative_to(ROOT)),
+        "signal_parquet_provenance_path": str(prov_path.relative_to(ROOT)),
+        "n_bars": int(len(signal_df)),
+        "n_columns": int(len(signal_df.columns)),
+        "features": list(FEATURES),
+        "lookbacks": list(LOOKBACKS),
+        "universe": list(ASSETS),
+    }
 
 
 def blocker_artifacts(preflight: dict, cache_checks: dict,
@@ -747,14 +846,22 @@ def main() -> int:
                         help="live testnet execution (requires preflight ready:true)")
     parser.add_argument("--blocker-artifacts", action="store_true",
                         help="emit five BLOCKED C287 artifacts from real preflight evidence")
+    parser.add_argument("--generate-signal-parquet", action="store_true",
+                        help="generate C286-aligned signal parquet from verified caches (no exchange access)")
     parser.add_argument("--variant", type=str, default=None,
                         help="pre-committed signal variant 'feature:lookback:K:hold'")
     parser.add_argument("--timeout", type=float, default=10.0,
                         help="network timeout seconds")
     args = parser.parse_args()
 
+    if args.generate_signal_parquet:
+        result = generate_signal_parquet()
+        print(json.dumps({"campaign": "C287", "mode": "GENERATE_SIGNAL_PARQUET", **result},
+                          indent=2, sort_keys=True, default=jdefault))
+        return 0
+
     if not args.run and not args.blocker_artifacts:
-        parser.error("specify --run or --blocker-artifacts")
+        parser.error("specify --run, --blocker-artifacts, or --generate-signal-parquet")
 
     # Always capture real preflight evidence first.
     preflight = run_preflight()
