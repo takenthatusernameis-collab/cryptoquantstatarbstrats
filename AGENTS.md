@@ -1,30 +1,47 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T07:32:58Z
+**Handoff refreshed:** 2026-11-13T07:45:50Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state:** `python -m pytest tests/ -q` → **1121 passed, 2 skipped, 0 failed** (verified 2026-11-13T07:09:16Z). C285 is **COMPLETE — formal negative result**: `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot + quote-volume caches (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint `cost_sensitivity` (zero-exposure rate 0.0). All five C285 artifacts exist with fresh timestamps and SHA256-from-bytes. **C286 (5m execution overlay) is COMPLETE — formal negative result**: `scripts/run_c286_5m_volume_xsec_oos.py` executed end-to-end on the verified real 26,208-bar 5m spot cache with causal 1h-volume alignment (151 WF splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint recorded in `reports/campaign286_binding_constraint_20261113T072725Z.json`. All five C286 artifacts exist with fresh timestamps and SHA256-from-bytes. **C287 (operational hardening: testnet gateway/kill-switch) is the next campaign and is now ACTIVE.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T07:32:58Z) — C287 OPERATIONAL HARDENING CAMPAIGN ACTIVE
+## INITIAL TASK MESSAGE (2026-11-13T07:45:50Z) — C287 OPERATIONAL HARDENING CAMPAIGN ACTIVE (NO AVOIDANCE)
 
-**C287 is the active campaign.** The volume-conditioned cross-sectional family (C285, C286) is closed NOT_TRADABLE. The spot-only price-only edge search (C281B→C284) is closed NOT_TRADABLE. **C287 (operational hardening: testnet gateway/kill-switch) is now UNBLOCKED and ACTIVE.** This is an infrastructure campaign required before any future economic stat-arb campaign can be deployed to testnet. The deliverable is a **working, auditable testnet gateway with a hard kill-switch** that can execute the C285/C286 signal family on Binance testnet spot with real 5m market data, real fee/slippage, and provable fail-closed behavior. No status-only, planning-only, or inventory-only turns. The only acceptable outcomes are (a) full C287 artifacts + state/handoff update + green tests, or (b) a fail-closed blocker artifact documenting a concrete unresolvable dependency/gateway failure (no fabricated results).
+**C287 is the active campaign.** The volume-conditioned cross-sectional family (C285, C286) is closed NOT_TRADABLE. The spot-only price-only edge search (C281B→C284) is closed NOT_TRADABLE. **C287 (operational hardening: testnet gateway/kill-switch) is now UNBLOCKED and ACTIVE** as the only permitted focus. This is an infrastructure campaign required before any future economic stat-arb campaign can be deployed to testnet. The deliverable is a **working, auditable Binance Spot Testnet gateway with a hard kill-switch** that can execute the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m costs) with fail-closed gates, audit logging, and provable zero-drift between backtest and live paths.
+
+**Bottlenecks removed in this refresh (do not re-investigate; execute):**
+- `scripts/preflight_c287.py` now exists (fail-closed). It verifies: env credentials presence (BINANCE_TESTNET_API_KEY/SECRET, values never logged), Binance Spot Testnet REST ping/time/exchangeInfo reachability for the 11-symbol universe, WS TCP+TLS reachability, SHA256-from-bytes + real/fabricated flags for the verified 5m spot and 1h volume caches, and presence of any required pre-computed C285/C286 signal parquet. It prints `"ready": true/false` with `blockers`. **Run it first.**
+- Prior blockers (dependency bootstrap, HANDOFF.md loop, controller accounting/tests, C285/C286 preflights) remain fixed; Step 0 is mandatory.
+
+**Mandatory execution path (heavy work, no status-only turn):**
+1. **Step 0 (idempotent, 900000 ms):**
+   ```bash
+   cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
+   python scripts/bootstrap_dev_env.py --json
+   python scripts/verify_env.py --json
+   python scripts/preflight_c285.py --json
+   python scripts/preflight_c286.py --json
+   python scripts/preflight_c287.py --json
+   ```
+2. **If `preflight_c287.py` reports `ready: true`** (credentials present, testnet reachable, caches/signals verified): implement/complete `scripts/run_c287_testnet_gateway.py` and execute it end-to-end on **Binance Spot Testnet** for ≥72h / ≥500 rebalance cycles (smoke-only does not count). Produce the five required timestamped artifacts with SHA256-from-bytes, `drift_free: true`, all kill-switch thresholds tested and passed, then update `research_state/state.yaml` and this file and ensure `python -m pytest tests/ -q` is green.
+3. **If `preflight_c287.py` reports `ready: false` (fail-closed blocker):** do NOT substitute planning/status/infra-only narration. You must still do concrete, auditable work: (a) capture the exact preflight JSON output; (b) implement/complete `scripts/run_c287_testnet_gateway.py` so it is runnable the moment blockers clear and includes the full fail-closed gate/kill-switch/audit/drift logic and a `--blocker-artifacts` (or equivalent) path that emits the five required C287 artifacts as **formal `BLOCKED` artifacts** from real preflight/capability evidence (no fabricated fills, no simulated gateway presented as real, `real_data_only: true`, `fabricated_data: false`, `drift_free: false` or omitted as inapplicable with explicit reason, `blocker: true`, blockers enumerated, all referenced cache SHA256s included, SHA256-from-bytes for each artifact); (c) add/update tests for the preflight/gateway fail-closed behavior; (d) update `research_state/state.yaml` and this file with `status: blocked`, blocker details, artifact paths and SHA256-from-bytes; (e) ensure `python -m pytest tests/ -q` is green. A turn that ends without (b)-(e) persisted is a failed handoff.
+
+**No avoidance (binding):** no status-only, planning-only, or inventory-only turn. Do not rerun/edit C281B→C286 frozen artifacts. Do not weaken gates, thresholds, kill-switch parameters, or drift tolerance. No synthetic/fabricated data, no relabeling caches, no simulated fills without real testnet API calls presented as real. Use existing dependencies only (numpy/pandas/scipy/statsmodels/aiohttp/pydantic). Do not edit `.github/workflows/main.yml`. Do not create/read/edit `HANDOFF.md`.
 
 **C285 is COMPLETE — formal negative result.** `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot cache + real 1h quote-volume cache (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint: `cost_sensitivity` (zero-exposure rate 0.0). Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them.
 
 **C286 is COMPLETE — formal negative result.** `scripts/run_c286_5m_volume_xsec_oos.py` executed end-to-end on the verified real 26,208-bar 5m spot cache with causal 1h-volume alignment (151 WF splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint recorded. Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them.
 
-**C287 is the next focus campaign and it is now ACTIVE.** It is an **operational hardening** campaign (not economic stat-arb): build and verify a Binance testnet spot gateway with a hard kill-switch, capable of executing the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m costs) with fail-closed gates, audit logging, and provable zero-drift between backtest and live paths. This is a prerequisite for any future economic campaign.
-
 ### C287 specification (pre-registered; no post-hoc scope creep)
 - **Gateway**: Binance Spot Testnet REST + WebSocket (official endpoints only). No mainnet, no futures, no margin. API keys stored in environment variables only; never in repo, never logged.
 - **Universe**: 11 spot assets (ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP) — same as C285/C286.
-- **Signal ingestion**: consume the C285/C286 pre-computed signal parquet (features: `z_logqv`, `qv_ratio`, `qv_vol`; lookbacks `L ∈ {168, 336, 720}` 1h bars) aligned causally to 5m execution bars — 1h volume at bar t usable only at 5m bars ≥ t+1h; signal uses data through `t-1`; weights shifted by 1 bar before execution.
+- **Signal ingestion**: consume the C285/C286 pre-computed signal parquet (features: `z_logqv`, `qv_ratio`, `qv_vol`; lookbacks `L ∈ {168, 336, 720}` 1h bars) aligned causally to 5m execution bars — 1h volume at bar t usable only at 5m bars ≥ t+1h; signal uses data through `t-1`; weights shifted by 1 bar before execution. If no pre-computed signal parquet exists in-repo, the gateway must generate it deterministically from the verified 1h volume + 5m spot caches using the C286 causal alignment/feature definitions and persist it with SHA256-from-bytes before live/testnet operation (and record its path/hash in artifacts).
 - **Execution loop**: 5m rebalance cadence. At each bar: (a) fetch 5m klines for all 11 assets; (b) verify causal 1h-volume alignment; (c) load signal for candidate lookback; (d) apply fail-closed gates (see below); (e) compute target weights (top/bottom K, K ∈ {2,3,5}, equal weight 0.5/K per leg, gross 1.0, dollar-neutral, per-asset cap 0.5); (f) place market orders with Binance testnet; (g) record fills, fees, slippage, latency.
 - **Kill-switch** (hard, fail-closed): independent watchdog process monitoring (1) cumulative realized PnL vs. daily loss limit, (2) gross exposure vs. max gross, (3) per-asset position vs. cap, (4) WebSocket/REST latency > threshold, (5) consecutive failed gate evaluations > threshold, (6) manual kill signal via file/flag. On trigger: cancel all open orders, flatten all positions to zero via market orders, disable further order placement, emit audit record, require manual reset with signed confirmation.
 - **Audit logging**: every decision (gate pass/fail, weight calc, order place/cancel/fill, kill-switch event) written to append-only JSONL with timestamp, bar, asset, side, qty, price, fee, slippage_bps, latency_ms, gate_reasons. SHA256 hash chain across lines for tamper evidence.
 - **Zero-drift verification**: backtest replay of live signals on the same 5m cache must produce identical weights, fills (simulated), and PnL to the live run within numerical tolerance (1e-9). Any divergence blocks further live operation.
 - **Cost model**: 5m execution, fee + slippage grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps (same as C285/C286). Live fills must be tagged with observed fee/slippage for post-trade cost analysis.
-- **Run duration**: minimum 72 hours continuous testnet operation (or until kill-switch triggers) with at least 500 rebalance cycles completed.
+- **Run duration**: minimum 72 hours continuous testnet operation (or until kill-switch triggers) with at least 500 rebalance cycles completed. (A smoke-only run does not satisfy completion.)
 - **Pre-registered config grid**: 3 features × 3 lookbacks × 3 K × 3 holds = **81 signal variants**. Each variant must be testable via config flag; the campaign runs ONE variant per 72h window (no simultaneous multi-variant). Variant selection is pre-committed before each window.
 
 ### C287 fail-closed gates (do not weaken)
@@ -41,11 +58,11 @@ If diagnostics cannot be computed, block the rebalance, record the reason, and d
 
 ### C287 required artifacts (exact names, timestamped)
 - `reports/campaign287_gateway_spec_<ts>.json` — gateway config, endpoints, auth handling, kill-switch parameters, audit schema.
-- `reports/campaign287_live_run_<ts>.json` — per-bar decisions, gate results, orders, fills, fees, slippage, latency, kill-switch events.
-- `reports/campaign287_drift_report_<ts>.json` — backtest replay vs. live comparison for the run window; max absolute weight diff, PnL diff, fill count diff; `drift_free: true` iff all diffs within tolerance.
-- `reports/campaign287_kill_switch_test_<ts>.json` — documented kill-switch trigger test (simulated breach of each threshold) with before/after state, flatten confirmation, audit chain integrity.
+- `reports/campaign287_live_run_<ts>.json` — per-bar decisions, gate results, orders, fills, fees, slippage, latency, kill-switch events (or blocker evidence in blocked mode).
+- `reports/campaign287_drift_report_<ts>.json` — backtest replay vs. live comparison for the run window; max absolute weight diff, PnL diff, fill count diff; `drift_free: true` iff all diffs within tolerance (or explicit blocked/inapplicable with reason).
+- `reports/campaign287_kill_switch_test_<ts>.json` — documented kill-switch trigger test (simulated breach of each threshold) with before/after state, flatten confirmation, audit chain integrity (or explicit blocked/inapplicable with reason).
 - `reports/campaign287_summary_<ts>.json` — aggregate: bars run, cycles completed, total fees, total slippage, max drawdown, kill-switch activations, drift-free confirmation.
-Each must include `real_data_only: true`, `fabricated_data: false`, the spot/volume/meta/provenance SHA256s, the signal variant config, and SHA256-from-bytes for each artifact. Then update the state fields in `research_state/state.yaml` and this file.
+Each must include `real_data_only: true`, `fabricated_data: false`, the spot/volume/meta/provenance SHA256s, the signal variant config (or deterministic generation spec), and SHA256-from-bytes for each artifact. Then update the state fields in `research_state/state.yaml` and this file.
 
 ### C287 anti-avoidance rules (binding)
 - No status-only, planning-only, or inventory-only turn.
@@ -53,70 +70,21 @@ Each must include `real_data_only: true`, `fabricated_data: false`, the spot/vol
 - Do not weaken gates, thresholds, kill-switch parameters, or the drift tolerance; do not cherry-pick windows.
 - No synthetic/fabricated data, no relabeling old caches, no simulated fills without real testnet API calls.
 - Use existing dependencies only (numpy/pandas/scipy/statsmodels/aiohttp/pydantic); do not add a new framework.
-- C287 must execute on Binance testnet spot with real 5m market data; a paper-trading-only or simulated-gateway variant is forbidden.
-- If C287 cannot achieve drift-free operation or kill-switch fails any test, record a formal blocker artifact and stop; do not declare success.
-- **No avoidance path:** do not substitute infra/refactor/docs/status/planning work for C287. The only acceptable outcomes are (a) full C287 artifacts + state/handoff update + green tests, or (b) a fail-closed blocker artifact documenting a concrete unresolvable dependency/gateway failure (no fabricated results).
+- C287 must execute on Binance testnet spot with real 5m market data; a paper-trading-only or simulated-gateway variant is forbidden (except fail-closed BLOCKED artifacts that explicitly report no real exchange interaction).
+- If C287 cannot achieve drift-free operation or kill-switch fails any test, record a formal blocker/failure artifact and stop; do not declare success.
+- **No avoidance path:** do not substitute infra/refactor/docs/status/planning work for C287. The only acceptable outcomes are (a) full C287 artifacts + state/handoff update + green tests from a real ≥72h/≥500-cycle testnet run, or (b) full fail-closed BLOCKED C287 artifacts + runnable gateway/preflight + tests + state/handoff update + green tests documenting concrete unresolvable dependency/gateway failure (no fabricated results).
 
 ### C287 completion gate (a turn that ends without this is a failed handoff)
 The session is not done until ALL of these are true and persisted:
-1. `scripts/run_c287_testnet_gateway.py` exists and was executed end-to-end on Binance testnet for ≥72h / ≥500 rebalance cycles (a smoke-only run does not count).
-2. All five artifacts exist with fresh timestamps and SHA256-from-bytes: `reports/campaign287_gateway_spec_<ts>.json`, `reports/campaign287_live_run_<ts>.json`, `reports/campaign287_drift_report_<ts>.json`, `reports/campaign287_kill_switch_test_<ts>.json`, `reports/campaign287_summary_<ts>.json`.
-3. `reports/campaign287_drift_report_<ts>.json` records `drift_free: true`.
-4. `reports/campaign287_kill_switch_test_<ts>.json` records all kill-switch thresholds tested and passed.
-5. `research_state/state.yaml` and this file record the result, artifact paths, and SHA256-from-bytes.
-6. `python -m pytest tests/ -q` still passes.
-Ending a turn with only a plan, a status update, a partial run, or a smoke test does NOT satisfy the handoff and must be continued.
+1. `scripts/preflight_c287.py` executed and its result captured; `scripts/run_c287_testnet_gateway.py` exists and is runnable.
+2. Either (A) executed end-to-end on Binance testnet for ≥72h / ≥500 rebalance cycles with `drift_free: true` and all kill-switch thresholds tested/passed, OR (B) a fail-closed BLOCKED run with concrete blockers evidenced by preflight/capability probes and no fabricated fills.
+3. All five artifacts exist with fresh timestamps and SHA256-from-bytes: `reports/campaign287_gateway_spec_<ts>.json`, `reports/campaign287_live_run_<ts>.json`, `reports/campaign287_drift_report_<ts>.json`, `reports/campaign287_kill_switch_test_<ts>.json`, `reports/campaign287_summary_<ts>.json`.
+4. `research_state/state.yaml` and this file record the result, blocker/ready status, artifact paths, and SHA256-from-bytes.
+5. `python -m pytest tests/ -q` still passes (add/update tests for any new/changed code).
+Ending a turn with only a plan, a status update, a partial implementation, or a smoke test (and no BLOCKED artifacts when preflight fails) does NOT satisfy the handoff and must be continued.
 
 ### Deferred campaigns (do not start early)
 - **C288+ — future economic stat-arb campaigns:** require C287 drift-free gateway as prerequisite.
-
-### C286 model (pre-registered; no post-hoc parameter search)
-- Signal: the C285 causal quote-volume signal (z_logqv, qv_ratio, qv_vol; lookbacks `L ∈ {168, 336, 720}` 1h bars) computed from the real 1h quote-volume cache and aligned causally to 5m execution bars — 1h volume at bar t is available at 5m bars at/after `t+1h`; use only data up to `t-1` for the signal; apply `weights.shift(1).fillna(0.0)` before PnL.
-- Universe: the same 11 spot assets (ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP). 5m spot cache: `data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl` (SHA `d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f`; meta SHA `e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e`; 26208×11, 2026-08-01 → 2026-10-30T23:55Z, zero NaNs, duplicate-free, `real_data_only: true`, `fabricated_data: false`). The 1h volume cache (SHA `4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c`; meta SHA `4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616`; provenance SHA `c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89`) is already preflight-verified.
-- Cross-sectional portfolio at each 5m rebalance bar: rank the 11 assets by the selected feature; go long the top `K` and short the bottom `K`, `K ∈ {2, 3, 5}`. Equal weight `0.5 / K` per leg; gross exposure 1.0; dollar-neutral; per-asset cap 0.5. Holding period `H ∈ {1, 6, 24}` 5m bars; hold between rebalances; no future bars or full-sample statistics.
-- Full pre-registered grid: 3 features × 3 lookbacks × 3 K × 3 holds = **81 runs**. Report every run, including zero-exposure runs.
-- Walk-forward: `train=720, test=168, step=168` in 5m bars on the 26,208-bar cache → **151 OOS splits**.
-- Cost grid exactly: `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps (5m execution, same bps grid as C285).
-- Benchmark: equal-weight 11-asset buy-and-hold on the same OOS windows; no rebalance.
-- Edge rule exactly: `oos_edge_proven=true` iff OOS exposure > 0 AND every cost slice has OOS net sum > 0 AND the mean of the per-split OOS net means is greater than the mean of the per-split equal-weight buy-and-hold OOS net means on the same WF windows. Use the same per-split aggregation for both legs; never compare a strategy mean to a benchmark sum. Anything else is `NOT_TRADABLE`; never relax this rule.
-
-### C286 fail-closed gates (do not weaken)
-At each candidate 5m rebalance bar, require all of:
-- the causally aligned 1h quote-volume observation for all 11 assets finite and strictly positive;
-- the selected signal finite for at least `2K` assets;
-- cross-sectional signal dispersion > 0;
-- no NaN/non-finite 5m price in any selected leg;
-- no missing/None/false gate value treated as permissive.
-If diagnostics cannot be computed, block the rebalance and record the reason. C286 uses this gate set; the C281B-C284 pairs gates must not be used as a shortcut or weakened.
-
-### C286 required artifacts (exact names, timestamped)
-- `reports/campaign286_oos_sweep_<ts>.json`
-- `reports/campaign286_tradable_edge_registry_<ts>.json`
-- `reports/campaign286_summary_<ts>.json`
-- `reports/campaign286_verdict_<ts>.json`
-Each must include `real_data_only: true`, `fabricated_data: false`, the spot/volume/meta/provenance SHA256s, the split/cost config, all 81 run results, and SHA256-from-bytes for the sweep/registry/summary. If `NOT_TRADABLE`, also emit `reports/campaign286_binding_constraint_<ts>.json` with signal pass shares, exposure, turnover, and the binding constraint; this is diagnosis, never an edge claim. Then update the state fields in `research_state/state.yaml` and this file.
-
-### C286 anti-avoidance rules (binding)
-- No status-only, planning-only, or inventory-only turn.
-- Do not rerun C281B, C281C, C282, C283, C284, or C285; do not edit their frozen artifacts.
-- Do not weaken gates, thresholds, costs, or the edge rule; do not cherry-pick windows.
-- No synthetic/fabricated data, no relabeling old caches, no quote-volume return metrics as tradable PnL. Quote volume is a **signal only**; PnL is real spot price PnL.
-- Use existing dependencies only (numpy/pandas/scipy/statsmodels); do not add a new framework.
-- C286 must use the volume-derived signal aligned causally to 5m execution; a price-only C286 variant is forbidden.
-- If C286 is `NOT_TRADABLE`, record a formal negative result and stop; C287 is the next campaign.
-- **No avoidance path:** do not substitute infra/refactor/docs/status/planning work for C286. The only acceptable outcomes are (a) full C286 artifacts + state/handoff update + green tests, or (b) a fail-closed blocker artifact documenting a concrete unresolvable dependency/data gate failure (no fabricated results).
-
-### C286 completion gate (a turn that ends without this is a failed handoff)
-The session is not done until ALL of these are true and persisted:
-1. `scripts/run_c286_5m_volume_xsec_oos.py` exists and was executed end-to-end on the verified 5m cache (a smoke-only run does not count).
-2. All four artifacts exist with fresh timestamps and SHA256-from-bytes: `reports/campaign286_oos_sweep_<ts>.json`, `reports/campaign286_tradable_edge_registry_<ts>.json`, `reports/campaign286_summary_<ts>.json`, `reports/campaign286_verdict_<ts>.json`.
-3. If `NOT_TRADABLE`, `reports/campaign286_binding_constraint_<ts>.json` exists with signal pass shares, exposure, turnover, and the binding constraint.
-4. `research_state/state.yaml` and this file record the result, artifact paths, and SHA256-from-bytes.
-5. `python -m pytest tests/ -q` still passes.
-Ending a turn with only a plan, a status update, a partial sweep, or a smoke run does NOT satisfy the handoff and must be continued.
-
-### Deferred campaigns (do not start early)
-- **C287 — operational hardening:** testnet gateway/kill-switch. Do not start until C286 is complete.
 
 ## Step 0 — dependency bootstrap and preflight (removes known blockers; run before anything else)
 The scheduled Kilo worker shell may start without the repo's Python dependencies. Run this idempotent bootstrap first, with a **900000 ms shell timeout**:
@@ -131,7 +99,7 @@ python scripts/preflight_c286.py --json
 
 **C286 preflight (before running the campaign):** `scripts/preflight_c286.py` verifies the 5m spot cache/meta and the 1h volume cache/meta/provenance against the recorded SHA256s, the meta real/fabricated flags, the exact 5m window (26208×11, 2026-08-01T00:00Z → 2026-10-30T23:55Z, zero NaNs, duplicate-free, 5m spacing), per-asset 1h volume coverage (5112 finite positive bars), the causal 1h→5m alignment (1h volume at bar t usable only at 5m bars ≥ t+1h; signal warm before the window for L ∈ {168,336,720}), and the WF split math (151 splits, last test window fits). It must print `"ready": true`; any mismatch is fail-closed — do not relabel or fabricate data.
 
-**C287 preflight (before running the campaign):** `scripts/preflight_c287.py` (to be created) verifies Binance testnet REST + WebSocket connectivity, API key presence in environment, 5m spot cache + 1h volume cache availability for signal alignment, and that the C285/C286 signal parquet exists and is loadable. It must print `"ready": true`; any mismatch is fail-closed.
+**C287 preflight (before running the campaign):** `scripts/preflight_c287.py` (now present) verifies Binance testnet REST + WebSocket connectivity, API key presence in environment, 5m spot cache + 1h volume cache availability for signal alignment, and presence/loadability of any required pre-computed C285/C286 signal parquet (fail-closed blocker if missing). It must print `"ready": true`; any mismatch is fail-closed.
 
 ## Bottlenecks removed in this refresh
 - **Dependency bootstrap:** `scripts/bootstrap_dev_env.py` + `scripts/verify_env.py` install and verify runtime and test imports, including `hmmlearn`, `pydantic`, `aiohttp`, and `pytest-asyncio`; the old Step 0 omitted the test-only imports.
@@ -200,4 +168,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285 is complete and frozen; current next campaign is **C287**.
 
-**END OF HANDOFF — refreshed 2026-11-13T07:32:58Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285 and C286 both formal negative results). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is COMPLETE — all five artifacts written with SHA256-from-bytes, state/handoff updated, tests green.** **C287 (operational hardening: testnet gateway/kill-switch) is now the ACTIVE campaign — the only acceptable outcomes are (a) full C287 artifacts + state/handoff update + green tests, or (b) a fail-closed blocker artifact documenting a concrete unresolvable dependency/gateway failure (no fabricated results).**
+**END OF HANDOFF — refreshed 2026-11-13T07:45:50Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285 and C286 both formal negative results). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is COMPLETE — all five artifacts written with SHA256-from-bytes, state/handoff updated, tests green.** **C287 (operational hardening: testnet gateway/kill-switch) is the ACTIVE campaign.** `scripts/preflight_c287.py` exists (fail-closed). **No avoidance:** run Step 0 + preflight; if `ready:true` execute `scripts/run_c287_testnet_gateway.py` for ≥72h/≥500 cycles on Binance Spot Testnet with full artifacts + drift_free + kill-switch tests + state/handoff + green tests; if `ready:false` emit full fail-closed BLOCKED C287 artifacts (all five, SHA256-from-bytes, no fabricated fills) plus runnable gateway/preflight/tests + state/handoff + green tests. A status-only turn is a failed handoff.
