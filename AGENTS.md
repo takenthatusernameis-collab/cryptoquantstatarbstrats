@@ -1,37 +1,33 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T18:53:55Z
+**Handoff refreshed:** 2026-11-13T19:05:41Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state:** `python -m pytest tests/ -q` → **green (1197 passed, 2 skipped, recorded at C292 close)**. C281B→C286, C288, C289, C290, C291, **C292** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge). **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block and is DECOUPLED from economic progress.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T18:53:55Z) — C293 CROSS-VENUE PERP FUNDING-CARRY STAT-ARB: MANDATORY HEAVY WORK, COMPLETE END-TO-END (NO AVOIDANCE)
+## INITIAL TASK MESSAGE (2026-11-13T19:05:41Z) — C293 CROSS-VENUE PERP FUNDING-CARRY STAT-ARB: MANDATORY HEAVY WORK, COMPLETE END-TO-END (NO AVOIDANCE)
 
-**START HERE. C293 is the only active economic campaign.** The Binance single-venue spot space (C281B→C286/C288/C289/C290) and the USDT-M perp funding/basis space (C291) are **closed/NOT_TRADABLE**. Cross-venue real **spot** basis/lead-lag (C292, Binance+OKX, 25 pairs, 81 runs) is now **COMPLETE = NOT_TRADABLE** (binding `cost_sensitivity`), so the spot 5m basis mechanism is closed for the pre-registered 91-day window. The next genuinely new economic lever is **cross-venue PERP FUNDING carry** — the SAME asset's funding rate on DIFFERENT exchanges (OKX USDT-M perp vs Binance USDT-M perp). This is a new data dimension (multi-venue derivatives funding) and a new mechanism (cross-venue funding-spread convergence / carry). **Do not stop at planning, probing, or ingest-only — complete the full C293 pipeline in this turn.**
+**START HERE. C293 is the only active economic campaign.** Binance single-venue spot (C281B→C286/C288/C289/C290), single-venue USDT-M perp funding/basis (C291), and cross-venue real **spot** basis/lead-lag (C292, 25 pairs, 81 runs) are all **COMPLETE = NOT_TRADABLE** (binding `cost_sensitivity`). The sole untested economic lever is **cross-venue PERP FUNDING carry**: the same asset's funding rate on OKX USDT-M perp vs Binance USDT-M perp. Real cashflows (long one perp / short the other), new data dimension, new mechanism.
 
-**Focus = C293 (economic stat-arb, multi-venue real perp funding).** C292 closed the cross-venue spot 5m basis family for its pre-registered window; C291 closed single-venue Binance funding carry. What has NOT been tested is the **cross-venue funding-rate spread**: when OKX perp funding and Binance perp funding for the same asset diverge, the spread should mean-revert (funding-carry convergence). This is a distinct mechanism with real cashflows (you are long one perp and short the other, so funding is received on one leg and paid on the other).
+**INGEST IS ALREADY DONE AND REPRODUCED (2026-11-13T19:05:41Z).** Do NOT rerun the ingest — the cache is frozen and re-running only rewrites the meta timestamp. Verified this session: `scripts/ingest_c293_crossvenue_funding.py` ran to completion and reproduced a **byte-identical** pkl to the committed one.
+- `data/cache/campaign293_crossvenue_funding.pkl` — SHA256-from-bytes `ea4e5f178f573c8bec9f14e4c6848ad64d7ee9fef9a0c03e1752fe5656f6b554`
+- `data/cache/campaign293_crossvenue_funding.meta.json` — SHA256 `c24ba0d2607972e36ef88024d504f3512ef6b774c886b41af01e5ee5f8945265`
+- `data/cache/campaign293_crossvenue_funding.provenance.json` — SHA256 `df3b211679264bc2048ec15faaa2f2b603bf4f7c70c6164daaa8ef732fabb2d6`
+- **Shape:** 24 symbols × **23,424 5m bars**, window **2026-08-10T16:00:00Z → 2026-10-30T23:55:00Z**, `real_data_only: true`, `fabricated_data: false`, `excluded_symbols: {}`.
+- **Measured per-symbol native funding coverage (the gate the preflight MUST enforce):** 8h symbols have 244 native points (BNB **only 129** — Binance-side gap); 4h symbols have 488 (TAO **244** OKX-side gap, ONDO **423**, PUMP **451**). These four symbols are PARTIAL on one venue and must be excluded fail-closed with a recorded reason, or gated out, before any PnL. Do not silently forward-fill partial funding into cashflows.
+- Cache keys: `symbols`, `okx_instids`, `binance_closes`, `okx_closes`, `binance_funding_rates`, `okx_funding_rates`, `binance_funding_intervals_by_symbol`, `window_start_utc`, `window_end_utc`, `n_bars`, `universe_binance`, `excluded_symbols`.
 
-**Data reachability — VERIFIED THIS REFRESH (probe, read-only):**
-- **OKX perp funding history** `https://www.okx.com/api/v5/public/funding-rate-history?instId=<SYM>-USDT-SWAP&limit=100[&after=<fundingTime_ms>]` → **HTTP 200**. Returns `{"code":"0","data":[{"fundingRate":"0.0000381...","fundingTime":"<epoch_ms>","instId":"BTC-USDT-SWAP","formulaType":"withRate"}, ...]}` (a list of **dicts**, not arrays). Paginate backward with `after=<min fundingTime − 1>`. **Depth measured:** BTC-USDT-SWAP returned 286 points back to **~2026-08-10** (95-day retention; it does NOT reach 2026-08-01). Use a **browser User-Agent** (`Mozilla/5.0 ... Chrome/120 ...`) — a non-browser UA gets HTTP 403 from CloudFront.
-- **Binance USDT-M perp funding** is already cached and verified: `data/cache/campaign291_perp_5m.pkl` → `funding_rates` (real, 24 perps, 8h/4h native intervals, window 2026-08-01→2026-10-30T23:55Z). Reuse as the Binance leg; never relabel.
-- **Common window (pre-register):** the overlap where BOTH venues have funding coverage → **≈2026-08-10T00:00Z → 2026-10-30T23:55Z** (≈81 days). Funding samples are native 8h (some 4h) intervals; use each symbol's native boundaries.
-- **Blocked routes (recorded, do not retry):** `fapi.binance.com`, `testnet.binance.vision`, `api.binance.com` → HTTP 451.
-
-**Deliverable (C293):** a complete, runnable, tested, pre-registered, costed OOS economic campaign on the multi-venue funding-carry mechanism:
-1. **Ingest** real perp funding for the overlapping USDT perps across **OKX (paginated funding-rate-history) + Binance (C291 cache)**, aligned on each symbol's native funding boundaries over the common window, persist `data/cache/campaign293_crossvenue_funding.pkl` + `.meta.json` + `.provenance.json` with **SHA256-from-bytes**, `real_data_only: true`, `fabricated_data: false`, per-venue source host/endpoint, HTTP statuses, per-symbol funding-point counts, and recorded 404/gap exclusions. **No synthetic data, no relabeled caches, no resampling.** Record the actual overlap (perps present on both venues with full common-window funding coverage) before any PnL is computed.
-2. **Mechanism (new):** cross-venue funding-spread convergence / carry. Pre-registered causal features (computed on the funding series, `shift(1)` to avoid look-ahead, then forward-filled to 5m for portfolio construction):
-   - `xfr_spread_ma` = rolling mean of `(okx_rate − binance_rate)` over L funding observations; score = `-xfr_spread_ma` (OKX funding above Binance ⇒ OKX longs pay more ⇒ expect convergence ⇒ short OKX perp / long Binance perp).
-   - `xfr_spread_z` = rolling z-score of the funding spread over L; score = `-xfr_spread_z`.
-   - `xfr_leadlag` = causal lead-lag: `okx_rate − binance_rate` lagged one funding interval, rolling mean over L; score = `-xfr_leadlag` (pre-register the exact definition before running).
-   - Lookbacks **L ∈ {8, 24, 60} funding observations** (pre-register exactly; do not add features after seeing results); min_periods `max(3, L//3)`.
-3. **Portfolio / PnL:** cross-sectional top-K/bottom-K by score, K∈{2,3,5}, 0.5/K per leg, gross 1.0, dollar-neutral, per-asset cap 0.5; hold H∈{1,6,24} 5m bars; `weights.shift(1).fillna(0.0)`; PnL = price spread (`r_binance − r_okx`) **plus real funding cashflows on both legs** (long Binance perp receives/pays Binance funding; short OKX perp pays/receives OKX funding — apply `-okx_rate*w_okx − binance_rate*w_binance` at each native funding boundary, mirroring C291's sign convention); **cost charged on BOTH legs**; cost grid exactly `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps; walk-forward **train=720/test=168/step=168** 5m bars (split count follows from the actual common-window bar count — do NOT hardcode 151; assert `n_splits == (n_bars-720-168)//168 + 1`); benchmark = equal-weight cross-venue funding-carry buy-and-hold of the same perps with the same two-leg costs on the same WF windows. **Edge rule identical to C285/C286/C288/C290/C291/C292 (never relaxed):** OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split benchmark OOS net mean on the same WF windows. Report the full grid (no post-hoc search, no cherry-picking).
-4. **Build** `scripts/ingest_c293_crossvenue_funding.py`, `scripts/preflight_c293.py` (fail-closed: cache SHAs, shape, common window, no NaNs, per-symbol native funding-boundary alignment, per-venue coverage, WF math, feature warmup), `scripts/run_c293_crossvenue_funding_xsec_oos.py` (mirror `scripts/run_c291_perp_funding_basis_xsec_oos.py`), and tests `tests/test_preflight_c293.py`, `tests/test_c293_crossvenue_funding_xsec_oos.py`.
-5. **Run** preflight (must print `"ready": true`) then the full sweep; emit five timestamped artifacts with SHA256-from-bytes: `reports/campaign293_oos_sweep_<ts>.json`, `campaign293_tradable_edge_registry_<ts>.json`, `campaign293_summary_<ts>.json`, `campaign293_verdict_<ts>.json`, and `campaign293_binding_constraint_<ts>.json` if NOT_TRADABLE.
+**Remaining heavy work (this is the whole next turn — not planning, not status):**
+1. **Build `scripts/preflight_c293.py`** — fail-closed, prints `"ready": true` only when: pkl/meta/provenance SHAs match the values above; shape `(23424, 24)`; window exact; closes have **zero NaN**; per-symbol native funding-boundary alignment (OKX 8h; Binance 8h/4h from `binance_funding_intervals_by_symbol`); per-venue coverage gate (exclude/flag BNB, TAO, ONDO, PUMP with reasons); WF math `n_splits == (n_bars-720-168)//168 + 1` with `n_bars=23424`; feature warmup ≥ max lookback. No missing/None/false treated as permissive.
+2. **Build `scripts/run_c293_crossvenue_funding_xsec_oos.py`** mirroring `scripts/run_c291_perp_funding_basis_xsec_oos.py`. Features on the funding spread, `shift(1)` then ffill to 5m: `xfr_spread_ma` = −rolling-mean(okx−binance) over L; `xfr_spread_z` = −rolling-z(okx−binance) over L; `xfr_leadlag` = −rolling-mean((okx−binance).shift(1)) over L. **L ∈ {8,24,60} funding observations**, `min_periods = max(3, L//3)`. Portfolio: cross-sectional K∈{2,3,5}, 0.5/K per leg, gross 1.0, dollar-neutral, cap 0.5; H∈{1,6,24} 5m bars; `weights.shift(1).fillna(0.0)`; PnL = `r_binance − r_okx` **plus real funding cashflows on BOTH legs** (`-okx_rate*w_okx - binance_rate*w_binance` at native boundaries); **cost on BOTH legs**; cost grid exactly `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps; WF **train=720/test=168/step=168**; benchmark = equal-weight cross-venue funding-carry B&H with the same two-leg costs on the same WF windows. **Edge rule identical to C285/C286/C288/C290/C291/C292 (never relaxed):** OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split benchmark OOS net mean. Report the full grid (no post-hoc search).
+3. **Add tests** `tests/test_preflight_c293.py` and `tests/test_c293_crossvenue_funding_xsec_oos.py`.
+4. **Run** preflight (`ready:true`) then the full sweep; emit five timestamped artifacts with SHA256-from-bytes: `reports/campaign293_oos_sweep_<ts>.json`, `campaign293_tradable_edge_registry_<ts>.json`, `campaign293_summary_<ts>.json`, `campaign293_verdict_<ts>.json`, and `campaign293_binding_constraint_<ts>.json` if NOT_TRADABLE.
+5. **Update** `research_state/state.yaml` + this file with verdict/paths/SHAs.
 
 **Mandatory execution path (heavy work, no status-only turn):**
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python scripts/bootstrap_dev_env.py --json          # 900000 ms shell timeout
+python scripts/bootstrap_dev_env.py --json          # 900000 ms shell timeout (deps verified ready 2026-11-13T19:05Z)
 python scripts/verify_env.py --json
 python scripts/preflight_c285.py --json
 python scripts/preflight_c286.py --json
@@ -39,28 +35,20 @@ python scripts/preflight_c288.py --json
 python scripts/preflight_c289.py --json
 python scripts/preflight_c290.py --json
 python scripts/preflight_c291.py --json
-python scripts/preflight_c292.py --json              # must print ready:true
-python scripts/ingest_c293_crossvenue_funding.py --json
+python scripts/preflight_c292.py --json
+# DO NOT rerun ingest_c293 (cache frozen at the SHA above).
 python scripts/preflight_c293.py --json              # must print ready:true
 python scripts/run_c293_crossvenue_funding_xsec_oos.py # full sweep -> 5 artifacts
 python -m pytest tests/ -q                            # must stay green
 ```
-Then update `research_state/state.yaml` + this file with artifact paths + SHA256-from-bytes, and record the verdict.
 
-**If a venue endpoint fails or coverage is short:** do NOT fabricate. Emit fail-closed BLOCKED C293 artifacts (exact host/status/blocked route, per-symbol per-venue funding coverage) with SHA256-from-bytes, add tests, update state + this handoff, keep `pytest` green. A turn without persisted artifacts + state/handoff update + green tests is a failed handoff.
-
-**If C293 also closes:** that is a **definitive result** — record the binding-constraint artifact and `economic_space_closed: true` for the entire reachable real-data 5m spot + perp (single-venue and cross-venue) space. The only remaining lever is then **external execution** (testnet/allowed network); record that as a definitive external-execution-only blocker (C287 evidence: testnet REST HTTP 451 + no creds). Do **not** loop on another single-venue signal family.
+**If C293 closes:** that is a **definitive result** — record the binding-constraint artifact and `economic_space_closed: true` for the entire reachable real-data 5m spot + perp (single-venue and cross-venue) space. The only remaining lever is then **external execution** (testnet/allowed network); record that as a definitive external-execution-only blocker (C287 evidence: testnet REST HTTP 451 + no creds). Do **not** loop on another single-venue signal family.
 
 **No avoidance (binding):** no status-only/planning-only/inventory-only turn. No reruns/edits of frozen artifacts C281B→C286, C288, C289, C290, C291, C292. No weakened gates/thresholds/cost grid/edge rule/drift tolerance/cherry-picking. No synthetic/fabricated/relabeled data, no simulated fills presented as real. Existing deps only (numpy/pandas/scipy/statsmodels/scikit-learn/aiohttp/pydantic). No `.github/workflows/main.yml` edits. No `HANDOFF.md`.
 
-### Bottlenecks removed (this refresh, 2026-11-13T18:52:28Z)
-- **C293 is the sole active campaign and is fully specified here:** `scripts/ingest_c293_crossvenue_funding.py` exists and `py_compile` passes; `fetch_okx_klines` present (verified 2026-11-13T18:53:55Z) — **reuse/validate, do not rewrite from scratch unless broken**. C293 is **incomplete** — no preflight/runner/tests, no `data/cache/*c293*`, no `reports/*c293*`. Next session must complete C293 end-to-end in one turn (ingest cache+meta+provenance, preflight `ready:true`, full sweep, 5 SHA256 artifacts, tests, pytest green, state+handoff update). No planning/ingest-only stop.
-- **C292 pipeline COMPLETED end-to-end (frozen, 2026-11-13T16:46:03Z):** ingest + preflight (ready:true) + full 81-run costed OOS sweep executed; five timestamped artifacts with SHA256-from-bytes; tests added; `pytest` green (1197 passed, 2 skipped). C292 is a formal negative result — do not rerun or edit frozen artifacts.
-- **Three real C292 build bugs fixed (reusable lessons):**
-  1. **OKX HTTP 403 from non-browser UA** — `scripts/ingest_c292_crossvenue_spot.py` uses a standard browser UA (`HTTP_HEADERS`).
-  2. **pandas 3.1 microsecond datetime unit** — `DatetimeIndex.view("int64") // 1_000_000` yields **seconds**, not milliseconds; use a unit-aware `to_epoch_ms()` helper (see C292 ingest).
-  3. **Zero-volume 5m bars wrongly failed coverage** — require strictly positive **prices** and finite non-negative **volume** (legitimate zero-volume bars must not exclude an instrument).
-- **Cross-venue funding lever UNBLOCKED for C293:** OKX `funding-rate-history` HTTP 200 verified (BTC-USDT-SWAP, 286 points to ~2026-08-10); Binance USDT-M funding cached in `campaign291_perp_5m.pkl`.
+### Bottlenecks removed (this refresh, 2026-11-13T19:05:41Z)
+- **C293 ingest bottleneck removed:** the prior handoff falsely claimed no `data/cache/*c293*` existed. In fact the ingest had already been committed; this session **re-ran it and reproduced a byte-identical pkl** (`ea4e5f17…`), confirming the cache is real, deterministic, and frozen. The next agent must NOT rerun the ingest; go straight to preflight → runner → sweep.
+- **Partial-coverage data facts surfaced** (BNB/TAO/ONDO/PUMP) so the next preflight cannot be blocked by a naive all-or-nothing coverage assert — gate per symbol fail-closed and record exclusions.
 - **C287 decoupled (external-only):** testnet REST HTTP 451 + no creds. Do not re-emit C287 artifacts absent new capability evidence. **`HANDOFF.md` absent and forbidden** (`AGENTS.md` only). No workflow edits.
 
 ### C287 status — BLOCKED, DECOUPLED (do not let it block economic work)
@@ -110,7 +98,7 @@ python scripts/preflight_c292.py --json
 - **C287 re-emission loop closed:** the prior session wrote four duplicate C287 artifact sets (10:46:32–35Z); the handoff forbids re-emitting them absent new capability evidence.
 - **HANDOFF.md loop:** `AGENTS.md` is the only handoff; `HANDOFF.md` is forbidden; ignore missing-file errors for it.
 
-## Current research state (verified 2026-11-13T16:46Z)
+## Current research state (verified 2026-11-13T19:05Z)
 
 | Campaign | Test | Runs | Result |
 |----------|------|------|--------|
@@ -127,7 +115,7 @@ python scripts/preflight_c292.py --json
 | C290 | WIDER 26-asset true-5m OHLCV cross-sectional stat-arb, 151 WF splits, 5 cost slices | 162 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (gate pass 98.6%) |
 | C291 | REAL USDT-M perp funding-carry + spot/perp basis cross-sectional stat-arb, 24 perps, 151 WF splits, real funding cashflows | 162 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (gate pass 98.8%) |
 | C292 | Cross-venue real-spot basis / lead-lag stat-arb, Binance+OKX (USDT) 5m, 25 pairs, cost on both legs, 151 WF splits | 81 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (17/81 gross positive) |
-| C293 | **NEXT** — cross-venue PERP funding-carry stat-arb, OKX + Binance USDT-M funding, cost on both legs, WF 720/168/168 | 81–162 | **REQUIRED — heavy work, no avoidance** |
+| C293 | **ACTIVE** — cross-venue PERP funding-carry stat-arb, OKX + Binance USDT-M funding, cost on both legs, WF 720/168/168. **INGEST DONE + REPRODUCED** (24 symbols × 23,424 bars, window 2026-08-10T16:00Z→2026-10-30T23:55Z); preflight/runner/tests/sweep REMAIN | 81–162 | **REQUIRED — heavy work, no avoidance** |
 
 Frozen evidence (C281B→C292):
 - C281B: `reports/campaign281_oos_sweep_20261113T034058Z.json` (SHA `8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9`); verdict `reports/campaign281_verdict_20261113T034058Z.json`.
@@ -179,7 +167,7 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 
 ## Escalation
 
-- Cross-venue perp funding (C293, NEXT): OKX `https://www.okx.com/api/v5/public/funding-rate-history?instId=<SYM>-USDT-SWAP&limit=100[&after=<fundingTime_ms>]` (HTTP 200, browser UA, ~95-day depth to ~2026-08-10, returns list of dicts); Binance USDT-M funding cached in `data/cache/campaign291_perp_5m.pkl`.
+- Cross-venue perp funding (C293, ACTIVE — ingest done): OKX `https://www.okx.com/api/v5/public/funding-rate-history?instId=<SYM>-USDT-SWAP&limit=100[&after=<fundingTime_ms>]` (HTTP 200, browser UA, ~95-day depth to ~2026-08-10, returns list of dicts); Binance USDT-M funding cached in `data/cache/campaign291_perp_5m.pkl`. C293 cache `data/cache/campaign293_crossvenue_funding.pkl` (SHA `ea4e5f178f573c8bec9f14e4c6848ad64d7ee9fef9a0c03e1752fe5656f6b554`).
 - Cross-venue spot (C292, frozen): OKX `https://www.okx.com/api/v5/market/history-candles` (5m, deep, HTTP 200 with browser UA); Coinbase `https://api.exchange.coinbase.com/products/<PAIR>/candles` (5m, deep, HTTP 200); Binance spot 5m cached. Kraken 5m is ~12h only → 1D `interval=1440` only.
 - Derivatives/funding/basis (C291, frozen): `data.binance.vision/data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip` and `.../fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip` (HTTP 200). `fapi.binance.com` remains HTTP 451; do not use it.
 - New spot data (C290, frozen): `data-api.binance.vision/api/v3/klines` (HTTP 200) + `data/loader.py::DataLoader.load_binance_data` + `data/real_feed_loader.py` host chain.
@@ -188,4 +176,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285/C286/C288/C289/C290/C291/C292 are complete and frozen; current next campaign is **C293**.
 
-**END OF HANDOFF — refreshed 2026-11-13T18:53:55Z.** Economic status: Binance single-venue spot (C281B→C286/C288/C289/C290), real USDT-M perp funding/basis (C291), and cross-venue real-spot basis/lead-lag (C292) are **closed/NOT_TRADABLE** (frozen). **C287 is BLOCKED/decoupled** (testnet REST HTTP 451 + no creds). **C293 is the sole active economic campaign and is PARTIALLY STARTED** (`scripts/ingest_c293_crossvenue_funding.py` exists, `py_compile` ok, `fetch_okx_klines` present; no preflight/runner/tests/cache/reports). Next session MUST: bootstrap deps, **reuse/validate existing ingest** then build+run ingest (cache+meta+provenance), `scripts/preflight_c293.py` (`ready:true`), `scripts/run_c293_crossvenue_funding_xsec_oos.py` end-to-end (not smoke-only), emit all 5 artifacts with SHA256-from-bytes, add tests, keep `pytest` green, and update `research_state/state.yaml` + this file with verdict/paths/SHAs. If C293 closes, record the binding-constraint artifact and definitive `economic_space_closed: true` for reachable real-data 5m spot+perp (single & cross-venue) with external-execution-only blocker noted (C287). **A status-only, planning-only, ingest-only, or infra-substituting turn is a failed handoff.**
+**END OF HANDOFF — refreshed 2026-11-13T19:05:41Z.** Economic status: Binance single-venue spot (C281B→C286/C288/C289/C290), real USDT-M perp funding/basis (C291), and cross-venue real-spot basis/lead-lag (C292) are **closed/NOT_TRADABLE** (frozen). **C287 is BLOCKED/decoupled** (testnet REST HTTP 451 + no creds). **C293 is the sole active economic campaign and its INGEST IS DONE + REPRODUCED** (`data/cache/campaign293_crossvenue_funding.pkl` SHA `ea4e5f17…`, 24 symbols × 23,424 5m bars, window 2026-08-10T16:00Z→2026-10-30T23:55Z, `real_data_only: true`). **Remaining: `scripts/preflight_c293.py` (`ready:true`), `scripts/run_c293_crossvenue_funding_xsec_oos.py` end-to-end (not smoke-only), 5 artifacts with SHA256-from-bytes, tests, keep `pytest` green, and update `research_state/state.yaml` + this file with verdict/paths/SHAs.** Do NOT rerun the ingest. Gate partial-coverage symbols (BNB/TAO/ONDO/PUMP) fail-closed with recorded reasons. If C293 closes, record the binding-constraint artifact and definitive `economic_space_closed: true` for reachable real-data 5m spot+perp (single & cross-venue) with external-execution-only blocker noted (C287). **A status-only, planning-only, ingest-only, or infra-substituting turn is a failed handoff.**
