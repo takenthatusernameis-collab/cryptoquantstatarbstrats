@@ -1,4 +1,4 @@
-updated_at_utc: 20261113T074551Z
+updated_at_utc: 20261113T074926Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -278,9 +278,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T074551Z
+  timestamp_utc: 20261113T074926Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C287 ACTIVE (2026-11-13T07:45:50Z, no avoidance): Step 0 + preflights mandatory. preflight_c287.py exists and is fail-closed. If ready:true run scripts/run_c287_testnet_gateway.py on Binance Spot Testnet >=72h/>=500 cycles with all five artifacts, drift_free true, kill-switch tested, state+AGENTS updated, tests green. If ready:false emit full fail-closed BLOCKED C287 artifacts (all five, SHA256-from-bytes, no fabricated fills) plus runnable gateway/preflight/tests and state+AGENTS update. No status-only/planning-only turn."
+  active_initial_task_message: "C287 ACTIVE (2026-11-13T07:49:26Z, no avoidance): Step 0 + preflights mandatory. preflight_c287.py exists and is fail-closed; run_c287_testnet_gateway.py must be implemented/completed. If ready:true run gateway on Binance Spot Testnet >=72h/>=500 cycles with all five artifacts, drift_free true, kill-switch tested, state+AGENTS updated, tests green. If ready:false emit full fail-closed BLOCKED C287 artifacts (all five, SHA256-from-bytes, no fabricated fills) plus runnable gateway/preflight/tests and state+AGENTS update. No status-only/planning-only turn."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
