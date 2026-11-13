@@ -1,0 +1,43 @@
+{
+  "generated_at_utc": "20261113T043542Z",
+  "campaign": 282,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "universe": {
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "n_assets": 11,
+    "smoke": false
+  },
+  "summary": {
+    "n_total_runs": 128,
+    "n_with_exposure": 128,
+    "n_edge_proven": 0,
+    "bh_oos_mean_full_universe": -0.0003620838511080919
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign282_oos_sweep_20261113T043542Z.json",
+      "sha256": "e727dcfb876b40d4206fea7da860574dd5d3fe5f117e79f5fc89f970f299c090"
+    },
+    "registry": {
+      "path": "reports/campaign282_tradable_edge_registry_20261113T043542Z.json",
+      "sha256": "2e215dbb90531c388b2e5a9c310b6ccd0b0c73ba19ed7c8b0b3e72fabf2ba6ac"
+    }
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: run C283 (pre-registered next hypothesis) on the same data; do not weaken gates, do not re-run C281B/C282. If EDGE_PROVEN: promote per registry rules."
+}
