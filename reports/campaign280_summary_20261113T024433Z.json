@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "20261113T024433Z",
+  "campaign": 280,
+  "part": "A_summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "artifacts": {
+    "data_provenance": {
+      "path": "reports/campaign280_data_provenance_20261113T024433Z.json",
+      "sha256": "d1e1f69754730ef37c07bd317341f7878a2495a266c4d4acae822aa02641b092"
+    },
+    "oos_sweep": {
+      "path": "reports/campaign280_oos_sweep_20261113T024433Z.json",
+      "sha256": "a7d2051327103d7e30c3446705258a5e56bf1cac0bfd7fc35ed6db38d0da5df2"
+    },
+    "registry": {
+      "path": "reports/campaign280_tradable_edge_registry_20261113T024433Z.json",
+      "sha256": "66ebcbd4baf8b11533c26e709082815551e4694d088250dc738e7eb2fff02e6c"
+    }
+  },
+  "new_data_discovered": true,
+  "path_b_premise": "falsified \u2014 provable real spot data through 2026-11-09 exists on disk",
+  "fake_oos_claimed": false,
+  "next_action": "If verdict is NOT_TRADABLE: remain blocked on costed OOS edge with evidence on disk; Path C diagnostics optional. If EDGE_PROVEN: promote per registry rules."
+}

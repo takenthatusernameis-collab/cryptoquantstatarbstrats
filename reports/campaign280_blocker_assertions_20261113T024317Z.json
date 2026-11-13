@@ -1,0 +1,273 @@
+{
+  "generated_at_utc": "20261113T024317Z",
+  "campaign": 280,
+  "part": "B_assertions",
+  "verdict": "NEW_DATA_DETECTED",
+  "edge_proven": false,
+  "total_cache_files": 68,
+  "spot_existing_caches": 61,
+  "volume_non_pnl_caches": 3,
+  "new_candidate_caches": 4,
+  "repo_data_files_outside_cache": 0,
+  "assertion_all_caches_within_locked_spot_universe": false,
+  "assertion_no_funding_perp_microstructure_raw_data": false,
+  "assertion_no_unprovenanced_network_claim": true,
+  "candidates": [
+    {
+      "path": "data/cache/4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd.meta.json",
+      "bytes": 645,
+      "sha256": "5ad256a381afd6d1b1d39ae50092b8b8a28ebac2aab24a22ad680b5c3c7fd2b1",
+      "kind": "cache_meta",
+      "meta": {
+        "cache_key": "4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd",
+        "symbols": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "start": "2026-10-01",
+        "end": "2026-11-09",
+        "interval": "1h",
+        "quote_asset": "USDT",
+        "fetch_success": true,
+        "rows": 944,
+        "columns": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "fetch_blocked_hosts": [],
+        "fetch_blocked_routes": [],
+        "fetch_attempts": [
+          {
+            "symbols": [
+              "BTC",
+              "ETH",
+              "SOL"
+            ],
+            "interval": "1h",
+            "success": true,
+            "rows": 944
+          }
+        ],
+        "fetch_errors": [],
+        "fetch_real_data_only": true,
+        "fetch_fabricated_data": false
+      }
+    },
+    {
+      "path": "data/cache/4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd.pkl",
+      "bytes": 31396,
+      "sha256": "dec04f719339480ac1dce151d153d90ff385f0e7bfb95c59425ed45f5edfbb06",
+      "kind": "cache_pkl",
+      "shape": [
+        944,
+        3
+      ],
+      "columns": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "meta": {
+        "cache_key": "4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd",
+        "symbols": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "start": "2026-10-01",
+        "end": "2026-11-09",
+        "interval": "1h",
+        "quote_asset": "USDT",
+        "fetch_success": true,
+        "rows": 944,
+        "columns": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "fetch_blocked_hosts": [],
+        "fetch_blocked_routes": [],
+        "fetch_attempts": [
+          {
+            "symbols": [
+              "BTC",
+              "ETH",
+              "SOL"
+            ],
+            "interval": "1h",
+            "success": true,
+            "rows": 944
+          }
+        ],
+        "fetch_errors": [],
+        "fetch_real_data_only": true,
+        "fetch_fabricated_data": false
+      }
+    },
+    {
+      "path": "data/cache/dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796.meta.json",
+      "bytes": 645,
+      "sha256": "a78255571a3b4ed56eae31f74577a4977f507b5b3414bbec354a9169d4602c90",
+      "kind": "cache_meta",
+      "meta": {
+        "cache_key": "dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796",
+        "symbols": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "start": "2026-10-29",
+        "end": "2026-11-09",
+        "interval": "1h",
+        "quote_asset": "USDT",
+        "fetch_success": true,
+        "rows": 272,
+        "columns": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "fetch_blocked_hosts": [],
+        "fetch_blocked_routes": [],
+        "fetch_attempts": [
+          {
+            "symbols": [
+              "BTC",
+              "ETH",
+              "SOL"
+            ],
+            "interval": "1h",
+            "success": true,
+            "rows": 272
+          }
+        ],
+        "fetch_errors": [],
+        "fetch_real_data_only": true,
+        "fetch_fabricated_data": false
+      }
+    },
+    {
+      "path": "data/cache/dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796.pkl",
+      "bytes": 9892,
+      "sha256": "8404aa7f7b7ee67a635f4b1d0df334c4b442cb46c84c774ea869af81dced1fe3",
+      "kind": "cache_pkl",
+      "shape": [
+        272,
+        3
+      ],
+      "columns": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "meta": {
+        "cache_key": "dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796",
+        "symbols": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "start": "2026-10-29",
+        "end": "2026-11-09",
+        "interval": "1h",
+        "quote_asset": "USDT",
+        "fetch_success": true,
+        "rows": 272,
+        "columns": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "fetch_blocked_hosts": [],
+        "fetch_blocked_routes": [],
+        "fetch_attempts": [
+          {
+            "symbols": [
+              "BTC",
+              "ETH",
+              "SOL"
+            ],
+            "interval": "1h",
+            "success": true,
+            "rows": 272
+          }
+        ],
+        "fetch_errors": [],
+        "fetch_real_data_only": true,
+        "fetch_fabricated_data": false
+      }
+    }
+  ],
+  "inventory_sha256_summary": {
+    "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json": "cb5cb0863e3dedd0d373f1eeb52075c6b555c0048bdaf6eaa0d320ccaaf7c749",
+    "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "data/cache/385aae3f022b2d7bba4ec502cb8e7399d26cb31b961a016aebf7d165450fd4ba.meta.json": "1f60d88faa43a87d5881e28544573fed28d59e54926a3acc915add1a88658f26",
+    "data/cache/385aae3f022b2d7bba4ec502cb8e7399d26cb31b961a016aebf7d165450fd4ba.pkl": "d0885c3c5165fb33d6ef9731ac1cb557a353b8783bb65572031005287fbf4095",
+    "data/cache/4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd.meta.json": "5ad256a381afd6d1b1d39ae50092b8b8a28ebac2aab24a22ad680b5c3c7fd2b1",
+    "data/cache/4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd.pkl": "dec04f719339480ac1dce151d153d90ff385f0e7bfb95c59425ed45f5edfbb06",
+    "data/cache/4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d.meta.json": "621346a8feebefa6dd1ffdc76995236b663662ff8ced5cd0f26793934897fa32",
+    "data/cache/4fd3e87f85cbd8141cbf73591bec7696ea81cbd325b8ba45baf200b56d35ca9d.pkl": "4d04e74ed1338f5b7955941603d867fe3190e31696a98f170fdc6f42e578f671",
+    "data/cache/547a6a68d3d24e6ae6e30a615016712c2e9088705d05a3ad164083d2c1e45703.meta.json": "86382a68754ada0bc23a2731e8bb860fc504515e348ddc86a9934d59bd09803f",
+    "data/cache/547a6a68d3d24e6ae6e30a615016712c2e9088705d05a3ad164083d2c1e45703.pkl": "adc1e9ca067bcf141386187444aeccee7f720fc5911ea426ca9da160b079bd00",
+    "data/cache/595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5.meta.json": "53ce62467ea2e848d1a63d07be5d512e1b1384a67676bff6b0c5ab886c8f011f",
+    "data/cache/595e501ade340390c6c3310634c01a4f50de9056b16ccc5af5e16123215b14d5.pkl": "414b9cca7c785b6abf0164c0b2b2c892fbf65400631b594b84e6c17511a8c574",
+    "data/cache/6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.meta.json": "325eebed175519136c8f44787a84efeb971ca33041ccd61d017b00fa9924524e",
+    "data/cache/6d2e08d4d7b969d92b61773c7eead387a52ad74b1c3fb0c69552bd6402dd4383.pkl": "977ba2e94a40e4423197ce43377e229cf7d428b0d8a9cb1daf2531383f26fa28",
+    "data/cache/749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee.meta.json": "d3b3abdec5c8ef6847c3189cfe5c7b35114aa646187298808a136c2374cf09cc",
+    "data/cache/749b221871e0e42146ebe66b03069eaeeeef57f2c8570ba81f2fc3c435b9eeee.pkl": "0937e4c34db7353166981ea160a545f6268ebb3bc410dc877c9e758412d119e5",
+    "data/cache/74e86e8e4b0a7933c26fc9328b8b753711f3ab76e2333a44b6057856699eec1a.meta.json": "63193c91b49f08e941cdf4b9e687326b32f1471dc2fad6607ecb0520fe965fd5",
+    "data/cache/74e86e8e4b0a7933c26fc9328b8b753711f3ab76e2333a44b6057856699eec1a.pkl": "174be5901f890157ae1282efbb031dc8b79356cd046c6ea7d5adc0d22ab6eee4",
+    "data/cache/76dedb82e6b94ca7f326484a09194c2b3eb557d0477cd04c607b146fd1b74a0d.meta.json": "0569f106b51c512b3c48ac0109d6988c51f10dfa4d2f8a2c709c5887e6b74e99",
+    "data/cache/76dedb82e6b94ca7f326484a09194c2b3eb557d0477cd04c607b146fd1b74a0d.pkl": "2c1952b79051160a0fe5748435e2dbb9042fe276fc2ace6ab809e2558b573cfc",
+    "data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.meta.json": "e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e",
+    "data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl": "d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f",
+    "data/cache/ADA_2026-04-01_2026-10-30_1h.meta.json": "5a90e31f4e4208b6ce36a0dd21230e2f604c9f65ff228c1871c1b6792b779654",
+    "data/cache/ADA_2026-04-01_2026-10-30_1h.pkl": "2a0a4f537798c1f9096e6b3f390c8089b60b799c1654874c9cc7e800a06c5a72",
+    "data/cache/AVAX_2026-04-01_2026-10-30_1h.meta.json": "c25461a4d76bf3a764a0fc20e1b3d0e91cfc5ab81d1c37c2878c0cd7504e9009",
+    "data/cache/AVAX_2026-04-01_2026-10-30_1h.pkl": "58560120e0f08947260e8586b734055ba9f1b61ea586bf0f07037ad02a3acaed",
+    "data/cache/BNB_2026-04-01_2026-10-30_1h.meta.json": "e79b680731cca735207efa6cf83bdd24ddc14050a674a160027439e5960f10c4",
+    "data/cache/BNB_2026-04-01_2026-10-30_1h.pkl": "aac792e54e982e94e5b969eb3f1b2f681700608274948fd18a6f7280a7bfcedf",
+    "data/cache/BTC_2026-04-01_2026-10-30_1h.meta.json": "cb24aaf1abd345429990cce7954dc11ef640a7e6394fadeb17f2d89855c31e3e",
+    "data/cache/BTC_2026-04-01_2026-10-30_1h.pkl": "d041af21f15d2347709acd494257ea8f217d7096abd9f5942f98a371569a9d5d",
+    "data/cache/DOT_2026-04-01_2026-10-30_1h.meta.json": "bcacd5d6ee9b05cdd89676ca5eb4f39b96884020c932a080aa3cb3aafe7d2a5b",
+    "data/cache/DOT_2026-04-01_2026-10-30_1h.pkl": "0955b5bb9b47ac8056d92ca4ecb5513319afed77e131a4e3411cca2e8e0f7e39",
+    "data/cache/ETH_2026-04-01_2026-10-30_1h.meta.json": "6db47411e0c398c103ad0ec7b6118bb42ea5001a892b057225f54ab9745c8ee3",
+    "data/cache/ETH_2026-04-01_2026-10-30_1h.pkl": "c1d67d4ec793dcabcabc440ae111aef3290a835d609f3beabe8e4d17345eb254",
+    "data/cache/LINK_2026-04-01_2026-10-30_1h.meta.json": "5cfef2d33c76156451179e453376e482f3a47f650fd440cd1940c5c7dd01c2d4",
+    "data/cache/LINK_2026-04-01_2026-10-30_1h.pkl": "e5533d168d0693843bbfc06e182bcecaa2d5b1570ed3a8e4fb288ba10a718ccd",
+    "data/cache/LTC_2026-04-01_2026-10-30_1h.meta.json": "1d6eed11ba17b9e6bcfca2fbc5b765150c3e05e0192af887a3e8040d8f09cf37",
+    "data/cache/LTC_2026-04-01_2026-10-30_1h.pkl": "327d7b6ef9188107a5bf0425515e445c8d0a9a61c502f753fad6d14c3f1844bd",
+    "data/cache/POL_2026-04-01_2026-10-30_1h.meta.json": "08b6c8bfb78dae50cd19fce43be975b2dd75b15c9e40e5ec661b6b79723cdb6f",
+    "data/cache/POL_2026-04-01_2026-10-30_1h.pkl": "a88bcc7c1e176091516929e883fceee78802b6c9b6e8008586802e3947fc4723",
+    "data/cache/SOL_2026-04-01_2026-10-30_1h.meta.json": "b9e5a4735b013ec2c59a5605333ee91c4a3b064ce288f6f6e1a6186899fffce5",
+    "data/cache/SOL_2026-04-01_2026-10-30_1h.pkl": "f74195e2d1e9719878ca31f61f78c9b575db40f3239535310191d653629bfeee",
+    "data/cache/XRP_2026-04-01_2026-10-30_1h.meta.json": "4aaf547cbf676007c49ce0353b0be4b263173316a95a0c49e926915ec9365136",
+    "data/cache/XRP_2026-04-01_2026-10-30_1h.pkl": "f313024deb79a59248b8f94042724b205f40323a8e4146cd7258d5ee035f295b",
+    "data/cache/a74dcf38854ff20d174609ceffba98d555ec4498d23446ce031a247c8c12bc6e.meta.json": "18e24093a5f7b3041967145172903e70628b54bce16291b74151fc68daf0aaf5",
+    "data/cache/a74dcf38854ff20d174609ceffba98d555ec4498d23446ce031a247c8c12bc6e.pkl": "d59b53af2da490ee586e4bb17645d9fbe2b56422f3cf4beafc9c30e53a1a2040",
+    "data/cache/afe337ed9ac6917a0133e12ec296ff39435ec045e7933d72e244b9748b976af5.meta.json": "c150b941c75ff969d3c10507e00a4dd56c48af2d5b2eb45d26630ddb210c6ae4",
+    "data/cache/afe337ed9ac6917a0133e12ec296ff39435ec045e7933d72e244b9748b976af5.pkl": "678532f7013648beed565210f7e4a6636feec7cff0e0f6a3f143fe056a2561fd",
+    "data/cache/c12ce191b92a399b4cd40393779b330919283008f787824f9aecb8958f19e8ac.meta.json": "823a780244a657265777c7786e7cab8c487935f808779b72c4af82d2fe094ad7",
+    "data/cache/c12ce191b92a399b4cd40393779b330919283008f787824f9aecb8958f19e8ac.pkl": "25f070eac30250fd529d27e560b29c711daa76c4cf2bc3270555335a0066a417",
+    "data/cache/c7b2c0bea881c17a001ba69aca5641638bad92f47c800e5b03cff0129b2fca28.meta.json": "7d6dbab0cc4417d632cdc35d8947546f9280e40828282a2a4ac14e5eaee5cf71",
+    "data/cache/c7b2c0bea881c17a001ba69aca5641638bad92f47c800e5b03cff0129b2fca28.pkl": "f2ee4906da3b1259ec383aedf95a30ba9faa6436ad0cd73fe98fd1b63918f01b",
+    "data/cache/d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76.meta.json": "7fd8cdaf7c818ce6c9dbf3e869433c615831f2280a4590bf18e8e488120aa17c",
+    "data/cache/d275256cdefff23a8aaa759e63b16deb3292828d50ab2d8effd6722e89c12c76.pkl": "1f7da59e6546ad1f4a3ce7ac1909de6fd9a67a6bfbb3862543c78178ac924912",
+    "data/cache/dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796.meta.json": "a78255571a3b4ed56eae31f74577a4977f507b5b3414bbec354a9169d4602c90",
+    "data/cache/dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796.pkl": "8404aa7f7b7ee67a635f4b1d0df334c4b442cb46c84c774ea869af81dced1fe3",
+    "data/cache/dd9bc604a203b3e20eec78508484f267c3061b791de88d1ff108b1683031c1b0.meta.json": "0d65b26dd9c492b3c5a9ad0acb560478b0e5007ea9f6c844decb130827ebb6d9",
+    "data/cache/dd9bc604a203b3e20eec78508484f267c3061b791de88d1ff108b1683031c1b0.pkl": "4e4db8faea6751c8cc7e4656baae53605e5ae5576dc291efd8bf938796332c79",
+    "data/cache/f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233.meta.json": "e9fb4150287bef3dcfe96ee6e3180c497dd09763c18d7494946ac6401e9848df",
+    "data/cache/f4555e78aaf41746791f9959fd08e951f8bb089342f95ffc039145d287db6233.pkl": "ee6c5747dcc5eb0b22a6b4cc4ba65faec622006f23130c5ba179c23c89715df9",
+    "data/cache/f481053c6225c06e317e360187cdb4bd4b4a09dad3af6d643d58db65db8a8385.meta.json": "a6137df50da12159b20f87cd6120a1c4094aa8e34c658e8590b3a4cfef893091",
+    "data/cache/f481053c6225c06e317e360187cdb4bd4b4a09dad3af6d643d58db65db8a8385.pkl": "ea9f3bb2f93c6f8a27e8ca7c0c8773c220959f2a743b40813fc6ec90bade1653",
+    "data/cache/f6df44264750176ca006536352e43009bf0e24d365a4dc552cac469d61845c49.meta.json": "0c944879c4b8fc2fb8f97aceb5f9b66aeca4fe44288a7faea540c881a42c9260",
+    "data/cache/f6df44264750176ca006536352e43009bf0e24d365a4dc552cac469d61845c49.pkl": "69161167d447a1ed6fda29fd3027f30a55b11528032ce2bc21028c2bca9d9490",
+    "data/cache/summary.json": "4ec63c6b0f48a6785824e55e2e62e61b2c3812f7494051e2c1e1abd10cd16494",
+    "data/cache/volume_1h_full.meta.json": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+    "data/cache/volume_1h_full.pkl": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "data/cache/volume_1h_full.provenance.json": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+  }
+}

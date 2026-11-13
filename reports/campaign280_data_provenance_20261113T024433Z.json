@@ -1,0 +1,70 @@
+{
+  "generated_at_utc": "20261113T024433Z",
+  "campaign": 280,
+  "part": "A_provenance",
+  "analysis": "new_data_provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "finding": "Path B premise falsified: provable real spot data exists locally beyond C279's exhausted window.",
+  "new_dataset": {
+    "path": "data/cache/4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd.pkl",
+    "sha256": "dec04f719339480ac1dce151d153d90ff385f0e7bfb95c59425ed45f5edfbb06",
+    "bytes": 31396,
+    "meta": {
+      "cache_key": "4c3bc2f1ad1323961abdc5280080e595fc9f9b5791d8b7f642a1303eac6d26cd",
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "start": "2026-10-01",
+      "end": "2026-11-09",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "rows": 944,
+      "columns": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "fetch_blocked_hosts": [],
+      "fetch_blocked_routes": [],
+      "fetch_attempts": [
+        {
+          "symbols": [
+            "BTC",
+            "ETH",
+            "SOL"
+          ],
+          "interval": "1h",
+          "success": true,
+          "rows": 944
+        }
+      ],
+      "fetch_errors": [],
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false
+    },
+    "window_extension_vs_c279_cache": "C279 cache ends 2026-10-30; this dataset spans 2026-10-01->2026-11-09 (~9 additional days of Binance spot 1h data not covered by C279's 2026-04-01->2026-10-30 cache).",
+    "materially_different": "different time span (extends 2026-10-30->2026-11-09); same venue/assets/interval, so the untested material is the post-2026-10-30 span."
+  },
+  "alternate_dataset": {
+    "path": "data/cache/dcd5764a285f56ce79d88be83a8cfaef1a8c7fad474525163816585fb2783796.pkl",
+    "sha256": "8404aa7f7b7ee67a635f4b1d0df334c4b442cb46c84c774ea869af81dced1fe3",
+    "bytes": 9892,
+    "note": "subset span 2026-10-29->2026-11-09, subsumed by primary dataset."
+  },
+  "reference_exhausted_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "window": "2026-04-01->2026-10-30",
+    "c279_verdict": "NOT_TRADABLE"
+  },
+  "provenance_assertions": {
+    "fetch_real_data_only": true,
+    "fetch_fabricated_data": false,
+    "source_venue": "Binance public spot klines (per cache meta fetch_attempts host)",
+    "sha256_from_bytes_verified": true
+  }
+}

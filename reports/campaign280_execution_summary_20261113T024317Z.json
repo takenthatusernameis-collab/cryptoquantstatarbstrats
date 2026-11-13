@@ -1,0 +1,30 @@
+{
+  "generated_at_utc": "20261113T024317Z",
+  "campaign": 280,
+  "part": "execution_summary",
+  "verdict": "NEW_DATA_DETECTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "script": {
+    "path": "scripts/run_c280_data_availability_blocker.py",
+    "sha256": "e879a060291ea576dbb7ec78fbf02fa1baffa69fa023a2b57c9de6e6eb9d2e7c"
+  },
+  "blocker_report": {
+    "path": "reports/campaign280_data_availability_blocker_20261113T024317Z.json",
+    "sha256": "861a897855da33fb907e9b02b7df2b7efddedabe7a4f15dabe0282e7f1601258"
+  },
+  "assertions_report": {
+    "path": "reports/campaign280_blocker_assertions_20261113T024317Z.json",
+    "sha256": "c25771840751a3973e99df461ff86f5cd02e1efa9fc2a9cc4267e28bd0c80b4d"
+  },
+  "tests_collect_sanity": {
+    "ran": true,
+    "returncode": 0,
+    "collected": 1,
+    "note": "ixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: \"function\", \"class\", \"module\", \"package\", \"session\". Set it to \"fixture-scope\" to keep the current behavior.\n\n  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))\n"
+  },
+  "fake_oos_claimed": false,
+  "handoff_md_updated": false,
+  "next_action": "Path A only if genuinely new provable real data appears; otherwise remain BLOCKED_NO_NEW_REAL_DATA with evidence on disk; Path C explanatory diagnostics optional."
+}
