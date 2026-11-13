@@ -58,7 +58,6 @@ OUT_PROV = CACHE / "campaign293_crossvenue_funding.provenance.json"
 
 OKX_HOST = "https://www.okx.com"
 OKX_FUNDING_ENDPOINT = "/api/v5/public/funding-rate-history"
-OKX_KLINE_ENDPOINT = "/api/v5/market/history-candles"
 OKX_LIMIT = 100
 REQUEST_TIMEOUT = 30.0
 # OKX rejects non-browser User-Agent strings with HTTP 403 (CloudFront).  Use a
@@ -70,16 +69,18 @@ HTTP_HEADERS = {
     ),
     "Accept": "application/json",
 }
-SLEEP_BETWEEN_REQUESTS = 0.4
+SLEEP_BETWEEN_REQUESTS = 0.15
 MAX_PAGES_PER_SYMBOL = 20000
 OKX_RETRY_STATUS = {429}
 
-# Pre-registered common window: OKX ~95-day funding depth starts ~2026-08-10;
-# Binance C291 cache covers 2026-08-01 -> 2026-10-30T23:55Z.
-COMMON_START_UTC = "2026-08-10T00:00:00Z"
+# Pre-registered common window: OKX perp funding depth measured 2026-11-13 starts
+# 2026-08-10T16:00Z for the 8h symbols (286 points) and 2026-08-10T12:00Z for the
+# 4h symbols (PUMP/TAO/ONDO/GRAM/TRUMP); the LATER of these (16:00Z) is the first
+# bar where EVERY symbol has an OKX funding sample. Binance C291 cache covers
+# 2026-08-01 -> 2026-10-30T23:55Z. Common window = intersection = 16:00Z start.
+COMMON_START_UTC = "2026-08-10T16:00:00Z"
 COMMON_END_UTC = "2026-10-30T23:55:00Z"
 INTERVAL = "5m"
-OKX_BAR = "5m"
 MIN_SYMBOLS = 2
 
 FUNDING_STALE_BARS = int(24 * 60 / 5) + 1  # 24h + 1 bar of 5m bars
@@ -221,117 +222,6 @@ def fetch_okx_funding(inst_id: str, target_start_ms: int, timeout: float) -> dic
         "newest_ts": str(df["fundingTime"].max()),
         "ok": True,
         "frame": df,
-    }
-
-
-def fetch_okx_klines(inst_id: str, exp_idx: pd.DatetimeIndex, timeout: float) -> dict:
-    """Paginate OKX 5m klines backward until window_start is covered.
-
-    Reindexes onto the exact 5m UTC grid. Requires zero NaNs, strictly positive
-    finite prices, non-negative volume (zero-volume bars are legitimate).
-    """
-    detail_pages = []
-    frames = []
-    after_ms: int | None = None
-    pages = 0
-    oldest_ts: int | None = None
-    target_start_ms = int(pd.Timestamp(exp_idx.min()).timestamp() * 1000)
-
-    while pages < MAX_PAGES_PER_SYMBOL:
-        url = f"{OKX_HOST}{OKX_KLINE_ENDPOINT}?instId={inst_id}&bar={OKX_BAR}&limit={OKX_LIMIT}"
-        if after_ms is not None:
-            url += f"&after={after_ms}"
-        status, data = _http_get(url, timeout)
-        page = {"instId": inst_id, "url": url, "status": status, "after": after_ms}
-        if status != 200:
-            page["rows"] = 0
-            detail_pages.append(page)
-            break
-        try:
-            payload = json.loads(data.decode())
-        except Exception as exc:  # noqa: BLE001
-            page["rows"] = 0
-            page["error"] = f"json parse: {exc}"
-            detail_pages.append(page)
-            break
-        code = payload.get("code")
-        if code != "0":
-            page["rows"] = 0
-            page["error"] = f"okx code {code}: {payload.get('msg')}"
-            detail_pages.append(page)
-            break
-        klines = payload.get("data") or []
-        if not klines:
-            page["rows"] = 0
-            detail_pages.append(page)
-            break
-        page["rows"] = int(len(klines))
-        detail_pages.append(page)
-        rows = []
-        for c in klines:
-            try:
-                rows.append(
-                    {
-                        "ts": int(c[0]),
-                        "open": float(c[1]),
-                        "high": float(c[2]),
-                        "low": float(c[3]),
-                        "close": float(c[4]),
-                        "volume": float(c[5]),
-                    }
-                )
-            except Exception:
-                continue
-        df_page = pd.DataFrame(rows)
-        frames.append(df_page)
-        page_oldest = int(df_page["ts"].min())
-        oldest_ts = page_oldest if oldest_ts is None else min(oldest_ts, page_oldest)
-        after_ms = page_oldest - 1
-        pages += 1
-        if page_oldest <= target_start_ms:
-            break
-        time.sleep(SLEEP_BETWEEN_REQUESTS)
-
-    if not frames:
-        return {
-            "instId": inst_id,
-            "status": "no_data",
-            "pages": detail_pages,
-            "ok": False,
-        }
-
-    raw = pd.concat(frames, axis=0).drop_duplicates("ts", keep="last").sort_values("ts")
-    raw = raw.set_index("ts")
-    grid_ms = to_epoch_ms(exp_idx)
-    grid_idx = pd.Index(grid_ms, name="ts")
-    raw = raw.reindex(grid_idx)
-    n_expected = len(exp_idx)
-    raw = raw[["open", "high", "low", "close", "volume"]]
-    vals = raw.to_numpy(dtype=float)
-    nan_c = int(np.isnan(vals).sum())
-    finite = bool(np.isfinite(vals).all()) if nan_c == 0 else False
-    price_vals = raw[["open", "high", "low", "close"]].to_numpy(dtype=float)
-    vol_vals = raw[["volume"]].to_numpy(dtype=float)
-    positive_prices = bool((price_vals > 0).all()) if nan_c == 0 else False
-    volume_nonneg = bool((vol_vals >= 0).all()) if nan_c == 0 else False
-    full_coverage = bool(nan_c == 0 and finite and positive_prices and volume_nonneg)
-
-    return {
-        "instId": inst_id,
-        "status": "ok" if full_coverage else "okx_coverage_fail",
-        "pages": detail_pages,
-        "n_pages": pages,
-        "oldest_ts_ms": oldest_ts,
-        "target_start_ms": target_start_ms,
-        "bars": int(len(raw)),
-        "nan_count": nan_c,
-        "all_finite": finite,
-        "all_prices_positive": positive_prices,
-        "volume_nonneg": volume_nonneg,
-        "min_volume": float(np.nanmin(vol_vals)) if vol_vals.size else None,
-        "full_coverage": full_coverage,
-        "frame": raw if full_coverage else None,
-        "ok": full_coverage,
     }
 
 
