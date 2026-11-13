@@ -1,0 +1,1701 @@
+{
+  "generated_at_utc": "20261113T105429Z",
+  "campaign": 291,
+  "part": "derivatives_reachability_probe",
+  "analysis": "new_derivatives_data_source_capability",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "source_host": "https://data.binance.vision",
+  "months": [
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "readiness_floor_symbols": 10,
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "ZECUSDT",
+    "XRPUSDT",
+    "NEARUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "SUIUSDT",
+    "UNIUSDT",
+    "PEPEUSDT",
+    "WLDUSDT",
+    "ADAUSDT",
+    "TRXUSDT",
+    "PUMPUSDT",
+    "LINKUSDT",
+    "AVAXUSDT",
+    "TAOUSDT",
+    "UUSDT",
+    "TRUMPUSDT",
+    "LTCUSDT",
+    "ONDOUSDT",
+    "AAVEUSDT",
+    "XLMUSDT",
+    "INJUSDT",
+    "GRAMUSDT"
+  ],
+  "per_symbol": [
+    {
+      "symbol": "BTCUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/5m/BTCUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 397158,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 896,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/5m/BTCUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 389713,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 924,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 400552,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 943,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "ETHUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ETHUSDT/5m/ETHUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 407196,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ETHUSDT/ETHUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 925,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ETHUSDT/5m/ETHUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 400722,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ETHUSDT/ETHUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 931,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ETHUSDT/5m/ETHUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 410425,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ETHUSDT/ETHUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 979,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "SOLUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SOLUSDT/5m/SOLUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 369992,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SOLUSDT/SOLUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 899,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SOLUSDT/5m/SOLUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 368743,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SOLUSDT/SOLUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 917,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SOLUSDT/5m/SOLUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 375695,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SOLUSDT/SOLUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 942,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "ZECUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ZECUSDT/5m/ZECUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 388223,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ZECUSDT/ZECUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 848,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ZECUSDT/5m/ZECUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 398527,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ZECUSDT/ZECUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 890,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ZECUSDT/5m/ZECUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 406845,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ZECUSDT/ZECUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 916,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "XRPUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XRPUSDT/5m/XRPUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 372897,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XRPUSDT/XRPUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 934,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XRPUSDT/5m/XRPUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 372380,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XRPUSDT/XRPUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 904,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XRPUSDT/5m/XRPUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 373621,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XRPUSDT/XRPUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 915,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "NEARUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/NEARUSDT/5m/NEARUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 301703,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/NEARUSDT/NEARUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 838,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/NEARUSDT/5m/NEARUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 323046,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/NEARUSDT/NEARUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 840,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/NEARUSDT/5m/NEARUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 338936,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/NEARUSDT/NEARUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 917,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "BNBUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BNBUSDT/5m/BNBUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 355130,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BNBUSDT/BNBUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 888,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BNBUSDT/5m/BNBUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 351571,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BNBUSDT/BNBUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 861,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/BNBUSDT/5m/BNBUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 358515,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BNBUSDT/BNBUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 828,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/DOGEUSDT/5m/DOGEUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 366992,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/DOGEUSDT/DOGEUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 864,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/DOGEUSDT/5m/DOGEUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 367545,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/DOGEUSDT/DOGEUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 855,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/DOGEUSDT/5m/DOGEUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 371118,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/DOGEUSDT/DOGEUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 940,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "SUIUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SUIUSDT/5m/SUIUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 369540,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SUIUSDT/SUIUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 919,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SUIUSDT/5m/SUIUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 376698,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SUIUSDT/SUIUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 874,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/SUIUSDT/5m/SUIUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 383554,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/SUIUSDT/SUIUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 965,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "UNIUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UNIUSDT/5m/UNIUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 311866,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UNIUSDT/UNIUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 853,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UNIUSDT/5m/UNIUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 325132,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UNIUSDT/UNIUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 850,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UNIUSDT/5m/UNIUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 325052,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UNIUSDT/UNIUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 939,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "PEPEUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PEPEUSDT/5m/PEPEUSDT-5m-2026-08.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PEPEUSDT/PEPEUSDT-fundingRate-2026-08.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PEPEUSDT/5m/PEPEUSDT-5m-2026-09.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PEPEUSDT/PEPEUSDT-fundingRate-2026-09.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PEPEUSDT/5m/PEPEUSDT-5m-2026-10.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PEPEUSDT/PEPEUSDT-fundingRate-2026-10.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        }
+      },
+      "fully_reachable": false
+    },
+    {
+      "symbol": "WLDUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/WLDUSDT/5m/WLDUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 350973,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/WLDUSDT/WLDUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 957,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/WLDUSDT/5m/WLDUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 350220,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/WLDUSDT/WLDUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 865,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/WLDUSDT/5m/WLDUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 364589,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/WLDUSDT/WLDUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 928,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "ADAUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ADAUSDT/5m/ADAUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 331645,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ADAUSDT/ADAUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 869,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ADAUSDT/5m/ADAUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 328755,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ADAUSDT/ADAUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 837,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ADAUSDT/5m/ADAUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 334675,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ADAUSDT/ADAUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 931,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "TRXUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRXUSDT/5m/TRXUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 331604,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRXUSDT/TRXUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 931,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRXUSDT/5m/TRXUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 324702,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRXUSDT/TRXUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 974,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRXUSDT/5m/TRXUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 332299,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRXUSDT/TRXUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 980,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "PUMPUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PUMPUSDT/5m/PUMPUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 392347,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PUMPUSDT/PUMPUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 1446,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PUMPUSDT/5m/PUMPUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 384448,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PUMPUSDT/PUMPUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 1272,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/PUMPUSDT/5m/PUMPUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 397605,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/PUMPUSDT/PUMPUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 1434,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "LINKUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LINKUSDT/5m/LINKUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 355978,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LINKUSDT/LINKUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 857,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LINKUSDT/5m/LINKUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 356467,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LINKUSDT/LINKUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 862,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LINKUSDT/5m/LINKUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 360561,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LINKUSDT/LINKUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 975,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AVAXUSDT/5m/AVAXUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 307470,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AVAXUSDT/AVAXUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 893,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AVAXUSDT/5m/AVAXUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 311353,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AVAXUSDT/AVAXUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 866,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AVAXUSDT/5m/AVAXUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 319657,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AVAXUSDT/AVAXUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 956,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "TAOUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TAOUSDT/5m/TAOUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 360381,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TAOUSDT/TAOUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 1201,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TAOUSDT/5m/TAOUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 363213,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TAOUSDT/TAOUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 1280,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TAOUSDT/5m/TAOUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 368347,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TAOUSDT/TAOUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 1366,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "UUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UUSDT/5m/UUSDT-5m-2026-08.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UUSDT/UUSDT-fundingRate-2026-08.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UUSDT/5m/UUSDT-5m-2026-09.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UUSDT/UUSDT-fundingRate-2026-09.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/UUSDT/5m/UUSDT-5m-2026-10.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/UUSDT/UUSDT-fundingRate-2026-10.zip",
+            "status": 404,
+            "content_length": null,
+            "body_prefix": "",
+            "ok": false,
+            "reason": "not_found"
+          }
+        }
+      },
+      "fully_reachable": false
+    },
+    {
+      "symbol": "TRUMPUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRUMPUSDT/5m/TRUMPUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 360080,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRUMPUSDT/TRUMPUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 1469,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRUMPUSDT/5m/TRUMPUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 359153,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRUMPUSDT/TRUMPUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 1453,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/TRUMPUSDT/5m/TRUMPUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 357685,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/TRUMPUSDT/TRUMPUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 1425,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "LTCUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LTCUSDT/5m/LTCUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 333558,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LTCUSDT/LTCUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 905,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LTCUSDT/5m/LTCUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 341148,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LTCUSDT/LTCUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 852,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/LTCUSDT/5m/LTCUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 346113,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/LTCUSDT/LTCUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 964,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ONDOUSDT/5m/ONDOUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 364702,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ONDOUSDT/ONDOUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 1466,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ONDOUSDT/5m/ONDOUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 365693,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ONDOUSDT/ONDOUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 1241,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/ONDOUSDT/5m/ONDOUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 374492,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/ONDOUSDT/ONDOUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 1449,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AAVEUSDT/5m/AAVEUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 316846,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AAVEUSDT/AAVEUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 932,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AAVEUSDT/5m/AAVEUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 318150,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AAVEUSDT/AAVEUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 900,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/AAVEUSDT/5m/AAVEUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 327422,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/AAVEUSDT/AAVEUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 964,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "XLMUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XLMUSDT/5m/XLMUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 347427,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XLMUSDT/XLMUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 913,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XLMUSDT/5m/XLMUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 348955,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XLMUSDT/XLMUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 758,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/XLMUSDT/5m/XLMUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 349779,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/XLMUSDT/XLMUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 972,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "INJUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/INJUSDT/5m/INJUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 335158,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/INJUSDT/INJUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 958,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/INJUSDT/5m/INJUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 340724,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/INJUSDT/INJUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 841,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/INJUSDT/5m/INJUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 354666,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/INJUSDT/INJUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 935,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    },
+    {
+      "symbol": "GRAMUSDT",
+      "months": {
+        "2026-08": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/GRAMUSDT/5m/GRAMUSDT-5m-2026-08.zip",
+            "status": 200,
+            "content_length": 301137,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/GRAMUSDT/GRAMUSDT-fundingRate-2026-08.zip",
+            "status": 200,
+            "content_length": 1206,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-09": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/GRAMUSDT/5m/GRAMUSDT-5m-2026-09.zip",
+            "status": 200,
+            "content_length": 300810,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/GRAMUSDT/GRAMUSDT-fundingRate-2026-09.zip",
+            "status": 200,
+            "content_length": 1196,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        },
+        "2026-10": {
+          "klines": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/klines/GRAMUSDT/5m/GRAMUSDT-5m-2026-10.zip",
+            "status": 200,
+            "content_length": 308313,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          },
+          "funding": {
+            "url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/GRAMUSDT/GRAMUSDT-fundingRate-2026-10.zip",
+            "status": 200,
+            "content_length": 1325,
+            "body_prefix": "",
+            "ok": true,
+            "reason": "present"
+          }
+        }
+      },
+      "fully_reachable": true
+    }
+  ],
+  "reachable_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "ZECUSDT",
+    "XRPUSDT",
+    "NEARUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "SUIUSDT",
+    "UNIUSDT",
+    "WLDUSDT",
+    "ADAUSDT",
+    "TRXUSDT",
+    "PUMPUSDT",
+    "LINKUSDT",
+    "AVAXUSDT",
+    "TAOUSDT",
+    "TRUMPUSDT",
+    "LTCUSDT",
+    "ONDOUSDT",
+    "AAVEUSDT",
+    "XLMUSDT",
+    "INJUSDT",
+    "GRAMUSDT"
+  ],
+  "missing_symbols": [
+    "PEPEUSDT",
+    "UUSDT"
+  ],
+  "blocked_routes": [
+    {
+      "url": "https://fapi.binance.com/fapi/v1/ping",
+      "status": 451,
+      "content_length": 224,
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact custom",
+      "ok": false,
+      "reason": "blocked",
+      "route": "fapi_ping"
+    },
+    {
+      "url": "https://testnet.binance.vision/api/v3/ping",
+      "status": 451,
+      "content_length": 224,
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact custom",
+      "ok": false,
+      "reason": "blocked",
+      "route": "testnet_ping"
+    },
+    {
+      "url": "https://api.binance.com/api/v3/ping",
+      "status": 451,
+      "content_length": 224,
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact custom",
+      "ok": false,
+      "reason": "blocked",
+      "route": "api_binance_ping"
+    }
+  ],
+  "fallback_venues": [
+    {
+      "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT&bar=5m&limit=2",
+      "status": 200,
+      "content_length": null,
+      "body_prefix": "{\"code\":\"0\",\"data\":[[\"1794567000000\",\"69330.2\",\"69405.9\",\"69321.5\",\"69342.4\",\"33.87157016\",\"2349499.517524397\",\"2349499.517524397\",\"0\"],[\"1794566700000\",\"69320.",
+      "ok": true,
+      "reason": "present",
+      "route": "okx_history_candles"
+    },
+    {
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=300",
+      "status": 200,
+      "content_length": null,
+      "body_prefix": "[[1794567000,69264.78,69328.9,69264.78,69328.9,2.88047362],[1794566700,69245.35,69311.41,69256.4,69264.77,17.75847536],[1794566400,69223.59,69283.74,69242.85,69",
+      "ok": true,
+      "reason": "present",
+      "route": "coinbase_candles"
+    },
+    {
+      "url": "https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=5",
+      "status": 200,
+      "content_length": null,
+      "body_prefix": "{\"error\":[],\"result\":{\"XXBTZUSD\":[[1794351000,\"73699.2\",\"73739.1\",\"73689.3\",\"73690.6\",\"73719.9\",\"5.27371667\",365],[1794351300,\"73690.7\",\"73690.7\",\"73583.7\",\"736",
+      "ok": true,
+      "reason": "present",
+      "route": "kraken_ohlc"
+    }
+  ],
+  "summary": {
+    "n_symbols": 26,
+    "n_fully_reachable": 24,
+    "n_missing": 2,
+    "any_kline_reachable": true,
+    "any_funding_reachable": true
+  },
+  "ready": true
+}

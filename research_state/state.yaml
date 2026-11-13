@@ -1,9 +1,9 @@
-updated_at_utc: 20261113T104738Z
+updated_at_utc: 20261113T105440Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C290 COMPLETE — FORMAL WIDER-UNIVERSE NEGATIVE RESULT (2026-11-13T10:47:38Z). C290 (wider-universe true-5m OHLCV cross-sectional stat-arb) built + run end-to-end on 26 real mainnet public USDT spot pairs (full 26,208-bar 5m OHLCV, source data-api.binance.vision/api/v3/klines): ingest scripts/ingest_c290_universe.py -> data/cache/campaign290_ohlcv.pkl sha256 6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e (+meta 5c9ff6c8473e460c30790e8854f2934af57ccdac7f3cba7e824ba04c1bcc0103, +provenance 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193). preflight_c290 ready:true. Full sweep 162 runs (6 true-5m features x 3 lookbacks x 3 K x 3 holds, 151 WF splits, 5 cost slices) -> NOT_TRADABLE, 0/162 edge, binding cost_sensitivity (zero-cost sums ~0 or negative; all fee40 negative). Five artifacts 20261113T104321Z: oos_sweep e20b2ee2602134d7e15c144e30a482f1196a5ad4f995b2d72f87e9fc6d060ed8, registry f89b6af757a0df50ecb6e5ad83a851504618f664ec286b5c8a9afbdc1908397d, summary da0eb512c72984dd5ec51ef343d80433fb15b34a70977909513d11b88d9fe8a4, verdict 07d1f731eee9eb397ef22fcd87ae9c7d40dea753360d7af5766a656e842059b7, binding_constraint ad8938c07324afa2e3937fcf85a27da53c2acb8497402350c791a010763b812b. pytest 1161 passed 2 skipped (+12 C290 tests). NOW ESCALATE (no more spot signal families): the 11-asset close/quote-volume space (C281B..C286, C288, C289) AND this 26-asset true-5m OHLCV space are both closed. Remaining economic levers require an ALLOWED NETWORK: (i) derivatives funding/basis (data/real_feed_loader.py::fetch_binance_funding_rates + compute_funding_carry_metrics exist; fapi.binance.com HTTP 451 here), (ii) live/testnet execution C287 (testnet REST HTTP 451 + no creds). Do NOT loop on another spot signal family. Next session: attempt C291 only if a new allowed data source (derivatives funding/basis or order-book/microstructure from an allowed host) is reachable; otherwise record the definitive closure and stop. No status-only turn."
-known_bottleneck: {id: external_execution_network_for_derivatives_and_testnet, evidence: "Economic spot space is closed: 11-asset close+1h-quote-volume (C281B..C286, C288, C289 economic_space_closed=true) AND 26-asset true-5m OHLCV (C290 NOT_TRADABLE 0/162). Remaining levers need an allowed network: fapi.binance.com (funding/basis) HTTP 451 geographic; testnet.binance.vision REST HTTP 451 + no BINANCE_TESTNET_API_KEY/SECRET; mainnet public spot klines data-api.binance.vision HTTP 200 (already fully used by C290).", fix: "Do not fabricate or loop on spot. Only open C291 if a genuinely new reachable real data source exists (derivatives funding/basis from an allowed egress, or C287 testnet with creds from an allowed network). Otherwise record closure in state + AGENTS and stop.", do_not: "edit .github/workflows/main.yml; create/read/edit HANDOFF.md (AGENTS.md only); fabricate data/fills; rerun frozen C281B..C286/C288/C289/C290 artifacts"}
+active_initial_task: "C291 MANDATORY HEAVY WORK (2026-11-13T10:54:40Z) — REAL USDT-M PERP FUNDING-CARRY / BASIS CROSS-SECTIONAL STAT-ARB. C290 is COMPLETE (NOT_TRADABLE, 0/162, binding cost_sensitivity); the Binance spot-OHLCV space (11-asset C281B..C286/C288/C289 + 26-asset C290) is CLOSED. The prior 'derivatives blocked' claim is CORRECTED: fapi.binance.com is HTTP 451 but the public archive host data.binance.vision serves USDT-M futures 5m klines (data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip) and 8h funding rates (data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip) at HTTP 200; probe reports/campaign291_derivatives_reachability_20261113T105429Z.json (sha256 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4) shows 24/26 perps fully reachable (PEPEUSDT/UUSDT 404). BUILD + RUN C291 end-to-end: scripts/ingest_c291_perp_funding.py -> data/cache/campaign291_perp_5m.pkl (+meta/provenance, SHA256-from-bytes, real_data_only=true/fabricated_data=false, window 2026-08-01T00:00Z->2026-10-30T23:55Z, 26,208 5m bars, 24 perps; spot leg = verified C290 cache); scripts/preflight_c291.py ready:true; scripts/run_c291_perp_funding_basis_xsec_oos.py = 6 causal features (funding_level, funding_z, basis_ma, basis_z, perp_mom, perp_lowvol) x 3 lookbacks {288,1008,2016} x 3 K {2,3,5} x 3 holds {1,6,24} = 162 runs; WF 720/168/168 = 151 splits; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; real funding cashflow -rate*signed_weight at each 8h boundary; benchmark equal-weight 24-perp B&H with funding; edge rule identical to C285/C286/C288/C290 (never relaxed). Emit five artifacts (oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint if NOT_TRADABLE) with SHA256-from-bytes; add tests; pytest green; update state + AGENTS. If C291 closes, escalate to C292 cross-venue real-spot basis (OKX/Coinbase/Kraken all HTTP 200 verified); only external execution remains after that. No status-only turn; no reruns/edits of frozen C281B..C286/C288/C289/C290; no weakened gates; no synthetic data."
+known_bottleneck: {id: none_for_c291_derivatives_archive_reachable, evidence: "C290 closed the spot-OHLCV space (11-asset C281B..C286/C288/C289 + 26-asset C290 NOT_TRADABLE). The prior derivatives blocker was incomplete: fapi.binance.com remains HTTP 451, but data.binance.vision serves real USDT-M futures 5m klines + 8h funding archives at HTTP 200 for 24/26 C290 symbols across 2026-08/09/10 (probe artifact sha256 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4).", fix: "Run C291 end-to-end now: ingest futures 5m klines + funding from data.binance.vision, reuse the verified C290 spot cache only as the basis leg, build/run the 162-run costed OOS sweep with real funding cashflows, emit the five artifacts + tests, update state + AGENTS. If C291 closes, run C292 cross-venue spot basis (OKX/Coinbase/Kraken HTTP 200).", do_not: "edit .github/workflows/main.yml; create/read/edit HANDOFF.md (AGENTS.md only); fabricate data/fills; rerun or edit frozen C281B..C286/C288/C289/C290 artifacts; re-emit C287 BLOCKED artifacts absent new capability evidence"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
 cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
@@ -24,9 +24,29 @@ caches_verified:
   campaign290_provenance: {path: data/cache/campaign290_ohlcv.provenance.json, sha256: 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193}
   campaign290_window: {bars: 26208, assets: 26, start: 2026-08-01T00:00Z, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false, source_host: https://data-api.binance.vision, source_endpoint: /api/v3/klines, fields: [open, high, low, close, volume, quote_volume]}
 latest_campaign_done: C290
-next_campaign: C291_ONLY_IF_NEW_REACHABLE_REAL_DATA_ELSE_STOP
+next_campaign: C291_REAL_PERP_FUNDING_BASIS_XSEC_MANDATORY_HEAVY_WORK
 locked_campaigns: C104-C290
 oos_edge_proven: false
+c291_data_source:
+  status: verified_reachable
+  probe_artifact: reports/campaign291_derivatives_reachability_20261113T105429Z.json
+  probe_artifact_sha256: 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4
+  probe_script: scripts/probe_c291_derivatives_archives.py
+  probe_tests: tests/test_probe_c291_derivatives_archives.py
+  archive_host: https://data.binance.vision
+  kline_endpoint: /data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip
+  funding_endpoint: /data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip
+  months: [2026-08, 2026-09, 2026-10]
+  symbols_total: 26
+  symbols_fully_reachable: 24
+  symbols_missing: [PEPEUSDT, UUSDT]
+  kline_columns: [open_time, open, high, low, close, volume, close_time, quote_volume, count, taker_buy_volume, taker_buy_quote_volume, ignore]
+  funding_columns: [calc_time, funding_interval_hours, last_funding_rate]
+  funding_interval_hours: 8
+  real_data_only: true
+  fabricated_data: false
+  blocked_routes: {fapi.binance.com: 451, testnet.binance.vision: 451, api.binance.com: 451}
+  fallback_venues_ok: {okx: 200, coinbase: 200, kraken: 200}
 latest_registry:
   path: reports/campaign290_tradable_edge_registry_20261113T104321Z.json
   sha256: f89b6af757a0df50ecb6e5ad83a851504618f664ec286b5c8a9afbdc1908397d
@@ -344,6 +364,50 @@ campaign287:
   anti_avoidance: "No status-only/planning-only turn. If ready:false must still produce full BLOCKED artifacts (all five, SHA256-from-bytes, no fabricated fills), runnable gateway, tests, and state+AGENTS update. Smoke-only run does not count as completion. Signal artifact generated this session from verified caches (parquet/pickle). Clear remaining blockers (credentials, REST reachability from allowed network) then execute --run for >=72h/>=500 cycles with drift_free true."
 
 
+campaign291:
+  hypothesis: REAL_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_CROSS_SECTIONAL_STAT_ARB
+  status: required_pending_heavy_work
+  script_required: scripts/run_c291_perp_funding_basis_xsec_oos.py
+  ingest_required: scripts/ingest_c291_perp_funding.py
+  preflight_required: scripts/preflight_c291.py
+  data_source: data.binance.vision public futures archives (USDT-M 5m klines + 8h fundingRate), verified HTTP 200
+  universe: 24 perps (C290 spot symbols minus PEPEUSDT/UUSDT 404)
+  spot_basis_leg: data/cache/campaign290_ohlcv.pkl (verified real C290 spot 5m cache; reused only as the spot leg)
+  bars: 26208
+  interval: 5m
+  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
+  signal_features: [funding_level, funding_z, basis_ma, basis_z, perp_mom, perp_lowvol]
+  lookbacks_5m: [288, 1008, 2016]
+  cross_sectional_K: [2, 3, 5]
+  holding_periods_5m: [1, 6, 24]
+  pre_registered_grid:
+    features: 6
+    lookbacks: 3
+    K: 3
+    holds: 3
+    total_runs: 162
+  wf: {train: 720, test: 168, step: 168, n_splits: 151}
+  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
+  funding_cashflow: "funding_pnl = -funding_rate * signed_weight at each 8h funding timestamp, causal (rate known at/before boundary); long pays when rate>0, short receives"
+  benchmark: "equal-weight 24-perp buy-and-hold with the same real funding cashflows on the same WF windows"
+  edge_rule: "identical to C285/C286/C288/C290: OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split equal-weight B&H OOS net mean on same WF windows"
+  gates: "fail_closed: selected feature score finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite perp or spot price in selected legs; funding staleness <= 24h+1 bar; basis finite where used; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  required_artifacts:
+    - reports/campaign291_oos_sweep_<ts>.json
+    - reports/campaign291_tradable_edge_registry_<ts>.json
+    - reports/campaign291_summary_<ts>.json
+    - reports/campaign291_verdict_<ts>.json
+    - reports/campaign291_binding_constraint_<ts>.json (if NOT_TRADABLE)
+  completion_gate:
+    - ingest_c291_perp_funding_executed_and_cache_sha256_verified: pending
+    - preflight_c291_exits_zero_ready_true: pending
+    - run_c291_perp_funding_basis_xsec_oos_executed_end_to_end_not_smoke_only: pending
+    - all_five_artifacts_fresh_with_sha256_from_bytes: pending
+    - binding_constraint_artifact_if_not_tradable: pending
+    - tests_added_and_pytest_green: pending
+    - state_and_handoff_updated_with_paths_and_sha256: pending
+  escalation_if_closed: C292 cross-venue real-spot basis/stat-arb (OKX/Coinbase/Kraken verified HTTP 200); external execution only after C292
+
 campaign290:
   hypothesis: WIDER_UNIVERSE_TRUE_5M_OHLCV_CROSS_SECTIONAL_STAT_ARB
   status: completed_not_tradable
@@ -420,9 +484,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T104738Z
+  timestamp_utc: 20261113T105440Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C290 COMPLETE — FORMAL WIDER-UNIVERSE NEGATIVE RESULT (2026-11-13T10:47:38Z). C290 (wider-universe true-5m OHLCV cross-sectional stat-arb) built + run end-to-end on 26 real mainnet public USDT spot pairs (full 26,208-bar 5m OHLCV, source data-api.binance.vision/api/v3/klines): ingest scripts/ingest_c290_universe.py -> data/cache/campaign290_ohlcv.pkl sha256 6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e (+meta 5c9ff6c8473e460c30790e8854f2934af57ccdac7f3cba7e824ba04c1bcc0103, +provenance 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193). preflight_c290 ready:true. Full sweep 162 runs (6 true-5m features x 3 lookbacks x 3 K x 3 holds, 151 WF splits, 5 cost slices) -> NOT_TRADABLE, 0/162 edge, binding cost_sensitivity (zero-cost sums ~0 or negative; all fee40 negative). Five artifacts 20261113T104321Z: oos_sweep e20b2ee2602134d7e15c144e30a482f1196a5ad4f995b2d72f87e9fc6d060ed8, registry f89b6af757a0df50ecb6e5ad83a851504618f664ec286b5c8a9afbdc1908397d, summary da0eb512c72984dd5ec51ef343d80433fb15b34a70977909513d11b88d9fe8a4, verdict 07d1f731eee9eb397ef22fcd87ae9c7d40dea753360d7af5766a656e842059b7, binding_constraint ad8938c07324afa2e3937fcf85a27da53c2acb8497402350c791a010763b812b. pytest 1161 passed 2 skipped (+12 C290 tests). NOW ESCALATE (no more spot signal families): the 11-asset close/quote-volume space (C281B..C286, C288, C289) AND this 26-asset true-5m OHLCV space are both closed. Remaining economic levers require an ALLOWED NETWORK: (i) derivatives funding/basis (data/real_feed_loader.py::fetch_binance_funding_rates + compute_funding_carry_metrics exist; fapi.binance.com HTTP 451 here), (ii) live/testnet execution C287 (testnet REST HTTP 451 + no creds). Do NOT loop on another spot signal family. Next session: attempt C291 only if a new allowed data source (derivatives funding/basis or order-book/microstructure from an allowed host) is reachable; otherwise record the definitive closure and stop. No status-only turn."
+  active_initial_task_message: "C291 MANDATORY HEAVY WORK (2026-11-13T10:54:40Z) — REAL USDT-M PERP FUNDING-CARRY / BASIS CROSS-SECTIONAL STAT-ARB. C290 COMPLETE (NOT_TRADABLE 0/162, binding cost_sensitivity); Binance spot-OHLCV space closed. Prior derivatives-blocked claim CORRECTED: fapi.binance.com HTTP 451 but data.binance.vision serves USDT-M futures 5m klines + 8h funding archives at HTTP 200 for 24/26 C290 perps across 2026-08/09/10 (probe artifact reports/campaign291_derivatives_reachability_20261113T105429Z.json sha256 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4). BUILD + RUN C291 end-to-end: ingest scripts/ingest_c291_perp_funding.py -> data/cache/campaign291_perp_5m.pkl (+meta/provenance, SHA256-from-bytes, real_data_only=true/fabricated_data=false, 26,208 5m bars, 24 perps; spot leg = verified C290 cache); preflight scripts/preflight_c291.py ready:true; runner scripts/run_c291_perp_funding_basis_xsec_oos.py with 6 causal features x 3 lookbacks x 3 K x 3 holds = 162 runs, WF 720/168/168 = 151 splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, real funding cashflow -rate*signed_weight at each 8h boundary, benchmark equal-weight 24-perp B&H with funding, edge rule identical to C285/C286/C288/C290 (never relaxed). Emit five artifacts with SHA256-from-bytes, add tests, keep pytest green, update state + AGENTS. If C291 closes, escalate to C292 cross-venue real-spot basis (OKX/Coinbase/Kraken HTTP 200 verified); external execution only after C292. No status-only turn; no frozen-artifact reruns/edits; no weakened gates; no synthetic data."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
@@ -450,6 +514,12 @@ bottlenecks_removed:
     detail: "scripts/preflight_c290.py (ready:true) + scripts/run_c290_wider_universe_oohlcv_xsec_oos.py executed end-to-end (6 true-5m features x 3 lookbacks x 3 K x 3 holds = 162 runs, 151 WF splits, 5 cost slices); NOT_TRADABLE 0/162, binding cost_sensitivity; five artifacts with SHA256-from-bytes; tests added (tests/test_preflight_c290.py, tests/test_c290_wider_universe_oohlcv_xsec_oos.py)."
   - id: c290_data_reachability
     detail: "Mainnet public spot klines data-api.binance.vision/api/v3/klines + /api/v3/exchangeInfo + /api/v3/ticker/24hr are HTTP 200 and fully usable; api.binance.com and fapi.binance.com are HTTP 451. The reachable spot data lever is now exhausted by C290."
+  - id: c291_derivatives_reachability
+    detail: "The prior 'derivatives blocked' bottleneck is removed: fapi.binance.com remains HTTP 451, but the Binance public-data archive host data.binance.vision serves real USDT-M futures monthly 5m klines and 8h funding-rate archives at HTTP 200 for 24/26 C290 symbols over 2026-08/09/10. Evidence: scripts/probe_c291_derivatives_archives.py + reports/campaign291_derivatives_reachability_20261113T105429Z.json (sha256 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4) + tests/test_probe_c291_derivatives_archives.py (8 tests, no network)."
+  - id: stale_handoff_c290_completion
+    detail: "C290 was completed at 2026-11-13T10:43–10:47Z but AGENTS.md still listed C290 as pending. This refresh records C290 as COMPLETE (five frozen artifacts + SHAs) and makes C291 the mandatory next campaign."
+  - id: c287_duplicate_artifact_loop
+    detail: "The prior session re-emitted four duplicate C287 BLOCKED artifact sets at 10:46:32–10:46:35Z. The handoff now forbids re-emitting C287 artifacts absent new capability evidence; C287 remains blocked and decoupled from economic progress."
 mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data

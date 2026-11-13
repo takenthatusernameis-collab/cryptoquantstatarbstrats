@@ -23,10 +23,10 @@ SYMBOLS = ("ADAUSDT", "AVAXUSDT", "BNBUSDT", "BTCUSDT", "DOTUSDT", "ETHUSDT",
 ASSETS = tuple(s.replace("USDT", "") for s in SYMBOLS)
 
 
-def test_gateway_script_exists_and_is_runnable() -> None:
+def test_gateway_script_exists_and_is_runnable(tmp_path) -> None:
     assert SCRIPT.exists(), f"missing C287 gateway script: {SCRIPT}"
     proc = subprocess.run(
-        [sys.executable, str(SCRIPT), "--blocker-artifacts"],
+        [sys.executable, str(SCRIPT), "--blocker-artifacts", "--reports-dir", str(tmp_path)],
         cwd=ROOT, capture_output=True, text=True, timeout=300,
     )
     assert proc.returncode in (0, 2), f"unexpected exit {proc.returncode}: {proc.stderr}"
@@ -39,9 +39,9 @@ def test_gateway_script_exists_and_is_runnable() -> None:
     assert set(result["artifacts"].keys()) == names, result["artifacts"].keys()
 
 
-def test_blocker_artifacts_have_paths_and_sha256() -> None:
+def test_blocker_artifacts_have_paths_and_sha256(tmp_path) -> None:
     proc = subprocess.run(
-        [sys.executable, str(SCRIPT), "--blocker-artifacts"],
+        [sys.executable, str(SCRIPT), "--blocker-artifacts", "--reports-dir", str(tmp_path)],
         cwd=ROOT, capture_output=True, text=True, timeout=300,
     )
     result = json.loads(proc.stdout)
@@ -58,9 +58,9 @@ def test_blocker_artifacts_have_paths_and_sha256() -> None:
         assert obj.get("blocker") is True, kind
 
 
-def test_blocker_artifacts_no_fabricated_fills_no_simulated_gateway() -> None:
+def test_blocker_artifacts_no_fabricated_fills_no_simulated_gateway(tmp_path) -> None:
     proc = subprocess.run(
-        [sys.executable, str(SCRIPT), "--blocker-artifacts"],
+        [sys.executable, str(SCRIPT), "--blocker-artifacts", "--reports-dir", str(tmp_path)],
         cwd=ROOT, capture_output=True, text=True, timeout=300,
     )
     result = json.loads(proc.stdout)
@@ -71,9 +71,9 @@ def test_blocker_artifacts_no_fabricated_fills_no_simulated_gateway() -> None:
     assert obj.get("run_status") == "BLOCKED_NO_LIVE_EXECUTION"
 
 
-def test_blocker_artifacts_blockers_enumerated_with_cache_shas() -> None:
+def test_blocker_artifacts_blockers_enumerated_with_cache_shas(tmp_path) -> None:
     proc = subprocess.run(
-        [sys.executable, str(SCRIPT), "--blocker-artifacts"],
+        [sys.executable, str(SCRIPT), "--blocker-artifacts", "--reports-dir", str(tmp_path)],
         cwd=ROOT, capture_output=True, text=True, timeout=300,
     )
     result = json.loads(proc.stdout)

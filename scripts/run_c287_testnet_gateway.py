@@ -875,7 +875,14 @@ def main() -> int:
                         help="pre-committed signal variant 'feature:lookback:K:hold'")
     parser.add_argument("--timeout", type=float, default=10.0,
                         help="network timeout seconds")
+    parser.add_argument("--reports-dir", type=str, default=None,
+                        help="override the artifact output directory (default: reports/)")
     args = parser.parse_args()
+
+    if args.reports_dir:
+        global REPORTS
+        REPORTS = Path(args.reports_dir).resolve()
+        REPORTS.mkdir(parents=True, exist_ok=True)
 
     if args.generate_signal or args.generate_signal_parquet:
         result = generate_signal_parquet()
@@ -909,7 +916,7 @@ def main() -> int:
                          indent=2, sort_keys=True, default=jdefault))
         return 2
 
-    audit = AuditLogger(ROOT / "reports" / f"c287_audit_{ts_filename()}.jsonl")
+    audit = AuditLogger(REPORTS / f"c287_audit_{ts_filename()}.jsonl")
     kill_switch = KillSwitch(audit)
 
     # REST + WS health
