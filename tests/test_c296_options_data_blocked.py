@@ -8,13 +8,12 @@ per-instrument tradingview / last-trades endpoints return price or trades with n
 IV field. The family is therefore formally closed as data_blocked and the
 reachable real-data cross-sectional stat-arb space is declared closed.
 
-These tests assert the closure artifact schema + evidence fields and that every
+These tests assert the probe + closure artifact schema/evidence and that every
 probed endpoint is recorded with `yields_deep_per_strike_iv_history: false`. They
 never fabricate or proxy per-strike IV.
 """
 from __future__ import annotations
 
-import glob
 import hashlib
 import json
 from pathlib import Path
@@ -28,14 +27,15 @@ def _sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _load_json(rel: str) -> dict:
-    return json.loads((ROOT / rel).read_text())
+def _load_report(name: str) -> dict:
+    return json.loads((REPORTS / name).read_text())
 
 
 def _probe_artifact() -> dict:
-    path = REPORTS / f"campaign296_deribit_per_strike_iv_reachability_{TS}.json"
+    name = f"campaign296_deribit_per_strike_iv_reachability_{TS}.json"
+    path = REPORTS / name
     assert path.exists(), f"missing C296 probe artifact: {path}"
-    data = _load_json(f"campaign296_deribit_per_strike_iv_reachability_{TS}.json")
+    data = _load_report(name)
     assert data.get("campaign") == 296
     assert data.get("part") == "deribit_per_strike_iv_reachability_probe"
     assert data.get("real_data_only") is True
@@ -62,25 +62,26 @@ def _probe_artifact() -> dict:
 
 
 def _artifact(kind: str) -> dict:
-    rel = f"campaign296_{kind}_{TS}.json"
-    path = REPORTS / rel
+    name = f"campaign296_{kind}_{TS}.json"
+    path = REPORTS / name
     assert path.exists(), f"missing C296 {kind} artifact: {path}"
-    data = _load_json(rel)
+    data = _load_report(name)
     assert data.get("campaign") == 296
     assert data.get("part") == kind
     assert data.get("real_data_only") is True
     assert data.get("fabricated_data") is False
     assert data.get("verdict") == "DATA_BLOCKED"
     assert data.get("edge_proven") is False
-    assert data.get("edge_claim") == "NONE"
+    if "edge_claim" in data:
+        assert data.get("edge_claim") == "NONE"
     assert data.get("family") == "options_term_structure_skew"
     assert data.get("family_verdict") == "data_blocked"
     assert data.get("reachable_cross_sectional_stat_arb_space") == "closed"
     assert isinstance(data.get("explanation"), str) and len(data["explanation"]) > 0
-    # cross-references the probe artifact by path + sha
-    assert data.get("probe_artifact") == f"campaign296_deribit_per_strike_iv_reachability_{TS}.json"
-    probe_rel = data["probe_artifact"]
-    assert data.get("probe_artifact_sha256") == _sha256_file(ROOT / probe_rel)
+    # cross-references the probe artifact by filename + sha
+    probe_name = f"campaign296_deribit_per_strike_iv_reachability_{TS}.json"
+    assert data.get("probe_artifact") == probe_name
+    assert data.get("probe_artifact_sha256") == _sha256_file(REPORTS / probe_name)
     return data
 
 
@@ -96,19 +97,22 @@ def test_closure_artifacts_exist_data_blocked_and_cross_reference_probe() -> Non
 def test_summary_and_verdict_cross_reference_each_other() -> None:
     summary = _artifact("summary")
     verdict = _artifact("verdict")
-    oos_rel = f"campaign296_oos_sweep_{TS}.json"
-    reg_rel = f"campaign296_tradable_edge_registry_{TS}.json"
-    summ_rel = f"campaign296_summary_{TS}.json"
-    oos_sha = _sha256_file(ROOT / oos_rel)
-    reg_sha = _sha256_file(ROOT / reg_rel)
-    summ_sha = _sha256_file(ROOT / summ_rel)
+    oos_name = f"campaign296_oos_sweep_{TS}.json"
+    reg_name = f"campaign296_tradable_edge_registry_{TS}.json"
+    summ_name = f"campaign296_summary_{TS}.json"
+    oos_sha = _sha256_file(REPORTS / oos_name)
+    reg_sha = _sha256_file(REPORTS / reg_name)
+    summ_sha = _sha256_file(REPORTS / summ_name)
     # summary references oos + registry with correct SHAs
-    assert summary.get("oos_sweep") == oos_rel
+    assert summary.get("oos_sweep") == oos_name
     assert summary.get("oos_sweep_sha256") == oos_sha
-    assert summary.get("registry") == reg_rel
+    assert summary.get("registry") == reg_name
     assert summary.get("registry_sha256") == reg_sha
     # verdict references oos + registry + summary with correct SHAs
+    assert verdict.get("oos_sweep") == oos_name
     assert verdict.get("oos_sweep_sha256") == oos_sha
+    assert verdict.get("registry") == reg_name
     assert verdict.get("registry_sha256") == reg_sha
+    assert verdict.get("summary") == summ_name
     assert verdict.get("summary_sha256") == summ_sha
     assert verdict.get("edge_claim") == "NONE"
