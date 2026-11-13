@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T21:38:43Z
+**Handoff refreshed:** 2026-11-13T22:08:43Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state (last verification):** `python -m pytest tests/ -q` → **green (1241 passed, 2 skipped, 78.3s)** at 2026-11-13T21:38Z. C281B→C286, C288, C289, C290, C291, C292, C293, C294, **C295** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge, frozen). The reachable **5m spot + perp** space (single-venue and cross-venue) is closed (`economic_space_closed: true`), the **real implied-volatility VRP / BTC-ETH relative-value** asset class is also **closed (C294)**, and the **three-venue real 5m spot cross-venue basis / lead-lag** space is also **closed (C295)**. **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block + no credentials and is DECOUPLED from economic progress.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T21:38:43Z) — C295 COMPLETE (NOT_TRADABLE, 0/162 edge, binding cost_sensitivity); NEXT FOCUS C296 OPTIONS TERM-STRUCTURE/SKEW (DERIBIT PER-STRIKE MARK IV) CONTINGENT ON DEEP PER-STRIKE IV FEED VERIFICATION
+## INITIAL TASK MESSAGE (2026-11-13T22:08:43Z) — C295 COMPLETE (NOT_TRADABLE, 0/162 edge, binding cost_sensitivity); NEXT FOCUS C296 OPTIONS TERM-STRUCTURE/SKEW (DERIBIT PER-STRIKE MARK IV) CONTINGENT ON DEEP PER-STRIKE IV FEED VERIFICATION — MANDATORY END-TO-END EXECUTION IN ONE TURN
 
 **C295 is COMPLETE and frozen.** Three-venue real 5m spot cross-venue basis / dispersion / lead-lag stat-arb (Binance + OKX + Coinbase) executed end-to-end: ingest → preflight `ready:true` → 162-run costed OOS sweep → 5 SHA256-from-bytes artifacts → 15 tests → suite green. Verdict `NOT_TRADABLE`, `edge_claim: NONE`, 0/162 edge proven, binding constraint `cost_sensitivity` (92/162 gross-positive at 0bps, 0/162 net-positive at ≥5bps, 0/162 beat benchmark). The reachable three-venue real-spot stat-arb space is now **closed**.
 
