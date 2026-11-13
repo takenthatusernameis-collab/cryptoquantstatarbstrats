@@ -1,6 +1,6 @@
 # DURABLE HANDOFF — SINGLE AUTHORITATIVE START (cryptoquantstatarbstrats)
 
-## INITIAL TASK MESSAGE — 2026-11-13T03:37:51Z UTC (supersedes 03:33:06Z handoff)
+## INITIAL TASK MESSAGE — 2026-11-13T03:38:28Z UTC (supersedes 03:37:51Z handoff)
 
 **Repo priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage** (cointegration/pairs core). Economic relevance requires **costed out-of-sample spot-price PnL on real, provable data**. Quote-volume return metrics are **not tradable PnL**. Ranking below follows this priority.
 
@@ -47,4 +47,4 @@
 - No synthetic/fabricated data; no relabeling existing caches as new; no unprovenanced fetch claims; no threshold/gate weakening; no cherry-picked windows/costs.
 - Do not edit frozen artifacts. Record SHA256-from-bytes for every new artifact. Update this single handoff + `research_state/state.yaml` when C281 produces durable evidence.
 
-**END — 2026-11-13T03:37:51Z UTC. Blocker (`BLOCKED_NO_NEW_REAL_DATA`) is REMOVED: provable real spot exists through 2026-11-13T02:00Z on disk and live fetch reaches 2026-11-13T03:00Z. C281A is done. Next session MUST execute C281B (heavy costed OOS on the 28-split real dataset) and C281C if no edge, with SHA256-from-bytes on every artifact and an honest verdict.**
+**END — 2026-11-13T03:38:28Z UTC. Blocker (`BLOCKED_NO_NEW_REAL_DATA`) is REMOVED: provable real spot exists through 2026-11-13T02:00Z on disk and live fetch reaches 2026-11-13T03:00Z. C281A is done. Next session MUST execute C281B (heavy costed OOS on the 28-split real dataset) and C281C if no edge, with SHA256-from-bytes on every artifact and an honest verdict.**
