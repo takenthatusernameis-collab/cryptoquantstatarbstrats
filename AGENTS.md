@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T12:34:29Z
+**Handoff refreshed:** 2026-11-13T12:35:56Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state:** `python -m pytest tests/ -q` → **green (1184 passed, 2 skipped, last recorded at C291 close)**. C281B→C286, C288, C289, C290, **C291** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge). **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block and is DECOUPLED from economic progress.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T12:34:29Z) — C292 CROSS-VENUE REAL-SPOT BASIS / LEAD-LAG STAT-ARB: MANDATORY HEAVY WORK, COMPLETE END-TO-END (NO AVOIDANCE)
+## INITIAL TASK MESSAGE (2026-11-13T12:35:56Z) — C292 CROSS-VENUE REAL-SPOT BASIS / LEAD-LAG STAT-ARB: MANDATORY HEAVY WORK, COMPLETE END-TO-END (NO AVOIDANCE)
 
 **START HERE. C292 is the only active economic campaign.** Binance single-venue spot (C281B→C286/C288/C289/C290) and USDT-M perp funding/basis (C291) are **closed/NOT_TRADABLE**. Next lever = **cross-venue real spot** (same asset, different exchanges: Binance cached + OKX paginated). This session's audit found **C292 INCOMPLETE**: `scripts/ingest_c292_crossvenue_spot.py` is a partial stub only; `scripts/preflight_c292.py`, `scripts/run_c292_crossvenue_basis_xsec_oos.py`, C292 tests, cache, and all 5 report artifacts are **missing**. **Do not stop at planning, probing, or ingest-only — complete the full C292 pipeline in this turn.**
 
@@ -178,4 +178,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285/C286/C288/C289/C290/C291 are complete and frozen; current next campaign is **C292**.
 
-**END OF HANDOFF — refreshed 2026-11-13T12:34:29Z.** Economic status: Binance single-venue spot (C281B→C286/C288/C289/C290) and real USDT-M perp funding/basis (C291) are **closed**. **C287 is BLOCKED/decoupled** (testnet REST HTTP 451 + no creds). **C292 is the sole active economic campaign and is UNFINISHED in-repo** (only partial ingest stub exists). Next session MUST complete C292 end-to-end: finish ingest, build preflight/runner/tests, execute full sweep, emit all required artifacts with SHA256-from-bytes, update state + this file, keep tests green. If C292 closes, record definitive external-execution-only blocker. **A status-only, planning-only, ingest-only, or infra-substituting turn is a failed handoff.**
+**END OF HANDOFF — refreshed 2026-11-13T12:35:56Z.** Economic status: Binance single-venue spot (C281B→C286/C288/C289/C290) and real USDT-M perp funding/basis (C291) are **closed**. **C287 is BLOCKED/decoupled** (testnet REST HTTP 451 + no creds). **C292 is the sole active economic campaign and is UNFINISHED in-repo** (only partial ingest stub exists). Next session MUST complete C292 end-to-end: finish ingest, build preflight/runner/tests, execute full sweep, emit all required artifacts with SHA256-from-bytes, update state + this file, keep tests green. If C292 closes, record definitive external-execution-only blocker. **A status-only, planning-only, ingest-only, or infra-substituting turn is a failed handoff.**
