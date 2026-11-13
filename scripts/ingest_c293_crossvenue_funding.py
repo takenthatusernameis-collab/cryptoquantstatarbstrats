@@ -60,7 +60,11 @@ OKX_HOST = "https://www.okx.com"
 OKX_FUNDING_ENDPOINT = "/api/v5/public/funding-rate-history"
 OKX_KLINE_ENDPOINT = "/api/v5/market/history-candles"
 OKX_BAR = "5m"
-OKX_LIMIT = 100
+# OKX market/funding history endpoints accept up to limit=300 (verified
+# 2026-11-13: funding-rate-history returns the full 286-point depth in one page;
+# history-candles returns 300 bars/page).  Using 300 cuts kline pagination from
+# ~234 to ~78 pages/symbol -- a real-data-only speedup (no resampling).
+OKX_LIMIT = 300
 REQUEST_TIMEOUT = 30.0
 # OKX rejects non-browser User-Agent strings with HTTP 403 (CloudFront).  Use a
 # standard browser UA so the public market-data endpoint stays reachable.
@@ -71,7 +75,10 @@ HTTP_HEADERS = {
     ),
     "Accept": "application/json",
 }
-SLEEP_BETWEEN_REQUESTS = 0.15
+# OKX public market-data rate limit is ~20 requests / 2s / IP.  With 3 workers a
+# 0.15s sleep exceeds that and risks HTTP 429; 0.4s matches the proven-safe C292
+# pacing (~7.5 req/s aggregate).
+SLEEP_BETWEEN_REQUESTS = 0.4
 MAX_PAGES_PER_SYMBOL = 20000
 OKX_RETRY_STATUS = {429}
 
@@ -350,6 +357,38 @@ def fetch_okx_klines(inst_id: str, exp_idx: pd.DatetimeIndex, timeout: float) ->
     }
 
 
+def native_funding_interval_hours(series: pd.Series) -> float | None:
+    """Modal spacing (hours) between native funding boundaries of a symbol.
+
+    The C291 cache stores funding rates on the 5m grid with NaN between native
+    boundaries; the non-NaN timestamps are the native funding times.  The index
+    unit is read explicitly (pandas 3.x defaults to microseconds).
+    """
+    s = series.dropna()
+    if len(s) < 2:
+        return None
+    idx = pd.DatetimeIndex(s.index)
+    unit = getattr(idx.dtype, "unit", "ns")
+    vals = idx.asi8
+    if unit == "s":
+        secs = vals
+    elif unit == "ms":
+        secs = vals // 1_000
+    elif unit == "us":
+        secs = vals // 1_000_000
+    elif unit == "ns":
+        secs = vals // 1_000_000_000
+    else:
+        raise RuntimeError(f"unsupported datetime unit: {unit}")
+    diffs = np.diff(secs)
+    diffs = diffs[diffs > 0]
+    if diffs.size == 0:
+        return None
+    hours = np.round(diffs / 3600.0, 6)
+    uniq, counts = np.unique(hours, return_counts=True)
+    return float(uniq[int(np.argmax(counts))])
+
+
 def load_binance_perp_universe() -> tuple[list[str], dict]:
     if not C291_PKL.exists():
         raise SystemExit(f"FATAL: C291 perp cache missing, cannot establish C293 universe: {C291_PKL}")
@@ -360,7 +399,11 @@ def load_binance_perp_universe() -> tuple[list[str], dict]:
         raise SystemExit("FATAL: C291 cache has no symbols")
     closes = payload["closes"]
     funding_rates = payload["funding_rates"]
-    funding_intervals = payload.get("funding_intervals_by_symbol", {})
+    funding_intervals = payload.get("funding_intervals_by_symbol") or {}
+    if not funding_intervals:
+        # C291 cache omits the field; derive each symbol's native interval from
+        # the actual funding timestamps so provenance records the truth.
+        funding_intervals = {s: native_funding_interval_hours(funding_rates[s]) for s in symbols}
     return symbols, {
         "closes": closes,
         "funding_rates": funding_rates,
