@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "20261113T224349Z",
+  "campaign": 296,
+  "part": "summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "DATA_BLOCKED",
+  "edge_proven": false,
+  "n_total_runs": 0,
+  "n_edge_proven": 0,
+  "family": "options_term_structure_skew",
+  "family_verdict": "data_blocked",
+  "reachable_cross_sectional_stat_arb_space": "closed",
+  "explanation": "No Deribit public endpoint yields a deep historical per-strike mark IV time series; per-strike mark_iv is a current snapshot only and DVOL is 30d ATM (C294 closed). No OOS backtest runs executed (n_total_runs=0). No synthetic/backfilled/proxied per-strike IV used.",
+  "oos_sweep": "campaign296_oos_sweep_20261113T224349Z.json",
+  "oos_sweep_sha256": "b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d",
+  "registry": "campaign296_tradable_edge_registry_20261113T224349Z.json",
+  "registry_sha256": "1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356",
+  "probe_artifact": "campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json",
+  "probe_artifact_sha256": "df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b"
+}

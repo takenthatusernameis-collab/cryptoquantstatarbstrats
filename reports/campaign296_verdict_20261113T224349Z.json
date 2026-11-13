@@ -1,0 +1,22 @@
+{
+  "generated_at_utc": "20261113T224349Z",
+  "campaign": 296,
+  "part": "verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "DATA_BLOCKED",
+  "edge_proven": false,
+  "edge_claim": "NONE",
+  "family": "options_term_structure_skew",
+  "family_verdict": "data_blocked",
+  "reachable_cross_sectional_stat_arb_space": "closed",
+  "explanation": "No costed OOS edge can be proven on the Deribit options term-structure/skew family because no deep historical per-strike mark IV feed is reachable (data_blocked). DVOL is ATM 30d only (C294 closed, NOT_TRADABLE). All reachable real-data cross-sectional stat-arb families are closed NOT_TRADABLE/data_blocked with 0 costed OOS edge.",
+  "oos_sweep": "campaign296_oos_sweep_20261113T224349Z.json",
+  "oos_sweep_sha256": "b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d",
+  "registry": "campaign296_tradable_edge_registry_20261113T224349Z.json",
+  "registry_sha256": "1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356",
+  "summary": "campaign296_summary_20261113T224349Z.json",
+  "summary_sha256": "4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af",
+  "probe_artifact": "campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json",
+  "probe_artifact_sha256": "df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b"
+}

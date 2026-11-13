@@ -1,0 +1,2552 @@
+{
+  "generated_at_utc": "20261113T224349Z",
+  "campaign": 296,
+  "part": "deribit_per_strike_iv_reachability_probe",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "source_host": "https://www.deribit.com",
+  "source_base_path": "/api/v2/public",
+  "probe_window_start_utc": "2026-11-10 00:00:00+00:00",
+  "probe_window_end_utc": "2026-11-13 22:43:49.946000+00:00",
+  "currencies": [
+    "BTC",
+    "ETH"
+  ],
+  "n_probes": 24,
+  "n_instruments_probed": 8,
+  "instruments_probed": [
+    "BTC-14NOV26-73000-C",
+    "BTC-14NOV26-83000-C",
+    "BTC-15NOV26-72500-C",
+    "BTC-15NOV26-83000-C",
+    "ETH-14NOV26-2080-C",
+    "ETH-14NOV26-2400-C",
+    "ETH-15NOV26-2050-C",
+    "ETH-15NOV26-2400-C"
+  ],
+  "conclusion": {
+    "deep_historical_per_strike_mark_iv_reachable": false,
+    "per_strike_iv_time_series_available": false,
+    "per_strike_mark_iv_snapshot_only": true,
+    "currency_level_atm_vol_only": true,
+    "dvol_30d_atm_only_c294_closed": true,
+    "any_probe_yields_iv_history": false,
+    "options_term_structure_skew_family": "data_blocked",
+    "reachable_cross_sectional_stat_arb_space": "closed",
+    "reason": "No Deribit public endpoint returns a deep historical per-strike mark IV / IV time series. get_book_summary_by_currency exposes per-strike mark_iv as a current snapshot only (no history). get_tradingview_chart_data / get_last_trades_by_instrument_and_time return option price/trade series with no IV field and are shallow or no_data for illiquid strikes. get_historical_volatility is currency-level / ATM only and shallow (~16d). get_volatility_index_data (DVOL) is 30d ATM constant-maturity IV only (C294 closed). Per-strike term-structure/skew stat-arb cannot be built without a deep historical per-strike mark IV feed; DVOL must not be relabeled as per-strike term-structure/skew."
+  },
+  "probes": [
+    {
+      "endpoint": "/get_instruments",
+      "method": "GET",
+      "params": "currency=BTC&kind=option&expired=false",
+      "url": "https://www.deribit.com/api/v2/public/get_instruments?currency=BTC&kind=option&expired=false",
+      "instrument": null,
+      "http_status": 200,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "n_instruments": 978,
+        "sample_instrument": {
+          "state": "open",
+          "price_index": "btc_usd",
+          "kind": "option",
+          "instrument_name": "BTC-14NOV26-63000-C",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 732357,
+          "underlying_type": "crypto",
+          "product_group": "BTC",
+          "creation_timestamp": 1794545321000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 63000.0,
+          "counter_currency": "USD",
+          "option_type": "call",
+          "min_trade_amount": 0.1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 25,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "BTC",
+          "settlement_period": "day",
+          "base_currency": "BTC",
+          "index_id": 1000033,
+          "quote_currency": "BTC",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 1,
+          "base_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5",
+          "quote_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5"
+        }
+      },
+      "sample": [
+        {
+          "state": "open",
+          "price_index": "btc_usd",
+          "kind": "option",
+          "instrument_name": "BTC-14NOV26-63000-C",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 732357,
+          "underlying_type": "crypto",
+          "product_group": "BTC",
+          "creation_timestamp": 1794545321000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 63000.0,
+          "counter_currency": "USD",
+          "option_type": "call",
+          "min_trade_amount": 0.1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 25,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "BTC",
+          "settlement_period": "day",
+          "base_currency": "BTC",
+          "index_id": 1000033,
+          "quote_currency": "BTC",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 1,
+          "base_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5",
+          "quote_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5"
+        },
+        {
+          "state": "open",
+          "price_index": "btc_usd",
+          "kind": "option",
+          "instrument_name": "BTC-14NOV26-63000-P",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 732358,
+          "underlying_type": "crypto",
+          "product_group": "BTC",
+          "creation_timestamp": 1794545321000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 63000.0,
+          "counter_currency": "USD",
+          "option_type": "put",
+          "min_trade_amount": 0.1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 25,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "BTC",
+          "settlement_period": "day",
+          "base_currency": "BTC",
+          "index_id": 1000033,
+          "quote_currency": "BTC",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 1,
+          "base_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5",
+          "quote_currency_uuid": "5b71fc48-3dd3-540c-809b-f8c94d0e68b5"
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_instruments",
+      "method": "GET",
+      "params": "currency=ETH&kind=option&expired=false",
+      "url": "https://www.deribit.com/api/v2/public/get_instruments?currency=ETH&kind=option&expired=false",
+      "instrument": null,
+      "http_status": 200,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "n_instruments": 790,
+        "sample_instrument": {
+          "state": "open",
+          "price_index": "eth_usd",
+          "kind": "option",
+          "instrument_name": "ETH-14NOV26-1800-C",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 730621,
+          "product_group": "ETH",
+          "underlying_type": "crypto",
+          "creation_timestamp": 1794297612000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 1800.0,
+          "counter_currency": "USD",
+          "option_type": "call",
+          "min_trade_amount": 1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 250,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "ETH",
+          "settlement_period": "day",
+          "base_currency": "ETH",
+          "index_id": 2000033,
+          "quote_currency": "ETH",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 10,
+          "base_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4",
+          "quote_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4"
+        }
+      },
+      "sample": [
+        {
+          "state": "open",
+          "price_index": "eth_usd",
+          "kind": "option",
+          "instrument_name": "ETH-14NOV26-1800-C",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 730621,
+          "product_group": "ETH",
+          "underlying_type": "crypto",
+          "creation_timestamp": 1794297612000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 1800.0,
+          "counter_currency": "USD",
+          "option_type": "call",
+          "min_trade_amount": 1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 250,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "ETH",
+          "settlement_period": "day",
+          "base_currency": "ETH",
+          "index_id": 2000033,
+          "quote_currency": "ETH",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 10,
+          "base_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4",
+          "quote_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4"
+        },
+        {
+          "state": "open",
+          "price_index": "eth_usd",
+          "kind": "option",
+          "instrument_name": "ETH-14NOV26-1800-P",
+          "maker_commission": 0.0003,
+          "taker_commission": 0.0003,
+          "instrument_type": "reversed",
+          "expiration_timestamp": 1794643200000,
+          "instrument_id": 730622,
+          "product_group": "ETH",
+          "underlying_type": "crypto",
+          "creation_timestamp": 1794297612000,
+          "is_active": true,
+          "contract_size": 1.0,
+          "tick_size": 0.0001,
+          "strike": 1800.0,
+          "counter_currency": "USD",
+          "option_type": "put",
+          "min_trade_amount": 1,
+          "block_trade_commission": 0.0003,
+          "block_trade_min_trade_amount": 250,
+          "block_trade_tick_size": 0.0001,
+          "settlement_currency": "ETH",
+          "settlement_period": "day",
+          "base_currency": "ETH",
+          "index_id": 2000033,
+          "quote_currency": "ETH",
+          "tick_size_steps": [
+            {
+              "tick_size": 0.0005,
+              "above_price": 0.005
+            }
+          ],
+          "lot_size": 10,
+          "base_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4",
+          "quote_currency_uuid": "d85dce9b-5b73-5c3c-8978-522ce1d1c1b4"
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_historical_volatility",
+      "method": "GET",
+      "params": "currency=BTC",
+      "url": "https://www.deribit.com/api/v2/public/get_historical_volatility?currency=BTC",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "type": "list",
+        "n_rows": 384
+      },
+      "sample": [
+        [
+          1793235600000,
+          30.41594458303391
+        ],
+        [
+          1793235600000,
+          30.41594458303391
+        ]
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_historical_volatility",
+      "method": "GET",
+      "params": "currency=ETH",
+      "url": "https://www.deribit.com/api/v2/public/get_historical_volatility?currency=ETH",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "type": "list",
+        "n_rows": 384
+      },
+      "sample": [
+        [
+          1793235600000,
+          44.77374743989493
+        ],
+        [
+          1793235600000,
+          44.77374743989493
+        ]
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_book_summary_by_currency",
+      "method": "GET",
+      "params": "currency=BTC&kind=option",
+      "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=option",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "type": "list",
+        "n_rows": 978
+      },
+      "sample": [
+        {
+          "high": null,
+          "low": null,
+          "last": null,
+          "instrument_name": "BTC-20NOV26-66000-C",
+          "bid_price": 0.0415,
+          "ask_price": 0.0445,
+          "open_interest": 0.0,
+          "mark_price": 0.04323812,
+          "interest_rate": 0.0,
+          "creation_timestamp": 1794609830333,
+          "estimated_delivery_price": 68352.94,
+          "price_change": null,
+          "volume": 0.0,
+          "mark_iv": 39.93,
+          "underlying_price": 68441.5,
+          "underlying_index": "BTC-20NOV26",
+          "base_currency": "BTC",
+          "quote_currency": "BTC",
+          "volume_delayed": 0.0,
+          "volume_realtime": 0.0,
+          "volume_delayed_usd": 0.0,
+          "volume_realtime_usd": 0.0,
+          "volume_usd": 0.0,
+          "mid_price": 0.043
+        },
+        {
+          "high": null,
+          "low": null,
+          "last": 0.4065,
+          "instrument_name": "BTC-25JUN27-105000-P",
+          "bid_price": 0.5,
+          "ask_price": 0.5075,
+          "open_interest": 4.5,
+          "mark_price": 0.50358727,
+          "interest_rate": 0.0,
+          "creation_timestamp": 1794609830333,
+          "estimated_delivery_price": 68352.94,
+          "price_change": null,
+          "volume": 0.0,
+          "mark_iv": 40.54,
+          "underlying_price": 70755.12,
+          "underlying_index": "BTC-25JUN27",
+          "base_currency": "BTC",
+          "quote_currency": "BTC",
+          "volume_delayed": 0.0,
+          "volume_realtime": 0.0,
+          "volume_delayed_usd": 0.0,
+          "volume_realtime_usd": 0.0,
+          "volume_usd": 0.0,
+          "mid_price": 0.50375
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_book_summary_by_currency",
+      "method": "GET",
+      "params": "currency=ETH&kind=option",
+      "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=ETH&kind=option",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "type": "list",
+        "n_rows": 790
+      },
+      "sample": [
+        {
+          "high": 0.0115,
+          "low": 0.0065,
+          "last": 0.0075,
+          "instrument_name": "ETH-20NOV26-2050-C",
+          "bid_price": 0.0065,
+          "ask_price": 0.007,
+          "open_interest": 1293.0,
+          "mark_price": 0.006804,
+          "interest_rate": 0.0,
+          "creation_timestamp": 1794609830542,
+          "estimated_delivery_price": 1929.18,
+          "price_change": 15.3846,
+          "volume": 828.0,
+          "mark_iv": 50.16,
+          "underlying_price": 1930.56,
+          "underlying_index": "ETH-20NOV26",
+          "base_currency": "ETH",
+          "quote_currency": "ETH",
+          "volume_delayed": 0.0,
+          "volume_realtime": 828.0,
+          "volume_delayed_usd": 0.0,
+          "volume_realtime_usd": 12592.88,
+          "volume_usd": 12592.88,
+          "mid_price": 0.00675
+        },
+        {
+          "high": null,
+          "low": null,
+          "last": null,
+          "instrument_name": "ETH-16NOV26-2120-P",
+          "bid_price": 0.0965,
+          "ask_price": 0.1015,
+          "open_interest": 0.0,
+          "mark_price": 0.099232,
+          "interest_rate": 0.0,
+          "creation_timestamp": 1794609830542,
+          "estimated_delivery_price": 1929.18,
+          "price_change": null,
+          "volume": 0.0,
+          "mark_iv": 57.46,
+          "underlying_price": 1929.27,
+          "underlying_index": "ETH-16NOV26",
+          "base_currency": "ETH",
+          "quote_currency": "ETH",
+          "volume_delayed": 0.0,
+          "volume_realtime": 0.0,
+          "volume_delayed_usd": 0.0,
+          "volume_realtime_usd": 0.0,
+          "volume_usd": 0.0,
+          "mid_price": 0.099
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_volatility_index_data",
+      "method": "GET",
+      "params": "currency=BTC&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=3600",
+      "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=3600",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": null,
+        "n_top_keys": 2
+      },
+      "sample": {
+        "data": [
+          [
+            1794268800000,
+            39.87,
+            39.89,
+            39.69,
+            39.69
+          ],
+          [
+            1794272400000,
+            39.69,
+            39.7,
+            39.6,
+            39.61
+          ],
+          [
+            1794276000000,
+            39.61,
+            39.62,
+            39.41,
+            39.44
+          ],
+          [
+            1794279600000,
+            39.44,
+            39.46,
+            39.39,
+            39.4
+          ],
+          [
+            1794283200000,
+            39.4,
+            39.42,
+            39.29,
+            39.35
+          ],
+          [
+            1794286800000,
+            39.35,
+            39.42,
+            39.34,
+            39.39
+          ],
+          [
+            1794290400000,
+            39.39,
+            39.45,
+            39.39,
+            39.44
+          ],
+          [
+            1794294000000,
+            39.44,
+            39.44,
+            39.31,
+            39.31
+          ],
+          [
+            1794297600000,
+            39.31,
+            39.31,
+            39.15,
+            39.22
+          ],
+          [
+            1794301200000,
+            39.28,
+            40.03,
+            39.18,
+            39.19
+          ],
+          [
+            1794304800000,
+            39.19,
+            39.41,
+            39.17,
+            39.31
+          ],
+          [
+            1794308400000,
+            39.31,
+            39.55,
+            39.31,
+            39.55
+          ],
+          [
+            1794312000000,
+            39.55,
+            39.72,
+            39.55,
+            39.68
+          ],
+          [
+            1794315600000,
+            39.68,
+            39.75,
+            39.32,
+            39.4
+          ],
+          [
+            1794319200000,
+            39.4,
+            39.57,
+            39.32,
+            39.51
+          ],
+          [
+            1794322800000,
+            39.51,
+            40.51,
+            39.15,
+            40.49
+          ],
+          [
+            1794326400000,
+            40.49,
+            40.66,
+            40.12,
+            40.58
+          ],
+          [
+            1794330000000,
+            40.58,
+            40.58,
+            40.33,
+            40.33
+          ],
+          [
+            1794333600000,
+            40.33,
+            40.34,
+            40.1,
+            40.25
+          ],
+          [
+            1794337200000,
+            40.25,
+            40.36,
+            40.07,
+            40.14
+          ],
+          [
+            1794340800000,
+            40.14,
+            40.26,
+            39.92,
+            39.92
+          ],
+          [
+            1794344400000,
+            39.91,
+            39.91,
+            39.6,
+            39.7
+          ],
+          [
+            1794348000000,
+            39.7,
+            39.9,
+            39.64,
+            39.86
+          ],
+          [
+            1794351600000,
+            39.86,
+            39.95,
+            39.45,
+            39.45
+          ],
+          [
+            1794355200000,
+            39.45,
+            39.89,
+            39.42,
+            39.88
+          ],
+          [
+            1794358800000,
+            39.88,
+            39.99,
+            39.65,
+            39.96
+          ],
+          [
+            1794362400000,
+            39.96,
+            40.29,
+            39.96,
+            40.18
+          ],
+          [
+            1794366000000,
+            40.18,
+            40.19,
+            39.49,
+            39.5
+          ],
+          [
+            1794369600000,
+            39.5,
+            39.88,
+            39.49,
+            39.57
+          ],
+          [
+            1794373200000,
+            39.57,
+            39.6,
+            39.44,
+            39.45
+          ],
+          [
+            1794376800000,
+            39.45,
+            39.81,
+            39.4,
+            39.81
+          ],
+          [
+            1794380400000,
+            39.81,
+            39.83,
+            39.38,
+            39.41
+          ],
+          [
+            1794384000000,
+            39.41,
+            39.43,
+            39.27,
+            39.31
+          ],
+          [
+            1794387600000,
+            39.31,
+            39.57,
+            39.22,
+            39.23
+          ],
+          [
+            1794391200000,
+            39.23,
+            39.34,
+            39.11,
+            39.21
+          ],
+          [
+            1794394800000,
+            39.21,
+            39.6,
+            39.21,
+            39.6
+          ],
+          [
+            1794398400000,
+            39.6,
+            39.88,
+            39.58,
+            39.88
+          ],
+          [
+            1794402000000,
+            39.88,
+            40.03,
+            39.69,
+            39.99
+          ],
+          [
+            1794405600000,
+            39.99,
+            40.01,
+            39.89,
+            39.89
+          ],
+          [
+            1794409200000,
+            39.89,
+            39.89,
+            39.26,
+            39.3
+          ],
+          [
+            1794412800000,
+            39.3,
+            39.3,
+            39.03,
+            39.07
+          ],
+          [
+            1794416400000,
+            39.07,
+            39.07,
+            38.94,
+            38.96
+          ],
+          [
+            1794420000000,
+            38.96,
+            39.01,
+            38.96,
+            39.01
+          ],
+          [
+            1794423600000,
+            39.01,
+            39.09,
+            38.94,
+            38.99
+          ],
+          [
+            1794427200000,
+            39.0,
+            39.01,
+            38.58,
+            38.59
+          ],
+          [
+            1794430800000,
+            38.59,
+            38.69,
+            38.56,
+            38.69
+          ],
+          [
+            1794434400000,
+            38.69,
+            38.99,
+            38.56,
+            38.99
+          ],
+          [
+            1794438000000,
+            38.99,
+            39.39,
+            38.92,
+            38.92
+          ],
+          [
+            1794441600000,
+            38.92,
+            38.93,
+            38.7,
+            38.74
+          ],
+          [
+            1794445200000,
+            38.74,
+            39.02,
+            38.72,
+            38.98
+          ],
+          [
+            1794448800000,
+            38.98,
+            39.09,
+            38.82,
+            38.83
+          ],
+          [
+            1794452400000,
+            38.83,
+            38.83,
+            38.78,
+            38.82
+          ],
+          [
+            1794456000000,
+            38.82,
+            38.86,
+            38.79,
+            38.82
+          ],
+          [
+            1794459600000,
+            38.82,
+            39.21,
+            38.82,
+            38.97
+          ],
+          [
+            1794463200000,
+            38.97,
+            39.26,
+            38.87,
+            39.26
+          ],
+          [
+            1794466800000,
+            39.26,
+            39.26,
+            38.87,
+            38.87
+          ],
+          [
+            1794470400000,
+            38.87,
+            39.1,
+            38.75,
+            38.86
+          ],
+          [
+            1794474000000,
+            38.87,
+            38.88,
+            38.42,
+            38.48
+          ],
+          [
+            1794477600000,
+            38.48,
+            38.7,
+            38.46,
+            38.69
+          ],
+          [
+            1794481200000,
+            38.69,
+            39.0,
+            38.68,
+            39.0
+          ],
+          [
+            1794484800000,
+            39.0,
+            39.0,
+            38.51,
+            38.55
+          ],
+          [
+            1794488400000,
+            38.55,
+            38.91,
+            38.55,
+            38.84
+          ],
+          [
+            1794492000000,
+            38.84,
+            40.57,
+            38.84,
+            40.57
+          ],
+          [
+            1794495600000,
+            40.58,
+            40.69,
+            40.17,
+            40.2
+          ],
+          [
+            1794499200000,
+            40.2,
+            40.2,
+            39.48,
+            39.48
+          ],
+          [
+            1794502800000,
+            39.48,
+            39.84,
+            39.42,
+            39.42
+          ],
+          [
+            1794506400000,
+            39.42,
+            39.57,
+            39.35,
+            39.56
+          ],
+          [
+            1794510000000,
+            39.56,
+            39.6,
+            39.47,
+            39.47
+          ],
+          [
+            1794513600000,
+            39.47,
+            39.65,
+            39.45,
+            39.62
+          ],
+          [
+            1794517200000,
+            39.62,
+            39.65,
+            39.48,
+            39.48
+          ],
+          [
+            1794520800000,
+            39.48,
+            39.73,
+            39.48,
+            39.73
+          ],
+          [
+            1794524400000,
+            39.73,
+            40.15,
+            39.67,
+            40.07
+          ],
+          [
+            1794528000000,
+            40.07,
+            40.27,
+            39.94,
+            39.95
+          ],
+          [
+            1794531600000,
+            39.95,
+            40.18,
+            39.68,
+            39.68
+          ],
+          [
+            1794535200000,
+            39.68,
+            40.05,
+            39.61,
+            39.85
+          ],
+          [
+            1794538800000,
+            39.85,
+            41.46,
+            39.83,
+            41.46
+          ],
+          [
+            1794542400000,
+            41.46,
+            41.58,
+            40.42,
+            40.79
+          ],
+          [
+            1794546000000,
+            40.79,
+            40.94,
+            39.97,
+            40.0
+          ],
+          [
+            1794549600000,
+            40.0,
+            40.19,
+            39.08,
+            39.08
+          ],
+          [
+            1794553200000,
+            39.08,
+            39.24,
+            39.03,
+            39.19
+          ],
+          [
+            1794556800000,
+            39.19,
+            40.15,
+            39.08,
+            40.15
+          ],
+          [
+            1794560400000,
+            40.15,
+            40.37,
+            39.74,
+            39.93
+          ],
+          [
+            1794564000000,
+            39.93,
+            40.02,
+            39.53,
+            39.75
+          ],
+          [
+            1794567600000,
+            39.75,
+            40.55,
+            39.75,
+            40.31
+          ],
+          [
+            1794571200000,
+            40.31,
+            40.47,
+            40.26,
+            40.44
+          ],
+          [
+            1794574800000,
+            40.44,
+            40.44,
+            39.58,
+            39.6
+          ],
+          [
+            1794578400000,
+            39.6,
+            40.25,
+            39.6,
+            40.23
+          ],
+          [
+            1794582000000,
+            40.23,
+            40.82,
+            40.23,
+            40.62
+          ],
+          [
+            1794585600000,
+            40.62,
+            40.63,
+            40.08,
+            40.18
+          ],
+          [
+            1794589200000,
+            40.18,
+            40.19,
+            40.0,
+            40.0
+          ],
+          [
+            1794592800000,
+            40.0,
+            40.06,
+            39.96,
+            39.98
+          ],
+          [
+            1794596400000,
+            39.98,
+            39.99,
+            39.63,
+            39.63
+          ],
+          [
+            1794600000000,
+            39.63,
+            39.71,
+            39.39,
+            39.71
+          ],
+          [
+            1794603600000,
+            39.71,
+            40.02,
+            39.63,
+            39.63
+          ],
+          [
+            1794607200000,
+            39.63,
+            39.63,
+            38.86,
+            38.86
+          ]
+        ],
+        "continuation": null
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_volatility_index_data",
+      "method": "GET",
+      "params": "currency=ETH&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=3600",
+      "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=ETH&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=3600",
+      "instrument": null,
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": null,
+        "n_top_keys": 2
+      },
+      "sample": {
+        "data": [
+          [
+            1794268800000,
+            56.36,
+            56.37,
+            56.24,
+            56.25
+          ],
+          [
+            1794272400000,
+            56.25,
+            56.25,
+            56.13,
+            56.13
+          ],
+          [
+            1794276000000,
+            56.13,
+            56.17,
+            55.9,
+            55.94
+          ],
+          [
+            1794279600000,
+            55.94,
+            55.97,
+            55.77,
+            55.77
+          ],
+          [
+            1794283200000,
+            55.77,
+            55.78,
+            55.64,
+            55.71
+          ],
+          [
+            1794286800000,
+            55.71,
+            55.83,
+            55.69,
+            55.77
+          ],
+          [
+            1794290400000,
+            55.77,
+            55.97,
+            55.72,
+            55.89
+          ],
+          [
+            1794294000000,
+            55.89,
+            56.01,
+            55.52,
+            55.58
+          ],
+          [
+            1794297600000,
+            55.58,
+            55.59,
+            55.13,
+            55.14
+          ],
+          [
+            1794301200000,
+            55.45,
+            55.66,
+            55.33,
+            55.43
+          ],
+          [
+            1794304800000,
+            55.43,
+            55.92,
+            55.43,
+            55.92
+          ],
+          [
+            1794308400000,
+            55.92,
+            56.48,
+            55.92,
+            56.48
+          ],
+          [
+            1794312000000,
+            56.48,
+            56.49,
+            56.36,
+            56.43
+          ],
+          [
+            1794315600000,
+            56.43,
+            57.22,
+            55.85,
+            55.85
+          ],
+          [
+            1794319200000,
+            55.85,
+            56.14,
+            55.69,
+            56.1
+          ],
+          [
+            1794322800000,
+            56.1,
+            58.27,
+            56.04,
+            58.21
+          ],
+          [
+            1794326400000,
+            58.21,
+            58.21,
+            57.46,
+            57.92
+          ],
+          [
+            1794330000000,
+            57.92,
+            57.92,
+            57.26,
+            57.44
+          ],
+          [
+            1794333600000,
+            57.44,
+            57.55,
+            56.94,
+            57.12
+          ],
+          [
+            1794337200000,
+            57.12,
+            57.18,
+            56.66,
+            57.18
+          ],
+          [
+            1794340800000,
+            57.18,
+            57.2,
+            55.86,
+            55.86
+          ],
+          [
+            1794344400000,
+            55.85,
+            55.93,
+            55.84,
+            55.92
+          ],
+          [
+            1794348000000,
+            55.92,
+            55.97,
+            55.82,
+            55.85
+          ],
+          [
+            1794351600000,
+            55.85,
+            56.82,
+            55.76,
+            55.81
+          ],
+          [
+            1794355200000,
+            55.81,
+            55.86,
+            55.73,
+            55.81
+          ],
+          [
+            1794358800000,
+            55.81,
+            56.43,
+            55.81,
+            55.97
+          ],
+          [
+            1794362400000,
+            55.97,
+            56.06,
+            55.96,
+            56.03
+          ],
+          [
+            1794366000000,
+            56.03,
+            56.15,
+            55.95,
+            55.95
+          ],
+          [
+            1794369600000,
+            55.95,
+            55.95,
+            55.74,
+            55.75
+          ],
+          [
+            1794373200000,
+            55.75,
+            55.88,
+            55.75,
+            55.82
+          ],
+          [
+            1794376800000,
+            55.82,
+            56.01,
+            55.82,
+            55.96
+          ],
+          [
+            1794380400000,
+            55.96,
+            56.02,
+            55.86,
+            55.89
+          ],
+          [
+            1794384000000,
+            55.89,
+            55.99,
+            55.85,
+            55.98
+          ],
+          [
+            1794387600000,
+            55.98,
+            56.01,
+            55.92,
+            55.98
+          ],
+          [
+            1794391200000,
+            55.98,
+            56.0,
+            55.8,
+            55.86
+          ],
+          [
+            1794394800000,
+            55.86,
+            56.02,
+            55.77,
+            55.94
+          ],
+          [
+            1794398400000,
+            55.94,
+            56.43,
+            55.94,
+            56.33
+          ],
+          [
+            1794402000000,
+            56.33,
+            57.68,
+            56.27,
+            56.27
+          ],
+          [
+            1794405600000,
+            56.27,
+            57.58,
+            56.16,
+            56.16
+          ],
+          [
+            1794409200000,
+            56.16,
+            56.16,
+            55.86,
+            55.97
+          ],
+          [
+            1794412800000,
+            55.97,
+            55.97,
+            55.63,
+            55.65
+          ],
+          [
+            1794416400000,
+            55.65,
+            55.69,
+            55.58,
+            55.61
+          ],
+          [
+            1794420000000,
+            55.61,
+            55.83,
+            55.61,
+            55.83
+          ],
+          [
+            1794423600000,
+            55.83,
+            55.89,
+            55.69,
+            55.7
+          ],
+          [
+            1794427200000,
+            55.7,
+            55.7,
+            55.54,
+            55.55
+          ],
+          [
+            1794430800000,
+            55.55,
+            55.6,
+            55.07,
+            55.14
+          ],
+          [
+            1794434400000,
+            55.14,
+            55.24,
+            55.06,
+            55.06
+          ],
+          [
+            1794438000000,
+            55.06,
+            55.13,
+            54.76,
+            54.78
+          ],
+          [
+            1794441600000,
+            54.78,
+            54.78,
+            54.61,
+            54.68
+          ],
+          [
+            1794445200000,
+            54.68,
+            54.85,
+            54.68,
+            54.79
+          ],
+          [
+            1794448800000,
+            54.79,
+            54.81,
+            54.6,
+            54.64
+          ],
+          [
+            1794452400000,
+            54.64,
+            54.7,
+            54.61,
+            54.66
+          ],
+          [
+            1794456000000,
+            54.66,
+            54.68,
+            54.56,
+            54.58
+          ],
+          [
+            1794459600000,
+            54.58,
+            54.66,
+            54.56,
+            54.62
+          ],
+          [
+            1794463200000,
+            54.62,
+            54.63,
+            54.53,
+            54.55
+          ],
+          [
+            1794466800000,
+            54.55,
+            54.55,
+            54.49,
+            54.53
+          ],
+          [
+            1794470400000,
+            54.53,
+            54.53,
+            54.35,
+            54.41
+          ],
+          [
+            1794474000000,
+            54.41,
+            55.16,
+            54.41,
+            54.85
+          ],
+          [
+            1794477600000,
+            54.85,
+            55.51,
+            54.84,
+            55.44
+          ],
+          [
+            1794481200000,
+            55.44,
+            56.21,
+            55.26,
+            56.2
+          ],
+          [
+            1794484800000,
+            56.2,
+            56.22,
+            55.86,
+            55.95
+          ],
+          [
+            1794488400000,
+            55.95,
+            56.42,
+            55.95,
+            56.16
+          ],
+          [
+            1794492000000,
+            56.16,
+            56.87,
+            56.14,
+            56.79
+          ],
+          [
+            1794495600000,
+            56.79,
+            56.94,
+            56.5,
+            56.5
+          ],
+          [
+            1794499200000,
+            56.5,
+            56.59,
+            56.2,
+            56.4
+          ],
+          [
+            1794502800000,
+            56.4,
+            56.5,
+            56.29,
+            56.29
+          ],
+          [
+            1794506400000,
+            56.29,
+            56.36,
+            56.21,
+            56.27
+          ],
+          [
+            1794510000000,
+            56.27,
+            56.33,
+            56.1,
+            56.1
+          ],
+          [
+            1794513600000,
+            56.1,
+            56.1,
+            55.98,
+            56.05
+          ],
+          [
+            1794517200000,
+            56.05,
+            56.1,
+            55.92,
+            56.08
+          ],
+          [
+            1794520800000,
+            56.08,
+            56.11,
+            56.03,
+            56.06
+          ],
+          [
+            1794524400000,
+            56.06,
+            56.13,
+            55.98,
+            56.06
+          ],
+          [
+            1794528000000,
+            56.06,
+            56.24,
+            56.03,
+            56.06
+          ],
+          [
+            1794531600000,
+            56.06,
+            56.15,
+            55.9,
+            55.9
+          ],
+          [
+            1794535200000,
+            55.9,
+            56.25,
+            55.86,
+            56.14
+          ],
+          [
+            1794538800000,
+            56.14,
+            57.74,
+            56.14,
+            57.74
+          ],
+          [
+            1794542400000,
+            57.74,
+            57.82,
+            56.8,
+            56.9
+          ],
+          [
+            1794546000000,
+            56.9,
+            57.06,
+            56.41,
+            56.56
+          ],
+          [
+            1794549600000,
+            56.56,
+            56.74,
+            55.88,
+            55.88
+          ],
+          [
+            1794553200000,
+            55.88,
+            55.89,
+            55.65,
+            55.65
+          ],
+          [
+            1794556800000,
+            55.65,
+            55.67,
+            55.35,
+            55.41
+          ],
+          [
+            1794560400000,
+            55.41,
+            55.6,
+            55.37,
+            55.38
+          ],
+          [
+            1794564000000,
+            55.38,
+            55.42,
+            54.97,
+            55.01
+          ],
+          [
+            1794567600000,
+            55.01,
+            55.29,
+            55.01,
+            55.23
+          ],
+          [
+            1794571200000,
+            55.23,
+            55.39,
+            55.23,
+            55.35
+          ],
+          [
+            1794574800000,
+            55.35,
+            55.37,
+            55.0,
+            55.01
+          ],
+          [
+            1794578400000,
+            55.01,
+            55.47,
+            54.99,
+            55.45
+          ],
+          [
+            1794582000000,
+            55.46,
+            56.14,
+            55.45,
+            55.79
+          ],
+          [
+            1794585600000,
+            55.79,
+            55.97,
+            55.75,
+            55.75
+          ],
+          [
+            1794589200000,
+            55.75,
+            55.79,
+            55.59,
+            55.63
+          ],
+          [
+            1794592800000,
+            55.63,
+            55.65,
+            55.47,
+            55.47
+          ],
+          [
+            1794596400000,
+            55.47,
+            55.49,
+            55.2,
+            55.22
+          ],
+          [
+            1794600000000,
+            55.22,
+            55.25,
+            55.11,
+            55.11
+          ],
+          [
+            1794603600000,
+            55.11,
+            55.59,
+            55.11,
+            55.27
+          ],
+          [
+            1794607200000,
+            55.27,
+            55.44,
+            55.22,
+            55.31
+          ]
+        ],
+        "continuation": null
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=BTC-14NOV26-73000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=BTC-14NOV26-73000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "BTC-14NOV26-73000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 80,
+          "high": 80,
+          "low": 80,
+          "close": 80,
+          "volume": 80,
+          "ticks": 80,
+          "cost": 80
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.016,
+          0.0145,
+          0.0145
+        ],
+        "ticks": [
+          1794322800000,
+          1794326400000,
+          1794330000000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=BTC-14NOV26-73000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=BTC-14NOV26-73000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "BTC-14NOV26-73000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": true,
+        "n_trades": 10,
+        "trade_keys": [
+          "timestamp",
+          "iv",
+          "price",
+          "direction",
+          "index_price",
+          "instrument_name",
+          "trade_seq",
+          "amount",
+          "mark_price",
+          "tick_direction",
+          "starbase_match_id",
+          "trade_id",
+          "contracts",
+          "starbase_timestamp"
+        ],
+        "has_iv_field_in_trade": true
+      },
+      "sample": [
+        {
+          "timestamp": 1794525804886,
+          "iv": 37.12,
+          "price": 0.0016,
+          "direction": "sell",
+          "index_price": 71203.98,
+          "instrument_name": "BTC-14NOV26-73000-C",
+          "trade_seq": 7,
+          "amount": 0.5,
+          "mark_price": 0.00176936,
+          "tick_direction": 2,
+          "starbase_match_id": 246776929498181632,
+          "trade_id": "464730893",
+          "contracts": 0.5,
+          "starbase_timestamp": 1794525804886435752
+        },
+        {
+          "timestamp": 1794535853058,
+          "iv": 39.25,
+          "price": 0.0009,
+          "direction": "sell",
+          "index_price": 70718.73,
+          "instrument_name": "BTC-14NOV26-73000-C",
+          "trade_seq": 8,
+          "amount": 0.5,
+          "mark_price": 0.00089801,
+          "tick_direction": 2,
+          "starbase_match_id": 246819074586193920,
+          "trade_id": "464839198",
+          "contracts": 0.5,
+          "starbase_timestamp": 1794535853058710965
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=BTC-14NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=BTC-14NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "BTC-14NOV26-83000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 82,
+          "high": 82,
+          "low": 82,
+          "close": 82,
+          "volume": 82,
+          "ticks": 82,
+          "cost": 82
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.0002,
+          0.0002,
+          0.0001
+        ],
+        "ticks": [
+          1794315600000,
+          1794319200000,
+          1794322800000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=BTC-14NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=BTC-14NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "BTC-14NOV26-83000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": false,
+        "n_trades": 0,
+        "trade_keys": null,
+        "has_iv_field_in_trade": false
+      },
+      "sample": [],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=BTC-15NOV26-72500-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=BTC-15NOV26-72500-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "BTC-15NOV26-72500-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 32,
+          "high": 32,
+          "low": 32,
+          "close": 32,
+          "volume": 32,
+          "ticks": 32,
+          "cost": 32
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.0065,
+          0.0075,
+          0.0075
+        ],
+        "ticks": [
+          1794495600000,
+          1794499200000,
+          1794502800000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=BTC-15NOV26-72500-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=BTC-15NOV26-72500-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "BTC-15NOV26-72500-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": true,
+        "n_trades": 10,
+        "trade_keys": [
+          "timestamp",
+          "iv",
+          "price",
+          "direction",
+          "index_price",
+          "instrument_name",
+          "trade_seq",
+          "amount",
+          "mark_price",
+          "tick_direction",
+          "starbase_match_id",
+          "trade_id",
+          "contracts",
+          "starbase_timestamp"
+        ],
+        "has_iv_field_in_trade": true
+      },
+      "sample": [
+        {
+          "timestamp": 1794537097309,
+          "iv": 34.21,
+          "price": 0.0018,
+          "direction": "sell",
+          "index_price": 70341.16,
+          "instrument_name": "BTC-15NOV26-72500-C",
+          "trade_seq": 8,
+          "amount": 0.1,
+          "mark_price": 0.00180112,
+          "tick_direction": 2,
+          "starbase_match_id": 246824293353140224,
+          "trade_id": "464863206",
+          "contracts": 0.1,
+          "starbase_timestamp": 1794537097309673995
+        },
+        {
+          "timestamp": 1794549944739,
+          "iv": 42.7,
+          "price": 0.0004,
+          "direction": "sell",
+          "index_price": 68254.22,
+          "instrument_name": "BTC-15NOV26-72500-C",
+          "trade_seq": 9,
+          "amount": 15.2,
+          "mark_price": 0.00040919,
+          "tick_direction": 2,
+          "starbase_match_id": 246878179380178947,
+          "trade_id": "465113580",
+          "contracts": 15.2,
+          "starbase_timestamp": 1794549944739109279
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=BTC-15NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=BTC-15NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "BTC-15NOV26-83000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "no_data",
+        "array_lengths": {
+          "open": 0,
+          "high": 0,
+          "low": 0,
+          "close": 0,
+          "volume": 0,
+          "ticks": 0,
+          "cost": 0
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "no_data",
+        "close": [],
+        "ticks": []
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=BTC-15NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=BTC-15NOV26-83000-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "BTC-15NOV26-83000-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": false,
+        "n_trades": 0,
+        "trade_keys": null,
+        "has_iv_field_in_trade": false
+      },
+      "sample": [],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=ETH-14NOV26-2080-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=ETH-14NOV26-2080-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "ETH-14NOV26-2080-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 87,
+          "high": 87,
+          "low": 87,
+          "close": 87,
+          "volume": 87,
+          "ticks": 87,
+          "cost": 87
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.031,
+          0.031,
+          0.031
+        ],
+        "ticks": [
+          1794297600000,
+          1794301200000,
+          1794304800000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=ETH-14NOV26-2080-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=ETH-14NOV26-2080-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "ETH-14NOV26-2080-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": true,
+        "n_trades": 10,
+        "trade_keys": [
+          "timestamp",
+          "iv",
+          "price",
+          "direction",
+          "index_price",
+          "instrument_name",
+          "trade_seq",
+          "amount",
+          "mark_price",
+          "tick_direction",
+          "starbase_match_id",
+          "trade_id",
+          "contracts",
+          "starbase_timestamp"
+        ],
+        "has_iv_field_in_trade": true
+      },
+      "sample": [
+        {
+          "timestamp": 1794524907357,
+          "iv": 46.9,
+          "price": 0.0022,
+          "direction": "buy",
+          "index_price": 2017.4,
+          "instrument_name": "ETH-14NOV26-2080-C",
+          "trade_seq": 39,
+          "amount": 3.0,
+          "mark_price": 0.002154,
+          "tick_direction": 2,
+          "starbase_match_id": 246773164988706816,
+          "trade_id": "ETH-317951268",
+          "contracts": 3.0,
+          "starbase_timestamp": 1794524907357158112
+        },
+        {
+          "timestamp": 1794536066215,
+          "iv": 47.62,
+          "price": 0.0009,
+          "direction": "sell",
+          "index_price": 1996.81,
+          "instrument_name": "ETH-14NOV26-2080-C",
+          "trade_seq": 40,
+          "amount": 1.0,
+          "mark_price": 0.000926,
+          "tick_direction": 2,
+          "starbase_match_id": 246819968631451648,
+          "trade_id": "ETH-317975245",
+          "contracts": 1.0,
+          "starbase_timestamp": 1794536066215104410
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=ETH-14NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=ETH-14NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "ETH-14NOV26-2400-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 87,
+          "high": 87,
+          "low": 87,
+          "close": 87,
+          "volume": 87,
+          "ticks": 87,
+          "cost": 87
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.0006,
+          0.0006,
+          0.0009
+        ],
+        "ticks": [
+          1794297600000,
+          1794301200000,
+          1794304800000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=ETH-14NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=ETH-14NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "ETH-14NOV26-2400-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": false,
+        "n_trades": 1,
+        "trade_keys": [
+          "timestamp",
+          "iv",
+          "price",
+          "direction",
+          "index_price",
+          "instrument_name",
+          "trade_seq",
+          "amount",
+          "mark_price",
+          "tick_direction",
+          "starbase_match_id",
+          "trade_id",
+          "contracts",
+          "starbase_timestamp"
+        ],
+        "has_iv_field_in_trade": true
+      },
+      "sample": [
+        {
+          "timestamp": 1794582208190,
+          "iv": 179.74,
+          "price": 0.0001,
+          "direction": "buy",
+          "index_price": 1943.32,
+          "instrument_name": "ETH-14NOV26-2400-C",
+          "trade_seq": 24,
+          "amount": 1.0,
+          "mark_price": 5e-06,
+          "tick_direction": 3,
+          "starbase_match_id": 247013502101762048,
+          "trade_id": "ETH-318166915",
+          "contracts": 1.0,
+          "starbase_timestamp": 1794582208190268345
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=ETH-15NOV26-2050-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=ETH-15NOV26-2050-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "ETH-15NOV26-2050-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "no_data",
+        "array_lengths": {
+          "open": 0,
+          "high": 0,
+          "low": 0,
+          "close": 0,
+          "volume": 0,
+          "ticks": 0,
+          "cost": 0
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "no_data",
+        "close": [],
+        "ticks": []
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=ETH-15NOV26-2050-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=ETH-15NOV26-2050-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "ETH-15NOV26-2050-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": false,
+        "n_trades": 0,
+        "trade_keys": null,
+        "has_iv_field_in_trade": false
+      },
+      "sample": [],
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_tradingview_chart_data",
+      "method": "GET",
+      "params": "instrument_name=ETH-15NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "url": "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=ETH-15NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946&resolution=60",
+      "instrument": "ETH-15NOV26-2400-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "status": "ok",
+        "array_lengths": {
+          "open": 10,
+          "high": 10,
+          "low": 10,
+          "close": 10,
+          "volume": 10,
+          "ticks": 10,
+          "cost": 10
+        },
+        "has_iv_field": false
+      },
+      "sample": {
+        "status": "ok",
+        "close": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "ticks": [
+          1794574800000,
+          1794578400000,
+          1794582000000
+        ]
+      },
+      "yields_deep_per_strike_iv_history": false
+    },
+    {
+      "endpoint": "/get_last_trades_by_instrument_and_time",
+      "method": "GET",
+      "params": "instrument_name=ETH-15NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "url": "https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time?instrument_name=ETH-15NOV26-2400-C&start_timestamp=1794268800000&end_timestamp=1794609829946",
+      "instrument": "ETH-15NOV26-2400-C",
+      "http_status": 200,
+      "http_body_prefix": null,
+      "http_error": null,
+      "jsonrpc": "2.0",
+      "deribit_error": null,
+      "result_summary": {
+        "has_more": false,
+        "n_trades": 5,
+        "trade_keys": [
+          "timestamp",
+          "iv",
+          "price",
+          "direction",
+          "index_price",
+          "instrument_name",
+          "trade_seq",
+          "amount",
+          "mark_price",
+          "tick_direction",
+          "starbase_match_id",
+          "trade_id",
+          "contracts",
+          "starbase_timestamp"
+        ],
+        "has_iv_field_in_trade": true
+      },
+      "sample": [
+        {
+          "timestamp": 1794577627319,
+          "iv": 106.2,
+          "price": 0.0001,
+          "direction": "buy",
+          "index_price": 1974.01,
+          "instrument_name": "ETH-15NOV26-2400-C",
+          "trade_seq": 1,
+          "amount": 500.0,
+          "mark_price": 0.000164,
+          "tick_direction": 1,
+          "starbase_match_id": 246994288536203264,
+          "trade_id": "ETH-318143720",
+          "contracts": 500.0,
+          "starbase_timestamp": 1794577627319873031
+        },
+        {
+          "timestamp": 1794604777000,
+          "iv": 128.42,
+          "price": 0.0001,
+          "direction": "buy",
+          "index_price": 1932.16,
+          "instrument_name": "ETH-15NOV26-2400-C",
+          "trade_seq": 2,
+          "amount": 1.0,
+          "mark_price": 1.5e-05,
+          "tick_direction": 1,
+          "starbase_match_id": 247108162551820288,
+          "trade_id": "ETH-318241398",
+          "contracts": 1.0,
+          "starbase_timestamp": 1794604777000132609
+        }
+      ],
+      "yields_deep_per_strike_iv_history": false
+    }
+  ]
+}

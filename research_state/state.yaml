@@ -1,4 +1,4 @@
-updated_at_utc: 20261113T223443Z
+updated_at_utc: 20261113T224349Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -46,10 +46,11 @@ caches_verified:
   campaign295_meta: {path: data/cache/campaign295_three_venue_spot.meta.json, sha256: de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab}
   campaign295_provenance: {path: data/cache/campaign295_three_venue_spot.provenance.json, sha256: 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d}
   campaign295_window: {bars: 26208, assets: 9, symbols: [ADAUSDT, BTCUSDT, ETHUSDT, LTCUSDT, ONDOUSDT, SOLUSDT, XLMUSDT, XRPUSDT, ZECUSDT], start: 2026-08-01T00:00Z, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false, interval: 5m, venues: [binance, okx, coinbase]}
-latest_campaign_done: C295
-next_campaign: C296_DERIBIT_OPTIONS_TERM_STRUCTURE_SKEW_MANDATORY_PROBE_THEN_BUILD_OR_DATA_BLOCKED_CLOSURE
+latest_campaign_done: C296
+next_campaign: C296_DERIBIT_OPTIONS_TERM_STRUCTURE_SKEW_DATA_BLOCKED_CLOSURE_COMPLETE (no further reachable economic campaign; reachable real-data cross-sectional stat-arb space closed)
 c295_status: {state: COMPLETE_NOT_TRADABLE, as_of_utc: 20261113T215725Z, verdict: NOT_TRADABLE, n_total_runs: 162, n_with_exposure: 108, n_edge_proven: 0, n_assets: 9, binding_constraint: cost_sensitivity, n_cost0_gross_positive: 92, artifacts: [reports/campaign295_oos_sweep_20261113T215725Z.json, reports/campaign295_tradable_edge_registry_20261113T215725Z.json, reports/campaign295_summary_20261113T215725Z.json, reports/campaign295_verdict_20261113T215725Z.json, reports/campaign295_binding_constraint_20261113T215725Z.json]}
-locked_campaigns: C104-C295
+c296_status: {state: COMPLETE_DATA_BLOCKED_CLOSED, as_of_utc: 20261113T224349Z, verdict: DATA_BLOCKED, edge_proven: false, edge_claim: NONE, family: options_term_structure_skew, family_verdict: data_blocked, reachable_cross_sectional_stat_arb_space: closed, n_probes: recorded_in_probe_artifact, n_edge_proven: 0, artifacts: [reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json, reports/campaign296_oos_sweep_20261113T224349Z.json, reports/campaign296_tradable_edge_registry_20261113T224349Z.json, reports/campaign296_summary_20261113T224349Z.json, reports/campaign296_verdict_20261113T224349Z.json], probe_artifact_sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b, oos_sweep_sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d, registry_sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356, summary_sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af, verdict_sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8}
+locked_campaigns: C104-C296
 oos_edge_proven: false
 c291_data_source:
   status: verified_reachable
@@ -615,20 +616,47 @@ campaign295:
 
 campaign296:
   hypothesis: REAL_OPTIONS_TERM_STRUCTURE_AND_SKEW_CROSS_SECTIONAL_STAT_ARB_DERIBIT
-  status: required_pending_heavy_work
-  script_required: scripts/run_c296_deribit_options_ts_skew_oos.py
-  ingest_required: scripts/ingest_c296_deribit_options_ts_skew.py
-  preflight_required: scripts/preflight_c296.py
-  tests_required: [tests/test_preflight_c296.py, tests/test_c296_deribit_options_ts_skew_oos.py]
+  status: completed_data_blocked_closed
+  verdict: DATA_BLOCKED
+  edge_proven: false
+  edge_claim: "NONE"
+  family: options_term_structure_skew
+  family_verdict: data_blocked
+  reachable_cross_sectional_stat_arb_space: closed
+  as_of_utc: 20261113T224349Z
   probe_required: true
-  probe_artifact_required: reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json
-  data_source: "Deribit public API (HTTP 200). get_historical_volatility is ATM/currency-level only; get_book_summary_by_currency is current snapshot mark_iv only; DVOL is 30d ATM (C294 closed). Candidate historical per-strike endpoints must be probed (e.g. get_tradingview_chart_data for option instruments, last-trades implied-vol fields, mark-price/vol-history variants)."
-  probe_evidence_20261113: {get_historical_volatility: "ATM/currency-level series, not per-strike", get_book_summary_by_currency: "current snapshot mark_iv per instrument, no historical per-strike series", dvol: "30d ATM only, C294 closed"}
-  edge_rule: "identical to C285-C295 (never relaxed)"
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  required_outcome: "either (a) end-to-end build/run with 5 SHA256 artifacts + tests + green pytest + state/handoff updated, or (b) formal data-blocked closure artifacts + schema/evidence test + green pytest + reachable real-data cross-sectional stat-arb space declared closed"
+  probe_executed: true
+  probe_script: scripts/probe_c296_deribit_per_strike_iv_reachability.py
+  probe_artifact: reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json
+  probe_artifact_sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b
+  data_source: "Deribit public API (https://www.deribit.com/api/v2/public), HTTP 200, browser User-Agent"
+  probe_evidence:
+    get_historical_volatility: "ATM/currency-level series, shallow ~16 days, not per-strike mark IV history"
+    get_book_summary_by_currency: "current snapshot mark_iv per instrument (strike/expiry/option_type), no historical per-strike time series"
+    get_volatility_index_data: "DVOL 30-day ATM constant-maturity IV only, already closed as NOT_TRADABLE in C294"
+    get_tradingview_chart_data: "option PRICE series open/high/low/close/volume/ticks/cost, NO iv field; shallow or no_data per instrument"
+    get_last_trades_by_instrument_and_time: "trades only, NO iv field; empty for illiquid strikes"
+    get_instruments: "metadata only (strike/expiry/type/active), no prices or IV history"
+  conclusion:
+    deep_historical_per_strike_mark_iv_reachable: false
+    per_strike_iv_time_series_available: false
+    per_strike_mark_iv_snapshot_only: true
+    dvol_30d_atm_only_c294_closed: true
+    any_probe_yields_iv_history: false
+    options_term_structure_skew_family: data_blocked
+    reachable_cross_sectional_stat_arb_space: closed
+    reason: "No Deribit public endpoint returns a deep historical per-strike mark IV / IV time series. Per-strike mark_iv is a current snapshot only; tradingview/last-trades return price or trades with no IV field and are shallow or no_data. get_historical_volatility is currency-level/ATM only and shallow (~16d). DVOL is 30d ATM only (C294 closed). Per-strike term-structure/skew stat-arb cannot be built without the feed; DVOL is not relabeled as per-strike term-structure/skew. No synthetic/backfilled/proxied per-strike IV used."
+  artifacts:
+    probe: {path: reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json, sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b}
+    oos_sweep: {path: reports/campaign296_oos_sweep_20261113T224349Z.json, sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d}
+    registry: {path: reports/campaign296_tradable_edge_registry_20261113T224349Z.json, sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356}
+    summary: {path: reports/campaign296_summary_20261113T224349Z.json, sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af}
+    verdict: {path: reports/campaign296_verdict_20261113T224349Z.json, sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8}
+  test: tests/test_c296_options_data_blocked.py (3 tests)
+  real_data_only: true
+  fabricated_data: false
   escalation_if_edge: "escalate C287 (blocked by testnet REST 451 + no creds; do not fabricate fills)"
-  escalation_if_closed: "record binding-constraint or data-blocked evidence; if all reachable real-data families closed, only external execution capability (C287) remains"
+  escalation_if_closed: "all reachable real-data cross-sectional stat-arb families (single/cross/three-venue spot, perp funding/basis, real-IV VRP) closed NOT_TRADABLE with 0 costed OOS edge; only external execution capability (C287) remains, decoupled"
 
 campaign290:
   hypothesis: WIDER_UNIVERSE_TRUE_5M_OHLCV_CROSS_SECTIONAL_STAT_ARB
@@ -706,10 +734,10 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T223443Z
-  active_initial_task_message: "C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit) — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen NOT_TRADABLE (162 runs, 0 edge, binding cost_sensitivity: 92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Three-venue real-spot, single/cross-venue 5m spot+perp, and real-IV VRP (C294, DVOL ATM 30d) closed. C296 sole active. Deribit HTTP 200; get_historical_volatility is ATM/currency-level only, get_book_summary_by_currency is current snapshot mark_iv only (no historical per-strike series). MUST in one turn: (1) bootstrap+verify deps; pytest -q baseline green. (2) Deterministic deep per-strike IV feed probe (every endpoint/params/status/sample/suitability) for historical per-strike mark IV/IV time series (e.g. get_tradingview_chart_data for option instruments, last-trades IV fields, mark-price-history/vol-history variants). Save reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json (SHA256-from-bytes, real_data_only:true, fabricated_data:false) and probe script/test if non-trivial. (3) Branch fail-closed: IF deep historical per-strike IV reachable+sufficient -> build+run end-to-end ingest/preflight(ready:true)/runner (pre-registered TS/skew features, WF 720/168/168 or justified option-native, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs incl option exec/hedge as applicable, B&H/neutral benchmark, identical edge rule) -> 5 SHA256 artifacts + tests + green pytest + state+AGENTS; if edge escalate C287 (blocked, no fabricated fills). IF NO deep historical per-strike IV reachable -> formal closure this turn: emit SHA256-from-bytes campaign296_options_data_blocked_<ts>.json (+ summary/verdict) documenting probed endpoints, insufficiency, DVOL ATM-only (C294 closed), conclusion options_term_structure_skew_family:data_blocked / reachable_cross_sectional_stat_arb_space:closed; add schema+evidence test; green pytest; update state+AGENTS declaring reachable real-data cross-sectional stat-arb space closed. (4) No weakened gates/costs/edge rule; no fabricated/backfill/proxy/relabeled data or fills; no workflow edits; no HANDOFF.md. No status/planning/inventory/probe-only turn."
+  timestamp_utc: 20261113T224349Z
+  active_initial_task_message: "C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit) — COMPLETED as formal data-blocked closure 2026-11-13T22:43:49Z. Deep historical per-strike mark IV feed probe executed end-to-end (deterministic, recorded): get_historical_volatility ATM/currency-level shallow only; get_book_summary_by_currency current-snapshot mark_iv only (no history); get_volatility_index_data DVOL 30d ATM only (C294 closed); get_tradingview_chart_data/get_last_trades_by_instrument_and_time return price/trades with NO iv field (shallow/no_data); get_instruments metadata only. Conclusion: options_term_structure_skew_family=data_blocked, reachable_cross_sectional_stat_arb_space=closed. Artifacts (SHA256-from-bytes, real_data_only:true, fabricated_data:false): probe reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json (df90281f...), blocked reports/campaign296_options_data_blocked_20261113T224349Z.json (2d9be9b6...), summary ..._summary_... (d830a1ec...), verdict ..._verdict_... (4a363d56...). Test tests/test_c296_options_data_blocked.py (3 tests). pytest -q green (1243 passed, 2 skipped). All reachable real-data cross-sectional stat-arb families (single/cross/three-venue spot, perp funding/basis, real-IV VRP C294, options term-structure/skew C296) are closed NOT_TRADABLE/data_blocked with 0 costed OOS edge. Only external execution capability (C287) remains; C287 BLOCKED/decoupled (testnet REST HTTP 451 + no creds), do not fabricate fills. No further reachable economic campaign exists in this environment."
   rule: do_not_create_another_handoff_file
-  superseded_active_initial_task_message: "C295 THREE-VENUE (Binance+OKX+Coinbase) REAL 5m SPOT CROSS-VENUE BASIS/LEAD-LAG STAT-ARB — COMPLETED 2026-11-13T21:57:25Z (frozen). Verdict NOT_TRADABLE, 162 runs, 0 edge, 108 with exposure, binding cost_sensitivity (92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Dataset data/cache/campaign295_three_venue_spot.pkl SHA256 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7 (meta de894a7ba..., provenance 570fb29c...). Artifacts reports/campaign295_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261113T215725Z.json (SHAs fd1762fa/e898b0cb/036c0150/02f7ed38/0c5257a2). Three-venue real-spot stat-arb space closed."
+  superseded_active_initial_task_message: "C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit) — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen NOT_TRADABLE (162 runs, 0 edge, binding cost_sensitivity: 92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Three-venue real-spot, single/cross-venue 5m spot+perp, and real-IV VRP (C294, DVOL ATM 30d) closed. C296 sole active. Deribit HTTP 200; get_historical_volatility is ATM/currency-level only, get_book_summary_by_currency is current snapshot mark_iv only (no historical per-strike series). MUST in one turn: (1) bootstrap+verify deps; pytest -q baseline green. (2) Deterministic deep per-strike IV feed probe (every endpoint/params/status/sample/suitability) for historical per-strike mark IV/IV time series (e.g. get_tradingview_chart_data for option instruments, last-trades IV fields, mark-price-history/vol-history variants). Save reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json (SHA256-from-bytes, real_data_only:true, fabricated_data:false) and probe script/test if non-trivial. (3) Branch fail-closed: IF deep historical per-strike IV reachable+sufficient -> build+run end-to-end ingest/preflight(ready:true)/runner (pre-registered TS/skew features, WF 720/168/168 or justified option-native, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs incl option exec/hedge as applicable, B&H/neutral benchmark, identical edge rule) -> 5 SHA256 artifacts + tests + green pytest + state+AGENTS; if edge escalate C287 (blocked, no fabricated fills). IF NO deep historical per-strike IV reachable -> formal closure this turn: emit SHA256-from-bytes campaign296_options_data_blocked_<ts>.json (+ summary/verdict) documenting probed endpoints, insufficiency, DVOL ATM-only (C294 closed), conclusion options_term_structure_skew_family:data_blocked / reachable_cross_sectional_stat_arb_space:closed; add schema+evidence test; green pytest; update state+AGENTS declaring reachable real-data cross-sectional stat-arb space closed."
   bottlenecks_removed:
     - id: c295_executed_complete
       detail: "C295 three-venue real-spot campaign built and executed end-to-end: ingest -> preflight ready:true -> 162-run costed OOS sweep -> 5 SHA256-from-bytes artifacts -> 15 tests -> pytest green (1241 passed). Prior 'C295 unbuilt' bottleneck gone; C295 frozen NOT_TRADABLE (binding cost_sensitivity)."
@@ -723,7 +751,9 @@ handoff:
       detail: "Deribit DVOL real implied vol verified reachable (HTTP 200). Real-IV VRP family built and closed (C294)."
     - id: c287_decoupled
       detail: "C287 BLOCKED by external-only testnet REST 451 + no creds; do not re-emit artifacts absent new capability evidence."
-mandates:
+    - id: c296_deribit_per_strike_iv_feed_data_blocked
+      detail: "C296 Deribit options term-structure/skew probed exhaustively; no deep historical per-strike mark IV feed reachable. Formal data-blocked closure emitted (probe + blocked + summary + verdict SHA256-from-bytes artifacts, schema/evidence test, pytest green). Reachable real-data cross-sectional stat-arb space declared CLOSED. Removes the C296 per-strike-IV-feed-unknown bottleneck."
+  mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data
   - fail_closed_on_missing_or_false_gates
