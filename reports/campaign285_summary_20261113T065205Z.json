@@ -1,0 +1,99 @@
+{
+  "generated_at_utc": "20261113T065205Z",
+  "campaign": 285,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 11,
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "overlap_bars": 5112
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 26
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "z_logqv",
+      "qv_ratio",
+      "qv_vol"
+    ],
+    "lookbacks_1h": [
+      168,
+      336,
+      720
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 81,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign285_oos_sweep_20261113T065205Z.json",
+      "sha256": "2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc"
+    },
+    "registry": {
+      "path": "reports/campaign285_tradable_edge_registry_20261113T065205Z.json",
+      "sha256": "23cfb01fc1567918090f7ebd849f4389557b6a52b18397f39fce8b05fb4e6ff3"
+    }
+  },
+  "summary": {
+    "n_total_runs": 81,
+    "n_with_exposure": 81,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 1.4376095145558496e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact with signal pass shares, exposure, turnover, and binding constraint; record a formal negative result for the volume-conditioned cross-sectional family and stop; do not start a new parameter search in the same session. C286/C287 are the next campaigns."
+}

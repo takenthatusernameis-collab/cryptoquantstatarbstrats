@@ -1,8 +1,8 @@
-updated_at_utc: 20261113T063000Z
+updated_at_utc: 20261113T065205Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C285 ACTIVE (2026-11-13T06:30:00Z): volume-conditioned cross-sectional stat-arb on the real 1h spot + quote-volume caches. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 on the 5112-bar overlap = 26 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, strict edge rule unchanged. C284 is COMPLETE and NOT_TRADABLE; C285 is the next heavy economic campaign, not operational hardening. C286 (5m execution overlay) and C287 (operational hardening) are deferred."
+active_initial_task: "C286 ACTIVE (2026-11-13T06:52:05Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, strict edge rule unchanged. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
 known_bottleneck: {id: ci_agent_shell_missing_deps, evidence: "scheduled Kilo shell can start without numpy/pandas/scipy/statsmodels/hmmlearn/pydantic/aiohttp; old Step 0 omitted test-only imports", fix: "run scripts/bootstrap_dev_env.py --json then scripts/verify_env.py --json at the start of every session", do_not: "edit .github/workflows/main.yml (token cannot persist workflow edits); create/read/edit HANDOFF.md (AGENTS.md is the only handoff)"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
@@ -19,9 +19,9 @@ caches_verified:
   spot_5m: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl, sha256: d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f}
   spot_5m_meta: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.meta.json, sha256: e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e}
   spot_5m_window: {bars: 26208, assets: 11, start: 2026-08-01, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false}
-latest_campaign_done: C284
-next_campaign: C285
-locked_campaigns: C104-C283
+latest_campaign_done: C285
+next_campaign: C286
+locked_campaigns: C104-C285
 oos_edge_proven: false
 latest_registry:
   path: reports/tradable_edge_registry_20261112T172556Z.json
@@ -75,6 +75,13 @@ latest_campaigns:
     n_total_runs: 1088
     n_with_exposure: 0
     n_edge_proven: 0
+  c285:
+    path: reports/campaign285_oos_sweep_20261113T065205Z.json
+    sha256: 2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc
+    verdict: NOT_TRADABLE
+    n_total_runs: 81
+    n_with_exposure: 81
+    n_edge_proven: 0
 campaign284:
   hypothesis: KALMAN_DYNAMIC_HEDGE_RATIO_PAIRS
   status: completed_not_tradable
@@ -114,8 +121,11 @@ campaign284:
     binding_constraint: 9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14
 campaign285:
   hypothesis: VOLUME_CONDITIONED_CROSS_SECTIONAL_STAT_ARB
-  status: active_not_started
-  rationale: "Spot-only price-only edge search is formally closed (C281B-C284 all NOT_TRADABLE). Quote volume is the only remaining real-data economic axis on disk; use it as an exogenous signal, measure PnL on real spot prices."
+  status: completed_not_tradable
+  script_required: scripts/run_c285_volume_xsec_oos.py
+  script_executed: true
+  preflight_required: scripts/preflight_c285.py
+  preflight_ready: true
   dataset_path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl
   dataset_sha256: 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df
   volume_path: data/cache/volume_1h_full.pkl
@@ -125,7 +135,6 @@ campaign285:
   universe: [ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP]
   overlap_bars: 5112
   overlap_window: {start: 2026-04-01T00:00:00Z, end: 2026-10-30T23:00:00Z}
-  signal: "Real Binance 1h quote volume (klines column 5, USDT): log_qv z-score, qv / trailing median, and rolling std of log_qv.diff(); causal trailing only; weights.shift(1).fillna(0.0)."
   signal_features: [z_logqv, qv_ratio, qv_vol]
   lookbacks_1h: [168, 336, 720]
   cross_sectional_K: [2, 3, 5]
@@ -138,38 +147,49 @@ campaign285:
     total_runs: 81
   wf: {train: 720, test: 168, step: 168, n_splits: 26}
   cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  edge_rule: "oos_edge_proven=true IFF OOS exposure>0 AND every cost slice OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight 11-asset B&H OOS net means on the same WF windows; same aggregation for both legs, never a strategy mean vs a benchmark sum; anything else NOT_TRADABLE; never relax."
   gates: "fail_closed: all 11 quote-volume observations finite/positive; selected signal finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite price in selected legs; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
-  script_required: scripts/run_c285_volume_xsec_oos.py
-  preflight_required: scripts/preflight_c285.py
-  preflight_ready: true
+  result:
+    verdict: NOT_TRADABLE
+    edge_proven: false
+    n_total_runs: 81
+    n_with_exposure: 81
+    n_zero_exposure: 0
+    n_edge_proven: 0
+    binding_constraint: cost_sensitivity
+    zero_exposure_rate: 0.0
   required_artifacts:
-    - reports/campaign285_oos_sweep_<ts>.json
-    - reports/campaign285_tradable_edge_registry_<ts>.json
-    - reports/campaign285_summary_<ts>.json
-    - reports/campaign285_verdict_<ts>.json
-  binding_constraint_artifact_if_not_tradable: reports/campaign285_binding_constraint_<ts>.json
+    - reports/campaign285_oos_sweep_20261113T065205Z.json
+    - reports/campaign285_tradable_edge_registry_20261113T065205Z.json
+    - reports/campaign285_summary_20261113T065205Z.json
+    - reports/campaign285_verdict_20261113T065205Z.json
+  binding_constraint_artifact: reports/campaign285_binding_constraint_20261113T065205Z.json
+  artifact_sha256:
+    oos_sweep: 2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc
+    registry: 23cfb01fc1567918090f7ebd849f4389557b6a52b18397f39fce8b05fb4e6ff3
+    summary: 512bbb4b75f30eb26d6969e1fb135a481b9bfe892f52c39185d021802405cdbb
+    verdict: 2e64ccf3fda6e423b7b098b2cf093430054e537227739ff6fa27aa6bbd76ce4b
+    binding_constraint: 15f29a2fe1e6b03fbff8454ed1ad024f943f298afa7d6943c146f9f65dc60e9a
   completion_gate:
-    - preflight_c285_exits_zero_ready_true
-    - run_c285_volume_xsec_oos_executed_end_to_end_not_smoke_only
-    - all_four_artifacts_fresh_with_sha256_from_bytes
-    - binding_constraint_artifact_if_not_tradable
-    - state_and_handoff_updated_with_paths_and_sha256
-    - python_m_pytest_tests_q_still_passes
+    - preflight_c285_exits_zero_ready_true: satisfied
+    - run_c285_volume_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
+    - all_four_artifacts_fresh_with_sha256_from_bytes: satisfied
+    - binding_constraint_artifact_if_not_tradable: satisfied
+    - state_and_handoff_updated_with_paths_and_sha256: satisfied
+    - python_m_pytest_tests_q_still_passes: satisfied
 deferred_campaigns:
   c286:
     name: 5m execution overlay
-    detail: "Rerun the C285 signal with 5m execution on the real 26208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. Do not start until C285 is complete."
+    detail: "Rerun the C285 signal with 5m execution on the real 26208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. C285 complete; C286 is the next campaign to execute. Script: scripts/run_c286_5m_volume_xsec_oos.py (to be created). Artifacts: reports/campaign286_oos_sweep_<ts>.json, campaign286_tradable_edge_registry_<ts>.json, campaign286_summary_<ts>.json, campaign286_verdict_<ts>.json (+ campaign286_binding_constraint_<ts>.json if NOT_TRADABLE). WF train=720/test=168/step=168 in 5m bars = 151 OOS splits; grid 3x3x3x3=81 runs; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; strict edge rule unchanged; fail-closed gates per campaign; 1h volume cache SHA 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c."
   c287:
     name: operational hardening
-    detail: "Testnet gateway/kill-switch. Do not start until C285 and C286 are complete."
+    detail: "Testnet gateway/kill-switch. Do not start until C286 is complete."
 handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T063000Z
+  timestamp_utc: 20261113T065205Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C285 ACTIVE (2026-11-13T06:30:00Z): volume-conditioned cross-sectional stat-arb on the real 1h spot + quote-volume caches; 81 pre-registered runs, 26 WF splits, 5 cost slices, strict edge rule unchanged. C284 is COMPLETE and NOT_TRADABLE. C286 (5m execution overlay) and C287 (operational hardening) are deferred."
+  active_initial_task_message: "C286 ACTIVE (2026-11-13T06:52:05Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
@@ -181,6 +201,8 @@ bottlenecks_removed:
     detail: "tests/test_controller_progress_accounting.py, tests/test_workflow_diagnostics_scanner.py, tests/test_nonfinite_result_serialization.py, tests/test_campaign_resume.py restored."
   - id: c285_preflight
     detail: "scripts/preflight_c285.py verifies all dataset SHAs, shapes, NaNs, duplicates, real/fabricated flags, and the 5112-bar causal overlap."
+  - id: c285_campaign_script
+    detail: "scripts/run_c285_volume_xsec_oos.py created and executed end-to-end on the verified caches; NOT_TRADABLE with binding constraint cost_sensitivity; five artifacts written with SHA256-from-bytes; tests added (tests/test_c285_volume_xsec_oos.py)."
 mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data
