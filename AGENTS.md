@@ -1,13 +1,21 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T04:49:18Z
+**Handoff refreshed:** 2026-11-13T04:52:55Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state:** `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (46.46s). No known CI or dependency blocker. Required cache/meta SHA256s re-verified at refresh time.
+**Verified state:** Local runtime `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (45.94s). Required cache/meta SHA256s re-verified from bytes at refresh time. **Known bottleneck (removed by Step 0 below):** the scheduled CI "Kilo General Agent Loop" worker shell has repeatedly failed with `ModuleNotFoundError: No module named 'numpy'` (108/178 diagnostics rows) because `.github/workflows/main.yml` is maintainer-owned and the agent token cannot persist workflow-file edits. Do NOT edit `main.yml`; run the Step 0 bootstrap at the start of every session instead.
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` does not exist; do not create another handoff file.
 
-## INITIAL TASK MESSAGE (active, 2026-11-13T04:49:18Z) — execute this first, no planning/status-only turn
+## INITIAL TASK MESSAGE (active, 2026-11-13T04:52:55Z) — execute this first, no planning/status-only turn
 
 **Execute Campaign C284: a pre-registered, costed OOS test of Kalman-filter dynamic-hedge-ratio pairs with causal OU/cointegration gates on the refreshed real Binance spot cache.** This is the next heavy-work campaign because C281B, C282, and C283 all returned `NOT_TRADABLE` on the same 5427×11 cache; C281C identified `rolling_stable_ok` as the binding pairs gate (0.29% pass), and C283 showed turnover is also binding. C284 must test the one structurally distinct pairs construction not yet tested: a **time-varying Kalman hedge ratio** instead of rolling OLS, while keeping fail-closed gates and the exact C281B cost/edge protocol. Do **not** answer with planning, inventory, or a status update: create `scripts/run_c284_kalman_pairs_oos.py`, run it over the full universe, and emit the four C284 artifacts with SHA256-from-bytes.
+
+### Step 0 — dependency bootstrap (removes the known CI blocker; run before anything else)
+The CI worker shell may not have the repo's Python dependencies installed. Run this idempotent bootstrap first:
+```bash
+python -c "import numpy, pandas, scipy, statsmodels" 2>/dev/null || python -m pip install -r requirements.txt
+python -c "import pytest" 2>/dev/null || python -m pip install pytest
+```
+If `pip` has no network and deps are missing, stop with a blocker artifact; do not fabricate a result. Never edit `.github/workflows/main.yml` (the controller token cannot persist workflow-file changes and it will loop on persistence failure).
 
 ## C284 binding protocol
 
@@ -61,6 +69,15 @@ Then update the state fields in `research_state/state.yaml` and this file with t
 - Use existing dependencies only (numpy/pandas/scipy/statsmodels); do not add a new framework.
 - If C284 is `NOT_TRADABLE`, stop the spot-only price-only edge search and record a formal negative result. The next campaign after that is **C285 operational hardening** (testnet gateway/kill-switch), but C284 must finish first.
 
+### Completion gate (a turn that ends without this is a failed handoff)
+The next session is not done until ALL of these are true and persisted:
+1. `scripts/run_c284_kalman_pairs_oos.py` exists and was executed end-to-end on the verified cache (a smoke-only run does not count).
+2. All four artifacts exist with fresh timestamps and SHA256-from-bytes: `reports/campaign284_oos_sweep_<ts>.json`, `reports/campaign284_tradable_edge_registry_<ts>.json`, `reports/campaign284_summary_<ts>.json`, `reports/campaign284_verdict_<ts>.json`.
+3. If `NOT_TRADABLE`, `reports/campaign284_binding_constraint_<ts>.json` exists with gate pass shares, exposure, turnover, and the binding constraint.
+4. `research_state/state.yaml` and this file record the result, artifact paths, and SHA256-from-bytes.
+5. `python -m pytest tests/ -q` still passes.
+Ending a turn with only a plan, a status update, a partial sweep, or a smoke run does NOT satisfy the handoff and must be continued.
+
 ## Current research state (verified 2026-11-13T04:45Z)
 
 | Campaign | Test | Runs | Result |
@@ -89,6 +106,8 @@ python -m pytest tests/test_campaign8_edge_robustness.py tests/test_campaign9_ca
 
 Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may not be installed in the runtime shell; do not claim they passed unless actually run.
 
+**CI dependency note:** the scheduled agent-loop worker can start without numpy/pandas/scipy/statsmodels installed. Run the Step 0 bootstrap above before running campaign code; a missing-dependency traceback is a bootstrap gap, not a research result. Do not attempt to fix it by editing `.github/workflows/main.yml`.
+
 ## Non-negotiable constraints
 
 1. **NO FABRICATED DATA** — every artifact records `real_data_only: true`, `fabricated_data: false`.
@@ -106,4 +125,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; current next campaign is **C284**, not 39.
 
-**END OF HANDOFF — refreshed 2026-11-13T04:49:18Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
+**END OF HANDOFF — refreshed 2026-11-13T04:52:55Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
