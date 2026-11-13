@@ -1713,6 +1713,202 @@ def fetch_spot_microstructure_snapshot(
     return snapshot, attempts
 
 
+def fetch_spot_ohlcv_klines(
+    symbols: list[str],
+    start_utc: str,
+    end_utc: str,
+    *,
+    interval: str = "5m",
+    timeout: float = 30.0,
+    page_limit: int = 1000,
+    max_workers: int = 8,
+    hosts: list[str] | None = None,
+) -> tuple[dict[str, pd.DataFrame], dict[str, Any]]:
+    """Fetch real public Binance spot klines with full OHLCV + quote volume.
+
+    Returns ``(per_symbol_frames, provenance)`` where each frame has the UTC
+    candle-open DatetimeIndex and float columns
+    ``open, high, low, close, volume, quote_volume`` (kline columns 1..6; column
+    5 is the quote-asset volume).  ``volume`` is base-asset volume (column 5 in
+    the raw API is base volume, column 7 is quote volume; the repo convention
+    keeps both, with ``quote_volume`` taken from raw column 7).
+
+    Host chain is fail-open: a host that returns a permanent HTTP error (451/403/
+    404) is recorded as blocked and skipped for the remaining symbols.  No rows
+    are fabricated; a symbol that cannot be fetched is recorded in
+    ``provenance["per_symbol"]`` and omitted from the result.
+    """
+    from urllib.parse import urlencode
+
+    if hosts is None:
+        hosts = [
+            "https://data-api.binance.vision",
+            "https://www.binance.com",
+            "https://api.binance.com",
+            "https://api1.binance.com",
+            "https://api2.binance.com",
+            "https://api3.binance.com",
+        ]
+
+    def _as_ms(value: str, *, end: bool = False) -> int:
+        stamp = pd.Timestamp(value)
+        if end and isinstance(value, str) and len(value.strip()) == 10:
+            stamp = stamp + pd.Timedelta(days=1) - pd.Timedelta(milliseconds=1)
+        if stamp.tzinfo is None:
+            stamp = stamp.tz_localize("UTC")
+        else:
+            stamp = stamp.tz_convert("UTC")
+        return int(stamp.timestamp() * 1000)
+
+    start_ms = _as_ms(start_utc)
+    end_ms = _as_ms(end_utc, end=True)
+    if end_ms < start_ms:
+        raise ValueError("end_utc must not precede start_utc.")
+
+    def _fetch_one(requested: str) -> dict[str, Any]:
+        market = str(requested).upper().replace("/", "").replace("-", "")
+        if not market.endswith(("USDT", "USD")):
+            market = f"{market}USDT"
+        rows: dict[int, tuple[float, float, float, float, float, float]] = {}
+        success = False
+        last_error = "all_hosts_unavailable"
+        attempts: list[dict[str, Any]] = []
+        local_blocked: list[str] = []
+        local_routes: list[str] = []
+        for attempt in range(1, 4):
+            cursor = start_ms
+            host_ok = True
+            for host in hosts:
+                if host in local_blocked:
+                    continue
+                while cursor <= end_ms:
+                    query = urlencode(
+                        {
+                            "symbol": market,
+                            "interval": interval,
+                            "startTime": cursor,
+                            "endTime": end_ms,
+                            "limit": page_limit,
+                        }
+                    )
+                    url = f"{host}/api/v3/klines?{query}"
+                    payload, meta = _http_get_json(url, timeout=timeout, user_agent="kilo-c290")
+                    meta["symbol"] = market
+                    meta["endpoint"] = "/api/v3/klines"
+                    meta["bars"] = len(payload) if isinstance(payload, list) else 0
+                    attempts.append(meta)
+                    if not meta.get("ok"):
+                        status = meta.get("status")
+                        if status in (451, 403, 404):
+                            if host not in local_blocked:
+                                local_blocked.append(host)
+                            if host not in local_routes:
+                                local_routes.append(host)
+                        host_ok = False
+                        last_error = str(meta.get("error") or status)
+                        break
+                    if not isinstance(payload, list):
+                        host_ok = False
+                        last_error = "unexpected_payload"
+                        break
+                    if not payload:
+                        host_ok = True
+                        break
+                    for candle in payload:
+                        open_ms = int(candle[0])
+                        if start_ms <= open_ms <= end_ms:
+                            rows[open_ms] = (
+                                float(candle[1]),
+                                float(candle[2]),
+                                float(candle[3]),
+                                float(candle[4]),
+                                float(candle[5]),
+                                float(candle[7]),
+                            )
+                    last_open = int(payload[-1][0])
+                    if len(payload) < page_limit or last_open >= end_ms:
+                        host_ok = True
+                        break
+                    next_cursor = last_open + 1
+                    if next_cursor <= cursor:
+                        host_ok = False
+                        last_error = "pagination_stalled"
+                        break
+                    cursor = next_cursor
+                if host_ok and rows:
+                    success = True
+                    break
+                if host_ok and not rows and cursor > end_ms:
+                    success = True
+                    break
+            if success:
+                break
+            if attempt < 3:
+                time.sleep(min(30.0, 1.5 * attempt))
+
+        return {
+            "market": market,
+            "rows": rows,
+            "success": bool(success and rows),
+            "last_error": last_error,
+            "attempts": attempts,
+            "local_blocked": local_blocked,
+            "local_routes": local_routes,
+        }
+
+    frames: dict[str, pd.DataFrame] = {}
+    per_symbol: dict[str, Any] = {}
+    attempts_log: list[dict[str, Any]] = []
+    blocked_hosts: list[str] = []
+    blocked_routes: list[str] = []
+
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        results = list(pool.map(_fetch_one, symbols))
+
+    for res in results:
+        market = res["market"]
+        for h in res["local_blocked"]:
+            if h not in blocked_hosts:
+                blocked_hosts.append(h)
+        for r in res["local_routes"]:
+            if r not in blocked_routes:
+                blocked_routes.append(r)
+        attempts_log.extend(res["attempts"])
+        if res["success"]:
+            rows = res["rows"]
+            idx = pd.to_datetime(sorted(rows), unit="ms", utc=True)
+            frame = pd.DataFrame(
+                [rows[t] for t in sorted(rows)],
+                index=idx,
+                columns=["open", "high", "low", "close", "volume", "quote_volume"],
+            )
+            frame = frame[~frame.index.duplicated(keep="first")].sort_index()
+            frames[market] = frame.astype(float)
+            per_symbol[market] = {"status": "ok", "bars": int(len(frame))}
+        else:
+            per_symbol[market] = {
+                "status": "excluded",
+                "bars": 0,
+                "last_error": res["last_error"],
+            }
+
+    provenance = {
+        "hosts": list(hosts),
+        "blocked_hosts": blocked_hosts,
+        "blocked_routes": blocked_routes,
+        "interval": interval,
+        "start_utc": start_utc,
+        "end_utc": end_utc,
+        "per_symbol": per_symbol,
+        "attempts": attempts_log,
+        "real_data_only": True,
+        "fabricated_data": False,
+    }
+    return frames, provenance
+
+
 def summarize_microstructure_snapshot(snapshot: dict[str, Any]) -> dict[str, Any]:
     out: dict[str, Any] = {"status": "ok"}
     depth = snapshot.get("depth") or {}
