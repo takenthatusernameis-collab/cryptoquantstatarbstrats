@@ -1,0 +1,57 @@
+{
+  "generated_at_utc": "20261113T192043Z",
+  "campaign": 293,
+  "part": "verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "edge_claim": "NONE",
+  "explanation": "No costed OOS edge proven on the real cross-venue Binance+OKX perp funding-carry family (1 runs, 0 edge, 1 with exposure).",
+  "universe": {
+    "n_assets": 20,
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "aggregate": {
+    "n_total_runs": 1,
+    "n_with_exposure": 1,
+    "n_edge_proven": 0,
+    "n_zero_exposure": 0,
+    "benchmark_bh_oos_mean": 6.17708576941632e-10
+  },
+  "oos_sweep_artifact": "reports/campaign293_oos_sweep_20261113T192043Z.json",
+  "oos_sweep_sha256": "f629e398495ac182c7dbf97b17c28eac126b3621897304b36a473f90c13a9738",
+  "registry_artifact": "reports/campaign293_tradable_edge_registry_20261113T192043Z.json",
+  "registry_sha256": "7f998829336d67282a6e187413b48cad2fb0be25d36715ceabaf2875ead5d98d",
+  "summary_artifact": "reports/campaign293_summary_20261113T192043Z.json",
+  "summary_sha256": "d8bc854c15af8828a16c8831f76399dac64399cc52b2d90126013f9491815378",
+  "artifacts": {
+    "sweep": "reports/campaign293_oos_sweep_20261113T192043Z.json",
+    "registry": "reports/campaign293_tradable_edge_registry_20261113T192043Z.json",
+    "summary": "reports/campaign293_summary_20261113T192043Z.json",
+    "binding_constraint": "reports/campaign293_binding_constraint_20261113T192043Z.json"
+  },
+  "binding_constraint_artifact": "reports/campaign293_binding_constraint_20261113T192043Z.json",
+  "binding_constraint_sha256": "8a8e7181098465b298c402f35b5dc15d03afe79d67a90cd2ab633f10304f0d55"
+}

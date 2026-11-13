@@ -1,0 +1,51 @@
+{
+  "generated_at_utc": "20261113T192043Z",
+  "campaign": 293,
+  "part": "binding_constraint",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "binding_constraint": "signal_quality",
+  "diagnosis": {
+    "n_total_runs": 1,
+    "n_with_exposure": 1,
+    "n_cost0_slice_net_positive": 0,
+    "n_all_cost_slices_net_positive": 0,
+    "n_beats_bh_all_slices": 0,
+    "benchmark_bh_oos_mean": 6.17708576941632e-10
+  },
+  "explanation": "No costed OOS edge proven on the real cross-venue Binance+OKX perp funding-carry family (1 runs, 0 edge, 1 with exposure).",
+  "universe": {
+    "n_assets": 20,
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "oos_sweep_artifact": "reports/campaign293_oos_sweep_20261113T192043Z.json",
+  "oos_sweep_sha256": "f629e398495ac182c7dbf97b17c28eac126b3621897304b36a473f90c13a9738",
+  "artifacts": {
+    "sweep": "reports/campaign293_oos_sweep_20261113T192043Z.json",
+    "registry": "reports/campaign293_tradable_edge_registry_20261113T192043Z.json",
+    "summary": "reports/campaign293_summary_20261113T192043Z.json",
+    "verdict": "reports/campaign293_verdict_20261113T192043Z.json"
+  }
+}

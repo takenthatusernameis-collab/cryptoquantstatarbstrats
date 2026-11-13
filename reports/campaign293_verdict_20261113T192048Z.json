@@ -1,0 +1,57 @@
+{
+  "generated_at_utc": "20261113T192048Z",
+  "campaign": 293,
+  "part": "verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "edge_claim": "NONE",
+  "explanation": "No costed OOS edge proven on the real cross-venue Binance+OKX perp funding-carry family (81 runs, 0 edge, 72 with exposure).",
+  "universe": {
+    "n_assets": 20,
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "aggregate": {
+    "n_total_runs": 81,
+    "n_with_exposure": 72,
+    "n_edge_proven": 0,
+    "n_zero_exposure": 9,
+    "benchmark_bh_oos_mean": 6.17708576941632e-10
+  },
+  "oos_sweep_artifact": "reports/campaign293_oos_sweep_20261113T192048Z.json",
+  "oos_sweep_sha256": "38b20984f4ac366daf299a93a1519ca227bf064d9043f42e90da36659241f5bd",
+  "registry_artifact": "reports/campaign293_tradable_edge_registry_20261113T192048Z.json",
+  "registry_sha256": "13bd97a1818116933c90eb40378949857c5a3daac00ff61f9ead33968d73b7a4",
+  "summary_artifact": "reports/campaign293_summary_20261113T192048Z.json",
+  "summary_sha256": "b04c38a2f71c75795268e10f29cfad31efd0f3d81fb6c5adff47c2d9228fc695",
+  "artifacts": {
+    "sweep": "reports/campaign293_oos_sweep_20261113T192048Z.json",
+    "registry": "reports/campaign293_tradable_edge_registry_20261113T192048Z.json",
+    "summary": "reports/campaign293_summary_20261113T192048Z.json",
+    "binding_constraint": "reports/campaign293_binding_constraint_20261113T192048Z.json"
+  },
+  "binding_constraint_artifact": "reports/campaign293_binding_constraint_20261113T192048Z.json",
+  "binding_constraint_sha256": "13a8ce2ba1cc25d3be712eb08f9cade80db1fe6364efd7a15c5a2f03116b9aa3"
+}
