@@ -1,0 +1,47 @@
+{
+  "generated_at_utc": "20261113T024731Z",
+  "campaign": 281,
+  "part": "1_fetch",
+  "analysis": "fresh_real_data_availability",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NEW_REAL_DATA_FETCHED",
+  "new_real_data_available": true,
+  "bottleneck_premise": "BLOCKED_NO_NEW_REAL_DATA (C280) tested for falsification against live feed",
+  "dataset": {
+    "cache_key": "26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2",
+    "path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "bytes": 522733,
+    "meta_path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.meta.json",
+    "meta_sha256": "95baf25daae1656a8c6f074acdcd909250565ddda8e86920b00d85163646afd1",
+    "symbols": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "bars": 5427,
+    "window": {
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-11-13 02:00:00+00:00"
+    },
+    "extends_beyond_2026_11_09": true,
+    "days_beyond_c280_exhausted": 4.083333333333333
+  },
+  "provenance_assertions": {
+    "fetch_real_data_only": true,
+    "fetch_fabricated_data": false,
+    "blocked_hosts": [],
+    "blocked_routes": [],
+    "errors": [],
+    "cache_hit": false
+  }
+}

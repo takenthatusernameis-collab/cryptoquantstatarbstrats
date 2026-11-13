@@ -1,0 +1,60 @@
+{
+  "cache_key": "26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2",
+  "symbols": [
+    "ADA",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "LINK",
+    "LTC",
+    "POL",
+    "SOL",
+    "XRP"
+  ],
+  "start": "2026-04-01",
+  "end": "2026-11-13",
+  "interval": "1h",
+  "quote_asset": "USDT",
+  "fetch_success": true,
+  "rows": 5427,
+  "columns": [
+    "ADA",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "LINK",
+    "LTC",
+    "POL",
+    "SOL",
+    "XRP"
+  ],
+  "fetch_blocked_hosts": [],
+  "fetch_blocked_routes": [],
+  "fetch_attempts": [
+    {
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "interval": "1h",
+      "success": true,
+      "rows": 5427
+    }
+  ],
+  "fetch_errors": [],
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false
+}
