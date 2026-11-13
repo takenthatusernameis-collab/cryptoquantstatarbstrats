@@ -8,7 +8,7 @@
     "cache_spot_pkl": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
     "cache_spot_meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
     "cache_spot_pkl_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
-    "cache_spot_meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d",
+    "cache_spot_meta_sha256": "cb5cb0863e3dedd0d373f1eeb52075c6b555c0048bdaf6eaa0d320ccaaf7c749",
     "cache_spot_meta_content": {
       "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
       "symbols": [
@@ -29,6 +29,8 @@
       "interval": "1h",
       "quote_asset": "USDT",
       "fetch_success": true,
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
       "rows": 5112,
       "columns": [
         "ADA",
