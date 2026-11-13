@@ -58,6 +58,8 @@ OUT_PROV = CACHE / "campaign293_crossvenue_funding.provenance.json"
 
 OKX_HOST = "https://www.okx.com"
 OKX_FUNDING_ENDPOINT = "/api/v5/public/funding-rate-history"
+OKX_KLINE_ENDPOINT = "/api/v5/market/history-candles"
+OKX_BAR = "5m"
 OKX_LIMIT = 100
 REQUEST_TIMEOUT = 30.0
 # OKX rejects non-browser User-Agent strings with HTTP 403 (CloudFront).  Use a
@@ -222,6 +224,129 @@ def fetch_okx_funding(inst_id: str, target_start_ms: int, timeout: float) -> dic
         "newest_ts": str(df["fundingTime"].max()),
         "ok": True,
         "frame": df,
+    }
+
+
+def fetch_okx_klines(inst_id: str, exp_idx: pd.DatetimeIndex, timeout: float) -> dict:
+    """Paginate OKX perp 5m history-candles backward until window_start is covered.
+
+    Returns dict with status, bars collected, per-page detail, and the raw
+    frame (ts, open, high, low, close, volume) indexed by ts, or an exclusion
+    reason if coverage is incomplete.
+    """
+    detail_pages = []
+    frames = []
+    after_ms: int | None = None
+    pages = 0
+    oldest_ts: int | None = None
+    target_start_ms = int(exp_idx[0].timestamp() * 1000)
+
+    while pages < MAX_PAGES_PER_SYMBOL:
+        url = f"{OKX_HOST}{OKX_KLINE_ENDPOINT}?instId={inst_id}&bar={OKX_BAR}&limit={OKX_LIMIT}"
+        if after_ms is not None:
+            url += f"&after={after_ms}"
+        status, data = _http_get(url, timeout)
+        page = {
+            "instId": inst_id,
+            "url": url,
+            "status": status,
+            "after": after_ms,
+        }
+        if status != 200:
+            page["rows"] = 0
+            detail_pages.append(page)
+            break
+        try:
+            payload = json.loads(data.decode())
+        except Exception as exc:  # noqa: BLE001
+            page["rows"] = 0
+            page["error"] = f"json parse: {exc}"
+            detail_pages.append(page)
+            break
+        code = payload.get("code")
+        if code != "0":
+            page["rows"] = 0
+            page["error"] = f"okx code {code}: {payload.get('msg')}"
+            detail_pages.append(page)
+            break
+        candles = payload.get("data") or []
+        if not candles:
+            page["rows"] = 0
+            detail_pages.append(page)
+            break
+        page["rows"] = int(len(candles))
+        detail_pages.append(page)
+        rows = []
+        for c in candles:
+            # OKX: [ts, o, h, l, c, vol, volCcy, volCcyQuote, confirm]
+            try:
+                rows.append(
+                    {
+                        "ts": int(c[0]),
+                        "open": float(c[1]),
+                        "high": float(c[2]),
+                        "low": float(c[3]),
+                        "close": float(c[4]),
+                        "volume": float(c[5]),
+                    }
+                )
+            except Exception:
+                continue
+        df_page = pd.DataFrame(rows)
+        frames.append(df_page)
+        page_oldest = int(df_page["ts"].min())
+        oldest_ts = page_oldest if oldest_ts is None else min(oldest_ts, page_oldest)
+        # OKX returns newest first; paginate back using the oldest ts seen.
+        after_ms = page_oldest - 1
+        pages += 1
+        if page_oldest <= target_start_ms:
+            break
+        time.sleep(SLEEP_BETWEEN_REQUESTS)
+
+    if not frames:
+        return {
+            "instId": inst_id,
+            "status": "no_data",
+            "pages": detail_pages,
+            "ok": False,
+        }
+
+    raw = pd.concat(frames, axis=0).drop_duplicates("ts", keep="last").sort_values("ts")
+    raw = raw.set_index("ts")
+    # Reindex onto the exact 5m UTC grid (ms -> datetime UTC).
+    grid_ms = to_epoch_ms(exp_idx)
+    grid_idx = pd.Index(grid_ms, name="ts")
+    raw = raw.reindex(grid_idx)
+    n_expected = len(exp_idx)
+    raw = raw[["open", "high", "low", "close", "volume"]]
+    price_vals = raw[["open", "high", "low", "close"]].to_numpy(dtype=float)
+    vol_vals = raw[["volume"]].to_numpy(dtype=float)
+    vals = raw.to_numpy(dtype=float)
+    nan_c = int(np.isnan(vals).sum())
+    finite = bool(np.isfinite(vals).all()) if nan_c == 0 else False
+    # Coverage requires strictly positive PRICES; zero-volume 5m bars are legitimate
+    # real market data (no trades) and must NOT fail an instrument.
+    positive_prices = bool((price_vals > 0).all()) if nan_c == 0 else False
+    volume_nonneg = bool((vol_vals >= 0).all()) if nan_c == 0 else False
+    full_coverage = bool(nan_c == 0 and finite and positive_prices and volume_nonneg)
+    min_volume = float(np.nanmin(vol_vals)) if vol_vals.size else None
+
+    return {
+        "instId": inst_id,
+        "status": "ok" if full_coverage else "okx_coverage_fail",
+        "pages": detail_pages,
+        "n_pages": pages,
+        "oldest_ts_ms": oldest_ts,
+        "target_start_ms": target_start_ms,
+        "bars": int(len(raw)),
+        "nan_count": nan_c,
+        "all_finite": finite,
+        "all_prices_positive": positive_prices,
+        "volume_nonneg": volume_nonneg,
+        "min_volume": min_volume,
+        "full_coverage": full_coverage,
+        "frame": raw if full_coverage else None,
+        "ok": full_coverage,
     }
 
 
