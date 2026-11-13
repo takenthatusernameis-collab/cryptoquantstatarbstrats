@@ -1,4 +1,4 @@
-updated_at_utc: 20261113T083714Z
+updated_at_utc: 20261113T084347Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -245,7 +245,7 @@ campaign287:
     - rest_unreachable:rest_ping
     - rest_unreachable:rest_time
     - rest_unreachable:rest_exchange_info
-  preflight_timestamp_utc: 2026-11-13T08:37:09Z
+  preflight_timestamp_utc: 2026-11-13T08:41:41Z
   preflight_ready: false
   preflight_exit_code: 2
   script_required: scripts/run_c287_testnet_gateway.py
@@ -275,24 +275,24 @@ campaign287:
     per_window: "ONE variant per 72h window, pre-committed"
   gates: "fail_closed: REST+WS healthy (<500ms p95), 5m klines all 11 finite/positive/no gaps>1, causal 1h qv all finite/positive, selected signal finite for >=2K, dispersion>0, no NaN/non-finite 5m price in selected legs, kill-switch watchdog alive (heartbeat<5s), no missing/None/false permissive."
   required_artifacts:
-    - path: reports/campaign287_gateway_spec_20261113T083714Z.json
-      sha256: b25a8a5d31e8c8bf36a62b7100d62cbc8c74522bd0fb1778202520c5e28b0c85
+    - path: reports/campaign287_gateway_spec_20261113T084347Z.json
+      sha256: 84a10504f44c0c88434689a621f73d4945aac2297656b735d9844af21e947d32
       type: gateway_spec
       mode: BLOCKED
-    - path: reports/campaign287_live_run_20261113T083714Z.json
-      sha256: 6424417553537029316d468205dbd46f97b1e9bbce56fb2bca0a89d8892e9711
+    - path: reports/campaign287_live_run_20261113T084347Z.json
+      sha256: b631c3d950dcb19d6150e9d640bc151a61cd5466d25e6915664c7530f9e164a3
       type: live_run
       mode: BLOCKED_NO_LIVE_EXECUTION
-    - path: reports/campaign287_drift_report_20261113T083714Z.json
-      sha256: c34d29a8e916461a54fffcd61f109fd74dcf7b8bdf94ee4dc98965e5b8d4e734
+    - path: reports/campaign287_drift_report_20261113T084347Z.json
+      sha256: 7406c4d4e680a2741397f7f150c6c18035f3505edc375ebab03f5690c3c5e6ff
       type: drift_report
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_kill_switch_test_20261113T083714Z.json
-      sha256: 8ec7eb0cee97fcbd08eec7b5ef909b9700ddbedb0f6dd50545fb358ff46a531c
+    - path: reports/campaign287_kill_switch_test_20261113T084347Z.json
+      sha256: abcd089992240901a38216a9fc2a6609d82b4145cfa621a85229a273d4f827e4
       type: kill_switch_test
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_summary_20261113T083714Z.json
-      sha256: 5dff806efae888ffd4751ec5cc5542adc40cd6b93974c4b7482197f73257e04a
+    - path: reports/campaign287_summary_20261113T084347Z.json
+      sha256: 6c9b2d9e1e92ef2031100839638db8201b79c3558234d9494c1eee20b00190dd
       type: summary
       mode: BLOCKED
   completion_gate:
@@ -314,9 +314,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T083714Z
+  timestamp_utc: 20261113T084347Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C287 ACTIVE/BLOCKED (2026-11-13T08:37:14Z, no avoidance): Step 0+preflights. Signal artifact present (data/cache/signal_c286_5m_aligned.pkl sha256 d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5, meta/provenance SHA256-from-bytes). preflight ready:false exit 2 (4 blockers: missing credentials, REST 451 ping/time/exchangeInfo; WS reachable). Fresh BLOCKED artifacts 20261113T083714Z emitted with SHA256-from-bytes. If ready:true run gateway >=72h/>=500 cycles drift_free true kill-switch tested; if still blocked re-emit BLOCKED artifacts + update state+AGENTS + keep tests green. No status-only turn."
+  active_initial_task_message: "C287 ACTIVE/BLOCKED (2026-11-13T08:43:47Z, no avoidance): Step 0+preflights re-run green (bootstrap, verify_env, preflight_c285, preflight_c286, pytest 1132 passed 2 skipped). Signal artifact present (data/cache/signal_c286_5m_aligned.pkl sha256 d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5, meta/provenance SHA256-from-bytes). preflight_c287 ready:false exit 2 (4 blockers: missing BINANCE_TESTNET_API_KEY/SECRET env; REST ping/time/exchangeInfo HTTP 451 geographic CDN block from this egress IP; WS reachable TLSv1.3). Fresh BLOCKED artifacts 20261113T084347Z emitted with SHA256-from-bytes (gateway_spec 84a10504f44c0c88434689a621f73d4945aac2297656b735d9844af21e947d32, live_run b631c3d950dcb19d6150e9d640bc151a61cd5466d25e6915664c7530f9e164a3, drift_report 7406c4d4e680a2741397f7f150c6c18035f3505edc375ebab03f5690c3c5e6ff, kill_switch_test abcd089992240901a38216a9fc2a6609d82b4145cfa621a85229a273d4f827e4, summary 6c9b2d9e1e92ef2031100839638db8201b79c3558234d9494c1eee20b00190dd). If ready:true run gateway >=72h/>=500 cycles drift_free true kill-switch tested; if still blocked re-emit BLOCKED artifacts + update state+AGENTS + keep tests green. No status-only turn."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
