@@ -1,11 +1,11 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-12T19:46:55Z UTC (AUTHORITATIVE)
+## INITIAL TASK MESSAGE — 2026-11-13T01:58:03Z UTC (AUTHORITATIVE)
 
 **Repo-prioritized focus:** `cryptoquantstatarbstrats` = crypto quant **statistical arbitrage**, whose core edge is **cointegration pairs** (README: "Cointegration is the core edge of this repo"). The only economically relevant question is whether a signal produces **costed out-of-sample PnL from real spot prices**. Anything measured in quote-volume return units is not a PnL and is not tradable.
 
 **This session removed the environment + methodology bottlenecks. Do not redo them:**
-1. **Dependencies were missing; now installed and verified.** `/usr/bin/python3` (3.12.3) now has `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `statsmodels 0.15.0`, `scikit-learn 1.9.1`, `hmmlearn 0.3.3`, `pytest 9.2.0`, `pydantic 2.14.3`, `aiohttp 3.14.5` (installed to the user site). `pytest tests/ --collect-only` collects **1106 tests**; `-k "mean_reversion or momentum or pairs or coint"` → **191 passed**. Ignore the stale venv path in `research_state/state.yaml` (`/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python` does not exist) — use `/usr/bin/python3`.
+1. **Dependencies installed and verified.** `/usr/bin/python3` (3.12.3) has `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `statsmodels 0.15.0`, `scikit-learn 1.9.1`, `hmmlearn 0.3.3`, `pytest 9.2.0`, `pydantic 2.14.3`, `aiohttp 3.14.5`, `pytest-asyncio 1.5.0` (user site). `pytest tests/ --collect-only` collects **1106 tests**; `-k "mean_reversion or momentum or pairs or coint"` → **191 passed**. Ignore the stale venv path in `research_state/state.yaml` (`/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python` does not exist) — use `/usr/bin/python3`.
 2. **The static cached-diagnostics pairs test is a guaranteed no-op. Do NOT repeat it.** `reports/portfolio_real.json` `cointegration_diagnostics` has **all 17 pairs `status="blocked_or_insufficient_data"` with `gates.all_pass=false`** (BTC/ETH EG p=0.5186; only `johansen`/`hl_bounds` pass). C278 fed that static full-sample aggregate via `pair_diagnostics_file=...`; under `strict_enriched_gates=True` the cached path is fail-closed, so **0 OOS exposure for every pair is structurally forced**, not discovered.
 3. **The correct causal pairs path was smoke-tested and is also negative, but with honest per-gate evidence.** `CointegrationPairsStrategy(pair=("BTC","ETH"), lookback=120, entry=2.0, exit=0.5, check_interval=120)` **with no cached aggregate** (per-bar `target_schema_diagnostics` recompute) ran in **1.9 s**: **0 exposure bars / 5112**, `all_pass` share **0.0**. Per-gate pass shares: `eg_pass 0.0704`, `johansen_pass 0.2347`, `spread_mr_pass 0.249`, `hl_bounds_pass 0.9767`, `leg_stationarity_ok 0.0469`, **`rolling_stable_ok 0.0`** (binding gate), `no_structural_break 0.6481`. Last trailing EG p-value 0.1232. Conclusion: on this 6-month cache the pairs are genuinely not cointegrated on trailing windows; the causal test is the only valid way to establish that.
 
@@ -53,14 +53,14 @@ The session is NOT complete until:
 - Frozen C273 volume-return baseline (evidence only, NOT tradable): OOS `reports/real_quote_volume_rqa_rte_over_white_diag_line_length_percentile_spread_shock_mr_costed_oos_20261112T050947Z.json` sha256 `1e4fd5983d29eb027336e77b2b3a5e7bda6fa6180494f0d836e5584cc298e1bf`; cross-asset volume-return fee0 +80.68 … fee40 +70.60 (not spot-price PnL).
 - `reports/portfolio_real.json` sha256 `b573077ae2aaf4b0234c426d17b3b017867c4822438031a6979e6df184aa9e07` (all 17 pairs `blocked_or_insufficient_data`, `all_pass=false`).
 
-## STATE SNAPSHOT (verified 2026-11-12T19:46Z UTC)
-- **Env:** `/usr/bin/python3` 3.12.3 with deps installed and verified (see top). `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `statsmodels 0.15.0`, `scikit-learn 1.9.1`, `hmmlearn 0.3.3`, `pytest 9.2.0`, `pydantic 2.14.3`, `aiohttp 3.14.5` — user site. `pytest tests/ --collect-only` collects **1106 tests**; `-k "mean_reversion or momentum or pairs or coint"` → **191 passed**. `ruff` and `mypy` NOT installed — skip lint/typecheck until available. Ignore the stale venv path in `research_state/state.yaml` — use `/usr/bin/python3`.
+## STATE SNAPSHOT (verified 2026-11-13T01:58:03Z UTC)
+- **Env:** `/usr/bin/python3` 3.12.3 with deps installed and verified (see top). `pytest tests/ --collect-only` collects **1106 tests**; `ruff` and `mypy` NOT installed — skip lint/typecheck until available. Ignore the stale venv path in `research_state/state.yaml` — use `/usr/bin/python3`.
 - **Data:** `data/cache/` = 68 real files; spot cache sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b` (11 assets, 5112 hourly bars, 2026-04-01→2026-10-30). Volume pkl sha256 `4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c`. No network refetch; no synthetic data.
-- **Git:** HEAD `eb602b3` on `main`; only `HANDOFF.md` is modified (this handoff). New artifacts/scripts stay untracked unless committed. No active heavy process.
+- **Git:** HEAD `eb602b3` on `main`; only this handoff is modified. New artifacts/scripts stay untracked unless committed. No active heavy process.
 - **Canonical handoff:** this file only. `research_state/state.yaml` is stale (`latest_campaign_done: C248`, `next_campaign: C249`, nonexistent venv path); this HANDOFF supersedes it.
 - **C273:** frozen; volume-return metric; **not tradable** (C277A price-PnL negative at all cost slices).
 - **C274/C275/C276:** NO EDGE. No action needed.
 - **C277/C278:** DONE (both `price_*_edge_proven=false`).
 - **C279:** PENDING. Neither `scripts/run_c279_causal_pairs_sweep.py` nor `scripts/run_c279_price_only_sweep.py` exists yet. C279A is the sole immediate deliverable.
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-12T19:46:55Z UTC (C279 causal pairs sweep is the sole mandatory next action; deps and methodology bottlenecks removed and verified).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-13T01:58:03Z UTC (C279 causal pairs sweep is the sole mandatory next action; all environment and methodology bottlenecks removed and verified).**
