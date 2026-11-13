@@ -1,162 +1,109 @@
-# Durable Handoff for Next Agentic Work Session
+# Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Project:** `cryptoquantstatarbstrats` (Crypto Quant Stat Arb Strategies)
-**Timestamp:** 2026-11-13T04:40:37Z
-**Session Status:** All 1104 tests passing (2 skipped), zero failures
+**Timestamp:** 2026-11-13T04:45:38Z
+**Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
+**Verified state:** `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (46.46s). No known CI or dependency blocker.
+**Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` was removed; do not create another handoff file.
 
----
+## INITIAL TASK MESSAGE — execute this first
 
-## Project Summary
+**Execute Campaign C284: a pre-registered, costed OOS test of Kalman-filter dynamic-hedge-ratio pairs with causal OU/cointegration gates on the refreshed real Binance spot cache.** This is the next heavy-work campaign because C281B, C282, and C283 all returned `NOT_TRADABLE` on the same 5427×11 cache; C281C identified `rolling_stable_ok` as the binding pairs gate (0.29% pass), and C283 showed turnover is also binding. C284 must test the one structurally distinct pairs construction not yet tested: a **time-varying Kalman hedge ratio** instead of rolling OLS, while keeping fail-closed gates and the exact C281B cost/edge protocol. Do **not** answer with planning, inventory, or a status update: create `scripts/run_c284_kalman_pairs_oos.py`, run it over the full universe, and emit the four C284 artifacts with SHA256-from-bytes.
 
-This is a **research framework for cryptocurrency statistical-arbitrage experiments** using real public Binance spot candles (no API keys, no fabricated data). The codebase implements:
+## C284 binding protocol
 
-- **Core Strategies**: Cointegration pairs trading (Engle-Granger/Johansen, publication-grade gates), mean reversion, momentum, cross-exchange, term structure, volatility surface, ML-gated pairs
-- **Validation Infrastructure**: Walk-forward sweeps (rolling/expanding), OOS replay, parameter sweeps, Monte Carlo bootstrap, regime robustness, execution realism (VWAP/TWAP/LOB), paper trading simulation
-- **Portfolio Construction**: Multi-asset, correlation-aware, regime-adaptive with risk controls (gross exposure caps, per-pair caps, CVaR allocation, drawdown circuit breaker)
-- **Provenance Mandate**: All artifacts carry `real_data_only: true`, `fabricated_data: false`, full `blocked_routes[]`/`rationale` — never fabricate
+### Data and preflight (must be verified in code)
+- Dataset: `data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl`
+- Expected cache SHA256: `9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df`
+- Expected meta SHA256: `95baf25daae1656a8c6f074acdcd909250565ddda8e86920b00d85163646afd1` (use the exact file: `...meta.json`; verify from bytes)
+- Required shape: 5427 hourly bars × 11 assets, 2026-04-01 → 2026-11-13T02:00Z, zero NaNs, duplicate-free index, `fetch_real_data_only=true`, `fetch_fabricated_data=false`.
+- If any check fails: stop with a blocker artifact; never impute, backfill synthetically, or substitute another cache.
 
-**Key Research Outcome (from README):** Current strategies **underperform buy-and-hold benchmarks** on tested windows (2026-04-01 to 2026-10-30) and show **high transaction-cost sensitivity**. This is a legitimate research outcome, not a bug.
+### Universe and walk-forward
+- All 17 pairs from `reports/portfolio_real.json`.
+- Reuse the C281B protocol verbatim: `train=720, test=168, step=168`, 28 OOS splits on the full 5427-bar cache.
+- Cost grid exactly: `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps.
+- Edge rule exactly: `oos_edge_proven=true` iff OOS exposure > 0 AND every cost slice has OOS net sum > 0 AND mean OOS net > mean pair-matched buy-and-hold OOS net on the same WF windows. Anything else is `NOT_TRADABLE`; never relax this rule.
 
----
+### C284 model (pre-registered; no post-hoc parameter search)
+For each pair `(A,B)`, estimate a causal time-varying hedge ratio:
+- State-space: `B_t = alpha_t + beta_t * A_t + eps_t`, `alpha_t = alpha_{t-1} + xi_t`, `beta_t = beta_{t-1} + eta_t`.
+- Use a Kalman local-level filter. Fit only on the trailing TRAIN window; run the filter causally through the TEST window using the train-selected noise parameters. At every bar, use only data available up to `t-1`.
+- Pre-registered Kalman noise grid: `q ∈ {1e-6, 1e-4}`, `r ∈ {1e-4, 1e-2}` (4 configs).
+- Spread: `s_t = B_t - (alpha_t + beta_t * A_t)`.
+- Causal z-score: trailing lookbacks `{240, 480}`, mean/std computed only from prior bars; fail closed on zero/non-finite std.
+- Entries: `|z| >= {2.0, 2.5}`; exits: `|z| <= {0.5, 1.0}`; minimum holding `{1, 6}` bars.
+- Position: opposing legs normalized by absolute market value from the Kalman hedge ratio; apply `weights.shift(1).fillna(0.0)`; cap gross pair exposure at 1.0. Do not use future bars or full-sample statistics.
+- Full pre-registered grid: 17 pairs × 4 Kalman configs × 2 lookbacks × 2 entries × 2 exits × 2 holds = **1088 runs**. Report every run, including zero-exposure runs.
 
-## Current Campaign State
+### Fail-closed gates (do not weaken)
+At each candidate entry bar, require all of:
+- causal Engle-Granger `p <= 0.05`;
+- causal spread ADF/KPSS stationarity passes;
+- OU half-life satisfies `1 < half_life < 500`;
+- causal rolling hedge-ratio/spread stability gate passes (the same discipline as `rolling_stable_ok`);
+- structural-break discipline passes;
+- no missing/None/false gate value is treated as permissive.
+If diagnostics cannot be computed, block the entry and record the reason. Do not pass `pair_diagnostics_file`/`enriched_diagnostics` static shortcuts.
 
-Campaigns 2, 8–13, 24, 29–38 are implemented and tested. Each campaign produces a JSON artifact in `reports/` with strict schema and provenance.
+### Required artifacts (exact names, timestamped)
+- `reports/campaign284_oos_sweep_<ts>.json`
+- `reports/campaign284_tradable_edge_registry_<ts>.json`
+- `reports/campaign284_summary_<ts>.json`
+- `reports/campaign284_verdict_<ts>.json`
+Each must include `real_data_only: true`, `fabricated_data: false`, the cache SHA, split/cost config, all run results, and SHA256-from-bytes for the sweep/registry/summary. If `NOT_TRADABLE`, also emit `reports/campaign284_binding_constraint_<ts>.json` with gate pass shares, exposure, turnover, and the binding constraint; this is diagnosis, never an edge claim.
+Then update the state fields in `research_state/state.yaml` and this file with the C284 result, artifact paths, and SHA256-from-bytes.
 
-| Campaign | Focus | Status |
-|----------|-------|--------|
-| 2 | Funding/LOB feasibility | ✅ Done |
-| 8 | Edge robustness (enriched gates, fail-closed) | ✅ Done |
-| 9 | Causal gate edge search | ✅ Done |
-| 10 | Wider universe causal gates | ✅ Done |
-| 11 | Rolling stability blocker | ✅ Done |
-| 12 | Causal gates (multiple hashes: 4fd3e87f, dcd5764a, 90d10b87, 595e501a, 4c3bc2f1) | ✅ Done |
-| 13 | Causal gates (multiple hashes: 0bab5d6a, 385aae3f, 6d2e08d4) | ✅ Done |
-| 24 | Unblock trend analysis | ✅ Done |
-| 29–38 | Progressive cointegration basket validation (multi-timeframe, bootstrap CI, kill-switch, drift re-gating, re-entry, structural breaks, cross-timeframe convergence, regime transitions, breach alerts) | ✅ Done |
+### Anti-avoidance rules (binding)
+- No status-only, planning-only, or inventory-only turn.
+- Do not rerun C281B, C281C, C282, or C283; do not edit their frozen artifacts.
+- Do not weaken gates, thresholds, costs, or the edge rule; do not cherry-pick windows.
+- No synthetic/fabricated data, no relabeling old caches, no quote-volume return metrics as tradable PnL.
+- Use existing dependencies only (numpy/pandas/scipy/statsmodels); do not add a new framework.
+- If C284 is `NOT_TRADABLE`, stop the spot-only price-only edge search and record a formal negative result. The next campaign after that is **C285 operational hardening** (testnet gateway/kill-switch), but C284 must finish first.
 
-**Next Campaign Number: 39**
+## Current research state (verified 2026-11-13T04:45Z)
 
----
+| Campaign | Test | Runs | Result |
+|----------|------|------|--------|
+| C281B | Refreshed real-spot MR/momentum/OLS-pairs, 28 WF splits, 5 cost slices | 663 | `NOT_TRADABLE`, 0 edge |
+| C281C | Gate diagnostics on same data | 680 gate evaluations | `rolling_stable_ok` binding (0.29% pass) |
+| C282 | Cross-sectional stat-arb on same data | 128 | `NOT_TRADABLE`, 0 edge |
+| C283 | Turnover-reduced cointegration pairs | 17 | `NOT_TRADABLE`, 0 exposure |
 
-## Bottlenecks Removed / None Blocking
+Frozen evidence:
+- C281B: `reports/campaign281_oos_sweep_20261113T034058Z.json` (SHA `8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9`); verdict `reports/campaign281_verdict_20261113T034058Z.json`.
+- C281C: `reports/campaign281c_gate_diagnostics_20261113T034422Z.json` (SHA `b88b4dfa3513c376318b3d90ab4a5c6dbd5809ae27cecc71046f6b5e13e16265`).
+- C282: `reports/campaign282_oos_sweep_20261113T043542Z.json` (SHA `e727dcfb876b40d4206fea7da860574dd5d3fe5f117e79f5fc89f970f299c090`); verdict `reports/campaign282_verdict_20261113T043542Z.json`.
+- C283: `reports/campaign283_oos_sweep_20261113T034830Z.json` (SHA `9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0`); verdict `reports/campaign283_verdict_20261113T034830Z.json`.
+- Global registry with zero tradable edge: `reports/tradable_edge_registry_20261112T172556Z.json` (SHA `62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2`).
+- Pairs universe: `reports/portfolio_real.json` (17 pairs).
 
-- ✅ All tests pass (1104 passed, 2 skipped)
-- ✅ No failing CI
-- ✅ No dependency conflicts
-- ✅ Real data pipeline functional (Binance public REST, `www.binance.com` host chain works)
-- ✅ All campaign artifacts schema-validated
-
----
-
-## Mandatory Next Focus Campaign: **Campaign 39 — Live/Production Operational Hardening**
-
-**Objective:** Bridge the gap between research validation and live deployment readiness. The framework has extensive backtest/OOS validation but lacks production-grade operational infrastructure.
-
-### Required Deliverables (all must be real-data-only, provenance-tracked):
-
-1. **Live Execution Gateway** (`execution/live_gateway.py`)
-   - Abstract broker interface with Binance Spot testnet → production promotion path
-   - Order lifecycle: submit → ack → fill → reconcile → position sync
-   - Idempotency keys, cancel/replace, partial fill handling
-   - WebSocket user data stream for real-time fills/positions
-
-2. **Operational Runbook & Playbooks** (`playbooks/live/`)
-   - Pre-flight checklist (connectivity, balances, risk limits, circuit breakers)
-   - Incident response: kill-switch, position flatten, data gap, exchange outage
-   - Daily/weekly reconciliation (exchange vs local state, P&L attribution)
-   - Rollback/rollback-validation procedures
-
-3. **Real-Time Risk Monitoring** (`utils/live_risk_monitor.py`)
-   - Sub-minute position/leverage/exposure monitoring
-   - Real-time VaR/CVaR with streaming updates
-   - Correlation shock detection (regime change alerting)
-   - Automated de-risking triggers (configurable, audited)
-
-4. **Deployment Pipeline** (`.github/workflows/deploy.yml` or equivalent)
-   - Staging → canary → production promotion gates
-   - Artifact promotion: sweep results → replay → paper → live
-   - Immutable deployment manifests with git SHA, config hash, data provenance hash
-
-5. **Observability Stack** (`utils/observability.py`)
-   - Structured logging (JSON, correlation IDs)
-   - Metrics export (Prometheus): latency, fill rates, slippage, risk metrics
-   - Alerting rules: drawdown breach, exposure limit, data staleness, error rates
-   - Distributed tracing for order flow
-
-6. **Configuration Management** (`config/live/`)
-   - Environment-segregated configs (testnet/staging/prod)
-   - Secret management (API keys, webhook URLs) — never in repo
-   - Feature flags for strategy enable/disable, risk control toggles
-
-### Acceptance Criteria for Campaign 39:
-- [ ] End-to-end testnet run > 7 days with zero unreconciled positions
-- [ ] Kill-switch tested and documented (latency < 500ms from trigger to flat)
-- [ ] Reconciliation error < 0.01% of notional over 7-day window
-- [ ] All playbooks executed in tabletop drill with timestamps
-- [ ] Observability dashboards show live P&L, risk, latency in < 5s delay
-- [ ] Deployment manifest signed and immutable
-
----
-
-## Secondary Research Campaigns (Parallelizable, Lower Priority)
-
-### Campaign 40: Strategy Research — Edge Discovery
-- **Problem:** Current strategies (pairs, mean reversion, momentum) lose to buy-and-hold after costs.
-- **Approach:**
-  - Microstructure alpha: LOB imbalance, trade flow toxicity, funding rate basis
-  - Cross-venue: spot-perp basis, calendar spreads, ETF vs spot
-  - Alternative data: on-chain metrics, order flow, mempool (for DEX)
-  - Regime-specific sub-strategies (trend-following in trending, MR in ranging)
-- **Deliverable:** At least 3 new strategy modules with walk-forward OOS > 0.5 Sharpe on 2026 data after realistic costs.
-
-### Campaign 41: Expanded Universe & Timeframes
-- Add: DEX pools (Uniswap V3 concentrated liquidity), perp funding carry, options vol surface
-- Timeframes: 1m, 5m, 15m for execution alpha; 4h, 1d for regime
-- Multi-asset class: BTC/ETH/SOL + major alts + stablecoin yield
-
-### Campaign 42: Portfolio Optimization Research
-- Current: Equal-weight / risk-parity / CVaR
-- Research: Hierarchical risk parity, Black-Litterman with regime views, RL-based allocation
-- Constraints: Capacity-aware (market impact models), turnover penalties, tax-lot awareness
-
----
-
-## Non-Negotiable Constraints for All Future Work
-
-1. **NO FABRICATED DATA** — Every artifact must have `real_data_only: true`, `fabricated_data: false`
-2. **FAIL-CLOSED GATING** — Missing/None/false gate values block entries; never relax to permissive by default
-3. **PROVENANCE FIRST** — Every number traces to source, timestamp, host, blocked routes, rationale
-4. **COSTS ARE REAL** — All backtests use realistic fee/slippage grids; zero-cost runs are explicitly labeled
-5. **NO OVERFITTING** — Walk-forward with ≥12 splits, bootstrap CI ≥2000 sims, OOS/IS degradation tracked
-6. **TESTS MUST PASS** — Any new code adds tests; CI must stay green
-
----
-
-## Quick Start for Next Session
+## Environment / verification
 
 ```bash
-# 1. Verify environment
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python -m pytest tests/ -x -q  # Should pass in ~45s
-
-# 2. Run a real-data validation (reproduces README results)
-python examples/run_pairs_multi.py
-python examples/run_portfolio_real.py
-
-# 3. Begin Campaign 39 — create execution/live_gateway.py
-#    Start with Binance Spot testnet REST + WebSocket user data stream
-#    Use existing execution/adapter.py and execution/oms.py as foundation
+python -m pytest tests/ -q
+python -m pytest tests/test_cointegration_diagnostics_schema.py -q
+python -m pytest tests/test_campaign8_edge_robustness.py tests/test_campaign9_causal_gate_edge_search.py -q
 ```
 
----
+Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may not be installed in the runtime shell; do not claim they passed unless actually run.
 
-## Escalation / Questions
+## Non-negotiable constraints
 
-If blocked on:
-- **Binance API changes** → Check `data/real_feed_loader.py` host chain logic
-- **Statsmodels warnings** → Update `utils/cointegration.py` to `result_object=True`
-- **Schema drift** → Run `python -m pytest tests/test_*_schema.py -v`
-- **Campaign numbering conflict** → Check `reports/` for highest campaign JSON
+1. **NO FABRICATED DATA** — every artifact records `real_data_only: true`, `fabricated_data: false`.
+2. **FAIL-CLOSED** — missing/None/false gate values block entries.
+3. **PROVENANCE FIRST** — every number traces to source, timestamp, host, blocked routes, rationale.
+4. **COSTS ARE REAL** — all backtests use the stated fee/slippage grid; zero-cost runs are labeled.
+5. **NO OVERFITTING** — walk-forward with 28 splits, all pre-registered configs reported, OOS/IS degradation tracked.
+6. **TESTS MUST PASS** — any new code adds tests; CI stays green.
+7. **SINGLE HANDOFF** — update only `AGENTS.md` and the state fields in `research_state/state.yaml`; do not create a competing handoff.
 
-**This handoff is durable.** Do not start new research threads until Campaign 39 operational hardening has at minimum the Live Execution Gateway and Kill-Switch tested on testnet. The framework is research-complete; it is now deployment-incomplete.
+## Escalation
+
+- Binance API/host changes → `data/real_feed_loader.py` host chain.
+- Statsmodels warnings → `utils/cointegration.py` (`result_object=True` where applicable).
+- Schema drift → `python -m pytest tests/test_*_schema.py -v`.
+- Campaign numbering conflict → highest campaign JSON in `reports/`; current next campaign is **C284**, not 39.
+
+**END OF HANDOFF — 2026-11-13T04:45:38Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
