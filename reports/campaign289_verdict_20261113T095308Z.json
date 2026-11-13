@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "20261113T095308Z",
+  "campaign": 289,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "economic_space_closed": true,
+  "finding": "Across 162 pre-registered 5m costed OOS configs: Holm survivors=0, BH survivors=0, max deflated Sharpe=0.0000, median MDE=0.1064 bps/5m-bar vs 10 bps per-rebalance cost floor -> economic space is statistically CLOSED on this dataset: no config is significant after multiple-testing correction at any cost slice (incl. zero cost), no deflated-Sharpe skill, and the test is well-powered (MDE well below the cost floor) so the null is not a power artifact.",
+  "basis": "multiple_testing_holm_bh_deflated_sharpe_minimum_detectable_edge_5m",
+  "closure_artifact": "reports/campaign289_closure_20261113T095308Z.json",
+  "closure_sha256": "1abf68af6f9e9d96f158b41b9a0694ed7bc9feba5afed387483bc6069d0f1b77",
+  "summary_artifact": "reports/campaign289_summary_20261113T095308Z.json",
+  "summary_sha256": "7ed5717296df3b146fe1b87747182cc9e2e6f3cf1282e817fac9dfe8ecf09e92",
+  "next_action": "If economic_space_closed: pivot economic effort to a genuinely new mechanism or new data (funding/basis/derivatives) and keep C287 testnet execution as the execution prerequisite; do NOT keep re-running exhausted price/volume signal families on this dataset. If economic_space_open: re-validate the surviving config on an untouched holdout before any live use.",
+  "hard_bans_honored": [
+    "No fabricated data; real artifacts only; SHA256-from-bytes",
+    "No threshold/gate weakening; multiple-testing correction applied",
+    "No edge claims without statistical significance above the cost floor"
+  ]
+}

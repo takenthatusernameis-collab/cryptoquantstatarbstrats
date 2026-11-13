@@ -1,0 +1,27 @@
+{
+  "generated_at_utc": "20261113T095308Z",
+  "campaign": 289,
+  "part": "summary",
+  "analysis": "closure_summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "scope": "5m-executed campaigns C286 + C288",
+  "artifacts": {
+    "closure": {
+      "path": "reports/campaign289_closure_20261113T095308Z.json",
+      "sha256": "1abf68af6f9e9d96f158b41b9a0694ed7bc9feba5afed387483bc6069d0f1b77"
+    }
+  },
+  "summary": {
+    "n_configs": 162,
+    "n_tests": 810,
+    "n_holm_reject": 0,
+    "n_bh_reject": 0,
+    "n_survivors": 0,
+    "max_deflated_sharpe": 0.0,
+    "n_dsr_above_0_95": 0,
+    "median_mde_bps_per_rebalance": 0.10640218597837045,
+    "min_cost_bps_per_rebalance": 10.0
+  },
+  "economic_space_closed": true
+}

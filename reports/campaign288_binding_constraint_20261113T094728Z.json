@@ -1,0 +1,1259 @@
+{
+  "generated_at_utc": "20261113T094728Z",
+  "campaign": 288,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "NOT_TRADABLE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "oos_sweep_artifact": "reports/campaign288_oos_sweep_20261113T094728Z.json",
+  "oos_sweep_sha256": "75c06a7ee1ea42155e8c0674d58c70f17175e47e31b750db464815a35bb0188d",
+  "signal_pass_shares": {
+    "mean_gate_pass_share": 0.9812822208655543,
+    "min_gate_pass_share": 0.9487179487179487,
+    "max_gate_pass_share": 0.9963369963369964,
+    "runs": [
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 288,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_vol",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.992712148962149,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 191
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 32
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 8
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.992712148962149,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 191
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 32
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 8
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.992712148962149,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 191
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 32
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 288,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9926739926739927,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 8
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9743971306471306,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 671
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9743971306471306,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 671
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9743971306471306,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 671
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.948756105006105,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 1343
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 224
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.948756105006105,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 1343
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 224
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.948756105006105,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 1343
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 224
+        }
+      },
+      {
+        "feature": "vol_reversal",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9487179487179487,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 96
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 16
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 288,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9963369963369964,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 4
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 336
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 56
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 1008,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9871794871794872,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 14
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 672
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 112
+        }
+      },
+      {
+        "feature": "low_skew",
+        "lookback": 2016,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.9743589743589743,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 28
+        }
+      }
+    ]
+  },
+  "exposure_summary": {
+    "total_runs": 81,
+    "runs_with_exposure": 81,
+    "runs_zero_exposure": 0,
+    "zero_exposure_rate": 0.0
+  },
+  "turnover_summary": {
+    "configs_with_exposure": 81,
+    "mean_turnover": 1977.5246913580247,
+    "median_turnover": 1530.0,
+    "max_turnover": 5655.0
+  },
+  "cost_slice_oos_net_sums": {
+    "fee0_slip0": [
+      0.0383814300101713,
+      0.03801312815266608,
+      -0.00038552335014774286,
+      -0.03234803503724437,
+      -0.002794893924014558,
+      -0.03328000730910604,
+      0.001066277959517815,
+      0.006260982160688452,
+      0.03114125166625996,
+      0.21526801052158978,
+      0.23047724536006617,
+      0.18981049910225106,
+      0.08729444826137017,
+      0.07672130256019095,
+      0.11362761273218043,
+      0.06593448009552232,
+      0.054851022475156344,
+      0.06577249406985466,
+      0.1171701379174869,
+      0.12148990576813526,
+      0.11638157517520126,
+      0.1201038490249616,
+      0.1355400830959888,
+      0.14614421979410092,
+      0.10832201036365509,
+      0.10566178194548334,
+      0.10912296532865205,
+      0.0701021320023428,
+      0.06981333765101952,
+      0.07625214008048231,
+      0.0008868646474371426,
+      0.045496810035485155,
+      0.07807565004271555,
+      0.051676421129874285,
+      0.05928798832605288,
+      0.0688923924204211,
+      -0.17231883785667187,
+      -0.18719042182668863,
+      -0.10746029037536925,
+      -0.16559037116564096,
+      -0.14183836150677825,
+      -0.16217749760122352,
+      -0.11553833196051991,
+      -0.12396119749286541,
+      -0.11825008581099936,
+      0.022378563971605675,
+      0.04081277750273729,
+      0.04755416539745491,
+      0.01663147001840801,
+      0.033785475120070796,
+      0.03693306479259031,
+      0.05620414404469974,
+      0.06006807073338588,
+      0.07810681388190827,
+      -0.004881386105086594,
+      0.036998626760792325,
+      0.05012210660040972,
+      0.021857042347573824,
+      0.008161703744504333,
+      0.021673029536624172,
+      -0.0357033980317913,
+      0.0006828558440564336,
+      0.005107932880156726,
+      0.0170488391016754,
+      -0.015142199316375338,
+      -0.04553373590912113,
+      0.03179551213510326,
+      0.057141733698344396,
+      0.06735250897199833,
+      0.05913361145654617,
+      0.041945120229883975,
+      0.02428699520078536,
+      -0.03946857981555174,
+      -0.019329998003233956,
+      -0.02200233282618924,
+      -0.10681641959668663,
+      -0.09348051738447927,
+      -0.10304916460620957,
+      -0.07906265120454305,
+      -0.07743112681685513,
+      -0.08736112139560472
+    ],
+    "fee5_slip5": [
+      -0.42861856998982883,
+      -0.41348687184733407,
+      -0.41588552335014783,
+      -0.46834803503724437,
+      -0.4244615605906812,
+      -0.4176133406424393,
+      -0.3567337220404822,
+      -0.34173901783931154,
+      -0.28725874833374004,
+      -0.040731989478410315,
+      -0.026522754639933917,
+      -0.06268950089774901,
+      -0.15970555173862977,
+      -0.1679453641064757,
+      -0.12337238726781954,
+      -0.1510655199044777,
+      -0.15894897752484366,
+      -0.14422750593014533,
+      -0.07982986208251316,
+      -0.0755100942318648,
+      -0.0796184248247988,
+      -0.06956281764170502,
+      -0.053793250237344506,
+      -0.042855780205899065,
+      -0.0682779896363449,
+      -0.07113821805451667,
+      -0.06667703467134796,
+      -0.8783978679976574,
+      -0.8231866623489806,
+      -0.6867478599195177,
+      -0.7884464686858961,
+      -0.6915031899645148,
+      -0.5682576832906177,
+      -0.5545235788701257,
+      -0.5097120116739472,
+      -0.42910760757957894,
+      -0.555818837856672,
+      -0.5671904218266888,
+      -0.4729602903753693,
+      -0.4999237044989742,
+      -0.4685050281734449,
+      -0.4808441642678902,
+      -0.3961383319605199,
+      -0.40076119749286543,
+      -0.38265008581099935,
+      -0.2386214360283944,
+      -0.21968722249726277,
+      -0.21094583460254512,
+      -0.2297018633149253,
+      -0.21221452487992917,
+      -0.20406693520740965,
+      -0.15679585595530027,
+      -0.15133192926661412,
+      -0.12989318611809172,
+      -1.1358813861050867,
+      -0.9715013732392078,
+      -0.7648778933995903,
+      -0.9638096243190928,
+      -0.8775049629221623,
+      -0.6943269704633758,
+      -0.7635033980317913,
+      -0.6571171441559436,
+      -0.5366920671198433,
+      -0.4144511608983247,
+      -0.43764219931637544,
+      -0.44453373590912115,
+      -0.34153782119823,
+      -0.31052493296832223,
+      -0.2813141576946683,
+      -0.2554663885434539,
+      -0.26405487977011605,
+      -0.26631300479921466,
+      -0.33096857981555183,
+      -0.312329998003234,
+      -0.30750233282618933,
+      -0.37548308626335325,
+      -0.3588138507178126,
+      -0.3597158312728762,
+      -0.3170626512045431,
+      -0.3132311268168551,
+      -0.31676112139560475
+    ],
+    "fee10_slip10": [
+      -0.8956185699898288,
+      -0.864986871847334,
+      -0.8313855233501478,
+      -0.9043480350372443,
+      -0.8461282272573478,
+      -0.8019466739757727,
+      -0.7145337220404822,
+      -0.6897390178393116,
+      -0.6056587483337401,
+      -0.2967319894784103,
+      -0.28352275463993387,
+      -0.31518950089774894,
+      -0.40670555173862977,
+      -0.4126120307731423,
+      -0.3603723872678195,
+      -0.3680655199044777,
+      -0.37274897752484365,
+      -0.35422750593014535,
+      -0.27682986208251315,
+      -0.2725100942318648,
+      -0.27561842482479876,
+      -0.25922948430837167,
+      -0.24312658357067785,
+      -0.23185578020589906,
+      -0.2448779896363449,
+      -0.24793821805451668,
+      -0.24247703467134796,
+      -1.8268978679976573,
+      -1.7161866623489805,
+      -1.4497478599195177,
+      -1.5777798020192295,
+      -1.4285031899645146,
+      -1.214591016623951,
+      -1.1607235788701258,
+      -1.0787120116739473,
+      -0.927107607579579,
+      -0.9393188378566719,
+      -0.9471904218266887,
+      -0.8384602903753693,
+      -0.8342570378323075,
+      -0.7951716948401115,
+      -0.7995108309345568,
+      -0.6767383319605199,
+      -0.6775611974928655,
+      -0.6470500858109994,
+      -0.4996214360283944,
+      -0.48018722249726276,
+      -0.46944583460254513,
+      -0.4760351966482586,
+      -0.45821452487992914,
+      -0.44506693520740964,
+      -0.3697958559553003,
+      -0.36273192926661413,
+      -0.33789318611809177,
+      -2.2668813861050867,
+      -1.9800013732392077,
+      -1.5798778933995903,
+      -1.9494762909857595,
+      -1.763171629588829,
+      -1.4103269704633756,
+      -1.4913033980317913,
+      -1.3149171441559435,
+      -1.0784920671198432,
+      -0.8459511608983247,
+      -0.8601421993163754,
+      -0.8435337359091212,
+      -0.7148711545315634,
+      -0.6781915996349889,
+      -0.629980824361335,
+      -0.5700663885434538,
+      -0.570054879770116,
+      -0.5569130047992147,
+      -0.6224685798155518,
+      -0.605329998003234,
+      -0.5930023328261893,
+      -0.6441497529300199,
+      -0.6241471840511459,
+      -0.6163824979395428,
+      -0.5550626512045431,
+      -0.5490311268168552,
+      -0.5461611213956047
+    ],
+    "fee20_slip20": [
+      -1.8296185699898286,
+      -1.767986871847334,
+      -1.6623855233501477,
+      -1.7763480350372443,
+      -1.689461560590681,
+      -1.5706133406424392,
+      -1.4301337220404822,
+      -1.3857390178393116,
+      -1.2424587483337401,
+      -0.8087319894784103,
+      -0.7975227546399338,
+      -0.820189500897749,
+      -0.9007055517386298,
+      -0.9019453641064756,
+      -0.8343723872678195,
+      -0.8020655199044777,
+      -0.8003489775248437,
+      -0.7742275059301453,
+      -0.6708298620825132,
+      -0.6665100942318648,
+      -0.6676184248247988,
+      -0.638562817641705,
+      -0.6217932502373444,
+      -0.609855780205899,
+      -0.598077989636345,
+      -0.6015382180545167,
+      -0.594077034671348,
+      -3.7238978679976573,
+      -3.5021866623489806,
+      -2.975747859919518,
+      -3.156446468685896,
+      -2.9025031899645146,
+      -2.5072576832906175,
+      -2.3731235788701257,
+      -2.2167120116739474,
+      -1.923107607579579,
+      -1.7063188378566718,
+      -1.7071904218266887,
+      -1.5694602903753694,
+      -1.502923704498974,
+      -1.4485050281734448,
+      -1.43684416426789,
+      -1.23793833196052,
+      -1.2311611974928653,
+      -1.1758500858109995,
+      -1.0216214360283944,
+      -1.0011872224972627,
+      -0.9864458346025451,
+      -0.9687018633149251,
+      -0.9502145248799291,
+      -0.9270669352074096,
+      -0.7957958559553003,
+      -0.7855319292666142,
+      -0.7538931861180918,
+      -4.528881386105087,
+      -3.9970013732392076,
+      -3.2098778933995904,
+      -3.9208096243190926,
+      -3.534504962922162,
+      -2.842326970463376,
+      -2.9469033980317914,
+      -2.630517144155944,
+      -2.1620920671198434,
+      -1.7089511608983246,
+      -1.7051421993163753,
+      -1.641533735909121,
+      -1.46153782119823,
+      -1.4135249329683222,
+      -1.327314157694668,
+      -1.1992663885434538,
+      -1.182054879770116,
+      -1.1381130047992147,
+      -1.2054685798155518,
+      -1.191329998003234,
+      -1.1640023328261893,
+      -1.1814830862633532,
+      -1.1548138507178125,
+      -1.1297158312728761,
+      -1.031062651204543,
+      -1.020631126816855,
+      -1.0049611213956047
+    ],
+    "fee40_slip40": [
+      -3.697618569989829,
+      -3.573986871847334,
+      -3.324385523350148,
+      -3.520348035037244,
+      -3.3761282272573476,
+      -3.1079466739757726,
+      -2.861333722040482,
+      -2.7777390178393118,
+      -2.51605874833374,
+      -1.8327319894784102,
+      -1.825522754639934,
+      -1.830189500897749,
+      -1.8887055517386295,
+      -1.8806120307731422,
+      -1.7823723872678192,
+      -1.6700655199044778,
+      -1.6555489775248438,
+      -1.6142275059301454,
+      -1.458829862082513,
+      -1.4545100942318647,
+      -1.4516184248247987,
+      -1.3972294843083715,
+      -1.3791265835706776,
+      -1.3658557802058988,
+      -1.304477989636345,
+      -1.3087382180545166,
+      -1.297277034671348,
+      -7.517897867997657,
+      -7.07418666234898,
+      -6.027747859919518,
+      -6.313779802019229,
+      -5.850503189964514,
+      -5.092591016623951,
+      -4.797923578870126,
+      -4.492712011673947,
+      -3.915107607579579,
+      -3.240318837856672,
+      -3.2271904218266885,
+      -3.031460290375369,
+      -2.8402570378323073,
+      -2.7551716948401115,
+      -2.711510830934557,
+      -2.36033833196052,
+      -2.3383611974928655,
+      -2.2334500858109996,
+      -2.0656214360283944,
+      -2.043187222497263,
+      -2.0204458346025453,
+      -1.9540351966482583,
+      -1.934214524879929,
+      -1.8910669352074094,
+      -1.6477958559553003,
+      -1.6311319292666142,
+      -1.5858931861180918,
+      -9.052881386105087,
+      -8.031001373239208,
+      -6.46987789339959,
+      -7.863476290985759,
+      -7.077171629588828,
+      -5.706326970463375,
+      -5.858103398031791,
+      -5.261717144155944,
+      -4.329292067119844,
+      -3.4349511608983248,
+      -3.3951421993163753,
+      -3.237533735909121,
+      -2.954871154531563,
+      -2.8841915996349887,
+      -2.7219808243613346,
+      -2.457666388543454,
+      -2.406054879770116,
+      -2.300513004799215,
+      -2.3714685798155517,
+      -2.363329998003234,
+      -2.306002332826189,
+      -2.25614975293002,
+      -2.2161471840511457,
+      -2.1563824979395427,
+      -1.983062651204543,
+      -1.9638311268168551,
+      -1.9225611213956049
+    ]
+  },
+  "binding_constraint": "cost_sensitivity",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

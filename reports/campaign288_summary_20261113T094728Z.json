@@ -1,0 +1,104 @@
+{
+  "generated_at_utc": "20261113T094728Z",
+  "campaign": 288,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 11,
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 151
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "low_vol",
+      "vol_reversal",
+      "low_skew"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_5m": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 81,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "score_definition": {
+      "low_vol": "-realized_vol",
+      "vol_reversal": "-z(realized_vol)",
+      "low_skew": "-realized_skew"
+    },
+    "signal_direction": "long top-K, short bottom-K by score (higher score = long)"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign288_oos_sweep_20261113T094728Z.json",
+      "sha256": "75c06a7ee1ea42155e8c0674d58c70f17175e47e31b750db464815a35bb0188d"
+    },
+    "registry": {
+      "path": "reports/campaign288_tradable_edge_registry_20261113T094728Z.json",
+      "sha256": "8c35996e5675d151a5f3b80f4e8f4545a7cb99923adc41e0ad4fa03ef5a7c7d8"
+    }
+  },
+  "summary": {
+    "n_total_runs": 81,
+    "n_with_exposure": 81,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 1.0093178555436936e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result and stop; C289 (multiple-testing / minimum-detectable-edge closure) is the next campaign."
+}
