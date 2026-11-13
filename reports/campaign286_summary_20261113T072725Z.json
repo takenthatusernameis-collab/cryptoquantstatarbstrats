@@ -1,0 +1,99 @@
+{
+  "generated_at_utc": "20261113T072725Z",
+  "campaign": 286,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 11,
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 151
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "z_logqv",
+      "qv_ratio",
+      "qv_vol"
+    ],
+    "lookbacks_1h": [
+      168,
+      336,
+      720
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_5m": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 81,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "alignment": "1h volume at bar t available at 5m bars >= t+1h; signal uses data through t-1."
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign286_oos_sweep_20261113T072725Z.json",
+      "sha256": "c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca"
+    },
+    "registry": {
+      "path": "reports/campaign286_tradable_edge_registry_20261113T072725Z.json",
+      "sha256": "6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f"
+    }
+  },
+  "summary": {
+    "n_total_runs": 81,
+    "n_with_exposure": 81,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 1.0093178555436936e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact with signal pass shares, exposure, turnover, and binding constraint; record a formal negative result and stop; C287 is the next campaign."
+}

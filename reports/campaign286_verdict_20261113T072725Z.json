@@ -1,0 +1,36 @@
+{
+  "generated_at_utc": "20261113T072725Z",
+  "campaign": 286,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "finding": "No costed OOS edge proven on real spot data with quote-volume signals (81 runs, 0 edge).",
+  "basis": "quote_volume_signal_real_spot_price_costed_oos_cross_sectional_5m",
+  "dataset": {
+    "spot_cache": "data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl",
+    "spot_cache_sha256": "d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f",
+    "volume_cache": "data/cache/volume_1h_full.pkl",
+    "volume_cache_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+    "window": "2026-08-01 00:00 -> 2026-10-30 23:55Z",
+    "bars": 26208,
+    "splits": 151
+  },
+  "oos_sweep_artifact": "reports/campaign286_oos_sweep_20261113T072725Z.json",
+  "oos_sweep_sha256": "c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca",
+  "registry_artifact": "reports/campaign286_tradable_edge_registry_20261113T072725Z.json",
+  "registry_sha256": "6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f",
+  "summary_artifact": "reports/campaign286_summary_20261113T072725Z.json",
+  "summary_sha256": "9f4d987e776b91a70efaaf6dbe472b7058a523dc481d74bf9bc3e99df67ae9da",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Quote volume is a signal only; PnL is real spot price PnL",
+    "C286 uses volume-derived signal aligned causally to 5m execution; no price-only variant"
+  ],
+  "binding_constraint_artifact": "reports/campaign286_binding_constraint_20261113T072725Z.json",
+  "binding_constraint_sha256": "b0d7f0d9e9ac67efd501fe9ae814273ad036eaa9f2534711475003f528ddcf12"
+}

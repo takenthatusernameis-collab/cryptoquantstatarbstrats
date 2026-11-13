@@ -1,8 +1,8 @@
-updated_at_utc: 20261113T070916Z
+updated_at_utc: 20261113T072725Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C286 ACTIVE (2026-11-13T07:09:16Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, strict edge rule unchanged. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C286 preflight is READY (scripts/preflight_c286.py passes, ready=true); next step is to create and execute scripts/run_c286_5m_volume_xsec_oos.py end-to-end. C287 (operational hardening) remains deferred until C286 is complete."
+active_initial_task: "C286 COMPLETE (2026-11-13T07:27:25Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. Result: NOT_TRADABLE, 81 runs with exposure, 0 edge, binding constraint cost_sensitivity recorded in reports/campaign286_binding_constraint_20261113T072725Z.json. All five artifacts written with SHA256-from-bytes; state/handoff updated; tests green (1121 passed, 2 skipped). C287 (operational hardening) is the next campaign."
 known_bottleneck: {id: ci_agent_shell_missing_deps, evidence: "scheduled Kilo shell can start without numpy/pandas/scipy/statsmodels/hmmlearn/pydantic/aiohttp; old Step 0 omitted test-only imports", fix: "run scripts/bootstrap_dev_env.py --json then scripts/verify_env.py --json at the start of every session", do_not: "edit .github/workflows/main.yml (token cannot persist workflow edits); create/read/edit HANDOFF.md (AGENTS.md is the only handoff)"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
@@ -19,25 +19,25 @@ caches_verified:
   spot_5m: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl, sha256: d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f}
   spot_5m_meta: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.meta.json, sha256: e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e}
   spot_5m_window: {bars: 26208, assets: 11, start: 2026-08-01, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false}
-latest_campaign_done: C285
-next_campaign: C286
+latest_campaign_done: C286
+next_campaign: C287
 locked_campaigns: C104-C285
 oos_edge_proven: false
 latest_registry:
-  path: reports/tradable_edge_registry_20261112T172556Z.json
-  sha256: 62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2
-  note: global registry with zero tradable edge
+  path: reports/campaign286_tradable_edge_registry_20261113T072725Z.json
+  sha256: 6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f
+  note: C286 registry with zero tradable edge
 campaign_registry_latest:
-  campaign: C285
-  path: reports/campaign285_tradable_edge_registry_20261113T065205Z.json
-  sha256: 23cfb01fc1567918090f7ebd849f4389557b6a52b18397f39fce8b05fb4e6ff3
+  campaign: C286
+  path: reports/campaign286_tradable_edge_registry_20261113T072725Z.json
+  sha256: 6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f
 latest_oos:
-  campaign: C285
-  family: VOLUME_CONDITIONED_CROSS_SECTIONAL_STAT_ARB
-  path: reports/campaign285_oos_sweep_20261113T065205Z.json
-  sha256: 2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc
-  verdict_path: reports/campaign285_verdict_20261113T065205Z.json
-  verdict_sha256: 2e64ccf3fda6e423b7b098b2cf093430054e537227739ff6fa27aa6bbd76ce4b
+  campaign: C286
+  family: VOLUME_CONDITIONED_CROSS_SECTIONAL_STAT_ARB_5M
+  path: reports/campaign286_oos_sweep_20261113T072725Z.json
+  sha256: c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca
+  verdict_path: reports/campaign286_verdict_20261113T072725Z.json
+  verdict_sha256: 338e4b5dec412bcef32b0b37fd88865543ced68cfe0e94749247ce4bad7fb9fe
   verdict: NOT_TRADABLE
   oos_edge_proven: false
   edge_claim: NONE
@@ -82,7 +82,12 @@ latest_campaigns:
     sha256: 2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc
     verdict: NOT_TRADABLE
     n_total_runs: 81
-    n_with_exposure: 81
+    n_edge_proven: 0
+  c286:
+    path: reports/campaign286_oos_sweep_20261113T072725Z.json
+    sha256: c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca
+    verdict: NOT_TRADABLE
+    n_total_runs: 81
     n_edge_proven: 0
 campaign284:
   hypothesis: KALMAN_DYNAMIC_HEDGE_RATIO_PAIRS
@@ -171,17 +176,67 @@ campaign285:
     summary: 512bbb4b75f30eb26d6969e1fb135a481b9bfe892f52c39185d021802405cdbb
     verdict: 2e64ccf3fda6e423b7b098b2cf093430054e537227739ff6fa27aa6bbd76ce4b
     binding_constraint: 15f29a2fe1e6b03fbff8454ed1ad024f943f298afa7d6943c146f9f65dc60e9a
+campaign286:
+  hypothesis: VOLUME_CONDITIONED_CROSS_SECTIONAL_STAT_ARB_5M
+  status: completed_not_tradable
+  script_required: scripts/run_c286_5m_volume_xsec_oos.py
+  script_executed: true
+  preflight_required: scripts/preflight_c286.py
+  preflight_ready: true
+  dataset_path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl
+  dataset_sha256: d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f
+  dataset_meta_sha256: e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e
+  volume_path: data/cache/volume_1h_full.pkl
+  volume_sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c
+  volume_meta_sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616
+  volume_provenance_sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89
+  universe: [ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP]
+  bars: 26208
+  interval: 5m
+  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
+  signal_features: [z_logqv, qv_ratio, qv_vol]
+  lookbacks_1h: [168, 336, 720]
+  cross_sectional_K: [2, 3, 5]
+  holding_periods_5m: [1, 6, 24]
+  pre_registered_grid:
+    features: 3
+    lookbacks: 3
+    K: 3
+    holds: 3
+    total_runs: 81
+  wf: {train: 720, test: 168, step: 168, n_splits: 151}
+  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
+  alignment: "1h volume at bar t usable only at 5m bars >= t+1h; signal uses data through t-1; weights.shift(1).fillna(0.0)."
+  gates: "fail_closed: causally aligned 1h quote-volume observations for all 11 assets finite/positive; selected signal finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite 5m price in selected legs; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  result:
+    verdict: NOT_TRADABLE
+    edge_proven: false
+    n_total_runs: 81
+    n_with_exposure: 81
+    n_zero_exposure: 0
+    n_edge_proven: 0
+    binding_constraint: cost_sensitivity
+    zero_exposure_rate: 0.0
+  required_artifacts:
+    - reports/campaign286_oos_sweep_20261113T072725Z.json
+    - reports/campaign286_tradable_edge_registry_20261113T072725Z.json
+    - reports/campaign286_summary_20261113T072725Z.json
+    - reports/campaign286_verdict_20261113T072725Z.json
+  binding_constraint_artifact: reports/campaign286_binding_constraint_20261113T072725Z.json
+  artifact_sha256:
+    oos_sweep: c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca
+    registry: 6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f
+    summary: 9f4d987e776b91a70efaaf6dbe472b7058a523dc481d74bf9bc3e99df67ae9da
+    verdict: 338e4b5dec412bcef32b0b37fd88865543ced68cfe0e94749247ce4bad7fb9fe
+    binding_constraint: b0d7f0d9e9ac67efd501fe9ae814273ad036eaa9f2534711475003f528ddcf12
   completion_gate:
-    - preflight_c285_exits_zero_ready_true: satisfied
-    - run_c285_volume_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
-    - all_four_artifacts_fresh_with_sha256_from_bytes: satisfied
+    - preflight_c286_exits_zero_ready_true: satisfied
+    - run_c286_5m_volume_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
+    - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
     - binding_constraint_artifact_if_not_tradable: satisfied
     - state_and_handoff_updated_with_paths_and_sha256: satisfied
     - python_m_pytest_tests_q_still_passes: satisfied
 deferred_campaigns:
-  c286:
-    name: 5m execution overlay
-    detail: "Rerun the C285 signal with 5m execution on the real 26208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. C285 complete; C286 is the next campaign to execute. Script: scripts/run_c286_5m_volume_xsec_oos.py (to be created). Artifacts: reports/campaign286_oos_sweep_<ts>.json, campaign286_tradable_edge_registry_<ts>.json, campaign286_summary_<ts>.json, campaign286_verdict_<ts>.json (+ campaign286_binding_constraint_<ts>.json if NOT_TRADABLE). WF train=720/test=168/step=168 in 5m bars = 151 OOS splits; grid 3x3x3x3=81 runs; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; strict edge rule unchanged; fail-closed gates per campaign; 1h volume cache SHA 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c."
   c287:
     name: operational hardening
     detail: "Testnet gateway/kill-switch. Do not start until C286 is complete."
