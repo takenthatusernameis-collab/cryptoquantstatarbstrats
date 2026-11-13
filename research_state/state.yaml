@@ -245,9 +245,25 @@ campaign287:
     - rest_unreachable:rest_ping
     - rest_unreachable:rest_time
     - rest_unreachable:rest_exchange_info
-  preflight_timestamp_utc: 2026-11-13T08:41:41Z
+  preflight_timestamp_utc: 2026-11-13T08:56:39Z
   preflight_ready: false
   preflight_exit_code: 2
+  preflight_evidence:
+    env_credentials: {BINANCE_TESTNET_API_KEY_present: false, BINANCE_TESTNET_API_SECRET_present: false}
+    rest_probes:
+      - {host: testnet.binance.vision, path: /api/v3/ping, status: 451, server: CloudFront, msg: "Service unavailable from a restricted location"}
+      - {host: testnet.binance.vision, path: /api/v3/time, status: 451}
+      - {host: testnet.binance.vision, path: /api/v3/exchangeInfo, status: 451}
+      - {host: testnetapi.binance.vision, error: DNS NXDOMAIN}
+      - {host: api.testnet.binance.vision, error: DNS NXDOMAIN}
+      - {host: data-api.testnet.binance.vision, error: DNS NXDOMAIN}
+    mainnet_reachable_but_forbidden:
+      host: data-api.binance.vision
+      status: 200
+      note: "MAINNET REST (3742 symbols incl BTCUSDT, 775 USDT pairs). Forbidden for C287: spec requires Binance Spot Testnet only. Using mainnet with testnet keys is a spec violation and would execute on real funds."
+      www_binance_com: {status: 200, note: "mainnet web, also forbidden"}
+    ws_probe: {host: stream.testnet.binance.vision, port: 9443, connected: true, tls: TLSv1.3, latency_ms: 387.98}
+    conclusion: "testnet REST is a geographic CDN block (CloudFront HTTP 451) from this egress IP; WS TCP/TLS is reachable but WS alone cannot serve REST order placement, klines, or exchangeInfo. No testnet credentials in env. Unresolvable in this execution environment."
   script_required: scripts/run_c287_testnet_gateway.py
   script_executed: true
   script_runnable_with_blocker_artifacts: true
@@ -275,24 +291,24 @@ campaign287:
     per_window: "ONE variant per 72h window, pre-committed"
   gates: "fail_closed: REST+WS healthy (<500ms p95), 5m klines all 11 finite/positive/no gaps>1, causal 1h qv all finite/positive, selected signal finite for >=2K, dispersion>0, no NaN/non-finite 5m price in selected legs, kill-switch watchdog alive (heartbeat<5s), no missing/None/false permissive."
   required_artifacts:
-    - path: reports/campaign287_gateway_spec_20261113T084347Z.json
-      sha256: 84a10504f44c0c88434689a621f73d4945aac2297656b735d9844af21e947d32
+    - path: reports/campaign287_gateway_spec_20261113T085925Z.json
+      sha256: a1f34d9c36c9ed5061103834616e1ee2908088783c805deb7a45de41ae47318e
       type: gateway_spec
       mode: BLOCKED
-    - path: reports/campaign287_live_run_20261113T084347Z.json
-      sha256: b631c3d950dcb19d6150e9d640bc151a61cd5466d25e6915664c7530f9e164a3
+    - path: reports/campaign287_live_run_20261113T085925Z.json
+      sha256: 38bda3c1efa79426662aaf40b0f6d25cc24b7a2f5f820b14dee8b217d2320c3d
       type: live_run
       mode: BLOCKED_NO_LIVE_EXECUTION
-    - path: reports/campaign287_drift_report_20261113T084347Z.json
-      sha256: 7406c4d4e680a2741397f7f150c6c18035f3505edc375ebab03f5690c3c5e6ff
+    - path: reports/campaign287_drift_report_20261113T085925Z.json
+      sha256: 9f932fd1dd998ba28a932e3a7190460c074657ff671746e266eaa0eb23791f0d
       type: drift_report
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_kill_switch_test_20261113T084347Z.json
-      sha256: abcd089992240901a38216a9fc2a6609d82b4145cfa621a85229a273d4f827e4
+    - path: reports/campaign287_kill_switch_test_20261113T085925Z.json
+      sha256: 272a57ed3ac08dd865896cb9b466ce828670edd5c0da532d954531ba9a9352cf
       type: kill_switch_test
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_summary_20261113T084347Z.json
-      sha256: 6c9b2d9e1e92ef2031100839638db8201b79c3558234d9494c1eee20b00190dd
+    - path: reports/campaign287_summary_20261113T085925Z.json
+      sha256: ffb0633fba28ef28d2bafc963f6ed701546f8b04d6ac6f9bb9ed9dcd13cf4dca
       type: summary
       mode: BLOCKED
   completion_gate:

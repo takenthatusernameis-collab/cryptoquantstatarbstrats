@@ -1,0 +1,77 @@
+{
+  "artifact_type": "campaign287_summary",
+  "artifacts": {
+    "drift_report": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign287_drift_report_20261113T085925Z.json",
+      "sha256": "9f932fd1dd998ba28a932e3a7190460c074657ff671746e266eaa0eb23791f0d"
+    },
+    "gateway_spec": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign287_gateway_spec_20261113T085925Z.json",
+      "sha256": "a1f34d9c36c9ed5061103834616e1ee2908088783c805deb7a45de41ae47318e"
+    },
+    "kill_switch_test": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign287_kill_switch_test_20261113T085925Z.json",
+      "sha256": "272a57ed3ac08dd865896cb9b466ce828670edd5c0da532d954531ba9a9352cf"
+    },
+    "live_run": {
+      "path": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/reports/campaign287_live_run_20261113T085925Z.json",
+      "sha256": "38bda3c1efa79426662aaf40b0f6d25cc24b7a2f5f820b14dee8b217d2320c3d"
+    }
+  },
+  "bars_run": 0,
+  "blocker": true,
+  "blocker_count": 4,
+  "blockers": [
+    "missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET",
+    "rest_unreachable:rest_ping",
+    "rest_unreachable:rest_time",
+    "rest_unreachable:rest_exchange_info"
+  ],
+  "campaign": "C287",
+  "completion": "BLOCKED",
+  "drift_free": null,
+  "drift_free_status": "inapplicable_blocked",
+  "fabricated_data": false,
+  "kill_switch_activations": 0,
+  "max_drawdown_usdt": 0.0,
+  "mode": "BLOCKED",
+  "note": "BLOCKED artifact from real preflight/capability evidence. No testnet orders placed, no fabricated fills, no simulated gateway presented as real.",
+  "preflight_blockers": [
+    "missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET",
+    "rest_unreachable:rest_ping",
+    "rest_unreachable:rest_time",
+    "rest_unreachable:rest_exchange_info"
+  ],
+  "preflight_ready": false,
+  "preflight_returncode": 2,
+  "real_data_only": true,
+  "rebalance_cycles_completed": 0,
+  "rest_base": "https://testnet.binance.vision",
+  "signal_parquet_candidates": [
+    "data/cache/signal_c286_5m_aligned.pkl"
+  ],
+  "signal_parquet_present": true,
+  "spot_5m_meta_sha256": "e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e",
+  "spot_5m_sha256": "d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f",
+  "timestamp_utc": "2026-11-13T08:59:25Z",
+  "total_fees_usdt": 0.0,
+  "total_slippage_bps": 0.0,
+  "universe": [
+    "ADA",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "DOT",
+    "ETH",
+    "LINK",
+    "LTC",
+    "POL",
+    "SOL",
+    "XRP"
+  ],
+  "volume_1h_meta_sha256": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+  "volume_1h_provenance_sha256": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89",
+  "volume_1h_sha256": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+  "ws_host": "stream.testnet.binance.vision",
+  "ws_port": 9443
+}
