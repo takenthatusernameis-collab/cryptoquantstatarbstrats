@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T11:40:00Z
+**Handoff refreshed:** 2026-11-13T11:44:29Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state:** `python -m pytest tests/ -q` → **green (1184 passed, 2 skipped)**. C281B→C286, C288, C289, C290, **C291** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge). **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block and is DECOUPLED from economic progress.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T11:40:00Z) — C292 CROSS-VENUE REAL-SPOT BASIS / LEAD-LAG STAT-ARB: HEAVY WORK REQUIRED, NO AVOIDANCE
+## INITIAL TASK MESSAGE (2026-11-13T11:44:29Z) — C292 CROSS-VENUE REAL-SPOT BASIS / LEAD-LAG STAT-ARB: HEAVY WORK REQUIRED, NO AVOIDANCE
 
 **Focus = C292 (economic stat-arb, multi-venue real spot).** The Binance single-venue space is now **closed on both spot and derivatives**: C281B→C286, C288, C289, C290 (spot OHLCV / quote-volume / true-5m OHLCV) and **C291 (real USDT-M perp funding-carry + spot/perp basis, 24 perps)** are all `NOT_TRADABLE` (C291 binding `cost_sensitivity`, gross edge only at 0bps). The next economic lever is **cross-venue real spot** — the SAME asset trading on DIFFERENT exchanges. This is a genuinely new data dimension (multi-venue) and mechanism (cross-venue basis convergence / lead-lag).
 
@@ -98,7 +98,7 @@ python scripts/preflight_c291.py --json
 - **C287 re-emission loop closed:** the prior session wrote four duplicate C287 artifact sets (10:46:32–35Z); the handoff forbids re-emitting them absent new capability evidence.
 - **HANDOFF.md loop:** `AGENTS.md` is the only handoff; `HANDOFF.md` is forbidden; ignore missing-file errors for it.
 
-## Current research state (verified 2026-11-13T11:40Z)
+## Current research state (verified 2026-11-13T11:44Z)
 
 | Campaign | Test | Runs | Result |
 |----------|------|------|--------|
@@ -170,4 +170,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285/C286/C288/C289/C290/C291 are complete and frozen; current next campaign is **C292**.
 
-**END OF HANDOFF — refreshed 2026-11-13T11:40:00Z.** Economic status: the Binance single-venue spot space (C281B→C286, C288, C289, C290) and the real USDT-M perp funding/basis space (C291) are **closed**. **C287 is BLOCKED and decoupled** (testnet REST HTTP 451 + no creds; external execution only). **C292 (cross-venue real-spot basis/lead-lag) is unblocked and mandatory:** OKX 5m + Coinbase 5m retain deep history; Binance spot 5m cached; Kraken 5m ~12h only. Next session MUST build + run C292 end-to-end (heavy work), update state + this file, keep tests green; if C292 also closes, record the definitive external-execution-only blocker. **No avoidance: a status-only/planning-only turn, or substituting infra/refactor/docs for C292, is a failed handoff.**
+**END OF HANDOFF — refreshed 2026-11-13T11:44:29Z.** Economic status: the Binance single-venue spot space (C281B→C286, C288, C289, C290) and the real USDT-M perp funding/basis space (C291) are **closed**. **C287 is BLOCKED and decoupled** (testnet REST HTTP 451 + no creds; external execution only). **C292 (cross-venue real-spot basis/lead-lag) is unblocked and mandatory:** OKX 5m + Coinbase 5m retain deep history; Binance spot 5m cached; Kraken 5m ~12h only. Next session MUST build + run C292 end-to-end (heavy work), update state + this file, keep tests green; if C292 also closes, record the definitive external-execution-only blocker. **No avoidance: a status-only/planning-only turn, or substituting infra/refactor/docs for C292, is a failed handoff.**
