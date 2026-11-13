@@ -1,0 +1,120 @@
+{
+  "generated_at_utc": "20261113T034058Z",
+  "campaign": 281,
+  "part": "B_summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_pairs_total": 17,
+    "n_pairs_run": 17,
+    "pairs_run": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ],
+      [
+        "ADA",
+        "ETH"
+      ],
+      [
+        "XRP",
+        "BTC"
+      ],
+      [
+        "BNB",
+        "ETH"
+      ],
+      [
+        "BTC",
+        "BNB"
+      ],
+      [
+        "SOL",
+        "BNB"
+      ],
+      [
+        "ADA",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "ETH"
+      ],
+      [
+        "BNB",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "ETH"
+      ],
+      [
+        "POL",
+        "BTC"
+      ],
+      [
+        "AVAX",
+        "BTC"
+      ],
+      [
+        "LINK",
+        "BTC"
+      ],
+      [
+        "LTC",
+        "BTC"
+      ]
+    ],
+    "n_assets_total": 11,
+    "n_assets_run": 11,
+    "assets_run": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "limited_smoke": false,
+    "limit_pairs": 0,
+    "limit_assets": 0
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign281_oos_sweep_20261113T034058Z.json",
+      "sha256": "8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9"
+    },
+    "registry": {
+      "path": "reports/campaign281_tradable_edge_registry_20261113T034058Z.json",
+      "sha256": "254a59fe7b3278a5138409413a4b87661adff0d3e3481c23212896c249557a2d"
+    }
+  },
+  "summary": {
+    "n_total_runs": 663,
+    "n_with_exposure": 561,
+    "n_edge_proven": 0,
+    "bh_oos_mean_full_universe": -0.0003620838511080919
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: run C281C gate diagnostics on the same data (diagnosis only, never an edge claim); then define C282. If EDGE_PROVEN: promote per registry rules."
+}

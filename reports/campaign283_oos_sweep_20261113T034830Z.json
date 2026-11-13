@@ -1,0 +1,1156 @@
+{
+  "generated_at_utc": "20261113T034830Z",
+  "campaign": 283,
+  "part": "turnover_reduced_pairs",
+  "analysis": "turnover_reduced_cointegration_pairs_costed_oos",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fail_closed": true,
+  "mandate": "C283 \u2014 keep C281B cointegration-pair construction and fail-closed gates unchanged; sweep only turnover-reducing trading frictions (entry/exit bands, position smoothing, minimum holding). Motivated by C281B: 369/663 runs gross-positive at 0 bps but all fail by 5-10 bps. No gate weakening.",
+  "preflight": {
+    "cache_path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "cache_sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "bars": 5427,
+    "nan_count": 0,
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "universe": {
+    "n_pairs": 17,
+    "pairs": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ],
+      [
+        "ADA",
+        "ETH"
+      ],
+      [
+        "XRP",
+        "BTC"
+      ],
+      [
+        "BNB",
+        "ETH"
+      ],
+      [
+        "BTC",
+        "BNB"
+      ],
+      [
+        "SOL",
+        "BNB"
+      ],
+      [
+        "ADA",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "ETH"
+      ],
+      [
+        "BNB",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "ETH"
+      ],
+      [
+        "POL",
+        "BTC"
+      ],
+      [
+        "AVAX",
+        "BTC"
+      ],
+      [
+        "LINK",
+        "BTC"
+      ],
+      [
+        "LTC",
+        "BTC"
+      ]
+    ],
+    "smoke": true
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "lookbacks": [
+      240
+    ],
+    "entries": [
+      2.0
+    ],
+    "exits": [
+      0.5
+    ],
+    "smooth": [
+      1
+    ],
+    "hold_bars": [
+      1
+    ]
+  },
+  "provenance": {
+    "real_data_only": true,
+    "fabricated_data": false,
+    "no_gate_weakening": true,
+    "no_threshold_weakening": true,
+    "no_cherry_picked_windows_or_costs": true,
+    "all_pre_registered_configs_reported": true
+  },
+  "results": [
+    {
+      "pair": "BTC/ETH",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0012659098745815833
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0012659098745815833
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0012659098745815833
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0012659098745815833
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0012659098745815833
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.0012659098745815833,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "ETH/SOL",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005086980068588626
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005086980068588626
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005086980068588626
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005086980068588626
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005086980068588626
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0005086980068588626,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "BTC/SOL",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007807790668552231
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007807790668552231
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007807790668552231
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007807790668552231
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007807790668552231
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0007807790668552231,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "ADA/ETH",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004137568461544533
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004137568461544533
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004137568461544533
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004137568461544533
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004137568461544533
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.004137568461544533,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "XRP/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0035997030863775914
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0035997030863775914
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0035997030863775914
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0035997030863775914
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0035997030863775914
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.0035997030863775914,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "BNB/ETH",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0011835560684218776
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0011835560684218776
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0011835560684218776
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0011835560684218776
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0011835560684218776
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0011835560684218776,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "BTC/BNB",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0014556371284182381,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "SOL/BNB",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003230245009858684
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003230245009858684
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003230245009858684
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003230245009858684
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003230245009858684
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.003230245009858684,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "ADA/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038654874015481727
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038654874015481727
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038654874015481727
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038654874015481727
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038654874015481727
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.0038654874015481727,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "XRP/ETH",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038717841463739517
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038717841463739517
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038717841463739517
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038717841463739517
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0038717841463739517
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.0038717841463739517,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "BNB/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0014556371284182381
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0014556371284182381,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "DOT/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004089250834736887
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004089250834736887
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004089250834736887
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004089250834736887
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004089250834736887
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.004089250834736887,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "DOT/ETH",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004361331894733248
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004361331894733248
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004361331894733248
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004361331894733248
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.004361331894733248
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.004361331894733248,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "POL/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007759373274269034
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007759373274269034
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007759373274269034
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007759373274269034
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0007759373274269034
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0007759373274269034,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "AVAX/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005358446443854316
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005358446443854316
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005358446443854316
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005358446443854316
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.0005358446443854316
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.0005358446443854316,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "LINK/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003486144137091561
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003486144137091561
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003486144137091561
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003486144137091561
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": 0.003486144137091561
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": false,
+      "bh_oos_mean": 0.003486144137091561,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    },
+    {
+      "pair": "LTC/BTC",
+      "lookback": 240,
+      "entry_threshold": 2.0,
+      "exit_threshold": 0.5,
+      "smooth": 1,
+      "hold_bars": 1,
+      "cointegration_pvalue": 0.05,
+      "cointegration_check_interval": 240,
+      "use_enriched_gates": true,
+      "strict_enriched_gates": true,
+      "pair_diagnostics_file": null,
+      "enriched_diagnostics": null,
+      "bars": 5427,
+      "n_splits": 28,
+      "oos_exposure_bars_total": 0,
+      "cost_slices": {
+        "fee0_slip0": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0006776819536611316
+        },
+        "fee5_slip5": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0006776819536611316
+        },
+        "fee10_slip10": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0006776819536611316
+        },
+        "fee20_slip20": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0006776819536611316
+        },
+        "fee40_slip40": {
+          "oos_net_sum": 0.0,
+          "oos_net_mean": 0.0,
+          "oos_exposure_bars": 0,
+          "turnover": 0.0,
+          "bh_oos_mean": -0.0006776819536611316
+        }
+      },
+      "all_cost_slices_oos_net_positive": false,
+      "beats_bh_all_slices": true,
+      "bh_oos_mean": -0.0006776819536611316,
+      "price_only_edge_proven": false,
+      "block_reason": "no_costed_oos_edge"
+    }
+  ],
+  "summary": {
+    "n_total_runs": 17,
+    "n_with_exposure": 0,
+    "n_edge_proven": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "generated_at_utc": "20261113T034830Z",
+  "campaign": 283,
+  "part": "summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "summary": {
+    "n_total_runs": 17,
+    "n_with_exposure": 0,
+    "n_edge_proven": 0
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign283_oos_sweep_20261113T034830Z.json",
+      "sha256": "9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0"
+    },
+    "registry": {
+      "path": "reports/campaign283_tradable_edge_registry_20261113T034830Z.json",
+      "sha256": "d78fb6b682afc76dfa62277d1abab944a2064ae3683cb72701886120ec5ed260"
+    }
+  },
+  "fake_oos_claimed": false
+}

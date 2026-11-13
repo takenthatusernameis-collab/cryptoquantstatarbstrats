@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "20261113T034058Z",
+  "campaign": 281,
+  "part": "B_verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "finding": "No costed OOS edge proven on refreshed real spot data (663 runs, 0 edge).",
+  "basis": "spot_price_only_costed_oos",
+  "dataset": {
+    "path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "window": "2026-04-01->2026-11-13T02:00Z",
+    "bars": 5427,
+    "splits": 28
+  },
+  "oos_sweep_artifact": "reports/campaign281_oos_sweep_20261113T034058Z.json",
+  "oos_sweep_sha256": "8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9",
+  "registry_artifact": "reports/campaign281_tradable_edge_registry_20261113T034058Z.json",
+  "registry_sha256": "254a59fe7b3278a5138409413a4b87661adff0d3e3481c23212896c249557a2d",
+  "summary_artifact": "reports/campaign281_summary_20261113T034058Z.json",
+  "summary_sha256": "a552d80603e089f19747eac7481e4941078c2de17406f0ee39cf5b2113c6d359",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless costed OOS test passes"
+  ]
+}

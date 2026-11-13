@@ -1,0 +1,55 @@
+{
+  "generated_at_utc": "20261113T034422Z",
+  "campaign": 281,
+  "part": "C_summary",
+  "analysis": "gate_diagnostics_summary",
+  "explanatory_only": true,
+  "edge_claim": "NONE",
+  "n_pair_evaluations": 51,
+  "n_pair_evaluations_total": 51,
+  "pooled_gate_pass_share": {
+    "eg_pass": {
+      "pass": 59,
+      "n": 680,
+      "pass_share": 0.08676470588235294
+    },
+    "johansen_pass": {
+      "pass": 217,
+      "n": 680,
+      "pass_share": 0.3191176470588235
+    },
+    "spread_mr_pass": {
+      "pass": 139,
+      "n": 680,
+      "pass_share": 0.20441176470588235
+    },
+    "hl_bounds_pass": {
+      "pass": 634,
+      "n": 680,
+      "pass_share": 0.9323529411764706
+    },
+    "leg_stationarity_ok": {
+      "pass": 25,
+      "n": 680,
+      "pass_share": 0.03676470588235294
+    },
+    "rolling_stable_ok": {
+      "pass": 2,
+      "n": 680,
+      "pass_share": 0.0029411764705882353
+    },
+    "no_structural_break": {
+      "pass": 317,
+      "n": 680,
+      "pass_share": 0.4661764705882353
+    }
+  },
+  "binding_gate_overall": "rolling_stable_ok",
+  "artifacts": {
+    "gate_diagnostics": {
+      "path": "reports/campaign281c_gate_diagnostics_20261113T034422Z.json",
+      "sha256": "b88b4dfa3513c376318b3d90ab4a5c6dbd5809ae27cecc71046f6b5e13e16265"
+    }
+  },
+  "next_action": "Diagnosis complete. C282 must test a materially different, pre-registered hypothesis on the same real data; do not weaken gates and do not re-run C281B/C281C."
+}

@@ -1,0 +1,26 @@
+{
+  "generated_at_utc": "20261113T034830Z",
+  "campaign": 283,
+  "part": "verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "finding": "No costed OOS edge proven for turnover-reduced pairs (17 configs, 0 edge).",
+  "basis": "cointegration_pairs_turnover_reduced_costed_oos",
+  "dataset": {
+    "path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "window": "2026-04-01->2026-11-13T02:00Z",
+    "bars": 5427
+  },
+  "oos_sweep_artifact": "reports/campaign283_oos_sweep_20261113T034830Z.json",
+  "oos_sweep_sha256": "9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0",
+  "registry_artifact": "reports/campaign283_tradable_edge_registry_20261113T034830Z.json",
+  "registry_sha256": "d78fb6b682afc76dfa62277d1abab944a2064ae3683cb72701886120ec5ed260",
+  "summary_artifact": "reports/campaign283_summary_20261113T034830Z.json",
+  "summary_sha256": "20ee0caf603a0e4dea945ceb9e8f29521cdc60a1946cb7b84129e70233e27ff4",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data",
+    "No gate/threshold weakening",
+    "No edge claims unless costed OOS test passes"
+  ]
+}

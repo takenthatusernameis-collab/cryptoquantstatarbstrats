@@ -1,0 +1,2621 @@
+{
+  "generated_at_utc": "20261113T034422Z",
+  "campaign": 281,
+  "part": "C_gate_diagnostics",
+  "analysis": "why_no_edge_gate_pass_share",
+  "explanatory_only": true,
+  "edge_claim": "NONE",
+  "weakens_gates": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "dataset": {
+    "path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "bars": 5427,
+    "window": {
+      "start": "2026-04-01 00:00:00+00:00",
+      "end": "2026-11-13 02:00:00+00:00"
+    }
+  },
+  "protocol": {
+    "strict_enriched_gates": true,
+    "use_enriched_gates": true,
+    "no_pair_diagnostics_file": true,
+    "no_enriched_diagnostics": true,
+    "cointegration_pvalue": 0.05,
+    "cointegration_check_interval": "= lookback (causal refresh)",
+    "refresh_bar_definition": "range(lookback-1, n, lookback)"
+  },
+  "single_asset_note": "MeanReversionStrategy._build_diagnostics and MomentumStrategy._build_diagnostics return a static all-True gate table, so single-asset enriched gates are not a per-bar diagnostic and are excluded from the breakdown rather than misreported.",
+  "per_evaluation": [
+    {
+      "pair": "BTC/ETH",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "johansen_pass": {
+          "pass": 11,
+          "n": 22,
+          "pass_share": 0.5
+        },
+        "spread_mr_pass": {
+          "pass": 7,
+          "n": 22,
+          "pass_share": 0.3181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 22,
+          "n": 22,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 17,
+          "n": 22,
+          "pass_share": 0.7727272727272727
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BTC/ETH",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BTC/ETH",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ETH/SOL",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "johansen_pass": {
+          "pass": 8,
+          "n": 22,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 8,
+          "n": 22,
+          "pass_share": 0.36363636363636365
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ETH/SOL",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 7,
+          "n": 11,
+          "pass_share": 0.6363636363636364
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "ETH/SOL",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "hl_bounds_pass": {
+          "pass": 5,
+          "n": 7,
+          "pass_share": 0.7142857142857143
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 4,
+          "n": 7,
+          "pass_share": 0.5714285714285714
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "BTC/SOL",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 22,
+          "pass_share": 0.13636363636363635
+        },
+        "hl_bounds_pass": {
+          "pass": 22,
+          "n": 22,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 11,
+          "n": 22,
+          "pass_share": 0.5
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "BTC/SOL",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 7,
+          "n": 11,
+          "pass_share": 0.6363636363636364
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BTC/SOL",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 5,
+          "n": 7,
+          "pass_share": 0.7142857142857143
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ADA/ETH",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 22,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "no_structural_break": {
+          "pass": 9,
+          "n": 22,
+          "pass_share": 0.4090909090909091
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "ADA/ETH",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ADA/ETH",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "XRP/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 8,
+          "n": 22,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 22,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 11,
+          "n": 22,
+          "pass_share": 0.5
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "XRP/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 6,
+          "n": 11,
+          "pass_share": 0.5454545454545454
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "XRP/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 7,
+          "pass_share": 0.7142857142857143
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "BNB/ETH",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 8,
+          "n": 22,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 20,
+          "n": 22,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 10,
+          "n": 22,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BNB/ETH",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "hl_bounds_pass": {
+          "pass": 9,
+          "n": 11,
+          "pass_share": 0.8181818181818182
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "BNB/ETH",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "BTC/BNB",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 7,
+          "n": 22,
+          "pass_share": 0.3181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 10,
+          "n": 22,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BTC/BNB",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BTC/BNB",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 7,
+          "pass_share": 0.5714285714285714
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "SOL/BNB",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 9,
+          "n": 22,
+          "pass_share": 0.4090909090909091
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 7,
+          "n": 22,
+          "pass_share": 0.3181818181818182
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "SOL/BNB",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "SOL/BNB",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ADA/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 22,
+          "n": 22,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "no_structural_break": {
+          "pass": 14,
+          "n": 22,
+          "pass_share": 0.6363636363636364
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ADA/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "ADA/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 7,
+          "pass_share": 0.7142857142857143
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "XRP/ETH",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 22,
+          "pass_share": 0.13636363636363635
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 11,
+          "n": 22,
+          "pass_share": 0.5
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "XRP/ETH",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 8,
+          "n": 11,
+          "pass_share": 0.7272727272727273
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "XRP/ETH",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "spread_mr_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "BNB/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 7,
+          "n": 22,
+          "pass_share": 0.3181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 20,
+          "n": 22,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 15,
+          "n": 22,
+          "pass_share": 0.6818181818181818
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "BNB/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "BNB/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 7,
+          "pass_share": 0.5714285714285714
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "DOT/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 22,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 21,
+          "n": 22,
+          "pass_share": 0.9545454545454546
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 10,
+          "n": 22,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "DOT/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "DOT/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "spread_mr_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "hl_bounds_pass": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "DOT/ETH",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 19,
+          "n": 22,
+          "pass_share": 0.8636363636363636
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 10,
+          "n": 22,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "DOT/ETH",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "hl_bounds_pass": {
+          "pass": 8,
+          "n": 11,
+          "pass_share": 0.7272727272727273
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "DOT/ETH",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "spread_mr_pass": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "hl_bounds_pass": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "POL/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 22,
+          "pass_share": 0.13636363636363635
+        },
+        "hl_bounds_pass": {
+          "pass": 19,
+          "n": 22,
+          "pass_share": 0.8636363636363636
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 22,
+          "pass_share": 0.22727272727272727
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "POL/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 9,
+          "n": 11,
+          "pass_share": 0.8181818181818182
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "POL/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "AVAX/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 4,
+          "n": 22,
+          "pass_share": 0.18181818181818182
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 19,
+          "n": 22,
+          "pass_share": 0.8636363636363636
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 11,
+          "n": 22,
+          "pass_share": 0.5
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "AVAX/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 3,
+          "n": 11,
+          "pass_share": 0.2727272727272727
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 11,
+          "pass_share": 0.5454545454545454
+        },
+        "spread_mr_pass": {
+          "pass": 6,
+          "n": 11,
+          "pass_share": 0.5454545454545454
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "AVAX/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "hl_bounds_pass": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "LINK/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "johansen_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "spread_mr_pass": {
+          "pass": 6,
+          "n": 22,
+          "pass_share": 0.2727272727272727
+        },
+        "hl_bounds_pass": {
+          "pass": 20,
+          "n": 22,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 12,
+          "n": 22,
+          "pass_share": 0.5454545454545454
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    },
+    {
+      "pair": "LINK/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 11,
+          "pass_share": 0.18181818181818182
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "hl_bounds_pass": {
+          "pass": 10,
+          "n": 11,
+          "pass_share": 0.9090909090909091
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "LINK/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "johansen_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "spread_mr_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 7,
+          "pass_share": 0.7142857142857143
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "LTC/BTC",
+      "lookback": 240,
+      "bars": 5427,
+      "n_refresh_evaluations": 22,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 22,
+          "pass_share": 0.09090909090909091
+        },
+        "johansen_pass": {
+          "pass": 1,
+          "n": 22,
+          "pass_share": 0.045454545454545456
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 22,
+          "pass_share": 0.18181818181818182
+        },
+        "hl_bounds_pass": {
+          "pass": 22,
+          "n": 22,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 22,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 9,
+          "n": 22,
+          "pass_share": 0.4090909090909091
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 22,
+        "pass_share": 0.0
+      },
+      "binding_gate": "leg_stationarity_ok"
+    },
+    {
+      "pair": "LTC/BTC",
+      "lookback": 480,
+      "bars": 5427,
+      "n_refresh_evaluations": 11,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "johansen_pass": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        },
+        "spread_mr_pass": {
+          "pass": 4,
+          "n": 11,
+          "pass_share": 0.36363636363636365
+        },
+        "hl_bounds_pass": {
+          "pass": 11,
+          "n": 11,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 11,
+          "pass_share": 0.09090909090909091
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 11,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 5,
+          "n": 11,
+          "pass_share": 0.45454545454545453
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 11,
+        "pass_share": 0.0
+      },
+      "binding_gate": "eg_pass"
+    },
+    {
+      "pair": "LTC/BTC",
+      "lookback": 720,
+      "bars": 5427,
+      "n_refresh_evaluations": 7,
+      "status": "ok",
+      "gate_pass": {
+        "eg_pass": {
+          "pass": 2,
+          "n": 7,
+          "pass_share": 0.2857142857142857
+        },
+        "johansen_pass": {
+          "pass": 4,
+          "n": 7,
+          "pass_share": 0.5714285714285714
+        },
+        "spread_mr_pass": {
+          "pass": 3,
+          "n": 7,
+          "pass_share": 0.42857142857142855
+        },
+        "hl_bounds_pass": {
+          "pass": 7,
+          "n": 7,
+          "pass_share": 1.0
+        },
+        "leg_stationarity_ok": {
+          "pass": 1,
+          "n": 7,
+          "pass_share": 0.14285714285714285
+        },
+        "rolling_stable_ok": {
+          "pass": 0,
+          "n": 7,
+          "pass_share": 0.0
+        },
+        "no_structural_break": {
+          "pass": 6,
+          "n": 7,
+          "pass_share": 0.8571428571428571
+        }
+      },
+      "all_pass": {
+        "pass": 0,
+        "n": 7,
+        "pass_share": 0.0
+      },
+      "binding_gate": "rolling_stable_ok"
+    }
+  ],
+  "pooled_gate_pass_share": {
+    "eg_pass": {
+      "pass": 59,
+      "n": 680,
+      "pass_share": 0.08676470588235294
+    },
+    "johansen_pass": {
+      "pass": 217,
+      "n": 680,
+      "pass_share": 0.3191176470588235
+    },
+    "spread_mr_pass": {
+      "pass": 139,
+      "n": 680,
+      "pass_share": 0.20441176470588235
+    },
+    "hl_bounds_pass": {
+      "pass": 634,
+      "n": 680,
+      "pass_share": 0.9323529411764706
+    },
+    "leg_stationarity_ok": {
+      "pass": 25,
+      "n": 680,
+      "pass_share": 0.03676470588235294
+    },
+    "rolling_stable_ok": {
+      "pass": 2,
+      "n": 680,
+      "pass_share": 0.0029411764705882353
+    },
+    "no_structural_break": {
+      "pass": 317,
+      "n": 680,
+      "pass_share": 0.4661764705882353
+    }
+  },
+  "binding_gate_overall": "rolling_stable_ok",
+  "interpretation": "Lowest pooled pass share is 'rolling_stable_ok' (0.0029) \u2014 this is the binding constraint that most often blocks pair entries under strict fail-closed gates. This localizes the cause only; it is not an edge and must not be used to weaken gates."
+}
