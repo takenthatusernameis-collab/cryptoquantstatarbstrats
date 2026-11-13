@@ -1,55 +1,288 @@
-updated_at_utc: 20261113T231936Z
+updated_at_utc: 20261113T234735Z
 repo: cryptoquantstatarbstrats
-focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
+focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge
+  validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "RESEARCH PROGRAM CLOSURE INTEGRITY & EXTERNAL-UNBLOCK AUDIT — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T23:19:36Z). C296 is COMPLETE/frozen DATA_BLOCKED (Deribit per-strike IV unreachable): probe reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json (SHA256 df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b), oos_sweep reports/campaign296_oos_sweep_20261113T224349Z.json (b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d), registry reports/campaign296_tradable_edge_registry_20261113T224349Z.json (1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356), summary reports/campaign296_summary_20261113T224349Z.json (4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af), verdict reports/campaign296_verdict_20261113T224349Z.json (9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8). Reachable real-data cross-sectional stat-arb space is CLOSED (C281B–C296, 0 costed OOS edge, C289 economic_space_closed:true). MUST in one turn: (1) bootstrap deps if needed; run python -m pytest tests/ -q and keep suite green (record pass/skip counts). (2) Closure-integrity audit: recompute SHA256-from-bytes for every frozen C281B–C296 artifact/dataset referenced in state+AGENTS, verify real_data_only:true/fabricated_data:false and verdict/binding/edge_claim consistency, and emit reports/program_closure_integrity_audit_<ts>.json + reports/program_closure_integrity_audit_<ts>.md (SHA256-from-bytes, real_data_only:true, fabricated_data:false) with per-campaign rows (paths, hashes, verdict, binding, n_runs, n_edge). (3) C287 external-unblock probe (fail-closed, no creds/fills): re-run/record deterministic reachability for blocked routes (fapi.binance.com, testnet.binance.vision, api.bybit.com) and reachable hosts; if still HTTP 451/403/no-creds emit reports/c287_external_unblock_status_<ts>.json documenting that external credentials+non-451 egress are required (do not fabricate fills/keys). (4) Add/extend tests covering the new audit/status artifacts' schema + hash cross-references; pytest -q green. (5) Update AGENTS.md and research_state/state.yaml: refresh handoff timestamp, set this as active_initial_task, record new artifact paths+SHA256, and keep single-handoff/closure facts accurate. Do not invent new campaigns, do not fabricate data/fills/credentials, do not weaken gates/costs/edge rule, do not relabel data, do not edit .github/workflows/main.yml, do not create/read/edit HANDOFF.md. No status-only turn."
-known_bottleneck: {id: c296_feed_resolved_space_closed_audit_required, as_of_utc: 20261113T231936Z, evidence: "C296 DATA_BLOCKED closure emitted and frozen (probe+sweep+registry+summary+verdict, SHA256-from-bytes); reachable real-data cross-sectional stat-arb space closed with 0 costed OOS edge across C281B–C296. C287 blocked by external 451/no-creds.", fix: "Run closure-integrity audit over all frozen artifacts/datasets and record C287 external-unblock status with hashed artifacts + tests + green pytest; update state+AGENTS. No new campaign fabrication.", do_not: "edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; rerun frozen campaigns or claim edge; stop at status-only."}
-superseded_active_initial_task: "C295 THREE-VENUE (Binance+OKX+Coinbase) REAL 5m SPOT CROSS-VENUE BASIS/LEAD-LAG STAT-ARB — COMPLETED 2026-11-13T21:57:25Z (frozen). Verdict NOT_TRADABLE, 162 runs, 0 edge, 108 with exposure, binding cost_sensitivity (92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Dataset data/cache/campaign295_three_venue_spot.pkl SHA256 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7 (meta de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab, provenance 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d); 9 assets, 26208 bars, 2026-08-01T00:00Z..2026-10-30T23:55Z. Artifacts reports/campaign295_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261113T215725Z.json (SHAs fd1762fa/e898b0cb/036c0150/02f7ed38/0c5257a2). Three-venue real-spot stat-arb space closed."
-superseded_known_bottleneck: {id: c295_three_venue_ingest_preflight_runner_missing, as_of_utc: 20261113T211317Z, status: resolved, evidence: "C295 COMPLETE: ingest/preflight/runner/tests built and executed end-to-end; 5 SHA256-from-bytes artifacts emitted; suite green (1241 passed). Three-venue real-spot family closed as NOT_TRADABLE.", fix: "None; superseded by C296.", do_not: "do not rerun/edit frozen C295 artifacts/cache."}
-edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
-wf: {train: 720, test: 168, step: 168}
+active_initial_task: 'CLOSURE INTEGRITY VERIFIED & C287 EXTERNAL-ONLY BLOCK DOCUMENTED
+  — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T23:47:35Z). Research
+  space CLOSED (C281B–C296, 0 costed OOS edge, C289 economic_space_closed:true, C296
+  DATA_BLOCKED). Latest verified integrity: program_closure_integrity_audit reports/program_closure_integrity_audit_20261113T234735Z.json
+  (SHA256 eb889b77b1939f119ce100f8cad81ca67cc3c4a0bfd9be3cf194717683b930f6) + reports/program_closure_integrity_audit_20261113T234735Z.md
+  (SHA256 88ea3de73f0f1c7ba12954131763c2532cb2ce7bbedec1aabd9b42f292f6d0b0) recomputed
+  SHA256-from-bytes for 70 frozen artifact/dataset refs across C281B–C296 (integrity_ok:true,
+  n_mismatch_or_missing_or_error:0, zero_tradable_edge_registry_confirmed:true). C287
+  external-unblock probe reports/c287_external_unblock_status_20261113T234357Z.json
+  (SHA256 73063da48b4828ab9b766f9a2e6490a91f61452ee2ba56bb49e28897b2e9b3e3) status
+  BLOCKED/DECOUPLED: binance_testnet_rest ping/time/exchangeInfo HTTP 451, fapi 451,
+  api.bybit.com 403, BINANCE_TESTNET_API_KEY/SECRET absent; Deribit/Binance data-api/OKX/Coinbase
+  reachable; external action required = valid Binance Spot Testnet credentials + non-451
+  egress. MUST in one turn: (1) bootstrap deps if needed; python -m pytest tests/
+  -q green (record pass/skip). (2) Re-run closure-integrity audit and/or C287 external-unblock
+  probe to emit fresh timestamped SHA256-from-bytes artifacts reflecting current environment
+  if missing/stale; verify all hashes/flags (real_data_only:true, fabricated_data:false,
+  verdict/binding/edge_claim consistency, 0 tradable edge). (3) Add/extend tests for
+  any new audit/status artifacts and schema/hash cross-references; pytest -q green.
+  (4) Update AGENTS.md and research_state/state.yaml with refresh timestamp, this
+  as active_initial_task, and new artifact paths+SHA256; keep single-handoff and closure
+  facts accurate. Do not invent new campaigns, do not fabricate data/fills/credentials,
+  do not weaken gates/costs/edge rule, do not relabel data, do not edit .github/workflows/main.yml,
+  do not create/read/edit HANDOFF.md. No status-only turn.'
+known_bottleneck:
+  id: reachable_cross_sectional_stat_arb_space_closed_c287_external_only
+  as_of_utc: 20261113T234735Z
+  evidence: C296 DATA_BLOCKED closure frozen; program_closure_integrity_audit_20261113T234735Z
+    verifies 70 frozen refs integrity_ok:true with 0 tradable edge. c287_external_unblock_status_20261113T234357Z
+    shows testnet REST 451, fapi 451, bybit 403, no creds (BLOCKED/DECOUPLED). No
+    reachable real-data cross-sectional stat-arb family remains.
+  fix: Maintain integrity evidence (re-run audit/unblock probes as needed, emit hashed
+    artifacts+tests, keep pytest green) and sync state/AGENTS. Any economic edge claim
+    requires external unblocking of C287 (valid testnet creds + non-451 egress) or
+    genuinely new reachable real data/feed with a pre-registered costed OOS protocol;
+    do not fabricate.
+  do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate
+    data/fills/credentials; weaken gates/costs/edge rule; rerun frozen campaigns or
+    claim edge; stop at status-only; invent campaigns in closed space.
+superseded_active_initial_task: C295 THREE-VENUE (Binance+OKX+Coinbase) REAL 5m SPOT
+  CROSS-VENUE BASIS/LEAD-LAG STAT-ARB — COMPLETED 2026-11-13T21:57:25Z (frozen). Verdict
+  NOT_TRADABLE, 162 runs, 0 edge, 108 with exposure, binding cost_sensitivity (92/162
+  gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Dataset
+  data/cache/campaign295_three_venue_spot.pkl SHA256 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7
+  (meta de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab, provenance
+  570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d); 9 assets, 26208
+  bars, 2026-08-01T00:00Z..2026-10-30T23:55Z. Artifacts reports/campaign295_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261113T215725Z.json
+  (SHAs fd1762fa/e898b0cb/036c0150/02f7ed38/0c5257a2). Three-venue real-spot stat-arb
+  space closed.
+superseded_known_bottleneck:
+  id: c295_three_venue_ingest_preflight_runner_missing
+  as_of_utc: 20261113T211317Z
+  status: resolved
+  evidence: 'C295 COMPLETE: ingest/preflight/runner/tests built and executed end-to-end;
+    5 SHA256-from-bytes artifacts emitted; suite green (1241 passed). Three-venue
+    real-spot family closed as NOT_TRADABLE.'
+  fix: None; superseded by C296.
+  do_not: do not rerun/edit frozen C295 artifacts/cache.
+edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net
+  sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H
+  OOS net means on same WF windows (same aggregation for both legs; never compare
+  a strategy mean to a benchmark sum). Real data only.
+wf:
+  train: 720
+  test: 168
+  step: 168
 c293_ingest:
   status: complete_reproduced
   as_of_utc: 20261113T190541Z
-  pkl: {path: data/cache/campaign293_crossvenue_funding.pkl, sha256: ea4e5f178f573c8bec9f14e4c6848ad64d7ee9fef9a0c03e1752fe5656f6b554}
-  meta: {path: data/cache/campaign293_crossvenue_funding.meta.json, sha256: c24ba0d2607972e36ef88024d504f3512ef6b774c886b41af01e5ee5f8945265}
-  provenance: {path: data/cache/campaign293_crossvenue_funding.provenance.json, sha256: df3b211679264bc2048ec15faaa2f2b603bf4f7c70c6164daaa8ef732fabb2d6}
+  pkl:
+    path: data/cache/campaign293_crossvenue_funding.pkl
+    sha256: ea4e5f178f573c8bec9f14e4c6848ad64d7ee9fef9a0c03e1752fe5656f6b554
+  meta:
+    path: data/cache/campaign293_crossvenue_funding.meta.json
+    sha256: c24ba0d2607972e36ef88024d504f3512ef6b774c886b41af01e5ee5f8945265
+  provenance:
+    path: data/cache/campaign293_crossvenue_funding.provenance.json
+    sha256: df3b211679264bc2048ec15faaa2f2b603bf4f7c70c6164daaa8ef732fabb2d6
   n_symbols: 24
   n_bars: 23424
-  window: {start: 2026-08-10T16:00:00Z, end: 2026-10-30T23:55:00Z}
+  window:
+    start: 2026-08-10 16:00:00+00:00
+    end: 2026-10-30 23:55:00+00:00
   real_data_only: true
   fabricated_data: false
   excluded_symbols: {}
-  partial_native_funding_coverage: {BNBUSDT: {venue: binance, have: 129, expected: 244}, TAOUSDT: {venue: okx, have: 244, expected: 488}, ONDOUSDT: {venue: okx, have: 423, expected: 488}, PUMPUSDT: {venue: okx, have: 451, expected: 488}}
-cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-deps: {python: 3.12.3, numpy: 2.5.4, scipy: 1.18.1, pandas: 3.1.1, statsmodels: 0.15.0, scikit-learn: 1.9.1}
+  partial_native_funding_coverage:
+    BNBUSDT:
+      venue: binance
+      have: 129
+      expected: 244
+    TAOUSDT:
+      venue: okx
+      have: 244
+      expected: 488
+    ONDOUSDT:
+      venue: okx
+      have: 423
+      expected: 488
+    PUMPUSDT:
+      venue: okx
+      have: 451
+      expected: 488
+cost_grid_bps:
+- - 0
+  - 0
+- - 5
+  - 5
+- - 10
+  - 10
+- - 20
+  - 20
+- - 40
+  - 40
+deps:
+  python: 3.12.3
+  numpy: 2.5.4
+  scipy: 1.18.1
+  pandas: 3.1.1
+  statsmodels: 0.15.0
+  scikit-learn: 1.9.1
 nonspot_ingest: blocked_fail_closed_rb_unblocked
 caches_verified:
-  spot: {path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl, sha256: 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df}
-  spot_meta: {path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.meta.json, sha256: 95baf25daae1656a8c6f074acdcd909250565ddda8e86920b00d85163646afd1}
-  spot_window: {bars: 5427, assets: 11, start: 2026-04-01, end: 2026-11-13T02:00Z, nan_count: 0, real_data_only: true, fabricated_data: false}
-  volume_pkl: {path: data/cache/volume_1h_full.pkl, sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c}
-  volume_meta: {path: data/cache/volume_1h_full.meta.json, sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616}
-  volume_provenance: {path: data/cache/volume_1h_full.provenance.json, sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89}
-  spot_5m: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl, sha256: d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f}
-  spot_5m_meta: {path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.meta.json, sha256: e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e}
-  spot_5m_window: {bars: 26208, assets: 11, start: 2026-08-01, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false}
-  campaign290_ohlcv: {path: data/cache/campaign290_ohlcv.pkl, sha256: 6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e}
-  campaign290_meta: {path: data/cache/campaign290_ohlcv.meta.json, sha256: 5c9ff6c8473e460c30790e8854f2934af57ccdac7f3cba7e824ba04c1bcc0103}
-  campaign290_provenance: {path: data/cache/campaign290_ohlcv.provenance.json, sha256: 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193}
-  campaign290_window: {bars: 26208, assets: 26, start: 2026-08-01T00:00Z, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false, source_host: https://data-api.binance.vision, source_endpoint: /api/v3/klines, fields: [open, high, low, close, volume, quote_volume]}
-  campaign294_dvol: {path: data/cache/campaign294_deribit_dvol.pkl, sha256: 6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080}
-  campaign294_meta: {path: data/cache/campaign294_deribit_dvol.meta.json, sha256: 31baa147afb75a782e3a00d04d99340a28b46581b93ad02f50c64f0c3dd4e3f9}
-  campaign294_provenance: {path: data/cache/campaign294_deribit_dvol.provenance.json, sha256: dc21804a717f7571bda1f0f50df106b455a3150b7f1b7e67dc775e03c2a96ec8}
-  campaign294_window: {bars: 31928, assets: 2, start: 2023-03-24T14:00Z, end: 2026-11-13T21:00Z, nan_count: 0, real_data_only: true, fabricated_data: false, interval: 1h, iv_definition: deribit_dvol_index, source_host_deribit: https://www.deribit.com, source_host_binance: https://data-api.binance.vision}
-  campaign295_three_venue_spot: {path: data/cache/campaign295_three_venue_spot.pkl, sha256: 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7}
-  campaign295_meta: {path: data/cache/campaign295_three_venue_spot.meta.json, sha256: de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab}
-  campaign295_provenance: {path: data/cache/campaign295_three_venue_spot.provenance.json, sha256: 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d}
-  campaign295_window: {bars: 26208, assets: 9, symbols: [ADAUSDT, BTCUSDT, ETHUSDT, LTCUSDT, ONDOUSDT, SOLUSDT, XLMUSDT, XRPUSDT, ZECUSDT], start: 2026-08-01T00:00Z, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false, interval: 5m, venues: [binance, okx, coinbase]}
+  spot:
+    path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl
+    sha256: 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df
+  spot_meta:
+    path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.meta.json
+    sha256: 95baf25daae1656a8c6f074acdcd909250565ddda8e86920b00d85163646afd1
+  spot_window:
+    bars: 5427
+    assets: 11
+    start: 2026-04-01
+    end: 2026-11-13T02:00Z
+    nan_count: 0
+    real_data_only: true
+    fabricated_data: false
+  volume_pkl:
+    path: data/cache/volume_1h_full.pkl
+    sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c
+  volume_meta:
+    path: data/cache/volume_1h_full.meta.json
+    sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616
+  volume_provenance:
+    path: data/cache/volume_1h_full.provenance.json
+    sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89
+  spot_5m:
+    path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl
+    sha256: d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f
+  spot_5m_meta:
+    path: data/cache/90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.meta.json
+    sha256: e1a71f481cb4ad07881d132aba4ff7b47fc8194c69779701035efcf6e492ce4e
+  spot_5m_window:
+    bars: 26208
+    assets: 11
+    start: 2026-08-01
+    end: 2026-10-30T23:55Z
+    nan_count: 0
+    real_data_only: true
+    fabricated_data: false
+  campaign290_ohlcv:
+    path: data/cache/campaign290_ohlcv.pkl
+    sha256: 6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e
+  campaign290_meta:
+    path: data/cache/campaign290_ohlcv.meta.json
+    sha256: 5c9ff6c8473e460c30790e8854f2934af57ccdac7f3cba7e824ba04c1bcc0103
+  campaign290_provenance:
+    path: data/cache/campaign290_ohlcv.provenance.json
+    sha256: 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193
+  campaign290_window:
+    bars: 26208
+    assets: 26
+    start: 2026-08-01T00:00Z
+    end: 2026-10-30T23:55Z
+    nan_count: 0
+    real_data_only: true
+    fabricated_data: false
+    source_host: https://data-api.binance.vision
+    source_endpoint: /api/v3/klines
+    fields:
+    - open
+    - high
+    - low
+    - close
+    - volume
+    - quote_volume
+  campaign294_dvol:
+    path: data/cache/campaign294_deribit_dvol.pkl
+    sha256: 6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080
+  campaign294_meta:
+    path: data/cache/campaign294_deribit_dvol.meta.json
+    sha256: 31baa147afb75a782e3a00d04d99340a28b46581b93ad02f50c64f0c3dd4e3f9
+  campaign294_provenance:
+    path: data/cache/campaign294_deribit_dvol.provenance.json
+    sha256: dc21804a717f7571bda1f0f50df106b455a3150b7f1b7e67dc775e03c2a96ec8
+  campaign294_window:
+    bars: 31928
+    assets: 2
+    start: 2023-03-24T14:00Z
+    end: 2026-11-13T21:00Z
+    nan_count: 0
+    real_data_only: true
+    fabricated_data: false
+    interval: 1h
+    iv_definition: deribit_dvol_index
+    source_host_deribit: https://www.deribit.com
+    source_host_binance: https://data-api.binance.vision
+  campaign295_three_venue_spot:
+    path: data/cache/campaign295_three_venue_spot.pkl
+    sha256: 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7
+  campaign295_meta:
+    path: data/cache/campaign295_three_venue_spot.meta.json
+    sha256: de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab
+  campaign295_provenance:
+    path: data/cache/campaign295_three_venue_spot.provenance.json
+    sha256: 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d
+  campaign295_window:
+    bars: 26208
+    assets: 9
+    symbols:
+    - ADAUSDT
+    - BTCUSDT
+    - ETHUSDT
+    - LTCUSDT
+    - ONDOUSDT
+    - SOLUSDT
+    - XLMUSDT
+    - XRPUSDT
+    - ZECUSDT
+    start: 2026-08-01T00:00Z
+    end: 2026-10-30T23:55Z
+    nan_count: 0
+    real_data_only: true
+    fabricated_data: false
+    interval: 5m
+    venues:
+    - binance
+    - okx
+    - coinbase
 latest_campaign_done: C296
-next_campaign: PROGRAM_CLOSURE_INTEGRITY_AUDIT_AND_C287_EXTERNAL_UNBLOCK_STATUS (no reachable economic campaign; space closed; C287 external-only)
-c295_status: {state: COMPLETE_NOT_TRADABLE, as_of_utc: 20261113T215725Z, verdict: NOT_TRADABLE, n_total_runs: 162, n_with_exposure: 108, n_edge_proven: 0, n_assets: 9, binding_constraint: cost_sensitivity, n_cost0_gross_positive: 92, artifacts: [reports/campaign295_oos_sweep_20261113T215725Z.json, reports/campaign295_tradable_edge_registry_20261113T215725Z.json, reports/campaign295_summary_20261113T215725Z.json, reports/campaign295_verdict_20261113T215725Z.json, reports/campaign295_binding_constraint_20261113T215725Z.json]}
-c296_status: {state: COMPLETE_DATA_BLOCKED_CLOSED, as_of_utc: 20261113T224349Z, verdict: DATA_BLOCKED, edge_proven: false, edge_claim: NONE, family: options_term_structure_skew, family_verdict: data_blocked, reachable_cross_sectional_stat_arb_space: closed, n_probes: recorded_in_probe_artifact, n_edge_proven: 0, artifacts: [reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json, reports/campaign296_oos_sweep_20261113T224349Z.json, reports/campaign296_tradable_edge_registry_20261113T224349Z.json, reports/campaign296_summary_20261113T224349Z.json, reports/campaign296_verdict_20261113T224349Z.json], probe_artifact_sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b, oos_sweep_sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d, registry_sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356, summary_sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af, verdict_sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8}
+next_campaign: PROGRAM_CLOSURE_INTEGRITY_AUDIT_AND_C287_EXTERNAL_UNBLOCK_STATUS (no
+  reachable economic campaign; space closed; C287 external-only)
+c295_status:
+  state: COMPLETE_NOT_TRADABLE
+  as_of_utc: 20261113T215725Z
+  verdict: NOT_TRADABLE
+  n_total_runs: 162
+  n_with_exposure: 108
+  n_edge_proven: 0
+  n_assets: 9
+  binding_constraint: cost_sensitivity
+  n_cost0_gross_positive: 92
+  artifacts:
+  - reports/campaign295_oos_sweep_20261113T215725Z.json
+  - reports/campaign295_tradable_edge_registry_20261113T215725Z.json
+  - reports/campaign295_summary_20261113T215725Z.json
+  - reports/campaign295_verdict_20261113T215725Z.json
+  - reports/campaign295_binding_constraint_20261113T215725Z.json
+c296_status:
+  state: COMPLETE_DATA_BLOCKED_CLOSED
+  as_of_utc: 20261113T224349Z
+  verdict: DATA_BLOCKED
+  edge_proven: false
+  edge_claim: NONE
+  family: options_term_structure_skew
+  family_verdict: data_blocked
+  reachable_cross_sectional_stat_arb_space: closed
+  n_probes: recorded_in_probe_artifact
+  n_edge_proven: 0
+  artifacts:
+  - reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json
+  - reports/campaign296_oos_sweep_20261113T224349Z.json
+  - reports/campaign296_tradable_edge_registry_20261113T224349Z.json
+  - reports/campaign296_summary_20261113T224349Z.json
+  - reports/campaign296_verdict_20261113T224349Z.json
+  probe_artifact_sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b
+  oos_sweep_sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d
+  registry_sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356
+  summary_sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af
+  verdict_sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8
 locked_campaigns: C104-C296
 oos_edge_proven: false
 c291_data_source:
@@ -61,21 +294,48 @@ c291_data_source:
   archive_host: https://data.binance.vision
   kline_endpoint: /data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip
   funding_endpoint: /data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip
-  months: [2026-08, 2026-09, 2026-10]
+  months:
+  - 2026-08
+  - 2026-09
+  - 2026-10
   symbols_total: 26
   symbols_fully_reachable: 24
-  symbols_missing: [PEPEUSDT, UUSDT]
-  kline_columns: [open_time, open, high, low, close, volume, close_time, quote_volume, count, taker_buy_volume, taker_buy_quote_volume, ignore]
-  funding_columns: [calc_time, funding_interval_hours, last_funding_rate]
+  symbols_missing:
+  - PEPEUSDT
+  - UUSDT
+  kline_columns:
+  - open_time
+  - open
+  - high
+  - low
+  - close
+  - volume
+  - close_time
+  - quote_volume
+  - count
+  - taker_buy_volume
+  - taker_buy_quote_volume
+  - ignore
+  funding_columns:
+  - calc_time
+  - funding_interval_hours
+  - last_funding_rate
   funding_interval_hours: 8
   real_data_only: true
   fabricated_data: false
-  blocked_routes: {fapi.binance.com: 451, testnet.binance.vision: 451, api.binance.com: 451}
-  fallback_venues_ok: {okx: 200, coinbase: 200, kraken: 200}
+  blocked_routes:
+    fapi.binance.com: 451
+    testnet.binance.vision: 451
+    api.binance.com: 451
+  fallback_venues_ok:
+    okx: 200
+    coinbase: 200
+    kraken: 200
 latest_registry:
   path: reports/campaign295_tradable_edge_registry_20261113T215725Z.json
   sha256: e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a
-  note: C295 registry with zero tradable edge (three-venue Binance+OKX+Coinbase 5m spot basis/dispersion/lead-lag, 9 assets)
+  note: C295 registry with zero tradable edge (three-venue Binance+OKX+Coinbase 5m
+    spot basis/dispersion/lead-lag, 9 assets)
 campaign_registry_latest:
   campaign: C295
   path: reports/campaign295_tradable_edge_registry_20261113T215725Z.json
@@ -95,7 +355,10 @@ latest_oos:
   n_edge_proven: 0
   binding_constraint: cost_sensitivity
   n_assets: 9
-  venues: [binance, okx, coinbase]
+  venues:
+  - binance
+  - okx
+  - coinbase
 latest_campaigns:
   c281b:
     path: reports/campaign281_oos_sweep_20261113T034058Z.json
@@ -184,12 +447,24 @@ campaign284:
   script_executed: true
   pre_registered_grid:
     pairs: 17
-    kalman_q: [1.0e-6, 1.0e-4]
-    kalman_r: [1.0e-4, 1.0e-2]
-    z_lookbacks: [240, 480]
-    entries: [2.0, 2.5]
-    exits: [0.5, 1.0]
-    min_holding_bars: [1, 6]
+    kalman_q:
+    - 1.0e-06
+    - 0.0001
+    kalman_r:
+    - 0.0001
+    - 0.01
+    z_lookbacks:
+    - 240
+    - 480
+    entries:
+    - 2.0
+    - 2.5
+    exits:
+    - 0.5
+    - 1.0
+    min_holding_bars:
+    - 1
+    - 6
     total_runs: 1088
   gates: fail_closed_causal_eg_adf_kpss_half_life_rolling_stability_structural_break
   result:
@@ -201,10 +476,10 @@ campaign284:
     binding_constraint: zero_exposure
     zero_exposure_rate: 1.0
   required_artifacts:
-    - reports/campaign284_oos_sweep_20261113T061220Z.json
-    - reports/campaign284_tradable_edge_registry_20261113T061220Z.json
-    - reports/campaign284_summary_20261113T061220Z.json
-    - reports/campaign284_verdict_20261113T061220Z.json
+  - reports/campaign284_oos_sweep_20261113T061220Z.json
+  - reports/campaign284_tradable_edge_registry_20261113T061220Z.json
+  - reports/campaign284_summary_20261113T061220Z.json
+  - reports/campaign284_verdict_20261113T061220Z.json
   binding_constraint_artifact: reports/campaign284_binding_constraint_20261113T061220Z.json
   artifact_sha256:
     oos_sweep: d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26
@@ -225,22 +500,64 @@ campaign285:
   volume_sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c
   volume_meta_sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616
   volume_provenance_sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89
-  universe: [ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP]
+  universe:
+  - ADA
+  - AVAX
+  - BNB
+  - BTC
+  - DOT
+  - ETH
+  - LINK
+  - LTC
+  - POL
+  - SOL
+  - XRP
   overlap_bars: 5112
-  overlap_window: {start: 2026-04-01T00:00:00Z, end: 2026-10-30T23:00:00Z}
-  signal_features: [z_logqv, qv_ratio, qv_vol]
-  lookbacks_1h: [168, 336, 720]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_1h: [1, 6, 24]
+  overlap_window:
+    start: 2026-04-01 00:00:00+00:00
+    end: 2026-10-30 23:00:00+00:00
+  signal_features:
+  - z_logqv
+  - qv_ratio
+  - qv_vol
+  lookbacks_1h:
+  - 168
+  - 336
+  - 720
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_1h:
+  - 1
+  - 6
+  - 24
   pre_registered_grid:
     features: 3
     lookbacks: 3
     K: 3
     holds: 3
     total_runs: 81
-  wf: {train: 720, test: 168, step: 168, n_splits: 26}
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  gates: "fail_closed: all 11 quote-volume observations finite/positive; selected signal finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite price in selected legs; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 26
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  gates: 'fail_closed: all 11 quote-volume observations finite/positive; selected
+    signal finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite
+    price in selected legs; no missing/None/false treated as permissive; block and
+    record reason if diagnostics fail.'
   result:
     verdict: NOT_TRADABLE
     edge_proven: false
@@ -251,10 +568,10 @@ campaign285:
     binding_constraint: cost_sensitivity
     zero_exposure_rate: 0.0
   required_artifacts:
-    - reports/campaign285_oos_sweep_20261113T065205Z.json
-    - reports/campaign285_tradable_edge_registry_20261113T065205Z.json
-    - reports/campaign285_summary_20261113T065205Z.json
-    - reports/campaign285_verdict_20261113T065205Z.json
+  - reports/campaign285_oos_sweep_20261113T065205Z.json
+  - reports/campaign285_tradable_edge_registry_20261113T065205Z.json
+  - reports/campaign285_summary_20261113T065205Z.json
+  - reports/campaign285_verdict_20261113T065205Z.json
   binding_constraint_artifact: reports/campaign285_binding_constraint_20261113T065205Z.json
   artifact_sha256:
     oos_sweep: 2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc
@@ -276,24 +593,67 @@ campaign286:
   volume_sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c
   volume_meta_sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616
   volume_provenance_sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89
-  universe: [ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP]
+  universe:
+  - ADA
+  - AVAX
+  - BNB
+  - BTC
+  - DOT
+  - ETH
+  - LINK
+  - LTC
+  - POL
+  - SOL
+  - XRP
   bars: 26208
   interval: 5m
-  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
-  signal_features: [z_logqv, qv_ratio, qv_vol]
-  lookbacks_1h: [168, 336, 720]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_5m: [1, 6, 24]
+  window:
+    start: 2026-08-01 00:00:00+00:00
+    end: 2026-10-30 23:55:00+00:00
+  signal_features:
+  - z_logqv
+  - qv_ratio
+  - qv_vol
+  lookbacks_1h:
+  - 168
+  - 336
+  - 720
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_5m:
+  - 1
+  - 6
+  - 24
   pre_registered_grid:
     features: 3
     lookbacks: 3
     K: 3
     holds: 3
     total_runs: 81
-  wf: {train: 720, test: 168, step: 168, n_splits: 151}
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  alignment: "1h volume at bar t usable only at 5m bars >= t+1h; signal uses data through t-1; weights.shift(1).fillna(0.0)."
-  gates: "fail_closed: causally aligned 1h quote-volume observations for all 11 assets finite/positive; selected signal finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite 5m price in selected legs; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 151
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  alignment: 1h volume at bar t usable only at 5m bars >= t+1h; signal uses data through
+    t-1; weights.shift(1).fillna(0.0).
+  gates: 'fail_closed: causally aligned 1h quote-volume observations for all 11 assets
+    finite/positive; selected signal finite for >=2K assets; cross-sectional dispersion>0;
+    no NaN/non-finite 5m price in selected legs; no missing/None/false treated as
+    permissive; block and record reason if diagnostics fail.'
   result:
     verdict: NOT_TRADABLE
     edge_proven: false
@@ -304,10 +664,10 @@ campaign286:
     binding_constraint: cost_sensitivity
     zero_exposure_rate: 0.0
   required_artifacts:
-    - reports/campaign286_oos_sweep_20261113T072725Z.json
-    - reports/campaign286_tradable_edge_registry_20261113T072725Z.json
-    - reports/campaign286_summary_20261113T072725Z.json
-    - reports/campaign286_verdict_20261113T072725Z.json
+  - reports/campaign286_oos_sweep_20261113T072725Z.json
+  - reports/campaign286_tradable_edge_registry_20261113T072725Z.json
+  - reports/campaign286_summary_20261113T072725Z.json
+  - reports/campaign286_verdict_20261113T072725Z.json
   binding_constraint_artifact: reports/campaign286_binding_constraint_20261113T072725Z.json
   artifact_sha256:
     oos_sweep: c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca
@@ -316,40 +676,65 @@ campaign286:
     verdict: 338e4b5dec412bcef32b0b37fd88865543ced68cfe0e94749247ce4bad7fb9fe
     binding_constraint: b0d7f0d9e9ac67efd501fe9ae814273ad036eaa9f2534711475003f528ddcf12
   completion_gate:
-    - preflight_c286_exits_zero_ready_true: satisfied
-    - run_c286_5m_volume_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
-    - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
-    - binding_constraint_artifact_if_not_tradable: satisfied
-    - state_and_handoff_updated_with_paths_and_sha256: satisfied
-    - python_m_pytest_tests_q_still_passes: satisfied
+  - preflight_c286_exits_zero_ready_true: satisfied
+  - run_c286_5m_volume_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
+  - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
+  - binding_constraint_artifact_if_not_tradable: satisfied
+  - state_and_handoff_updated_with_paths_and_sha256: satisfied
+  - python_m_pytest_tests_q_still_passes: satisfied
 campaign287:
   hypothesis: OPERATIONAL_HARDENING_TESTNET_GATEWAY_KILL_SWITCH
   status: blocked
   blocker: true
   blockers:
-    - missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET
-    - rest_unreachable:rest_ping
-    - rest_unreachable:rest_time
-    - rest_unreachable:rest_exchange_info
-  preflight_timestamp_utc: 2026-11-13T09:32:11Z
+  - missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET
+  - rest_unreachable:rest_ping
+  - rest_unreachable:rest_time
+  - rest_unreachable:rest_exchange_info
+  preflight_timestamp_utc: 2026-11-13 09:32:11+00:00
   preflight_ready: false
   preflight_exit_code: 2
   preflight_evidence:
-    env_credentials: {BINANCE_TESTNET_API_KEY_present: false, BINANCE_TESTNET_API_SECRET_present: false}
+    env_credentials:
+      BINANCE_TESTNET_API_KEY_present: false
+      BINANCE_TESTNET_API_SECRET_present: false
     rest_probes:
-      - {host: testnet.binance.vision, path: /api/v3/ping, status: 451, server: CloudFront, msg: "Service unavailable from a restricted location"}
-      - {host: testnet.binance.vision, path: /api/v3/time, status: 451}
-      - {host: testnet.binance.vision, path: /api/v3/exchangeInfo, status: 451}
-      - {host: testnetapi.binance.vision, error: DNS NXDOMAIN}
-      - {host: api.testnet.binance.vision, error: DNS NXDOMAIN}
-      - {host: data-api.testnet.binance.vision, error: DNS NXDOMAIN}
+    - host: testnet.binance.vision
+      path: /api/v3/ping
+      status: 451
+      server: CloudFront
+      msg: Service unavailable from a restricted location
+    - host: testnet.binance.vision
+      path: /api/v3/time
+      status: 451
+    - host: testnet.binance.vision
+      path: /api/v3/exchangeInfo
+      status: 451
+    - host: testnetapi.binance.vision
+      error: DNS NXDOMAIN
+    - host: api.testnet.binance.vision
+      error: DNS NXDOMAIN
+    - host: data-api.testnet.binance.vision
+      error: DNS NXDOMAIN
     mainnet_reachable_but_forbidden:
       host: data-api.binance.vision
       status: 200
-      note: "MAINNET REST (3742 symbols incl BTCUSDT, 775 USDT pairs). Forbidden for C287: spec requires Binance Spot Testnet only. Using mainnet with testnet keys is a spec violation and would execute on real funds."
-      www_binance_com: {status: 200, note: "mainnet web, also forbidden"}
-    ws_probe: {host: stream.testnet.binance.vision, port: 9443, connected: true, tls: TLSv1.3, latency_ms: 346.33}
-    conclusion: "testnet REST is a geographic CDN block (CloudFront HTTP 451) from this egress IP; WS TCP/TLS is reachable but WS alone cannot serve REST order placement, klines, or exchangeInfo. No testnet credentials in env. Unresolvable in this execution environment."
+      note: 'MAINNET REST (3742 symbols incl BTCUSDT, 775 USDT pairs). Forbidden for
+        C287: spec requires Binance Spot Testnet only. Using mainnet with testnet
+        keys is a spec violation and would execute on real funds.'
+      www_binance_com:
+        status: 200
+        note: mainnet web, also forbidden
+    ws_probe:
+      host: stream.testnet.binance.vision
+      port: 9443
+      connected: true
+      tls: TLSv1.3
+      latency_ms: 346.33
+    conclusion: testnet REST is a geographic CDN block (CloudFront HTTP 451) from
+      this egress IP; WS TCP/TLS is reachable but WS alone cannot serve REST order
+      placement, klines, or exchangeInfo. No testnet credentials in env. Unresolvable
+      in this execution environment.
   script_required: scripts/run_c287_testnet_gateway.py
   script_executed: true
   script_runnable_with_blocker_artifacts: true
@@ -366,48 +751,59 @@ campaign287:
     generated_deterministically_from_verified_caches: true
     real_data_only: true
     fabricated_data: false
-  gateway_spec: "Binance Spot Testnet REST+WS only; 11 assets; 5m bars; C285/C286 causal 1h-volume-aligned signals; 5m cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]; fail-closed gates + independent kill-switch watchdog + append-only hash-chained audit JSONL + zero-drift backtest replay tolerance 1e-9."
-  run_duration_min: {hours: 72, rebalance_cycles: 500}
+  gateway_spec: Binance Spot Testnet REST+WS only; 11 assets; 5m bars; C285/C286 causal
+    1h-volume-aligned signals; 5m cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]];
+    fail-closed gates + independent kill-switch watchdog + append-only hash-chained
+    audit JSONL + zero-drift backtest replay tolerance 1e-9.
+  run_duration_min:
+    hours: 72
+    rebalance_cycles: 500
   pre_registered_grid:
     features: 3
     lookbacks: 3
     K: 3
     holds: 3
     total_runs: 81
-    per_window: "ONE variant per 72h window, pre-committed"
-  gates: "fail_closed: REST+WS healthy (<500ms p95), 5m klines all 11 finite/positive/no gaps>1, causal 1h qv all finite/positive, selected signal finite for >=2K, dispersion>0, no NaN/non-finite 5m price in selected legs, kill-switch watchdog alive (heartbeat<5s), no missing/None/false permissive."
+    per_window: ONE variant per 72h window, pre-committed
+  gates: 'fail_closed: REST+WS healthy (<500ms p95), 5m klines all 11 finite/positive/no
+    gaps>1, causal 1h qv all finite/positive, selected signal finite for >=2K, dispersion>0,
+    no NaN/non-finite 5m price in selected legs, kill-switch watchdog alive (heartbeat<5s),
+    no missing/None/false permissive.'
   required_artifacts:
-    - path: reports/campaign287_gateway_spec_20261113T092833Z.json
-      sha256: a7ceeba9280183d6a9a2d96451f033ddeeb99b69051443dfaa5d6e81c7223c25
-      type: gateway_spec
-      mode: BLOCKED
-    - path: reports/campaign287_live_run_20261113T092833Z.json
-      sha256: 3596a15cf226f1fd8f6abd710f5ecf8a4a38fc93a82fdbf421a61bbb15e8b234
-      type: live_run
-      mode: BLOCKED_NO_LIVE_EXECUTION
-    - path: reports/campaign287_drift_report_20261113T092833Z.json
-      sha256: d8a2ec515f36235d8aa121e66a739e671abf42a6adcaae237641f08b9710cf0c
-      type: drift_report
-      mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_kill_switch_test_20261113T092833Z.json
-      sha256: 88be9bd4ae06d3f86f04f324bf54f01923ed9d7666dd85caf79225e3936f58f2
-      type: kill_switch_test
-      mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_summary_20261113T092833Z.json
-      sha256: 2635b45e50e2544671388271ef15f898884a9a38a1a0b3aa5f10a783c3a07c20
-      type: summary
-      mode: BLOCKED
+  - path: reports/campaign287_gateway_spec_20261113T092833Z.json
+    sha256: a7ceeba9280183d6a9a2d96451f033ddeeb99b69051443dfaa5d6e81c7223c25
+    type: gateway_spec
+    mode: BLOCKED
+  - path: reports/campaign287_live_run_20261113T092833Z.json
+    sha256: 3596a15cf226f1fd8f6abd710f5ecf8a4a38fc93a82fdbf421a61bbb15e8b234
+    type: live_run
+    mode: BLOCKED_NO_LIVE_EXECUTION
+  - path: reports/campaign287_drift_report_20261113T092833Z.json
+    sha256: d8a2ec515f36235d8aa121e66a739e671abf42a6adcaae237641f08b9710cf0c
+    type: drift_report
+    mode: INAPPLICABLE_BLOCKED
+  - path: reports/campaign287_kill_switch_test_20261113T092833Z.json
+    sha256: 88be9bd4ae06d3f86f04f324bf54f01923ed9d7666dd85caf79225e3936f58f2
+    type: kill_switch_test
+    mode: INAPPLICABLE_BLOCKED
+  - path: reports/campaign287_summary_20261113T092833Z.json
+    sha256: 2635b45e50e2544671388271ef15f898884a9a38a1a0b3aa5f10a783c3a07c20
+    type: summary
+    mode: BLOCKED
   completion_gate:
-    - preflight_c287_executed_and_captured: satisfied
-    - run_c287_testnet_gateway_runnable_with_blocker_artifacts: satisfied
-    - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
-    - drift_free_true_if_run_or_explicit_blocked_inapplicable: satisfied
-    - kill_switch_all_thresholds_tested_and_passed_or_explicit_blocked: satisfied
-    - state_and_handoff_updated_with_paths_and_sha256: satisfied
-    - python_m_pytest_tests_q_still_passes: satisfied
-  anti_avoidance: "No status-only/planning-only turn. If ready:false must still produce full BLOCKED artifacts (all five, SHA256-from-bytes, no fabricated fills), runnable gateway, tests, and state+AGENTS update. Smoke-only run does not count as completion. Signal artifact generated this session from verified caches (parquet/pickle). Clear remaining blockers (credentials, REST reachability from allowed network) then execute --run for >=72h/>=500 cycles with drift_free true."
-
-
+  - preflight_c287_executed_and_captured: satisfied
+  - run_c287_testnet_gateway_runnable_with_blocker_artifacts: satisfied
+  - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
+  - drift_free_true_if_run_or_explicit_blocked_inapplicable: satisfied
+  - kill_switch_all_thresholds_tested_and_passed_or_explicit_blocked: satisfied
+  - state_and_handoff_updated_with_paths_and_sha256: satisfied
+  - python_m_pytest_tests_q_still_passes: satisfied
+  anti_avoidance: No status-only/planning-only turn. If ready:false must still produce
+    full BLOCKED artifacts (all five, SHA256-from-bytes, no fabricated fills), runnable
+    gateway, tests, and state+AGENTS update. Smoke-only run does not count as completion.
+    Signal artifact generated this session from verified caches (parquet/pickle).
+    Clear remaining blockers (credentials, REST reachability from allowed network)
+    then execute --run for >=72h/>=500 cycles with drift_free true.
 campaign291:
   hypothesis: REAL_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_CROSS_SECTIONAL_STAT_ARB
   status: completed_not_tradable
@@ -420,34 +816,76 @@ campaign291:
   probe: scripts/probe_c291_derivatives_archives.py
   probe_artifact: reports/campaign291_derivatives_reachability_20261113T105429Z.json
   probe_artifact_sha256: 9c5231148bcf895f95b611f5cf1a76648df8742e453655a123785647f7ec36c4
-  data_source: data.binance.vision public futures archives (USDT-M 5m klines + native 8h/4h fundingRate), verified HTTP 200
+  data_source: data.binance.vision public futures archives (USDT-M 5m klines + native
+    8h/4h fundingRate), verified HTTP 200
   perp_cache: data/cache/campaign291_perp_5m.pkl
   perp_cache_sha256: fb28f147f11dfcbcc00d5a0685c973197fb019757db885583bd06aa70a1a2487
   perp_meta_sha256: 3abe2da3d14bf34d774c44192d1291a503fc7529b5daf0faa73ca242f7f0339f
   perp_provenance_sha256: 6b63d012bb18968eaa59a04e47b35359ac648a4f01cbef3bf87d0b78ee5385b8
   real_data_only: true
   fabricated_data: false
-  universe: 24 perps (C290 spot symbols minus PEPEUSDT/UUSDT 404); 5 of 24 use native 4h funding (PUMP/TAO/TRUMP/ONDO/GRAM)
-  spot_basis_leg: data/cache/campaign290_ohlcv.pkl (verified real C290 spot 5m cache; reused only as the spot leg, never relabeled)
+  universe: 24 perps (C290 spot symbols minus PEPEUSDT/UUSDT 404); 5 of 24 use native
+    4h funding (PUMP/TAO/TRUMP/ONDO/GRAM)
+  spot_basis_leg: data/cache/campaign290_ohlcv.pkl (verified real C290 spot 5m cache;
+    reused only as the spot leg, never relabeled)
   bars: 26208
   interval: 5m
-  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
-  signal_features: [funding_level, funding_z, basis_ma, basis_z, perp_mom, perp_lowvol]
-  lookbacks_5m: [288, 1008, 2016]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_5m: [1, 6, 24]
+  window:
+    start: 2026-08-01 00:00:00+00:00
+    end: 2026-10-30 23:55:00+00:00
+  signal_features:
+  - funding_level
+  - funding_z
+  - basis_ma
+  - basis_z
+  - perp_mom
+  - perp_lowvol
+  lookbacks_5m:
+  - 288
+  - 1008
+  - 2016
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_5m:
+  - 1
+  - 6
+  - 24
   pre_registered_grid:
     features: 6
     lookbacks: 3
     K: 3
     holds: 3
     total_runs: 162
-  wf: {train: 720, test: 168, step: 168, n_splits: 151}
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  funding_cashflow: "funding_pnl = -funding_rate * signed_weight at each native funding boundary (8h/4h), causal (rate known at/before boundary); long pays when rate>0, short receives"
-  benchmark: "equal-weight 24-perp buy-and-hold with the same real funding cashflows on the same WF windows"
-  edge_rule: "identical to C285/C286/C288/C290: OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split equal-weight B&H OOS net mean on same WF windows"
-  gates: "fail_closed: selected feature score finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite perp or spot price in selected legs; funding staleness <= 24h+1 bar; basis finite where used; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 151
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  funding_cashflow: funding_pnl = -funding_rate * signed_weight at each native funding
+    boundary (8h/4h), causal (rate known at/before boundary); long pays when rate>0,
+    short receives
+  benchmark: equal-weight 24-perp buy-and-hold with the same real funding cashflows
+    on the same WF windows
+  edge_rule: 'identical to C285/C286/C288/C290: OOS exposure>0 AND every cost slice
+    net sum>0 AND mean per-split OOS net mean > mean per-split equal-weight B&H OOS
+    net mean on same WF windows'
+  gates: 'fail_closed: selected feature score finite for >=2K assets; cross-sectional
+    dispersion>0; no NaN/non-finite perp or spot price in selected legs; funding staleness
+    <= 24h+1 bar; basis finite where used; no missing/None/false treated as permissive;
+    block and record reason if diagnostics fail.'
   result:
     verdict: NOT_TRADABLE
     edge_proven: false
@@ -460,12 +898,13 @@ campaign291:
     mean_gate_pass_share: 0.98808
     funding_rows_total: 7917
     gross_edge_at_zero_cost_runs_positive: 77
-    note: "gross PnL exists at 0bps (max +0.3248, 77/162 positive) but every run is <=0 at >=5bps; formal negative result, cost_sensitivity binding."
+    note: gross PnL exists at 0bps (max +0.3248, 77/162 positive) but every run is
+      <=0 at >=5bps; formal negative result, cost_sensitivity binding.
   required_artifacts:
-    - reports/campaign291_oos_sweep_20261113T113705Z.json
-    - reports/campaign291_tradable_edge_registry_20261113T113705Z.json
-    - reports/campaign291_summary_20261113T113705Z.json
-    - reports/campaign291_verdict_20261113T113705Z.json
+  - reports/campaign291_oos_sweep_20261113T113705Z.json
+  - reports/campaign291_tradable_edge_registry_20261113T113705Z.json
+  - reports/campaign291_summary_20261113T113705Z.json
+  - reports/campaign291_verdict_20261113T113705Z.json
   binding_constraint_artifact: reports/campaign291_binding_constraint_20261113T113705Z.json
   artifact_sha256:
     oos_sweep: 5986229bbfe988e26a2b6cf21997b11ebec1b872ae581e5d5a55870ef61dd02e
@@ -474,15 +913,15 @@ campaign291:
     verdict: 5a55a81b280112d407df76757cf33c08ee46a3b895f83a045e5c4e5307cef244
     binding_constraint: 6c17380122c65e0cccac37b990f265cbeb65f1c2056886b7fda5098614ab29ef
   completion_gate:
-    - ingest_c291_perp_funding_executed_and_cache_sha256_verified: satisfied
-    - preflight_c291_exits_zero_ready_true: satisfied
-    - run_c291_perp_funding_basis_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
-    - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
-    - binding_constraint_artifact_if_not_tradable: satisfied
-    - tests_added_and_pytest_green: satisfied
-    - state_and_handoff_updated_with_paths_and_sha256: satisfied
-  escalation_if_closed: C292 cross-venue real-spot basis/stat-arb (OKX/Coinbase 5m deep; Kraken 5m ~12h only)
-
+  - ingest_c291_perp_funding_executed_and_cache_sha256_verified: satisfied
+  - preflight_c291_exits_zero_ready_true: satisfied
+  - run_c291_perp_funding_basis_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
+  - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
+  - binding_constraint_artifact_if_not_tradable: satisfied
+  - tests_added_and_pytest_green: satisfied
+  - state_and_handoff_updated_with_paths_and_sha256: satisfied
+  escalation_if_closed: C292 cross-venue real-spot basis/stat-arb (OKX/Coinbase 5m
+    deep; Kraken 5m ~12h only)
 campaign292:
   hypothesis: CROSS_VENUE_REAL_SPOT_BASIS_AND_LEAD_LAG_STAT_ARB
   status: completed_not_tradable
@@ -492,8 +931,12 @@ campaign292:
   n_edge_proven: 0
   n_assets: 25
   binding_constraint: cost_sensitivity
-  artifacts: [reports/campaign292_oos_sweep_20261113T164603Z.json, reports/campaign292_tradable_edge_registry_20261113T164603Z.json, reports/campaign292_summary_20261113T164603Z.json, reports/campaign292_verdict_20261113T164603Z.json, reports/campaign292_binding_constraint_20261113T164603Z.json]
-
+  artifacts:
+  - reports/campaign292_oos_sweep_20261113T164603Z.json
+  - reports/campaign292_tradable_edge_registry_20261113T164603Z.json
+  - reports/campaign292_summary_20261113T164603Z.json
+  - reports/campaign292_verdict_20261113T164603Z.json
+  - reports/campaign292_binding_constraint_20261113T164603Z.json
 campaign293:
   hypothesis: CROSS_VENUE_PERP_FUNDING_CARRY_OKX_VS_BINANCE
   status: completed_not_tradable
@@ -502,31 +945,69 @@ campaign293:
   n_with_exposure: 72
   n_edge_proven: 0
   binding_constraint: cost_sensitivity
-  artifacts: [reports/campaign293_oos_sweep_20261113T192048Z.json, reports/campaign293_tradable_edge_registry_20261113T192048Z.json, reports/campaign293_summary_20261113T192048Z.json, reports/campaign293_verdict_20261113T192048Z.json, reports/campaign293_binding_constraint_20261113T192048Z.json]
+  artifacts:
+  - reports/campaign293_oos_sweep_20261113T192048Z.json
+  - reports/campaign293_tradable_edge_registry_20261113T192048Z.json
+  - reports/campaign293_summary_20261113T192048Z.json
+  - reports/campaign293_verdict_20261113T192048Z.json
+  - reports/campaign293_binding_constraint_20261113T192048Z.json
   script_required: scripts/run_c293_crossvenue_funding_xsec_oos.py
   ingest_required: scripts/ingest_c293_crossvenue_funding.py
   preflight_required: scripts/preflight_c293.py
-  data_source: "OKX public funding-rate-history (paginated, HTTP 200, browser UA, ~95d depth to ~2026-08-10) + Binance USDT-M funding from C291 cache (data/cache/campaign291_perp_5m.pkl)"
-  window: {start: ~2026-08-10T00:00:00Z, end: 2026-10-30T23:55:00Z}
+  data_source: OKX public funding-rate-history (paginated, HTTP 200, browser UA, ~95d
+    depth to ~2026-08-10) + Binance USDT-M funding from C291 cache (data/cache/campaign291_perp_5m.pkl)
+  window:
+    start: ~2026-08-10T00:00:00Z
+    end: 2026-10-30 23:55:00+00:00
   interval: native_funding_boundaries_ffill_to_5m
-  signal_features: [xfr_spread_ma, xfr_spread_z, xfr_leadlag]
-  lookbacks_funding_obs: [8, 24, 60]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_5m: [1, 6, 24]
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  wf: {train: 720, test: 168, step: 168}
-  pnl: "price spread (r_binance-r_okx) plus real funding cashflows on both legs; cost charged on BOTH legs"
-  benchmark: "equal-weight cross-venue funding-carry buy-and-hold of the same perps with the same two-leg costs on the same WF windows"
-  edge_rule: "identical to C285/C286/C288/C290/C291/C292 (never relaxed)"
-  gates: "fail-closed: per-venue per-perp funding finite/aligned/native-boundary coverage; score finite for >=2K assets; dispersion>0; no NaN in selected legs; no missing/None/false permissive"
+  signal_features:
+  - xfr_spread_ma
+  - xfr_spread_z
+  - xfr_leadlag
+  lookbacks_funding_obs:
+  - 8
+  - 24
+  - 60
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_5m:
+  - 1
+  - 6
+  - 24
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  wf:
+    train: 720
+    test: 168
+    step: 168
+  pnl: price spread (r_binance-r_okx) plus real funding cashflows on both legs; cost
+    charged on BOTH legs
+  benchmark: equal-weight cross-venue funding-carry buy-and-hold of the same perps
+    with the same two-leg costs on the same WF windows
+  edge_rule: identical to C285/C286/C288/C290/C291/C292 (never relaxed)
+  gates: 'fail-closed: per-venue per-perp funding finite/aligned/native-boundary coverage;
+    score finite for >=2K assets; dispersion>0; no NaN in selected legs; no missing/None/false
+    permissive'
   required_artifacts:
-    - reports/campaign293_oos_sweep_<ts>.json
-    - reports/campaign293_tradable_edge_registry_<ts>.json
-    - reports/campaign293_summary_<ts>.json
-    - reports/campaign293_verdict_<ts>.json
-    - reports/campaign293_binding_constraint_<ts>.json (if NOT_TRADABLE)
-  escalation_if_closed: "record binding-constraint and economic_space_closed for reachable real-data 5m spot+perp (single & cross-venue); definitive external-execution-only blocker (C287)"
-
+  - reports/campaign293_oos_sweep_<ts>.json
+  - reports/campaign293_tradable_edge_registry_<ts>.json
+  - reports/campaign293_summary_<ts>.json
+  - reports/campaign293_verdict_<ts>.json
+  - reports/campaign293_binding_constraint_<ts>.json (if NOT_TRADABLE)
+  escalation_if_closed: record binding-constraint and economic_space_closed for reachable
+    real-data 5m spot+perp (single & cross-venue); definitive external-execution-only
+    blocker (C287)
 campaign294:
   hypothesis: REAL_IMPLIED_VOL_DVOL_VRP_AND_BTC_ETH_RELATIVE_VALUE_XSEC_STAT_ARB
   status: completed_not_tradable
@@ -539,24 +1020,73 @@ campaign294:
   script_required: scripts/run_c294_deribit_dvol_vrp_xsec_oos.py
   ingest_required: scripts/ingest_c294_deribit_dvol.py
   preflight_required: scripts/preflight_c294.py
-  tests: [tests/test_preflight_c294.py, tests/test_c294_deribit_dvol_vrp_xsec_oos.py]
-  data_source: "Deribit real implied vol DVOL index (30d constant-maturity IV, 1h, paginate ~1000 pts/req) + Binance BTC/ETH spot 1h (data-api.binance.vision/api/v3/klines) for realized vol; Deribit get_historical_volatility shallow cross-check only. Verified HTTP 200."
-  window: {start: 2023-03-24T14:00:00Z, end: 2026-11-13T21:00:00Z}
+  tests:
+  - tests/test_preflight_c294.py
+  - tests/test_c294_deribit_dvol_vrp_xsec_oos.py
+  data_source: Deribit real implied vol DVOL index (30d constant-maturity IV, 1h,
+    paginate ~1000 pts/req) + Binance BTC/ETH spot 1h (data-api.binance.vision/api/v3/klines)
+    for realized vol; Deribit get_historical_volatility shallow cross-check only.
+    Verified HTTP 200.
+  window:
+    start: 2023-03-24 14:00:00+00:00
+    end: 2026-11-13 21:00:00+00:00
   bars: 31928
   interval: 1h
   real_iv_definition: deribit_dvol_index
-  signal_features: [iv_rv_spread, iv_z, dvol_x_spread]
-  lookbacks_1h: [24, 168, 720]
+  signal_features:
+  - iv_rv_spread
+  - iv_z
+  - dvol_x_spread
+  lookbacks_1h:
+  - 24
+  - 168
+  - 720
   cross_sectional_K: 2
-  holding_periods_1h: [1, 6, 24]
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  wf: {train: 720, test: 168, step: 168, n_splits: 185}
-  result: {n_cost0_slice_net_positive: 15, n_all_cost_slices_net_positive: 0, n_beats_bh_all_slices: 0, n_vsp_beats_short_vol: 0, mean_gate_pass_share: 0.99665}
-  dataset: {pkl: data/cache/campaign294_deribit_dvol.pkl, pkl_sha256: 6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080, meta_sha256: 31baa147afb75a782e3a00d04d99340a28b46581b93ad02f50c64f0c3dd4e3f9, provenance_sha256: dc21804a717f7571bda1f0f50df106b455a3150b7f1b7e67dc775e03c2a96ec8}
-  artifacts: {oos_sweep: reports/campaign294_oos_sweep_20261113T210906Z.json, registry: reports/campaign294_tradable_edge_registry_20261113T210906Z.json, summary: reports/campaign294_summary_20261113T210906Z.json, verdict: reports/campaign294_verdict_20261113T210906Z.json, binding_constraint: reports/campaign294_binding_constraint_20261113T210906Z.json}
-  artifact_sha256: {oos_sweep: 9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537, registry: b3171c1198c433269e3492d5f8786f758c5879961300468412f56c499ba64fa4, summary: 5960389029f03587fc5b5c43c68e9a6f9ae50258da2cb894b7a42b056bbedabf, verdict: 0b66fdab4e2adaf81dcae1a4cb8f15fcb323d62076b45fd147969141a847af01, binding_constraint: f2806ae802987515ab4cb15352fc062f4b84632297a0cafcde8409e508d18300}
-  escalation_if_closed: "real-IV VRP family closed. Next C295 = three-venue real 5m spot xsec stat-arb (Binance + OKX + Coinbase, all HTTP 200)."
-
+  holding_periods_1h:
+  - 1
+  - 6
+  - 24
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 185
+  result:
+    n_cost0_slice_net_positive: 15
+    n_all_cost_slices_net_positive: 0
+    n_beats_bh_all_slices: 0
+    n_vsp_beats_short_vol: 0
+    mean_gate_pass_share: 0.99665
+  dataset:
+    pkl: data/cache/campaign294_deribit_dvol.pkl
+    pkl_sha256: 6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080
+    meta_sha256: 31baa147afb75a782e3a00d04d99340a28b46581b93ad02f50c64f0c3dd4e3f9
+    provenance_sha256: dc21804a717f7571bda1f0f50df106b455a3150b7f1b7e67dc775e03c2a96ec8
+  artifacts:
+    oos_sweep: reports/campaign294_oos_sweep_20261113T210906Z.json
+    registry: reports/campaign294_tradable_edge_registry_20261113T210906Z.json
+    summary: reports/campaign294_summary_20261113T210906Z.json
+    verdict: reports/campaign294_verdict_20261113T210906Z.json
+    binding_constraint: reports/campaign294_binding_constraint_20261113T210906Z.json
+  artifact_sha256:
+    oos_sweep: 9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537
+    registry: b3171c1198c433269e3492d5f8786f758c5879961300468412f56c499ba64fa4
+    summary: 5960389029f03587fc5b5c43c68e9a6f9ae50258da2cb894b7a42b056bbedabf
+    verdict: 0b66fdab4e2adaf81dcae1a4cb8f15fcb323d62076b45fd147969141a847af01
+    binding_constraint: f2806ae802987515ab4cb15352fc062f4b84632297a0cafcde8409e508d18300
+  escalation_if_closed: real-IV VRP family closed. Next C295 = three-venue real 5m
+    spot xsec stat-arb (Binance + OKX + Coinbase, all HTTP 200).
   c295:
     path: reports/campaign295_oos_sweep_20261113T215725Z.json
     sha256: fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc
@@ -568,12 +1098,21 @@ campaign294:
     binding_constraint: cost_sensitivity
     family: THREE_VENUE_REAL_SPOT_BASIS_AND_LEAD_LAG
     artifacts:
-      sweep: {path: reports/campaign295_oos_sweep_20261113T215725Z.json, sha256: fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc}
-      registry: {path: reports/campaign295_tradable_edge_registry_20261113T215725Z.json, sha256: e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a}
-      summary: {path: reports/campaign295_summary_20261113T215725Z.json, sha256: 036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893}
-      verdict: {path: reports/campaign295_verdict_20261113T215725Z.json, sha256: 02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3}
-      binding_constraint: {path: reports/campaign295_binding_constraint_20261113T215725Z.json, sha256: 0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab}
-
+      sweep:
+        path: reports/campaign295_oos_sweep_20261113T215725Z.json
+        sha256: fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc
+      registry:
+        path: reports/campaign295_tradable_edge_registry_20261113T215725Z.json
+        sha256: e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a
+      summary:
+        path: reports/campaign295_summary_20261113T215725Z.json
+        sha256: 036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893
+      verdict:
+        path: reports/campaign295_verdict_20261113T215725Z.json
+        sha256: 02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3
+      binding_constraint:
+        path: reports/campaign295_binding_constraint_20261113T215725Z.json
+        sha256: 0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab
 campaign295:
   hypothesis: THREE_VENUE_REAL_5M_SPOT_CROSS_VENUE_BASIS_AND_LEAD_LAG_XSEC_STAT_ARB
   status: completed_not_tradable
@@ -592,34 +1131,97 @@ campaign295:
   ingest_executed: true
   preflight_required: scripts/preflight_c295.py
   preflight_ready: true
-  tests: [tests/test_preflight_c295.py, tests/test_c295_three_venue_basis_xsec_oos.py]
-  data_source: "Binance 5m data-api.binance.vision/api/v3/klines (deep); OKX 5m www.okx.com/api/v5/market/history-candles (deep, browser UA); Coinbase 5m api.exchange.coinbase.com/products/<SYM>-USD/candles?granularity=300&start=<ISO>&end=<ISO> (deep >=2025-01-01, explicit start+end pagination, row [time_s,low,high,open,close,volume] seconds). HTTP 200."
-  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
+  tests:
+  - tests/test_preflight_c295.py
+  - tests/test_c295_three_venue_basis_xsec_oos.py
+  data_source: Binance 5m data-api.binance.vision/api/v3/klines (deep); OKX 5m www.okx.com/api/v5/market/history-candles
+    (deep, browser UA); Coinbase 5m api.exchange.coinbase.com/products/<SYM>-USD/candles?granularity=300&start=<ISO>&end=<ISO>
+    (deep >=2025-01-01, explicit start+end pagination, row [time_s,low,high,open,close,volume]
+    seconds). HTTP 200.
+  window:
+    start: 2026-08-01 00:00:00+00:00
+    end: 2026-10-30 23:55:00+00:00
   bars: 26208
   interval: 5m
-  venues: [binance, okx, coinbase]
-  universe: [ADAUSDT, BTCUSDT, ETHUSDT, LTCUSDT, ONDOUSDT, SOLUSDT, XLMUSDT, XRPUSDT, ZECUSDT]
+  venues:
+  - binance
+  - okx
+  - coinbase
+  universe:
+  - ADAUSDT
+  - BTCUSDT
+  - ETHUSDT
+  - LTCUSDT
+  - ONDOUSDT
+  - SOLUSDT
+  - XLMUSDT
+  - XRPUSDT
+  - ZECUSDT
   n_excluded: 17
-  signal_features: [basis_bc, basis_oc, xdisp, leadlag]
-  lookbacks_5m: [288, 1008, 2016]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_5m: [1, 6, 24]
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  wf: {train: 720, test: 168, step: 168, n_splits: 151}
-  pnl: "cross-venue spread on each asset: sum_i w_i*(r_venue_long - r_venue_short); cost charged on ALL legs"
-  benchmark: "equal-weight buy-and-hold with the same costs on the same WF windows"
-  edge_rule: "identical to C285/C286/C288/C290/C291/C292/C293/C294 (never relaxed)"
-  dataset: {pkl: data/cache/campaign295_three_venue_spot.pkl, pkl_sha256: 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7, meta_sha256: de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab, provenance_sha256: 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d}
-  artifacts: {oos_sweep: reports/campaign295_oos_sweep_20261113T215725Z.json, registry: reports/campaign295_tradable_edge_registry_20261113T215725Z.json, summary: reports/campaign295_summary_20261113T215725Z.json, verdict: reports/campaign295_verdict_20261113T215725Z.json, binding_constraint: reports/campaign295_binding_constraint_20261113T215725Z.json}
-  artifact_sha256: {oos_sweep: fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc, registry: e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a, summary: 036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893, verdict: 02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3, binding_constraint: 0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab}
-  escalation_if_closed: "three-venue real-spot stat-arb closed. Next C296 = real options term-structure/skew stat-arb on Deribit per-strike mark IV contingent on verifying a deep historical per-strike IV feed; if none reachable, record options family data-blocked and close reachable cross-sectional space."
-
+  signal_features:
+  - basis_bc
+  - basis_oc
+  - xdisp
+  - leadlag
+  lookbacks_5m:
+  - 288
+  - 1008
+  - 2016
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_5m:
+  - 1
+  - 6
+  - 24
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 151
+  pnl: 'cross-venue spread on each asset: sum_i w_i*(r_venue_long - r_venue_short);
+    cost charged on ALL legs'
+  benchmark: equal-weight buy-and-hold with the same costs on the same WF windows
+  edge_rule: identical to C285/C286/C288/C290/C291/C292/C293/C294 (never relaxed)
+  dataset:
+    pkl: data/cache/campaign295_three_venue_spot.pkl
+    pkl_sha256: 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7
+    meta_sha256: de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab
+    provenance_sha256: 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d
+  artifacts:
+    oos_sweep: reports/campaign295_oos_sweep_20261113T215725Z.json
+    registry: reports/campaign295_tradable_edge_registry_20261113T215725Z.json
+    summary: reports/campaign295_summary_20261113T215725Z.json
+    verdict: reports/campaign295_verdict_20261113T215725Z.json
+    binding_constraint: reports/campaign295_binding_constraint_20261113T215725Z.json
+  artifact_sha256:
+    oos_sweep: fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc
+    registry: e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a
+    summary: 036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893
+    verdict: 02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3
+    binding_constraint: 0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab
+  escalation_if_closed: three-venue real-spot stat-arb closed. Next C296 = real options
+    term-structure/skew stat-arb on Deribit per-strike mark IV contingent on verifying
+    a deep historical per-strike IV feed; if none reachable, record options family
+    data-blocked and close reachable cross-sectional space.
 campaign296:
   hypothesis: REAL_OPTIONS_TERM_STRUCTURE_AND_SKEW_CROSS_SECTIONAL_STAT_ARB_DERIBIT
   status: completed_data_blocked_closed
   verdict: DATA_BLOCKED
   edge_proven: false
-  edge_claim: "NONE"
+  edge_claim: NONE
   family: options_term_structure_skew
   family_verdict: data_blocked
   reachable_cross_sectional_stat_arb_space: closed
@@ -629,14 +1231,20 @@ campaign296:
   probe_script: scripts/probe_c296_deribit_per_strike_iv_reachability.py
   probe_artifact: reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json
   probe_artifact_sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b
-  data_source: "Deribit public API (https://www.deribit.com/api/v2/public), HTTP 200, browser User-Agent"
+  data_source: Deribit public API (https://www.deribit.com/api/v2/public), HTTP 200,
+    browser User-Agent
   probe_evidence:
-    get_historical_volatility: "ATM/currency-level series, shallow ~16 days, not per-strike mark IV history"
-    get_book_summary_by_currency: "current snapshot mark_iv per instrument (strike/expiry/option_type), no historical per-strike time series"
-    get_volatility_index_data: "DVOL 30-day ATM constant-maturity IV only, already closed as NOT_TRADABLE in C294"
-    get_tradingview_chart_data: "option PRICE series open/high/low/close/volume/ticks/cost, NO iv field; shallow or no_data per instrument"
-    get_last_trades_by_instrument_and_time: "trades only, NO iv field; empty for illiquid strikes"
-    get_instruments: "metadata only (strike/expiry/type/active), no prices or IV history"
+    get_historical_volatility: ATM/currency-level series, shallow ~16 days, not per-strike
+      mark IV history
+    get_book_summary_by_currency: current snapshot mark_iv per instrument (strike/expiry/option_type),
+      no historical per-strike time series
+    get_volatility_index_data: DVOL 30-day ATM constant-maturity IV only, already
+      closed as NOT_TRADABLE in C294
+    get_tradingview_chart_data: option PRICE series open/high/low/close/volume/ticks/cost,
+      NO iv field; shallow or no_data per instrument
+    get_last_trades_by_instrument_and_time: trades only, NO iv field; empty for illiquid
+      strikes
+    get_instruments: metadata only (strike/expiry/type/active), no prices or IV history
   conclusion:
     deep_historical_per_strike_mark_iv_reachable: false
     per_strike_iv_time_series_available: false
@@ -645,19 +1253,37 @@ campaign296:
     any_probe_yields_iv_history: false
     options_term_structure_skew_family: data_blocked
     reachable_cross_sectional_stat_arb_space: closed
-    reason: "No Deribit public endpoint returns a deep historical per-strike mark IV / IV time series. Per-strike mark_iv is a current snapshot only; tradingview/last-trades return price or trades with no IV field and are shallow or no_data. get_historical_volatility is currency-level/ATM only and shallow (~16d). DVOL is 30d ATM only (C294 closed). Per-strike term-structure/skew stat-arb cannot be built without the feed; DVOL is not relabeled as per-strike term-structure/skew. No synthetic/backfilled/proxied per-strike IV used."
+    reason: No Deribit public endpoint returns a deep historical per-strike mark IV
+      / IV time series. Per-strike mark_iv is a current snapshot only; tradingview/last-trades
+      return price or trades with no IV field and are shallow or no_data. get_historical_volatility
+      is currency-level/ATM only and shallow (~16d). DVOL is 30d ATM only (C294 closed).
+      Per-strike term-structure/skew stat-arb cannot be built without the feed; DVOL
+      is not relabeled as per-strike term-structure/skew. No synthetic/backfilled/proxied
+      per-strike IV used.
   artifacts:
-    probe: {path: reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json, sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b}
-    oos_sweep: {path: reports/campaign296_oos_sweep_20261113T224349Z.json, sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d}
-    registry: {path: reports/campaign296_tradable_edge_registry_20261113T224349Z.json, sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356}
-    summary: {path: reports/campaign296_summary_20261113T224349Z.json, sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af}
-    verdict: {path: reports/campaign296_verdict_20261113T224349Z.json, sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8}
+    probe:
+      path: reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json
+      sha256: df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b
+    oos_sweep:
+      path: reports/campaign296_oos_sweep_20261113T224349Z.json
+      sha256: b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d
+    registry:
+      path: reports/campaign296_tradable_edge_registry_20261113T224349Z.json
+      sha256: 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356
+    summary:
+      path: reports/campaign296_summary_20261113T224349Z.json
+      sha256: 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af
+    verdict:
+      path: reports/campaign296_verdict_20261113T224349Z.json
+      sha256: 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8
   test: tests/test_c296_options_data_blocked.py (3 tests)
   real_data_only: true
   fabricated_data: false
-  escalation_if_edge: "escalate C287 (blocked by testnet REST 451 + no creds; do not fabricate fills)"
-  escalation_if_closed: "all reachable real-data cross-sectional stat-arb families (single/cross/three-venue spot, perp funding/basis, real-IV VRP) closed NOT_TRADABLE with 0 costed OOS edge; only external execution capability (C287) remains, decoupled"
-
+  escalation_if_edge: escalate C287 (blocked by testnet REST 451 + no creds; do not
+    fabricate fills)
+  escalation_if_closed: all reachable real-data cross-sectional stat-arb families
+    (single/cross/three-venue spot, perp funding/basis, real-IV VRP) closed NOT_TRADABLE
+    with 0 costed OOS edge; only external execution capability (C287) remains, decoupled
 campaign290:
   hypothesis: WIDER_UNIVERSE_TRUE_5M_OHLCV_CROSS_SECTIONAL_STAT_ARB
   status: completed_not_tradable
@@ -675,27 +1301,92 @@ campaign290:
   dataset_provenance_sha256: 2edde6202866d32e078b1c4497a195796de8d18ec7312161cbfd4e6640af2193
   source_host: https://data-api.binance.vision
   source_endpoint: /api/v3/klines
-  fields: [open, high, low, close, volume, quote_volume]
+  fields:
+  - open
+  - high
+  - low
+  - close
+  - volume
+  - quote_volume
   real_data_only: true
   fabricated_data: false
-  universe: [BTCUSDT, ETHUSDT, SOLUSDT, ZECUSDT, XRPUSDT, NEARUSDT, BNBUSDT, DOGEUSDT, SUIUSDT, UNIUSDT, PEPEUSDT, WLDUSDT, ADAUSDT, TRXUSDT, PUMPUSDT, LINKUSDT, AVAXUSDT, TAOUSDT, UUSDT, TRUMPUSDT, LTCUSDT, ONDOUSDT, AAVEUSDT, XLMUSDT, INJUSDT, GRAMUSDT]
+  universe:
+  - BTCUSDT
+  - ETHUSDT
+  - SOLUSDT
+  - ZECUSDT
+  - XRPUSDT
+  - NEARUSDT
+  - BNBUSDT
+  - DOGEUSDT
+  - SUIUSDT
+  - UNIUSDT
+  - PEPEUSDT
+  - WLDUSDT
+  - ADAUSDT
+  - TRXUSDT
+  - PUMPUSDT
+  - LINKUSDT
+  - AVAXUSDT
+  - TAOUSDT
+  - UUSDT
+  - TRUMPUSDT
+  - LTCUSDT
+  - ONDOUSDT
+  - AAVEUSDT
+  - XLMUSDT
+  - INJUSDT
+  - GRAMUSDT
   n_assets: 26
   bars: 26208
   interval: 5m
-  window: {start: 2026-08-01T00:00:00Z, end: 2026-10-30T23:55:00Z}
-  signal_features: [low_range_vol, low_close_vol, qv_reversal, qv_ratio_reversal, qv_stability, low_skew]
-  lookbacks_5m: [288, 1008, 2016]
-  cross_sectional_K: [2, 3, 5]
-  holding_periods_5m: [1, 6, 24]
+  window:
+    start: 2026-08-01 00:00:00+00:00
+    end: 2026-10-30 23:55:00+00:00
+  signal_features:
+  - low_range_vol
+  - low_close_vol
+  - qv_reversal
+  - qv_ratio_reversal
+  - qv_stability
+  - low_skew
+  lookbacks_5m:
+  - 288
+  - 1008
+  - 2016
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_5m:
+  - 1
+  - 6
+  - 24
   pre_registered_grid:
     features: 6
     lookbacks: 3
     K: 3
     holds: 3
     total_runs: 162
-  wf: {train: 720, test: 168, step: 168, n_splits: 151}
-  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
-  gates: "fail_closed: selected feature score finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite 5m price in selected legs; no missing/None/false treated as permissive; block and record reason if diagnostics fail."
+  wf:
+    train: 720
+    test: 168
+    step: 168
+    n_splits: 151
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  gates: 'fail_closed: selected feature score finite for >=2K assets; cross-sectional
+    dispersion>0; no NaN/non-finite 5m price in selected legs; no missing/None/false
+    treated as permissive; block and record reason if diagnostics fail.'
   result:
     verdict: NOT_TRADABLE
     edge_proven: false
@@ -706,10 +1397,10 @@ campaign290:
     binding_constraint: cost_sensitivity
     zero_exposure_rate: 0.0
   required_artifacts:
-    - reports/campaign290_oos_sweep_20261113T104321Z.json
-    - reports/campaign290_tradable_edge_registry_20261113T104321Z.json
-    - reports/campaign290_summary_20261113T104321Z.json
-    - reports/campaign290_verdict_20261113T104321Z.json
+  - reports/campaign290_oos_sweep_20261113T104321Z.json
+  - reports/campaign290_tradable_edge_registry_20261113T104321Z.json
+  - reports/campaign290_summary_20261113T104321Z.json
+  - reports/campaign290_verdict_20261113T104321Z.json
   binding_constraint_artifact: reports/campaign290_binding_constraint_20261113T104321Z.json
   artifact_sha256:
     oos_sweep: e20b2ee2602134d7e15c144e30a482f1196a5ad4f995b2d72f87e9fc6d060ed8
@@ -718,41 +1409,89 @@ campaign290:
     verdict: 07d1f731eee9eb397ef22fcd87ae9c7d40dea753360d7af5766a656e842059b7
     binding_constraint: ad8938c07324afa2e3937fcf85a27da53c2acb8497402350c791a010763b812b
   completion_gate:
-    - preflight_c290_exits_zero_ready_true: satisfied
-    - run_c290_wider_universe_oohlcv_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
-    - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
-    - binding_constraint_artifact_if_not_tradable: satisfied
-    - state_and_handoff_updated_with_paths_and_sha256: satisfied
-    - python_m_pytest_tests_q_still_passes: satisfied
-
-
+  - preflight_c290_exits_zero_ready_true: satisfied
+  - run_c290_wider_universe_oohlcv_xsec_oos_executed_end_to_end_not_smoke_only: satisfied
+  - all_five_artifacts_fresh_with_sha256_from_bytes: satisfied
+  - binding_constraint_artifact_if_not_tradable: satisfied
+  - state_and_handoff_updated_with_paths_and_sha256: satisfied
+  - python_m_pytest_tests_q_still_passes: satisfied
 deferred_campaigns:
   c287:
     name: operational hardening
-    detail: "BLOCKED and DECOUPLED from economic progress (testnet REST HTTP 451 + no creds; requires an allowed network). C290 has already run on reachable mainnet public spot klines; the old 'C288+ requires C287 gateway' rule is REMOVED."
+    detail: BLOCKED and DECOUPLED from economic progress (testnet REST HTTP 451 +
+      no creds; requires an allowed network). C290 has already run on reachable mainnet
+      public spot klines; the old 'C288+ requires C287 gateway' rule is REMOVED.
 handoff:
   path: AGENTS.md
   single_authoritative: true
-  forbidden_files: [HANDOFF.md]
+  forbidden_files:
+  - HANDOFF.md
   timestamp_utc: 20261113T231936Z
-  active_initial_task_message: "RESEARCH PROGRAM CLOSURE INTEGRITY & EXTERNAL-UNBLOCK AUDIT — MANDATORY HEAVY WORK (2026-11-13T23:19:36Z). C296 frozen DATA_BLOCKED closure verified: probe df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b, oos_sweep b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d, registry 1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356, summary 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af, verdict 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8 (all reports/, SHA256-from-bytes). Reachable real-data cross-sectional stat-arb space CLOSED (C281B–C296, 0 costed OOS edge). Next agent must perform heavy closure-integrity audit across all frozen artifacts/datasets, record C287 external-unblock status (451/no-creds, no fabricated fills), emit hashed audit/status artifacts + tests, and keep pytest green + handoff/state synced."
+  active_initial_task_message: 'RESEARCH PROGRAM CLOSURE INTEGRITY & EXTERNAL-UNBLOCK
+    AUDIT — MANDATORY HEAVY WORK (2026-11-13T23:19:36Z). C296 frozen DATA_BLOCKED
+    closure verified: probe df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b,
+    oos_sweep b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d, registry
+    1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356, summary 4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af,
+    verdict 9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8 (all
+    reports/, SHA256-from-bytes). Reachable real-data cross-sectional stat-arb space
+    CLOSED (C281B–C296, 0 costed OOS edge). Next agent must perform heavy closure-integrity
+    audit across all frozen artifacts/datasets, record C287 external-unblock status
+    (451/no-creds, no fabricated fills), emit hashed audit/status artifacts + tests,
+    and keep pytest green + handoff/state synced.'
   rule: do_not_create_another_handoff_file
-  superseded_active_initial_task_message: "C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit) — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen NOT_TRADABLE (162 runs, 0 edge, binding cost_sensitivity: 92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Three-venue real-spot, single/cross-venue 5m spot+perp, and real-IV VRP (C294, DVOL ATM 30d) closed. C296 sole active. Deribit HTTP 200; get_historical_volatility is ATM/currency-level only, get_book_summary_by_currency is current snapshot mark_iv only (no historical per-strike series). MUST in one turn: (1) bootstrap+verify deps; pytest -q baseline green. (2) Deterministic deep per-strike IV feed probe (every endpoint/params/status/sample/suitability) for historical per-strike mark IV/IV time series (e.g. get_tradingview_chart_data for option instruments, last-trades IV fields, mark-price-history/vol-history variants). Save reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json (SHA256-from-bytes, real_data_only:true, fabricated_data:false) and probe script/test if non-trivial. (3) Branch fail-closed: IF deep historical per-strike IV reachable+sufficient -> build+run end-to-end ingest/preflight(ready:true)/runner (pre-registered TS/skew features, WF 720/168/168 or justified option-native, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs incl option exec/hedge as applicable, B&H/neutral benchmark, identical edge rule) -> 5 SHA256 artifacts + tests + green pytest + state+AGENTS; if edge escalate C287 (blocked, no fabricated fills). IF NO deep historical per-strike IV reachable -> formal closure this turn: emit SHA256-from-bytes campaign296_options_data_blocked_<ts>.json (+ summary/verdict) documenting probed endpoints, insufficiency, DVOL ATM-only (C294 closed), conclusion options_term_structure_skew_family:data_blocked / reachable_cross_sectional_stat_arb_space:closed; add schema+evidence test; green pytest; update state+AGENTS declaring reachable real-data cross-sectional stat-arb space closed."
+  superseded_active_initial_task_message: 'C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit)
+    — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen
+    NOT_TRADABLE (162 runs, 0 edge, binding cost_sensitivity: 92/162 gross-positive
+    at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Three-venue real-spot,
+    single/cross-venue 5m spot+perp, and real-IV VRP (C294, DVOL ATM 30d) closed.
+    C296 sole active. Deribit HTTP 200; get_historical_volatility is ATM/currency-level
+    only, get_book_summary_by_currency is current snapshot mark_iv only (no historical
+    per-strike series). MUST in one turn: (1) bootstrap+verify deps; pytest -q baseline
+    green. (2) Deterministic deep per-strike IV feed probe (every endpoint/params/status/sample/suitability)
+    for historical per-strike mark IV/IV time series (e.g. get_tradingview_chart_data
+    for option instruments, last-trades IV fields, mark-price-history/vol-history
+    variants). Save reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json
+    (SHA256-from-bytes, real_data_only:true, fabricated_data:false) and probe script/test
+    if non-trivial. (3) Branch fail-closed: IF deep historical per-strike IV reachable+sufficient
+    -> build+run end-to-end ingest/preflight(ready:true)/runner (pre-registered TS/skew
+    features, WF 720/168/168 or justified option-native, cost [[0,0],[5,5],[10,10],[20,20],[40,40]]
+    bps on ALL legs incl option exec/hedge as applicable, B&H/neutral benchmark, identical
+    edge rule) -> 5 SHA256 artifacts + tests + green pytest + state+AGENTS; if edge
+    escalate C287 (blocked, no fabricated fills). IF NO deep historical per-strike
+    IV reachable -> formal closure this turn: emit SHA256-from-bytes campaign296_options_data_blocked_<ts>.json
+    (+ summary/verdict) documenting probed endpoints, insufficiency, DVOL ATM-only
+    (C294 closed), conclusion options_term_structure_skew_family:data_blocked / reachable_cross_sectional_stat_arb_space:closed;
+    add schema+evidence test; green pytest; update state+AGENTS declaring reachable
+    real-data cross-sectional stat-arb space closed.'
   bottlenecks_removed:
-    - id: c295_executed_complete
-      detail: "C295 three-venue real-spot campaign built and executed end-to-end: ingest -> preflight ready:true -> 162-run costed OOS sweep -> 5 SHA256-from-bytes artifacts -> 15 tests -> pytest green (1241 passed). Prior 'C295 unbuilt' bottleneck gone; C295 frozen NOT_TRADABLE (binding cost_sensitivity)."
-    - id: c295_handoff_contradiction_removed
-      detail: "AGENTS.md/state.yaml advanced from C295-active to C296-active with a single forward task and C295 recorded frozen/complete; stale C295 completion gate/deliverables text replaced by C296 mandatory heavy-work directive."
-    - id: c294_executed_complete
-      detail: "C294 real-IV VRP campaign built and executed end-to-end: ingest -> preflight ready:true -> 27-run costed OOS sweep -> 5 SHA256-from-bytes artifacts -> 15 tests -> pytest green. C294 frozen NOT_TRADABLE (binding cost_sensitivity)."
-    - id: c295_source_reachability_verified
-      detail: "C295 three-venue sources verified reachable: Binance 5m deep; OKX 5m deep (browser UA); Coinbase 5m deep (>=2025-01-01) via explicit start+end pagination."
-    - id: c294_real_iv_feed_unblocked
-      detail: "Deribit DVOL real implied vol verified reachable (HTTP 200). Real-IV VRP family built and closed (C294)."
-    - id: c287_decoupled
-      detail: "C287 BLOCKED by external-only testnet REST 451 + no creds; do not re-emit artifacts absent new capability evidence."
-    - id: c296_deribit_per_strike_iv_feed_data_blocked
-      detail: "C296 Deribit options term-structure/skew probed exhaustively; no deep historical per-strike mark IV feed reachable. Formal data-blocked closure emitted (probe + blocked + summary + verdict SHA256-from-bytes artifacts, schema/evidence test, pytest green). Reachable real-data cross-sectional stat-arb space declared CLOSED. Removes the C296 per-strike-IV-feed-unknown bottleneck."
+  - id: c295_executed_complete
+    detail: 'C295 three-venue real-spot campaign built and executed end-to-end: ingest
+      -> preflight ready:true -> 162-run costed OOS sweep -> 5 SHA256-from-bytes artifacts
+      -> 15 tests -> pytest green (1241 passed). Prior ''C295 unbuilt'' bottleneck
+      gone; C295 frozen NOT_TRADABLE (binding cost_sensitivity).'
+  - id: c295_handoff_contradiction_removed
+    detail: AGENTS.md/state.yaml advanced from C295-active to C296-active with a single
+      forward task and C295 recorded frozen/complete; stale C295 completion gate/deliverables
+      text replaced by C296 mandatory heavy-work directive.
+  - id: c294_executed_complete
+    detail: 'C294 real-IV VRP campaign built and executed end-to-end: ingest -> preflight
+      ready:true -> 27-run costed OOS sweep -> 5 SHA256-from-bytes artifacts -> 15
+      tests -> pytest green. C294 frozen NOT_TRADABLE (binding cost_sensitivity).'
+  - id: c295_source_reachability_verified
+    detail: 'C295 three-venue sources verified reachable: Binance 5m deep; OKX 5m
+      deep (browser UA); Coinbase 5m deep (>=2025-01-01) via explicit start+end pagination.'
+  - id: c294_real_iv_feed_unblocked
+    detail: Deribit DVOL real implied vol verified reachable (HTTP 200). Real-IV VRP
+      family built and closed (C294).
+  - id: c287_decoupled
+    detail: C287 BLOCKED by external-only testnet REST 451 + no creds; do not re-emit
+      artifacts absent new capability evidence.
+  - id: c296_deribit_per_strike_iv_feed_data_blocked
+    detail: C296 Deribit options term-structure/skew probed exhaustively; no deep
+      historical per-strike mark IV feed reachable. Formal data-blocked closure emitted
+      (probe + blocked + summary + verdict SHA256-from-bytes artifacts, schema/evidence
+      test, pytest green). Reachable real-data cross-sectional stat-arb space declared
+      CLOSED. Removes the C296 per-strike-IV-feed-unknown bottleneck.
   mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data
@@ -767,3 +1506,25 @@ handoff:
   - do_not_edit_github_workflow_files
   - do_not_create_read_or_edit_handoff_md
   - c285_must_use_volume_signal_not_price_only
+latest_closure_integrity_audit:
+  path_json: reports/program_closure_integrity_audit_20261113T234735Z.json
+  sha256_json: eb889b77b1939f119ce100f8cad81ca67cc3c4a0bfd9be3cf194717683b930f6
+  path_md: reports/program_closure_integrity_audit_20261113T234735Z.md
+  sha256_md: 88ea3de73f0f1c7ba12954131763c2532cb2ce7bbedec1aabd9b42f292f6d0b0
+  integrity_ok: true
+  n_references: 70
+  n_mismatch_or_missing_or_error: 0
+  zero_tradable_edge_registry_confirmed: true
+latest_c287_unblock_status:
+  path: reports/c287_external_unblock_status_20261113T234357Z.json
+  sha256: 73063da48b4828ab9b766f9a2e6490a91f61452ee2ba56bb49e28897b2e9b3e3
+  status: BLOCKED
+  still_blocked: true
+  decoupled_from_economic_progress: true
+  blocked_reasons:
+  - binance_testnet_rest_ping:451
+  - binance_testnet_rest_time:451
+  - binance_testnet_rest_exchangeInfo:451
+  - fapi_ping:451
+  - api_bybit_v5_time:403
+  - missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET
