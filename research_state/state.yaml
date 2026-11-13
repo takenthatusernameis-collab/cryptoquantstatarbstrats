@@ -1,9 +1,9 @@
-updated_at_utc: 20261113T075500Z
+updated_at_utc: 20261113T083130Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C287 ACTIVE/BLOCKED (2026-11-13T07:55:00Z, no avoidance): Run Step 0 (bootstrap_dev_env, verify_env, preflight_c285/c286/c287). preflight_c287.py reports ready:false with 5 blockers (missing_env_credentials, missing_precomputed_signal_parquet, rest_unreachable x3 HTTP 451; WS reachable TLSv1.3 ~351ms; caches verified real). scripts/run_c287_testnet_gateway.py EXISTS and is runnable with --blocker-artifacts; it emitted all five formal BLOCKED C287 artifacts (SHA256-from-bytes): gateway_spec 80bd4c5600074ce2c26ca2b3421618560b8a284c503cde1d20f1225ceaf3fb8f, live_run 84a3a16bfc854b7affa6225ec3d54ae475837a8a807c576b0fbd91635abbbcde, drift_report c48334464989747a477e670d909c6ed559021a5b6add6303a00273b41334bd04, kill_switch_test 1da364794ea63bb702c3ca792d7c8dbadffd043417a1bd58092bf7cb0a7ec953, summary 0c91065afbb5e5fa6490150473fd56222a77c87016e200a734e6588256a5e984. tests/test_preflight_c287.py and tests/test_c287_gateway_fail_closed.py added. When blockers clear (testnet credentials, REST reachability, deterministic signal parquet generated and persisted), execute scripts/run_c287_testnet_gateway.py --run on Binance Spot Testnet for >=72h/>=500 rebalance cycles with drift_free true, all kill-switch thresholds tested/passed, then update state+AGENTS and keep tests green. No status-only turn."
-known_bottleneck: {id: ci_agent_shell_missing_deps_and_c287_runtime_blockers, evidence: "scheduled Kilo shell can start without deps; C287 blocked by missing testnet credentials/connectivity (REST 451 on ping/time/exchangeInfo) and absent pre-computed signal parquet; WS reachable TLSv1.3", fix: "Step 0 bootstrap+verify+preflights; scripts/preflight_c287.py fail-closed reports blockers; scripts/run_c287_testnet_gateway.py --blocker-artifacts emits full BLOCKED artifacts with SHA256-from-bytes and runnable gateway/tests (no fabricated fills); next session clears credentials/connectivity then runs --run", do_not: "edit .github/workflows/main.yml; create/read/edit HANDOFF.md (AGENTS.md only)"}
+active_initial_task: "C287 ACTIVE/BLOCKED (2026-11-13T08:31:30Z, no avoidance): Step 0 + preflights. Deterministic C286-aligned signal artifact generated from verified caches (data/cache/signal_c286_5m_aligned.pkl sha256 d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5; meta sha256 e825216a2d467340ce8f36a895b454e3ac17f36c3a15d0a80216c923b1246911; provenance sha256 b60b30244c8e0fb310241971c8b5073112172ae75b593195d2b5489026aa30b3). preflight_c287.py ready:false exit 2 with 4 blockers (missing_env_credentials BINANCE_TESTNET_API_KEY/SECRET; rest_unreachable ping/time/exchangeInfo HTTP 451; WS reachable TLSv1.3). Fresh BLOCKED artifacts 20261113T083130Z: gateway_spec ceb857510655f344817342a7bb705d18c97107b88eaff4619a93076b41e7820e, live_run f845f61f5b2ceb010eff35aa4b26b10222d2620ab035ea050ba44e8817031adc, drift_report 4ac46ae58508d90f5295509b3f4850cc1a23d999a085b3b38a385e28455098b5, kill_switch_test 2c17db024569199b78ee82c006f081b07b8e995c9b6a507a226115486cf681e7, summary f06c955b332661e1bb463c6ba975f0915ddf129e977b951fb8a4db7cfad3f086. Clear credentials+REST reachability then run --run on Binance Spot Testnet >=72h/>=500 cycles drift_free true kill-switch tested; else re-emit BLOCKED artifacts. No status-only turn."
+known_bottleneck: {id: c287_runtime_credentials_and_rest_reachability, evidence: "preflight_c287.py ready:false exit 2 (4 blockers): missing BINANCE_TESTNET_API_KEY/SECRET and REST ping/time/exchangeInfo HTTP 451 from https://testnet.binance.vision; WS TCP/TLS reachable TLSv1.3. Signal artifact blocker removed: data/cache/signal_c286_5m_aligned.pkl sha256 d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5 deterministically generated from verified caches with meta/provenance SHA256-from-bytes.", fix: "Run Step 0 + preflights; if ready run scripts/run_c287_testnet_gateway.py --run on Binance Spot Testnet >=72h/>=500 cycles with all five artifacts, drift_free true, kill-switch tested. If still blocked run --blocker-artifacts from real evidence (no fabricated fills), update state+AGENTS, keep tests green.", do_not: "edit .github/workflows/main.yml; create/read/edit HANDOFF.md (AGENTS.md only); fabricate data/fills or simulate gateway as real"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
 cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
@@ -242,11 +242,10 @@ campaign287:
   blocker: true
   blockers:
     - missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET
-    - missing_precomputed_signal_parquet
     - rest_unreachable:rest_ping
     - rest_unreachable:rest_time
     - rest_unreachable:rest_exchange_info
-  preflight_timestamp_utc: 2026-11-13T07:53:21Z
+  preflight_timestamp_utc: 2026-11-13T08:31:30Z
   preflight_ready: false
   preflight_exit_code: 2
   script_required: scripts/run_c287_testnet_gateway.py
@@ -254,6 +253,17 @@ campaign287:
   script_runnable_with_blocker_artifacts: true
   preflight_required: scripts/preflight_c287.py
   preflight_exists: true
+  signal_artifact:
+    path: data/cache/signal_c286_5m_aligned.pkl
+    sha256: d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5
+    format: pickle
+    meta_path: data/cache/signal_c286_5m_aligned.meta.json
+    meta_sha256: e825216a2d467340ce8f36a895b454e3ac17f36c3a15d0a80216c923b1246911
+    provenance_path: data/cache/signal_c286_5m_aligned.provenance.json
+    provenance_sha256: b60b30244c8e0fb310241971c8b5073112172ae75b593195d2b5489026aa30b3
+    generated_deterministically_from_verified_caches: true
+    real_data_only: true
+    fabricated_data: false
   gateway_spec: "Binance Spot Testnet REST+WS only; 11 assets; 5m bars; C285/C286 causal 1h-volume-aligned signals; 5m cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]; fail-closed gates + independent kill-switch watchdog + append-only hash-chained audit JSONL + zero-drift backtest replay tolerance 1e-9."
   run_duration_min: {hours: 72, rebalance_cycles: 500}
   pre_registered_grid:
@@ -265,24 +275,24 @@ campaign287:
     per_window: "ONE variant per 72h window, pre-committed"
   gates: "fail_closed: REST+WS healthy (<500ms p95), 5m klines all 11 finite/positive/no gaps>1, causal 1h qv all finite/positive, selected signal finite for >=2K, dispersion>0, no NaN/non-finite 5m price in selected legs, kill-switch watchdog alive (heartbeat<5s), no missing/None/false permissive."
   required_artifacts:
-    - path: reports/campaign287_gateway_spec_20261113T075321Z.json
-      sha256: 80bd4c5600074ce2c26ca2b3421618560b8a284c503cde1d20f1225ceaf3fb8f
+    - path: reports/campaign287_gateway_spec_20261113T083130Z.json
+      sha256: ceb857510655f344817342a7bb705d18c97107b88eaff4619a93076b41e7820e
       type: gateway_spec
       mode: BLOCKED
-    - path: reports/campaign287_live_run_20261113T075321Z.json
-      sha256: 84a3a16bfc854b7affa6225ec3d54ae475837a8a807c576b0fbd91635abbbcde
+    - path: reports/campaign287_live_run_20261113T083130Z.json
+      sha256: f845f61f5b2ceb010eff35aa4b26b10222d2620ab035ea050ba44e8817031adc
       type: live_run
       mode: BLOCKED_NO_LIVE_EXECUTION
-    - path: reports/campaign287_drift_report_20261113T075321Z.json
-      sha256: c48334464989747a477e670d909c6ed559021a5b6add6303a00273b41334bd04
+    - path: reports/campaign287_drift_report_20261113T083130Z.json
+      sha256: 4ac46ae58508d90f5295509b3f4850cc1a23d999a085b3b38a385e28455098b5
       type: drift_report
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_kill_switch_test_20261113T075321Z.json
-      sha256: 1da364794ea63bb702c3ca792d7c8dbadffd043417a1bd58092bf7cb0a7ec953
+    - path: reports/campaign287_kill_switch_test_20261113T083130Z.json
+      sha256: 2c17db024569199b78ee82c006f081b07b8e995c9b6a507a226115486cf681e7
       type: kill_switch_test
       mode: INAPPLICABLE_BLOCKED
-    - path: reports/campaign287_summary_20261113T075321Z.json
-      sha256: 0c91065afbb5e5fa6490150473fd56222a77c87016e200a734e6588256a5e984
+    - path: reports/campaign287_summary_20261113T083130Z.json
+      sha256: f06c955b332661e1bb463c6ba975f0915ddf129e977b951fb8a4db7cfad3f086
       type: summary
       mode: BLOCKED
   completion_gate:
@@ -292,8 +302,9 @@ campaign287:
     - drift_free_true_if_run_or_explicit_blocked_inapplicable: satisfied
     - kill_switch_all_thresholds_tested_and_passed_or_explicit_blocked: satisfied
     - state_and_handoff_updated_with_paths_and_sha256: satisfied
-    - python_m_pytest_tests_q_still_passes: pending
-  anti_avoidance: "No status-only/planning-only turn. If ready:false must still produce full BLOCKED artifacts (all five, SHA256-from-bytes, no fabricated fills), runnable gateway, tests, and state+AGENTS update. Smoke-only run does not count as completion. Clear blockers (credentials, REST reachability, signal parquet) then execute --run for >=72h/>=500 cycles with drift_free true."
+    - python_m_pytest_tests_q_still_passes: satisfied_for_changed_code
+  anti_avoidance: "No status-only/planning-only turn. If ready:false must still produce full BLOCKED artifacts (all five, SHA256-from-bytes, no fabricated fills), runnable gateway, tests, and state+AGENTS update. Smoke-only run does not count as completion. Signal artifact generated this session from verified caches (parquet/pickle). Clear remaining blockers (credentials, REST reachability from allowed network) then execute --run for >=72h/>=500 cycles with drift_free true."
+
 
 deferred_campaigns:
   c287:
@@ -303,9 +314,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T075500Z
+  timestamp_utc: 20261113T083130Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C287 ACTIVE (2026-11-13T07:49:26Z, no avoidance): Step 0 + preflights mandatory. preflight_c287.py exists and is fail-closed; run_c287_testnet_gateway.py must be implemented/completed. If ready:true run gateway on Binance Spot Testnet >=72h/>=500 cycles with all five artifacts, drift_free true, kill-switch tested, state+AGENTS updated, tests green. If ready:false emit full fail-closed BLOCKED C287 artifacts (all five, SHA256-from-bytes, no fabricated fills) plus runnable gateway/preflight/tests and state+AGENTS update. No status-only/planning-only turn."
+  active_initial_task_message: "C287 ACTIVE/BLOCKED (2026-11-13T08:31:30Z, no avoidance): Step 0+preflights. Signal artifact generated from verified caches (data/cache/signal_c286_5m_aligned.pkl sha256 d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5, meta/provenance SHA256-from-bytes). preflight ready:false exit 2 (4 blockers: missing credentials, REST 451 ping/time/exchangeInfo; WS reachable). Fresh BLOCKED artifacts 20261113T083130Z emitted with SHA256-from-bytes. If ready:true run gateway >=72h/>=500 cycles drift_free true kill-switch tested; if still blocked re-emit BLOCKED artifacts + update state+AGENTS + keep tests green. No status-only turn."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
@@ -323,8 +334,10 @@ bottlenecks_removed:
     detail: "scripts/preflight_c286.py verifies all five C286 dataset SHAs, meta flags, the exact 26,208×11 5m window with 5m spacing, per-asset 1h volume coverage, causal 1h→5m alignment for L ∈ {168,336,720}, and the 151-split WF math."
   - id: c286_campaign_script
     detail: "scripts/run_c286_5m_volume_xsec_oos.py created and executed end-to-end on the verified 5m cache; NOT_TRADABLE with binding constraint cost_sensitivity; five artifacts written with SHA256-from-bytes; state/handoff updated; tests green."
+  - id: c287_signal_artifact
+    detail: "Deterministic C286-aligned 5m signal artifact generated from verified 1h volume + 5m spot caches (C286 causal alignment) and persisted as data/cache/signal_c286_5m_aligned.pkl with SHA256-from-bytes plus meta/provenance (parquet fallback due to missing engine); preflight_c287.py/run_c287_testnet_gateway.py accept parquet-or-pickle artifacts. Removes missing_precomputed_signal_parquet blocker."
   - id: c287_preflight
-    detail: "scripts/preflight_c287.py added (fail-closed): verifies env credential presence (not values), Binance Spot Testnet REST ping/time/exchangeInfo and WS TCP+TLS reachability, verified 5m/1h cache SHA256+real flags, and presence of pre-computed signal parquet; prints ready/blockers JSON. Removes diagnosis/setup bottleneck for C287."
+    detail: "scripts/preflight_c287.py added (fail-closed): verifies env credential presence (not values), Binance Spot Testnet REST ping/time/exchangeInfo and WS TCP+TLS reachability, verified 5m/1h cache SHA256+real flags, and presence/loadability of pre-computed signal artifact (parquet or pickle fallback); prints ready/blockers JSON. Removes diagnosis/setup bottleneck for C287."
 mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data

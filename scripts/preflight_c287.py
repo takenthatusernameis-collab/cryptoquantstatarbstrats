@@ -9,8 +9,9 @@ Verifies, without fabricating data or placing orders:
 - Binance Spot Testnet WebSocket endpoint DNS/connectivity probe succeeds;
 - verified 5m spot cache + meta and 1h volume cache + meta + provenance exist
   with recorded SHA256-from-bytes and real/fabricated flags;
-- any pre-computed C285/C286 signal parquet required by the execution path is
-  present and loadable (or explicitly reported missing as a blocker).
+- any pre-computed C285/C286 signal artifact (parquet preferred; pickle accepted
+  when no parquet engine is available) required by the execution path is present
+  and loadable (or explicitly reported missing as a blocker).
 
 Exit code 0 iff every check passes and the gateway is ready for a real testnet
 run. Any mismatch, missing dependency, missing credential, or unreachable
@@ -127,11 +128,15 @@ def main() -> int:
         add_check(checks, "volume_real_flags", False, error=f"{type(exc).__name__}: {exc}")
         blockers.append("volume_provenance_unreadable")
 
-    # 3) Signal parquet (spec requires pre-computed C285/C286 signal parquet)
-    signal_candidates = sorted([str(p.relative_to(ROOT)) for p in ROOT.rglob("*.parquet")
-                                if "signal" in p.name.lower() or "c285" in p.name.lower() or "c286" in p.name.lower()])
+    # 3) Pre-computed C285/C286 signal artifact (parquet preferred; pickle accepted
+    # when parquet engine unavailable). Must be deterministically generated from the
+    # verified caches with SHA256-from-bytes and meta/provenance sidecars.
+    signal_candidates = sorted([str(p.relative_to(ROOT)) for p in list(ROOT.rglob("*.parquet")) + list(ROOT.rglob("*.pkl"))
+                                if (("signal" in p.name.lower() or "c285" in p.name.lower() or "c286" in p.name.lower())
+                                    and p.is_file() and "meta" not in p.name.lower() and "provenance" not in p.name.lower())])
     if not add_check(checks, "signal_parquet", len(signal_candidates) > 0, candidates=signal_candidates):
         blockers.append("missing_precomputed_signal_parquet")
+    checks["signal_artifact"] = dict(checks["signal_parquet"])
 
     # 4) REST connectivity
     rest_ok = True

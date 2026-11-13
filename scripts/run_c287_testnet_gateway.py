@@ -299,12 +299,17 @@ def load_cache_verified() -> dict:
 
 
 def find_signal_parquet() -> list[str]:
-    """Discover pre-computed C285/C286 signal parquet candidates."""
-    cands = sorted(str(p.relative_to(ROOT)) for p in ROOT.rglob("*.parquet")
-                   if ("signal" in p.name.lower()
-                       or "c285" in p.name.lower()
-                       or "c286" in p.name.lower()))
-    return cands
+    """Discover pre-computed C285/C286 signal artifact candidates.
+
+    Parquet preferred; pickle accepted when parquet engine unavailable. Meta/provenance
+    sidecars are excluded.
+    """
+    cands = []
+    for p in list(ROOT.rglob("*.parquet")) + list(ROOT.rglob("*.pkl")):
+        name = p.name.lower()
+        if ("signal" in name or "c285" in name or "c286" in name) and "meta" not in name and "provenance" not in name:
+            cands.append(str(p.relative_to(ROOT)))
+    return sorted(set(cands))
 
 
 def run_preflight() -> dict:
@@ -594,13 +599,14 @@ def align_1h_to_5m(df_1h: pd.DataFrame, idx_5m: pd.DatetimeIndex) -> pd.DataFram
 
 
 def generate_signal_parquet() -> dict:
-    """Deterministically generate the C286-aligned signal parquet from verified caches.
+    """Deterministically generate the C286-aligned signal artifact from verified caches.
 
     Features z_logqv/qv_ratio/qv_vol x lookbacks {168, 336, 720} 1h bars, computed
     with the C286 causal definitions (signal at t uses data through t-1) and aligned
     to the 5m execution index (1h bar t usable only at 5m bars >= t+1h). Persisted
-    as parquet with SHA256-from-bytes plus meta/provenance sidecars. No exchange
-    access, no credentials, no fabricated data.
+    as parquet (preferred) when an engine is available, otherwise as pickle, with
+    SHA256-from-bytes plus meta/provenance sidecars. No exchange access, no
+    credentials, no fabricated data.
     """
     cache = load_cache_verified()
     if not cache["ok"]:
@@ -620,14 +626,27 @@ def generate_signal_parquet() -> dict:
     signal_df.index.name = "timestamp"
     signal_df = signal_df.reindex(sorted(signal_df.columns), axis=1)
 
-    path = CACHE / "signal_c286_5m_aligned.parquet"
-    signal_df.to_parquet(path, engine="pyarrow", index=True)
+    base = CACHE / "signal_c286_5m_aligned"
+    # Parquet preferred when engine present; pickle fallback preserves deterministic
+    # generation from verified real caches with SHA256-from-bytes in all cases.
+    path = base.with_suffix(".parquet")
+    fmt = "parquet"
+    engine = None
+    try:
+        signal_df.to_parquet(path, index=True)
+        engine = "default"
+    except Exception:  # noqa: BLE001
+        path = base.with_suffix(".pkl")
+        fmt = "pickle"
+        signal_df.to_pickle(path)
     raw = path.read_bytes()
     sha = hashlib.sha256(raw).hexdigest()
 
     meta = {
-        "artifact": "c287_signal_parquet",
+        "artifact": "c287_signal_artifact",
         "path": str(path.relative_to(ROOT)),
+        "format": fmt,
+        "engine": engine,
         "sha256_from_bytes": sha,
         "generated_at_utc": utc_now(),
         "real_data_only": True,
@@ -650,9 +669,10 @@ def generate_signal_parquet() -> dict:
         "derivation": "scripts/run_c287_testnet_gateway.py deterministic_signal_from_caches (C286 feature definitions) + align_1h_to_5m",
     }
     prov = {
-        "artifact": "c287_signal_parquet_provenance",
-        "parquet_path": str(path.relative_to(ROOT)),
-        "parquet_sha256": sha,
+        "artifact": "c287_signal_artifact_provenance",
+        "signal_path": str(path.relative_to(ROOT)),
+        "signal_sha256": sha,
+        "format": fmt,
         "generated_at_utc": utc_now(),
         "real_data_only": True,
         "fabricated_data": False,
@@ -663,15 +683,16 @@ def generate_signal_parquet() -> dict:
         "blocked_routes": [],
         "note": "Derived deterministically from verified real Binance caches; no fabricated data; no simulated fills.",
     }
-    meta_path = path.with_suffix(".meta.json")
-    prov_path = path.with_suffix(".provenance.json")
+    meta_path = base.with_suffix(".meta.json")
+    prov_path = base.with_suffix(".provenance.json")
     meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     prov_path.write_text(json.dumps(prov, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return {
-        "signal_parquet_path": str(path.relative_to(ROOT)),
-        "signal_parquet_sha256": sha,
-        "signal_parquet_meta_path": str(meta_path.relative_to(ROOT)),
-        "signal_parquet_provenance_path": str(prov_path.relative_to(ROOT)),
+        "signal_artifact_path": str(path.relative_to(ROOT)),
+        "signal_artifact_sha256": sha,
+        "signal_artifact_format": fmt,
+        "signal_artifact_meta_path": str(meta_path.relative_to(ROOT)),
+        "signal_artifact_provenance_path": str(prov_path.relative_to(ROOT)),
         "n_bars": int(len(signal_df)),
         "n_columns": int(len(signal_df.columns)),
         "features": list(FEATURES),
@@ -846,22 +867,24 @@ def main() -> int:
                         help="live testnet execution (requires preflight ready:true)")
     parser.add_argument("--blocker-artifacts", action="store_true",
                         help="emit five BLOCKED C287 artifacts from real preflight evidence")
+    parser.add_argument("--generate-signal", action="store_true",
+                        help="generate deterministic C286-aligned signal artifact from verified caches (no exchange access)")
     parser.add_argument("--generate-signal-parquet", action="store_true",
-                        help="generate C286-aligned signal parquet from verified caches (no exchange access)")
+                        help="alias for --generate-signal (backward compatible)")
     parser.add_argument("--variant", type=str, default=None,
                         help="pre-committed signal variant 'feature:lookback:K:hold'")
     parser.add_argument("--timeout", type=float, default=10.0,
                         help="network timeout seconds")
     args = parser.parse_args()
 
-    if args.generate_signal_parquet:
+    if args.generate_signal or args.generate_signal_parquet:
         result = generate_signal_parquet()
-        print(json.dumps({"campaign": "C287", "mode": "GENERATE_SIGNAL_PARQUET", **result},
+        print(json.dumps({"campaign": "C287", "mode": "GENERATE_SIGNAL_ARTIFACT", **result},
                           indent=2, sort_keys=True, default=jdefault))
         return 0
 
     if not args.run and not args.blocker_artifacts:
-        parser.error("specify --run, --blocker-artifacts, or --generate-signal-parquet")
+        parser.error("specify --run, --blocker-artifacts, or --generate-signal")
 
     # Always capture real preflight evidence first.
     preflight = run_preflight()

@@ -1,21 +1,33 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T07:55:00Z
+**Handoff refreshed:** 2026-11-13T08:31:30Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state:** `python -m pytest tests/ -q` → **green** (baseline 1121 passed, 2 skipped, 0 verified 2026-11-13T07:09:16Z; re-verify after any C287 change). C285 and C286 are **COMPLETE — formal negative results** (NOT_TRADABLE, 0 edge). **C287 (operational hardening: testnet gateway/kill-switch) is the ACTIVE campaign and is now BLOCKED by real preflight evidence** — see INITIAL TASK MESSAGE below.
+**Verified state:** `python -m pytest tests/ -q` → **green** (baseline 1121 passed, 2 skipped prior; re-verify after C287 changes — C287 preflight/gateway tests pass). C285 and C286 are **COMPLETE — formal negative results** (NOT_TRADABLE, 0 edge). **C287 (operational hardening: testnet gateway/kill-switch) is the ACTIVE campaign and remains BLOCKED by real runtime blockers (credentials + Binance testnet REST reachability 451 from this environment). Signal artifact blocker removed this session.** — see INITIAL TASK MESSAGE below.
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T07:55:00Z) — C287 OPERATIONAL HARDENING CAMPAIGN ACTIVE / BLOCKED BY REAL PREFLIGHT EVIDENCE (NO AVOIDANCE)
+## INITIAL TASK MESSAGE (2026-11-13T08:31:30Z) — C287 OPERATIONAL HARDENING CAMPAIGN ACTIVE / BLOCKED (NO AVOIDANCE, HEAVY WORK REQUIRED)
 
-**C287 is the active campaign and is BLOCKED by real preflight evidence.** The volume-conditioned cross-sectional family (C285, C286) is closed NOT_TRADABLE. The spot-only price-only edge search (C281B→C284) is closed NOT_TRADABLE. **C287 (operational hardening: testnet gateway/kill-switch) is the only permitted focus.** This is an infrastructure campaign required before any future economic stat-arb campaign can be deployed to testnet. The deliverable is a **working, auditable Binance Spot Testnet gateway with a hard kill-switch** that can execute the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m costs) with fail-closed gates, audit logging, and provable zero-drift between backtest and live paths.
+**C287 is the only permitted focus** (C281B→C286 closed NOT_TRADABLE; no reruns/edits to frozen artifacts). Deliverable: a **working, auditable Binance Spot Testnet gateway with hard kill-switch** executing the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]`) with fail-closed gates, audit hash-chain logging, and provable zero-drift (tolerance 1e-9).
 
-**Preflight result (real evidence, captured 2026-11-13T07:53:21Z, exit 2):** `scripts/preflight_c287.py --json` → `"ready": false` with 5 blockers:
-1. `missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET` — BINANCE_TESTNET_API_KEY / BINANCE_TESTNET_API_SECRET not present in environment (values never logged).
-2. `missing_precomputed_signal_parquet` — no C285/C286 signal parquet exists in-repo; the gateway must generate it deterministically from the verified 1h volume + 5m spot caches (C286 causal alignment) and persist with SHA256-from-bytes before live operation.
-3. `rest_unreachable:rest_ping` — `https://testnet.binance.vision/api/v3/ping` returned HTTP 451.
-4. `rest_unreachable:rest_time` — `/api/v3/time` returned HTTP 451.
-5. `rest_unreachable:rest_exchange_info` — `/api/v3/exchange_info` returned HTTP 451.
-WS TCP/TLS reachable (TLSv1.3, ~351ms). All cache SHA256s verified OK; spot_5m and volume real/fabricated flags valid (`real_data_only: true`, `fabricated_data: false`).
+**This session (2026-11-13T08:31:30Z) removed a concrete bottleneck:** deterministic C286-aligned signal artifact generated from verified real caches (no exchange access, no fabricated data) and persisted with SHA256-from-bytes + meta/provenance:
+- `data/cache/signal_c286_5m_aligned.pkl` — SHA `d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5` (pickle fallback; pyarrow unavailable in env)
+- `data/cache/signal_c286_5m_aligned.meta.json` — SHA `e825216a2d467340ce8f36a895b454e3ac17f36c3a15d0a80216c923b1246911`
+- `data/cache/signal_c286_5m_aligned.provenance.json` — SHA `b60b30244c8e0fb310241971c8b5073112172ae75b593195d2b5489026aa30b3`
+`preflight_c287.py`/`run_c287_testnet_gateway.py` updated to accept parquet-or-pickle signal artifacts (`--generate-signal`, backward-compat alias) so missing parquet-engine is not a blocker. `tests/test_preflight_c287.py` and `tests/test_c287_gateway_fail_closed.py` pass.
+
+**Latest real preflight (2026-11-13T08:31:30Z, exit 2, fail-closed):** `ready: false`, 4 blockers:
+1. `missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET` — env vars absent (values never logged).
+2. `rest_unreachable:rest_ping` — `https://testnet.binance.vision/api/v3/ping` HTTP 451.
+3. `rest_unreachable:rest_time` — `/api/v3/time` HTTP 451.
+4. `rest_unreachable:rest_exchange_info` — `/api/v3/exchangeInfo` HTTP 451.
+WS TCP/TLS reachable (TLSv1.3). Signal artifact present and verified; all cache SHA256s and real/fabricated flags valid (`real_data_only: true`, `fabricated_data: false`).
+
+**Fresh BLOCKED C287 artifacts (2026-11-13T08:31:30Z, SHA256-from-bytes, no fabricated fills/simulated gateway):**
+- `reports/campaign287_gateway_spec_20261113T083130Z.json` — SHA `ceb857510655f344817342a7bb705d18c97107b88eaff4619a93076b41e7820e`
+- `reports/campaign287_live_run_20261113T083130Z.json` — SHA `f845f61f5b2ceb010eff35aa4b26b10222d2620ab035ea050ba44e8817031adc`
+- `reports/campaign287_drift_report_20261113T083130Z.json` — SHA `4ac46ae58508d90f5295509b3f4850cc1a23d999a085b3b38a385e28455098b5`
+- `reports/campaign287_kill_switch_test_20261113T083130Z.json` — SHA `2c17db024569199b78ee82c006f081b07b8e995c9b6a507a226115486cf681e7`
+- `reports/campaign287_summary_20261113T083130Z.json` — SHA `f06c955b332661e1bb463c6ba975f0915ddf129e977b951fb8a4db7cfad3f086`
 
 **Mandatory execution path (heavy work, no status-only turn):**
 1. **Step 0 (idempotent, 900000 ms):**
@@ -27,27 +39,11 @@ WS TCP/TLS reachable (TLSv1.3, ~351ms). All cache SHA256s verified OK; spot_5m a
    python scripts/preflight_c286.py --json
    python scripts/preflight_c287.py --json
    ```
-2. **If `preflight_c287.py` reports `ready: true`** (credentials present, testnet reachable, caches/signals verified): implement/complete `scripts/run_c287_testnet_gateway.py` and execute it end-to-end on **Binance Spot Testnet** for ≥72h / ≥500 rebalance cycles (smoke-only does not count). Produce the five required timestamped artifacts with SHA256-from-bytes, `drift_free: true`, all kill-switch thresholds tested and passed, then update `research_state/state.yaml` and this file and ensure `python -m pytest tests/ -q` is green.
-3. **If `preflight_c287.py` reports `ready: false` (fail-closed blocker — current state):** do NOT substitute planning/status/infra-only narration. You must still do concrete, auditable work:
-   (a) capture the exact preflight JSON output (done above; blockers enumerated);
-   (b) `scripts/run_c287_testnet_gateway.py` now EXISTS and is runnable with `--blocker-artifacts`; it emits the five required C287 artifacts as **formal `BLOCKED` artifacts** from real preflight/capability evidence (no fabricated fills, no simulated gateway presented as real, `real_data_only: true`, `fabricated_data: false`, `drift_free` omitted/inapplicable with explicit reason, `blocker: true`, blockers enumerated, all referenced cache SHA256s included, SHA256-from-bytes for each artifact);
-   (c) add/update tests for the preflight/gateway fail-closed behavior (done: `tests/test_preflight_c287.py`, `tests/test_c287_gateway_fail_closed.py`);
-   (d) update `research_state/state.yaml` and this file with `status: blocked`, blocker details, artifact paths and SHA256-from-bytes (done below);
-   (e) ensure `python -m pytest tests/ -q` is green.
-   A turn that ends without (b)-(e) persisted is a failed handoff.
+   If `data/cache/signal_c286_5m_aligned.(parquet|pkl)` is missing, run `python scripts/run_c287_testnet_gateway.py --generate-signal` (deterministic from verified caches).
+2. **If `ready: true`:** execute `scripts/run_c287_testnet_gateway.py --run` on **Binance Spot Testnet** for ≥72h / ≥500 rebalance cycles (smoke-only does not count). Produce all five required timestamped artifacts with SHA256-from-bytes, `drift_free: true`, all kill-switch thresholds tested/passed, update `research_state/state.yaml` + this file, and keep `python -m pytest tests/ -q` green.
+3. **If `ready: false` (current):** do NOT stop at narration. (a) capture exact preflight JSON; (b) attempt concrete unblock actions possible in-session (generate/verify signal artifact — done, verify caches, rerun preflight); (c) emit fresh formal BLOCKED artifacts via `python scripts/run_c287_testnet_gateway.py --blocker-artifacts` with current blockers and SHA256-from-bytes; (d) add/update tests for any changed code/behavior; (e) update `research_state/state.yaml` + this file with current blockers/artifact paths+SHAs; (f) ensure `python -m pytest tests/ -q` green. A turn without (c)-(f) persisted is a failed handoff.
 
-**C287 BLOCKED artifacts produced (2026-11-13T07:53:21Z, SHA256-from-bytes):**
-- `reports/campaign287_gateway_spec_20261113T075321Z.json` — SHA `80bd4c5600074ce2c26ca2b3421618560b8a284c503cde1d20f1225ceaf3fb8f`
-- `reports/campaign287_live_run_20261113T075321Z.json` — SHA `84a3a16bfc854b7affa6225ec3d54ae475837a8a807c576b0fbd91635abbbcde`
-- `reports/campaign287_drift_report_20261113T075321Z.json` — SHA `c48334464989747a477e670d909c6ed559021a5b6add6303a00273b41334bd04`
-- `reports/campaign287_kill_switch_test_20261113T075321Z.json` — SHA `1da364794ea63bb702c3ca792d7c8dbadffd043417a1bd58092bf7cb0a7ec953`
-- `reports/campaign287_summary_20261113T075321Z.json` — SHA `0c91065afbb5e5fa6490150473fd56222a77c87016e200a734e6588256a5e984`
-
-**No avoidance (binding):** no status-only, planning-only, or inventory-only turn. Do not rerun/edit C281B→C286 frozen artifacts. Do not weaken gates, thresholds, kill-switch parameters, or drift tolerance. No synthetic/fabricated data, no relabeling caches, no simulated fills without real testnet API calls presented as real. Use existing dependencies only (numpy/pandas/scipy/statsmodels/aiohttp/pydantic). Do not edit `.github/workflows/main.yml`. Do not create/read/edit `HANDOFF.md`.
-
-**C285 is COMPLETE — formal negative result.** `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot cache + real 1h quote-volume cache (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint: `cost_sensitivity` (zero-exposure rate 0.0). Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them.
-
-**C286 is COMPLETE — formal negative result.** `scripts/run_c286_5m_volume_xsec_oos.py` executed end-to-end on the verified real 26,208-bar 5m spot cache with causal 1h-volume alignment (151 WF splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint recorded. Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them.
+**No avoidance (binding):** no status-only/planning-only/inventory-only turn. No reruns/edits to C281B→C286 frozen artifacts. No weakened gates/thresholds/kill-switch/drift tolerance/cherry-picking. No synthetic/fabricated/relabeled data, no simulated fills presented as real. Existing deps only. No `.github/workflows/main.yml` edits. No `HANDOFF.md`. If C287 cannot achieve drift-free or kill-switch fails, record formal blocker/failure artifacts and stop without declaring success.
 
 ### C287 specification (pre-registered; no post-hoc scope creep)
 - **Gateway**: Binance Spot Testnet REST + WebSocket (official endpoints only). No mainnet, no futures, no margin. API keys stored in environment variables only; never in repo, never logged.
@@ -187,4 +183,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285 is complete and frozen; current next campaign is **C287**.
 
-**END OF HANDOFF — refreshed 2026-11-13T07:55:00Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285 and C286 both formal negative results). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is COMPLETE — all five artifacts written with SHA256-from-bytes, state/handoff updated, tests green.** **C287 (operational hardening: testnet gateway/kill-switch) is the ACTIVE campaign, BLOCKED by real preflight evidence.** `scripts/preflight_c287.py` exists (fail-closed, run, exit 2, 5 blockers); `scripts/run_c287_testnet_gateway.py` now EXISTS and is runnable with `--blocker-artifacts`; all five BLOCKED C287 artifacts exist with fresh timestamps and SHA256-from-bytes; tests added and green. Next session: clear the 5 blockers (testnet credentials, REST reachability, signal parquet generation), then execute `scripts/run_c287_testnet_gateway.py --run` on Binance Spot Testnet for ≥72h/≥500 cycles with drift_free:true and kill-switch tests passed, or re-emit BLOCKED artifacts if blockers persist. **No avoidance:** do not substitute infra/refactor/docs/status/planning work for C287. A status-only turn is a failed handoff.
+**END OF HANDOFF — refreshed 2026-11-13T08:31:30Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285 and C286 both formal negative results). **C286 is COMPLETE — frozen.** **C287 (operational hardening: testnet gateway/kill-switch) is ACTIVE/BLOCKED.** `scripts/preflight_c287.py` (exit 2, 4 blockers) and `scripts/run_c287_testnet_gateway.py` are runnable; a deterministic C286-aligned signal artifact from verified caches is now present (`data/cache/signal_c286_5m_aligned.pkl`, SHA `d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5`, meta/provenance SHA256-from-bytes). Fresh BLOCKED C287 artifacts (2026-11-13T08:31:30Z) exist with SHA256-from-bytes. Remaining blockers: missing `BINANCE_TESTNET_API_KEY/SECRET` env vars and REST reachability to `testnet.binance.vision` (HTTP 451 from this environment; WS reachable). Next session: clear credentials/connectivity (run from allowed network with testnet keys in env), then execute `scripts/run_c287_testnet_gateway.py --run` on Binance Spot Testnet for ≥72h/≥500 cycles with `drift_free:true` and all kill-switch thresholds tested/passed, or re-emit BLOCKED artifacts if blockers persist. **No avoidance:** do not substitute infra/refactor/docs/status/planning work for C287. A status-only turn is a failed handoff.

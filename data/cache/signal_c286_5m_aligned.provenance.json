@@ -1,0 +1,15 @@
+{
+  "artifact": "c287_signal_artifact_provenance",
+  "blocked_routes": [],
+  "derived_from": [
+    "90d10b876bb8eda9619cbba73ed19d6c7db4ea7327284f2e33f10a7872a5b263.pkl (sha256 d15b0b183cf685a15dd34185baff22edf7ef3cc9c80c7d607bcd92f8da418c2f)",
+    "volume_1h_full.pkl (sha256 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c)"
+  ],
+  "fabricated_data": false,
+  "format": "pickle",
+  "generated_at_utc": "2026-11-13T08:31:05Z",
+  "note": "Derived deterministically from verified real Binance caches; no fabricated data; no simulated fills.",
+  "real_data_only": true,
+  "signal_path": "data/cache/signal_c286_5m_aligned.pkl",
+  "signal_sha256": "d490289e3a0d60bcdd9f0fc56f5da0e43d3b21747b1541db1a31dc6c5859f1b5"
+}
