@@ -1,16 +1,54 @@
 {
+  "type": "campaign13_causal_per_bar_enriched_gates",
   "campaign": 13,
-  "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
-  "cache8": "0bab5d6a",
-  "generated_utc": "2026-11-11T04:05:02.516968+00:00",
+  "computed_at": "2026-11-12T21:17:15.842555+00:00",
   "real_data_only": true,
   "fabricated_data": false,
-  "no_network_refetch": true,
   "provenance": {
-    "cache_pkl": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
-    "cache_meta": "/home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats/data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
-    "pkl_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
-    "meta_sha256": "d03556baeef34eae18d2122f4a17ec14e30fdd14e0a5616d914c5d0832d2d80d",
+    "source": "examples.run_campaign13_causal_gates",
+    "cache_spot_pkl": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "cache_spot_meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "cache_spot_pkl_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "cache_spot_meta_sha256": "cb5cb0863e3dedd0d373f1eeb52075c6b555c0048bdaf6eaa0d320ccaaf7c749",
+    "cache_meta_content": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "network_fetch_performed": false,
+    "no_synthetic_fabricated_inputs": true,
     "symbols": [
       "ADA",
       "AVAX",
@@ -24,17 +62,235 @@
       "SOL",
       "XRP"
     ],
+    "pairs": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ],
+      [
+        "ADA",
+        "ETH"
+      ],
+      [
+        "XRP",
+        "BTC"
+      ],
+      [
+        "BNB",
+        "ETH"
+      ],
+      [
+        "ADA",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "ETH"
+      ],
+      [
+        "BNB",
+        "BTC"
+      ],
+      [
+        "SOL",
+        "BNB"
+      ],
+      [
+        "DOT",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "ETH"
+      ],
+      [
+        "POL",
+        "BTC"
+      ],
+      [
+        "AVAX",
+        "BTC"
+      ],
+      [
+        "LINK",
+        "BTC"
+      ],
+      [
+        "LTC",
+        "BTC"
+      ],
+      [
+        "ADA",
+        "AVAX"
+      ],
+      [
+        "ADA",
+        "BNB"
+      ],
+      [
+        "ADA",
+        "DOT"
+      ],
+      [
+        "ADA",
+        "LINK"
+      ],
+      [
+        "ADA",
+        "LTC"
+      ],
+      [
+        "ADA",
+        "POL"
+      ],
+      [
+        "ADA",
+        "SOL"
+      ],
+      [
+        "ADA",
+        "XRP"
+      ],
+      [
+        "AVAX",
+        "BNB"
+      ],
+      [
+        "AVAX",
+        "DOT"
+      ],
+      [
+        "AVAX",
+        "ETH"
+      ],
+      [
+        "AVAX",
+        "LINK"
+      ],
+      [
+        "AVAX",
+        "LTC"
+      ],
+      [
+        "AVAX",
+        "POL"
+      ],
+      [
+        "AVAX",
+        "SOL"
+      ],
+      [
+        "AVAX",
+        "XRP"
+      ],
+      [
+        "BNB",
+        "DOT"
+      ],
+      [
+        "BNB",
+        "LINK"
+      ],
+      [
+        "BNB",
+        "LTC"
+      ],
+      [
+        "BNB",
+        "POL"
+      ],
+      [
+        "BNB",
+        "XRP"
+      ],
+      [
+        "DOT",
+        "LINK"
+      ],
+      [
+        "DOT",
+        "LTC"
+      ],
+      [
+        "DOT",
+        "POL"
+      ],
+      [
+        "DOT",
+        "SOL"
+      ],
+      [
+        "DOT",
+        "XRP"
+      ],
+      [
+        "ETH",
+        "LINK"
+      ],
+      [
+        "ETH",
+        "LTC"
+      ],
+      [
+        "ETH",
+        "POL"
+      ],
+      [
+        "LINK",
+        "LTC"
+      ],
+      [
+        "LINK",
+        "POL"
+      ],
+      [
+        "LINK",
+        "SOL"
+      ],
+      [
+        "LINK",
+        "XRP"
+      ],
+      [
+        "LTC",
+        "POL"
+      ],
+      [
+        "LTC",
+        "SOL"
+      ],
+      [
+        "LTC",
+        "XRP"
+      ],
+      [
+        "POL",
+        "SOL"
+      ],
+      [
+        "POL",
+        "XRP"
+      ],
+      [
+        "SOL",
+        "XRP"
+      ]
+    ],
     "start": "2026-04-01",
     "end": "2026-10-30",
     "freq": "1h",
-    "rows": 5112,
-    "fetch_success": true,
-    "fetch_real_data_only_meta": null,
-    "fetch_fabricated_data_meta": null,
-    "blocked_routes": [],
-    "rationale": "Real cached Binance spot data only; no network refetch; gate thresholds unmodified."
+    "fetch_real_data_only": true,
+    "fetch_fabricated_data": false
   },
-  "gate_thresholds": {
+  "thresholds_unmodified": {
     "entry_threshold": 2.0,
     "cointegration_pvalue": 0.05,
     "lookbacks": [
@@ -45,36 +301,22 @@
       24,
       48
     ],
-    "enriched_gates": [
-      "eg_pass",
-      "johansen_pass",
-      "spread_mr_pass",
-      "hl_bounds_pass",
-      "leg_stationarity_ok",
-      "rolling_stable_ok",
-      "no_structural_break"
-    ],
-    "strict_enriched_gates": true,
     "fee_rate": 0.001,
-    "slippage": 0.0005
+    "slippage": 0.0005,
+    "strict_enriched_gates": true,
+    "use_enriched_gates": true
   },
-  "pairs_evaluated": 55,
-  "pairs_with_errors": 0,
-  "error_pairs": [],
-  "aggregate": {
-    "total_bar_evaluations": 1124640,
-    "total_bar_passes": 0,
-    "per_gate_fail_count": {
-      "eg_pass": 1018788,
-      "johansen_pass": 829048,
-      "spread_mr_pass": 909105,
-      "hl_bounds_pass": 142944,
-      "leg_stationarity_ok": 1100016,
-      "rolling_stable_ok": 1123966,
-      "no_structural_break": 631167
-    }
+  "sweeps": {
+    "lookbacks": [
+      120,
+      240
+    ],
+    "check_intervals": [
+      24,
+      48
+    ]
   },
-  "results_pairs": {
+  "pairs": {
     "BTC/ETH": {
       "pair": [
         "BTC",
@@ -7281,8 +7523,11 @@
       "rolling_stable_blocks_all_bars_all_sweeps": true
     }
   },
-  "conclusion": "insufficient_or_blocked",
-  "edge_claim": false,
-  "honest": true,
-  "reason": "Mixed blocker pattern / unassessable gates or insufficient bars on real data."
+  "conclusion": {
+    "status": "insufficient_or_blocked",
+    "reason": "Mixed blocker pattern / unassessable gates on real data.",
+    "edge_claim": false,
+    "honest": true,
+    "cache_bars_min": 5112
+  }
 }

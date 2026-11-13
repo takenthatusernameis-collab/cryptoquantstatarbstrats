@@ -18,6 +18,8 @@
   "interval": "1h",
   "quote_asset": "USDT",
   "fetch_success": true,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
   "rows": 5112,
   "columns": [
     "ADA",

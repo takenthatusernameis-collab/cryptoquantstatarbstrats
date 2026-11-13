@@ -1,0 +1,2246 @@
+{
+  "type": "campaign9_causal_gate_edge_search",
+  "computed_at": "2026-11-12T21:24:26.719326+00:00",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "provenance": {
+    "source": "examples.run_campaign9_causal_gate_edge_search",
+    "cache_spot_pkl": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "cache_spot_meta": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json",
+    "cache_spot_pkl_sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "cache_spot_meta_sha256": "cb5cb0863e3dedd0d373f1eeb52075c6b555c0048bdaf6eaa0d320ccaaf7c749",
+    "cache_spot_meta_content": {
+      "cache_key": "0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7",
+      "symbols": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ],
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "interval": "1h",
+      "quote_asset": "USDT",
+      "fetch_success": true,
+      "fetch_real_data_only": true,
+      "fetch_fabricated_data": false,
+      "rows": 5112,
+      "columns": [
+        "ADA",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOT",
+        "ETH",
+        "LINK",
+        "LTC",
+        "POL",
+        "SOL",
+        "XRP"
+      ]
+    },
+    "volume_cache_hashes": {
+      "data/cache/volume_1h_full.meta.json": "4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616",
+      "data/cache/volume_1h_full.pkl": "4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c",
+      "data/cache/volume_1h_full.provenance.json": "c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89"
+    },
+    "portfolio_baseline_reference": "reports/portfolio_real.json",
+    "network_fetch_performed": false,
+    "no_synthetic_fabricated_inputs": true,
+    "symbols": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "pairs": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ]
+    ],
+    "start": "2026-04-01",
+    "end": "2026-10-30",
+    "freq": "1h",
+    "cached_aggregate_reference_campaign": "campaign8"
+  },
+  "walk_forward": {
+    "train_period": 500,
+    "test_period": 100,
+    "n_splits": 4,
+    "mode": "rolling",
+    "metric": "calmar_ratio"
+  },
+  "grid": {
+    "lookback": [
+      120
+    ],
+    "entry_threshold": [
+      2.0,
+      2.5
+    ],
+    "cointegration_pvalue": [
+      0.05
+    ]
+  },
+  "fee_slippage_grid": [
+    {
+      "fee_rate": 0.0,
+      "slippage": 0.0
+    },
+    {
+      "fee_rate": 0.0005,
+      "slippage": 0.0
+    },
+    {
+      "fee_rate": 0.001,
+      "slippage": 0.0005
+    },
+    {
+      "fee_rate": 0.002,
+      "slippage": 0.001
+    }
+  ],
+  "pairs": {
+    "BTC/ETH": {
+      "pair": [
+        "BTC",
+        "ETH"
+      ],
+      "symbols": [
+        "BTC",
+        "ETH"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "buy_and_hold_total_return": 0.09706516266655885,
+      "full_sample_diagnostic": {
+        "pair": [
+          "BTC",
+          "ETH"
+        ],
+        "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": true,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": true,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": true
+        },
+        "structural_breaks": {
+          "available": true,
+          "breaks": [],
+          "flagged": false,
+          "notes": null,
+          "provenance": {
+            "source": "utils.cointegration.structural_break_check",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.5185709758015116,
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.18478260869565216,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "strict_cached_gate_decision_fail_closed": false
+      },
+      "paths": {
+        "cached_aggregate": {
+          "pair": [
+            "BTC",
+            "ETH"
+          ],
+          "symbols": [
+            "BTC",
+            "ETH"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.09706516266655885,
+          "enriched_gate_accounting": {
+            "cached_aggregate_uniform_decision": false,
+            "note": "Cached full-history aggregate applied uniformly; fail-closed under strict mode (Campaign #8 reference path). No per-bar variation possible."
+          },
+          "full_sample_diagnostic": {
+            "pair": [
+              "BTC",
+              "ETH"
+            ],
+            "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+            "gates": {
+              "all_pass": false,
+              "eg_pass": false,
+              "johansen_pass": true,
+              "spread_mr_pass": false,
+              "hl_bounds_pass": true,
+              "leg_stationarity_ok": false,
+              "rolling_stable_ok": false,
+              "no_structural_break": true
+            },
+            "structural_breaks": {
+              "available": true,
+              "breaks": [],
+              "flagged": false,
+              "notes": null,
+              "provenance": {
+                "source": "utils.cointegration.structural_break_check",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            "blocked_routes": [
+              {
+                "route": "engle_granger",
+                "gate": "eg_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "pvalue": 0.5185709758015116,
+                "available": true
+              },
+              {
+                "route": "spread_mean_reversion",
+                "gate": "spread_mr_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "leg_stationarity",
+                "gate": "leg_stationarity_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "rolling_stability",
+                "gate": "rolling_stable_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "frac_significant": 0.18478260869565216,
+                "n_windows": 184,
+                "stable": false
+              }
+            ],
+            "strict_cached_gate_decision_fail_closed": false
+          },
+          "regime_slices_baseline_cost": {
+            "btc_vol_regime_0": {
+              "bars": 2149,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_1": {
+              "bars": 2759,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_2": {
+              "bars": 204,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_-1": {
+              "bars": 2417,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_0": {
+              "bars": 49,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_1": {
+              "bars": 2646,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            }
+          }
+        },
+        "causal_per_bar": {
+          "pair": [
+            "BTC",
+            "ETH"
+          ],
+          "symbols": [
+            "BTC",
+            "ETH"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.09706516266655885,
+          "enriched_gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4752,
+              "johansen_pass": 3912,
+              "spread_mr_pass": 3839,
+              "hl_bounds_pass": 119,
+              "leg_stationarity_ok": 4872,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 1799
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "full_sample_diagnostic": null,
+          "regime_slices_baseline_cost": {
+            "btc_vol_regime_0": {
+              "bars": 2149,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_1": {
+              "bars": 2759,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_2": {
+              "bars": 204,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_-1": {
+              "bars": 2417,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_0": {
+              "bars": 49,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_1": {
+              "bars": 2646,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            }
+          }
+        }
+      },
+      "path_comparison": {
+        "cached_oos_best": 0.0,
+        "causal_oos_best": 0.0,
+        "cached_replay_best_vs_bh": false,
+        "causal_replay_best_vs_bh": false,
+        "cached_replay_max_return": 0.0,
+        "causal_replay_max_return": 0.0
+      }
+    },
+    "ETH/SOL": {
+      "pair": [
+        "ETH",
+        "SOL"
+      ],
+      "symbols": [
+        "ETH",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "buy_and_hold_total_return": 0.10874855461019695,
+      "full_sample_diagnostic": {
+        "pair": [
+          "ETH",
+          "SOL"
+        ],
+        "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": false,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": true,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": false
+        },
+        "structural_breaks": {
+          "available": true,
+          "breaks": [
+            {
+              "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+              "beta_first_half": 31.033476379294992,
+              "beta_second_half": 18.424807172543282,
+              "relative_change": 0.25493543854056916
+            }
+          ],
+          "flagged": true,
+          "notes": null,
+          "provenance": {
+            "source": "utils.cointegration.structural_break_check",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.6029110794107178,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.11413043478260869,
+            "n_windows": 184,
+            "stable": false
+          },
+          {
+            "route": "structural_break",
+            "gate": "no_structural_break",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true,
+            "flagged": true,
+            "relative_change": 0.25493543854056916
+          }
+        ],
+        "strict_cached_gate_decision_fail_closed": false
+      },
+      "paths": {
+        "cached_aggregate": {
+          "pair": [
+            "ETH",
+            "SOL"
+          ],
+          "symbols": [
+            "ETH",
+            "SOL"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.10874855461019695,
+          "enriched_gate_accounting": {
+            "cached_aggregate_uniform_decision": false,
+            "note": "Cached full-history aggregate applied uniformly; fail-closed under strict mode (Campaign #8 reference path). No per-bar variation possible."
+          },
+          "full_sample_diagnostic": {
+            "pair": [
+              "ETH",
+              "SOL"
+            ],
+            "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+            "gates": {
+              "all_pass": false,
+              "eg_pass": false,
+              "johansen_pass": false,
+              "spread_mr_pass": false,
+              "hl_bounds_pass": true,
+              "leg_stationarity_ok": false,
+              "rolling_stable_ok": false,
+              "no_structural_break": false
+            },
+            "structural_breaks": {
+              "available": true,
+              "breaks": [
+                {
+                  "method": "rolling_hedge_ratio_halfsample_chow_heuristic",
+                  "beta_first_half": 31.033476379294992,
+                  "beta_second_half": 18.424807172543282,
+                  "relative_change": 0.25493543854056916
+                }
+              ],
+              "flagged": true,
+              "notes": null,
+              "provenance": {
+                "source": "utils.cointegration.structural_break_check",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            "blocked_routes": [
+              {
+                "route": "engle_granger",
+                "gate": "eg_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "pvalue": 0.6029110794107178,
+                "available": true
+              },
+              {
+                "route": "johansen",
+                "gate": "johansen_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "available": true
+              },
+              {
+                "route": "spread_mean_reversion",
+                "gate": "spread_mr_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "leg_stationarity",
+                "gate": "leg_stationarity_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "rolling_stability",
+                "gate": "rolling_stable_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "frac_significant": 0.11413043478260869,
+                "n_windows": 184,
+                "stable": false
+              },
+              {
+                "route": "structural_break",
+                "gate": "no_structural_break",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "available": true,
+                "flagged": true,
+                "relative_change": 0.25493543854056916
+              }
+            ],
+            "strict_cached_gate_decision_fail_closed": false
+          },
+          "regime_slices_baseline_cost": {
+            "error": "\"None of [Index(['BTC'], dtype='str')] are in the [columns]\""
+          }
+        },
+        "causal_per_bar": {
+          "pair": [
+            "ETH",
+            "SOL"
+          ],
+          "symbols": [
+            "ETH",
+            "SOL"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.10874855461019695,
+          "enriched_gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4512,
+              "johansen_pass": 3432,
+              "spread_mr_pass": 4032,
+              "hl_bounds_pass": 119,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2039
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "full_sample_diagnostic": null,
+          "regime_slices_baseline_cost": {
+            "error": "\"None of [Index(['BTC'], dtype='str')] are in the [columns]\""
+          }
+        }
+      },
+      "path_comparison": {
+        "cached_oos_best": 0.0,
+        "causal_oos_best": 0.0,
+        "cached_replay_best_vs_bh": false,
+        "causal_replay_best_vs_bh": false,
+        "cached_replay_max_return": 0.0,
+        "causal_replay_max_return": 0.0
+      }
+    },
+    "BTC/SOL": {
+      "pair": [
+        "BTC",
+        "SOL"
+      ],
+      "symbols": [
+        "BTC",
+        "SOL"
+      ],
+      "bars": 5112,
+      "window": {
+        "start": "2026-04-01 00:00:00+00:00",
+        "end": "2026-10-30 23:00:00+00:00"
+      },
+      "buy_and_hold_total_return": 0.14395209966307632,
+      "full_sample_diagnostic": {
+        "pair": [
+          "BTC",
+          "SOL"
+        ],
+        "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+        "gates": {
+          "all_pass": false,
+          "eg_pass": false,
+          "johansen_pass": false,
+          "spread_mr_pass": false,
+          "hl_bounds_pass": false,
+          "leg_stationarity_ok": false,
+          "rolling_stable_ok": false,
+          "no_structural_break": true
+        },
+        "structural_breaks": {
+          "available": true,
+          "breaks": [],
+          "flagged": false,
+          "notes": null,
+          "provenance": {
+            "source": "utils.cointegration.structural_break_check",
+            "real_data_only": true,
+            "fabricated_data": false
+          }
+        },
+        "blocked_routes": [
+          {
+            "route": "engle_granger",
+            "gate": "eg_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "pvalue": 0.7088623524510674,
+            "available": true
+          },
+          {
+            "route": "johansen",
+            "gate": "johansen_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "spread_mean_reversion",
+            "gate": "spread_mr_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "half_life_bounds",
+            "gate": "hl_bounds_pass",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "available": true
+          },
+          {
+            "route": "leg_stationarity",
+            "gate": "leg_stationarity_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            }
+          },
+          {
+            "route": "rolling_stability",
+            "gate": "rolling_stable_ok",
+            "passed": false,
+            "provenance": {
+              "source": "reports/portfolio_real.json",
+              "real_data_only": true,
+              "fabricated_data": false
+            },
+            "frac_significant": 0.07065217391304347,
+            "n_windows": 184,
+            "stable": false
+          }
+        ],
+        "strict_cached_gate_decision_fail_closed": false
+      },
+      "paths": {
+        "cached_aggregate": {
+          "pair": [
+            "BTC",
+            "SOL"
+          ],
+          "symbols": [
+            "BTC",
+            "SOL"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.14395209966307632,
+          "enriched_gate_accounting": {
+            "cached_aggregate_uniform_decision": false,
+            "note": "Cached full-history aggregate applied uniformly; fail-closed under strict mode (Campaign #8 reference path). No per-bar variation possible."
+          },
+          "full_sample_diagnostic": {
+            "pair": [
+              "BTC",
+              "SOL"
+            ],
+            "full_sample_diagnostic_status": "blocked_or_insufficient_data",
+            "gates": {
+              "all_pass": false,
+              "eg_pass": false,
+              "johansen_pass": false,
+              "spread_mr_pass": false,
+              "hl_bounds_pass": false,
+              "leg_stationarity_ok": false,
+              "rolling_stable_ok": false,
+              "no_structural_break": true
+            },
+            "structural_breaks": {
+              "available": true,
+              "breaks": [],
+              "flagged": false,
+              "notes": null,
+              "provenance": {
+                "source": "utils.cointegration.structural_break_check",
+                "real_data_only": true,
+                "fabricated_data": false
+              }
+            },
+            "blocked_routes": [
+              {
+                "route": "engle_granger",
+                "gate": "eg_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "pvalue": 0.7088623524510674,
+                "available": true
+              },
+              {
+                "route": "johansen",
+                "gate": "johansen_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "available": true
+              },
+              {
+                "route": "spread_mean_reversion",
+                "gate": "spread_mr_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "half_life_bounds",
+                "gate": "hl_bounds_pass",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "available": true
+              },
+              {
+                "route": "leg_stationarity",
+                "gate": "leg_stationarity_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                }
+              },
+              {
+                "route": "rolling_stability",
+                "gate": "rolling_stable_ok",
+                "passed": false,
+                "provenance": {
+                  "source": "reports/portfolio_real.json",
+                  "real_data_only": true,
+                  "fabricated_data": false
+                },
+                "frac_significant": 0.07065217391304347,
+                "n_windows": 184,
+                "stable": false
+              }
+            ],
+            "strict_cached_gate_decision_fail_closed": false
+          },
+          "regime_slices_baseline_cost": {
+            "btc_vol_regime_0": {
+              "bars": 2149,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_1": {
+              "bars": 2759,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_2": {
+              "bars": 204,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_-1": {
+              "bars": 2417,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_0": {
+              "bars": 49,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_1": {
+              "bars": 2646,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            }
+          }
+        },
+        "causal_per_bar": {
+          "pair": [
+            "BTC",
+            "SOL"
+          ],
+          "symbols": [
+            "BTC",
+            "SOL"
+          ],
+          "bars": 5112,
+          "window": {
+            "start": "2026-04-01 00:00:00+00:00",
+            "end": "2026-10-30 23:00:00+00:00"
+          },
+          "walk_forward": {
+            "train_period": 500,
+            "test_period": 100,
+            "n_splits": 4,
+            "mode": "rolling",
+            "metric": "calmar_ratio"
+          },
+          "grid": {
+            "lookback": [
+              120
+            ],
+            "entry_threshold": [
+              2.0,
+              2.5
+            ],
+            "cointegration_pvalue": [
+              0.05
+            ]
+          },
+          "top_ranked": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05,
+            "oos_mean_return": 0.0,
+            "oos_is_ratio": 0.0,
+            "oos_periods": 4
+          },
+          "all_combos_ranked": [
+            {
+              "lookback": 120,
+              "entry_threshold": 2.0,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "lookback": 120,
+              "entry_threshold": 2.5,
+              "cointegration_pvalue": 0.05,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "oos_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "oos_mean_return": 0.0,
+              "oos_is_ratio": 0.0,
+              "oos_periods": 4
+            }
+          ],
+          "replay_by_cost": [
+            {
+              "fee_rate": 0.0,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.0005,
+              "slippage": 0.0,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.001,
+              "slippage": 0.0005,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            },
+            {
+              "fee_rate": 0.002,
+              "slippage": 0.001,
+              "total_return": 0.0,
+              "sharpe_ratio": 0.0,
+              "max_drawdown": 0.0,
+              "calmar_ratio": 0.0,
+              "final_equity": 100000.0,
+              "trade_exposure": {
+                "trades_count": 0,
+                "n_bars_in_position": 0,
+                "n_bars_total": 5112,
+                "max_gross_exposure": 0.0,
+                "mean_gross_exposure": 0.0,
+                "total_turnover": 0.0
+              }
+            }
+          ],
+          "buy_and_hold_total_return": 0.14395209966307632,
+          "enriched_gate_accounting": {
+            "bars_total": 5112,
+            "bars_assessable": 5112,
+            "bars_pass": 0,
+            "bars_fail": 5112,
+            "bars_unassessable": 0,
+            "pass_rate": 0.0,
+            "fail_rate": 1.0,
+            "unassessable_rate": 0.0,
+            "per_gate_fail_count": {
+              "eg_pass": 4872,
+              "johansen_pass": 3792,
+              "spread_mr_pass": 4272,
+              "hl_bounds_pass": 119,
+              "leg_stationarity_ok": 5112,
+              "rolling_stable_ok": 5112,
+              "no_structural_break": 2639
+            },
+            "per_gate_fail_count_all_pass": 5112,
+            "breakdown_recorded": true
+          },
+          "full_sample_diagnostic": null,
+          "regime_slices_baseline_cost": {
+            "btc_vol_regime_0": {
+              "bars": 2149,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_1": {
+              "bars": 2759,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_vol_regime_2": {
+              "bars": 204,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_-1": {
+              "bars": 2417,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_0": {
+              "bars": 49,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            },
+            "btc_trend_1": {
+              "bars": 2646,
+              "total_return": 0.0,
+              "mean_return": 0.0
+            }
+          }
+        }
+      },
+      "path_comparison": {
+        "cached_oos_best": 0.0,
+        "causal_oos_best": 0.0,
+        "cached_replay_best_vs_bh": false,
+        "causal_replay_best_vs_bh": false,
+        "cached_replay_max_return": 0.0,
+        "causal_replay_max_return": 0.0
+      }
+    }
+  },
+  "portfolio": {
+    "cached_aggregate": {
+      "pairs": [
+        "BTC/ETH",
+        "ETH/SOL",
+        "BTC/SOL"
+      ],
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "bars": 5112,
+      "risk_controls": {
+        "max_gross_exposure": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure": 0.5,
+        "max_cvar_allocation": 0.25,
+        "drawdown_circuit_breaker": -0.1
+      },
+      "per_pair_params": {
+        "BTC/ETH": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "cached_aggregate"
+        },
+        "ETH/SOL": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "cached_aggregate"
+        },
+        "BTC/SOL": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "cached_aggregate"
+        }
+      },
+      "portfolio_by_cost": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.0005,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        }
+      ],
+      "buy_and_hold_total_return": 0.11658860564661071,
+      "regime_slices_baseline_cost": {
+        "btc_vol_regime_0": {
+          "bars": 2149,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_vol_regime_1": {
+          "bars": 2759,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_vol_regime_2": {
+          "bars": 204,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_-1": {
+          "bars": 2417,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_0": {
+          "bars": 49,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_1": {
+          "bars": 2646,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        }
+      },
+      "circuit_breaker_enforced_in_controller": true
+    },
+    "causal_per_bar": {
+      "pairs": [
+        "BTC/ETH",
+        "ETH/SOL",
+        "BTC/SOL"
+      ],
+      "symbols": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "bars": 5112,
+      "risk_controls": {
+        "max_gross_exposure": 1.4,
+        "per_pair_cap": 0.32,
+        "max_correlation_exposure": 0.5,
+        "max_cvar_allocation": 0.25,
+        "drawdown_circuit_breaker": -0.1
+      },
+      "per_pair_params": {
+        "BTC/ETH": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "causal_per_bar"
+        },
+        "ETH/SOL": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "causal_per_bar"
+        },
+        "BTC/SOL": {
+          "params": {
+            "lookback": 120,
+            "entry_threshold": 2.0,
+            "cointegration_pvalue": 0.05
+          },
+          "path": "causal_per_bar"
+        }
+      },
+      "portfolio_by_cost": [
+        {
+          "fee_rate": 0.0,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.0005,
+          "slippage": 0.0,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.001,
+          "slippage": 0.0005,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        },
+        {
+          "fee_rate": 0.002,
+          "slippage": 0.001,
+          "total_return": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown": 0.0,
+          "calmar_ratio": 0.0,
+          "final_equity": 100000.0,
+          "trade_exposure": {
+            "trades_count": 0,
+            "n_bars_in_position": 0,
+            "n_bars_total": 5112,
+            "max_gross_exposure": 0.0,
+            "mean_gross_exposure": 0.0,
+            "total_turnover": 0.0
+          }
+        }
+      ],
+      "buy_and_hold_total_return": 0.11658860564661071,
+      "regime_slices_baseline_cost": {
+        "btc_vol_regime_0": {
+          "bars": 2149,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_vol_regime_1": {
+          "bars": 2759,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_vol_regime_2": {
+          "bars": 204,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_-1": {
+          "bars": 2417,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_0": {
+          "bars": 49,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        },
+        "btc_trend_1": {
+          "bars": 2646,
+          "total_return": 0.0,
+          "mean_return": 0.0
+        }
+      },
+      "circuit_breaker_enforced_in_controller": true
+    }
+  },
+  "conclusion": {
+    "status": "no_edge",
+    "reason": "Across tested cached-real-data pairs/portfolio, walk-forward OOS cost slices, and replay cost slices under causal per-bar enriched gates (with cached-aggregate fail-closed reference), no positive OOS net edge and no replay outperformance vs buy-and-hold were observed under stated costs/windows.",
+    "edge_claim": false,
+    "honest": true
+  }
+}

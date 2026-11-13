@@ -659,8 +659,9 @@ class TestSmokeIntegration:
         lifecycle.submit(ack.exchange_order_id)
         lifecycle.acknowledge()
 
-        # 3. Microstructure fill
+        # 3. Microstructure fill (deterministic full-fill broker; no partial fill noise)
         micro_broker = create_microstructure_broker_from_env()
+        micro_broker.config.partial_fill_probability = 0.0
         order_dict = {
             "order_id": ack.exchange_order_id,
             "client_order_id": ack.client_order_id,
