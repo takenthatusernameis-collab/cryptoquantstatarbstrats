@@ -1,15 +1,15 @@
 # DURABLE HANDOFF — SINGLE AUTHORITATIVE START (cryptoquantstatarbstrats)
 
-## INITIAL TASK MESSAGE — 2026-11-13T02:07:14Z UTC
+## INITIAL TASK MESSAGE — 2026-11-13T02:08:20Z UTC
 
 **Repo priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**; core declared edge is **cointegration pairs**. Economic relevance requires **costed out-of-sample spot-price PnL from real data** (quote-volume return units are not PnL/tradable).
 
 **State:** Environment and methodology bottlenecks are removed. **C279 is COMPLETE with verdict `NOT_TRADABLE`** on the full real 11-asset spot cache. No spot-price config in the repo produces costed OOS edge under the locked WF/cost rules. **Do not redo C1–C279, do not re-sweep the same cache/config families, do not lower thresholds or coerce gates.**
 
 ## VERIFIED ENVIRONMENT / DATA (ready)
-- Python: `/usr/bin/python3` 3.12.3 with numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1, hmmlearn 0.3.3, pytest 9.2.0, pydantic 2.14.3, aiohttp 3.14.5, pytest-asyncio 1.5.0. `pytest tests/ --collect-only` → **1106 tests**; targeted `-k "mean_reversion or momentum or pairs or coint"` → **191 passed** (this session). `ruff`/`mypy` not installed. Ignore stale venv in `research_state/state.yaml`.
+- Python: `/usr/bin/python3` 3.12.3 with numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1, hmmlearn 0.3.3, pytest 9.2.0, pydantic 2.14.3, aiohttp 3.14.5, pytest-asyncio 1.5.0. `pytest tests/ --collect-only` → **1106 tests**; targeted `-k "mean_reversion or momentum or pairs or coint"` → **191 passed** (2026-11-13 session). `ruff`/`mypy` not installed. Ignore stale venv in `research_state/state.yaml`.
 - Real spot cache (no network, no synthetic): `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl` sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b`, meta sha256 per `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.meta.json`, **5112 hourly bars × 11 assets** (ADA,AVAX,BNB,BTC,DOT,ETH,LINK,LTC,POL,SOL,XRP), 2026-04-01→2026-10-30, 0 NaNs. Volume artifacts present but volume-return metrics are not tradable PnL (see frozen evidence).
-- Git: HEAD `eb602b3` on `main`. This handoff + untracked C279 artifacts/scripts may be present locally. No active heavy process required.
+- Git: `main` (check HEAD). C279 artifacts/scripts may be present locally/untracked. No active heavy process required.
 
 ## C279 RESULTS (final, on disk)
 WF 720/168/168; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; real data only.
@@ -24,18 +24,28 @@ WF 720/168/168; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; real data o
 - Registry: `reports/tradable_edge_registry_20261112T172556Z.json` sha256 `62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2` (0 tradable).
 - `reports/portfolio_real.json` sha256 `b573077ae2aaf4b0234c426d17b3b017867c4822438031a6979e6df184aa9e07` (17 pairs blocked/insufficient, `all_pass=false`). Static cached-diagnostics pairs path is a guaranteed no-op under strict gates — never use.
 
-## NEXT FOCUS CAMPAIGN (heavy work, only if justified by NEW real evidence)
-Because exhaustive spot-price search on the available real cache is negative, **default next action is to stop fabricating edge-search campaigns on the same data.** Future work must be materially new and evidence-producing:
+## NEXT FOCUS CAMPAIGN (C280 — MANDATORY HEAVY WORK, no status-only turns)
+Exhaustive spot-price search on the available real cache is negative. Future agents must execute **one** of the following evidence-producing paths:
 
-1. **New real data (only viable path to a different answer):** if and only if a genuinely new real dataset can be obtained/verified with provenance (different time period, additional liquid spot pairs, or a non-spot series the framework can cost correctly e.g. funding/perp/microstructure *with real fetch+provenance and no fabrication*), design and run a **C280 pre-registered, costed OOS** campaign on that new data. Requirements: document source, SHA256, no network blind spots, no synthetic fallback, fail-closed gates, same edge rule (OOS exposure>0, all cost slices net sum>0, mean OOS net > mean B&H OOS net). If no such data is available in-environment, record a **blocked-by-data-availability** evidence artifact (no fake results) and stop.
-2. **Research hardening (non-edge, only if requested):** reproduce key results/tests, or document why `rolling_stable_ok`/cointegration fails on this sample from real diagnostics — purely explanatory, no edge claims.
-3. **Do not**: add new volume/quote-return "alpha", rescale to claim PnL, relax `strict_enriched_gates`, pass static `pair_diagnostics_file`, cherry-pick windows/costs, or run C1–C279 again.
+### Path A — C280 NEW-DATA costed OOS (preferred if feasible)
+If and only if a genuinely new **real** dataset can be obtained/verified in-environment with provenance (different time period, additional liquid spot pairs, or a non-spot series the framework can cost correctly e.g. funding/perp/microstructure **with real fetch+provenance and no fabrication**):
+1. Produce `reports/campaign280_data_provenance_*.json` documenting source, exact assets/symbols/interval, time span, bar count, fetch method/hosts, SHA256 of raw cache bytes, `real_data_only=true`, `fabricated_data=false`, and why this is materially new vs existing cache.
+2. Design and run a **pre-registered, costed OOS** campaign on that new data (scripts `scripts/run_c280_*.py`). Requirements: fail-closed gates, no static `pair_diagnostics_file`/`enriched_diagnostics` injection, WF 720/168/168 (or justified alternative documented), cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, same edge rule (OOS exposure>0, all cost slices net sum>0, mean OOS net > mean B&H OOS net).
+3. Emit `reports/campaign280_*_oos_*.json`, ingest/registry/summary/verdict artifacts with SHA256-from-bytes for every artifact. Record honest verdict (`TRADABLE` only if edge rule met, else `NOT_TRADABLE`/blocked) — no invented statistics.
+
+### Path B — C280 DATA-AVAILABILITY BLOCKER (if no new real data accessible)
+If no genuinely new real dataset is available/obtainable in this environment without fabrication or prohibited network assumptions:
+1. Produce `reports/campaign280_data_availability_blocker_*.json` with exhaustive, evidenced attempts: checked local paths/caches, verified `data/cache/*` inventory + SHA256, documented why each potential source is unavailable/insufficient/non-provable here, `real_data_only=true`, `fabricated_data=false`, `edge_proven=false`, explicit conclusion `BLOCKED_NO_NEW_REAL_DATA`.
+2. Produce `scripts/run_c280_data_availability_blocker.py` (reproducible emitter) and `reports/campaign280_execution_summary_*.json` with SHA256-from-bytes. No fake OOS results.
+
+### Path C — Explanatory diagnostics (non-edge, only alongside A/B)
+Optionally, from real diagnostics only, document why `rolling_stable_ok`/cointegration gates fail on this sample (`reports/campaign280_gate_diagnostics_explanatory_*.json`, `edge_claim=NONE`, `real_data_only=true`). Purely explanatory — **not** a substitute for Path A/B and **no edge claims**.
 
 ## HARD BANS
 - No status/planning-only turns.
 - No C1–C279 reruns; no 7 pool families; no C273 volume-return families; no static cached-diagnostics pairs route.
-- No network refetch; no synthetic/fabricated data; no threshold weakening; no gate coercion.
+- No network refetch of existing data; no synthetic/fabricated data; no threshold weakening; no gate coercion; no cherry-picked windows/costs.
 - Do not edit frozen artifacts or `research_state/state.yaml` unless explicitly requested. Record SHA256-from-bytes for any new artifact.
-- Canonical handoff is this file only.
+- Canonical handoff is this file only. Update this file when C280 produces new durable evidence.
 
-**END OF DURABLE HANDOFF — 2026-11-13T02:07:14Z UTC. C279 complete, `NOT_TRADABLE` on real 11-asset spot cache; no proven spot-price edge.**
+**END OF DURABLE HANDOFF — 2026-11-13T02:08:20Z UTC. C279 complete, `NOT_TRADABLE` on real 11-asset spot cache; execute C280 Path A or B with heavy, evidenced work.**
