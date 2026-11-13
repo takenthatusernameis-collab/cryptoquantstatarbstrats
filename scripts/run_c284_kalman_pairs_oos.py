@@ -276,25 +276,123 @@ def main():
         for kalman_q in KALMAN_QS:
             for kalman_r in KALMAN_RS:
                 for lookback in LOOKBACKS:
+                    # Expensive causal Kalman filter + gate diagnostics computed
+                    # ONCE per (pair, kalman config, lookback); entry/exit/hold
+                    # only re-run the position state machine on cached arrays.
+                    base_strategy = KalmanPairsStrategy(
+                        pair=(a, b),
+                        lookback=lookback,
+                        entry_threshold=ENTRIES[0],
+                        exit_threshold=EXITS[0],
+                        min_holding=MIN_HOLDINGS[0],
+                        kalman_q=kalman_q,
+                        kalman_r=kalman_r,
+                        cointegration_pvalue=0.05,
+                        cointegration_check_interval=lookback,
+                        use_enriched_gates=True,
+                        strict_enriched_gates=True,
+                    )
+                    base_signals = base_strategy.generate_signals(pair_df)
+                    beta_series = base_strategy.beta_series.reindex(pair_df.index)
+                    beta_series = beta_series.replace([np.inf, -np.inf], np.nan)
+                    beta_series = beta_series.where(beta_series > 1e-18)
+                    beta_series = beta_series.clip(lower=1e-6, upper=1e6)
+
+                    z_values = base_signals["zscore"].to_numpy(dtype=float)
+                    p_values = base_signals["cointegration_pvalue"].to_numpy(dtype=float)
+                    enr_values = base_signals["enriched_gates_ok"].to_numpy(dtype=float)
+                    price_a = pair_df[a].astype(float)
+                    price_b = pair_df[b].astype(float)
+                    n_bars = len(pair_df)
+
+                    def run_state_machine(entry_t, exit_t, min_hold):
+                        position = np.zeros(n_bars, dtype=float)
+                        state = 0
+                        holding_bars = 0
+                        for i in range(n_bars):
+                            zv = z_values[i]
+                            pv = p_values[i]
+                            eg_ok = (
+                                np.isfinite(zv)
+                                and np.isfinite(pv)
+                                and pv <= 0.05
+                            )
+                            enr_ok = True
+                            ev = enr_values[i]
+                            if np.isfinite(ev) and ev == 0.0:
+                                enr_ok = False
+                            elif not np.isfinite(ev) or ev != 1.0:
+                                enr_ok = False
+                            if not eg_ok or not enr_ok:
+                                state = 0
+                                holding_bars = 0
+                            elif state == 1:
+                                if holding_bars >= min_hold and zv >= -exit_t:
+                                    state = 0
+                                    holding_bars = 0
+                                else:
+                                    holding_bars += 1
+                            elif state == -1:
+                                if holding_bars >= min_hold and zv <= exit_t:
+                                    state = 0
+                                    holding_bars = 0
+                                else:
+                                    holding_bars += 1
+                            elif zv <= -entry_t:
+                                state = 1
+                                holding_bars = 1
+                            elif zv >= entry_t:
+                                state = -1
+                                holding_bars = 1
+                            position[i] = state
+                        return position
+
+                    def weights_from_position(position):
+                        direction = pd.Series(position, index=pair_df.index)
+                        gross_value = price_a.abs() + beta_series.abs() * price_b.abs()
+                        gross_np = gross_value.to_numpy(dtype=float)
+                        beta_np = beta_series.to_numpy(dtype=float)
+                        valid = (
+                            (position != 0)
+                            & beta_series.notna().to_numpy()
+                            & np.isfinite(gross_np)
+                            & (gross_np > 0)
+                        )
+                        leg_a = np.zeros(n_bars, dtype=float)
+                        leg_b = np.zeros(n_bars, dtype=float)
+                        leg_a[valid] = (
+                            direction[valid].to_numpy(dtype=float)
+                            * price_a[valid].to_numpy(dtype=float)
+                            / gross_np[valid]
+                        )
+                        leg_b[valid] = (
+                            -direction[valid].to_numpy(dtype=float)
+                            * beta_np[valid]
+                            * price_b[valid].to_numpy(dtype=float)
+                            / gross_np[valid]
+                        )
+                        gross_exposure = np.abs(leg_a) + np.abs(leg_b)
+                        over = gross_exposure > 1.0
+                        if over.any():
+                            leg_a[over] = leg_a[over] / gross_exposure[over]
+                            leg_b[over] = leg_b[over] / gross_exposure[over]
+                        weights = pd.DataFrame(
+                            0.0, index=pair_df.index, columns=[a, b]
+                        )
+                        weights[a] = leg_a
+                        weights[b] = leg_b
+                        active = weights.abs().sum(axis=1).replace(0.0, np.nan)
+                        weights = weights.div(active, axis=0).fillna(0.0)
+                        pos = weights.shift(1).fillna(0.0)
+                        return pos
+
                     for entry in ENTRIES:
                         for exit_thr in EXITS:
                             for min_holding in MIN_HOLDINGS:
-                                strategy = KalmanPairsStrategy(
-                                    pair=(a, b),
-                                    lookback=lookback,
-                                    entry_threshold=entry,
-                                    exit_threshold=exit_thr,
-                                    min_holding=min_holding,
-                                    kalman_q=kalman_q,
-                                    kalman_r=kalman_r,
-                                    cointegration_pvalue=0.05,
-                                    cointegration_check_interval=lookback,
-                                    use_enriched_gates=True,
-                                    strict_enriched_gates=True,
+                                position = run_state_machine(
+                                    float(entry), float(exit_thr), int(min_holding)
                                 )
-                                signals = strategy.generate_signals(pair_df)
-                                weights = engine._signals_to_weights(signals, pair_df)
-                                pos = weights.shift(1).fillna(0.0)
+                                pos = weights_from_position(position)
                                 slices, exposure, all_sum_pos, all_mean_beats = costed_oos(
                                     pos, pret, pair_splits, COST_GRID, bh_mean
                                 )

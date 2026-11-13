@@ -1,8 +1,8 @@
-updated_at_utc: 20261113T045255Z
+updated_at_utc: 20261113T061220Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C284 (2026-11-13T04:52:55Z): run Step 0 dependency bootstrap, then implement and run scripts/run_c284_kalman_pairs_oos.py on verified cache 9355aed6...; emit sweep/registry/summary/verdict (+binding_constraint if NOT_TRADABLE) with SHA256-from-bytes, then sync state and AGENTS.md. No planning-only turn; completion gate is binding."
+active_initial_task: "C284 COMPLETED (2026-11-13T06:12:20Z): scripts/run_c284_kalman_pairs_oos.py executed end-to-end on verified cache 9355aed6...; NOT_TRADABLE, 1088 runs, 0 exposure, 0 edge; binding constraint = zero_exposure (rolling_stable_ok gate blocks all entries, same as C281C). Four artifacts + binding_constraint emitted with SHA256-from-bytes. State and AGENTS.md synced. Next campaign is C285 operational hardening (testnet gateway/kill-switch) — spot-only price-only edge search is formally closed per anti-avoidance rules."
 known_bottleneck: {id: ci_agent_shell_missing_deps, evidence: "108/178 diagnostics rows ModuleNotFoundError numpy", fix: "Step 0 preflight bootstrap in AGENTS.md", do_not: "edit .github/workflows/main.yml (token cannot persist workflow edits)"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
 wf: {train: 720, test: 168, step: 168}
@@ -16,8 +16,8 @@ caches_verified:
   volume_pkl: {path: data/cache/volume_1h_full.pkl, sha256: 4365895387de4e542165fd331e39da40d455a3de24c7254eb67ba890053d193c}
   volume_meta: {path: data/cache/volume_1h_full.meta.json, sha256: 4d321584d3c687ad9956908c0179a1eae7d629c296c491e1e5ad1259a890c616}
   volume_provenance: {path: data/cache/volume_1h_full.provenance.json, sha256: c7ff2f27ec5a668128e4856f809efde4922563dba87be0648be6d802c6d21c89}
-latest_campaign_done: C283
-next_campaign: C284
+latest_campaign_done: C284
+next_campaign: C285
 locked_campaigns: C104-C283
 oos_edge_proven: false
 latest_registry:
@@ -65,12 +65,20 @@ latest_campaigns:
     n_total_runs: 17
     n_with_exposure: 0
     n_edge_proven: 0
+  c284:
+    path: reports/campaign284_oos_sweep_20261113T061220Z.json
+    sha256: d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26
+    verdict: NOT_TRADABLE
+    n_total_runs: 1088
+    n_with_exposure: 0
+    n_edge_proven: 0
 campaign284:
   hypothesis: KALMAN_DYNAMIC_HEDGE_RATIO_PAIRS
-  status: pending_heavy_execution
+  status: completed_not_tradable
   dataset_path: data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl
   dataset_sha256: 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df
   script_required: scripts/run_c284_kalman_pairs_oos.py
+  script_executed: true
   pre_registered_grid:
     pairs: 17
     kalman_q: [1.0e-6, 1.0e-4]
@@ -81,19 +89,33 @@ campaign284:
     min_holding_bars: [1, 6]
     total_runs: 1088
   gates: fail_closed_causal_eg_adf_kpss_half_life_rolling_stability_structural_break
+  result:
+    verdict: NOT_TRADABLE
+    edge_proven: false
+    n_total_runs: 1088
+    n_with_exposure: 0
+    n_edge_proven: 0
+    binding_constraint: zero_exposure
+    zero_exposure_rate: 1.0
   required_artifacts:
-    - reports/campaign284_oos_sweep_<ts>.json
-    - reports/campaign284_tradable_edge_registry_<ts>.json
-    - reports/campaign284_summary_<ts>.json
-    - reports/campaign284_verdict_<ts>.json
-  binding_constraint_if_not_tradable: reports/campaign284_binding_constraint_<ts>.json
+    - reports/campaign284_oos_sweep_20261113T061220Z.json
+    - reports/campaign284_tradable_edge_registry_20261113T061220Z.json
+    - reports/campaign284_summary_20261113T061220Z.json
+    - reports/campaign284_verdict_20261113T061220Z.json
+  binding_constraint_artifact: reports/campaign284_binding_constraint_20261113T061220Z.json
+  artifact_sha256:
+    oos_sweep: d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26
+    registry: aabc59666cb815631e86ff34570133652d710bb8820bc22bd51adf6117c86b95
+    summary: ab3f12491ccbf02e53e7d7a8eb8258f5f2b4be6a9b48a37203a2738fe948d15a
+    verdict: d3e74b6e5348c69dd7b5590e430586698f315ab446e2e3ddaac3254d0ff5b512
+    binding_constraint: 9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14
 handoff:
   path: AGENTS.md
   single_authoritative: true
   removed_duplicate: HANDOFF.md
-  timestamp_utc: 20261113T045255Z
+  timestamp_utc: 20261113T061220Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "Execute C284 now (2026-11-13T04:52:55Z): first run the Step 0 dependency bootstrap (python -c 'import numpy,pandas,scipy,statsmodels' || pip install -r requirements.txt), then run scripts/run_c284_kalman_pairs_oos.py on cache 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df (5427x11, 17 pairs, 28 WF splits, 1088 runs). Emit all required artifacts with SHA256-from-bytes; fail-closed; do not rerun C281B/C281C/C282/C283, do not weaken, no status-only turn. Completion gate is binding: a turn without the four artifacts + SHAs and green tests is a failed handoff."
+  active_initial_task_message: "C284 COMPLETED (2026-11-13T06:12:20Z): scripts/run_c284_kalman_pairs_oos.py executed end-to-end on verified cache 9355aed6...; NOT_TRADABLE, 1088 runs, 0 exposure, 0 edge; binding constraint = zero_exposure. Four artifacts + binding_constraint emitted with SHA256-from-bytes. Spot-only price-only edge search is formally closed. Next campaign is C285 operational hardening (testnet gateway/kill-switch). Do not rerun C281B/C281C/C282/C283/C284; do not weaken gates; no status-only turn."
 mandates:
   - no_reruns_c281b_c281c_c282_c283
   - no_fabricated_or_relabeled_data

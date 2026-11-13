@@ -1,0 +1,30 @@
+{
+  "generated_at_utc": "20261113T061220Z",
+  "campaign": 284,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "finding": "No costed OOS edge proven on refreshed real spot data (1088 runs, 0 edge).",
+  "basis": "spot_price_only_costed_oos_kalman_pairs",
+  "dataset": {
+    "path": "data/cache/26736ab8fbb16974dd59f123855ab7e4810026d12712a05a363eabacd814ade2.pkl",
+    "sha256": "9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df",
+    "window": "2026-04-01->2026-11-13T02:00Z",
+    "bars": 5427,
+    "splits": 28
+  },
+  "oos_sweep_artifact": "reports/campaign284_oos_sweep_20261113T061220Z.json",
+  "oos_sweep_sha256": "d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26",
+  "registry_artifact": "reports/campaign284_tradable_edge_registry_20261113T061220Z.json",
+  "registry_sha256": "aabc59666cb815631e86ff34570133652d710bb8820bc22bd51adf6117c86b95",
+  "summary_artifact": "reports/campaign284_summary_20261113T061220Z.json",
+  "summary_sha256": "ab3f12491ccbf02e53e7d7a8eb8258f5f2b4be6a9b48a37203a2738fe948d15a",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless costed OOS test passes"
+  ],
+  "binding_constraint_artifact": "reports/campaign284_binding_constraint_20261113T061220Z.json",
+  "binding_constraint_sha256": "9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14"
+}

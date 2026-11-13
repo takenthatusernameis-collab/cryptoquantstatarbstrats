@@ -1,0 +1,104 @@
+{
+  "generated_at_utc": "20261113T061220Z",
+  "campaign": 284,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_pairs_total": 17,
+    "n_pairs_run": 17,
+    "pairs_run": [
+      [
+        "BTC",
+        "ETH"
+      ],
+      [
+        "ETH",
+        "SOL"
+      ],
+      [
+        "BTC",
+        "SOL"
+      ],
+      [
+        "ADA",
+        "ETH"
+      ],
+      [
+        "XRP",
+        "BTC"
+      ],
+      [
+        "BNB",
+        "ETH"
+      ],
+      [
+        "BTC",
+        "BNB"
+      ],
+      [
+        "SOL",
+        "BNB"
+      ],
+      [
+        "ADA",
+        "BTC"
+      ],
+      [
+        "XRP",
+        "ETH"
+      ],
+      [
+        "BNB",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "BTC"
+      ],
+      [
+        "DOT",
+        "ETH"
+      ],
+      [
+        "POL",
+        "BTC"
+      ],
+      [
+        "AVAX",
+        "BTC"
+      ],
+      [
+        "LINK",
+        "BTC"
+      ],
+      [
+        "LTC",
+        "BTC"
+      ]
+    ],
+    "limited_smoke": false,
+    "limit_pairs": 0
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign284_oos_sweep_20261113T061220Z.json",
+      "sha256": "d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26"
+    },
+    "registry": {
+      "path": "reports/campaign284_tradable_edge_registry_20261113T061220Z.json",
+      "sha256": "aabc59666cb815631e86ff34570133652d710bb8820bc22bd51adf6117c86b95"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1088,
+    "n_with_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean_full_universe": -0.0003620838511080919
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact with gate pass shares, exposure, turnover, and binding constraint; then stop spot-only price-only edge search and record formal negative result. Next campaign is C285 operational hardening. If EDGE_PROVEN: promote per registry rules."
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "20261113T061220Z",
+  "campaign": 284,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "NOT_TRADABLE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "oos_sweep_artifact": "reports/campaign284_oos_sweep_20261113T061220Z.json",
+  "oos_sweep_sha256": "d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26",
+  "gate_pass_shares": {
+    "no_costed_oos_edge": 1088
+  },
+  "exposure_summary": {
+    "total_runs": 1088,
+    "runs_with_exposure": 0,
+    "runs_zero_exposure": 1088,
+    "zero_exposure_rate": 1.0
+  },
+  "turnover_summary": {
+    "configs_with_exposure": 0,
+    "mean_turnover": 0.0,
+    "median_turnover": 0.0,
+    "max_turnover": 0.0
+  },
+  "binding_constraint": "zero_exposure",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

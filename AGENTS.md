@@ -1,13 +1,20 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T04:52:55Z
+**Handoff refreshed:** 2026-11-13T06:12:20Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
 **Verified state:** Local runtime `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (45.94s). Required cache/meta SHA256s re-verified from bytes at refresh time. **Known bottleneck (removed by Step 0 below):** the scheduled CI "Kilo General Agent Loop" worker shell has repeatedly failed with `ModuleNotFoundError: No module named 'numpy'` (108/178 diagnostics rows) because `.github/workflows/main.yml` is maintainer-owned and the agent token cannot persist workflow-file edits. Do NOT edit `main.yml`; run the Step 0 bootstrap at the start of every session instead.
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` does not exist; do not create another handoff file.
 
-## INITIAL TASK MESSAGE (active, 2026-11-13T04:52:55Z) — execute this first, no planning/status-only turn
+## INITIAL TASK MESSAGE (active, 2026-11-13T06:12:20Z) — execute this first, no planning/status-only turn
 
-**Execute Campaign C284: a pre-registered, costed OOS test of Kalman-filter dynamic-hedge-ratio pairs with causal OU/cointegration gates on the refreshed real Binance spot cache.** This is the next heavy-work campaign because C281B, C282, and C283 all returned `NOT_TRADABLE` on the same 5427×11 cache; C281C identified `rolling_stable_ok` as the binding pairs gate (0.29% pass), and C283 showed turnover is also binding. C284 must test the one structurally distinct pairs construction not yet tested: a **time-varying Kalman hedge ratio** instead of rolling OLS, while keeping fail-closed gates and the exact C281B cost/edge protocol. Do **not** answer with planning, inventory, or a status update: create `scripts/run_c284_kalman_pairs_oos.py`, run it over the full universe, and emit the four C284 artifacts with SHA256-from-bytes.
+**Campaign C284 COMPLETED — formal negative result.** `scripts/run_c284_kalman_pairs_oos.py` was executed end-to-end on the verified real Binance spot cache (5427×11, 17 pairs, 28 WF splits, 1088 runs). Result: **NOT_TRADABLE** — 0 runs with exposure, 0 edge proven. Binding constraint: `zero_exposure` (the fail-closed `rolling_stable_ok` gate blocks every entry, same binding gate as C281C at 0.29% pass). All five artifacts emitted with SHA256-from-bytes:
+- `reports/campaign284_oos_sweep_20261113T061220Z.json` (SHA `d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26`)
+- `reports/campaign284_tradable_edge_registry_20261113T061220Z.json` (SHA `aabc59666cb815631e86ff34570133652d710bb8820bc22bd51adf6117c86b95`)
+- `reports/campaign284_summary_20261113T061220Z.json` (SHA `ab3f12491ccbf02e53e7d7a8eb8258f5f2b4be6a9b48a37203a2738fe948d15a`)
+- `reports/campaign284_verdict_20261113T061220Z.json` (SHA `d3e74b6e5348c69dd7b5590e430586698f315ab446e2e3ddaac3254d0ff5b512`)
+- `reports/campaign284_binding_constraint_20261113T061220Z.json` (SHA `9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14`)
+
+Per the anti-avoidance rules, the spot-only price-only edge search is **formally closed**. The next campaign is **C285 operational hardening** (testnet gateway/kill-switch). Do not rerun C281B/C281C/C282/C283/C284; do not edit frozen artifacts; do not weaken gates; no status-only turn.
 
 ### Step 0 — dependency bootstrap (removes the known CI blocker; run before anything else)
 The CI worker shell may not have the repo's Python dependencies installed. Run this idempotent bootstrap first:
@@ -86,12 +93,14 @@ Ending a turn with only a plan, a status update, a partial sweep, or a smoke run
 | C281C | Gate diagnostics on same data | 680 gate evaluations | `rolling_stable_ok` binding (0.29% pass) |
 | C282 | Cross-sectional stat-arb on same data | 128 | `NOT_TRADABLE`, 0 edge |
 | C283 | Turnover-reduced cointegration pairs | 17 | `NOT_TRADABLE`, 0 exposure |
+| C284 | Kalman dynamic-hedge-ratio pairs, 28 WF splits, 5 cost slices, fail-closed gates | 1088 | `NOT_TRADABLE`, 0 exposure, binding: zero_exposure |
 
 Frozen evidence:
 - C281B: `reports/campaign281_oos_sweep_20261113T034058Z.json` (SHA `8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9`); verdict `reports/campaign281_verdict_20261113T034058Z.json`.
 - C281C: `reports/campaign281c_gate_diagnostics_20261113T034422Z.json` (SHA `b88b4dfa3513c376318b3d90ab4a5c6dbd5809ae27cecc71046f6b5e13e16265`).
 - C282: `reports/campaign282_oos_sweep_20261113T043542Z.json` (SHA `e727dcfb876b40d4206fea7da860574dd5d3fe5f117e79f5fc89f970f299c090`); verdict `reports/campaign282_verdict_20261113T043542Z.json`.
 - C283: `reports/campaign283_oos_sweep_20261113T034830Z.json` (SHA `9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0`); verdict `reports/campaign283_verdict_20261113T034830Z.json`.
+- C284: `reports/campaign284_oos_sweep_20261113T061220Z.json` (SHA `d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26`); verdict `reports/campaign284_verdict_20261113T061220Z.json`; binding constraint `reports/campaign284_binding_constraint_20261113T061220Z.json` (SHA `9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14`).
 - Global registry with zero tradable edge: `reports/tradable_edge_registry_20261112T172556Z.json` (SHA `62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2`).
 - Pairs universe: `reports/portfolio_real.json` (17 pairs).
 
@@ -125,4 +134,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; current next campaign is **C284**, not 39.
 
-**END OF HANDOFF — refreshed 2026-11-13T04:52:55Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
+**END OF HANDOFF — refreshed 2026-11-13T06:12:20Z.** The spot-only price-only edge search is formally closed (C281B→C284 all NOT_TRADABLE). Do not spend this session on production plumbing until C285 operational hardening (testnet gateway/kill-switch) is explicitly authorized.
