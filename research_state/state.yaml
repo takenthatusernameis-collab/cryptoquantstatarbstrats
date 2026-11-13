@@ -1,7 +1,8 @@
-updated_at_utc: 20261113T0445Z
+updated_at_utc: 20261113T044918Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
+active_initial_task: "C284 (2026-11-13T04:49:18Z): implement and run scripts/run_c284_kalman_pairs_oos.py on verified cache 9355aed6...; emit sweep/registry/summary/verdict (+binding_constraint if NOT_TRADABLE) with SHA256-from-bytes, then sync state and AGENTS.md. No planning-only turn."
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean OOS net > mean B&H OOS net on same WF windows. Real data only.
 wf: {train: 720, test: 168, step: 168}
 cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
@@ -89,8 +90,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   removed_duplicate: HANDOFF.md
-  timestamp_utc: 20261113T0445Z
+  timestamp_utc: 20261113T044918Z
   rule: do_not_create_another_handoff_file
+  active_initial_task_message: "Execute C284 now (2026-11-13T04:49:18Z): pre-registered costed OOS Kalman dynamic-hedge-ratio pairs with causal OU/cointegration gates on cache 9355aed62b00a56b46ebba70eec4f9855620e8fea1b6eeae417ec6d7dea349df (5427x11, 17 pairs, 28 WF splits, 1088 runs). Emit required artifacts with SHA256-from-bytes; fail-closed. No reruns of C281B/C281C/C282/C283, no weakening, no status-only turn."
 mandates:
   - no_reruns_c281b_c281c_c282_c283
   - no_fabricated_or_relabeled_data

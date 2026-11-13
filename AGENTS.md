@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Timestamp:** 2026-11-13T04:45:38Z
+**Handoff refreshed:** 2026-11-13T04:49:18Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state:** `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (46.46s). No known CI or dependency blocker.
-**Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` was removed; do not create another handoff file.
+**Verified state:** `python -m pytest tests/ -q` → **1104 passed, 2 skipped, 0 failed** (46.46s). No known CI or dependency blocker. Required cache/meta SHA256s re-verified at refresh time.
+**Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` does not exist; do not create another handoff file.
 
-## INITIAL TASK MESSAGE — execute this first
+## INITIAL TASK MESSAGE (active, 2026-11-13T04:49:18Z) — execute this first, no planning/status-only turn
 
 **Execute Campaign C284: a pre-registered, costed OOS test of Kalman-filter dynamic-hedge-ratio pairs with causal OU/cointegration gates on the refreshed real Binance spot cache.** This is the next heavy-work campaign because C281B, C282, and C283 all returned `NOT_TRADABLE` on the same 5427×11 cache; C281C identified `rolling_stable_ok` as the binding pairs gate (0.29% pass), and C283 showed turnover is also binding. C284 must test the one structurally distinct pairs construction not yet tested: a **time-varying Kalman hedge ratio** instead of rolling OLS, while keeping fail-closed gates and the exact C281B cost/edge protocol. Do **not** answer with planning, inventory, or a status update: create `scripts/run_c284_kalman_pairs_oos.py`, run it over the full universe, and emit the four C284 artifacts with SHA256-from-bytes.
 
@@ -106,4 +106,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; current next campaign is **C284**, not 39.
 
-**END OF HANDOFF — 2026-11-13T04:45:38Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
+**END OF HANDOFF — refreshed 2026-11-13T04:49:18Z.** The framework is research-complete but deployment-incomplete. Do not spend this session on production plumbing until C284 either proves a costed OOS edge or formally closes the spot-only edge search.
