@@ -1,0 +1,34 @@
+{
+  "generated_at_utc": "20261113T215725Z",
+  "campaign": 295,
+  "part": "summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "n_total_runs": 162,
+  "n_with_exposure": 108,
+  "n_edge_proven": 0,
+  "n_zero_exposure": 54,
+  "benchmark_bh_oos_mean": 2.5443238582214146e-08,
+  "universe": {
+    "n_assets": 9,
+    "assets": [
+      "ADAUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "SOLUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "artifacts": {
+    "sweep": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+    "registry": "reports/campaign295_tradable_edge_registry_20261113T215725Z.json"
+  },
+  "oos_sweep_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+  "registry_sha256": "e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a"
+}

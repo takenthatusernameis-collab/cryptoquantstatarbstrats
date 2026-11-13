@@ -1,0 +1,46 @@
+{
+  "generated_at_utc": "20261113T215725Z",
+  "campaign": 295,
+  "part": "verdict",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "edge_claim": "NONE",
+  "explanation": "No costed OOS edge proven on the real three-venue Binance+OKX+Coinbase spot basis/dispersion/lead-lag family (162 runs, 0 edge, 108 with exposure).",
+  "universe": {
+    "n_assets": 9,
+    "assets": [
+      "ADAUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "SOLUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "aggregate": {
+    "n_total_runs": 162,
+    "n_with_exposure": 108,
+    "n_edge_proven": 0,
+    "n_zero_exposure": 54,
+    "benchmark_bh_oos_mean": 2.5443238582214146e-08
+  },
+  "oos_sweep_artifact": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+  "oos_sweep_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+  "registry_artifact": "reports/campaign295_tradable_edge_registry_20261113T215725Z.json",
+  "registry_sha256": "e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a",
+  "summary_artifact": "reports/campaign295_summary_20261113T215725Z.json",
+  "summary_sha256": "036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893",
+  "artifacts": {
+    "sweep": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+    "registry": "reports/campaign295_tradable_edge_registry_20261113T215725Z.json",
+    "summary": "reports/campaign295_summary_20261113T215725Z.json",
+    "binding_constraint": "reports/campaign295_binding_constraint_20261113T215725Z.json"
+  },
+  "binding_constraint_artifact": "reports/campaign295_binding_constraint_20261113T215725Z.json",
+  "binding_constraint_sha256": "0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab"
+}

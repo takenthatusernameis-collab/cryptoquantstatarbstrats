@@ -1,50 +1,34 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T21:13:17Z
+**Handoff refreshed:** 2026-11-13T21:38:43Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state (last verification):** `python -m pytest tests/ -q` → **green (1226 passed, 2 skipped, 112.9s)** at 2026-11-13T21:12Z. C281B→C286, C288, C289, C290, C291, C292, C293, **C294** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge, frozen). The reachable **5m spot + perp** space (single-venue and cross-venue) is closed (`economic_space_closed: true`), and the **real implied-volatility VRP / BTC-ETH relative-value** asset class is now also **closed (C294)**. **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block + no credentials and is DECOUPLED from economic progress.**
+**Verified state (last verification):** `python -m pytest tests/ -q` → **green (1241 passed, 2 skipped, 78.3s)** at 2026-11-13T21:38Z. C281B→C286, C288, C289, C290, C291, C292, C293, C294, **C295** are **COMPLETE formal negative results** (`NOT_TRADABLE`, 0 costed-OOS edge, frozen). The reachable **5m spot + perp** space (single-venue and cross-venue) is closed (`economic_space_closed: true`), the **real implied-volatility VRP / BTC-ETH relative-value** asset class is also **closed (C294)**, and the **three-venue real 5m spot cross-venue basis / lead-lag** space is also **closed (C295)**. **C287 (testnet gateway) is BLOCKED by an external-only geographic CDN block + no credentials and is DECOUPLED from economic progress.**
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-13T21:13:17Z) — C295 THREE-VENUE (Binance + OKX + Coinbase) REAL 5m SPOT CROSS-VENUE BASIS / LEAD-LAG STAT-ARB: MANDATORY HEAVY WORK, END-TO-END (NO AVOIDANCE)
+## INITIAL TASK MESSAGE (2026-11-13T21:38:43Z) — C295 COMPLETE (NOT_TRADABLE, 0/162 edge, binding cost_sensitivity); NEXT FOCUS C296 OPTIONS TERM-STRUCTURE/SKEW (DERIBIT PER-STRIKE MARK IV) CONTINGENT ON DEEP PER-STRIKE IV FEED VERIFICATION
 
-**START HERE. C295 is the only active economic campaign.** C294 (real implied-vol VRP) is COMPLETE/frozen as `NOT_TRADABLE` (see record below). The next genuinely new market structure is **three-venue real 5m spot**: the same asset trading on **Binance + OKX + Coinbase** simultaneously. C292 already closed the **two-venue** Binance+OKX basis (25 pairs, 0/81 edge); C295 adds a **third independent venue (Coinbase)** to test whether cross-venue dislocation/lead-lag is exploitable when three real order books are compared (triangular basis, dispersion, lead-lag) — a genuinely new venue/market-structure test of the `economic_space_closed` claim. All three sources were verified reachable this session (2026-11-13T21:13Z, browser UA):
-- **Binance 5m:** `GET https://data-api.binance.vision/api/v3/klines?symbol=<SYM>USDT&interval=5m` — HTTP 200, deep (26-asset C290 universe).
-- **OKX 5m:** `GET https://www.okx.com/api/v5/market/history-candles?instId=<SYM>-USDT&bar=5m&limit=300[&after=<ms>]` — HTTP 200, deep, browser UA required (C292).
-- **Coinbase 5m:** `GET https://api.exchange.coinbase.com/products/<SYM>-USD/candles?granularity=300&start=<ISO8601>&end=<ISO8601>` — HTTP 200, **deep (verified back to ≥2025-01-01; ≤300 bars/page, paginate backward by moving `start`/`end`)**. Row format `[time_s, low, high, open, close, volume]` (time in **seconds**, newest-first). The `end`-only form does NOT page backward — use explicit `start`+`end`.
-- Blocked (do not use): `fapi.binance.com` 451, `testnet.binance.vision` 451 (C287); `api.bybit.com` 403.
+**C295 is COMPLETE and frozen.** Three-venue real 5m spot cross-venue basis / dispersion / lead-lag stat-arb (Binance + OKX + Coinbase) executed end-to-end: ingest → preflight `ready:true` → 162-run costed OOS sweep → 5 SHA256-from-bytes artifacts → 15 tests → suite green. Verdict `NOT_TRADABLE`, `edge_claim: NONE`, 0/162 edge proven, binding constraint `cost_sensitivity` (92/162 gross-positive at 0bps, 0/162 net-positive at ≥5bps, 0/162 beat benchmark). The reachable three-venue real-spot stat-arb space is now **closed**.
 
-**Deliverables (this is the whole next turn — not planning, not status, not ingest-only):**
-1. **Ingest `scripts/ingest_c295_three_venue_spot.py`** → `data/cache/campaign295_three_venue_spot.pkl` + `.meta.json` + `.provenance.json` (SHA256-from-bytes, `real_data_only: true`, `fabricated_data: false`). Fetch 5m closes for a common universe across **all three** venues; keep only symbols with **full** 5m coverage on all three over the pre-registered common window (record excluded symbols + reason). Compute per-venue coverage. Do NOT relabel two-venue caches; fetch all three fresh. Record any 404/gap.
-2. **Preflight `scripts/preflight_c295.py`** — fail-closed, prints `"ready": true` only when: pkl/meta/provenance SHAs match; three venue frames exactly aligned on the same 5m UTC grid, zero NaN, strictly positive, duplicate-free, exact 5m spacing; per-venue + per-symbol coverage gate (record partial with reason); WF math `n_splits == (n_bars-720-168)//168 + 1`; feature warmup ≥ max lookback. No missing/None/false permissive.
-3. **Runner `scripts/run_c295_three_venue_basis_xsec_oos.py`** (mirror `scripts/run_c292_crossvenue_basis_xsec_oos.py` / `run_c293_crossvenue_funding_xsec_oos.py` structure):
-   - Features on cross-venue 5m closes, `shift(1)` then align: `basis_bc` = (binance − coinbase)/coinbase (rolling mean and z over L); `basis_oc` = (okx − coinbase)/coinbase (mean and z); `xdisp` = cross-venue dispersion (max−min)/min over L; `leadlag` = rolling lead-lag of venue returns. **L ∈ {288, 1008, 2016} 5m bars**, `min_periods = max(3, L//3)`.
-   - Portfolio: cross-sectional **K ∈ {2, 3, 5}**, 0.5/K per leg, gross 1.0, dollar-neutral, cap 0.5; **H ∈ {1, 6, 24} 5m bars**; `weights.shift(1).fillna(0.0)`.
-   - PnL (real-input): the position is a cross-venue spread on each asset; PnL = Σ w_i·(r_venue_long − r_venue_short) with **cost on ALL legs** (turnover = Σ|Δw| across the legs used). Report the full pre-registered grid.
-   - Cost grid exactly `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps; WF **train=720/test=168/step=168** 5m bars (compute `n_splits` from actual bars); benchmark = equal-weight buy-and-hold with the same costs on the same WF windows.
-   - **Edge rule identical to C285/C286/C288/C290/C291/C292/C293/C294 (never relaxed):** OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split benchmark OOS net mean. Report the full grid (no post-hoc search).
-4. **Tests:** `tests/test_preflight_c295.py` + `tests/test_c295_three_venue_basis_xsec_oos.py`.
-5. **Emit five timestamped artifacts with SHA256-from-bytes:** `reports/campaign295_oos_sweep_<ts>.json`, `campaign295_tradable_edge_registry_<ts>.json`, `campaign295_summary_<ts>.json`, `campaign295_verdict_<ts>.json`, and `campaign295_binding_constraint_<ts>.json` if NOT_TRADABLE. Each records `real_data_only: true`, `fabricated_data: false`, dataset SHAs, config, all run results.
-6. **Update** `research_state/state.yaml` + this file with verdict/paths/SHAs; keep `python -m pytest tests/ -q` green.
+**Next focus (C296):** real **options term-structure / skew** stat-arb on Deribit per-strike mark IV — **contingent on first verifying a deep historical per-strike IV feed** (DVOL only covers 30-day ATM; per-strike history must be probed via `https://www.deribit.com/api/v2/public/get_historical_volatility` or equivalent). If no deep per-strike IV history is reachable, record the options family as data-blocked and declare the reachable cross-sectional stat-arb space closed. **If C296 finds a costed OOS edge:** escalate to external execution (C287) — still blocked by testnet REST HTTP 451 + no creds — do not fabricate fills.
 
-**Mandatory execution path (heavy work, no status-only turn):**
-```bash
-cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
-python scripts/bootstrap_dev_env.py --json          # 900000 ms shell timeout
-python scripts/verify_env.py --json
-python scripts/preflight_c285.py --json && python scripts/preflight_c286.py --json
-python scripts/preflight_c288.py --json && python scripts/preflight_c289.py --json
-python scripts/preflight_c290.py --json && python scripts/preflight_c291.py --json
-python scripts/preflight_c292.py --json && python scripts/preflight_c293.py --json
-python scripts/preflight_c294.py --json             # must print ready:true
-python scripts/ingest_c295_three_venue_spot.py      # build the 3-venue real cache
-python scripts/preflight_c295.py --json             # must print ready:true
-python scripts/run_c295_three_venue_basis_xsec_oos.py # full sweep -> 5 artifacts
-python -m pytest tests/ -q                           # must stay green
-```
+All three C295 sources verified reachable (browser UA): Binance 5m `data-api.binance.vision/api/v3/klines` (deep); OKX 5m `www.okx.com/api/v5/market/history-candles` (deep); Coinbase 5m `api.exchange.coinbase.com/products/<SYM>-USD/candles?granularity=300&start=<ISO>&end=<ISO>` (deep ≥2025-01-01, explicit start+end pagination, row [time_s,low,high,open,close,volume] seconds). Blocked: `fapi.binance.com` 451, `testnet.binance.vision` 451, `api.bybit.com` 403.
 
-**C295 completion gate (a turn that ends without this is a failed handoff):**
+**Deliverables (all completed 2026-11-13T21:57:25Z):**
+1. **Ingest `scripts/ingest_c295_three_venue_spot.py`** → `data/cache/campaign295_three_venue_spot.pkl` (`2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7`), `.meta.json` (`de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab`), `.provenance.json` (`570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d`). 9 symbols with full 5m coverage on all 3 venues (ADAUSDT, BTCUSDT, ETHUSDT, LTCUSDT, ONDOUSDT, SOLUSDT, XLMUSDT, XRPUSDT, ZECUSDT); 17 excluded with recorded reasons (coverage_fail or http_404/okx_code_51001). `real_data_only: true`, `fabricated_data: false`.
+2. **Preflight `scripts/preflight_c295.py`** → `ready: true` (SHA match; 3 venue frames exactly aligned on exact 5m UTC grid, zero NaN, strictly positive, duplicate-free; per-venue per-symbol coverage gate passed; WF math `n_splits == (26208-720-168)//168 + 1 == 151`; warmup ≥ max lookback 2016).
+3. **Runner `scripts/run_c295_three_venue_basis_xsec_oos.py`** → full 162-run sweep (6 features × 3 lookbacks × 3 K × 3 H; WF 720/168/168; cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs; B&H benchmark; edge rule identical to C285-C294). Verdict `NOT_TRADABLE`, 0/162 edge, 108/162 with exposure, binding `cost_sensitivity`.
+4. **Tests:** `tests/test_preflight_c295.py` + `tests/test_c295_three_venue_basis_xsec_oos.py` (15 tests, all passing).
+5. **Five timestamped artifacts with SHA256-from-bytes:**
+   - `reports/campaign295_oos_sweep_20261113T215725Z.json` (`fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc`)
+   - `reports/campaign295_tradable_edge_registry_20261113T215725Z.json` (`e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a`)
+   - `reports/campaign295_summary_20261113T215725Z.json` (`036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893`)
+   - `reports/campaign295_verdict_20261113T215725Z.json` (`02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3`)
+   - `reports/campaign295_binding_constraint_20261113T215725Z.json` (`0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab`)
+6. **Updated** `research_state/state.yaml` + this file with verdict/paths/SHAs; `python -m pytest tests/ -q` green (1241 passed, 2 skipped).
+
+**C295 completion gate (all satisfied 2026-11-13T21:57:25Z):**
 1. Ingest, preflight (`ready:true`), and runner exist and executed end-to-end (not smoke-only).
-2. Five artifacts fresh with SHA256-from-bytes; the `economic_space_closed` claim either upheld on the three-venue structure or an edge found.
+2. Five artifacts fresh with SHA256-from-bytes; the `economic_space_closed` claim upheld on the three-venue structure (NOT_TRADABLE, 0 edge).
 3. `research_state/state.yaml` + this file record the result, paths, SHAs.
 4. `python -m pytest tests/ -q` green (tests added for new code).
 
@@ -86,7 +70,7 @@ python -m pytest tests/ -q                           # must stay green
 | C292 | Cross-venue real-spot basis / lead-lag stat-arb, Binance+OKX (USDT) 5m, 25 pairs, cost on both legs, 151 WF splits | 81 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (17/81 gross positive) |
 | C293 | Cross-venue PERP funding-carry stat-arb, OKX + Binance USDT-M funding, cost on both legs, WF 720/168/168 | 81 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (72/81 with exposure) |
 | C294 | Real Deribit DVOL implied-vol VRP / BTC-ETH relative-value stat-arb, 1h, real cashflow leg + labeled variance-swap proxy, WF 720/168/168 | 27 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (15/27 gross positive, 0/27 VSP beats short-vol) |
-| **C295** | **Three-venue real 5m spot cross-venue basis / lead-lag stat-arb, Binance + OKX + Coinbase, cost on all legs, WF 720/168/168** | **pending** | **ACTIVE — next heavy campaign** |
+| **C295** | **Three-venue real 5m spot cross-venue basis / dispersion / lead-lag stat-arb, Binance + OKX + Coinbase, cost on all legs, WF 720/168/168** | **162** | **`NOT_TRADABLE`, 0 edge, binding: cost_sensitivity (92/162 gross-positive at 0bps, 0/162 net-positive at ≥5bps, 0/162 beat benchmark)** |
 
 ### Frozen evidence (C281B→C294) — paths + SHA256-from-bytes
 - C281B: `reports/campaign281_oos_sweep_20261113T034058Z.json` (`8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9`); verdict `reports/campaign281_verdict_20261113T034058Z.json`.

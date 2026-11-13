@@ -1,0 +1,73 @@
+{
+  "generated_at_utc": "20261113T215026Z",
+  "campaign": 295,
+  "part": "ingest",
+  "interval": "5m",
+  "symbols": [
+    "ADAUSDT",
+    "BTCUSDT",
+    "ETHUSDT",
+    "LTCUSDT",
+    "ONDOUSDT",
+    "SOLUSDT",
+    "XLMUSDT",
+    "XRPUSDT",
+    "ZECUSDT"
+  ],
+  "n_symbols": 9,
+  "rows": 26208,
+  "expected_bars": 26208,
+  "columns_per_frame": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "venues": [
+    "binance",
+    "okx",
+    "coinbase"
+  ],
+  "venue_frames": {
+    "binance": [
+      "binance_opens",
+      "binance_highs",
+      "binance_lows",
+      "binance_closes",
+      "binance_volumes"
+    ],
+    "okx": [
+      "okx_opens",
+      "okx_highs",
+      "okx_lows",
+      "okx_closes",
+      "okx_volumes"
+    ],
+    "coinbase": [
+      "coinbase_opens",
+      "coinbase_highs",
+      "coinbase_lows",
+      "coinbase_closes",
+      "coinbase_volumes"
+    ]
+  },
+  "window_start_utc": "2026-08-01T00:00:00Z",
+  "window_end_utc": "2026-10-30T23:55:00Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "source_host_binance": "https://data-api.binance.vision",
+  "source_endpoint_binance": "/api/v3/klines",
+  "source_host_okx": "https://www.okx.com",
+  "source_endpoint_okx": "/api/v5/market/history-candles",
+  "source_host_coinbase": "https://api.exchange.coinbase.com",
+  "source_endpoint_coinbase": "/products/<SYM>-USD/candles",
+  "coinbase_granularity": 300,
+  "okx_bar": "5m",
+  "okx_limit": 300,
+  "binance_limit": 1000,
+  "sha256_from_bytes": "2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7",
+  "pkl_path": "data/cache/campaign295_three_venue_spot.pkl"
+}

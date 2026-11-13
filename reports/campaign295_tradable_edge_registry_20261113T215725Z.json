@@ -1,0 +1,131 @@
+{
+  "generated_at_utc": "20261113T215725Z",
+  "campaign": 295,
+  "part": "tradable_edge_registry",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "analysis": "tradable_edge_registry",
+  "n_tradable": 0,
+  "tradable_configs": [],
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 151
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "two_leg_cost_factor": 2.0,
+    "signal_features": [
+      "basis_bc_ma",
+      "basis_bc_z",
+      "basis_oc_ma",
+      "basis_oc_z",
+      "xdisp",
+      "leadlag"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_5m": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 162,
+    "min_periods_rule": "max(3, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "features": {
+      "basis_bc_ma": "-rolling_mean((binance-coinbase)/coinbase, L)",
+      "basis_bc_z": "-rolling_z((binance-coinbase)/coinbase, L)",
+      "basis_oc_ma": "-rolling_mean((okx-coinbase)/coinbase, L)",
+      "basis_oc_z": "-rolling_z((okx-coinbase)/coinbase, L)",
+      "xdisp": "-rolling_mean((max-min)/min over 3 venues, L)",
+      "leadlag": "+rolling_mean(coinbase_ret - binance_ret.shift(1), L)"
+    },
+    "spread_return": {
+      "basis_bc_*": "r_binance - r_coinbase",
+      "basis_oc_*": "r_okx - r_coinbase",
+      "xdisp": "r_binance - r_coinbase (representative)",
+      "leadlag": "r_coinbase - r_binance"
+    }
+  },
+  "universe": {
+    "n_assets": 9,
+    "assets": [
+      "ADAUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "SOLUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "data_source": {
+    "cache": "data/cache/campaign295_three_venue_spot.pkl",
+    "cache_sha256": "2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7",
+    "meta": "data/cache/campaign295_three_venue_spot.meta.json",
+    "meta_sha256": "de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab",
+    "provenance": "data/cache/campaign295_three_venue_spot.provenance.json",
+    "provenance_sha256": "570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d",
+    "bars": 26208,
+    "interval": "5m",
+    "assets": [
+      "ADAUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "SOLUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ],
+    "n_assets": 9,
+    "window": {
+      "start": "2026-08-01 00:00:00+00:00",
+      "end": "2026-10-30 23:55:00+00:00"
+    },
+    "venues": [
+      "binance",
+      "okx",
+      "coinbase"
+    ],
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+  "oos_sweep_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+  "sha256_from_bytes": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc"
+}

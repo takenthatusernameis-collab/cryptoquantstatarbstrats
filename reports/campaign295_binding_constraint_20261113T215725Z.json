@@ -1,0 +1,40 @@
+{
+  "generated_at_utc": "20261113T215725Z",
+  "campaign": 295,
+  "part": "binding_constraint",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "binding_constraint": "cost_sensitivity",
+  "diagnosis": {
+    "n_total_runs": 162,
+    "n_with_exposure": 108,
+    "n_cost0_slice_net_positive": 92,
+    "n_all_cost_slices_net_positive": 0,
+    "n_beats_bh_all_slices": 0,
+    "benchmark_bh_oos_mean": 2.5443238582214146e-08
+  },
+  "explanation": "No costed OOS edge proven on the real three-venue Binance+OKX+Coinbase spot basis/dispersion/lead-lag family (162 runs, 0 edge, 108 with exposure).",
+  "universe": {
+    "n_assets": 9,
+    "assets": [
+      "ADAUSDT",
+      "BTCUSDT",
+      "ETHUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "SOLUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "oos_sweep_artifact": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+  "oos_sweep_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+  "artifacts": {
+    "sweep": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+    "registry": "reports/campaign295_tradable_edge_registry_20261113T215725Z.json",
+    "summary": "reports/campaign295_summary_20261113T215725Z.json",
+    "verdict": "reports/campaign295_verdict_20261113T215725Z.json"
+  }
+}

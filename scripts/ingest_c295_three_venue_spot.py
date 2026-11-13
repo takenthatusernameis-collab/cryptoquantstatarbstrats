@@ -194,6 +194,7 @@ def build_venue_frame(
     stats.update(
         {
             "status": "ok" if full_coverage else "coverage_fail",
+            "ok": full_coverage,
             "nan_count": nan_count,
             "all_finite": finite,
             "all_prices_positive": positive_prices,
