@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T06:30:00Z
+**Handoff refreshed:** 2026-11-13T06:58:44Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state:** `python -m pytest tests/ -q` → **1119 passed, 2 skipped, 0 failed**. C285 is **COMPLETE — formal negative result**: `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot + quote-volume caches (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint `cost_sensitivity` (zero-exposure rate 0.0). All five C285 artifacts exist with fresh timestamps and SHA256-from-bytes. C286 (5m execution overlay) is the next focus campaign now that C285 is complete; C287 (operational hardening) remains deferred until C286 is complete.
+**Verified state:** `python -m pytest tests/ -q` → **1119 passed, 2 skipped, 0 failed** (last recorded). C285 is **COMPLETE — formal negative result**: `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot + quote-volume caches (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint `cost_sensitivity` (zero-exposure rate 0.0). All five C285 artifacts exist with fresh timestamps and SHA256-from-bytes. **C286 (5m execution overlay) is ACTIVE and not started** (`scripts/run_c286_5m_volume_xsec_oos.py` and `reports/campaign286_*` absent as of this refresh). C287 (operational hardening) remains deferred until C286 is complete.
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (active, 2026-11-13T06:52:05Z) — EXECUTE C286 NEXT; no planning/status-only turn
+## INITIAL TASK MESSAGE (active, 2026-11-13T06:58:44Z) — EXECUTE C286 NEXT; no planning/status-only turn
 
 **C285 is COMPLETE — formal negative result.** `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot cache + real 1h quote-volume cache (5112-bar overlap, 26 OOS splits, 81 pre-registered runs: 3 features × 3 lookbacks × 3 K × 3 holds): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint: `cost_sensitivity` (zero-exposure rate 0.0). Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them. Per the anti-avoidance rules, the volume-conditioned cross-sectional family is recorded NOT_TRADABLE and the search stops here; do not start a new parameter search in this session.
 
@@ -45,6 +45,7 @@ Each must include `real_data_only: true`, `fabricated_data: false`, the spot/vol
 - Use existing dependencies only (numpy/pandas/scipy/statsmodels); do not add a new framework.
 - C286 must use the volume-derived signal aligned causally to 5m execution; a price-only C286 variant is forbidden.
 - If C286 is `NOT_TRADABLE`, record a formal negative result and stop; C287 is the next campaign.
+- **No avoidance path:** do not substitute infra/refactor/docs/status/planning work for C286. The only acceptable outcomes are (a) full C286 artifacts + state/handoff update + green tests, or (b) a fail-closed blocker artifact documenting a concrete unresolvable dependency/data gate failure (no fabricated results).
 
 ### C286 completion gate (a turn that ends without this is a failed handoff)
 The session is not done until ALL of these are true and persisted:
@@ -58,7 +59,7 @@ Ending a turn with only a plan, a status update, a partial sweep, or a smoke run
 ### Deferred campaigns (do not start early)
 - **C287 — operational hardening:** testnet gateway/kill-switch. Do not start until C286 is complete.
 
-## Step 0 — dependency bootstrap (removes the known CI blocker; run before anything else)
+## Step 0 — dependency bootstrap and preflight (removes known blockers; run before anything else)
 The scheduled Kilo worker shell may start without the repo's Python dependencies. Run this idempotent bootstrap first, with a **900000 ms shell timeout**:
 ```bash
 cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
@@ -67,6 +68,8 @@ python scripts/verify_env.py --json
 python scripts/preflight_c285.py --json
 ```
 `scripts/bootstrap_dev_env.py` installs `requirements.txt` plus `pytest`, `pytest-asyncio`, `hmmlearn`, `pydantic`, and `aiohttp` with `--user`, then verifies every import. If pip has no network and deps are missing, stop with a blocker artifact; do not fabricate a result. Never edit `.github/workflows/main.yml` (the controller token cannot persist workflow-file changes and it will loop on persistence failure).
+
+**C286 preflight (before running the campaign):** verify the 5m spot cache/meta exist and match the recorded SHAs, and the 1h volume cache/meta/provenance match their recorded SHAs. Confirm 5m window is 26208×11 (2026-08-01 → 2026-10-30T23:55Z), zero NaNs, duplicate-free, `real_data_only: true`, `fabricated_data: false`. Fail closed on any mismatch; do not relabel or fabricate data.
 
 ## Bottlenecks removed in this refresh
 - **Dependency bootstrap:** `scripts/bootstrap_dev_env.py` + `scripts/verify_env.py` install and verify runtime and test imports, including `hmmlearn`, `pydantic`, `aiohttp`, and `pytest-asyncio`; the old Step 0 omitted the test-only imports.
@@ -129,6 +132,6 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Binance API/host changes → `data/real_feed_loader.py` host chain.
 - Statsmodels warnings → `utils/cointegration.py` (`result_object=True` where applicable).
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
-- Campaign numbering conflict → highest campaign JSON in `reports/`; current next campaign is **C285**, not C284.
+- Campaign numbering conflict → highest campaign JSON in `reports/`; C285 is complete and frozen; current next campaign is **C286**.
 
-**END OF HANDOFF — refreshed 2026-11-13T06:52:05Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285). C286 (5m execution overlay) is the next economic campaign; C287 (operational hardening) remains deferred until C286 is complete.
+**END OF HANDOFF — refreshed 2026-11-13T06:58:44Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is the active next campaign — execute it end-to-end and satisfy the completion gate.** C287 (operational hardening) remains deferred until C286 is complete.
