@@ -1,0 +1,77 @@
+{
+  "generated_at_utc": "20261113T163030Z",
+  "campaign": 292,
+  "part": "ingest",
+  "interval": "5m",
+  "symbols": [
+    "AAVEUSDT",
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "ETHUSDT",
+    "GRAMUSDT",
+    "INJUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "NEARUSDT",
+    "ONDOUSDT",
+    "PEPEUSDT",
+    "PUMPUSDT",
+    "SOLUSDT",
+    "SUIUSDT",
+    "TAOUSDT",
+    "TRUMPUSDT",
+    "TRXUSDT",
+    "UNIUSDT",
+    "WLDUSDT",
+    "XLMUSDT",
+    "XRPUSDT",
+    "ZECUSDT"
+  ],
+  "n_symbols": 25,
+  "rows": 26208,
+  "expected_bars": 26208,
+  "columns_per_frame": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "venues": [
+    "binance",
+    "okx"
+  ],
+  "venue_frames": {
+    "binance": [
+      "binance_opens",
+      "binance_highs",
+      "binance_lows",
+      "binance_closes",
+      "binance_volumes"
+    ],
+    "okx": [
+      "okx_opens",
+      "okx_highs",
+      "okx_lows",
+      "okx_closes",
+      "okx_volumes"
+    ]
+  },
+  "window_start_utc": "2026-08-01T00:00:00Z",
+  "window_end_utc": "2026-10-30T23:55:00Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "source_host_binance": "https://data-api.binance.vision",
+  "source_endpoint_binance": "/api/v3/klines (verified C290 cache, reused, never relabeled)",
+  "source_host_okx": "https://www.okx.com",
+  "source_endpoint_okx": "/api/v5/market/history-candles",
+  "okx_bar": "5m",
+  "okx_limit": 100,
+  "sha256_from_bytes": "aa0448517ac36145141ab69a4c83ef94dbbcecaf090a04420222ae3e98117975",
+  "pkl_path": "data/cache/campaign292_crossvenue_5m.pkl"
+}

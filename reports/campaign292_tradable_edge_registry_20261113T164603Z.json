@@ -1,0 +1,151 @@
+{
+  "generated_at_utc": "20261113T164603Z",
+  "campaign": 292,
+  "part": "tradable_edge_registry",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "analysis": "tradable_edge_registry",
+  "n_tradable": 0,
+  "tradable_configs": [],
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 151
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "two_leg_cost_factor": 2.0,
+    "signal_features": [
+      "xbasis_ma",
+      "xbasis_z",
+      "xleadlag"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_5m": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 81,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "spread_return": "r_binance - r_okx per asset (cross-venue basis spread)",
+    "score_definition": {
+      "xbasis_ma": "-mean((okx_close-binance_close)/binance_close, L 5m bars)",
+      "xbasis_z": "-z((okx_close-binance_close)/binance_close, L 5m bars)",
+      "xleadlag": "-mean(okx_logret - binance_logret.shift(1), L 5m bars)"
+    }
+  },
+  "universe": {
+    "n_assets": 25,
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "ONDOUSDT",
+      "PEPEUSDT",
+      "PUMPUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TAOUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "data_source": {
+    "cache": "data/cache/campaign292_crossvenue_5m.pkl",
+    "cache_sha256": "aa0448517ac36145141ab69a4c83ef94dbbcecaf090a04420222ae3e98117975",
+    "meta": "data/cache/campaign292_crossvenue_5m.meta.json",
+    "meta_sha256": "77342481c4095358c5f385074791f722ff6b3565050c9209222855086290efa6",
+    "provenance": "data/cache/campaign292_crossvenue_5m.provenance.json",
+    "provenance_sha256": "ab243df7be7b1711046b8c82ce0eb447387e2e5a99f601f4d8e57db603b58e26",
+    "bars": 26208,
+    "interval": "5m",
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "ONDOUSDT",
+      "PEPEUSDT",
+      "PUMPUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TAOUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ],
+    "n_assets": 25,
+    "window": {
+      "start": "2026-08-01 00:00:00+00:00",
+      "end": "2026-10-30 23:55:00+00:00"
+    },
+    "venues": [
+      "binance",
+      "okx"
+    ],
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign292_oos_sweep_20261113T164603Z.json",
+  "oos_sweep_sha256": "02854406654b921f00a438f32db651a07d24a8c87c16826b38ddc677788c0b7f",
+  "sha256_from_bytes": "02854406654b921f00a438f32db651a07d24a8c87c16826b38ddc677788c0b7f"
+}

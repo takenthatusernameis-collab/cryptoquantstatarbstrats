@@ -60,6 +60,15 @@ INTERVAL = "5m"
 OKX_BAR = "5m"
 OKX_LIMIT = 100
 REQUEST_TIMEOUT = 30.0
+# OKX rejects non-browser User-Agent strings with HTTP 403 (CloudFront).  Use a
+# standard browser UA so the public market-data endpoint stays reachable.
+HTTP_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+    ),
+    "Accept": "application/json",
+}
 SLEEP_BETWEEN_REQUESTS = 0.4  # polite pacing to avoid OKX rate limits
 MAX_PAGES_PER_SYMBOL = 20000  # safety bound for deep pagination
 OKX_RETRY_STATUS = {429}  # rate limit: retry transiently
@@ -81,10 +90,36 @@ def expected_index() -> pd.DatetimeIndex:
     return pd.DatetimeIndex(idx)
 
 
+def to_epoch_ms(idx: pd.DatetimeIndex) -> np.ndarray:
+    """Convert a UTC DatetimeIndex to integer epoch MILLISECONDS, unit-agnostic.
+
+    pandas 3.x defaults to microsecond (``datetime64[us]``) resolution, so a
+    naive ``view('int64') // 1_000_000`` yields seconds, not milliseconds.  OKX
+    candle timestamps are epoch milliseconds, so normalise explicitly from the
+    index unit.
+    """
+    idx = pd.DatetimeIndex(idx)
+    if idx.tz is None:
+        idx = idx.tz_localize("UTC")
+    else:
+        idx = idx.tz_convert("UTC")
+    unit = getattr(idx.dtype, "unit", "ns")
+    vals = idx.asi8
+    if unit == "s":
+        return vals * 1_000
+    if unit == "ms":
+        return vals
+    if unit == "us":
+        return vals // 1_000
+    if unit == "ns":
+        return vals // 1_000_000
+    raise RuntimeError(f"unsupported datetime unit: {unit}")
+
+
 def _http_get(url: str, timeout: float, retries: int = 6) -> tuple[int, bytes]:
     last_exc: Exception | None = None
     for attempt in range(retries):
-        req = urllib.request.Request(url, method="GET", headers={"User-Agent": "kilo-c292-ingest"})
+        req = urllib.request.Request(url, method="GET", headers=HTTP_HEADERS)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return int(resp.status), resp.read()
@@ -186,15 +221,22 @@ def fetch_okx_pages(inst_id: str, exp_idx: pd.DatetimeIndex, timeout: float) -> 
     raw = pd.concat(frames, axis=0).drop_duplicates("ts", keep="last").sort_values("ts")
     raw = raw.set_index("ts")
     # Reindex onto the exact 5m UTC grid (ms -> datetime UTC).
-    grid_ms = exp_idx.view("int64") // 1_000_000
+    grid_ms = to_epoch_ms(exp_idx)
     grid_idx = pd.Index(grid_ms, name="ts")
     raw = raw.reindex(grid_idx)
     n_expected = len(exp_idx)
-    vals = raw[["open", "high", "low", "close", "volume"]].to_numpy(dtype=float)
+    raw = raw[["open", "high", "low", "close", "volume"]]
+    price_vals = raw[["open", "high", "low", "close"]].to_numpy(dtype=float)
+    vol_vals = raw[["volume"]].to_numpy(dtype=float)
+    vals = raw.to_numpy(dtype=float)
     nan_c = int(np.isnan(vals).sum())
     finite = bool(np.isfinite(vals).all()) if nan_c == 0 else False
-    positive = bool((vals > 0).all()) if nan_c == 0 else False
-    full_coverage = bool(nan_c == 0 and finite and positive)
+    # Coverage requires strictly positive PRICES; zero-volume 5m bars are legitimate
+    # real market data (no trades) and must NOT fail an instrument.
+    positive_prices = bool((price_vals > 0).all()) if nan_c == 0 else False
+    volume_nonneg = bool((vol_vals >= 0).all()) if nan_c == 0 else False
+    full_coverage = bool(nan_c == 0 and finite and positive_prices and volume_nonneg)
+    min_volume = float(np.nanmin(vol_vals)) if vol_vals.size else None
 
     return {
         "instId": inst_id,
@@ -206,9 +248,11 @@ def fetch_okx_pages(inst_id: str, exp_idx: pd.DatetimeIndex, timeout: float) -> 
         "bars": int(len(raw)),
         "nan_count": nan_c,
         "all_finite": finite,
-        "all_positive": positive,
+        "all_prices_positive": positive_prices,
+        "volume_nonneg": volume_nonneg,
+        "min_volume": min_volume,
         "full_coverage": full_coverage,
-        "frame": raw[["open", "high", "low", "close", "volume"]] if full_coverage else None,
+        "frame": raw if full_coverage else None,
         "ok": full_coverage,
     }
 
@@ -262,66 +306,94 @@ def main(argv: list[str] | None = None) -> int:
         for s in binance_symbols
     }
 
+    # Fetch OKX 5m klines per candidate symbol (Binance universe) in parallel.
+    okx_results: dict[str, dict] = {}
+    inst_for = {s: binance_to_okx(s) for s in binance_symbols}
+    print(f"[C292] Fetching OKX 5m for {len(binance_symbols)} symbols, window {START_UTC}..{END_UTC} ({n_expected} bars)", flush=True)
+
+    with ThreadPoolExecutor(max_workers=max(1, int(args.workers))) as ex:
+        futs = {ex.submit(fetch_okx_pages, inst_for[s], exp_idx, args.timeout): s for s in binance_symbols}
+        for fut in as_completed(futs):
+            sym = futs[fut]
+            try:
+                okx_results[sym] = fut.result()
+            except Exception as exc:  # noqa: BLE001
+                okx_results[sym] = {
+                    "instId": inst_for[sym],
+                    "status": "fetch_error",
+                    "error": str(exc),
+                    "pages": [],
+                    "full_coverage": False,
+                    "ok": False,
+                }
+            r = okx_results[sym]
+            print(f"  [OKX] {sym} ({inst_for[sym]}): {r.get('status')} full={r.get('full_coverage')} pages={r.get('n_pages')} nan={r.get('nan_count')}", flush=True)
+
+    selected: list[str] = []
+    excluded: dict[str, str] = {}
     built: dict[str, dict] = {}
-    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
-        futures = {
-            pool.submit(fetch_okx_pages, binance_to_okx(s), exp_idx, args.timeout): s
-            for s in binance_symbols
+    okx_instids: dict[str, str] = {}
+
+    # Build Binance-per-symbol frames on the exact window grid.
+    for sym in binance_symbols:
+        okx_instids[sym] = inst_for[sym]
+        bvals = {
+            f: binance_frames[f][[sym]].astype(float).to_numpy().reshape(-1)
+            for f in ("opens", "highs", "lows", "closes", "volumes")
         }
-        for fut in as_completed(futures):
-            s = futures[fut]
-            built[s] = fut.result()
+        b_price = np.column_stack([bvals["opens"], bvals["highs"], bvals["lows"], bvals["closes"]])
+        b_vol = bvals["volumes"]
+        b_ok = bool(
+            np.isfinite(b_price).all()
+            and np.isfinite(b_vol).all()
+            and (b_price > 0).all()
+            and (b_vol >= 0).all()
+        )
+        built[sym] = okx_results.get(sym, {"ok": False, "status": "missing"})
+        if not b_ok:
+            excluded[sym] = "binance_coverage_fail"
+            continue
+        if not built[sym].get("ok"):
+            excluded[sym] = str(built[sym].get("status", "unknown"))
+            continue
+        selected.append(sym)
 
-    selected = [s for s in binance_symbols if built[s].get("ok")]
-    excluded = {s: built[s].get("status") for s in binance_symbols if built[s].get("status") != "ok"}
+    selected = sorted(selected)
 
-    if not selected:
-        raise SystemExit(f"FATAL: no symbols have full OKX+Binance coverage. Excluded: {excluded}")
-
-    def wide_binance(field: str) -> pd.DataFrame:
-        return binance_frames[field][selected].reindex(exp_idx).astype(float)
-
-    def wide_okx(field: str) -> pd.DataFrame:
-        return pd.concat({s: built[s]["frame"][field] for s in selected}, axis=1).reindex(exp_idx).astype(float)
-
-    opens_b = wide_binance("opens")
-    highs_b = wide_binance("highs")
-    lows_b = wide_binance("lows")
-    closes_b = wide_binance("closes")
-    volumes_b = wide_binance("volumes")
-    opens_o = wide_okx("open")
-    highs_o = wide_okx("high")
-    lows_o = wide_okx("low")
-    closes_o = wide_okx("close")
-    volumes_o = wide_okx("volume")
-
+    # Assemble per-venue frames for the overlap (selected) symbols.
     n_bars = n_expected
-    shape = (n_bars, len(selected))
-    for name, df in (
-        ("binance_opens", opens_b), ("binance_highs", highs_b), ("binance_lows", lows_b),
-        ("binance_closes", closes_b), ("binance_volumes", volumes_b),
-        ("okx_opens", opens_o), ("okx_highs", highs_o), ("okx_lows", lows_o),
-        ("okx_closes", closes_o), ("okx_volumes", volumes_o),
-    ):
-        if df.shape != shape:
-            raise SystemExit(f"FATAL: aligned {name} shape {df.shape} != {shape}")
+    okx_detail: dict[str, dict] = {s: {k: v for k, v in built[s].items() if k != "frame"} for s in binance_symbols}
+    okx_frames: dict[str, pd.DataFrame] = {s: built[s]["frame"] for s in selected}
 
-    okx_instids = {s: built[s]["instId"] for s in selected}
-    okx_detail = {
-        s: {
-            k: built[s].get(k)
-            for k in (
-                "status", "instId", "n_pages", "oldest_ts_ms", "target_start_ms",
-                "bars", "nan_count", "all_finite", "all_positive", "full_coverage",
-            )
-        }
-        for s in selected
-    }
+    def _frame_venue_binance(field: str) -> pd.DataFrame:
+        return binance_frames[field][selected].astype(float).reindex(exp_idx)
+
+    def _frame_venue_okx(col: str) -> pd.DataFrame:
+        if not selected:
+            return pd.DataFrame(index=exp_idx)
+        arr = np.column_stack([okx_frames[s][col].to_numpy(dtype=float) for s in selected])
+        return pd.DataFrame(arr, index=exp_idx, columns=selected)
+
+    opens_b = _frame_venue_binance("opens")
+    highs_b = _frame_venue_binance("highs")
+    lows_b = _frame_venue_binance("lows")
+    closes_b = _frame_venue_binance("closes")
+    volumes_b = _frame_venue_binance("volumes")
+
+    opens_o = _frame_venue_okx("open")
+    highs_o = _frame_venue_okx("high")
+    lows_o = _frame_venue_okx("low")
+    closes_o = _frame_venue_okx("close")
+    volumes_o = _frame_venue_okx("volume")
+
+    okx_instids_sel = {s: inst_for[s] for s in selected}
 
     payload = {
+        "campaign": 292,
+        "part": "data",
         "interval": INTERVAL,
         "symbols": selected,
-        "okx_instids": okx_instids,
+        "okx_instids": okx_instids_sel,
         "window_start_utc": START_UTC,
         "window_end_utc": END_UTC,
         "n_bars": n_bars,
@@ -335,7 +407,7 @@ def main(argv: list[str] | None = None) -> int:
         "okx_lows": lows_o,
         "okx_closes": closes_o,
         "okx_volumes": volumes_o,
-        "binance_coverage": binance_coverage,
+        "binance_coverage": {s: binance_coverage[s] for s in binance_symbols},
         "okx_coverage": okx_detail,
         "universe_binance": binance_symbols,
         "excluded_symbols": excluded,
@@ -364,7 +436,7 @@ def main(argv: list[str] | None = None) -> int:
         "fabricated_data": False,
         "fetch_real_data_only": True,
         "fetch_fabricated_data": False,
-        "source_host_binance": "https://data-api.binance.vision",
+        "source_host_binance": str(bpayload.get("source_host", "https://data-api.binance.vision")),
         "source_endpoint_binance": "/api/v3/klines (verified C290 cache, reused, never relabeled)",
         "source_host_okx": OKX_HOST,
         "source_endpoint_okx": OKX_ENDPOINT,
@@ -387,8 +459,8 @@ def main(argv: list[str] | None = None) -> int:
             "fetched from www.okx.com/api/v5/market/history-candles (bar=5m, paginated with after=<ms>). "
             "A symbol is retained only if BOTH venues have full 26,208-bar coverage over "
             "2026-08-01T00:00Z..2026-10-30T23:55Z on the exact 5m UTC grid, zero NaNs, strictly positive, "
-            "finite prices.  Symbols with any gap, 404, or partial history are excluded fail-closed with a "
-            "recorded reason.  Binance frames are the verified C290 cache (referenced, never copied/relabeled)."
+            "finite prices. Symbols with any gap, 404, or partial history are excluded fail-closed with a "
+            "recorded reason. Binance frames are the verified C290 cache (referenced, never copied/relabeled)."
         ),
         "n_universe_binance": len(binance_symbols),
         "n_selected": len(selected),
@@ -397,13 +469,14 @@ def main(argv: list[str] | None = None) -> int:
         "per_symbol": {
             s: {
                 "binance_symbol": s,
-                "okx_inst_id": built[s]["instId"],
-                "binance_full_coverage": built[s].get("status") == "ok" and binance_coverage[s]["full_coverage"],
-                "okx_full_coverage": built[s].get("full_coverage"),
-                "okx_status": built[s].get("status"),
-                "okx_nan_count": built[s].get("nan_count"),
-                "okx_oldest_ts_ms": built[s].get("oldest_ts_ms"),
-                "okx_pages": built[s].get("n_pages"),
+                "okx_inst_id": inst_for[s],
+                "binance_full_coverage": binance_coverage[s]["full_coverage"],
+                "okx_full_coverage": bool(built.get(s, {}).get("full_coverage")),
+                "okx_status": built.get(s, {}).get("status"),
+                "okx_nan_count": built.get(s, {}).get("nan_count"),
+                "okx_min_volume": built.get(s, {}).get("min_volume"),
+                "okx_oldest_ts_ms": built.get(s, {}).get("oldest_ts_ms"),
+                "okx_pages": built.get(s, {}).get("n_pages"),
             }
             for s in binance_symbols
         },

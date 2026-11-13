@@ -1,0 +1,50 @@
+{
+  "generated_at_utc": "20261113T164603Z",
+  "campaign": 292,
+  "part": "summary",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "n_total_runs": 81,
+  "n_with_exposure": 81,
+  "n_edge_proven": 0,
+  "n_zero_exposure": 0,
+  "benchmark_bh_oos_mean": 1.3645547163789115e-08,
+  "universe": {
+    "n_assets": 25,
+    "assets": [
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "ETHUSDT",
+      "GRAMUSDT",
+      "INJUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "ONDOUSDT",
+      "PEPEUSDT",
+      "PUMPUSDT",
+      "SOLUSDT",
+      "SUIUSDT",
+      "TAOUSDT",
+      "TRUMPUSDT",
+      "TRXUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "XLMUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "artifacts": {
+    "sweep": "reports/campaign292_oos_sweep_20261113T164603Z.json",
+    "registry": "reports/campaign292_tradable_edge_registry_20261113T164603Z.json"
+  },
+  "oos_sweep_sha256": "02854406654b921f00a438f32db651a07d24a8c87c16826b38ddc677788c0b7f",
+  "registry_sha256": "5ea904d1e26deb18af44dbadb15a8f5a041f198ed8f97474a98bcf58cc1cf7a1"
+}
