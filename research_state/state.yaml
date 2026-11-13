@@ -1,8 +1,8 @@
-updated_at_utc: 20261113T065844Z
+updated_at_utc: 20261113T070916Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C286 ACTIVE (2026-11-13T06:58:44Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, strict edge rule unchanged. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
+active_initial_task: "C286 ACTIVE (2026-11-13T07:09:16Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, strict edge rule unchanged. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C286 preflight is READY (scripts/preflight_c286.py passes, ready=true); next step is to create and execute scripts/run_c286_5m_volume_xsec_oos.py end-to-end. C287 (operational hardening) remains deferred until C286 is complete."
 known_bottleneck: {id: ci_agent_shell_missing_deps, evidence: "scheduled Kilo shell can start without numpy/pandas/scipy/statsmodels/hmmlearn/pydantic/aiohttp; old Step 0 omitted test-only imports", fix: "run scripts/bootstrap_dev_env.py --json then scripts/verify_env.py --json at the start of every session", do_not: "edit .github/workflows/main.yml (token cannot persist workflow edits); create/read/edit HANDOFF.md (AGENTS.md is the only handoff)"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
@@ -189,9 +189,9 @@ handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T065844Z
+  timestamp_utc: 20261113T070916Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C286 ACTIVE (2026-11-13T06:58:44Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
+  active_initial_task_message: "C286 ACTIVE (2026-11-13T07:09:16Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."

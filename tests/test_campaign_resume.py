@@ -6,35 +6,43 @@ can run in the minimal controller-tests venv.
 """
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 STATE = Path("research_state/state.yaml")
-C284_ARTIFACTS = (
-    "reports/campaign284_oos_sweep_20261113T061220Z.json",
-    "reports/campaign284_tradable_edge_registry_20261113T061220Z.json",
-    "reports/campaign284_summary_20261113T061220Z.json",
-    "reports/campaign284_verdict_20261113T061220Z.json",
-    "reports/campaign284_binding_constraint_20261113T061220Z.json",
+REQUIRED_KEYS = (
+    "updated_at_utc",
+    "active_initial_task",
+    "latest_campaign_done",
+    "next_campaign",
+    "oos_edge_proven",
+    "handoff:",
+    "single_authoritative: true",
 )
+ARTIFACT_KINDS = ("oos_sweep", "tradable_edge_registry", "summary", "verdict")
 
 
 def test_state_has_active_handoff_and_completed_campaign() -> None:
     assert STATE.exists(), f"missing state file: {STATE}"
     text = STATE.read_text(encoding="utf-8")
-    for key in (
-        "updated_at_utc",
-        "active_initial_task",
-        "latest_campaign_done",
-        "next_campaign",
-        "oos_edge_proven",
-        "handoff:",
-        "single_authoritative: true",
-    ):
+    for key in REQUIRED_KEYS:
         assert key in text, f"state.yaml missing {key}"
 
-    assert "C284" in text, "state.yaml must record C284 as the latest completed campaign"
-    for path in C284_ARTIFACTS:
-        assert Path(path).exists(), f"missing frozen C284 artifact: {path}"
+    match = re.search(r"^latest_campaign_done:\s*(C\d+)\s*$", text, re.MULTILINE)
+    assert match, "state.yaml must record latest_campaign_done"
+    latest = match.group(1)
+    number = latest[1:]
+
+    pattern = re.compile(
+        rf"reports/campaign{number}_([a-z_]+)_[0-9TZ]+\.json"
+    )
+    referenced = {m.group(1) for m in pattern.finditer(text)}
+    missing_kinds = [k for k in ARTIFACT_KINDS if k not in referenced]
+    assert not missing_kinds, (
+        f"state.yaml must reference {latest} artifacts of kinds {missing_kinds}"
+    )
+    for path in sorted({m.group(0) for m in pattern.finditer(text)}):
+        assert Path(path).exists(), f"missing frozen {latest} artifact: {path}"
 
 
 def test_handoff_forbids_duplicate_handoff_file() -> None:

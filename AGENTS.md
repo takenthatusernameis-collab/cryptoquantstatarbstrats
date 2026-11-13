@@ -1,11 +1,20 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-13T06:58:44Z
+**Handoff refreshed:** 2026-11-13T07:09:16Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable spot data**, not infrastructure activity, status reports, or quote-volume return metrics.
-**Verified state:** `python -m pytest tests/ -q` → **1119 passed, 2 skipped, 0 failed** (last recorded). C285 is **COMPLETE — formal negative result**: `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot + quote-volume caches (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint `cost_sensitivity` (zero-exposure rate 0.0). All five C285 artifacts exist with fresh timestamps and SHA256-from-bytes. **C286 (5m execution overlay) is ACTIVE and not started** (`scripts/run_c286_5m_volume_xsec_oos.py` and `reports/campaign286_*` absent as of this refresh). C287 (operational hardening) remains deferred until C286 is complete.
+**Verified state:** `python -m pytest tests/ -q` → **1121 passed, 2 skipped, 0 failed** (verified 2026-11-13T07:09:16Z). C285 is **COMPLETE — formal negative result**: `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot + quote-volume caches (5112-bar overlap, 26 OOS splits, 81 pre-registered runs): **NOT_TRADABLE**, 81 runs with exposure, 0 edge, binding constraint `cost_sensitivity` (zero-exposure rate 0.0). All five C285 artifacts exist with fresh timestamps and SHA256-from-bytes. **C286 (5m execution overlay) is ACTIVE and not started**: `scripts/preflight_c286.py` now exists and passes (`ready: true`, all dataset SHAs verified, 151 WF splits confirmed, causal alignment warm for L ∈ {168,336,720}); `scripts/run_c286_5m_volume_xsec_oos.py` and `reports/campaign286_*` are absent as of this refresh — the next session must create and execute the campaign script. C287 (operational hardening) remains deferred until C286 is complete.
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (active, 2026-11-13T06:58:44Z) — EXECUTE C286 NEXT; no planning/status-only turn
+## INITIAL TASK MESSAGE (active, 2026-11-13T07:09:16Z) — EXECUTE C286 NEXT; no planning/status-only turn
+
+**Your first actions this session, in order (do not deviate, do not ask for confirmation):**
+```bash
+cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
+python scripts/bootstrap_dev_env.py --json
+python scripts/verify_env.py --json
+python scripts/preflight_c286.py --json     # must print "ready": true; any mismatch is a fail-closed blocker, not a research result
+```
+Then **create `scripts/run_c286_5m_volume_xsec_oos.py` and execute it end-to-end** (81 pre-registered runs × 151 OOS splits × 5 cost slices on the 26,208-bar 5m cache — a smoke run does not count). Reuse the C285 implementation (`scripts/run_c285_volume_xsec_oos.py`) as the base: same features (z_logqv, qv_ratio, qv_vol), same causal `shift(1)` rule, same fail-closed gates, same strict edge rule, same per-split aggregation; only the execution grid changes to 5m.
 
 **C285 is COMPLETE — formal negative result.** `scripts/run_c285_volume_xsec_oos.py` ran end-to-end on the verified real Binance 1h spot cache + real 1h quote-volume cache (5112-bar overlap, 26 OOS splits, 81 pre-registered runs: 3 features × 3 lookbacks × 3 K × 3 holds): **NOT_TRADABLE**, 81 runs with exposure, 0 edge. Binding constraint: `cost_sensitivity` (zero-exposure rate 0.0). Frozen artifacts and SHA256-from-bytes are listed under "Frozen evidence" below. Do not rerun or edit them. Per the anti-avoidance rules, the volume-conditioned cross-sectional family is recorded NOT_TRADABLE and the search stops here; do not start a new parameter search in this session.
 
@@ -66,10 +75,11 @@ cd /home/runner/work/cryptoquantstatarbstrats/cryptoquantstatarbstrats
 python scripts/bootstrap_dev_env.py --json
 python scripts/verify_env.py --json
 python scripts/preflight_c285.py --json
+python scripts/preflight_c286.py --json
 ```
 `scripts/bootstrap_dev_env.py` installs `requirements.txt` plus `pytest`, `pytest-asyncio`, `hmmlearn`, `pydantic`, and `aiohttp` with `--user`, then verifies every import. If pip has no network and deps are missing, stop with a blocker artifact; do not fabricate a result. Never edit `.github/workflows/main.yml` (the controller token cannot persist workflow-file changes and it will loop on persistence failure).
 
-**C286 preflight (before running the campaign):** verify the 5m spot cache/meta exist and match the recorded SHAs, and the 1h volume cache/meta/provenance match their recorded SHAs. Confirm 5m window is 26208×11 (2026-08-01 → 2026-10-30T23:55Z), zero NaNs, duplicate-free, `real_data_only: true`, `fabricated_data: false`. Fail closed on any mismatch; do not relabel or fabricate data.
+**C286 preflight (before running the campaign):** `scripts/preflight_c286.py` verifies the 5m spot cache/meta and the 1h volume cache/meta/provenance against the recorded SHA256s, the meta real/fabricated flags, the exact 5m window (26208×11, 2026-08-01T00:00Z → 2026-10-30T23:55Z, zero NaNs, duplicate-free, 5m spacing), per-asset 1h volume coverage (5112 finite positive bars), the causal 1h→5m alignment (1h volume at bar t usable only at 5m bars ≥ t+1h; signal warm before the window for L ∈ {168,336,720}), and the WF split math (151 splits, last test window fits). It must print `"ready": true`; any mismatch is fail-closed — do not relabel or fabricate data.
 
 ## Bottlenecks removed in this refresh
 - **Dependency bootstrap:** `scripts/bootstrap_dev_env.py` + `scripts/verify_env.py` install and verify runtime and test imports, including `hmmlearn`, `pydantic`, `aiohttp`, and `pytest-asyncio`; the old Step 0 omitted the test-only imports.
@@ -78,6 +88,8 @@ python scripts/preflight_c285.py --json
 - **Missing controller tests:** `tests/test_controller_progress_accounting.py`, `tests/test_workflow_diagnostics_scanner.py`, `tests/test_nonfinite_result_serialization.py`, and `tests/test_campaign_resume.py` are restored so the workflow's controller-tests step is not blocked by missing files.
 - **C285 preflight:** `scripts/preflight_c285.py` verifies every dataset SHA, shape, NaN/duplicate status, real/fabricated flag, and the 5112-bar causal overlap before any campaign code runs.
 - **C285 campaign script:** `scripts/run_c285_volume_xsec_oos.py` created and executed end-to-end on the verified caches; all five artifacts written with SHA256-from-bytes.
+- **C286 preflight (this refresh):** `scripts/preflight_c286.py` now exists and passes — it verifies all five C286 dataset SHAs, meta flags, the exact 26,208×11 5m window with 5m spacing, per-asset 1h volume coverage, causal 1h→5m alignment for L ∈ {168,336,720} (signal warm before the window), and the 151-split WF math. The next session's first blocker check is therefore a single command.
+- **Stale resume test (this refresh):** `tests/test_campaign_resume.py` was failing because it hard-coded C284 as the latest completed campaign; it is now generic — it parses `latest_campaign_done` from `research_state/state.yaml` and verifies the referenced artifacts exist on disk. The green baseline is restored at 1121 passed / 2 skipped.
 
 ## Current research state (verified 2026-11-13T06:30Z)
 
@@ -89,7 +101,7 @@ python scripts/preflight_c285.py --json
 | C283 | Turnover-reduced cointegration pairs | 17 | `NOT_TRADABLE`, 0 exposure |
 | C284 | Kalman dynamic-hedge-ratio pairs, 28 WF splits, 5 cost slices, fail-closed gates | 1088 | `NOT_TRADABLE`, 0 exposure, binding: zero_exposure |
 | C285 | Volume-conditioned cross-sectional stat-arb, 11 assets, 26 WF splits, 5 cost slices | 81 | `NOT_TRADABLE`, 0 edge, binding: cost_sensitivity |
-| C286 | 5m execution overlay of C285 signal, real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, 151 WF splits, 81 runs | planned | NEXT — C285 complete, not yet started |
+| C286 | 5m execution overlay of C285 signal, real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, 151 WF splits, 81 runs | planned | ACTIVE — preflight ready, campaign script not yet created/executed |
 
 Frozen evidence:
 - C281B: `reports/campaign281_oos_sweep_20261113T034058Z.json` (SHA `8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9`); verdict `reports/campaign281_verdict_20261113T034058Z.json`.
@@ -110,6 +122,7 @@ python -m pytest tests/test_cointegration_diagnostics_schema.py -q
 python -m pytest tests/test_campaign8_edge_robustness.py tests/test_campaign9_causal_gate_edge_search.py -q
 python scripts/verify_env.py --json
 python scripts/preflight_c285.py --json
+python scripts/preflight_c286.py --json
 ```
 
 Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may not be installed in the runtime shell; do not claim they passed unless actually run.
@@ -134,4 +147,4 @@ Known-good: Python 3.12, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.
 - Schema drift → `python -m pytest tests/test_*_schema.py -v`.
 - Campaign numbering conflict → highest campaign JSON in `reports/`; C285 is complete and frozen; current next campaign is **C286**.
 
-**END OF HANDOFF — refreshed 2026-11-13T06:58:44Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is the active next campaign — execute it end-to-end and satisfy the completion gate.** C287 (operational hardening) remains deferred until C286 is complete.
+**END OF HANDOFF — refreshed 2026-11-13T07:09:16Z.** The spot-only price-only edge search is closed (C281B→C284 all NOT_TRADABLE) and the volume-conditioned cross-sectional family is closed NOT_TRADABLE (C285). **C286 (5m execution overlay, script `scripts/run_c286_5m_volume_xsec_oos.py`) is the active next campaign — execute it end-to-end and satisfy the completion gate.** C287 (operational hardening) remains deferred until C286 is complete.
