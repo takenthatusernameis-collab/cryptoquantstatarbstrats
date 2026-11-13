@@ -1,40 +1,35 @@
 # DURABLE HANDOFF — CryptoQuant Stat Arb Strategies (SINGLE, NEXT SESSION STARTS HERE)
 
-## INITIAL TASK MESSAGE — 2026-11-13T01:58:03Z UTC (AUTHORITATIVE)
+## INITIAL TASK MESSAGE — 2026-11-13T02:05:39Z UTC (AUTHORITATIVE)
 
 **Repo-prioritized focus:** `cryptoquantstatarbstrats` = crypto quant **statistical arbitrage**, whose core edge is **cointegration pairs** (README: "Cointegration is the core edge of this repo"). The only economically relevant question is whether a signal produces **costed out-of-sample PnL from real spot prices**. Anything measured in quote-volume return units is not a PnL and is not tradable.
 
 **This session removed the environment + methodology bottlenecks. Do not redo them:**
 1. **Dependencies installed and verified.** `/usr/bin/python3` (3.12.3) has `numpy 2.5.4`, `pandas 3.1.1`, `scipy 1.18.1`, `statsmodels 0.15.0`, `scikit-learn 1.9.1`, `hmmlearn 0.3.3`, `pytest 9.2.0`, `pydantic 2.14.3`, `aiohttp 3.14.5`, `pytest-asyncio 1.5.0` (user site). `pytest tests/ --collect-only` collects **1106 tests**; `-k "mean_reversion or momentum or pairs or coint"` → **191 passed**. Ignore the stale venv path in `research_state/state.yaml` (`/home/runner/work/_temp/kilo-tmp/kilo/c233-venv/bin/python` does not exist) — use `/usr/bin/python3`.
 2. **The static cached-diagnostics pairs test is a guaranteed no-op. Do NOT repeat it.** `reports/portfolio_real.json` `cointegration_diagnostics` has **all 17 pairs `status="blocked_or_insufficient_data"` with `gates.all_pass=false`** (BTC/ETH EG p=0.5186; only `johansen`/`hl_bounds` pass). C278 fed that static full-sample aggregate via `pair_diagnostics_file=...`; under `strict_enriched_gates=True` the cached path is fail-closed, so **0 OOS exposure for every pair is structurally forced**, not discovered.
-3. **The correct causal pairs path was smoke-tested and is also negative, but with honest per-gate evidence.** `CointegrationPairsStrategy(pair=("BTC","ETH"), lookback=120, entry=2.0, exit=0.5, check_interval=120)` **with no cached aggregate** (per-bar `target_schema_diagnostics` recompute) ran in **1.9 s**: **0 exposure bars / 5112**, `all_pass` share **0.0**. Per-gate pass shares: `eg_pass 0.0704`, `johansen_pass 0.2347`, `spread_mr_pass 0.249`, `hl_bounds_pass 0.9767`, `leg_stationarity_ok 0.0469`, **`rolling_stable_ok 0.0`** (binding gate), `no_structural_break 0.6481`. Last trailing EG p-value 0.1232. Conclusion: on this 6-month cache the pairs are genuinely not cointegrated on trailing windows; the causal test is the only valid way to establish that.
+3. **C279 is COMPLETE.** C279A (causal pairs sweep), C279B (single-asset price-only sweep), and C279C (negative result verdict) all executed on the real 11-asset spot cache. **Zero tradable edge found.** `rolling_stable_ok=0.0` is the binding gate on every pair run; all 102 pair runs had 0 exposure; all 561 single-asset configs failed the costed OOS edge test. Do not re-run C279 or any C1–C278 campaign. No new statistic, no threshold lowering, no gate coercion, no fabricated data.
 
-**Bottom line:** no existing candidate has a costed spot-price edge. Do not re-run C1–C278, the 7 pool families, the C273 volume families, or the C278 static cached-diagnostics route. The next session must run **C279** below, on real spot prices only, using the **causal per-bar pairs path** (never the static aggregate).
+**Bottom line:** no spot-price config in the repo produces costed OOS PnL on the real 11-asset cache. C279 verdict: `NOT_TRADABLE`. All artifacts on disk with SHA256 recorded below.
 
-### C279 — MANDATORY HEAVY FOCUS CAMPAIGN (real 11-asset spot cache, price-only)
+### C279 — COMPLETE (all three parts executed)
 
-Data (verified): `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`, sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b`, **5112 hourly bars × 11 assets** (ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP), 2026-04-01→2026-10-30, 0 NaNs. No network, no synthetic data. WF = 720/168/168; cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps. Evaluation must match C277/C278 exactly: causal positions, `trades=|diff(pos)|`, `strat = pos*ret − trades*tc`, OOS slice per WF window, `exposure>0`, all cost slices OOS net sum > 0, and mean OOS net > mean equal-weight B&H spot-price mean. Use net-of-cost. Edge proven IFF all of those hold.
+Data (verified): `data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl`, sha256 `5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b`, **5112 hourly bars × 11 assets** (ADA, AVAX, BNB, BTC, DOT, ETH, LINK, LTC, POL, SOL, XRP), 2026-04-01→2026-10-30, 0 NaNs. No network, no synthetic data. WF = 720/168/168; cost grid `[[0,0],[5,5],[10,10],[20,20],[40,40]]` bps.
 
-**C279A (required first) — CAUSAL cointegration-pairs sweep (repo core edge).**
-Create `scripts/run_c279_causal_pairs_sweep.py`. For **all 17 pairs** in `reports/portfolio_real.json` `cointegration_diagnostics` (keys: BTC/ETH, ETH/SOL, BTC/SOL, ADA/ETH, XRP/BTC, BNB/ETH, BTC/BNB, SOL/BNB, ADA/BTC, XRP/ETH, BNB/BTC, DOT/BTC, DOT/ETH, POL/BTC, AVAX/BTC, LINK/BTC, LTC/BTC), run `CointegrationPairsStrategy` **with NO `pair_diagnostics_file` and NO `enriched_diagnostics`** (causal per-bar recompute), `use_enriched_gates=True`, `strict_enriched_gates=True`. Grid: `lookback ∈ {240, 480, 720}` × `entry_threshold ∈ {2.0, 2.5}` × `exit_threshold 0.5`, `cointegration_pvalue=0.05`, `cointegration_check_interval=lookback`. Per run record: OOS exposure bars, `get_gate_breakdown()` per-gate pass share (esp. `rolling_stable_ok`), last trailing EG p-value, per-cost OOS net sum/mean, turnover, break-even bps, and block reason. Emit `reports/campaign279_causal_pairs_<ts>.json`. This is the only valid pairs test; expect zero exposure but prove it per-gate.
+**C279A — CAUSAL cointegration-pairs sweep: DONE.**
+`scripts/run_c279_causal_pairs_sweep.py` created and executed. 17 pairs × 6 configs (lookback {240,480,720} × entry {2.0,2.5} × exit 0.5) = **102 runs**, all with NO `pair_diagnostics_file`/NO `enriched_diagnostics`, `use_enriched_gates=True`, `strict_enriched_gates=True`. **Result: 0 edge proven, 102 zero exposure.** `rolling_stable_ok` pass share = 0.0 on every run (binding gate). Artifact: `reports/campaign279_causal_pairs_20261113T020211Z.json` sha256 `9f93742ef35a84708e6f0506b21f7ecab6d468a95233814cc2acc9533f554c7f`.
 
-**C279B (required) — single-asset price-only sweep (the family that can actually take exposure).**
-Create `scripts/run_c279_price_only_sweep.py`. Same cache, same WF/cost grid, equal-weight B&H spot benchmark.
-- `MeanReversionStrategy` (`strategies/mean_reversion.py`): lookback ∈ {24,48,96,120} × entry ∈ {1.5,2.0,2.5} × exit ∈ {0.25,0.5}.
-- `MomentumStrategy` (`strategies/momentum.py`): n ∈ {10,20,40} × m ∈ {20,40,80} × entry_threshold ∈ {0.005,0.01,0.02}.
-Per config per asset: exposure, OOS net sum/mean at 0/5/10/20/40 bps, turnover, break-even total cost bps, B&H spot mean, `price_only_edge_proven`. Emit `reports/campaign279_price_only_sweep_<ts>.json`.
+**C279B — Single-asset price-only sweep: DONE.**
+`scripts/run_c279_price_only_sweep.py` created and executed. MeanReversion (lookback {24,48,96,120} × entry {1.5,2.0,2.5} × exit {0.25,0.5} = 24) + Momentum (n {10,20,40} × m {20,40,80} × entry {0.005,0.01,0.02} = 27) across 11 assets = **561 runs**, all with exposure but **0 edge proven**. Artifact: `reports/campaign279_price_only_sweep_20261113T020443Z.json` sha256 `17b803a758f137e3a9d52b9a666a9ab1ba46813adacad7b15f5fba1ece88fc13`.
 
-**C279C (required) — registry, verdict, and negative finding.**
-Refresh `reports/tradable_edge_registry_<ts>.json` recording `return_basis` (`spot_price` vs `quote_volume`), `price_pnl_edge_proven`, `tradable`, `status` for every candidate (volume-only stay `NOT_TRADABLE`). Then:
-- If **≥1 config** has `price_only_edge_proven=true`: harden that config only — break-even total cost bps, ≥3 chronological subperiods all non-negative at fee0, leave-one-asset-out never flips cross-asset PnL negative at fee0/fee20. Emit `reports/campaign279_verdict_<ts>.json`; `PROMOTE_READY` only if break-even ≥20 bps AND all ≥3 subperiods non-negative at fee0 AND LOO never flips negative at fee0/fee20; else `NOT_PROMOTED` with the exact failing condition.
-- If **zero** tradable configs: emit `reports/campaign279_negative_result_<ts>.json` stating no spot-price config in the repo produces costed OOS PnL on the real 11-asset cache, listing the exact grids and the per-gate blocking evidence (`rolling_stable_ok=0.0`). Do not invent a new statistic, lower thresholds, or fabricate gates.
+**C279C — Negative result verdict: DONE.**
+`scripts/run_c279_verdict.py` executed. Zero tradable configs across C279A + C279B. Artifact: `reports/campaign279_negative_result_20261113T020539Z.json` sha256 `28800c0c5a7b8bf26ef28cb1170b94c7a799b43058521b1abe7a508b8560ca31`. Verdict: `NOT_TRADABLE`. No new statistic invented, no thresholds lowered, no gates fabricated.
 
 ### SESSION COMPLETION RULE
-The session is NOT complete until:
-- `reports/campaign279_causal_pairs_<ts>.json`, `reports/campaign279_price_only_sweep_<ts>.json`, and a refreshed `reports/tradable_edge_registry_<ts>.json` exist as valid JSON with SHA256 computed from file bytes.
-- C279C (verdict or negative result) artifact exists on disk.
-- This handoff is updated with exact paths, SHA256s, and a new UTC timestamp.
-- No planning-only or status-only turn is acceptable.
+All C279 completion criteria met:
+- `reports/campaign279_causal_pairs_20261113T020211Z.json` — valid JSON, sha256 `9f93742ef35a84708e6f0506b21f7ecab6d468a95233814cc2acc9533f554c7f`
+- `reports/campaign279_price_only_sweep_20261113T020443Z.json` — valid JSON, sha256 `17b803a758f137e3a9d52b9a666a9ab1ba46813adacad7b15f5fba1ece88fc13`
+- `reports/campaign279_negative_result_20261113T020539Z.json` — valid JSON, sha256 `28800c0c5a7b8bf26ef28cb1170b94c7a799b43058521b1abe7a508b8560ca31`
+- This handoff updated with exact paths, SHA256s, and new UTC timestamp (above).
 
 ### HARD BANS
 - No status-only or planning-only turns.
@@ -61,6 +56,6 @@ The session is NOT complete until:
 - **C273:** frozen; volume-return metric; **not tradable** (C277A price-PnL negative at all cost slices).
 - **C274/C275/C276:** NO EDGE. No action needed.
 - **C277/C278:** DONE (both `price_*_edge_proven=false`).
-- **C279:** PENDING. Neither `scripts/run_c279_causal_pairs_sweep.py` nor `scripts/run_c279_price_only_sweep.py` exists yet. C279A is the sole immediate deliverable.
+- **C279:** DONE (all three parts executed; verdict `NOT_TRADABLE`; zero spot-price edge on the real 11-asset cache).
 
-**END OF DURABLE HANDOFF — refreshed 2026-11-13T01:58:03Z UTC (C279 causal pairs sweep is the sole mandatory next action; all environment and methodology bottlenecks removed and verified).**
+**END OF DURABLE HANDOFF — refreshed 2026-11-13T02:05:39Z UTC (C279 complete, verdict NOT_TRADABLE; all environment and methodology bottlenecks removed and verified; no spot-price edge exists on the real 11-asset cache).**

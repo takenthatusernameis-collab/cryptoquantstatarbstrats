@@ -1,0 +1,114 @@
+{
+  "generated_at_utc": "20261113T020539Z",
+  "campaign": 279,
+  "part": "C",
+  "analysis": "negative_result_verdict",
+  "verdict": "NOT_TRADABLE",
+  "finding": "No spot-price config in the repo produces costed OOS PnL on the real 11-asset cache. Zero tradable edge across C279A (causal cointegration pairs) and C279B (single-asset price-only MeanReversion + Momentum).",
+  "basis": "spot_price_only",
+  "c279a": {
+    "artifact": "reports/campaign279_causal_pairs_20261113T020211Z.json",
+    "sha256": "9f93742ef35a84708e6f0506b21f7ecab6d468a95233814cc2acc9533f554c7f",
+    "pairs": 17,
+    "configs_per_pair": 6,
+    "total_runs": 102,
+    "edge_proven": 0,
+    "zero_exposure_runs": 102,
+    "blocking_evidence": "rolling_stable_ok pass share = 0.0 across all pair runs; causal per-bar cointegration gates fail-closed on every bar (no entries permitted). Last trailing EG p-values all > 0.05 on rolling windows; pairs not cointegrated on this 6-month cache."
+  },
+  "c279b": {
+    "artifact": "reports/campaign279_price_only_sweep_20261113T020443Z.json",
+    "sha256": "17b803a758f137e3a9d52b9a666a9ab1ba46813adacad7b15f5fba1ece88fc13",
+    "assets": 11,
+    "mean_reversion_configs": 24,
+    "momentum_configs": 27,
+    "total_runs": 561,
+    "edge_proven": 0,
+    "with_exposure": 561,
+    "grids": {
+      "mean_reversion": {
+        "lookback": [
+          24,
+          48,
+          96,
+          120
+        ],
+        "entry_threshold": [
+          1.5,
+          2.0,
+          2.5
+        ],
+        "exit_threshold": [
+          0.25,
+          0.5
+        ]
+      },
+      "momentum": {
+        "n": [
+          10,
+          20,
+          40
+        ],
+        "m": [
+          20,
+          40,
+          80
+        ],
+        "entry_threshold": [
+          0.005,
+          0.01,
+          0.02
+        ]
+      }
+    },
+    "finding": "All 561 single-asset configs produced exposure but none achieved price_only_edge_proven=true (all cost slices OOS net sum > 0 AND mean OOS net > mean equal-weight B&H spot-price mean)."
+  },
+  "cost_grid_bps": [
+    [
+      0,
+      0
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ]
+  ],
+  "walk_forward": {
+    "train": 720,
+    "test": 168,
+    "step": 168
+  },
+  "data_cache": {
+    "path": "data/cache/0bab5d6a902481b313752a935d4517c9ec3b07e9a5064db5805b77dbe631fcf7.pkl",
+    "sha256": "5607573327c089e0ab990ac48f931752a99e6e89f60599cb2557246f0f5f8c9b",
+    "assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOT",
+      "ETH",
+      "LINK",
+      "LTC",
+      "POL",
+      "SOL",
+      "XRP"
+    ],
+    "bars": 5112,
+    "interval": "1h",
+    "window": "2026-04-01 -> 2026-10-30"
+  },
+  "conclusion": "No tradable edge. Do not invent a new statistic, lower thresholds, coerce gates, or fabricate data. C279 complete; no spot-price strategy on this cache passes the costed OOS edge test."
+}
