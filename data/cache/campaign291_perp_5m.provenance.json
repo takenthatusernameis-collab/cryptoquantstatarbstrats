@@ -1,0 +1,333 @@
+{
+  "generated_at_utc": "20261113T113358Z",
+  "campaign": 291,
+  "part": "provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe_rule": "C290 spot universe (26 USDT symbols). USDT-M perp archives are fetched from the data.binance.vision public futures archive; any symbol whose perp kline or funding archive is missing/blocked/partial is excluded with a recorded reason. Klines are truncated to the exact 2026-08-01T00:00Z..2026-10-30T23:55Z window and reindexed on the exact 5m UTC grid; funding calc_time is floored to its native Binance funding boundary (8h for most perps, 4h for some; recorded per symbol). The spot leg for the basis feature is the already-verified C290 cache, referenced (never copied/relabeled).",
+  "months": [
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "n_universe": 26,
+  "n_selected": 24,
+  "selected_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "ZECUSDT",
+    "XRPUSDT",
+    "NEARUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "SUIUSDT",
+    "UNIUSDT",
+    "WLDUSDT",
+    "ADAUSDT",
+    "TRXUSDT",
+    "PUMPUSDT",
+    "LINKUSDT",
+    "AVAXUSDT",
+    "TAOUSDT",
+    "TRUMPUSDT",
+    "LTCUSDT",
+    "ONDOUSDT",
+    "AAVEUSDT",
+    "XLMUSDT",
+    "INJUSDT",
+    "GRAMUSDT"
+  ],
+  "excluded_symbols": {
+    "PEPEUSDT": "excluded",
+    "UUSDT": "excluded"
+  },
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "ZECUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "NEARUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "SUIUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "UNIUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "PEPEUSDT": {
+      "status": "excluded",
+      "bars": null,
+      "kline_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_ok_shape": null
+    },
+    "WLDUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "ADAUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "TRXUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "PUMPUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 546,
+      "funding_interval_hours": [
+        4
+      ],
+      "funding_ok_shape": true
+    },
+    "LINKUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "TAOUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 546,
+      "funding_interval_hours": [
+        4
+      ],
+      "funding_ok_shape": true
+    },
+    "UUSDT": {
+      "status": "excluded",
+      "bars": null,
+      "kline_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_ok_shape": null
+    },
+    "TRUMPUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 546,
+      "funding_interval_hours": [
+        4
+      ],
+      "funding_ok_shape": true
+    },
+    "LTCUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "ONDOUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 546,
+      "funding_interval_hours": [
+        4
+      ],
+      "funding_ok_shape": true
+    },
+    "AAVEUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "XLMUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "INJUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 273,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_ok_shape": true
+    },
+    "GRAMUSDT": {
+      "status": "ok",
+      "bars": 26208,
+      "kline_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 546,
+      "funding_interval_hours": [
+        4
+      ],
+      "funding_ok_shape": true
+    }
+  },
+  "spot_leg_reference": {
+    "path": "data/cache/campaign290_ohlcv.pkl",
+    "note": "verified real C290 spot 5m cache; used only as the spot leg for basis"
+  }
+}

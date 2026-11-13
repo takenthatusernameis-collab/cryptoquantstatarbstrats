@@ -1,0 +1,124 @@
+{
+  "generated_at_utc": "20261113T113705Z",
+  "campaign": 291,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 24,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "ZECUSDT",
+      "XRPUSDT",
+      "NEARUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "SUIUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "ADAUSDT",
+      "TRXUSDT",
+      "PUMPUSDT",
+      "LINKUSDT",
+      "AVAXUSDT",
+      "TAOUSDT",
+      "TRUMPUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "AAVEUSDT",
+      "XLMUSDT",
+      "INJUSDT",
+      "GRAMUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 151
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "funding_level",
+      "funding_z",
+      "basis_ma",
+      "basis_z",
+      "perp_mom",
+      "perp_lowvol"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_5m": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 162,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "funding_level": "-funding_rate_ffill_known_at_t-1",
+      "funding_z": "-z(funding_rate_ffill, L 5m bars)",
+      "basis_ma": "-mean((perp-spot)/spot, L 5m bars)",
+      "basis_z": "-z((perp-spot)/spot, L 5m bars)",
+      "perp_mom": "+mean(perp 5m log-return, L)",
+      "perp_lowvol": "-std(perp 5m log-return, L)"
+    },
+    "signal_direction": "long top-K, short bottom-K by score (higher score = long)"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign291_oos_sweep_20261113T113705Z.json",
+      "sha256": "5986229bbfe988e26a2b6cf21997b11ebec1b872ae581e5d5a55870ef61dd02e"
+    },
+    "registry": {
+      "path": "reports/campaign291_tradable_edge_registry_20261113T113705Z.json",
+      "sha256": "354c203197be2e8a54a984ffc14f0e613ecd33dce35ab025fa23952579ab05b3"
+    }
+  },
+  "summary": {
+    "n_total_runs": 162,
+    "n_with_exposure": 162,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 1.3652894076763663e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the real USDT-M perp funding-carry/basis space. The Binance spot+perp 5m space is then closed; escalate to C292 cross-venue real-spot basis (OKX/Coinbase/Kraken)."
+}

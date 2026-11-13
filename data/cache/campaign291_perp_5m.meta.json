@@ -1,0 +1,133 @@
+{
+  "generated_at_utc": "20261113T113358Z",
+  "campaign": 291,
+  "part": "ingest",
+  "interval": "5m",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "ZECUSDT",
+    "XRPUSDT",
+    "NEARUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "SUIUSDT",
+    "UNIUSDT",
+    "WLDUSDT",
+    "ADAUSDT",
+    "TRXUSDT",
+    "PUMPUSDT",
+    "LINKUSDT",
+    "AVAXUSDT",
+    "TAOUSDT",
+    "TRUMPUSDT",
+    "LTCUSDT",
+    "ONDOUSDT",
+    "AAVEUSDT",
+    "XLMUSDT",
+    "INJUSDT",
+    "GRAMUSDT"
+  ],
+  "n_symbols": 24,
+  "rows": 26208,
+  "expected_bars": 26208,
+  "columns_per_frame": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "funding_columns": [
+    "boundary",
+    "last_funding_rate"
+  ],
+  "funding_interval_hours": 8,
+  "funding_intervals_by_symbol": {
+    "BTCUSDT": [
+      8
+    ],
+    "ETHUSDT": [
+      8
+    ],
+    "SOLUSDT": [
+      8
+    ],
+    "ZECUSDT": [
+      8
+    ],
+    "XRPUSDT": [
+      8
+    ],
+    "NEARUSDT": [
+      8
+    ],
+    "BNBUSDT": [
+      8
+    ],
+    "DOGEUSDT": [
+      8
+    ],
+    "SUIUSDT": [
+      8
+    ],
+    "UNIUSDT": [
+      8
+    ],
+    "WLDUSDT": [
+      8
+    ],
+    "ADAUSDT": [
+      8
+    ],
+    "TRXUSDT": [
+      8
+    ],
+    "PUMPUSDT": [
+      4
+    ],
+    "LINKUSDT": [
+      8
+    ],
+    "AVAXUSDT": [
+      8
+    ],
+    "TAOUSDT": [
+      4
+    ],
+    "TRUMPUSDT": [
+      4
+    ],
+    "LTCUSDT": [
+      8
+    ],
+    "ONDOUSDT": [
+      4
+    ],
+    "AAVEUSDT": [
+      8
+    ],
+    "XLMUSDT": [
+      8
+    ],
+    "INJUSDT": [
+      8
+    ],
+    "GRAMUSDT": [
+      4
+    ]
+  },
+  "funding_rule": "real funding applied at each symbol's native Binance funding boundary (8h or 4h); calc_time floored to that boundary",
+  "window_start_utc": "2026-08-01T00:00:00Z",
+  "window_end_utc": "2026-10-30T23:55:00Z",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "source_host": "https://data.binance.vision",
+  "kline_endpoint": "/data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip",
+  "funding_endpoint": "/data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip",
+  "sha256_from_bytes": "fb28f147f11dfcbcc00d5a0685c973197fb019757db885583bd06aa70a1a2487",
+  "pkl_path": "data/cache/campaign291_perp_5m.pkl"
+}

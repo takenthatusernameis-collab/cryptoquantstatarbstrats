@@ -1,0 +1,149 @@
+{
+  "generated_at_utc": "20261113T113705Z",
+  "campaign": 291,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "finding": "No costed OOS edge proven on the real 24-perp funding-carry/basis cross-sectional family (162 runs, 0 edge).",
+  "basis": "real_usd_m_perp_funding_carry_and_spot_perp_basis_costed_oos",
+  "dataset": {
+    "perp_cache": "data/cache/campaign291_perp_5m.pkl",
+    "perp_cache_sha256": "fb28f147f11dfcbcc00d5a0685c973197fb019757db885583bd06aa70a1a2487",
+    "perp_meta": "data/cache/campaign291_perp_5m.meta.json",
+    "perp_meta_sha256": "3abe2da3d14bf34d774c44192d1291a503fc7529b5daf0faa73ca242f7f0339f",
+    "perp_provenance": "data/cache/campaign291_perp_5m.provenance.json",
+    "perp_provenance_sha256": "6b63d012bb18968eaa59a04e47b35359ac648a4f01cbef3bf87d0b78ee5385b8",
+    "spot_leg_cache": "data/cache/campaign290_ohlcv.pkl",
+    "spot_leg_cache_sha256": "6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e",
+    "spot_leg_meta": "data/cache/campaign290_ohlcv.meta.json",
+    "spot_leg_meta_sha256": "5c9ff6c8473e460c30790e8854f2934af57ccdac7f3cba7e824ba04c1bcc0103",
+    "bars": 26208,
+    "interval": "5m",
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "ZECUSDT",
+      "XRPUSDT",
+      "NEARUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "SUIUSDT",
+      "UNIUSDT",
+      "WLDUSDT",
+      "ADAUSDT",
+      "TRXUSDT",
+      "PUMPUSDT",
+      "LINKUSDT",
+      "AVAXUSDT",
+      "TAOUSDT",
+      "TRUMPUSDT",
+      "LTCUSDT",
+      "ONDOUSDT",
+      "AAVEUSDT",
+      "XLMUSDT",
+      "INJUSDT",
+      "GRAMUSDT"
+    ],
+    "n_assets": 24,
+    "window": {
+      "start": "2026-08-01 00:00:00+00:00",
+      "end": "2026-10-30 23:55:00+00:00"
+    },
+    "funding_total_rows": 7917,
+    "funding_intervals_by_symbol": {
+      "BTCUSDT": [
+        8
+      ],
+      "ETHUSDT": [
+        8
+      ],
+      "SOLUSDT": [
+        8
+      ],
+      "ZECUSDT": [
+        8
+      ],
+      "XRPUSDT": [
+        8
+      ],
+      "NEARUSDT": [
+        8
+      ],
+      "BNBUSDT": [
+        8
+      ],
+      "DOGEUSDT": [
+        8
+      ],
+      "SUIUSDT": [
+        8
+      ],
+      "UNIUSDT": [
+        8
+      ],
+      "WLDUSDT": [
+        8
+      ],
+      "ADAUSDT": [
+        8
+      ],
+      "TRXUSDT": [
+        8
+      ],
+      "PUMPUSDT": [
+        4
+      ],
+      "LINKUSDT": [
+        8
+      ],
+      "AVAXUSDT": [
+        8
+      ],
+      "TAOUSDT": [
+        4
+      ],
+      "TRUMPUSDT": [
+        4
+      ],
+      "LTCUSDT": [
+        8
+      ],
+      "ONDOUSDT": [
+        4
+      ],
+      "AAVEUSDT": [
+        8
+      ],
+      "XLMUSDT": [
+        8
+      ],
+      "INJUSDT": [
+        8
+      ],
+      "GRAMUSDT": [
+        4
+      ]
+    },
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign291_oos_sweep_20261113T113705Z.json",
+  "oos_sweep_sha256": "5986229bbfe988e26a2b6cf21997b11ebec1b872ae581e5d5a55870ef61dd02e",
+  "registry_artifact": "reports/campaign291_tradable_edge_registry_20261113T113705Z.json",
+  "registry_sha256": "354c203197be2e8a54a984ffc14f0e613ecd33dce35ab025fa23952579ab05b3",
+  "summary_artifact": "reports/campaign291_summary_20261113T113705Z.json",
+  "summary_sha256": "25a3973c02ae66d61accf480a44b2e30bdba4cc9ac66ea080e839ce4f08f3a45",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real USDT-M perp 5m klines + real funding cashflows only",
+    "C291 is a NEW derivatives dimension absent from the C281B..C290 record"
+  ],
+  "binding_constraint_artifact": "reports/campaign291_binding_constraint_20261113T113705Z.json",
+  "binding_constraint_sha256": "6c17380122c65e0cccac37b990f265cbeb65f1c2056886b7fda5098614ab29ef"
+}
