@@ -1,8 +1,8 @@
-updated_at_utc: 20261113T072725Z
+updated_at_utc: 20261113T073258Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C286 COMPLETE (2026-11-13T07:27:25Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. Result: NOT_TRADABLE, 81 runs with exposure, 0 edge, binding constraint cost_sensitivity recorded in reports/campaign286_binding_constraint_20261113T072725Z.json. All five artifacts written with SHA256-from-bytes; state/handoff updated; tests green (1121 passed, 2 skipped). C287 (operational hardening) is the next campaign."
+active_initial_task: "C287 ACTIVE (2026-11-13T07:32:58Z): Operational hardening — build and verify a Binance testnet spot gateway with a hard kill-switch, capable of executing the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m costs) with fail-closed gates, audit logging, and provable zero-drift between backtest and live paths. C285 and C286 are COMPLETE and NOT_TRADABLE (formal negative results, binding: cost_sensitivity). Deliverables: scripts/run_c287_testnet_gateway.py executed ≥72h/≥500 rebalance cycles on Binance testnet; five timestamped artifacts with SHA256-from-bytes; drift_free: true; kill-switch all thresholds tested; state/handoff updated; tests green."
 known_bottleneck: {id: ci_agent_shell_missing_deps, evidence: "scheduled Kilo shell can start without numpy/pandas/scipy/statsmodels/hmmlearn/pydantic/aiohttp; old Step 0 omitted test-only imports", fix: "run scripts/bootstrap_dev_env.py --json then scripts/verify_env.py --json at the start of every session", do_not: "edit .github/workflows/main.yml (token cannot persist workflow edits); create/read/edit HANDOFF.md (AGENTS.md is the only handoff)"}
 edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum > 0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only.
 wf: {train: 720, test: 168, step: 168}
@@ -21,7 +21,7 @@ caches_verified:
   spot_5m_window: {bars: 26208, assets: 11, start: 2026-08-01, end: 2026-10-30T23:55Z, nan_count: 0, real_data_only: true, fabricated_data: false}
 latest_campaign_done: C286
 next_campaign: C287
-locked_campaigns: C104-C285
+locked_campaigns: C104-C286
 oos_edge_proven: false
 latest_registry:
   path: reports/campaign286_tradable_edge_registry_20261113T072725Z.json
@@ -239,14 +239,14 @@ campaign286:
 deferred_campaigns:
   c287:
     name: operational hardening
-    detail: "Testnet gateway/kill-switch. Do not start until C286 is complete."
+    detail: "Testnet gateway/kill-switch. C286 is complete — C287 is now ACTIVE."
 handoff:
   path: AGENTS.md
   single_authoritative: true
   forbidden_files: [HANDOFF.md]
-  timestamp_utc: 20261113T070916Z
+  timestamp_utc: 20261113T073258Z
   rule: do_not_create_another_handoff_file
-  active_initial_task_message: "C286 ACTIVE (2026-11-13T07:09:16Z): 5m execution overlay of the C285 volume-conditioned signal on the real 26,208-bar 5m spot cache, causal 1h-volume alignment, 5m costs, same strict edge rule. 11 assets, 3 volume features x 3 lookbacks x 3 K x 3 holds = 81 runs, train=720/test=168/step=168 in 5m bars = 151 OOS splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps. C285 is COMPLETE and NOT_TRADABLE (formal negative result, binding: cost_sensitivity). C287 (operational hardening) remains deferred until C286 is complete."
+  active_initial_task_message: "C287 ACTIVE (2026-11-13T07:32:58Z): Operational hardening — build and verify a Binance testnet spot gateway with a hard kill-switch, capable of executing the C285/C286 signal family (11 assets, 5m bars, causal 1h-volume alignment, 5m costs) with fail-closed gates, audit logging, and provable zero-drift between backtest and live paths. C285 and C286 are COMPLETE and NOT_TRADABLE (formal negative results, binding: cost_sensitivity). Deliverables: scripts/run_c287_testnet_gateway.py executed ≥72h/≥500 rebalance cycles on Binance testnet; five timestamped artifacts with SHA256-from-bytes; drift_free: true; kill-switch all thresholds tested; state/handoff updated; tests green."
 bottlenecks_removed:
   - id: dependency_bootstrap
     detail: "scripts/bootstrap_dev_env.py installs runtime + test deps (pytest, pytest-asyncio, hmmlearn, pydantic, aiohttp) and scripts/verify_env.py verifies every import."
@@ -260,6 +260,10 @@ bottlenecks_removed:
     detail: "scripts/preflight_c285.py verifies all dataset SHAs, shapes, NaNs, duplicates, real/fabricated flags, and the 5112-bar causal overlap."
   - id: c285_campaign_script
     detail: "scripts/run_c285_volume_xsec_oos.py created and executed end-to-end on the verified caches; NOT_TRADABLE with binding constraint cost_sensitivity; five artifacts written with SHA256-from-bytes; tests added (tests/test_c285_volume_xsec_oos.py)."
+  - id: c286_preflight
+    detail: "scripts/preflight_c286.py verifies all five C286 dataset SHAs, meta flags, the exact 26,208×11 5m window with 5m spacing, per-asset 1h volume coverage, causal 1h→5m alignment for L ∈ {168,336,720}, and the 151-split WF math."
+  - id: c286_campaign_script
+    detail: "scripts/run_c286_5m_volume_xsec_oos.py created and executed end-to-end on the verified 5m cache; NOT_TRADABLE with binding constraint cost_sensitivity; five artifacts written with SHA256-from-bytes; state/handoff updated; tests green."
 mandates:
   - no_reruns_c281b_c281c_c282_c283_c284
   - no_fabricated_or_relabeled_data
