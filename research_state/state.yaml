@@ -54,8 +54,8 @@ c302_status:
     passed: 1358
     skipped: 2
     failed: 0
-  as_of_utc: 20261114T222231Z
     duration_s: 285.0
+    as_of_utc: 20261114T222231Z
 
 c300_status:
   state: COMPLETE_NOT_TRADABLE
@@ -328,7 +328,7 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C299
+latest_campaign_done: C302
 campaign298:
   hypothesis: MULTI_YEAR_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_XSEC_TS_STAT_ARB
   status: completed_not_tradable
@@ -2054,9 +2054,9 @@ handoff:
   forbidden_files:
   - HANDOFF.md
   timestamp_utc: 20261114T202509Z
-  active_initial_task_message: 'PROGRAM CLOSURE (2026-11-14T20:25:09Z): record explicit closure of the economic stat-arb program. C301 executed NOT_TRADABLE (0/648 edge, binding mean_beats_benchmark_fail); C281B–C300 all COMPLETE formal negatives (0 costed-OOS edge, frozen). Reachable real-data stat-arb space CLOSED at every reachable resolution (single-venue 5m spot; perp funding/basis single-venue, cross-venue, per-asset time-series, cross-sectional; options IV; daily cross-sectional; real OFI/trade-sign autocorrelation; 2020-01..2026-10) — 0 costed-OOS edge everywhere. C287 external execution BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no credentials; CloudFront geographic block from this egress IP; cannot be resolved from this environment; decoupled from economic progress). Deliverables: reports/program_closure_final_<ts>.json (+.md) declaring reachable_real_data_cross_sectional_stat_arb_space:CLOSED, all campaigns C281B–C301 NOT_TRADABLE edge_claim:NONE oos_edge_proven:false, C287 BLOCKED decoupled_from_economic_progress:true with blocked reasons, real_data_only:true fabricated_data:false executed_fills:false; integrity audit zero issues, zero_tradable_edge_registry_confirmed:true; sync AGENTS.md + state.yaml with updated_at_utc, active_initial_task, next_campaign, program_closure, known_bottleneck, pass/skip counts, all closure artifact paths+SHA256 (no zeros); re-verify python -m pytest tests/ -q green (0 failed). Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, claim tradable edge, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 external-only must not preempt program closure.'
+  active_initial_task_message: 'EXECUTE C303 CROSS-SECTIONAL PREMIUM-INDEX CARRY (handoff refreshed 2026-11-14T22:35:41Z). C302 COMPLETE NOT_TRADABLE (0/486, binding mean_beats_benchmark_fail, frozen). ACTIVE NEXT = C303: cross-sectional premium-index carry across 10 real full-coverage USDT-M perps (BTCUSDT,ETHUSDT,XRPUSDT,ADAUSDT,LTCUSDT,BCHUSDT,LINKUSDT,TRXUSDT,ETCUSDT,XLMUSDT), K in {2,3,5}, >=400 runs, same cost/edge rules as C285-C302. In one session: bootstrap+pytest green (install pytest-asyncio>=0.23 if needed); ingest_c303_premium_index_xsec.py (premiumIndexKlines 1h 2020-01..2026-10, common grid, reuse C299/C302 perp close+native 8h funding, NaN gaps never imputed, cache<100MB, SHA256-from-bytes, real_data_only:true,fabricated_data:false,executed_fills:false); preflight_c303.py fail-closed; run_c303_premium_index_xsec_oos.py emitting 5 timestamped artifacts; tests/test_preflight_c303.py+tests/test_c303_premium_index_xsec_oos.py; sync AGENTS.md+state.yaml paths/SHA256; pytest green. If NOT_TRADABLE record formal negative and register next genuinely-new reachable family. C287 blocked/decoupled; never fabricate/weaken/claim edge/edit workflow/create HANDOFF.md.'
   rule: do_not_create_another_handoff_file
-  superseded_active_initial_task_message: 'C300 (prior message 2026-11-14T11:38:17Z) refreshed 2026-11-14T11:44:14Z with four verified bottleneck removals (spot 5m via data.binance.vision zips, C299 universe reuse, archive end 2026-10, compute bound). Prior text: C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDING-CARRY & BASIS WITH EXECUTION OVERLAY — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T11:38:17Z). C299 frozen NOT_TRADABLE (486 runs, 0/486 edge, mean_beats_benchmark_fail). C300 is the untested 5m per-asset time-series extension on the same real 2020-2026 archive with causal execution-cost overlay, same fail-closed costed-OOS rules. Mandatory in one turn: bootstrap+pytest green; ingest/preflight (scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py, scripts/preflight_c300.py) with SHA256-from-bytes cache+meta+provenance ready:true; ...'
+  superseded_active_initial_task_message: 'PROGRAM CLOSURE (2026-11-14T20:25:09Z) superseded 2026-11-14T22:35:41Z: C302 (new real premium-index family) executed NOT_TRADABLE (0/486); C303 cross-sectional premium-index carry is now the ACTIVE heavy campaign. Prior C300 message retained below in history context; do not treat closure as final.'
   bottlenecks_removed:
   - id: c300_spot_5m_source_verified
     detail: data.binance.vision spot monthly 5m zips return HTTP 200 for BTCUSDT/ETHUSDT/BCHUSDT at 2020-01 and 2026-10; schema verified headerless 12-col kline CSV 8928 rows/month (31x288) so read_zip_csv is reused; removes data-api 1000-row pagination/rate-limit bottleneck for the basis leg.
