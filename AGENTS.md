@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-14T23:28:15Z
+**Handoff refreshed:** 2026-11-14T23:38:39Z (session handoff affirmed; C303 execution remains the mandatory next action)
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics. Any turn that produces neither a real-data ingest, a costed-OOS run, a passing test, or an artifact update is NOT economic progress and must not be reported as such.
 
 **Verified state (this refresh, 2026-11-14T23:28Z):** `HANDOFF.md` absent (correct). `pytest 9.2.0` and `pytest-asyncio 1.5.0` present in this runtime. Full suite re-run this refresh: `python -m pytest tests/ -q` → **1358 passed, 2 skipped, 0 failed** (finished 2026-11-14T23:21:33Z). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `research_state/state.yaml` parses cleanly (50 keys; `latest_campaign_done: C302`, `next_campaign: C303`).
@@ -17,7 +17,7 @@
 
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-14T23:28:15Z) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
+## INITIAL TASK MESSAGE (2026-11-14T23:38:39Z, affirmed) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
 
 **This is the active task for the next agentic session. C303 has NOT been executed. This session must execute it — a status-only, planning-only, or verify-only turn is a failure of the task.**
 
