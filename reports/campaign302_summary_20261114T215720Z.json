@@ -1,0 +1,193 @@
+{
+  "generated_at_utc": "20261114T215720Z",
+  "campaign": 302,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "n_assets": 3,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 2160,
+      "test": 720,
+      "step": 720,
+      "per_asset": true
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_signals": [
+      "prem_level",
+      "prem_z",
+      "prem_ma",
+      "prem_mom",
+      "prem_range",
+      "prem_vol"
+    ],
+    "lookbacks_1h": [
+      168,
+      720,
+      2160
+    ],
+    "threshold_combos": {
+      "prem_level": [
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0005,
+          0.0002
+        ],
+        [
+          0.001,
+          0.0005
+        ]
+      ],
+      "prem_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "prem_ma": [
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0005,
+          0.0002
+        ],
+        [
+          0.001,
+          0.0005
+        ]
+      ],
+      "prem_mom": [
+        [
+          1e-05,
+          5e-06
+        ],
+        [
+          2e-05,
+          1e-05
+        ],
+        [
+          5e-05,
+          2e-05
+        ]
+      ],
+      "prem_range": [
+        [
+          0.0001,
+          5e-05
+        ],
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0005,
+          0.0002
+        ]
+      ],
+      "prem_vol": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ]
+    },
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "total_runs_per_asset": 162,
+    "total_runs": 486,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "causal segment-start decision, shift(1), mean-reversion exit to flat",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "prem_level": "-premium_index_close_ffill_known_at_t-1",
+      "prem_z": "-z(premium_index, L 1h bars)",
+      "prem_ma": "-mean(premium_index, L 1h bars)",
+      "prem_mom": "-mean(\u0394premium_index, L 1h bars)",
+      "prem_range": "-mean(premium_high - premium_low, L 1h bars)",
+      "prem_vol": "-z(std(premium_index, L), L)"
+    },
+    "signal_direction": "long +1 when score>=entry, short -1 when score<=-entry, flat when |score|<=exit or no signal"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign302_oos_sweep_20261114T215720Z.json",
+      "sha256": "95eb4162fb0a317542d4162b3f8b4d10b40b590777a55dab0c4663038d66e1ba"
+    },
+    "registry": {
+      "path": "reports/campaign302_tradable_edge_registry_20261114T215720Z.json",
+      "sha256": "b37b8d9a1e42482aed456ee652db2a96e6ac5f7ca234adbb5a36f07ad5a282b7"
+    }
+  },
+  "summary": {
+    "n_total_runs": 486,
+    "n_assets": 3,
+    "runs_per_asset": 162,
+    "n_with_exposure": 446,
+    "n_zero_exposure": 40,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 5.563542107364059e-05,
+    "bh_oos_mean_by_asset": {
+      "BTCUSDT": 5.0564834954686024e-05,
+      "ETHUSDT": 6.881738889427246e-05,
+      "BCHUSDT": 4.752403937196329e-05
+    }
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the 1h premium-index per-asset time-series space."
+}

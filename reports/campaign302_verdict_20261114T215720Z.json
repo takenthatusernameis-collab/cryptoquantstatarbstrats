@@ -1,0 +1,48 @@
+{
+  "generated_at_utc": "20261114T215720Z",
+  "campaign": 302,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "finding": "No costed OOS edge proven on the real per-asset premium-index time-series family (486 runs, 0 edge).",
+  "basis": "real_usd_m_perp_premium_index_per_asset_time_series_costed_oos_1h",
+  "dataset": {
+    "cache": "data/cache/campaign302_premium_index_basis.pkl",
+    "cache_sha256": "2f0b45cff41baecf1ab4ddb52de68664ad91f3a4a6f95086f0fc468f7cd86063",
+    "cache_meta": "data/cache/campaign302_premium_index_basis.meta.json",
+    "cache_meta_sha256": "3e1e8253e5de2242e4e04d71f7765ba719965a6bc6cfe002953272492388ba57",
+    "cache_provenance": "data/cache/campaign302_premium_index_basis.provenance.json",
+    "cache_provenance_sha256": "d147e3ac8eb8702c9b6782630f019d7e5bfcaacb979061f1d370bc4fa0990da8",
+    "cache_pkl_bytes": 7192198,
+    "c299_execution_cache": "data/cache/campaign299_multianual_perp_funding_basis_ts.pkl",
+    "c299_execution_cache_sha256": "ef92fdba3dade2503138abc723a74dc43d8fc3a2ac1c3db8ae248c762c4669d5",
+    "c299_meta_sha256": "4031ed9c626938d4c528b832ebb53c1613d1d35323638218aebadab2e3a3b198",
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ],
+    "n_assets": 3,
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign302_oos_sweep_20261114T215720Z.json",
+  "oos_sweep_sha256": "95eb4162fb0a317542d4162b3f8b4d10b40b590777a55dab0c4663038d66e1ba",
+  "registry_artifact": "reports/campaign302_tradable_edge_registry_20261114T215720Z.json",
+  "registry_sha256": "b37b8d9a1e42482aed456ee652db2a96e6ac5f7ca234adbb5a36f07ad5a282b7",
+  "summary_artifact": "reports/campaign302_summary_20261114T215720Z.json",
+  "summary_sha256": "ccb7773f0ada9e7aa875649fc7d0130dd497e82788a2aae71f6339b5aa100900",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real USDT-M perp premium-index 1h klines + real funding cashflows only",
+    "executed_fills: false"
+  ],
+  "binding_constraint_artifact": "reports/campaign302_binding_constraint_20261114T215720Z.json",
+  "binding_constraint_sha256": "52bf4b7a66e3c1fad9beea48630ad566c9d2be057d0d0d6534267e5a8f2f02da"
+}

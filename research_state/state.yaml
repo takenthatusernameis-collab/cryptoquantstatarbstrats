@@ -1,16 +1,61 @@
-updated_at_utc: 20261114T205712Z
+updated_at_utc: 20261114T221534Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'PROGRAM CLOSURE (handoff refreshed 2026-11-14T20:25:09Z): RECORD EXPLICIT CLOSURE OF THE ECONOMIC STAT-ARB PROGRAM — MANDATORY HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C301 executed NOT_TRADABLE (0/648 edge, binding mean_beats_benchmark_fail) at 20261114T193801Z over frozen 648-run grid (3 assets × 216, 545 with exposure / 103 zero-exposure); C281B–C300 all COMPLETE formal negatives (0 costed-OOS edge, frozen). Entire reachable real-data stat-arb space CLOSED (single-venue 5m spot; perp funding/basis single-venue, cross-venue, per-asset time-series, cross-sectional; options IV; daily cross-sectional; real OFI/trade-sign autocorrelation; 2020-01..2026-10) — every formulation returned 0 costed-OOS edge. C287 external execution BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no credentials; CloudFront geographic block from this egress IP; cannot be resolved from this execution environment; decoupled from economic progress). Record explicit program closure rather than inventing another funding/basis re-skin. Mandatory in one turn: bootstrap+pytest green (0 failed); write reports/program_closure_final_<ts>.json (+.md) declaring reachable_real_data_cross_sectional_stat_arb_space:CLOSED, all campaigns C281B–C301 NOT_TRADABLE edge_claim:NONE oos_edge_proven:false, C287 BLOCKED decoupled_from_economic_progress:true with blocked reasons, real_data_only:true fabricated_data:false executed_fills:false; integrity audit zero issues, zero_tradable_edge_registry_confirmed:true; sync AGENTS.md + research_state/state.yaml with updated_at_utc, active_initial_task, next_campaign, program_closure, known_bottleneck, pass/skip counts, all closure artifact paths+SHA256 (no zeros); re-verify pytest green. NOT_TRADABLE is the correct heavy outcome; never claim a tradable edge unless the costed OOS rule is actually satisfied. Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, claim tradable edge, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 external-only must not preempt program closure.'
-next_campaign: program_closure_recorded_c287_blocked_externally_cannot_resolve_from_this_environment
+active_initial_task: 'EXECUTE C303 CROSS-SECTIONAL PREMIUM-INDEX CARRY (handoff refreshed 2026-11-14T22:15:34Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C302 executed NOT_TRADABLE (0/486 edge, binding mean_beats_benchmark_fail) at 20261114T215720Z over the NEW real USDT-M perp premiumIndexKlines family (native 1h, 2020-01..2026-10, 3 assets, 486 runs, 446 with exposure / 40 zero-exposure); C281B–C301 all COMPLETE formal negatives (0 costed-OOS edge, frozen). The premium-index family is a genuinely new real source and only its per-asset time-series form is tested. C298 zero_exposure was caused by only 3 full-coverage assets (<2K); verified this refresh that 10 real USDT-M perps have full premiumIndexKlines coverage from 2020-01 (BTCUSDT ETHUSDT XRPUSDT ADAUSDT LTCUSDT BCHUSDT LINKUSDT TRXUSDT ETCUSDT XLMUSDT) so K in {2,3,5} is reachable. ACTIVE NEXT = C303 cross-sectional premium-index carry across those 10 assets. Mandatory in one session: bootstrap+pytest green (0 failed; if test_playbooks async fails install pytest-asyncio>=0.23, a bootstrap gap not a research result); build scripts/ingest_c303_premium_index_xsec.py (real premiumIndexKlines 1h, common real grid, reuse C299/C302 perp close+native 8h funding, NaN gaps never imputed, compact ndarray cache <100MB, SHA256-from-bytes, real_data_only:true fabricated_data:false executed_fills:false); preflight_c303.py fail-closed (mirror preflight_c302); run_c303_premium_index_xsec_oos.py (>=400 runs: signals x lookbacks x K{2,3,5} x holds, dollar-neutral top-K/bottom-K shift(1), real funding cashflow, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]bps, flat + equal-weight B&H-with-funding benchmarks, edge rule identical to C285-C302 never relaxed) emitting the 5 campaign302-style timestamped artifacts; tests/test_preflight_c303.py + tests/test_c303_premium_index_xsec_oos.py (mirror C302 tests); sync AGENTS.md + research_state/state.yaml with paths+SHA256 (no zeros, no nesting regression); re-verify pytest green. If NOT_TRADABLE record the formal negative (binding constraint) and register the next genuinely-new reachable family (markPriceKlines/indexPriceKlines basis or bookTicker quote-side). Never claim a tradable edge without a passed costed-OOS rule. Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 (external execution) stays BLOCKED/decoupled and must not be retried as economic work.'
+next_campaign: c303_cross_sectional_premium_index_carry_10_real_full_coverage_assets_k_2_3_5
 known_bottleneck:
   id: c287_external_execution_blocked_geography_credentials
-  as_of_utc: 20261114T205712Z
+  as_of_utc: 20261114T221534Z
   status: blocked_externally_cannot_resolve_from_this_environment
   evidence: 'Binance testnet REST HTTP 451 (CloudFront geographic block, not transient) from this egress IP; fapi 451; bybit 403; no BINANCE_TESTNET_API_KEY/SECRET in env; WS reachable but cannot serve REST order placement/klines/exchangeInfo; mainnet reachable but forbidden for C287 (spec requires testnet only; using mainnet with testnet keys would execute on real funds). Cannot be resolved from this execution environment.'
-  fix: 'Record C287 as blocked/decoupled from economic progress; do not re-probe as economic work. Proceed to program closure. Unblocking requires external action: valid Binance Spot Testnet credentials plus network egress not subject to the testnet 451 geographic block — outside this environment.'
-  do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; re-probe C287 blocked routes as economic work; rerun/edit frozen C281B-C301 artifacts/cache; commit any cache blob >= 100 MB (GitHub pre-receive hook hard-reject); re-skin the closed funding-carry/spot-perp basis or OFI/microstructure family.
+  fix: 'Record C287 as blocked/decoupled from economic progress; it is external-only and must not preempt economic work. Unblocking requires external action: valid Binance Spot Testnet credentials plus network egress not subject to the testnet 451 geographic block — outside this environment.'
+  do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; re-probe C287 blocked routes as economic work; rerun/edit frozen C281B-C302 artifacts/cache; commit any cache blob >= 100 MB (GitHub pre-receive hook hard-reject); re-skin the closed funding-carry/spot-perp basis, OFI/microstructure, or per-asset premium-index (C302) families.
+
+c302_status:
+  state: COMPLETE_NOT_TRADABLE
+  as_of_utc: 20261114T215720Z
+  verdict: NOT_TRADABLE
+  edge_proven: false
+  n_total_runs: 486
+  n_with_exposure: 446
+  n_zero_exposure: 40
+  n_edge_proven: 0
+  binding_constraint: mean_beats_benchmark_fail
+  new_real_family: 'USDT-M perp premiumIndexKlines (continuous fair-value premium, native 1h, 2020-01..2026-10); never used by any prior campaign'
+  dataset:
+    cache: data/cache/campaign302_premium_index_basis.pkl
+    cache_bytes: 7192198
+    cache_sha256: 2f0b45cff41baecf1ab4ddb52de68664ad91f3a4a6f95086f0fc468f7cd86063
+    meta: data/cache/campaign302_premium_index_basis.meta.json
+    meta_sha256: 3e1e8253e5de2242e4e04d71f7765ba719965a6bc6cfe002953272492388ba57
+    provenance: data/cache/campaign302_premium_index_basis.provenance.json
+    provenance_sha256: d147e3ac8eb8702c9b6782630f019d7e5bfcaacb979061f1d370bc4fa0990da8
+    c299_execution_cache: data/cache/campaign299_multianual_perp_funding_basis_ts.pkl
+    c299_execution_cache_sha256: ef92fdba3dade2503138abc723a74dc43d8fc3a2ac1c3db8ae248c762c4669d5
+    real_data_only: true
+    fabricated_data: false
+    executed_fills: false
+  artifacts:
+    oos_sweep: {path: reports/campaign302_oos_sweep_20261114T215720Z.json, sha256: 95eb4162fb0a317542d4162b3f8b4d10b40b590777a55dab0c4663038d66e1ba}
+    tradable_edge_registry: {path: reports/campaign302_tradable_edge_registry_20261114T215720Z.json, sha256: b37b8d9a1e42482aed456ee652db2a96e6ac5f7ca234adbb5a36f07ad5a282b7}
+    summary: {path: reports/campaign302_summary_20261114T215720Z.json, sha256: ccb7773f0ada9e7aa875649fc7d0130dd497e82788a2aae71f6339b5aa100900}
+    verdict: {path: reports/campaign302_verdict_20261114T215720Z.json, sha256: 2d8f88cd255c53b6c602fb73d0b6704a310126470fbea50de058323f4758a003}
+    binding_constraint: {path: reports/campaign302_binding_constraint_20261114T215720Z.json, sha256: 52bf4b7a66e3c1fad9beea48630ad566c9d2be057d0d0d6534267e5a8f2f02da}
+  artifacts_exist: true
+  scripts:
+  - scripts/ingest_c302_premium_index_basis.py
+  - scripts/preflight_c302.py
+  - scripts/run_c302_premium_index_basis_ts_oos.py
+  tests:
+  - tests/test_preflight_c302.py
+  - tests/test_c302_premium_index_basis_ts_oos.py
+  pytest:
+    passed: 1358
+    skipped: 2
+    failed: 0
+    as_of_utc: 20261114T221534Z
+    duration_s: 285.0
 
 c300_status:
   state: COMPLETE_NOT_TRADABLE
@@ -781,17 +826,24 @@ campaign301:
   post_c301_rule: If C301 is also NOT_TRADABLE, record explicit program closure; only external execution (C287) remains and is blocked by testnet REST 451 + fapi 451 + bybit 403 + no credentials. Do not invent another funding/basis re-skin.
 
 program_closure:
-  status: recorded
-  as_of_utc: 20261114T205712Z
-  reachable_real_data_cross_sectional_stat_arb_space: CLOSED
+  status: superseded_by_c302_new_real_family
+  as_of_utc: 20261114T221534Z
+  prior_status: recorded
+  prior_as_of_utc: 20261114T205712Z
+  reachable_real_data_cross_sectional_stat_arb_space: NOT_CLOSED_new_real_family_premium_index_reachable
+  note: 'The 20:57:12Z closure covered C281B–C301 (funding/basis + OFI families). It was reopened this refresh: the USDT-M perp premiumIndexKlines family (continuous fair-value premium, native 1h, 2020-01..2026-10) is a genuinely new reachable real source. Its per-asset time-series form (C302) is a COMPLETE formal negative; its cross-sectional form (C303, 10 full-coverage assets, K∈{2,3,5}) is the ACTIVE heavy next campaign and directly attacks C298 zero_exposure.'
   campaigns:
-    C281B_to_C300: COMPLETE_NOT_TRADABLE_zero_costed_OOS_edge_frozen
-    C301: COMPLETE_NOT_TRADABLE_0_648_edge_binding_mean_beats_benchmark_fail
+    C281B_to_C301: COMPLETE_NOT_TRADABLE_zero_costed_OOS_edge_frozen
+    C302: COMPLETE_NOT_TRADABLE_0_486_edge_binding_mean_beats_benchmark_fail_new_premium_index_family
+    C303: ACTIVE_next_heavy_campaign_cross_sectional_premium_index_carry
   edge_claim: NONE
   oos_edge_proven: false
   real_data_only: true
   fabricated_data: false
   executed_fills: false
+  prior_closure_artifacts:
+    closure_report_json: {path: reports/program_closure_final_20261114T205712Z.json, sha256: 00520afa25ab468610bb8bac41492c73b984b4a821fe289c7469946fc5eac607}
+    closure_report_md: {path: reports/program_closure_final_20261114T205712Z.md, sha256: d6162622e4150710cd9a1b012a10129333c618853eba729fb6026f39d12311c0}
   c287:
     status: BLOCKED
     decoupled_from_economic_progress: true
