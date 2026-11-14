@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-14T22:27:31Z
+**Handoff refreshed:** 2026-11-14T22:35:41Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 
 **Verified state (last full suite run recorded 2026-11-14T22:24:22Z):** `python -m pytest tests/ -q` → **1358 passed, 2 skipped, 0 failed** (284.5s; includes 19 new C302 tests). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. **Dependency/bootstrap gap (actionable):** `pytest-asyncio` (declared in `[project.optional-dependencies].dev` but may be absent from runtime) is required for `tests/test_playbooks.py` (16 async tests) — if missing, install `python -m pip install "pytest-asyncio>=0.23"` as Step 0; this is a bootstrap gap, NOT a research result. The economic stat-arb program is **NOT closed — a new real data family (premium index) was reachable and has been added**:
@@ -13,7 +13,7 @@
 
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-14T22:27:31Z) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
+## INITIAL TASK MESSAGE (2026-11-14T22:35:41Z) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
 
 **C302 is a COMPLETE formal negative (0/486 costed-OOS edge, binding `mean_beats_benchmark_fail`) and is FROZEN.** The program is **not** closed: a new real data family (`premiumIndexKlines`) is reachable and only its per-asset time-series form has been tested. **Do NOT re-run C302 or re-skin the closed funding/basis/OFI families.**
 
