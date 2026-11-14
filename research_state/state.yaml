@@ -1,10 +1,10 @@
-updated_at_utc: 20261114T043835Z
+updated_at_utc: 20261114T044114Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge
   validation
 priority: statistical-arb edge discovery before infrastructure work
 active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENCE —
-  MANDATORY HEAVY WORK (2026-11-14T04:38:35Z). Reachable real-data cross-sectional stat-arb
+  MANDATORY HEAVY WORK (2026-11-14T04:41:14Z). Reachable real-data cross-sectional stat-arb
   space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297, 0 costed OOS
   edge; C289 economic_space_closed:true). C297 frozen complete: daily multi-year real
   mainnet Binance spot 1d OHLCV, 24 assets, 2021-01-01..2026-11-13, 135 runs,
@@ -16,7 +16,7 @@ active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENC
   Closure-integrity audit refreshed 2026-11-14T04:38:35Z: reports/program_closure_integrity_audit_20261114T043835Z.json
   sha256 1900d06d8cb7b6af845dcc20f76364b7710001d925c73269e083f5e45ba2be10 +
     reports/program_closure_integrity_audit_20261114T043835Z.md sha256
-    79407101ba41f503dda43112cefa5f8dac0287b08842d6b6a8745d7482f93513 (integrity_ok:true, n_issues:0,
+    dba46536eb2eb83e0642559f8dad521294c122664c0bf14fe8abe9f3d0f304e2 (integrity_ok:true, n_issues:0, n_references:106, 0 tradable edge). C287 external-unblock status refreshed 2026-11-14T04:38:16Z:
   n_references:106, 0 tradable edge). C287 external-unblock status refreshed 2026-11-14T04:38:16Z:
   reports/c287_external_unblock_status_20261114T043816Z.json sha256
   f6083cf00ed1da25441a31c7f0f53a39382df0b7d8a8d3fc4b9e72e1e057f780 (BLOCKED, testnet REST 451,
@@ -40,7 +40,7 @@ active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENC
   .github/workflows/main.yml, never create/read/edit HANDOFF.md.'
 known_bottleneck:
   id: reachable_real_data_stat_arb_closed_c287_external_only
-  as_of_utc: 20261114T043835Z
+  as_of_utc: 20261114T044114Z
   evidence: 'C297 daily multi-year cross-sectional stat-arb NOT_TRADABLE (0/135 costed OOS
     edge, binding mean_beats_benchmark_fail). Combined with C281B-C296 (5m/1h cross-sectional,
     single/cross/three-venue spot, perp funding/basis, real-IV VRP) the reachable real-data
@@ -48,7 +48,7 @@ known_bottleneck:
     C287 BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no creds). Suite green
     1263 passed, 2 skipped, 0 failed. Closure-integrity audit refreshed 2026-11-14T04:38:35Z
     (sha256 1900d06d8cb7b6af845dcc20f76364b7710001d925c73269e083f5e45ba2be10, md sha256
-    79407101ba41f503dda43112cefa5f8dac0287b08842d6b6a8745d7482f93513, integrity_ok:true,
+    dba46536eb2eb83e0642559f8dad521294c122664c0bf14fe8abe9f3d0f304e2, integrity_ok:true,
     n_issues:0, n_references:106); C287 external-unblock status refreshed 2026-11-14T04:38:16Z
     (sha256 f6083cf00ed1da25441a31c7f0f53a39382df0b7d8a8d3fc4b9e72e1e057f780, BLOCKED).
     Bottlenecks removed this refresh: fixed the stale audit md SHA (prior session recorded an
@@ -278,7 +278,7 @@ closure_integrity_audit:
     sha256: 1900d06d8cb7b6af845dcc20f76364b7710001d925c73269e083f5e45ba2be10
   md:
     path: reports/program_closure_integrity_audit_20261114T043835Z.md
-    sha256: 79407101ba41f503dda43112cefa5f8dac0287b08842d6b6a8745d7482f93513
+    sha256: dba46536eb2eb83e0642559f8dad521294c122664c0bf14fe8abe9f3d0f304e2
   integrity_ok: true
   n_issues: 0
   n_references: 106
