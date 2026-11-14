@@ -1,0 +1,1377 @@
+{
+  "artifact": "program_closure_integrity_audit",
+  "campaign_rows": [
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C281B",
+      "items": [
+        {
+          "actual_sha256": "8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "8c266cae6fa43f9c249b568f7420dafb4c3cc11acd2db8cb001fbb5278a1fea9",
+          "path": "reports/campaign281_oos_sweep_20261113T034058Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 1,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C281C",
+      "items": [
+        {
+          "actual_sha256": "b88b4dfa3513c376318b3d90ab4a5c6dbd5809ae27cecc71046f6b5e13e16265",
+          "checks": {
+            "edge_claim_none": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "b88b4dfa3513c376318b3d90ab4a5c6dbd5809ae27cecc71046f6b5e13e16265",
+          "path": "reports/campaign281c_gate_diagnostics_20261113T034422Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 1,
+      "n_runs": null,
+      "verdicts": []
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C282",
+      "items": [
+        {
+          "actual_sha256": "e727dcfb876b40d4206fea7da860574dd5d3fe5f117e79f5fc89f970f299c090",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "e727dcfb876b40d4206fea7da860574dd5d3fe5f117e79f5fc89f970f299c090",
+          "path": "reports/campaign282_oos_sweep_20261113T043542Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 1,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C283",
+      "items": [
+        {
+          "actual_sha256": "9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9202d6f5a965ce4b3d1820bbd7fbf25d93a726fdfda3854a22d7e60ce6149ae0",
+          "path": "reports/campaign283_oos_sweep_20261113T034830Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 1,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "zero_exposure"
+      ],
+      "campaign": "C284",
+      "items": [
+        {
+          "actual_sha256": "d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "d1eb2e2c2337b72f2c3899616b8b022258235d506796894281a9f1b725623c26",
+          "path": "reports/campaign284_oos_sweep_20261113T061220Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14",
+          "checks": {
+            "binding_constraint": "zero_exposure",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9bf7eea9029b268a5a1cc671e6b1814ddd405baf43b8d36d81ea83289a0cac14",
+          "path": "reports/campaign284_binding_constraint_20261113T061220Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 2,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C285",
+      "items": [
+        {
+          "actual_sha256": "2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "2cb3ea9716f2cc59c0debce68bfd58217d58b7ca464ad8f86b25ac1bcd4477fc",
+          "path": "reports/campaign285_oos_sweep_20261113T065205Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "23cfb01fc1567918090f7ebd849f4389557b6a52b18397f39fce8b05fb4e6ff3",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "23cfb01fc1567918090f7ebd849f4389557b6a52b18397f39fce8b05fb4e6ff3",
+          "path": "reports/campaign285_tradable_edge_registry_20261113T065205Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "512bbb4b75f30eb26d6969e1fb135a481b9bfe892f52c39185d021802405cdbb",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "512bbb4b75f30eb26d6969e1fb135a481b9bfe892f52c39185d021802405cdbb",
+          "path": "reports/campaign285_summary_20261113T065205Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "2e64ccf3fda6e423b7b098b2cf093430054e537227739ff6fa27aa6bbd76ce4b",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "2e64ccf3fda6e423b7b098b2cf093430054e537227739ff6fa27aa6bbd76ce4b",
+          "path": "reports/campaign285_verdict_20261113T065205Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "15f29a2fe1e6b03fbff8454ed1ad024f943f298afa7d6943c146f9f65dc60e9a",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "15f29a2fe1e6b03fbff8454ed1ad024f943f298afa7d6943c146f9f65dc60e9a",
+          "path": "reports/campaign285_binding_constraint_20261113T065205Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 5,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C286",
+      "items": [
+        {
+          "actual_sha256": "c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "c153042e619793de4aaa024b967b387b7a37c26ed6864884d14240ea42f17aca",
+          "path": "reports/campaign286_oos_sweep_20261113T072725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "6f7eb06d56abbfde9273973f38264574f4d36443e127da8b55334b7fb6977d8f",
+          "path": "reports/campaign286_tradable_edge_registry_20261113T072725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "9f4d987e776b91a70efaaf6dbe472b7058a523dc481d74bf9bc3e99df67ae9da",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9f4d987e776b91a70efaaf6dbe472b7058a523dc481d74bf9bc3e99df67ae9da",
+          "path": "reports/campaign286_summary_20261113T072725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "338e4b5dec412bcef32b0b37fd88865543ced68cfe0e94749247ce4bad7fb9fe",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "338e4b5dec412bcef32b0b37fd88865543ced68cfe0e94749247ce4bad7fb9fe",
+          "path": "reports/campaign286_verdict_20261113T072725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "b0d7f0d9e9ac67efd501fe9ae814273ad036eaa9f2534711475003f528ddcf12",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "b0d7f0d9e9ac67efd501fe9ae814273ad036eaa9f2534711475003f528ddcf12",
+          "path": "reports/campaign286_binding_constraint_20261113T072725Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 5,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": false,
+      "any_errors": true,
+      "bindings": [],
+      "campaign": "C287",
+      "items": [
+        {
+          "actual_sha256": "72d1e5ff5c4b465fcd089d6b1dc648df01ce47414bdbcd5da944bbe257d615ae",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [
+            "sha256_mismatch"
+          ],
+          "exists": true,
+          "expected_sha256": "5e8795745fc7fd591a9ebd5196255d4340f4b2aa58129bd05542ec9919c78b90",
+          "path": "reports/c287_external_unblock_status_20261114T014957Z.json",
+          "sha256_match": false
+        },
+        {
+          "actual_sha256": "a7ceeba9280183d6a9a2d96451f033ddeeb99b69051443dfaa5d6e81c7223c25",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "a7ceeba9280183d6a9a2d96451f033ddeeb99b69051443dfaa5d6e81c7223c25",
+          "path": "reports/campaign287_gateway_spec_20261113T092833Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "3596a15cf226f1fd8f6abd710f5ecf8a4a38fc93a82fdbf421a61bbb15e8b234",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "3596a15cf226f1fd8f6abd710f5ecf8a4a38fc93a82fdbf421a61bbb15e8b234",
+          "path": "reports/campaign287_live_run_20261113T092833Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "d8a2ec515f36235d8aa121e66a739e671abf42a6adcaae237641f08b9710cf0c",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "d8a2ec515f36235d8aa121e66a739e671abf42a6adcaae237641f08b9710cf0c",
+          "path": "reports/campaign287_drift_report_20261113T092833Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "88be9bd4ae06d3f86f04f324bf54f01923ed9d7666dd85caf79225e3936f58f2",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "88be9bd4ae06d3f86f04f324bf54f01923ed9d7666dd85caf79225e3936f58f2",
+          "path": "reports/campaign287_kill_switch_test_20261113T092833Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "2635b45e50e2544671388271ef15f898884a9a38a1a0b3aa5f10a783c3a07c20",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "2635b45e50e2544671388271ef15f898884a9a38a1a0b3aa5f10a783c3a07c20",
+          "path": "reports/campaign287_summary_20261113T092833Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "15ddb896d1d80dda0e0f502ad5ca4507bf2990ed703873fdf9f9ebbbb2509823",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "15ddb896d1d80dda0e0f502ad5ca4507bf2990ed703873fdf9f9ebbbb2509823",
+          "path": "reports/c287_external_unblock_status_20261114T010056Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "3897b641ed9ecc9e858a8a89ef34418b6056802520abead944812d413917fa16",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "3897b641ed9ecc9e858a8a89ef34418b6056802520abead944812d413917fa16",
+          "path": "reports/c287_external_unblock_status_20261114T011919Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 8,
+      "n_runs": null,
+      "verdicts": []
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C288",
+      "items": [
+        {
+          "actual_sha256": "75c06a7ee1ea42155e8c0674d58c70f17175e47e31b750db464815a35bb0188d",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "75c06a7ee1ea42155e8c0674d58c70f17175e47e31b750db464815a35bb0188d",
+          "path": "reports/campaign288_oos_sweep_20261113T094728Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "8c35996e5675d151a5f3b80f4e8f4545a7cb99923adc41e0ad4fa03ef5a7c7d8",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "8c35996e5675d151a5f3b80f4e8f4545a7cb99923adc41e0ad4fa03ef5a7c7d8",
+          "path": "reports/campaign288_tradable_edge_registry_20261113T094728Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "fc236ad1ad51d53fe909444d02648909188b80fab8013e299140e7f292ec8eb5",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "fc236ad1ad51d53fe909444d02648909188b80fab8013e299140e7f292ec8eb5",
+          "path": "reports/campaign288_summary_20261113T094728Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "cb7f80a755a0ce84c8c2bb83ec51a7576d436fea0026303688a5aa596b94419a",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "cb7f80a755a0ce84c8c2bb83ec51a7576d436fea0026303688a5aa596b94419a",
+          "path": "reports/campaign288_verdict_20261113T094728Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "46248de8b9441b3c3fdcf402d8b0bba2de8bda1c25ef6f66bee085269013c763",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "46248de8b9441b3c3fdcf402d8b0bba2de8bda1c25ef6f66bee085269013c763",
+          "path": "reports/campaign288_binding_constraint_20261113T094728Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 5,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C289",
+      "items": [
+        {
+          "actual_sha256": "1abf68af6f9e9d96f158b41b9a0694ed7bc9feba5afed387483bc6069d0f1b77",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "1abf68af6f9e9d96f158b41b9a0694ed7bc9feba5afed387483bc6069d0f1b77",
+          "path": "reports/campaign289_closure_20261113T095308Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "7ed5717296df3b146fe1b87747182cc9e2e6f3cf1282e817fac9dfe8ecf09e92",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "7ed5717296df3b146fe1b87747182cc9e2e6f3cf1282e817fac9dfe8ecf09e92",
+          "path": "reports/campaign289_summary_20261113T095308Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "d1a7894e0c38e077d34e24a156bb1c1cfaadab0469729b1cdf1d7236243f52b5",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "d1a7894e0c38e077d34e24a156bb1c1cfaadab0469729b1cdf1d7236243f52b5",
+          "path": "reports/campaign289_verdict_20261113T095308Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 3,
+      "n_runs": null,
+      "verdicts": []
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C290",
+      "items": [
+        {
+          "actual_sha256": "e20b2ee2602134d7e15c144e30a482f1196a5ad4f995b2d72f87e9fc6d060ed8",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "e20b2ee2602134d7e15c144e30a482f1196a5ad4f995b2d72f87e9fc6d060ed8",
+          "path": "reports/campaign290_oos_sweep_20261113T104321Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "f89b6af757a0df50ecb6e5ad83a851504618f664ec286b5c8a9afbdc1908397d",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "f89b6af757a0df50ecb6e5ad83a851504618f664ec286b5c8a9afbdc1908397d",
+          "path": "reports/campaign290_tradable_edge_registry_20261113T104321Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "da0eb512c72984dd5ec51ef343d80433fb15b34a70977909513d11b88d9fe8a4",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "da0eb512c72984dd5ec51ef343d80433fb15b34a70977909513d11b88d9fe8a4",
+          "path": "reports/campaign290_summary_20261113T104321Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "07d1f731eee9eb397ef22fcd87ae9c7d40dea753360d7af5766a656e842059b7",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "07d1f731eee9eb397ef22fcd87ae9c7d40dea753360d7af5766a656e842059b7",
+          "path": "reports/campaign290_verdict_20261113T104321Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "ad8938c07324afa2e3937fcf85a27da53c2acb8497402350c791a010763b812b",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "ad8938c07324afa2e3937fcf85a27da53c2acb8497402350c791a010763b812b",
+          "path": "reports/campaign290_binding_constraint_20261113T104321Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e",
+          "checks": {},
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "6f06e6902e60eebabb161839e3cce4d04ea23b0dca63585a4c075f422f066f0e",
+          "path": "data/cache/campaign290_ohlcv.pkl",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 6,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C291",
+      "items": [
+        {
+          "actual_sha256": "5986229bbfe988e26a2b6cf21997b11ebec1b872ae581e5d5a55870ef61dd02e",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "5986229bbfe988e26a2b6cf21997b11ebec1b872ae581e5d5a55870ef61dd02e",
+          "path": "reports/campaign291_oos_sweep_20261113T113705Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "354c203197be2e8a54a984ffc14f0e613ecd33dce35ab025fa23952579ab05b3",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "354c203197be2e8a54a984ffc14f0e613ecd33dce35ab025fa23952579ab05b3",
+          "path": "reports/campaign291_tradable_edge_registry_20261113T113705Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "25a3973c02ae66d61accf480a44b2e30bdba4cc9ac66ea080e839ce4f08f3a45",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "25a3973c02ae66d61accf480a44b2e30bdba4cc9ac66ea080e839ce4f08f3a45",
+          "path": "reports/campaign291_summary_20261113T113705Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "5a55a81b280112d407df76757cf33c08ee46a3b895f83a045e5c4e5307cef244",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "5a55a81b280112d407df76757cf33c08ee46a3b895f83a045e5c4e5307cef244",
+          "path": "reports/campaign291_verdict_20261113T113705Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "6c17380122c65e0cccac37b990f265cbeb65f1c2056886b7fda5098614ab29ef",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "6c17380122c65e0cccac37b990f265cbeb65f1c2056886b7fda5098614ab29ef",
+          "path": "reports/campaign291_binding_constraint_20261113T113705Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 5,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C292",
+      "items": [
+        {
+          "actual_sha256": "02854406654b921f00a438f32db651a07d24a8c87c16826b38ddc677788c0b7f",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "02854406654b921f00a438f32db651a07d24a8c87c16826b38ddc677788c0b7f",
+          "path": "reports/campaign292_oos_sweep_20261113T164603Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "5ea904d1e26deb18af44dbadb15a8f5a041f198ed8f97474a98bcf58cc1cf7a1",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "5ea904d1e26deb18af44dbadb15a8f5a041f198ed8f97474a98bcf58cc1cf7a1",
+          "path": "reports/campaign292_tradable_edge_registry_20261113T164603Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "59c29e041f4fd23ca3e9c2f9ad30dbf47637018f1fef7243275055eb14ab2d38",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "59c29e041f4fd23ca3e9c2f9ad30dbf47637018f1fef7243275055eb14ab2d38",
+          "path": "reports/campaign292_summary_20261113T164603Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "5e46cfcbefb7a217175db7b886c26b6551adb32ff67e1e3fac7a245a0c808af1",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "5e46cfcbefb7a217175db7b886c26b6551adb32ff67e1e3fac7a245a0c808af1",
+          "path": "reports/campaign292_verdict_20261113T164603Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "21ae1a686ff4c66bd4d8c75ef34983ec6cb6a06fc2595776a3a192fcc5c5e8bf",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "21ae1a686ff4c66bd4d8c75ef34983ec6cb6a06fc2595776a3a192fcc5c5e8bf",
+          "path": "reports/campaign292_binding_constraint_20261113T164603Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": 0,
+      "n_items": 5,
+      "n_runs": 81,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C293",
+      "items": [
+        {
+          "actual_sha256": "38b20984f4ac366daf299a93a1519ca227bf064d9043f42e90da36659241f5bd",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "38b20984f4ac366daf299a93a1519ca227bf064d9043f42e90da36659241f5bd",
+          "path": "reports/campaign293_oos_sweep_20261113T192048Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "13bd97a1818116933c90eb40378949857c5a3daac00ff61f9ead33968d73b7a4",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "13bd97a1818116933c90eb40378949857c5a3daac00ff61f9ead33968d73b7a4",
+          "path": "reports/campaign293_tradable_edge_registry_20261113T192048Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "b04c38a2f71c75795268e10f29cfad31efd0f3d81fb6c5adff47c2d9228fc695",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "b04c38a2f71c75795268e10f29cfad31efd0f3d81fb6c5adff47c2d9228fc695",
+          "path": "reports/campaign293_summary_20261113T192048Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "d2c0a0859084751098b347a55dce76cb0c25d5127df20d52e360a8aa4719d613",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "d2c0a0859084751098b347a55dce76cb0c25d5127df20d52e360a8aa4719d613",
+          "path": "reports/campaign293_verdict_20261113T192048Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "13a8ce2ba1cc25d3be712eb08f9cade80db1fe6364efd7a15c5a2f03116b9aa3",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "13a8ce2ba1cc25d3be712eb08f9cade80db1fe6364efd7a15c5a2f03116b9aa3",
+          "path": "reports/campaign293_binding_constraint_20261113T192048Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": 0,
+      "n_items": 5,
+      "n_runs": 81,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C294",
+      "items": [
+        {
+          "actual_sha256": "6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080",
+          "checks": {},
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "6b5d184506aa5f7c06e718828ee4a3bc95001752deed7bfbb8a46999db36d080",
+          "path": "data/cache/campaign294_deribit_dvol.pkl",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9fd19f763a5d1f5f264baf02123414a1caa3bd1935c7fa7c7239f6897f572537",
+          "path": "reports/campaign294_oos_sweep_20261113T210906Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "b3171c1198c433269e3492d5f8786f758c5879961300468412f56c499ba64fa4",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "b3171c1198c433269e3492d5f8786f758c5879961300468412f56c499ba64fa4",
+          "path": "reports/campaign294_tradable_edge_registry_20261113T210906Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "5960389029f03587fc5b5c43c68e9a6f9ae50258da2cb894b7a42b056bbedabf",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "5960389029f03587fc5b5c43c68e9a6f9ae50258da2cb894b7a42b056bbedabf",
+          "path": "reports/campaign294_summary_20261113T210906Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "0b66fdab4e2adaf81dcae1a4cb8f15fcb323d62076b45fd147969141a847af01",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "0b66fdab4e2adaf81dcae1a4cb8f15fcb323d62076b45fd147969141a847af01",
+          "path": "reports/campaign294_verdict_20261113T210906Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "f2806ae802987515ab4cb15352fc062f4b84632297a0cafcde8409e508d18300",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "f2806ae802987515ab4cb15352fc062f4b84632297a0cafcde8409e508d18300",
+          "path": "reports/campaign294_binding_constraint_20261113T210906Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": 0,
+      "n_items": 6,
+      "n_runs": 27,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C295",
+      "items": [
+        {
+          "actual_sha256": "2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7",
+          "checks": {},
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7",
+          "path": "data/cache/campaign295_three_venue_spot.pkl",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "fd1762fa820b38cf05ccdada8c89a4da161dd174beb207ad8006f571d72595bc",
+          "path": "reports/campaign295_oos_sweep_20261113T215725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "e898b0cbcfcbc053af91b2edf9b5cec1c02e861d00a3d6c1546f60e8ed5c671a",
+          "path": "reports/campaign295_tradable_edge_registry_20261113T215725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "036c01500706137e1098d98639f341aa36231321c7b5e4b0f2e35f2d745e4893",
+          "path": "reports/campaign295_summary_20261113T215725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "02f7ed38ec537ce30c782962144c5589019a0acdebf7fdb5a4ba286e7fc68de3",
+          "path": "reports/campaign295_verdict_20261113T215725Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab",
+          "checks": {
+            "binding_constraint": "cost_sensitivity",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "0c5257a27071b83f517c400c9fd8110f69635966bdc71ddfb58e8ca219680bab",
+          "path": "reports/campaign295_binding_constraint_20261113T215725Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": 0,
+      "n_items": 6,
+      "n_runs": 162,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "C296",
+      "items": [
+        {
+          "actual_sha256": "df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "df90281f7b7d03c6a40e98664c0151e551125d47ba892ffec58a3ceed74cac5b",
+          "path": "reports/campaign296_deribit_per_strike_iv_reachability_20261113T224349Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "DATA_BLOCKED"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "b7a17c77284df97126204602855ab8b629acfa1c8eda8107ffc72906bf70368d",
+          "path": "reports/campaign296_oos_sweep_20261113T224349Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "DATA_BLOCKED",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "1a6069f4aa5ab69f30f020b24c206643dac06825ccebff7c421b713a6a67d356",
+          "path": "reports/campaign296_tradable_edge_registry_20261113T224349Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "n_edge_proven_zero": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "DATA_BLOCKED"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "4780268dec42373060e0c596ca70d870a1bc6eea236f7e6d5b2d87ab846d57af",
+          "path": "reports/campaign296_summary_20261113T224349Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8",
+          "checks": {
+            "edge_claim_none": true,
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "DATA_BLOCKED"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9fff2b6dd4dcdfd32f9c18b99de637346261e59a73d0d0717d64da6b27bac5e8",
+          "path": "reports/campaign296_verdict_20261113T224349Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": 0,
+      "n_items": 5,
+      "n_runs": 24,
+      "verdicts": [
+        "DATA_BLOCKED"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C297",
+      "items": [
+        {
+          "actual_sha256": "9b4446f8a24e652a585876e3df866957b32a82fcb9ae8d9eaa2ab4d36caa5313",
+          "checks": {},
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "9b4446f8a24e652a585876e3df866957b32a82fcb9ae8d9eaa2ab4d36caa5313",
+          "path": "data/cache/campaign297_daily_ohlcv.pkl",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "ea5c6333483ae71c61eb9e8d8702dbdbf116a41a8880c4efe190161bfc86c7cc",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "ea5c6333483ae71c61eb9e8d8702dbdbf116a41a8880c4efe190161bfc86c7cc",
+          "path": "reports/campaign297_oos_sweep_20261114T001435Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "1708b90824dd05a8603822bac28a60b3dafe767b3d82db8e0aca34a74bfeb059",
+          "checks": {
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE",
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "1708b90824dd05a8603822bac28a60b3dafe767b3d82db8e0aca34a74bfeb059",
+          "path": "reports/campaign297_tradable_edge_registry_20261114T001435Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "619e715c9737c44b253e656e5e2094255333e9c5775da9052b9b49b77433dd0b",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "619e715c9737c44b253e656e5e2094255333e9c5775da9052b9b49b77433dd0b",
+          "path": "reports/campaign297_summary_20261114T001435Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "03c049f24d3e9e0afb8eea602a96eab54becfd0bc33baa1061718cbf9d20574f",
+          "checks": {
+            "edge_proven_false": true,
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "03c049f24d3e9e0afb8eea602a96eab54becfd0bc33baa1061718cbf9d20574f",
+          "path": "reports/campaign297_verdict_20261114T001435Z.json",
+          "sha256_match": true
+        },
+        {
+          "actual_sha256": "01379bb68e9bb860848d3bd2acf1b40504ef5640290f3cab8d9ee05537467695",
+          "checks": {
+            "binding_constraint": "mean_beats_benchmark_fail",
+            "fabricated_data_false": true,
+            "real_data_only_true": true,
+            "verdict_recorded": "NOT_TRADABLE"
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "01379bb68e9bb860848d3bd2acf1b40504ef5640290f3cab8d9ee05537467695",
+          "path": "reports/campaign297_binding_constraint_20261114T001435Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 6,
+      "n_runs": null,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "bindings": [],
+      "campaign": "UNCATEGORIZED",
+      "items": [
+        {
+          "actual_sha256": "62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2",
+          "checks": {
+            "zero_tradable_edges": true
+          },
+          "errors": [],
+          "exists": true,
+          "expected_sha256": "62258e98bbc1f907858101ca785062bfe4788d57d4f32f79e3a2c6aa3783efc2",
+          "path": "reports/tradable_edge_registry_20261112T172556Z.json",
+          "sha256_match": true
+        }
+      ],
+      "n_edge": null,
+      "n_items": 1,
+      "n_runs": null,
+      "verdicts": []
+    }
+  ],
+  "campaigns_audited": [
+    "C281B",
+    "C281C",
+    "C282",
+    "C283",
+    "C284",
+    "C285",
+    "C286",
+    "C287",
+    "C288",
+    "C289",
+    "C290",
+    "C291",
+    "C292",
+    "C293",
+    "C294",
+    "C295",
+    "C296",
+    "C297",
+    "UNCATEGORIZED"
+  ],
+  "fabricated_data": false,
+  "generated_at_utc": "20261114T015240Z",
+  "integrity_ok": false,
+  "n_mismatch_or_missing_or_error": 1,
+  "n_ok": 76,
+  "n_references": 77,
+  "reachable_real_data_cross_sectional_stat_arb_space": "CLOSED",
+  "real_data_only": true,
+  "scope": "C281B-C297 frozen artifacts and datasets referenced in research_state/state.yaml and AGENTS.md",
+  "zero_tradable_edge_registry_confirmed": true
+}

@@ -66,3 +66,37 @@ def test_closure_integrity_audit_md_exists_and_consistent():
     assert "real_data_only: True" in text
     assert "fabricated_data: False" in text
     assert "C296" in text
+    assert "C297" in text
+
+
+def test_closure_integrity_audit_sha_matches_recorded_file_bytes():
+    """The audit JSON's own SHA256-from-bytes must equal the value recorded in
+    the companion .md (written after the json), and must match recomputation
+    from file bytes."""
+    js = latest("program_closure_integrity_audit_*.json")
+    md = latest("program_closure_integrity_audit_*.md")
+    data = json.loads(js.read_text(encoding="utf-8"))
+    actual = sha256_file(js)
+    md_text = md.read_text(encoding="utf-8")
+    assert f"`{js.name}` (`{actual}`)" in md_text, "md must record json path+sha"
+    assert f"`{md.name}` (`{sha256_file(md)}`)" in md_text, "md must record md path+sha"
+    assert f"n_references: {data['n_references']}" in md_text
+    assert f"n_issues: {data['n_mismatch_or_missing_or_error']}" in md_text
+
+
+def test_closure_integrity_audit_covers_c281b_through_c297():
+    """Audit scope must span the full closed range C281B..C297 (intraday + daily)."""
+    js = latest("program_closure_integrity_audit_*.json")
+    data = json.loads(js.read_text(encoding="utf-8"))
+    assert "C281B" in data["scope"]
+    assert "C297" in data["scope"]
+    campaigns = {r["campaign"] for r in data["campaign_rows"]}
+    for c in ["C281B", "C281C", "C282", "C283", "C284", "C285", "C286", "C287",
+              "C288", "C289", "C290", "C291", "C292", "C293", "C294", "C295",
+              "C296", "C297"]:
+        assert c in campaigns, f"missing campaign in audit: {c}"
+    # every campaign row must be error-free and hash-verified
+    for row in data["campaign_rows"]:
+        assert row["all_hashes_match"] is True
+        assert row["all_exist"] is True
+        assert row["any_errors"] is False

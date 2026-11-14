@@ -1,0 +1,135 @@
+{
+  "artifact": "c287_external_unblock_status",
+  "blocked_reasons": [
+    "binance_testnet_rest_ping:451",
+    "binance_testnet_rest_time:451",
+    "binance_testnet_rest_exchangeInfo:451",
+    "fapi_ping:451",
+    "api_bybit_v5_time:403",
+    "missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET"
+  ],
+  "blocked_routes_expected": [
+    "fapi.binance.com",
+    "testnet.binance.vision",
+    "api.bybit.com"
+  ],
+  "campaign": "C287",
+  "credentials": {
+    "BINANCE_TESTNET_API_KEY_present": false,
+    "BINANCE_TESTNET_API_SECRET_present": false
+  },
+  "decoupled_from_economic_progress": true,
+  "external_action_required": [
+    "Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment",
+    "Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)"
+  ],
+  "fabricated_data": false,
+  "generated_at_utc": "20261114T014355Z",
+  "http_probes": [
+    {
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.bin",
+      "error": "HTTPError: HTTP Error 451: ",
+      "kind": "blocked_candidate",
+      "latency_ms": 68.69,
+      "name": "binance_testnet_rest_ping",
+      "ok": false,
+      "status": 451,
+      "url": "https://testnet.binance.vision/api/v3/ping"
+    },
+    {
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.bin",
+      "error": "HTTPError: HTTP Error 451: ",
+      "kind": "blocked_candidate",
+      "latency_ms": 82.98,
+      "name": "binance_testnet_rest_time",
+      "ok": false,
+      "status": 451,
+      "url": "https://testnet.binance.vision/api/v3/time"
+    },
+    {
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.bin",
+      "error": "HTTPError: HTTP Error 451: ",
+      "kind": "blocked_candidate",
+      "latency_ms": 88.88,
+      "name": "binance_testnet_rest_exchangeInfo",
+      "ok": false,
+      "status": 451,
+      "url": "https://testnet.binance.vision/api/v3/exchangeInfo"
+    },
+    {
+      "body_prefix": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.bin",
+      "error": "HTTPError: HTTP Error 451: ",
+      "kind": "blocked_candidate",
+      "latency_ms": 164.7,
+      "name": "fapi_ping",
+      "ok": false,
+      "status": 451,
+      "url": "https://fapi.binance.com/fapi/v1/ping"
+    },
+    {
+      "body_prefix": "{\n    error:The Amazon CloudFront distribution is configured to block access from your country\n}",
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "kind": "blocked_candidate",
+      "latency_ms": 184.13,
+      "name": "api_bybit_v5_time",
+      "ok": false,
+      "status": 403,
+      "url": "https://api.bybit.com/v5/market/time"
+    },
+    {
+      "body_prefix": "{\"jsonrpc\":\"2.0\",\"result\":1794620636075,\"usIn\":1794620636075103,\"usOut\":1794620636075226,\"usDiff\":123,\"testnet\":false}",
+      "error": null,
+      "kind": "reachable_candidate",
+      "latency_ms": 210.94,
+      "name": "deribit_public_time",
+      "ok": true,
+      "status": 200,
+      "url": "https://www.deribit.com/api/v2/public/get_time"
+    },
+    {
+      "body_prefix": "{\"serverTime\":1794620636846}",
+      "error": null,
+      "kind": "reachable_candidate",
+      "latency_ms": 783.57,
+      "name": "binance_data_api_time",
+      "ok": true,
+      "status": 200,
+      "url": "https://data-api.binance.vision/api/v3/time"
+    },
+    {
+      "body_prefix": "{\"code\":\"0\",\"data\":[{\"ts\":\"1794620637106\"}],\"msg\":\"\"}",
+      "error": null,
+      "kind": "reachable_candidate",
+      "latency_ms": 377.18,
+      "name": "okx_time",
+      "ok": true,
+      "status": 200,
+      "url": "https://www.okx.com/api/v5/public/time"
+    },
+    {
+      "body_prefix": "{\"iso\":\"2026-11-14T01:43:57.403Z\",\"epoch\":1794620637.403}",
+      "error": null,
+      "kind": "reachable_candidate",
+      "latency_ms": 134.43,
+      "name": "coinbase_time",
+      "ok": true,
+      "status": 200,
+      "url": "https://api.exchange.coinbase.com/time"
+    }
+  ],
+  "note": "Fail-closed probe record. No credentials used, no orders/fills placed, no fabricated data. C287 remains BLOCKED/DECOUPLED unless external credentials and non-451 egress are provided.",
+  "real_data_only": true,
+  "status": "BLOCKED",
+  "still_blocked": true,
+  "ws_probes": [
+    {
+      "error": null,
+      "host": "stream.testnet.binance.vision",
+      "latency_ms": 331.33,
+      "name": "binance_testnet_ws",
+      "ok": true,
+      "port": 9443,
+      "tls": "TLSv1.3"
+    }
+  ]
+}

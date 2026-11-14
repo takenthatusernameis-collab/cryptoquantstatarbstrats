@@ -44,12 +44,16 @@ def load_json(path: Path):
 
 def campaign_from_path(p: str) -> str | None:
     m = re.search(r"campaign(281b|281c|\d+)", p, re.IGNORECASE)
-    if not m:
-        return None
-    token = m.group(1).upper()
-    if token in ("281B", "281C"):
-        return token
-    return "C" + token
+    if m:
+        token = m.group(1).upper()
+        if token in ("281B", "281C"):
+            return token
+        return "C" + token
+    # c287_external_unblock_status_* and other cNNN_* artifacts belong to C287
+    m2 = re.search(r"c(28\d)(?:_external_unblock_status)?", p, re.IGNORECASE)
+    if m2:
+        return "C" + m2.group(1).upper()
+    return None
 
 
 def _looks_like_path(s) -> bool:
@@ -217,7 +221,7 @@ def build_report(ts: str):
     items = [verify_item(p, s) for p, s in refs]
     by_campaign = {}
     for it in items:
-        c = it.get("campaign") or "UNCATEGORIZED"
+        c = _normalize_campaign(it.get("campaign") or "UNCATEGORIZED")
         by_campaign.setdefault(c, []).append(it)
     campaign_rows = []
     for c in CAMPAIGNS + sorted(k for k in by_campaign if k not in CAMPAIGNS and k != "UNCATEGORIZED"):
@@ -271,13 +275,16 @@ def build_report(ts: str):
     for it in items:
         if it["checks"].get("zero_tradable_edges") is False:
             zero_tradable_edge_registry_confirmed = False
+    for r in campaign_rows:
+        r["campaign"] = _normalize_campaign(r["campaign"])
+    campaigns_audited = [_normalize_campaign(r["campaign"]) for r in campaign_rows]
     report = {
         "artifact": "program_closure_integrity_audit",
         "generated_at_utc": ts,
         "real_data_only": True,
         "fabricated_data": False,
         "scope": "C281B-C297 frozen artifacts and datasets referenced in research_state/state.yaml and AGENTS.md",
-        "campaigns_audited": [r["campaign"] for r in campaign_rows],
+        "campaigns_audited": campaigns_audited,
         "n_references": len(items),
         "n_ok": sum(1 for it in items if it["sha256_match"] and it["exists"] and not it["errors"]),
         "n_mismatch_or_missing_or_error": sum(1 for it in items if not (it["sha256_match"] and it["exists"] and not it["errors"])),
@@ -289,7 +296,15 @@ def build_report(ts: str):
     return report
 
 
-def to_markdown(report: dict) -> str:
+def _normalize_campaign(c: str) -> str:
+    if c in ("C281", "281B"):
+        return "C281B"
+    if c in ("281C", "C281C"):
+        return "C281C"
+    return c
+
+
+def to_markdown(report: dict, json_path: Path | None = None, md_path: Path | None = None, json_sha: str | None = None, md_sha: str | None = None) -> str:
     lines = []
     lines.append(f"# Program Closure Integrity Audit — {report['generated_at_utc']}")
     lines.append("")
@@ -300,7 +315,14 @@ def to_markdown(report: dict) -> str:
     lines.append(f"- n_references: {report['n_references']} (ok={report['n_ok']}, issues={report['n_mismatch_or_missing_or_error']})")
     lines.append(f"- zero_tradable_edge_registry_confirmed: {report['zero_tradable_edge_registry_confirmed']}")
     lines.append(f"- reachable_real_data_cross_sectional_stat_arb_space: {report['reachable_real_data_cross_sectional_stat_arb_space']}")
-    lines.append("")
+    if json_path is not None and json_sha is not None:
+        lines.append("")
+        lines.append("## Generated artifacts")
+        lines.append("")
+        lines.append(f"- json: `{json_path.name}` (SHA256-from-bytes `{json_sha}`)")
+        if md_path is not None and md_sha is not None:
+            lines.append(f"- md: `{md_path.name}` (SHA256-from-bytes `{md_sha}`)")
+        lines.append("")
     lines.append("| Campaign | Items | Hashes OK | Exists | Errors | Verdicts | Bindings | n_runs | n_edge |")
     lines.append("|---|---:|:---:|:---:|:---:|---|---|---|---|")
     for row in report["campaign_rows"]:
@@ -324,15 +346,21 @@ def main():
     REPORTS.mkdir(exist_ok=True)
     json_path = REPORTS / f"program_closure_integrity_audit_{ts}.json"
     md_path = REPORTS / f"program_closure_integrity_audit_{ts}.md"
-    json_bytes = json.dumps(report, indent=2, sort_keys=True).encode("utf-8")
-    json_path.write_bytes(json_bytes)
-    md_text = to_markdown(report)
+    report["json_path"] = str(json_path.relative_to(ROOT))
+    report["md_path"] = str(md_path.relative_to(ROOT))
+    json_path.write_bytes(json.dumps(report, indent=2, sort_keys=True).encode("utf-8"))
+    json_sha = sha256_file(json_path)
+    md_text = to_markdown(report, json_path=json_path, md_path=md_path, json_sha=json_sha)
     md_path.write_text(md_text, encoding="utf-8")
+    md_sha = sha256_file(md_path)
+    md_path.write_text(to_markdown(report, json_path=json_path, md_path=md_path, json_sha=json_sha, md_sha=md_sha), encoding="utf-8")
+    # NOTE: json_sha256/md_sha256 are recorded in the .md and printed output only,
+    # never written back into the JSON (that would make the hash self-referential).
     out = {
         "json_path": str(json_path.relative_to(ROOT)),
-        "json_sha256": sha256_file(json_path),
+        "json_sha256": json_sha,
         "md_path": str(md_path.relative_to(ROOT)),
-        "md_sha256": sha256_file(md_path),
+        "md_sha256": md_sha,
         "integrity_ok": report["integrity_ok"],
         "n_references": report["n_references"],
         "n_issues": report["n_mismatch_or_missing_or_error"],

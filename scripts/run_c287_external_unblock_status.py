@@ -146,9 +146,12 @@ def main():
     REPORTS.mkdir(exist_ok=True)
     out_path = REPORTS / f"c287_external_unblock_status_{ts}.json"
     out_path.write_bytes(json.dumps(report, indent=2, sort_keys=True).encode("utf-8"))
+    artifact_sha = sha256_file(out_path)
+    # NOTE: sha256 is printed and recorded in handoff/state, never written back into
+    # the JSON (that would make the hash self-referential and change the bytes).
     result = {
         "path": str(out_path.relative_to(ROOT)),
-        "sha256": sha256_file(out_path),
+        "sha256": artifact_sha,
         "status": status,
         "still_blocked": still_blocked,
         "blocked_reasons": blocked_reasons,
