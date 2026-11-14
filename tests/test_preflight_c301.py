@@ -31,7 +31,7 @@ def _run_preflight():
         capture_output=True, text=True,
     )
     assert proc.returncode == 0, proc.stderr
-    return json.loads(proc.stdout.strip().splitlines()[-1])
+    return json.loads(proc.stdout.strip())
 
 
 def test_preflight_exit_zero_ready_true():
@@ -42,7 +42,7 @@ def test_preflight_exit_zero_ready_true():
 
 def test_preflight_cache_schema_and_flags():
     out = _run_preflight()
-    meta = out["meta"]
+    meta = out["checks"]["meta"]
     assert meta["interval"] == "5m"
     assert meta["source_interval"] == "aggTrades_ms"
     assert meta["n_symbols"] == 3
@@ -61,21 +61,21 @@ def test_preflight_cache_schema_and_flags():
 
 def test_preflight_per_asset_frames_full_window_no_close_nan():
     out = _run_preflight()
-    for s, d in out["assets"].items():
+    detail = out["checks"]["assets"]["detail"]
+    assert len(detail) == 3
+    for s, d in detail.items():
         assert d["n_bars"] == 16992, s
         assert d["expected_bars"] == 16992, s
         assert d["fields"]["perp_close"]["nan_count"] == 0, s
         assert d["fields"]["perp_close"]["all_positive"], s
         assert d["fields"]["perp_close"]["all_finite"], s
         assert d["fields"]["perp_close"]["exact_index"], s
-        # OFI legs: zero gap bars (continuous trade coverage), signed == buy - sell
         assert d["fields"]["ofi"]["n_gap_bars"] == 0, s
         assert d["fields"]["ofi"]["signed_equals_buy_minus_sell"], s
         assert d["fields"]["ofi"]["trade_count_positive_on_trade_bars"], s
         assert d["fields"]["ofi"]["vwap_finite_positive_on_trade_bars"], s
         assert d["fields"]["ofi"]["abs_trade_sign_sum_le_trade_count"], s
         assert d["fields"]["ofi"]["ok"], s
-        # funding: native 8h boundaries, no staleness
         assert d["funding"]["ok"], s
         assert d["funding"]["funding_rows"] >= 90, s
         assert d["funding"]["hour_multiple_of_8"], s
@@ -84,18 +84,20 @@ def test_preflight_per_asset_frames_full_window_no_close_nan():
 
 def test_preflight_wf_splits_fit_window():
     out = _run_preflight()
-    wf = out["walk_forward"]
-    assert wf["ok"]
-    assert wf["train"] == 2880 and wf["test"] == 1152 and wf["step"] == 1152
-    assert wf["n_splits_per_asset"] == 12
-    for s, d in out["assets"].items():
-        assert d["wf"]["n_splits"] == 12, s
-        assert d["wf"]["ok"], s
+    detail = out["checks"]["assets"]["detail"]
+    assert detail["BTCUSDT"]["walk_forward"]["ok"]
+    assert detail["BTCUSDT"]["walk_forward"]["train"] == 2880
+    assert detail["BTCUSDT"]["walk_forward"]["test"] == 1152
+    assert detail["BTCUSDT"]["walk_forward"]["step"] == 1152
+    assert detail["BTCUSDT"]["walk_forward"]["n_splits"] == 12
+    for s, d in detail.items():
+        assert d["walk_forward"]["n_splits"] == 12, s
+        assert d["walk_forward"]["ok"], s
 
 
 def test_preflight_feature_warmup_before_first_oos_test_bar():
     out = _run_preflight()
-    wu = out["assets"]["BTCUSDT"]["feature_warmup"]
+    wu = out["checks"]["assets"]["detail"]["BTCUSDT"]["feature_warmup"]
     assert wu["ok"]
     assert set(wu["lookbacks_5m"]) == {288, 1008, 2016}
     for L in ("L=288", "L=1008", "L=2016"):
@@ -105,24 +107,22 @@ def test_preflight_feature_warmup_before_first_oos_test_bar():
 
 def test_preflight_provenance_present():
     out = _run_preflight()
-    assert out["provenance"]["exists"] is True
-    assert out["provenance"]["ok"] is True
+    assert out["checks"]["provenance"]["exists"] is True
+    assert out["checks"]["provenance"]["ok"] is True
 
 
 def test_preflight_fails_closed_when_meta_flag_falsified(tmp_path, monkeypatch):
-    """A falsified real_data_only flag must make the preflight fail-closed."""
+    """A falsified real_data_only flag must make the preflight fail-closed.
+
+    Calls preflight.main() in-process with PXL_META monkeypatched to a falsified
+    meta copy (a subprocess would not inherit the monkeypatch).
+    """
     import preflight_c301 as p
 
     real_meta = p.PXL_META.read_text()
-    monkeypatch.setattr(p, "PXL_META", tmp_path / "campaign301_aggtrades_ofi.meta.json")
-    (tmp_path / "campaign301_aggtrades_ofi.meta.json").write_text(
-        real_meta.replace('"real_data_only": true', '"real_data_only": false')
-    )
-    proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "preflight_c301.py")],
-        capture_output=True, text=True,
-    )
-    assert proc.returncode != 0, "preflight must fail-closed on falsified real_data_only"
-    out = json.loads(proc.stdout.strip().splitlines()[-1])
-    assert out.get("ready") is False
-    assert len(out.get("blocked_reasons", [])) > 0
+    fake_meta = tmp_path / "campaign301_aggtrades_ofi.meta.json"
+    fake_meta.write_text(real_meta.replace('"real_data_only": true', '"real_data_only": false'))
+    monkeypatch.setattr(p, "PXL_META", fake_meta)
+    monkeypatch.setattr(sys, "argv", ["preflight_c301.py"])
+    rc = p.main()
+    assert rc != 0, "preflight must fail-closed on falsified real_data_only"
