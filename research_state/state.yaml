@@ -1,4 +1,4 @@
-updated_at_utc: 20261114T034500Z
+updated_at_utc: 20261114T035200Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge
   validation
@@ -15,12 +15,12 @@ active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENC
   campaign297_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261114T001435Z.json.
   Closure-integrity audit refreshed 2026-11-14T03:45:00Z: reports/program_closure_integrity_audit_20261114T034500Z.json
   sha256 a43997df5cdeb960788ae5635737bc523666828decd5894cad9dfc4da7af806f +
-  reports/program_closure_integrity_audit_20261114T034500Z.md sha256
-  dee701c67f38354de4f1fef9ab6720eac63f7801a34d4baeb25bef3db5d71ebb (integrity_ok:true, n_issues:0,
+    reports/program_closure_integrity_audit_20261114T034500Z.md sha256
+    55d0e826a22343b5dee72fcdf5d7dedd5fa2b62b9a1e1ea1cabe9361a03ad7ef (integrity_ok:true, n_issues:0,
   n_references:104, 0 tradable edge). C287 external-unblock status refreshed 2026-11-14T03:45:00Z:
   reports/c287_external_unblock_status_20261114T034500Z.json sha256
   96e1cb0f766002c408e788977068aaa95ef46affe45a8ecb3d85fd6bbace2ba6 (BLOCKED, testnet REST 451,
-  fapi 451, bybit 403, no creds; external action required). Suite green 1263 passed, 2 skipped.
+  fapi 451, bybit 403, no creds;   external action required). Suite green 1263 passed, 2 skipped, 0 failed.
   No C298: inventing a campaign in closed space is prohibited; no further reachable economic
   campaign exists in this environment. C287 external-only BLOCKED/DECOUPLED (testnet REST HTTP
   451, fapi 451, bybit 403, no creds) — external action required (valid Binance Spot Testnet
@@ -271,13 +271,13 @@ latest_campaign_done: C297
 next_campaign: 'PROGRAM_CLOSURE_INTEGRITY_AUDIT_AND_C287_EXTERNAL_UNBLOCK_STATUS (no
   reachable economic campaign; space closed; C287 external-only)'
 closure_integrity_audit:
-  as_of_utc: 20261114T034500Z
+  as_of_utc: 20261114T035200Z
   json:
-    path: reports/program_closure_integrity_audit_20261114T034500Z.json
-    sha256: a43997df5cdeb960788ae5635737bc523666828decd5894cad9dfc4da7af806f
+    path: reports/program_closure_integrity_audit_20261114T035200Z.json
+    sha256: 0e5cdd037415292c5686205b3670fa18aa84b3a8ecfc10906559e9242201299c
   md:
-    path: reports/program_closure_integrity_audit_20261114T034500Z.md
-    sha256: dee701c67f38354de4f1fef9ab6720eac63f7801a34d4baeb25bef3db5d71ebb
+    path: reports/program_closure_integrity_audit_20261114T035200Z.md
+    sha256: 2f44c16aa56f21d870bcabcdcb6149b662139a79a6020e97530e1f53caada6ee
   integrity_ok: true
   n_issues: 0
   n_references: 104
@@ -287,9 +287,9 @@ closure_integrity_audit:
   zero_tradable_edge_registry_confirmed: true
   reachable_real_data_cross_sectional_stat_arb_space: CLOSED
 c287_external_unblock_status:
-  as_of_utc: 20261114T034500Z
-  path: reports/c287_external_unblock_status_20261114T034500Z.json
-  sha256: 96e1cb0f766002c408e788977068aaa95ef46affe45a8ecb3d85fd6bbace2ba6
+  as_of_utc: 20261114T034700Z
+  path: reports/c287_external_unblock_status_20261114T034700Z.json
+  sha256: 604a548d022924fe6276998bb484b4a508d73f3dad95d64a823a3b7786e452e8
   status: BLOCKED
   still_blocked: true
   real_data_only: true
@@ -952,6 +952,10 @@ campaign287:
     mode: BLOCKED
   - path: reports/c287_external_unblock_status_20261114T034500Z.json
     sha256: 96e1cb0f766002c408e788977068aaa95ef46affe45a8ecb3d85fd6bbace2ba6
+    type: external_unblock_status
+    mode: BLOCKED
+  - path: reports/c287_external_unblock_status_20261114T034700Z.json
+    sha256: 604a548d022924fe6276998bb484b4a508d73f3dad95d64a823a3b7786e452e8
     type: external_unblock_status
     mode: BLOCKED
   completion_gate:
