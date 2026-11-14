@@ -51,7 +51,7 @@ def test_closure_integrity_audit_json_schema_and_hashes():
             normalized.add("C281C")
         else:
             normalized.add(c)
-    for c in ["C281B", "C282", "C285", "C286", "C287", "C288", "C289", "C290", "C291", "C292", "C293", "C294", "C295", "C296"]:
+    for c in ["C281B", "C282", "C285", "C286", "C287", "C288", "C289", "C290", "C291", "C292", "C293", "C294", "C295", "C296", "C297"]:
         assert c in normalized, f"missing campaign in audit: {c}"
 
 
