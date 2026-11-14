@@ -65,3 +65,6 @@ db.sqlite3-journal
 # OS
 .DS_Store
 Thumbs.dbreports/portfolio_real_regen.log
+
+# Recovery blobs (pre-push originals >100 MB; kept on disk for rollback, never pushed)
+data/cache/recovery/*.pkl.orig
