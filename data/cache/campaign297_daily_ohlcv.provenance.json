@@ -1,0 +1,4268 @@
+{
+  "generated_at_utc": "20261114T001359Z",
+  "campaign": 297,
+  "part": "provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe_rule": "USDT spot TRADING symbols ranked by 24h quote volume (real mainnet ticker); fiat stablecoins excluded by documented denylist; top MAX_CANDIDATES fetched over the multi-year 1d window; only symbols with exact full 1d coverage (finite, positive, 1d spacing, exact daily index) are eligible; top TARGET_UNIVERSE by realized 1d quote-volume sum selected. No impute/ffill/resample.",
+  "n_candidates_fetched": 120,
+  "n_eligible_full_coverage": 27,
+  "n_selected": 24,
+  "selected_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "DOGEUSDT",
+    "BNBUSDT",
+    "ADAUSDT",
+    "DOTUSDT",
+    "AVAXUSDT",
+    "TRXUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "FILUSDT",
+    "NEARUSDT",
+    "ZECUSDT",
+    "BCHUSDT",
+    "UNIUSDT",
+    "XLMUSDT",
+    "AAVEUSDT",
+    "HBARUSDT",
+    "FETUSDT",
+    "INJUSDT",
+    "ONEUSDT",
+    "DASHUSDT"
+  ],
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 5305551726394.543,
+      "quote_volume_24h": 2054266264.235139,
+      "eligible": true
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2809786225637.8564,
+      "quote_volume_24h": 730964357.223017,
+      "eligible": true
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 858845164122.6117,
+      "quote_volume_24h": 296895933.60131,
+      "eligible": true
+    },
+    "ZECUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 107095651227.84323,
+      "quote_volume_24h": 235263284.79745,
+      "eligible": true
+    },
+    "NVDABUSDT": {
+      "status": "ok",
+      "bars": 156,
+      "expected_bars": 2143,
+      "coverage": 0.07279514699020065,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1208568016.3678498,
+      "quote_volume_24h": 158434551.33979,
+      "eligible": false
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 765941162676.4777,
+      "quote_volume_24h": 139383875.4375,
+      "eligible": true
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 685447587359.6958,
+      "quote_volume_24h": 131570051.65517,
+      "eligible": true
+    },
+    "NEARUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 130941961651.8693,
+      "quote_volume_24h": 96929134.6451,
+      "eligible": true
+    },
+    "SPCXBUSDT": {
+      "status": "ok",
+      "bars": 155,
+      "expected_bars": 2143,
+      "coverage": 0.07232851143257116,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3344036750.76665,
+      "quote_volume_24h": 73090195.72973,
+      "eligible": false
+    },
+    "PEPEUSDT": {
+      "status": "ok",
+      "bars": 1289,
+      "expected_bars": 2143,
+      "coverage": 0.6014932337844143,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 227233673833.54236,
+      "quote_volume_24h": 58032929.85178087,
+      "eligible": false
+    },
+    "SOXLBUSDT": {
+      "status": "ok",
+      "bars": 130,
+      "expected_bars": 2143,
+      "coverage": 0.06066262249183388,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1663322639.94976,
+      "quote_volume_24h": 54193912.40843,
+      "eligible": false
+    },
+    "UNIUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 90225510028.97806,
+      "quote_volume_24h": 48917090.86972,
+      "eligible": true
+    },
+    "HYPEUSDT": {
+      "status": "ok",
+      "bars": 51,
+      "expected_bars": 2143,
+      "coverage": 0.02379841343910406,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1767780379.8029099,
+      "quote_volume_24h": 43021487.87526,
+      "eligible": false
+    },
+    "ENAUSDT": {
+      "status": "ok",
+      "bars": 956,
+      "expected_bars": 2143,
+      "coverage": 0.44610359309379377,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 73341796829.09998,
+      "quote_volume_24h": 41133158.109413,
+      "eligible": false
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 703273112881.1858,
+      "quote_volume_24h": 38867718.87102,
+      "eligible": true
+    },
+    "SUIUSDT": {
+      "status": "ok",
+      "bars": 1291,
+      "expected_bars": 2143,
+      "coverage": 0.6024265048996733,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 143292807813.9096,
+      "quote_volume_24h": 33471333.35726,
+      "eligible": false
+    },
+    "UUSDT": {
+      "status": "ok",
+      "bars": 305,
+      "expected_bars": 2143,
+      "coverage": 0.14232384507699486,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 6670409799.565901,
+      "quote_volume_24h": 32875820.5326,
+      "eligible": false
+    },
+    "TRXUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 195411335353.00946,
+      "quote_volume_24h": 31982318.51896,
+      "eligible": true
+    },
+    "SNDKBUSDT": {
+      "status": "ok",
+      "bars": 156,
+      "expected_bars": 2143,
+      "coverage": 0.07279514699020065,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3852219448.499984,
+      "quote_volume_24h": 31319375.392836,
+      "eligible": false
+    },
+    "SHELLUSDT": {
+      "status": "ok",
+      "bars": 625,
+      "expected_bars": 2143,
+      "coverage": 0.2916472235184321,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2126177141.878124,
+      "quote_volume_24h": 26480917.269558,
+      "eligible": false
+    },
+    "LINKUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 188425420769.89655,
+      "quote_volume_24h": 22623047.79686,
+      "eligible": true
+    },
+    "TAOUSDT": {
+      "status": "ok",
+      "bars": 947,
+      "expected_bars": 2143,
+      "coverage": 0.44190387307512835,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 37831150302.88054,
+      "quote_volume_24h": 22589631.31352,
+      "eligible": false
+    },
+    "XAUTUSDT": {
+      "status": "ok",
+      "bars": 233,
+      "expected_bars": 2143,
+      "coverage": 0.10872608492767148,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 7255620774.849079,
+      "quote_volume_24h": 22498670.245885,
+      "eligible": false
+    },
+    "BARDUSDT": {
+      "status": "ok",
+      "bars": 422,
+      "expected_bars": 2143,
+      "coverage": 0.19692020531964535,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3915193116.22797,
+      "quote_volume_24h": 22467457.77647,
+      "eligible": false
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 198512349600.1783,
+      "quote_volume_24h": 22146291.97743,
+      "eligible": true
+    },
+    "ADAUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 372655995361.73755,
+      "quote_volume_24h": 21149769.86128,
+      "eligible": true
+    },
+    "INJUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 40550268547.76589,
+      "quote_volume_24h": 20762826.67087,
+      "eligible": true
+    },
+    "GOOGLBUSDT": {
+      "status": "ok",
+      "bars": 130,
+      "expected_bars": 2143,
+      "coverage": 0.06066262249183388,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 508277259.19415,
+      "quote_volume_24h": 17474573.24787,
+      "eligible": false
+    },
+    "LTCUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 182675957959.7342,
+      "quote_volume_24h": 15800474.65734,
+      "eligible": true
+    },
+    "MUBUSDT": {
+      "status": "ok",
+      "bars": 156,
+      "expected_bars": 2143,
+      "coverage": 0.07279514699020065,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1437278181.73041,
+      "quote_volume_24h": 14427771.20655,
+      "eligible": false
+    },
+    "RWUSDUSDT": {
+      "status": "ok",
+      "bars": 32,
+      "expected_bars": 2143,
+      "coverage": 0.014932337844143724,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 376924501.66040003,
+      "quote_volume_24h": 14243796.1148,
+      "eligible": false
+    },
+    "CRCLBUSDT": {
+      "status": "ok",
+      "bars": 156,
+      "expected_bars": 2143,
+      "coverage": 0.07279514699020065,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1774408905.9648995,
+      "quote_volume_24h": 14209227.2069,
+      "eligible": false
+    },
+    "AAVEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 74550558210.2425,
+      "quote_volume_24h": 13694920.3802,
+      "eligible": true
+    },
+    "WLDUSDT": {
+      "status": "ok",
+      "bars": 1209,
+      "expected_bars": 2143,
+      "coverage": 0.564162389174055,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 71819103768.97502,
+      "quote_volume_24h": 13515605.07178,
+      "eligible": false
+    },
+    "ARBUSDT": {
+      "status": "ok",
+      "bars": 1332,
+      "expected_bars": 2143,
+      "coverage": 0.6215585627624824,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 78809751519.72496,
+      "quote_volume_24h": 13493837.72267,
+      "eligible": false
+    },
+    "MSTRBUSDT": {
+      "status": "ok",
+      "bars": 144,
+      "expected_bars": 2143,
+      "coverage": 0.06719552029864675,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 964117953.57953,
+      "quote_volume_24h": 12546963.22858,
+      "eligible": false
+    },
+    "PAXGUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 25104709440.232323,
+      "quote_volume_24h": 12498849.985487,
+      "eligible": true
+    },
+    "SOXSBUSDT": {
+      "status": "ok",
+      "bars": 108,
+      "expected_bars": 2143,
+      "coverage": 0.050396640223985066,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 211176794.4562,
+      "quote_volume_24h": 12354586.7074,
+      "eligible": false
+    },
+    "XLMUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 81609315835.8435,
+      "quote_volume_24h": 10831726.7275,
+      "eligible": true
+    },
+    "FETUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 62643358284.17972,
+      "quote_volume_24h": 10530027.6776,
+      "eligible": true
+    },
+    "QNTUSDT": {
+      "status": "ok",
+      "bars": 1934,
+      "expected_bars": 2143,
+      "coverage": 0.9024731684554363,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13097166271.358429,
+      "quote_volume_24h": 10495399.87332,
+      "eligible": false
+    },
+    "PUMPUSDT": {
+      "status": "ok",
+      "bars": 429,
+      "expected_bars": 2143,
+      "coverage": 0.2001866542230518,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13730877293.82222,
+      "quote_volume_24h": 10362700.777047,
+      "eligible": false
+    },
+    "INITUSDT": {
+      "status": "ok",
+      "bars": 569,
+      "expected_bars": 2143,
+      "coverage": 0.2655156322911806,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3916218639.066617,
+      "quote_volume_24h": 9884868.737867,
+      "eligible": false
+    },
+    "QQQBUSDT": {
+      "status": "ok",
+      "bars": 137,
+      "expected_bars": 2143,
+      "coverage": 0.06392907139524032,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 566068006.2265,
+      "quote_volume_24h": 9735556.62343,
+      "eligible": false
+    },
+    "ONDOUSDT": {
+      "status": "ok",
+      "bars": 582,
+      "expected_bars": 2143,
+      "coverage": 0.27158189454036397,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 9100864320.603619,
+      "quote_volume_24h": 9579203.83992,
+      "eligible": false
+    },
+    "HBARUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 64699498982.82425,
+      "quote_volume_24h": 9559088.05941,
+      "eligible": true
+    },
+    "GRAMUSDT": {
+      "status": "ok",
+      "bars": 135,
+      "expected_bars": 2143,
+      "coverage": 0.06299580027998133,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1562907107.8342,
+      "quote_volume_24h": 9497350.90171,
+      "eligible": false
+    },
+    "ZROUSDT": {
+      "status": "ok",
+      "bars": 877,
+      "expected_bars": 2143,
+      "coverage": 0.4092393840410639,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13304437599.33572,
+      "quote_volume_24h": 9038590.43075,
+      "eligible": false
+    },
+    "SOPHUSDT": {
+      "status": "ok",
+      "bars": 535,
+      "expected_bars": 2143,
+      "coverage": 0.24965002333177788,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1448937002.2533402,
+      "quote_volume_24h": 8861325.87917,
+      "eligible": false
+    },
+    "BMTUSDT": {
+      "status": "ok",
+      "bars": 606,
+      "expected_bars": 2143,
+      "coverage": 0.28278114792347175,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2634377568.140171,
+      "quote_volume_24h": 8792357.390549,
+      "eligible": false
+    },
+    "INTCBUSDT": {
+      "status": "ok",
+      "bars": 144,
+      "expected_bars": 2143,
+      "coverage": 0.06719552029864675,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 539145019.19742,
+      "quote_volume_24h": 8151761.06616,
+      "eligible": false
+    },
+    "\u725b\u6765USDT": {
+      "status": "ok",
+      "bars": 66,
+      "expected_bars": 2143,
+      "coverage": 0.03079794680354643,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 809778130.29557,
+      "quote_volume_24h": 7815563.2565,
+      "eligible": false
+    },
+    "ICPUSDT": {
+      "status": "ok",
+      "bars": 2013,
+      "expected_bars": 2143,
+      "coverage": 0.9393373775081661,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 68945903866.57794,
+      "quote_volume_24h": 7749284.58219,
+      "eligible": false
+    },
+    "TIAUSDT": {
+      "status": "ok",
+      "bars": 1110,
+      "expected_bars": 2143,
+      "coverage": 0.5179654689687354,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 34196951028.005302,
+      "quote_volume_24h": 7636093.986343,
+      "eligible": false
+    },
+    "ERAUSDT": {
+      "status": "ok",
+      "bars": 485,
+      "expected_bars": 2143,
+      "coverage": 0.22631824545030332,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 6589660273.540131,
+      "quote_volume_24h": 7510844.33473,
+      "eligible": false
+    },
+    "TRUMPUSDT": {
+      "status": "ok",
+      "bars": 664,
+      "expected_bars": 2143,
+      "coverage": 0.30984601026598224,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 71280689715.78004,
+      "quote_volume_24h": 7049694.844729,
+      "eligible": false
+    },
+    "ASTERUSDT": {
+      "status": "ok",
+      "bars": 404,
+      "expected_bars": 2143,
+      "coverage": 0.1885207652823145,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 19556216681.578785,
+      "quote_volume_24h": 6898466.472146,
+      "eligible": false
+    },
+    "SKHYBUSDT": {
+      "status": "ok",
+      "bars": 124,
+      "expected_bars": 2143,
+      "coverage": 0.05786280914605693,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 973861035.91582,
+      "quote_volume_24h": 5918277.59381,
+      "eligible": false
+    },
+    "BERAUSDT": {
+      "status": "ok",
+      "bars": 646,
+      "expected_bars": 2143,
+      "coverage": 0.3014465702286514,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 7721526245.608436,
+      "quote_volume_24h": 5868909.8580356,
+      "eligible": false
+    },
+    "SNXXBUSDT": {
+      "status": "ok",
+      "bars": 115,
+      "expected_bars": 2143,
+      "coverage": 0.053663089127391504,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 602902654.4256002,
+      "quote_volume_24h": 5831025.506,
+      "eligible": false
+    },
+    "KORUBUSDT": {
+      "status": "ok",
+      "bars": 115,
+      "expected_bars": 2143,
+      "coverage": 0.053663089127391504,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 577505060.3458999,
+      "quote_volume_24h": 5551383.9787,
+      "eligible": false
+    },
+    "STOUSDT": {
+      "status": "ok",
+      "bars": 561,
+      "expected_bars": 2143,
+      "coverage": 0.26178254783014465,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2707923918.77559,
+      "quote_volume_24h": 5508705.25328,
+      "eligible": false
+    },
+    "WLFIUSDT": {
+      "status": "ok",
+      "bars": 439,
+      "expected_bars": 2143,
+      "coverage": 0.2048530097993467,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 12191138005.64618,
+      "quote_volume_24h": 5337563.02983,
+      "eligible": false
+    },
+    "NBISBUSDT": {
+      "status": "ok",
+      "bars": 130,
+      "expected_bars": 2143,
+      "coverage": 0.06066262249183388,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 209837796.45302004,
+      "quote_volume_24h": 5038470.46924,
+      "eligible": false
+    },
+    "ETHFIUSDT": {
+      "status": "ok",
+      "bars": 971,
+      "expected_bars": 2143,
+      "coverage": 0.45310312645823614,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 25927761470.984367,
+      "quote_volume_24h": 5007899.32459,
+      "eligible": false
+    },
+    "PENGUUSDT": {
+      "status": "ok",
+      "bars": 697,
+      "expected_bars": 2143,
+      "coverage": 0.3252449836677555,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 27136684833.03213,
+      "quote_volume_24h": 4988874.896951,
+      "eligible": false
+    },
+    "BCHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 98224467370.19453,
+      "quote_volume_24h": 4903670.6196,
+      "eligible": true
+    },
+    "BFUSDUSDT": {
+      "status": "ok",
+      "bars": 458,
+      "expected_bars": 2143,
+      "coverage": 0.21371908539430703,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3493143190.0517,
+      "quote_volume_24h": 4887984.3308,
+      "eligible": false
+    },
+    "NIGHTUSDT": {
+      "status": "ok",
+      "bars": 248,
+      "expected_bars": 2143,
+      "coverage": 0.11572561829211386,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 10138894948.75948,
+      "quote_volume_24h": 4621066.47111,
+      "eligible": false
+    },
+    "FILUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 142021196749.16736,
+      "quote_volume_24h": 4554102.714008,
+      "eligible": true
+    },
+    "DODOUSDT": {
+      "status": "ok",
+      "bars": 2094,
+      "expected_bars": 2143,
+      "coverage": 0.9771348576761549,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13095999262.640352,
+      "quote_volume_24h": 4504851.572414,
+      "eligible": false
+    },
+    "IMXUSDT": {
+      "status": "ok",
+      "bars": 1769,
+      "expected_bars": 2143,
+      "coverage": 0.8254783014465702,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13662285528.212103,
+      "quote_volume_24h": 4440368.851318,
+      "eligible": false
+    },
+    "WBETHUSDT": {
+      "status": "ok",
+      "bars": 1214,
+      "expected_bars": 2143,
+      "coverage": 0.5664955669622025,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3729072129.339796,
+      "quote_volume_24h": 4270421.597527,
+      "eligible": false
+    },
+    "PENDLEUSDT": {
+      "status": "ok",
+      "bars": 1230,
+      "expected_bars": 2143,
+      "coverage": 0.5739617358842743,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 18852483035.98268,
+      "quote_volume_24h": 4041056.1229,
+      "eligible": false
+    },
+    "JUPUSDT": {
+      "status": "ok",
+      "bars": 1018,
+      "expected_bars": 2143,
+      "coverage": 0.4750349976668222,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 21672971182.55855,
+      "quote_volume_24h": 4026863.04718,
+      "eligible": false
+    },
+    "GUNUSDT": {
+      "status": "ok",
+      "bars": 593,
+      "expected_bars": 2143,
+      "coverage": 0.27671488567428837,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2919424648.452986,
+      "quote_volume_24h": 3992581.403548,
+      "eligible": false
+    },
+    "STRKUSDT": {
+      "status": "ok",
+      "bars": 998,
+      "expected_bars": 2143,
+      "coverage": 0.4657022865142324,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 18902124644.16106,
+      "quote_volume_24h": 3816624.3171818,
+      "eligible": false
+    },
+    "ONEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 39635978300.88439,
+      "quote_volume_24h": 3810246.3973331,
+      "eligible": true
+    },
+    "XPLUSDT": {
+      "status": "ok",
+      "bars": 415,
+      "expected_bars": 2143,
+      "coverage": 0.19365375641623891,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 26278459121.19208,
+      "quote_volume_24h": 3740759.228832,
+      "eligible": false
+    },
+    "RENDERUSDT": {
+      "status": "ok",
+      "bars": 841,
+      "expected_bars": 2143,
+      "coverage": 0.39244050396640223,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13863618599.774292,
+      "quote_volume_24h": 3692428.73961,
+      "eligible": false
+    },
+    "DOTUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 230367751765.41742,
+      "quote_volume_24h": 3549064.47779,
+      "eligible": true
+    },
+    "DASHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 31752756491.128784,
+      "quote_volume_24h": 3527397.14083,
+      "eligible": true
+    },
+    "TSLABUSDT": {
+      "status": "ok",
+      "bars": 156,
+      "expected_bars": 2143,
+      "coverage": 0.07279514699020065,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 385446640.19436,
+      "quote_volume_24h": 3489596.02041,
+      "eligible": false
+    },
+    "PLUMEUSDT": {
+      "status": "ok",
+      "bars": 453,
+      "expected_bars": 2143,
+      "coverage": 0.21138590760615958,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3338419672.66469,
+      "quote_volume_24h": 3386790.08597,
+      "eligible": false
+    },
+    "PYTHUSDT": {
+      "status": "ok",
+      "bars": 1016,
+      "expected_bars": 2143,
+      "coverage": 0.47410172655156324,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 11361093952.8914,
+      "quote_volume_24h": 3378718.581339,
+      "eligible": false
+    },
+    "TQQQBUSDT": {
+      "status": "ok",
+      "bars": 115,
+      "expected_bars": 2143,
+      "coverage": 0.053663089127391504,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 202639472.9706,
+      "quote_volume_24h": 3298623.0611,
+      "eligible": false
+    },
+    "HUMAUSDT": {
+      "status": "ok",
+      "bars": 537,
+      "expected_bars": 2143,
+      "coverage": 0.25058329444703686,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2769078625.7823896,
+      "quote_volume_24h": 3289412.04356,
+      "eligible": false
+    },
+    "ZAMAUSDT": {
+      "status": "ok",
+      "bars": 285,
+      "expected_bars": 2143,
+      "coverage": 0.13299113392440504,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3313613095.37377,
+      "quote_volume_24h": 3251488.67346,
+      "eligible": false
+    },
+    "MARSCOINUSDT": {
+      "status": "ok",
+      "bars": 71,
+      "expected_bars": 2143,
+      "coverage": 0.033131124591693886,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1151695144.8628602,
+      "quote_volume_24h": 3207304.69309,
+      "eligible": false
+    },
+    "WBTCUSDT": {
+      "status": "ok",
+      "bars": 1296,
+      "expected_bars": 2143,
+      "coverage": 0.6047596826878208,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 7491575698.203274,
+      "quote_volume_24h": 3145454.862622,
+      "eligible": false
+    },
+    "BNCBUSDT": {
+      "status": "ok",
+      "bars": 61,
+      "expected_bars": 2143,
+      "coverage": 0.028464769015398975,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 220417704.35599998,
+      "quote_volume_24h": 3101857.3,
+      "eligible": false
+    },
+    "AEROUSDT": {
+      "status": "ok",
+      "bars": 120,
+      "expected_bars": 2143,
+      "coverage": 0.05599626691553897,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1320181096.6536002,
+      "quote_volume_24h": 3076622.76428,
+      "eligible": false
+    },
+    "BEBUSDT": {
+      "status": "ok",
+      "bars": 108,
+      "expected_bars": 2143,
+      "coverage": 0.050396640223985066,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 99608052.00714,
+      "quote_volume_24h": 3076482.04044,
+      "eligible": false
+    },
+    "STXUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 26526015091.21655,
+      "quote_volume_24h": 2975994.92011,
+      "eligible": true
+    },
+    "POLUSDT": {
+      "status": "ok",
+      "bars": 792,
+      "expected_bars": 2143,
+      "coverage": 0.36957536164255717,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 10956510103.16719,
+      "quote_volume_24h": 2936554.494342,
+      "eligible": false
+    },
+    "APTUSDT": {
+      "status": "ok",
+      "bars": 1487,
+      "expected_bars": 2143,
+      "coverage": 0.6938870741950537,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 55597522986.25584,
+      "quote_volume_24h": 2862073.771735,
+      "eligible": false
+    },
+    "OPUSDT": {
+      "status": "ok",
+      "bars": 1627,
+      "expected_bars": 2143,
+      "coverage": 0.7592160522631825,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 56707377737.676575,
+      "quote_volume_24h": 2847532.899193,
+      "eligible": false
+    },
+    "RAYUSDT": {
+      "status": "ok",
+      "bars": 1922,
+      "expected_bars": 2143,
+      "coverage": 0.8968735417638825,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 20265971692.5436,
+      "quote_volume_24h": 2692703.27751,
+      "eligible": false
+    },
+    "ORCLBUSDT": {
+      "status": "ok",
+      "bars": 115,
+      "expected_bars": 2143,
+      "coverage": 0.053663089127391504,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 51250227.067549996,
+      "quote_volume_24h": 2687403.59014,
+      "eligible": false
+    },
+    "AMDBUSDT": {
+      "status": "ok",
+      "bars": 144,
+      "expected_bars": 2143,
+      "coverage": 0.06719552029864675,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 147784290.04082,
+      "quote_volume_24h": 2592169.51578,
+      "eligible": false
+    },
+    "ARUSDT": {
+      "status": "ok",
+      "bars": 2010,
+      "expected_bars": 2143,
+      "coverage": 0.9379374708352777,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 27423522857.730118,
+      "quote_volume_24h": 2585293.76441,
+      "eligible": false
+    },
+    "CAKEUSDT": {
+      "status": "ok",
+      "bars": 2094,
+      "expected_bars": 2143,
+      "coverage": 0.9771348576761549,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 57079832641.82444,
+      "quote_volume_24h": 2551445.69767,
+      "eligible": false
+    },
+    "BONKUSDT": {
+      "status": "ok",
+      "bars": 1065,
+      "expected_bars": 2143,
+      "coverage": 0.4969668688754083,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 52628780247.44477,
+      "quote_volume_24h": 2482721.49493641,
+      "eligible": false
+    },
+    "SHIBUSDT": {
+      "status": "ok",
+      "bars": 2014,
+      "expected_bars": 2143,
+      "coverage": 0.9398040130657956,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 290647056475.6077,
+      "quote_volume_24h": 2416269.67977146,
+      "eligible": false
+    },
+    "ALTUSDT": {
+      "status": "ok",
+      "bars": 1024,
+      "expected_bars": 2143,
+      "coverage": 0.47783481101259917,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13516828714.68094,
+      "quote_volume_24h": 2406366.57696,
+      "eligible": false
+    },
+    "VIRTUALUSDT": {
+      "status": "ok",
+      "bars": 582,
+      "expected_bars": 2143,
+      "coverage": 0.27158189454036397,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 10896638729.37201,
+      "quote_volume_24h": 2374776.36907,
+      "eligible": false
+    },
+    "OSMOUSDT": {
+      "status": "ok",
+      "bars": 1478,
+      "expected_bars": 2143,
+      "coverage": 0.6896873541763883,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2939158361.5075502,
+      "quote_volume_24h": 2309897.78702,
+      "eligible": false
+    },
+    "KITEUSDT": {
+      "status": "ok",
+      "bars": 376,
+      "expected_bars": 2143,
+      "coverage": 0.17545496966868876,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 4344887685.582359,
+      "quote_volume_24h": 2268092.7366,
+      "eligible": false
+    },
+    "JSTUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 13940450230.717796,
+      "quote_volume_24h": 2239221.374514,
+      "eligible": true
+    },
+    "SUSDT": {
+      "status": "ok",
+      "bars": 667,
+      "expected_bars": 2143,
+      "coverage": 0.3112459169388707,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 11764655838.63352,
+      "quote_volume_24h": 2217636.310599,
+      "eligible": false
+    },
+    "BMNRBUSDT": {
+      "status": "ok",
+      "bars": 101,
+      "expected_bars": 2143,
+      "coverage": 0.04713019132057863,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 91698323.41599998,
+      "quote_volume_24h": 2191958.9421,
+      "eligible": false
+    },
+    "SEIUSDT": {
+      "status": "ok",
+      "bars": 1187,
+      "expected_bars": 2143,
+      "coverage": 0.5538964069062062,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 40596796953.88556,
+      "quote_volume_24h": 2152230.627555,
+      "eligible": false
+    },
+    "FFUSDT": {
+      "status": "ok",
+      "bars": 411,
+      "expected_bars": 2143,
+      "coverage": 0.19178721418572095,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 7820000347.399961,
+      "quote_volume_24h": 2112304.489051,
+      "eligible": false
+    },
+    "MRVLBUSDT": {
+      "status": "ok",
+      "bars": 122,
+      "expected_bars": 2143,
+      "coverage": 0.05692953803079795,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 128497895.49632001,
+      "quote_volume_24h": 2100127.95538,
+      "eligible": false
+    },
+    "BANANAS31USDT": {
+      "status": "ok",
+      "bars": 597,
+      "expected_bars": 2143,
+      "coverage": 0.27858142790480633,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 3643608783.1626673,
+      "quote_volume_24h": 2080230.816182,
+      "eligible": false
+    },
+    "DEXEUSDT": {
+      "status": "ok",
+      "bars": 1940,
+      "expected_bars": 2143,
+      "coverage": 0.9052729818012133,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 7093434829.60775,
+      "quote_volume_24h": 2029629.59029,
+      "eligible": false
+    },
+    "BEAMXUSDT": {
+      "status": "ok",
+      "bars": 1096,
+      "expected_bars": 2143,
+      "coverage": 0.5114325711619225,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 8414016733.261744,
+      "quote_volume_24h": 1968108.843163,
+      "eligible": false
+    },
+    "USDEUSDT": {
+      "status": "ok",
+      "bars": 431,
+      "expected_bars": 2143,
+      "coverage": 0.20111992533831077,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 15666187822.882198,
+      "quote_volume_24h": 1882446.8102,
+      "eligible": false
+    },
+    "ZKUSDT": {
+      "status": "ok",
+      "bars": 880,
+      "expected_bars": 2143,
+      "coverage": 0.4106392907139524,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 10093843008.783844,
+      "quote_volume_24h": 1882052.394322,
+      "eligible": false
+    },
+    "MEGAUSDT": {
+      "status": "ok",
+      "bars": 198,
+      "expected_bars": 2143,
+      "coverage": 0.09239384041063929,
+      "exact_expected_index": false,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 1678706689.9493027,
+      "quote_volume_24h": 1852025.224385,
+      "eligible": false
+    }
+  },
+  "per_symbol_selection": {
+    "BTCUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 5305551726394.543,
+      "quote_volume_24h": 2054266264.235139,
+      "eligible": true
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 2809786225637.8564,
+      "quote_volume_24h": 730964357.223017,
+      "eligible": true
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 858845164122.6117,
+      "quote_volume_24h": 296895933.60131,
+      "eligible": true
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 765941162676.4777,
+      "quote_volume_24h": 139383875.4375,
+      "eligible": true
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 703273112881.1858,
+      "quote_volume_24h": 38867718.87102,
+      "eligible": true
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 685447587359.6958,
+      "quote_volume_24h": 131570051.65517,
+      "eligible": true
+    },
+    "ADAUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 372655995361.73755,
+      "quote_volume_24h": 21149769.86128,
+      "eligible": true
+    },
+    "DOTUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 230367751765.41742,
+      "quote_volume_24h": 3549064.47779,
+      "eligible": true
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 198512349600.1783,
+      "quote_volume_24h": 22146291.97743,
+      "eligible": true
+    },
+    "TRXUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 195411335353.00946,
+      "quote_volume_24h": 31982318.51896,
+      "eligible": true
+    },
+    "LINKUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 188425420769.89655,
+      "quote_volume_24h": 22623047.79686,
+      "eligible": true
+    },
+    "LTCUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 182675957959.7342,
+      "quote_volume_24h": 15800474.65734,
+      "eligible": true
+    },
+    "FILUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 142021196749.16736,
+      "quote_volume_24h": 4554102.714008,
+      "eligible": true
+    },
+    "NEARUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 130941961651.8693,
+      "quote_volume_24h": 96929134.6451,
+      "eligible": true
+    },
+    "ZECUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 107095651227.84323,
+      "quote_volume_24h": 235263284.79745,
+      "eligible": true
+    },
+    "BCHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 98224467370.19453,
+      "quote_volume_24h": 4903670.6196,
+      "eligible": true
+    },
+    "UNIUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 90225510028.97806,
+      "quote_volume_24h": 48917090.86972,
+      "eligible": true
+    },
+    "XLMUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 81609315835.8435,
+      "quote_volume_24h": 10831726.7275,
+      "eligible": true
+    },
+    "AAVEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 74550558210.2425,
+      "quote_volume_24h": 13694920.3802,
+      "eligible": true
+    },
+    "HBARUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 64699498982.82425,
+      "quote_volume_24h": 9559088.05941,
+      "eligible": true
+    },
+    "FETUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 62643358284.17972,
+      "quote_volume_24h": 10530027.6776,
+      "eligible": true
+    },
+    "INJUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 40550268547.76589,
+      "quote_volume_24h": 20762826.67087,
+      "eligible": true
+    },
+    "ONEUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 39635978300.88439,
+      "quote_volume_24h": 3810246.3973331,
+      "eligible": true
+    },
+    "DASHUSDT": {
+      "status": "ok",
+      "bars": 2143,
+      "expected_bars": 2143,
+      "coverage": 1.0,
+      "exact_expected_index": true,
+      "all_finite": true,
+      "all_positive": true,
+      "spacing_1d_ok": true,
+      "quote_volume_sum": 31752756491.128784,
+      "quote_volume_24h": 3527397.14083,
+      "eligible": true
+    }
+  },
+  "exchange_info_meta": {
+    "url": "https://data-api.binance.vision/api/v3/exchangeInfo",
+    "ok": true,
+    "status": 200,
+    "latency_ms": 1945
+  },
+  "ticker_meta": {
+    "url": "https://data-api.binance.vision/api/v3/ticker/24hr",
+    "ok": true,
+    "status": 200,
+    "latency_ms": 1510
+  },
+  "kline_fetch_provenance": {
+    "hosts": [
+      "https://data-api.binance.vision"
+    ],
+    "blocked_hosts": [],
+    "blocked_routes": [],
+    "interval": "1d",
+    "start_utc": "2021-01-01T00:00:00Z",
+    "end_utc": "2026-11-13T00:00:00Z",
+    "per_symbol": {
+      "BTCUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "ETHUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SOLUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "ZECUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "NVDABUSDT": {
+        "status": "ok",
+        "bars": 156
+      },
+      "XRPUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "BNBUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "NEARUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SPCXBUSDT": {
+        "status": "ok",
+        "bars": 155
+      },
+      "PEPEUSDT": {
+        "status": "ok",
+        "bars": 1289
+      },
+      "SOXLBUSDT": {
+        "status": "ok",
+        "bars": 130
+      },
+      "UNIUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "HYPEUSDT": {
+        "status": "ok",
+        "bars": 51
+      },
+      "ENAUSDT": {
+        "status": "ok",
+        "bars": 956
+      },
+      "DOGEUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SUIUSDT": {
+        "status": "ok",
+        "bars": 1291
+      },
+      "UUSDT": {
+        "status": "ok",
+        "bars": 305
+      },
+      "TRXUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SNDKBUSDT": {
+        "status": "ok",
+        "bars": 156
+      },
+      "SHELLUSDT": {
+        "status": "ok",
+        "bars": 625
+      },
+      "LINKUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "TAOUSDT": {
+        "status": "ok",
+        "bars": 947
+      },
+      "XAUTUSDT": {
+        "status": "ok",
+        "bars": 233
+      },
+      "BARDUSDT": {
+        "status": "ok",
+        "bars": 422
+      },
+      "AVAXUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "ADAUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "INJUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "GOOGLBUSDT": {
+        "status": "ok",
+        "bars": 130
+      },
+      "LTCUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "MUBUSDT": {
+        "status": "ok",
+        "bars": 156
+      },
+      "RWUSDUSDT": {
+        "status": "ok",
+        "bars": 32
+      },
+      "CRCLBUSDT": {
+        "status": "ok",
+        "bars": 156
+      },
+      "AAVEUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "WLDUSDT": {
+        "status": "ok",
+        "bars": 1209
+      },
+      "ARBUSDT": {
+        "status": "ok",
+        "bars": 1332
+      },
+      "MSTRBUSDT": {
+        "status": "ok",
+        "bars": 144
+      },
+      "PAXGUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SOXSBUSDT": {
+        "status": "ok",
+        "bars": 108
+      },
+      "XLMUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "FETUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "QNTUSDT": {
+        "status": "ok",
+        "bars": 1934
+      },
+      "PUMPUSDT": {
+        "status": "ok",
+        "bars": 429
+      },
+      "INITUSDT": {
+        "status": "ok",
+        "bars": 569
+      },
+      "QQQBUSDT": {
+        "status": "ok",
+        "bars": 137
+      },
+      "ONDOUSDT": {
+        "status": "ok",
+        "bars": 582
+      },
+      "HBARUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "GRAMUSDT": {
+        "status": "ok",
+        "bars": 135
+      },
+      "ZROUSDT": {
+        "status": "ok",
+        "bars": 877
+      },
+      "SOPHUSDT": {
+        "status": "ok",
+        "bars": 535
+      },
+      "BMTUSDT": {
+        "status": "ok",
+        "bars": 606
+      },
+      "INTCBUSDT": {
+        "status": "ok",
+        "bars": 144
+      },
+      "\u725b\u6765USDT": {
+        "status": "ok",
+        "bars": 66
+      },
+      "ICPUSDT": {
+        "status": "ok",
+        "bars": 2013
+      },
+      "TIAUSDT": {
+        "status": "ok",
+        "bars": 1110
+      },
+      "ERAUSDT": {
+        "status": "ok",
+        "bars": 485
+      },
+      "TRUMPUSDT": {
+        "status": "ok",
+        "bars": 664
+      },
+      "ASTERUSDT": {
+        "status": "ok",
+        "bars": 404
+      },
+      "SKHYBUSDT": {
+        "status": "ok",
+        "bars": 124
+      },
+      "BERAUSDT": {
+        "status": "ok",
+        "bars": 646
+      },
+      "SNXXBUSDT": {
+        "status": "ok",
+        "bars": 115
+      },
+      "KORUBUSDT": {
+        "status": "ok",
+        "bars": 115
+      },
+      "STOUSDT": {
+        "status": "ok",
+        "bars": 561
+      },
+      "WLFIUSDT": {
+        "status": "ok",
+        "bars": 439
+      },
+      "NBISBUSDT": {
+        "status": "ok",
+        "bars": 130
+      },
+      "ETHFIUSDT": {
+        "status": "ok",
+        "bars": 971
+      },
+      "PENGUUSDT": {
+        "status": "ok",
+        "bars": 697
+      },
+      "BCHUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "BFUSDUSDT": {
+        "status": "ok",
+        "bars": 458
+      },
+      "NIGHTUSDT": {
+        "status": "ok",
+        "bars": 248
+      },
+      "FILUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "DODOUSDT": {
+        "status": "ok",
+        "bars": 2094
+      },
+      "IMXUSDT": {
+        "status": "ok",
+        "bars": 1769
+      },
+      "WBETHUSDT": {
+        "status": "ok",
+        "bars": 1214
+      },
+      "PENDLEUSDT": {
+        "status": "ok",
+        "bars": 1230
+      },
+      "JUPUSDT": {
+        "status": "ok",
+        "bars": 1018
+      },
+      "GUNUSDT": {
+        "status": "ok",
+        "bars": 593
+      },
+      "STRKUSDT": {
+        "status": "ok",
+        "bars": 998
+      },
+      "ONEUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "XPLUSDT": {
+        "status": "ok",
+        "bars": 415
+      },
+      "RENDERUSDT": {
+        "status": "ok",
+        "bars": 841
+      },
+      "DOTUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "DASHUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "TSLABUSDT": {
+        "status": "ok",
+        "bars": 156
+      },
+      "PLUMEUSDT": {
+        "status": "ok",
+        "bars": 453
+      },
+      "PYTHUSDT": {
+        "status": "ok",
+        "bars": 1016
+      },
+      "TQQQBUSDT": {
+        "status": "ok",
+        "bars": 115
+      },
+      "HUMAUSDT": {
+        "status": "ok",
+        "bars": 537
+      },
+      "ZAMAUSDT": {
+        "status": "ok",
+        "bars": 285
+      },
+      "MARSCOINUSDT": {
+        "status": "ok",
+        "bars": 71
+      },
+      "WBTCUSDT": {
+        "status": "ok",
+        "bars": 1296
+      },
+      "BNCBUSDT": {
+        "status": "ok",
+        "bars": 61
+      },
+      "AEROUSDT": {
+        "status": "ok",
+        "bars": 120
+      },
+      "BEBUSDT": {
+        "status": "ok",
+        "bars": 108
+      },
+      "STXUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "POLUSDT": {
+        "status": "ok",
+        "bars": 792
+      },
+      "APTUSDT": {
+        "status": "ok",
+        "bars": 1487
+      },
+      "OPUSDT": {
+        "status": "ok",
+        "bars": 1627
+      },
+      "RAYUSDT": {
+        "status": "ok",
+        "bars": 1922
+      },
+      "ORCLBUSDT": {
+        "status": "ok",
+        "bars": 115
+      },
+      "AMDBUSDT": {
+        "status": "ok",
+        "bars": 144
+      },
+      "ARUSDT": {
+        "status": "ok",
+        "bars": 2010
+      },
+      "CAKEUSDT": {
+        "status": "ok",
+        "bars": 2094
+      },
+      "BONKUSDT": {
+        "status": "ok",
+        "bars": 1065
+      },
+      "SHIBUSDT": {
+        "status": "ok",
+        "bars": 2014
+      },
+      "ALTUSDT": {
+        "status": "ok",
+        "bars": 1024
+      },
+      "VIRTUALUSDT": {
+        "status": "ok",
+        "bars": 582
+      },
+      "OSMOUSDT": {
+        "status": "ok",
+        "bars": 1478
+      },
+      "KITEUSDT": {
+        "status": "ok",
+        "bars": 376
+      },
+      "JSTUSDT": {
+        "status": "ok",
+        "bars": 2143
+      },
+      "SUSDT": {
+        "status": "ok",
+        "bars": 667
+      },
+      "BMNRBUSDT": {
+        "status": "ok",
+        "bars": 101
+      },
+      "SEIUSDT": {
+        "status": "ok",
+        "bars": 1187
+      },
+      "FFUSDT": {
+        "status": "ok",
+        "bars": 411
+      },
+      "MRVLBUSDT": {
+        "status": "ok",
+        "bars": 122
+      },
+      "BANANAS31USDT": {
+        "status": "ok",
+        "bars": 597
+      },
+      "DEXEUSDT": {
+        "status": "ok",
+        "bars": 1940
+      },
+      "BEAMXUSDT": {
+        "status": "ok",
+        "bars": 1096
+      },
+      "USDEUSDT": {
+        "status": "ok",
+        "bars": 431
+      },
+      "ZKUSDT": {
+        "status": "ok",
+        "bars": 880
+      },
+      "MEGAUSDT": {
+        "status": "ok",
+        "bars": 198
+      }
+    },
+    "attempts": [
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 997,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1255,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 685,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1003,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1258,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 944,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOLUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1000,
+        "symbol": "SOLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOLUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1258,
+        "symbol": "SOLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOLUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "SOLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZECUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1005,
+        "symbol": "ZECUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZECUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1258,
+        "symbol": "ZECUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZECUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 949,
+        "symbol": "ZECUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NVDABUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 729,
+        "symbol": "NVDABUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 156
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XRPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1007,
+        "symbol": "XRPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XRPUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1258,
+        "symbol": "XRPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XRPUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 945,
+        "symbol": "XRPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BNBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1011,
+        "symbol": "BNBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BNBUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1242,
+        "symbol": "BNBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BNBUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "BNBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NEARUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1008,
+        "symbol": "NEARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NEARUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1259,
+        "symbol": "NEARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NEARUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 944,
+        "symbol": "NEARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SPCXBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 716,
+        "symbol": "SPCXBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 155
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PEPEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "PEPEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PEPEUSDT&interval=1d&startTime=1769558400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 937,
+        "symbol": "PEPEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 289
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOXLBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 693,
+        "symbol": "SOXLBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 130
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=UNIUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1007,
+        "symbol": "UNIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=UNIUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1005,
+        "symbol": "UNIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=UNIUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 686,
+        "symbol": "UNIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=HYPEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 593,
+        "symbol": "HYPEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 51
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ENAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1003,
+        "symbol": "ENAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 956
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOGEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 998,
+        "symbol": "DOGEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOGEUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1015,
+        "symbol": "DOGEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOGEUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 678,
+        "symbol": "DOGEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SUIUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 993,
+        "symbol": "SUIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SUIUSDT&interval=1d&startTime=1769385600001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 871,
+        "symbol": "SUIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 291
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=UUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 859,
+        "symbol": "UUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 305
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TRXUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 987,
+        "symbol": "TRXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TRXUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 967,
+        "symbol": "TRXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TRXUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "TRXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SNDKBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 683,
+        "symbol": "SNDKBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 156
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SHELLUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 970,
+        "symbol": "SHELLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 625
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LINKUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 968,
+        "symbol": "LINKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LINKUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "LINKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LINKUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 713,
+        "symbol": "LINKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TAOUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 999,
+        "symbol": "TAOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 947
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XAUTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 698,
+        "symbol": "XAUTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 233
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BARDUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 823,
+        "symbol": "BARDUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 422
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AVAXUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 973,
+        "symbol": "AVAXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AVAXUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "AVAXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AVAXUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "AVAXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ADAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 995,
+        "symbol": "ADAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ADAUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "ADAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ADAUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "ADAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=INJUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "INJUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=INJUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 973,
+        "symbol": "INJUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=INJUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "INJUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=GOOGLBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 722,
+        "symbol": "GOOGLBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 130
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LTCUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 1015,
+        "symbol": "LTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LTCUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "LTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=LTCUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 686,
+        "symbol": "LTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=MUBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 740,
+        "symbol": "MUBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 156
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=RWUSDUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 557,
+        "symbol": "RWUSDUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 32
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=CRCLBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 682,
+        "symbol": "CRCLBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 156
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AAVEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "AAVEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AAVEUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 982,
+        "symbol": "AAVEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AAVEUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 684,
+        "symbol": "AAVEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WLDUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "WLDUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WLDUSDT&interval=1d&startTime=1776470400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 691,
+        "symbol": "WLDUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 209
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ARBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "ARBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ARBUSDT&interval=1d&startTime=1765843200001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 813,
+        "symbol": "ARBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 332
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=MSTRBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 683,
+        "symbol": "MSTRBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 144
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PAXGUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 957,
+        "symbol": "PAXGUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PAXGUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 962,
+        "symbol": "PAXGUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PAXGUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 688,
+        "symbol": "PAXGUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOXSBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 715,
+        "symbol": "SOXSBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 108
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XLMUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 953,
+        "symbol": "XLMUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XLMUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 955,
+        "symbol": "XLMUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XLMUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 680,
+        "symbol": "XLMUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FETUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 963,
+        "symbol": "FETUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FETUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 973,
+        "symbol": "FETUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FETUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 688,
+        "symbol": "FETUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=QNTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 963,
+        "symbol": "QNTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=QNTUSDT&interval=1d&startTime=1713830400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 959,
+        "symbol": "QNTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 934
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PUMPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 825,
+        "symbol": "PUMPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 429
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=INITUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 869,
+        "symbol": "INITUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 569
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=QQQBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 709,
+        "symbol": "QQQBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 137
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ONDOUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 828,
+        "symbol": "ONDOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 582
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=HBARUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "HBARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=HBARUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "HBARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=HBARUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 690,
+        "symbol": "HBARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=GRAMUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 680,
+        "symbol": "GRAMUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 135
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZROUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 957,
+        "symbol": "ZROUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 877
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SOPHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 842,
+        "symbol": "SOPHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 535
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BMTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 959,
+        "symbol": "BMTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 606
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=INTCBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 700,
+        "symbol": "INTCBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 144
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=%E7%89%9B%E6%9D%A5USDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 547,
+        "symbol": "\u725b\u6765USDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 66
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ICPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 946,
+        "symbol": "ICPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ICPUSDT&interval=1d&startTime=1707004800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 956,
+        "symbol": "ICPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ICPUSDT&interval=1d&startTime=1793404800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 543,
+        "symbol": "ICPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 13
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TIAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 953,
+        "symbol": "TIAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TIAUSDT&interval=1d&startTime=1785024000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "TIAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 110
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ERAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 831,
+        "symbol": "ERAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 485
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TRUMPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 969,
+        "symbol": "TRUMPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 664
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ASTERUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 825,
+        "symbol": "ASTERUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 404
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SKHYBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 691,
+        "symbol": "SKHYBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 124
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BERAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "BERAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 646
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SNXXBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 679,
+        "symbol": "SNXXBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 115
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=KORUBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 684,
+        "symbol": "KORUBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 115
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=STOUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 827,
+        "symbol": "STOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 561
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WLFIUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 818,
+        "symbol": "WLFIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 439
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NBISBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 712,
+        "symbol": "NBISBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 130
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHFIUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 948,
+        "symbol": "ETHFIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 971
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PENGUUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 957,
+        "symbol": "PENGUUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 697
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 964,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 959,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 690,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BFUSDUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 815,
+        "symbol": "BFUSDUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 458
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=NIGHTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 686,
+        "symbol": "NIGHTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 248
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FILUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 952,
+        "symbol": "FILUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FILUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "FILUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FILUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 677,
+        "symbol": "FILUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DODOUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 964,
+        "symbol": "DODOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DODOUSDT&interval=1d&startTime=1700006400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 969,
+        "symbol": "DODOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DODOUSDT&interval=1d&startTime=1786406400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 678,
+        "symbol": "DODOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 94
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=IMXUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 962,
+        "symbol": "IMXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=IMXUSDT&interval=1d&startTime=1728086400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 952,
+        "symbol": "IMXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 769
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WBETHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 957,
+        "symbol": "WBETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WBETHUSDT&interval=1d&startTime=1776038400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 682,
+        "symbol": "WBETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 214
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PENDLEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 971,
+        "symbol": "PENDLEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PENDLEUSDT&interval=1d&startTime=1774656000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 686,
+        "symbol": "PENDLEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 230
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=JUPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 962,
+        "symbol": "JUPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=JUPUSDT&interval=1d&startTime=1792972800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 549,
+        "symbol": "JUPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 18
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=GUNUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 954,
+        "symbol": "GUNUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 593
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=STRKUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 955,
+        "symbol": "STRKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 998
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ONEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 965,
+        "symbol": "ONEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ONEUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "ONEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ONEUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 683,
+        "symbol": "ONEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=XPLUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 815,
+        "symbol": "XPLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 415
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=RENDERUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 945,
+        "symbol": "RENDERUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 841
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 979,
+        "symbol": "DOTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOTUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 957,
+        "symbol": "DOTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOTUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 685,
+        "symbol": "DOTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DASHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 963,
+        "symbol": "DASHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DASHUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 966,
+        "symbol": "DASHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DASHUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 682,
+        "symbol": "DASHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TSLABUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 681,
+        "symbol": "TSLABUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 156
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PLUMEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 827,
+        "symbol": "PLUMEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 453
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PYTHUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 956,
+        "symbol": "PYTHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=PYTHUSDT&interval=1d&startTime=1793145600001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 544,
+        "symbol": "PYTHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 16
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=TQQQBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 685,
+        "symbol": "TQQQBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 115
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=HUMAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 823,
+        "symbol": "HUMAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 537
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZAMAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 817,
+        "symbol": "ZAMAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 285
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=MARSCOINUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 550,
+        "symbol": "MARSCOINUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 71
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WBTCUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "WBTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=WBTCUSDT&interval=1d&startTime=1768953600001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 824,
+        "symbol": "WBTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 296
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BNCBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 550,
+        "symbol": "BNCBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 61
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AEROUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 685,
+        "symbol": "AEROUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 120
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BEBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 683,
+        "symbol": "BEBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 108
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=STXUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "STXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=STXUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "STXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=STXUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 685,
+        "symbol": "STXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=POLUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "POLUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 792
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=APTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 965,
+        "symbol": "APTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=APTUSDT&interval=1d&startTime=1752451200001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 820,
+        "symbol": "APTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 487
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=OPUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 966,
+        "symbol": "OPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=OPUSDT&interval=1d&startTime=1740355200001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 958,
+        "symbol": "OPUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 627
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=RAYUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 952,
+        "symbol": "RAYUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=RAYUSDT&interval=1d&startTime=1714867200001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 961,
+        "symbol": "RAYUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 922
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ORCLBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 701,
+        "symbol": "ORCLBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 115
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=AMDBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 688,
+        "symbol": "AMDBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 144
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ARUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 966,
+        "symbol": "ARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ARUSDT&interval=1d&startTime=1707264000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 963,
+        "symbol": "ARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ARUSDT&interval=1d&startTime=1793664000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 570,
+        "symbol": "ARUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 10
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=CAKEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 965,
+        "symbol": "CAKEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=CAKEUSDT&interval=1d&startTime=1700006400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 964,
+        "symbol": "CAKEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=CAKEUSDT&interval=1d&startTime=1786406400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 694,
+        "symbol": "CAKEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 94
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BONKUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 960,
+        "symbol": "BONKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BONKUSDT&interval=1d&startTime=1788912000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 551,
+        "symbol": "BONKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 65
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SHIBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 958,
+        "symbol": "SHIBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SHIBUSDT&interval=1d&startTime=1706918400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 947,
+        "symbol": "SHIBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SHIBUSDT&interval=1d&startTime=1793318400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 545,
+        "symbol": "SHIBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 14
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ALTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 972,
+        "symbol": "ALTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ALTUSDT&interval=1d&startTime=1792454400001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 547,
+        "symbol": "ALTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 24
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=VIRTUALUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 857,
+        "symbol": "VIRTUALUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 582
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=OSMOUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 962,
+        "symbol": "OSMOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=OSMOUSDT&interval=1d&startTime=1753228800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 822,
+        "symbol": "OSMOUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 478
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=KITEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 829,
+        "symbol": "KITEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 376
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=JSTUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 975,
+        "symbol": "JSTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=JSTUSDT&interval=1d&startTime=1695772800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 953,
+        "symbol": "JSTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=JSTUSDT&interval=1d&startTime=1782172800001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 675,
+        "symbol": "JSTUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 143
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 950,
+        "symbol": "SUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 667
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BMNRBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 684,
+        "symbol": "BMNRBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 101
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SEIUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 971,
+        "symbol": "SEIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=SEIUSDT&interval=1d&startTime=1778371200001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 689,
+        "symbol": "SEIUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 187
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=FFUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 818,
+        "symbol": "FFUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 411
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=MRVLBUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 684,
+        "symbol": "MRVLBUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 122
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BANANAS31USDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 962,
+        "symbol": "BANANAS31USDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 597
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DEXEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 965,
+        "symbol": "DEXEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=DEXEUSDT&interval=1d&startTime=1713312000001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 952,
+        "symbol": "DEXEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 940
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BEAMXUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 958,
+        "symbol": "BEAMXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BEAMXUSDT&interval=1d&startTime=1786233600001&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 682,
+        "symbol": "BEAMXUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 96
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=USDEUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 811,
+        "symbol": "USDEUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 431
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ZKUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 963,
+        "symbol": "ZKUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 880
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=MEGAUSDT&interval=1d&startTime=1609459200000&endTime=1794528000000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 687,
+        "symbol": "MEGAUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 198
+      }
+    ],
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "blocked_routes": [],
+  "blocked_hosts": []
+}

@@ -1,0 +1,121 @@
+{
+  "generated_at_utc": "20261114T001435Z",
+  "campaign": 297,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 24,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "DOGEUSDT",
+      "BNBUSDT",
+      "ADAUSDT",
+      "DOTUSDT",
+      "AVAXUSDT",
+      "TRXUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "FILUSDT",
+      "NEARUSDT",
+      "ZECUSDT",
+      "BCHUSDT",
+      "UNIUSDT",
+      "XLMUSDT",
+      "AAVEUSDT",
+      "HBARUSDT",
+      "FETUSDT",
+      "INJUSDT",
+      "ONEUSDT",
+      "DASHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 504,
+      "test": 126,
+      "step": 126,
+      "n_splits": 13
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "mom",
+      "vol_scaled_mom",
+      "resid_mom",
+      "low_vol",
+      "reversal"
+    ],
+    "lookbacks_daily": [
+      20,
+      60,
+      120
+    ],
+    "cross_sectional_K": [
+      3,
+      5,
+      8
+    ],
+    "holding_periods_daily": [
+      1,
+      5,
+      20
+    ],
+    "total_runs": 135,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "score_definition": {
+      "mom": "close_t/close_{t-L}-1",
+      "vol_scaled_mom": "mom / rolling_std(L of log-return)",
+      "resid_mom": "mom - beta_L * market_mom_L",
+      "low_vol": "-rolling_std(L of log-return)",
+      "reversal": "-(close_t/close_{t-max(2,L//6)}-1)"
+    },
+    "signal_direction": "long top-K, short bottom-K by score (higher score = long)"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign297_oos_sweep_20261114T001435Z.json",
+      "sha256": "ea5c6333483ae71c61eb9e8d8702dbdbf116a41a8880c4efe190161bfc86c7cc"
+    },
+    "registry": {
+      "path": "reports/campaign297_tradable_edge_registry_20261114T001435Z.json",
+      "sha256": "1708b90824dd05a8603822bac28a60b3dafe767b3d82db8e0aca34a74bfeb059"
+    }
+  },
+  "summary": {
+    "n_total_runs": 135,
+    "n_with_exposure": 135,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 0.0009769346047839894
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal daily multi-year negative result. If EDGE_PROVEN: escalate to external execution (C287 testnet gateway), which requires valid testnet credentials + non-451 egress."
+}

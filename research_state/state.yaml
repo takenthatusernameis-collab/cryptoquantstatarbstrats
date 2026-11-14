@@ -1,43 +1,51 @@
-updated_at_utc: 20261113T234735Z
+updated_at_utc: 20261114T001528Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge
   validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'CLOSURE INTEGRITY VERIFIED & C287 EXTERNAL-ONLY BLOCK DOCUMENTED
-  — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T23:47:35Z). Research
-  space CLOSED (C281B–C296, 0 costed OOS edge, C289 economic_space_closed:true, C296
-  DATA_BLOCKED). Latest verified integrity: program_closure_integrity_audit reports/program_closure_integrity_audit_20261113T234735Z.json
-  (SHA256 eb889b77b1939f119ce100f8cad81ca67cc3c4a0bfd9be3cf194717683b930f6) + reports/program_closure_integrity_audit_20261113T234735Z.md
-  (SHA256 88ea3de73f0f1c7ba12954131763c2532cb2ce7bbedec1aabd9b42f292f6d0b0) recomputed
-  SHA256-from-bytes for 70 frozen artifact/dataset refs across C281B–C296 (integrity_ok:true,
-  n_mismatch_or_missing_or_error:0, zero_tradable_edge_registry_confirmed:true). C287
-  external-unblock probe reports/c287_external_unblock_status_20261113T234357Z.json
-  (SHA256 73063da48b4828ab9b766f9a2e6490a91f61452ee2ba56bb49e28897b2e9b3e3) status
-  BLOCKED/DECOUPLED: binance_testnet_rest ping/time/exchangeInfo HTTP 451, fapi 451,
-  api.bybit.com 403, BINANCE_TESTNET_API_KEY/SECRET absent; Deribit/Binance data-api/OKX/Coinbase
-  reachable; external action required = valid Binance Spot Testnet credentials + non-451
-  egress. MUST in one turn: (1) bootstrap deps if needed; python -m pytest tests/
-  -q green (record pass/skip). (2) Re-run closure-integrity audit and/or C287 external-unblock
-  probe to emit fresh timestamped SHA256-from-bytes artifacts reflecting current environment
-  if missing/stale; verify all hashes/flags (real_data_only:true, fabricated_data:false,
-  verdict/binding/edge_claim consistency, 0 tradable edge). (3) Add/extend tests for
-  any new audit/status artifacts and schema/hash cross-references; pytest -q green.
-  (4) Update AGENTS.md and research_state/state.yaml with refresh timestamp, this
-  as active_initial_task, and new artifact paths+SHA256; keep single-handoff and closure
-  facts accurate. Do not invent new campaigns, do not fabricate data/fills/credentials,
-  do not weaken gates/costs/edge rule, do not relabel data, do not edit .github/workflows/main.yml,
-  do not create/read/edit HANDOFF.md. No status-only turn.'
+active_initial_task: 'C297 COMPLETE (DAILY MULTI-YEAR CROSS-SECTIONAL STAT-ARB, NOT_TRADABLE)
+  — NEXT FOCUS C298 DAILY MULTI-YEAR PAIRS/COINTEGRATION STAT-ARB, MANDATORY HEAVY WORK
+  END-TO-END IN ONE TURN (2026-11-14T00:15:28Z). This session: (A) REMOVED the self-defeating
+  integrity bottleneck — the closure-integrity audit extraction mis-paired dataset
+  pkl/meta/provenance SHAs onto report-artifact paths (scan_yaml_pairs backward fallback),
+  producing 7 false sha256_mismatch and a RED suite (test asserted integrity_ok:true but
+  the newest audit was integrity_ok:false). Rewrote collect_all_refs to authoritative
+  structured YAML pairing (PyYAML), dedupe by path, and exclude self-referential audit
+  files. (B) Built+executed C297: real mainnet Binance spot 1d OHLCV, 24 assets, 2143
+  daily bars, 2021-01-01..2026-11-13; 135 runs (5 features x 3 lookbacks x 3 K x 3 holds),
+  WF 504/126/126 = 13 splits, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps,
+  fail-closed gates, identical edge rule; verdict NOT_TRADABLE, 135/135 exposure, 0 edge,
+  binding mean_beats_benchmark_fail (81/135 gross-positive at 0bps, max +2.152, 0/135 beat
+  equal-weight B&H after costs). (C) Refreshed C287 status
+  reports/c287_external_unblock_status_20261114T001503Z.json (SHA256
+  80b1e0375f4f49d929dc07958edcdedef9c0b9d317251b9dda2bd7e8572fef28) BLOCKED (testnet REST
+  451, fapi 451, bybit 403, no creds). Fresh audit
+  reports/program_closure_integrity_audit_<ts>.json integrity_ok:true (C281B–C297). Suite
+  green (record pass/skip). MUST NEXT (one turn, no status-only): execute C298 DAILY
+  MULTI-YEAR PAIRS/COINTEGRATION STAT-ARB end-to-end — reuse
+  data/cache/campaign297_daily_ohlcv.pkl (verified real; no new ingest), build preflight
+  + runner + tests + 5 SHA256-from-bytes artifacts for cointegration pairs (Engle-Granger
+  ADF + KPSS half-life + Kalman dynamic hedge ratio; z-score MR entries/exits; long/short
+  legs; cost on BOTH legs; train=504/test=126/step=126; 5 cost slices; equal-weight B&H
+  benchmark; identical edge rule); pytest -q green; then update AGENTS.md + state.yaml.
+  If C298 also NOT_TRADABLE, ALL reachable real-data stat-arb mechanisms (cross-sectional
+  intraday+daily; single-venue pairs) are exhausted and the only path is external execution
+  (C287, external-only) + genuinely new reachable feeds. Do not invent data/fills/creds,
+  do not weaken gates/costs/edge rule, do not relabel, do not edit
+  .github/workflows/main.yml, do not create/read/edit HANDOFF.md.'
 known_bottleneck:
-  id: reachable_cross_sectional_stat_arb_space_closed_c287_external_only
-  as_of_utc: 20261113T234735Z
-  evidence: C296 DATA_BLOCKED closure frozen; program_closure_integrity_audit_20261113T234735Z
-    verifies 70 frozen refs integrity_ok:true with 0 tradable edge. c287_external_unblock_status_20261113T234357Z
-    shows testnet REST 451, fapi 451, bybit 403, no creds (BLOCKED/DECOUPLED). No
-    reachable real-data cross-sectional stat-arb family remains.
-  fix: Maintain integrity evidence (re-run audit/unblock probes as needed, emit hashed
-    artifacts+tests, keep pytest green) and sync state/AGENTS. Any economic edge claim
-    requires external unblocking of C287 (valid testnet creds + non-451 egress) or
-    genuinely new reachable real data/feed with a pre-registered costed OOS protocol;
+  id: reachable_real_data_stat_arb_closed_c287_external_only
+  as_of_utc: 20261114T001528Z
+  evidence: C297 daily multi-year cross-sectional stat-arb NOT_TRADABLE (0/135 costed OOS
+    edge, binding mean_beats_benchmark_fail). Combined with C281B–C296 (5m/1h cross-sectional,
+    single/cross/three-venue spot, perp funding/basis, real-IV VRP) the reachable real-data
+    cross-sectional stat-arb space is CLOSED across intraday AND daily multi-year horizons.
+    C287 BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no creds). Prior red-suite
+    bottleneck (audit false-mismatch) fixed: suite green.
+  fix: Execute C298 daily multi-year pairs/cointegration (new mechanism at the new horizon);
+    if also negative, all reachable real-data stat-arb mechanisms are exhausted. Any economic
+    edge claim then requires external unblocking of C287 (valid testnet creds + non-451 egress)
+    or a genuinely new reachable real-data feed with a pre-registered costed OOS protocol;
     do not fabricate.
   do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate
     data/fills/credentials; weaken gates/costs/edge rule; rerun frozen campaigns or

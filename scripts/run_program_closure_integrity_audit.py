@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Program closure-integrity audit over frozen C281B–C296 artifacts/datasets.
+"""Program closure-integrity audit over frozen C281B–C297 artifacts/datasets.
 
 Recomputes SHA256-from-bytes for every frozen artifact/dataset referenced in
 research_state/state.yaml and AGENTS.md, verifies real_data_only/fabricated_data
@@ -26,6 +26,7 @@ AGENTS_PATH = ROOT / "AGENTS.md"
 CAMPAIGNS = [
     "C281B", "C281C", "C282", "C283", "C284", "C285", "C286", "C287",
     "C288", "C289", "C290", "C291", "C292", "C293", "C294", "C295", "C296",
+    "C297",
 ]
 
 
@@ -51,92 +52,98 @@ def campaign_from_path(p: str) -> str | None:
     return "C" + token
 
 
-def extract_refs_from_state(text: str):
-    refs = []
-    # (path, sha) pairs in yaml style: path: ... sha256: ... or sha256: ... path: ...
-    # generic: capture quoted/unquoted paths and 64-hex sha
-    # use simple regex over lines
-    lines = text.splitlines()
-    for i, line in enumerate(lines):
-        # look for path fields
-        for pm in re.finditer(r"(?:path|pkl|meta|provenance|verdict_path|oos_sweep|registry|summary|verdict|binding|probe_artifact|gateway_spec|live_run|drift_report|kill_switch_test|closure|report)[^:\n]*:\s*([^\s#\"']+)", line):
-            p = pm.group(1).strip().strip('"').strip("'")
-            if not ("/" in p or p.endswith(".json") or p.endswith(".pkl") or p.endswith(".md")):
-                continue
-            # search nearby for sha256
-            sha = None
-            window = "\n".join(lines[max(0, i - 2): i + 4])
-            sm = re.search(r"sha256(?:_from_bytes)?\s*[:=]\s*([0-9a-f]{64})", window)
-            if sm:
-                sha = sm.group(1)
-            else:
-                # key_sha256: hash where key relates
-                sm2 = re.search(r"([0-9a-f]{64})", window)
-                if sm2 and "sha256" in window:
-                    sha = sm2.group(1)
-            if sha:
-                refs.append((p, sha))
-        # also standalone sha/path in same line patterns
-    # Better: parse common 'path: X' and later 'sha256: Y' in same dict block - rough but effective
-    # Also collect from AGENTS via regex
-    return refs
+def _looks_like_path(s) -> bool:
+    return (
+        isinstance(s, str)
+        and (s.startswith("data/") or s.startswith("reports/"))
+        and (s.endswith(".json") or s.endswith(".pkl") or s.endswith(".md"))
+    )
+
+
+def _looks_like_sha(s) -> bool:
+    return isinstance(s, str) and len(s) == 64 and all(c in "0123456789abcdef" for c in s)
+
+
+def _refs_from_state_obj(node, refs):
+    """Walk the parsed state.yaml tree, collecting authoritative (path, sha256) pairs.
+
+    Pairs are resolved from structured keys only, so a ``dataset:`` block's
+    ``pkl_sha256``/``meta_sha256``/``provenance_sha256`` can never be mis-attached
+    to a sibling ``artifacts:`` report path (the historical source of false
+    integrity failures).
+    """
+    if isinstance(node, dict):
+        # explicit path/sha256 sibling (e.g. latest_oos, caches_verified.*)
+        if _looks_like_path(node.get("path")) and _looks_like_sha(node.get("sha256")):
+            refs.append((node["path"], node["sha256"]))
+        # name -> <name>_sha256 within the same mapping
+        for k, v in node.items():
+            if _looks_like_path(v):
+                cand = node.get(f"{k}_sha256")
+                if cand is None and k == "path":
+                    cand = node.get("sha256")
+                if _looks_like_sha(cand):
+                    refs.append((v, cand))
+        # artifacts: {name: path} + artifact_sha256: {name: sha} pairing
+        arts = node.get("artifacts")
+        asha = node.get("artifact_sha256")
+        if isinstance(arts, dict) and isinstance(asha, dict):
+            for name, p in arts.items():
+                if _looks_like_path(p) and _looks_like_sha(asha.get(name)):
+                    refs.append((p, asha[name]))
+        # dataset sub-block: pkl/meta/provenance path + <name>_sha256
+        ds = node.get("dataset")
+        if isinstance(ds, dict):
+            for name in ("pkl", "meta", "provenance"):
+                p = ds.get(name)
+                cand = ds.get(f"{name}_sha256")
+                if _looks_like_path(p) and _looks_like_sha(cand):
+                    refs.append((p, cand))
+        # recurse into nested mappings/lists
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                _refs_from_state_obj(v, refs)
+    elif isinstance(node, list):
+        for v in node:
+            _refs_from_state_obj(v, refs)
 
 
 def collect_all_refs():
+    import yaml  # local import: PyYAML is present in the runtime bootstrap
+
     state_text = STATE_PATH.read_text(encoding="utf-8")
     agents_text = AGENTS_PATH.read_text(encoding="utf-8")
     refs = []
-    # parse state yaml loosely: find path: value then nearest sha256: value in following/preceding lines
-    def scan_yaml_pairs(text):
-        out = []
-        lines = text.splitlines()
-        for idx, line in enumerate(lines):
-            m = re.match(r"\s*-?\s*(?:path|verdict_path|artifact_path|probe_artifact|oos_sweep|registry|summary|verdict|binding|gateway_spec|live_run|drift_report|kill_switch_test)\s*:\s*([^#\n]+)", line)
-            if not m:
-                continue
-            p = m.group(1).strip().strip('"').strip("'")
-            if "{" in p or not (p.endswith('.json') or p.endswith('.pkl') or p.endswith('.md')):
-                continue
-            # find sha in same or next few lines (prefer after)
-            sha = None
-            for j in range(idx, min(idx + 8, len(lines))):
-                sm = re.search(r"sha256[^:]*:\s*([0-9a-f]{64})", lines[j])
-                if sm:
-                    sha = sm.group(1)
-                    break
-            if sha is None:
-                for j in range(max(0, idx - 4), idx):
-                    sm = re.search(r"sha256[^:]*:\s*([0-9a-f]{64})", lines[j])
-                    if sm:
-                        sha = sm.group(1)
-                        break
-            if sha:
-                out.append((p, sha))
-        return out
-
-    refs.extend(scan_yaml_pairs(state_text))
-    # AGENTS has inline `(SHA256 ...)` and `sha256: ...` forms
+    # authoritative structured source first
+    try:
+        doc = yaml.safe_load(state_text)
+        _refs_from_state_obj(doc, refs)
+    except Exception:
+        pass
+    # AGENTS inline `` `path` (`sha`) `` form (correct name pairing)
     for m in re.finditer(r"(`?(?:reports|data)/[^`\s,)]+`?)\s*\((?:SHA256(?:-from-bytes)?\s*)?`?([0-9a-f]{64})`?\)", agents_text):
         refs.append((m.group(1).strip('`'), m.group(2)))
-    for m in re.finditer(r"([^\s:]+(?:\.json|\.pkl))\s+(?:SHA256\s+)?([0-9a-f]{64})", agents_text):
-        p = m.group(1).strip('`(),')
-        if '/' in p or p.startswith('campaign'):
-            refs.append((p, m.group(2)))
-    # normalize paths
+    # normalize, drop self-referential audit outputs (this tool cannot verify its
+    # own historical reports against mutable handoff hashes), and dedupe by path
+    # keeping the first (authoritative) hash seen.
+    seen = set()
     norm = []
     for p, s in refs:
         p = p.strip().strip('"').strip("'")
         if p.startswith('/home/runner'):
-            p = str(Path(p).relative_to(ROOT))
+            try:
+                p = str(Path(p).relative_to(ROOT))
+            except Exception:
+                continue
+        if not _looks_like_path(p):
+            continue
+        if p.startswith("reports/program_closure_integrity_audit_"):
+            continue
+        if p in seen:
+            continue
+        seen.add(p)
         norm.append((p, s))
-    # dedupe keep order
-    seen = set()
-    uniq = []
-    for p, s in norm:
-        if (p, s) not in seen:
-            seen.add((p, s))
-            uniq.append((p, s))
-    return uniq
+    return norm
 
 
 def verify_item(rel_path: str, expected_sha: str):
@@ -269,7 +276,7 @@ def build_report(ts: str):
         "generated_at_utc": ts,
         "real_data_only": True,
         "fabricated_data": False,
-        "scope": "C281B-C296 frozen artifacts and datasets referenced in research_state/state.yaml and AGENTS.md",
+        "scope": "C281B-C297 frozen artifacts and datasets referenced in research_state/state.yaml and AGENTS.md",
         "campaigns_audited": [r["campaign"] for r in campaign_rows],
         "n_references": len(items),
         "n_ok": sum(1 for it in items if it["sha256_match"] and it["exists"] and not it["errors"]),
