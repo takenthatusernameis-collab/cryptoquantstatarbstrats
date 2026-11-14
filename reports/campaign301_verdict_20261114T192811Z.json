@@ -1,0 +1,45 @@
+{
+  "generated_at_utc": "20261114T192811Z",
+  "campaign": 301,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "EDGE_PROVEN",
+  "edge_proven": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "finding": "Costed OOS edge proven in 109 config(s) on real per-asset OFI 5m data.",
+  "basis": "real_usd_m_perp_order_flow_imbalance_and_trade_sign_autocorrelation_per_asset_time_series_costed_oos_5m",
+  "dataset": {
+    "cache": "data/cache/campaign301_aggtrades_ofi.pkl",
+    "cache_sha256": "4ce779531636d833c285cbfd87fe1f46b91bc3d8447c92853be8550973f1b9cf",
+    "cache_meta": "data/cache/campaign301_aggtrades_ofi.meta.json",
+    "cache_meta_sha256": "67525e114b615dff6beb5a9798108ee00ec96d498a539811560b9f576e3e8197",
+    "cache_provenance": "data/cache/campaign301_aggtrades_ofi.provenance.json",
+    "cache_provenance_sha256": "49e48f03950b7666f8a19b45846e9795956215735cf22c5988c21bae516979b6",
+    "cache_pkl_bytes": 3676412,
+    "c300_execution_cache": "data/cache/campaign300_multianual_perp_funding_basis_ts_5m.pkl",
+    "c300_execution_cache_sha256": "2c86accda2f32b466d32c6d520f3424b24952f10e93ea1da9bf803f154cfb873",
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ],
+    "n_assets": 3,
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign301_oos_sweep_20261114T192811Z.json",
+  "oos_sweep_sha256": "e75e3e0c6217073155dde1c71779598eaf825461cdf290621f26e131e98b8a0a",
+  "registry_artifact": "reports/campaign301_tradable_edge_registry_20261114T192811Z.json",
+  "registry_sha256": "09fbf9fab292f00c589274e2443ae83e560683fe3c977833bba02c05013c4ae3",
+  "summary_artifact": "reports/campaign301_summary_20261114T192811Z.json",
+  "summary_sha256": "4ff4dca72169b47954d46a4423ad8a81fa80414f9203b0d15d710ce994416f0a",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real USDT-M perp aggTrades + real funding cashflows only",
+    "executed_fills: false"
+  ]
+}

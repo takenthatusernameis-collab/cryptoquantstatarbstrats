@@ -1,0 +1,194 @@
+{
+  "generated_at_utc": "20261114T192811Z",
+  "campaign": 301,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "EDGE_PROVEN",
+  "edge_proven": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "n_assets": 3,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 2880,
+      "test": 1152,
+      "step": 1152,
+      "per_asset": true
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_signals": [
+      "ofi_z",
+      "ofi_mom",
+      "buy_ratio_ma",
+      "ofi_per_trade_z",
+      "ofi_sign_autocorr",
+      "trade_intensity_z"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "threshold_combos": {
+      "ofi_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "ofi_mom": [
+        [
+          0.0001,
+          5e-05
+        ],
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0003,
+          0.00015
+        ]
+      ],
+      "buy_ratio_ma": [
+        [
+          0.02,
+          0.01
+        ],
+        [
+          0.05,
+          0.025
+        ],
+        [
+          0.1,
+          0.05
+        ]
+      ],
+      "ofi_per_trade_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "ofi_sign_autocorr": [
+        [
+          0.05,
+          0.02
+        ],
+        [
+          0.1,
+          0.05
+        ],
+        [
+          0.15,
+          0.075
+        ]
+      ],
+      "trade_intensity_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ]
+    },
+    "holding_periods_5m": [
+      1,
+      6,
+      24,
+      12
+    ],
+    "total_runs_per_asset": 216,
+    "total_runs": 648,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "causal segment-start decision, shift(1), mean-reversion exit to flat",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "ofi_z": "+z(signed_volume, L 5m bars)",
+      "ofi_mom": "+mean(sign(trade_sign_sum)*log(vwap/prev_vwap), L)",
+      "buy_ratio_ma": "+mean(buy_vol/(buy+sell), L) - 0.5",
+      "ofi_per_trade_z": "+z(signed_volume/trade_count, L)",
+      "ofi_sign_autocorr": "+corr(signed_volume[t], signed_volume[t-1], L)",
+      "trade_intensity_z": "+z(trade_count, L)"
+    },
+    "signal_direction": "long +1 when score>=entry, short -1 when score<=-entry, flat when |score|<=exit or no signal"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign301_oos_sweep_20261114T192811Z.json",
+      "sha256": "e75e3e0c6217073155dde1c71779598eaf825461cdf290621f26e131e98b8a0a"
+    },
+    "registry": {
+      "path": "reports/campaign301_tradable_edge_registry_20261114T192811Z.json",
+      "sha256": "09fbf9fab292f00c589274e2443ae83e560683fe3c977833bba02c05013c4ae3"
+    }
+  },
+  "summary": {
+    "n_total_runs": 648,
+    "n_assets": 3,
+    "runs_per_asset": 216,
+    "n_with_exposure": 545,
+    "n_zero_exposure": 103,
+    "n_edge_proven": 109,
+    "bh_oos_mean": 1.9006169599340188e-05,
+    "bh_oos_mean_by_asset": {
+      "BTCUSDT": 2.184207800640102e-05,
+      "ETHUSDT": 1.5231129127722672e-05,
+      "BCHUSDT": 1.9945301663896868e-05
+    }
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the 5m OFI / trade-sign-autocorrelation per-asset time-series space."
+}

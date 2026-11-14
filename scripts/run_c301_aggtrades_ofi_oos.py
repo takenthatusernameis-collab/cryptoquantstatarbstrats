@@ -389,29 +389,45 @@ def main() -> int:
                             exposure_total += int((sp != 0).sum())
                         turnover_total = float(sum(x[2] for x in segs))
 
+                        # Per-split B&H-with-funding net means on the SAME WF windows,
+                        # aggregated identically to the strategy leg (mean of per-split
+                        # means). Compared per cost slice, never cost-averaged vs a
+                        # zero-cost benchmark.
+                        bh_per_split_means = [m / L0 if L0 else 0.0 for m, L0 in
+                                              ((float(sr.sum()), int(len(sr))) for _, _, _ in splits)]
+                        bh_split_mean = float(np.mean(bh_per_split_means)) if bh_per_split_means else 0.0
                         slices = {}
                         all_sum_pos = True
+                        all_beat_bh = True
+                        all_beat_flat = True
                         net_means = []
                         for fee, slip in COST_GRID:
                             ck = f"fee{fee}_slip{slip}"
                             tc = (fee + slip) / 10000.0
                             nets, means = [], []
-                            for seg_sum, seg_len, tsum in segs:
+                            for (seg_sum, seg_len, tsum), bh_m in zip(segs, bh_per_split_means):
                                 net_sum = seg_sum - tc * tsum
                                 nets.append(net_sum)
                                 means.append(net_sum / seg_len if seg_len else 0.0)
                             net_sum = float(sum(nets))
+                            slice_mean = float(np.mean(means)) if means else 0.0
                             slices[ck] = {
                                 "oos_net_sum": net_sum,
-                                "oos_net_mean": float(np.mean(means)) if means else 0.0,
+                                "oos_net_mean": slice_mean,
                                 "oos_net_mean_per_split": [float(m) for m in means],
+                                "bh_oos_net_mean_per_split": [float(m) for m in bh_per_split_means],
+                                "bh_oos_net_mean": float(bh_split_mean),
                             }
                             net_means.extend(means)
                             if net_sum <= 0:
                                 all_sum_pos = False
+                            if not (slice_mean > bh_split_mean):
+                                all_beat_bh = False
+                            if not (slice_mean > 0.0):
+                                all_beat_flat = False
                         net_mean = float(np.mean(net_means)) if net_means else 0.0
-                        beats_bh = net_mean > bh_mean
-                        beats_flat = net_mean > 0.0
+                        beats_bh = bool(all_beat_bh)
+                        beats_flat = bool(all_beat_flat)
                         edge = bool(exposure_total > 0 and all_sum_pos and beats_bh and beats_flat)
 
                         results.append({
