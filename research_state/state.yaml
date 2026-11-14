@@ -1,4 +1,4 @@
-updated_at_utc: 20261114T114414Z
+updated_at_utc: 20261114T114859Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -6,8 +6,8 @@ active_initial_task: 'C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDIN
 next_campaign: C300
 known_bottleneck:
   id: c300_not_yet_executed_5m_per_asset_funding_basis_ts
-  as_of_utc: 20261114T114414Z
-  evidence: 'C299 COMPLETE frozen 2026-11-14T10:55:47Z NOT_TRADABLE 486 runs 0/486 edge mean_beats_benchmark_fail. C300 is the only remaining reachable heavy extension: same per-asset time-series funding-carry+spot/perp basis family at 5m with causal execution-cost overlay over 2020-01..2026-10. This refresh verified live (HTTP 200) the spot 5m source data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip for BTC/ETH/BCH 2020-01 and 2026-10, plus perp 5m and fundingRate 2026-10 zips; archive end 2026-10 (2026-11 404). Universe reduced to C299''s 3 full-coverage assets, removing re-probing of XRP/LTC/TRX/ADA/LINK/EOS. Compute bounded by precompute-once-per-asset. Suite green 1298 passed 2 skipped 0 failed at 2026-11-14T11:44:14Z.'
+  as_of_utc: 20261114T114859Z
+  evidence: 'C299 COMPLETE frozen 2026-11-14T10:55:47Z NOT_TRADABLE 486 runs 0/486 edge mean_beats_benchmark_fail. C300 is the only remaining reachable heavy extension: same per-asset time-series funding-carry+spot/perp basis family at 5m with causal execution-cost overlay over 2020-01..2026-10. This refresh verified live (HTTP 200) the spot 5m source data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip for BTC/ETH/BCH 2020-01 and 2026-10, plus perp 5m and fundingRate 2026-10 zips; archive end 2026-10 (2026-11 404). Universe reduced to C299''s 3 full-coverage assets, removing re-probing of XRP/LTC/TRX/ADA/LINK/EOS. Compute bounded by precompute-once-per-asset. Suite green 1298 passed 2 skipped 0 failed at 2026-11-14T11:48:59Z.'
   fix: 'Execute C300 end-to-end this turn: bootstrap deps if needed; build per-asset 5m ingest+preflight (scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py, scripts/preflight_c300.py) using spot 5m from data.binance.vision monthly zips and reusing C299''s 3 full-coverage assets on their contiguous real windows, fail-closed exclusions, SHA256-from-bytes; run scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end (not smoke) on the frozen grid; identical-strength edge rule; emit 5 SHA256-from-bytes artifacts (binding_constraint if NOT_TRADABLE); add tests schema/fail-closed/edge-rule/causality; pytest green 0 failed; sync AGENTS.md+state with paths+SHA256. Do not weaken gates/costs/edge rule, do not fabricate, do not claim edge without satisfying the costed OOS rule.'
   do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; present C287 blocked probes as unblocked; rerun/edit frozen C281B-C299 artifacts/cache; re-probe the 6 excluded candidates; use data-api 1000-row pagination for spot 5m.
 superseded_active_initial_task: 'C300 (prior message 2026-11-14T11:38:17Z) refreshed 2026-11-14T11:44:14Z with four verified bottleneck removals (spot 5m via data.binance.vision zips, C299 universe reuse, archive end 2026-10, compute bound). Prior text: C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDING-CARRY & BASIS WITH EXECUTION OVERLAY — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T11:38:17Z). C299 frozen NOT_TRADABLE (486 runs, 0/486 edge, mean_beats_benchmark_fail). C300 is the untested 5m per-asset time-series extension on the same real 2020-2026 archive with causal execution-cost overlay, same fail-closed costed-OOS rules. Mandatory in one turn: bootstrap+pytest green; ingest/preflight (scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py, scripts/preflight_c300.py) with SHA256-from-bytes cache+meta+provenance ready:true; ...'
@@ -554,7 +554,7 @@ campaign299:
     passed: 1298
     skipped: 2
     failed: 0
-    as_of_utc: 20261114T110734Z
+    as_of_utc: 20261114T114859Z
   json:
     path: reports/program_closure_integrity_audit_20261114T085109Z.json
     sha256: 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d
