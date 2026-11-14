@@ -391,10 +391,13 @@ def main() -> int:
 
                         # Per-split B&H-with-funding net means on the SAME WF windows,
                         # aggregated identically to the strategy leg (mean of per-split
-                        # means). Compared per cost slice, never cost-averaged vs a
-                        # zero-cost benchmark.
-                        bh_per_split_means = [m / L0 if L0 else 0.0 for m, L0 in
-                                              ((float(sr.sum()), int(len(sr))) for _, _, _ in splits)]
+                        # means). Computed from the full per-asset total return series
+                        # sliced per split (NOT from the leaked loop variable `sr`,
+                        # which held only the last strategy split's returns).
+                        bh_per_split_means = [
+                            float(total_asset_ret[tr_e:te_e].mean())
+                            for _, tr_e, te_e in splits
+                        ]
                         bh_split_mean = float(np.mean(bh_per_split_means)) if bh_per_split_means else 0.0
                         slices = {}
                         all_sum_pos = True
