@@ -530,6 +530,7 @@ def main() -> int:
         "verdict": verdict,
         "real_data_only": True,
         "fabricated_data": False,
+        "executed_fills": False,
     }
     op_reg = reports / f"campaign300_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
