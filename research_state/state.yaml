@@ -1,15 +1,56 @@
-updated_at_utc: 20261114T114859Z
+updated_at_utc: 20261114T123533Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDING-CARRY & BASIS WITH EXECUTION OVERLAY — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T11:44:14Z). C299 frozen NOT_TRADABLE (486 runs, 0/486 edge, mean_beats_benchmark_fail). C300 is the untested 5m per-asset time-series extension on the same real 2020-2026 archive with causal execution-cost overlay, same fail-closed costed-OOS rules. Bottlenecks removed this refresh (verified live): spot 5m = data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip HTTP 200 for BTC/ETH/BCH 2020-01 and 2026-10 (replaces data-api 1000-row pagination); universe = C299 full-coverage {BTCUSDT,ETHUSDT,BCHUSDT} only (~738 zips, no re-probe of XRP/LTC/TRX/ADA/LINK/EOS); archive end = 2026-10; compute-bounded precompute-once per asset. Mandatory in one turn: bootstrap+pytest green; scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py + scripts/preflight_c300.py (real 5m perp close from futures/um 5m zips native no resample, real spot 5m close from spot zips, native 8h/4h funding rates/cashflows, SHA256-from-bytes cache+meta+provenance, real_data_only:true fabricated_data:false, fail-closed no imputation, per-asset coverage+exclusions, preflight ready:true); scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end frozen grid signals {funding_level,funding_z,basis_ma,basis_z,perp_mom,basis_mr} lookbacks {288,1008,2016} >=3 threshold combos holds {1,6,24,12} flat WF 25920/8640/8640 real native-boundary funding cashflows cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps benchmarks flat and per-asset B&H-with-funding same windows; edge rule identical strength (exposure>0, all cost slices net sum>0, mean per-split net > per-asset B&H-with-funding and > flat) executed_fills:false; 5 SHA256-from-bytes artifacts campaign300_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; tests test_preflight_c300.py + test_c300_*.py + pytest green 0 failed; sync AGENTS.md+state paths+SHA256. NOT_TRADABLE valid if gates/costs hold. Never fabricate/weaken/claim edge. C287 external-only blocked.'
+active_initial_task: 'C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDING-CARRY & BASIS WITH EXECUTION OVERLAY — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T12:35:33Z). C299 frozen NOT_TRADABLE (486 runs, 0/486 edge, mean_beats_benchmark_fail). C300 is the untested 5m per-asset time-series extension on the same real 2020-2026 archive with causal execution-cost overlay, same fail-closed costed-OOS rules. Bottlenecks removed this refresh (verified live AND parsed): spot 5m = data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip HTTP 200 for BTC/ETH/BCH 2020-01 and 2026-10 (BTCUSDT 2020-01 spot+perp each parsed to 8,928 rows x 12 cols on the exact UTC 5m grid 2020-01-01T00:00Z..2020-01-31T23:55Z, real closes; existing read_zip_csv parser reused), replacing data-api 1000-row pagination; universe = C299 full-coverage {BTCUSDT,ETHUSDT,BCHUSDT} only (~738 zips, no re-probe of XRP/LTC/TRX/ADA/LINK/EOS); archive end = 2026-10; compute-bounded precompute-once per asset. No C300 script/test/cache/report exists yet (clean slate; verified scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* all empty). Mandatory in one turn: bootstrap+pytest green; scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py + scripts/preflight_c300.py (real 5m perp close from futures/um 5m zips native no resample, real spot 5m close from spot zips, native 8h/4h funding rates/cashflows, SHA256-from-bytes cache+meta+provenance, real_data_only:true fabricated_data:false, fail-closed no imputation, per-asset coverage+exclusions, preflight ready:true); scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end frozen grid signals {funding_level,funding_z,basis_ma,basis_z,perp_mom,basis_mr} lookbacks {288,1008,2016} >=3 threshold combos holds {1,6,24,12} flat WF 25920/8640/8640 real native-boundary funding cashflows cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps benchmarks flat and per-asset B&H-with-funding same windows; edge rule identical strength (exposure>0, all cost slices net sum>0, mean per-split net > per-asset B&H-with-funding and > flat) executed_fills:false; 5 SHA256-from-bytes artifacts campaign300_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; tests test_preflight_c300.py + test_c300_*.py + pytest green 0 failed; sync AGENTS.md+state paths+SHA256. NOT_TRADABLE valid if gates/costs hold. Never fabricate/weaken/claim edge. C287 external-only blocked.'
 next_campaign: C300
 known_bottleneck:
   id: c300_not_yet_executed_5m_per_asset_funding_basis_ts
-  as_of_utc: 20261114T114859Z
-  evidence: 'C299 COMPLETE frozen 2026-11-14T10:55:47Z NOT_TRADABLE 486 runs 0/486 edge mean_beats_benchmark_fail. C300 is the only remaining reachable heavy extension: same per-asset time-series funding-carry+spot/perp basis family at 5m with causal execution-cost overlay over 2020-01..2026-10. This refresh verified live (HTTP 200) the spot 5m source data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip for BTC/ETH/BCH 2020-01 and 2026-10, plus perp 5m and fundingRate 2026-10 zips; archive end 2026-10 (2026-11 404). Universe reduced to C299''s 3 full-coverage assets, removing re-probing of XRP/LTC/TRX/ADA/LINK/EOS. Compute bounded by precompute-once-per-asset. Suite green 1298 passed 2 skipped 0 failed at 2026-11-14T11:48:59Z.'
+  as_of_utc: 20261114T123533Z
+  evidence: 'C299 COMPLETE frozen 2026-11-14T10:55:47Z NOT_TRADABLE 486 runs 0/486 edge mean_beats_benchmark_fail. C300 is the only remaining reachable heavy extension: same per-asset time-series funding-carry+spot/perp basis family at 5m with causal execution-cost overlay over 2020-01..2026-10. This refresh (2026-11-14T12:35:33Z) re-verified live AND parsed the four execution bottlenecks: spot 5m source data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip HTTP 200 for BTC/ETH/BCH 2020-01 and 2026-10, and BTCUSDT 2020-01 spot+perp each parsed to 8,928 rows x 12 cols on the exact UTC 5m grid (2020-01-01T00:00Z..2020-01-31T23:55Z, real closes 7179.78->9352.89 spot / 7175.25->9364.51 perp) so the existing read_zip_csv parser is reused unchanged; plus perp 5m and fundingRate 2026-10 zips; archive end 2026-10 (2026-11 404). Universe reduced to C299s 3 full-coverage assets, removing re-probing of XRP/LTC/TRX/ADA/LINK/EOS. Compute bounded by precompute-once-per-asset. No C300 script/test/cache/report exists yet (clean slate). Suite green 1298 passed 2 skipped 0 failed (134.08s) at 2026-11-14T12:35:33Z.'
   fix: 'Execute C300 end-to-end this turn: bootstrap deps if needed; build per-asset 5m ingest+preflight (scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py, scripts/preflight_c300.py) using spot 5m from data.binance.vision monthly zips and reusing C299''s 3 full-coverage assets on their contiguous real windows, fail-closed exclusions, SHA256-from-bytes; run scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end (not smoke) on the frozen grid; identical-strength edge rule; emit 5 SHA256-from-bytes artifacts (binding_constraint if NOT_TRADABLE); add tests schema/fail-closed/edge-rule/causality; pytest green 0 failed; sync AGENTS.md+state with paths+SHA256. Do not weaken gates/costs/edge rule, do not fabricate, do not claim edge without satisfying the costed OOS rule.'
   do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; present C287 blocked probes as unblocked; rerun/edit frozen C281B-C299 artifacts/cache; re-probe the 6 excluded candidates; use data-api 1000-row pagination for spot 5m.
+c300_status:
+  state: not_started_clean_slate
+  as_of_utc: 20261114T123533Z
+  verified_no_artifacts: true
+  checked_paths:
+  - scripts/*c300*
+  - tests/*c300*
+  - data/cache/*c300*
+  - reports/*campaign300*
+  deps_present:
+    numpy: 2.5.4
+    pandas: 3.1.1
+    scipy: 1.18.1
+    statsmodels: 0.15.0
+    scikit-learn: 1.9.1
+  data_sources_live_parsed:
+    spot_5m_zip: 'https://data.binance.vision/data/spot/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip'
+    perp_5m_zip: 'https://data.binance.vision/data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip'
+    funding_zip: 'https://data.binance.vision/data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip'
+    parsed_btc_2020_01:
+      spot_rows: 8928
+      spot_cols: 12
+      spot_first_close: 7179.78
+      spot_last_close: 9352.89
+      perp_rows: 8928
+      perp_cols: 12
+      perp_first_close: 7175.25
+      perp_last_close: 9364.51
+      funding_rows: 93
+      funding_interval_hours: 8
+    archive_end: '2026-10'
+    archive_end_reason: 2026-11 returns 404 (no partial month)
+  pytest:
+    passed: 1298
+    skipped: 2
+    failed: 0
+    duration_s: 134.08
+    as_of_utc: 20261114T123533Z
+  post_c300_closure: 'After C300 the entire funding-carry/spot-perp basis family is CLOSED at 5m+1h, cross-sectional+per-asset, single+cross-venue over 2020-01..2026-10 (0 costed-OOS edge). Do NOT re-skin the family (no lookback/hold/threshold variants, no re-probe of the 6 excluded candidates, no relabeling caches). Only remaining tradable path is external execution (C287), blocked by testnet REST 451 + fapi 451 + bybit 403 + no credentials.'
+  real_data_only: true
+  fabricated_data: false
 superseded_active_initial_task: 'C300 (prior message 2026-11-14T11:38:17Z) refreshed 2026-11-14T11:44:14Z with four verified bottleneck removals (spot 5m via data.binance.vision zips, C299 universe reuse, archive end 2026-10, compute bound). Prior text: C300 SOLE ACTIVE CAMPAIGN: 5m PER-ASSET TIME-SERIES FUNDING-CARRY & BASIS WITH EXECUTION OVERLAY — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T11:38:17Z). C299 frozen NOT_TRADABLE (486 runs, 0/486 edge, mean_beats_benchmark_fail). C300 is the untested 5m per-asset time-series extension on the same real 2020-2026 archive with causal execution-cost overlay, same fail-closed costed-OOS rules. Mandatory in one turn: bootstrap+pytest green; ingest/preflight (scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py, scripts/preflight_c300.py) with SHA256-from-bytes cache+meta+provenance ready:true; ...'
 superseded_known_bottleneck:
   id: c300_not_yet_executed_5m_per_asset_funding_basis_ts
