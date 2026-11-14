@@ -1,0 +1,85 @@
+{
+  "generated_at_utc": "20261114T190714Z",
+  "campaign": 301,
+  "part": "provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "build_source": "archive_download_aggtrades_plus_c300_reuse",
+  "universe_rule": "Universe = C299/C300's verified {BTCUSDT, ETHUSDT, BCHUSDT} (no re-probe of the 6 excluded candidates). Bars are native 5m from real Binance USDT-M perp aggTrades (floor(transact_time_ms / 300000)); buy_volume = Sum(quantity where is_buyer_maker==false), sell_volume = Sum(quantity where is_buyer_maker==true); trade_sign_sum = Sum(+1 if false else -1). Execution price = perp 5m close and funding = native 8h funding rate reused from the verified C300 cache (2c86accd...), sliced to the 2023-01..02 window. Bars with no trades are gap bars carried as NaN and NEVER imputed/forward/back-filled; they block OFI at those bars. No impute/ffill/resample of any derived series.",
+  "cache_serialization": "plain numpy ndarrays; index stored as datetime64[us]; no pandas Series/DataFrame legs",
+  "push_limit_note": "compact ndarray form is 3.68 MB (< 100 MB). Asserted on disk before success.",
+  "n_candidates": 3,
+  "n_selected": 3,
+  "selected_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BCHUSDT"
+  ],
+  "excluded_symbols": {},
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "window_start_utc": "2023-01-01T00:00:00Z",
+      "window_end_utc": "2023-02-28T23:55:00Z",
+      "n_bars": 16992,
+      "n_trade_bars": 16992,
+      "n_gap_bars": 0,
+      "funding_rows": 177,
+      "c300_window": {
+        "window_start_utc": "2023-01-01T00:00:00Z",
+        "window_end_utc": "2023-02-28T23:55:00Z",
+        "perp_close_nan": 0,
+        "funding_rows": 177
+      },
+      "n_days_with_trades": 59
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "window_start_utc": "2023-01-01T00:00:00Z",
+      "window_end_utc": "2023-02-28T23:55:00Z",
+      "n_bars": 16992,
+      "n_trade_bars": 16992,
+      "n_gap_bars": 0,
+      "funding_rows": 177,
+      "c300_window": {
+        "window_start_utc": "2023-01-01T00:00:00Z",
+        "window_end_utc": "2023-02-28T23:55:00Z",
+        "perp_close_nan": 0,
+        "funding_rows": 177
+      },
+      "n_days_with_trades": 59
+    },
+    "BCHUSDT": {
+      "status": "ok",
+      "window_start_utc": "2023-01-01T00:00:00Z",
+      "window_end_utc": "2023-02-28T23:55:00Z",
+      "n_bars": 16992,
+      "n_trade_bars": 16992,
+      "n_gap_bars": 0,
+      "funding_rows": 177,
+      "c300_window": {
+        "window_start_utc": "2023-01-01T00:00:00Z",
+        "window_end_utc": "2023-02-28T23:55:00Z",
+        "perp_close_nan": 0,
+        "funding_rows": 177
+      },
+      "n_days_with_trades": 59
+    }
+  },
+  "months": [
+    "2023-01",
+    "2023-02"
+  ],
+  "window": {
+    "start": "2023-01-01T00:00:00Z",
+    "end": "2023-02-28T23:55:00Z"
+  },
+  "interval": "5m",
+  "c300_reuse": {
+    "cache": "data/cache/campaign300_multianual_perp_funding_basis_ts_5m.pkl",
+    "cache_sha256": "2c86accda2f32b466d32c6d520f3424b24952f10e93ea1da9bf803f154cfb873",
+    "meta_sha256": "d29447eea2c137afd321ad22af76ad28f425dd25891bda2f592d2a9731ad7cf7",
+    "provenance_sha256": "d0b16ccf77b1adc931e64c361b50cbc97c38263ab8e144671b575aad6e2526b0"
+  }
+}
