@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-14T22:22:31Z
+**Handoff refreshed:** 2026-11-14T22:24:22Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 
-**Verified state (as of 2026-11-14T22:15:34Z, handoff checked 2026-11-14T22:22:31Z):** `python -m pytest tests/ -q` → **1358 passed, 2 skipped, 0 failed** (284.5s; includes 19 new C302 tests). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. **Dependency note:** `pytest-asyncio` (declared in `[project.optional-dependencies].dev` but may be absent from runtime) is required for `tests/test_playbooks.py` (16 async tests); install via `python -m pip install "pytest-asyncio>=0.23"` if missing — a bootstrap gap, NOT a research result. The economic stat-arb program is **NOT closed — a new real data family (premium index) was reachable and has been added**:
+**Verified state (as of 2026-11-14T22:24:22Z, handoff checked 2026-11-14T22:24:22Z):** `python -m pytest tests/ -q` → **1358 passed, 2 skipped, 0 failed** (284.5s; includes 19 new C302 tests). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. **Dependency note:** `pytest-asyncio` (declared in `[project.optional-dependencies].dev` but may be absent from runtime) is required for `tests/test_playbooks.py` (16 async tests); install via `python -m pip install "pytest-asyncio>=0.23"` if missing — a bootstrap gap, NOT a research result. The economic stat-arb program is **NOT closed — a new real data family (premium index) was reachable and has been added**:
 
 - **C302 (NEW real family: USDT-M perp `premiumIndexKlines` / continuous fair-value premium, native 1h, 2020-01..2026-10, 486 runs):** executed end-to-end at `20261114T215720Z` → **NOT_TRADABLE**, `edge_proven:false`, **0/486 edge**, 446 with exposure / 40 zero-exposure, binding `mean_beats_benchmark_fail`. This is a genuinely new real signal family (the real-time premium index that drives funding) distinct from C291/C293/C298/C299/C300 (funding/basis) and C301 (OFI). Cache `data/cache/campaign302_premium_index_basis.pkl` = 7,192,198 B, SHA256 `2f0b45cff41baecf1ab4ddb52de68664ad91f3a4a6f95086f0fc468f7cd86063`. Artifacts `reports/campaign302_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261114T215720Z.json` all carry `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`.
 - **C281B→C301:** all **COMPLETE formal negative results** (0 costed-OOS edge, frozen). Binding constraints: `cost_sensitivity` / `zero_exposure` / `mean_beats_benchmark_fail`.
@@ -13,7 +13,7 @@
 
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-14T22:22:31Z) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
+## INITIAL TASK MESSAGE (2026-11-14T22:24:22Z) — EXECUTE C303: CROSS-SECTIONAL PREMIUM-INDEX CARRY (HEAVY WORK, MANDATORY)
 
 **C302 is a COMPLETE formal negative (0/486 costed-OOS edge, binding `mean_beats_benchmark_fail`) and is FROZEN.** The program is **not** closed: a new real data family (`premiumIndexKlines`) is reachable and only its per-asset time-series form has been tested. **Do NOT re-run C302 or re-skin the closed funding/basis/OFI families.**
 
