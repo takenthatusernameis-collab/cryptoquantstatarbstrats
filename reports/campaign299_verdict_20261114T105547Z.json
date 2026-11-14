@@ -1,0 +1,43 @@
+{
+  "generated_at_utc": "20261114T105547Z",
+  "campaign": 299,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "finding": "No costed OOS edge proven on the real per-asset funding-carry/basis time-series family (486 runs, 0 edge).",
+  "basis": "real_usd_m_perp_funding_carry_and_spot_perp_basis_per_asset_time_series_costed_oos",
+  "dataset": {
+    "cache": "data/cache/campaign299_multianual_perp_funding_basis_ts.pkl",
+    "cache_sha256": "ef92fdba3dade2503138abc723a74dc43d8fc3a2ac1c3db8ae248c762c4669d5",
+    "cache_meta": "data/cache/campaign299_multianual_perp_funding_basis_ts.meta.json",
+    "cache_meta_sha256": "4031ed9c626938d4c528b832ebb53c1613d1d35323638218aebadab2e3a3b198",
+    "cache_provenance": "data/cache/campaign299_multianual_perp_funding_basis_ts.provenance.json",
+    "cache_provenance_sha256": "1d99f3b45fcd3966582c5310d58b7072bfe85d2d456d40dd1116abb883571383",
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ],
+    "n_assets": 3,
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign299_oos_sweep_20261114T105547Z.json",
+  "oos_sweep_sha256": "0098cb1ed237474ca5710c7b8d5431f03925e42878d9dddb6788c70e93087c76",
+  "registry_artifact": "reports/campaign299_tradable_edge_registry_20261114T105547Z.json",
+  "registry_sha256": "c5403dc88e6544f795d62408071a2dc86fb2d6aa96b37518c79d9355757c634d",
+  "summary_artifact": "reports/campaign299_summary_20261114T105547Z.json",
+  "summary_sha256": "bf2e7fee064daea13610c909ea782ea32fa213b63e4bd171094a6cdb08bc98a8",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real USDT-M perp 1h klines + real funding cashflows only",
+    "executed_fills: false"
+  ],
+  "binding_constraint_artifact": "reports/campaign299_binding_constraint_20261114T105547Z.json",
+  "binding_constraint_sha256": "1d4b4fbd59fc32ea279a7e225f0f4dc3b0295676b8fd5a38662dabcaf8891bc3"
+}

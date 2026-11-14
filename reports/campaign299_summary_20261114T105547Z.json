@@ -1,0 +1,186 @@
+{
+  "generated_at_utc": "20261114T105547Z",
+  "campaign": 299,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 3,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 2160,
+      "test": 720,
+      "step": 720,
+      "per_asset": true
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_signals": [
+      "funding_level",
+      "funding_z",
+      "basis_ma",
+      "basis_z",
+      "perp_mom",
+      "basis_mr"
+    ],
+    "lookbacks_1h": [
+      168,
+      720,
+      2160
+    ],
+    "threshold_combos": {
+      "funding_level": [
+        [
+          0.0001,
+          0.0
+        ],
+        [
+          0.0002,
+          5e-05
+        ],
+        [
+          0.0003,
+          0.0001
+        ]
+      ],
+      "funding_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "basis_ma": [
+        [
+          0.001,
+          0.0005
+        ],
+        [
+          0.002,
+          0.001
+        ],
+        [
+          0.003,
+          0.0015
+        ]
+      ],
+      "basis_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "perp_mom": [
+        [
+          0.0001,
+          5e-05
+        ],
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0003,
+          0.00015
+        ]
+      ],
+      "basis_mr": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ]
+    },
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "total_runs_per_asset": 162,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "causal segment-start decision, shift(1), mean-reversion exit to flat",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "funding_level": "-funding_rate_ffill_known_at_t-1",
+      "funding_z": "-z(funding_rate_ffill, L 1h bars)",
+      "basis_ma": "-mean((perp-spot)/spot, L 1h bars)",
+      "basis_z": "-z((perp-spot)/spot, L 1h bars)",
+      "perp_mom": "+mean(perp 1h log-return, L)",
+      "basis_mr": "-z((perp-spot)/spot, L 1h bars)  (mean reversion)"
+    },
+    "signal_direction": "long +1 when score>=entry, short -1 when score<=-entry, flat when |score|<=exit or no signal"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign299_oos_sweep_20261114T105547Z.json",
+      "sha256": "0098cb1ed237474ca5710c7b8d5431f03925e42878d9dddb6788c70e93087c76"
+    },
+    "registry": {
+      "path": "reports/campaign299_tradable_edge_registry_20261114T105547Z.json",
+      "sha256": "c5403dc88e6544f795d62408071a2dc86fb2d6aa96b37518c79d9355757c634d"
+    }
+  },
+  "summary": {
+    "n_total_runs": 486,
+    "n_assets": 3,
+    "runs_per_asset": 162,
+    "n_with_exposure": 456,
+    "n_zero_exposure": 30,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 4.752403937196329e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the per-asset funding-carry/basis time-series space."
+}
