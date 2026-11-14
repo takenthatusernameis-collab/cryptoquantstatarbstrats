@@ -1,20 +1,20 @@
-updated_at_utc: 20261114T172149Z
+updated_at_utc: 20261114T173025Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'C300 SOLE ACTIVE CAMPAIGN (handoff refreshed 2026-11-14T17:21:49Z): 5m PER-ASSET TIME-SERIES FUNDING-CARRY & SPOT/PERP BASIS STAT-ARB WITH EXECUTION OVERLAY — MANDATORY HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C299 closed the per-asset time-series funding-carry + spot/perp basis family at 1h as NOT_TRADABLE (binding mean_beats_benchmark_fail, 486 runs, 0/486 edge) on the real 2020-01..2026-10 archive; C300 is the untested 5m extension with a causal execution-cost overlay and the same fail-closed costed-OOS rules. C300 is NOT yet executed: on-disk re-check confirms no scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* exist (clean slate). Data bottleneck removed: all 738/738 zips verified HTTP 200 (3 assets × 82 months × 3 streams, 198,521,618 bytes); perp 5m complete (718,848 bars/asset); spot 5m carries 462 missing bars/asset as NaN (never imputed); funding 8h native; universe {BTCUSDT, ETHUSDT, BCHUSDT}. FROZEN grid: 6 signals {funding_level, funding_z, basis_ma, basis_z, perp_mom, basis_mr} × 3 lookbacks {288,1008,2016} × 3 (entry,exit) combos × 4 holds {1,6,24,12} = 648 runs (216/asset); WF train=25920/test=8640/step=8640; costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; edge rule: oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean per-split OOS net mean > mean per-split per-asset B&H-with-funding OOS net mean on same WF windows (and > flat). Mandatory heavy work: bootstrap+pytest green; scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py + scripts/preflight_c300.py ready:true; scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end over frozen 648-run grid; 5 SHA256-from-bytes reports/campaign300_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; tests test_preflight_c300.py + test_c300_*.py; pytest 0 failed; sync AGENTS.md+state with paths+SHA256. NOT_TRADABLE is a valid heavy outcome; never claim a tradable edge unless the costed OOS rule is satisfied. C301 (real order-flow imbalance/trade-sign autocorrelation from Binance aggTrades) is pre-registered; do not start before C300 is frozen. C287 external-only (testnet REST 451 + fapi 451 + bybit 403 + no credentials), decoupled, must not preempt C300. Never fabricate data/fills/credentials, never weaken gates/costs/edge rule, never relabel caches, never create/read/edit HANDOFF.md, never edit .github/workflows/main.yml.'
+active_initial_task: 'C300 SOLE ACTIVE CAMPAIGN (handoff refreshed 2026-11-14T17:30:25Z): 5m PER-ASSET TIME-SERIES FUNDING-CARRY & SPOT/PERP BASIS STAT-ARB WITH EXECUTION OVERLAY — MANDATORY HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C299 closed the per-asset time-series funding-carry + spot/perp basis family at 1h as NOT_TRADABLE (binding mean_beats_benchmark_fail, 486 runs, 0/486 edge) on the real 2020-01..2026-10 archive; C300 is the untested 5m extension with a causal execution-cost overlay and the same fail-closed costed-OOS rules. C300 is NOT yet executed: on-disk re-check confirms no scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* exist (clean slate). Data bottleneck removed: all 738/738 zips verified HTTP 200 (3 assets × 82 months × 3 streams, 198,521,618 bytes); perp 5m complete (718,848 bars/asset); spot 5m carries 462 missing bars/asset as NaN (never imputed); funding 8h native; universe {BTCUSDT, ETHUSDT, BCHUSDT}. FROZEN grid: 6 signals {funding_level, funding_z, basis_ma, basis_z, perp_mom, basis_mr} × 3 lookbacks {288,1008,2016} × 3 (entry,exit) combos × 4 holds {1,6,24,12} = 648 runs (216/asset); WF train=25920/test=8640/step=8640; costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps; edge rule: oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean per-split OOS net mean > mean per-split per-asset B&H-with-funding OOS net mean on same WF windows (and > flat). Mandatory heavy work: bootstrap+pytest green; scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py + scripts/preflight_c300.py ready:true; scripts/run_c300_multianual_funding_basis_ts_oos.py end-to-end over frozen 648-run grid; 5 SHA256-from-bytes reports/campaign300_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; tests test_preflight_c300.py + test_c300_*.py; pytest 0 failed; sync AGENTS.md+state with paths+SHA256. NOT_TRADABLE is a valid heavy outcome; never claim a tradable edge unless the costed OOS rule is satisfied. C301 (real order-flow imbalance/trade-sign autocorrelation from Binance aggTrades) is pre-registered; do not start before C300 is frozen. C287 external-only (testnet REST 451 + fapi 451 + bybit 403 + no credentials), decoupled, must not preempt C300. Never fabricate data/fills/credentials, never weaken gates/costs/edge rule, never relabel caches, never create/read/edit HANDOFF.md, never edit .github/workflows/main.yml.'
 next_campaign: C301
 known_bottleneck:
   id: c300_not_executed_5m_per_asset_funding_basis_ts
-  as_of_utc: 20261114T172149Z
+  as_of_utc: 20261114T173025Z
   status: no_data_bottleneck_campaign_pending_execution
-  evidence: 'All 738/738 C300 zips verified HTTP 200 (3 assets × 82 months × 3 streams, 198,521,618 bytes); perp 5m complete (718,848 bars/asset); spot 5m carries 462 missing bars/asset as NaN (never imputed); funding 8h native (7,488 data rows/asset); universe {BTCUSDT, ETHUSDT, BCHUSDT}. No data/compute bottleneck blocks C300. The only gap is execution: no scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* exist on disk (clean slate as of 2026-11-14T17:21:49Z). C301 (real order-flow imbalance/trade-sign autocorrelation from Binance aggTrades) is pre-registered; do not start before C300 is frozen.'
+  evidence: 'All 738/738 C300 zips verified HTTP 200 (3 assets × 82 months × 3 streams, 198,521,618 bytes); perp 5m complete (718,848 bars/asset); spot 5m carries 462 missing bars/asset as NaN (never imputed); funding 8h native (7,488 data rows/asset); universe {BTCUSDT, ETHUSDT, BCHUSDT}. No data/compute bottleneck blocks C300. Live re-verification at 2026-11-14T17:30:30Z: BTCUSDT perp 5m 2020-01 → 200 (394,395 B), ETHUSDT spot 5m 2026-10 → 200 (438,559 B), BCHUSDT funding 2026-10 → 200 (947 B), C301 aggTrades spot 2020-01 → 200 (214,923,676 B) and perp 2020-01 → 200 (102,586,079 B). The only gap is execution: no scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* exist on disk (clean slate as of 2026-11-14T17:30:25Z). C301 (real order-flow imbalance/trade-sign autocorrelation from Binance aggTrades) is pre-registered; do not start before C300 is frozen.'
   fix: 'Execute C300 end-to-end this turn: (1) bootstrap deps if needed and run python -m pytest tests/ -q (baseline 1298 passed, 2 skipped, 0 failed at 2026-11-14T13:29:41Z); (2) write scripts/ingest_c300_multianual_perp_funding_basis_ts_5m.py and scripts/preflight_c300.py reusing C299 read_zip_csv/funding-boundary/coverage logic; build per-asset 5m panels 2020-01..2026-10 with real perp 5m close, real spot 5m close for the basis leg, native 8h funding cashflows; SHA256-from-bytes cache+meta+provenance at data/cache/campaign300_multianual_perp_funding_basis_ts_5m.{pkl,meta.json,provenance.json}; real_data_only:true, fabricated_data:false; fail-closed, no imputation/forward/back-fill; record the 462 spot gap bars; preflight exit 0 ready:true; (3) write scripts/run_c300_multianual_funding_basis_ts_oos.py executed end-to-end (not smoke) over the frozen 648-run grid; precompute causal rolling features once per asset on full 5m series, slice per WF split, vectorized PnL; real funding cashflow at native boundary causal; executed_fills:false; fail-closed causal gates; block and record reason if diagnostics fail; (4) edge rule identical strength never relaxed: oos_edge_proven=true IFF OOS exposure>0 AND all cost slices OOS net sum>0 AND mean per-split OOS net mean > mean per-split per-asset B&H-with-funding OOS net mean on same WF windows (and > flat); (5) emit 5 SHA256-from-bytes reports/campaign300_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (binding_constraint required if NOT_TRADABLE); (6) add tests/test_preflight_c300.py and tests/test_c300_*.py (schema, fail-closed, edge rule, no-lookahead/funding-boundary causality, 462-gap NaN handling); run python -m pytest tests/ -q green; (7) sync AGENTS.md + research_state/state.yaml with all new paths+SHA256. NOT_TRADABLE is a valid heavy outcome; never claim a tradable edge unless the costed OOS rule is actually satisfied.'
   do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; present C287 blocked probes as unblocked; rerun/edit frozen C281B-C299 artifacts/cache; re-skin the closed funding-carry/spot-perp basis family (no lookback/hold/threshold variants, no re-probe of the 6 excluded candidates).
 
 c300_status:
   state: not_started
-  as_of_utc: 20261114T172149Z
+  as_of_utc: 20261114T173025Z
   verdict: none
   n_total_runs: 0
   n_with_exposure: 0
@@ -75,6 +75,25 @@ c300_status:
       spot_5m_grid_ok_reason: 'intra-month missing bars in 12 months per asset'
       duplicate_timestamps: 0
       nan_close_rows: 0
+    data_sources_reverified_20261114T173030Z:
+      probe_type: HTTP_HEAD
+      results:
+      - url: https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/5m/BTCUSDT-5m-2020-01.zip
+        status: 200
+        bytes: 394395
+      - url: https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/5m/ETHUSDT-5m-2026-10.zip
+        status: 200
+        bytes: 438559
+      - url: https://data.binance.vision/data/futures/um/monthly/fundingRate/BCHUSDT/BCHUSDT-fundingRate-2026-10.zip
+        status: 200
+        bytes: 947
+      - url: https://data.binance.vision/data/spot/monthly/aggTrades/BTCUSDT/BTCUSDT-aggTrades-2020-01.zip
+        status: 200
+        bytes: 214923676
+      - url: https://data.binance.vision/data/futures/um/monthly/aggTrades/BTCUSDT/BTCUSDT-aggTrades-2020-01.zip
+        status: 200
+        bytes: 102586079
+      bottleneck: none
   pytest:
     passed: 1298
     skipped: 2
@@ -83,7 +102,7 @@ c300_status:
     as_of_utc: 20261114T132941Z
   real_data_only: true
   fabricated_data: false
-superseded_active_initial_task: 'C300 (2026-11-14T15:29:22Z) — NOT executed; remains the sole active campaign awaiting mandatory heavy work. No C300 artifacts exist on disk (scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* all empty as of 2026-11-14T17:21:49Z). Do not fabricate SHAs or completion claims. C301 remains pre-registered; do not start before C300 is frozen.'
+superseded_active_initial_task: 'C300 (2026-11-14T15:29:22Z) — NOT executed; remains the sole active campaign awaiting mandatory heavy work. No C300 artifacts exist on disk (scripts/*c300*, tests/*c300*, data/cache/*c300*, reports/*campaign300* all empty as of 2026-11-14T17:30:25Z). Do not fabricate SHAs or completion claims. C301 remains pre-registered; do not start before C300 is frozen.'
 superseded_known_bottleneck:
   id: c300_not_yet_executed_5m_per_asset_funding_basis_ts
   as_of_utc: 20261114T113817Z
