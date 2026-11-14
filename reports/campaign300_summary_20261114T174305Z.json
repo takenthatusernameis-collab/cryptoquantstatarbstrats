@@ -1,0 +1,194 @@
+{
+  "generated_at_utc": "20261114T174305Z",
+  "campaign": 300,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "n_assets": 3,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 25920,
+      "test": 8640,
+      "step": 8640,
+      "per_asset": true
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_signals": [
+      "funding_level",
+      "funding_z",
+      "basis_ma",
+      "basis_z",
+      "perp_mom",
+      "basis_mr"
+    ],
+    "lookbacks_5m": [
+      288,
+      1008,
+      2016
+    ],
+    "threshold_combos": {
+      "funding_level": [
+        [
+          0.0001,
+          0.0
+        ],
+        [
+          0.0002,
+          5e-05
+        ],
+        [
+          0.0003,
+          0.0001
+        ]
+      ],
+      "funding_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "basis_ma": [
+        [
+          0.001,
+          0.0005
+        ],
+        [
+          0.002,
+          0.001
+        ],
+        [
+          0.003,
+          0.0015
+        ]
+      ],
+      "basis_z": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ],
+      "perp_mom": [
+        [
+          0.0001,
+          5e-05
+        ],
+        [
+          0.0002,
+          0.0001
+        ],
+        [
+          0.0003,
+          0.00015
+        ]
+      ],
+      "basis_mr": [
+        [
+          1.5,
+          0.5
+        ],
+        [
+          2.0,
+          1.0
+        ],
+        [
+          2.5,
+          1.5
+        ]
+      ]
+    },
+    "holding_periods_5m": [
+      1,
+      6,
+      24,
+      12
+    ],
+    "total_runs_per_asset": 216,
+    "total_runs": 648,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "causal segment-start decision, shift(1), mean-reversion exit to flat",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "funding_level": "-funding_rate_ffill_known_at_t-1",
+      "funding_z": "-z(funding_rate_ffill, L 5m bars)",
+      "basis_ma": "-mean((perp-spot)/spot, L 5m bars)",
+      "basis_z": "-z((perp-spot)/spot, L 5m bars)",
+      "perp_mom": "+mean(perp 5m log-return, L)",
+      "basis_mr": "-z((perp-spot)/spot, L 5m bars)  (mean reversion)"
+    },
+    "signal_direction": "long +1 when score>=entry, short -1 when score<=-entry, flat when |score|<=exit or no signal"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign300_oos_sweep_20261114T174305Z.json",
+      "sha256": "63a24b781e9fbd8a1789c177ae0fb3ac52d2c8302ee2bd563c6cecef66bae438"
+    },
+    "registry": {
+      "path": "reports/campaign300_tradable_edge_registry_20261114T174305Z.json",
+      "sha256": "151ac68df7c2f16bbf2ecad4c336f6a752e091ec2b24eb45cd1f15ba9328c4ca"
+    }
+  },
+  "summary": {
+    "n_total_runs": 648,
+    "n_assets": 3,
+    "runs_per_asset": 216,
+    "n_with_exposure": 621,
+    "n_zero_exposure": 27,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 5.046391036602101e-06,
+    "bh_oos_mean_by_asset": {
+      "BTCUSDT": 4.403423418835762e-06,
+      "ETHUSDT": 6.118372834730944e-06,
+      "BCHUSDT": 4.6173768562395985e-06
+    }
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the 5m per-asset funding-carry/basis time-series space."
+}
