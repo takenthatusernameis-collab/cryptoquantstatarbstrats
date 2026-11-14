@@ -1,16 +1,14 @@
-updated_at_utc: 20261114T085109Z
+updated_at_utc: 20261114T090012Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENCE — MANDATORY HEAVY WORK (2026-11-14T08:51:09Z). Reachable real-data cross-sectional stat-arb space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297, 0 costed OOS edge; C289 economic_space_closed:true). C297 frozen NOT_TRADABLE (0/135 edge, binding mean_beats_benchmark_fail). Closure-integrity audit refreshed 20261114T085109Z: reports/program_closure_integrity_audit_20261114T085109Z.json sha256 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d + reports/program_closure_integrity_audit_20261114T085109Z.md sha256 45c7c518e5e4ff05d04df9d628a05a2727a2cbe7e8595d00f15d5f8b2fbd16a2 (integrity_ok:true, n_issues:0, n_references:95, 0 tradable edge, real_data_only:true, fabricated_data:false, scope C281B–C297). C287 external-unblock status refreshed 20261114T085109Z: reports/c287_external_unblock_status_20261114T085109Z.json sha256 fb676d019f676caf7e786ae017f8f1ed396724fd35faeac26c0362350f5a08ec
-  (BLOCKED/DECOUPLED, testnet REST 451, fapi 451, bybit 403, missing BINANCE_TESTNET_API_KEY/SECRET; external action required: valid Binance Spot Testnet credentials + non-451 egress). No C298: inventing campaigns in closed space is prohibited. This session completed the mandatory heavy work: bootstrap OK; C287 status re-run with fresh --ts (SHA256-from-bytes) BEFORE the audit so collect_all_refs cross-referenced it; state updated with every new path+sha (no placeholder/zero hashes, top-level keys un-nested); audit/c287/campaign_resume tests passing; python -m pytest tests/ -q green with 0 failures (1263 passed, 2 skipped); AGENTS.md + state synced. Next agent must keep the same maintenance loop (refresh audit + C287 evidence, keep tests green, never fabricate data/fills/creds, never weaken gates/costs/edge rule, never claim edge, never edit .github/workflows/main.yml, never create/read/edit HANDOFF.md).'
+active_initial_task: 'C298 DEEP MULTI-YEAR USDT-M PERP FUNDING-CARRY + SPOT/PERP BASIS STAT-ARB — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T09:00:12Z). Prior closure C281B–C297 was window-limited (intraday ~3 months 2026-04..2026-10; C297 daily multi-year). The multi-year intraday USDT-M funding/basis depth (2020–2026) is genuinely untested; the public archive data.binance.vision (monthly klines + fundingRate) is verified HTTP 200 from 2020-01 (404 before) for BTCUSDT/ETHUSDT; spot leg data-api.binance.vision/api/v3/klines 200. C291/C293 tested this family only on short windows. MANDATORY in one turn: (1) bootstrap deps + pytest -q baseline green 0 failed; (2) ingest 2020–2026 USDT-M monthly klines+fundingRate per symbol into cache+meta+provenance (SHA256-from-bytes, real_data_only:true, fabricated_data:false) + preflight ready:true (fail-closed, per-symbol coverage/exclusions); (3) run scripts/run_c298_multianual_funding_basis_xsec_oos.py end-to-end (not smoke) with pre-registered grid features {funding_level,funding_z,basis_ma,basis_z,perp_mom,perp_lowvol}, lookbacks {168,720,2160} 1h, K {2,3,5}, holds {1,6,24}, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, WF train=2160/test=720/step=720 over 2020-01..2026-11, real funding cashflow at native boundary causal, equal-weight B&H benchmark same windows; (4) edge rule IDENTICAL to C285/C286/C288/C290/C291/C292/C293/C294/C295/C297 (never relaxed), executed_fills:false, fail-closed causal gates; (5) emit 5 SHA256-from-bytes artifacts campaign298_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; (6) add tests/test_preflight_c298.py + tests/test_c298_*.py; pytest green 0 failed; (7) sync AGENTS.md + state with paths+SHA256. NOT_TRADABLE is a valid heavy outcome; never claim tradable edge unless the costed OOS edge rule is actually satisfied. Frozen supporting evidence: closure-integrity audit reports/program_closure_integrity_audit_20261114T085109Z.json sha256 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d + .md sha256 ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a (integrity_ok:true, n_issues:0, n_references:95, 0 tradable edge); C287 reports/c287_external_unblock_status_20261114T085109Z.json sha256 fb676d019f676caf7e786ae017f8f1ed396724fd35faeac26c0362350f5a08ec (BLOCKED/DECOUPLED, testnet REST 451, fapi 451, bybit 403, missing creds; external only). Integrity regression fixed this session: stale audit md sha256 45c7c518… corrected to actual bytes ec763ed5… .'
 known_bottleneck:
-  id: reachable_real_data_stat_arb_closed_c287_external_only
-  as_of_utc: 20261114T085109Z
-  evidence: 'C297 daily multi-year cross-sectional stat-arb NOT_TRADABLE (0/135 costed OOS edge, binding mean_beats_benchmark_fail). Combined with C281B-C296 the reachable real-data cross-sectional stat-arb space is CLOSED across intraday AND daily multi-year horizons. C287 BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no creds). Closure-integrity audit refreshed 20261114T085109Z (sha256 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d, md sha256 45c7c518e5e4ff05d04df9d628a05a2727a2cbe7e8595d00f15d5f8b2fbd16a2, integrity_ok:true, n_issues:0, n_references:95, scope C281B-C297). C287 external-unblock status refreshed 20261114T085109Z (sha256 fb676d019f676caf7e786ae017f8f1ed396724fd35faeac26c0362350f5a08ec, BLOCKED/DECOUPLED). Bottlenecks removed this refresh: re-emitted fresh C287 external-unblock status (fail-closed, BLOCKED, 451/403/missing-creds) BEFORE audit; re-emitted fresh closure-integrity audit json+md (SHA256-from-bytes, scope C281B-C297, integrity_ok:true,
-    n_references:95); state records every new path+sha (no placeholder/zero hashes, top-level keys un-nested); suite green with 0 failures (1263 passed, 2 skipped).'
-  fix: 'None - C298 is not scheduled; reachable real-data cross-sectional stat-arb space is closed across intraday and daily multi-year horizons (C281B-C297, 0 costed OOS edge). Inventing C298 in closed space is prohibited. The only remaining path to a tradable claim is external execution capability (C287), which is BLOCKED/decoupled (testnet REST 451 plus no creds; external action required: valid Binance Spot Testnet credentials plus non-451 egress) and cannot be resolved from this environment. Maintain closure-integrity audit plus C287 external-unblock evidence (refresh hashed artifacts plus tests plus green pytest plus sync state/handoff) as the mandatory heavy work.'
-  do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; rerun frozen campaigns or claim edge; stop at status-only; invent campaigns in closed space.
+  id: c298_not_yet_executed_deep_multianual_funding_basis
+  as_of_utc: 20261114T090012Z
+  evidence: 'Prior closure C281B–C297 is window-limited (intraday ~3 months 2026-04..2026-10; C297 daily multi-year). The multi-year intraday USDT-M funding/basis depth (2020–2026) is untested. Verified reachable: data.binance.vision monthly klines+fundingRate HTTP 200 from 2020-01 (404 before) for BTCUSDT/ETHUSDT; data-api.binance.vision/api/v3/klines 200. C291/C293 tested funding/basis only on short windows. Maintenance-only loop (re-run audit/C287 each session) was the prior primary task and produced zero economic progress — removed. C287 remains BLOCKED/DECOUPLED externally (testnet REST 451, fapi 451, bybit 403, no creds). Integrity regression fixed: stale audit md sha256 45c7c518… corrected to actual bytes ec763ed5… ; test_program_closure_integrity_audit green.'
+  fix: 'Execute C298 end-to-end this turn: bootstrap deps; ingest 2020–2026 USDT-M monthly klines+fundingRate into cache+meta+provenance (SHA256-from-bytes); preflight ready:true fail-closed; run run_c298_multianual_funding_basis_xsec_oos.py end-to-end with the pre-registered grid (6 features x 3 lookbacks x 3 K x 3 holds, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, WF 2160/720/720); identical costed-OOS edge rule (never relaxed), executed_fills:false, fail-closed causal gates; emit 5 SHA256-from-bytes artifacts (binding_constraint if NOT_TRADABLE); add tests; pytest green 0 failed; sync AGENTS.md + state. If a data gap blocks a symbol, record it fail-closed with reason and exclude; do not fabricate. Do not weaken gates/costs/edge rule or claim edge without satisfying the costed OOS rule.'
+  do_not: edit .github/workflows/main.yml; create/read/edit HANDOFF.md; fabricate data/fills/credentials; weaken gates/costs/edge rule; relabel data; claim tradable edge without costed-OOS proof; present C287 blocked probes as unblocked.
 superseded_active_initial_task: C295 THREE-VENUE (Binance+OKX+Coinbase) REAL 5m SPOT CROSS-VENUE BASIS/LEAD-LAG STAT-ARB — COMPLETED 2026-11-13T21:57:25Z (frozen). Verdict NOT_TRADABLE, 162 runs, 0 edge, 108 with exposure, binding cost_sensitivity (92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Dataset data/cache/campaign295_three_venue_spot.pkl SHA256 2fe7e08286fb6a055667941292bf2cdcaed069ff7ffebe6d8baa9c8b6859e3f7 (meta de894a7ba13c78d089101baaf49d1da995f59645552c953dba8b27da9367d1ab, provenance 570fb29c497376e6332e97556aa5a17dbdcab68f1088dc9218090a2a617a936d); 9 assets, 26208 bars, 2026-08-01T00:00Z..2026-10-30T23:55Z. Artifacts reports/campaign295_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261113T215725Z.json (SHAs fd1762fa/e898b0cb/036c0150/02f7ed38/0c5257a2). Three-venue real-spot stat-arb space closed.
 superseded_known_bottleneck:
   id: c295_three_venue_ingest_preflight_runner_missing
@@ -202,7 +200,7 @@ latest_closure_integrity_audit:
   path_json: reports/program_closure_integrity_audit_20261114T085109Z.json
   sha256_json: 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d
   path_md: reports/program_closure_integrity_audit_20261114T085109Z.md
-  sha256_md: 45c7c518e5e4ff05d04df9d628a05a2727a2cbe7e8595d00f15d5f8b2fbd16a2
+  sha256_md: ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a
   integrity_ok: true
   n_references: 95
   n_mismatch_or_missing_or_error: 0
@@ -212,7 +210,7 @@ latest_closure_integrity_audit:
     sha256: 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d
   md:
     path: reports/program_closure_integrity_audit_20261114T085109Z.md
-    sha256: 45c7c518e5e4ff05d04df9d628a05a2727a2cbe7e8595d00f15d5f8b2fbd16a2
+    sha256: ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a
   n_issues: 0
   scope: C281B-C297
   real_data_only: true
@@ -238,7 +236,95 @@ latest_c287_unblock_status:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
 latest_campaign_done: C297
-next_campaign: PROGRAM_CLOSURE_INTEGRITY_AUDIT_AND_C287_EXTERNAL_UNBLOCK_STATUS (no reachable economic campaign; space closed; C287 external-only)
+next_campaign: C298 (DEEP MULTI-YEAR USDT-M PERP FUNDING-CARRY + SPOT/PERP BASIS STAT-ARB, 2020-2026; mandatory heavy economic work)
+campaign298:
+  hypothesis: MULTI_YEAR_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_XSEC_TS_STAT_ARB
+  status: active_pending_execution
+  as_of_utc: 20261114T090012Z
+  family: multi_year_perp_funding_carry_and_spot_perp_basis
+  data_source_hosts:
+  - https://data.binance.vision
+  - https://data-api.binance.vision
+  data_source_endpoints:
+    klines: /data/futures/um/monthly/klines/<SYM>/5m/<SYM>-5m-YYYY-MM.zip
+    funding: /data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip
+    spot: /api/v3/klines
+  verified_reachable_http: 200
+  archive_depth_start: 2020-01
+  archive_depth_end: 2026-11
+  window:
+    start: 2020-01-01T00:00:00Z
+    end: 2026-11-13T00:00:00Z
+  interval: 1h
+  universe: USDT-M perps with history from 2020/2021 (BTCUSDT, ETHUSDT, and other long-history majors; per-symbol coverage/exclusions recorded fail-closed in preflight)
+  signal_features:
+  - funding_level
+  - funding_z
+  - basis_ma
+  - basis_z
+  - perp_mom
+  - perp_lowvol
+  lookbacks_1h:
+  - 168
+  - 720
+  - 2160
+  cross_sectional_K:
+  - 2
+  - 3
+  - 5
+  holding_periods_1h:
+  - 1
+  - 6
+  - 24
+  pre_registered_grid:
+    features: 6
+    lookbacks: 3
+    K: 3
+    holds: 3
+    total_runs: 162
+  wf:
+    train: 2160
+    test: 720
+    step: 720
+  cost_grid_bps:
+  - - 0
+    - 0
+  - - 5
+    - 5
+  - - 10
+    - 10
+  - - 20
+    - 20
+  - - 40
+    - 40
+  funding_cashflow: funding_pnl = -funding_rate * signed_weight at each native funding boundary (8h; 4h where applicable), causal (rate known at/before boundary); long pays when rate>0, short receives
+  benchmark: equal-weight buy-and-hold of the same universe with the same real funding cashflows on the same WF windows
+  edge_rule: identical to C285/C286/C288/C290/C291/C292/C293/C294/C295/C297 (never relaxed) - OOS exposure>0 AND every cost slice net sum>0 AND mean per-split OOS net mean > mean per-split equal-weight B&H OOS net mean on same WF windows
+  gates: 'fail_closed: selected feature score finite for >=2K assets; cross-sectional dispersion>0; no NaN/non-finite perp or spot price in selected legs; funding staleness <= 24h+1 bar; basis finite where used; no missing/None/false treated as permissive; block and record reason if diagnostics fail.'
+  executed_fills: false
+  real_data_only: true
+  fabricated_data: false
+  scripts:
+    ingest: scripts/ingest_c298_multianual_perp_funding_basis.py
+    preflight: scripts/preflight_c298.py
+    runner: scripts/run_c298_multianual_funding_basis_xsec_oos.py
+  tests:
+  - tests/test_preflight_c298.py
+  - tests/test_c298_multianual_funding_basis_xsec_oos.py
+  expected_artifacts:
+  - reports/campaign298_oos_sweep_<ts>.json
+  - reports/campaign298_tradable_edge_registry_<ts>.json
+  - reports/campaign298_summary_<ts>.json
+  - reports/campaign298_verdict_<ts>.json
+  - reports/campaign298_binding_constraint_<ts>.json
+  completion_gate:
+  - deps_and_pytest_green_0_failed
+  - ingest_cache_meta_provenance_sha256_from_bytes
+  - preflight_ready_true_fail_closed
+  - runner_executed_end_to_end_not_smoke
+  - all_five_artifacts_fresh_sha256_from_bytes
+  - tests_added_and_pytest_green
+  - state_and_handoff_synced_with_paths_and_sha256
 closure_integrity_audit:
   as_of_utc: 20261114T085109Z
   json:
@@ -246,7 +332,7 @@ closure_integrity_audit:
     sha256: 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d
   md:
     path: reports/program_closure_integrity_audit_20261114T085109Z.md
-    sha256: 45c7c518e5e4ff05d04df9d628a05a2727a2cbe7e8595d00f15d5f8b2fbd16a2
+    sha256: ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a
   integrity_ok: true
   n_issues: 0
   n_references: 95
@@ -1445,9 +1531,8 @@ handoff:
   single_authoritative: true
   forbidden_files:
   - HANDOFF.md
-  timestamp_utc: 20261114T075014Z
-  active_initial_task_message: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENCE — MANDATORY HEAVY WORK (2026-11-14T07:50:14Z). Reachable real-data cross-sectional stat-arb space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297, 0 costed OOS edge; C289 economic_space_closed:true). C297 frozen NOT_TRADABLE (0/135 edge, binding mean_beats_benchmark_fail). Closure-integrity audit refreshed 20261114T075014Z: reports/program_closure_integrity_audit_20261114T075014Z.json sha256 5c5d6dd0fcb553d5100bf9adf25bb8958f371f85372ab71c427bcfcc606d8c1f + .md sha256 bce21355ced55cda80fa468a28ce2766ccb0fc526a1f81f0fd5401aa9b156dce (integrity_ok:true, n_issues:0, n_references:96, 0 tradable edge, real_data_only:true, fabricated_data:false, scope C281B–C297). C287 external-unblock status refreshed 20261114T075014Z: reports/c287_external_unblock_status_20261114T075014Z.json sha256 13f8ab528da61f01fcece1e36e41326e3c9cbe2940e7f8b7ac8c64103f6c725c (BLOCKED/DECOUPLED, testnet REST 451,
-    fapi 451, bybit 403, missing BINANCE_TESTNET_API_KEY/SECRET; external action required: valid Binance Spot Testnet credentials + non-451 egress). This session completed the mandatory heavy work: bootstrap OK; C287 status + closure audit re-run with fresh --ts (SHA256-from-bytes); C287 artifact recorded in state BEFORE the audit so collect_all_refs cross-referenced it (n_references 95→96); state updated with every new path+sha (no placeholder/zero hashes, top-level keys un-nested); audit/c287/campaign_resume tests passing; python -m pytest tests/ -q green 0 failed; AGENTS.md + state synced. Next agent must keep the same maintenance loop (refresh audit + C287 evidence each session, keep tests green, never fabricate data/fills/creds, never weaken gates/costs/edge rule, never claim edge, never edit .github/workflows/main.yml, never create/read/edit HANDOFF.md).'
+  timestamp_utc: 20261114T090012Z
+  active_initial_task_message: 'C298 DEEP MULTI-YEAR USDT-M PERP FUNDING-CARRY + SPOT/PERP BASIS STAT-ARB — MANDATORY HEAVY ECONOMIC WORK (2026-11-14T09:00:12Z). Prior closure C281B–C297 was window-limited (intraday ~3 months 2026-04..2026-10; C297 daily multi-year). The multi-year intraday USDT-M funding/basis depth (2020–2026) is genuinely untested; archive data.binance.vision (monthly klines + fundingRate) verified HTTP 200 from 2020-01 (404 before) for BTCUSDT/ETHUSDT; spot leg data-api.binance.vision/api/v3/klines 200. C291/C293 tested this family only on short windows. MUST in one turn: (1) bootstrap deps + pytest -q baseline green 0 failed; (2) ingest 2020–2026 USDT-M monthly klines+fundingRate per symbol into cache+meta+provenance (SHA256-from-bytes, real_data_only:true, fabricated_data:false) + preflight ready:true fail-closed (per-symbol coverage/exclusions); (3) run scripts/run_c298_multianual_funding_basis_xsec_oos.py end-to-end (not smoke), pre-registered grid 6 features x 3 lookbacks {168,720,2160} x K {2,3,5} x holds {1,6,24}, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps, WF 2160/720/720 over 2020-01..2026-11, real funding cashflow native-boundary causal, equal-weight B&H benchmark same windows; (4) edge rule IDENTICAL to C285/C286/C288/C290/C291/C292/C293/C294/C295/C297 (never relaxed), executed_fills:false, fail-closed causal gates; (5) 5 SHA256-from-bytes artifacts campaign298_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (binding_constraint if NOT_TRADABLE); (6) tests/test_preflight_c298.py + tests/test_c298_*.py, pytest green 0 failed; (7) sync AGENTS.md + state with paths+SHA256. NOT_TRADABLE is a valid heavy outcome; never claim tradable edge unless the costed OOS rule is satisfied. Frozen supporting evidence: closure-integrity audit reports/program_closure_integrity_audit_20261114T085109Z.json sha256 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d + .md sha256 ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a (integrity_ok:true, n_issues:0, n_references:95); C287 reports/c287_external_unblock_status_20261114T085109Z.json sha256 fb676d019f676caf7e786ae017f8f1ed396724fd35faeac26c0362350f5a08ec (BLOCKED/DECOUPLED, external only). This session fixed the stale audit md sha256 (45c7c518… -> actual bytes ec763ed5…) so test_program_closure_integrity_audit is green.'
   rule: do_not_create_another_handoff_file
   superseded_active_initial_task_message: 'C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit) — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen NOT_TRADABLE (162 runs, 0 edge, binding cost_sensitivity: 92/162 gross-positive at 0bps, 0/162 net-positive at >=5bps, 0/162 beat benchmark). Three-venue real-spot, single/cross-venue 5m spot+perp, and real-IV VRP (C294, DVOL ATM 30d) closed. C296 sole active. Deribit HTTP 200; get_historical_volatility is ATM/currency-level only, get_book_summary_by_currency is current snapshot mark_iv only (no historical per-strike series). MUST in one turn: (1) bootstrap+verify deps; pytest -q baseline green. (2) Deterministic deep per-strike IV feed probe (every endpoint/params/status/sample/suitability) for historical per-strike mark IV/IV time series (e.g. get_tradingview_chart_data for option instruments, last-trades IV fields, mark-price-history/vol-history variants). Save reports/campaign296_deribit_perstrike_iv_reachability_<ts>.json
     (SHA256-from-bytes, real_data_only:true, fabricated_data:false) and probe script/test if non-trivial. (3) Branch fail-closed: IF deep historical per-strike IV reachable+sufficient -> build+run end-to-end ingest/preflight(ready:true)/runner (pre-registered TS/skew features, WF 720/168/168 or justified option-native, cost [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs incl option exec/hedge as applicable, B&H/neutral benchmark, identical edge rule) -> 5 SHA256 artifacts + tests + green pytest + state+AGENTS; if edge escalate C287 (blocked, no fabricated fills). IF NO deep historical per-strike IV reachable -> formal closure this turn: emit SHA256-from-bytes campaign296_options_data_blocked_<ts>.json (+ summary/verdict) documenting probed endpoints, insufficiency, DVOL ATM-only (C294 closed), conclusion options_term_structure_skew_family:data_blocked / reachable_cross_sectional_stat_arb_space:closed; add schema+evidence test; green pytest; update state+AGENTS declaring reachable
