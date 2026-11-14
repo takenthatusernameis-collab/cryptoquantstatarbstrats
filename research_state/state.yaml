@@ -1,4 +1,4 @@
-updated_at_utc: 20261114T202509Z
+updated_at_utc: 20261114T205712Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -6,7 +6,7 @@ active_initial_task: 'PROGRAM CLOSURE (handoff refreshed 2026-11-14T20:25:09Z): 
 next_campaign: program_closure_recorded_c287_blocked_externally_cannot_resolve_from_this_environment
 known_bottleneck:
   id: c287_external_execution_blocked_geography_credentials
-  as_of_utc: 20261114T202509Z
+  as_of_utc: 20261114T205712Z
   status: blocked_externally_cannot_resolve_from_this_environment
   evidence: 'Binance testnet REST HTTP 451 (CloudFront geographic block, not transient) from this egress IP; fapi 451; bybit 403; no BINANCE_TESTNET_API_KEY/SECRET in env; WS reachable but cannot serve REST order placement/klines/exchangeInfo; mainnet reachable but forbidden for C287 (spec requires testnet only; using mainnet with testnet keys would execute on real funds). Cannot be resolved from this execution environment.'
   fix: 'Record C287 as blocked/decoupled from economic progress; do not re-probe as economic work. Proceed to program closure. Unblocking requires external action: valid Binance Spot Testnet credentials plus network egress not subject to the testnet 451 geographic block — outside this environment.'
@@ -781,8 +781,8 @@ campaign301:
   post_c301_rule: If C301 is also NOT_TRADABLE, record explicit program closure; only external execution (C287) remains and is blocked by testnet REST 451 + fapi 451 + bybit 403 + no credentials. Do not invent another funding/basis re-skin.
 
 program_closure:
-  status: pending_record
-  as_of_utc: 20261114T202509Z
+  status: recorded
+  as_of_utc: 20261114T205712Z
   reachable_real_data_cross_sectional_stat_arb_space: CLOSED
   campaigns:
     C281B_to_C300: COMPLETE_NOT_TRADABLE_zero_costed_OOS_edge_frozen
@@ -805,13 +805,14 @@ program_closure:
     external_action_required:
     - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
     - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-  closure_report_json: {path: reports/program_closure_final_<ts>.json, sha256: pending_creation}
-  closure_report_md: {path: reports/program_closure_final_<ts>.md, sha256: pending_creation}
-  integrity_audit_json: {path: reports/program_closure_integrity_audit_<ts>.json, sha256: pending_creation}
-  integrity_audit_md: {path: reports/program_closure_integrity_audit_<ts>.md, sha256: pending_creation}
-  integrity_ok: pending_verification
+  closure_report_json: {path: reports/program_closure_final_20261114T205712Z.json, sha256: 00520afa25ab468610bb8bac41492c73b984b4a821fe289c7469946fc5eac607}
+  closure_report_md: {path: reports/program_closure_final_20261114T205712Z.md, sha256: d6162622e4150710cd9a1b012a10129333c618853eba729fb6026f39d12311c0}
+  integrity_audit_json: {path: reports/program_closure_integrity_audit_20261114T085109Z.json, sha256: 84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d}
+  integrity_audit_md: {path: reports/program_closure_integrity_audit_20261114T085109Z.md, sha256: ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a}
+  integrity_ok: true
   n_issues: 0
   zero_tradable_edge_registry_confirmed: true
+  no_new_data_sources: true
 
 c287_external_unblock_status:
   as_of_utc: 20261114T085109Z

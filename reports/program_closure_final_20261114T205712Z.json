@@ -1,0 +1,123 @@
+{
+  "artifact": "program_closure_final",
+  "generated_at_utc": "20261114T205712Z",
+  "repo": "cryptoquantstatarbstrats",
+  "priority": "crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation",
+  "reachable_real_data_cross_sectional_stat_arb_space": "CLOSED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "edge_claim": "NONE",
+  "oos_edge_proven": false,
+  "zero_tradable_edge_registry_confirmed": true,
+  "no_new_data_sources": true,
+  "scope": "C281B-C301 frozen economic stat-arb program; every reachable real-data formulation closed NOT_TRADABLE with 0 costed-OOS edge across 2020-01..2026-10",
+  "program_closure": {
+    "status": "recorded",
+    "as_of_utc": "20261114T205712Z",
+    "campaigns": {
+      "C281B_to_C300": "COMPLETE_NOT_TRADABLE_zero_costed_OOS_edge_frozen",
+      "C301": "COMPLETE_NOT_TRADABLE_0_648_edge_binding_mean_beats_benchmark_fail"
+    },
+    "n_campaigns": 21,
+    "total_costed_oos_edge_proven": 0
+  },
+  "campaign_summary": {
+    "C281B": {"verdict": "NOT_TRADABLE", "n_runs": 663, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C281C": {"verdict": "GATE_DIAGNOSTICS", "n_runs": null, "n_edge_proven": null, "pass_share": 0.0029411764705882353, "binding_gate": "rolling_stable_ok"},
+    "C282": {"verdict": "NOT_TRADABLE", "n_runs": 128, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C283": {"verdict": "NOT_TRADABLE", "n_runs": 17, "n_with_exposure": 0, "n_zero_exposure": 17, "n_edge_proven": 0, "binding_constraint": "zero_exposure"},
+    "C284": {"verdict": "NOT_TRADABLE", "n_runs": 1088, "n_with_exposure": 0, "n_edge_proven": 0, "binding_constraint": "zero_exposure"},
+    "C285": {"verdict": "NOT_TRADABLE", "n_runs": 81, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C286": {"verdict": "NOT_TRADABLE", "n_runs": 81, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C287": {"verdict": "BLOCKED_EXTERNAL_EXECUTION", "decoupled_from_economic_progress": true},
+    "C288": {"verdict": "NOT_TRADABLE", "n_runs": 81, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C289": {"verdict": "ECONOMIC_SPACE_CLOSED", "economic_space_closed": true, "max_DSR": 0.0, "MDE_bps": 0.106},
+    "C290": {"verdict": "NOT_TRADABLE", "n_runs": 162, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity", "n_assets": 26},
+    "C291": {"verdict": "NOT_TRADABLE", "n_runs": 162, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity", "n_assets": 24},
+    "C292": {"verdict": "NOT_TRADABLE", "n_runs": 81, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity", "n_assets": 25},
+    "C293": {"verdict": "NOT_TRADABLE", "n_runs": 81, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C294": {"verdict": "NOT_TRADABLE", "n_runs": 27, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity"},
+    "C295": {"verdict": "NOT_TRADABLE", "n_runs": 162, "n_with_exposure": 108, "n_edge_proven": 0, "binding_constraint": "cost_sensitivity", "n_cost0_gross_positive": 92},
+    "C296": {"verdict": "DATA_BLOCKED", "family": "options_term_structure_skew", "rationale": "no endpoint yields historical per-strike mark IV time series"},
+    "C297": {"verdict": "NOT_TRADABLE", "n_runs": 135, "n_with_exposure": 135, "n_edge_proven": 0, "binding_constraint": "mean_beats_benchmark_fail", "n_cost0_gross_positive": 81, "n_cost0_gross_positive_max_pnl": 2.152, "n_assets": 24},
+    "C298": {"verdict": "NOT_TRADABLE", "n_runs": 162, "n_with_exposure": 0, "n_zero_exposure": 162, "n_edge_proven": 0, "binding_constraint": "zero_exposure"},
+    "C299": {"verdict": "NOT_TRADABLE", "n_runs": 486, "n_with_exposure": 456, "n_zero_exposure": 30, "n_edge_proven": 0, "binding_constraint": "mean_beats_benchmark_fail"},
+    "C300": {"verdict": "NOT_TRADABLE", "n_runs": 648, "n_with_exposure": 621, "n_zero_exposure": 27, "n_edge_proven": 0, "binding_constraint": "mean_beats_benchmark_fail"},
+    "C301": {"verdict": "NOT_TRADABLE", "n_runs": 648, "n_with_exposure": 545, "n_zero_exposure": 103, "n_edge_proven": 0, "binding_constraint": "mean_beats_benchmark_fail"}
+  },
+  "c287_external_execution_blocker": {
+    "status": "BLOCKED",
+    "decoupled_from_economic_progress": true,
+    "as_of_utc": "20261114T205712Z",
+    "blocked_reasons": [
+      "binance_testnet_rest_ping:451",
+      "binance_testnet_rest_time:451",
+      "binance_testnet_rest_exchangeInfo:451",
+      "fapi_ping:451",
+      "api_bybit_v5_time:403",
+      "missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET"
+    ],
+    "evidence": "Binance testnet REST HTTP 451 (CloudFront geographic block, not transient) from this egress IP; fapi 451; bybit 403; no BINANCE_TESTNET_API_KEY/SECRET in env. Mainnet reachable but forbidden for C287 (spec requires testnet only; using mainnet with testnet keys would execute on real funds).",
+    "external_action_required": [
+      "Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment",
+      "Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)"
+    ],
+    "fix": "Record C287 as blocked/decoupled from economic progress; do not re-probe as economic work. Proceed to program closure. Unblocking requires external action: valid Binance Spot Testnet credentials plus network egress not subject to the testnet 451 geographic block — outside this environment.",
+    "do_not": [
+      "edit .github/workflows/main.yml",
+      "create/read/edit HANDOFF.md",
+      "fabricate data/fills/credentials",
+      "weaken gates/costs/edge rule",
+      "relabel data",
+      "claim tradable edge without costed-OOS proof",
+      "re-probe C287 blocked routes as economic work",
+      "rerun/edit frozen C281B-C301 artifacts/cache",
+      "commit any cache blob >= 100 MB",
+      "re-skin the closed funding-carry/spot-perp basis or OFI/microstructure family"
+    ]
+  },
+  "data_sources": {
+    "binance_data_api": "https://data-api.binance.vision (klines /api/v3/klines, spot 5m, fundingRate archives reachable HTTP 200)",
+    "binance_data_vision": "https://data.binance.vision (futures/um monthly klines + fundingRate zips, archive 2020-01..2026-10)",
+    "deribit": "https://www.deribit.com (DVOL index reachable; per-strike mark IV historical time series NOT reachable -> C296 DATA_BLOCKED)",
+    "okx": "https://www.okx.com (200, fallback venue)",
+    "coinbase": "200, fallback venue",
+    "kraken": "200, fallback venue",
+    "blocked_routes": {
+      "fapi.binance.com": 451,
+      "testnet.binance.vision": 451,
+      "api.binance.com": 451,
+      "testnetapi.binance.vision": "DNS NXDOMAIN",
+      "api.testnet.binance.vision": "DNS NXDOMAIN",
+      "data-api.testnet.binance.vision": "DNS NXDOMAIN"
+    }
+  },
+  "verification": {
+    "pytest": {"passed": 1339, "skipped": 2, "failed": 0, "duration_s": 446.23, "as_of_utc": "20261114T205712Z"},
+    "integrity_audit": {
+      "path_json": "reports/program_closure_integrity_audit_20261114T085109Z.json",
+      "sha256_json": "84174b99be9cce2229a061989dfcddc990f5972c9485d716c4779c8c6184b96d",
+      "path_md": "reports/program_closure_integrity_audit_20261114T085109Z.md",
+      "sha256_md": "ec763ed5428479a78277099962e1149e02ad070eaebf82cba93bc15f4bcada8a",
+      "integrity_ok": true,
+      "n_references": 95,
+      "n_mismatch_or_missing_or_error": 0,
+      "n_issues": 0,
+      "scope": "C281B-C297 frozen artifacts and datasets"
+    },
+    "deps": {"python": "3.12.3", "numpy": "2.5.4", "pandas": "3.1.1", "scipy": "1.18.1", "statsmodels": "0.15.0", "scikit-learn": "1.9.1"},
+    "cache_sha256_from_bytes": {
+      "campaign301_aggtrades_ofi.pkl": {"path": "data/cache/campaign301_aggtrades_ofi.pkl", "sha256": "4ce779531636d833c285cbfd87fe1f46b91bc3d8447c92853be8550973f1b9cf", "bytes": 3676412},
+      "campaign300_multianual_perp_funding_basis_ts_5m.pkl": {"path": "data/cache/campaign300_multianual_perp_funding_basis_ts_5m.pkl", "sha256": "2c86accda2f32b466d32c6d520f3424b24952f10e93ea1da9bf803f154cfb873", "bytes": 69011342}
+    }
+  },
+  "edge_rule": "oos_edge_proven=true IFF OOS exposure>0 AND for ALL cost slices OOS net sum>0 AND mean of per-split OOS net means > mean of per-split equal-weight B&H OOS net means on same WF windows (same aggregation for both legs; never compare a strategy mean to a benchmark sum). Real data only. Never relaxed.",
+  "provenance": {
+    "host": "agent-loop execution environment (github runner, linux)",
+    "message_time_utc": "2026-11-14T20:48:53Z",
+    "generated_at_utc": "20261114T205712Z",
+    "blocked_routes_rationale": "C287 external execution blocked by geography/credentials; decoupled from economic progress and external to this environment.",
+    "never": ["fabricate data/fills/credentials", "weaken gates/costs/edge rule", "relabel data", "claim tradable edge without costed-OOS proof"]
+  }
+}

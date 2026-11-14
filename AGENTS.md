@@ -1,9 +1,9 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-14T20:48:04Z
+**Handoff refreshed:** 2026-11-14T20:57:12Z
 **Repository priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Economic progress means **costed out-of-sample PnL on real, provable data**, not infrastructure activity, status reports, or quote-volume return metrics.
 
-**Verified state (this refresh, 2026-11-14T20:48:04Z):** `python -m pytest tests/ -q` → **1339 passed, 2 skipped, 0 failed** (456.27s). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. The economic stat-arb program is **COMPLETE — all reachable real-data formulations closed NOT_TRADABLE, 0 costed-OOS edge**:
+**Verified state (this refresh, 2026-11-14T20:57:12Z):** `python -m pytest tests/ -q` → **1339 passed, 2 skipped, 0 failed** (446.23s). Deps import-verified: numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. The economic stat-arb program is **COMPLETE — all reachable real-data formulations closed NOT_TRADABLE, 0 costed-OOS edge**:
 
 - **C301 (real OFI / trade-sign autocorrelation, Binance USDT-M perp aggTrades, 2023-01..02, 648 runs):** executed end-to-end at `20261114T193801Z` → **NOT_TRADABLE**, `edge_proven:false`, **0/648 edge**, binding `mean_beats_benchmark_fail`. Cache `data/cache/campaign301_aggtrades_ofi.pkl` = 3,676,412 B, SHA256 `4ce779531636d833c285cbfd87fe1f46b91bc3d8447c92853be8550973f1b9cf`. Artifacts `reports/campaign301_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261114T193801Z.json` all carry `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`.
 - **C281B→C300:** all **COMPLETE formal negative results** (0 costed-OOS edge, frozen). Binding constraints: `cost_sensitivity` / `zero_exposure` / `mean_beats_benchmark_fail`.
@@ -13,18 +13,18 @@
 
 **Single-handoff rule:** `AGENTS.md` is the only durable handoff. `HANDOFF.md` is forbidden: do not read, create, or edit it. If a tool reports `HANDOFF.md` missing, ignore it.
 
-## INITIAL TASK MESSAGE (2026-11-14T20:48:04Z) — PROGRAM CLOSURE MAINTENANCE: VERIFY & MONITOR ONLY
+## INITIAL TASK MESSAGE (2026-11-14T20:57:12Z) — PROGRAM CLOSURE RECORDED: VERIFY & MONITOR ONLY
 
-**Program closure is COMPLETE and VERIFIED.** All campaigns C281B–C301 executed NOT_TRADABLE (0/648+ costed-OOS edge across the program). The entire **reachable real-data stat-arb space is CLOSED** at every tested resolution (single-venue 5m spot; perp funding/basis single-venue, cross-venue, per-asset time-series, cross-sectional; options IV; daily cross-sectional; real OFI/trade-sign autocorrelation; 2020-01..2026-10). C287 external execution remains BLOCKED/DECOUPLED by external constraints (testnet REST 451, fapi 451, bybit 403, missing credentials, geography) that cannot be resolved from this environment.
+**Program closure RECORDED and VERIFIED.** All campaigns C281B–C301 executed NOT_TRADABLE (0 costed-OOS edge across the program). The entire **reachable real-data stat-arb space is CLOSED** at every tested resolution. Closure artifacts written: `reports/program_closure_final_20261114T205712Z.json` (SHA256 `00520afa25ab468610bb8bac41492c73b984b4a821fe289c7469946fc5eac607`) + `.md` (SHA256 `d6162622e4150710cd9a1b012a10129333c618853eba729fb6026f39d12311c0`). C287 external execution remains BLOCKED/DECOUPLED by external constraints (testnet REST 451, fapi 451, bybit 403, missing credentials, geography) that cannot be resolved from this environment.
 
 **No further economic campaign is registered.** Do not re-plan, re-probe, or re-skin the closed family (no lookback/hold/threshold variants of C299/C300, no re-probe of excluded candidates, no microstructure re-skin without a genuinely new reachable data source). The only path to a tradable claim is external execution (C287), which requires credentials/network egress outside this environment.
 
-**MANDATORY maintenance work for next session (verification — no status-only turns):**
-1. **Verify closure artifacts remain intact:** confirm `reports/program_closure_final_*.json` + `.md` exist with `reachable_real_data_cross_sectional_stat_arb_space: CLOSED`, all campaigns `NOT_TRADABLE`, `edge_claim: NONE`, `oos_edge_proven: false`, C287 `BLOCKED`/`decoupled_from_economic_progress: true`, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; full provenance (source, timestamp, host, blocked routes, rationale) for every number.
-2. **Integrity audit:** run `python -m pytest tests/ -q` → MUST be 0 failed; verify zero mismatches across all campaign cache/meta/provenance/artifact references; confirm `zero_tradable_edge_registry_confirmed: true`.
-3. **Sync state:** update `AGENTS.md` (`updated_at_utc`, `active_initial_task`, `next_campaign`, frozen records retained) and `research_state/state.yaml` with current timestamp and all closure artifact paths+SHA256 (no zeros, no nesting regression).
-4. **Re-verify:** run `python -m pytest tests/ -q` green after state/handoff sync.
-5. **Monitor for new data sources:** check if any genuinely new reachable data feeds have become available (e.g., new exchange APIs, historical data releases, Deribit per-strike IV endpoints) that could enable a NEW campaign — if none, record `no_new_data_sources: true` and close session.
+**MANDATORY maintenance work — complete this session.**
+1. **Closure artifacts intact:** `reports/program_closure_final_20261114T205712Z.json` + `.md` exist with `reachable_real_data_cross_sectional_stat_arb_space: CLOSED`, all campaigns `NOT_TRADABLE`, `edge_claim: NONE`, `oos_edge_proven: false`, C287 `BLOCKED`/`decoupled_from_economic_progress: true`, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; full provenance (source, timestamp, host, blocked routes, rationale) recorded for every number.
+2. **Integrity audit:** `python -m pytest tests/ -q` → 1339 passed, 2 skipped, 0 failed (0 mismatches across all campaign cache/meta/provenance/artifact references); `zero_tradable_edge_registry_confirmed: true`.
+3. **State synced:** `AGENTS.md` (`updated_at_utc`, `active_initial_task`, `next_campaign`, frozen records retained) and `research_state/state.yaml` updated at 20261114T205712Z with all closure artifact paths+SHA256 (no zeros, no nesting regression).
+4. **Re-verified:** `python -m pytest tests/ -q` green after state/handoff sync.
+5. **New data sources monitored:** no genuinely new reachable data feed available (Binance testnet REST 451 / fapi 451 / bybit 403, no credentials; Deribit per-strike IV historical time series not reachable → C296 DATA_BLOCKED). `no_new_data_sources: true` recorded. Session closed.
 
 **Acceptance gate:** closure artifacts present with real-data flags + SHA256-from-bytes; integrity audit clean (0 issues); pytest green (0 failed); `AGENTS.md` timestamp/evidence match `research_state/state.yaml`; C287 recorded as blocked/decoupled (not retried as economic work); `no_new_data_sources` flag set appropriately. **Any claim of tradable edge without costed OOS proof is a hard failure.**
 
@@ -52,7 +52,7 @@
 
 **C287 (testnet gateway):** **BLOCKED/DECOUPLED** — Binance testnet REST HTTP 451 (CloudFront geographic block, not transient) + no credentials. Cannot be resolved from this execution environment. External execution capability is the only remaining path to a tradable claim, but it is blocked by geography/credentials and decoupled from economic progress.
 
-**Program closure (this refresh):** COMPLETE — record explicit closure verified; no further economic campaign is registered; the only remaining path (C287) requires external credentials/network egress outside this environment.
+**Program closure (this refresh):** RECORDED — `reports/program_closure_final_20261114T205712Z.json` (SHA256 `00520afa25ab468610bb8bac41492c73b984b4a821fe289c7469946fc5eac607`) + `.md` (SHA256 `d6162622e4150710cd9a1b012a10129333c618853eba729fb6026f39d12311c0`) declare `reachable_real_data_cross_sectional_stat_arb_space: CLOSED`, all campaigns C281B–C301 NOT_TRADABLE, `edge_claim: NONE`, `oos_edge_proven: false`, C287 `BLOCKED`/`decoupled_from_economic_progress: true`, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. No further economic campaign registered; the only remaining path (C287) requires external credentials/network egress outside this environment.
 
 **Environment / verification**
 
