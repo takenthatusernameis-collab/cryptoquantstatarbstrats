@@ -51,10 +51,38 @@ def test_c287_unblock_status_schema_fail_closed():
 
 
 def test_c287_unblock_status_sha_matches_recorded_file_bytes():
-    """The artifact's recorded sha256 must equal recomputation from file bytes."""
+    """The artifact's SHA256-from-bytes must equal the value recorded for it in
+    research_state/state.yaml (the authoritative handoff). The JSON itself never
+    stores a self-referential sha (that would change its own bytes); the state
+    cross-reference is what CI enforces."""
+    import yaml
+
     path = latest()
+    actual = sha256_file(path)
     data = json.loads(path.read_text(encoding="utf-8"))
-    assert sha256_file(path) == data["sha256"], "sha256 must match file bytes"
+    state = yaml.safe_load((ROOT / "research_state" / "state.yaml").read_text(encoding="utf-8"))
+    # find the recorded sha for this exact artifact path
+    recorded = None
+
+    def walk(node):
+        nonlocal recorded
+        if isinstance(node, dict):
+            p = node.get("path")
+            if isinstance(p, str) and p == str(path.relative_to(ROOT)):
+                s = node.get("sha256")
+                if isinstance(s, str) and len(s) == 64:
+                    recorded = s
+            for v in node.values():
+                if isinstance(v, (dict, list)):
+                    walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                if isinstance(v, (dict, list)):
+                    walk(v)
+
+    walk(state)
+    assert recorded is not None, f"no sha256 recorded in state.yaml for {path.name}"
+    assert actual == recorded, f"artifact bytes sha {actual} != state-recorded {recorded}"
     assert data["real_data_only"] is True
     assert data["fabricated_data"] is False
     assert data["still_blocked"] is True
