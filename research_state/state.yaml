@@ -1,4 +1,4 @@
-updated_at_utc: 20261114T090012Z
+updated_at_utc: 20261114T100114Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -236,11 +236,11 @@ latest_c287_unblock_status:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
 latest_campaign_done: C297
-next_campaign: C298 (DEEP MULTI-YEAR USDT-M PERP FUNDING-CARRY + SPOT/PERP BASIS STAT-ARB, 2020-2026; mandatory heavy economic work)
+next_campaign: none (C298 complete, NOT_TRADABLE/zero_exposure; re-evaluate economic space before any C299)
 campaign298:
   hypothesis: MULTI_YEAR_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_XSEC_TS_STAT_ARB
-  status: active_pending_execution
-  as_of_utc: 20261114T090012Z
+  status: completed_not_tradable
+  as_of_utc: 20261114T100114Z
   family: multi_year_perp_funding_carry_and_spot_perp_basis
   data_source_hosts:
   - https://data.binance.vision
@@ -251,12 +251,24 @@ campaign298:
     spot: /api/v3/klines
   verified_reachable_http: 200
   archive_depth_start: 2020-01
-  archive_depth_end: 2026-11
+  archive_depth_end: 2026-10
   window:
     start: 2020-01-01T00:00:00Z
-    end: 2026-11-13T00:00:00Z
+    end: 2026-10-31T23:00:00Z
   interval: 1h
-  universe: USDT-M perps with history from 2020/2021 (BTCUSDT, ETHUSDT, and other long-history majors; per-symbol coverage/exclusions recorded fail-closed in preflight)
+  n_bars: 59904
+  universe:
+    candidates: [BTCUSDT, ETHUSDT, XRPUSDT, BCHUSDT, LTCUSDT, EOSUSDT, TRXUSDT, ADAUSDT, LINKUSDT]
+    n_selected: 3
+    assets: [BTCUSDT, ETHUSDT, BCHUSDT]
+    exclusions:
+      XRPUSDT: 5m kline coverage fail (NaN gaps)
+      LTCUSDT: 5m kline coverage fail (NaN gaps)
+      TRXUSDT: 5m kline coverage fail (NaN gaps)
+      ADAUSDT: 5m kline coverage fail (NaN gaps)
+      LINKUSDT: 5m kline coverage fail (NaN gaps)
+      EOSUSDT: month 2025-06 klines HTTP 404
+    note: full-coverage perps only; 32 recorded spot (data-api) gap hours per symbol carried as NaN, never imputed
   signal_features:
   - funding_level
   - funding_z
@@ -311,12 +323,52 @@ campaign298:
   tests:
   - tests/test_preflight_c298.py
   - tests/test_c298_multianual_funding_basis_xsec_oos.py
+  results:
+    verdict: NOT_TRADABLE
+    edge_proven: false
+    executed_fills: false
+    real_data_only: true
+    fabricated_data: false
+    n_total_runs: 162
+    n_with_exposure: 0
+    n_zero_exposure: 162
+    n_edge_proven: 0
+    binding_constraint: zero_exposure
+    block_reason: no_costed_oos_edge
+    gate: signal_coverage (3 fully-covered assets < 2K for all K in {2,3,5}; every rebalance blocked, zero exposure)
+    walk_forward: {train: 2160, test: 720, step: 720, n_splits: 80}
+    bh_oos_mean: 5.5609271561694426e-05
+  artifacts:
+    pkl:
+      path: data/cache/campaign298_multianual_perp_funding_basis.pkl
+      sha256: f064d9315d2bc69a2da0bb5037e820b8e16d403a64ad69c097ed320ae83c86cf
+    meta:
+      path: data/cache/campaign298_multianual_perp_funding_basis.meta.json
+      sha256: f064d9315d2bc69a2da0bb5037e820b8e16d403a64ad69c097ed320ae83c86cf
+    provenance:
+      path: data/cache/campaign298_multianual_perp_funding_basis.provenance.json
+      sha256: 283156172f712214ebd08924e600b643e9fee46db54c0c186a58b560a5bcb344
+    oos_sweep:
+      path: reports/campaign298_oos_sweep_20261114T100114Z.json
+      sha256: 7f41b516b5ff5dab53cdfe2dcb6d42f063adb77b78547e0a754e67a3c4d83883
+    registry:
+      path: reports/campaign298_tradable_edge_registry_20261114T100114Z.json
+      sha256: 0b7783d09f43a09441d43dbb2f5bdd732a91c8ceacd7417043b3c8811393c0e8
+    summary:
+      path: reports/campaign298_summary_20261114T100114Z.json
+      sha256: 26cdfcad8bdda90c4ffc9108ecadf7ea88d535d04c3d464843e1f9efef0ddbb9
+    verdict:
+      path: reports/campaign298_verdict_20261114T100114Z.json
+      sha256: df28e602348f94928f19525fa4a2b85800862c7d1f388e45c1ffd94934744e09
+    binding_constraint:
+      path: reports/campaign298_binding_constraint_20261114T100114Z.json
+      sha256: 9246fbe2d5343067387367028cfc029f776a3c6015ed8d6b3966b997dc04ed9e
   expected_artifacts:
-  - reports/campaign298_oos_sweep_<ts>.json
-  - reports/campaign298_tradable_edge_registry_<ts>.json
-  - reports/campaign298_summary_<ts>.json
-  - reports/campaign298_verdict_<ts>.json
-  - reports/campaign298_binding_constraint_<ts>.json
+  - reports/campaign298_oos_sweep_20261114T100114Z.json
+  - reports/campaign298_tradable_edge_registry_20261114T100114Z.json
+  - reports/campaign298_summary_20261114T100114Z.json
+  - reports/campaign298_verdict_20261114T100114Z.json
+  - reports/campaign298_binding_constraint_20261114T100114Z.json
   completion_gate:
   - deps_and_pytest_green_0_failed
   - ingest_cache_meta_provenance_sha256_from_bytes
@@ -325,6 +377,8 @@ campaign298:
   - all_five_artifacts_fresh_sha256_from_bytes
   - tests_added_and_pytest_green
   - state_and_handoff_synced_with_paths_and_sha256
+  completion_gate_status: all_met
+  pytest: {passed: 1279, skipped: 2, failed: 0, as_of_utc: 20261114T100114Z}
 closure_integrity_audit:
   as_of_utc: 20261114T085109Z
   json:

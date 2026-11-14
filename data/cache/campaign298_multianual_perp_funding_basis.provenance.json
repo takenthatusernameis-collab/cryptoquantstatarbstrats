@@ -1,0 +1,2013 @@
+{
+  "generated_at_utc": "20261114T095459Z",
+  "campaign": 298,
+  "part": "provenance",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe_rule": "Candidates are USDT-M perps with archive history from 2020-01 (verified HTTP 200 on data.binance.vision). Every candidate must have full klines+funding coverage for every calendar month 2020-01..2026-10; any month missing/blocked/partial excludes the symbol with a recorded reason. 5m klines are truncated to the exact window and resampled to 1h OHLCV on the exact 1h UTC grid; funding calc_time is floored to its native Binance funding boundary (8h for most perps, 4h for some; recorded per symbol) and placed on the 1h grid at boundary hours only. The spot leg is real spot 1h klines from data-api.binance.vision/api/v3/klines over the same window; spot feed gaps are NOT imputed: they are recorded per symbol and the runner's fail-closed gates block any trade requiring missing spot data. No impute/ffill/resample of derived series.",
+  "n_candidates": 9,
+  "n_selected": 3,
+  "selected_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BCHUSDT"
+  ],
+  "excluded_symbols": {
+    "XRPUSDT": "5m kline coverage fail (nan=14900, finite=False, pos_px=False, vol_ok=False)",
+    "LTCUSDT": "5m kline coverage fail (nan=19205, finite=False, pos_px=False, vol_ok=False)",
+    "EOSUSDT": "month 2025-06 klines status 404",
+    "TRXUSDT": "5m kline coverage fail (nan=27845, finite=False, pos_px=False, vol_ok=False)",
+    "ADAUSDT": "5m kline coverage fail (nan=43680, finite=False, pos_px=False, vol_ok=False)",
+    "LINKUSDT": "5m kline coverage fail (nan=23520, finite=False, pos_px=False, vol_ok=False)"
+  },
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "exclusion_reason": null,
+      "bars": 59904,
+      "kline_nan": 0,
+      "h1_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 7488,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_max_gap_bars": 8,
+      "funding_tail_gap_bars": 7,
+      "stale_ok": true
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "exclusion_reason": null,
+      "bars": 59904,
+      "kline_nan": 0,
+      "h1_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 7488,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_max_gap_bars": 8,
+      "funding_tail_gap_bars": 7,
+      "stale_ok": true
+    },
+    "XRPUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "5m kline coverage fail (nan=14900, finite=False, pos_px=False, vol_ok=False)",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    },
+    "BCHUSDT": {
+      "status": "ok",
+      "exclusion_reason": null,
+      "bars": 59904,
+      "kline_nan": 0,
+      "h1_nan": 0,
+      "full_coverage": true,
+      "funding_rows": 7488,
+      "funding_interval_hours": [
+        8
+      ],
+      "funding_max_gap_bars": 8,
+      "funding_tail_gap_bars": 7,
+      "stale_ok": true
+    },
+    "LTCUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "5m kline coverage fail (nan=19205, finite=False, pos_px=False, vol_ok=False)",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    },
+    "EOSUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "month 2025-06 klines status 404",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    },
+    "TRXUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "5m kline coverage fail (nan=27845, finite=False, pos_px=False, vol_ok=False)",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    },
+    "ADAUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "5m kline coverage fail (nan=43680, finite=False, pos_px=False, vol_ok=False)",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    },
+    "LINKUSDT": {
+      "status": "excluded",
+      "exclusion_reason": "5m kline coverage fail (nan=23520, finite=False, pos_px=False, vol_ok=False)",
+      "bars": null,
+      "kline_nan": null,
+      "h1_nan": null,
+      "full_coverage": null,
+      "funding_rows": null,
+      "funding_interval_hours": null,
+      "funding_max_gap_bars": null,
+      "funding_tail_gap_bars": null,
+      "stale_ok": null
+    }
+  },
+  "spot_per_symbol": {
+    "BTCUSDT": {
+      "bars": 59872,
+      "index_subset_of_expected": true,
+      "gap_hours": 32,
+      "gap_hours_first": "2020-02-09 02:00:00+00:00",
+      "gap_hours_last": "2023-03-24 13:00:00+00:00"
+    },
+    "ETHUSDT": {
+      "bars": 59872,
+      "index_subset_of_expected": true,
+      "gap_hours": 32,
+      "gap_hours_first": "2020-02-09 02:00:00+00:00",
+      "gap_hours_last": "2023-03-24 13:00:00+00:00"
+    },
+    "BCHUSDT": {
+      "bars": 59872,
+      "index_subset_of_expected": true,
+      "gap_hours": 32,
+      "gap_hours_first": "2020-02-09 02:00:00+00:00",
+      "gap_hours_last": "2023-03-24 13:00:00+00:00"
+    }
+  },
+  "spot_gap_hours_by_symbol": {
+    "BTCUSDT": [
+      "2020-02-09 02:00:00+00:00",
+      "2020-02-19 12:00:00+00:00",
+      "2020-02-19 13:00:00+00:00",
+      "2020-02-19 14:00:00+00:00",
+      "2020-02-19 15:00:00+00:00",
+      "2020-02-19 16:00:00+00:00",
+      "2020-03-04 10:00:00+00:00",
+      "2020-04-25 02:00:00+00:00",
+      "2020-04-25 03:00:00+00:00",
+      "2020-06-28 02:00:00+00:00",
+      "2020-06-28 03:00:00+00:00",
+      "2020-06-28 04:00:00+00:00",
+      "2020-11-30 06:00:00+00:00",
+      "2020-12-21 14:00:00+00:00",
+      "2020-12-21 15:00:00+00:00",
+      "2020-12-21 16:00:00+00:00",
+      "2020-12-21 17:00:00+00:00",
+      "2020-12-25 02:00:00+00:00",
+      "2021-02-11 04:00:00+00:00",
+      "2021-03-06 02:00:00+00:00",
+      "2021-04-20 02:00:00+00:00",
+      "2021-04-20 03:00:00+00:00",
+      "2021-04-25 05:00:00+00:00",
+      "2021-04-25 06:00:00+00:00",
+      "2021-04-25 07:00:00+00:00",
+      "2021-08-13 02:00:00+00:00",
+      "2021-08-13 03:00:00+00:00",
+      "2021-08-13 04:00:00+00:00",
+      "2021-08-13 05:00:00+00:00",
+      "2021-09-29 07:00:00+00:00",
+      "2021-09-29 08:00:00+00:00",
+      "2023-03-24 13:00:00+00:00"
+    ],
+    "ETHUSDT": [
+      "2020-02-09 02:00:00+00:00",
+      "2020-02-19 12:00:00+00:00",
+      "2020-02-19 13:00:00+00:00",
+      "2020-02-19 14:00:00+00:00",
+      "2020-02-19 15:00:00+00:00",
+      "2020-02-19 16:00:00+00:00",
+      "2020-03-04 10:00:00+00:00",
+      "2020-04-25 02:00:00+00:00",
+      "2020-04-25 03:00:00+00:00",
+      "2020-06-28 02:00:00+00:00",
+      "2020-06-28 03:00:00+00:00",
+      "2020-06-28 04:00:00+00:00",
+      "2020-11-30 06:00:00+00:00",
+      "2020-12-21 14:00:00+00:00",
+      "2020-12-21 15:00:00+00:00",
+      "2020-12-21 16:00:00+00:00",
+      "2020-12-21 17:00:00+00:00",
+      "2020-12-25 02:00:00+00:00",
+      "2021-02-11 04:00:00+00:00",
+      "2021-03-06 02:00:00+00:00",
+      "2021-04-20 02:00:00+00:00",
+      "2021-04-20 03:00:00+00:00",
+      "2021-04-25 05:00:00+00:00",
+      "2021-04-25 06:00:00+00:00",
+      "2021-04-25 07:00:00+00:00",
+      "2021-08-13 02:00:00+00:00",
+      "2021-08-13 03:00:00+00:00",
+      "2021-08-13 04:00:00+00:00",
+      "2021-08-13 05:00:00+00:00",
+      "2021-09-29 07:00:00+00:00",
+      "2021-09-29 08:00:00+00:00",
+      "2023-03-24 13:00:00+00:00"
+    ],
+    "BCHUSDT": [
+      "2020-02-09 02:00:00+00:00",
+      "2020-02-19 12:00:00+00:00",
+      "2020-02-19 13:00:00+00:00",
+      "2020-02-19 14:00:00+00:00",
+      "2020-02-19 15:00:00+00:00",
+      "2020-02-19 16:00:00+00:00",
+      "2020-03-04 10:00:00+00:00",
+      "2020-04-25 02:00:00+00:00",
+      "2020-04-25 03:00:00+00:00",
+      "2020-06-28 02:00:00+00:00",
+      "2020-06-28 03:00:00+00:00",
+      "2020-06-28 04:00:00+00:00",
+      "2020-11-30 06:00:00+00:00",
+      "2020-12-21 14:00:00+00:00",
+      "2020-12-21 15:00:00+00:00",
+      "2020-12-21 16:00:00+00:00",
+      "2020-12-21 17:00:00+00:00",
+      "2020-12-25 02:00:00+00:00",
+      "2021-02-11 04:00:00+00:00",
+      "2021-03-06 02:00:00+00:00",
+      "2021-04-20 02:00:00+00:00",
+      "2021-04-20 03:00:00+00:00",
+      "2021-04-25 05:00:00+00:00",
+      "2021-04-25 06:00:00+00:00",
+      "2021-04-25 07:00:00+00:00",
+      "2021-08-13 02:00:00+00:00",
+      "2021-08-13 03:00:00+00:00",
+      "2021-08-13 04:00:00+00:00",
+      "2021-08-13 05:00:00+00:00",
+      "2021-09-29 07:00:00+00:00",
+      "2021-09-29 08:00:00+00:00",
+      "2023-03-24 13:00:00+00:00"
+    ]
+  },
+  "spot_leg_provenance": {
+    "hosts": [
+      "https://data-api.binance.vision"
+    ],
+    "blocked_hosts": [],
+    "blocked_routes": [],
+    "interval": "1h",
+    "start_utc": "2020-01-01T00:00:00Z",
+    "end_utc": "2026-10-31T23:00:00Z",
+    "per_symbol": {
+      "BTCUSDT": {
+        "status": "ok",
+        "bars": 59872
+      },
+      "ETHUSDT": {
+        "status": "ok",
+        "bars": 59872
+      },
+      "BCHUSDT": {
+        "status": "ok",
+        "bars": 59872
+      }
+    },
+    "attempts": [
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1577836800000&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 810,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1581436800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1585058400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1588665600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1592265600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 895,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1595876400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1599476400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1603076400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1606676400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1610298000001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1613901600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1617505200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1621123200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1624723200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1628323200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 786,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1631937600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1635544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1639144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1642744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1646344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1649944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1653544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1657144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1660744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1664344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1667944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1671544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1675144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1678744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1682348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1685948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1689548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1693148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1696748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1700348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1703948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1707548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 896,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1711148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1714748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1718348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1721948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1725548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1729148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1732748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1736348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1739948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1743548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1747148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1750748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1754348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 791,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1757948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 794,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1761548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 796,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1765148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1768748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1772348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 788,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1775948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 789,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1779548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 791,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1783148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1786748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1790348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "BTCUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 872
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1577836800000&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 804,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1581436800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 785,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1585058400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1588665600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1592265600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1595876400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1599476400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 771,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1603076400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1606676400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1610298000001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 786,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1613901600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1617505200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1621123200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1624723200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1628323200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1631937600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 786,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1635544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1639144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1642744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1646344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1649944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1653544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1657144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1660744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1664344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1667944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1671544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1675144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1678744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1682348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1685948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1689548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 893,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1693148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1696748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 773,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1700348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1703948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 818,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1707548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1711148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1714748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1718348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 785,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1721948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1725548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1729148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 788,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1732748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1736348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 773,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1739948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1743548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1747148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 784,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1750748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1754348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 800,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1757948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 788,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1761548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 803,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1765148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1768748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1772348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1775948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 796,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1779548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 797,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1783148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1786748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1790348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "ETHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 872
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1577836800000&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 801,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1581436800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1585058400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 784,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1588665600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1592265600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1595876400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1599476400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1603076400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1606676400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1610298000001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1613901600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 783,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1617505200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1621123200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1624723200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1628323200001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 772,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1631937600001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 785,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1635544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 789,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1639144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1642744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1646344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 773,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1649944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1653544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1657144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1660744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1664344800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1667944800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1671544800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1675144800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1678744800001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 786,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1682348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 774,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1685948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1689548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 887,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1693148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1696748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1700348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 784,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1703948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 786,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1707548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1711148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1714748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1718348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1721948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 784,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1725548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 773,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1729148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1732748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 775,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1736348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 777,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1739948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 772,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1743548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1747148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 781,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1750748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1754348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 776,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1757948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 792,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1761548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 778,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1765148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 785,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1768748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 787,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1772348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1775948400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 782,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1779548400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 779,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1783148400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 798,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1786748400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 780,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 1000
+      },
+      {
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BCHUSDT&interval=1h&startTime=1790348400001&endTime=1793487600000&limit=1000",
+        "ok": true,
+        "status": 200,
+        "latency_ms": 793,
+        "symbol": "BCHUSDT",
+        "endpoint": "/api/v3/klines",
+        "bars": 872
+      }
+    ],
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "months": [
+    "2020-01",
+    "2020-02",
+    "2020-03",
+    "2020-04",
+    "2020-05",
+    "2020-06",
+    "2020-07",
+    "2020-08",
+    "2020-09",
+    "2020-10",
+    "2020-11",
+    "2020-12",
+    "2021-01",
+    "2021-02",
+    "2021-03",
+    "2021-04",
+    "2021-05",
+    "2021-06",
+    "2021-07",
+    "2021-08",
+    "2021-09",
+    "2021-10",
+    "2021-11",
+    "2021-12",
+    "2022-01",
+    "2022-02",
+    "2022-03",
+    "2022-04",
+    "2022-05",
+    "2022-06",
+    "2022-07",
+    "2022-08",
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10",
+    "2023-11",
+    "2023-12",
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-04",
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "n_months": 82,
+  "window": {
+    "start": "2020-01-01T00:00:00Z",
+    "end": "2026-10-31T23:00:00Z"
+  },
+  "interval": "1h"
+}

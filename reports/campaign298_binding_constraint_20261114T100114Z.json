@@ -1,0 +1,2478 @@
+{
+  "generated_at_utc": "20261114T100114Z",
+  "campaign": 298,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "NOT_TRADABLE",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "oos_sweep_artifact": "reports/campaign298_oos_sweep_20261114T100114Z.json",
+  "oos_sweep_sha256": "7f41b516b5ff5dab53cdfe2dcb6d42f063adb77b78547e0a754e67a3c4d83883",
+  "signal_pass_shares": {
+    "mean_gate_pass_share": 0.0,
+    "min_gate_pass_share": 0.0,
+    "max_gate_pass_share": 0.0,
+    "runs": [
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_level",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "funding_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_ma",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "basis_z",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_mom",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 168,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 720,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 2,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 3,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 1,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 59904
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 6,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 9984
+        }
+      },
+      {
+        "feature": "perp_lowvol",
+        "lookback": 2160,
+        "K": 5,
+        "hold": 24,
+        "gate_pass_share": 0.0,
+        "blocked_rebalance_reasons": {
+          "signal_coverage": 2496
+        }
+      }
+    ]
+  },
+  "exposure_summary": {
+    "total_runs": 162,
+    "runs_with_exposure": 0,
+    "runs_zero_exposure": 162,
+    "zero_exposure_rate": 1.0
+  },
+  "turnover_summary": {
+    "configs_with_exposure": 0,
+    "mean_turnover": 0.0,
+    "median_turnover": 0.0,
+    "max_turnover": 0.0
+  },
+  "cost_slice_oos_net_sums": {
+    "fee0_slip0": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fee5_slip5": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fee10_slip10": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fee20_slip20": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fee40_slip40": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "funding_pnl_summary": {
+    "mean_funding_pnl_sum": 0.0,
+    "mean_price_pnl_sum": 0.0
+  },
+  "binding_constraint": "zero_exposure",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

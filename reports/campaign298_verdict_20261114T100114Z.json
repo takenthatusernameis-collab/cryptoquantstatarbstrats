@@ -1,0 +1,61 @@
+{
+  "generated_at_utc": "20261114T100114Z",
+  "campaign": 298,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "finding": "No costed OOS edge proven on the real multi-year funding-carry/basis cross-sectional family (162 runs, 0 edge).",
+  "basis": "real_usd_m_perp_funding_carry_and_spot_perp_basis_costed_oos",
+  "dataset": {
+    "cache": "data/cache/campaign298_multianual_perp_funding_basis.pkl",
+    "cache_sha256": "f064d9315d2bc69a2da0bb5037e820b8e16d403a64ad69c097ed320ae83c86cf",
+    "cache_meta": "data/cache/campaign298_multianual_perp_funding_basis.meta.json",
+    "cache_meta_sha256": "142218bbd7a178dcc37a47651ef4d46e2a8274c78065f74546a5ddbc98276133",
+    "cache_provenance": "data/cache/campaign298_multianual_perp_funding_basis.provenance.json",
+    "cache_provenance_sha256": "283156172f712214ebd08924e600b643e9fee46db54c0c186a58b560a5bcb344",
+    "bars": 59904,
+    "interval": "1h",
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ],
+    "n_assets": 3,
+    "window": {
+      "start": "2020-01-01 00:00:00+00:00",
+      "end": "2026-10-31 23:00:00+00:00"
+    },
+    "funding_total_rows": 22464,
+    "funding_intervals_by_symbol": {
+      "BTCUSDT": [
+        8
+      ],
+      "ETHUSDT": [
+        8
+      ],
+      "BCHUSDT": [
+        8
+      ]
+    },
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign298_oos_sweep_20261114T100114Z.json",
+  "oos_sweep_sha256": "7f41b516b5ff5dab53cdfe2dcb6d42f063adb77b78547e0a754e67a3c4d83883",
+  "registry_artifact": "reports/campaign298_tradable_edge_registry_20261114T100114Z.json",
+  "registry_sha256": "0b7783d09f43a09441d43dbb2f5bdd732a91c8ceacd7417043b3c8811393c0e8",
+  "summary_artifact": "reports/campaign298_summary_20261114T100114Z.json",
+  "summary_sha256": "26cdfcad8bdda90c4ffc9108ecadf7ea88d535d04c3d464843e1f9efef0ddbb9",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real USDT-M perp 1h klines + real funding cashflows only",
+    "executed_fills: false"
+  ],
+  "binding_constraint_artifact": "reports/campaign298_binding_constraint_20261114T100114Z.json",
+  "binding_constraint_sha256": "9246fbe2d5343067387367028cfc029f776a3c6015ed8d6b3966b997dc04ed9e"
+}

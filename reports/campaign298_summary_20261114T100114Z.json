@@ -1,0 +1,103 @@
+{
+  "generated_at_utc": "20261114T100114Z",
+  "campaign": 298,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "universe": {
+    "n_assets": 3,
+    "assets": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 2160,
+      "test": 720,
+      "step": 720,
+      "n_splits": 80
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signal_features": [
+      "funding_level",
+      "funding_z",
+      "basis_ma",
+      "basis_z",
+      "perp_mom",
+      "perp_lowvol"
+    ],
+    "lookbacks_1h": [
+      168,
+      720,
+      2160
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "total_runs": 162,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "weights.shift(1).fillna(0.0)",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal)",
+    "score_definition": {
+      "funding_level": "-funding_rate_ffill_known_at_t-1",
+      "funding_z": "-z(funding_rate_ffill, L 1h bars)",
+      "basis_ma": "-mean((perp-spot)/spot, L 1h bars)",
+      "basis_z": "-z((perp-spot)/spot, L 1h bars)",
+      "perp_mom": "+mean(perp 1h log-return, L)",
+      "perp_lowvol": "-std(perp 1h log-return, L)"
+    },
+    "signal_direction": "long top-K, short bottom-K by score (higher score = long)"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign298_oos_sweep_20261114T100114Z.json",
+      "sha256": "7f41b516b5ff5dab53cdfe2dcb6d42f063adb77b78547e0a754e67a3c4d83883"
+    },
+    "registry": {
+      "path": "reports/campaign298_tradable_edge_registry_20261114T100114Z.json",
+      "sha256": "0b7783d09f43a09441d43dbb2f5bdd732a91c8ceacd7417043b3c8811393c0e8"
+    }
+  },
+  "summary": {
+    "n_total_runs": 162,
+    "n_with_exposure": 0,
+    "n_zero_exposure": 162,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 5.5609271561694426e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the multi-year USDT-M perp funding-carry/basis space."
+}
