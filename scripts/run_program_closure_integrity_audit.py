@@ -313,15 +313,16 @@ def to_markdown(report: dict, json_path: Path | None = None, md_path: Path | Non
     lines.append(f"- scope: {report['scope']}")
     lines.append(f"- integrity_ok: {report['integrity_ok']}")
     lines.append(f"- n_references: {report['n_references']} (ok={report['n_ok']}, issues={report['n_mismatch_or_missing_or_error']})")
+    lines.append(f"- n_issues: {report['n_mismatch_or_missing_or_error']}")
     lines.append(f"- zero_tradable_edge_registry_confirmed: {report['zero_tradable_edge_registry_confirmed']}")
     lines.append(f"- reachable_real_data_cross_sectional_stat_arb_space: {report['reachable_real_data_cross_sectional_stat_arb_space']}")
     if json_path is not None and json_sha is not None:
         lines.append("")
         lines.append("## Generated artifacts")
         lines.append("")
-        lines.append(f"- json: `{json_path.name}` (SHA256-from-bytes `{json_sha}`)")
-        if md_path is not None and md_sha is not None:
-            lines.append(f"- md: `{md_path.name}` (SHA256-from-bytes `{md_sha}`)")
+        lines.append(f"- json: `{json_path.name}` (`{json_sha}`)")
+        if md_path is not None:
+            lines.append(f"- md: `{md_path.name}`")
         lines.append("")
     lines.append("| Campaign | Items | Hashes OK | Exists | Errors | Verdicts | Bindings | n_runs | n_edge |")
     lines.append("|---|---:|:---:|:---:|:---:|---|---|---|---|")
@@ -350,10 +351,13 @@ def main():
     report["md_path"] = str(md_path.relative_to(ROOT))
     json_path.write_bytes(json.dumps(report, indent=2, sort_keys=True).encode("utf-8"))
     json_sha = sha256_file(json_path)
+    # The Markdown records the JSON's SHA256-from-bytes (written before the md, so
+    # it is verifiable). The md's own SHA256 is intentionally NOT embedded in the
+    # md: writing it would change the md bytes and make the value self-referential
+    # and unverifiable. It is emitted below and recorded in the handoff/state.
     md_text = to_markdown(report, json_path=json_path, md_path=md_path, json_sha=json_sha)
     md_path.write_text(md_text, encoding="utf-8")
     md_sha = sha256_file(md_path)
-    md_path.write_text(to_markdown(report, json_path=json_path, md_path=md_path, json_sha=json_sha, md_sha=md_sha), encoding="utf-8")
     # NOTE: json_sha256/md_sha256 are recorded in the .md and printed output only,
     # never written back into the JSON (that would make the hash self-referential).
     out = {

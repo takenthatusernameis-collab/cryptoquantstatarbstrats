@@ -72,16 +72,48 @@ def test_closure_integrity_audit_md_exists_and_consistent():
 def test_closure_integrity_audit_sha_matches_recorded_file_bytes():
     """The audit JSON's own SHA256-from-bytes must equal the value recorded in
     the companion .md (written after the json), and must match recomputation
-    from file bytes."""
+    from file bytes. The md's own SHA256 cannot be embedded in the md without
+    becoming self-referential, so it is recorded in the authoritative handoff
+    (research_state/state.yaml) and verified there."""
+    import yaml
+
     js = latest("program_closure_integrity_audit_*.json")
     md = latest("program_closure_integrity_audit_*.md")
     data = json.loads(js.read_text(encoding="utf-8"))
     actual = sha256_file(js)
     md_text = md.read_text(encoding="utf-8")
     assert f"`{js.name}` (`{actual}`)" in md_text, "md must record json path+sha"
-    assert f"`{md.name}` (`{sha256_file(md)}`)" in md_text, "md must record md path+sha"
     assert f"n_references: {data['n_references']}" in md_text
     assert f"n_issues: {data['n_mismatch_or_missing_or_error']}" in md_text
+    assert f"`{md.name}`" in md_text, "md must name itself in the artifacts block"
+
+    state = yaml.safe_load((ROOT / "research_state" / "state.yaml").read_text(encoding="utf-8"))
+    recorded = {"json": None, "md": None}
+
+    def walk(node):
+        if isinstance(node, dict):
+            p = node.get("path")
+            if isinstance(p, str) and (p.startswith("reports/") or p.startswith("data/")):
+                rel = p
+                if rel == str(js.relative_to(ROOT)):
+                    s = node.get("sha256")
+                    if isinstance(s, str) and len(s) == 64:
+                        recorded["json"] = s
+                if rel == str(md.relative_to(ROOT)):
+                    s = node.get("sha256")
+                    if isinstance(s, str) and len(s) == 64:
+                        recorded["md"] = s
+            for v in node.values():
+                if isinstance(v, (dict, list)):
+                    walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                if isinstance(v, (dict, list)):
+                    walk(v)
+
+    walk(state)
+    assert recorded["json"] == actual, "state.yaml must record the audit json sha256"
+    assert recorded["md"] == sha256_file(md), "state.yaml must record the audit md sha256"
 
 
 def test_closure_integrity_audit_covers_c281b_through_c297():
