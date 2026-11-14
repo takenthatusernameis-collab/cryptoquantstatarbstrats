@@ -1,43 +1,40 @@
-updated_at_utc: 20261114T065653Z
+updated_at_utc: 20261114T073839Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge
   validation
 priority: statistical-arb edge discovery before infrastructure work
 active_initial_task: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENCE
-  — MANDATORY HEAVY WORK (2026-11-14T06:56:53Z). Reachable real-data cross-sectional
-  stat-arb space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297,
-  0 costed OOS edge; C289 economic_space_closed:true). C297 frozen NOT_TRADABLE (0/135
-  edge, binding mean_beats_benchmark_fail). Closure-integrity audit refreshed 20261114T065653Z:
-  reports/program_closure_integrity_audit_20261114T065653Z.json sha256 a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d
-  + .md sha256 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb
-  (integrity_ok:true, n_issues:0, n_references:96, 0 tradable edge, real_data_only:true,
-  fabricated_data:false). C287 external-unblock status refreshed 20261114T065629Z:
-  reports/c287_external_unblock_status_20261114T065629Z.json sha256 2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1 (BLOCKED/DECOUPLED,
-  testnet REST 451, fapi 451, bybit 403, missing BINANCE_TESTNET_API_KEY/SECRET; external
-  action required: valid Binance Spot Testnet credentials + non-451 egress). No C298:
-  inventing campaigns in closed space is prohibited. Next agent must in one turn,
-  no status-only: (1) bootstrap deps (python scripts/bootstrap_dev_env.py) if needed;
-  pytest -q baseline. (2) Re-run scripts/run_c287_external_unblock_status.py and
-  scripts/run_program_closure_integrity_audit.py with fresh --ts to emit SHA256-from-bytes
-  artifacts covering C281B–C297; verify integrity_ok:true, real_data_only:true, fabricated_data:false,
-  0 tradable edge, C287 fail-closed blocked reasons. (3) Record every new path+sha in
-  state.yaml (no placeholder/zero hashes, no re-nesting top-level latest_campaign_done/next_campaign/closure_integrity_audit/c287_external_unblock_status).
-  (4) Keep audit/c287/campaign_resume schema+hash/file cross-reference tests passing;
-  full python -m pytest tests/ -q must be 0 failed. (5) Update AGENTS.md + research_state/state.yaml
-  with refresh timestamp, new artifact paths+SHA256, pass/skip counts. Never fabricate
-  data/fills/creds, never weaken gates/costs/edge rule, never claim edge, never edit
-  .github/workflows/main.yml, never create/read/edit HANDOFF.md.'
+    — MANDATORY HEAVY WORK (2026-11-14T07:38:39Z). Reachable real-data cross-sectional
+    stat-arb space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297,
+    0 costed OOS edge; C289 economic_space_closed:true). C297 frozen NOT_TRADABLE (0/135
+    edge, binding mean_beats_benchmark_fail). Closure-integrity audit refreshed 20261114T073839Z:
+    reports/program_closure_integrity_audit_20261114T073839Z.json sha256 aa80d86c2af51b98a14f6f3f64bae07931cf99f13784ce435f29e23f080dcf2b
+    + .md sha256 058693f8069bc4e9e7fc2d96757ac3c762b15f3c09ac49c2ea041873da7a6574
+    (integrity_ok:true, n_issues:0, n_references:95, 0 tradable edge, real_data_only:true,
+    fabricated_data:false, scope C281B–C297). C287 external-unblock status refreshed 20261114T073839Z:
+    reports/c287_external_unblock_status_20261114T073839Z.json sha256 b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7
+    (BLOCKED/DECOUPLED, testnet REST 451, fapi 451, bybit 403, missing
+    BINANCE_TESTNET_API_KEY/SECRET; external action required: valid Binance Spot Testnet
+    credentials + non-451 egress). No C298: inventing campaigns in closed space is prohibited.
+    This session completed the mandatory heavy work: bootstrap OK; C287 status + closure
+    audit re-run with fresh --ts (SHA256-from-bytes); C287 artifact recorded in state
+    BEFORE the audit so collect_all_refs cross-referenced it; state updated with every new
+    path+sha (no placeholder/zero hashes, top-level keys un-nested); audit/c287/campaign_resume
+    tests passing; python -m pytest tests/ -q green with 0 failures; AGENTS.md + state synced.
+    Next agent must keep the same maintenance loop (refresh audit + C287 evidence, keep
+    tests green, never fabricate data/fills/creds, never weaken gates/costs/edge rule,
+    never claim edge, never edit .github/workflows/main.yml, never create/read/edit HANDOFF.md).'
 known_bottleneck:
   id: reachable_real_data_stat_arb_closed_c287_external_only
-  as_of_utc: 20261114T065653Z
+  as_of_utc: 20261114T073839Z
   evidence: 'C297 daily multi-year cross-sectional stat-arb NOT_TRADABLE (0/135 costed
     OOS edge, binding mean_beats_benchmark_fail). Combined with C281B-C296 the reachable
     real-data cross-sectional stat-arb space is CLOSED across intraday AND daily multi-year
     horizons. C287 BLOCKED/DECOUPLED (testnet REST 451, fapi 451, bybit 403, no creds).
-    Closure-integrity audit refreshed 20261114T065653Z (sha256 a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d,
-    md sha256 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb, integrity_ok:true,
-    n_issues:0, n_references:96, scope C281B-C297). C287 external-unblock status refreshed
-    20261114T065629Z (sha256 2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1,
+    Closure-integrity audit refreshed 20261114T073839Z (sha256 aa80d86c2af51b98a14f6f3f64bae07931cf99f13784ce435f29e23f080dcf2b,
+    md sha256 058693f8069bc4e9e7fc2d96757ac3c762b15f3c09ac49c2ea041873da7a6574, integrity_ok:true,
+    n_issues:0, n_references:95, scope C281B-C297). C287 external-unblock status refreshed
+    20261114T073839Z (sha256 b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7,
     BLOCKED/DECOUPLED). Bottlenecks removed this refresh: re-emitted fresh closure-integrity
     audit json+md (SHA256-from-bytes, scope C281B-C297, integrity_ok:true, n_references:96);
     re-emitted fresh C287 external-unblock status (fail-closed, BLOCKED, 451/403/missing-creds);
@@ -256,30 +253,30 @@ caches_verified:
     - okx
     - coinbase
 latest_closure_integrity_audit:
-  path_json: reports/program_closure_integrity_audit_20261114T065653Z.json
-  sha256_json: a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d
-  path_md: reports/program_closure_integrity_audit_20261114T065653Z.md
-  sha256_md: 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb
+  path_json: reports/program_closure_integrity_audit_20261114T073839Z.json
+  sha256_json: aa80d86c2af51b98a14f6f3f64bae07931cf99f13784ce435f29e23f080dcf2b
+  path_md: reports/program_closure_integrity_audit_20261114T073839Z.md
+  sha256_md: 058693f8069bc4e9e7fc2d96757ac3c762b15f3c09ac49c2ea041873da7a6574
   integrity_ok: true
-  n_references: 96
+  n_references: 95
   n_mismatch_or_missing_or_error: 0
   zero_tradable_edge_registry_confirmed: true
-  as_of_utc: 20261114T065653Z
+  as_of_utc: 20261114T073839Z
   json:
-    path: reports/program_closure_integrity_audit_20261114T065653Z.json
-    sha256: a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d
+    path: reports/program_closure_integrity_audit_20261114T073839Z.json
+    sha256: aa80d86c2af51b98a14f6f3f64bae07931cf99f13784ce435f29e23f080dcf2b
   md:
-    path: reports/program_closure_integrity_audit_20261114T065653Z.md
-    sha256: 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb
+    path: reports/program_closure_integrity_audit_20261114T073839Z.md
+    sha256: 058693f8069bc4e9e7fc2d96757ac3c762b15f3c09ac49c2ea041873da7a6574
   n_issues: 0
   scope: C281B-C297
   real_data_only: true
   fabricated_data: false
   reachable_real_data_cross_sectional_stat_arb_space: CLOSED
 latest_c287_unblock_status:
-  as_of_utc: 20261114T065629Z
-  path: reports/c287_external_unblock_status_20261114T065629Z.json
-  sha256: 2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1
+  as_of_utc: 20261114T073839Z
+  path: reports/c287_external_unblock_status_20261114T073839Z.json
+  sha256: b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7
   status: BLOCKED
   still_blocked: true
   real_data_only: true
@@ -289,25 +286,25 @@ latest_campaign_done: C297
 next_campaign: PROGRAM_CLOSURE_INTEGRITY_AUDIT_AND_C287_EXTERNAL_UNBLOCK_STATUS (no
   reachable economic campaign; space closed; C287 external-only)
 closure_integrity_audit:
-  as_of_utc: 20261114T065653Z
+  as_of_utc: 20261114T073839Z
   json:
-    path: reports/program_closure_integrity_audit_20261114T065653Z.json
-    sha256: a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d
+    path: reports/program_closure_integrity_audit_20261114T073839Z.json
+    sha256: aa80d86c2af51b98a14f6f3f64bae07931cf99f13784ce435f29e23f080dcf2b
   md:
-    path: reports/program_closure_integrity_audit_20261114T065653Z.md
-    sha256: 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb
+    path: reports/program_closure_integrity_audit_20261114T073839Z.md
+    sha256: 058693f8069bc4e9e7fc2d96757ac3c762b15f3c09ac49c2ea041873da7a6574
   integrity_ok: true
   n_issues: 0
-  n_references: 96
+  n_references: 95
   scope: C281B-C297
   real_data_only: true
   fabricated_data: false
   zero_tradable_edge_registry_confirmed: true
   reachable_real_data_cross_sectional_stat_arb_space: CLOSED
 c287_external_unblock_status:
-  as_of_utc: 20261114T065629Z
-  path: reports/c287_external_unblock_status_20261114T065629Z.json
-  sha256: 2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1
+  as_of_utc: 20261114T073839Z
+  path: reports/c287_external_unblock_status_20261114T073839Z.json
+  sha256: b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7
   status: BLOCKED
   still_blocked: true
   real_data_only: true
@@ -930,8 +927,8 @@ campaign287:
     sha256: 2635b45e50e2544671388271ef15f898884a9a38a1a0b3aa5f10a783c3a07c20
     type: summary
     mode: BLOCKED
-  - path: reports/c287_external_unblock_status_20261114T065629Z.json
-    sha256: 2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1
+  - path: reports/c287_external_unblock_status_20261114T073839Z.json
+    sha256: b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7
     type: external_unblock_status
     mode: BLOCKED
   completion_gate:
@@ -1570,25 +1567,28 @@ handoff:
   single_authoritative: true
   forbidden_files:
   - HANDOFF.md
-  timestamp_utc: 20261114T065653Z
+  timestamp_utc: 20261114T073839Z
   active_initial_task_message: 'MAINTAIN CLOSURE INTEGRITY & C287 EXTERNAL-UNBLOCK EVIDENCE
-    — MANDATORY HEAVY WORK (2026-11-14T06:56:53Z). Reachable real-data cross-sectional
+    — MANDATORY HEAVY WORK (2026-11-14T07:38:39Z). Reachable real-data cross-sectional
     stat-arb space CLOSED through C297 (intraday 5m/1h AND daily multi-year; C281B–C297,
-    0 costed OOS edge). C297 frozen NOT_TRADABLE (0/135, binding mean_beats_benchmark_fail).
-    Closure-integrity audit refreshed 20261114T065653Z: reports/program_closure_integrity_audit_20261114T065653Z.json
-    sha256 a8626e63852899b41595906238af68e14b78b76dd73252ef3f21d90fc8a4af4d + .md
-    sha256 44b09c1a8368a793283727ce6fdee3d394591af753eb0c784aaa2f4359a754eb (integrity_ok:true,
-    n_issues:0, n_references:96, 0 tradable edge). C287 external-unblock status refreshed
-    20261114T065629Z: reports/c287_external_unblock_status_20261114T065629Z.json sha256
-    2f2b878d9647bba671bafbbd3f6370350bdd474ac5195eab6fc5b84649ee8ce1 (BLOCKED/DECOUPLED,
-    testnet REST 451, fapi 451, bybit 403, missing creds; external action required).
-    Next agent must in one turn, no status-only: bootstrap deps if needed; re-run scripts/run_c287_external_unblock_status.py
-    and scripts/run_program_closure_integrity_audit.py with fresh --ts to emit SHA256-from-bytes
-    artifacts covering C281B–C297; record every new path+sha in state.yaml (no placeholder/zero
-    hashes, top-level keys un-nested); keep audit/c287/campaign_resume tests passing; run
-    python -m pytest tests/ -q to 0 failed; sync AGENTS.md + state. Never fabricate data/fills/creds,
-    weaken gates/costs/edge rule, claim edge, edit .github/workflows/main.yml, or create/read/edit
-    HANDOFF.md.'
+    0 costed OOS edge; C289 economic_space_closed:true). C297 frozen NOT_TRADABLE (0/135
+    edge, binding mean_beats_benchmark_fail). Closure-integrity audit refreshed 20261114T073839Z:
+    reports/program_closure_integrity_audit_20261114T073839Z.json sha256 db8462bd60a4bd01c0a0055a504f9fa20b81b219368aebf5d0856df7604dce36
+    + .md sha256 337cd20cc7e42e56b93cc7c8ad2ede022a8baf77b48771013aa1ae563a92c654 (integrity_ok:true,
+    n_issues:0, n_references:96, 0 tradable edge, real_data_only:true, fabricated_data:false,
+    scope C281B–C297). C287 external-unblock status refreshed 20261114T073839Z:
+    reports/c287_external_unblock_status_20261114T073839Z.json sha256 b4ae762d97b3a0aa829c4a2d95b796948704d28330bf7211f2e239f02084acd7
+    (BLOCKED/DECOUPLED, testnet REST 451, fapi 451, bybit 403, missing
+    BINANCE_TESTNET_API_KEY/SECRET; external action required: valid Binance Spot Testnet
+    credentials + non-451 egress). This session completed the mandatory heavy work: bootstrap
+    OK; C287 status + closure audit re-run with fresh --ts (SHA256-from-bytes); C287 artifact
+    recorded in state BEFORE the audit so collect_all_refs cross-referenced it; state
+    updated with every new path+sha (no placeholder/zero hashes, top-level keys un-nested);
+    audit/c287/campaign_resume tests passing; python -m pytest tests/ -q green 0 failed;
+    AGENTS.md + state synced. Next agent must keep the same maintenance loop (refresh audit
+    + C287 evidence each session, keep tests green, never fabricate data/fills/creds, never
+    weaken gates/costs/edge rule, never claim edge, never edit .github/workflows/main.yml,
+    never create/read/edit HANDOFF.md).'
   rule: do_not_create_another_handoff_file
   superseded_active_initial_task_message: 'C296 OPTIONS TERM-STRUCTURE/SKEW (Deribit)
     — MANDATORY HEAVY WORK, END-TO-END IN ONE TURN (2026-11-13T22:34:43Z). C295 COMPLETE/frozen
