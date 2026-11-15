@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T07:13:24Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign (NOT STARTED: zero scripts/tests/artifacts/cache; verified 2026-11-15T07:13Z). Bootstrap `ready:true` re-verified this session (Python 3.12.3); deps pytest 9.2.0, pytest-asyncio 1.5.0, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1 importable. Full suite baseline 1439 passed / 2 skipped / 0 failed (491.12s, 2026-11-15T06:40:26Z). `HANDOFF.md` absent. ALL BOTTLENECKS REMOVED — reachability/funding-window/ETHUSD/XLM/quarterly matrix verified, env green, templates on disk; next session must execute C307 end-to-end (≥400 costed-OOS runs, 5 SHA256 artifacts, tests+full-suite green, state synced). No planning-only or status-only turn is acceptable.**
+**Handoff refreshed:** 2026-11-15T07:17:37Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign (NOT STARTED: zero scripts/tests/artifacts/cache; verified 2026-11-15T07:17Z). Bootstrap `ready:true` re-verified this session (Python 3.12.3); deps pytest 9.2.0, pytest-asyncio 1.5.0, numpy 2.5.4, pandas 3.1.1, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1 importable. Full suite baseline 1439 passed / 2 skipped / 0 failed (491.12s, 2026-11-15T06:40:26Z). `HANDOFF.md` absent. ALL BOTTLENECKS REMOVED — reachability/funding-window/ETHUSD/XLM/quarterly matrix verified, env green, templates on disk; next session MUST execute C307 end-to-end (≥400 costed-OOS runs, 5 SHA256 artifacts, tests+full-suite green, state synced). No planning-only, status-only, or partial-leg turn is acceptable. ANY turn that does not produce real-data ingest, costed-OOS run, passing test, or artifact update is NOT economic progress.**
 
-## INITIAL TASK MESSAGE (2026-11-15T07:11:10Z) — NEXT FOCUS CAMPAIGN: EXECUTE C307 END-TO-END (HEAVY, MANDATORY, UNAVOIDABLE)
+## INITIAL TASK MESSAGE (2026-11-15T07:17:37Z) — NEXT FOCUS CAMPAIGN: EXECUTE C307 END-TO-END (HEAVY, MANDATORY, UNAVOIDABLE, NON-NEGOTIABLE)
 
-**NEXT SESSION ACTION (non-optional, do not defer):** run `python scripts/bootstrap_dev_env.py`, then implement+execute C307 end-to-end in this order:
+**NEXT SESSION ACTION (non-optional, do not defer, do not plan, do not status-report — EXECUTE):** run `python scripts/bootstrap_dev_env.py`, then implement+execute C307 end-to-end in this exact order:
 ```
 python scripts/bootstrap_dev_env.py
 python scripts/ingest_c307_coinm_multiasset_term_structure_carry.py
@@ -13,7 +13,16 @@ python scripts/run_c307_coinm_multiasset_term_structure_carry_oos.py
 python -m pytest tests/test_preflight_c307.py tests/test_c307_coinm_multiasset_term_structure_carry_oos.py -q
 python -m pytest tests/ -q                  # must be 0 failed
 ```
-Do not stop at planning, status, or a single leg. The completion gate is: ingest executed + cache SHA256; preflight `ready:true`; runner end-to-end (not smoke-only) ≥400 runs; 5 fresh SHA256 artifacts; C307 tests green; full suite 0 failed; AGENTS.md + `research_state/state.yaml` synced. Produce ≥1 of: real-data ingest, costed-OOS run, passing test, artifact update — and the run must be ≥400 configs.
+**COMPLETION GATE (all required, no exceptions):**
+1. Ingest executed + cache SHA256 (`data/cache/campaign307_coinm_multiasset_term_structure_carry.pkl` + `.meta.json` + `.provenance.json`)
+2. Preflight prints `ready:true` and exits 0
+3. Runner executes end-to-end (NOT smoke-only) ≥400 costed-OOS runs (756 pre-registered)
+4. 5 fresh timestamped SHA256 artifacts emitted to `reports/campaign307_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json`
+5. C307 tests green (`tests/test_preflight_c307.py`, `tests/test_c307_coinm_multiasset_term_structure_carry_oos.py`)
+6. Full test suite 0 failed (`python -m pytest tests/ -q`)
+7. AGENTS.md + `research_state/state.yaml` synced (`latest_campaign_done: C307`, cache/artifact paths/SHA256s, verdict/binding, next family)
+
+**FAILURE TO MEET ANY GATE ITEM = INCOMPLETE SESSION. DO NOT STOP. DO NOT REPORT STATUS. EXECUTE.**
 
 **Mission (two legs, both required; cannot collapse to BTC-only):**
 - **Leg A — per-asset dated-quarterly term structure:** for each of BTCUSD, ETHUSD, XRPUSD, build annualized calendar / perp-vs-quarterly basis on that asset's own verified archive months; form notional-neutral multi-contract books (long cheaper / short richer), hold toward expiry convergence. Report per-asset coverage. If an asset has <888 overlapping bars (train 720 + test 168), record a scope note and exclude it from WF — not the whole campaign.
