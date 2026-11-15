@@ -1,14 +1,14 @@
-updated_at_utc: 20261115T213811Z
-handoff_refreshed_at_utc: 20261115T213811Z
+updated_at_utc: 20261115T225604Z
+handoff_refreshed_at_utc: 20261115T225604Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T21:38:11Z) — ACTIVE CAMPAIGN C315: PERP MOMENTUM / SHORT-TERM REVERSAL STAT-ARB (MANDATORY HEAVY, NO STATUS-ONLY TURN). Repo priority is cryptoquantstatarbstrats => costed OOS stat-arb PnL on real provable data. C314 complete formal negative (0/2304 Holm+BH, multiple_testing, leadlag_vs_noise 0.0003); C281B–C314/C287 frozen/blocked — do not rerun/re-skin/probe. C315 is a GENUINELY-NEW signal family (price momentum/reversal, never tested in C281B–C314). PRIMARY DE-BOTTLENECK: real 5m prices ALREADY on disk (data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz perp_close, and campaign314_spot_perp_leadlag_5m/<SYM>.npz spot_close+perp_close) — NO network ingest; heavy work is feature build + 3456-config costed OOS sweep + gates + attribution. Execute in order: (1) python scripts/bootstrap_dev_env.py; (2) scripts/build_c315_perp_momentum_features.py reads REAL perp_close (fail-closed SHA vs source meta), aligns common 5m grid, writes data/cache/campaign315_perp_momentum_5m/<SYM>.npz (index_ms, perp_close, log_return, funding_rate=NaN) + meta/provenance SHA256, no network; (3) scripts/preflight_c315.py -> ready:true fail-closed (flags, shard SHA/size, grid in window, finite positive perp_close, finite log_return, funding all-NaN, <100MB); (4) scripts/run_c315_perp_momentum_reversal_oos.py over ALL pre-registered configs (3456; grid signal{xsec_mom,xsec_rev,mom_minus_rev}(3) x mom_lookback{1d,7d,30d=288,2016,8640}(3) x rev_lookback{1h,6h=12,72}(2) x rebalance{30m,1h,4h=6,12,48}(3) x fee{1,5,10,20}(4) x slip{1,2,5,10}(4) x selection{33,25}(2) x cost{symmetric,perp_heavy}(2)), expanding WF 12m/3m/3m, Holm+BH alpha=0.05 BOTH, MDE+stability(>=70% sign, half Sharpe corr>=0.5)+momentum-vs-reversal-vs-placebo attribution (dominant share>0.5 for positive claim), dollar-neutral perps, costs on turnover, executed_fills:false; (5) emit reports/campaign315_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json (slim <100MB) + gitignored full.json, SHA256-from-bytes, real_data_only:true/fabricated_data:false/executed_fills:false; (6) add/pass tests/test_preflight_c315.py + tests/test_c315_perp_momentum_reversal_oos.py, full suite green; (7) sync AGENTS.md + state.yaml with verdict/SHAs/binding constraint; if formal negative register next genuinely-new reachable stat-arb family. Never create HANDOFF.md.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T22:56:04Z) — CAMPAIGN C315 COMPLETE (FORMAL NEGATIVE): PERP MOMENTUM / SHORT-TERM REVERSAL STAT-ARB on 10 USDT-M linear perps, native 5m, 2023-01..2025-12. VERDICT: RETRACTED, edge_proven:false, binding_constraint:multiple_testing — 0/3456 configs survive Holm+BH (0 Holm, 0 BH, 0 both); n_deterministic_edge:0; attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518 (reversal-dominant but fails multiple-testing). All 5 artifacts + gitignored full.json on disk at reports/campaign315_*_20261115T223831Z.{json,full.json} with SHA256-from-bytes; cache 27.8 MB <100 MB, real_data_only:true, fabricated_data:false, executed_fills:false; tests test_preflight_c315.py + test_c315_perp_momentum_reversal_oos.py green. C315 is now COMPLETE — do not rerun. REACHABLE SPACE CLOSED: all costed-OOS stat-arb families C281B-C315 are formal negatives (0 tradable edge); C287 testnet gateway remains BLOCKED/DECOUPLED externally (REST 451, no creds) — out-of-env credentials + allowed network required, cannot advance in-env. NEXT SESSION: (1) confirm full pytest suite green; (2) verify AGENTS.md + research_state/state.yaml reflect C315 verdict/SHAs; (3) do NOT re-run/re-skin/probe C281B-C315 or C287. No heavy economic work reachable in this environment.'
 
-next_campaign: C315
-active_campaign: C315
+next_campaign: C287
+active_campaign: C287
 coin_m_inverse_futures_space: C313_COMPLETE_FORMAL_NEGATIVE
-latest_campaign_done: C314
+latest_campaign_done: C315
 c314_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261115T214305Z
@@ -49,18 +49,56 @@ c314_status:
   executed_fills: false
 
 c315_status:
-  state: NOT_STARTED
-  as_of_utc: 20261115T213811Z
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261115T223831Z
   campaign: C315
   family: perp_momentum_short_term_reversal_stat_arb_usdt_m_5m
   genuinely_new: true
   reskin_of: none
   note: 'Genuinely-new price momentum / short-term reversal cross-sectional + time-series family; distinct from exhausted carry/OFI/basis/term-structure/same-asset-leadlag families C281B-C314 (all formal negatives). Data reused read-only from real on-disk 5m prices (C312 perp_close / C314 spot+perp); no network ingest bottleneck.'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 3456
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares:
+    momentum: 0.1467065492124226
+    reversal: 0.7014932924209102
+    placebo_noise: 0.15180015836666721
+  dominant_attribution: reversal
+  dominant_share: 0.7014932924209102
+  mde_bps_mean: NaN
+  observed_mean_bps_per_split: 0.0
   on_disk:
-    scripts: false
-    tests: false
-    cache: false
-    artifacts: false
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+  cache_dir: data/cache/campaign315_perp_momentum_5m
+  cache_total_bytes: 27821806
+  cache_meta_sha256: a086ab3ad052b39bf52c173b985a7fd4f08e8ff7e16d7d3aaa058d356f3eb25b
+  cache_provenance_sha256: d9a986e4b8bf3cde761ba602c8a66282cd83ead78d5852f95aa1a1669e26edb8
+  grid_bars: 315648
+  grid_window: 2023-01..2025-12
+  n_symbols: 10
+  de_bottleneck: real_5m_prices_on_disk_from_c312_no_network_ingest
+  artifacts:
+    oos_sweep_sha256: c9a7ddf6a70c99d80894794f159b8b64f0cb34e65598950f9a5890410630ab38
+    registry_sha256: 7d494adc2da015a7a36115a63ad050c5e9a51b303b5f1cf95d8b2b4a19cc24d1
+    summary_sha256: 76a99e547cd62220fc7a95c5293aba31019926689401d2090d3ffc79f083da49
+    verdict_sha256: a01046d4b45a6c74896171713ecc2ca97b237db26c62866ae2d53ba4a628d4ec
+    binding_constraint_sha256: 01e140d576dc8034dc0dc1099724e6429b2b20012217f7c24f08745107b9ca66
+  artifacts_detail:
+    oos_sweep: reports/campaign315_oos_sweep_20261115T223831Z.json
+    oos_sweep_full: reports/campaign315_oos_sweep_20261115T223831Z.full.json
+    registry: reports/campaign315_tradable_edge_registry_20261115T223831Z.json
+    summary: reports/campaign315_summary_20261115T223831Z.json
+    verdict: reports/campaign315_verdict_20261115T223831Z.json
+    binding_constraint: reports/campaign315_binding_constraint_20261115T223831Z.json
+  tests: 23 passed (6 preflight + 17 oos)
   spec:
     data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz perp_close (fallback campaign314_spot_perp_leadlag_5m perp_close)
     symbols: [BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, XRPUSDT, ADAUSDT, DOGEUSDT, DOTUSDT, LTCUSDT, AVAXUSDT]
@@ -89,9 +127,6 @@ c315_status:
   real_data_only: true
   fabricated_data: false
   executed_fills: false
-  edge_proven: false
-  verdict: null
-  binding_constraint: null
 
 c313_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -1356,7 +1391,7 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C314
+latest_campaign_done: C315
 reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_COINM_inverse_aggtrades_OPEN_USDT_M_linear_aggtrades
 reachable_real_data_cross_sectional_stat_arb_space_scope: 'Price/funding/premium/mark cross-sectional stat-arb CLOSED for USDT-M+spot+options (C281B-C305) and COIN-M inverse futures (C306-C309). COIN-M inverse ORDER-FLOW (aggTrades) microstructure space was NOT closed: C310 (1h OFI xsec, real aggTrades) COMPLETE formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated). C311 (5m OFI xsec) COMPLETE formal negative 20261115T125846Z (0/504 Holm+BH, convexity-dominated 0.975). C312 (USDT-M linear-perp 5m OFI xsec) is the active mandatory heavy campaign; it removes the inverse-convexity confound.'
 c305_program_closure:

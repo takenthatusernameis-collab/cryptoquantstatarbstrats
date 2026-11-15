@@ -1,0 +1,53 @@
+{
+  "generated_at_utc": "20261115T223831Z",
+  "campaign": 315,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign315_oos_sweep_20261115T223831Z.json",
+  "oos_sweep_sha256": "c9a7ddf6a70c99d80894794f159b8b64f0cb34e65598950f9a5890410630ab38",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "momentum": 0.1467065492124226,
+    "reversal": 0.7014932924209102,
+    "placebo_noise": 0.15180015836666721
+  },
+  "dominant_attribution": "reversal",
+  "attribution_ok": true,
+  "stability": {
+    "reference_config": {
+      "signal": "xsec_mom",
+      "L": 288,
+      "R": 12,
+      "frac": 0.33,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -0.9444475038098965,
+      -0.9458392031964891,
+      -0.8102597207036432,
+      -0.7181035347073894,
+      -0.7917232061399007,
+      -1.3678192953424453,
+      -0.9573841542862178,
+      -1.1924236287770418
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.88701846786677,
+    "second_half_sharpe": -4.8971303554211065,
+    "sharpe_corr": 0.9983304613197231,
+    "stable": false
+  },
+  "diagnosis": "C315 perp momentum/reversal stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
