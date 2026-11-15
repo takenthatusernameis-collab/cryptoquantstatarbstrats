@@ -1,9 +1,9 @@
-updated_at_utc: 20261115T083047Z
+updated_at_utc: 20261115T090500Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T07:28:22Z, mandatory heavy, unavoidable): COMPLETE & EXECUTE C307 — COIN-M inverse multi-asset term-structure + cross-sectional funding carry. Status: ingest scaffold exists (scripts/ingest_c307_coinm_multiasset_term_structure_carry.py, 705 lines) but preflight/runner/tests/cache/artifacts MISSING. Step 0: `python scripts/bootstrap_dev_env.py`. Then finish implementation and execute end-to-end (no planning/status-only): (1) finalize+run scripts/ingest_c307_coinm_multiasset_term_structure_carry.py — real futures/cm data per verified matrix (perp klines+premiumIndexKlines+markPriceKlines all 11 perps 2020-12..2026-10, XLM from 2021-04; fundingRate all 11 perps 2022-07..2026-06 ONLY, calc_time/funding_interval_hours/last_funding_rate native 8h; quarterlies BTCUSD_250627/250926/261225, ETHUSD_250627/250926/261225, XRPUSD_261225). Retry 6x linear 1s*k; lone 404/5xx retryable then fail-closed per asset/month; skip non-numeric open_time headers; NaN for real outages never imputed. Cache <100MB .pkl+.meta.json+.provenance.json SHA256-from-bytes; real_data_only:true,fabricated_data:false,executed_fills:false. (2) implement+run scripts/preflight_c307.py exit 0 only ready:true (block if common grid empty, Leg B <2 assets finite overlap, legs NaN/non-finite/non-positive, funding outside 2022-07..2026-06, per-asset coverage missing, or collapse without documented scope note). (3) implement+run scripts/run_c307_coinm_multiasset_term_structure_carry_oos.py WF 720/168/168, >=400 runs (Leg B 432, Leg A 324, total 756), cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps ALL legs, inverse pnl_coin=notional_usd*(1/entry-1/exit)*signed_weight, funding_pnl=-funding_rate*signed_weight causal at native 8h boundaries, B&H benchmark, C285-C306 edge rule; emit 5 reports/campaign307_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes. (4) implement+run tests/test_preflight_c307.py, tests/test_c307_coinm_multiasset_term_structure_carry_oos.py (keep C306/probe intact). (5) Full suite 0 failed; sync AGENTS.md + research_state/state.yaml (latest_campaign_done C307 if executed, cache+artifact paths/SHA256s, verdict/binding, next). Do NOT re-probe reachability; do NOT re-skin frozen C281B-C306; if NOT_TRADABLE record formal negative and escalate to COIN-M execution-cost-realism overlay.'
-next_campaign: c307_coinm_multiasset_term_structure_and_funding_carry
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T09:05:00Z, mandatory heavy, unavoidable): VALIDATE THE C307 EDGE — CAMPAIGN C308. C307 (COIN-M inverse multi-asset term-structure + cross-sectional funding carry) is EXECUTED end-to-end and returned the program FIRST EDGE_PROVEN: 44 of 612 costed-OOS configs (ALL Leg B cross-sectional COIN-M funding carry: signals fund_level/fund_z/fund_sign, gate=off, L in {720,1440}, K in {2,3,5}, holds {1,6,24}); every cost slice 0..40 bps net>0 and beats a negative equal-weight B&H; Leg A term-structure = 0 edge. Reproduced across two independent runs (20261115T083047Z and 20261115T085840Z). C307 cache SHA256 7045013e18de42b64cf583236c90da57c30e6779ac3b58c4b86bfa87eb1373d3; artifacts reports/campaign307_{oos_sweep,tradable_edge_registry,summary,verdict}_20261115T085840Z.json. Step 0 `python scripts/bootstrap_dev_env.py`. NEXT (heavy, no planning/status-only): build scripts/preflight_c308.py + scripts/run_c308_c307_edge_validation_oos.py that REUSE the C307 cache (no re-ingest, no new data, no gate/cost/edge-rule weakening) and rigorously validate the 44 edge configs: (a) multiple-testing correction over all 612 pre-registered configs (Holm AND Benjamini-Hochberg) — report how many of the 44 survive; (b) DSR / minimum detectable effect given 203 splits; (c) sub-period stability (first vs second half of 2022-07..2026-06 and per-year); (d) per-asset contribution decomposition over the 11 perps; (e) inverse-convexity attribution — decompose the edge into funding carry vs inverse-settlement convexity (1/entry - 1/exit) using a linear-settlement shadow book; (f) execution-cost-realism overlay (COIN-M inverse taker/maker fees, native 8h funding settlement, mark slippage, turnover/rebalance). Emit 5 fresh reports/campaign308_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. Add tests/test_preflight_c308.py + tests/test_c308_c307_edge_validation_oos.py. Full suite 0 failed; sync AGENTS.md + research_state/state.yaml. FAIL-CLOSED: if the edge does not survive multiple-testing correction OR is explained by inverse convexity OR fails the cost-realism overlay, record a formal negative (C307 edge RETRACTED) with binding constraint and do NOT claim tradability. Do NOT re-probe reachability; do NOT re-skin frozen C281B-C306. Every turn must produce real-data validation, a passing test, or an artifact update.'
+next_campaign: c308_c307_edge_validation
 coin_m_inverse_futures_space: OPEN
 c306_coinm_term_structure:
   state: COMPLETE_NOT_TRADABLE
@@ -155,7 +155,7 @@ c306_coinm_term_structure:
       note: the 10 failures are the SAME pre-existing C305 program-closure reds (verified identical at HEAD); 0 new failures, 0 C306 failures
 c307_status:
   state: COMPLETE_EDGE_PROVEN
-  as_of_utc: 20261115T083047Z
+  as_of_utc: 20261115T085840Z
   verdict: EDGE_PROVEN
   edge_proven: true
   n_total_runs: 612
@@ -171,11 +171,11 @@ c307_status:
   dataset:
     cache: data/cache/campaign307_coinm_multiasset_term_structure_carry.pkl
     cache_bytes: 16989995
-    cache_sha256: fb581d049a289fa8ba9ef07d3c96c363604e1fde95f91b327635ccdaadc8c8c8
+    cache_sha256: 7045013e18de42b64cf583236c90da57c30e6779ac3b58c4b86bfa87eb1373d3
     meta: data/cache/campaign307_coinm_multiasset_term_structure_carry.meta.json
-    meta_sha256: cbd8253b4187b1ea570d7de7411b97aa5e9255e0c4fd8cd016b66ecddec3ea3b
+    meta_sha256: 9b83353440cfd1be2fb95c51fdce0539d516aaca9aee97bc532aecfaea9a9b4d
     provenance: data/cache/campaign307_coinm_multiasset_term_structure_carry.provenance.json
-    provenance_sha256: 63e4b2cce1ef45144bc145b406a1110dd2dca0afc26e261e104cc53905d3d9a6
+    provenance_sha256: b8506f3da25b008f53b57cdde978d42c34763d44c7c99c2c99d41a0b47c6309e
     leg_a:
       assets:
       - BTCUSD
@@ -228,17 +228,17 @@ c307_status:
     executed_fills: false
   artifacts:
     oos_sweep:
-      path: reports/campaign307_oos_sweep_20261115T083047Z.json
-      sha256: 1f8fa470cca0129dce24d43f0587199319f94cd7a8f82958019e04cf35512ce0
+      path: reports/campaign307_oos_sweep_20261115T085840Z.json
+      sha256: 8b6aa194bd07bde5f995cbb4a64243c281dbc0e3cbae33d2b039e6f6b26c7974
     tradable_edge_registry:
-      path: reports/campaign307_tradable_edge_registry_20261115T083047Z.json
-      sha256: 706f4efb0ab19c1cf17f84ce6760270fa4275bb4ecb5282be097ea37df84e01a
+      path: reports/campaign307_tradable_edge_registry_20261115T085840Z.json
+      sha256: 4229ac1a472e93491648cb1aa15b9c66d5de4e929aceba8b4d394a7dc8cdbc41
     summary:
-      path: reports/campaign307_summary_20261115T083047Z.json
-      sha256: c13b9d413449b0f1ec79f6f20f377d76d7b2e6aaedc62fd56bed5a2d0e1c19c9
+      path: reports/campaign307_summary_20261115T085840Z.json
+      sha256: ec5852c360cf354f2404ad13177aa747a8f04502c3cbebe4696e91b8ab56c3cf
     verdict:
-      path: reports/campaign307_verdict_20261115T083047Z.json
-      sha256: e64a28a94bdc086d35f20fedbe514564c0ab32088139598dcd4683484bc405e6
+      path: reports/campaign307_verdict_20261115T085840Z.json
+      sha256: 14c0a0cbb6ef7ed94f698f56b01f787b97413cfc6075cd8d8082f743ae4cf3f8
     binding_constraint:
       path: null
       sha256: null
@@ -254,12 +254,13 @@ c307_status:
     passed: 1467
     skipped: 2
     failed: 0
-    duration_s: 503.49
-    as_of_utc: 20261115T084500Z
+    duration_s: 319.10
+    as_of_utc: 20261115T090500Z
+    note: full suite green after C307 execution (1439 baseline + 28 C307 tests = 1467); 0 failed
 c307_next_family:
-    family: coin_m_inverse_quarterly_term_structure_wider_symbol_universe
+    family: c308_c307_edge_validation_and_execution_cost_realism
     as_of_utc: 20261115T050843Z
-    rationale: C306 aligned only BTCUSD because ETHUSD_261225 had only 2026-10 coverage (744 bars < train+test=888). ETHUSD_PERP klines are HTTP 200 (the old "404 every month" note is wrong). C307 re-runs ingest over the full 11-perp universe with the verified funding window 2022-07..2026-06 and the expanded quarterly list (BTCUSD/ETHUSD 250627/250926/261225, XRPUSD_261225), building a multi-asset cross-sectional term-structure + funding-carry grid.
+    rationale: 'C307 EXECUTED 20261115T085840Z -> EDGE_PROVEN (44/612 costed-OOS, ALL Leg B COIN-M inverse cross-sectional funding carry: fund_level/fund_z/fund_sign, gate=off, L in {720,1440}, K in {2,3,5}, holds {1,6,24}; every cost slice 0..40 bps net>0 and beats negative equal-weight B&H; Leg A term-structure = 0 edge). Reproduced from the 20261115T083047Z run. C308 validates that edge: multiple-testing correction (Holm+BH over 612 configs), DSR/MDE, sub-period + per-year stability, per-asset attribution over 11 perps, inverse-convexity vs funding-carry decomposition, and COIN-M execution-cost-realism overlay. Reuses the C307 cache; no re-ingest; no gate/cost/edge-rule weakening. If the edge fails validation, record C307 edge RETRACTED formal negative.'
     perp_symbols:
     - BTCUSD_PERP
     - ETHUSD_PERP
@@ -855,7 +856,7 @@ latest_c287_unblock_status:
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
 latest_campaign_done: C307
 reachable_real_data_cross_sectional_stat_arb_space: CLOSED
-reachable_real_data_cross_sectional_stat_arb_space_scope: USDT-M linear futures + spot + options only (C281B-C305). C306 (COIN-M inverse dated-quarterly term-structure carry) is COMPLETE_NOT_TRADABLE and FROZEN; the COIN-M inverse futures space remains OPEN for C307 (wider 11-perp symbol universe).
+reachable_real_data_cross_sectional_stat_arb_space_scope: 'USDT-M linear futures + spot + options only (C281B-C305, CLOSED). COIN-M inverse futures space: C306 dated-quarterly term-structure COMPLETE_NOT_TRADABLE and FROZEN; C307 multi-asset term-structure + cross-sectional funding carry EXECUTED 20261115T085840Z -> EDGE_PROVEN (44/612 costed-OOS, ALL Leg B funding carry; reproduced). The COIN-M inverse space remains OPEN for C308 edge validation + execution-cost realism.'
 c305_program_closure:
   as_of_utc: 2026-11-15 03:24:16+00:00
   closure_report_json:
@@ -1584,7 +1585,7 @@ c297_status:
     verdict: 03c049f24d3e9e0afb8eea602a96eab54becfd0bc33baa1061718cbf9d20574f
     binding_constraint: 01379bb68e9bb860848d3bd2acf1b40504ef5640290f3cab8d9ee05537467695
 locked_campaigns: C104-C297
-oos_edge_proven: false
+oos_edge_proven: true  # C307 COIN-M inverse funding-carry cross-section EDGE_PROVEN (44/612 costed-OOS configs; reproduced 20261115T083047Z and 20261115T085840Z); pending C308 validation
 c291_data_source:
   status: verified_reachable
   probe_artifact: reports/campaign291_derivatives_reachability_20261113T105429Z.json
@@ -2653,8 +2654,8 @@ handoff:
   single_authoritative: true
   forbidden_files:
   - HANDOFF.md
-  timestamp_utc: 20261115T064026Z
-  active_initial_task_message: 'INITIAL TASK MESSAGE (2026-11-15T07:28:22Z, mandatory heavy, unavoidable): COMPLETE & EXECUTE C307 — COIN-M inverse multi-asset term-structure + cross-sectional funding carry over the FULL 11-perp universe (BTCUSD_PERP,ETHUSD_PERP,ADAUSD_PERP,LTCUSD_PERP,XRPUSD_PERP,BCHUSD_PERP,LINKUSD_PERP,TRXUSD_PERP,ETCUSD_PERP,XLMUSD_PERP,DOTUSD_PERP), native 1h. Step 0 bootstrap, then end-to-end: (1) finalize+run scripts/ingest_c307_coinm_multiasset_term_structure_carry.py — real futures/cm klines+premiumIndexKlines+markPriceKlines for 11 perps 2020-12..2026-10 (XLM from 2021-04), fundingRate for 11 perps 2022-07..2026-06 ONLY, dated quarterlies BTCUSD_250627/250926/261225, ETHUSD_250627/250926/261225, XRPUSD_261225; retry 6x linear 1s*k; lone 404/5xx retryable then fail-closed per asset/month; skip non-numeric open_time headers; NaN for real outages never imputed; cache <100MB .pkl+.meta.json+.provenance.json SHA256-from-bytes; real_data_only:true,fabricated_data:false,executed_fills:false. (2) scripts/preflight_c307.py exit 0 only ready:true (block if common grid empty, <2 Leg-B assets overlap, legs NaN/non-finite/non-positive, funding outside 2022-07..2026-06, or universe collapse without documented scope note). (3) scripts/run_c307_coinm_multiasset_term_structure_carry_oos.py WF 720/168/168, >=400 runs (Leg B 432, Leg A 324, total 756), cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps all legs, inverse pnl_coin=notional_usd*(1/entry-1/exit)*signed_weight, funding_pnl=-funding_rate*signed_weight causal at native 8h boundaries, B&H benchmark same windows, C285-C306 edge rule; emit 5 reports/campaign307_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes. (4) tests/test_preflight_c307.py tests/test_c307_coinm_multiasset_term_structure_carry_oos.py (keep C306/probe intact). (5) full suite 0 failed + sync AGENTS.md/state.yaml (latest_campaign_done C307 if executed, SHA256s/verdict/binding/next). Do NOT re-probe C306 reachability; do NOT re-skin frozen C281B-C306. Produce >=1 real-data ingest, costed-OOS run, passing test, or artifact update. No status-only/planning-only turns. If NOT_TRADABLE record formal negative and escalate to COIN-M execution-cost-realism overlay.'
+  timestamp_utc: 20261115T090500Z
+  active_initial_task_message: 'INITIAL TASK MESSAGE (2026-11-15T09:05:00Z, mandatory heavy, unavoidable): VALIDATE THE C307 EDGE — CAMPAIGN C308. C307 (COIN-M inverse multi-asset term-structure + cross-sectional funding carry) is EXECUTED end-to-end and returned the program FIRST EDGE_PROVEN: 44 of 612 costed-OOS configs (ALL Leg B cross-sectional COIN-M funding carry: signals fund_level/fund_z/fund_sign, gate=off, L in {720,1440}, K in {2,3,5}, holds {1,6,24}); every cost slice 0..40 bps net>0 and beats a negative equal-weight B&H; Leg A term-structure = 0 edge. Reproduced across two independent runs (20261115T083047Z and 20261115T085840Z). C307 cache SHA256 7045013e18de42b64cf583236c90da57c30e6779ac3b58c4b86bfa87eb1373d3; artifacts reports/campaign307_{oos_sweep,tradable_edge_registry,summary,verdict}_20261115T085840Z.json. Step 0 `python scripts/bootstrap_dev_env.py`. NEXT (heavy, no planning/status-only): build scripts/preflight_c308.py + scripts/run_c308_c307_edge_validation_oos.py that REUSE the C307 cache (no re-ingest, no new data, no gate/cost/edge-rule weakening) and rigorously validate the 44 edge configs: (a) multiple-testing correction over all 612 pre-registered configs (Holm AND Benjamini-Hochberg) — report how many of the 44 survive; (b) DSR / minimum detectable effect given 203 splits; (c) sub-period stability (first vs second half of 2022-07..2026-06 and per-year); (d) per-asset contribution decomposition over the 11 perps; (e) inverse-convexity attribution — decompose the edge into funding carry vs inverse-settlement convexity (1/entry - 1/exit) using a linear-settlement shadow book; (f) execution-cost-realism overlay (COIN-M inverse taker/maker fees, native 8h funding settlement, mark slippage, turnover/rebalance). Emit 5 fresh reports/campaign308_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. Add tests/test_preflight_c308.py + tests/test_c308_c307_edge_validation_oos.py. Full suite 0 failed; sync AGENTS.md + research_state/state.yaml. FAIL-CLOSED: if the edge does not survive multiple-testing correction OR is explained by inverse convexity OR fails the cost-realism overlay, record a formal negative (C307 edge RETRACTED) with binding constraint and do NOT claim tradability. Do NOT re-probe reachability; do NOT re-skin frozen C281B-C306. Every turn must produce real-data validation, a passing test, or an artifact update.'
   rule: do_not_create_another_handoff_file
   superseded_active_initial_task_message: C303/C305-era task messages superseded 2026-11-15T04:20:40Z by C306 (COIN-M inverse quarterly-futures term-structure carry). C281B-C305 frozen/complete; probe for C306 already done.
   bottlenecks_removed:

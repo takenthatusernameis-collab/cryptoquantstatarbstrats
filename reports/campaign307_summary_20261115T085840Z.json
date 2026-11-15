@@ -1,0 +1,184 @@
+{
+  "generated_at_utc": "20261115T085840Z",
+  "campaign": 307,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "EDGE_PROVEN",
+  "edge_proven": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "leg_a": {
+      "assets": [
+        "BTCUSD",
+        "ETHUSD",
+        "XRPUSD"
+      ],
+      "n_assets": 3,
+      "asset_grids": {
+        "BTCUSD": {
+          "bars": 6489,
+          "start_utc": "2025-03-01 00:00:00+00:00",
+          "end_utc": "2026-10-31 23:00:00+00:00",
+          "n_splits": 34
+        },
+        "ETHUSD": {
+          "bars": 6489,
+          "start_utc": "2025-03-01 00:00:00+00:00",
+          "end_utc": "2026-10-31 23:00:00+00:00",
+          "n_splits": 34
+        },
+        "XRPUSD": {
+          "bars": 1464,
+          "start_utc": "2026-09-01 00:00:00+00:00",
+          "end_utc": "2026-10-31 23:00:00+00:00",
+          "n_splits": 4
+        }
+      }
+    },
+    "leg_b": {
+      "symbols": [
+        "BTCUSD_PERP",
+        "ETHUSD_PERP",
+        "ADAUSD_PERP",
+        "LTCUSD_PERP",
+        "XRPUSD_PERP",
+        "BCHUSD_PERP",
+        "LINKUSD_PERP",
+        "TRXUSD_PERP",
+        "ETCUSD_PERP",
+        "XLMUSD_PERP",
+        "DOTUSD_PERP"
+      ],
+      "n_assets": 11,
+      "common_grid_bars": 34968,
+      "common_grid_start_utc": "2022-07-01 00:00:00+00:00",
+      "common_grid_end_utc": "2026-06-30 23:00:00+00:00"
+    }
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "leg_a": {
+      "signals": [
+        "basis_level",
+        "basis_z",
+        "basis_mom",
+        "basis_voladj",
+        "basis_sign"
+      ],
+      "lookbacks_1h": [
+        24,
+        48,
+        168,
+        336,
+        720,
+        1440
+      ],
+      "cross_sectional_K": [
+        1
+      ],
+      "holding_periods_1h": [
+        1,
+        6,
+        24
+      ],
+      "dispersion_gates": [
+        "off",
+        "on"
+      ],
+      "total_runs": 180,
+      "min_periods_rule": "max(20, L // 3)",
+      "lookback_window_constraint": "LOOKBACKS_A restricted to L <= 1440 because min_periods(L) = max(20, L//3) must fit within train=720 bars; L=2160 (needs 720) is included; L=4320/8640 are degenerate (flat through the whole training set) and excluded rather than passed with a weakened gate.",
+      "position_rule": "per-asset causal basis signal; long cheap/short rich basis trade within asset; +0.25 quarterly / -0.25 perp or reverse; gross 0.5 per active asset; shift(1); hold H",
+      "pnl_rule": "inverse: pnl_coin = notional_usd * (1/entry_price - 1/exit_price) * signed_weight; ret_per_bar = (entry - exit) / exit * weight",
+      "cost_rule": "cost charged on ALL legs (quarterly + perp) at (fee+slip) bps",
+      "benchmark": "equal-weight buy-and-hold of the same legs with the same costs on the same WF windows"
+    },
+    "leg_b": {
+      "signals": [
+        "fund_level",
+        "fund_z",
+        "fund_mom",
+        "fund_sign"
+      ],
+      "lookbacks_1h": [
+        24,
+        48,
+        168,
+        336,
+        720,
+        1440
+      ],
+      "cross_sectional_K": [
+        2,
+        3,
+        5
+      ],
+      "holding_periods_1h": [
+        1,
+        6,
+        24
+      ],
+      "dispersion_gates": [
+        "off",
+        "on"
+      ],
+      "total_runs": 432,
+      "min_periods_rule": "max(20, L // 3)",
+      "position_rule": "causal cross-sectional rank; long top-K/short bottom-K; +0.5/K long, -0.5/K short; gross 1.0; shift(1); hold H",
+      "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal); stale->flat <= 24h + 1 bar",
+      "staleness_diagnostic": "real COIN-M funding archives carry gaps; runner zeroes positions when funding stale"
+    },
+    "total_runs": 612
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign307_oos_sweep_20261115T085840Z.json",
+      "sha256": "8b6aa194bd07bde5f995cbb4a64243c281dbc0e3cbae33d2b039e6f6b26c7974"
+    },
+    "registry": {
+      "path": "reports/campaign307_tradable_edge_registry_20261115T085840Z.json",
+      "sha256": "4229ac1a472e93491648cb1aa15b9c66d5de4e929aceba8b4d394a7dc8cdbc41"
+    }
+  },
+  "summary": {
+    "n_total_runs": 612,
+    "n_leg_a_runs": 180,
+    "n_leg_b_runs": 432,
+    "n_assets_leg_a": 3,
+    "n_assets_leg_b": 11,
+    "runs_per_config": 1,
+    "n_with_exposure": 612,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 44
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the COIN-M inverse multi-asset term-structure + cross-sectional funding carry space."
+}

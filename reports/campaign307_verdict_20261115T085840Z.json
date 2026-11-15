@@ -1,0 +1,37 @@
+{
+  "generated_at_utc": "20261115T085840Z",
+  "campaign": 307,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "EDGE_PROVEN",
+  "edge_proven": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "finding": "Costed OOS edge proven in 44 config(s) on real COIN-M inverse multi-asset 1h data.",
+  "basis": "real_coin_m_inverse_multiasset_term_structure_funding_carry_costed_oos_1h",
+  "dataset": {
+    "cache": "data/cache/campaign307_coinm_multiasset_term_structure_carry.pkl",
+    "cache_sha256": "7045013e18de42b64cf583236c90da57c30e6779ac3b58c4b86bfa87eb1373d3",
+    "cache_meta": "data/cache/campaign307_coinm_multiasset_term_structure_carry.meta.json",
+    "cache_meta_sha256": "9b83353440cfd1be2fb95c51fdce0539d516aaca9aee97bc532aecfaea9a9b4d",
+    "cache_provenance": "data/cache/campaign307_coinm_multiasset_term_structure_carry.provenance.json",
+    "cache_provenance_sha256": "b8506f3da25b008f53b57cdde978d42c34763d44c7c99c2c99d41a0b47c6309e",
+    "cache_pkl_bytes": 16989995,
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign307_oos_sweep_20261115T085840Z.json",
+  "oos_sweep_sha256": "8b6aa194bd07bde5f995cbb4a64243c281dbc0e3cbae33d2b039e6f6b26c7974",
+  "registry_artifact": "reports/campaign307_tradable_edge_registry_20261115T085840Z.json",
+  "registry_sha256": "4229ac1a472e93491648cb1aa15b9c66d5de4e929aceba8b4d394a7dc8cdbc41",
+  "summary_artifact": "reports/campaign307_summary_20261115T085840Z.json",
+  "summary_sha256": "ec5852c360cf354f2404ad13177aa747a8f04502c3cbebe4696e91b8ab56c3cf",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real COIN-M inverse perp + quarterly 1h klines + real funding cashflows only",
+    "inverse settlement PnL model; executed_fills: false"
+  ]
+}
