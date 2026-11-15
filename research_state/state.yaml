@@ -1,9 +1,9 @@
-updated_at_utc: 20261115T175916Z
-handoff_refreshed_at_utc: 20261115T175916Z
+updated_at_utc: 20261115T180753Z
+handoff_refreshed_at_utc: 20261115T180753Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T17:59:16Z, mandatory heavy, NOT verification-only): CAMPAIGN C312 — USDT-M LINEAR-PERP NATIVE-5m CROSS-SECTIONAL OFI CARRY. STATUS: CACHE_READY_SCRIPTS_TESTS_READY_ARTIFACTS_MISSING (re-verified 2026-11-15T17:59:16Z). Cache ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 npz shards, 315648 grid bars, 2023-01..2025-12, 67629110 bytes, meta+provenance+months_manifest present, real_data_only:true, fabricated_data:false, executed_fills:false, funding NaN control-only). Scripts+tests present. MISSING: reports/campaign312_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json. ACTION (no status-only turn): (1) python scripts/bootstrap_dev_env.py (2) python scripts/preflight_c312.py --json (fail-closed; do NOT re-ingest if ready) (3) python scripts/run_c312_usdt_m_ofi_xsec_5m_oos.py (504 configs: 7 signals x 4 lookbacks{288,1008,2016,4032} x K{2,3,5} x holds{1,6,24} x gates{off,on}; WF 720/168/168; linear PnL; costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + realism; Holm+BH, DSR/MDE, per-year/subperiod stability, per-asset attribution, OFI vs EW B&H) (4) emit 5 reports/campaign312_*_<ts>.json SHA256-from-bytes, bounded sweep <100MB (*.full.json gitignored) (5) python -m pytest tests/ -q full suite green (6) sync AGENTS.md+state.yaml. FAIL-CLOSED: 0 Holm+BH survivors or cost-realism fail => formal negative with binding constraint, never tradable. Do not rerun/re-skin frozen C281B-C311/C287; do not re-ingest unless preflight invalid. Turn FAILED if artifacts absent at end.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T18:07:53Z, mandatory heavy, NOT verification-only): CAMPAIGN C312 — USDT-M LINEAR-PERP NATIVE-5m CROSS-SECTIONAL OFI CARRY. STATUS: CACHE_READY_SCRIPTS_TESTS_READY_ARTIFACTS_MISSING (re-verified 2026-11-15T18:07:53Z). Cache ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 npz shards, 315648 grid bars, 2023-01..2025-12, 67629110 bytes, meta+provenance+months_manifest present, real_data_only:true, fabricated_data:false, executed_fills:false, funding NaN control-only). Scripts+tests present. MISSING: reports/campaign312_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json. ACTION (no status-only turn): (1) python scripts/bootstrap_dev_env.py (2) python scripts/preflight_c312.py --json (fail-closed; do NOT re-ingest if ready) (3) python scripts/run_c312_usdt_m_ofi_xsec_5m_oos.py (504 configs: 7 signals x 4 lookbacks{288,1008,2016,4032} x K{2,3,5} x holds{1,6,24} x gates{off,on}; WF 720/168/168; linear PnL; costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + realism; Holm+BH, DSR/MDE, per-year/subperiod stability, per-asset attribution, OFI vs EW B&H) (4) emit 5 reports/campaign312_*_<ts>.json SHA256-from-bytes, bounded sweep <100MB (*.full.json gitignored) (5) python -m pytest tests/ -q full suite green (6) sync AGENTS.md+state.yaml. FAIL-CLOSED: 0 Holm+BH survivors or cost-realism fail => formal negative with binding constraint, never tradable. Do not rerun/re-skin frozen C281B-C311/C287; do not re-ingest unless preflight invalid. Turn FAILED if artifacts absent at end.'
 
 next_campaign: c312_usdt_m_ofi_xsec_5m
 coin_m_inverse_futures_space: OPEN
@@ -19,7 +19,7 @@ full_suite_last_verified:
   note: re-run required after C312 completion
 c312_status:
   state: CACHE_READY_SCRIPTS_TESTS_READY_ARTIFACTS_MISSING
-  as_of_utc: 20261115T175916Z
+  as_of_utc: 20261115T180753Z
   artifacts_absent: true
   artifacts_expected:
     - reports/campaign312_oos_sweep_<ts>.json
