@@ -1,12 +1,12 @@
-updated_at_utc: 20261115T230939Z
-handoff_refreshed_at_utc: 20261115T230939Z
+updated_at_utc: 20261115T233544Z
+handoff_refreshed_at_utc: 20261115T233544Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T22:56:04Z) — CAMPAIGN C315 COMPLETE (FORMAL NEGATIVE): PERP MOMENTUM / SHORT-TERM REVERSAL STAT-ARB on 10 USDT-M linear perps, native 5m, 2023-01..2025-12. VERDICT: RETRACTED, edge_proven:false, binding_constraint:multiple_testing — 0/3456 configs survive Holm+BH (0 Holm, 0 BH, 0 both); n_deterministic_edge:0; attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518 (reversal-dominant but fails multiple-testing). All 5 artifacts + gitignored full.json on disk at reports/campaign315_*_20261115T223831Z.{json,full.json} with SHA256-from-bytes; cache 27.8 MB <100 MB, real_data_only:true, fabricated_data:false, executed_fills:false; tests test_preflight_c315.py + test_c315_perp_momentum_reversal_oos.py green. C315 is now COMPLETE — do not rerun. REACHABLE SPACE CLOSED: all costed-OOS stat-arb families C281B-C315 are formal negatives (0 tradable edge); C287 testnet gateway remains BLOCKED/DECOUPLED externally (REST 451, no creds) — out-of-env credentials + allowed network required, cannot advance in-env. NEXT SESSION: (1) confirm full pytest suite green; (2) verify AGENTS.md + research_state/state.yaml reflect C315 verdict/SHAs; (3) do NOT re-run/re-skin/probe C281B-C315 or C287. No heavy economic work reachable in this environment.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T23:22:06Z) — REACHABLE STAT-ARB SPACE CLOSED: VERIFY SUITE GREEN + CONFIRM CLOSURE + STOP. ALL REACHABLE CAMPAIGNS C281B–C315 COMPLETE — FORMAL NEGATIVES. UNIVERSAL VERDICT: 0 tradable edge across 12,000+ pre-registered configs; binding constraint universally `multiple_testing`. C287 (testnet gateway) remains BLOCKED externally (REST 451, fapi 451, bybit 403, no creds) — out-of-env credentials + allowed network required, CANNOT advance in-env. NO HEAVY ECONOMIC WORK REACHABLE IN THIS ENVIRONMENT. Next session: (1) `python scripts/bootstrap_dev_env.py`; (2) `python -m pytest tests/ -q` → full suite green; (3) verify all 30 artifacts + 6 gitignored full.json for C310–C315 on disk with SHA256-from-bytes matching state.yaml; all caches <100 MB with correct flags; (4) `python scripts/verify_env.py --json` → environment healthy; (5) confirm C287 still externally blocked; sync AGENTS.md + state.yaml (space CLOSED, no active campaign); never create HANDOFF.md; (6) STOP. Do NOT re-run/re-skin/probe C281B–C315 or C287.'
 
-next_campaign: C287
-active_campaign: C287
+next_campaign: none
+active_campaign: none
 coin_m_inverse_futures_space: C313_COMPLETE_FORMAL_NEGATIVE
 latest_campaign_done: C315
 c314_status:
@@ -199,11 +199,11 @@ c313_status:
 oos_edge_proven: false
 edge_claim: NONE
 full_suite_last_verified:
-  as_of_utc: 20261115T230939Z
+  as_of_utc: 20261115T233544Z
   passed: 1642
   skipped: 2
   failed: 0
-  duration_s: 415.56
+  duration_s: 415.85
   note: C315 complete; all C281B-C315 formal negatives; space CLOSED; C287 externally blocked
 c312_status:
   state: COMPLETE_FORMAL_NEGATIVE
