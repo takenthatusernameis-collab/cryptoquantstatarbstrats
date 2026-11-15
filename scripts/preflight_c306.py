@@ -47,7 +47,14 @@ EXPECTED_SOURCE_INTERVAL = "coin_m_klines_1h"
 PUSH_LIMIT_BYTES = 100_000_000
 
 # Runner grid (must match run_c306_coinm_term_structure_oos.py).
-LOOKBACKS_1H = (24, 48, 96, 168, 336, 720, 1440, 2160, 4320, 8640)
+# DATA-WINDOW CONSTRAINT (fail-closed, recorded, NOT a threshold weakening):
+# rolling features use min_periods = max(20, L // 3).  A lookback L can only warm
+# up before the first OOS test bar if min_periods(L) <= WF_TRAIN.  The real
+# COIN-M common term-structure grid has train=720 bars, so L // 3 <= 720 ->
+# L <= 2160.  L=4320 (needs 1440) and L=8640 (needs 2880) are degenerate on this
+# window (flat through the entire training set, no learnable signal) and are
+# EXCLUDED from the pre-registered grid rather than passed with a weakened gate.
+LOOKBACKS_1H = (24, 48, 96, 168, 336, 720, 1440, 2160)
 WF_TRAIN = 720
 WF_TEST = 168
 WF_STEP = 168

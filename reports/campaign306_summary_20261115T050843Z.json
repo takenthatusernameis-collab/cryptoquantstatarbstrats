@@ -1,0 +1,114 @@
+{
+  "generated_at_utc": "20261115T050843Z",
+  "campaign": 306,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "n_assets": 1,
+    "assets": [
+      "BTCUSD"
+    ],
+    "quarterly_by_asset": {
+      "BTCUSD": [
+        "BTCUSD_250627",
+        "BTCUSD_250926",
+        "BTCUSD_261225"
+      ]
+    }
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signals": [
+      "basis_level",
+      "basis_z",
+      "basis_mom",
+      "basis_voladj",
+      "basis_sign",
+      "basis_lag2",
+      "basis_xs"
+    ],
+    "lookbacks_1h": [
+      24,
+      48,
+      96,
+      168,
+      336,
+      720,
+      1440,
+      2160
+    ],
+    "cross_sectional_K": [
+      1
+    ],
+    "holding_periods_1h": [
+      1,
+      6,
+      24,
+      48
+    ],
+    "dispersion_gates": [
+      "off",
+      "on"
+    ],
+    "total_runs": 448,
+    "min_periods_rule": "max(20, L // 3)",
+    "lookback_window_constraint": "LOOKBACKS restricted to L <= 2160 because min_periods(L) = max(20, L//3) must fit within train=720 bars; L=4320/8640 are degenerate (flat through the whole training set) and excluded rather than passed with a weakened gate.",
+    "position_rule": "per-asset causal basis signal; long cheap/short rich basis trade within asset; +0.25 quarterly / -0.25 perp or reverse; gross 0.5 per active asset; shift(1); hold H",
+    "pnl_rule": "inverse: pnl_coin = notional_usd * (1/entry_price - 1/exit_price) * signed_weight; ret_per_bar = (entry - exit) / exit * weight",
+    "cost_rule": "cost charged on ALL legs (quarterly + perp) at (fee+slip) bps",
+    "benchmark": "equal-weight buy-and-hold of the same legs with the same costs on the same WF windows",
+    "staleness_diagnostic": "COIN-M quarterly archives have gaps between cycles; positions flat when basis non-finite"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign306_oos_sweep_20261115T050843Z.json",
+      "sha256": "85db8c218fe8714095369394753cb66997892336ff6ef2f4d627e0c52fd212f4"
+    },
+    "registry": {
+      "path": "reports/campaign306_tradable_edge_registry_20261115T050843Z.json",
+      "sha256": "9dc3e95190b616cc77883d008505a810fb9773fd7e09eb9790b49dae94d4ac37"
+    }
+  },
+  "summary": {
+    "n_total_runs": 448,
+    "n_assets": 1,
+    "runs_per_config": 1,
+    "n_with_exposure": 448,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": -2.150188944256651e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the COIN-M inverse quarterly term-structure carry space."
+}

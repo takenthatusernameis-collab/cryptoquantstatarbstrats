@@ -92,10 +92,14 @@ def test_preflight_feature_warmup_before_first_oos_test_bar():
     first_asset = list(out["checks"]["assets"]["detail"].keys())[0]
     wu = out["checks"]["assets"]["detail"][first_asset]["feature_warmup"]
     assert wu["ok"]
-    assert set(wu["lookbacks_1h"]) == {24, 48, 96, 168, 336, 720, 1440, 2160, 4320, 8640}
-    for L in ("L=24", "L=48", "L=96", "L=168", "L=336", "L=720", "L=1440", "L=2160", "L=4320", "L=8640"):
-        assert wu["warmup"][L]["warm_before_first_test_bar"] is True
-        assert wu["warmup"][L]["ok"] is True
+    # Data-window constraint: min_periods(L) = max(20, L // 3) must fit within
+    # train=720 bars; L=4320/8640 are degenerate (flat through the whole
+    # training set) and excluded rather than passed with a weakened gate.
+    expected_lookbacks = [24, 48, 96, 168, 336, 720, 1440, 2160]
+    assert set(wu["lookbacks_1h"]) == set(expected_lookbacks), wu["lookbacks_1h"]
+    for L in ("L=24", "L=48", "L=96", "L=168", "L=336", "L=720", "L=1440", "L=2160"):
+        assert wu["warmup"][L]["warm_before_first_test_bar"] is True, L
+        assert wu["warmup"][L]["ok"] is True, L
 
 
 def test_preflight_provenance_present():

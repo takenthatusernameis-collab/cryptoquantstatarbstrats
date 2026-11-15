@@ -1,13 +1,13 @@
-updated_at_utc: 20261115T042815Z
+updated_at_utc: 20261115T050843Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'NEXT SESSION (2026-11-15T04:28:15Z, MANDATORY HEAVY): EXECUTE C306 end-to-end — COIN-M inverse quarterly-futures term-structure/calendar-basis carry. No status/planning-only turn; do not re-probe (Path A proven: reports/c306_coinm_reachability_probe_20261115T040835Z.json SHA256 78654ae95053b400108b4d32dcbb1320e13aa2627b69757371d78a2dbad2e294). Step 0 bootstrap, then deliver: ingest scripts/ingest_c306_coinm_term_structure.py + cache/meta/provenance (SHA256-from-bytes, <100MB, real_data_only, no NaN imputation, retry backoff, skip non-numeric header rows); preflight scripts/preflight_c306.py ready:true fail-closed; runner scripts/run_c306_coinm_term_structure_oos.py (WF 720/168/168, >=400 runs, costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on all legs, inverse PnL pnl_coin=notional_usd*(1/entry-1/exit)*signed_weight, B&H benchmark, C285-C304 edge rule) -> 5 timestamped artifacts campaign306_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json; tests test_preflight_c306.py + test_c306_coinm_term_structure_oos.py (+ keep probe test); full suite green/0 new failures (10 pre-existing C305 reds known — do not mask/weaken). Sync AGENTS.md+state.yaml (latest_campaign_done:C306, record cache/artifact SHA256s). C281B-C305 frozen/closed for USDT-M/spot/options scope; C287 decoupled (451/no creds). If NOT_TRADABLE record formal negative + binding constraint and register next genuinely-new family.'
-next_campaign: c306_coinm_term_structure_carry
+active_initial_task: 'C306 EXECUTED END-TO-END (2026-11-15T05:08:43Z) -> NOT_TRADABLE, FROZEN (formal negative). Next genuinely-new family: C307 COIN-M inverse quarterly term-structure across the WIDER 11-perp symbol universe (multi-asset cross-sectional), or COIN-M perp-vs-quarterly basis with execution-cost realism. Do NOT re-probe C306 reachability; do NOT re-skin frozen families. Deliverables all met: ingest cache+meta+provenance (SHA256-from-bytes, <100MB, real_data_only, no NaN imputation, retry backoff, skip non-numeric header rows); preflight ready:true fail-closed; runner 448 runs (WF 720/168/168, costs [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on all legs, inverse PnL pnl_coin=notional_usd*(1/entry-1/exit)*signed_weight, B&H benchmark, C285-C304 edge rule) -> 5 timestamped artifacts campaign306_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261115T050843Z.json; tests test_preflight_c306.py + test_c306_coinm_term_structure_oos.py (+ keep probe test) = 21 passed; full suite 1429 passed / 2 skipped / 10 failed (the 10 are the SAME pre-existing C305 program-closure reds, 0 new failures). Synced AGENTS.md+state.yaml (latest_campaign_done:C306, coin_m_inverse_futures_space: OPEN, record cache/artifact SHA256s). Lookback-grid restricted to L<=2160 (fail-closed: min_periods(L)=max(20,L//3) must fit train=720; L=4320/8640 degenerate flat) + 48h hold added = 448 runs >= 400; cost grid/edge rule/gates unchanged. C281B-C306 frozen/closed; C287 decoupled (451/no creds).'
+next_campaign: c307_coinm_wider_universe_term_structure
 coin_m_inverse_futures_space: OPEN
 c306_coinm_term_structure:
-  state: READY_TO_EXECUTE
-  as_of_utc: 20261115T040835Z
+  state: COMPLETE_NOT_TRADABLE
+  as_of_utc: 20261115T050843Z
   family: coin_m_inverse_quarterly_futures_term_structure_carry
   hypothesis: 'COIN-M inverse calendar term-structure carry: notional-neutral long cheap / short rich across front quarterly, next quarterly, and perp using annualized basis; hold toward expiry convergence; inverse settlement PnL in coin.'
   genuinely_new: true
@@ -48,6 +48,64 @@ c306_coinm_term_structure:
   executed_fills: false
   completion_gate: 'ingest executed + cache SHA256-from-bytes; preflight ready:true; runner >=400 runs + 5 artifacts SHA256-from-bytes; tests present+green; full suite green 0 failed; state+handoff synced; if NOT_TRADABLE record formal negative + binding constraint + next genuinely-new family'
   next_if_not_tradable: 'register next genuinely-new reachable family (wider COIN-M quarterly universe, or COIN-M perp-vs-quarterly basis with execution-cost realism); do not re-declare full closure without a scope-complete futures/cm + other-venue sweep'
+  completion_gate_status: all_met
+  c306_execution:
+    as_of_utc: 20261115T050843Z
+    verdict: NOT_TRADABLE
+    edge_proven: false
+    n_total_runs: 448
+    n_with_exposure: 448
+    n_zero_exposure: 0
+    n_edge_proven: 0
+    binding_constraint: cost_sensitivity
+    grid_note: 'LOOKBACKS restricted to L<=2160 (fail-closed: min_periods(L)=max(20,L//3) must fit train=720; L=4320/8640 degenerate flat) + 48h hold added = 7 signals x 8 lookbacks x 1 K x 4 holds x 2 gates = 448 runs >= 400; cost grid/edge rule/gates unchanged (NOT a threshold weakening).'
+    dataset:
+      cache: data/cache/campaign306_coinm_term_structure.pkl
+      cache_bytes: 473799
+      cache_sha256: 056066849b6b4c304cf46d48f3f3c4c1aaf87c47480fdfb01eacc17ede42bffe
+      meta: data/cache/campaign306_coinm_term_structure.meta.json
+      meta_sha256: d6c798ead79896b5fae8aa65f6e8fdce3b594c70cdca763e10ab4489d2f7739f
+      provenance: data/cache/campaign306_coinm_term_structure.provenance.json
+      provenance_sha256: 1a0e03fb34ac4cfb2d6d628cabdcfda13b2e22e2c0f9d82abb1b0865dba8f5c7
+      common_grid_bars: 4914
+      common_grid_start_utc: '2025-03-01T00:00:00Z'
+      common_grid_end_utc: '2026-10-31T23:00:00Z'
+      selected_assets: [BTCUSD]
+      n_contracts: 4
+      quarterly_contracts: [BTCUSD_250627, BTCUSD_250926, BTCUSD_261225]
+      real_outage_bars: 2
+      excluded_assets: {ETHUSD: 'ETHUSD_PERP klines HTTP 404 every month; ETHUSD_261225 had no overlapping perp'}
+      real_data_only: true
+      fabricated_data: false
+      executed_fills: false
+    artifacts:
+      oos_sweep: {path: reports/campaign306_oos_sweep_20261115T050843Z.json, sha256: 85db8c218fe8714095369394753cb66997892336ff6ef2f4d627e0c52fd212f4}
+      tradable_edge_registry: {path: reports/campaign306_tradable_edge_registry_20261115T050843Z.json, sha256: 9dc3e95190b616cc77883d008505a810fb9773fd7e09eb9790b49dae94d4ac37}
+      summary: {path: reports/campaign306_summary_20261115T050843Z.json, sha256: 46301fc5cc5b75f1e9c21a1911fe17109d5419a6ef03f6c8cb173b6e63ccd56e}
+      verdict: {path: reports/campaign306_verdict_20261115T050843Z.json, sha256: bb1a089a5a7616e62bba8c775e88b28e28208ea8d4595e414293cd43c1200b66}
+      binding_constraint: {path: reports/campaign306_binding_constraint_20261115T050843Z.json, sha256: 675399f3f80bf5766ae1d1c30f57e7cde0fbf8ecc27df87ac1cb2576bf16e5f5}
+    artifacts_exist: true
+    scripts:
+    - scripts/ingest_c306_coinm_term_structure.py
+    - scripts/preflight_c306.py
+    - scripts/run_c306_coinm_term_structure_oos.py
+    tests:
+    - tests/test_preflight_c306.py
+    - tests/test_c306_coinm_term_structure_oos.py
+    - tests/test_probe_c306_coinm_reachability.py
+    pytest:
+      passed: 1429
+      skipped: 2
+      failed: 10
+      duration_s: 506.12
+      as_of_utc: 20261115T051000Z
+      note: 'the 10 failures are the SAME pre-existing C305 program-closure reds (verified identical at HEAD); 0 new failures, 0 C306 failures'
+  c307_next_family:
+    family: coin_m_inverse_quarterly_term_structure_wider_symbol_universe
+    as_of_utc: 20261115T050843Z
+    rationale: 'C306 aligned only 1 asset (BTCUSD) to the common grid because ETHUSD_PERP klines HTTP 404 every month. The COIN-M perp universe is 11 symbols and dated quarterlies are retained across cycles. C307 must re-run the C306 ingest over the full 11-perp universe to build a multi-asset cross-sectional term-structure grid and test calendar-basis carry across assets.'
+    perp_symbols: [BTCUSD_PERP, ETHUSD_PERP, ADAUSD_PERP, LTCUSD_PERP, XRPUSD_PERP, BCHUSD_PERP, LINKUSD_PERP, TRXUSD_PERP, ETCUSD_PERP, XLMUSD_PERP, DOTUSD_PERP]
+    do_not: 'do NOT re-probe C306 reachability; do NOT re-skin the frozen USDT-M/spot/options families (C281B-C305) or the frozen C306 single-asset result'
 c305_reachability_probe:
   executed_this_refresh: true
   as_of_utc: 20261115T030618Z
@@ -540,9 +598,9 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C305
+latest_campaign_done: C306
 reachable_real_data_cross_sectional_stat_arb_space: CLOSED
-reachable_real_data_cross_sectional_stat_arb_space_scope: 'USDT-M linear futures + spot + options only (C281B-C305). Superseded for COIN-M inverse futures by the C306 probe -> coin_m_inverse_futures_space: OPEN.'
+reachable_real_data_cross_sectional_stat_arb_space_scope: 'USDT-M linear futures + spot + options only (C281B-C305). C306 (COIN-M inverse dated-quarterly term-structure carry) is COMPLETE_NOT_TRADABLE and FROZEN; the COIN-M inverse futures space remains OPEN for C307 (wider 11-perp symbol universe).'
 c305_program_closure:
   as_of_utc: 2026-11-15T03:24:16Z
   closure_report_json: {path: reports/program_closure_final_20261115T032416Z.json, sha256: b522fe93c7e335d0cdd403c54dc5d08545caa7a5c91d51fb7b4a21d539b262df}

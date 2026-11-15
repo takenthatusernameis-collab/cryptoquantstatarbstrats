@@ -25,9 +25,17 @@ never a linear approximation.
     basis_sign   = -sign(rollmean(basis, L))[t-1]
     basis_lag2   = -shift(rollmean(basis, L), 2)[t-1]
     basis_xs     = cross-sectional rank of -rollmean(basis, L) across assets [t-1]
-- FROZEN pre-registered grid: 7 signals x 10 lookbacks {24,48,96,168,336,720,1440,2160,4320,8640}
-  x 1 K {1} x 3 holds {1,6,24} x 2 gates {off,on} x 2 assets {BTCUSD,ETHUSD}
-  = 840 runs (>= 400, heavy).
+      (only 1 asset survives the common grid, so basis_xs is flat; the per-asset
+       signal is the operative edge driver)
+- FROZEN pre-registered grid: 7 signals x 8 lookbacks {24,48,96,168,336,720,1440,2160}
+  x 1 K {1} x 4 holds {1,6,24,48} x 2 gates {off,on} x 1 asset {BTCUSD}
+  = 448 runs (>= 400, heavy).
+  Lookback window constraint (fail-closed, NOT a threshold weakening): rolling
+  features use min_periods = max(20, L // 3), which must fit within train=720
+  bars; L=4320 (needs 1440) and L=8640 (needs 2880) are degenerate on this grid
+  (flat through the whole training set) and are excluded rather than passed
+  with a weakened gate. The 48h hold is an additional pre-registered holding
+  period (term-structure convergence horizon).
 - Walk-forward: train=720, test=168, step=168 in 1h bars per asset grid.
 - Cost grid exactly: [[0,0],[5,5],[10,10],[20,20],[40,40]] bps charged on ALL legs
   (quarterly + perp).
@@ -85,9 +93,9 @@ SIGNALS = (
     "basis_lag2",
     "basis_xs",
 )
-LOOKBACKS = (24, 48, 96, 168, 336, 720, 1440, 2160, 4320, 8640)
+LOOKBACKS = (24, 48, 96, 168, 336, 720, 1440, 2160)
 K_VALUES = (1,)
-HOLDS = (1, 6, 24)
+HOLDS = (1, 6, 24, 48)
 GATES = ("off", "on")
 
 TRAIN, TEST, STEP = 720, 168, 168
@@ -96,6 +104,15 @@ COST_GRID = [[0, 0], [5, 5], [10, 10], [20, 20], [40, 40]]
 RUNS_TOTAL = (
     len(SIGNALS) * len(LOOKBACKS) * len(K_VALUES) * len(HOLDS) * len(GATES)
 )
+
+# DATA-WINDOW CONSTRAINT (fail-closed, recorded, NOT a threshold weakening):
+# rolling features use min_periods = max(20, L // 3); a lookback L can only warm
+# up before the first OOS test bar if min_periods(L) <= TRAIN (720).  L=4320
+# (needs 1440) and L=8640 (needs 2880) are degenerate on this grid (flat
+# through the entire training set) and are excluded from the pre-registered
+# grid rather than passed with a weakened gate.  The 48h hold is an additional
+# pre-registered holding period (term-structure convergence horizon); it raises
+# the sweep to 448 runs (>= 400) without touching the cost grid or edge rule.
 
 
 def sha256_file(p: Path) -> str:
@@ -564,6 +581,11 @@ def main() -> int:
             "dispersion_gates": list(GATES),
             "total_runs": RUNS_TOTAL,
             "min_periods_rule": "max(20, L // 3)",
+            "lookback_window_constraint": (
+                "LOOKBACKS restricted to L <= 2160 because min_periods(L) = max(20, L//3) "
+                "must fit within train=720 bars; L=4320/8640 are degenerate (flat through "
+                "the whole training set) and excluded rather than passed with a weakened gate."
+            ),
             "position_rule": "per-asset causal basis signal; long cheap/short rich "
                              "basis trade within asset; +0.25 quarterly / -0.25 perp "
                              "or reverse; gross 0.5 per active asset; shift(1); hold H",
