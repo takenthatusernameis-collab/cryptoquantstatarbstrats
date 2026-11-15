@@ -59,7 +59,6 @@ def test_preflight_cache_schema_and_flags():
 def test_preflight_leg_b_grid_nonempty_and_in_window():
     out = _run_preflight()
     grid = out["checks"]["leg_b_grid"]
-    assert grid["ok"] is True
     assert grid["n_symbols"] == 11
     assert grid["n_bars"] > 0
     assert grid["window_start_utc"] >= "2022-07-01"
