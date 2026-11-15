@@ -136,10 +136,10 @@ def reachability_probe() -> dict:
     rows: list[dict] = []
     symbols = ["BTCUSD", "ETHUSD"]
     months = ["2024-01", "2024-06"]
-    # perp rows
+    # perp rows (symbol = <BASE>_PERP, e.g. BTCUSD_PERP — verified live)
     for s in symbols:
         for m in months:
-            sym = s + "USD_PERP"
+            sym = s + "_PERP"
             rows.append(probe_url(BASE + KLINES_PATH.format(sym=sym, month=m)))
             time.sleep(0.1)
     # quarterly rows (front/next contracts around the window)

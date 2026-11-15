@@ -9,15 +9,15 @@ next_campaign: C313
 coin_m_inverse_futures_space: C313_ACTIVE
 latest_campaign_done: C312
 c313_status:
-  state: ACTIVE_NOT_STARTED
-  as_of_utc: 20261115T185059Z
+  state: ACTIVE_SCRIPTS_READY_CACHE_MISSING
+  as_of_utc: 20261115T193214Z
   edge_proven: false
   edge_claim: NONE
-  scripts_ready: false
+  scripts_ready: true
   tests_ready: false
   cache_ready: false
   heavy_work_required: true
-  on_disk_evidence: 'no scripts/c313*, no tests/test_c313* or test_preflight_c313*, no data/cache/campaign313* exist; ingest/preflight/runner/tests and all 5 artifacts + full.json must be created'
+  on_disk_evidence: 'scripts/ingest_c313_coinm_quarterly_carry.py, scripts/preflight_c313.py, scripts/run_c313_coinm_quarterly_carry_oos.py present (uncommitted, on-disk only); no tests/test_c313* or tests/test_preflight_c313*; no data/cache/campaign313*; no reports/campaign313_* yet. Next: preflight reachability -> ingest (resumable) -> preflight -> runner -> tests.'
   data_path: https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip  (HTTP 200 verified for all 11 COIN-M inverse perps @2024-06; data/coin-m/ 404, do not probe)
   universe: "BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD x {front quarterly, next quarterly, _PERP} = 33 instruments"
   window: 2022-07..2026-06
