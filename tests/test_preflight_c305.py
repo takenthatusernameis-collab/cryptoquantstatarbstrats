@@ -63,8 +63,9 @@ def test_preflight_path_b_and_genuinely_new_empty():
     assert pb["path_b_recommended"] is True
     assert pb["genuinely_new_reachable_families"] == []
     probe = json.loads(pf.PROBE_REPORT.read_text(encoding="utf-8"))
-    assert probe["path_b_recommended"] is True
-    assert probe["genuinely_new_reachable_families"] == []
+    probe_summary = probe.get("summary") or {}
+    assert probe.get("path_b_recommended", probe_summary.get("path_b_recommended")) is True
+    assert probe.get("genuinely_new_reachable_families", probe_summary.get("genuinely_new_reachable_families")) == []
 
 
 def test_preflight_reachable_space_closed():

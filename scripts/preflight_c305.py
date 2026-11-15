@@ -68,11 +68,17 @@ def main() -> int:
     rec("state_yaml_readable", state_ok, detail={"path": str(STATE)})
 
     latest_campaign = state.get("latest_campaign_done") if isinstance(state, dict) else None
+    latest_campaign_num = None
+    if isinstance(latest_campaign, str) and latest_campaign.startswith("C") and latest_campaign[1:].isdigit():
+        latest_campaign_num = int(latest_campaign[1:])
     rec(
-        "latest_campaign_done_c304_or_c305",
-        latest_campaign in ("C304", "C305"),
+        "latest_campaign_done_c304_or_later",
+        latest_campaign_num is not None and latest_campaign_num >= 304,
         detail={"latest_campaign_done": latest_campaign},
-        reason="latest_campaign_done must be C304 (pre-closure) or C305 (post-closure)",
+        reason=(
+            "latest_campaign_done must be C304 (pre-closure) or a later campaign "
+            "(C305 closure complete; COIN-M inverse family C306/C307 continues)"
+        ),
     )
 
     reachable_space = state.get("reachable_real_data_cross_sectional_stat_arb_space") if isinstance(state, dict) else None

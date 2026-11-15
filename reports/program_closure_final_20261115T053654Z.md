@@ -1,0 +1,24 @@
+# C305 Formal Program Closure Report
+
+- artifact: program_closure_final
+- campaign: C305
+- path: Path B — formal program closure (no genuinely-new reachable family)
+- generated_at_utc: 20261115T053654Z
+- source_host: https://data.binance.vision
+- reachable_real_data_cross_sectional_stat_arb_space: CLOSED
+- edge_claim: NONE
+- oos_edge_proven: false
+- n_campaigns_audited: 24
+- n_formal_negatives: 21
+- n_tradable: 0
+- n_blocked_external: 1 (C287)
+- real_data_only: True
+- fabricated_data: False
+- executed_fills: False
+- probe: path_b_recommended=true, genuinely_new_reachable_families=[]
+- C287: BLOCKED/decoupled (testnet REST 451, fapi 451, bybit 403, no credentials)
+- closure_report_json: `reports/program_closure_final_20261115T053654Z.json` (`142a2bb9cdf2cc415c043e9656c4e890dcf825653b4afacd4fb5df6204070a53`)
+- integrity_audit_json: `reports/program_closure_integrity_audit_20261115T053654Z.json` (`4fa7de616d4631cbae33aef11e7c27f7c3206ce10c576c4cc9c18772dd11b4f8`)
+- reskin exclusions: raw `trades` -> C301 OFI; `klines_1h_daily` -> klines family C298-C304
+- unavailable 404: basis, continuousKlines_1h, bookTicker, bookDepth, metrics
+- directory listing: inaccessible
