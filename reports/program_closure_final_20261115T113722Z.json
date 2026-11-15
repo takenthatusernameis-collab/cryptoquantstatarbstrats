@@ -1,0 +1,511 @@
+{
+  "artifact": "program_closure_final",
+  "as_of_utc": "2026-11-15T11:37:22Z",
+  "c287": {
+    "blocked_reasons": [
+      "binance_testnet_rest_ping:451",
+      "binance_testnet_rest_time:451",
+      "binance_testnet_rest_exchangeInfo:451",
+      "fapi_ping:451",
+      "api_bybit_v5_time:403",
+      "missing_env_credentials:BINANCE_TESTNET_API_KEY_and_or_SECRET"
+    ],
+    "decoupled_from_economic_progress": true,
+    "external_action_required": [
+      "Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment",
+      "Provide network egress not subject to Binance testnet 451 geographic block"
+    ],
+    "status": "BLOCKED"
+  },
+  "c305_probe": {
+    "cache": "data/cache/campaign305_reachability_probe.json",
+    "cache_sha256": "3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27",
+    "genuinely_new_reachable_families": [],
+    "path_b_recommended": true,
+    "provenance": "data/cache/campaign305_reachability_probe.provenance.json",
+    "provenance_sha256": "7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04",
+    "report": "reports/c305_reachability_probe_20261115T030618Z.json",
+    "report_sha256": "3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27"
+  },
+  "campaign": "C305",
+  "campaigns": [
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C281B",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C281C",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": []
+    },
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C282",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C283",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "zero_exposure"
+      ],
+      "campaign": "C284",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C285",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C286",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C288",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C289",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": []
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C290",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C291",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C292",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": 81,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C293",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": 81,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C294",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": 27,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C295",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": 162,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": false,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [],
+      "campaign": "C296",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "DATA_BLOCKED"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C297",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "zero_exposure"
+      ],
+      "campaign": "C298",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C299",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C300",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C301",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "mean_beats_benchmark_fail"
+      ],
+      "campaign": "C302",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C303",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    },
+    {
+      "all_exist": true,
+      "all_hashes_match": true,
+      "any_errors": false,
+      "binding_constraints": [
+        "cost_sensitivity"
+      ],
+      "campaign": "C304",
+      "edge_claim": "NONE",
+      "executed_fills": false,
+      "fabricated_data": false,
+      "frozen": true,
+      "n_runs": null,
+      "oos_edge_proven": false,
+      "real_data_only": true,
+      "verdicts": [
+        "NOT_TRADABLE"
+      ]
+    }
+  ],
+  "closure_report_json": "program_closure_final_20261115T113722Z.json",
+  "directory_listing_inaccessible": true,
+  "edge_claim": "NONE",
+  "executed_fills": false,
+  "fabricated_data": false,
+  "generated_at_ts": "20261115T113722Z",
+  "integrity_audit_json": "program_closure_integrity_audit_20261115T113722Z.json",
+  "integrity_audit_sha256": "f480c404e918d89d7a7f288c39d4d6da4ecdcd00a6ec09ccb37deff4aba1cd0c",
+  "n_blocked_external": 1,
+  "n_campaigns_audited": 24,
+  "n_data_blocked": 0,
+  "n_formal_negatives": 21,
+  "n_tradable": 0,
+  "oos_edge_proven": false,
+  "path": "Path B \u2014 formal program closure (no genuinely-new reachable family)",
+  "path_b_recommended": true,
+  "provenance": {
+    "executed_fills": false,
+    "fabricated_data": false,
+    "no_c281b_c304_rerun": true,
+    "no_c287_retry": true,
+    "real_data_only": true
+  },
+  "reachable_real_data_cross_sectional_stat_arb_space": "CLOSED",
+  "real_data_only": true,
+  "reskin_exclusions": [
+    "raw futures/spot `trades` == aggTrades OFI/microstructure family, CLOSED by C301 (post_c301_rule forbids re-skin)",
+    "daily-partitioned `klines_1h_daily` == klines family consumed by C298-C304"
+  ],
+  "source_host": "https://data.binance.vision",
+  "step": "formal_program_closure",
+  "unavailable_404_families": [
+    "basis",
+    "continuousKlines_1h",
+    "bookTicker",
+    "bookDepth",
+    "metrics"
+  ]
+}

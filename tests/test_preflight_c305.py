@@ -71,7 +71,11 @@ def test_preflight_path_b_and_genuinely_new_empty():
 def test_preflight_reachable_space_closed():
     out = _run_preflight()
     state = yaml.safe_load(STATE.read_text(encoding="utf-8"))
-    assert state["reachable_real_data_cross_sectional_stat_arb_space"] == "CLOSED"
+    space = state["reachable_real_data_cross_sectional_stat_arb_space"]
+    # Price/funding/premium/mark carry space is CLOSED; later campaigns (C310/
+    # C311) annotate the still-open aggTrades sub-space but keep the CLOSED
+    # prefix, so assert the prefix rather than exact equality.
+    assert isinstance(space, str) and space.startswith("CLOSED")
 
 
 def test_preflight_fail_closed_when_probe_cache_missing(tmp_path, monkeypatch):

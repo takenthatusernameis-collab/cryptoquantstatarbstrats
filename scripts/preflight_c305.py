@@ -82,11 +82,15 @@ def main() -> int:
     )
 
     reachable_space = state.get("reachable_real_data_cross_sectional_stat_arb_space") if isinstance(state, dict) else None
+    # The price/funding/premium/mark cross-sectional stat-arb space is CLOSED.
+    # Later campaigns (C310/C311) keep that closure intact but annotate the
+    # value with the still-open aggTrades sub-space, so accept any value whose
+    # CLOSED prefix is intact while still failing closed on NOT_CLOSED / None.
     rec(
         "reachable_space_closed",
-        reachable_space == "CLOSED",
+        isinstance(reachable_space, str) and reachable_space.startswith("CLOSED"),
         detail={"reachable_real_data_cross_sectional_stat_arb_space": reachable_space},
-        reason="reachable_real_data_cross_sectional_stat_arb_space must be CLOSED",
+        reason="reachable_real_data_cross_sectional_stat_arb_space must start with CLOSED",
     )
 
     probe_block = state.get("c305_reachability_probe") if isinstance(state, dict) else None

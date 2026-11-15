@@ -1,0 +1,21 @@
+# C305 Program Closure Integrity Audit
+
+- artifact: program_closure_integrity_audit
+- campaign: C305
+- generated_at_utc: 20261115T113421Z
+- source_host: https://data.binance.vision
+- scope: C281B-C304 formal negatives (C281B, C281C, C282-C297, C298-C304) + C305 reachability-exhaustion probe + C287 blocked external execution
+- integrity_ok: True
+- n_mismatch_or_missing_or_error: 0
+- n_references: 234
+- zero_tradable_edge_registry_confirmed: True
+- reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_only_aggtrades_space_OPEN_at_5m
+- latest_campaign_done: C310
+- real_data_only: True
+- fabricated_data: False
+- executed_fills: False
+- probe report: `reports/c305_reachability_probe_20261115T030618Z.json` (`3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27`)
+- probe cache: `data/cache/campaign305_reachability_probe.json` (`3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27`)
+- probe provenance: `data/cache/campaign305_reachability_probe.provenance.json` (`7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04`)
+- audit JSON: `program_closure_integrity_audit_20261115T113421Z.json` (`a581c12ff906819a8f75e4ba6bb4a066b999b282dc23c852ecef8b49a0d8a2b2`)
+- C287 blocked: True (decoupled from economic progress)
