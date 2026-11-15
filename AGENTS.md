@@ -1,10 +1,12 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T15:14:50Z — **C311 COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). C312 is the mandatory next heavy campaign and is NOT started (0 scripts/tests/artifacts on disk — re-verified this refresh: `reports/campaign312_*`, `scripts/*c312*`, `tests/*c312*` all absent).** `latest_campaign_done: C311`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)**. `HANDOFF.md` absent (do not create). Economic progress means **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress. No blockers remain for C312: reachability re-verified this refresh (below), templates (C311) available, env/deps import, bounded-sweep rule enforced. **Next session MUST execute C312 heavy work (build+run+artifacts+tests+full suite) — status/verification-only turns are forbidden.**
+**Handoff refreshed:** 2026-11-15T15:36:02Z — **C311 COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). C312 is the mandatory next heavy campaign and is NOT started (0 scripts/tests/artifacts on disk — re-verified this refresh: `reports/campaign312_*`, `scripts/*c312*`, `tests/*c312*` all absent).** `latest_campaign_done: C311`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)**. `HANDOFF.md` absent (do not create). Economic progress means **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress. No blockers remain for C312: reachability re-verified (below), C311 templates available, env/deps import, bounded-sweep rule enforced. **NEXT SESSION TURN CONTRACT: the first tool call must be `python scripts/bootstrap_dev_env.py`, then create the 3 C312 scripts + 2 tests, then run ingest+preflight+runner. If C312 artifacts are absent at turn start, ending the turn with only a status/verification update is a failed turn.**
 
-## INITIAL TASK MESSAGE (2026-11-15T15:14:50Z) — CAMPAIGN C312: USDT-M LINEAR-PERP WIDE-UNIVERSE NATIVE-5m CROSS-SECTIONAL OFI CARRY (MANDATORY HEAVY — BUILD+RUN, NOT verification-only)
+## INITIAL TASK MESSAGE (2026-11-15T15:36:02Z) — CAMPAIGN C312: USDT-M LINEAR-PERP WIDE-UNIVERSE NATIVE-5m CROSS-SECTIONAL OFI CARRY (MANDATORY HEAVY — BUILD+RUN, NOT verification-only)
 
 **NEXT SESSION ACTION:** Build and run C312 end-to-end over real USDT-M `aggTrades`, emit 5 `reports/campaign312_*` artifacts + 2 tests, re-run the full suite green, and sync AGENTS.md + `research_state/state.yaml`. This is the pre-registered fallback family (USDT-M aggTrades OFI cross-section) and is the only remaining reachable, genuinely-new heavy economic family after C281B–C311.
+
+**Repository-name priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**; rank work by costed out-of-sample PnL on real, provable data, not infrastructure or status. C312 is the next authorized heavy campaign; no exploratory detour is authorized before its artifacts exist.
 
 **Why this is genuinely new (not a re-skin):**
 - C301 used only **3 symbols (BTC/ETH/BCH) over a 2-month window (2023-01..2023-02)** — a tiny slice, not the wide universe.
@@ -24,6 +26,8 @@
 **Emit 5 fresh** `reports/campaign312_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json` SHA256-from-bytes, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. **FAIL-CLOSED:** if 0 survive Holm+BH OR any positive fails cost-realism → record a formal negative with binding constraint; do NOT claim tradability. Do not weaken edge rule/costs/gates; do not re-probe C311; do not re-skin frozen C281B–C311.
 
 **Definition of done (hard gate):** 5 C312 artifacts on disk with the exact names above + 3 scripts + 2 tests present, all 504 configs reported (including non-edge), and the full suite re-run green. Anything short is NOT completion.
+
+**Anti-avoidance gate:** if any C312 artifact is missing at the end of a turn, do not write a completion summary; continue building/running. Do not re-probe C311, C310, or C287; do not re-skin frozen C281B–C311; do not replace this task with infrastructure-only or status-only work.
 
 ## C311 (COMPLETE FORMAL NEGATIVE, FROZEN — do not rerun)
 
@@ -75,7 +79,7 @@ Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 
 
 ## Escalation
 
-- **ACTIVE (2026-11-15T15:11:39Z) — C312 build+run:** ingest real USDT-M aggTrades at 5m (execution price from USDT-M 5m klines; both endpoints re-verified HTTP 206 + valid zip magic), preflight, run the 504-config linear-settlement cross-sectional OFI carry sweep, emit 5 `reports/campaign312_*` artifacts + 2 tests, full suite green, sync AGENTS.md + state.yaml. If nothing survives Holm+BH → formal negative with binding constraint; do NOT claim tradability.
+- **ACTIVE (2026-11-15T15:36:02Z) — C312 build+run:** ingest real USDT-M aggTrades at 5m (execution price from USDT-M 5m klines; both endpoints re-verified HTTP 206 + valid zip magic), preflight, run the 504-config linear-settlement cross-sectional OFI carry sweep, emit 5 `reports/campaign312_*` artifacts + 2 tests, full suite green, sync AGENTS.md + state.yaml. If nothing survives Holm+BH → formal negative with binding constraint; do NOT claim tradability.
 - **C311 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 5 artifacts + 22 tests green; sweep slimmed <1 MB.
 - **C310 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 1h cache reused as real-data asset.
 - **C306–C309 (FROZEN formal negatives / RETRACTED):** do not rerun. C309 0/504 Holm+BH; C308 0/53 Holm+BH; C307 retracted by C308; C306 0/448 cost_sensitivity.
