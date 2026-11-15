@@ -1,23 +1,30 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T21:32:49Z — **C313 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T204419Z, 0/960 Holm+BH).** C312 COMPLETE formal negative (RETRACTED, 20261115T174346Z, 0/504 Holm+BH). C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED. `latest_campaign_done: C313`; `active_campaign: C314`; `oos_edge_proven: false`; `edge_claim: NONE`.
+**Handoff refreshed:** 2026-11-15T21:36:14Z — **C313 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T204419Z, 0/960 Holm+BH, binding `multiple_testing`).** C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C313`; `active_campaign: C314`; `oos_edge_proven: false`; `edge_claim: NONE`.
 
-**BOTTLENECK REMOVAL ENFORCEMENT (2026-11-15T20:32:09Z — MANDATORY FOR ALL FUTURE SESSIONS):**
-- **THE BLOCKING BUG IS FIXED (verified live 2026-11-15T18:49Z).** Prior handoffs pointed C313 at `data.binance.vision/data/coin-m/quarterly_klines/...` — that path is **404**. The REAL path is `data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip` (HTTP 200 verified for all 11 COIN-M inverse perps @2024-06; quarterly e.g. `BTCUSD_240628-1h-2023-12.zip` present). `data/coin-m/` does NOT exist. Use the `data/futures/cm/` layout verbatim — do NOT re-derive the path; do NOT probe `data/coin-m/` again.
-- C313 is the ONLY authorized campaign. C281B–C312/C287 are FROZEN/BLOCKED — any rerun, re-skin, re-probe, or pivot to them is a HARD VIOLATION.
-- Quarterly contract naming is `<SYM>YYMMDD` (e.g. `BTCUSD_240628`); perp is `<SYM>_PERP`. 1h zips begin ~3 months before expiry. Pre-listing months 404 → exclude, document in provenance.
-- Reachability gate uses the CORRECTED path above. ≥80% of (symbol, contract, month) pairs must return HTTP 200; 404 = exclude that contract-month (pre-listing), NOT an outage.
-- Ingest MUST be resumable per (symbol, contract, month) via `months_manifest.json` — survive session boundaries, no restart-from-zero.
-- Cache MUST stay <100 MB total. Per-asset `.npz` shards only. Assert on write.
-- Runner MUST emit bounded sweep (<100 MB slim JSON) + full.json (gitignored). Per-split series DROPPED from slim artifact.
-- C287 (testnet 451, no creds) is EXTERNALLY BLOCKED — never retry, never let it preempt C313.
-- NO FABRICATED DATA — every artifact `real_data_only: true`, `fabricated_data: false`, `executed_fills: false`.
-- FAIL-CLOSED — missing/None/false gate values BLOCK entries. No silent defaults.
-- PROVENANCE FIRST — every number traces to source, timestamp, host, blocked routes, rationale.
-- COSTS ARE REAL — all backtests use stated fee/slippage grid; 3 legs per trade = costs ×3.
-- NO OVERFITTING — walk-forward, ALL pre-registered configs reported, Holm+BH BOTH must pass at α=0.05 before ANY positive claim.
-- TESTS MUST PASS — new code adds tests; CI green before campaign complete.
-- SINGLE HANDOFF — update only `AGENTS.md` and `research_state/state.yaml`; do NOT create `HANDOFF.md`.
+## INITIAL TASK MESSAGE (2026-11-15T21:36:14Z, refreshed) — ACTIVE CAMPAIGN C314: SPOT-PERP LEAD-LAG STAT-ARB (MANDATORY HEAVY, NO STATUS-ONLY TURN)
+
+**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** Execute **C314 — Spot-Perp Lead-Lag Statistical Arbitrage (USDT-M linear perps vs spot, 5m, 2023-01..2025-12)** end-to-end to `edge_proven:true` OR a formal negative with binding constraint. **C314 does not exist on disk** (no scripts/tests/cache/artifacts) — create and complete all heavy work this campaign. Infra/status-only output is NOT progress.
+
+**Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):** C281B–C313 (formal negatives), C287 (external 451/no creds). Any work on them is a hard violation.
+
+**Bottlenecks removed / guardrails (enforced):**
+- **Verified data paths (C312 HTTP 206):** spot `https://data.binance.vision/data/spot/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`, perp `https://data.binance.vision/data/futures/um/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`. 404 = excluded pre-listing month (not outage). Funding NaN/control-only if unreachable.
+- **Resumable ingest:** per (symbol, market, month) via `months_manifest.json`; survive session boundaries; discard raw CSV after feature extraction.
+- **Bounded resources:** cache <100 MB total, per-asset `.npz` shards; slim sweep artifact <100 MB (no per-bar/per-split series) + gitignored `full.json`.
+- **No fabricated data / fail-closed / provenance-first:** `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; SHA256-from-bytes for every artifact; missing/None/false gates BLOCK.
+- **No overfitting:** ALL pre-registered configs reported; Holm+BH α=0.05 BOTH must pass; MDE + stability + lead-lag-vs-noise attribution required.
+
+**Execute in order (all required):**
+1. `python scripts/bootstrap_dev_env.py`
+2. Create `scripts/ingest_c314_spot_perp_leadlag_5m.py`: reachability probe + resumable ingest for spot+USDT-M perp 5m klines, 10 symbols `[BTCUSDT,ETHUSDT,BNBUSDT,SOLUSDT,XRPUSDT,ADAUSDT,DOGEUSDT,DOTUSDT,LTCUSDT,AVAXUSDT]`, 2023-01..2025-12 (36m), aligned common 5m grid, lead-lag features (spot↔perp cross-corr at lags 1-12 / 5-60m), months_manifest, cache `data/cache/campaign314_spot_perp_leadlag_5m/` <100 MB `.npz`.
+3. Create/run `scripts/preflight_c314.py` → `ready:true` fail-closed (≥80% reachable pairs, schema/manifest/cache checks).
+4. Create/run `scripts/run_c314_spot_perp_leadlag_oos.py` over **all pre-registered configs (2304 ≥504):** lag_window[6,12,24]×lead_lag_threshold[0.05,0.10,0.15]×rebalance[5m,15m,30m,1h]×fee[1,5,10,20]bps×slippage[1,2,5,10]bps×tercile_cut[33,25]×cost_variant[symmetric,perp_heavy]. Expanding WF train 12m/test 3m/roll 3m. Holm+BH α=0.05 BOTH; MDE; stability (≥70% sign consistency, first/second-half Sharpe corr ≥0.5); lead-lag-vs-noise attribution (>0.5 share for positive claim). 2-leg USDT PnL (spot+perp), costs ×2 on stated grid.
+5. Emit `reports/campaign314_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` (slim) + gitignored `full.json`, SHA256-from-bytes, `real_data_only:true,fabricated_data:false,executed_fills:false`.
+6. Add/pass `tests/test_preflight_c314.py` + `tests/test_c314_spot_perp_leadlag_oos.py`; run targeted/full suite green.
+7. Sync `AGENTS.md` + `research_state/state.yaml` with verdict/SHAs/binding constraint. If formal negative, register the next genuinely-new reachable stat-arb family (pre-registered, heavy) as active. Never create `HANDOFF.md`.
+
+**Definition of Done:** all 5 artifacts + full.json on disk with SHA256 provenance; ≥504 configs tested with Holm+BH reported; `edge_proven:true` OR formal negative with `binding_constraint`; cache <100 MB with correct flags; tests green.
 
 **C313 on-disk state (verified 2026-11-15T20:45:00Z, post-execution refresh):**
 - Scripts PRESENT (uncommitted): `scripts/ingest_c313_coinm_quarterly_carry.py`, `scripts/preflight_c313.py`, `scripts/run_c313_coinm_quarterly_carry_oos.py`.
@@ -26,17 +33,6 @@
 - Preflight status: **VERIFIED GREEN** (`python scripts/preflight_c313.py --json` → `ready:true`, `blocked_reasons:[]`).
 - Runner/artifacts: **COMPLETE** — all 5 artifacts + gitignored `full.json` emitted at `20261115T204419Z` with SHA256 provenance. Slim sweep ~1.2 MB, full ~2.0 MB.
 - **VERDICT:** RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/960 deterministic edge, 0 survive Holm+BH). Costed OOS executed over 960 pre-registered configs (5 lookbacks × 3 rebalances × 4 fees × 4 slippages × 2 tercile cuts × 2 cost variants).
-
-**NEXT SESSION TURN CONTRACT (hard, 2026-11-15T21:32:49Z — MANDATORY, HEAVY, NO STATUS-ONLY TURN):** Active campaign **C314** (Spot-Perp Lead-Lag Statistical Arbitrage on USDT-M Linear Perps) is the ONLY authorized work. On-disk: no C314 scripts/tests/cache/artifacts exist yet — next session MUST create them and execute end-to-end in the same campaign push (no infra-only stop). Execute in order: (1) `python scripts/bootstrap_dev_env.py`; (2) implement reachability probe + resumable ingest per (symbol, market, month) via `months_manifest.json` for spot+USDT-M perp 5m klines (verified paths below), bounded cache <100 MB, per-asset `.npz` shards, funding NaN control-only, discard raw CSV after feature extraction; (3) create/run `scripts/preflight_c314.py` to `ready:true` (fail-closed); (4) implement and run `scripts/run_c314_spot_perp_leadlag_oos.py` over ALL pre-registered configs (≥504, grid below) on 2023-01..2025-12 with expanding WF train 12m/test 3m/roll 3m, Holm+BH α=0.05 BOTH required, MDE + stability + lead-lag-vs-noise attribution, 2-leg (spot+perp) costs on stated grid; (5) emit all 5 slim artifacts + gitignored `full.json` with SHA256-from-bytes provenance and flags `real_data_only:true,fabricated_data:false,executed_fills:false`; (6) add/pass `tests/test_preflight_c314.py` and `tests/test_c314_spot_perp_leadlag_oos.py` and run targeted/full suite green; (7) sync `AGENTS.md` + `research_state/state.yaml` with final verdict/SHAs/binding constraint and, if formal negative, the next genuinely-new reachable stat-arb family (pre-registered, heavy). Do not rerun/re-skin frozen C281B–C313/C287. Do not produce infra/status-only output. Economic progress = costed out-of-sample PnL on real, provable data.
-
-**C313 STATUS (2026-11-15T20:45:00Z): COMPLETE — FORMAL NEGATIVE.** All heavy work executed end-to-end:
-- Bootstrap: `python scripts/bootstrap_dev_env.py` ✅
-- Ingest: real-data COIN-M inverse quarterly 1h klines via corrected path, resumable via `months_manifest.json`, 8/11 bases, ~4 MB cache ✅
-- Preflight: `python scripts/preflight_c313.py --json` → `ready:true`, `blocked_reasons:[]` ✅
-- Tests: `tests/test_preflight_c313.py` (8/8) + `tests/test_c313_coinm_quarterly_carry_oos.py` (15/15) = 23/23 green ✅
-- Runner: `python scripts/run_c313_coinm_quarterly_carry_oos.py` over 960 pre-registered configs, expanding WF train 12m/test 3m/roll 3m (11 splits), Holm+BH at α=0.05 (both required), inverse PnL in coin, 3-leg costs ×3 ✅
-- Artifacts: all 5 + gitignored `full.json` emitted with SHA256 provenance, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false` ✅
-- **VERDICT:** RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/960 deterministic edge, 0 survive Holm+BH). Costed OOS executed over 960 pre-registered configs.
 
 **C312 on-disk state (verified 2026-11-15T18:50Z, frozen):**
 - Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` (10 perps, 315,648 5m bars, 2023-01..2025-12, ~65 MB, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`).
