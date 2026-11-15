@@ -1,0 +1,30 @@
+{
+  "generated_at_utc": "20261115T043836Z",
+  "campaign": 306,
+  "part": "ingest",
+  "interval": "1h",
+  "source_interval": "coin_m_klines_1h",
+  "assets": [
+    "BTCUSD"
+  ],
+  "n_assets": 1,
+  "n_universe_perps": 2,
+  "n_universe_quarterlies": 4,
+  "source_host": "https://data.binance.vision",
+  "klines_endpoint": "/data/futures/cm/monthly/klines/{sym}/1h/{sym}-1h-{month}.zip",
+  "premium_endpoint": "/data/futures/cm/monthly/premiumIndexKlines/{sym}/1h/{sym}-1h-{month}.zip",
+  "mark_endpoint": "/data/futures/cm/monthly/markPriceKlines/{sym}/1h/{sym}-1h-{month}.zip",
+  "cache_pkl_bytes": 473799,
+  "cache_pkl_mb": 0.47,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "cache_format": "plain_numpy_ndarrays_no_pandas_legs",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "sha256_from_bytes": "056066849b6b4c304cf46d48f3f3c4c1aaf87c47480fdfb01eacc17ede42bffe",
+  "pkl_path": "data/cache/campaign306_coinm_term_structure.pkl",
+  "n_months": 71
+}

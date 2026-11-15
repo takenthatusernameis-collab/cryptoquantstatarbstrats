@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261115T043923Z",
+  "campaign": 306,
+  "part": "verdict",
+  "analysis": "final_verdict",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "finding": "No costed OOS edge proven on the real COIN-M inverse quarterly term-structure carry family (420 runs, 0 edge).",
+  "basis": "real_coin_m_inverse_quarterly_term_structure_costed_oos_1h",
+  "dataset": {
+    "cache": "data/cache/campaign306_coinm_term_structure.pkl",
+    "cache_sha256": "056066849b6b4c304cf46d48f3f3c4c1aaf87c47480fdfb01eacc17ede42bffe",
+    "cache_meta": "data/cache/campaign306_coinm_term_structure.meta.json",
+    "cache_meta_sha256": "4d482c4f3d64a141f35440ef86b55aa24b5f8e118adcf4cbe83f36e5858ce219",
+    "cache_provenance": "data/cache/campaign306_coinm_term_structure.provenance.json",
+    "cache_provenance_sha256": "c021aa1203a2119b64b4b468d8fab69ed60c88fb094d2e18ea8b0cc494b186fc",
+    "cache_pkl_bytes": 473799,
+    "assets": [
+      "BTCUSD"
+    ],
+    "n_assets": 1,
+    "asset_grids": {
+      "BTCUSD": {
+        "bars": 4914,
+        "start_utc": "2025-03-01 00:00:00+00:00",
+        "end_utc": "2026-10-31 23:00:00+00:00",
+        "n_splits": 24
+      }
+    },
+    "common_grid_bars": 4914,
+    "common_grid_start_utc": "2025-03-01 00:00:00+00:00",
+    "common_grid_end_utc": "2026-10-31 23:00:00+00:00",
+    "real_data_only": true,
+    "fabricated_data": false
+  },
+  "oos_sweep_artifact": "reports/campaign306_oos_sweep_20261115T043923Z.json",
+  "oos_sweep_sha256": "ac8b34d42bc80b309beb2cc776ed360c4164b232eaf130bf27be0bb99c430b59",
+  "registry_artifact": "reports/campaign306_tradable_edge_registry_20261115T043923Z.json",
+  "registry_sha256": "f906ebaf4bbb21f16e9eb8dbd740008c1c8833364d1e775c4ddd8b3e56b69bc2",
+  "summary_artifact": "reports/campaign306_summary_20261115T043923Z.json",
+  "summary_sha256": "c924e505e09ca7c43444acf1077d79e02b68f80b46f6ffabd50a9d5ecc9ea7a4",
+  "hard_bans_honored": [
+    "No synthetic/fabricated data; no relabeling existing caches as new",
+    "No threshold/gate weakening; no cherry-picked windows/costs",
+    "No edge claims unless the costed OOS test passes",
+    "Real COIN-M inverse perp + quarterly 1h klines only; inverse PnL model",
+    "executed_fills: false"
+  ],
+  "binding_constraint_artifact": "reports/campaign306_binding_constraint_20261115T043923Z.json",
+  "binding_constraint_sha256": "84aa371f0902ef1829cb777607ac7eec69b0d8cbb8d1805b294835f327bfe46b"
+}
