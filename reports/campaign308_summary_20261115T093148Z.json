@@ -1,0 +1,297 @@
+{
+  "generated_at_utc": "20261115T093148Z",
+  "campaign": 308,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "leg_b": {
+      "symbols": [
+        "BTCUSD_PERP",
+        "ETHUSD_PERP",
+        "ADAUSD_PERP",
+        "LTCUSD_PERP",
+        "XRPUSD_PERP",
+        "BCHUSD_PERP",
+        "LINKUSD_PERP",
+        "TRXUSD_PERP",
+        "ETCUSD_PERP",
+        "XLMUSD_PERP",
+        "DOTUSD_PERP"
+      ],
+      "n_assets": 11,
+      "common_grid_bars": 34968,
+      "common_grid_start_utc": "2022-07-01 00:00:00+00:00",
+      "common_grid_end_utc": "2026-06-30 23:00:00+00:00",
+      "n_splits": 203
+    },
+    "leg_a": {
+      "n_assets": 3,
+      "note": "BTCUSD/ETHUSD/XRPUSD; 0 edge expected (C307 Leg A = 0)"
+    }
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "alpha": 0.05,
+    "n_trials": 612,
+    "leg_b": {
+      "signals": [
+        "fund_level",
+        "fund_z",
+        "fund_mom",
+        "fund_sign"
+      ],
+      "lookbacks_1h": [
+        24,
+        48,
+        168,
+        336,
+        720,
+        1440
+      ],
+      "cross_sectional_K": [
+        2,
+        3,
+        5
+      ],
+      "holding_periods_1h": [
+        1,
+        6,
+        24
+      ],
+      "dispersion_gates": [
+        "off",
+        "on"
+      ],
+      "total_runs": 432
+    },
+    "leg_a": {
+      "signals": [
+        "basis_level",
+        "basis_z",
+        "basis_mom",
+        "basis_voladj",
+        "basis_sign"
+      ],
+      "lookbacks_1h": [
+        24,
+        48,
+        168,
+        336,
+        720,
+        1440
+      ],
+      "cross_sectional_K": [
+        1
+      ],
+      "holding_periods_1h": [
+        1,
+        6,
+        24
+      ],
+      "dispersion_gates": [
+        "off",
+        "on"
+      ],
+      "total_runs": 180
+    },
+    "total_runs": 612
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 18,
+      "n_survive_both": 0,
+      "n_edge_proven": 53
+    },
+    "dsr_mde": {
+      "n_splits": 203,
+      "n_dsr_ge_0.95": 0,
+      "n_dsr_ge_0.90": 0,
+      "mde_bps_mean": 0.3390643255919281,
+      "observed_mean_bps_per_split": 0.4010402370645794
+    },
+    "stability": {
+      "stable_first_half": 44,
+      "stable_second_half": 44,
+      "n_edge": 53,
+      "stable_per_year": {
+        "2022": 44,
+        "2023": 14,
+        "2024": 44,
+        "2025": 44,
+        "2026": 35
+      }
+    },
+    "attribution": {
+      "aggregate_fund_share": 0.3237291567712399,
+      "aggregate_conv_share": 0.6071725736814494,
+      "edge_explained_by_funding": false
+    },
+    "cost_realism": {
+      "realistic_cost_bps": 6.0,
+      "taker_cost_bps": 5.0,
+      "maker_cost_bps": 2.0,
+      "slippage_bps": 1.0,
+      "n_survive_realistic": 44,
+      "n_edge": 53
+    }
+  },
+  "aggregate_attribution": {
+    "funding_contrib_total": 49.28113209866667,
+    "conv_contrib_total": 92.42958561013127,
+    "lin_contrib_total": 10.518795969176708,
+    "inv_coin_contrib_total": 102.94838157930798,
+    "per_asset": {
+      "BTCUSD_PERP": {
+        "price_contrib": 2.9074107253783135,
+        "funding_contrib": -6.191594529166668,
+        "total_contrib": -3.2841838037883537,
+        "share_of_edge": -0.05491952766335149,
+        "n_configs_positive": 12,
+        "n_configs": 44
+      },
+      "ETHUSD_PERP": {
+        "price_contrib": -5.376787771176135,
+        "funding_contrib": -3.543372154833334,
+        "total_contrib": -8.92015992600947,
+        "share_of_edge": -0.14916673337615882,
+        "n_configs_positive": 0,
+        "n_configs": 44
+      },
+      "ADAUSD_PERP": {
+        "price_contrib": -8.054790380735513,
+        "funding_contrib": 5.354419061666667,
+        "total_contrib": -2.700371319068844,
+        "share_of_edge": -0.045156765339337136,
+        "n_configs_positive": 19,
+        "n_configs": 44
+      },
+      "LTCUSD_PERP": {
+        "price_contrib": -0.0037532180816020784,
+        "funding_contrib": 5.893203166166667,
+        "total_contrib": 5.889449948085064,
+        "share_of_edge": 0.0984859035516472,
+        "n_configs_positive": 38,
+        "n_configs": 44
+      },
+      "XRPUSD_PERP": {
+        "price_contrib": -11.724166757840388,
+        "funding_contrib": 7.684328334166668,
+        "total_contrib": -4.03983842367372,
+        "share_of_edge": -0.06755590774441231,
+        "n_configs_positive": 6,
+        "n_configs": 44
+      },
+      "BCHUSD_PERP": {
+        "price_contrib": 15.985489077618183,
+        "funding_contrib": 5.750617043499998,
+        "total_contrib": 21.736106121118187,
+        "share_of_edge": 0.36348047269318523,
+        "n_configs_positive": 44,
+        "n_configs": 44
+      },
+      "LINKUSD_PERP": {
+        "price_contrib": -1.4146866435658967,
+        "funding_contrib": 5.69715992716667,
+        "total_contrib": 4.282473283600773,
+        "share_of_edge": 0.07161335175424093,
+        "n_configs_positive": 35,
+        "n_configs": 44
+      },
+      "TRXUSD_PERP": {
+        "price_contrib": 14.35459657823139,
+        "funding_contrib": 2.7329778514999994,
+        "total_contrib": 17.087574429731394,
+        "share_of_edge": 0.2857457355190367,
+        "n_configs_positive": 44,
+        "n_configs": 44
+      },
+      "ETCUSD_PERP": {
+        "price_contrib": -5.547711998179799,
+        "funding_contrib": 11.635609710500002,
+        "total_contrib": 6.087897712320203,
+        "share_of_edge": 0.10180443202897244,
+        "n_configs_positive": 36,
+        "n_configs": 44
+      },
+      "XLMUSD_PERP": {
+        "price_contrib": 5.923617204514195,
+        "funding_contrib": 5.404703201,
+        "total_contrib": 11.3283204055142,
+        "share_of_edge": 0.1894370239486267,
+        "n_configs_positive": 44,
+        "n_configs": 44
+      },
+      "DOTUSD_PERP": {
+        "price_contrib": 3.4695791530139526,
+        "funding_contrib": 8.863080487000001,
+        "total_contrib": 12.33265964001395,
+        "share_of_edge": 0.2062320146275506,
+        "n_configs_positive": 42,
+        "n_configs": 44
+      }
+    },
+    "grand_total": 59.79992806784338
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign308_oos_sweep_20261115T093148Z.json",
+      "sha256": "e1e0c14866d262adbe157289ca3d1011f82133e592de17fd56ceceba42badffe"
+    },
+    "registry": {
+      "path": "reports/campaign308_tradable_edge_registry_20261115T093148Z.json",
+      "sha256": "c81e1c747e879f6918a6dbbd7fb5af3da2c1fc5101dc0724e040d5cbccfdff2b"
+    }
+  },
+  "summary": {
+    "n_total_runs": 612,
+    "n_leg_a_runs": 180,
+    "n_leg_b_runs": 432,
+    "n_with_exposure": 612,
+    "n_zero_exposure": 0,
+    "n_edge_proven_deterministic": 53,
+    "n_leg_b_edge_proven": 44,
+    "n_survive_holm": 0,
+    "n_survive_bh": 18,
+    "n_survive_both": 0,
+    "n_survive_cost_realism": 44,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}
