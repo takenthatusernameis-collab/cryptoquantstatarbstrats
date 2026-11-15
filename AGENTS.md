@@ -1,10 +1,28 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T22:56:04Z — **C315 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T223831Z, 0/3456 Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518).** C313/C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C315`; `active_campaign: C287` (blocked/external-only); `oos_edge_proven: false`; `edge_claim: NONE`. Reachable real-data stat-arb space CLOSED.
+**Handoff refreshed:** 2026-11-15T23:08:51Z — **C315 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T223831Z, 0/3456 Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518).** C314/C313/C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C315`; `active_campaign: C287` (blocked/external-only); `oos_edge_proven: false`; `edge_claim: NONE`. Reachable real-data stat-arb space CLOSED.
 
-## INITIAL TASK MESSAGE (2026-11-15T22:56:04Z) — CAMPAIGN C315 COMPLETE (FORMAL NEGATIVE): PERP MOMENTUM / SHORT-TERM REVERSAL STAT-ARB
+## INITIAL TASK MESSAGE (2026-11-15T23:08:51Z) — REACHABLE STAT-ARB SPACE CLOSED: VERIFY SUITE GREEN + HANDOFF SYNC ONLY
 
-**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** **C315 COMPLETE — formal negative.** Cross-sectional & time-series MOMENTUM / short-term REVERSAL stat-arb on 10 USDT-M linear perps, native 5m, 2023-01..2025-12, executed end-to-end: 3456 pre-registered configs, expanding WF 12m/3m/3m, Holm+BH α=0.05 BOTH, MDE + stability + momentum-vs-reversal-vs-placebo attribution. **VERDICT: RETRACTED, `edge_proven:false`, `binding_constraint:multiple_testing` — 0/3456 configs survive Holm+BH (0 Holm, 0 BH, 0 both); `n_deterministic_edge:0`; attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518 (reversal-dominant but fails multiple-testing).** All 5 artifacts + gitignored `full.json` on disk at `reports/campaign315_*_20261115T223831Z.{json,full.json}` with SHA256-from-bytes; cache 27.8 MB <100 MB, `real_data_only:true,fabricated_data:false,executed_fills:false`; tests `tests/test_preflight_c315.py` + `tests/test_c315_perp_momentum_reversal_oos.py` green. **REACHABLE SPACE CLOSED: every costed-OOS stat-arb family C281B-C315 is a formal negative (0 tradable edge).** C287 (testnet gateway) remains BLOCKED/DECOUPLED externally (REST 451, no creds) — out-of-env credentials + allowed network required, cannot advance in-env. No heavy economic work reachable in this environment; next session confirms suite green + handoff sync and does NOT re-run/re-skin/probe C281B-C315 or C287.
+**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** **ALL REACHABLE CAMPAIGNS COMPLETE — FORMAL NEGATIVES.** C281B through C315 inclusive: every costed-OOS stat-arb family tested on real, provable data with expanding walk-forward, Holm+BH α=0.05 both, real execution costs, MDE + stability + attribution gates. **UNIVERSAL VERDICT: 0 tradable edge across 12,000+ pre-registered configs.** Binding constraint universally `multiple_testing`. C287 (testnet gateway) remains BLOCKED/DECOUPLED externally (REST 451, fapi 451, bybit 403, no creds) — out-of-env credentials + allowed network required, cannot advance in-env. **NO HEAVY ECONOMIC WORK REACHABLE IN THIS ENVIRONMENT.** Next session: confirm full test suite green, verify all artifacts on disk with SHA256 provenance, sync `AGENTS.md` + `research_state/state.yaml`, and STOP. Do NOT re-run, re-skin, re-probe, or pivot to C281B–C315 or C287. Any attempt to manufacture a "new campaign" from frozen components is a hard violation.
+
+**Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):** C281B–C315 (formal negatives — 0/12,000+ configs survive Holm+BH), C287 (external 451/no creds). Any work on them is a hard violation.
+
+**Guardrails (enforced — final session):**
+- **No fabricated data / fail-closed / provenance-first:** `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; SHA256-from-bytes for every artifact; missing/None/false gates BLOCK.
+- **Bounded resources:** cache <100 MB total, per-asset `.npz` shards; slim sweep artifact <100 MB (no per-bar series) + gitignored `full.json`.
+- **No overfitting:** ALL pre-registered configs reported; Holm+BH α=0.05 BOTH must pass; MDE + stability + attribution required.
+- **Costs real:** per-leg fee/slippage grid charged on turnover; model PnL labeled `executed_fills:false`. Perp funding unreachable (fapi 451) → excluded.
+
+**Execute in order (verify + close out — NO NEW CAMPAIGN):**
+1. `python scripts/bootstrap_dev_env.py` (deps importable)
+2. `python -m pytest tests/ -q` → full suite green (all campaign tests passing)
+3. Verify all 5 artifacts + gitignored `full.json` for C310–C315 on disk at `reports/campaign31*_*_20261115T*.{json,full.json}` with SHA256-from-bytes; all slim sweeps <100 MB; all caches <100 MB with correct flags
+4. `python scripts/verify_env.py --json` → environment healthy
+5. Sync `AGENTS.md` + `research_state/state.yaml` with final verdict (space CLOSED, no active campaign). Never create `HANDOFF.md`.
+6. STOP. No further work possible in this environment.
+
+**Definition of Done (final):** full test suite green; all 30 artifacts (5 per campaign × 6 campaigns C310–C315) + 6 gitignored `full.json` on disk with SHA256 provenance; all caches <100 MB with `real_data_only:true,fabricated_data:false,executed_fills:false`; `edge_proven:false` with `binding_constraint:multiple_testing` universally; `oos_edge_proven:false`; `edge_claim:NONE`.
 
 **Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):** C281B–C314 (formal negatives), C287 (external 451/no creds). Any work on them is a hard violation. In particular, do NOT re-run C314's lead-lag or C312's OFI — C315 uses a DIFFERENT signal (price momentum/reversal) on the SAME real, on-disk price data (read-only reuse, NOT a re-skin).
 
