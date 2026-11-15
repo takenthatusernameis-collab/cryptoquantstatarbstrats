@@ -1,9 +1,9 @@
-updated_at_utc: 20261115T023700Z
+updated_at_utc: 20261115T024119Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'EXECUTE C304 CROSS-SECTIONAL MARK/INDEX BASIS STAT-ARB (handoff affirmed 2026-11-15T01:29:06Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C304 FULL chain reachability pre-verified (mark/index 40/40 + execution 14/14 endpoints HTTP 200 for 2020-01 & 2026-10; C299 covers BTC/ETH/BCH; archive header row open_time, retry/backoff + skip non-numeric first field required). C303 executed NOT_TRADABLE (0/432, cost_sensitivity) 20261115T002648Z; premium-index family closed. MANDATORY SCRIPT NAMES (do not copy C303): ingest=scripts/ingest_c304_mark_index_basis_xsec.py; preflight=scripts/preflight_c304.py; runner=scripts/run_c304_mark_index_basis_xsec_oos.py; tests=tests/test_preflight_c304.py,tests/test_c304_mark_index_basis_xsec_oos.py; cache=data/cache/campaign304_mark_index_basis_xsec.pkl(+.meta.json,.provenance.json); artifacts=reports/campaign304_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json. One session: Step0 bootstrap (scripts/bootstrap_dev_env.py; pytest -q 0 failed; install pytest-asyncio>=0.23 only if async unsupported=bootstrap gap). Ingest: download 10 assets markPriceKlines+indexPriceKlines 1h 2020-01..2026-10; common intersection grid=timestamps in ALL 10 mark AND index archives (missing bars recorded, NEVER imputed); basis=mark_close-index_close; fetch real perp 1h klines+native 8h funding for ALL 10 (reuse C299 only BTC/ETH/BCH, fetch other 7); retry-with-backoff 6 attempts linear 1s*k on EVERY download (lone 404/5xx retryable, host flip-flops 200<->404), skip rows with non-numeric first field; compact ndarrays <100MB, SHA256-from-bytes, real_data_only:true fabricated_data:false executed_fills:false, assert <100MB. Preflight_c304.py fail-closed mirror preflight_c303.py (flags/interval/window/host/SHA/size, per-asset mark/index/basis finite+NaN gaps never imputed, funding boundary/staleness <=24h+1bar, coverage >=2K for K in {2,3,5}, WF train=720/test=168/step=168, warmup min_periods=max(20,L//3), provenance). Runner >=400 runs (signals basis_level/basis_zscore/basis_momentum x lookbacks x K{2,3,5} x holds x gates, dollar-neutral long top-K/short bottom-K gross 1.0 shift(1), real funding cashflow -rate*signed_weight at native 8h boundary, cost grid exactly [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on turnover, benchmarks flat+equal-weight B&H-with-funding same WF windows, edge rule identical to C285-C302 never relaxed). Tests mirror C303 (causal/no-lookahead, dollar-neutral top-K/bottom-K, NaN-gap flat, edge-rule re-derivation, artifact flags+SHA, no-edge-claimed). Sync AGENTS.md+state.yaml with real paths+SHA256-from-bytes (no zeros, no nesting regression); pytest green. Completion gate (ALL required): (a) ingest cache+meta+provenance flags+SHA256-from-bytes; (b) preflight exits 0 ready:true; (c) runner end-to-end >=400 runs + all 5 timestamped artifacts; (d) new tests added + full suite 0 failed; (e) AGENTS+state synced real paths+SHA. If NOT_TRADABLE record formal negative (binding constraint) and register next genuinely-new reachable family. Never claim tradable edge without passed costed-OOS rule; never fabricate/weaken/relable/edit workflow/create HANDOFF.md. C287 BLOCKED/decoupled, do not retry as economic work.'
-next_campaign: c304_cross_sectional_mark_index_basis_stat_arb_10_real_assets_common_grid_k_2_3_5
+active_initial_task: 'EXECUTE C305 PROGRAM CLOSURE & REACHABILITY-EXHAUSTION (handoff affirmed 2026-11-15T02:41:19Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C281B-C304 all COMPLETE formal negatives (0 costed-OOS edge, edge_claim:NONE, oos_edge_proven:false); C304 executed NOT_TRADABLE (0/432, cost_sensitivity) 20261115T023125Z and is FROZEN. C287 externally BLOCKED/DECOUPLED (Binance testnet REST 451, fapi 451, bybit 403, no credentials) — do NOT retry as economic work; record external action required. No genuinely-new reachable family confirmed (open-interest monthly/daily archives HTTP 404; directory listing inaccessible; all archive families consumed by C281B-C304). C305 = Path A (genuinely-new reachable family: ingest→preflight ready:true→costed-OOS runner ≥400 runs→tests→artifacts→sync) OR Path B (formal program closure report + integrity audit with zero mismatches). Status-only turns are NOT economic progress. MANDATORY SCRIPT NAMES: ingest=scripts/ingest_c305_program_closure.py; preflight=scripts/preflight_c305.py; runner=scripts/run_c305_program_closure_oos.py; tests=tests/test_preflight_c305.py,tests/test_c305_program_closure_oos.py; closure report=reports/program_closure_final_<ts>.json(+.md); artifacts=reports/campaign305_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (only if Path A). One session: Step0 bootstrap (scripts/bootstrap_dev_env.py; pytest -q 0 failed; install pytest-asyncio>=0.23 only if async unsupported=bootstrap gap). All artifacts real_data_only:true fabricated_data:false executed_fills:false; sync AGENTS.md + state.yaml with latest_campaign_done:C305 and reachable_real_data_cross_sectional_stat_arb_space:CLOSED.'
+next_campaign: c305_program_closure_reachability_exhaustion
 c304_reachability_verified:
   as_of_utc: 20261115T012730Z
   family: usdt_m_perp_mark_index_price_klines_cross_sectional
@@ -2238,3 +2238,24 @@ handoff:
   - do_not_edit_github_workflow_files
   - do_not_create_read_or_edit_handoff_md
   - c285_must_use_volume_signal_not_price_only
+
+c305_status:
+  state: NOT_STARTED_next_campaign
+  as_of_utc: 20261115T024119Z
+  family: program_closure_reachability_exhaustion
+  reason: all_C281B_C304_complete_formal_negatives_zero_costed_OOS_edge; no_genuinely_new_reachable_family_confirmed; c287_externally_blocked_decoupled
+  path_A_if_new_family_reachable: full stat-arb campaign ingest->preflight->costed-OOS runner >=400 runs->tests->artifacts->sync
+  path_B_if_no_new_family: formal program closure report + integrity audit zero mismatches; latest_campaign_done:C305; reachable_real_data_cross_sectional_stat_arb_space:CLOSED
+  mandatory_script_names:
+    - scripts/ingest_c305_program_closure.py
+    - scripts/preflight_c305.py
+    - scripts/run_c305_program_closure_oos.py
+    - tests/test_preflight_c305.py
+    - tests/test_c305_program_closure_oos.py
+  closure_report: reports/program_closure_final_<ts>.json (+ .md)
+  integrity_audit: reports/program_closure_integrity_audit_<ts>.json
+  artifacts_path_A_only: reports/campaign305_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+  not_skippable: status_only_or_planning_only_turns_are_NOT_economic_progress
