@@ -1,6 +1,21 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T18:31:22Z — **C312 COMPLETE (formal negative, RETRACTED, 20261115T174346Z).** C311 remains a COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). `latest_campaign_done: C312`; `active_campaign: C313`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)** (re-run required after C312). Economic progress = **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
+**Handoff refreshed:** 2026-11-15T18:45:47Z — **C312 COMPLETE (formal negative, RETRACTED, 20261115T174346Z).** C311 remains a COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). `latest_campaign_done: C312`; `active_campaign: C313`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)** (re-run required after C312). Economic progress = **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
+
+**BOTTLENECK REMOVAL ENFORCEMENT (2026-11-15T18:45:47Z — MANDATORY FOR ALL FUTURE SESSIONS):**
+- C313 is the ONLY authorized campaign. C281B–C312/C287 are FROZEN/BLOCKED — any attempt to rerun, re-skin, re-probe, or pivot to them is a HARD VIOLATION.
+- Quarterly klines reachability MUST be verified via HTTP HEAD/GET probes BEFORE any ingest code runs. No blind downloads. No "try and see." ≥80% symbol-month pairs must return HTTP 200; 404 = exclude contract-month (pre-listing), document in provenance.
+- Ingest MUST be resumable per (symbol, contract, month) via `months_manifest.json` — survive session boundaries, no restart-from-zero.
+- Cache MUST stay <100 MB total. Per-asset `.npz` shards only. Assert on write.
+- Runner MUST emit bounded sweep (<100 MB slim JSON) + full.json (gitignored). Per-split series DROPPED from slim artifact.
+- C287 (testnet 451, no creds) is EXTERNALLY BLOCKED — never retry, never let it preempt C313. Unblocking requires out-of-env action only.
+- NO FABRICATED DATA — every artifact `real_data_only: true`, `fabricated_data: false`, `executed_fills: false`.
+- FAIL-CLOSED — missing/None/false gate values BLOCK entries. No silent defaults.
+- PROVENANCE FIRST — every number traces to source, timestamp, host, blocked routes, rationale.
+- COSTS ARE REAL — all backtests use stated fee/slippage grid; 3 legs per trade = costs ×3.
+- NO OVERFITTING — walk-forward, ALL pre-registered configs reported, Holm+BH BOTH must pass at α=0.05 before ANY positive claim.
+- TESTS MUST PASS — new code adds tests; CI green before campaign complete.
+- SINGLE HANDOFF — update only `AGENTS.md` and `research_state/state.yaml`; do NOT create `HANDOFF.md`.
 
 **C312 on-disk state (verified 2026-11-15T17:43:46Z):**
 - Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` with 10 symbol `.npz` shards + `data/cache/campaign312_usdt_m_ofi_5m.meta.json` + `data/cache/campaign312_usdt_m_ofi_5m.provenance.json` + `months_manifest.json` (`assembled` for all 10, `months` empty, `data/cache/campaign312_usdt_m_ofi_5m/months/` empty). Meta: 10 USDT-M perps, 2023-01..2025-12, 315,648 5m grid bars, 3,156,480 total bars, total shard bytes 67,629,110 (~65 MB, <100 MB), `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, resumable scheme recorded.
@@ -11,9 +26,9 @@
 
 **Bottlenecks removed / guardrails:** reachability verified (USDT-M `aggTrades` + 5m `klines` HTTP 206; pre-listing 404 = exclude). Scope bounded (10 symbols × 2023-01..2025-12, cache <100 MB). Funding unreachable in-env (fapi 451 / not in archives) → `funding_rate` NaN control-only (must not block). Runner emits **bounded** sweep (<100 MB) and keeps `*.full.json` gitignored. C287 external/decoupled (451/no creds) — never retry as economic work. C281B–C312 frozen — do not rerun/re-skin/re-probe.
 
-**NEXT SESSION TURN CONTRACT (hard, 2026-11-15T18:31:22Z):** Active campaign **C313** (COIN-M inverse quarterly term-structure carry) is the only authorized work. C313 MUST execute a genuinely-new reachable family with costed OOS validation on real data. Do not rerun/re-skin frozen C281B–C312/C287. Do not produce infra/status-only output. Economic progress = costed out-of-sample PnL on real, provable data.
+**NEXT SESSION TURN CONTRACT (hard, 2026-11-15T18:45:47Z):** Active campaign **C313** (COIN-M inverse quarterly term-structure carry) is the only authorized work. C313 MUST execute a genuinely-new reachable family with costed OOS validation on real data. Do not rerun/re-skin frozen C281B–C312/C287. Do not produce infra/status-only output. Economic progress = costed out-of-sample PnL on real, provable data.
 
-## INITIAL TASK MESSAGE (2026-11-15T18:31:22Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY
+## INITIAL TASK MESSAGE (2026-11-15T18:45:47Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY
 
 **NEXT SESSION ACTION:** Execute **Campaign 313 (C313)** — COIN-M inverse quarterly term-structure carry across the 11 COIN-M inverse perps (BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD) using front quarterly, next quarterly, and perpetual contracts. This is a **statistical arbitrage** strategy (long cheap / short rich via annualized basis) — the repository's namesake priority.
 
