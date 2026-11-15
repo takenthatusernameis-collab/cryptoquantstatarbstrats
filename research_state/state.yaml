@@ -1,9 +1,37 @@
-updated_at_utc: 20261115T024119Z
+updated_at_utc: 20261115T031049Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'EXECUTE C305 PROGRAM CLOSURE & REACHABILITY-EXHAUSTION (handoff affirmed 2026-11-15T02:41:19Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C281B-C304 all COMPLETE formal negatives (0 costed-OOS edge, edge_claim:NONE, oos_edge_proven:false); C304 executed NOT_TRADABLE (0/432, cost_sensitivity) 20261115T023125Z and is FROZEN. C287 externally BLOCKED/DECOUPLED (Binance testnet REST 451, fapi 451, bybit 403, no credentials) — do NOT retry as economic work; record external action required. No genuinely-new reachable family confirmed (open-interest monthly/daily archives HTTP 404; directory listing inaccessible; all archive families consumed by C281B-C304). C305 = Path A (genuinely-new reachable family: ingest→preflight ready:true→costed-OOS runner ≥400 runs→tests→artifacts→sync) OR Path B (formal program closure report + integrity audit with zero mismatches). Status-only turns are NOT economic progress. MANDATORY SCRIPT NAMES: ingest=scripts/ingest_c305_program_closure.py; preflight=scripts/preflight_c305.py; runner=scripts/run_c305_program_closure_oos.py; tests=tests/test_preflight_c305.py,tests/test_c305_program_closure_oos.py; closure report=reports/program_closure_final_<ts>.json(+.md); artifacts=reports/campaign305_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (only if Path A). One session: Step0 bootstrap (scripts/bootstrap_dev_env.py; pytest -q 0 failed; install pytest-asyncio>=0.23 only if async unsupported=bootstrap gap). All artifacts real_data_only:true fabricated_data:false executed_fills:false; sync AGENTS.md + state.yaml with latest_campaign_done:C305 and reachable_real_data_cross_sectional_stat_arb_space:CLOSED.'
+active_initial_task: 'FINISH C305: FORMAL PROGRAM CLOSURE (PATH B) — handoff refreshed 2026-11-15T03:10:49Z. HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C281B-C304 all COMPLETE formal negatives (0 costed-OOS edge, edge_claim:NONE, oos_edge_proven:false, frozen); C304 executed NOT_TRADABLE (0/432, cost_sensitivity) 20261115T023125Z. C287 externally BLOCKED/DECOUPLED (Binance testnet REST 451, fapi 451, bybit 403, no credentials) — do NOT retry as economic work. C305 reachability-exhaustion probe DONE this refresh (bottleneck removed): scripts/ingest_c305_program_closure.py (stdlib, retry, 75 rows), evidence reports/c305_reachability_probe_20261115T030618Z.json SHA256 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27, cache data/cache/campaign305_reachability_probe.json same SHA256, provenance data/cache/campaign305_reachability_probe.provenance.json SHA256 7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04, path_b_recommended:true, genuinely_new_reachable_families:[]. Re-skin traps (do NOT run as Path A): trades->C301 aggTrades/OFI (closed), klines_1h_daily->klines family (C298-C304); UNAVAILABLE 404: basis/continuousKlines_1h/bookTicker/bookDepth/metrics; directory listing inaccessible. REMAINING HEAVY WORK: (1) formal closure report reports/program_closure_final_<ts>.json(+.md); (2) zero-mismatch integrity audit reports/program_closure_integrity_audit_<ts>.json; (3) runner scripts/run_c305_program_closure_oos.py + scripts/preflight_c305.py + tests test_preflight_c305.py/test_c305_program_closure_oos.py (fail-closed if any campaign reference missing/mismatched); (4) sync AGENTS.md+state.yaml latest_campaign_done:C305, reachable_real_data_cross_sectional_stat_arb_space:CLOSED, probe evidence + closure report/audit paths+SHA256s. Step0 bootstrap scripts/bootstrap_dev_env.py; pytest-asyncio>=0.23 only if async unsupported. All artifacts real_data_only:true fabricated_data:false executed_fills:false.'
 next_campaign: c305_program_closure_reachability_exhaustion
+c305_reachability_probe:
+  executed_this_refresh: true
+  as_of_utc: 20261115T030618Z
+  script: scripts/ingest_c305_program_closure.py
+  test: tests/test_ingest_c305_program_closure.py
+  test_result: '9 tests passed (stdlib, offline + 2 live endpoints)'
+  n_probe_rows: 75
+  assets_probed: [BTCUSDT, ETHUSDT]
+  months_probed: [2020-01, 2026-10]
+  source_host: https://data.binance.vision
+  method: 'GET headers-only, retry-with-backoff (5 attempts, 0.6s*k linear), lone 404/5xx retryable, body never downloaded'
+  report: reports/c305_reachability_probe_20261115T030618Z.json
+  report_sha256: 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27
+  cache: data/cache/campaign305_reachability_probe.json
+  cache_sha256: 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27
+  provenance: data/cache/campaign305_reachability_probe.provenance.json
+  provenance_sha256: 7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04
+  path_b_recommended: true
+  genuinely_new_reachable_families: []
+  reachable_consumed: [klines_1h, aggTrades, markPriceKlines_1h, indexPriceKlines_1h, premiumIndexKlines_1h, fundingRate]
+  reachable_reskin_of_closed_family: [trades, klines_1h_daily]
+  unavailable_404: [basis, continuousKlines_1h, bookTicker, bookDepth, metrics]
+  directory_listing_inaccessible: true
+  reskin_traps: 'trades (futures/spot monthly) HTTP 200 == raw aggTrades == C301 OFI/microstructure CLOSED; klines_1h_daily HTTP 200 == klines family C298-C304; do NOT run as Path A'
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+  remaining_c305_heavy_work: 'formal closure report + zero-mismatch integrity audit + preflight/runner/tests + sync AGENTS.md+state.yaml'
 c304_reachability_verified:
   as_of_utc: 20261115T012730Z
   family: usdt_m_perp_mark_index_price_klines_cross_sectional

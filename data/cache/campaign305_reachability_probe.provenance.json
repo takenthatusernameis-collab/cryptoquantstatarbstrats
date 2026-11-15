@@ -1,0 +1,13 @@
+{
+  "as_of_utc": "2026-11-15T03:10:28Z",
+  "cache": "data/cache/campaign305_reachability_probe.json",
+  "cache_bytes": 9480,
+  "cache_sha256": "3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27",
+  "campaign": "C305",
+  "executed_fills": false,
+  "fabricated_data": false,
+  "method": "GET headers-only, retry-with-backoff (5 attempts, 0.6s*k linear), lone 404/5xx retryable, body never downloaded",
+  "n_rows": 75,
+  "real_data_only": true,
+  "source_host": "https://data.binance.vision"
+}

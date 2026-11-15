@@ -1,0 +1,331 @@
+{
+  "as_of_utc": "2026-11-15T03:10:28Z",
+  "assets_probed": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "campaign": "C305",
+  "conclusion": "NO genuinely-new reachable real-data family remains. All reachable archives are either CONSUMED by C281B-C304 or NEW_BUT_RESKIN of a closed economic hypothesis (raw `trades` == C301 OFI/microstructure; `daily` klines == klines family). bookTicker/bookDepth/metrics/basis/continuousKlines are UNAVAILABLE (404); archive directory listing is inaccessible. => Path B formal program closure.",
+  "executed_fills": false,
+  "fabricated_data": false,
+  "families": {
+    "['directory_listing', '/data/futures/um/daily/']": {
+      "bucket": "directory_listing",
+      "classification": "DIRECTORY_LISTING_INACCESSIBLE",
+      "family": "/data/futures/um/daily/",
+      "interval": null,
+      "n_miss": 1,
+      "n_reachable": 0,
+      "n_total": 1,
+      "note": "archive directory listing returns HTTP 404; cannot enumerate"
+    },
+    "['directory_listing', '/data/futures/um/monthly/']": {
+      "bucket": "directory_listing",
+      "classification": "DIRECTORY_LISTING_INACCESSIBLE",
+      "family": "/data/futures/um/monthly/",
+      "interval": null,
+      "n_miss": 1,
+      "n_reachable": 0,
+      "n_total": 1,
+      "note": "archive directory listing returns HTTP 404; cannot enumerate"
+    },
+    "['directory_listing', '/data/spot/monthly/']": {
+      "bucket": "directory_listing",
+      "classification": "DIRECTORY_LISTING_INACCESSIBLE",
+      "family": "/data/spot/monthly/",
+      "interval": null,
+      "n_miss": 1,
+      "n_reachable": 0,
+      "n_total": 1,
+      "note": "archive directory listing returns HTTP 404; cannot enumerate"
+    },
+    "['futures_daily', 'klines_1h_daily']": {
+      "bucket": "futures_daily",
+      "classification": "NEW_BUT_RESKIN",
+      "family": "klines_1h_daily",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4,
+      "note": "daily-partitioned 1h klines == klines family already consumed by C298-C304; no new information content"
+    },
+    "['futures_monthly', 'aggTrades']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C301 (OFI/trade-sign autocorrelation); spot campaigns C281B-C290",
+      "family": "aggTrades",
+      "interval": "trade",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'basis']": {
+      "bucket": "futures_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "basis",
+      "interval": "basis",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['futures_monthly', 'bookDepth']": {
+      "bucket": "futures_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "bookDepth",
+      "interval": "depth",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['futures_monthly', 'bookTicker']": {
+      "bucket": "futures_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "bookTicker",
+      "interval": "quote",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['futures_monthly', 'continuousKlines_1h']": {
+      "bucket": "futures_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "continuousKlines_1h",
+      "interval": "1h",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['futures_monthly', 'fundingRate']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C291/C293/C298/C299/C300 (funding carry/basis)",
+      "family": "fundingRate",
+      "interval": "8h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'indexPriceKlines_1h']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C304 (mark/index basis)",
+      "family": "indexPriceKlines_1h",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'klines_1h']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C298/C299/C300/C301/C304 (perp 1h klines); C281B-C290 (spot klines)",
+      "family": "klines_1h",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'markPriceKlines_1h']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C304 (mark/index basis)",
+      "family": "markPriceKlines_1h",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'metrics']": {
+      "bucket": "futures_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "metrics",
+      "interval": "metrics",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['futures_monthly', 'premiumIndexKlines_1h']": {
+      "bucket": "futures_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C302/C303 (premium-index carry)",
+      "family": "premiumIndexKlines_1h",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['futures_monthly', 'trades']": {
+      "bucket": "futures_monthly",
+      "classification": "NEW_BUT_RESKIN",
+      "family": "trades",
+      "interval": "raw_trade",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4,
+      "note": "raw trade prints == aggTrades OFI/microstructure family, CLOSED by C301 (post_c301_rule forbids re-skin); finer granularity only, same hypothesis"
+    },
+    "['spot_monthly', 'aggTrades']": {
+      "bucket": "spot_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C301 (OFI/trade-sign autocorrelation); spot campaigns C281B-C290",
+      "family": "aggTrades",
+      "interval": "trade",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['spot_monthly', 'bookDepth']": {
+      "bucket": "spot_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "bookDepth",
+      "interval": "depth",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['spot_monthly', 'bookTicker']": {
+      "bucket": "spot_monthly",
+      "classification": "UNAVAILABLE",
+      "family": "bookTicker",
+      "interval": "quote",
+      "n_miss": 4,
+      "n_reachable": 0,
+      "n_total": 4,
+      "note": "HTTP 404 across all 4 probes"
+    },
+    "['spot_monthly', 'klines_1h']": {
+      "bucket": "spot_monthly",
+      "classification": "CONSUMED",
+      "consumed_by": "C298/C299/C300/C301/C304 (perp 1h klines); C281B-C290 (spot klines)",
+      "family": "klines_1h",
+      "interval": "1h",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4
+    },
+    "['spot_monthly', 'trades']": {
+      "bucket": "spot_monthly",
+      "classification": "NEW_BUT_RESKIN",
+      "family": "trades",
+      "interval": "raw_trade",
+      "n_miss": 0,
+      "n_reachable": 4,
+      "n_total": 4,
+      "note": "raw trade prints == aggTrades OFI/microstructure family, CLOSED by C301 (post_c301_rule forbids re-skin); finer granularity only, same hypothesis"
+    }
+  },
+  "generated_at_ts": "20261115T030618Z",
+  "months_probed": [
+    "2020-01",
+    "2026-10"
+  ],
+  "n_rows": 75,
+  "no_network": false,
+  "probe_method": "GET headers-only, retry-with-backoff (5 attempts, 0.6s*k linear), lone 404/5xx retryable, body never downloaded",
+  "real_data_only": true,
+  "source_host": "https://data.binance.vision",
+  "step": "reachability_exhaustion_probe",
+  "summary": {
+    "directory_listing_inaccessible": [
+      [
+        "directory_listing",
+        "/data/futures/um/monthly/"
+      ],
+      [
+        "directory_listing",
+        "/data/futures/um/daily/"
+      ],
+      [
+        "directory_listing",
+        "/data/spot/monthly/"
+      ]
+    ],
+    "flaky_partial": [],
+    "genuinely_new_reachable_families": [],
+    "path_b_recommended": true,
+    "reachable_consumed": [
+      [
+        "futures_monthly",
+        "klines_1h"
+      ],
+      [
+        "futures_monthly",
+        "aggTrades"
+      ],
+      [
+        "futures_monthly",
+        "markPriceKlines_1h"
+      ],
+      [
+        "futures_monthly",
+        "indexPriceKlines_1h"
+      ],
+      [
+        "futures_monthly",
+        "premiumIndexKlines_1h"
+      ],
+      [
+        "futures_monthly",
+        "fundingRate"
+      ],
+      [
+        "spot_monthly",
+        "klines_1h"
+      ],
+      [
+        "spot_monthly",
+        "aggTrades"
+      ]
+    ],
+    "reachable_reskin_of_closed_family": [
+      [
+        "futures_monthly",
+        "trades"
+      ],
+      [
+        "futures_daily",
+        "klines_1h_daily"
+      ],
+      [
+        "spot_monthly",
+        "trades"
+      ]
+    ],
+    "unavailable_404": [
+      [
+        "futures_monthly",
+        "basis"
+      ],
+      [
+        "futures_monthly",
+        "continuousKlines_1h"
+      ],
+      [
+        "futures_monthly",
+        "bookTicker"
+      ],
+      [
+        "futures_monthly",
+        "bookDepth"
+      ],
+      [
+        "futures_monthly",
+        "metrics"
+      ],
+      [
+        "spot_monthly",
+        "bookTicker"
+      ],
+      [
+        "spot_monthly",
+        "bookDepth"
+      ]
+    ]
+  }
+}
