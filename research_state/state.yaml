@@ -1,4 +1,4 @@
-updated_at_utc: 20261115T013739Z
+updated_at_utc: 20261115T023700Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -146,15 +146,15 @@ c303_status:
     as_of_utc: 20261115T004400Z
 
 c304_status:
-  state: ACTIVE_NOT_EXECUTED
-  as_of_utc: 20261115T012730Z
-  verdict: PENDING
+  state: COMPLETE_NOT_TRADABLE
+  as_of_utc: 20261115T023125Z
+  verdict: NOT_TRADABLE
   edge_proven: false
-  n_total_runs: 0
-  n_with_exposure: 0
+  n_total_runs: 432
+  n_with_exposure: 432
   n_zero_exposure: 0
   n_edge_proven: 0
-  binding_constraint: null
+  binding_constraint: cost_sensitivity
   new_real_family: 'USDT-M perp markPriceKlines/indexPriceKlines basis cross-sectional stat-arb (native 1h, 2020-01..2026-10, 10 assets); basis = mark_close - index_close; long cheap basis / short rich basis dollar-neutral'
   reachability_verified:
     as_of_utc: 20261115T012730Z
@@ -168,22 +168,22 @@ c304_status:
     host_flakiness: archive host flip-flops 200<->404 under rapid sequential access; ingest MUST retry-with-backoff (6 attempts, linear 1s*k) and treat a lone 404/5xx as retryable
   dataset:
     cache: data/cache/campaign304_mark_index_basis_xsec.pkl
-    cache_bytes: 0
-    cache_sha256: null
+    cache_bytes: 52426602
+    cache_sha256: 56e27ec2a53b2624ab4cda1a1b4f396ffa4ebbdc9dc7f7995c88cd5153096985
     meta: data/cache/campaign304_mark_index_basis_xsec.meta.json
-    meta_sha256: null
+    meta_sha256: 2a9731597e9f2b1cea1f9bb0222e0024a86699532863d913c6aa8d028f49aaac
     provenance: data/cache/campaign304_mark_index_basis_xsec.provenance.json
-    provenance_sha256: null
-    real_data_only: null
-    fabricated_data: null
-    executed_fills: null
+    provenance_sha256: d8f93dd511db6d749a4dd869c589ca7e82d30de091f20fda0473b8741f0f98dc
+    real_data_only: true
+    fabricated_data: false
+    executed_fills: false
   artifacts:
-    oos_sweep: {path: null, sha256: null}
-    tradable_edge_registry: {path: null, sha256: null}
-    summary: {path: null, sha256: null}
-    verdict: {path: null, sha256: null}
-    binding_constraint: {path: null, sha256: null}
-  artifacts_exist: false
+    oos_sweep: {path: reports/campaign304_oos_sweep_20261115T023125Z.json, sha256: 6fd8fefbb4799ae96f320b6496471484a93a7cc9d3f30c4097e1e0b193b59667}
+    tradable_edge_registry: {path: reports/campaign304_tradable_edge_registry_20261115T023125Z.json, sha256: 43fcf51f842bede209d078b850f344309880bae31b164114e00183cb2738fb07}
+    summary: {path: reports/campaign304_summary_20261115T023125Z.json, sha256: 9636be1613130893319f8cdb21eb5ab05a35621ef55bb59740a45d698a4b1d53}
+    verdict: {path: reports/campaign304_verdict_20261115T023125Z.json, sha256: c820311ec35452c519c7576ed2bb5890507dbb0300060452a292f4625c99d86b}
+    binding_constraint: {path: reports/campaign304_binding_constraint_20261115T023125Z.json, sha256: fe0007e29bfea94f3a7e946c07258a766ecdccef97c7eae798dde35d0c25e313}
+  artifacts_exist: true
   scripts:
   - scripts/ingest_c304_mark_index_basis_xsec.py
   - scripts/preflight_c304.py
@@ -192,10 +192,10 @@ c304_status:
   - tests/test_preflight_c304.py
   - tests/test_c304_mark_index_basis_xsec_oos.py
   pytest:
-    passed: 0
-    skipped: 0
+    passed: 1394
+    skipped: 2
     failed: 0
-    as_of_utc: null
+    as_of_utc: 20261115T023125Z
 
 c300_status:
   state: COMPLETE_NOT_TRADABLE
@@ -468,7 +468,7 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C303
+latest_campaign_done: C304
 campaign298:
   hypothesis: MULTI_YEAR_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_XSEC_TS_STAT_ARB
   status: completed_not_tradable

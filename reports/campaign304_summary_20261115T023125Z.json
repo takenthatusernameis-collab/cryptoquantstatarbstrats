@@ -1,0 +1,111 @@
+{
+  "generated_at_utc": "20261115T023125Z",
+  "campaign": 304,
+  "part": "summary",
+  "analysis": "execution_summary",
+  "verdict": "NOT_TRADABLE",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "n_assets": 10,
+    "assets": [
+      "ADAUSDT",
+      "BCHUSDT",
+      "BTCUSDT",
+      "ETCUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "TRXUSDT",
+      "XLMUSDT",
+      "XRPUSDT"
+    ]
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168,
+      "n_splits": 347
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "signals": [
+      "basis_level",
+      "basis_z",
+      "basis_mom"
+    ],
+    "lookbacks_1h": [
+      24,
+      48,
+      96,
+      168,
+      336,
+      720,
+      1440,
+      2160
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "dispersion_gates": [
+      "off",
+      "on"
+    ],
+    "total_runs": 432,
+    "min_periods_rule": "max(20, L // 3)",
+    "position_rule": "causal cross-sectional rank; long top-K/short bottom-K; +0.5/K long, -0.5/K short; gross 1.0; shift(1); hold H",
+    "funding_rule": "funding_pnl = -funding_rate * signed_weight at each native funding boundary (causal); stale->flat <= 24h + 1 bar",
+    "staleness_diagnostic": "real altcoin funding archives carry gaps; runner zeroes positions when funding stale"
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign304_oos_sweep_20261115T023125Z.json",
+      "sha256": "6fd8fefbb4799ae96f320b6496471484a93a7cc9d3f30c4097e1e0b193b59667"
+    },
+    "registry": {
+      "path": "reports/campaign304_tradable_edge_registry_20261115T023125Z.json",
+      "sha256": "43fcf51f842bede209d078b850f344309880bae31b164114e00183cb2738fb07"
+    }
+  },
+  "summary": {
+    "n_total_runs": 432,
+    "n_assets": 10,
+    "runs_per_config": 1,
+    "n_with_exposure": 432,
+    "n_zero_exposure": 0,
+    "n_edge_proven": 0,
+    "bh_oos_mean": 5.974635778452598e-05
+  },
+  "fake_oos_claimed": false,
+  "next_action": "If NOT_TRADABLE: emit binding_constraint artifact (pass shares, exposure, turnover, binding constraint); record a formal negative result for the cross-sectional mark/index basis space."
+}
