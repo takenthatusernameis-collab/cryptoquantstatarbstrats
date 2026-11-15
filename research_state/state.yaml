@@ -1,13 +1,77 @@
-updated_at_utc: 20261115T204500Z
-handoff_refreshed_at_utc: 20261115T204500Z
+updated_at_utc: 20261115T213249Z
+handoff_refreshed_at_utc: 20261115T213249Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T20:37:03Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY (MANDATORY HEAVY, START IMMEDIATELY, NO STATUS-ONLY TURN). Mission: complete C313 end-to-end to costed OOS edge_proven:true OR formal negative with binding constraint on real provable data (repo priority: cryptoquantstatarbstrats). Corrected path ONLY: https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip (data/coin-m/ 404, never probe). On-disk bottlenecks verified: scripts ingest/preflight/runner present; tests/test_preflight_c313.py present; tests/test_c313_coinm_quarterly_carry_oos.py MISSING; cache PARTIAL data/cache/campaign313_coinm_quarterly_carry (8 npz: ADAUSD,BNBUSD,BTCUSD,DOTUSD,ETHUSD,LTCUSD,SOLUSD,XRPUSD, ~4MB, months_manifest assembled 8 / months empty) excluded DOGEUSD,MATICUSD,AVAXUSD (no_quarterly_contracts_listed), some windows truncated (e.g. ADAUSD ends 2025-06-27); preflight NOT verified; no reports/campaign313_* artifacts. Execute in order: (1) python scripts/bootstrap_dev_env.py; (2) resume/complete real ingest via months_manifest (stream/discard raw, per-asset npz, cache<100MB, exclude 404/pre-listing/unmapped w/ provenance) to spec-compliant 2022-07..2026-06 or fail-closed w/ binding reason; (3) python scripts/preflight_c313.py to green; (4) create/pass tests/test_c313_coinm_quarterly_carry_oos.py and keep preflight tests green; (5) python scripts/run_c313_coinm_quarterly_carry_oos.py >=504 pre-registered configs, expanding WF train12m/test3m/roll3m (16 splits), Holm+BH alpha=0.05 BOTH required, inverse PnL in coin, 3-leg costs fee{1,5,10,20}+slip{1,2,5,10} bps/leg x3, bounded slim sweep<100MB + gitignored full.json; (6) emit 5 artifacts + full.json with SHA256-from-bytes and flags real_data_only:true,fabricated_data:false,executed_fills:false; (7) run targeted/full tests and sync AGENTS.md+research_state/state.yaml with final verdict/SHAs and, if formal negative, next genuinely-new reachable stat-arb family (pre-registered, heavy). Never create HANDOFF.md. No rerun/re-skin frozen C281B-C312/C287; no fabricated data; fail-closed gates; provenance-first; costs real; no overfitting.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T21:32:49Z) — ACTIVE CAMPAIGN: C314 SPOT-PERP LEAD-LAG STAT-ARB (MANDATORY HEAVY, START IMMEDIATELY). Mission: complete C314 end-to-end to edge_proven:true OR formal negative with binding constraint on real provable data (repo cryptoquantstatarbstrats). On-disk: NO C314 scripts/tests/cache/artifacts exist. Steps: (1) python scripts/bootstrap_dev_env.py; (2) create resumable ingest scripts/ingest_c314_spot_perp_leadlag_5m.py (spot+USDT-M perp 5m, 10 symbols BTC/ETH/BNB/SOL/XRP/ADA/DOGE/DOT/LTC/AVAX USDT, 2023-01..2025-12, months_manifest, cache<100MB npz, 404=excluded pre-listing, funding NaN control-only, discard raw CSV); (3) create/run scripts/preflight_c314.py to ready:true fail-closed; (4) create/run scripts/run_c314_spot_perp_leadlag_oos.py >=504 pre-registered configs (3 lag_windows x 3 thresholds x 4 rebalances x 4 fees x 4 slips x 2 terciles x 2 cost_variants=2304), expanding WF train12m/test3m/roll3m, Holm+BH alpha=0.05 BOTH, MDE+stability+lead-lag-vs-noise attribution, 2-leg costs; (5) emit 5 slim artifacts + gitignored full.json with SHA256-from-bytes, real_data_only:true,fabricated_data:false,executed_fills:false; (6) add/pass tests/test_preflight_c314.py + tests/test_c314_spot_perp_leadlag_oos.py and targeted/full suite green; (7) sync AGENTS.md + research_state/state.yaml with verdict/SHAs; if negative register next genuinely-new reachable stat-arb family. No rerun C281B-C313/C287; no fabricated data; fail-closed; provenance-first; no infra-only stop. Never create HANDOFF.md.'
 
-next_campaign: C313
+next_campaign: C314
+active_campaign: C314
 coin_m_inverse_futures_space: C313_COMPLETE_FORMAL_NEGATIVE
 latest_campaign_done: C313
+c314_status:
+  state: NOT_STARTED
+  as_of_utc: 20261115T213249Z
+  campaign: C314
+  family: spot_perp_leadlag_stat_arb_usdt_m_linear_5m
+  genuinely_new: true
+  reskin_of: none
+  note: 'Genuinely-new lead-lag cross-sectional family (spot leads/lags USDT-M perp), distinct from exhausted carry/OFI/term-structure families C281B-C313 (all formal negatives). 2-leg USDT PnL.'
+  on_disk:
+    scripts: false
+    tests: false
+    cache: false
+    artifacts: false
+    scripts_expected:
+      - scripts/ingest_c314_spot_perp_leadlag_5m.py
+      - scripts/preflight_c314.py
+      - scripts/run_c314_spot_perp_leadlag_oos.py
+    tests_expected:
+      - tests/test_preflight_c314.py
+      - tests/test_c314_spot_perp_leadlag_oos.py
+    cache_expected: data/cache/campaign314_spot_perp_leadlag_5m
+    artifacts_expected:
+      - reports/campaign314_oos_sweep_<ts>.json
+      - reports/campaign314_oos_sweep_<ts>.full.json
+      - reports/campaign314_tradable_edge_registry_<ts>.json
+      - reports/campaign314_summary_<ts>.json
+      - reports/campaign314_verdict_<ts>.json
+      - reports/campaign314_binding_constraint_<ts>.json
+  spec:
+    data_paths:
+      spot: https://data.binance.vision/data/spot/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip
+      usdt_m_perp: https://data.binance.vision/data/futures/um/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip
+      reachability_verified_live: 20261115Txxxx (C312 HTTP 206)
+    symbols: [BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, XRPUSDT, ADAUSDT, DOGEUSDT, DOTUSDT, LTCUSDT, AVAXUSDT]
+    window: 2023-01..2025-12
+    n_months: 36
+    freq: 5m
+    cache_limit_mb: 100
+    resumable: true
+    manifest: months_manifest.json
+    preflight_must_be_ready: true
+    grid:
+      lag_window: [6, 12, 24]
+      lead_lag_threshold: [0.05, 0.10, 0.15]
+      rebalance: [5m, 15m, 30m, 1h]
+      fee_bps: [1, 5, 10, 20]
+      slippage_bps: [1, 2, 5, 10]
+      tercile_cut: [33, 25]
+      cost_variant: [symmetric, perp_heavy]
+      n_configs: 2304
+    wf: {train_m: 12, test_m: 3, roll_m: 3}
+    multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+    gates: [mde, stability, lead_lag_vs_noise_attribution]
+    legs: 2
+    pnl_unit: USDT
+    funding: nan_control_only
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+  edge_proven: false
+  verdict: null
+  binding_constraint: null
+
 c313_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261115T204500Z
