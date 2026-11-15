@@ -1,8 +1,8 @@
-updated_at_utc: 20261115T011734Z
+updated_at_utc: 20261115T012244Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'EXECUTE C304 CROSS-SECTIONAL MARK/INDEX BASIS STAT-ARB (handoff refreshed 2026-11-15T01:17:34Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C304 FULL chain reachability re-verified this refresh (40/40 mark/index endpoints + 14/14 execution klines/funding endpoints for the 7 non-C299 assets, all HTTP 200 at 2020-01/2026-10); every deferral bottleneck removed. C303 executed NOT_TRADABLE (0/432 edge, binding cost_sensitivity) at 20261115T002648Z over the cross-sectional premiumIndexKlines carry family (10 real assets, 58,959-bar common grid, K in {2,3,5}); C302 executed NOT_TRADABLE (0/486 edge, binding mean_beats_benchmark_fail) at 20261114T215720Z; C281B-C301 all COMPLETE formal negatives (0 costed-OOS edge, frozen). The premium-index family is closed; its cross-sectional form (C303) is a COMPLETE formal negative that solved C298 zero_exposure (432/432 with exposure) but hit cost_sensitivity. ACTIVE NEXT = C304 cross-sectional markPriceKlines/indexPriceKlines basis stat-arb across the same 10 assets. Mandatory in one session: bootstrap+pytest green (0 failed; if test_playbooks async fails install pytest-asyncio>=0.23, a bootstrap gap not a research result); build scripts/ingest_c304_mark_index_basis_xsec.py (download 10 assets markPriceKlines + indexPriceKlines 1h; build common intersection grid; FETCH real perp 1h klines + native 8h funding for ALL 10 (C299 covers only BTC/ETH/BCH, fetch the other 7); NaN gaps never imputed; compact ndarray cache <100MB; SHA256-from-bytes; real_data_only:true fabricated_data:false executed_fills:false; ROBUST ingest: retry-with-backoff 6 attempts linear 1s*k on every download and treat a lone 404/5xx as retryable because the archive host flip-flops 200<->404 under rapid sequential access and must NOT abort the session; skip any CSV row whose first field is non-numeric because recent months carry an open_time header row); preflight_c303.py fail-closed (mirror preflight_c302); run_c303_premium_index_xsec_oos.py (>=400 runs: signals x lookbacks x K{2,3,5} x holds, dollar-neutral top-K/bottom-K shift(1), real funding cashflow, cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]]bps, flat + equal-weight B&H-with-funding benchmarks, edge rule identical to C285-C302 never relaxed) emitting the 5 campaign302-style timestamped artifacts; tests/test_preflight_c303.py + tests/test_c303_premium_index_xsec_oos.py (mirror C302 tests); completion gate fail-closed (cache+meta+provenance flags+SHA, preflight ready:true, runner >=400 runs with 5 artifacts, new tests + suite 0 failed, AGENTS.md+state.yaml synced); sync AGENTS.md + research_state/state.yaml with paths+SHA256 (no zeros, no nesting regression); re-verify pytest green. If NOT_TRADABLE record the formal negative (binding constraint) and register the next genuinely-new reachable family (markPriceKlines/indexPriceKlines basis or bookTicker quote-side). Never claim a tradable edge without a passed costed-OOS rule. Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 (external execution) stays BLOCKED/decoupled and must not be retried as economic work.'
+active_initial_task: 'EXECUTE C304 CROSS-SECTIONAL MARK/INDEX BASIS STAT-ARB (handoff refreshed 2026-11-15T01:22:44Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C304 FULL chain reachability re-verified AGAIN this refresh from this environment (68/68 endpoints HTTP 200: 20 assets markPriceKlines + 20 indexPriceKlines at 2020-01 AND 2026-10, plus 14/14 execution klines+fundingRate for the 7 non-C299 assets at 2020-01 AND 2026-10; C299 cache covers BTC/ETH/BCH); every deferral bottleneck removed. C303 executed NOT_TRADABLE (0/432 edge, binding cost_sensitivity) at 20261115T002648Z over the cross-sectional premiumIndexKlines carry family (10 real assets, 58,959-bar common grid, K in {2,3,5}); C302 executed NOT_TRADABLE (0/486 edge, binding mean_beats_benchmark_fail) at 20261114T215720Z; C281B-C301 all COMPLETE formal negatives (0 costed-OOS edge, frozen). The premium-index family is closed; its cross-sectional form (C303) is a COMPLETE formal negative that solved C298 zero_exposure (432/432 with exposure) but hit cost_sensitivity. ACTIVE NEXT = C304 cross-sectional markPriceKlines/indexPriceKlines basis stat-arb across the same 10 assets. MANDATORY SCRIPT NAMES (do not copy C303 names by mistake — the prior state.yaml line had that bug): ingest = scripts/ingest_c304_mark_index_basis_xsec.py; preflight = scripts/preflight_c304.py; runner = scripts/run_c304_mark_index_basis_xsec_oos.py; tests = tests/test_preflight_c304.py + tests/test_c304_mark_index_basis_xsec_oos.py; cache = data/cache/campaign304_mark_index_basis_xsec.pkl (+.meta.json,.provenance.json); artifacts = reports/campaign304_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json. Mandatory in one session: Step0 bootstrap (python scripts/bootstrap_dev_env.py; python -m pytest tests/ -q green 0 failed; install pytest-asyncio>=0.23 only if async tests fail, a bootstrap gap not a research result); ingest (download 10 assets markPriceKlines + indexPriceKlines 1h 2020-01..2026-10; build common intersection grid = timestamps in ALL 10 mark AND index archives, per-asset missing bars recorded NEVER imputed; basis = mark_close - index_close per asset; FETCH real perp 1h klines + native 8h funding for ALL 10 assets — C299 covers only BTC/ETH/BCH so fetch the other 7; ROBUST ingest: retry-with-backoff 6 attempts linear 1s*k on EVERY download and treat a lone 404/5xx as retryable because the archive host flip-flops 200<->404 under rapid sequential access and a single spurious 404 must NOT abort the session; skip any CSV row whose first field is non-numeric because recent months carry an open_time header row; compact ndarrays <100MB; SHA256-from-bytes; real_data_only:true fabricated_data:false executed_fills:false; assert <100MB before success); preflight_c304.py fail-closed (mirror preflight_c303.py exactly: meta flags/interval/window/host/SHA/size, per-asset mark/index/basis present-finite + NaN gaps never imputed, funding boundary/staleness <=24h+1bar, common-grid coverage >=2K for K in {2,3,5}, WF fit train=720/test=168/step=168, feature warmup min_periods=max(20,L//3), provenance); runner (>=400 runs: signals basis_level/basis_zscore/basis_momentum x lookbacks x K{2,3,5} x holds x gates, dollar-neutral long top-K/short bottom-K gross 1.0 shift(1), real funding cashflow -rate*signed_weight at each native 8h boundary, cost grid exactly [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on turnover, benchmarks flat + equal-weight B&H-with-funding on same WF windows, edge rule identical to C285-C302 never relaxed); tests (mirror C303 tests: causal/no-lookahead, dollar-neutral top-K/bottom-K, NaN-gap flat, edge-rule re-derivation, artifact flags+SHA, no-edge-claimed); sync AGENTS.md + research_state/state.yaml with real paths + SHA256-from-bytes (no zeros, no nesting regression); re-verify pytest green. Completion gate fail-closed (do NOT report done unless ALL true): (a) ingest cache+meta+provenance with flags+SHA256-from-bytes; (b) preflight exits 0 ready:true on real data; (c) runner end-to-end not a smoke test with >=400 runs and all 5 timestamped artifacts freshly written; (d) new tests added and full suite 0 failed; (e) AGENTS.md + state.yaml synced with real paths + SHA256. If NOT_TRADABLE record the formal negative (binding constraint) and register the next genuinely-new reachable family (bookTicker quote-side basis, or cross-venue). Never claim a tradable edge without a passed costed-OOS rule. Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 (external execution) stays BLOCKED/decoupled and must not be retried as economic work.'
 next_campaign: c304_cross_sectional_mark_index_basis_stat_arb_10_real_assets_common_grid_k_2_3_5
 c304_reachability_verified:
   as_of_utc: 20261115T011734Z
@@ -142,6 +142,58 @@ c303_status:
     skipped: 2
     failed: 0
     as_of_utc: 20261115T004400Z
+
+c304_status:
+  state: ACTIVE_NOT_EXECUTED
+  as_of_utc: 20261115T012244Z
+  verdict: PENDING
+  edge_proven: false
+  n_total_runs: 0
+  n_with_exposure: 0
+  n_zero_exposure: 0
+  n_edge_proven: 0
+  binding_constraint: null
+  new_real_family: 'USDT-M perp markPriceKlines/indexPriceKlines basis cross-sectional stat-arb (native 1h, 2020-01..2026-10, 10 assets); basis = mark_close - index_close; long cheap basis / short rich basis dollar-neutral'
+  reachability_verified:
+    as_of_utc: 20261115T012244Z
+    source: https://data.binance.vision
+    mark_endpoint: /data/futures/um/monthly/markPriceKlines/<SYM>/1h/<SYM>-1h-YYYY-MM.zip
+    index_endpoint: /data/futures/um/monthly/indexPriceKlines/<SYM>/1h/<SYM>-1h-YYYY-MM.zip
+    klines_endpoint: /data/futures/um/monthly/klines/<SYM>/1h/<SYM>-1h-YYYY-MM.zip
+    funding_endpoint: /data/futures/um/monthly/fundingRate/<SYM>/<SYM>-fundingRate-YYYY-MM.zip
+    probe_result: 68/68 endpoints HTTP 200 (20 mark + 20 index at 2020-01 AND 2026-10; 14/14 execution klines+funding for the 7 non-C299 assets at 2020-01 AND 2026-10; C299 covers BTC/ETH/BCH)
+    archive_schema: standard 12-column kline CSV with header row starting open_time (verified BTCUSDT 2026-10 = 745 rows = 1 header + 744 bars)
+    host_flakiness: archive host flip-flops 200<->404 under rapid sequential access; ingest MUST retry-with-backoff (6 attempts, linear 1s*k) and treat a lone 404/5xx as retryable
+  dataset:
+    cache: data/cache/campaign304_mark_index_basis_xsec.pkl
+    cache_bytes: 0
+    cache_sha256: null
+    meta: data/cache/campaign304_mark_index_basis_xsec.meta.json
+    meta_sha256: null
+    provenance: data/cache/campaign304_mark_index_basis_xsec.provenance.json
+    provenance_sha256: null
+    real_data_only: null
+    fabricated_data: null
+    executed_fills: null
+  artifacts:
+    oos_sweep: {path: null, sha256: null}
+    tradable_edge_registry: {path: null, sha256: null}
+    summary: {path: null, sha256: null}
+    verdict: {path: null, sha256: null}
+    binding_constraint: {path: null, sha256: null}
+  artifacts_exist: false
+  scripts:
+  - scripts/ingest_c304_mark_index_basis_xsec.py
+  - scripts/preflight_c304.py
+  - scripts/run_c304_mark_index_basis_xsec_oos.py
+  tests:
+  - tests/test_preflight_c304.py
+  - tests/test_c304_mark_index_basis_xsec_oos.py
+  pytest:
+    passed: 0
+    skipped: 0
+    failed: 0
+    as_of_utc: null
 
 c300_status:
   state: COMPLETE_NOT_TRADABLE
