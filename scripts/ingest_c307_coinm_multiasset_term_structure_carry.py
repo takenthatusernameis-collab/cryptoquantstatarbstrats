@@ -164,7 +164,9 @@ def read_kline_frame(raw: bytes) -> pd.DataFrame:
 
 
 def read_funding_frame(raw: bytes) -> pd.DataFrame:
-    raw_csv = raw
+    zf = zipfile.ZipFile(io.BytesIO(raw))
+    name = zf.namelist()[0]
+    raw_csv = zf.read(name)
     if _is_numeric_first_field(raw_csv):
         df = pd.read_csv(io.BytesIO(raw_csv), header=None, names=["calc_time", "funding_interval_hours", "last_funding_rate"])
     else:

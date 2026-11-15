@@ -1,4 +1,4 @@
-updated_at_utc: 20261115T072822Z
+updated_at_utc: 20261115T083047Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -153,7 +153,110 @@ c306_coinm_term_structure:
       duration_s: 506.12
       as_of_utc: 20261115T051000Z
       note: the 10 failures are the SAME pre-existing C305 program-closure reds (verified identical at HEAD); 0 new failures, 0 C306 failures
-  c307_next_family:
+c307_status:
+  state: COMPLETE_EDGE_PROVEN
+  as_of_utc: 20261115T083047Z
+  verdict: EDGE_PROVEN
+  edge_proven: true
+  n_total_runs: 612
+  n_leg_a_runs: 180
+  n_leg_b_runs: 432
+  n_assets_leg_a: 3
+  n_assets_leg_b: 11
+  n_with_exposure: 612
+  n_zero_exposure: 0
+  n_edge_proven: 44
+  binding_constraint: none
+  grid_note: 'Leg A: 5 signals x 6 lookbacks x 1 K x 3 holds x 2 gates = 180 total (portfolio across BTCUSD/ETHUSD/XRPUSD); Leg B: 4 signals x 6 lookbacks x 3 K x 3 holds x 2 gates = 432 total. Combined 612 >= 400. Leg B alone (432) satisfies gate. Inverse PnL modeled in coin; funding cashflow -rate*signed_weight at native 8h boundaries; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on ALL legs; B&H benchmark on same WF windows; edge rule identical to C285-C306.'
+  dataset:
+    cache: data/cache/campaign307_coinm_multiasset_term_structure_carry.pkl
+    cache_bytes: 16989995
+    cache_sha256: fb581d049a289fa8ba9ef07d3c96c363604e1fde95f91b327635ccdaadc8c8c8
+    meta: data/cache/campaign307_coinm_multiasset_term_structure_carry.meta.json
+    meta_sha256: cbd8253b4187b1ea570d7de7411b97aa5e9255e0c4fd8cd016b66ecddec3ea3b
+    provenance: data/cache/campaign307_coinm_multiasset_term_structure_carry.provenance.json
+    provenance_sha256: 63e4b2cce1ef45144bc145b406a1110dd2dca0afc26e261e104cc53905d3d9a6
+    leg_a:
+      assets:
+      - BTCUSD
+      - ETHUSD
+      - XRPUSD
+      asset_grids:
+        BTCUSD:
+          bars: 6489
+          start_utc: '2025-03-01T00:00:00Z'
+          end_utc: '2026-10-31T23:00:00Z'
+          n_splits: 34
+          quarterly_contracts:
+          - BTCUSD_250627
+          - BTCUSD_250926
+          - BTCUSD_261225
+        ETHUSD:
+          bars: 6489
+          start_utc: '2025-03-01T00:00:00Z'
+          end_utc: '2026-10-31T23:00:00Z'
+          n_splits: 34
+          quarterly_contracts:
+          - ETHUSD_250627
+          - ETHUSD_250926
+          - ETHUSD_261225
+        XRPUSD:
+          bars: 1464
+          start_utc: '2026-09-01T00:00:00Z'
+          end_utc: '2026-10-31T23:00:00Z'
+          n_splits: 4
+          quarterly_contracts:
+          - XRPUSD_261225
+    leg_b:
+      symbols:
+      - BTCUSD_PERP
+      - ETHUSD_PERP
+      - ADAUSD_PERP
+      - LTCUSD_PERP
+      - XRPUSD_PERP
+      - BCHUSD_PERP
+      - LINKUSD_PERP
+      - TRXUSD_PERP
+      - ETCUSD_PERP
+      - XLMUSD_PERP
+      - DOTUSD_PERP
+      common_grid_bars: 34968
+      common_grid_start_utc: '2022-07-01T00:00:00Z'
+      common_grid_end_utc: '2026-06-30T23:00:00Z'
+    real_data_only: true
+    fabricated_data: false
+    executed_fills: false
+  artifacts:
+    oos_sweep:
+      path: reports/campaign307_oos_sweep_20261115T083047Z.json
+      sha256: 1f8fa470cca0129dce24d43f0587199319f94cd7a8f82958019e04cf35512ce0
+    tradable_edge_registry:
+      path: reports/campaign307_tradable_edge_registry_20261115T083047Z.json
+      sha256: 706f4efb0ab19c1cf17f84ce6760270fa4275bb4ecb5282be097ea37df84e01a
+    summary:
+      path: reports/campaign307_summary_20261115T083047Z.json
+      sha256: c13b9d413449b0f1ec79f6f20f377d76d7b2e6aaedc62fd56bed5a2d0e1c19c9
+    verdict:
+      path: reports/campaign307_verdict_20261115T083047Z.json
+      sha256: e64a28a94bdc086d35f20fedbe514564c0ab32088139598dcd4683484bc405e6
+    binding_constraint:
+      path: null
+      sha256: null
+  artifacts_exist: true
+  scripts:
+  - scripts/ingest_c307_coinm_multiasset_term_structure_carry.py
+  - scripts/preflight_c307.py
+  - scripts/run_c307_coinm_multiasset_term_structure_carry_oos.py
+  tests:
+  - tests/test_preflight_c307.py
+  - tests/test_c307_coinm_multiasset_term_structure_carry_oos.py
+  pytest:
+    passed: 1467
+    skipped: 2
+    failed: 0
+    duration_s: 503.49
+    as_of_utc: 20261115T084500Z
+c307_next_family:
     family: coin_m_inverse_quarterly_term_structure_wider_symbol_universe
     as_of_utc: 20261115T050843Z
     rationale: C306 aligned only BTCUSD because ETHUSD_261225 had only 2026-10 coverage (744 bars < train+test=888). ETHUSD_PERP klines are HTTP 200 (the old "404 every month" note is wrong). C307 re-runs ingest over the full 11-perp universe with the verified funding window 2022-07..2026-06 and the expanded quarterly list (BTCUSD/ETHUSD 250627/250926/261225, XRPUSD_261225), building a multi-asset cross-sectional term-structure + funding-carry grid.
@@ -750,7 +853,7 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C306
+latest_campaign_done: C307
 reachable_real_data_cross_sectional_stat_arb_space: CLOSED
 reachable_real_data_cross_sectional_stat_arb_space_scope: USDT-M linear futures + spot + options only (C281B-C305). C306 (COIN-M inverse dated-quarterly term-structure carry) is COMPLETE_NOT_TRADABLE and FROZEN; the COIN-M inverse futures space remains OPEN for C307 (wider 11-perp symbol universe).
 c305_program_closure:
