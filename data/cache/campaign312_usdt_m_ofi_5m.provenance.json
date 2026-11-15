@@ -1,0 +1,112 @@
+{
+  "generated_at_utc": "20261115T174220Z",
+  "campaign": 312,
+  "part": "provenance",
+  "source_host": "https://data.binance.vision",
+  "klines_endpoint": "/data/futures/um/monthly/klines/{sym}/5m/{sym}-5m-{month}.zip",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "n_months": 36,
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/BTCUSDT.npz",
+      "shard_sha256": "b4544f2b1e2166c04aff7b40a6e1886e824d907cc7a53d4352c418265d6a959b",
+      "shard_bytes": 7030013
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/ETHUSDT.npz",
+      "shard_sha256": "a2f1aa5803f88a266dd92929a396c35fc017d20e5e98adcd22394b3f6c8ada71",
+      "shard_bytes": 7140432
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/BNBUSDT.npz",
+      "shard_sha256": "54b039d52dcbc29cef74f4b912f257d3b71a7762d53f6322d1675da8a59a20c4",
+      "shard_bytes": 6723946
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/SOLUSDT.npz",
+      "shard_sha256": "3cc4808b796dd3b93eb4054f8d9a6d7dd3c69d91c3a34765d9510650ffd4fe7f",
+      "shard_bytes": 6681213
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/XRPUSDT.npz",
+      "shard_sha256": "dad8fc610aea1b375407996273319aec29502894ce454ed6f04acf478ef6930f",
+      "shard_bytes": 6814124
+    },
+    "ADAUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/ADAUSDT.npz",
+      "shard_sha256": "e070c450b9c6d333a75e43f18de4905c42d8b8963cdd5216e3bccf8701686a29",
+      "shard_bytes": 6609959
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/DOGEUSDT.npz",
+      "shard_sha256": "2c0683064843bf91231ce7417012d92d351b7e5eb30227484b45305a682ad098",
+      "shard_bytes": 6924432
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/AVAXUSDT.npz",
+      "shard_sha256": "e7e94d630ca8019400aa4aa5972a80922c12abca21dc6edfcd445012da51a462",
+      "shard_bytes": 6383469
+    },
+    "LINKUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/LINKUSDT.npz",
+      "shard_sha256": "68315dfd747083b00890ac6736dcc922a14d05bb24675562ed460aa08f83b214",
+      "shard_bytes": 6810145
+    },
+    "DOTUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign312_usdt_m_ofi_5m/DOTUSDT.npz",
+      "shard_sha256": "b8b43a83a2d4a2a3e5c9856bb0b9fcdf4bc9acb72afbb1d5723445f45729a55c",
+      "shard_bytes": 6511377
+    }
+  },
+  "grid_construction": "intersection_of_symbol_5m_kline_bars",
+  "n_nominal_grid_bars": 315648,
+  "n_grid_bars": 315648,
+  "execution_price_source": "usdt_m_5m_klines_close",
+  "ofi_source": "usdt_m_5m_klines_taker_buy_sell_split",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "aggtrades_note": "USDT-M aggTrades zips are ~1.45 GB/month across these 10 symbols (~52 GB over 36 months; verified live 2026-11-15 via Content-Length) and are NOT streamed; the bar-level taker buy/sell split in native 5m klines is used instead. 5m klines total ~140 MB for the same universe/window.",
+  "resumable": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "4859911b26a6d79b2d9f8eb8400668666be45b8a5d15825d7e46fb4b47589307",
+  "gap_bar_policy": "bars without a 5m kline are dropped from the common grid (never filled)",
+  "funding_leg_policy": "funding_rate emitted all-NaN (control only, excluded from return)"
+}
