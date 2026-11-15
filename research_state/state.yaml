@@ -1,5 +1,5 @@
-updated_at_utc: 20261115T225604Z
-handoff_refreshed_at_utc: 20261115T225604Z
+updated_at_utc: 20261115T230939Z
+handoff_refreshed_at_utc: 20261115T230939Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -199,12 +199,12 @@ c313_status:
 oos_edge_proven: false
 edge_claim: NONE
 full_suite_last_verified:
-  as_of_utc: 20261115T204500Z
-  passed: 1573
+  as_of_utc: 20261115T230939Z
+  passed: 1642
   skipped: 2
   failed: 0
-  duration_s: 420.0
-  note: C313 complete + C312 green
+  duration_s: 415.56
+  note: C315 complete; all C281B-C315 formal negatives; space CLOSED; C287 externally blocked
 c312_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261115T174346Z

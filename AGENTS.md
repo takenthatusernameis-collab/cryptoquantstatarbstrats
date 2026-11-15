@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T23:08:51Z — **C315 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T223831Z, 0/3456 Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518).** C314/C313/C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C315`; `active_campaign: C287` (blocked/external-only); `oos_edge_proven: false`; `edge_claim: NONE`. Reachable real-data stat-arb space CLOSED.
+**Handoff refreshed:** 2026-11-15T23:09:39Z — **C315 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T223831Z, 0/3456 Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015 vs momentum 0.1467 vs placebo 0.1518). VERIFIED this session: bootstrap ready; pytest 1642 passed / 2 skipped / 0 failed; verify_env healthy; all C310–C315 slim artifacts + full.json SHA256-from-bytes match state.yaml; all caches <100 MB; all flags real_data_only:true, fabricated_data:false, executed_fills:false; edge_proven:false / binding_constraint:multiple_testing universally.** C314/C313/C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C315`; `active_campaign: C287` (blocked/external-only); `oos_edge_proven: false`; `edge_claim: NONE`. Reachable real-data stat-arb space CLOSED.
 
 ## INITIAL TASK MESSAGE (2026-11-15T23:08:51Z) — REACHABLE STAT-ARB SPACE CLOSED: VERIFY SUITE GREEN + HANDOFF SYNC ONLY
 
@@ -162,7 +162,7 @@ Executed `20261115T111243Z` over a NEW real COIN-M aggTrades 1h ingest → RETRA
 
 ## Escalation
 
-- **C314 (COMPLETE FORMAL NEGATIVE, 20261115T214305Z):** spot-perp lead-lag stat-arb, 2304 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003; 5 artifacts + full.json + 25 C314 tests green; full suite 1619 passed / 2 skipped. De-bottleneck: spot 5m microsecond `open_time` (2025-01+) normalized to ms.
+- **C314 (COMPLETE FORMAL NEGATIVE, 20261115T214305Z):** spot-perp lead-lag stat-arb, 2304 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003; 5 artifacts + full.json + 25 C314 tests green; full suite 1642 passed / 2 skipped / 0 failed (verified 2026-11-15T23:09:39Z). De-bottleneck: spot 5m microsecond `open_time` (2025-01+) normalized to ms.
 - **C313 (COMPLETE FORMAL NEGATIVE, 20261115T204419Z):** 0/960 Holm+BH, binding `multiple_testing`; 5 artifacts + 23 tests green. Do not rerun.
 - **C312 (COMPLETE FORMAL NEGATIVE, 20261115T174346Z):** 0/504 survive Holm+BH, binding `multiple_testing`; 5 artifacts + full.json + 21 tests green.
 - **C311 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 5 artifacts + 22 tests green; sweep slimmed <1 MB.
