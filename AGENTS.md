@@ -1,10 +1,19 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T07:09:51Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign (NOT STARTED: zero scripts/tests/artifacts/cache). Bootstrap ready (pytest 9.2.0, pytest-asyncio 1.5.0); full suite 1439 passed / 2 skipped / 0 failed (491.12s, 2026-11-15T06:40:26Z). `HANDOFF.md` absent. ALL BOTTLENECKS REMOVED — reachability/funding-window/ETHUSD/XLM/quarterly matrix verified, env green, templates on disk; next session must execute C307 end-to-end (≥400 costed-OOS runs, 5 SHA256 artifacts, tests+full-suite green, state synced). No planning-only or status-only turn is acceptable.**
+**Handoff refreshed:** 2026-11-15T07:11:10Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign (NOT STARTED: zero scripts/tests/artifacts/cache). Bootstrap ready (pytest 9.2.0, pytest-asyncio 1.5.0); full suite 1439 passed / 2 skipped / 0 failed (491.12s, 2026-11-15T06:40:26Z). `HANDOFF.md` absent. ALL BOTTLENECKS REMOVED — reachability/funding-window/ETHUSD/XLM/quarterly matrix verified, env green, templates on disk; next session must execute C307 end-to-end (≥400 costed-OOS runs, 5 SHA256 artifacts, tests+full-suite green, state synced). No planning-only or status-only turn is acceptable.**
 
-## INITIAL TASK MESSAGE (2026-11-15T07:08:19Z) — EXECUTE C307: COIN-M INVERSE MULTI-ASSET TERM-STRUCTURE + CROSS-SECTIONAL FUNDING CARRY (HEAVY, MANDATORY, UNAVOIDABLE)
+## INITIAL TASK MESSAGE (2026-11-15T07:11:10Z) — NEXT FOCUS CAMPAIGN: EXECUTE C307 END-TO-END (HEAVY, MANDATORY, UNAVOIDABLE)
 
-**NEXT SESSION ACTION (non-optional):** run `python scripts/bootstrap_dev_env.py`, then implement+execute C307 end-to-end. Do not stop at planning, status, or a single leg. The completion gate is: ingest executed + cache SHA256; preflight `ready:true`; runner end-to-end (not smoke-only) ≥400 runs; 5 fresh SHA256 artifacts; C307 tests green; full suite 0 failed; AGENTS.md + `research_state/state.yaml` synced. Produce ≥1 of: real-data ingest, costed-OOS run, passing test, artifact update — and the run must be ≥400 configs.
+**NEXT SESSION ACTION (non-optional, do not defer):** run `python scripts/bootstrap_dev_env.py`, then implement+execute C307 end-to-end in this order:
+```
+python scripts/bootstrap_dev_env.py
+python scripts/ingest_c307_coinm_multiasset_term_structure_carry.py
+python scripts/preflight_c307.py            # must print ready:true and exit 0
+python scripts/run_c307_coinm_multiasset_term_structure_carry_oos.py
+python -m pytest tests/test_preflight_c307.py tests/test_c307_coinm_multiasset_term_structure_carry_oos.py -q
+python -m pytest tests/ -q                  # must be 0 failed
+```
+Do not stop at planning, status, or a single leg. The completion gate is: ingest executed + cache SHA256; preflight `ready:true`; runner end-to-end (not smoke-only) ≥400 runs; 5 fresh SHA256 artifacts; C307 tests green; full suite 0 failed; AGENTS.md + `research_state/state.yaml` synced. Produce ≥1 of: real-data ingest, costed-OOS run, passing test, artifact update — and the run must be ≥400 configs.
 
 **Mission (two legs, both required; cannot collapse to BTC-only):**
 - **Leg A — per-asset dated-quarterly term structure:** for each of BTCUSD, ETHUSD, XRPUSD, build annualized calendar / perp-vs-quarterly basis on that asset's own verified archive months; form notional-neutral multi-contract books (long cheaper / short richer), hold toward expiry convergence. Report per-asset coverage. If an asset has <888 overlapping bars (train 720 + test 168), record a scope note and exclude it from WF — not the whole campaign.
