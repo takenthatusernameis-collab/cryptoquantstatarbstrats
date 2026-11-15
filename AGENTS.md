@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T06:11:29Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign. Full suite 1439 passed / 2 skipped / 0 failed (verified 2026-11-15T05:47:40Z); bootstrap ready (2026-11-15T06:11Z).**
+**Handoff refreshed:** 2026-11-15T06:18:31Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign. Full suite 1439 passed / 2 skipped / 0 failed (verified 2026-11-15T05:47:40Z); bootstrap ready (2026-11-15T06:11Z).**
 
-## INITIAL TASK MESSAGE (2026-11-15T06:11:29Z) — EXECUTE C307: COIN-M INVERSE MULTI-ASSET TERM-STRUCTURE + CROSS-SECTIONAL CARRY OVER THE FULL 11-PERP UNIVERSE (HEAVY, MANDATORY, UNAVOIDABLE)
+## INITIAL TASK MESSAGE (2026-11-15T06:18:31Z) — EXECUTE C307: COIN-M INVERSE MULTI-ASSET TERM-STRUCTURE + CROSS-SECTIONAL CARRY OVER THE FULL 11-PERP UNIVERSE (HEAVY, MANDATORY, UNAVOIDABLE)
 
 **NEXT SESSION ACTION (non-optional):** run Step 0 bootstrap, then implement+execute C307 end-to-end (ingest → preflight `ready:true` → ≥400-run costed-OOS runner → 5 SHA256 artifacts → tests → full suite 0 failed → sync AGENTS.md + `research_state/state.yaml`). Produce ≥1 of: real-data ingest, costed-OOS run, passing test, or artifact update. **No status-only or planning-only turns.**
 
