@@ -1,0 +1,266 @@
+{
+  "generated_at_utc": "20261115T101912Z",
+  "campaign": 309,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "BTCUSD_PERP",
+      "ETHUSD_PERP",
+      "ADAUSD_PERP",
+      "LTCUSD_PERP",
+      "XRPUSD_PERP",
+      "BCHUSD_PERP",
+      "LINKUSD_PERP",
+      "TRXUSD_PERP",
+      "ETCUSD_PERP",
+      "XLMUSD_PERP",
+      "DOTUSD_PERP"
+    ],
+    "n_assets": 11,
+    "common_grid_bars": 34968,
+    "common_grid_start_utc": "2022-07-01 00:00:00+00:00",
+    "common_grid_end_utc": "2026-06-30 23:00:00+00:00",
+    "n_splits": 203
+  },
+  "config": {
+    "walk_forward": {
+      "train": 720,
+      "test": 168,
+      "step": 168
+    },
+    "cost_grid_bps": [
+      [
+        0,
+        0
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        20,
+        20
+      ],
+      [
+        40,
+        40
+      ]
+    ],
+    "alpha": 0.05,
+    "n_trials": 504,
+    "signals": [
+      "premium_level",
+      "premium_z",
+      "premium_mom",
+      "premium_sign",
+      "mark_basis_level",
+      "mark_basis_z",
+      "mark_basis_sign"
+    ],
+    "lookbacks_1h": [
+      24,
+      168,
+      720,
+      1440
+    ],
+    "cross_sectional_K": [
+      2,
+      3,
+      5
+    ],
+    "holding_periods_1h": [
+      1,
+      6,
+      24
+    ],
+    "dispersion_gates": [
+      "off",
+      "on"
+    ],
+    "total_runs": 504
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 18
+    },
+    "dsr_mde": {
+      "n_splits": 203,
+      "n_dsr_ge_0.95": 0,
+      "n_dsr_ge_0.90": 0,
+      "mde_bps_mean": 0.7591751254358176,
+      "observed_mean_bps_per_split": 0.025365076562080015
+    },
+    "stability": {
+      "stable_first_half": 18,
+      "stable_second_half": 12,
+      "n_edge": 18,
+      "stable_per_year": {
+        "2022": 18,
+        "2023": 0,
+        "2024": 4,
+        "2025": 18,
+        "2026": 14
+      }
+    },
+    "attribution": {
+      "aggregate_premium_carry_share": 0.1295259776043126,
+      "aggregate_conv_share": 0.8704740223956875,
+      "edge_explained_by_premium_carry": false
+    },
+    "cost_realism": {
+      "realistic_cost_bps": 6.0,
+      "taker_cost_bps": 5.0,
+      "maker_cost_bps": 2.0,
+      "slippage_bps": 1.0,
+      "n_survive_realistic": 18,
+      "n_edge": 18
+    }
+  },
+  "aggregate_attribution": {
+    "linear_contrib_total": 7.114714093530151,
+    "inv_coin_contrib_total": 54.928858481692444,
+    "conv_contrib_total": 47.8141443881623,
+    "per_asset": {
+      "BTCUSD_PERP": {
+        "linear_contrib": 1.3147029125657022,
+        "inv_coin_contrib": 3.1134719445390846e-05,
+        "conv_contrib": -1.3146717778462567,
+        "total_contrib": 3.1134719445390846e-05,
+        "share_of_edge": 5.668189783293587e-07,
+        "n_configs_positive": 16,
+        "n_configs": 18
+      },
+      "ETHUSD_PERP": {
+        "linear_contrib": -1.3728900681923573,
+        "inv_coin_contrib": -0.0013056830688610043,
+        "conv_contrib": 1.3715843851234961,
+        "total_contrib": -0.0013056830688610043,
+        "share_of_edge": -2.3770438799418758e-05,
+        "n_configs_positive": 0,
+        "n_configs": 18
+      },
+      "ADAUSD_PERP": {
+        "linear_contrib": -4.3785886099547175,
+        "inv_coin_contrib": -6.980017023940771,
+        "conv_contrib": -2.601428413986054,
+        "total_contrib": -6.980017023940771,
+        "share_of_edge": -0.1270737680861724,
+        "n_configs_positive": 4,
+        "n_configs": 18
+      },
+      "LTCUSD_PERP": {
+        "linear_contrib": -1.3387541994341206,
+        "inv_coin_contrib": -0.003331725956710734,
+        "conv_contrib": 1.3354224734774096,
+        "total_contrib": -0.003331725956710734,
+        "share_of_edge": -6.065529211427511e-05,
+        "n_configs_positive": 4,
+        "n_configs": 18
+      },
+      "XRPUSD_PERP": {
+        "linear_contrib": -4.72093860552476,
+        "inv_coin_contrib": -5.333279691531868,
+        "conv_contrib": -0.6123410860071089,
+        "total_contrib": -5.333279691531868,
+        "share_of_edge": -0.09709431142300959,
+        "n_configs_positive": 6,
+        "n_configs": 18
+      },
+      "BCHUSD_PERP": {
+        "linear_contrib": 8.338999411698875,
+        "inv_coin_contrib": 0.015602181195815674,
+        "conv_contrib": -8.323397230503064,
+        "total_contrib": 0.015602181195815674,
+        "share_of_edge": 0.000284043426844849,
+        "n_configs_positive": 16,
+        "n_configs": 18
+      },
+      "LINKUSD_PERP": {
+        "linear_contrib": -1.5334817233413727,
+        "inv_coin_contrib": -0.04940361903501564,
+        "conv_contrib": 1.4840781043063571,
+        "total_contrib": -0.04940361903501564,
+        "share_of_edge": -0.0008994109908816264,
+        "n_configs_positive": 2,
+        "n_configs": 18
+      },
+      "TRXUSD_PERP": {
+        "linear_contrib": 5.663515356410267,
+        "inv_coin_contrib": 43.2082873396566,
+        "conv_contrib": 37.54477198324633,
+        "total_contrib": 43.2082873396566,
+        "share_of_edge": 0.7866227067882311,
+        "n_configs_positive": 18,
+        "n_configs": 18
+      },
+      "ETCUSD_PERP": {
+        "linear_contrib": -0.4220663916313163,
+        "inv_coin_contrib": 0.2705319311925027,
+        "conv_contrib": 0.6925983228238191,
+        "total_contrib": 0.2705319311925027,
+        "share_of_edge": 0.004925132956889497,
+        "n_configs_positive": 18,
+        "n_configs": 18
+      },
+      "XLMUSD_PERP": {
+        "linear_contrib": 4.0087741783582755,
+        "inv_coin_contrib": 22.87558322043431,
+        "conv_contrib": 18.866809042076035,
+        "total_contrib": 22.87558322043431,
+        "share_of_edge": 0.41645837639350625,
+        "n_configs_positive": 16,
+        "n_configs": 18
+      },
+      "DOTUSD_PERP": {
+        "linear_contrib": 1.5554418325756703,
+        "inv_coin_contrib": 0.9261604180270037,
+        "conv_contrib": -0.6292814145486666,
+        "total_contrib": 0.9261604180270037,
+        "share_of_edge": 0.016861089846527375,
+        "n_configs_positive": 12,
+        "n_configs": 18
+      }
+    },
+    "grand_total": 54.92885848169245
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign309_oos_sweep_20261115T101912Z.json",
+      "sha256": "1435efba39b9afb36579f006593ec14348a7a85c215d5764778c0e8acb466912"
+    },
+    "registry": {
+      "path": "reports/campaign309_tradable_edge_registry_20261115T101912Z.json",
+      "sha256": "32718ad7d9b81c88abfc2ce737a0ce8b87e66e2037a6d83facdadb30f2579112"
+    }
+  },
+  "summary": {
+    "n_total_runs": 504,
+    "n_with_exposure": 504,
+    "n_zero_exposure": 0,
+    "n_edge_proven_deterministic": 18,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "n_survive_cost_realism": 18,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

@@ -218,15 +218,16 @@ def test_closure_report_and_audit_sha_match_state_and_bytes():
 
 
 def test_state_latest_campaign_c305_space_closed():
-    """C305 closed the USDT-M/spot/options space. The program may continue on a
-    genuinely-new reachable family (COIN-M inverse futures: C306/C307); the C305
-    closure's own scope must remain CLOSED regardless of latest_campaign_done."""
+    """C305 closed the USDT-M/spot/options space. COIN-M inverse futures
+    (C306/C307/C308/C309) is also exhausted: all formal negatives, 0 tradable
+    costed-OOS edge, no next reachable family on disk. The C305 closure's own
+    scope must remain CLOSED regardless of latest_campaign_done."""
     state = yaml.safe_load(STATE.read_text(encoding="utf-8"))
-    assert state["latest_campaign_done"] in {"C305", "C306", "C307"}, state.get("latest_campaign_done")
+    assert state["latest_campaign_done"] in {"C305", "C306", "C307", "C308", "C309"}, state.get("latest_campaign_done")
     closure = state.get("c305_program_closure") or {}
     assert closure.get("reachable_real_data_cross_sectional_stat_arb_space") == "CLOSED"
     scope = state.get("reachable_real_data_cross_sectional_stat_arb_space_scope", "")
-    assert "COIN-M" in scope and "OPEN" in scope.upper()
+    assert "COIN-M" in scope and "CLOSED" in scope.upper()
 
 
 def test_probe_evidence_recorded_matches_bytes():
