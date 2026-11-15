@@ -496,7 +496,15 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C304
+latest_campaign_done: C305
+reachable_real_data_cross_sectional_stat_arb_space: CLOSED
+c305_program_closure:
+  as_of_utc: 2026-11-15T03:24:16Z
+  closure_report_json: {path: reports/program_closure_final_20261115T032416Z.json, sha256: b522fe93c7e335d0cdd403c54dc5d08545caa7a5c91d51fb7b4a21d539b262df}
+  closure_report_md: {path: reports/program_closure_final_20261115T032416Z.md, sha256: 804f178023543b985882958e3adcc0bceb8c55486019cbf1bfb2068a110fff6f}
+  integrity_audit_json: {path: reports/program_closure_integrity_audit_20261115T032416Z.json, sha256: 5a58e58018b6cb06f8f44e43fec2b24bd29681af92e4b74dde34895e96aaf4e2}
+  integrity_audit_md: {path: reports/program_closure_integrity_audit_20261115T032416Z.md, sha256: 61493375a039bee62be96d262fec2604840613df5b891c50a9ecc3cb2d7cb2ab}
+  reachable_real_data_cross_sectional_stat_arb_space: CLOSED
 campaign298:
   hypothesis: MULTI_YEAR_USDT_M_PERP_FUNDING_CARRY_AND_SPOT_PERP_BASIS_XSEC_TS_STAT_ARB
   status: completed_not_tradable
@@ -620,7 +628,7 @@ campaign298:
       sha256: f064d9315d2bc69a2da0bb5037e820b8e16d403a64ad69c097ed320ae83c86cf
     meta:
       path: data/cache/campaign298_multianual_perp_funding_basis.meta.json
-      sha256: f064d9315d2bc69a2da0bb5037e820b8e16d403a64ad69c097ed320ae83c86cf
+      sha256: 142218bbd7a178dcc37a47651ef4d46e2a8274c78065f74546a5ddbc98276133
     provenance:
       path: data/cache/campaign298_multianual_perp_funding_basis.provenance.json
       sha256: 283156172f712214ebd08924e600b643e9fee46db54c0c186a58b560a5bcb344
