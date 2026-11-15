@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T04:26:56Z — **NEXT SESSION (MANDATORY, HEAVY): EXECUTE C306 end-to-end — COIN-M inverse quarterly-futures term-structure / calendar-basis carry. Path A is reachable/proven; do NOT do status/planning-only work and do NOT re-probe.**
+**Handoff refreshed:** 2026-11-15T04:28:15Z — **NEXT SESSION (MANDATORY, HEAVY): EXECUTE C306 end-to-end — COIN-M inverse quarterly-futures term-structure / calendar-basis carry. Path A is reachable/proven; do NOT do status/planning-only work and do NOT re-probe.**
 
 **State (settled):** C281B–C304 COMPLETE/FROZEN formal negatives (0 costed-OOS edge). C305 Path B closure COMPLETE for the USDT-M/spot/options space only (closure `reports/program_closure_final_20261115T032416Z.json` SHA256 `b522fe93…262df`, integrity audit `reports/program_closure_integrity_audit_20261115T032416Z.json` SHA256 `5a58e580…f4e2`, 0 mismatches / 206 refs). C305's exhaustion probe never swept `futures/cm`; C306 probe reopens Path A — **COIN-M inverse futures are reachable and this is a genuinely-new family**. C287 BLOCKED/DECOUPLED external-only (451/403/no creds) — not economic work. `latest_campaign_done: C305`.
 
@@ -32,7 +32,7 @@
 
 **Bottlenecks removed (do NOT re-litigate):** (1) C305 probe scope-limited to `futures/um`+`spot` (never `futures/cm`) — resolved by C306 probe. (2) Archive host flaky — every download MUST retry with backoff (6 attempts, linear 1 s×k); lone 404/5xx retryable. (3) Recent monthly archives may carry CSV header `open_time` — skip rows whose first field is non-numeric. (4) `pytest-asyncio` present (1.5.0); if missing treat as Step 0 bootstrap. (5) Caches < 100 MB (assert). (6) C287 external-only (451/no creds) — decoupled, never retry as economic work.
 
-## INITIAL TASK MESSAGE (2026-11-15T04:26:56Z) — EXECUTE C306: COIN-M INVERSE QUARTERLY-FUTURES TERM-STRUCTURE / CALENDAR-BASIS CARRY (HEAVY, MANDATORY, UNAVOIDABLE)
+## INITIAL TASK MESSAGE (2026-11-15T04:28:15Z) — EXECUTE C306: COIN-M INVERSE QUARTERLY-FUTURES TERM-STRUCTURE / CALENDAR-BASIS CARRY (HEAVY, MANDATORY, UNAVOIDABLE)
 
 **NEXT SESSION ACTION (non-optional):** immediately run Step 0 bootstrap, then implement+execute C306 end-to-end (ingest → preflight `ready:true` → ≥400-run costed-OOS runner → 5 SHA256 artifacts → tests → full suite green/0 new failures → sync). Produce ≥1 of: real-data ingest, costed-OOS run, passing test, or artifact update.
 
