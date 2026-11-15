@@ -1,25 +1,25 @@
-updated_at_utc: 20261115T185059Z
-handoff_refreshed_at_utc: 20261115T185059Z
+updated_at_utc: 20261115T203209Z
+handoff_refreshed_at_utc: 20261115T203209Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T18:50:00Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY. C312 COMPLETE (RETRACTED, 20261115T174346Z, 0/504 Holm+BH, binding multiple_testing). C311, C310, C306-C309, C281B-C305 frozen formal negatives. C287 blocked/decoupled. BOTTLENECK REMOVED: prior handoff pointed C313 at data/coin-m/quarterly_klines/ (404, nonexistent); REAL path verified live 2026-11-15T18:49Z is data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip (all 11 COIN-M inverse perps HTTP 200 @2024-06; quarterly e.g. BTCUSD_240628-1h-2023-12.zip present). Execute C313: 11 COIN-M inverse perps x {front quarterly, next quarterly, perp}, 1h klines, 2022-07..2026-06, 504+ pre-registered configs, Holm+BH BOTH at alpha=0.05, costed OOS on real data. Do not rerun/re-skin frozen campaigns. Economic progress = costed OOS PnL on real provable data.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T20:32:09Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY (HEAVY EXECUTION, NO DEFERRAL). C312 COMPLETE (RETRACTED, 20261115T174346Z, 0/504 Holm+BH, binding multiple_testing). C311, C310, C306-C309, C281B-C305 frozen formal negatives. C287 blocked/decoupled. REAL path enforced: data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip (data/coin-m/ 404, never probe). C313 on-disk 2026-11-15T20:32Z: scripts ingest/preflight/runner + tests/test_preflight_c313.py present; tests/test_c313_coinm_quarterly_carry_oos.py MISSING; cache PARTIAL 8 npz shards (ADAUSD,BNBUSD,BTCUSD,DOTUSD,ETHUSD,LTCUSD,SOLUSD,XRPUSD) ~4MB + months_manifest.json {"assembled":[...],"months":{}} + meta/provenance 20261115T195558Z (excluded DOGEUSD/MATICUSD/AVAXUSD no_quarterly_contracts_listed; some windows truncated e.g. ADAUSD ends 2025-06-27), preflight NOT verified, no reports/campaign313_*. Next session MUST: bootstrap, resume/complete ingest to spec-compliant bounded <100MB cache, run preflight to green, run >=504 pre-registered configs costed OOS Holm+BH alpha=0.05 (both required), emit 5 artifacts + gitignored full.json with SHA256, add/pass tests/test_c313_coinm_quarterly_carry_oos.py, sync handoff with final verdict or formal negative + next genuinely-new reachable family. No rerun/re-skin frozen campaigns; no infra-only output; economic progress = costed OOS PnL on real provable data.'
 
 next_campaign: C313
 coin_m_inverse_futures_space: C313_ACTIVE
 latest_campaign_done: C312
 c313_status:
-  state: ACTIVE_SCRIPTS_READY_CACHE_MISSING
-  as_of_utc: 20261115T193214Z
+  state: ACTIVE_INGEST_PARTIAL_PREFLIGHT_UNVERIFIED_RUNNER_PENDING
+  as_of_utc: 20261115T203209Z
   edge_proven: false
   edge_claim: NONE
   scripts_ready: true
   tests_ready: false
   cache_ready: false
   heavy_work_required: true
-  on_disk_evidence: 'scripts/ingest_c313_coinm_quarterly_carry.py, scripts/preflight_c313.py, scripts/run_c313_coinm_quarterly_carry_oos.py present (uncommitted, on-disk only); no tests/test_c313* or tests/test_preflight_c313*; no data/cache/campaign313*; no reports/campaign313_* yet. Next: preflight reachability -> ingest (resumable) -> preflight -> runner -> tests.'
+  on_disk_evidence: 'scripts/ingest_c313_coinm_quarterly_carry.py, scripts/preflight_c313.py, scripts/run_c313_coinm_quarterly_carry_oos.py present (uncommitted). tests/test_preflight_c313.py present; tests/test_c313_coinm_quarterly_carry_oos.py MISSING. data/cache/campaign313_coinm_quarterly_carry/ has 8 npz shards (ADAUSD,BNBUSD,BTCUSD,DOTUSD,ETHUSD,LTCUSD,SOLUSD,XRPUSD) + months_manifest.json {"assembled":[ADAUSD,BNBUSD,BTCUSD,DOTUSD,ETHUSD,LTCUSD,SOLUSD,XRPUSD],"months":{}} + meta/provenance 20261115T195558Z (~4MB total). Excluded bases: DOGEUSD,MATICUSD,AVAXUSD (no_quarterly_contracts_listed). Some bars/windows truncated (e.g. ADAUSD ends 2025-06-27). No reports/campaign313_* artifacts. Next: resume/complete ingest to spec-compliant coverage, preflight green, runner >=504 configs Holm+BH, emit 5 artifacts+full.json, add/pass runner tests.'
   data_path: https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip  (HTTP 200 verified for all 11 COIN-M inverse perps @2024-06; data/coin-m/ 404, do not probe)
-  universe: "BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD x {front quarterly, next quarterly, _PERP} = 33 instruments"
+  universe: "BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD x {front quarterly, next quarterly, _PERP} = 33 instruments (ingested 8 bases; 3 excluded by source)"
   window: 2022-07..2026-06
   interval: 1h native
   cache_limit_mb: 100
