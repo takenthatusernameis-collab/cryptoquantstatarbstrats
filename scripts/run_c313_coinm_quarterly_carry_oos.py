@@ -199,19 +199,19 @@ def tercile_positions(score: np.ndarray, cut: float, gate_mask: np.ndarray) -> n
     order = np.argsort(-sort_val, axis=0)
     rank = np.argsort(order, axis=0).astype(float)
     rank[~finite] = np.inf
-    n_f = n_finite.astype(float)[None, :]
+    n_f = n_finite.astype(float)
     n_long = np.maximum(1, np.floor(n_f * cut).astype(int))
     n_short = np.maximum(1, np.floor(n_f * cut).astype(int))
     long_mask = (rank < n_long[None, :]) & finite & enough[None, :]
-    short_mask = (rank >= (n_f - n_short)[None, :]) & finite & enough[None, :]
+    short_mask = (rank >= (n_f[None, :] - n_short[None, :])) & finite & enough[None, :]
     desired = np.zeros((n_assets, n_bars), dtype=float)
-    desired[long_mask] = 0.5 / np.maximum(n_long, 1)[None, :]
-    desired[short_mask] = -0.5 / np.maximum(n_short, 1)[None, :]
+    long_weights = 0.5 / np.maximum(n_long, 1)
+    short_weights = -0.5 / np.maximum(n_short, 1)
+    for t in range(n_bars):
+        if enough[t]:
+            desired[long_mask[:, t], t] = long_weights[t]
+            desired[short_mask[:, t], t] = short_weights[t]
     desired = desired * gate_mask[None, :]
-    pos = np.zeros((n_assets, n_bars), dtype=float)
-    if n_bars > 1:
-        seg_start = (np.arange(n_bars) // 1) * 1  # placeholder; H applied by caller
-    # caller applies hold H via segment sampling
     pos = np.where(np.isfinite(desired), desired, 0.0)
     return pos
 

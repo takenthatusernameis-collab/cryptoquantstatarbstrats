@@ -1,0 +1,23 @@
+{
+  "generated_at_utc": "20261115T204155Z",
+  "campaign": 313,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign313_oos_sweep_20261115T204155Z.json",
+  "oos_sweep_sha256": "e044130165da35ecc5f1b8c1f5e381a966e362449a405c4079cf3197ce2822c0",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "n_edge": 0,
+  "edge_explained_by_carry_vs_convexity": false,
+  "aggregate_carry_share": 0.0,
+  "aggregate_conv_share": 0.0,
+  "diagnosis": "C313 COIN-M inverse quarterly term-structure carry does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

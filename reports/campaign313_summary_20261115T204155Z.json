@@ -1,0 +1,247 @@
+{
+  "generated_at_utc": "20261115T204155Z",
+  "campaign": 313,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSD",
+      "BNBUSD",
+      "BTCUSD",
+      "DOTUSD",
+      "ETHUSD",
+      "LTCUSD",
+      "SOLUSD",
+      "XRPUSD"
+    ],
+    "n_assets": 8,
+    "grid_basis": "union_of_per_asset_valid_1h_bars",
+    "min_xsec_required": 4,
+    "per_asset_coverage": {
+      "ADAUSD": {
+        "n_bars": 26115,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2025-06-27 07:00:00+00:00",
+        "coverage_frac": 0.7993816768190027
+      },
+      "BNBUSD": {
+        "n_bars": 32666,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2026-03-27 07:00:00+00:00",
+        "coverage_frac": 0.9999081698246044
+      },
+      "BTCUSD": {
+        "n_bars": 32669,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2026-03-27 07:00:00+00:00",
+        "coverage_frac": 1.0
+      },
+      "DOTUSD": {
+        "n_bars": 26114,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2025-06-27 07:00:00+00:00",
+        "coverage_frac": 0.7993510667605375
+      },
+      "ETHUSD": {
+        "n_bars": 32668,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2026-03-27 07:00:00+00:00",
+        "coverage_frac": 0.9999693899415348
+      },
+      "LTCUSD": {
+        "n_bars": 26114,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2025-06-27 07:00:00+00:00",
+        "coverage_frac": 0.7993510667605375
+      },
+      "SOLUSD": {
+        "n_bars": 14154,
+        "start_utc": "2024-08-14 12:00:00+00:00",
+        "end_utc": "2026-03-27 07:00:00+00:00",
+        "coverage_frac": 0.43325476751660597
+      },
+      "XRPUSD": {
+        "n_bars": 32659,
+        "start_utc": "2022-07-01 00:00:00+00:00",
+        "end_utc": "2026-03-27 07:00:00+00:00",
+        "coverage_frac": 0.9996938994153479
+      }
+    },
+    "common_grid_bars": 32669,
+    "common_grid_start_utc": "2022-07-01 00:00:00+00:00",
+    "common_grid_end_utc": "2026-03-27 07:00:00+00:00",
+    "n_splits": 11
+  },
+  "config": {
+    "walk_forward": {
+      "train_hours": 8760,
+      "test_hours": 2160,
+      "step_hours": 2160
+    },
+    "cost_grid_fee_bps": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "cost_grid_slippage_bps": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "tercile_cuts": [
+      0.33,
+      0.4
+    ],
+    "cost_model_variants": [
+      "taker",
+      "maker"
+    ],
+    "lookbacks_1h": [
+      168,
+      720,
+      2160,
+      4320,
+      8760
+    ],
+    "rebalances_1h": [
+      1,
+      4,
+      24
+    ],
+    "signals": [
+      "basis_z"
+    ],
+    "total_runs": 960,
+    "n_trials_expected": 960,
+    "min_periods_rule": "max(20, L // 3)",
+    "pnl_rule": "inverse: pnl_coin = notional*(1/entry-1/exit)*signed_weight",
+    "cost_rule": "3 legs x (fee+slippage) bps per leg; 3 legs per trade -> costs x3"
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 11,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "stable_first_half": 0,
+      "stable_second_half": 0,
+      "n_edge": 0
+    },
+    "attribution": {
+      "aggregate_carry_share": 0.0,
+      "aggregate_conv_share": 0.0,
+      "edge_explained_by_carry_vs_convexity": false
+    }
+  },
+  "aggregate_attribution": {
+    "linear_contrib_total": 0.0,
+    "conv_contrib_total": 0.0,
+    "per_asset": {
+      "ADAUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "BNBUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "BTCUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "DOTUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "ETHUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "LTCUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "SOLUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      },
+      "XRPUSD": {
+        "linear_contrib": 0.0,
+        "conv_contrib": 0.0,
+        "total_contrib": 0.0,
+        "share_of_edge": 0.0,
+        "n_configs_positive": 0,
+        "n_configs": 0
+      }
+    },
+    "grand_total": 0.0
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign313_oos_sweep_20261115T204155Z.json",
+      "sha256": "e044130165da35ecc5f1b8c1f5e381a966e362449a405c4079cf3197ce2822c0"
+    },
+    "registry": {
+      "path": "reports/campaign313_tradable_edge_registry_20261115T204155Z.json",
+      "sha256": "f90ea446fc57be23814f6220248e885d8dc5d9d47d52c989987fb4c56822ad35"
+    }
+  },
+  "summary": {
+    "n_total_runs": 960,
+    "n_with_exposure": 960,
+    "n_zero_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

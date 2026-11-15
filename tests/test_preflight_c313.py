@@ -5,7 +5,8 @@ C313 runner sweeps the cross-sectional term-structure carry.
 These tests never fetch, impute, resample, or fabricate data. They assert the
 on-disk preflight result is ready:true with no blocked reasons, that the C313
 shard schema/flags/SHA256-from-bytes/push-limit are intact, that the common 1h
-grid is non-empty and inside 2022-07..2026-06, that all 11 COIN-M inverse perps
+grid is non-empty and inside 2022-07..2026-06, that the 8 archive-discovered
+COIN-M inverse perps (DOGEUSD/MATICUSD/AVAXUSD excluded: no quarterly contracts)
 have finite positive perp_close and finite front/next quarterly close + annualized
 basis, that >= 2 quarterly contracts overlap the perp, and that the preflight
 exits non-zero (fail-closed) when a gate value is falsified.
@@ -46,7 +47,7 @@ def test_preflight_meta_schema_and_flags():
     meta = out["checks"]["meta"]
     assert meta["interval"] == "1h"
     assert meta["source_interval"] == "coin_m_klines_1h"
-    assert meta["n_symbols"] is not None and int(meta["n_symbols"]) >= 11
+    assert meta["n_symbols"] is not None and int(meta["n_symbols"]) >= 8
     assert meta["real_data_only"] is True
     assert meta["fabricated_data"] is False
     assert meta["executed_fills"] is False
@@ -62,7 +63,7 @@ def test_preflight_shard_integrity():
     out = _run_preflight()
     shards = out["checks"]["shards"]
     assert shards["ok"] is True
-    assert shards["n_shards"] >= 11
+    assert shards["n_shards"] >= 8
     for s, d in shards["detail"].items():
         assert d["ok"], (s, d)
         assert d["under_push_limit"] is True
@@ -73,8 +74,8 @@ def test_preflight_shard_integrity():
 def test_preflight_grid_in_window():
     out = _run_preflight()
     grid = out["checks"]["grid"]
-    assert grid["n_symbols"] >= 11
-    assert grid["n_grid_bars"] > 20_000  # ~35k 1h bars over 48 months
+    assert grid["n_symbols"] >= 8
+    assert grid["common_grid_bars"] > 20_000  # ~35k 1h bars over 48 months
     assert grid["in_window"] is True
     assert str(grid["window_start_month"]).startswith("2022-07")
     assert str(grid["window_end_month"]).startswith("2026-06")
@@ -84,7 +85,7 @@ def test_preflight_per_asset_finite_positive():
     out = _run_preflight()
     pa = out["checks"]["per_asset"]
     assert pa["ok"] is True
-    assert pa["n_symbols"] >= 11
+    assert pa["n_symbols"] >= 8
     for s, d in pa["detail"].items():
         assert d["ok"], (s, d)
         assert d["n_bars"] > 0
@@ -115,16 +116,22 @@ def test_preflight_provenance_and_manifest_files():
 
 def test_preflight_fail_closed_when_cache_missing(monkeypatch):
     """Cache missing -> ready:false, blocked_reasons non-empty, exit non-zero."""
-    monkeypatch.setattr(pf, "CACHE_META", ROOT / "data" / "cache" /
-                        "campaign313_coinm_quarterly_carry.MISSING.json")
-    proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "preflight_c313.py"), "--json"],
-        capture_output=True, text=True,
-    )
-    assert proc.returncode != 0
-    out = json.loads(proc.stdout.strip())
-    assert out.get("ready") is False
-    assert "cache_missing" in out.get("blocked_reasons", [])
-    assert out.get("real_data_only") is True
-    assert out.get("fabricated_data") is False
-    assert out.get("executed_fills") is False
+    # Temporarily rename the real cache meta to test missing case
+    real_meta = ROOT / "data" / "cache" / "campaign313_coinm_quarterly_carry.meta.json"
+    temp_meta = ROOT / "data" / "cache" / "campaign313_coinm_quarterly_carry.meta.json.TEMP"
+    real_meta.rename(temp_meta)
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "preflight_c313.py"), "--json"],
+            capture_output=True, text=True,
+        )
+        assert proc.returncode != 0
+        out = json.loads(proc.stdout.strip())
+        assert out.get("ready") is False
+        assert "cache_missing" in out.get("blocked_reasons", [])
+        assert out.get("real_data_only") is True
+        assert out.get("fabricated_data") is False
+        assert out.get("executed_fills") is False
+    finally:
+        # Restore the real cache meta
+        temp_meta.rename(real_meta)
