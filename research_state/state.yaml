@@ -1,9 +1,9 @@
-updated_at_utc: 20261115T031049Z
+updated_at_utc: 20261115T031346Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'FINISH C305: FORMAL PROGRAM CLOSURE (PATH B) — handoff refreshed 2026-11-15T03:10:49Z. HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C281B-C304 all COMPLETE formal negatives (0 costed-OOS edge, edge_claim:NONE, oos_edge_proven:false, frozen); C304 executed NOT_TRADABLE (0/432, cost_sensitivity) 20261115T023125Z. C287 externally BLOCKED/DECOUPLED (Binance testnet REST 451, fapi 451, bybit 403, no credentials) — do NOT retry as economic work. C305 reachability-exhaustion probe DONE this refresh (bottleneck removed): scripts/ingest_c305_program_closure.py (stdlib, retry, 75 rows), evidence reports/c305_reachability_probe_20261115T030618Z.json SHA256 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27, cache data/cache/campaign305_reachability_probe.json same SHA256, provenance data/cache/campaign305_reachability_probe.provenance.json SHA256 7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04, path_b_recommended:true, genuinely_new_reachable_families:[]. Re-skin traps (do NOT run as Path A): trades->C301 aggTrades/OFI (closed), klines_1h_daily->klines family (C298-C304); UNAVAILABLE 404: basis/continuousKlines_1h/bookTicker/bookDepth/metrics; directory listing inaccessible. REMAINING HEAVY WORK: (1) formal closure report reports/program_closure_final_<ts>.json(+.md); (2) zero-mismatch integrity audit reports/program_closure_integrity_audit_<ts>.json; (3) runner scripts/run_c305_program_closure_oos.py + scripts/preflight_c305.py + tests test_preflight_c305.py/test_c305_program_closure_oos.py (fail-closed if any campaign reference missing/mismatched); (4) sync AGENTS.md+state.yaml latest_campaign_done:C305, reachable_real_data_cross_sectional_stat_arb_space:CLOSED, probe evidence + closure report/audit paths+SHA256s. Step0 bootstrap scripts/bootstrap_dev_env.py; pytest-asyncio>=0.23 only if async unsupported. All artifacts real_data_only:true fabricated_data:false executed_fills:false.'
-next_campaign: c305_program_closure_reachability_exhaustion
+active_initial_task: 'COMPLETE C305 PATH B: FORMAL PROGRAM CLOSURE (HEAVY, MANDATORY, UNAVOIDABLE) — handoff refreshed 2026-11-15T03:13:46Z. No status-only/planning-only turn. C281B-C304 ALL COMPLETE/FROZEN formal negatives (0 costed-OOS edge, edge_claim:NONE, oos_edge_proven:false). C287 BLOCKED/DECOUPLED external-only (Binance testnet REST 451, fapi 451, bybit 403, no credentials) — do NOT retry. C305 reachability-exhaustion probe DONE (bottleneck removed): scripts/ingest_c305_program_closure.py, reports/c305_reachability_probe_20261115T030618Z.json SHA256 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27, cache data/cache/campaign305_reachability_probe.json same SHA256, provenance data/cache/campaign305_reachability_probe.provenance.json SHA256 7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04, path_b_recommended:true, genuinely_new_reachable_families:[]; re-skins forbidden (trades->C301 OFI, klines_1h_daily->C298-C304); unavailable 404 basis/continuousKlines_1h/bookTicker/bookDepth/metrics; directory listing inaccessible => NO Path A. REQUIRED NOW (all): (1) formal closure report reports/program_closure_final_<ts>.json(+.md) cross-referencing C281B-C304 negatives+C287 blocked+C305 probe, state reachable_real_data_cross_sectional_stat_arb_space:CLOSED, real_data_only:true,fabricated_data:false,executed_fills:false; (2) zero-mismatch integrity audit reports/program_closure_integrity_audit_<ts>.json verifying every campaign 5 artifacts+cache/meta/provenance SHA256+verdict and state fields vs on-disk bytes (fail-closed on any missing/stale/mismatch); (3) scripts/preflight_c305.py, scripts/run_c305_program_closure_oos.py, tests/test_preflight_c305.py, tests/test_c305_program_closure_oos.py — runner emits (1)+(2) and fails closed if any campaign reference missing/mismatched; keep tests/test_ingest_c305_program_closure.py passing; (4) Step0 bootstrap (scripts/bootstrap_dev_env.py; pytest-asyncio>=0.23 only if async unsupported), full pytest green (0 failed), sync AGENTS.md+state.yaml latest_campaign_done:C305 and record closure report+audit paths/SHA256s. Completion gate: probe evidence done, closure report+.md SHA256-from-bytes, audit 0 mismatches, preflight/runner/tests pass, suite green, state+handoff synced. No gate/cost/edge weakening, no fabricated data/fills, no rerun C281B-C304, no C287 retry, no HANDOFF.md.'
+next_campaign: c305_program_closure_path_b
 c305_reachability_probe:
   executed_this_refresh: true
   as_of_utc: 20261115T030618Z
@@ -2268,12 +2268,29 @@ handoff:
   - c285_must_use_volume_signal_not_price_only
 
 c305_status:
-  state: NOT_STARTED_next_campaign
-  as_of_utc: 20261115T024119Z
+  state: PATH_B_PROBE_DONE_CLOSURE_PENDING
+  as_of_utc: 20261115T031346Z
   family: program_closure_reachability_exhaustion
   reason: all_C281B_C304_complete_formal_negatives_zero_costed_OOS_edge; no_genuinely_new_reachable_family_confirmed; c287_externally_blocked_decoupled
-  path_A_if_new_family_reachable: full stat-arb campaign ingest->preflight->costed-OOS runner >=400 runs->tests->artifacts->sync
-  path_B_if_no_new_family: formal program closure report + integrity audit zero mismatches; latest_campaign_done:C305; reachable_real_data_cross_sectional_stat_arb_space:CLOSED
+  probe:
+    executed: true
+    report: reports/c305_reachability_probe_20261115T030618Z.json
+    report_sha256: 3a395393d08170976b95022e746fd890076bc6e3cdbada7e917019d402ef1c27
+    cache: data/cache/campaign305_reachability_probe.json
+    provenance: data/cache/campaign305_reachability_probe.provenance.json
+    provenance_sha256: 7099d5bf39242f9a5513fed841adaa50779d23fb4a6cf153a65de2389beb8a04
+    path_b_recommended: true
+    genuinely_new_reachable_families: []
+  path_A_if_new_family_reachable: not_applicable_no_new_reachable_family
+  path_B_required_now:
+    - reports/program_closure_final_<ts>.json (+ .md)
+    - reports/program_closure_integrity_audit_<ts>.json (zero mismatches, fail-closed)
+    - scripts/preflight_c305.py
+    - scripts/run_c305_program_closure_oos.py
+    - tests/test_preflight_c305.py
+    - tests/test_c305_program_closure_oos.py
+    - full_pytest_green_0_failed
+    - sync latest_campaign_done:C305 reachable_real_data_cross_sectional_stat_arb_space:CLOSED
   mandatory_script_names:
     - scripts/ingest_c305_program_closure.py
     - scripts/preflight_c305.py
