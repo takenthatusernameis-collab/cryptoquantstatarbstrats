@@ -1,10 +1,12 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T18:45:47Z — **C312 COMPLETE (formal negative, RETRACTED, 20261115T174346Z).** C311 remains a COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). `latest_campaign_done: C312`; `active_campaign: C313`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)** (re-run required after C312). Economic progress = **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
+**Handoff refreshed:** 2026-11-15T18:50:00Z — **C312 COMPLETE (formal negative, RETRACTED, 20261115T174346Z).** C311 remains a COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated). `latest_campaign_done: C312`; `active_campaign: C313`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)** (re-run required after C312). Economic progress = **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
 
-**BOTTLENECK REMOVAL ENFORCEMENT (2026-11-15T18:45:47Z — MANDATORY FOR ALL FUTURE SESSIONS):**
+**BOTTLENECK REMOVAL ENFORCEMENT (2026-11-15T18:50:00Z — MANDATORY FOR ALL FUTURE SESSIONS):**
+- **THE BLOCKING BUG IS FIXED (verified live 2026-11-15T18:49Z).** Prior handoffs pointed C313 at `data.binance.vision/data/coin-m/quarterly_klines/...` — that path is **404** and made C313 unstartable. The REAL path is `data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip` (HTTP 200 verified for all 11 COIN-M inverse perps @2024-06; quarterly e.g. `BTCUSD_240628-1h-2023-12.zip` confirmed present). `data/coin-m/` does NOT exist in the bucket (only `data/{futures,option,spot}/`). Use the `data/futures/cm/` layout verbatim — do NOT re-derive the path; do NOT probe `data/coin-m/` again.
 - C313 is the ONLY authorized campaign. C281B–C312/C287 are FROZEN/BLOCKED — any attempt to rerun, re-skin, re-probe, or pivot to them is a HARD VIOLATION.
-- Quarterly klines reachability MUST be verified via HTTP HEAD/GET probes BEFORE any ingest code runs. No blind downloads. No "try and see." ≥80% symbol-month pairs must return HTTP 200; 404 = exclude contract-month (pre-listing), document in provenance.
+- Quarterly contract naming is `<SYM>YYMMDD` (e.g. `BTCUSD_240628`); perp is `<SYM>_PERP`. 1h zips begin ~3 months before expiry (e.g. `BTCUSD_240628-1h-2023-12.zip` exists). Pre-listing months 404 → exclude, document in provenance.
+- Reachability gate uses the CORRECTED path above. ≥80% of (symbol, contract, month) pairs must return HTTP 200; 404 = exclude that contract-month (pre-listing), NOT an outage.
 - Ingest MUST be resumable per (symbol, contract, month) via `months_manifest.json` — survive session boundaries, no restart-from-zero.
 - Cache MUST stay <100 MB total. Per-asset `.npz` shards only. Assert on write.
 - Runner MUST emit bounded sweep (<100 MB slim JSON) + full.json (gitignored). Per-split series DROPPED from slim artifact.
@@ -17,7 +19,7 @@
 - TESTS MUST PASS — new code adds tests; CI green before campaign complete.
 - SINGLE HANDOFF — update only `AGENTS.md` and `research_state/state.yaml`; do NOT create `HANDOFF.md`.
 
-**C312 on-disk state (verified 2026-11-15T17:43:46Z):**
+**C312 on-disk state (verified 2026-11-15T18:50Z):**
 - Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` with 10 symbol `.npz` shards + `data/cache/campaign312_usdt_m_ofi_5m.meta.json` + `data/cache/campaign312_usdt_m_ofi_5m.provenance.json` + `months_manifest.json` (`assembled` for all 10, `months` empty, `data/cache/campaign312_usdt_m_ofi_5m/months/` empty). Meta: 10 USDT-M perps, 2023-01..2025-12, 315,648 5m grid bars, 3,156,480 total bars, total shard bytes 67,629,110 (~65 MB, <100 MB), `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, resumable scheme recorded.
 - Scripts present: `scripts/ingest_c312_usdt_m_ofi_5m.py`, `scripts/preflight_c312.py`, `scripts/run_c312_usdt_m_ofi_xsec_5m_oos.py`.
 - Tests present: `tests/test_preflight_c312.py`, `tests/test_c312_usdt_m_ofi_xsec_5m_oos.py` (21 passed).
@@ -26,24 +28,31 @@
 
 **Bottlenecks removed / guardrails:** reachability verified (USDT-M `aggTrades` + 5m `klines` HTTP 206; pre-listing 404 = exclude). Scope bounded (10 symbols × 2023-01..2025-12, cache <100 MB). Funding unreachable in-env (fapi 451 / not in archives) → `funding_rate` NaN control-only (must not block). Runner emits **bounded** sweep (<100 MB) and keeps `*.full.json` gitignored. C287 external/decoupled (451/no creds) — never retry as economic work. C281B–C312 frozen — do not rerun/re-skin/re-probe.
 
-**NEXT SESSION TURN CONTRACT (hard, 2026-11-15T18:45:47Z):** Active campaign **C313** (COIN-M inverse quarterly term-structure carry) is the only authorized work. C313 MUST execute a genuinely-new reachable family with costed OOS validation on real data. Do not rerun/re-skin frozen C281B–C312/C287. Do not produce infra/status-only output. Economic progress = costed out-of-sample PnL on real, provable data.
+**NEXT SESSION TURN CONTRACT (hard, 2026-11-15T18:50:00Z):** Active campaign **C313** (COIN-M inverse quarterly term-structure carry) is the only authorized work. C313 MUST execute a genuinely-new reachable family with costed OOS validation on real data. Do not rerun/re-skin frozen C281B–C312/C287. Do not produce infra/status-only output. Economic progress = costed out-of-sample PnL on real, provable data.
 
-## INITIAL TASK MESSAGE (2026-11-15T18:45:47Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY
+## INITIAL TASK MESSAGE (2026-11-15T18:50:00Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY
 
-**NEXT SESSION ACTION:** Execute **Campaign 313 (C313)** — COIN-M inverse quarterly term-structure carry across the 11 COIN-M inverse perps (BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD) using front quarterly, next quarterly, and perpetual contracts. This is a **statistical arbitrage** strategy (long cheap / short rich via annualized basis) — the repository's namesake priority.
+**NEXT SESSION ACTION:** Execute **Campaign 313 (C313)** — COIN-M inverse quarterly term-structure carry across the 11 COIN-M inverse perps (BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD) using front quarterly, next quarterly, and perpetual contracts. This is a **statistical arbitrage** strategy (long cheap / short rich via annualized basis) — the repository's namesake priority. All 11 perps confirmed HTTP 200 @2024-06 on the corrected path; quarterly contracts confirmed present.
 
 ### C313 CAMPAIGN SPECIFICATION (non-negotiable, heavy-work forcing)
 
-**Objective:** Prove or retract costed out-of-sample edge for cross-sectional term-structure carry on COIN-M inverse quarterlies + perp, 2022-07..2026-06 (reuses C311/C306/C307 perp cache; quarterly klines require fresh reachability probe).
+**Objective:** Prove or retract costed out-of-sample edge for cross-sectional term-structure carry on COIN-M inverse quarterlies + perp, 2022-07..2026-06.
+
+**CORRECTED DATA PATH (verified live 2026-11-15T18:49Z — use verbatim):**
+- COIN-M klines live at: `https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip`
+- Perp symbol: `<BASE>USD_PERP` (e.g. `BTCUSD_PERP`). Quarterly symbol: `<BASE>USD_<YYMMDD>` (e.g. `BTCUSD_240628`).
+- `data/coin-m/` and `data.binance.vision/data/coin-m/quarterly_klines/` DO NOT EXIST (404) — prior handoff was wrong; do not probe them again.
+- Bucket root listing: `https://s3-ap-northeast-1.amazonaws.com/data.binance.vision?delimiter=/&prefix=data/futures/cm/monthly/klines/<SYMBOL>/` (XML).
+- aggTrades (if needed for microstructure): `https://data.binance.vision/data/futures/cm/monthly/aggTrades/<SYMBOL>/<SYMBOL>-aggTrades-<YYYY-MM>.zip`.
 
 **Scope (bounded, <100 MB cache):**
 - 11 COIN-M inverse perps × 3 tenors (front quarterly, next quarterly, perp) = 33 instruments
-- Native 1h klines (reuses C310 1h aggregation logic; 5m if reachable without cache blowout)
+- Native 1h klines (reuse C310 1h aggregation logic; 5m only if reachable without cache blowout — 1h is the default)
 - Window: 2022-07..2026-06 (48 months, aligns with C311 COIN-M window)
 - Cache target: <100 MB total (per-asset `.npz` shards)
 
-**Reachability Gate (MUST pass before any ingest):**
-- Probe `data.binance.vision` for COIN-M quarterly `klines` (1h) for all 11 symbols × front/next quarterly contracts
+**Reachability Gate (MUST pass before any ingest — corrected path):**
+- Probe `https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip` for all 11 perps × front/next quarterly contracts
 - HTTP 200 required for ≥80% of symbol-month pairs; 404 = exclude that contract-month (pre-listing)
 - Document blocked routes in provenance; no fabricated data
 
@@ -80,7 +89,7 @@
 6. `reports/campaign313_binding_constraint_<TS>.json`
 
 **Tests (MUST add + pass):**
-- `tests/test_preflight_c313.py` (reachability, cache schema, manifest)
+- `tests/test_preflight_c313.py` (reachability against CORRECTED path, cache schema, manifest)
 - `tests/test_c313_coinm_quarterly_carry_oos.py` (runner, gates, artifact schema)
 - CI green before campaign complete
 
@@ -92,7 +101,7 @@
 - Tests green (new + existing suite)
 
 **Bottleneck Removal (enforced):**
-- Quarterly klines reachability verified BEFORE ingest (no blind downloads)
+- **CORRECTED DATA PATH verified live** (the prior blocker) — `data/futures/cm/monthly/klines/`; do not re-probe `data/coin-m/`.
 - Resumable ingest per (symbol, contract, month) — survive session boundaries
 - Bounded sweep emission (<100 MB) — drop per-split series in slim artifact
 - C287 remains BLOCKED/DECOUPLED — never retry, never let it preempt C313

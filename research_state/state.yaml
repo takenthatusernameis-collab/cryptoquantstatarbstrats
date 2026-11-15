@@ -1,12 +1,12 @@
-updated_at_utc: 20261115T181500Z
-handoff_refreshed_at_utc: 20261115T181500Z
+updated_at_utc: 20261115T185000Z
+handoff_refreshed_at_utc: 20261115T185000Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T18:15:00Z) — NO ACTIVE CAMPAIGN; COIN-M INVERSE FUTURES SPACE OPEN. C312 COMPLETE (RETRACTED, 20261115T174346Z, 0/504 Holm+BH, binding multiple_testing). C311, C310, C306-C309, C281B-C305 frozen formal negatives. C287 blocked/decoupled. Next campaign must be genuinely-new reachable family with costed OOS on real data. Do not rerun/re-skin frozen campaigns. Economic progress = costed OOS PnL on real provable data.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T18:50:00Z) — ACTIVE CAMPAIGN: C313 COIN-M INVERSE QUARTERLY TERM-STRUCTURE CARRY. C312 COMPLETE (RETRACTED, 20261115T174346Z, 0/504 Holm+BH, binding multiple_testing). C311, C310, C306-C309, C281B-C305 frozen formal negatives. C287 blocked/decoupled. BOTTLENECK REMOVED: prior handoff pointed C313 at data/coin-m/quarterly_klines/ (404, nonexistent); REAL path verified live 2026-11-15T18:49Z is data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip (all 11 COIN-M inverse perps HTTP 200 @2024-06; quarterly e.g. BTCUSD_240628-1h-2023-12.zip present). Execute C313: 11 COIN-M inverse perps x {front quarterly, next quarterly, perp}, 1h klines, 2022-07..2026-06, 504+ pre-registered configs, Holm+BH BOTH at alpha=0.05, costed OOS on real data. Do not rerun/re-skin frozen campaigns. Economic progress = costed OOS PnL on real provable data.'
 
-next_campaign: NONE
-coin_m_inverse_futures_space: OPEN
+next_campaign: C313
+coin_m_inverse_futures_space: C313_ACTIVE
 latest_campaign_done: C312
 oos_edge_proven: false
 edge_claim: NONE
