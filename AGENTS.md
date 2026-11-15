@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T07:08:19Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign. Bootstrap ready (2026-11-15T06:23Z, pytest 9.2.0, pytest-asyncio 1.5.0). Full suite 1439 passed / 2 skipped / 0 failed (491.12s, verified 2026-11-15T06:40:26Z). No competing handoff; C307 NOT STARTED (zero scripts, zero tests, zero artifacts, zero cache). ALL BOTTLENECKS REMOVED.**
+**Handoff refreshed:** 2026-11-15T07:09:51Z — **C306 EXECUTED → NOT_TRADABLE (FROZEN). `latest_campaign_done: C306`. C307 is the active mandatory heavy campaign (NOT STARTED: zero scripts/tests/artifacts/cache). Bootstrap ready (pytest 9.2.0, pytest-asyncio 1.5.0); full suite 1439 passed / 2 skipped / 0 failed (491.12s, 2026-11-15T06:40:26Z). `HANDOFF.md` absent. ALL BOTTLENECKS REMOVED — reachability/funding-window/ETHUSD/XLM/quarterly matrix verified, env green, templates on disk; next session must execute C307 end-to-end (≥400 costed-OOS runs, 5 SHA256 artifacts, tests+full-suite green, state synced). No planning-only or status-only turn is acceptable.**
 
 ## INITIAL TASK MESSAGE (2026-11-15T07:08:19Z) — EXECUTE C307: COIN-M INVERSE MULTI-ASSET TERM-STRUCTURE + CROSS-SECTIONAL FUNDING CARRY (HEAVY, MANDATORY, UNAVOIDABLE)
 
