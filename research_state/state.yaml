@@ -1,11 +1,11 @@
-updated_at_utc: 20261115T012244Z
+updated_at_utc: 20261115T012730Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
 active_initial_task: 'EXECUTE C304 CROSS-SECTIONAL MARK/INDEX BASIS STAT-ARB (handoff refreshed 2026-11-15T01:22:44Z): HEAVY WORK, NO STATUS-ONLY/PLANNING-ONLY TURNS. C304 FULL chain reachability re-verified AGAIN this refresh from this environment (68/68 endpoints HTTP 200: 20 assets markPriceKlines + 20 indexPriceKlines at 2020-01 AND 2026-10, plus 14/14 execution klines+fundingRate for the 7 non-C299 assets at 2020-01 AND 2026-10; C299 cache covers BTC/ETH/BCH); every deferral bottleneck removed. C303 executed NOT_TRADABLE (0/432 edge, binding cost_sensitivity) at 20261115T002648Z over the cross-sectional premiumIndexKlines carry family (10 real assets, 58,959-bar common grid, K in {2,3,5}); C302 executed NOT_TRADABLE (0/486 edge, binding mean_beats_benchmark_fail) at 20261114T215720Z; C281B-C301 all COMPLETE formal negatives (0 costed-OOS edge, frozen). The premium-index family is closed; its cross-sectional form (C303) is a COMPLETE formal negative that solved C298 zero_exposure (432/432 with exposure) but hit cost_sensitivity. ACTIVE NEXT = C304 cross-sectional markPriceKlines/indexPriceKlines basis stat-arb across the same 10 assets. MANDATORY SCRIPT NAMES (do not copy C303 names by mistake — the prior state.yaml line had that bug): ingest = scripts/ingest_c304_mark_index_basis_xsec.py; preflight = scripts/preflight_c304.py; runner = scripts/run_c304_mark_index_basis_xsec_oos.py; tests = tests/test_preflight_c304.py + tests/test_c304_mark_index_basis_xsec_oos.py; cache = data/cache/campaign304_mark_index_basis_xsec.pkl (+.meta.json,.provenance.json); artifacts = reports/campaign304_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json. Mandatory in one session: Step0 bootstrap (python scripts/bootstrap_dev_env.py; python -m pytest tests/ -q green 0 failed; install pytest-asyncio>=0.23 only if async tests fail, a bootstrap gap not a research result); ingest (download 10 assets markPriceKlines + indexPriceKlines 1h 2020-01..2026-10; build common intersection grid = timestamps in ALL 10 mark AND index archives, per-asset missing bars recorded NEVER imputed; basis = mark_close - index_close per asset; FETCH real perp 1h klines + native 8h funding for ALL 10 assets — C299 covers only BTC/ETH/BCH so fetch the other 7; ROBUST ingest: retry-with-backoff 6 attempts linear 1s*k on EVERY download and treat a lone 404/5xx as retryable because the archive host flip-flops 200<->404 under rapid sequential access and a single spurious 404 must NOT abort the session; skip any CSV row whose first field is non-numeric because recent months carry an open_time header row; compact ndarrays <100MB; SHA256-from-bytes; real_data_only:true fabricated_data:false executed_fills:false; assert <100MB before success); preflight_c304.py fail-closed (mirror preflight_c303.py exactly: meta flags/interval/window/host/SHA/size, per-asset mark/index/basis present-finite + NaN gaps never imputed, funding boundary/staleness <=24h+1bar, common-grid coverage >=2K for K in {2,3,5}, WF fit train=720/test=168/step=168, feature warmup min_periods=max(20,L//3), provenance); runner (>=400 runs: signals basis_level/basis_zscore/basis_momentum x lookbacks x K{2,3,5} x holds x gates, dollar-neutral long top-K/short bottom-K gross 1.0 shift(1), real funding cashflow -rate*signed_weight at each native 8h boundary, cost grid exactly [[0,0],[5,5],[10,10],[20,20],[40,40]] bps on turnover, benchmarks flat + equal-weight B&H-with-funding on same WF windows, edge rule identical to C285-C302 never relaxed); tests (mirror C303 tests: causal/no-lookahead, dollar-neutral top-K/bottom-K, NaN-gap flat, edge-rule re-derivation, artifact flags+SHA, no-edge-claimed); sync AGENTS.md + research_state/state.yaml with real paths + SHA256-from-bytes (no zeros, no nesting regression); re-verify pytest green. Completion gate fail-closed (do NOT report done unless ALL true): (a) ingest cache+meta+provenance with flags+SHA256-from-bytes; (b) preflight exits 0 ready:true on real data; (c) runner end-to-end not a smoke test with >=400 runs and all 5 timestamped artifacts freshly written; (d) new tests added and full suite 0 failed; (e) AGENTS.md + state.yaml synced with real paths + SHA256. If NOT_TRADABLE record the formal negative (binding constraint) and register the next genuinely-new reachable family (bookTicker quote-side basis, or cross-venue). Never claim a tradable edge without a passed costed-OOS rule. Never fabricate data/fills/credentials, weaken gates/costs/edge rule, relabel data, edit .github/workflows/main.yml, or create/read/edit HANDOFF.md. C287 (external execution) stays BLOCKED/decoupled and must not be retried as economic work.'
 next_campaign: c304_cross_sectional_mark_index_basis_stat_arb_10_real_assets_common_grid_k_2_3_5
 c304_reachability_verified:
-  as_of_utc: 20261115T011734Z
+  as_of_utc: 20261115T012730Z
   family: usdt_m_perp_mark_index_price_klines_cross_sectional
   assets: [BTCUSDT, ETHUSDT, XRPUSDT, ADAUSDT, LTCUSDT, BCHUSDT, LINKUSDT, TRXUSDT, ETCUSDT, XLMUSDT]
   source: https://data.binance.vision
@@ -17,6 +17,8 @@ c304_reachability_verified:
   execution_endpoints_ok: '14/14 HTTP 200 (klines + funding for the 7 non-C299 assets at 2026-10)'
   c299_execution_cache_assets: [BTCUSDT, ETHUSDT, BCHUSDT]
   basis_definition: 'mark close - index close'
+  archive_schema_reverified_this_timestamp: 'BTCUSDT markPriceKlines 2026-10 = 12 cols, header row starting open_time, 744 data bars, exactly 1 non-numeric first field = the header (skip any row whose first field is non-numeric)'
+  spot_probe_reverified_this_timestamp: '4/4 HTTP 200 (BTCUSDT/XRPUSDT markPriceKlines/indexPriceKlines/klines/fundingRate 2026-10)'
   archive_schema: '12-column kline CSV with header row starting open_time (skip non-numeric first field)'
   ingest_robustness: 'retry-with-backoff 6 attempts linear 1s*k; lone 404/5xx retryable; skip non-numeric first field'
   no_blockers: 'no data-family blocker, no execution-data blocker, no template blocker (C303 scripts/tests on disk), no bootstrap blocker (pytest-asyncio 1.5.0 present)'
@@ -145,7 +147,7 @@ c303_status:
 
 c304_status:
   state: ACTIVE_NOT_EXECUTED
-  as_of_utc: 20261115T012244Z
+  as_of_utc: 20261115T012730Z
   verdict: PENDING
   edge_proven: false
   n_total_runs: 0
@@ -155,7 +157,7 @@ c304_status:
   binding_constraint: null
   new_real_family: 'USDT-M perp markPriceKlines/indexPriceKlines basis cross-sectional stat-arb (native 1h, 2020-01..2026-10, 10 assets); basis = mark_close - index_close; long cheap basis / short rich basis dollar-neutral'
   reachability_verified:
-    as_of_utc: 20261115T012244Z
+    as_of_utc: 20261115T012730Z
     source: https://data.binance.vision
     mark_endpoint: /data/futures/um/monthly/markPriceKlines/<SYM>/1h/<SYM>-1h-YYYY-MM.zip
     index_endpoint: /data/futures/um/monthly/indexPriceKlines/<SYM>/1h/<SYM>-1h-YYYY-MM.zip
