@@ -1,5 +1,5 @@
-updated_at_utc: 20261115T185000Z
-handoff_refreshed_at_utc: 20261115T185000Z
+updated_at_utc: 20261115T185059Z
+handoff_refreshed_at_utc: 20261115T185059Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
@@ -8,6 +8,39 @@ active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T18:50:00Z) — ACTIVE CAM
 next_campaign: C313
 coin_m_inverse_futures_space: C313_ACTIVE
 latest_campaign_done: C312
+c313_status:
+  state: ACTIVE_NOT_STARTED
+  as_of_utc: 20261115T185059Z
+  edge_proven: false
+  edge_claim: NONE
+  scripts_ready: false
+  tests_ready: false
+  cache_ready: false
+  heavy_work_required: true
+  on_disk_evidence: 'no scripts/c313*, no tests/test_c313* or test_preflight_c313*, no data/cache/campaign313* exist; ingest/preflight/runner/tests and all 5 artifacts + full.json must be created'
+  data_path: https://data.binance.vision/data/futures/cm/monthly/klines/<SYMBOL>/1h/<SYMBOL>-1h-<YYYY-MM>.zip  (HTTP 200 verified for all 11 COIN-M inverse perps @2024-06; data/coin-m/ 404, do not probe)
+  universe: "BTCUSD, ETHUSD, BNBUSD, XRPUSD, ADAUSD, DOGEUSD, SOLUSD, MATICUSD, DOTUSD, AVAXUSD, LTCUSD x {front quarterly, next quarterly, _PERP} = 33 instruments"
+  window: 2022-07..2026-06
+  interval: 1h native
+  cache_limit_mb: 100
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+  min_pre_registered_configs: 504
+  multiple_testing: holm_bonferroni_and_bh_at_alpha_0_05_both_required
+  cost_model: "fee{1,5,10,20}+slippage{1,2,5,10} bps per leg, 3 legs per trade, costs x3"
+  wf: expanding train 12m -> test 3m, roll 3m, 16 splits over 48m
+  artifacts_required:
+  - reports/campaign313_oos_sweep_<TS>.json  (slim <100 MB, no per-split series)
+  - reports/campaign313_oos_sweep_<TS>.full.json  (gitignored full series)
+  - reports/campaign313_tradable_edge_registry_<TS>.json
+  - reports/campaign313_summary_<TS>.json
+  - reports/campaign313_verdict_<TS>.json
+  - reports/campaign313_binding_constraint_<TS>.json
+  tests_required:
+  - tests/test_preflight_c313.py
+  - tests/test_c313_coinm_quarterly_carry_oos.py
+  do_not: rerun/re-skin/re-probe frozen C281B-C312 or externally blocked C287; do not probe data/coin-m/; do not fabricate data; do not emit unbounded sweep
 oos_edge_proven: false
 edge_claim: NONE
 full_suite_last_verified:
