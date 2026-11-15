@@ -1,41 +1,50 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T12:35:56Z — **C310 COMPLETE formal negative (`20261115T111243Z`, RETRACTED, binding `multiple_testing`, convexity-dominated).** `latest_campaign_done: C310`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T11:14:00Z: 1528 passed / 2 skipped / 0 failed (375.60s). `HANDOFF.md` absent (do not create). Economic progress means **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
+**Handoff refreshed:** 2026-11-15T13:20:37Z — **C311 COMPLETE formal negative (`20261115T125846Z`, RETRACTED, binding `multiple_testing`, convexity-dominated).** `latest_campaign_done: C311`; `oos_edge_proven: false`; `edge_claim: NONE`. Full suite last verified 2026-11-15T13:27:00Z: **1550 passed / 2 skipped / 0 failed (390.81s)**. `HANDOFF.md` absent (do not create). Economic progress means **costed out-of-sample PnL on real, provable data**; infra/status-only turns are NOT progress.
 
-## INITIAL TASK MESSAGE (2026-11-15T12:35:56Z) — CAMPAIGN C311 RUNNER EXECUTION (mandatory heavy, NOT verification-only)
+## INITIAL TASK MESSAGE (2026-11-15T13:20:37Z) — CAMPAIGN C312: USDT-M LINEAR-PERP WIDE-UNIVERSE NATIVE-5m CROSS-SECTIONAL OFI CARRY (mandatory heavy, NOT verification-only)
 
-**NEXT SESSION ACTION:** Execute the C311 runner end-to-end over the real COIN-M aggTrades 5m grid and emit the 5 artifacts, then re-run the full suite green and sync AGENTS.md + `research_state/state.yaml`.
+**NEXT SESSION ACTION:** Build and run C312 end-to-end over real USDT-M `aggTrades`, emit 5 `reports/campaign312_*` artifacts + 2 tests, re-run the full suite green, and sync AGENTS.md + `research_state/state.yaml`. This is the pre-registered fallback family (USDT-M aggTrades OFI cross-section) and is the only remaining reachable, genuinely-new heavy economic family after C281B–C311.
 
-**State of C311 (verified on disk):**
-- Scripts exist: `scripts/ingest_c311_coinm_ofi_5m.py`, `scripts/preflight_c311.py`, `scripts/run_c311_coinm_ofi_xsec_5m_oos.py`
-- Tests exist: `tests/test_preflight_c311.py`, `tests/test_c311_coinm_ofi_xsec_5m_oos.py`
-- Ingest EXECUTED (`20261115T122009Z`): `data/cache/campaign311_coinm_ofi_5m/` has 11 per-persp float32 npz shards (~91.6 MB total, under the 100 MB GitHub blob limit) + `meta.json` + `provenance.json`, all `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. Window 2022-07..2026-06, BAR_MS=300000, 419,616 common-grid 5m bars, execution price from 5m klines close, native 8h funding from C307 1h `funding_rate_<SYM>` (control leg only). COIN-M `indexPriceKlines` is HTTP 404 — never used.
-- **NOT yet done:** `run_c311_coinm_ofi_xsec_5m_oos.py` has not been run — **no `reports/campaign311_*.json` exist yet.** This is the remaining heavy work.
+**Why this is genuinely new (not a re-skin):**
+- C301 used only **3 symbols (BTC/ETH/BCH) over a 2-month window (2023-01..2023-02)** — a tiny slice, not the wide universe.
+- C310 (1h) and C311 (5m) tested **COIN-M inverse-settlement** OFI carry; both were formal negatives dominated by **inverse-settlement convexity** (C310 OFI-carry share 0.088 vs convexity 0.912; C311 OFI-carry share 0.025 vs convexity 0.975).
+- **C312 removes the convexity confound entirely** by using **linear-settlement USDT-M perps**: PnL is exactly `notional * (exit/entry - 1) * signed_weight`, so any surviving edge is attributable to OFI carry, not to `1/entry - 1/exit` convexity. Hypothesis: does a costed OOS OFI carry edge exist on linear perps once convexity is removed?
 
-**Runner requirements (pre-registered 504 grid, report all):** 7 OFI signals {ofi_z, ofi_mom, buy_ratio, ofi_per_trade_z, ofi_sign_autocorr, trade_intensity_z, amihud_z} × 4 lookbacks {288,1008,2016,4032} 5m bars × K{2,3,5} × holds{1,6,24} × gates{off,on} = 504 runs. WF train720/test168/step168 (~2500 splits). Inverse PnL `pnl_coin = notional*(1/entry - 1/exit)*signed_weight`; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + COIN-M realistic overlay (taker5+maker2+mark slip1); native 8h funding excluded (control leg only).
+**Reachability VERIFIED this refresh (bottleneck removed):** USDT-M `aggTrades` `https://data.binance.vision/data/futures/um/monthly/aggTrades/{sym}/{sym}-aggTrades-YYYY-MM.zip` returns HTTP 206 (range) for 15 symbols at 2026-10 (BTC, ETH, SOL, BNB, XRP, DOGE, ADA, AVAX, LINK, LTC, BCH, DOT, TRX, ETC, XLM) and for BTC at 2020-01, 2021-06, 2023-06. `SOLUSDT 2020-08` is 404 (pre-listing) — expected, exclude pre-listing months.
 
-**Validate on ALL of:** (a) Holm AND BH over 504 (report how many survive BOTH); (b) DSR/MDE given the splits; (c) sub-period + per-year stability; (d) per-asset attribution over 11 perps; (e) inverse-convexity vs OFI-carry decomposition (linear-settlement shadow book); (f) execution-cost-realism overlay.
+**Build (Step 0 first):** `python scripts/bootstrap_dev_env.py`, then create:
+- `scripts/ingest_c312_usdt_m_ofi_5m.py` — BAR_MS=300000; stream per-month aggTrades (retry 6× linear backoff, lone 404/5xx retryable, skip CSV header row), per-bar legs {signed_volume, total_volume, trade_count, trade_sign_sum, notional, vwap}; execution price from USDT-M 5m klines close; native 8h funding control-only (never the carry source); per-asset float32 `.npz` shards, total cache **< 100 MB** (assert), + `meta.json` + `provenance.json`, all `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. Reuse the C311 ingest script as the template.
+- `scripts/preflight_c312.py` — fail-closed: shard SHAs match manifest, interval 5m, flags intact, common grid non-empty, every symbol finite positive close + finite OFI legs, gaps recorded never imputed.
+- `scripts/run_c312_usdt_m_ofi_xsec_5m_oos.py` — pre-registered **504 configs**: 7 signals {ofi_z, ofi_mom, buy_ratio, ofi_per_trade_z, ofi_sign_autocorr, trade_intensity_z, amihud_z} × 4 lookbacks {288,1008,2016,4032} 5m × K{2,3,5} × holds{1,6,24} × gates{off,on}. WF train720/test168/step168. **Linear** PnL `sum(pos*(close/close_prev - 1))*notional`; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + USDT-M realism overlay (taker 5 + slippage 1 = 6 bps one-way on turnover; maker 2 bps reported separately). **Emit a bounded oos_sweep (<100 MB)**: drop per-split series (`oos_net_mean_per_split`, `bh_oos_net_mean_per_split`), keep full on disk as `*.full.json` (gitignored). Copy the C311 runner as the template.
+- `tests/test_preflight_c312.py`, `tests/test_c312_usdt_m_ofi_xsec_5m_oos.py` (pure helpers + fail-closed cache + artifact flags + SHA256-from-bytes + edge-rule-never-relaxed + verdict/registry/summary consistency, mirroring the C311 tests).
 
-**Emit 5 fresh** `reports/campaign311_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json` SHA256-from-bytes, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. **FAIL-CLOSED:** if 0 survive Holm+BH OR any positive is explained by inverse convexity OR fails cost-realism → record a formal negative with binding constraint; do NOT claim tradability. Do not weaken edge rule/costs/gates; do not re-probe reachability; do not re-skin frozen C281B–C310. Full suite must be 0 failed; sync AGENTS.md + `research_state/state.yaml`.
+**Validate on ALL of:** (a) Holm AND BH over 504 (report how many survive BOTH); (b) DSR/MDE given the splits; (c) sub-period + per-year stability; (d) per-asset attribution over the universe; (e) OFI-carry vs equal-weight B&H decomposition (linear, no convexity term); (f) execution-cost-realism overlay.
 
-**Definition of done (hard gate):** 5 C311 artifacts on disk with the exact names above + the 3 scripts + 2 tests present, all 504 configs reported (including non-edge), and the full suite re-run green. Anything short is NOT completion.
+**Emit 5 fresh** `reports/campaign312_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json` SHA256-from-bytes, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`. **FAIL-CLOSED:** if 0 survive Holm+BH OR any positive fails cost-realism → record a formal negative with binding constraint; do NOT claim tradability. Do not weaken edge rule/costs/gates; do not re-probe C311; do not re-skin frozen C281B–C311.
 
-**Fallback gate:** USDT-M 24-perp aggTrades cross-sectional OFI carry is permitted ONLY after writing `reports/campaign311_5m_infeasibility_probe_<ts>.json` with per-symbol/per-month HTTP status + row counts + concrete blocking evidence (sustained 5xx/404 after 6 linear-backoff retries, or <80% grid-bar coverage), `real_data_only:true`, `fabricated_data:false`. Jumping to the fallback without that artifact is forbidden.
+**Definition of done (hard gate):** 5 C312 artifacts on disk with the exact names above + 3 scripts + 2 tests present, all 504 configs reported (including non-edge), and the full suite re-run green. Anything short is NOT completion.
 
-## Bottlenecks removed (do NOT re-litigate)
+## C311 (COMPLETE FORMAL NEGATIVE, FROZEN — do not rerun)
 
-1. C310 cache is **1h-aggregated only** (`BAR_MS = 3_600_000`; raw trades discarded per month; no raw zips retained) so it CANNOT be re-aggregated to 5m — C311 re-downloaded the COIN-M `aggTrades` window once (~6.2 GB, ~10 min streaming, 3 workers); ingest cache is now on disk. 5m klines (~335 KB/mo) fetched too.
-2. Archive host flaky — every download retries with backoff (6 attempts, linear 1 s×k); lone 404/5xx retryable.
-3. Recent monthly archives may carry CSV header `open_time`/`agg_trade_id` — detect header vs headerless.
-4. `signed_volume`/`trade_sign_sum` are legitimately signed (buy−sell) — never gate as non-negative.
-5. Caches < 100 MB (assert). C311 shards are per-asset npz (~8 MB each), total ~91.6 MB.
-6. C287 (testnet gateway: Binance testnet REST 451, fapi 451, bybit 403, no creds) — BLOCKED/DECOUPLED, external-only, never retry as economic work.
-7. COIN-M `indexPriceKlines`, `bookTicker`, `bookDepth`, `metrics`, `option/` — all HTTP 404 on data.binance.vision; never depend on them.
-8. COIN-M `fundingRate` HTTP 200 only 2022-07..2026-06 (native 8h). `XLMUSD_PERP` klines start 2021-04. Dated quarterlies only BTCUSD/ETHUSD/XRPUSD `*_261225`.
+Executed `20261115T125846Z` over the real COIN-M aggTrades **native 5m** ingest (`data/cache/campaign311_coinm_ofi_5m/`, 11 perps, 419,616 common-grid 5m bars, 2022-07..2026-06) → **RETRACTED**, `edge_proven:false`, `binding_constraint: multiple_testing`, convexity-dominated. Of 504 pre-registered configs, **17 deterministic edge, 0 survive Holm AND BH** (0 Holm, 0 BH, 0 both); 17 survive cost-realism but fail multiple-testing. MDE mean 0.107 bps vs observed −0.0126 bps/split; stability 17/17 first-half and second-half. Attribution: **OFI-carry share 0.025 vs inverse-convexity share 0.975** → `edge_explained_by_ofi_carry: false`. Artifacts `reports/campaign311_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261115T125846Z.json` exist; SHA256-from-bytes: sweep `238cb14418c080e8089f2ef222447674641d57e0089402f27bb426f18356a582`, registry `499985448b2dd34da62c9a785950e4168f5f8ce82bdd97d0ac0078b6167bb85e`, summary `515323c39a0cebb7383eb014084c49b2404f6319c1a743a46a628565da4868e9`, verdict `42b885a111f321ed770722e98cfdcb3652226cd65e9c31b8b15d105e1e2437c6`, binding `66f611172056433e78c66bb957e5c4a435b9771945406048cf592f634a06de6c`. The sweep was slimmed to ~1 MB (per-split series dropped; full 427 MB kept on disk as `reports/campaign311_oos_sweep_20261115T125846Z.full.json`, gitignored). C311 tests green (22/22).
 
 ## C310 (COMPLETE FORMAL NEGATIVE, FROZEN — do not rerun)
 
-Executed `20261115T111243Z` over a NEW real COIN-M aggTrades ingest → RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing`. Of 504 pre-registered configs, 30 deterministic edge, **0 survive Holm AND BH** over 504 (0 Holm, 0 BH, 0 both); 30 survive cost-realism overlay but fail multiple-testing. DSR/MDE: n_splits 203, `n_dsr_ge_0.95: 0`, MDE mean 1.166 bps vs observed -0.179 bps/split. Attribution: OFI-carry share 0.088 vs inverse-convexity share 0.912 → `edge_explained_by_ofi_carry: false`. Cache `data/cache/campaign310_coinm_aggtrades_ofi.pkl` (28.34 MB, SHA256 `393173923815a0e7bc1f06fff439089d50a54e665a7ce1f19f5ba5b5e1d876e8`) is a reusable real-data asset but cannot be re-aggregated to 5m. Artifacts `reports/campaign310_{*}_20261115T111243Z.json` exist (sweep/registry/summary/verdict/binding_constraint SHA256s recorded in prior handoff).
+Executed `20261115T111243Z` over a NEW real COIN-M aggTrades 1h ingest → RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing`. Of 504 pre-registered configs, 30 deterministic edge, **0 survive Holm AND BH**; 30 survive cost-realism. MDE mean 1.166 bps vs observed −0.179 bps/split. OFI-carry share 0.088 vs inverse-convexity 0.912. Cache `data/cache/campaign310_coinm_aggtrades_ofi.pkl` (28.34 MB, SHA256 `393173923815a0e7bc1f06fff439089d50a54e665a7ce1f19f5ba5b5e1d876e8`) is a reusable real-data asset but is 1h-aggregated only (cannot re-aggregate to 5m).
+
+## Bottlenecks removed (do NOT re-litigate)
+
+1. **C311 runner was the blocked item — now EXECUTED** (`20261115T125846Z`); all 5 artifacts + 22 tests green. Nothing about C311 remains to run.
+2. **C311 oos_sweep was 446 MB (>100 MB GitHub push limit) → slimmed to ~1 MB** on disk; the runner now drops per-split series on write; the full blob is kept as `reports/*.full.json` (gitignored) for audit. Any future campaign MUST emit a bounded sweep.
+3. **C312 reachability verified** (USDT-M aggTrades HTTP 206 for 15 symbols @2026-10 and BTC @2020-01/2021-06/2023-06). Pre-listing months 404 (e.g. SOL 2020-08) — exclude, do not treat as outage.
+4. C310 cache is 1h-aggregated only; C311 re-downloaded the COIN-M aggTrades window once (~6.2 GB, streaming); C312 needs its own USDT-M aggTrades ingest (per-month streaming, discard raw).
+5. Archive host flaky — every download retries with backoff (6 attempts, linear 1 s×k); lone 404/5xx retryable.
+6. Recent monthly archives may carry CSV header `open_time`/`agg_trade_id` — detect header vs headerless.
+7. `signed_volume`/`trade_sign_sum` are legitimately signed (buy−sell) — never gate as non-negative.
+8. Caches < 100 MB (assert). Keep per-asset `.npz` shards; total < 100 MB.
+9. C287 (testnet gateway: Binance testnet REST 451, fapi 451, bybit 403, no creds) — BLOCKED/DECOUPLED, external-only, never retry as economic work.
+10. COIN-M `indexPriceKlines`, `bookTicker`, `bookDepth`, `metrics`, `option/` — all HTTP 404 on data.binance.vision; never depend on them.
 
 ## Repository priority
 
@@ -66,8 +75,9 @@ Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 
 
 ## Escalation
 
-- **ACTIVE — C311 runner execution:** run `scripts/run_c311_coinm_ofi_xsec_5m_oos.py` end-to-end over the real 5m grid, emit 5 `reports/campaign311_*` artifacts + tests, full suite green, sync AGENTS.md + state.yaml. If nothing survives Holm+BH → formal negative with binding constraint; do NOT claim tradability.
-- **C310 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 5 artifacts + 20 tests green. Cache reused as real-data asset.
+- **ACTIVE — C312 build+run:** ingest real USDT-M aggTrades at 5m, preflight, run the 504-config linear-settlement cross-sectional OFI carry sweep, emit 5 `reports/campaign312_*` artifacts + 2 tests, full suite green, sync AGENTS.md + state.yaml. If nothing survives Holm+BH → formal negative with binding constraint; do NOT claim tradability.
+- **C311 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 5 artifacts + 22 tests green; sweep slimmed <1 MB.
+- **C310 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 1h cache reused as real-data asset.
 - **C306–C309 (FROZEN formal negatives / RETRACTED):** do not rerun. C309 0/504 Holm+BH; C308 0/53 Holm+BH; C307 retracted by C308; C306 0/448 cost_sensitivity.
 - **C281B–C305 (FROZEN formal negatives):** 0 costed-OOS edge; do not rerun/re-skin.
 - **C287 (BLOCKED/DECOUPLED):** external-only; record, do not retry.

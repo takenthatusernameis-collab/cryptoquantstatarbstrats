@@ -1,10 +1,99 @@
-updated_at_utc: 20261115T123556Z
+updated_at_utc: 20261115T132700Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T12:35:56Z, mandatory heavy, NOT verification-only): CAMPAIGN C311 — execute run_c311_coinm_ofi_xsec_5m_oos.py end-to-end over the real COIN-M aggTrades 5m grid and emit 5 reports/campaign311_* artifacts, then re-run the full suite green and sync AGENTS.md + research_state/state.yaml. Scripts exist: scripts/ingest_c311_coinm_ofi_5m.py, scripts/preflight_c311.py, scripts/run_c311_coinm_ofi_xsec_5m_oos.py; tests exist: tests/test_preflight_c311.py, tests/test_c311_coinm_ofi_xsec_5m_oos.py. Ingest EXECUTED (20261115T122009Z): data/cache/campaign311_coinm_ofi_5m/ has 11 per-asset float32 npz shards (~91.6 MB) + meta.json + provenance.json, all real_data_only:true, fabricated_data:false, executed_fills:false; window 2022-07..2026-06, BAR_MS=300000, 419,616 common-grid 5m bars, execution price from 5m klines close, native 8h funding from C307 1h funding_rate_<SYM> (control leg only). NOT yet done: runner has not been run — no reports/campaign311_*.json exist. Runner requirements (pre-registered 504 grid, report all): 7 OFI signals {ofi_z,ofi_mom,buy_ratio,ofi_per_trade_z,ofi_sign_autocorr,trade_intensity_z,amihud_z} x 4 lookbacks {288,1008,2016,4032} x K{2,3,5} x holds{1,6,24} x gates{off,on} = 504 runs; WF train720/test168/step168 (~2500 splits); inverse PnL pnl_coin=notional*(1/entry-1/exit)*signed_weight; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + COIN-M realism overlay (taker5+maker2+mark slip1); native 8h funding excluded (control leg only). Validate: (a) Holm AND BH over 504 (report how many survive BOTH); (b) DSR/MDE; (c) sub-period + per-year stability; (d) per-asset attribution over 11 perps; (e) inverse-convexity vs OFI-carry decomposition; (f) execution-cost-realism overlay. Emit 5 fresh reports/campaign311_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. FAIL-CLOSED: 0 survive Holm+BH or any positive explained by inverse convexity or fails cost-realism => formal negative with binding constraint, no tradability claim. Definition of done: 5 artifacts + 3 scripts + 2 tests on disk, all 504 configs reported, full suite 0 failed; anything less is NOT completion. Do not weaken edge rule/costs/gates; do not re-probe reachability; do not re-skin frozen C281B-C310. Fallback to USDT-M 24-perp aggTrades OFI carry ONLY after writing reports/campaign311_5m_infeasibility_probe_<ts>.json with per-symbol/per-month HTTP status, rows, and concrete blocking evidence.'
-next_campaign: c311_coinm_ofi_xsec_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T13:20:37Z, mandatory heavy, NOT verification-only): CAMPAIGN C312 — USDT-M LINEAR-PERP WIDE-UNIVERSE NATIVE-5m CROSS-SECTIONAL OFI CARRY. Step 0: python scripts/bootstrap_dev_env.py. Why new: C301 used only 3 symbols over 2 months (2023-01..2023-02); C310 (1h) and C311 (5m) tested COIN-M inverse-settlement OFI carry and were formal negatives dominated by inverse-settlement convexity (C310 OFI-carry 0.088 vs convexity 0.912; C311 OFI-carry 0.025 vs convexity 0.975). C312 removes the convexity confound by using linear-settlement USDT-M perps: PnL = notional*(exit/entry-1)*signed_weight, so any surviving edge is attributable to OFI carry. Reachability VERIFIED: USDT-M aggTrades https://data.binance.vision/data/futures/um/monthly/aggTrades/{sym}/{sym}-aggTrades-YYYY-MM.zip HTTP 206 for 15 symbols @2026-10 (BTC,ETH,SOL,BNB,XRP,DOGE,ADA,AVAX,LINK,LTC,BCH,DOT,TRX,ETC,XLM) and BTC @2020-01/2021-06/2023-06; SOL 2020-08 is 404 pre-listing (exclude). Build scripts/ingest_c312_usdt_m_ofi_5m.py (BAR_MS=300000, per-month streaming, retry 6x linear backoff, skip CSV header; per-bar legs signed_volume/total_volume/trade_count/trade_sign_sum/notional/vwap; execution price from USDT-M 5m klines close; native 8h funding control-only; per-asset float32 npz shards total cache <100MB; meta+provenance; real_data_only:true, fabricated_data:false, executed_fills:false), scripts/preflight_c312.py (fail-closed shard SHAs, interval 5m, flags, non-empty common grid, finite positive close + finite OFI legs, gaps never imputed), scripts/run_c312_usdt_m_ofi_xsec_5m_oos.py (504 configs: 7 signals {ofi_z,ofi_mom,buy_ratio,ofi_per_trade_z,ofi_sign_autocorr,trade_intensity_z,amihud_z} x 4 lookbacks {288,1008,2016,4032} x K{2,3,5} x holds{1,6,24} x gates{off,on}; WF train720/test168/step168; LINEAR PnL; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + USDT-M realism overlay taker5+slip1=6bps one-way on turnover, maker2 reported separately; EMIT BOUNDED oos_sweep <100MB dropping per-split series, full kept as *.full.json gitignored), tests/test_preflight_c312.py + tests/test_c312_usdt_m_ofi_xsec_5m_oos.py (mirror C311). Validate: (a) Holm AND BH over 504; (b) DSR/MDE; (c) sub-period+per-year stability; (d) per-asset attribution; (e) OFI-carry vs equal-weight B&H decomposition (linear); (f) cost-realism overlay. Emit 5 fresh reports/campaign312_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. FAIL-CLOSED: 0 survive Holm+BH or fails cost-realism => formal negative with binding constraint, no tradability claim. Definition of done: 5 artifacts + 3 scripts + 2 tests on disk, all 504 configs reported, full suite 0 failed; anything less is NOT completion. Do not weaken edge rule/costs/gates; do not re-probe C311; do not re-skin frozen C281B-C311.'
+next_campaign: c312_usdt_m_ofi_xsec_5m
 coin_m_inverse_futures_space: OPEN
+c311_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261115T125846Z
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  basis: c311_coinm_inverse_cross_sectional_ofi_carry_costed_oos_5m
+  n_total_runs: 504
+  n_with_exposure: 504
+  n_zero_exposure: 0
+  n_deterministic_edge: 17
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  n_survive_cost_realism: 17
+  edge_explained_by_ofi_carry: false
+  aggregate_ofi_carry_share: 0.025035486886917806
+  aggregate_conv_share: 0.9749645131130822
+  dsr_mde:
+    n_splits: 2500
+    mde_bps_mean: 0.10672739975609012
+    observed_mean_bps_per_split: -0.012601895529453422
+  stability:
+    stable_first_half: 17
+    stable_second_half: 17
+  dataset:
+    cache: data/cache/campaign311_coinm_ofi_5m
+    cache_format: per_asset_float32_npz_shards
+    n_symbols: 11
+    common_grid_bars: 419616
+    common_grid_start_utc: '2022-07-01T00:00:00Z'
+    common_grid_end_utc: '2026-06-30T23:55:00Z'
+    real_data_only: true
+    fabricated_data: false
+    executed_fills: false
+  artifacts:
+    oos_sweep:
+      path: reports/campaign311_oos_sweep_20261115T125846Z.json
+      sha256: 238cb14418c080e8089f2ef222447674641d57e0089402f27bb426f18356a582
+      note: slimmed to ~1 MB (per-split series dropped); full 427 MB at reports/campaign311_oos_sweep_20261115T125846Z.full.json (gitignored)
+    tradable_edge_registry:
+      path: reports/campaign311_tradable_edge_registry_20261115T125846Z.json
+      sha256: 499985448b2dd34da62c9a785950e4168f5f8ce82bdd97d0ac0078b6167bb85e
+    summary:
+      path: reports/campaign311_summary_20261115T125846Z.json
+      sha256: 515323c39a0cebb7383eb014084c49b2404f6319c1a743a46a628565da4868e9
+    verdict:
+      path: reports/campaign311_verdict_20261115T125846Z.json
+      sha256: 42b885a111f321ed770722e98cfdcb3652226cd65e9c31b8b15d105e1e2437c6
+    binding_constraint:
+      path: reports/campaign311_binding_constraint_20261115T125846Z.json
+      sha256: 66f611172056433e78c66bb957e5c4a435b9771945406048cf592f634a06de6c
+  artifacts_exist: true
+  scripts:
+  - scripts/ingest_c311_coinm_ofi_5m.py
+  - scripts/preflight_c311.py
+  - scripts/run_c311_coinm_ofi_xsec_5m_oos.py
+  tests:
+  - tests/test_preflight_c311.py
+  - tests/test_c311_coinm_ofi_xsec_5m_oos.py
+  pytest:
+    passed: 22
+    failed: 0
+    as_of_utc: 20261115T132037Z
+c312_next_family:
+  family: usdt_m_linear_perp_wide_universe_ofi_carry_5m
+  as_of_utc: 20261115T132037Z
+  rationale: 'C311 (COIN-M inverse 5m OFI xsec) EXECUTED 20261115T125846Z -> RETRACTED formal negative (0/504 survive Holm+BH; convexity-dominated 0.975). C310 (1h) and C311 (5m) both show inverse-settlement convexity dominates OFI carry. C312 removes the convexity confound by testing linear-settlement USDT-M perps: PnL = notional*(exit/entry-1)*signed_weight, so any edge is attributable to OFI carry. C301 used only 3 symbols over 2 months; C312 uses the wide USDT-M perp universe over multiple years.'
+  reachability_verified: 'USDT-M aggTrades HTTP 206 for 15 symbols @2026-10 and BTC @2020-01/2021-06/2023-06; SOL 2020-08 = 404 pre-listing (exclude)'
+  symbols_probed:
+  - BTCUSDT
+  - ETHUSDT
+  - SOLUSDT
+  - BNBUSDT
+  - XRPUSDT
+  - DOGEUSDT
+  - ADAUSDT
+  - AVAXUSDT
+  - LINKUSDT
+  - LTCUSDT
+  - BCHUSDT
+  - DOTUSDT
+  - TRXUSDT
+  - ETCUSDT
+  - XLMUSDT
+  grid: '7 signals x 4 lookbacks{288,1008,2016,4032} x K{2,3,5} x holds{1,6,24} x gates{off,on} = 504'
+  pnl: 'linear: sum(pos*(close/close_prev - 1))*notional'
+  do_not: 'do NOT rerun C311; do NOT re-skin frozen C281B-C311; do NOT weaken edge rule/costs/gates; do NOT emit an unbounded oos_sweep (>=100 MB push reject)'
+
 c306_coinm_term_structure:
   state: COMPLETE_NOT_TRADABLE
   as_of_utc: 20261115T050843Z
@@ -1022,9 +1111,9 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C310
-reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_only_aggtrades_space_OPEN_at_5m
-reachable_real_data_cross_sectional_stat_arb_space_scope: 'Price/funding/premium/mark cross-sectional stat-arb CLOSED for USDT-M+spot+options (C281B-C305) and COIN-M inverse futures (C306-C309). COIN-M inverse ORDER-FLOW (aggTrades) microstructure space was NOT closed: C310 (1h OFI xsec, real aggTrades) COMPLETE formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated). C311 (5m OFI xsec, finer grid) is the active mandatory heavy campaign; USDT-M wide-universe aggTrades OFI xsec is the fallback.'
+latest_campaign_done: C311
+reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_COINM_inverse_aggtrades_OPEN_USDT_M_linear_aggtrades
+reachable_real_data_cross_sectional_stat_arb_space_scope: 'Price/funding/premium/mark cross-sectional stat-arb CLOSED for USDT-M+spot+options (C281B-C305) and COIN-M inverse futures (C306-C309). COIN-M inverse ORDER-FLOW (aggTrades) microstructure space was NOT closed: C310 (1h OFI xsec, real aggTrades) COMPLETE formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated). C311 (5m OFI xsec) COMPLETE formal negative 20261115T125846Z (0/504 Holm+BH, convexity-dominated 0.975). C312 (USDT-M linear-perp wide-universe 5m OFI xsec) is the active mandatory heavy campaign; it removes the inverse-convexity confound.'
 c305_program_closure:
   as_of_utc: 2026-11-15 03:24:16+00:00
   closure_report_json:

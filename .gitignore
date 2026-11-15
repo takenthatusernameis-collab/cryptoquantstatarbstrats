@@ -68,3 +68,6 @@ Thumbs.dbreports/portfolio_real_regen.log
 
 # Recovery blobs (pre-push originals >100 MB; kept on disk for rollback, never pushed)
 data/cache/recovery/*.pkl.orig
+
+# Full-size OOS sweep provenance blobs (>100 MB; kept on disk for audit, never pushed)
+reports/*.full.json

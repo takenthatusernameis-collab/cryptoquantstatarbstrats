@@ -907,6 +907,28 @@ def main() -> int:
         },
     }
 
+    # Keep the on-disk sweep bounded (GitHub hard-rejects any single blob
+    # >= 100 MB on push). The per-split OOS net-mean series are already
+    # summarized by each slice's ``oos_net_mean`` / the top-level
+    # ``per_split_mean_bps`` and are not needed for the verdict, registry, or
+    # summary; drop them from the serialized sweep so the artifact stays small.
+    # They remain reproducible by re-running this runner.
+    SLIM_DROP = ("oos_net_mean_per_split", "bh_oos_net_mean_per_split")
+    slim_results = []
+    for r in results:
+        rc = dict(r)
+        rc["cost_slices"] = {
+            ck: {k: v for k, v in cv.items() if k not in SLIM_DROP}
+            for ck, cv in r["cost_slices"].items()
+        }
+        slim_results.append(rc)
+    sweep_obj["results"] = slim_results
+    sweep_obj["slimmed"] = {
+        "dropped_fields": list(SLIM_DROP),
+        "reason": "per-split OOS net-mean series summarized by oos_net_mean; "
+                  "keeps the sweep artifact under the 100 MB GitHub push limit.",
+    }
+
     op = reports / f"campaign311_oos_sweep_{ts}.json"
     op.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
