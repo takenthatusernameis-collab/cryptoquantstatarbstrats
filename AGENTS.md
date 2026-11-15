@@ -1,156 +1,60 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-15T21:36:14Z — **C313 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T204419Z, 0/960 Holm+BH, binding `multiple_testing`).** C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C313`; `active_campaign: C314`; `oos_edge_proven: false`; `edge_claim: NONE`.
+**Handoff refreshed:** 2026-11-15T21:38:11Z — **C314 COMPLETE FORMAL NEGATIVE (RETRACTED, 20261115T214305Z, 0/2304 Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003).** C313/C312/C311/C310/C306–C309/C281B–C305 FROZEN formal negatives. C287 BLOCKED/DECOUPLED (external 451/no creds). `latest_campaign_done: C314`; `active_campaign: C315`; `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-15T21:36:14Z, refreshed) — ACTIVE CAMPAIGN C314: SPOT-PERP LEAD-LAG STAT-ARB (MANDATORY HEAVY, NO STATUS-ONLY TURN)
+## INITIAL TASK MESSAGE (2026-11-15T21:38:11Z) — ACTIVE CAMPAIGN C315: PERP MOMENTUM / SHORT-TERM REVERSAL STAT-ARB (MANDATORY HEAVY, NO STATUS-ONLY TURN)
 
-**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** Execute **C314 — Spot-Perp Lead-Lag Statistical Arbitrage (USDT-M linear perps vs spot, 5m, 2023-01..2025-12)** end-to-end to `edge_proven:true` OR a formal negative with binding constraint. **C314 does not exist on disk** (no scripts/tests/cache/artifacts) — create and complete all heavy work this campaign. Infra/status-only output is NOT progress.
+**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** Execute **C315 — Cross-sectional & time-series MOMENTUM / short-term REVERSAL statistical arbitrage on 10 USDT-M linear perps, native 5m, 2023-01..2025-12** end-to-end to `edge_proven:true` OR a formal negative with binding constraint. This is a **genuinely-new signal family** — momentum/reversal has NEVER been tested in C281B–C314 (those exhausted carry C281B–C310, OFI C310–C312, premium/index/mark basis C303–C309, quarterly term-structure C313, same-asset spot-perp lead-lag C314, all formal negatives). Infra/status-only output is NOT progress; the deliverable is a costed OOS verdict + artifacts + green tests.
 
-**Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):** C281B–C313 (formal negatives), C287 (external 451/no creds). Any work on them is a hard violation.
+**Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):** C281B–C314 (formal negatives), C287 (external 451/no creds). Any work on them is a hard violation. In particular, do NOT re-run C314's lead-lag or C312's OFI — C315 uses a DIFFERENT signal (price momentum/reversal) on the SAME real, on-disk price data (read-only reuse, NOT a re-skin).
 
-**Bottlenecks removed / guardrails (enforced):**
-- **Verified data paths (C312 HTTP 206):** spot `https://data.binance.vision/data/spot/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`, perp `https://data.binance.vision/data/futures/um/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`. 404 = excluded pre-listing month (not outage). Funding NaN/control-only if unreachable.
-- **Resumable ingest:** per (symbol, market, month) via `months_manifest.json`; survive session boundaries; discard raw CSV after feature extraction.
-- **Bounded resources:** cache <100 MB total, per-asset `.npz` shards; slim sweep artifact <100 MB (no per-bar/per-split series) + gitignored `full.json`.
+**THE PRIMARY DE-BOTTLENECK (data is already on disk — no network ingest needed):**
+- Real 5m price data for all 10 symbols over 2023-01..2025-12 ALREADY EXISTS and is SHA-verified:
+  - `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` → `perp_close` (USDT-M 5m klines close), 315,648 common-grid bars, 10 perps.
+  - `data/cache/campaign314_spot_perp_leadlag_5m/<SYM>.npz` → `spot_close` + `perp_close`, 315,632 common-grid bars, 10 symbols.
+- C315 reads these REAL prices (read-only), computes momentum/reversal features, and runs the sweep. **There is no download bottleneck this campaign** — the heavy work is the feature build + the 3456-config costed OOS sweep + gates + attribution. If you feel tempted to "just do a status update," that is a hard violation: build the cache, preflight, runner, tests, artifacts.
+
+**Guardrails (enforced):**
 - **No fabricated data / fail-closed / provenance-first:** `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; SHA256-from-bytes for every artifact; missing/None/false gates BLOCK.
-- **No overfitting:** ALL pre-registered configs reported; Holm+BH α=0.05 BOTH must pass; MDE + stability + lead-lag-vs-noise attribution required.
+- **Bounded resources:** cache <100 MB total, per-asset `.npz` shards; slim sweep artifact <100 MB (no per-bar series) + gitignored `full.json`.
+- **No overfitting:** ALL pre-registered configs reported; Holm+BH α=0.05 BOTH must pass; MDE + stability + momentum-vs-reversal-vs-placebo attribution required.
+- **Costs real:** per-leg fee/slippage grid charged on turnover; model PnL labeled `executed_fills:false`. Perp funding unreachable (fapi 451) → excluded.
 
 **Execute in order (all required):**
 1. `python scripts/bootstrap_dev_env.py`
-2. Create `scripts/ingest_c314_spot_perp_leadlag_5m.py`: reachability probe + resumable ingest for spot+USDT-M perp 5m klines, 10 symbols `[BTCUSDT,ETHUSDT,BNBUSDT,SOLUSDT,XRPUSDT,ADAUSDT,DOGEUSDT,DOTUSDT,LTCUSDT,AVAXUSDT]`, 2023-01..2025-12 (36m), aligned common 5m grid, lead-lag features (spot↔perp cross-corr at lags 1-12 / 5-60m), months_manifest, cache `data/cache/campaign314_spot_perp_leadlag_5m/` <100 MB `.npz`.
-3. Create/run `scripts/preflight_c314.py` → `ready:true` fail-closed (≥80% reachable pairs, schema/manifest/cache checks).
-4. Create/run `scripts/run_c314_spot_perp_leadlag_oos.py` over **all pre-registered configs (2304 ≥504):** lag_window[6,12,24]×lead_lag_threshold[0.05,0.10,0.15]×rebalance[5m,15m,30m,1h]×fee[1,5,10,20]bps×slippage[1,2,5,10]bps×tercile_cut[33,25]×cost_variant[symmetric,perp_heavy]. Expanding WF train 12m/test 3m/roll 3m. Holm+BH α=0.05 BOTH; MDE; stability (≥70% sign consistency, first/second-half Sharpe corr ≥0.5); lead-lag-vs-noise attribution (>0.5 share for positive claim). 2-leg USDT PnL (spot+perp), costs ×2 on stated grid.
-5. Emit `reports/campaign314_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` (slim) + gitignored `full.json`, SHA256-from-bytes, `real_data_only:true,fabricated_data:false,executed_fills:false`.
-6. Add/pass `tests/test_preflight_c314.py` + `tests/test_c314_spot_perp_leadlag_oos.py`; run targeted/full suite green.
+2. Create `scripts/build_c315_perp_momentum_features.py`: read REAL `perp_close` from `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` (fail-closed SHA check against its `.meta.json`), align the common 5m grid, compute per-bar log returns, write `data/cache/campaign315_perp_momentum_5m/<SYM>.npz` (`index_ms`, `perp_close`, `log_return`, `funding_rate`=NaN control-only) + `.meta.json` + `.provenance.json` with SHA256-from-bytes. No network. Discard nothing (derived from committed real data).
+3. Create/run `scripts/preflight_c315.py` → `ready:true` fail-closed (meta flags, shard SHA/size, grid in 2023-01..2025-12, finite positive perp_close, finite log_return, funding all-NaN, cache <100 MB).
+4. Create/run `scripts/run_c315_perp_momentum_reversal_oos.py` over **all pre-registered configs (3456 ≥504)** with expanding WF train 12m/test 3m/roll 3m. Grid: signal{xsec_mom, xsec_rev, mom_minus_rev}(3) × mom_lookback{1d,7d,30d = 288,2016,8640 bars}(3) × rev_lookback{1h,6h = 12,72 bars}(2) × rebalance{30m,1h,4h = 6,12,48 bars}(3) × fee{1,5,10,20}bps(4) × slippage{1,2,5,10}bps(4) × selection{top/bottom 33%,25%}(2) × cost_variant{symmetric, perp_heavy}(2) = 3456. Holm+BH α=0.05 BOTH; MDE; stability (≥70% sign consistency, first/second-half Sharpe corr ≥0.5); attribution = momentum share vs reversal share vs placebo-noise share (require dominant-share > 0.5 for a positive claim). Dollar-neutral long-short on perps; costs on turnover.
+5. Emit `reports/campaign315_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` (slim <100 MB) + gitignored `full.json`, SHA256-from-bytes, `real_data_only:true,fabricated_data:false,executed_fills:false`.
+6. Add/pass `tests/test_preflight_c315.py` + `tests/test_c315_perp_momentum_reversal_oos.py`; run targeted/full suite green.
 7. Sync `AGENTS.md` + `research_state/state.yaml` with verdict/SHAs/binding constraint. If formal negative, register the next genuinely-new reachable stat-arb family (pre-registered, heavy) as active. Never create `HANDOFF.md`.
 
 **Definition of Done:** all 5 artifacts + full.json on disk with SHA256 provenance; ≥504 configs tested with Holm+BH reported; `edge_proven:true` OR formal negative with `binding_constraint`; cache <100 MB with correct flags; tests green.
 
-**C313 on-disk state (verified 2026-11-15T20:45:00Z, post-execution refresh):**
-- Scripts PRESENT (uncommitted): `scripts/ingest_c313_coinm_quarterly_carry.py`, `scripts/preflight_c313.py`, `scripts/run_c313_coinm_quarterly_carry_oos.py`.
-- Tests COMPLETE: `tests/test_preflight_c313.py` PRESENT; `tests/test_c313_coinm_quarterly_carry_oos.py` CREATED AND PASSING (23/23 tests green).
-- Cache COMPLETE (real-data ingest finished): `data/cache/campaign313_coinm_quarterly_carry/` with 8 `.npz` shards (ADAUSD, BNBUSD, BTCUSD, DOTUSD, ETHUSD, LTCUSD, SOLUSD, XRPUSD) + `months_manifest.json` (`{"assembled":[ADAUSD,BNBUSD,BTCUSD,DOTUSD,ETHUSD,LTCUSD,SOLUSD,XRPUSD],"months":{}}`) + `.meta.json`/`.provenance.json` (generated `20261115T195558Z`, 1h 2022-07..2026-06, 8/11 bases ingested). Total shard dir ~4.0 MB. Excluded by source: DOGEUSD/MATICUSD/AVAXUSD (`no_quarterly_contracts_listed`); many quarterlies excluded (`expiry_code_outside_mapped_schedule` / `expiry_after_window`). Some windows truncated (e.g. ADAUSD ends 2025-06-27) — documented in provenance.
-- Preflight status: **VERIFIED GREEN** (`python scripts/preflight_c313.py --json` → `ready:true`, `blocked_reasons:[]`).
-- Runner/artifacts: **COMPLETE** — all 5 artifacts + gitignored `full.json` emitted at `20261115T204419Z` with SHA256 provenance. Slim sweep ~1.2 MB, full ~2.0 MB.
-- **VERDICT:** RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/960 deterministic edge, 0 survive Holm+BH). Costed OOS executed over 960 pre-registered configs (5 lookbacks × 3 rebalances × 4 fees × 4 slippages × 2 tercile cuts × 2 cost variants).
+### C315 CAMPAIGN SPECIFICATION (non-negotiable, heavy-work forcing)
 
-**C312 on-disk state (verified 2026-11-15T18:50Z, frozen):**
-- Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` (10 perps, 315,648 5m bars, 2023-01..2025-12, ~65 MB, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`).
-- Scripts/tests/artifacts present; **VERDICT:** RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/504 Holm+BH). Do not rerun.
+**Objective:** Prove or retract costed OOS edge for cross-sectional & time-series momentum / short-term reversal on 10 USDT-M linear perps, 2023-01..2025-12.
 
-**Bottlenecks removed / guardrails:** corrected COIN-M path enforced; resumable manifest ingest; bounded cache (<100 MB); bounded sweep + gitignored `full.json`; funding NaN/control-only if unreachable; C287 external/decoupled; C281B–C312 frozen.
+**Data (real, on disk, read-only):** `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` `perp_close` (fallback `data/cache/campaign314_spot_perp_leadlag_5m/<SYM>.npz` `perp_close`). Universe: 10 USDT-M perps (BTC,ETH,BNB,SOL,XRP,ADA,DOGE,DOT,LTC,AVAX)USDT. Window 2023-01..2025-12. Native 5m. Any SHA mismatch vs the source `.meta.json` → BLOCK (no fabrication).
 
-## INITIAL TASK MESSAGE (2026-11-15T21:32:49Z) — ACTIVE CAMPAIGN: C314 SPOT-PERP LEAD-LAG STAT-ARB (MANDATORY HEAVY, START IMMEDIATELY)
+**Signals (pre-registered, causal shift(1)):**
+- `xsec_mom(L)` = cross-sectional rank of trailing-L perp return (long top, short bottom).
+- `xsec_rev(R)` = cross-sectional rank of trailing-R perp return, REVERSED (long worst, short best).
+- `mom_minus_rev(L,R)` = combination of the two (momentum minus short-term reversal).
+- Dollar-neutral, gross 1.0, applied from the next bar; hold rebalance{6,12,48} bars.
 
-**Mission (cannot defer, cannot stop at status):** C313 COIN-M inverse quarterly term-structure carry is **COMPLETE — FORMAL NEGATIVE** (RETRACTED, 20261115T204419Z, 0/960 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, 23/23 tests green, 5 artifacts + full.json with SHA256). Repo priority remains `cryptoquantstatarbstrats` (stat-arb) — economic progress = costed OOS PnL on real, provable data.
+**Cost Model (execution-cost realism, charged on turnover):**
+- fee {1,5,10,20} bps per leg; slippage {1,2,5,10} bps per leg.
+- `symmetric` = (fee + slip) per unit turnover; `perp_heavy` = (1.5·fee + slip) per unit turnover (taker-heavy).
+- Perp funding unreachable (fapi 451, not in archives) → excluded (control only).
 
-**Next session MUST (end-to-end, no infra-only stop):** Execute **C314 — Spot-Perp Lead-Lag Statistical Arbitrage on USDT-M Linear Perps** to `edge_proven:true` OR a formal negative with binding constraint. C314 is a genuinely-new signal family (spot↔perp lead-lag, cross-sectional), distinct from exhausted carry/OFI/term-structure families (C281B–C313 all formal negatives). On-disk: **no C314 scripts/tests/cache/artifacts exist** — create, run, and complete them this campaign.
+**Walk-Forward / OOS:** expanding train 12m → test 3m, roll 3m over 36m. Multiple-testing: Holm-Bonferroni AND Benjamini-Hochberg at α=0.05 — BOTH must pass. MDE gate (observed mean > MDE mean). Stability gate (sign consistency ≥70% splits; first-half vs second-half Sharpe corr ≥0.5). Attribution gate (dominant of {momentum, reversal, placebo} share > 0.5 for a positive claim).
 
-**Ordered work (all required):**
-1. `python scripts/bootstrap_dev_env.py`
-2. Create `scripts/ingest_c314_spot_perp_leadlag_5m.py` (or equivalent): reachability probe + resumable ingest per (symbol, market, month) via `months_manifest.json` for spot & USDT-M perp 5m klines, 2023-01..2025-12, 10 symbols, bounded cache <100 MB, per-asset `.npz` shards, compute/retain lead-lag features, discard raw CSV, 404=excluded pre-listing (not outage), funding NaN control-only.
-3. Create/run `scripts/preflight_c314.py` → `ready:true` fail-closed.
-4. Create/run `scripts/run_c314_spot_perp_leadlag_oos.py` over ALL pre-registered configs (≥504, see grid) with expanding WF train 12m/test 3m/roll 3m, Holm+BH α=0.05 BOTH, MDE, stability, lead-lag-vs-noise attribution, 2-leg (spot+perp) costs.
-5. Emit `reports/campaign314_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` (slim sweep <100 MB) + gitignored `full.json`, SHA256-from-bytes, `real_data_only:true,fabricated_data:false,executed_fills:false`.
-6. Add/pass `tests/test_preflight_c314.py`, `tests/test_c314_spot_perp_leadlag_oos.py`; run targeted/full suite green.
-7. Sync `AGENTS.md` + `research_state/state.yaml` with verdict/SHAs; if formal negative, register next genuinely-new reachable stat-arb family (heavy, pre-registered). Never create `HANDOFF.md`.
+**Artifacts (MUST emit all 5 + full.json, bounded <100 MB):** `campaign315_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` + gitignored `campaign315_oos_sweep_<TS>.full.json`, each with SHA256-from-bytes and `real_data_only:true,fabricated_data:false,executed_fills:false`.
 
-**Hard rules:** no fabricated data; fail-closed gates; provenance-first; costs real (2 legs × per-leg fee/slippage); no overfitting (all pre-registered, Holm+BH both); no rerun/re-skin of C281B–C313/C287; no unbounded sweep (>100 MB slim); no infra-only completion.
+**Tests (MUST add + pass):** `tests/test_preflight_c315.py`, `tests/test_c315_perp_momentum_reversal_oos.py`; full suite green.
 
-**Prerequisites for C314:**
-1. Reachability probe against data.binance.vision for spot + USDT-M perp 5m klines (both verified HTTP 206 in C312)
-2. Pre-register ≥504 configs (signals × lookbacks × rebalances × costs × gates) BEFORE any backtest
-3. Resumable ingest via months_manifest, bounded cache <100 MB, per-asset .npz shards
-4. Fail-closed preflight + runner tests + 5 artifacts + full.json with SHA256 provenance
-5. Holm+BH at α=0.05 BOTH required; MDE + stability gates; lead-lag vs noise attribution
-6. Real data only, no fabrication, executed_fills:false
-
-**Hard constraints:** no fabricated data; fail-closed gates; provenance-first; costs real (2 legs: spot + perp); no overfitting (all pre-registered, Holm+BH); no rerun/re-skin of C281B–C313/C287; no unbounded sweep; no infra-only completion.
-
-### C314 CAMPAIGN SPECIFICATION (non-negotiable, heavy-work forcing)
-
-**Objective:** Prove or retract costed out-of-sample edge for spot-perp lead-lag statistical arbitrage on USDT-M linear perps, 2023-01..2025-12 (36 months, aligns with C312 window).
-
-**VERIFIED DATA PATHS (C312 confirmed HTTP 206 live):**
-- Spot klines: `https://data.binance.vision/data/spot/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`
-- USDT-M perp klines: `https://data.binance.vision/data/futures/um/monthly/klines/<SYMBOL>/5m/<SYMBOL>-5m-<YYYY-MM>.zip`
-- Symbols: 10 major USDT-M perps (BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, XRPUSDT, ADAUSDT, DOGEUSDT, DOTUSDT, LTCUSDT, AVAXUSDT) — same universe as C312
-- Bucket root listing (XML): `https://s3-ap-northeast-1.amazonaws.com/data.binance.vision?delimiter=/&prefix=data/spot/monthly/klines/<SYMBOL>/` and `.../data/futures/um/monthly/klines/<SYMBOL>/`
-
-**Scope (bounded, <100 MB cache):**
-- 10 symbols × 2 markets (spot + perp) = 20 instruments
-- Native 5m klines (reuse C312 5m aggregation logic; 1h only if 5m cache blows out — 5m is the default for lead-lag)
-- Window: 2023-01..2025-12 (36 months, aligns with C312 USDT-M window)
-- Cache target: <100 MB total (per-asset `.npz` shards, ~5 MB each → ~100 MB max)
-
-**Reachability Gate (MUST pass before any ingest — verified paths):**
-- Probe both spot and perp 5m paths for all 10 symbols × 36 months = 720 URLs
-- HTTP 200/206 required for ≥80% of (symbol, market, month) pairs; 404 = exclude that market-month (pre-listing), NOT an outage
-- Document blocked routes in provenance; no fabricated data
-
-**Ingest (resumable per (symbol, market, month)):**
-- Stream monthly CSVs → align to common 5m grid (forward-fill spot to perp timestamps, or resample both to common grid)
-- Compute lead-lag features: spot→perp return correlation at lags 1-12 (5m-60m), perp→spot reverse, cross-correlation peak lag
-- Discard raw CSV after feature extraction; resume via `months_manifest.json` (C312 pattern)
-- Funding rate: NaN control-only (not in monthly archives, fapi 451) — must not block
-
-**Signal Construction (pre-registered, no data peeking):**
-- Lead-lag signal: for each symbol, compute rolling cross-correlation between spot and perp returns at lags 1-12 (5m steps)
-- Long perp / short spot when spot leads perp (positive lag correlation) with strength > threshold; reverse when perp leads spot
-- Cross-sectional rank by lead-lag strength (z-score per timestamp across 10 symbols)
-- Long top tercile (strongest lead-lag), short bottom tercile (weakest/reverse) — dollar-neutral in USDT
-- Rebalance: 5m (native), 15m, 30m, 1h (cost-aware)
-- PnL modeled in **USDT** (spot + perp both USDT-quoted); 2 legs per trade (spot + perp)
-
-**Cost Model (execution-cost realism, charged on ALL legs):**
-- Maker/taker fee grid: 1/5/10/20 bps (per leg, spot + perp)
-- Slippage: 1/2/5/10 bps (per leg, spot typically tighter than perp)
-- 2 legs per trade (long spot + short perp OR short spot + long perp) → costs ×2
-- No cost-free assumptions
-
-**Walk-Forward / OOS Protocol (pre-registered configs = 504 minimum):**
-- Expanding window: train 12m → test 3m, roll 3m (12 splits over 36m)
-- Pre-register ALL configs before first backtest: lag_window × lead_lag_threshold × rebalance × fee × slippage × tercile_cut × cost_variant
-  - lag_window: [6, 12, 24] (3)
-  - lead_lag_threshold: [0.05, 0.10, 0.15] (3)
-  - rebalance: [5m, 15m, 30m, 1h] (4)
-  - fee: [1, 5, 10, 20] bps (4)
-  - slippage: [1, 2, 5, 10] bps (4)
-  - tercile_cut: [top/bottom 33%, top/bottom 25%] (2)
-  - cost_variant: [symmetric, perp_heavy] (2) = 3×3×4×4×4×2×2 = 2304 configs (well above 504 minimum)
-- Multiple-testing correction: **Holm-Bonferroni AND Benjamini-Hochberg (BH) at α=0.05** — BOTH must pass
-- Minimum Deterministic Edge (MDE) gate: observed mean > MDE mean across splits
-- Stability gate: sign consistency ≥70% splits, first-half vs second-half Sharpe correlation ≥0.5
-- Attribution gate: lead-lag share vs noise share (require lead-lag share > 0.5 for positive claim)
-
-**Artifacts (MUST emit all 5 + full.json, bounded sweep <100 MB):**
-1. `reports/campaign314_oos_sweep_<TS>.json` (slim: per-split summary only, no per-bar series)
-2. `reports/campaign314_oos_sweep_<TS>.full.json` (gitignored, full per-bar series for audit)
-3. `reports/campaign314_tradable_edge_registry_<TS>.json`
-4. `reports/campaign314_summary_<TS>.json`
-5. `reports/campaign314_verdict_<TS>.json` (`edge_proven`, `binding_constraint`, `edge_explained_by_leadlag_vs_noise`)
-6. `reports/campaign314_binding_constraint_<TS>.json`
-
-**Tests (MUST add + pass):**
-- `tests/test_preflight_c314.py` (reachability against spot/perp paths, cache schema, manifest)
-- `tests/test_c314_spot_perp_leadlag_oos.py` (runner, gates, artifact schema)
-- CI green before campaign complete
-
-**Definition of Done (cannot claim progress without):**
-- All 5 artifacts + full.json on disk with correct SHA256 provenance
-- 504+ pre-registered configs tested, Holm+BH results reported
-- `edge_proven: true` OR formal negative with `binding_constraint` identified
-- Cache <100 MB, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`
-- Tests green (new + existing suite)
-
-**Bottleneck Removal (enforced):**
-- **VERIFIED DATA PATHS** (C312 confirmed spot + USDT-M perp 5m klines HTTP 206) — no re-probe needed for reachability gate
-- Resumable ingest per (symbol, market, month) — survive session boundaries
-- Bounded sweep emission (<100 MB) — drop per-split series in slim artifact
-- C287 remains BLOCKED/DECOUPLED — never retry, never let it preempt C314
-- C281B–C313 FROZEN — do not rerun, re-skin, re-probe
-
-**Repository-name priority:** `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. This campaign IS statistical arbitrage (spot-perp lead-lag). Rank work by costed out-of-sample PnL on real, provable data. Infra/status-only output = NOT progress.
+**Bottleneck removal (enforced):** data already on disk (no ingest bottleneck); resumable/cached; bounded sweep; fail-closed preflight; Holm+BH; real costs. C287 stays BLOCKED/DECOUPLED. C281B–C314 FROZEN.
 
 **Environment / verification:**
 ```bash
@@ -162,6 +66,39 @@ python -m pip install "pytest-asyncio>=0.23"   # only if async tests fail with "
 ```
 
 Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may be absent — do not claim they passed unless actually run. CI dependency note: run Step 0 bootstrap before campaign code; a missing-dependency traceback is a bootstrap gap, not a research result. Do not fix by editing `.github/workflows/main.yml`.
+
+## C314 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-15T21:38:11Z)
+
+- **Scripts PRESENT (uncommitted):** `scripts/ingest_c314_spot_perp_leadlag_5m.py`, `scripts/preflight_c314.py`, `scripts/run_c314_spot_perp_leadlag_oos.py`.
+- **Tests COMPLETE & PASSING:** `tests/test_preflight_c314.py`, `tests/test_c314_spot_perp_leadlag_oos.py` (25/25 C314 tests green).
+- **Cache COMPLETE (real data, ~22 MB):** `data/cache/campaign314_spot_perp_leadlag_5m/` with 10 `.npz` shards (ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LTCUSDT, SOLUSDT, XRPUSDT) each holding `index_ms`, `spot_close`, `perp_close`, `funding_rate` (all-NaN control-only). 315,632 common-grid 5m bars, 2023-01..2025-12. `months_manifest.json` `{"assembled":[...10...],"months":{}}`. Total 22 MB, max shard 2.69 MB. `real_data_only:true, fabricated_data:false, executed_fills:false`.
+  - **KEY DE-BOTTLENECK (do not re-litigate):** Binance **spot** 5m klines switched `open_time` to MICROSECONDS from 2025-01 (e.g. `1735689600000000`) while USDT-M perp stays in milliseconds (`1735689600000`). The ingest normalizes open_time to ms (`normalize_open_time_ms`, threshold >1e14 → //1000) on BOTH write and read paths. Without this the spot/perp intersection collapses to 210,512 bars (67% < 80% gate) and every month from 2025-01 fails. This is fixed and covered by `test_preflight_2025_microsecond_spot_normalized`.
+  - Cache meta SHA256 `4bd0e8c97e23fa01d1681357b70e6191caaf6ed5b5a9d4be1d2fd2a3d112f983`; provenance SHA256 `aa2aa688594ff5f3d02ad061ffbf983d5e9a023d365403f144e0c196172bccb6`.
+- **Preflight:** `python scripts/preflight_c314.py --json` → `ready:true`, `blocked_reasons:[]`, 10/10 shards, grid in window.
+- **Runner/artifacts COMPLETE at `20261115T214305Z`:** 2304 pre-registered configs (lag_window×threshold×rebalance×fee×slip×tercile×cost_variant), expanding WF 12m/3m/3m. **VERDICT: RETRACTED**, `edge_proven:false`, `binding_constraint: multiple_testing` — 0 deterministic edge, 0 survive Holm, 0 survive BH, 0 survive both; `leadlag_vs_noise_share = 0.000275` (noise-dominated, no lead-lag edge); 1664/2304 configs had exposure. All 5 artifacts + gitignored `full.json` on disk with SHA256-from-bytes:
+  - oos_sweep `3b78ccd1f2caa8e93791b06d338aa1b1ce771caed629c460a05d1077e79db45b` (slim ~1.9 MB)
+  - tradable_edge_registry `bd92bd6fc53315981e066e3c081a5aa310881b3a7019c063d1763c56c3e97094`
+  - summary `8f5045e7bf3e39aebc4c065a9fe64d54c15cbd8c97d7cf143b2f0aab1b67b9f0`
+  - verdict `0b5c40e8da9b1e3177d99afc4c216f51f38d0b1f8c18a7069137a762bfdb6716`
+  - binding_constraint `592403e4dd7c8071e88f41684f53563dae62b8072c61ba449dc30cd37e5ac07b`
+  - full sweep kept on disk as `reports/campaign314_oos_sweep_20261115T214305Z.full.json` (gitignored).
+
+## C313 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-15T20:45:00Z, frozen)
+- Scripts PRESENT: `scripts/ingest_c313_coinm_quarterly_carry.py`, `scripts/preflight_c313.py`, `scripts/run_c313_coinm_quarterly_carry_oos.py`. Tests 23/23 green. Cache `data/cache/campaign313_coinm_quarterly_carry/` (8 shards + manifest + meta/provenance, ~4.0 MB, 1h 2022-07..2026-06). VERDICT: RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/960 deterministic edge, 0 survive Holm+BH). Artifacts at `20261115T204419Z`. Do not rerun.
+
+## C312 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-15T18:50Z, frozen)
+- Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` (10 perps, 315,648 5m bars, 2023-01..2025-12, ~65 MB, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `perp_close` usable by C315). Scripts/tests/artifacts present; VERDICT: RETRACTED, `edge_proven:false`, `binding_constraint: multiple_testing` (0/504 Holm+BH). Do not rerun.
+
+## Bottlenecks removed / guardrails
+- **C314 microsecond spot open_time (2025-01+) NORMALIZED to ms** in ingest (`normalize_open_time_ms`) — the key fix that made spot/perp 5m intersect across the full 36 months. Covered by a regression test.
+- **C315 needs NO network ingest** — real 5m prices already on disk (C312/C314 caches); C315's heavy work is the feature build + 3456-config sweep, not downloads.
+- Resumable manifest ingest (per symbol/market/month) where ingest is needed; bounded cache (<100 MB); bounded sweep + gitignored `full.json`; funding NaN/control-only if unreachable; C287 external/decoupled; C281B–C314 frozen.
+- Archive host flaky — every download retries with backoff (6 attempts, linear 1 s×k); lone 404/5xx retryable; 404 month = pre-listing exclusion (not outage).
+- Recent monthly archives may carry a CSV header (`open_time`) — detect header vs headerless.
+- `signed_volume`/`trade_sign_sum` are legitimately signed (buy−sell) — never gate as non-negative.
+- Caches <100 MB (assert); keep per-asset `.npz` shards.
+- C287 (testnet gateway: Binance testnet REST 451, fapi 451, bybit 403, no creds) — BLOCKED/DECOUPLED, external-only, never retry as economic work.
+- COIN-M `indexPriceKlines`, `bookTicker`, `bookDepth`, `metrics`, `option/` — HTTP 404 on data.binance.vision; never depend. USDT-M `fundingRate` not in monthly archives and fapi 451 → funding leg NaN (control-only).
 
 ## C312 (COMPLETE FORMAL NEGATIVE, FROZEN — do not rerun)
 
@@ -177,6 +114,7 @@ Executed `20261115T111243Z` over a NEW real COIN-M aggTrades 1h ingest → RETRA
 
 ## Bottlenecks removed (do NOT re-litigate)
 
+0. **C314 spot 5m `open_time` MICROSECONDS (2025-01+) → NORMALIZED to ms.** Binance spot monthly klines switched `open_time` to microseconds from 2025-01 (e.g. `1735689600000000`) while USDT-M perp stays in ms (`1735689600000`). The C314 ingest normalizes on both write and read paths (`normalize_open_time_ms`, threshold >1e14 → //1000). Without it the spot/perp intersection collapses to 210,512 bars (67% < 80% gate) and all 2025 months fail. Regression test: `test_preflight_2025_microsecond_spot_normalized`.
 1. **C311 runner was the blocked item — now EXECUTED** (`20261115T125846Z`); all 5 artifacts + 22 tests green. Nothing about C311 remains to run.
 2. **C311 oos_sweep was 446 MB (>100 MB GitHub push limit) → slimmed to ~1 MB** on disk; the runner now drops per-split series on write; the full blob is kept as `reports/*.full.json` (gitignored) for audit. Any future campaign MUST emit a bounded sweep.
 3. **C312 reachability verified live** (USDT-M aggTrades AND USDT-M 5m klines = the exec-price endpoint, both HTTP 206 for BTCUSDT @2023-06; SOLUSDT aggTrades @2023-06 also 206). Pre-listing months 404 (e.g. SOL 2020-08) — exclude, do not treat as outage.
@@ -207,6 +145,8 @@ Executed `20261115T111243Z` over a NEW real COIN-M aggTrades 1h ingest → RETRA
 
 ## Escalation
 
+- **C314 (COMPLETE FORMAL NEGATIVE, 20261115T214305Z):** spot-perp lead-lag stat-arb, 2304 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003; 5 artifacts + full.json + 25 C314 tests green; full suite 1619 passed / 2 skipped. De-bottleneck: spot 5m microsecond `open_time` (2025-01+) normalized to ms.
+- **C313 (COMPLETE FORMAL NEGATIVE, 20261115T204419Z):** 0/960 Holm+BH, binding `multiple_testing`; 5 artifacts + 23 tests green. Do not rerun.
 - **C312 (COMPLETE FORMAL NEGATIVE, 20261115T174346Z):** 0/504 survive Holm+BH, binding `multiple_testing`; 5 artifacts + full.json + 21 tests green.
 - **C311 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 5 artifacts + 22 tests green; sweep slimmed <1 MB.
 - **C310 (FROZEN, formal negative):** 0/504 survive Holm+BH, binding `multiple_testing`; convexity-dominated; 1h cache reused as real-data asset.

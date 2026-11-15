@@ -1,0 +1,117 @@
+{
+  "generated_at_utc": "20261115T214246Z",
+  "campaign": 314,
+  "part": "provenance",
+  "source_host": "https://data.binance.vision",
+  "spot_klines_endpoint": "/data/spot/monthly/klines/{sym}/5m/{sym}-5m-{month}.zip",
+  "perp_klines_endpoint": "/data/futures/um/monthly/klines/{sym}/5m/{sym}-5m-{month}.zip",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "n_months": 36,
+  "markets": [
+    "spot",
+    "perp"
+  ],
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "per_symbol": {
+    "BTCUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/BTCUSDT.npz",
+      "shard_sha256": "4d849d3704861a482c7e14a57437259fb6b807e63c1a4781e9c6a66f1c8d5f76",
+      "shard_bytes": 2689074
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/ETHUSDT.npz",
+      "shard_sha256": "e028b2d4e91163cacc06ba05476e1ca8e069451efdd359dd4f6303e7ed1e7eca",
+      "shard_bytes": 2641837
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/BNBUSDT.npz",
+      "shard_sha256": "5fb23088e70c1b85f566191071d4b7a9400c5d52afb1e151a65284cdc3d672dc",
+      "shard_bytes": 2238023
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/SOLUSDT.npz",
+      "shard_sha256": "2c8333aa05dcc9d2865f8c0396b00b452ca56c9ace9cbc3ba1244b578a385aa5",
+      "shard_bytes": 2333010
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/XRPUSDT.npz",
+      "shard_sha256": "766aed517822d8b70d4c47192a6e2c2ed8798eb2bb89764df80c8ac18285f032",
+      "shard_bytes": 2161945
+    },
+    "ADAUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/ADAUSDT.npz",
+      "shard_sha256": "c3558321130255a1c215ef927be4b91acc9f19609cbfe3c259336a47cd718e9e",
+      "shard_bytes": 2056081
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/DOGEUSDT.npz",
+      "shard_sha256": "9c00300231adf62a29f80816f841bdd515a050da450a23f25b927608701710b5",
+      "shard_bytes": 2367255
+    },
+    "DOTUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/DOTUSDT.npz",
+      "shard_sha256": "f18091a7a0b9771f2ef1962ed151e8dab6f96206d74e2e2a9da393bf498b6862",
+      "shard_bytes": 2018510
+    },
+    "LTCUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/LTCUSDT.npz",
+      "shard_sha256": "4dd7d7dc281849deeb04f030ec3d2e53c345113870b0f37b0453681b99f06a2f",
+      "shard_bytes": 2100820
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "n_bars": 315632,
+      "shard": "data/cache/campaign314_spot_perp_leadlag_5m/AVAXUSDT.npz",
+      "shard_sha256": "90f474246a943b05287e17393c4405497265fd0890b50144e4b8c9de3e48c772",
+      "shard_bytes": 2115237
+    }
+  },
+  "grid_construction": "intersection_of_symbol_spot_and_perp_5m_kline_bars",
+  "n_nominal_grid_bars": 315648,
+  "n_grid_bars": 315632,
+  "execution_price_source": "spot_and_perp_5m_klines_close",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "raw_csv_discarded_after_feature_extraction": true,
+  "resumable": true,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "6d38721a41db735908ceb7e01993bc804d63c295df921324cbea9a051988f265",
+  "gap_bar_policy": "bars without a spot or perp 5m kline are dropped from the common grid (never filled)",
+  "funding_leg_policy": "funding_rate emitted all-NaN (control only, excluded from PnL)",
+  "reachability_note": "spot AND USDT-M perp 5m klines verified HTTP 206 live 2026-11-15 across edge months (2023-06, 2025-12); 404 months are pre-listing exclusions, not outages"
+}

@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "20261115T214305Z",
+  "campaign": 314,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign314_oos_sweep_20261115T214305Z.json",
+  "oos_sweep_sha256": "3b78ccd1f2caa8e93791b06d338aa1b1ce771caed629c460a05d1077e79db45b",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "leadlag_vs_noise_share": 0.0002751200476684387,
+  "edge_explained_by_leadlag": false,
+  "diagnosis": "C314 spot-perp lead-lag stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
