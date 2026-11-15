@@ -260,7 +260,17 @@ def verify_cache() -> tuple:
     return payload, meta, manifest_sha, meta_sha, prov_sha
 
 
+MIN_XSEC = 4  # minimum finite assets in a bar for a cross-sectional split
+
+
 def build_common_grid(payload: dict):
+    """UNION 1h grid across per-asset shards (time-varying cross-section).
+
+    The archive-discovered universe is unbalanced by construction (SOLUSD has
+    quarterly contracts only from 2024-03), so an intersection grid would throw
+    away ~40% of the window. Assets simply carry NaN where they have no data;
+    ``tercile_positions`` already drops non-finite scores per bar.
+    """
     symbols = list(payload.get("symbols") or [])
     per_asset = payload.get("per_asset") or {}
     indexes = []
@@ -274,7 +284,7 @@ def build_common_grid(payload: dict):
         raise SystemExit("FATAL: C313 common grid is empty")
     common = indexes[0]
     for idx in indexes[1:]:
-        common = common.intersection(idx)
+        common = common.union(idx)
     common = common.sort_values()
     n_bars = int(len(common))
     if n_bars == 0:
@@ -301,8 +311,19 @@ def build_common_grid(payload: dict):
     front_basis = mat("front_basis")
     next_basis = mat("next_basis")
 
-    if not bool(np.isfinite(perp_close).all()) or not bool((perp_close > 0).all()):
-        raise SystemExit("FATAL: non-finite or non-positive perp price on common grid")
+    coverage = {}
+    for i, sym in enumerate(symbols):
+        finite = np.isfinite(perp_close[i])
+        n_f = int(finite.sum())
+        if n_f == 0:
+            raise SystemExit(f"FATAL: asset {sym} has no finite perp price on the union grid")
+        vals = perp_close[i][finite]
+        if not bool((vals > 0).all()):
+            raise SystemExit(f"FATAL: non-positive perp price for {sym}")
+        coverage[sym] = {"n_bars": n_f,
+                         "start_utc": str(common[np.argmax(finite)]),
+                         "end_utc": str(common[len(finite) - 1 - np.argmax(finite[::-1])]),
+                         "coverage_frac": float(n_f / n_bars)}
 
     index = common
     splits = wf_splits(n_bars, TRAIN_HOURS, TEST_HOURS, STEP_HOURS)
@@ -311,7 +332,10 @@ def build_common_grid(payload: dict):
 
     return {"symbols": symbols, "n_assets": len(symbols), "index": index, "n_bars": n_bars,
             "splits": splits, "perp_close": perp_close, "front_close": front_close,
-            "next_close": next_close, "front_basis": front_basis, "next_basis": next_basis}
+            "next_close": next_close, "front_basis": front_basis, "next_basis": next_basis,
+            "grid_basis": "union_of_per_asset_valid_1h_bars",
+            "coverage": coverage, "min_xsec": MIN_XSEC,
+            "grid_start_utc": str(index[0]), "grid_end_utc": str(index[-1])}
 
 
 def rollmean_2d(x: np.ndarray, L: int) -> np.ndarray:
@@ -360,7 +384,6 @@ def sweep(bs: dict, results: list):
     front_close = bs["front_close"]
     next_close = bs["next_close"]
     front_basis = bs["front_basis"]
-    gate_mask = np.ones(n_b, dtype=bool)
 
     # per-asset inverse + linear per-bar returns for front quarterly and perp.
     q_ret = inv_ret(front_close[:, :-1], front_close[:, 1:])
@@ -378,6 +401,8 @@ def sweep(bs: dict, results: list):
 
     for L in LOOKBACKS:
         score = signal_for(front_basis, L)
+        n_finite_per_bar = int(np.isfinite(score).sum(axis=0).min())
+        gate_mask = np.isfinite(score).sum(axis=0) >= MIN_XSEC
         for H in REBALANCES:
             for cut in TERCILE_CUTS:
                 for fee in COST_GRID_FEE:
@@ -419,10 +444,6 @@ def sweep(bs: dict, results: list):
                             all_beat_bh = True
                             all_beat_flat = True
                             net_means = []
-                            for fee2, slip2 in COST_GRID_FEE:
-                                # note: fee2/slip2 here are the cost-slice report grid;
-                                # the config's tc already encodes fee/slip/variant.
-                                pass
                             # single cost slice per config at (fee, slip, variant)
                             ck = f"fee{fee}_slip{slip}_{variant}"
                             nets, means = [], []
@@ -477,6 +498,9 @@ def sweep(bs: dict, results: list):
                                 "tercile_cut": float(cut), "fee": int(fee), "slippage": int(slip),
                                 "cost_model_variant": variant,
                                 "n_splits": int(len(segs)),
+                                "min_cross_section_assets": int(n_finite_per_bar),
+                                "min_xsec_required": int(MIN_XSEC),
+                                "gate_active_bars": int(gate_mask.sum()),
                                 "oos_exposure_bars_total": int(exposure_total),
                                 "turnover_total": float(turnover_total),
                                 "edge_proven": edge_b,
@@ -702,6 +726,9 @@ def main() -> int:
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": len(symbols),
+                     "grid_basis": bs.get("grid_basis"),
+                     "min_xsec_required": int(MIN_XSEC),
+                     "per_asset_coverage": bs.get("coverage", {}),
                      "common_grid_bars": int(n_bars_b),
                      "common_grid_start_utc": str(bs["index"][0]),
                      "common_grid_end_utc": str(bs["index"][-1]),

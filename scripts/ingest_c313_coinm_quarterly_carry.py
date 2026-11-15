@@ -15,9 +15,23 @@ Real data only (fail-closed; fapi REST is HTTP 451 and is NOT used):
 - data/coin-m/ and data.binance.vision/data/coin-m/quarterly_klines/ DO NOT
   EXIST (404); the data/futures/cm/ layout is used verbatim.
 
-Fail-closed: retry-with-backoff (6 attempts, linear 1 s x k); lone 404/5xx
-retryable; skip CSV rows whose first field is non-numeric (header row).
-Never impute/ffill/backfill.
+AUTHORITATIVE CONTRACT DISCOVERY (live-verified 2026-11-15T19:4xZ):
+The archive is listed, never guessed. Quarterly contracts exist ONLY for a
+subset of COIN-M perps, so a synthetic expiry schedule would fire thousands of
+guaranteed-404 requests (the primary C313 bottleneck). Instead:
+  * ``list_contract_months(sym)`` reads the S3 listing for a contract's 1h
+    prefix and returns only months that really exist;
+  * ``list_quarterly_contracts(base)`` reads
+    ``data/futures/cm/monthly/klines/<BASE>_`` and keeps only ``<BASE>USD_<YYMMDD>``
+    dirs;
+  * bases with ZERO quarterly contracts (verified: DOGEUSD, MATICUSD, AVAXUSD)
+    are EXCLUDED from the tradable universe and recorded in provenance with
+    ``exclusion_reason: no_quarterly_contracts_listed`` (never silently).
+A genuine 404 on a listed month is recorded as an exclusion, NOT retried six
+times; only transport/5xx errors retry (6 attempts, linear 1 s x k).
+
+Fail-closed: never impute/ffill/backfill; skip CSV rows whose first field is
+non-numeric (header row); every shard SHA256 is recorded in the meta manifest.
 """
 from __future__ import annotations
 
@@ -25,9 +39,11 @@ import argparse
 import hashlib
 import io
 import json
+import re
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 import zipfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -46,18 +62,21 @@ OUT_META = CACHE / "campaign313_coinm_quarterly_carry.meta.json"
 OUT_PROV = CACHE / "campaign313_coinm_quarterly_carry.provenance.json"
 
 ARCHIVE_HOST = "https://data.binance.vision"
+S3_LIST = ("https://s3-ap-northeast-1.amazonaws.com/data.binance.vision"
+           "?delimiter=/&prefix={prefix}")
 KLINES_PATH = "/data/futures/cm/monthly/klines/{sym}/1h/{sym}-1h-{month}.zip"
 
 INTERVAL = "1h"
 HOURS_PER_YEAR = 365.0 * 24.0
 
-# COIN-M inverse perpetuals (BASE) and the quarterly expiry schedule: last
-# Friday of Mar/Jun/Sep/Dec at 08:00 UTC; contract code <BASE>USD_YYMMDD.
+# COIN-M inverse perpetuals (BASE). Quarterly availability is DISCOVERED, not
+# assumed: DOGEUSD/MATICUSD/AVAXUSD have no quarterly contracts in the archive.
 PERPS = (
     "BTCUSD", "ETHUSD", "BNBUSD", "XRPUSD", "ADAUSD", "DOGEUSD",
     "SOLUSD", "MATICUSD", "DOTUSD", "AVAXUSD", "LTCUSD",
 )
-PERP_SYMS = tuple(s + "_PERP" for s in PERPS)
+MIN_ASSETS_REQUIRED = 6
+
 QUARTERLY_EXPIRY_START = "2022-09"
 QUARTERLY_EXPIRY_END = "2026-12"
 WINDOW_START = "2022-07"
@@ -75,6 +94,9 @@ F32_LEGS = (
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 HTTP_RETRIES = 6
+LIST_TIMEOUT = 30.0
+
+_QSYM_RE = re.compile(r"^(?P<base>[A-Z0-9]+)USD_(?P<code>\d{6})$")
 
 
 def sha256_file(path: Path) -> str:
@@ -110,13 +132,69 @@ def _quarterly_expiries() -> list[tuple[pd.Timestamp, str]]:
     return [(e, c) for e, c in expiries if start <= e <= end]
 
 
-def _quarterly_syms() -> dict[str, tuple[pd.Timestamp, str]]:
-    """qsym -> (expiry, code) for every perp base x quarterly expiry."""
-    out: dict[str, tuple[pd.Timestamp, str]] = {}
-    for base in PERPS:
-        for expiry, code in _quarterly_expiries():
-            out[f"{base}USD_{code}"] = (expiry, code)
-    return out
+def expiry_by_code() -> dict[str, pd.Timestamp]:
+    return {code: exp for exp, code in _quarterly_expiries()}
+
+
+def _s3_list(prefix: str, delimiter: str | None) -> tuple[list[str], list[str]]:
+    """Return (common_prefixes, keys) under ``prefix`` (paginated if cut)."""
+    prefs: list[str] = []
+    keys: list[str] = []
+    marker = None
+    for _ in range(40):
+        url = S3_LIST.format(prefix=urllib.parse.quote(prefix, safe=""))
+        if delimiter:
+            url = ("https://s3-ap-northeast-1.amazonaws.com/data.binance.vision"
+                   "?delimiter=" + urllib.parse.quote(delimiter, safe="") +
+                   "&prefix=" + urllib.parse.quote(prefix, safe=""))
+        if marker:
+            url += "&marker=" + urllib.parse.quote(marker, safe="")
+        req = urllib.request.Request(url, headers={"User-Agent": "kilo-c313-ingest"})
+        with urllib.request.urlopen(req, timeout=LIST_TIMEOUT) as resp:
+            body = resp.read().decode("utf-8", "replace")
+        prefs.extend(re.findall(r"<Prefix>([^<]+)</Prefix>", body))
+        keys.extend(re.findall(r"<Key>([^<]+)</Key>", body))
+        if "<IsTruncated>true</IsTruncated>" not in body:
+            break
+        m = re.search(r"<NextMarker>([^<]+)</NextMarker>", body)
+        if not m:
+            break
+        marker = m.group(1)
+    return sorted(set(prefs)), sorted(set(keys))
+
+
+def list_contract_months(sym: str) -> list[str]:
+    """Months (YYYY-MM) that really exist for a contract's 1h klines prefix."""
+    _, keys = _s3_list(f"data/futures/cm/monthly/klines/{sym}/1h/", None)
+    months = []
+    for k in keys:
+        if not k.endswith(".zip"):
+            continue
+        m = re.search(r"-(\d{4}-\d{2})\.zip$", k)
+        if m:
+            months.append(m.group(1))
+    return sorted(set(months))
+
+
+_MONTHS_CACHE: dict[str, list[str]] = {}
+
+
+def list_contract_months_cached(sym: str) -> list[str]:
+    """Cached wrapper: the archive listing is immutable within a session."""
+    if sym not in _MONTHS_CACHE:
+        _MONTHS_CACHE[sym] = list_contract_months(sym)
+    return _MONTHS_CACHE[sym]
+
+
+def list_quarterly_contracts(base: str) -> list[str]:
+    """Quarterly contract symbols actually listed for ``base`` (empty if none)."""
+    prefs, _ = _s3_list(f"data/futures/cm/monthly/klines/{base}_", "/")
+    out = []
+    for p in prefs:
+        sym = p.rstrip("/").rsplit("/", 1)[-1]
+        if _QSYM_RE.match(sym) and sym.rsplit("_", 1)[0] == base:
+            out.append(sym)
+    return sorted(set(out))
 
 
 def _http_get(url: str, timeout: float) -> tuple[int, bytes]:
@@ -131,6 +209,8 @@ def _http_get(url: str, timeout: float) -> tuple[int, bytes]:
         except urllib.error.HTTPError as exc:
             last_status = int(exc.code)
             last_exc = exc
+            if last_status in (404, 403, 410):
+                raise
         except Exception as exc:  # noqa: BLE001 transient network
             last_exc = exc
         if attempt < HTTP_RETRIES:
@@ -196,7 +276,11 @@ def _write_month_shard(sym: str, month: str, df: pd.DataFrame) -> str:
 
 
 def download_month(sym: str, month: str, timeout: float, man: dict) -> dict:
-    """Download + aggregate one (symbol, month) into a shard, resumable."""
+    """Download + aggregate one (symbol, month) into a shard, resumable.
+
+    A 404 on a LISTED month is an exclusion (contract not yet trading), never an
+    outage and never retried six times.
+    """
     key = f"{sym}_{month}"
     shard = _month_shard_path(sym, month)
     prev = (man.get("months") or {}).get(key)
@@ -206,8 +290,11 @@ def download_month(sym: str, month: str, timeout: float, man: dict) -> dict:
     url = ARCHIVE_HOST + KLINES_PATH.format(sym=sym, month=month)
     try:
         status, data = _http_get(url, timeout)
+    except urllib.error.HTTPError as exc:
+        return {"month": month, "url": url, "status": int(exc.code), "ok": False,
+                "reason": f"http_{exc.code}_excluded"}
     except Exception as exc:  # noqa: BLE001
-        return {"month": month, "url": url, "status": "error", "ok": False,
+        return {"month": month, "url": url, "status": "ERR", "ok": False,
                 "reason": repr(exc)[:200]}
     if status != 200 or not data:
         return {"month": month, "url": url, "status": status, "ok": False,
@@ -229,9 +316,8 @@ def download_month(sym: str, month: str, timeout: float, man: dict) -> dict:
             "ok": True}
 
 
-def build_contract_series(sym: str, months: list[str], timeout: float,
-                          man: dict) -> pd.DataFrame | None:
-    """Stitch one contract's 1h klines across months (resumable shards)."""
+def build_contract_series(sym: str, months: list[str]) -> pd.DataFrame | None:
+    """Stitch one contract's 1h klines across its listed months (resumable)."""
     frames: list[pd.DataFrame] = []
     for m in months:
         shard = _month_shard_path(sym, m)
@@ -240,27 +326,37 @@ def build_contract_series(sym: str, months: list[str], timeout: float,
         with np.load(shard) as z:
             ot = pd.to_datetime(np.asarray(z["open_time"], dtype="int64"),
                                 unit="ns", utc=True)
-            df = pd.DataFrame({
+            frames.append(pd.DataFrame({
                 "open": np.asarray(z["open"], dtype=float),
                 "high": np.asarray(z["high"], dtype=float),
                 "low": np.asarray(z["low"], dtype=float),
                 "close": np.asarray(z["close"], dtype=float),
-            }, index=ot)
-        frames.append(df)
+            }, index=ot))
     if not frames:
         return None
     all_df = pd.concat(frames).sort_index()
-    all_df = all_df[~all_df.index.duplicated(keep="last")]
-    return all_df
+    return all_df[~all_df.index.duplicated(keep="last")]
 
 
 def assemble_asset(base: str, perp_df: pd.DataFrame,
                    q_series: dict[str, pd.DataFrame],
                    q_expiry: dict[str, pd.Timestamp],
                    start: pd.Timestamp, end: pd.Timestamp) -> dict | None:
-    """Common 1h grid for one asset: perp + front + next unexpired quarterly."""
-    qsyms = sorted(q_series.keys())
-    q_exp_ns = np.array([q_expiry[qs].value for qsym in qsyms], dtype="int64")
+    """Common 1h grid for one asset: perp + front + next unexpired quarterly.
+
+    Vectorised: expiries are sorted once and located with ``searchsorted`` so the
+    per-bar work is O(1) amortised (the naive per-bar python scan over every
+    contract was the C313 ingest bottleneck).
+    """
+    qsyms = sorted(q_series.keys(), key=lambda s: (q_expiry[s], s))
+    if len(qsyms) < 2:
+        return None
+    exp_ns = np.array([q_expiry[s].value for s in qsyms], dtype="int64")
+    order = np.argsort(exp_ns, kind="mergesort")
+    qsyms = [qsyms[i] for i in order]
+    exp_ns = exp_ns[order]
+    close_by_sym = {s: q_series[s].reindex(q_series[s].index)["close"] for s in qsyms}
+
     all_index = perp_df.index
     for df in q_series.values():
         all_index = all_index.union(df.index)
@@ -268,36 +364,42 @@ def assemble_asset(base: str, perp_df: pd.DataFrame,
     n = len(all_index)
     if n == 0:
         return None
-    t_ns = all_index.view("int64").to_numpy()
+    t_ns = all_index.values.astype("datetime64[ns]").view("int64")
     pc = perp_df.reindex(all_index)["close"].to_numpy(dtype=float)
-    q_close = {qs: df.reindex(all_index)["close"].to_numpy(dtype=float)
-               for qs, df in q_series.items()}
+    q_close = np.vstack([close_by_sym[s].reindex(all_index).to_numpy(dtype=float)
+                         for s in qsyms]) if qsyms else np.empty((0, n))
 
     front_close = np.full(n, np.nan); next_close = np.full(n, np.nan)
     front_basis = np.full(n, np.nan); next_basis = np.full(n, np.nan)
     front_tte = np.full(n, np.nan); next_tte = np.full(n, np.nan)
     front_exp = np.full(n, np.nan, dtype="int64"); next_exp = np.full(n, np.nan, dtype="int64")
+
+    n_syms = len(qsyms)
     for i in range(n):
-        t = t_ns[i]
         p = pc[i]
         if not np.isfinite(p) or p <= 0:
             continue
-        unexpired = [j for j in range(len(qsyms))
-                     if q_exp_ns[j] > t and np.isfinite(q_close[qsyms[j]][i])]
-        if len(unexpired) < 2:
+        t = t_ns[i]
+        k = int(np.searchsorted(exp_ns, t, side="right"))
+        found = 0
+        closes: list[float] = []
+        idx_found: list[int] = []
+        j = k
+        while j < n_syms and found < 2:
+            c = q_close[j, i]
+            if np.isfinite(c) and c > 0:
+                closes.append(float(c)); idx_found.append(j); found += 1
+            j += 1
+        if found < 2:
             continue
-        unexpired.sort(key=lambda j: q_exp_ns[j])
-        f, s = unexpired[0], unexpired[1]
-        fsym, ssym = qsyms[f], qsyms[s]
-        fq, sq = q_close[fsym][i], q_close[ssym][i]
-        if not (np.isfinite(fq) and fq > 0 and np.isfinite(sq) and sq > 0):
-            continue
-        ftte_h = (q_exp_ns[f] - t) / 1e9 / 3600.0
-        stte_h = (q_exp_ns[s] - t) / 1e9 / 3600.0
+        fj, sj = idx_found[0], idx_found[1]
+        fq, sq = closes[0], closes[1]
+        ftte_h = (exp_ns[fj] - t) / 1e9 / 3600.0
+        stte_h = (exp_ns[sj] - t) / 1e9 / 3600.0
         if ftte_h <= 0 or stte_h <= 0:
             continue
         front_close[i] = fq; next_close[i] = sq
-        front_exp[i] = q_exp_ns[f] // 1_000_000; next_exp[i] = q_exp_ns[s] // 1_000_000
+        front_exp[i] = exp_ns[fj] // 1_000_000; next_exp[i] = exp_ns[sj] // 1_000_000
         front_tte[i] = ftte_h; next_tte[i] = stte_h
         with np.errstate(divide="ignore", invalid="ignore"):
             front_basis[i] = np.log(fq / p) * HOURS_PER_YEAR / ftte_h
@@ -308,7 +410,7 @@ def assemble_asset(base: str, perp_df: pd.DataFrame,
     if int(valid.sum()) == 0:
         return None
     idx = all_index[valid]
-    arrays = {"index_ms": idx.values.astype("datetime64[ns]").view("int64"),
+    arrays = {"index_ms": idx.values.astype("datetime64[ns]").view("int64") // 1_000_000,
               "perp_close": pc[valid].astype(np.float32),
               "front_close": front_close[valid].astype(np.float32),
               "next_close": next_close[valid].astype(np.float32),
@@ -320,6 +422,7 @@ def assemble_asset(base: str, perp_df: pd.DataFrame,
               "next_expiry_ms": next_exp[valid]}
     return {"asset": base, "n_bars": int(valid.sum()),
             "window_start_utc": str(idx[0]), "window_end_utc": str(idx[-1]),
+            "quarterly_contracts": list(qsyms),
             "arrays": arrays}
 
 
@@ -331,13 +434,29 @@ def _assert_under_budget(paths: list[Path], total_bytes: int) -> None:
         raise SystemExit(f"FATAL: total cache {total_bytes/1e6:.2f} MB >= {CACHE_BUDGET_BYTES/1e6:.0f} MB budget")
 
 
+def discover_universe(symbols: list[str]) -> tuple[dict[str, dict], dict[str, dict]]:
+    """Return (per_base_contracts, exclusions) using the ARCHIVE LISTING only."""
+    per_base: dict[str, dict] = {}
+    excluded: dict[str, dict] = {}
+    for base in symbols:
+        qsyms = list_quarterly_contracts(base)
+        if len(qsyms) < 1:
+            excluded[base] = {"status": "excluded",
+                              "exclusion_reason": "no_quarterly_contracts_listed",
+                              "n_quarterly": 0}
+            continue
+        per_base[base] = {"quarterly": qsyms, "n_quarterly": len(qsyms),
+                          "status": "eligible"}
+    return per_base, excluded
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--start-month", default=WINDOW_START)
     ap.add_argument("--end-month", default=WINDOW_END)
     ap.add_argument("--symbols", default="all", help="comma list of BASE symbols or 'all'")
     ap.add_argument("--timeout", type=float, default=60.0)
-    ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--workers", type=int, default=6)
     args = ap.parse_args(argv)
 
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -346,57 +465,93 @@ def main(argv: list[str] | None = None) -> int:
     MONTHS_DIR.mkdir(parents=True, exist_ok=True)
 
     symbols = list(PERPS) if args.symbols == "all" else [s.strip() for s in args.symbols.split(",") if s.strip()]
-    qinfo = _quarterly_syms()
     months = month_range(args.start_month, args.end_month)
     man = _load_manifest()
     man.setdefault("months", {}); man.setdefault("assembled", [])
 
-    # Phase A: download every (contract, month) shard, resumable.
-    syms = list(PERP_SYMS) + [qs for qs, (exp, code) in qinfo.items()
-                              if qs.split("_")[0] + "USD" == qs.rsplit("_", 1)[0] and
-                              any(qs.startswith(b + "USD_") for b in symbols)]
-    # restrict quarterlies to selected symbols
-    qsel = [qs for qs in qinfo if any(qs.startswith(b + "USD_") for b in symbols)]
-    syms = list(PERP_SYMS_for := [s + "_PERP" for s in symbols]) + qsel
-    todo = [(s, m) for s in syms for m in months
-            if f"{s}_{m}" not in (man.get("months") or {})]
+    # ---- authoritative discovery from the archive listing ----
+    per_base, excluded = discover_universe(symbols)
+    if len(per_base) < MIN_ASSETS_REQUIRED:
+        raise SystemExit(f"FATAL: only {len(per_base)} bases have quarterly contracts "
+                         f"(< {MIN_ASSETS_REQUIRED}); refusing to fabricate a universe")
+    exp_by_code = expiry_by_code()
+    q_expiry: dict[str, pd.Timestamp] = {}
+    contract_excluded: dict[str, str] = {}
+    for base, info in per_base.items():
+        for qs in info["quarterly"]:
+            code = qs.rsplit("_", 1)[1]
+            exp = exp_by_code.get(code)
+            if exp is None or not (pd.Timestamp(WINDOW_START, tz="UTC") - pd.Timedelta(days=1) <= exp):
+                contract_excluded[qs] = "expiry_code_outside_mapped_schedule"
+                continue
+            if exp > pd.Timestamp(WINDOW_END, tz="UTC") + pd.offsets.MonthEnd(0):
+                contract_excluded[qs] = "expiry_after_window"
+                continue
+            q_expiry[qs] = exp
+    eligible_q = {b: [q for q in info["quarterly"] if q in q_expiry]
+                  for b, info in per_base.items()}
+    eligible_q = {b: sorted(q, key=lambda s: (q_expiry[s], s)) for b, q in eligible_q.items()}
+    dropped = sorted(b for b, q in eligible_q.items() if len(q) < 2)
+    eligible_q = {b: q for b, q in eligible_q.items() if len(q) >= 2}
+    for b in dropped:
+        excluded[b] = {"status": "excluded",
+                       "exclusion_reason": "fewer_than_two_quarterly_contracts_after_expiry_mapping"}
+    if len(eligible_q) < MIN_ASSETS_REQUIRED:
+        raise SystemExit(f"FATAL: only {len(eligible_q)} assets keep >=2 quarterly contracts "
+                         f"(< {MIN_ASSETS_REQUIRED})")
+
+    # ---- Phase A: download every (contract, listed month) shard, resumable ----
+    todo: list[tuple[str, str]] = []
+    for base in sorted(eligible_q):
+        perps = base + "_PERP"
+        perp_months = [m for m in list_contract_months_cached(perps) if m in set(months)]
+        for m in perp_months:
+            todo.append((perps, m))
+        for qs in eligible_q[base]:
+            qmonths = [m for m in list_contract_months_cached(qs) if m in set(months)]
+            for m in qmonths:
+                todo.append((qs, m))
+    todo = [(s, m) for s, m in todo if f"{s}_{m}" not in (man.get("months") or {})]
     errors: list[dict] = []
+    t0 = time.time()
     with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
-        futs = {pool.submit(download_month, s, m, args.timeout, man): (s, m)
-                for s, m in todo}
+        futs = {pool.submit(download_month, s, m, args.timeout, man): (s, m) for s, m in todo}
         for fut in as_completed(futs):
             r = fut.result()
             if not r.get("ok", True) and r.get("status") != "skipped":
                 errors.append({**r, "sym": futs[fut][0]})
+    dl_s = round(time.time() - t0, 1)
 
-    # Phase B: assemble per-asset common grids.
+    # ---- Phase B: assemble per-asset common grids ----
     start_ts = pd.Timestamp(f"{args.start_month[:4]}-{args.start_month[5:7]}-01", tz="UTC")
     end_ts = pd.Timestamp(f"{args.end_month[:4]}-{args.end_month[5:7]}-01", tz="UTC") + pd.offsets.MonthEnd(0)
-    q_expiry = {qs: exp for qs, (exp, code) in qinfo.items()}
     assembled: list[str] = []
     shard_meta: dict[str, dict] = {}
     per_asset_meta: dict[str, dict] = {}
-    for base in symbols:
+    for base in sorted(eligible_q):
         perp_sym = base + "_PERP"
-        perp_df = build_contract_series(perp_sym, months, args.timeout, man)
+        perp_months = [m for m in list_contract_months_cached(perp_sym) if m in set(months)]
+        perp_df = build_contract_series(perp_sym, perp_months)
         if perp_df is None or len(perp_df) == 0:
             per_asset_meta[base] = {"status": "excluded", "exclusion_reason": "no perp data"}
+            excluded[base] = per_asset_meta[base]
             continue
-        q_series = {}
-        for qs in qsel:
-            if not qs.startswith(base + "USD_"):
-                continue
-            df = build_contract_series(qs, months, args.timeout, man)
+        q_series: dict[str, pd.DataFrame] = {}
+        for qs in eligible_q[base]:
+            qmonths = [m for m in list_contract_months_cached(qs) if m in set(months)]
+            df = build_contract_series(qs, qmonths)
             if df is not None and len(df) > 0:
                 q_series[qs] = df
         if len(q_series) < 2:
             per_asset_meta[base] = {"status": "excluded",
-                                    "exclusion_reason": f"only {len(q_series)} quarterly contracts"}
+                                    "exclusion_reason": f"only {len(q_series)} quarterly contracts with data"}
+            excluded[base] = per_asset_meta[base]
             continue
         entry = assemble_asset(base, perp_df, q_series, q_expiry, start_ts, end_ts)
         if entry is None:
             per_asset_meta[base] = {"status": "excluded",
                                     "exclusion_reason": "empty common term-structure grid"}
+            excluded[base] = per_asset_meta[base]
             continue
         sp = OUT_DIR / f"{base}.npz"
         np.savez_compressed(sp, **entry["arrays"])
@@ -410,16 +565,15 @@ def main(argv: list[str] | None = None) -> int:
                                 "shard_bytes": nbytes,
                                 "quarterly_contracts": sorted(q_series.keys())}
         assembled.append(base)
-        # drop this base's month shards to keep cache small
-        for s in [base + "_PERP"] + [qs for qs in qsel if qs.startswith(base + "USD_")]:
+        for s in [perp_sym] + eligible_q[base]:
             for m in months:
                 p = _month_shard_path(s, m)
                 if p.exists():
                     p.unlink()
         man["assembled"] = sorted(set(man.get("assembled", [])) | {base})
-        man["months"] = {k: v for k, v in man.get("months", {}).items()
-                         if not any(k.startswith(s + "_") for s in [base + "_PERP"] +
-                                    [qs for qs in qsel if qs.startswith(base + "USD_")])}
+        for s in [perp_sym] + eligible_q[base]:
+            man["months"] = {k: v for k, v in (man.get("months") or {}).items()
+                             if not k.startswith(s + "_")}
         _save_manifest(man)
 
     if not assembled:
@@ -431,11 +585,22 @@ def main(argv: list[str] | None = None) -> int:
     selected = sorted(assembled)
     max_shard = max(shard_meta[s]["bytes"] for s in selected)
     grid_bars = sum(per_asset_meta[s]["n_bars"] for s in selected)
+    union_idx = None
+    for s in selected:
+        with np.load(OUT_DIR / f"{s}.npz") as z:
+            idx = np.asarray(z["index_ms"], dtype="int64")
+        union_idx = idx if union_idx is None else np.union1d(union_idx, idx)
+    common_grid_bars = int(len(union_idx))
+    common_grid_start = str(pd.Timestamp(int(union_idx[0]), unit="ms", tz="UTC"))
+    common_grid_end = str(pd.Timestamp(int(union_idx[-1]), unit="ms", tz="UTC"))
 
     meta = {
         "generated_at_utc": ts, "campaign": 313, "part": "ingest",
         "interval": INTERVAL, "source_interval": "coin_m_klines_1h",
         "symbols": selected, "n_symbols": len(selected), "n_universe": len(symbols),
+        "excluded_bases": excluded,
+        "excluded_contracts": contract_excluded,
+        "universe_source": "s3_listing_data/futures/cm/monthly/klines/",
         "window_start_month": args.start_month, "window_end_month": args.end_month,
         "quarterly_expiry_start": QUARTERLY_EXPIRY_START,
         "quarterly_expiry_end": QUARTERLY_EXPIRY_END,
@@ -446,11 +611,16 @@ def main(argv: list[str] | None = None) -> int:
         "months_dir": str(MONTHS_DIR.relative_to(ROOT)),
         "months_manifest": str(MANIFEST.relative_to(ROOT)),
         "resumable": True,
-        "resumability_scheme": "per_symbol_contract_month_shard_skip_on_manifest",
+        "resumability_scheme": "per_symbol_contract_listed_month_shard_skip_on_manifest",
         "shard_sha256": {s: shard_meta[s]["sha256"] for s in selected},
         "shard_bytes": {s: shard_meta[s]["bytes"] for s in selected},
         "total_shard_bytes": int(total_bytes), "max_shard_bytes": int(max_shard),
         "total_grid_bars": int(grid_bars),
+        "per_asset_n_bars": {s: int(per_asset_meta[s]["n_bars"]) for s in selected},
+        "common_grid_bars": common_grid_bars,
+        "common_grid_start_utc": common_grid_start,
+        "common_grid_end_utc": common_grid_end,
+        "common_grid_basis": "union_of_per_asset_valid_1h_bars",
         "push_limit_bytes": PUSH_LIMIT_BYTES, "cache_budget_bytes": CACHE_BUDGET_BYTES,
         "under_push_limit": bool(max_shard < PUSH_LIMIT_BYTES),
         "under_cache_budget": bool(total_bytes < CACHE_BUDGET_BYTES),
@@ -468,11 +638,17 @@ def main(argv: list[str] | None = None) -> int:
         "source_host": ARCHIVE_HOST, "klines_endpoint": KLINES_PATH,
         "interval": INTERVAL, "window_start_month": args.start_month,
         "window_end_month": args.end_month, "n_months": len(months),
-        "symbols": selected, "per_asset": per_asset_meta,
+        "symbols": selected, "n_universe": len(symbols),
+        "excluded_bases": excluded,
+        "excluded_contracts": contract_excluded,
+        "universe_discovery": "S3 ListBucketResult common-prefix listing (authoritative)",
+        "per_asset": per_asset_meta,
         "grid_construction": "perp_plus_front_and_next_unexpired_quarterly_common_1h_grid",
         "quarterly_expiry_rule": "last Friday of Mar/Jun/Sep/Dec 08:00 UTC; code <BASE>USD_YYMMDD",
         "basis_rule": "annualized basis = ln(q_close/perp_close) * hours_per_year / tte_hours",
         "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+        "download": {"n_pairs": len(todo), "n_month_errors": len(errors),
+                     "errors": errors[:20], "elapsed_s": dl_s},
         "resumable": True, "real_data_only": True, "fabricated_data": False,
         "fetch_real_data_only": True, "fetch_fabricated_data": False,
         "executed_fills": False,
@@ -487,12 +663,18 @@ def main(argv: list[str] | None = None) -> int:
     print(json.dumps({
         "campaign": 313, "part": "ingest", "interval": INTERVAL,
         "symbols_ok": selected, "n_symbols": len(selected),
-        "n_months": len(months), "total_grid_bars": int(grid_bars),
+        "excluded_bases": {k: v.get("exclusion_reason") for k, v in excluded.items()},
+        "n_months": len(months), "n_download_pairs": len(todo),
+        "download_elapsed_s": dl_s, "n_month_errors": len(errors),
+        "total_grid_bars": int(grid_bars),
+        "common_grid_bars": int(common_grid_bars),
+        "common_grid_start_utc": common_grid_start,
+        "common_grid_end_utc": common_grid_end,
+        "excluded_contracts": len(contract_excluded),
         "max_shard_mb": round(max_shard / 1e6, 2),
         "total_shard_mb": round(total_bytes / 1e6, 2),
         "under_cache_budget": bool(total_bytes < CACHE_BUDGET_BYTES),
         "manifest_sha256": meta["manifest_sha256"],
-        "month_errors": errors[:20], "n_month_errors": len(errors),
         "shard_dir": str(OUT_DIR.relative_to(ROOT)),
     }, indent=2))
     return 0

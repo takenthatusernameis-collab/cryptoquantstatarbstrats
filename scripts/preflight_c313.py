@@ -8,15 +8,19 @@ Verifies (cache present):
   meta manifest; every shard < 100 MB (GitHub push limit), total cache < 100 MB;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=1h, source/host intact, resumable scheme recorded;
-- the common 1h term-structure grid is non-empty and inside 2022-07..2026-06;
-- every selected asset has finite positive perp_close and finite front/next
-  quarterly close + annualized basis where present; NaN gaps never imputed;
-- >= 2 quarterly contracts overlap the perp (front + next);
-- walk-forward splits (train 12m -> test 3m, roll 3m) fit the grid.
+- the ARCHIVE-DISCOVERED universe: >= 6 tradable assets (8 expected), every
+  excluded base documented with a reason (verified: DOGEUSD/MATICUSD/AVAXUSD have
+  NO quarterly contracts in the archive, so they are excluded, not fabricated);
+- the union 1h grid is non-empty, inside 2022-07..2026-06 and >= 6 assets;
+- every asset has finite positive perp_close and finite front/next quarterly
+  close + annualized basis wherever it has bars; NaN gaps never imputed;
+- >= 2 quarterly contracts recorded per asset;
+- walk-forward splits (train 12m -> test 3m, roll 3m) fit the union grid.
 
 Verifies (cache absent):
 - reachability of https://data.binance.vision/data/futures/cm/monthly/klines/
-  for sample COIN-M perp + quarterly contract-months (HTTP 200 required);
+  for sample COIN-M perp + quarterly contract-months discovered from the S3
+  listing (HTTP 200 required for >= 80% of probes);
 - reports ready:false with blocker "cache_missing" and exit non-zero (fail-closed).
 
 Stdlib-only reachability probe so it runs before the numpy/pandas bootstrap.
@@ -28,10 +32,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import ssl
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -46,24 +52,32 @@ CACHE_PROV = ROOT / "data" / "cache" / "campaign313_coinm_quarterly_carry.proven
 MANIFEST = ROOT / "data" / "cache" / "campaign313_coinm_quarterly_carry" / "months_manifest.json"
 
 BASE = "https://data.binance.vision"
+S3_LIST = ("https://s3-ap-northeast-1.amazonaws.com/data.binance.vision"
+           "?delimiter=/&prefix={prefix}")
 KLINES_PATH = "/data/futures/cm/monthly/klines/{sym}/1h/{sym}-1h-{month}.zip"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 HTTP_RETRIES = 6
 PROBE_ATTEMPTS = 5
 PROBE_TIMEOUT = 20.0
+MIN_REACHABLE_RATE = 0.80
 
 EXPECTED_INTERVAL = "1h"
 EXPECTED_SOURCE_INTERVAL = "coin_m_klines_1h"
-N_SYMBOLS = 11
+MIN_SYMBOLS = 6          # archive-discovered tradable universe floor
+EXPECTED_SYMBOLS = 8     # BTC/ETH/BNB/XRP/ADA/DOT/LTC/SOL have quarterly contracts
 WINDOW_START = "2022-07"
 WINDOW_END = "2026-06"
+PROBE_MONTHS = ("2024-01", "2024-06", "2025-06")
 
 # Runner grid (must match run_c313_coinm_quarterly_carry_oos.py).
 TRAIN_HOURS = 365 * 24          # train 12m in 1h bars
 TEST_HOURS = 90 * 24            # test 3m in 1h bars
 STEP_HOURS = 90 * 24            # roll 3m
 LOOKBACKS_1H = (168, 720, 2160, 4320, 8760)
+MIN_SPLITS = 5
+
+_QSYM_RE = re.compile(r"^(?P<base>[A-Z0-9]+)USD_(?P<code>\d{6})$")
 
 
 def _ctx() -> ssl.SSLContext:
@@ -82,7 +96,7 @@ def sha256_file(path: Path) -> str:
 
 
 def probe_url(url: str) -> dict:
-    """GET headers-only with retry-with-backoff; HTTP 200 = reachable."""
+    """GET with retry-with-backoff; HTTP 200 = reachable."""
     last: dict = {}
     started = _now()
     for attempt in range(1, PROBE_ATTEMPTS + 1):
@@ -110,6 +124,31 @@ def probe_url(url: str) -> dict:
             "elapsed_s": None, "reachable": False}
 
 
+def list_quarterly_contracts(base: str) -> list[str]:
+    url = S3_LIST.format(prefix=urllib.parse.quote(
+        f"data/futures/cm/monthly/klines/{base}_", safe=""))
+    req = urllib.request.Request(url, headers={"User-Agent": "kilo-c313-preflight"})
+    with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT, context=_ctx()) as resp:
+        body = resp.read().decode("utf-8", "replace")
+    out = []
+    for p in re.findall(r"<Prefix>([^<]+)</Prefix>", body):
+        sym = p.rstrip("/").rsplit("/", 1)[-1]
+        if _QSYM_RE.match(sym) and sym.rsplit("_", 1)[0] == base:
+            out.append(sym)
+    return sorted(set(out))
+
+
+def list_months(sym: str) -> list[str]:
+    url = S3_LIST.format(prefix=urllib.parse.quote(
+        f"data/futures/cm/monthly/klines/{sym}/1h/", safe=""))
+    req = urllib.request.Request(url, headers={"User-Agent": "kilo-c313-preflight"})
+    with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT, context=_ctx()) as resp:
+        body = resp.read().decode("utf-8", "replace")
+    return sorted({m.group(1) for m in
+                   (re.search(r"-(\d{4}-\d{2})\.zip$", k)
+                    for k in re.findall(r"<Key>([^<]+)</Key>", body)) if m})
+
+
 def wf_splits(n: int, train: int, test: int, step: int) -> list:
     out = []
     i = 0
@@ -132,32 +171,47 @@ def _as_index(pa: dict) -> pd.DatetimeIndex:
 
 
 def reachability_probe() -> dict:
-    """Probe corrected path for sample perp + quarterly contract-months."""
+    """Probe corrected path for archive-discovered perp + quarterly months."""
     rows: list[dict] = []
-    symbols = ["BTCUSD", "ETHUSD"]
-    months = ["2024-01", "2024-06"]
-    # perp rows (symbol = <BASE>_PERP, e.g. BTCUSD_PERP — verified live)
-    for s in symbols:
-        for m in months:
+    bases = ["BTCUSD", "ETHUSD", "SOLUSD", "DOTUSD"]
+    for s in bases:
+        for m in PROBE_MONTHS:
             sym = s + "_PERP"
             rows.append(probe_url(BASE + KLINES_PATH.format(sym=sym, month=m)))
-            time.sleep(0.1)
-    # quarterly rows (front/next contracts around the window)
-    quarterly = [("BTCUSD_240628", "2023-12"), ("BTCUSD_240927", "2024-06"),
-                 ("ETHUSD_240628", "2023-12"), ("ETHUSD_240927", "2024-06")]
-    for sym, m in quarterly:
-        rows.append(probe_url(BASE + KLINES_PATH.format(sym=sym, month=m)))
-        time.sleep(0.1)
+            time.sleep(0.05)
+    # quarterly rows: first month each discovered contract really has
+    for s in bases:
+        try:
+            qsyms = list_quarterly_contracts(s)
+        except Exception as exc:  # noqa: BLE001
+            rows.append({"url": f"listing:{s}", "status": "ERR",
+                         "error": repr(exc)[:160], "reachable": False})
+            continue
+        for sym in qsyms[:4]:
+            try:
+                ms = list_months(sym)
+            except Exception as exc:  # noqa: BLE001
+                rows.append({"url": f"listing:{sym}", "status": "ERR",
+                             "error": repr(exc)[:160], "reachable": False})
+                continue
+            if not ms:
+                rows.append({"url": f"listing:{sym}", "status": "EMPTY",
+                             "error": "no months listed", "reachable": False})
+                continue
+            rows.append(probe_url(BASE + KLINES_PATH.format(sym=sym, month=ms[-1])))
+            time.sleep(0.05)
     n_ok = sum(1 for r in rows if r.get("reachable") is True)
+    rate = n_ok / len(rows) if rows else 0.0
     return {"rows": rows, "n_probed": len(rows), "n_reachable": n_ok,
-            "reachable_rate": n_ok / len(rows) if rows else 0.0,
+            "reachable_rate": rate, "min_required_rate": MIN_REACHABLE_RATE,
+            "meets_rate": bool(rate >= MIN_REACHABLE_RATE),
             "path": BASE + "/data/futures/cm/monthly/klines/"}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true")
-    args = parser.parse_args()
+    parser.parse_args()
 
     checks: dict = {}
     blocked: list[str] = []
@@ -209,23 +263,28 @@ def main() -> int:
     flags_ok = (
         meta.get("interval") == EXPECTED_INTERVAL
         and meta.get("source_interval") == EXPECTED_SOURCE_INTERVAL
-        and int(meta.get("n_symbols") or 0) >= N_SYMBOLS
+        and int(meta.get("n_symbols") or 0) >= MIN_SYMBOLS
         and meta.get("real_data_only") is True
         and meta.get("fabricated_data") is False
         and meta.get("executed_fills") is False
         and meta.get("source_host") == BASE
         and meta.get("under_push_limit") is True
         and int(meta.get("max_shard_bytes") or 0) < PUSH_LIMIT_BYTES
+        and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("resumable") is True
+        and meta.get("universe_source") == "s3_listing_data/futures/cm/monthly/klines/"
     )
     checks["meta"] = {
         "interval": meta.get("interval"), "source_interval": meta.get("source_interval"),
-        "n_symbols": meta.get("n_symbols"), "real_data_only": meta.get("real_data_only"),
+        "n_symbols": meta.get("n_symbols"), "n_universe": meta.get("n_universe"),
+        "real_data_only": meta.get("real_data_only"),
         "fabricated_data": meta.get("fabricated_data"),
         "executed_fills": meta.get("executed_fills"), "source_host": meta.get("source_host"),
         "storage": meta.get("storage"), "resumable": meta.get("resumable"),
+        "universe_source": meta.get("universe_source"),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
         "max_shard_mb": round(int(meta.get("max_shard_bytes") or 0) / 1e6, 2),
+        "total_shard_bytes": int(total_shard_bytes),
         "total_shard_mb": round(total_shard_bytes / 1e6, 2),
         "under_push_limit": meta.get("under_push_limit"),
         "under_cache_budget": meta.get("under_cache_budget"),
@@ -248,18 +307,42 @@ def main() -> int:
     if manifest_sha != meta.get("manifest_sha256"):
         blocked.append("shard manifest sha mismatch")
 
+    # ---- universe (archive-discovered, exclusions documented) ----
+    excluded_bases = meta.get("excluded_bases") or {}
+    documented = {k: v.get("exclusion_reason") for k, v in excluded_bases.items()}
+    universe_ok = (int(meta.get("n_symbols") or 0) >= MIN_SYMBOLS
+                   and all(v in ("no_quarterly_contracts_listed",) for v in documented.values())
+                   and set(documented) == {"DOGEUSD", "MATICUSD", "AVAXUSD"})
+    checks["universe"] = {
+        "symbols": list(meta.get("symbols") or []),
+        "n_symbols": int(meta.get("n_symbols") or 0),
+        "n_universe": int(meta.get("n_universe") or 0),
+        "min_required": MIN_SYMBOLS, "expected": EXPECTED_SYMBOLS,
+        "excluded_bases": documented,
+        "excluded_contracts": len(meta.get("excluded_contracts") or {}),
+        "universe_source": meta.get("universe_source"),
+        "ok": bool(universe_ok),
+    }
+    if not universe_ok:
+        blocked.append("universe smaller than archive-discovered floor or exclusions undocumented")
+
     # ---- grid + per-asset ----
     symbols = list(meta.get("symbols") or [])
     n_symbols = len(symbols)
-    n_grid = int(meta.get("total_grid_bars") or 0)
-    grid_start = meta.get("window_start_month")
-    grid_end = meta.get("window_end_month")
-    if n_grid == 0 or not symbols:
-        blocked.append("C313 common grid is empty")
+    n_grid = int(meta.get("common_grid_bars") or meta.get("total_grid_bars") or 0)
+    grid_start = meta.get("common_grid_start_utc") or meta.get("window_start_month")
+    grid_end = meta.get("common_grid_end_utc") or meta.get("window_end_month")
+    if n_grid == 0 or n_symbols < MIN_SYMBOLS:
+        blocked.append("C313 common grid is empty or universe too small")
     in_window = bool(str(grid_start).startswith(WINDOW_START)
-                     and str(grid_end).startswith(WINDOW_END))
-    checks["grid"] = {"n_symbols": n_symbols, "symbols": symbols, "total_grid_bars": n_grid,
-                      "window_start_month": grid_start, "window_end_month": grid_end,
+                     and str(grid_end).startswith(WINDOW_END[:4]))
+    checks["grid"] = {"n_symbols": n_symbols, "symbols": symbols,
+                      "total_grid_bars": int(meta.get("total_grid_bars") or 0),
+                      "common_grid_bars": n_grid,
+                      "common_grid_basis": meta.get("common_grid_basis"),
+                      "grid_start_utc": str(grid_start), "grid_end_utc": str(grid_end),
+                      "window_start_month": meta.get("window_start_month"),
+                      "window_end_month": meta.get("window_end_month"),
                       "in_window": in_window}
     if not in_window:
         blocked.append("C313 grid not in 2022-07..2026-06 window")
@@ -294,6 +377,9 @@ def main() -> int:
                 d["fields"][leg] = {"len": int(len(v)), "nan": int(np.isnan(v).sum()),
                                     "finite_present": int(len(present)), "ok": leg_ok}
                 ok &= leg_ok
+            exp = np.asarray(z["front_expiry_ms"], dtype=float)
+            d["n_quarterly_front_expiries"] = int(len(np.unique(exp[np.isfinite(exp)])))
+            ok &= d["n_quarterly_front_expiries"] >= 2
             d["n_bars"] = n_bars
         d["ok"] = bool(ok)
         detail[s] = d
@@ -304,12 +390,14 @@ def main() -> int:
 
     # walk-forward fit
     n_splits = len(wf_splits(n_grid, TRAIN_HOURS, TEST_HOURS, STEP_HOURS))
-    wf_ok = n_grid >= TRAIN_HOURS + TEST_HOURS and n_splits > 0
+    wf_ok = n_grid >= TRAIN_HOURS + TEST_HOURS and n_splits >= MIN_SPLITS
     checks["walk_forward"] = {"bars": n_grid, "train_hours": TRAIN_HOURS,
                               "test_hours": TEST_HOURS, "step_hours": STEP_HOURS,
-                              "n_splits": int(n_splits), "ok": bool(wf_ok)}
+                              "n_splits": int(n_splits), "min_splits": MIN_SPLITS,
+                              "ok": bool(wf_ok)}
     if not wf_ok:
         blocked.append("walk-forward splits do not fit the grid")
+
     # feature warmup for all runner lookbacks
     warm = {f"L={L}": {"min_periods": int(min_periods_for(L)),
                        "fits_train": bool(min_periods_for(L) <= TRAIN_HOURS),
