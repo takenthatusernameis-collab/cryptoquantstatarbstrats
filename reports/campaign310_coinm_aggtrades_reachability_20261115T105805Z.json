@@ -1,0 +1,356 @@
+{
+  "generated_at_utc": "20261115T105805Z",
+  "campaign": 310,
+  "part": "reachability_probe",
+  "analysis": "c310_coinm_inverse_perp_aggtrades_ofi_cross_sectional_reachability",
+  "source_host": "https://data.binance.vision",
+  "aggtrades_endpoint": "/data/futures/cm/monthly/aggTrades/{sym}/{sym}-aggTrades-{month}.zip",
+  "target_window": {
+    "start": "2022-07",
+    "end": "2026-06",
+    "months": 48
+  },
+  "perp_universe": [
+    "BTCUSD_PERP",
+    "ETHUSD_PERP",
+    "ADAUSD_PERP",
+    "LTCUSD_PERP",
+    "XRPUSD_PERP",
+    "BCHUSD_PERP",
+    "LINKUSD_PERP",
+    "TRXUSD_PERP",
+    "ETCUSD_PERP",
+    "XLMUSD_PERP",
+    "DOTUSD_PERP"
+  ],
+  "n_perps": 11,
+  "sample_months": [
+    "2022-07",
+    "2024-01",
+    "2026-06"
+  ],
+  "depth_months": [
+    "2020-12",
+    "2021-04",
+    "2022-07",
+    "2026-06",
+    "2026-10"
+  ],
+  "total_sample_content_length_bytes": 861401122,
+  "sample_content_length_mb": 861.4,
+  "per_symbol": {
+    "BTCUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BTCUSD_PERP/BTCUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 110828357
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BTCUSD_PERP/BTCUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 96947073
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BTCUSD_PERP/BTCUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 68384435
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "ETHUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETHUSD_PERP/ETHUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 164322722
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETHUSD_PERP/ETHUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 72919060
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETHUSD_PERP/ETHUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 75685814
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "ADAUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ADAUSD_PERP/ADAUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 26072272
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ADAUSD_PERP/ADAUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 12659530
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ADAUSD_PERP/ADAUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 4194748
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "LTCUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LTCUSD_PERP/LTCUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 7963574
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LTCUSD_PERP/LTCUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 9228101
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LTCUSD_PERP/LTCUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 2876938
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "XRPUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XRPUSD_PERP/XRPUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 8371260
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XRPUSD_PERP/XRPUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 10949274
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XRPUSD_PERP/XRPUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 12411344
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "BCHUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BCHUSD_PERP/BCHUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 9429494
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BCHUSD_PERP/BCHUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 11634185
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/BCHUSD_PERP/BCHUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 10958232
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "LINKUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LINKUSD_PERP/LINKUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 10328097
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LINKUSD_PERP/LINKUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 17015763
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/LINKUSD_PERP/LINKUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 4149956
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "TRXUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/TRXUSD_PERP/TRXUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 3307976
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/TRXUSD_PERP/TRXUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 3123604
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/TRXUSD_PERP/TRXUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 2101416
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "ETCUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETCUSD_PERP/ETCUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 25934834
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETCUSD_PERP/ETCUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 24995552
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/ETCUSD_PERP/ETCUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 2698517
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "XLMUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XLMUSD_PERP/XLMUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 3945005
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XLMUSD_PERP/XLMUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 4342412
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XLMUSD_PERP/XLMUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 12708042
+        }
+      },
+      "depth_status": {
+        "2020-12": 404,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    },
+    "DOTUSD_PERP": {
+      "sample": {
+        "2022-07": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/DOTUSD_PERP/DOTUSD_PERP-aggTrades-2022-07.zip",
+          "status": 200,
+          "content_length": 14267142
+        },
+        "2024-01": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/DOTUSD_PERP/DOTUSD_PERP-aggTrades-2024-01.zip",
+          "status": 200,
+          "content_length": 15114865
+        },
+        "2026-06": {
+          "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/DOTUSD_PERP/DOTUSD_PERP-aggTrades-2026-06.zip",
+          "status": 200,
+          "content_length": 1531528
+        }
+      },
+      "depth_status": {
+        "2020-12": 200,
+        "2021-04": 200,
+        "2022-07": 200,
+        "2026-06": 200,
+        "2026-10": 200
+      }
+    }
+  },
+  "schema_verification": {
+    "symbol": "XLMUSD_PERP",
+    "month": "2022-07",
+    "ok": true,
+    "url": "https://data.binance.vision/data/futures/cm/monthly/aggTrades/XLMUSD_PERP/XLMUSD_PERP-aggTrades-2022-07.zip",
+    "status": 200,
+    "zip_bytes": 3945005,
+    "inner_name": "XLMUSD_PERP-aggTrades-2022-07.csv",
+    "inner_bytes": 16268568,
+    "has_header": true,
+    "header": "agg_trade_id,price,quantity,first_trade_id,last_trade_id,transact_time,is_buyer_maker",
+    "first_row": "10352955,0.11203,3.0,13848652,13848652,1656633601996,true",
+    "last_row": "10627991,0.11758,3.0,14254780,14254781,1659311986593,true",
+    "n_columns_first_row": 7,
+    "transact_time_ms_example": "1656633601996",
+    "is_buyer_maker_example": "true"
+  },
+  "reachable": true,
+  "notes": [
+    "COIN-M aggTrades is a genuinely new data family (never ingested; C301 used USDT-M linear perps).",
+    "Cross-sectional OFI carry on COIN-M inverse perps is a new formulation, distinct from C301 per-asset TS OFI.",
+    "COIN-M indexPriceKlines is HTTP 404 \u2014 never used; execution prices come from the C307 leg_b perp_close (1h).",
+    "Full 48-month x 11-perp window is many GB: heavy ingest is the mandated next-session work."
+  ],
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false
+}

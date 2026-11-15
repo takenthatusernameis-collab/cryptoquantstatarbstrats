@@ -1,9 +1,9 @@
-updated_at_utc: 20261115T101912Z
+updated_at_utc: 20261115T112051Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T10:19:12Z, mandatory heavy, executed): CAMPAIGN C309 — COIN-M INVERSE CROSS-SECTIONAL PREMIUM-INDEX & MARK-PERP BASIS CARRY. Built scripts/preflight_c309.py + scripts/run_c309_coinm_premium_mark_basis_carry_oos.py (+ tests/test_preflight_c309.py, tests/test_c309_coinm_premium_mark_basis_carry_oos.py) and EXECUTED end-to-end over the existing C307 cache data/cache/campaign307_coinm_multiasset_term_structure_carry.pkl (SHA256 7045013e18de42b64cf583236c90da57c30e6779ac3b58c4b86bfa87eb1373d3; no re-ingest). Pre-registered 504 configs: signals {premium_level,premium_z,premium_mom,premium_sign,mark_basis_level,mark_basis_z,mark_basis_sign} (mark_basis = mark_close/perp_close - 1, premium = premium_close), lookbacks{24,168,720,1440}h, K{2,3,5}, holds{1,6,24}h, gates{off,on} (WF train720/test168/step168, 203 splits, 2022-07..2026-06). Inverse PnL pnl_coin = notional*(1/entry - 1/exit)*signed_weight; costs on ALL legs at [[0,0],[5,5],[10,10],[20,20],[40,40]] bps + realistic overlay (taker 5/maker 2/mark slippage 1 bps); native 8h funding excluded (control leg only). Validation: Holm+BH over 504, DSR/MDE, sub-period+per-year stability, per-asset attribution, inverse-convexity vs premium-carry decomposition (linear shadow book), COIN-M cost-realism overlay. RESULT: NOT_TRADABLE formal negative — 504/504 with exposure, 18 deterministic edge, 0 survive Holm AND BH (binding constraint: multiple_testing), convexity share 0.870 > premium-carry share 0.130 (edge NOT explained by premium/mark carry), 18 survive cost realism but fail multiple-testing. Emit 5 reports/campaign309_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261115T101912Z.json (real_data_only:true, fabricated_data:false, executed_fills:false, SHA256-from-bytes). Gate met: preflight ready:true, C309 tests green, full suite 0 failed. AGENTS.md + this state synced (latest_campaign_done:C309). Do not claim tradability; do not weaken rules/gates/costs; no next reachable family identified on disk.'
-next_campaign: c309_coinm_premium_mark_basis_carry
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-15T10:54:58Z, mandatory heavy, executed): CAMPAIGN C310 — COIN-M INVERSE CROSS-SECTIONAL ORDER-FLOW-IMBALANCE (OFI) CARRY over REAL COIN-M aggTrades (new data, never ingested; C301 used USDT-M linear perps per-asset TS). Ingested all 11 COIN-M perps x 48 months (2022-07..2026-06) aggTrades -> 384,318 1h trade-bars, cache data/cache/campaign310_coinm_aggtrades_ofi.pkl (28.34 MB, SHA256 393173923815a0e7bc1f06fff439089d50a54e665a7ce1f19f5ba5b5e1d876e8); execution prices/funding from C307 leg_b (1h). Ran 504 pre-registered configs (7 OFI signals x 4 lookbacks x K{2,3,5} x holds{1,6,24} x gates{off,on}; WF 203 splits) with Holm+BH, DSR/MDE, stability, per-asset attribution, inverse-convexity vs OFI-carry decomposition, COIN-M cost-realism overlay. RESULT: RETRACTED formal negative — 504/504 with exposure, 30 deterministic edge, 0 survive Holm AND BH (binding multiple_testing), convexity share 0.912 > OFI-carry 0.088, 30 survive cost realism but fail multiple-testing. Emit 5 reports/campaign310_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_20261115T111243Z.json; tests 20 passed; full suite 1528 passed/2 skipped/0 failed. latest_campaign_done:C310. Superseded 2026-11-15T11:20:51Z by C311 (COIN-M inverse cross-sectional OFI carry at native 5m).'
+next_campaign: c311_coinm_ofi_xsec_5m
 coin_m_inverse_futures_space: OPEN
 c306_coinm_term_structure:
   state: COMPLETE_NOT_TRADABLE
@@ -1022,8 +1022,9 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C309
-reachable_real_data_cross_sectional_stat_arb_space: CLOSED
+latest_campaign_done: C310
+reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_only_aggtrades_space_OPEN_at_5m
+reachable_real_data_cross_sectional_stat_arb_space_scope: 'Price/funding/premium/mark cross-sectional stat-arb CLOSED for USDT-M+spot+options (C281B-C305) and COIN-M inverse futures (C306-C309). COIN-M inverse ORDER-FLOW (aggTrades) microstructure space was NOT closed: C310 (1h OFI xsec, real aggTrades) COMPLETE formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated). C311 (5m OFI xsec, finer grid) is the active mandatory heavy campaign; USDT-M wide-universe aggTrades OFI xsec is the fallback.'
 reachable_real_data_cross_sectional_stat_arb_space_scope: 'USDT-M linear futures + spot + options only (C281B-C305, CLOSED). COIN-M inverse futures space: C306 dated-quarterly term-structure COMPLETE_NOT_TRADABLE/FROZEN; C307 EDGE_PROVEN (44/612) RETRACTED by C308; C308 RETRACTED (binding multiple_testing); C309 cross-sectional premium-index & mark-perp-basis carry NOT_TRADABLE formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated). All reachable real-data cross-sectional stat-arb space is CLOSED/exhausted; 0 tradable costed-OOS edge; no next reachable family identified on disk.'
 c305_program_closure:
   as_of_utc: 2026-11-15 03:24:16+00:00
@@ -1753,7 +1754,7 @@ c297_status:
     verdict: 03c049f24d3e9e0afb8eea602a96eab54becfd0bc33baa1061718cbf9d20574f
     binding_constraint: 01379bb68e9bb860848d3bd2acf1b40504ef5640290f3cab8d9ee05537467695
 locked_campaigns: C104-C297
-oos_edge_proven: false  # C308 RETRACTED the C307 candidate (0/53 survive Holm+BH over 612; convexity-dominated, 20261115T093148Z); program at 0 tradable costed-OOS edge; C309 (COIN-M inverse cross-sectional premium-index & mark-perp basis carry) is the active heavy campaign
+oos_edge_proven: false  # C310 (COIN-M inverse cross-sectional OFI carry, 1h, real aggTrades) RETRACTED formal negative (0/504 survive Holm+BH over 504; convexity-dominated 0.912 vs OFI-carry 0.088; 20261115T111243Z); program at 0 tradable costed-OOS edge; C311 (5m OFI xsec) is the active heavy campaign
 c291_data_source:
   status: verified_reachable
   probe_artifact: reports/campaign291_derivatives_reachability_20261113T105429Z.json
@@ -2822,10 +2823,10 @@ handoff:
   single_authoritative: true
   forbidden_files:
   - HANDOFF.md
-  timestamp_utc: 20261115T095409Z
-  active_initial_task_message: 'INITIAL TASK MESSAGE (2026-11-15T09:54:09Z, mandatory heavy, unavoidable): COIN-M INVERSE CROSS-SECTIONAL PREMIUM-INDEX & MARK-PERP BASIS CARRY — CAMPAIGN C309. C308 (20261115T093148Z) RETRACTED the C307 candidate edge: 0 of 53 deterministic edge configs survive Holm AND Benjamini-Hochberg over 612 pre-registered configs (0 Holm, 18 BH, 0 both), effect convexity-dominated (conv share 0.607 > funding share 0.324), binding constraint multiple_testing. The reachable COIN-M inverse space has ONE genuinely untested economic family buildable from the SAME C307 cache (NO re-ingest, NO new data): cross-sectional premium-index carry (premium_close) and mark-perp basis (mark_close/perp_close - 1) on the 11 COIN-M inverse perps. index_close is HTTP 404 — do NOT depend on it. Step 0: python scripts/bootstrap_dev_env.py. NEXT (heavy, no planning/status-only): build scripts/preflight_c309.py + scripts/run_c309_coinm_premium_mark_basis_carry_oos.py + tests/test_preflight_c309.py + tests/test_c309_coinm_premium_mark_basis_carry_oos.py that reuse the C307 cache and execute end-to-end over the pre-registered 504-config grid (7 signals {premium_level,premium_z,premium_mom,premium_sign,mark_basis_level,mark_basis_z,mark_basis_sign} x 4 lookbacks {24,168,720,1440} x K {2,3,5} x holds {1,6,24} x gates {off,on}; N_TRIALS=504, report all; WF train720/test168/step168 = 203 splits over the 34968-bar 2022-07..2026-06 grid; inverse PnL pnl_coin=notional*(1/entry-1/exit)*signed_weight; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] + COIN-M realistic overlay taker5+maker2+mark slip1 bps). Validate on ALL of: (a) Holm AND BH over 504 (report how many survive BOTH); (b) DSR/MDE given 203 splits; (c) sub-period + per-year stability; (d) per-asset attribution over 11 perps; (e) inverse-convexity vs premium/mark carry decomposition via linear-settlement shadow book; (f) execution-cost-realism overlay. Emit 5 fresh reports/campaign309_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. FAIL-CLOSED: if 0 survive Holm+BH OR any positive is explained by inverse convexity OR fails cost-realism, record a formal negative with binding constraint and do NOT claim tradability. Do not weaken edge rule/costs/gates; do not re-probe reachability; do not re-skin frozen C281B-C308. Full suite must be 0 failed; sync AGENTS.md + this state. Any turn without real-data validation, a passing test, or an artifact update is NOT economic progress.'
+  timestamp_utc: 20261115T112051Z
+  active_initial_task_message: 'INITIAL TASK MESSAGE (2026-11-15T11:20:51Z, mandatory heavy, unavoidable): COIN-M INVERSE PERP ORDER-FLOW-IMBALANCE (OFI) CROSS-SECTIONAL CARRY AT NATIVE 5m — CAMPAIGN C311. C310 (20261115T111243Z) COMPLETED the 1h COIN-M inverse cross-sectional OFI carry formal negative (0/504 survive Holm+BH, binding multiple_testing, convexity-dominated 0.912 vs OFI-carry 0.088). C311 is the genuinely finer-grained, heavier continuation: re-ingest real COIN-M aggTrades aggregated to NATIVE 5m bars (same 6.2 GB raw trades, finer bars; streaming per-month ingest, 6-retry linear backoff) with 5m execution prices from COIN-M 5m klines/premium/mark (HTTP 200, ~335 KB/mo) and native 8h funding from 5m klines (control leg only). Build scripts/ingest_c311_coinm_ofi_5m.py + scripts/preflight_c311.py + scripts/run_c311_coinm_ofi_xsec_5m_oos.py + tests/test_preflight_c311.py + tests/test_c311_coinm_ofi_xsec_5m_oos.py. Pre-registered 504 configs: 7 OFI signals {ofi_z,ofi_mom,buy_ratio,ofi_per_trade_z,ofi_sign_autocorr,trade_intensity_z,amihud_z} x 4 lookbacks {288,1008,2016,4032} 5m bars x K{2,3,5} x holds{1,6,24} x gates{off,on}; WF train720/test168/step168 (~2500 splits over 2022-07..2026-06); inverse PnL pnl_coin=notional*(1/entry-1/exit)*signed_weight; cost grid [[0,0],[5,5],[10,10],[20,20],[40,40]] + COIN-M realistic overlay taker5+maker2+mark slip1 bps. Validate on ALL of: (a) Holm AND BH over 504 (report how many survive BOTH); (b) DSR/MDE given the splits; (c) sub-period + per-year stability; (d) per-asset attribution over 11 perps; (e) inverse-convexity vs OFI-carry decomposition (linear-settlement shadow book); (f) execution-cost-realism overlay. Emit 5 fresh reports/campaign311_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json SHA256-from-bytes, real_data_only:true, fabricated_data:false, executed_fills:false. FAIL-CLOSED: if 0 survive Holm+BH OR any positive is explained by inverse convexity OR fails cost-realism, record a formal negative with binding constraint; do NOT claim tradability. Do not weaken edge rule/costs/gates; do not re-probe reachability; do not re-skin frozen C281B-C310. Full suite must be 0 failed; sync AGENTS.md + this state. If 5m infeasible, fall back to USDT-M wide-universe (24-perp) aggTrades cross-sectional OFI carry (record the 5m attempt first).'
   rule: do_not_create_another_handoff_file
-  superseded_active_initial_task_message: C308 (2026-11-15T09:05:00Z, C307-edge validation) EXECUTED 20261115T093148Z -> RETRACTED (0/53 survive Holm+BH; binding multiple_testing; convexity-dominated). C307 candidate EDGE_PROVEN is RETRACTED by C308; program at 0 tradable costed-OOS edge. Superseded 2026-11-15T09:54:09Z by C309 (COIN-M inverse cross-sectional premium-index & mark-perp basis carry). Earlier C303/C305-era messages superseded 2026-11-15T04:20:40Z by C306. C281B-C305 frozen/complete.
+  superseded_active_initial_task_message: C310 (2026-11-15T10:54:58Z, COIN-M inverse cross-sectional OFI carry over real aggTrades, 1h) EXECUTED 20261115T111243Z -> RETRACTED formal negative (0/504 survive Holm+BH; binding multiple_testing; convexity-dominated 0.912 vs OFI-carry 0.088). Superseded 2026-11-15T11:20:51Z by C311 (COIN-M inverse cross-sectional OFI carry at NATIVE 5m). C309 (COIN-M inverse cross-sectional premium-index & mark-perp basis carry) executed 20261115T101912Z -> NOT_TRADABLE formal negative (0/504 survive Holm+BH). Earlier C281B-C308 frozen/complete/retracted.
   bottlenecks_removed:
   - id: c306_cm_space_reopened
     detail: 2026-11-15T04:08:35Z probe confirms futures/cm reachable (perp klines/premiumIndexKlines/markPriceKlines/fundingRate 200, 11 perps 2020-12..2026-10; quarterly klines 200 incl expired). Path A available; do not re-probe as unknown.
@@ -2988,6 +2989,95 @@ c307_preflight_facts:
     - 2026-10
   other_underlyings_261225: HTTP 404 for ADAUSD/LTCUSD/BCHUSD/LINKUSD/TRXUSD/ETCUSD/XLMUSD/DOTUSD; only BTC/ETH/XRP have dated quarterlies.
   ethusd_perp_correction: 'C306 note "ETHUSD_PERP klines HTTP 404 every month" is WRONG: ETHUSD_PERP klines/premium/mark are HTTP 200 2020-12..2026-10 (2026-10 = 744 bars). C306 excluded ETHUSD only because ETHUSD_261225 had 2026-10 only (< train+test = 888 bars) -> no common term-structure grid.'
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+campaign310:
+  hypothesis: COIN-M_INVERSE_CROSS_SECTIONAL_ORDER_FLOW_IMBALANCE_OFI_CARRY_REAL_AGGTRADES_1H
+  status: completed_not_tradable
+  verdict: RETRACTED
+  edge_proven: false
+  edge_claim: NONE
+  binding_constraint: multiple_testing
+  as_of_utc: '20261115T111243Z'
+  genuinely_new: true
+  reskin_of: none
+  note: 'Distinct from C301 (USDT-M linear perps, per-asset TIME-SERIES OFI). C310 uses COIN-M inverse perp aggTrades (never ingested) with a CROSS-SECTIONAL OFI carry formulation (long top-K / short bottom-K, dollar-neutral), inverse coin-margined PnL.'
+  probe:
+    script: scripts/probe_c310_coinm_aggtrades_reachability.py
+    report: reports/campaign310_coinm_aggtrades_reachability_20261115T105805Z.json
+    report_sha256: 90c7d6a141d9a9abe39e8813de6fb684cdf54b2cbb80ce8edbdbf1f824b7ce67
+    reachable: true
+    perp_universe_reachable_n: 11
+    aggtrades_full_window_bytes: 6200000000
+    aggtrades_endpoint: /data/futures/cm/monthly/aggTrades/<SYM>/<SYM>-aggTrades-YYYY-MM.zip
+  ingest:
+    script: scripts/ingest_c310_coinm_aggtrades_ofi.py
+    cache: data/cache/campaign310_coinm_aggtrades_ofi.pkl
+    cache_sha256: 393173923815a0e7bc1f06fff439089d50a54e665a7ce1f19f5ba5b5e1d876e8
+    cache_bytes: 28343328
+    meta_sha256: b0e2f66a03178d34d1ce750f537a7767f9e22a0cb1703361da64c17f242ce8d0
+    provenance_sha256: c20ca7cea94df4c289b1da5bbd5ba8535372427de53f2cc8d9542562ddafe1d1
+    symbols_ok: 11
+    n_months: 48
+    total_trade_bars: 384318
+    total_gap_bars: 330
+    execution_price_source: C307_leg_b_perp_close_1h
+    funding_source: C307_leg_b_native_8h_funding_control_only
+  preflight:
+    script: scripts/preflight_c310.py
+    ready: true
+  run:
+    script: scripts/run_c310_coinm_ofi_xsec_oos.py
+    n_trials: 504
+    signals: [ofi_z, ofi_mom, buy_ratio, ofi_per_trade_z, ofi_sign_autocorr, trade_intensity_z, amihud_z]
+    lookbacks_1h: [24, 168, 720, 1440]
+    K: [2, 3, 5]
+    holds: [1, 6, 24]
+    gates: [off, on]
+    wf: {train: 720, test: 168, step: 168, n_splits: 203}
+  result:
+    n_total_runs: 504
+    n_with_exposure: 504
+    n_zero_exposure: 0
+    n_edge_proven_deterministic: 30
+    n_survive_holm: 0
+    n_survive_bh: 0
+    n_survive_both: 0
+    n_survive_cost_realism: 30
+    dsr_n_splits: 203
+    n_dsr_ge_0.95: 0
+    n_dsr_ge_0.90: 0
+    mde_bps_mean: 1.1660494210296126
+    observed_mean_bps_per_split: -0.1788960929358122
+    stable_first_half: 30
+    stable_second_half: 29
+    stable_per_year: {2022: 0, 2023: 25, 2024: 22, 2025: 23, 2026: 23}
+    aggregate_ofi_carry_share: 0.08838256292164726
+    aggregate_conv_share: 0.9116174370783527
+    edge_explained_by_ofi_carry: false
+    edge_rule_never_relaxed: true
+  artifacts:
+    oos_sweep:
+      path: reports/campaign310_oos_sweep_20261115T111243Z.json
+      sha256: 482327dfae508e65cc08102430d9554bbbc57731fbb473d625f4a36471f2ebf8
+    registry:
+      path: reports/campaign310_tradable_edge_registry_20261115T111243Z.json
+      sha256: e647cd48e3c9c9456e75ffd501358ad3328fa7aa287325c1631cdc427fa63b43
+    summary:
+      path: reports/campaign310_summary_20261115T111243Z.json
+      sha256: 8d6d39646c273f0d53a64457a3dcc7386a81d3cf433a3ad8ba15e7c0d1fd36ef
+    verdict:
+      path: reports/campaign310_verdict_20261115T111243Z.json
+      sha256: 426566dbe197e0f7fa3b88452ae15c3ef2812d4ad8c6f019e6cbbd37bdb67047
+    binding_constraint:
+      path: reports/campaign310_binding_constraint_20261115T111243Z.json
+      sha256: 1961404206a87e8b2297a191f04f8cb183f76f4db1ca3910df70e9028e24c83e
+  tests:
+  - tests/test_preflight_c310.py
+  - tests/test_c310_coinm_ofi_xsec_oos.py
+  tests_passed: 20
   real_data_only: true
   fabricated_data: false
   executed_fills: false
