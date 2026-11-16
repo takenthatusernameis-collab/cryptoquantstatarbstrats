@@ -1,8 +1,8 @@
-updated_at_utc: 2026-11-16T17:12:30Z
-handoff_refreshed_at_utc: 2026-11-16T17:12:30Z
+updated_at_utc: 2026-11-16T17:18:54Z
+handoff_refreshed_at_utc: 2026-11-16T17:18:54Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-16T17:12:30Z"
+bottlenecks_verified_removed_at_utc: "2026-11-16T17:18:54Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-16T17:12:30Z: NONE for C334 (python scripts/verify_env.py --json -> ready:true, missing:[]; real C312 5m on-disk data ready with all C334 fields; no *c334* scripts/artifacts exist; C333 frozen/committed; baseline pytest tests/test_preflight_c333.py -q -> 4 passed this session). C287 external-only/decoupled — never retry.'
 priority: statistical-arb edge discovery before infrastructure work
 active_initial_task: "INITIAL TASK MESSAGE (2026-11-16T17:12:30Z, re-verified) — C334 MANDATORY HEAVY WORK: C333 COMPLETE FORMAL NEGATIVE/frozen (20261116T153258Z, 864, 0 Holm+BH). C281B–C333 all formal negatives (~37,911, binding multiple_testing). Env verified ready:true 2026-11-16T17:12:30Z; 0 *c334* scripts/artifacts on disk; no bottlenecks. NEXT AGENT MUST fully DEFINE, PRE-REGISTER, IMPLEMENT, TEST, and RUN C334 as genuinely-new cross-sectional intraday KYLE'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion on real on-disk C312 5m data (distinct from C316–C333 incl. C324 Amihud and C332 return-volume synchrony/correlation). Deliver builder/preflight/runner/tests + 5 SHA256 verdict artifacts (real_data_only:true,fabricated_data:false,executed_fills:false, Holm+BH alpha=0.05 BOTH, WF 12m/3m/3m, >=864 configs, placebo attribution) + green pytest, then update AGENTS.md/state.yaml only. Non-avoidance definition of done: preflight ready:true + full real-data sweep executed + 5 artifacts with bool edge_proven & binding_constraint + 5 recomputed SHA256 + green tests + >=864 configs; ending a session without these is INCOMPLETE and must resume C334. If negative, proceed immediately to C335; closure by fiat prohibited."
