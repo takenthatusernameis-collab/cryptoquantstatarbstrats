@@ -1,0 +1,169 @@
+{
+  "generated_at_utc": "20261116T104237Z",
+  "campaign": 328,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "r2",
+    "r_q4",
+    "r_q8",
+    "r_q16",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign328_variance_ratio_5m",
+  "shard_sha256": {
+    "ADAUSDT": "6480114abf73809ee866f77d0c66f954ea56b7f3b3a23055c800a96ac0bd3bbe",
+    "AVAXUSDT": "e687b3466ce81b349555d48163b9ed95ad5d93b93a2d1d560f9190188e40cc58",
+    "BNBUSDT": "278d71c8253e62543791d0a12f0719bcb541f4b88bee72cd43dc50e486143146",
+    "BTCUSDT": "7e152fd68c48616e6d3904f6eca3fa08d0ac4f6eaa576d75e96ad2cd2b10aae7",
+    "DOGEUSDT": "99ddc83e30b9ed475dc1b2e93593e81b8b8890337408bbffb24ec94403b44c09",
+    "DOTUSDT": "24eceff61b71020701100c5dca299549094d48e983731d1e00a171f0156e8362",
+    "ETHUSDT": "81a0b9b33dc56fd1c435c6073da4c695547d3c3b6294cfc42ec96c84ac024924",
+    "LINKUSDT": "afb16b04239362a8fa174aa1782fdad4c140cc5c3e18ef26cef0f8a06aa32b82",
+    "SOLUSDT": "d900f7c7109ebfbf35e9253e35c796802c1c86cd6813017c816f5d4e9eb43aea",
+    "XRPUSDT": "3aa4337f0244993931f3db2f59d2a13da04854171a3b159632db5b230dd12b5a"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 6733584,
+    "AVAXUSDT": 7514287,
+    "BNBUSDT": 7520995,
+    "BTCUSDT": 7666664,
+    "DOGEUSDT": 7322372,
+    "DOTUSDT": 6791055,
+    "ETHUSDT": 7704345,
+    "LINKUSDT": 7340515,
+    "SOLUSDT": 7581545,
+    "XRPUSDT": 6931727
+  },
+  "total_shard_bytes": 73107089,
+  "max_shard_bytes": 7704345,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "q_horizons": [
+    4,
+    8,
+    16
+  ],
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "f9bd315b051dd075aa5564a3aff46afb635c1a80dcbaafdf956a08b8f4efa6b7",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "r2": "r^2; always finite",
+    "r_q4": "log(c[t]/c[t-4]) = sum of last 4 one-bar returns; 0 for t<4 (warmup); always finite",
+    "r_q8": "log(c[t]/c[t-8]) = sum of last 8 one-bar returns; 0 for t<8 (warmup); always finite",
+    "r_q16": "log(c[t]/c[t-16]) = sum of last 16 one-bar returns; 0 for t<16 (warmup); always finite",
+    "runner_vr_nan": "Var1<=0 => VR NaN; Varq<=0 => VR NaN; zero-variance/insufficient-obs NaNs fail-closed; NaN bars get weight 0",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "r2": 0,
+        "r_q4": 0,
+        "r_q8": 0,
+        "r_q16": 0
+      }
+    }
+  }
+}
