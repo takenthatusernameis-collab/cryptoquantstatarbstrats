@@ -1,11 +1,11 @@
-updated_at_utc: 2026-11-16T21:43:13Z
-handoff_refreshed_at_utc: 2026-11-16T21:43:13Z
+updated_at_utc: 2026-11-16T22:42:18Z
+handoff_refreshed_at_utc: 2026-11-16T22:42:18Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-16T21:43:13Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-16T21:43:13Z: NO bottleneck for C337. C312 5m on-disk (data/cache/campaign312_usdt_m_ofi_5m/, 10 shards × 315648 bars) has 0-NaN C337 fields (perp_close,total_volume,signed_volume,trade_count,trade_sign_sum,notional); total_volume<=0 on 24-43 bars/shard only (fail-closed). vwap not required; funding all-NaN control-only. python 3.12.3/pytest 9.2.0 + core deps ready (bootstrap_dev_env.py if missing). C336 frozen formal negative 20261116T192501Z (1728, 0 Holm+BH) — do not rerun. C287 external-only/decoupled (451/403) — never retry. C337 NOT STARTED (no scripts/cache/artifacts/tests). MANDATORY: execute C337 full 7776-config real-data costed-OOS (all 6 steps) then C338 same session unless C338 inputs proven unreachable with on-disk evidence.'
+bottlenecks_verified_removed_at_utc: "2026-11-16T22:42:18Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-16T22:42:18Z: NO bottleneck for C337. C312 5m on-disk (data/cache/campaign312_usdt_m_ofi_5m/, 10 shards × 315648 bars, 2023-01-01..2025-12-31) has 0-NaN C337 fields (perp_close,total_volume,signed_volume,trade_count,trade_sign_sum,notional); total_volume<=0 on 24-43 bars/shard only (fail-closed). vwap not required; funding all-NaN control-only. python 3.12.3/pytest 9.2.0 + numpy/pandas/scipy/statsmodels/sklearn ready (bootstrap_dev_env.py if missing). C336 frozen formal negative 20261116T192501Z (1728, 0 Holm+BH) — do not rerun. C287 external-only/decoupled (451/403) — never retry. C337 NOT STARTED (verified: no scripts/build_c337*/preflight_c337*/run_c337*, no tests/*c337*, no data/cache/campaign337*, no reports/campaign337*). MANDATORY: execute C337 full 7776-config real-data costed-OOS (all 6 steps) then C338 same session unless C338 inputs proven unreachable with on-disk evidence.'
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "ACTIVE 2026-11-16T21:40:07Z — START C337 IMMEDIATELY (NO PLANNING GAP, NO COASTING). C281B–C336 ALL COMPLETE FORMAL NEGATIVES/frozen (~41,367 configs, binding multiple_testing, edge_claim NONE). C337 NOT STARTED; real C312 5m data on-disk + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C337: cross-sectional intraday ORDER-FLOW SKEW / ASYMMETRIC IMPULSE SEASONAL DISLOCATION mean-reversion (USDT-M 5m). Per-bar fail-closed: imb=signed_volume/total_volume (tv>0), buy=max(sv,0), sell=abs(min(sv,0)), skew=mean((imb-mean)^3)/std^3 over lookback (insufficient/std<=0->NaN), asym=(buy-sell)/(buy+sell) (denom>0). Seasonal baseline=trailing same TODxDOW mean/std causal shift(1), NaN-aware min periods. Score=-(signal-baseline)/seasonal_std, xsec rank dollar-neutral gross 1.0 (exclude NaN, renorm). WF 12m/3m/3m, 8 splits, 2023-01..2025-12. Grid 7776 = 8 signals{skew_dev,asym_dev,skew_ewm_dev,asym_ewm_dev,skew_z,asym_z,skew_placebo,asym_placebo} x 6 lookbacks{60,120,240,480,960,1920} x 3 rebal{1,4,12} x 3 fee{0.0004,0.0007,0.0010} x 3 slip{0,0.0001,0.0002} x 2 cost{taker,maker_blend}. skew/asym_ewm_dev use EWMA halflife 24 bars (>=24 finite obs). Placebos=recorded-seed phase-randomized surrogates (same marginal, temporal alignment destroyed) — never counted as edges. Gates Holm+BH 0.05, MDE, stability, signal-vs-placebo; dominant REAL (non-placebo) signal >=0.5 for attribution_ok. Do ALL in order: (1) scripts/build_c337_orderflow_skew_features.py -> data/cache/campaign337_orderflow_skew_5m/ idempotent,<100MB (2) scripts/preflight_c337.py --json ready:true,blocked_reasons:[] (3) scripts/run_c337_orderflow_skew_xsec_oos.py full 7776 sweep, bounded mem, gitignored .full.json (4) pytest tests/test_preflight_c337.py tests/test_c337_orderflow_skew_xsec_oos.py -q green (5) 5 artifacts reports/campaign337_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json SHA256-from-bytes + gitignored .full.json (real_data_only:true,fabricated_data:false,executed_fills:false,source C312) (6) update AGENTS.md+state.yaml with truthful C337 result and activate C338 per queued spec. Do NOT shrink grid, re-run frozen campaigns, or declare closure. If on-disk proves unreachable record evidence and proceed to C338 same session. Done = cache+ready preflight+7776 real-data costed-OOS+5 SHA256 artifacts+green tests+handoff/state updated."
+active_initial_task: "ACTIVE 2026-11-16T22:42:18Z — START C337 IMMEDIATELY (NO PLANNING GAP, NO COASTING). C281B–C336 ALL COMPLETE FORMAL NEGATIVES/frozen (~41,367 configs, binding multiple_testing, edge_claim NONE). C337 NOT STARTED; real C312 5m data on-disk + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C337: cross-sectional intraday ORDER-FLOW SKEW / ASYMMETRIC IMPULSE SEASONAL DISLOCATION mean-reversion (USDT-M 5m). Per-bar fail-closed: imb=signed_volume/total_volume (tv>0), buy=max(sv,0), sell=abs(min(sv,0)), skew=mean((imb-mean)^3)/std^3 over lookback (insufficient/std<=0->NaN), asym=(buy-sell)/(buy+sell) (denom>0). Seasonal baseline=trailing same TODxDOW mean/std causal shift(1), NaN-aware min periods. Score=-(signal-baseline)/seasonal_std, xsec rank dollar-neutral gross 1.0 (exclude NaN, renorm). WF 12m/3m/3m, 8 splits, 2023-01..2025-12. Grid 7776 = 8 signals{skew_dev,asym_dev,skew_ewm_dev,asym_ewm_dev,skew_z,asym_z,skew_placebo,asym_placebo} x 6 lookbacks{60,120,240,480,960,1920} x 3 rebal{1,4,12} x 3 fee{0.0004,0.0007,0.0010} x 3 slip{0,0.0001,0.0002} x 2 cost{taker,maker_blend}. skew/asym_ewm_dev use EWMA halflife 24 bars (>=24 finite obs). Placebos=recorded-seed phase-randomized surrogates (same marginal, temporal alignment destroyed) — never counted as edges. Gates Holm+BH 0.05, MDE, stability, signal-vs-placebo; dominant REAL (non-placebo) signal >=0.5 for attribution_ok. Do ALL in order: (1) scripts/build_c337_orderflow_skew_features.py -> data/cache/campaign337_orderflow_skew_5m/ idempotent,<100MB (2) scripts/preflight_c337.py --json ready:true,blocked_reasons:[] (3) scripts/run_c337_orderflow_skew_xsec_oos.py full 7776 sweep, bounded mem, gitignored .full.json (4) pytest tests/test_preflight_c337.py tests/test_c337_orderflow_skew_xsec_oos.py -q green (5) 5 artifacts reports/campaign337_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json SHA256-from-bytes + gitignored .full.json (real_data_only:true,fabricated_data:false,executed_fills:false,source C312) (6) update AGENTS.md+state.yaml with truthful C337 result and activate C338 per queued spec. Do NOT shrink grid, re-run frozen campaigns, or declare closure. If on-disk proves unreachable record evidence and proceed to C338 same session. Done = cache+ready preflight+7776 real-data costed-OOS+5 SHA256 artifacts+green tests+handoff/state updated."
 next_campaign: C338_orderflow_entropy_information_content_trade_burstiness_seasonal_dislocation_xsec_mean_reversion_5m
 active_campaign: C337_orderflow_skew_asymmetric_impulse_seasonal_dislocation_xsec_mean_reversion_5m
 space_status: NO_EDGE_C281B_C336
@@ -1432,7 +1432,7 @@ c337_status:
   family: cross_sectional_orderflow_skew_asymmetric_impulse_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
   reskin_of: none
-  as_of_utc: 2026-11-16T21:37:40Z
+  as_of_utc: 2026-11-16T22:42:18Z
   grid_configs: 7776
   wf: {train_m: 12, val_m: 3, test_m: 3, n_splits: 8, window: 2023-01..2025-12}
   on_disk_scripts: false
@@ -1445,39 +1445,8 @@ c337_status:
   real_data_only: true
   fabricated_data: false
   executed_fills: false
+  note: C306 artifacts/scripts/pytest are recorded under c306_coinm_term_structure (complete record at line ~1312); this C337 block intentionally carries no artifacts until C337 runs.
 
-    artifacts:
-      oos_sweep:
-        path: reports/campaign306_oos_sweep_20261115T050843Z.json
-        sha256: 85db8c218fe8714095369394753cb66997892336ff6ef2f4d627e0c52fd212f4
-      tradable_edge_registry:
-        path: reports/campaign306_tradable_edge_registry_20261115T050843Z.json
-        sha256: 9dc3e95190b616cc77883d008505a810fb9773fd7e09eb9790b49dae94d4ac37
-      summary:
-        path: reports/campaign306_summary_20261115T050843Z.json
-        sha256: 46301fc5cc5b75f1e9c21a1911fe17109d5419a6ef03f6c8cb173b6e63ccd56e
-      verdict:
-        path: reports/campaign306_verdict_20261115T050843Z.json
-        sha256: bb1a089a5a7616e62bba8c775e88b28e28208ea8d4595e414293cd43c1200b66
-      binding_constraint:
-        path: reports/campaign306_binding_constraint_20261115T050843Z.json
-        sha256: 675399f3f80bf5766ae1d1c30f57e7cde0fbf8ecc27df87ac1cb2576bf16e5f5
-    artifacts_exist: true
-    scripts:
-    - scripts/ingest_c306_coinm_term_structure.py
-    - scripts/preflight_c306.py
-    - scripts/run_c306_coinm_term_structure_oos.py
-    tests:
-    - tests/test_preflight_c306.py
-    - tests/test_c306_coinm_term_structure_oos.py
-    - tests/test_probe_c306_coinm_reachability.py
-    pytest:
-      passed: 1429
-      skipped: 2
-      failed: 10
-      duration_s: 506.12
-      as_of_utc: 20261115T051000Z
-      note: the 10 failures are the SAME pre-existing C305 program-closure reds (verified identical at HEAD); 0 new failures, 0 C306 failures
 c307_status:
   state: COMPLETE_RETRACTED_BY_C308
   as_of_utc: 20261115T085840Z
