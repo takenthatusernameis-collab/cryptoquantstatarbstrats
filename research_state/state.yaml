@@ -1,14 +1,67 @@
-updated_at_utc: 20261116T034007Z
-handoff_refreshed_at_utc: 20261116T034007Z
+updated_at_utc: 20261116T034130Z
+handoff_refreshed_at_utc: 20261116T034130Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T03:40:07Z) — TERMINAL: REACHABLE SPACE CLOSED. C281B–C318 COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across 17,175 pre-registered configs, 36 families; binding multiple_testing). Closure audit reports/program_closure_final_20261116T024519Z.json sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca (SHA256-from-bytes, reachable_space CLOSED, errors []). Default: acknowledge closure and exit. C287 external-only unblock or materially-new real data acquisition only if newly available with provenance; otherwise no in-repo heavy work. Hard bans: no rerun/re-skin/re-probe of C281B–C318, no C287 probing, no stale closure generators, no fabricated C319+.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T03:41:30Z) — ACTIVE MANDATORY HEAVY CAMPAIGN C319 (user-directed; do NOT idle, do NOT re-declare closure-and-exit). The 36 FACTOR/OFI/carry/basis families C281B–C318 are COMPLETE FORMAL NEGATIVES (closure reports/program_closure_final_20261116T033119Z.json sha256 5f6c192f751acb6ce880868ec0b6ef29e9a78f70a343f0ebbf52b4f13d313f48; reachable_space CLOSED for those families; 18615 configs; errors []). BUT relative-value COINTEGRATION / PAIRS mean-reversion was NEVER among the 36 closed families and is reachable on the REAL on-disk C312 USDT-M 5m perp_close (10 perps, 315,648 bars, 2023-01..2025-12, SHA-verified, no network). C319 is therefore the next genuinely-new reachable HEAVY family: cross-sectional cointegration / pairs mean-reversion stat-arb. MANDATORY next-session work (fail-closed, no short-cuts): (1) python scripts/build_c319_cointegration_features.py -> 10 per-asset float32 .npz shards under data/cache/campaign319_cointegration_5m/ (index_ms, perp_close, log_return, funding_rate all-NaN control-only) + meta/provenance SHA256-from-bytes; (2) python scripts/preflight_c319.py --json -> ready:true, blocked_reasons:[]; (3) python scripts/run_c319_cointegration_pairs_oos.py -> FULL 3456 pre-registered configs (cointegration_lookback{1008,2016,4032} x entry_z{1.5,2.0,2.5} x exit_z{0.5,1.0} x hold_bars{6,12,48} x fee{1,5,10,20} x slip{1,2,5,10} x cost_variant{symmetric,perp_heavy} x pairset{all45,top15}) expanding WF 12m/3m/3m (8 splits), Holm AND BH alpha=0.05 (both required), MDE, stability, cointegration-vs-momentum-vs-placebo attribution; emit 5 timestamped artifacts + gitignored full.json, SHA256-from-bytes; (4) python -m pytest tests/test_preflight_c319.py tests/test_c319_cointegration_pairs_oos.py -q green; (5) update ONLY AGENTS.md + research_state/state.yaml with results/paths/SHAs; keep full suite green. Hard bans: no fabricated data/fills, no gate/cost/edge weakening, no rerun/re-skin/re-probe of frozen C281B–C318, no C287 probing, no stale closure generators. If C319 is a formal negative, record it and DEFINE C320 (next genuinely-new family) — do NOT stop and do NOT idle.'
+next_campaign: C319
+active_campaign: C319
+space_status: ACTIVE_C319_MANDATORY
+closure_note: 'The 36-factor closure (C281B–C318, program_closure_final_20261116T033119Z.json, 18615 configs, 0 edge, errors []) stands for the FACTOR/OFI/carry/basis families. It does NOT cover relative-value cointegration / pairs mean-reversion. C319 (active, user-directed 2026-11-16T03:41:30Z) tests that genuinely-new reachable family on the real C312 USDT-M 5m perp_close cache (no network ingest). C287 remains externally blocked/decoupled. Do NOT regenerate stale program_closure_* artifacts (C305-era run_c305_*/run_program_closure_integrity_audit are FROZEN/misleading); the authoritative pre-C319 audit is only 20261116T033119Z.json (sha 5f6c192f...).'
+c319_active:
+  state: ACTIVE_MANDATORY_NOT_YET_EXECUTED
+  as_of_utc: 20261116T034130Z
+  campaign: C319
+  family: cross_sectional_cointegration_pairs_mean_reversion_stat_arb_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  genuinely_new_rationale: 'All 36 closed families (C281B–C318) are cross-sectional FACTOR / OFI / carry / basis / own-moment / co-movement factor models that rank single assets and trade the cross-section. NONE traded relative-value COINTEGRATION / PAIRS mean-reversion (long-run equilibrium spread between two cointegrated perps, beta-hedged, z-score entry/exit). C284 attempted Kalman pairs on a DIFFERENT 26-asset spot 5m cache with 1088/1088 zero-exposure (gates failed, never actually traded) and was NOT on the clean C312 10-perp universe. C319 is therefore a genuinely-new, economically distinct, reachable heavy family on real on-disk data.'
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close only; log_return derived r[t]=log(c[t]/c[t-1]), r[0]=0; price level = perp_close)
+  symbols: [BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, XRPUSDT, ADAUSDT, DOGEUSDT, DOTUSDT, LINKUSDT, AVAXUSDT]
+  n_symbols: 10
+  n_pairs_all: 45
+  window: 2023-01..2025-12
+  n_months: 36
+  freq: 5m
+  grid_bars: 315648
+  cache_dir: data/cache/campaign319_cointegration_5m
+  cache_limit_mb: 100
+  preflight_must_be_ready: true
+  mechanism: 'For each unordered pair (a,b): rolling hedge ratio beta_hat[t] = cov_L(logPa,logPb)/var_L(logPa); spread_level[t]=logPb[t]-beta_hat[t]*logPa[t]; rolling z[t]=(spread_level-rollmean_L)/rollstd_L; mean-reversion position pos_spread = clip((|z_prev|-exit)/(entry-exit),0,1)*(-sign(z_prev)) (causal z_prev=z[t-1]); beta-hedged dollar-neutral weights pos_b=pos_spread/(1+|beta|), pos_a=-beta*pos_spread/(1+|beta|); pair PnL = pos_a*r_a + pos_b*r_b; portfolio = mean over active pairs; costs charged on turnover (|dpos_a|+|dpos_b|).'
+  pre_registered_grid:
+    cointegration_lookback_bars: [1008, 2016, 4032]
+    entry_z: [1.5, 2.0, 2.5]
+    exit_z: [0.5, 1.0]
+    hold_bars: [6, 12, 48]
+    fee_bps: [1, 5, 10, 20]
+    slippage_bps: [1, 2, 5, 10]
+    cost_variant: [symmetric, perp_heavy]
+    pairset: [all45, top15]
+    n_configs: 3456
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, cointegration_vs_momentum_vs_placebo_attribution]
+  cost_grid_bps: [[0,0],[5,5],[10,10],[20,20],[40,40]]
+  legs: 1
+  pnl_unit: USDT
+  funding: nan_control_only
+  edge_rule: oos_edge_proven=true IFF OOS exposure>0 AND every cost slice net>0 AND mean per-split OOS net > mean per-split equal-weight B&H OOS net mean on same WF windows
+  hard_bans: [no_fabricated_data_or_fills, no_gate_cost_edge_weakening, no_rerun_or_reskin_of_frozen_C281B_C318, no_C287_probing, no_stale_closure_generators, no_commit_cache_ge_100MB]
+  deliverables:
+    build_script: scripts/build_c319_cointegration_features.py
+    preflight_script: scripts/preflight_c319.py
+    runner_script: scripts/run_c319_cointegration_pairs_oos.py
+    tests: [tests/test_preflight_c319.py, tests/test_c319_cointegration_pairs_oos.py]
+    artifacts: [reports/campaign319_oos_sweep_<ts>.json, reports/campaign319_tradable_edge_registry_<ts>.json, reports/campaign319_summary_<ts>.json, reports/campaign319_verdict_<ts>.json, reports/campaign319_binding_constraint_<ts>.json, reports/campaign319_oos_sweep_<ts>.full.json (gitignored)]
+  completion_gate: build cache SHA256-from-bytes; preflight ready:true blocked_reasons:[]; runner FULL 3456 configs (not smoke); 5 artifacts + full.json SHA256-from-bytes; C319 tests green; full suite green 0 failed; state+handoff synced; if formal negative record binding_constraint and DEFINE C320 next genuinely-new family (do not idle)
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+  on_disk_scripts: false
+  on_disk_tests: false
+  on_disk_cache: false
+  on_disk_artifacts: false
 
-next_campaign: none
-active_campaign: none
-space_status: CLOSED
-closure_note: 'C318 (20261116T015818Z) was a COMPLETE FORMAL NEGATIVE (cross-sectional covariance / beta co-movement: beta/BAB, correlation, co-skewness, co-kurtosis, downside-beta) on real on-disk USDT-M 5m perp_close (C312 shards, SHA-verified, no network ingest). C318 is economically distinct from C315 momentum (first moment), C316 liquidity (size/volume/turnover), and C317 own realized-vol / higher-moment (own variance/own moments) — it trades the JOINT co-movement / covariance structure. It is now COMPLETE and is the LAST genuinely-new reachable heavy family; since C318 is also a formal negative the reachable space is CLOSED (declare in TEXT ONLY). C281B–C317 remain FROZEN formal negatives; C287 externally blocked. Do NOT regenerate program_closure_* artifacts (stale C305-era, not authoritative).'
 c317_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T013937Z
@@ -1604,7 +1657,6 @@ latest_c287_unblock_status:
   external_action_required:
   - Provide valid Binance Spot Testnet credentials (BINANCE_TESTNET_API_KEY/SECRET) in environment
   - Provide network egress not subject to Binance testnet 451 geographic block (non-451 route to testnet.binance.vision/fapi as applicable)
-latest_campaign_done: C318
 reachable_real_data_cross_sectional_stat_arb_space: CLOSED_price_funding_premium_carry_COINM_inverse_aggtrades_USDT_M_linear_aggtrades_5m_vol_moment
 reachable_real_data_cross_sectional_stat_arb_space_scope: 'Price/funding/premium/mark cross-sectional stat-arb CLOSED for USDT-M+spot+options (C281B-C305) and COIN-M inverse futures (C306-C309). COIN-M inverse ORDER-FLOW (aggTrades) microstructure space CLOSED: C310 (1h OFI xsec) + C311 (5m OFI xsec) formal negatives (0/504 Holm+BH). USDT-M linear-perp 5m space: C312 (OFI) 0/504; C314 (lead-lag) 0/2304; C315 (momentum/reversal) 0/3456; C316 (size/volume/turnover liquidity) 0/1440; C317 (own realized-vol / higher-moment) 0/1440 (20261116T013937Z) — all binding multiple_testing. C318 (cross-sectional covariance/beta CO-MOVEMENT: beta/BAB, correlation, co-skewness, co-kurtosis, downside-beta) is COMPLETE_FORMAL_NEGATIVE (20261116T015818Z) and was the LAST genuinely-new reachable heavy family (economically distinct from C315 first moment / C316 liquidity / C317 own-moment; trades JOINT co-movement/covariance). 0/1440 deterministic edge, 0 survive Holm+BH, binding constraint multiple_testing. Reachable space is CLOSED; further progress requires OUT-OF-ENV action.'
 reachable_real_data_cross_sectional_stat_arb_space_active: none
@@ -2167,12 +2219,12 @@ campaign301:
       binding_constraint: 142d7b9fc4903100256147faf735133ece37baa507283ec55c4890eaa60b4472
   post_c301_rule: If C301 is also NOT_TRADABLE, record explicit program closure; only external execution (C287) remains and is blocked by testnet REST 451 + fapi 451 + bybit 403 + no credentials. Do not invent another funding/basis re-skin.
 program_closure:
-  as_of_utc: 20261116T024519Z
-  artifact: reports/program_closure_final_20261116T024519Z.json
-  artifact_sha256: 56af92343b0c6929fbd8b4fe69cd9b3e865e068433c94f84c4bbb9aeff8fb8fa
+  as_of_utc: 20261116T033119Z
+  artifact: reports/program_closure_final_20261116T033119Z.json
+  artifact_sha256: 5f6c192f751acb6ce880868ec0b6ef29e9a78f70a343f0ebbf52b4f13d313f48
   reachable_space: CLOSED
   genuinely_new_families_tested: 36
-  total_configs_recorded: 17175
+  total_configs_recorded: 18615
   edge_proven: false
   binding_constraint: multiple_testing
   errors: 0
@@ -2180,7 +2232,10 @@ program_closure:
   verdict_source: reports/campaign{N}_verdict_*.json (latest per campaign)
   script: scripts/run_final_program_closure_audit.py
   tests: tests/test_run_final_program_closure_audit.py (3 passed)
-  note: Proper final closure audit aggregating all campaign verdicts with SHA256-from-bytes provenance. Reachable space CLOSED — no new campaigns, no re-runs, no re-skins. C287 externally blocked (out-of-env only).
+  superseded_closure_artifacts:
+    - reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b8...; undercounted 17175 configs — missed C317 1440)
+    - reports/program_closure_final_20261116T030142Z.json (sha256 37dacff6...; corrected 18615 configs, superseded by 033119Z)
+  note: Authoritative final closure audit (SHA256-from-bytes verified 2026-11-16). Reachable FACTOR/OFI/carry/basis space CLOSED for C281B-C318. Relative-value cointegration / pairs mean-reversion was NOT among the 36 closed families -> C319 is the user-directed next genuinely-new heavy family (active, NOT yet executed).
 c287_external_unblock_status:
   as_of_utc: 20261114T085109Z
   path: reports/c287_external_unblock_status_20261114T085109Z.json
@@ -2298,8 +2353,6 @@ c297_status:
     summary: 619e715c9737c44b253e656e5e2094255333e9c5775da9052b9b49b77433dd0b
     verdict: 03c049f24d3e9e0afb8eea602a96eab54becfd0bc33baa1061718cbf9d20574f
     binding_constraint: 01379bb68e9bb860848d3bd2acf1b40504ef5640290f3cab8d9ee05537467695
-locked_campaigns: C104-C297
-oos_edge_proven: false  # C310 (COIN-M inverse cross-sectional OFI carry, 1h, real aggTrades) RETRACTED formal negative (0/504 survive Holm+BH over 504; convexity-dominated 0.912 vs OFI-carry 0.088; 20261115T111243Z); program at 0 tradable costed-OOS edge; C311 (5m OFI xsec) is the active heavy campaign
 c291_data_source:
   status: verified_reachable
   probe_artifact: reports/campaign291_derivatives_reachability_20261113T105429Z.json

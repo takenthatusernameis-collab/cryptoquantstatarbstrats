@@ -1,0 +1,252 @@
+{
+  "generated_at_utc": "20261116T034740Z",
+  "campaign": 319,
+  "part": "oos_sweep",
+  "analysis": "c319_cointegration_pairs_stat_arb_oos_5m",
+  "smoke": true,
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "fail_closed": true,
+  "mandate": "C319 \u2014 test the cross-sectional COINTEGRATION / PAIRS mean-reversion statistical-arbitrage family on 10 USDT-M linear perps at native 5m (3456 pre-registered configs). For each unordered pair (a,b): rolling hedge ratio beta = cov_L(logPa,logPb)/var_L(logPa); spread = logPb - beta*logPa; rolling z = (spread - mean_L)/std_L; mean-reversion position = -sign(z)*clip((|z|-exit)/(entry-exit),0,1); beta-hedged dollar-neutral weights; portfolio = mean over active pairs; costs charged on turnover (symmetric and perp_heavy variants). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, and cointegration-vs-momentum-vs-beta_carry-vs-placebo attribution.",
+  "preflight": {
+    "cache": "data/cache/campaign319_cointegration_5m",
+    "cache_sha256": "2ae4306465c17467090dfc136faa3aee4d06f2e27fb47c85aab514ddb4b87ddf",
+    "cache_meta": "data/cache/campaign319_cointegration_5m.meta.json",
+    "cache_meta_sha256": "16d1ec7b6fee8c13a8ae4c08750ca5ab395d7b0f4ff7301bdce09d3b6973b23f",
+    "cache_provenance": "data/cache/campaign319_cointegration_5m.provenance.json",
+    "cache_provenance_sha256": "4753fd07704103c79f5ebe3ccc2a3830f3e45ec7e1b4d0a87e4a96bdc9030bd1",
+    "storage": "per_asset_float32_npz_shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 27821806,
+    "max_shard_bytes": 3000505,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "data_source": {
+    "cache": "data/cache/campaign319_cointegration_5m",
+    "cache_sha256": "2ae4306465c17467090dfc136faa3aee4d06f2e27fb47c85aab514ddb4b87ddf",
+    "cache_meta": "data/cache/campaign319_cointegration_5m.meta.json",
+    "cache_meta_sha256": "16d1ec7b6fee8c13a8ae4c08750ca5ab395d7b0f4ff7301bdce09d3b6973b23f",
+    "cache_provenance": "data/cache/campaign319_cointegration_5m.provenance.json",
+    "cache_provenance_sha256": "4753fd07704103c79f5ebe3ccc2a3830f3e45ec7e1b4d0a87e4a96bdc9030bd1",
+    "storage": "per_asset_float32_npz_shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 27821806,
+    "max_shard_bytes": 3000505,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "n_pairs_all": 45,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "cointegration_lookbacks_bars": [
+      1008,
+      2016,
+      4032
+    ],
+    "entry_z": [
+      1.5,
+      2.0,
+      2.5
+    ],
+    "exit_z": [
+      0.5,
+      1.0
+    ],
+    "hold_bars": [
+      6,
+      12,
+      48
+    ],
+    "fee_bps": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "slippage_bps": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "cost_variants": [
+      "symmetric",
+      "perp_heavy"
+    ],
+    "pairsets": [
+      "all45",
+      "top15"
+    ],
+    "alpha": 0.05,
+    "n_trials": 3456,
+    "total_runs": 1
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_sharpe_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "L": 2016,
+        "entry": 2.0,
+        "exit": 0.5,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric",
+        "pairset": "all45"
+      },
+      "per_split_net": [
+        -0.08577294083386566,
+        -0.04247997896522057,
+        -0.10845727712968589,
+        -0.10704671754714175,
+        -0.11208904160803587,
+        -0.04608825638038324,
+        -0.08609577314926047,
+        -0.045432950142522806
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -3.2244910193918686,
+      "second_half_sharpe": -2.5677665115770987,
+      "sharpe_corr": 0.9851657921289547,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "L": 2016,
+        "entry": 2.0,
+        "exit": 0.5,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric",
+        "pairset": "all45"
+      },
+      "cointegration_net": -0.6334629357561162,
+      "momentum_net": -0.5137963981553366,
+      "beta_carry_net": -0.26819673497907554,
+      "placebo_noise_net": NaN,
+      "shares": {
+        "cointegration": 0.0,
+        "momentum": 0.0,
+        "beta_carry": 0.0,
+        "placebo_noise": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false
+    },
+    "buy_and_hold": {
+      "per_split_net": [
+        0.41101185405794693,
+        -0.3257254432556556,
+        -0.07263222809634455,
+        0.5311008035899333,
+        -0.37186170074436986,
+        0.05627358288630132,
+        0.33504954398464826,
+        -0.5499305241464401
+      ],
+      "mean": 0.0016607360345024663,
+      "reference_oos_net_mean": -0.07918286696951453
+    }
+  },
+  "methodology": {
+    "signals": "beta=cov_L(logPa,logPb)/var_L(logPa); spread=logPb-beta*logPa; z=(spread-mean_L)/std_L; pos=-sign(z[t-1])*clip((|z[t-1]|-exit)/(entry-exit),0,1); pair_pnl=pos*spr_ret/(1+|beta[t-1]|); spr_ret=r_b-beta[t-1]*r_a; causal shift(1).",
+    "pnl": "single-leg perp, beta-hedged dollar-neutral per pair; portfolio = mean over active pairs.",
+    "costs": "charged on turnover; symmetric = fee+slip; perp_heavy = 1.5*fee+slip.",
+    "missing_data": "non-finite -> NaN; never impute; a lookback without enough data yields NaN -> not traded (fail-closed).",
+    "multiple_testing": "one-sided paired t-test of per-split OOS net vs flat (0); Holm step-down AND Benjamini-Hochberg over all 3456 configs at alpha=0.05.",
+    "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
+    "attribution": "reference (cointegration) vs momentum (opposite sign) vs beta_carry (always-long spread) vs placebo (per-pair time-permuted spr_ret); shares = |net|/sum.",
+    "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
+    "funding": "USDT-M funding unreachable (fapi 451, not in archives) -> excluded (control only).",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "results": [
+    {
+      "cointegration_lookback": 2016,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "hold_bars": 12,
+      "pairset": "all45",
+      "fee_bps": 10.0,
+      "slippage_bps": 5.0,
+      "cost_variant": "symmetric",
+      "n_splits": 8,
+      "oos_net_sum": -0.6334629357561162,
+      "oos_net_mean": -0.07918286696951453,
+      "gross_sum": -0.059833268800389805,
+      "turnover_total": 382.4197779704843,
+      "exposure": true,
+      "edge_proven": false,
+      "beats_buy_hold": false,
+      "p_value": 0.9999261314169051,
+      "sharpe_obs": -2.80198311356338,
+      "mde_bps": 348.27427059110056,
+      "cost_rate_bps_effective": 15.0,
+      "p_holm": 0.9999261314169051,
+      "p_bh": 0.9999261314169051,
+      "holm_reject": false,
+      "bh_reject": false
+    }
+  ],
+  "summary": {
+    "n_total_runs": 1,
+    "n_with_exposure": 1,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  }
+}
