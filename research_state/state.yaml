@@ -1,13 +1,13 @@
-updated_at_utc: 2026-11-16T13:43:43Z
-handoff_refreshed_at_utc: 2026-11-16T13:43:43Z
+updated_at_utc: 2026-11-16T14:09:18Z
+handoff_refreshed_at_utc: 2026-11-16T14:09:18Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T13:43:43Z) — C331 COMPLETE FORMAL NEGATIVE; NEXT MANDATED HEAVY WORK: BUILD + RUN C332 (next genuinely-new stat-arb family on real on-disk C312 5m data). C331 cross-sectional intraday RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion executed on real C312 5m log_return (qspread=q95-q5, tail_asym=(q95+q5)/(q95-q5), qlow=q01/q99), 864 pre-registered configs, WF 12m/3m/3m (8 splits), Holm+BH both at alpha=0.05, MDE/stability/attribution gates. VERDICT: RETRACTED, edge_proven:false, binding_constraint: multiple_testing, 0 deterministic edge, 0 survive Holm+BH, 864/864 exposure. Attribution shares: qspread_dev 0.2284 / tail_asym_dev 0.2732 / qlow_dev 0.2747 / qspread_placebo 0.2237 (dominant qlow_dev 0.2747 < 0.5, attribution_ok false, no edge to attribute). 5 SHA256-from-bytes artifacts on disk at 20261116T133234Z; 18/18 tests green. State: C281B–C331 ALL COMPLETE FORMAL NEGATIVES (~36,183 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. HARD VIOLATION: exiting with reachable-space-closed/no-new-campaign or without a C332 verdict artifact (or on-disk proof C312 data unreachable/corrupt). C332 must be genuinely-new vs C316–C331 (no relabeling of qspread/tail_asym/qlow or prior families). Reuse real C312 5m data; no byte-duplicate cache relabeling. Mirror C322–C331 pipeline (build/preflight/run/tests), 864-config (or pre-registered equivalent) WF 12m/3m/3m grid, Holm+BH both, MDE/stability/attribution gates, 5 SHA256 artifacts, real_data_only:true. Definition of Done: C332 verdict on disk (EDGE_PROVEN or RETRACTED+binding) + 5 SHA256 artifacts + green pytest tests/test_c332_* tests/test_preflight_c332.py. If C332 negative, immediately start C333.'
-next_campaign: C332_genuinely_new_usdt_m_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T14:09:18Z) — C332 MANDATORY HEAVY WORK: COMPLETE + RUN C332 (PRICE-FLOW SYNCHRONICITY / RETURN-SIGNED-VOLUME CORRELATION SEASONAL DISLOCATION mean-reversion). C331 is a COMPLETE FORMAL NEGATIVE (RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION, 20261116T133234Z, 864 configs, 0 Holm+BH, 5 SHA256 artifacts, 18/18 tests) and must NOT be rerun. C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (~36,183 pre-registered configs; binding multiple_testing; edge_claim NONE) — that is a RESULT, not permission to stop. C332 is pre-registered and must not be redesigned: cache data/cache/campaign332_return_volume_synchrony_5m/ (10 shards, 315648 bars, 2023-01..2025-12, fields index_ms/perp_close/log_return/signed_volume/r_sv_align/funding_rate; meta f61588cfb1c72a48b6396e10d47cbc11866ab36a5454fcf982ca24a93326886f, provenance fe53633f642df0fbe65c02feba2b24882a9c74063c24fbf81ab10b6b57bdb81d, manifest 8c2ad3b5b44db93a39315a5fd37a1177b31905a75646f73d55d5378c5813fa48). Signals rv_corr / rv_align / rv_volvol over causal trailing L same-tod occurrences with min_periods=L; score=-(v-trailing_mean_L(v@tod)), causal shift(1), cross-sectional rank, dollar-neutral gross 1.0; placebo rv_corr_placebo. Grid 864 = 3 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}. Gates: WF 12m/3m/3m 8 splits, one-sided paired t, Holm AND BH alpha=0.05 BOTH, MDE, stability, signal-vs-placebo attribution; 5 SHA256 artifacts real_data_only:true fabricated_data:false executed_fills:false. Definition of Done: C332 verdict artifact on disk (EDGE_PROVEN or RETRACTED+binding) + 5 SHA256 artifacts + python -m pytest tests/test_c332_* tests/test_preflight_c332.py -q green. C332 cache and builder are DONE; still missing preflight_c332.py, run_c332_return_volume_synchrony_xsec_oos.py, tests/test_preflight_c332.py, tests/test_c332_return_volume_synchrony_xsec_oos.py. If C332 is negative, immediately start C333; closure by fiat is a hard violation.'
+next_campaign: C332_return_volume_synchrony_xsec_oos
 active_campaign: none
-space_status: NO_EDGE_C281B_C331__C332_MANDATED
-closure_note: 'C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~36,183 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C331 (RETURN TAIL-ASYMMETRY/QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion, 20261116T133234Z, 864 configs, 0/0/0 Holm/BH/both, 5 SHA256 artifacts, 18/18 tests) and C330 (drawdown/runup/path-efficiency, 20261116T122431Z) are COMPLETE on disk. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C331 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C332 is mandated next heavy work.'
+space_status: NO_EDGE_C281B_C331__C332_READY_TO_RUN
+closure_note: 'C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~36,183 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C331 (RETURN TAIL-ASYMMETRY/QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion, 20261116T133234Z, 864 configs, 0/0/0 Holm/BH/both, 5 SHA256 artifacts, 18/18 tests) is COMPLETE on disk. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C331 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C332 is mandated next heavy work; its real-data cache is built and the remaining work is preflight + 864-config runner + tests + full sweep.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -4502,6 +4502,59 @@ c331_status:
   scripts: [scripts/build_c331_tail_asymmetry_features.py, scripts/preflight_c331.py, scripts/run_c331_tail_asymmetry_xsec_oos.py]
   tests: [tests/test_preflight_c331.py, tests/test_c331_tail_asymmetry_xsec_oos.py]
   tests_passed: 18
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c332_status:
+  state: READY_TO_RUN
+  as_of_utc: 2026-11-16T14:09:18Z
+  campaign: C332
+  family: cross_sectional_price_flow_synchronicity_return_signed_volume_correlation_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: PENDING
+  edge_proven: null
+  binding_constraint: null
+  n_configs: 864
+  n_with_exposure: null
+  n_deterministic_edge: null
+  n_survive_holm: null
+  n_survive_bh: null
+  n_survive_both: null
+  attribution_shares: null
+  on_disk_scripts: {builder: true, preflight: false, runner: false}
+  on_disk_tests: false
+  on_disk_cache: true
+  on_disk_artifacts: false
+  artifacts_ts: null
+  cache:
+    dir: data/cache/campaign332_return_volume_synchrony_5m
+    total_shard_bytes: 39417571
+    max_shard_bytes: 4237376
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    fields: [index_ms, perp_close, log_return, signed_volume, r_sv_align, funding_rate]
+    meta_sha256: f61588cfb1c72a48b6396e10d47cbc11866ab36a5454fcf982ca24a93326886f
+    provenance_sha256: fe53633f642df0fbe65c02feba2b24882a9c74063c24fbf81ab10b6b57bdb81d
+    manifest_sha256: 8c2ad3b5b44db93a39315a5fd37a1177b31905a75646f73d55d5378c5813fa48
+    raw_nan_total: 0
+  builder: scripts/build_c332_return_volume_synchrony_features.py
+  pending_scripts: [scripts/preflight_c332.py, scripts/run_c332_return_volume_synchrony_xsec_oos.py]
+  pending_tests: [tests/test_preflight_c332.py, tests/test_c332_return_volume_synchrony_xsec_oos.py]
+  signals: [rv_corr, rv_align, rv_volvol]
+  placebo: rv_corr_placebo
+  lookback_days: [30, 60, 90]
+  rebalance_bars: [6, 12, 48]
+  fee_bps: [1, 5, 10, 20]
+  slippage_bps: [1, 2, 5, 10]
+  cost_variant: [symmetric, perp_heavy]
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  definition_of_done: 'C332 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c332_* and tests/test_preflight_c332.py green'
+  no_coast_clause: 'C332 is pre-registered and not yet run; the next session must implement preflight/runner/tests and run the full 864-config real-data sweep. Do not re-declare closure or redesign the family.'
+  de_bottleneck: real_c312_perp_close_and_signed_volume_cache_built_no_network_ingest
   real_data_only: true
   fabricated_data: false
   executed_fills: false
