@@ -1,13 +1,13 @@
-updated_at_utc: 20261116T132402Z
-handoff_refreshed_at_utc: 20261116T132402Z
+updated_at_utc: 20261116T133234Z
+handoff_refreshed_at_utc: 20261116T133234Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T13:24:02Z) — MANDATORY HEAVY WORK: BUILD + RUN C331 (next genuinely-new stat-arb family on real on-disk C312 5m data). Re-verified 2026-11-16T13:24:02Z: env ready (verify_env.py ready:true, missing:[], Python 3.12.3), C312 cache data/cache/campaign312_usdt_m_ofi_5m present/readable (10 perps, 315,648 bars, 2023-01..2025-12), C330 complete formal negative confirmed (23/23 C330 tests, 5 SHAs at 20261116T122431Z), no scripts/*c331* yet. State: C281B–C330 ALL COMPLETE FORMAL NEGATIVES (~35,319 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. HARD VIOLATION: exiting with "reachable space closed/no new campaign" or without a C331 verdict artifact (or on-disk proof C312 data unreachable/corrupt). C331 must be genuinely-new vs C316–C330. Recommended candidate: cross-sectional intraday RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion on real log_return (qspread=q95-q5, tail_asym=(q95+q5)/(q95-q5), third tail stat e.g. q01/q99 dislocation) — verify distinct or substitute another pre-registered genuinely-new family. Reuse real log_return from C312; no byte-duplicate cache relabeling. Mirror C322–C330 pipeline (build/preflight/run/tests), 864-config WF 12m/3m/3m grid, Holm+BH both, MDE/stability/attribution gates, 5 SHA256 artifacts, real_data_only:true. Definition of Done: C331 verdict on disk (EDGE_PROVEN or RETRACTED+binding) + 5 SHA256 artifacts + green pytest tests/test_c331_* tests/test_preflight_c331.py. If C331 negative, immediately start C332.'
-next_campaign: C331_genuinely_new_usdt_m_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T13:24:02Z) — C331 COMPLETE FORMAL NEGATIVE; NEXT MANDATED HEAVY WORK: BUILD + RUN C332 (next genuinely-new stat-arb family on real on-disk C312 5m data). C331 cross-sectional intraday RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion executed on real C312 5m log_return (qspread=q95-q5, tail_asym=(q95+q5)/(q95-q5), qlow=q01/q99), 864 pre-registered configs, WF 12m/3m/3m (8 splits), Holm+BH both at alpha=0.05, MDE/stability/attribution gates. VERDICT: RETRACTED, edge_proven:false, binding_constraint: multiple_testing, 0 deterministic edge, 0 survive Holm+BH, 864/864 exposure. Attribution shares: qspread_dev 0.2284 / tail_asym_dev 0.2732 / qlow_dev 0.2747 / qspread_placebo 0.2237 (dominant qlow_dev 0.2747 < 0.5, attribution_ok false, no edge to attribute). 5 SHA256-from-bytes artifacts on disk at 20261116T133234Z; 18/18 tests green. State: C281B–C331 ALL COMPLETE FORMAL NEGATIVES (~36,183 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. HARD VIOLATION: exiting with "reachable space closed/no new campaign" or without a C332 verdict artifact (or on-disk proof C312 data unreachable/corrupt). C332 must be genuinely-new vs C316–C331. Reuse real log_return from C312; no byte-duplicate cache relabeling. Mirror C322–C331 pipeline (build/preflight/run/tests), 864-config WF 12m/3m/3m grid, Holm+BH both, MDE/stability/attribution gates, 5 SHA256 artifacts, real_data_only:true. Definition of Done: C332 verdict on disk (EDGE_PROVEN or RETRACTED+binding) + 5 SHA256 artifacts + green pytest tests/test_c332_* tests/test_preflight_c332.py. If C332 negative, immediately start C333.'
+next_campaign: C332_genuinely_new_usdt_m_5m
 active_campaign: none
-space_status: NO_EDGE_C281B_C330__C331_MANDATED
-closure_note: 'C281B–C330 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~35,319 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C330 (cross-sectional intraday RETURN-PATH DRAWDOWN / RUNUP / PATH-EFFICIENCY SEASONAL DISLOCATION mean-reversion, 20261116T122431Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 23/23 C330 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C330 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C330.'
+space_status: NO_EDGE_C281B_C331__C332_MANDATED
+closure_note: 'C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~36,183 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C331 (cross-sectional intraday RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion stat-arb, 20261116T133234Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 18/18 C331 tests green. C330 (cross-sectional intraday RETURN-PATH DRAWDOWN / RUNUP / PATH-EFFICIENCY SEASONAL DISLOCATION mean-reversion, 20261116T122431Z, 864 configs, 0/0/0 Holm/BH/both) COMPLETE. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C331 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C331.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -4462,6 +4462,46 @@ c330_status:
   scripts: [scripts/build_c330_drawdown_features.py, scripts/preflight_c330.py, scripts/run_c330_drawdown_xsec_oos.py]
   tests: [tests/test_preflight_c330.py, tests/test_c330_drawdown_xsec_oos.py]
   tests_passed: 23
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c331_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T133234Z
+  campaign: C331
+  family: cross_sectional_tail_asymmetry_quantile_spread_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {qspread_dev: 0.2284, tail_asym_dev: 0.2732, qlow_dev: 0.2747, qspread_placebo: 0.2237}
+  dominant_attribution: qlow_dev
+  dominant_share: 0.2747
+  attribution_ok: false
+  mde_bps_mean: NaN
+  observed_mean_bps_per_split: 0.0
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T133234Z
+  artifacts:
+    oos_sweep: {path: reports/campaign331_oos_sweep_20261116T133234Z.json, sha256: 517e832e09daea0de79ea1c7f6a1a6f3fc6cdfc32a6dae72dc54ad24747107a7}
+    registry: {path: reports/campaign331_tradable_edge_registry_20261116T133234Z.json, sha256: 1779a8294ffa7ebb6c49b7c0b81c0cdb34db442956a529608303bdcce5a6e77e}
+    summary: {path: reports/campaign331_summary_20261116T133234Z.json, sha256: 3a5e47177ec7b932da824438be35f7ccf6ad4b8d148cf86beb42a56918bc02d1}
+    verdict: {path: reports/campaign331_verdict_20261116T133234Z.json, sha256: 761234871468cd511430a99dfcd95f68bb366cd00704def86f8330302f2f4dd0}
+    binding_constraint: {path: reports/campaign331_binding_constraint_20261116T133234Z.json, sha256: ef8f6bb330e29d6993c36cb18857361b83589a422c1121b46a8ace006c4bdf3e}
+  cache: {dir: data/cache/campaign331_tail_asymmetry_5m, meta_sha256: da68c841f794e6b81729ad72155457de3b9061270d57b07230494f155ba33e9c, provenance_sha256: cf2e067a193bdf984e1dea4e67b800b9c7ce4f7b56cce89ba88eb254b9c9ff0d, manifest_sha256: 0fb39aa7d07433908da208c54f2d2695ba39e9930530dfd04edd6999c454ed56}
+  scripts: [scripts/build_c331_tail_asymmetry_features.py, scripts/preflight_c331.py, scripts/run_c331_tail_asymmetry_xsec_oos.py]
+  tests: [tests/test_preflight_c331.py, tests/test_c331_tail_asymmetry_xsec_oos.py]
+  tests_passed: 18
   real_data_only: true
   fabricated_data: false
   executed_fills: false

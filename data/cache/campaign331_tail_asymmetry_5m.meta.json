@@ -1,0 +1,139 @@
+{
+  "generated_at_utc": "20261116T133147Z",
+  "campaign": 331,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "pos_part",
+    "neg_part",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign331_tail_asymmetry_5m",
+  "shard_sha256": {
+    "ADAUSDT": "f547438440a472e65ba783e0b85c853fc341725b3c6e314b238da81cebd34fdf",
+    "AVAXUSDT": "93633d702c569fa984907c4724bb03a03fd8edf2a1712012ca2815706a9f7517",
+    "BNBUSDT": "e43e56158a124b7b8c15ce3f31dadab9b08fddbf358ceaf8a22dc76bf5ef9ca5",
+    "BTCUSDT": "9c2fdbd0c189c964ae3d971e5fac1d6effec72aa6c65adbd886652f45bdec3ff",
+    "DOGEUSDT": "656aad4d7b9fedb7835b8966f133dc24ac8e3a03ef0a0699bc245555332c8c5a",
+    "DOTUSDT": "6886b7fa0d89fbc0e3a7a314bb4029e14c11b3fd8c1f80047ff6f85cc1407570",
+    "ETHUSDT": "e7e209834c18ef3ff6680d7caa029ce7b683a555e2aafca1835f65b26dce686d",
+    "LINKUSDT": "f95f4ad2d7a345c6f51bd44efb22bc3e567f55b64f702e8d1bbbe391b9974e40",
+    "SOLUSDT": "23564d847f61672b5f1a5e5b6b3099838844a6db84fdb8a0dd2b7423e9592808",
+    "XRPUSDT": "b45d479976dbb8334bc5d53f693da51be2b4fdf30989e0477b5c7bb3cb30083e"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 3703071,
+    "AVAXUSDT": 4202740,
+    "BNBUSDT": 4200772,
+    "BTCUSDT": 4325990,
+    "DOGEUSDT": 4085625,
+    "DOTUSDT": 3721155,
+    "ETHUSDT": 4365565,
+    "LINKUSDT": 4073155,
+    "SOLUSDT": 4259203,
+    "XRPUSDT": 3830846
+  },
+  "total_shard_bytes": 40768122,
+  "max_shard_bytes": 4365565,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "0fb39aa7d07433908da208c54f2d2695ba39e9930530dfd04edd6999c454ed56",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "pos_part_neg_part": "pointwise signed-tail split max(r,0)/min(r,0); always finite",
+    "runner_nan": "trailing tail quantiles NaN-aware min_periods=L excluding NaN obs; denominators<=0 -> NaN; NaN bars weight 0",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "pos_part": 0,
+        "neg_part": 0
+      }
+    }
+  }
+}
