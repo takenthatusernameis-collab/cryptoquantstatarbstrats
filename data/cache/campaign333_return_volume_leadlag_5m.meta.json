@@ -1,0 +1,140 @@
+{
+  "generated_at_utc": "20261116T151948Z",
+  "campaign": 333,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "signed_volume",
+    "rv_lead_sign",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign333_return_volume_leadlag_5m",
+  "shard_sha256": {
+    "ADAUSDT": "1280d6b4f1b55c5ced83bbb82f9ce81d57a0157b8dbba0f5b755ca4ae9fd05c1",
+    "AVAXUSDT": "6986ee66926aea924edc55d720494c011a61fb5b346adddb78a4e82533e9d3c4",
+    "BNBUSDT": "43eb9c7c0d46b2c8073919a90e80c7acd25861107f1a1f512224c87055a7eb69",
+    "BTCUSDT": "c881df045f208e0f34f47de67c3948f9c010b57e09111ac0d8f0e1c5411d3e38",
+    "DOGEUSDT": "ed5f9c88f60ba8e2f19791e0094e822beda85662894709865674b891247a39b1",
+    "DOTUSDT": "4cebe8f5680a981b4682d76bfebde1eb4d70e22bc588e048b41423d33f73636b",
+    "ETHUSDT": "3c786ff1b614cf033bf3f768c595423b0608502e93f1b59b36bd712c628fa001",
+    "LINKUSDT": "7e29453e2854e6ebd080ab8129dd6ba053bf7e9ff1baac845353f1007e08fa6d",
+    "SOLUSDT": "ea84f7a28fb56de07a2e1024055f51919050b473a06485990ae9f751e5b0ede3",
+    "XRPUSDT": "c91cecf7368d45a6a7d8ac81777840bfb94031b43fc701aa584f9f66fc434bcd"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 3708113,
+    "AVAXUSDT": 3812988,
+    "BNBUSDT": 4012308,
+    "BTCUSDT": 4174186,
+    "DOGEUSDT": 4038787,
+    "DOTUSDT": 3690904,
+    "ETHUSDT": 4249000,
+    "LINKUSDT": 3996416,
+    "SOLUSDT": 3953012,
+    "XRPUSDT": 3877258
+  },
+  "total_shard_bytes": 39512972,
+  "max_shard_bytes": 4249000,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "b34edfb2c5821923aecea5b8f2a5b9161e8216d3b2ac277940a30ecc7b6c7177",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "signed_volume": "real taker buy/sell split from C312; always finite, may be signed/zero",
+    "rv_lead_sign": "sign(log_return)*sign(signed_volume); always finite",
+    "runner_nan": "trailing price-flow correlation stats NaN-aware min_periods=L excluding NaN obs; correlation variance<=0 -> NaN; NaN-score bars weight 0",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "rv_lead_sign": 0
+      }
+    }
+  }
+}
