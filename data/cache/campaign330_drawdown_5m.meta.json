@@ -1,0 +1,162 @@
+{
+  "generated_at_utc": "20261116T122256Z",
+  "campaign": 330,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "cumret",
+    "drawdown",
+    "runup",
+    "path_eff",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign330_drawdown_5m",
+  "shard_sha256": {
+    "ADAUSDT": "4b2dfb6dfc87ccd221cc444e9051eb1d734fc79815f3c6c14a47d56c44d0fed3",
+    "AVAXUSDT": "ed8c9a7b641e5cbaada070fa971b885050c432f2365d94c3d001372f507f21b0",
+    "BNBUSDT": "fa3ec6f7887ad5f0657acb3ecaaf971e4c12ddb424ecca7841f001e80bf4c6bf",
+    "BTCUSDT": "1887ef053310c0709e56f0586d346d2422aeffd71c5131acd177eb461df5f2b8",
+    "DOGEUSDT": "3edf15bcbac6f28fea032a79dcc743a726c592b2f63c5aa0b487035914c62b9c",
+    "DOTUSDT": "d200e94fac96b7d1c037be4ce80d8a2c3b0446c3c2d5b3ee6068d786d220034d",
+    "ETHUSDT": "5b4caff5f2f3b845a1fc9ff4ccd468ed3e5147ac92300933a0b8ae06c626934d",
+    "LINKUSDT": "77d0ec8eccec35b66de852412b4ce4da820d8dbd66684c6716a55fa1999efe60",
+    "SOLUSDT": "b4e0a2f8f687058f7aff00a8c1553c0d47313cfbd47ec407947a4b720a0046cb",
+    "XRPUSDT": "71cb9d2bb53bfe01f27c9e4cd6b70b037c197cdf66304c626c254c7802166fb7"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 6019222,
+    "AVAXUSDT": 7065514,
+    "BNBUSDT": 7101474,
+    "BTCUSDT": 7449829,
+    "DOGEUSDT": 6754841,
+    "DOTUSDT": 6039816,
+    "ETHUSDT": 7480381,
+    "LINKUSDT": 6781854,
+    "SOLUSDT": 7189531,
+    "XRPUSDT": 6304082
+  },
+  "total_shard_bytes": 68186544,
+  "max_shard_bytes": 7480381,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "d0ca445fe4699309a3dce65e31bca7876bad4d6072143a6e002c34132c1722cb",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "cumret_drawdown_runup": "intraday path fields reset at 00:00 UTC; always finite",
+    "path_eff": "NaN only where intraday sum|r| <= 0 (exactly-zero return bar); <0.1% and 100% explained",
+    "runner_nan": "zero-variance/insufficient-obs/min_periods NaNs fail-closed; NaN bars get weight 0",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 51
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 9
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 8
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 3
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 18
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 50
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 2
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 22
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 6
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "cumret": 0,
+        "drawdown": 0,
+        "runup": 0,
+        "path_eff": 37
+      }
+    }
+  }
+}

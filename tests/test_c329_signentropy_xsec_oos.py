@@ -251,10 +251,15 @@ def _bs_maxrun_regime(n_days=8, L=4):
     return bs
 
 
+def _target_col(bs, day_index=-1):
+    """Column index of TARGET_TOD on the given day (default: final day)."""
+    return day_index * R.TOD_BARS_PER_DAY + TARGET_TOD
+
+
 def test_entropy_dev_high_short_low_long():
     bs = _bs_entropy_regime(8, 4)
     sc = R.build_score(bs, "entropy_dev", 4)
-    col = sc[:, -1]
+    col = sc[:, _target_col(bs)]
     assert np.isfinite(col[0]) and np.isfinite(col[2])
     # asset0: trailing-window entropy above baseline -> short (score < 0)
     # asset2: trailing-window entropy below baseline -> long (score > 0)
@@ -264,7 +269,7 @@ def test_entropy_dev_high_short_low_long():
 def test_maxrun_dev_high_short_low_long():
     bs = _bs_maxrun_regime(8, 4)
     sc = R.build_score(bs, "maxrun_dev", 4)
-    col = sc[:, -1]
+    col = sc[:, _target_col(bs)]
     assert np.isfinite(col[0]) and np.isfinite(col[2])
     # asset0: trailing-window maxrun above baseline -> short (score < 0)
     # asset2: trailing-window maxrun below baseline -> long (score > 0)
@@ -274,27 +279,18 @@ def test_maxrun_dev_high_short_low_long():
 def test_entropy_ewm_dev_high_short_low_long():
     bs = _bs_entropy_regime(8, 4)
     sc = R.build_score(bs, "entropy_ewm_dev", 4)
-    col = sc[:, -1]
+    col = sc[:, _target_col(bs)]
     assert np.isfinite(col[0]) and np.isfinite(col[2])
     assert col[0] < 0.0 < col[2], col
 
 
-def test_maxrun_dev_high_short_low_long():
-    bs = _bs_maxrun_regime(6, 4)
-    sc = R.build_score(bs, "maxrun_dev", 4)
-    col = sc[:, -1]
-    assert np.isfinite(col[0]) and np.isfinite(col[2])
-    # asset0: last day maxrun=3 (above baseline 1) -> score < 0 (short)
-    # asset2: last day maxrun=1 (below baseline 3) -> score > 0 (long)
-    assert col[0] < 0.0 < col[2], col
-
-
-def test_entropy_ewm_dev_high_short_low_long():
-    bs = _bs_entropy_regime(6, 4)
-    sc = R.build_score(bs, "entropy_ewm_dev", 4)
-    col = sc[:, -1]
-    assert np.isfinite(col[0]) and np.isfinite(col[2])
-    assert col[0] > 0.0 > col[2], col
+def test_signals_are_zero_at_target_tod_warmup():
+    # On the first day the same-tod bucket has < L observations, so every
+    # seasonal-dislocation signal must be NaN there (fail-closed min_periods).
+    bs = _bs_entropy_regime(8, 4)
+    for sig in ("entropy_dev", "entropy_ewm_dev", "maxrun_dev"):
+        sc = R.build_score(bs, sig, 4)
+        assert np.isnan(sc[:, _target_col(bs, 0)]).all(), sig
 
 
 def test_build_score_unknown_signal_raises():

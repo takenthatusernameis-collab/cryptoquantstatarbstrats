@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T122431Z",
+  "campaign": 330,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign330_oos_sweep_20261116T122431Z.json",
+  "oos_sweep_sha256": "3daa3f9bdbecfc56931b12d5ea249681f24d413864fedb373fd43a720a27b5d1",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "dd_dev": 0.24068935334323704,
+    "runup_dev": 0.24252654655950726,
+    "eff_dev": 0.2811305035361622,
+    "drawdown_placebo": 0.23565359656109344
+  },
+  "dominant_attribution": "eff_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "dd_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -1.8291196175859585,
+      -1.526646493952036,
+      -2.0097809205236694,
+      -1.9660101178987879,
+      -1.7360384517156782,
+      -1.7801176545518869,
+      -1.799753635930919,
+      -1.7659030752202294
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.700316596656805,
+    "second_half_sharpe": -76.24121380656857,
+    "sharpe_corr": 0.9981773119122775,
+    "stable": false
+  },
+  "diagnosis": "C330 cross-sectional intraday RETURN-PATH DRAWDOWN / RUNUP / PATH-EFFICIENCY SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

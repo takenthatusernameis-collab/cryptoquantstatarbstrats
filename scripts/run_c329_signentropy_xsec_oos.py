@@ -296,8 +296,10 @@ def _entropy_from_counts(pos_cnt: np.ndarray, neg_cnt: np.ndarray) -> np.ndarray
         return out
     p_pos = np.where(valid, pos_cnt / np.maximum(total, 1.0), 0.0)
     p_neg = np.where(valid, neg_cnt / np.maximum(total, 1.0), 0.0)
-    term_pos = np.where(p_pos > 0, -p_pos * np.log(p_pos), 0.0)
-    term_neg = np.where(p_neg > 0, -p_neg * np.log(p_neg), 0.0)
+    log_pos = np.log(np.where(p_pos > 0, p_pos, 1.0))
+    log_neg = np.log(np.where(p_neg > 0, p_neg, 1.0))
+    term_pos = np.where(p_pos > 0, -p_pos * log_pos, 0.0)
+    term_neg = np.where(p_neg > 0, -p_neg * log_neg, 0.0)
     out[valid] = term_pos[valid] + term_neg[valid]
     return out
 

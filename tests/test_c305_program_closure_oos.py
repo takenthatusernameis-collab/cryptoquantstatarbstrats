@@ -232,11 +232,13 @@ def test_state_latest_campaign_c305_space_closed():
     costed-OOS edge, no next reachable family on disk. The C305 closure's own
     scope must remain CLOSED regardless of latest_campaign_done."""
     state = yaml.safe_load(STATE.read_text(encoding="utf-8"))
-    # C305 closure stays valid as later campaigns (C306..C318) advance the
-    # counter; only require a recognised post-closure campaign label.
+    # C305 closure stays valid as later campaigns advance the counter; only
+    # require a recognised post-closure campaign label (C305..C330).
     assert state["latest_campaign_done"] in {
         "C305", "C306", "C307", "C308", "C309", "C310", "C311",
         "C312", "C313", "C314", "C315", "C316", "C317", "C318",
+        "C319", "C320", "C321", "C322", "C323", "C324", "C325",
+        "C326", "C327", "C328", "C329", "C330",
     }, state.get("latest_campaign_done")
     closure = state.get("c305_program_closure") or {}
     assert closure.get("reachable_real_data_cross_sectional_stat_arb_space") == "CLOSED"
