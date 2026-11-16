@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T081919Z",
+  "campaign": 324,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign324_oos_sweep_20261116T081919Z.json",
+  "oos_sweep_sha256": "6d501aec6e4c23b1c4da737f3cb24c7a06850e8d7733bafff83c02d7e015190e",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "illiq_dev": 0.26540031202690173,
+    "illiq_ewm": 0.26795940069309865,
+    "tc_dev": 0.2054190935661908,
+    "illiq_placebo": 0.2612211937138088
+  },
+  "dominant_attribution": "illiq_ewm",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "illiq_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.015171277234401,
+      -4.023980892953453,
+      -4.044910636920913,
+      -3.1802612757076214,
+      -4.042108733985864,
+      -4.229633622724515,
+      -3.7018246867207005,
+      -4.246138377950144
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -10.390974379321193,
+    "second_half_sharpe": -18.511508964846673,
+    "sharpe_corr": 0.997459223345415,
+    "stable": false
+  },
+  "diagnosis": "C324 cross-sectional intraday AMIHUD-ILLIQUIDITY SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
