@@ -1,13 +1,13 @@
-updated_at_utc: 20261116T092731Z
-handoff_refreshed_at_utc: 20261116T092731Z
+updated_at_utc: 20261116T103602Z
+handoff_refreshed_at_utc: 20261116T103602Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T09:27:31Z) — MANDATORY HEAVY WORK: BUILD + RUN C327 (next genuinely-new stat-arb family on real on-disk C312 5m data). Verified 2026-11-16T09:27:31Z: env ready (verify_env.py ready:true, missing:[]), C312 cache data/cache/campaign312_usdt_m_ofi_5m readable (10 perps, 315,648 bars, 2023-01..2025-12), C326 complete formal negative (25/25 tests, 5 SHAs), and C327 not started (no scripts/tests/artifacts). State: C281B–C326 ALL COMPLETE FORMAL NEGATIVES (~32,727 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. Do NOT exit with "reachable space closed / no new campaign" (hard violation). Mandatory: C327 must be genuinely-new vs C316–C326 (pre-registered cross-sectional intraday SIGNED JUMP-VARIATION / discontinuity SEASONAL DISLOCATION mean-reversion: from 5m log_return compute RV=sum r^2 vs bipower BV=(pi/2) sum |r_t||r_{t-1}|, jump variation JV=max(RV-BV,0), signed jump variation SJV=sign(sum r^2 over jumps)*JV, jump-intensity JV/RV; trailing same-tod baseline vs current; score=-dislocation; causal shift(1); xsec rank; dollar-neutral gross 1.0; signals sjv_dev, jv_ratio_dev, rv_bv_dev). DISTINCT from C317 (realized-vol LEVEL/higher-moment/lottery), C326 (single/multi-lag autocorrelation), C320 (seasonal return LEVEL). Reuse real log_return (from C326 cache or C312 perp_close) — do NOT create a byte-duplicate cache and label it new (hard no-relabeling rule); if a campaign327_* cache is built it MUST carry genuinely-distinct jump-variation fields. Create scripts/build_c327_<family>_features.py (only if genuinely-distinct cache), scripts/preflight_c327.py, scripts/run_c327_<family>_xsec_oos.py, tests/test_preflight_c327.py, tests/test_c327_<family>_xsec_oos.py; cache <100 MB, real_data_only:true, fabricated_data:false, executed_fills:false, causal shift(1), no network/resample/impute; NaN policy: denominators/values<=0->NaN, same-tod stats NaN-aware with explicit min_periods, exclude NaN obs, no ffill/impute, NaN-feature weight 0; preflight fail-closed (zero-variance/insufficient-obs NaNs only; raw log_return 0-NaN). Pre-registered grid (3 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}=864) all reported; expanding WF 12m/3m/3m (8 splits); Holm AND BH alpha=0.05 (both); MDE; stability (sign-consistency>=0.70, 1st/2nd-half Sharpe corr>=0.5); signal-vs-placebo attribution (dominant share>0.5). Artifacts reports/campaign327_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (+gitignored full.json), SHA256-from-bytes. DoD: C327 verdict artifact on disk (EDGE_PROVEN or RETRACTED+binding constraint) + 5 SHA256 artifacts AND pytest tests/test_c327_* tests/test_preflight_c327.py -q green. NO-COAST: if C327 negative, immediately start C328 on same C312 5m data; never re-declare closure; do not rerun/re-skin C281B–C326.'
-next_campaign: C327_genuinely_new_usdt_m_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T09:27:31Z) — MANDATORY HEAVY WORK: BUILD + RUN C328 (next genuinely-new stat-arb family on real on-disk C312 5m data). Verified 2026-11-16T10:36:02Z: env ready (verify_env.py ready:true, missing:[]), C312 cache data/cache/campaign312_usdt_m_ofi_5m readable (10 perps, 315,648 bars, 2023-01..2025-12), C327 complete formal negative (24/24 tests, 5 SHAs at 20261116T102223Z), C328 not started (no scripts/tests/artifacts). State: C281B–C327 ALL COMPLETE FORMAL NEGATIVES (~33,591 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. Do NOT exit with "reachable space closed / no new campaign" (hard violation). Mandatory: C328 must be genuinely-new vs C316–C327. Reuse real log_return (from C312 cache) — do NOT create a byte-duplicate cache and label it new (hard no-relabeling rule); if a campaign328_* cache is built it MUST carry genuinely-distinct derived fields.'
+next_campaign: C328_genuinely_new_usdt_m_5m
 active_campaign: none
-space_status: NO_EDGE_C281B_C326__C327_MANDATED
-closure_note: 'C281B–C326 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~32,727 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C326 (cross-sectional intraday RETURN AUTOCORRELATION SEASONAL DISLOCATION mean-reversion, 20261116T092731Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 25/25 C326 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C326 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C326.'
+space_status: NO_EDGE_C281B_C327__C328_MANDATED
+closure_note: 'C281B–C327 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~33,591 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C327 (cross-sectional intraday SIGNED JUMP-VARIATION / DISCONTINUITY SEASONAL DISLOCATION mean-reversion, 20261116T102223Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 24/24 C327 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C327 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C327.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -640,6 +640,94 @@ c326_status:
     passed: 25
     failed: 0
     as_of_utc: 20261116T092731Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c327_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T102223Z
+  campaign: C327
+  family: cross_sectional_intraday_signed_jump_variation_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {sjv_dev: 0.2501, jv_ratio_dev: 0.2504, rv_bv_dev: 0.2512, sjv_placebo: 0.2482}
+  dominant_attribution: rv_bv_dev
+  dominant_share: 0.2512
+  attribution_ok: false
+  mde_bps_mean: NaN
+  observed_mean_bps_per_split: 0.0
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T102223Z
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close; log_return derived; r2=r^2, abs_r=|r|, signed_r2=sign(r)*r^2, bipower=(pi/2)*|r_t*r_{t-1}| derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [sjv_dev, jv_ratio_dev, rv_bv_dev]
+  lookback_days: [30, 60, 90]
+  rebalance_bars: [6, 12, 48]
+  fee_bps: [1, 5, 10, 20]
+  slippage_bps: [1, 2, 5, 10]
+  cost_variant: [symmetric, perp_heavy]
+  selection: xsec_rank_dollar_neutral_gross_1p0_tercile
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  nan_policy: 'raw cache fields 0-NaN; jump-variation zero-variance/insufficient-obs NaN fail-closed'
+  definition_of_done: 'C327 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c327_* and tests/test_preflight_c327.py green'
+  no_coast_clause: 'C327 is a formal negative; next session MUST proceed to C328 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign327_jump_variation_5m
+    cache_total_bytes: 71880845
+    cache_max_shard_bytes: 7678794
+    cache_meta_sha256: a0d04b4da3f7f70a01131d83d4562b4ce80b75b41b2f1df9fd06498a4dcce490
+    cache_provenance_sha256: 8e771d489abb0a6ccf406017873c5e12dc9d1bd296071579207ebea1b25049cb
+    cache_manifest_sha256: 090d8d534e54daa3eccb8383a92a624af0f4d6500a6ed8e9ac3c0151267b0a83
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261116T102223Z
+    artifacts:
+      oos_sweep: reports/campaign327_oos_sweep_20261116T102223Z.json
+      tradable_edge_registry: reports/campaign327_tradable_edge_registry_20261116T102223Z.json
+      summary: reports/campaign327_summary_20261116T102223Z.json
+      verdict: reports/campaign327_verdict_20261116T102223Z.json
+      binding_constraint: reports/campaign327_binding_constraint_20261116T102223Z.json
+      oos_sweep_full: reports/campaign327_oos_sweep_20261116T102223Z.full.json (gitignored)
+    oos_sweep_sha256: 8132eb5a
+    tradable_edge_registry_sha256: 4b522eb8
+    summary_sha256: f320ca7c
+    verdict_sha256: 431b6cd7
+    binding_constraint_sha256: 064304c8
+    slim_sweep_bytes: 1041480
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_jump_variation_derived_no_network_ingest
+  scripts:
+  - scripts/build_c327_jump_variation_features.py
+  - scripts/preflight_c327.py
+  - scripts/run_c327_jump_variation_xsec_oos.py
+  tests:
+  - tests/test_preflight_c327.py
+  - tests/test_c327_jump_variation_xsec_oos.py
+  pytest:
+    passed: 24
+    failed: 0
+    as_of_utc: 20261116T102223Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false
