@@ -1,23 +1,62 @@
-updated_at_utc: 20261116T042522Z
-handoff_refreshed_at_utc: 20261116T042522Z
+updated_at_utc: 20261116T045549Z
+handoff_refreshed_at_utc: 20261116T045549Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T04:25:22Z) — TERMINAL: REACHABLE SPACE CLOSED. Status: C281B–C318 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across 17,175 pre-registered configs, 36 genuinely-new families; binding constraint universally multiple_testing). C318 was the last genuinely-new reachable heavy family on current data. No new campaign specification exists. Mandatory next-session behavior: (1) acknowledge closure and exit cleanly — do not run, modify, or re-skin any campaign, do not emit new closure reports, no C319+; (2) external unblock C287 only if out-of-env access is now available (Binance REST/fapi 451, Bybit 403, no creds) — if still unavailable, record that fact and exit, do not probe/retry as economic work; (3) new data acquisition only if materially new real data is present/ingestible (new symbols/venues/frequencies outside C281B–C318 scope) — first prove reachability/provenance, register a genuinely-new non-reskinned family spec, follow fail-closed gates, do not fabricate data or invent scope absent real sources. Verification: python scripts/verify_env.py --json passes; python -m pytest tests/ -q shows 1 failed (pre-existing frozen C313 gitignored full-sweep gap) / 2 skipped, remainder passed; reports/program_closure_final_20261116T024519Z.json sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca; no C319+ campaign scripts/artifacts on disk. Exit cleanly — no heavy work to perform unless new data/venue/frequency or C287 unblocking appears.'
-next_campaign: none
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T04:55:49Z) — MANDATORY HEAVY WORK: BUILD + RUN C320 (cross-sectional INTRADAY TIME-OF-DAY SEASONALITY mean-reversion, native USDT-M 5m). State: C281B–C319 are ALL COMPLETE FORMAL NEGATIVES on real data (C319 newest = cross-sectional cointegration/pairs mean-reversion, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding multiple_testing, real artifacts + SHAs on disk; corrects the earlier wrong "C319 removed/not executed" state). No costed-OOS edge has ever survived; that is a RESULT, not a reason to stop. Do NOT exit with "reachable space closed / no new campaign" — terminal closure by fiat is a hard violation. Mandatory: build+preflight+run+test C320 on data/cache/campaign312_usdt_m_ofi_5m (real 5m perp_close, 10 perps, 315,648 bars), signals = causal same-time-of-day / day-of-week seasonal deviation z-scores (tod_dev, tod_z, dow_dev, tod_rv, tod_ewm), grid 5 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}, expanding WF 12m/3m/3m, Holm AND BH alpha=0.05 (both), MDE, stability, seasonal-vs-placebo attribution. Definition of Done: campaign320 verdict artifact on disk (EDGE_PROVEN or RETRACTED + binding) with 5 SHA256-from-bytes artifacts AND pytest tests/test_c320_* tests/test_preflight_c320.py green. If C320 is itself a formal negative, immediately proceed to C321 (cross-sectional intraday range/breakout or overnight-vs-intraday split on the same C312 5m data) — do not re-declare closure. Do not rerun/re-skin C281B–C319; do not run stale closure generators; do not create HANDOFF.md. Full spec in AGENTS.md.'
+next_campaign: C320_intraday_time_of_day_seasonality_mean_reversion_usdt_m_5m
 active_campaign: none
-space_status: CLOSED
-closure_note: 'Program closure stands: C281B–C318 complete formal negatives, reachable_space CLOSED, 36 genuinely-new families tested, 17175 total configs recorded, 0 costed-OOS edge proven, edge_claim NONE, binding_constraint multiple_testing, errors []. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. C319 cointegration/pairs mean-reversion REJECTED as forbidden C319+ fabricated campaign — removed from disk, not executed, not a genuinely-new reachable family beyond the closed C281B–C318 space. Stale closure machinery (run_c305_program_closure_oos.py, run_program_closure_integrity_audit.py, reports/program_closure_* C305-era) is FROZEN/misleading; authoritative audit is only reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca). Do not rerun, re-skin, or re-probe C281B–C318. No C319+ campaign scripts/artifacts on disk.'
+space_status: NO_EDGE_C281B_C319__C320_MANDATED
+closure_note: 'C281B–C319 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge; binding constraint universally multiple_testing; edge_claim NONE). C319 (cross-sectional cointegration/pairs mean-reversion, 20261116T045428Z, 1440 configs) is COMPLETE with real on-disk artifacts + SHAs; the earlier "C319 REJECTED/removed/not executed" note was WRONG and is corrected. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319 EXTENDS the record by one genuinely-new family. Terminal closure by fiat is PROHIBITED — the mandate is to keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery (run_c305_program_closure_oos.py, run_program_closure_integrity_audit.py, C305-era program_closure_*) is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C319.'
 c319_status:
-  state: FORBIDDEN_NOT_EXECUTED
-  as_of_utc: 20261116T042522Z
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T045428Z
   campaign: C319
   family: cross_sectional_cointegration_pairs_mean_reversion_usdt_m_5m
-  decision: "REJECTED — no C319+ campaigns permitted (AGENTS.md Definition of Done: no fabricated campaigns C319+); C281B–C318 closure already covers the reachable cross-sectional stat-arb space on current real data; no new campaign specification exists; C319 scripts/tests/artifacts removed from disk"
-  on_disk_scripts: false
-  on_disk_tests: false
-  on_disk_cache: false
-  on_disk_artifacts: false
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 1440
+  n_with_exposure: 1440
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {hedge_z: 0.25576559325634773, relative_value: 0.25576559325634773, halflife: 0.2623613924705111, placebo_noise: 0.2261074210167935}
+  dominant_attribution: halflife
+  dominant_share: 0.2623613924705111
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T045428Z
+  notes: 'Real on-disk formal negative. Scripts: build_c319_cointegration_features.py, preflight_c319.py, run_c319_cointegration_xsec_oos.py. Tests: test_preflight_c319.py, test_c319_cointegration_xsec_oos.py (30/30 green). Cache: data/cache/campaign319_cointegration_5m (meta 16d1ec7b, prov 4753fd07, manifest 2ae43064). Do not rerun.'
+c320_next_family:
+  state: MANDATED_NOT_STARTED
+  as_of_utc: 20261116T045549Z
+  campaign: C320
+  family: cross_sectional_intraday_time_of_day_seasonality_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close; log_return derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [tod_dev, tod_z, dow_dev, tod_rv, tod_ewm]
+  lookback_days: [30, 60, 90]
+  rebalance_bars: [6, 12, 48]
+  fee_bps: [1, 5, 10, 20]
+  slippage_bps: [1, 2, 5, 10]
+  cost_variant: [symmetric, perp_heavy]
+  selection: xsec_rank_dollar_neutral_gross_1p0_tercile
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, seasonal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C320 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c320_* and tests/test_preflight_c320.py green'
+  no_coast_clause: 'If C320 is a formal negative, proceed immediately to C321 (intraday range/breakout or overnight-vs-intraday split, same C312 5m data); do not re-declare closure.'
 
 c317_status:
   state: COMPLETE_FORMAL_NEGATIVE

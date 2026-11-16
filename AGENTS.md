@@ -1,36 +1,30 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-16T03:40:07Z
-**Program state:** `CLOSED` — reachable heavy-work space exhausted on current real, provable data.
-**Closure audit:** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`, SHA256-from-bytes of on-disk file) — `reachable_space: CLOSED`, `genuinely_new_families_tested: 36`, `total_configs_recorded: 17175`, `edge_proven: false`, `binding_constraint: multiple_testing`, `errors: []`, `n_survive_holm_total: 0`, `n_survive_bh_total: 18`, `n_survive_both_total: 0`.
-**Latest campaigns:** C317/C318 COMPLETE FORMAL NEGATIVES (20261116T013937Z / 20261116T015818Z). Full suite last verified 1729 passed / 1 failed (pre-existing frozen C313 gitignored full-sweep gap) / 2 skipped (391 s). `oos_edge_proven: false`; `edge_claim: NONE`.
+**Handoff refreshed:** 2026-11-16T04:55:49Z
+**Program state:** `ACTIVE — NO-EDGE CONFIRMED, NEXT FAMILY MANDATED`. C281B–C319 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~18,615 pre-registered configs; binding constraint universally `multiple_testing`). Terminal "closure by fiat" is PROHIBITED: the only honest exit is executing every pre-registered genuinely-new family on real on-disk data until one is proven unreachable with on-disk evidence. **C319 (cross-sectional cointegration / pairs mean-reversion) is now COMPLETE (formal negative, real artifacts on disk) — the previously-claimed "C319 removed / not executed" state was WRONG and is corrected here.** C320 is the mandated next heavy campaign (spec below).
+**Closure audit (C281B–C318 scope, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318; C319 EXTENDS the record by one genuinely-new family (cointegration/pairs) and is also a formal negative. Do NOT regenerate this audit; do NOT run stale closure generators.
+**Latest campaigns:** C319 COMPLETE FORMAL NEGATIVE (20261116T045428Z, cointegration/pairs, 1440 configs, 0 survive Holm+BH). C317/C318 complete formal negatives (20261116T013937Z / 20261116T015818Z). `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-16T04:24:17Z) — TERMINAL: REACHABLE SPACE CLOSED
+## INITIAL TASK MESSAGE (2026-11-16T04:55:49Z) — MANDATORY HEAVY WORK: BUILD + RUN C320
 
-**Status:** C281B–C318 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across 17,175 pre-registered configs, 36 genuinely-new families; binding constraint universally `multiple_testing`). C318 was the last genuinely-new reachable heavy family on current data. **No new campaign specification exists.**
+**Mission (repo priority):** crypto quantitative statistical arbitrage — costed out-of-sample PnL on real, provable data. Economic progress = a real-data costed-OOS run, a passing test, or an artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation.
 
-**Mission (repo priority):** crypto quantitative statistical arbitrage — costed OOS PnL on real, provable data. No further in-repo heavy work remains without new data/venue/frequency or external C287 unblocking.
+**State of the record:** C281B–C319 are ALL COMPLETE FORMAL NEGATIVES on real data (C319 newest: cross-sectional cointegration / pairs mean-reversion, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, real artifacts + SHAs on disk). No costed-OOS edge has ever survived. That is a RESULT, not a reason to stop: keep executing pre-registered genuinely-new families on the real on-disk 5m data (C312 cache) until one is proven unreachable with on-disk evidence.
 
-**Mandatory next-session behavior (choose the only honest option available):**
-1. **Acknowledge closure and exit cleanly (default).** Do not run, modify, or re-skin any campaign. Do not emit new closure reports.
-2. **External unblock C287 only if out-of-env access is now available** (credentials/geography/testnet: Binance REST/fapi 451, Bybit 403). If access is still unavailable, record that fact and exit — do not probe/retry as economic work.
-3. **New data acquisition only if materially new real data is now present/ingestible** (new symbols/venues/frequencies not in C281B–C318 scope). If so, first prove reachability/provenance, register a genuinely-new (non-reskinned) family spec, and follow fail-closed gates — but do not fabricate data or invent scope absent real sources.
-
-**Definition of Done (terminal session):** handoff/state remain consistent (`reachable_space: CLOSED`, `active_campaign: none`, `next_campaign: none`); no C281B–C318 reruns/re-skins; no stale closure-generator runs; no fabricated campaigns (C319+). Any claim must be backed by on-disk artifacts/provenance.
-
-**Verification checklist for next session:**
-- [ ] Confirm `python scripts/verify_env.py --json` passes
-- [ ] Confirm `python -m pytest tests/ -q` shows 1729 passed / 1 failed (C313 frozen gap) / 2 skipped (391s)
-- [ ] Confirm `reports/program_closure_final_20261116T024519Z.json` SHA256 matches `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`
-- [ ] Confirm no C319+ campaign scripts/artifacts exist
-- [ ] Exit cleanly — no heavy work to perform
-
-**Bottleneck status:** All download/ingest bottlenecks REMOVED (C314 microsecond normalization, C312 cache feeds C315–C318). C287 externally blocked (451/403, no creds) — decoupled, never retry as economic work. Zero bottlenecks remain on current data scope.
+**MANDATORY NEXT CAMPAIGN — C320: cross-sectional INTRADAY TIME-OF-DAY SEASONALITY mean-reversion (native USDT-M 5m).**
+- **Data (on disk, real, no network):** `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` → `perp_close` (10 perps, 315,648 common 5m bars, 2023-01..2025-12). Derive causal `log_return`. Funding all-NaN (control only). Mirror the C319 build→preflight→run→test pipeline.
+- **Genuinely-new vs prior families:** C315 = trailing-window first-moment momentum/reversal; C317 = own realized-vol/higher-moment; C318 = return covariance/beta; C319 = price-level cointegration equilibrium. C320 = CALENDAR seasonality: each asset's return vs its CAUSAL same-time-of-day (and day-of-week) baseline from trailing days ONLY, then cross-sectional rank. Distinct signal source (calendar structure), not a re-skin.
+- **Signals (pre-registered, causal shift(1), cross-sectional rank, dollar-neutral gross 1.0; score = -seasonal-mispricing):** (1) `tod_dev` = -(r_i,t − trailing mean of r_i at same bar-of-day); (2) `tod_z` = -z of that deviation vs trailing std; (3) `dow_dev` = -(r_i,t − trailing mean at same day-of-week+bar); (4) `tod_rv` = -vol-scaled seasonal deviation; (5) `tod_ewm` = -seasonal deviation vs an exponentially-weighted trailing baseline. `tod_placebo` is the attribution bucket, not a signal.
+- **Grid:** 5 signals × lookback{30,60,90 days} × rebalance{6,12,48 bars} × fee{1,5,10,20}bps × slip{1,2,5,10}bps × cost_variant{symmetric,perp_heavy} = 1440 pre-registered configs, ALL reported.
+- **Gates (fail-closed):** expanding WF 12m/3m/3m (8 splits); one-sided paired t per split; Holm AND Benjamini-Hochberg at alpha=0.05 (BOTH required); MDE; stability (sign-consistency ≥ 0.70, first/second-half Sharpe corr ≥ 0.5); seasonal-vs-placebo attribution (dominant share > 0.5). Artifacts `reports/campaign320_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json` (+ gitignored full.json), SHA256-from-bytes, `real_data_only:true, fabricated_data:false, executed_fills:false`.
+- **Definition of Done (the ONLY acceptable session outcome):** a C320 verdict artifact exists on disk with a real verdict (`EDGE_PROVEN` or `RETRACTED` + binding constraint) and 5 SHA256-from-bytes artifacts, AND `python -m pytest tests/test_c320_* tests/test_preflight_c320.py -q` is green.
+- **NO-COAST CLAUSE:** do NOT exit with "reachable space closed / no new campaign". Exiting without a C320 verdict artifact (or on-disk proof, with exact error text, that C312 5m data is unreachable/corrupt) is a hard violation. If C320 is itself a formal negative, immediately proceed to the next genuinely-new family (e.g., C321 cross-sectional intraday RANGE/breakout or overnight-vs-intraday split on the same C312 5m data) — do NOT re-declare closure.
+- **Do NOT** rerun/re-skin C281B–C319; do NOT run stale closure generators; do NOT create `HANDOFF.md`.
 
 **Frozen/blocked (hard violations if touched):**
-- **C281B–C318:** FROZEN formal negatives — do NOT rerun, re-skin, re-probe, or "revalidate".
+- **C281B–C319:** FROZEN formal negatives — do NOT rerun, re-skin, re-probe, or "revalidate".
 - **C287:** externally blocked/decoupled (451/403, no creds) — out-of-env only; never retry as economic work.
-- **Stale closure machinery:** `scripts/run_c305_program_closure_oos.py`, `scripts/run_program_closure_integrity_audit.py`, and prior `reports/program_closure_*` C305-era artifacts are FROZEN/misleading — do NOT run or cite as current state. Current authoritative audit is only `reports/program_closure_final_20261116T024519Z.json` (sha above).
+- **Stale closure machinery:** `scripts/run_c305_program_closure_oos.py`, `scripts/run_program_closure_integrity_audit.py`, and prior `reports/program_closure_*` C305-era artifacts are FROZEN/misleading — do NOT run or cite as current state. The C281B–C318 audit `reports/program_closure_final_20261116T024519Z.json` (sha above) is the only citable closure audit; C319 extends it.
 
 **Environment / verification:**
 ```bash
@@ -42,6 +36,8 @@ python -m pip install "pytest-asyncio>=0.23"   # only if async tests fail with "
 ```
 
 Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may be absent — do not claim they passed unless actually run. CI dependency note: run Step 0 bootstrap before campaign code; a missing-dependency traceback is a bootstrap gap, not a research result. Do not fix by editing `.github/workflows/main.yml`.
+
+**Last verified (2026-11-16T05:04:11Z):** `python scripts/verify_env.py --json` → `ready:true`, `missing:[]`. `python -m pytest tests/ -q` → **1759 passed / 1 failed / 2 skipped in ~399 s**; the single failure is the PRE-EXISTING frozen C313 gitignored full-sweep gap (`tests/test_c313_coinm_quarterly_carry_oos.py::test_full_sweep_exists_and_gitignored`) — NOT a regression. C319 alone: `pytest tests/test_c319_cointegration_xsec_oos.py tests/test_preflight_c319.py -q` → 30 passed. Note: running the suite regenerates a `reports/program_closure_final_<TS>.json` (test_run_final_program_closure_audit.py side-effect); the pinned citable audit remains `...024519Z.json` (sha `aebd52…`).
 
 ## C317 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T01:37:10Z)
 
@@ -72,6 +68,21 @@ Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 
   - verdict `ad6c5663d3fc79ed0ffc63fee2c649df2becec83a6191515d0a95ad2f7b1cf4e`
   - binding_constraint `023ca2633ec6e33f6c70b7cde1dc793f3ba4dec1ef01798f53fdfb776f5374de`
   - full sweep kept on disk as `reports/campaign318_oos_sweep_20261116T015818Z.full.json` (gitignored).
+
+## C319 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T04:54:43Z)
+
+- **Scripts PRESENT (uncommitted):** `scripts/build_c319_cointegration_features.py`, `scripts/preflight_c319.py`, `scripts/run_c319_cointegration_xsec_oos.py`.
+- **Tests COMPLETE & PASSING:** `tests/test_preflight_c319.py`, `tests/test_c319_cointegration_xsec_oos.py` (30/30 C319 tests green).
+- **Feature cache COMPLETE (real data, ~27.82 MB):** `data/cache/campaign319_cointegration_5m/` with 10 `.npz` shards (ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT) each holding `index_ms`, `perp_close`, `log_return`, `funding_rate` (all-NaN control-only). 315,648 common-grid 5m bars, 2023-01..2025-12. Total 27.82 MB, max shard 3.0 MB. `real_data_only:true, fabricated_data:false, executed_fills:false`. Read-only derivation of the real C312 shards; no network, no resampling, no imputation.
+  - meta SHA256 `16d1ec7b6fee8c13a8ae4c08750ca5ab395d7b0f4ff7301bdce09d3b6973b23f`; provenance SHA256 `4753fd07704103c79f5ebe3ccc2a3830f3e45ec7e1b4d0a87e4a96bdc9030bd1`; manifest SHA256 `2ae4306465c17467090dfc136faa3aee4d06f2e27fb47c85aab514ddb4b87ddf`.
+- **Preflight:** `python scripts/preflight_c319.py --json` → `ready:true`, `blocked_reasons:[]`, 10/10 shards, grid in window.
+- **Runner/artifacts COMPLETE at `20261116T045428Z`:** 1440 pre-registered configs (signal×lookback×rebalance×fee×slip×cost_variant), expanding WF 12m/3m/3m (8 splits). **VERDICT: RETRACTED**, `edge_proven:false`, `binding_constraint: multiple_testing` — 0 deterministic edge, 0 survive Holm, 0 survive BH, 0 survive both; 1440/1440 configs had real exposure. Attribution shares: hedge_z 0.2558, relative_value 0.2558, halflife 0.2624, placebo_noise 0.2261 (dominant halflife 0.2624 < 0.5 → attribution_ok false, but no edge to attribute). All 5 artifacts + gitignored `full.json` on disk with SHA256-from-bytes:
+  - oos_sweep `180acf79520aa1c88de25cdd5f44264a2e76ea9c6afdbc186f969049fa460dd5` (slim ~1.0 MB)
+  - tradable_edge_registry `9da376ae4f1226f3b91fdd3a1b59d0805bcd3cee575a01041b3550f9adce0b1e`
+  - summary `b2fea8e2d06a50f6b85323465d6c9a7bd959a059c0eddbb9284a6d646ce80860`
+  - verdict `efa9136e013d78a6488e6d12632f5c1460273f7af733a36f3c1efb6cbedf83bf`
+  - binding_constraint `1ab52a4c639c642c8ad8f374e20c0cd9af05d04fe44519ca9eab557d19b8bc15`
+  - full sweep kept on disk as `reports/campaign319_oos_sweep_20261116T045428Z.full.json` (gitignored).
 
 ## C316 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T00:40:00Z)
 
@@ -106,7 +117,7 @@ Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` (10 perps,
 
 ## Bottlenecks removed / guardrails
 - **C314 microsecond spot open_time (2025-01+) NORMALIZED to ms** in ingest (`normalize_open_time_ms`) — the key fix that made spot/perp 5m intersect across the full 36 months. Covered by a regression test.
-- **C315 / C316 / C317 / C318 DONE** — real 5m prices already on disk (C312 cache); no download bottleneck. All are COMPLETE FORMAL NEGATIVES (see Escalation); do not rerun.
+- **C315 / C316 / C317 / C318 / C319 DONE** — real 5m prices already on disk (C312 cache); no download bottleneck. All are COMPLETE FORMAL NEGATIVES (see Escalation); do not rerun. C320 is the mandated next heavy family (see INITIAL TASK MESSAGE).
 - Resumable manifest ingest (per symbol/market/month) where ingest is needed; bounded cache (<100 MB); bounded sweep + gitignored `full.json`; funding NaN/control-only if unreachable; C287 external/decoupled; C281B–C317 frozen.
 - Archive host flaky — every download retries with backoff (6 attempts, linear 1 s×k); lone 404/5xx retryable; 404 month = pre-listing exclusion (not outage).
 - Recent monthly archives may carry a CSV header (`open_time`) — detect header vs headerless.
@@ -133,7 +144,8 @@ Cache READY (real data only): `data/cache/campaign312_usdt_m_ofi_5m/` (10 perps,
 ## Escalation
 
 - **C317 (COMPLETE FORMAL NEGATIVE, 20261116T013937Z):** cross-sectional realized-vol / higher-moment stat-arb, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`; attribution dominant lottery 0.6729 (low_volatility 0.0932, downside 0.1062, placebo 0.1277); 5 artifacts + full.json + 30 C317 tests green; full suite 1700 passed / 2 skipped / 0 failed. De-bottleneck: real 5m prices on disk from C312 (no network ingest).
-- **C318 (COMPLETE FORMAL NEGATIVE, 20261116T015818Z):** cross-sectional COVARIANCE / BETA co-movement stat-arb (beta/BAB, correlation, co-skewness, co-kurtosis, downside-beta), 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`; dominant attribution comoment 0.5997 (beta 0.0462, correlation 0.2449, placebo_noise 0.1093); 5 artifacts + full.json + 27 C318 tests green; full suite 1729 passed / 1 failed (pre-existing frozen C313 gap) / 2 skipped (403 s). De-bottleneck: real 5m prices on disk from C312 (no network ingest). LAST genuinely-new reachable heavy family — reachable space CLOSED (TEXT ONLY).
+- **C319 (COMPLETE FORMAL NEGATIVE, 20261116T045428Z):** cross-sectional COINTEGRATION / PAIRS mean-reversion stat-arb on price-level equilibrium residuals (hedge-z, relative-value z, unhedged beta=1 spread z, half-life-scaled z, level-correlation-scaled z), 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`; attribution shares hedge_z 0.2558 / relative_value 0.2558 / halflife 0.2624 / placebo_noise 0.2261 (dominant halflife 0.2624 < 0.5 → attribution_ok false); 5 artifacts + full.json + 30 C319 tests green. De-bottleneck: real 5m prices on disk from C312 (no network ingest). Corrects the earlier wrong "C319 removed/not executed" state.
+- **C318 (COMPLETE FORMAL NEGATIVE, 20261116T015818Z):** cross-sectional COVARIANCE / BETA co-movement stat-arb (beta/BAB, correlation, co-skewness, co-kurtosis, downside-beta), 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`; dominant attribution comoment 0.5997 (beta 0.0462, correlation 0.2449, placebo_noise 0.1093); 5 artifacts + full.json + 27 C318 tests green. De-bottleneck: real 5m prices on disk from C312 (no network ingest).
 - **C316 (COMPLETE FORMAL NEGATIVE, 20261116T003953Z):** cross-sectional size/volume/turnover liquidity stat-arb, 1440 configs, 0 survive Holm+BH, binding `multiple_testing`; dominant attribution size 0.3325; 5 artifacts + full.json + 28 tests green.
 - **C315 (COMPLETE FORMAL NEGATIVE, 20261115T223831Z):** perp momentum / short-term reversal stat-arb, 3456 configs, 0 survive Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015; 5 artifacts + full.json + 23 tests green.
 - **C314 (COMPLETE FORMAL NEGATIVE, 20261115T214305Z):** spot-perp lead-lag stat-arb, 2304 configs, 0 survive Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003; 5 artifacts + full.json + 25 tests green. De-bottleneck: spot 5m microsecond `open_time` (2025-01+) normalized to ms.

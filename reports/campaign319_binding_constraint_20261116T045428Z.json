@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T045428Z",
+  "campaign": 319,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign319_oos_sweep_20261116T045428Z.json",
+  "oos_sweep_sha256": "180acf79520aa1c88de25cdd5f44264a2e76ea9c6afdbc186f969049fa460dd5",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "hedge_z": 0.25576559325634773,
+    "relative_value": 0.25576559325634773,
+    "halflife": 0.2623613924705111,
+    "placebo_noise": 0.2261074210167935
+  },
+  "dominant_attribution": "halflife",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "spread_z",
+      "L": 1008,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -1.2039181654987716,
+      -1.1134616928992371,
+      -1.173997404649923,
+      -1.4415544604570014,
+      -1.0840191315510983,
+      -0.8943954091574777,
+      -1.0061680326445412,
+      -0.9185869114984154
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.89669317762954,
+    "second_half_sharpe": -13.000848996902484,
+    "sharpe_corr": 0.9978527060500988,
+    "stable": false
+  },
+  "diagnosis": "C319 cross-sectional cointegration / pairs mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
