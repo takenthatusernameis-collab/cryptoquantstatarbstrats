@@ -1,0 +1,172 @@
+{
+  "generated_at_utc": "20261116T074350Z",
+  "campaign": 323,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "ofi_ratio",
+    "tss_ratio",
+    "log_tc",
+    "log_notional",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign323_flow_activity_seasonality_5m",
+  "shard_sha256": {
+    "ADAUSDT": "042f02a4bce0f556f937ec09fad10c39a10d6cef19462f220f0629aed188e7e5",
+    "AVAXUSDT": "434195036798aead0564cb722ac768b148089eafc2fc23f7dd0671c225dcb6fe",
+    "BNBUSDT": "bba4e038ed8416b00430f5330a2b267e2ad04a8c99ca3a580696cf269eb76be2",
+    "BTCUSDT": "5f03dcead169505537549411c9d82d43e20289abd94a2f60b6b3b0eea24432bc",
+    "DOGEUSDT": "e326df516d7645552080d336238ed5bc76e88edf0766d23e12c0790685baa882",
+    "DOTUSDT": "f4c2477034912ec4d8d800267e8f59b91d2d236a4a5ceb34d7cf3de921a89a66",
+    "ETHUSDT": "68e9e3a896cdcf4b8ab955d4a271079ad63803d50579bfbb97c66bf6e8322a80",
+    "LINKUSDT": "35da8c11fb0b22e91de0bed4ae2a0ab44acaa8a1fec5ceb5a044724b8441a137",
+    "SOLUSDT": "67892bb7a573442deaf369d5c741977202fb896570dd67b3ee27ee3a7575d289",
+    "XRPUSDT": "0270f0961d7db599b1fecd3852a7354ab0f188ec1f1d5a219ff04446ede4bcaf"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 6362730,
+    "AVAXUSDT": 6697929,
+    "BNBUSDT": 6767785,
+    "BTCUSDT": 7188971,
+    "DOGEUSDT": 6805440,
+    "DOTUSDT": 6214468,
+    "ETHUSDT": 7225614,
+    "LINKUSDT": 6595000,
+    "SOLUSDT": 7016294,
+    "XRPUSDT": 6608710
+  },
+  "total_shard_bytes": 67482941,
+  "max_shard_bytes": 7225614,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "057719eae950029797b63814183b97c1ed8c8abfa6e42dcc7ddf192e2bc32960",
+  "nan_policy": {
+    "ofi_ratio": "signed_volume/total_volume NaN where total_volume==0",
+    "tss_ratio": "trade_sign_sum/trade_count NaN where trade_count==0",
+    "log_tc": "log(trade_count) NaN where trade_count<=0",
+    "log_notional": "log(notional) NaN where notional<=0",
+    "zero_activity_nan_ceiling": 0.001,
+    "per_shard": {
+      "ADAUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "AVAXUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "BNBUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "BTCUSDT": {
+        "total_volume_zero": 43,
+        "trade_count_zero": 43,
+        "trade_count_nonpos": 43,
+        "notional_nonpos": 43,
+        "n_bars": 315648,
+        "max_zero_activity_share": 0.00013622769667477697
+      },
+      "DOGEUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "DOTUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "ETHUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "LINKUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "SOLUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      },
+      "XRPUSDT": {
+        "total_volume_zero": 24,
+        "trade_count_zero": 24,
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24,
+        "n_bars": 315648,
+        "max_zero_activity_share": 7.603406326034063e-05
+      }
+    }
+  }
+}
