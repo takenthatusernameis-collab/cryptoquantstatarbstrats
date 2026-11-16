@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """C328 preflight: fail-closed verification of the real C328 USDT-M cross-sectional
-intraday VARIANCE-RATIO (RANDOM-WALK-DEVIATION) SEASONAL DISLOCATION mean-reversion
+intraday RETURN SIGN-RUN / DIRECTIONAL STREAK SEASONAL DISLOCATION mean-reversion
 feature cache before the C328 runner sweeps the pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign328_variance_ratio_5m/`` and every shard SHA256 + byte size
+  ``data/cache/campaign328_signstreak_5m/`` and every shard SHA256 + byte size
   matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -14,18 +14,19 @@ Verifies:
 - the common 5m grid is non-empty and inside 2023-01..2025-12;
 - all 10 symbols present with finite, positive perp_close AND finite log_return on
   the common grid (log_return derived from perp_close, r[0]=0);
-- the genuinely-distinct multi-horizon cumulative-return fields are present, fully
-  finite, and EXACTLY consistent with perp_close (r2==r^2, r_q4==log(c[t]/c[t-4]),
-  r_q8==log(c[t]/c[t-8]), r_q16==log(c[t]/c[t-16])) — fail-closed on any imputed /
+- the genuinely-distinct sign-sequence fields are present, fully finite, and
+  EXACTLY consistent with the log_return sign sequence (sign_run reset identity,
+  sign_chg 0/1 identity, sign_run[0]==sign_chg[0]==0) — fail-closed on any imputed /
   fabricated gap;
 - the ``funding_rate`` leg is present and all-NaN (control only, USDT-M funding is
   unreachable in this environment);
 - PRE-REGISTERED NaN POLICY fail-closed gate: the RAW cache fields carry ZERO NaN
   (real, gap-free derived inputs from real strictly-positive perp_close). The only
-  variance-ratio NaNs (Var1<=0 / Varq<=0, zero-variance, insufficient-obs) are
-  handled fail-closed in the RUNNER (NaN bars get cross-sectional weight 0). This
-  preflight also asserts the exact field identities above, which fail closed if any
-  bar was imputed or fabricated.
+  sign-streak NaNs (zero-variance / insufficient-obs / min_periods) are handled
+  fail-closed in the RUNNER (NaN bars get cross-sectional weight 0).
+  This preflight also asserts the exact sign-sequence identities above, which fail
+  closed if any bar was imputed or fabricated, and reports the share of runner-
+  computed sign-streak NaNs.
 
 Never fetches, imputes, resamples, or fabricates data. Exit 0 iff ready:true.
 """
@@ -40,9 +41,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign328_variance_ratio_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign328_variance_ratio_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign328_variance_ratio_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign328_signstreak_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign328_signstreak_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign328_signstreak_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -50,56 +51,61 @@ EXPECTED_INTERVAL = "5m"
 EXPECTED_SOURCE_INTERVAL = "usdt_m_5m_klines_taker_delta_ms"
 EXPECTED_SOURCE_CAMPAIGN = 312
 N_SYMBOLS = 10
-Q_HORIZONS = (4, 8, 16)
 
-FIELDS = ["index_ms", "perp_close", "log_return", "r2",
-          "r_q4", "r_q8", "r_q16", "funding_rate"]
+FIELDS = ["index_ms", "perp_close", "log_return", "sign_run", "sign_chg",
+          "funding_rate"]
 
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, r2: np.ndarray,
-                              q: dict, fr: np.ndarray) -> dict:
-    """Raw-feature integrity: finite fields, exact variance-ratio identities,
+def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, sr: np.ndarray,
+                              sc: np.ndarray, fr: np.ndarray) -> dict:
+    """Raw-feature integrity: finite fields, exact sign-sequence identities,
     funding control, zero raw NaN."""
-    r2_ok = bool(np.allclose(r2, lr * lr, rtol=1e-4, atol=1e-8, equal_nan=False))
-    logpc = np.log(pc)
-    n = len(pc)
-    q_ok = {}
-    q_nan = {}
-    for h in Q_HORIZONS:
-        qq = q[h]
-        expected = np.zeros(n, dtype=float)
-        if n > h:
-            expected[h:] = logpc[h:] - logpc[:-h]
-        q_ok[h] = bool(np.allclose(qq, expected, rtol=1e-3, atol=1e-6, equal_nan=False))
-        q_nan[h] = int(np.isnan(qq).sum())
+    sgn = np.sign(lr)
+    # sign_run reset identity
+    exp_sr = np.zeros(len(lr), dtype=float)
+    exp_sr[0] = 0.0
+    for t in range(1, len(lr)):
+        if sgn[t] != 0 and sgn[t] == sgn[t - 1]:
+            exp_sr[t] = exp_sr[t - 1] + 1.0
+        else:
+            exp_sr[t] = 1.0 if sgn[t] != 0 else 0.0
+    sr_ok = bool(np.allclose(sr, exp_sr, rtol=0, atol=1e-9, equal_nan=False))
+    # sign_chg identity: 1 iff both signs nonzero and differ
+    exp_sc = np.zeros(len(lr), dtype=float)
+    exp_sc[0] = 0.0
+    for t in range(1, len(lr)):
+        exp_sc[t] = 1.0 if (sgn[t] != 0 and sgn[t - 1] != 0 and sgn[t] != sgn[t - 1]) else 0.0
+    sc_ok = bool(np.allclose(sc, exp_sc, rtol=0, atol=1e-9, equal_nan=False))
+    sr_nan = int(np.isnan(sr).sum())
+    sc_nan = int(np.isnan(sc).sum())
     lr_nan = int(np.isnan(lr).sum())
-    r2_nan = int(np.isnan(r2).sum())
-    raw_nan_total = lr_nan + r2_nan + sum(q_nan.values())
-    all_q_ok = bool(all(q_ok.values()))
+    raw_nan_total = lr_nan + sr_nan + sc_nan
     return {
-        "len": int(n),
+        "len": int(len(pc)),
         "perp_close_all_finite": bool(np.isfinite(pc).all()),
         "perp_close_all_positive": bool((pc[np.isfinite(pc)] > 0).all()) if np.isfinite(pc).any() else False,
         "log_return_nan": lr_nan,
         "log_return_all_finite": bool(np.isfinite(lr).all()),
-        "log_return_first_zero": bool(n > 0 and lr[0] == 0.0),
-        "r2_nan": r2_nan,
-        "r2_all_finite": bool(np.isfinite(r2).all()),
-        "r2_equals_r_squared": r2_ok,
-        "r_q_nan": q_nan,
-        "r_q_all_finite": bool(all(np.isfinite(q[h]).all() for h in Q_HORIZONS)),
-        "r_q_equals_logc_ratio": q_ok,
-        "r_q_identities_ok": all_q_ok,
+        "log_return_first_zero": bool(len(lr) > 0 and lr[0] == 0.0),
+        "sign_run_nan": sr_nan,
+        "sign_run_all_finite": bool(np.isfinite(sr).all()),
+        "sign_run_first_zero": bool(len(sr) > 0 and sr[0] == 0.0),
+        "sign_run_identity_ok": sr_ok,
+        "sign_chg_nan": sc_nan,
+        "sign_chg_all_finite": bool(np.isfinite(sc).all()),
+        "sign_chg_first_zero": bool(len(sc) > 0 and sc[0] == 0.0),
+        "sign_chg_identity_ok": sc_ok,
+        "sign_chg_binary": bool(((sc == 0.0) | (sc == 1.0)).all()),
         "funding_all_nan_control_only": bool(np.isnan(fr).all()),
         "raw_nan_total": raw_nan_total,
         "ok": bool(np.isfinite(pc).all() and (pc[np.isfinite(pc)] > 0).all()
-                   and np.isfinite(lr).all() and np.isfinite(r2).all()
-                   and all(np.isfinite(q[h]).all() for h in Q_HORIZONS)
-                   and r2_ok and all_q_ok and np.isnan(fr).all() and raw_nan_total == 0),
+                   and np.isfinite(lr).all() and np.isfinite(sr).all()
+                   and np.isfinite(sc).all() and sr_ok and sc_ok
+                   and np.isnan(fr).all() and raw_nan_total == 0),
     }
 
 
@@ -143,6 +149,7 @@ def main() -> int:
                            "ok": ok}
         shard_ok &= ok
 
+    total_shard_bytes = sum(int(v) for v in shard_bytes_meta.values())
     flags_ok = (
         meta.get("interval") == EXPECTED_INTERVAL
         and meta.get("source_interval") == EXPECTED_SOURCE_INTERVAL
@@ -175,7 +182,6 @@ def main() -> int:
         "executed_fills": meta.get("executed_fills"),
         "storage": meta.get("storage"),
         "fields": meta.get("fields"),
-        "q_horizons": meta.get("q_horizons"),
         "total_shard_bytes": int(meta.get("total_shard_bytes") or 0),
         "total_shard_mb": round(int(meta.get("total_shard_bytes") or 0) / 1e6, 2),
         "max_shard_bytes": int(meta.get("max_shard_bytes") or 0),
@@ -244,10 +250,10 @@ def main() -> int:
                     ok = False
             pc = np.asarray(z["perp_close"], dtype=float)
             lr = np.asarray(z["log_return"], dtype=float)
-            r2 = np.asarray(z["r2"], dtype=float)
-            q = {h: np.asarray(z[f"r_q{h}"], dtype=float) for h in Q_HORIZONS}
+            sr = np.asarray(z["sign_run"], dtype=float)
+            sc = np.asarray(z["sign_chg"], dtype=float)
             fr = np.asarray(z["funding_rate"], dtype=float)
-        rep = _feature_integrity_report(pc, lr, r2, q, fr)
+        rep = _feature_integrity_report(pc, lr, sr, sc, fr)
         d["fields"] = rep
         feature_integrity[s] = rep
         ok &= rep["ok"]
@@ -257,17 +263,17 @@ def main() -> int:
 
     checks["per_symbol"] = {"n_symbols": n_symbols, "detail": detail, "ok": bool(all_ok)}
     if not all_ok:
-        blocked.append("one or more symbols failed perp_close/log_return/variance-ratio/funding/grid checks")
+        blocked.append("one or more symbols failed perp_close/log_return/sign-streak/funding/grid checks")
     fi_ok = bool(feature_integrity and all(v.get("ok") is True for v in feature_integrity.values()))
     raw_nan_total = int(sum(v.get("raw_nan_total", 0) for v in feature_integrity.values()))
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "raw cache fields carry ZERO NaN (gap-free real derivation); variance-ratio Var1/Varq<=0/zero-variance/insufficient-obs NaNs handled fail-closed in runner (weight 0)",
+        "policy": "raw cache fields carry ZERO NaN (gap-free real derivation); sign-streak zero-variance/insufficient-obs/min_periods NaNs handled fail-closed in runner (weight 0)",
         "per_shard": feature_integrity,
     }
     if not fi_ok:
-        blocked.append("feature integrity check failed (NaN gap or multi-horizon return identity mismatch) on one or more shards")
+        blocked.append("feature integrity check failed (NaN gap or sign-sequence identity mismatch) on one or more shards")
 
     checks["provenance"] = {
         "path": str(CACHE_PROV.relative_to(ROOT)) if CACHE_PROV.exists() else str(CACHE_PROV),

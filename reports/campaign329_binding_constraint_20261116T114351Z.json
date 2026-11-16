@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T114351Z",
+  "campaign": 329,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign329_oos_sweep_20261116T114351Z.json",
+  "oos_sweep_sha256": "0043271e3b18a3280d048b02626a80556d5a4910e871454d749fd91b2c2e75cd",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "entropy_dev": 0.2507735727698697,
+    "entropy_ewm_dev": 0.2530133283621079,
+    "maxrun_dev": 0.2516857576629813,
+    "entropy_placebo": 0.24452734120504116
+  },
+  "dominant_attribution": "entropy_ewm_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "entropy_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.604819601654919,
+      -4.722531101098706,
+      -4.727186130930613,
+      -4.526616765728417,
+      -4.511049846094724,
+      -4.389430746419042,
+      -4.530784265765794,
+      -4.8250898762771905
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -55.13491182421212,
+    "second_half_sharpe": -28.504778946634318,
+    "sharpe_corr": 0.9994997250509494,
+    "stable": false
+  },
+  "diagnosis": "C329 cross-sectional intraday RETURN SIGN ENTROPY / DIRECTIONAL DISORDER SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

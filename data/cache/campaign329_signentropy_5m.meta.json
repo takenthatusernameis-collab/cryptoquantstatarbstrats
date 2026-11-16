@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "20261116T114337Z",
+  "campaign": 329,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "sign",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign329_signentropy_5m",
+  "shard_sha256": {
+    "ADAUSDT": "4ffe3de545db86724735b4586c9a11668aa2a4f2ab96f089cf9a60e190fd827e",
+    "AVAXUSDT": "feb39a3782aa6e0229e91079ebeb4b66365aee16cfbf10afb69a5d440450e726",
+    "BNBUSDT": "1f8e4692bce5f6ebe53535c62022e56f3cca19eff714a5463cc8bbc47c427b3a",
+    "BTCUSDT": "c2dbd5ab8689c7e46883d832a47d39ebf253b2c61e86dbdc7e862a2d996ee460",
+    "DOGEUSDT": "921ac95a05d67a87b32e357e7c1625a93f4580afb877cfa784dae0857087c8cb",
+    "DOTUSDT": "c50a03e7ff3825dfe4757b925a010efb6a20e738bbe27621e7a8ed74a5b197d0",
+    "ETHUSDT": "146cb90396b2ab5f79be50167b00e071eeeb7f01ee8748f0f5945d624c5fb72f",
+    "LINKUSDT": "1fe290243a5983c5c8bb2ae4fd5989dea61c5dea2297a7b1fef0a5f82bcb29ec",
+    "SOLUSDT": "9458e45a2fa4b7b6051cf867bed42bbe85627a2d91d9517401c9ad3ed862896a",
+    "XRPUSDT": "5ce17f714e19d5a1c1a749986fc7608f71a53456c01c3a43ac605511ad0e8c5b"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 2622540,
+    "AVAXUSDT": 2948464,
+    "BNBUSDT": 2945579,
+    "BTCUSDT": 3036739,
+    "DOGEUSDT": 2882187,
+    "DOTUSDT": 2620511,
+    "ETHUSDT": 3077580,
+    "LINKUSDT": 2851821,
+    "SOLUSDT": 2992692,
+    "XRPUSDT": 2708331
+  },
+  "total_shard_bytes": 28686444,
+  "max_shard_bytes": 3077580,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "d66f423edd327616d307a31cc35e13aeab03ec428dedf097dbfea2f0facac9a9",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "sign": "sign of log_return: +1/-1/0; sign[0]=0; always finite; zero NaN",
+    "runner_signentropy_nan": "zero-variance/insufficient-obs/min_periods NaNs fail-closed; NaN bars get weight 0",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "sign": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "sign": 0
+      }
+    }
+  }
+}

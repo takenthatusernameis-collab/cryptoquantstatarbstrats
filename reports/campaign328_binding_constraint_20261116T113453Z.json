@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T113453Z",
+  "campaign": 328,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign328_oos_sweep_20261116T113453Z.json",
+  "oos_sweep_sha256": "f2c2a690cf9b1df1ea63255571f72e51844ad344084a13ddad70f96c91343304",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "streak_dev": 0.2490178928451899,
+    "signchg_dev": 0.25552757327270104,
+    "streak_ewm_dev": 0.24829743744495858,
+    "streak_placebo": 0.24715709643715045
+  },
+  "dominant_attribution": "signchg_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "streak_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.653960930992595,
+      -4.48186930925881,
+      -4.458527343571199,
+      -4.619011242297758,
+      -4.6017437678369015,
+      -4.403391192523776,
+      -4.442754991828771,
+      -4.776442309457338
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -53.91045504080266,
+    "second_half_sharpe": -30.928501114863483,
+    "sharpe_corr": 0.9999296266023995,
+    "stable": false
+  },
+  "diagnosis": "C328 cross-sectional intraday RETURN SIGN-RUN / DIRECTIONAL STREAK SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

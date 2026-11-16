@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "20261116T104748Z",
-  "campaign": 328,
+  "generated_at_utc": "20261116T114351Z",
+  "campaign": 329,
   "part": "summary",
   "analysis": "validation_summary",
   "verdict": "RETRACTED",
@@ -34,9 +34,9 @@
       "roll_m": 3
     },
     "signals": [
-      "vr4_dev",
-      "vr8_dev",
-      "vr16_dev"
+      "entropy_dev",
+      "entropy_ewm_dev",
+      "maxrun_dev"
     ],
     "lookbacks_days": [
       30,
@@ -65,7 +65,6 @@
       "symmetric",
       "perp_heavy"
     ],
-    "vr_window_bars": 64,
     "alpha": 0.05,
     "n_trials": 864,
     "total_runs": 864
@@ -87,7 +86,7 @@
     },
     "stability": {
       "reference_config": {
-        "signal": "vr8_dev",
+        "signal": "entropy_dev",
         "L": 60,
         "H": 12,
         "fee": 10,
@@ -95,60 +94,59 @@
         "cv": "symmetric"
       },
       "per_split_net": [
-        -2.231815532326511,
-        -2.2235488405380264,
-        -2.3695934462114603,
-        -2.2798643000497436,
-        -2.093328625461463,
-        -2.1954773707315476,
-        -2.239652850589153,
-        -2.367693915148798
+        -4.604819601654919,
+        -4.722531101098706,
+        -4.727186130930613,
+        -4.526616765728417,
+        -4.511049846094724,
+        -4.389430746419042,
+        -4.530784265765794,
+        -4.8250898762771905
       ],
       "sign_consistency": 0.0,
-      "first_half_sharpe": -39.213042750962266,
-      "second_half_sharpe": -22.587073190757557,
-      "sharpe_corr": 0.9998361943019863,
+      "first_half_sharpe": -55.13491182421212,
+      "second_half_sharpe": -28.504778946634318,
+      "sharpe_corr": 0.9994997250509494,
       "stable": false
     },
     "attribution": {
       "reference_config": {
-        "signal": "vr8_dev",
+        "signal": "entropy_dev",
         "L": 60,
         "H": 12,
         "fee": 10,
         "slip": 5,
         "cv": "symmetric"
       },
-      "vr4_dev_net": -17.79893370942797,
-      "vr8_dev_net": -18.000974881056703,
-      "vr16_dev_net": -19.0714121490595,
-      "vr_placebo_net": -17.749542883201034,
+      "entropy_dev_net": -36.8375083339694,
+      "entropy_ewm_dev_net": -37.16651834241572,
+      "maxrun_dev_net": -36.97150418620761,
+      "entropy_placebo_net": -35.91996505066487,
       "shares": {
-        "vr4_dev": 0.2450939416238677,
-        "vr8_dev": 0.24787607834807834,
-        "vr16_dev": 0.2626161573639871,
-        "vr_placebo": 0.24441382266406692
+        "entropy_dev": 0.2507735727698697,
+        "entropy_ewm_dev": 0.2530133283621079,
+        "maxrun_dev": 0.2516857576629813,
+        "entropy_placebo": 0.24452734120504116
       },
-      "dominant": "vr16_dev",
-      "dominant_share": 0.2626161573639871,
+      "dominant": "entropy_ewm_dev",
+      "dominant_share": 0.2530133283621079,
       "attribution_ok": false
     },
     "data_quality": {
-      "reference_signal": "vr8_dev",
+      "reference_signal": "entropy_dev",
       "reference_lookback": 60,
-      "reference_score_finite_frac": 0.9459682937956204,
-      "reference_score_nan_share": 0.05403170620437958,
-      "note": "VR NaN share is dominated by structural warmup (first ~max(W,L) bars per bucket) plus Var1/Varq<=0 windows; zero-variance adds negligible mass."
+      "reference_score_nan_share": 0.10766423357664234,
+      "note": "sign-entropy NaN share is dominated by structural warmup (first ~L same-tod occurrences per bucket) plus min_periods windows; zero-variance adds negligible mass."
     }
   },
   "artifacts": {
     "oos_sweep": {
-      "path": "reports/campaign328_oos_sweep_20261116T104748Z.json",
-      "sha256": "3189c27dace15b130c1d18999c9ae8431f55bb18b31b38158ad69556d87dc3a1"
+      "path": "reports/campaign329_oos_sweep_20261116T114351Z.json",
+      "sha256": "0043271e3b18a3280d048b02626a80556d5a4910e871454d749fd91b2c2e75cd"
     },
     "registry": {
-      "path": "reports/campaign328_tradable_edge_registry_20261116T104748Z.json",
-      "sha256": "b2692617f5e039cc450742967b835c2b26a76a069c31ffda1f227d5293abeca7"
+      "path": "reports/campaign329_tradable_edge_registry_20261116T114351Z.json",
+      "sha256": "217269c8472d99fc34cf6226f9924542d98ec6bbb16927d8b9edc406ccf9e7ab"
     }
   },
   "summary": {

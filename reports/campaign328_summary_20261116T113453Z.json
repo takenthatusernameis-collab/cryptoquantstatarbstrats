@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "20261116T104421Z",
+  "generated_at_utc": "20261116T113453Z",
   "campaign": 328,
   "part": "summary",
   "analysis": "validation_summary",
@@ -34,9 +34,9 @@
       "roll_m": 3
     },
     "signals": [
-      "vr4_dev",
-      "vr8_dev",
-      "vr16_dev"
+      "streak_dev",
+      "signchg_dev",
+      "streak_ewm_dev"
     ],
     "lookbacks_days": [
       30,
@@ -65,7 +65,6 @@
       "symmetric",
       "perp_heavy"
     ],
-    "vr_window_bars": 64,
     "alpha": 0.05,
     "n_trials": 864,
     "total_runs": 864
@@ -87,7 +86,7 @@
     },
     "stability": {
       "reference_config": {
-        "signal": "vr8_dev",
+        "signal": "streak_dev",
         "L": 60,
         "H": 12,
         "fee": 10,
@@ -95,60 +94,59 @@
         "cv": "symmetric"
       },
       "per_split_net": [
-        -2.231815532326511,
-        -2.2235488405380264,
-        -2.3695934462114603,
-        -2.2798643000497436,
-        -2.093328625461463,
-        -2.1954773707315476,
-        -2.239652850589153,
-        -2.367693915148798
+        -4.653960930992595,
+        -4.48186930925881,
+        -4.458527343571199,
+        -4.619011242297758,
+        -4.6017437678369015,
+        -4.403391192523776,
+        -4.442754991828771,
+        -4.776442309457338
       ],
       "sign_consistency": 0.0,
-      "first_half_sharpe": -39.213042750962266,
-      "second_half_sharpe": -22.587073190757557,
-      "sharpe_corr": 0.9998361943019863,
+      "first_half_sharpe": -53.91045504080266,
+      "second_half_sharpe": -30.928501114863483,
+      "sharpe_corr": 0.9999296266023995,
       "stable": false
     },
     "attribution": {
       "reference_config": {
-        "signal": "vr8_dev",
+        "signal": "streak_dev",
         "L": 60,
         "H": 12,
         "fee": 10,
         "slip": 5,
         "cv": "symmetric"
       },
-      "vr4_dev_net": -17.79893370942797,
-      "vr8_dev_net": -18.000974881056703,
-      "vr16_dev_net": -19.0714121490595,
-      "vr_placebo_net": -17.749542883201034,
+      "streak_dev_net": -36.437701087767145,
+      "signchg_dev_net": -37.39023420450186,
+      "streak_ewm_dev_net": -36.33227999444428,
+      "streak_placebo_net": -36.16541887331806,
       "shares": {
-        "vr4_dev": 0.2450939416238677,
-        "vr8_dev": 0.24787607834807834,
-        "vr16_dev": 0.2626161573639871,
-        "vr_placebo": 0.24441382266406692
+        "streak_dev": 0.2490178928451899,
+        "signchg_dev": 0.25552757327270104,
+        "streak_ewm_dev": 0.24829743744495858,
+        "streak_placebo": 0.24715709643715045
       },
-      "dominant": "vr16_dev",
-      "dominant_share": 0.2626161573639871,
+      "dominant": "signchg_dev",
+      "dominant_share": 0.25552757327270104,
       "attribution_ok": false
     },
     "data_quality": {
-      "reference_signal": "vr8_dev",
+      "reference_signal": "streak_dev",
       "reference_lookback": 60,
-      "reference_score_finite_frac": 0.9459682937956204,
-      "reference_score_nan_share": 0.05403170620437958,
-      "note": "VR NaN share is dominated by structural warmup (first ~max(W,L) bars per bucket) plus Var1/Varq<=0 windows; zero-variance adds negligible mass."
+      "reference_score_nan_share": 0.053832116788321116,
+      "note": "sign-streak NaN share is dominated by structural warmup (first ~L same-tod occurrences per bucket) plus min_periods windows; zero-variance adds negligible mass."
     }
   },
   "artifacts": {
     "oos_sweep": {
-      "path": "reports/campaign328_oos_sweep_20261116T104421Z.json",
-      "sha256": "20e394f78a974de0ac561f370135b6a780492924f4d17ca04883fcaea1d134f1"
+      "path": "reports/campaign328_oos_sweep_20261116T113453Z.json",
+      "sha256": "f2c2a690cf9b1df1ea63255571f72e51844ad344084a13ddad70f96c91343304"
     },
     "registry": {
-      "path": "reports/campaign328_tradable_edge_registry_20261116T104421Z.json",
-      "sha256": "b4d190abb64afac27ac0b7309986770e5147cfbf07d9bae76b7e4670718f3dd7"
+      "path": "reports/campaign328_tradable_edge_registry_20261116T113453Z.json",
+      "sha256": "d262b8fbf37d5411de0a21858c0fa32b3fcc54bfc92f8dda82401a1775bdd38e"
     }
   },
   "summary": {
