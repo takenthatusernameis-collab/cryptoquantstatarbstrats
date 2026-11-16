@@ -1,12 +1,12 @@
-updated_at_utc: 20261116T073854Z
-handoff_refreshed_at_utc: 20261116T073854Z
+updated_at_utc: 20261116T074752Z
+handoff_refreshed_at_utc: 20261116T074752Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T07:38:54Z) — MANDATORY HEAVY WORK: BUILD + RUN C323 (cross-sectional intraday ORDER-FLOW & TRADE-ACTIVITY SEASONALITY mean-reversion, native USDT-M 5m). State: C281B–C322 are ALL COMPLETE FORMAL NEGATIVES on real data (C322 newest = cross-sectional VWAP-CLOSE fair-value dislocation mean-reversion, 20261116T073235Z, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding multiple_testing, 5 real artifacts + SHAs on disk, 23/23 C322 tests green). No costed-OOS edge has ever survived; that is a RESULT, not a reason to stop. Do NOT exit with "reachable space closed / no new campaign" — terminal closure by fiat is a hard violation. Mandatory: build+preflight+run+test C323 on data/cache/campaign312_usdt_m_ofi_5m (real 5m perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional, 10 perps, 315,648 bars, 2023-01..2025-12), signals = causal same-tod flow/activity seasonality deviations (ofi_dev, tss_dev, tc_dev, notional_dev, ofi_ewm; genuinely-new vs C312 rolling-OFI z/mom and C316 size levels), grid 5 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy} = 1440, expanding WF 12m/3m/3m (8 splits), Holm AND BH alpha=0.05, MDE, stability (sign consistency >= 0.70, first/second-half Sharpe corr >= 0.5), signal-vs-placebo attribution (dominant share > 0.5). PRE-REGISTERED zero-activity NaN policy: ofi_ratio=signed_volume/total_volume NaN where total_volume==0, tss_ratio=trade_sign_sum/trade_count NaN where trade_count==0, log_tc/log_notional NaN where <=0; nan-aware same-tod trailing stats with explicit min_periods; NaN-feature asset weight 0 that bar; NO ffill/impute/shard-drop; preflight asserts denominator-zero NaNs <0.1% and 100% explained. Definition of Done: campaign323 verdict artifact on disk (EDGE_PROVEN or RETRACTED + binding constraint) with 5 SHA256-from-bytes artifacts AND python -m pytest tests/test_c323_* tests/test_preflight_c323.py -q green. NO-COAST: if C323 formal negative, immediately proceed to C324 on same C312 5m data (e.g., cross-sectional return/volume co-movement, Amihud-illiquidity seasonal dislocation, or signed-notional imbalance). Do not re-declare closure.'
-next_campaign: C323_flow_activity_seasonality_usdt_m_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T07:47:52Z) — MANDATORY HEAVY WORK: BUILD + RUN C324 (cross-sectional intraday AMIHUD-ILLIQUIDITY SEASONAL DISLOCATION mean-reversion, native USDT-M 5m). State: C281B–C323 are ALL COMPLETE FORMAL NEGATIVES on real data (~30,135 pre-registered configs; binding constraint universally multiple_testing; C323 newest = cross-sectional intraday ORDER-FLOW & TRADE-ACTIVITY SEASONALITY mean-reversion, 20261116T074752Z, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding multiple_testing, 5 real artifacts + SHAs on disk, 26/26 C323 tests green). No costed-OOS edge has ever survived; that is a RESULT, not a reason to stop. Do NOT exit with "reachable space closed / no new campaign" — terminal closure by fiat is a hard violation. Mandatory: build+preflight+run+test C324 on data/cache/campaign312_usdt_m_ofi_5m (real 5m perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional, 10 perps, 315,648 bars, 2023-01..2025-12), deriving illiq=|log_return|/notional (NaN where notional<=0) and signals = causal same-tod illiquidity seasonality deviations (illiq_dev, illiq_ewm; genuinely-new vs C316 size levels and C323 flow/activity), plus tc_dev cross-check, grid 3 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy} = 864, expanding WF 12m/3m/3m (8 splits), Holm AND BH alpha=0.05, MDE, stability (sign consistency >= 0.70, first/second-half Sharpe corr >= 0.5), signal-vs-placebo attribution (dominant share > 0.5). PRE-REGISTERED zero-activity NaN policy: illiq NaN where notional<=0, log_tc NaN where trade_count<=0; nan-aware same-tod trailing stats with explicit min_periods; NaN-feature asset weight 0 that bar; NO ffill/impute/shard-drop; preflight asserts denominator-zero NaNs <0.1% and 100% explained. Definition of Done: campaign324 verdict artifact on disk (EDGE_PROVEN or RETRACTED + binding constraint) with 5 SHA256-from-bytes artifacts AND python -m pytest tests/test_c324_* tests/test_preflight_c324.py -q green.'
+next_campaign: C324_illiq_seasonality_usdt_m_5m
 active_campaign: none
-space_status: NO_EDGE_C281B_C322__C323_MANDATED
+space_status: NO_EDGE_C281B_C323__C324_MANDATED
 closure_note: 'C281B–C322 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~22,935 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C322 (cross-sectional VWAP-CLOSE fair-value dislocation mean-reversion, 20261116T073235Z, 1440 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 23/23 C322 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C322 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C322.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -294,22 +294,34 @@ c322_status:
   fabricated_data: false
   executed_fills: false
 
-c323_next_family:
-  state: MANDATED_NOT_STARTED
-  as_of_utc: 20261116T073235Z
-  artifacts_on_disk: false
-  scripts_on_disk: false
-  tests_on_disk: false
-  verdict_on_disk: false
-  cache_ready: true
-  cache_source: data/cache/campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)
-  nan_policy: 'PRE-REGISTERED 2026-11-16T07:32Z: ofi_ratio=signed_volume/total_volume NaN where total_volume==0; tss_ratio=trade_sign_sum/trade_count NaN where trade_count==0; log_tc=log(trade_count) NaN where trade_count<=0; log_notional=log(notional) NaN where notional<=0. Same-tod trailing mean/std/ewm are nan-aware with explicit min_periods and EXCLUDE NaN same-tod obs (no ffill, no impute, no shard drop, NaN!=0). NaN-feature asset gets cross-sectional weight 0 that bar (others renormalize to gross 1.0). Preflight asserts denominator-zero NaNs < 0.1% of bars and 100% explained by corresponding zero-activity bars (fail-closed on unexplained NaNs).'
-  note: 'No C323 scripts/tests/artifacts present; C312 5m cache is real and on disk with all flow/activity fields — NOT a blocker, no ingest needed. Next session must implement build_c323_flow_activity_seasonality_features.py, preflight_c323.py, run_c323_flow_activity_seasonality_xsec_oos.py and tests, then execute to verdict.'
+c323_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T074752Z
   campaign: C323
   family: cross_sectional_intraday_order_flow_trade_activity_seasonality_mean_reversion_usdt_m_5m
   genuinely_new: true
   reskin_of: none
-  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional; log_return derived; funding all-NaN control only)
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 1440
+  n_with_exposure: 1440
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {ofi_dev: 0.186137246411904, tss_dev: 0.17339795207706984, tc_dev: 0.12427788381580891, notional_dev: 0.14336918839889748, ofi_ewm: 0.18643764114544617, flow_placebo: 0.18638008815087362}
+  dominant_attribution: ofi_ewm
+  dominant_share: 0.18643764114544617
+  attribution_ok: false
+  mde_bps_mean: NaN
+  observed_mean_bps_per_split: 0.0
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T074752Z
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional; log_return, ofi_ratio, tss_ratio, log_tc, log_notional derived; funding all-NaN control only)
   universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
   signals: [ofi_dev, tss_dev, tc_dev, notional_dev, ofi_ewm]
   signal_detail: 'score = -seasonal-dislocation; ofi_dev=ofi_ratio-trailing_mean_L(ofi_ratio same tod); tss_dev=tss_ratio-trailing_mean_L(tss_ratio same tod); tc_dev=log_tc-trailing_mean_L(log_tc same tod); notional_dev=log_notional-trailing_mean_L(log_notional same tod); ofi_ewm=ofi_ratio-causal_ewm_L(ofi_ratio same tod). flow_placebo = permuted-return attribution bucket, NOT a signal. Distinct from C312 rolling-OFI z/mom and C316 size levels.'
@@ -325,8 +337,50 @@ c323_next_family:
   pnl_unit: USDT
   funding: nan_control_only
   definition_of_done: 'C323 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c323_* and tests/test_preflight_c323.py green'
-  no_coast_clause: 'If C323 is a formal negative, proceed immediately to C324 (next genuinely-new family on the same C312 5m data) — do not re-declare closure.'
-  cache_dir_planned: data/cache/campaign323_flow_activity_seasonality_5m
+  no_coast_clause: 'C323 is a formal negative; next session MUST proceed to C324 (Amihud-illiquidity seasonal dislocation, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign323_flow_activity_seasonality_5m
+    cache_total_bytes: 67482941
+    cache_max_shard_bytes: 7225614
+    cache_meta_sha256: ac525374479337040ff6876dc6d8fac7ba96744366cafbe497de02684a93877f
+    cache_provenance_sha256: ae435a968dec9f349aad2ab419c5c48f39d78cf954a127cf95a58c31b637cf52
+    cache_manifest_sha256: 057719eae950029797b63814183b97c1ed8c8abfa6e42dcc7ddf192e2bc32960
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261116T074752Z
+    artifacts:
+      oos_sweep: reports/campaign323_oos_sweep_20261116T074752Z.json
+      tradable_edge_registry: reports/campaign323_tradable_edge_registry_20261116T074752Z.json
+      summary: reports/campaign323_summary_20261116T074752Z.json
+      verdict: reports/campaign323_verdict_20261116T074752Z.json
+      binding_constraint: reports/campaign323_binding_constraint_20261116T074752Z.json
+      oos_sweep_full: reports/campaign323_oos_sweep_20261116T074752Z.full.json (gitignored)
+    oos_sweep_sha256: af63f3afd4046b016cb05f2c9a869debed77a28df518ed95e0de8724421cbdf1
+    tradable_edge_registry_sha256: 676335194f28d593b47ee77dccb23612cfa405dc6c1c75f04b7d8efdaa49a639
+    summary_sha256: 0b94f85f14292b46fa31e69de84114d5bf70b9442b66cc981cbab06092a4fd8e
+    verdict_sha256: 63aed80f095c44da3ef78534737a3a66a2a6bfc52530b9912ca726ad115ce110
+    binding_constraint_sha256: e4ac4447d6bd237270fdfa58a52cb8b028c892ed2712bc6d6d11ca208a6edf83
+    slim_sweep_bytes: ~1.1 MB
+  de_bottleneck: real_5m_prices_plus_flow_activity_fields_on_disk_from_c312_no_network_ingest
+  scripts:
+  - scripts/build_c323_flow_activity_seasonality_features.py
+  - scripts/preflight_c323.py
+  - scripts/run_c323_flow_activity_seasonality_xsec_oos.py
+  tests:
+  - tests/test_preflight_c323.py
+  - tests/test_c323_flow_activity_seasonality_xsec_oos.py
+  pytest:
+    passed: 26
+    failed: 0
+    as_of_utc: 20261116T074752Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
 
 
 c317_status:
