@@ -1,13 +1,13 @@
-updated_at_utc: 20261116T092145Z
-handoff_refreshed_at_utc: 20261116T092145Z
+updated_at_utc: 20261116T092731Z
+handoff_refreshed_at_utc: 20261116T092731Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T09:21:45Z) — MANDATORY HEAVY WORK: BUILD + RUN C326 (next genuinely-new stat-arb family on real on-disk C312 5m data). Verified 2026-11-16T09:21:45Z: env ready (verify_env.py ready:true, missing:[]), C312 cache data/cache/campaign312_usdt_m_ofi_5m readable (10 perps, 315,648 bars, 2023-01..2025-12), C325 complete formal negative (24/24 tests, 5 SHAs), and C326 not started (no scripts/tests/cache/artifacts). State: C281B–C325 ALL COMPLETE FORMAL NEGATIVES (~31,863 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. Do NOT exit with "reachable space closed / no new campaign" (hard violation). Mandatory: C326 must be genuinely-new vs C316–C325 (pre-registered cross-sectional intraday RETURN AUTOCORRELATION SEASONAL DISLOCATION mean-reversion: trailing same-tod lag-1, lag-2, |log_return| vol-clustering autocorr vs same-tod baseline; score=-dislocation; causal shift(1); xsec rank; dollar-neutral gross 1.0, or documented equivalent distinct family). Create scripts/build_c326_<family>_features.py, scripts/preflight_c326.py, scripts/run_c326_<family>_xsec_oos.py, tests/test_preflight_c326.py, tests/test_c326_<family>_xsec_oos.py; build cache data/cache/campaign326_<family>_5m/ (<100 MB, real_data_only:true, fabricated_data:false, executed_fills:false, causal shift(1), no network/resample/impute); NaN policy: denominators/values<=0→NaN, same-tod stats NaN-aware with explicit min_periods, exclude NaN obs, no ffill/impute, NaN-feature weight 0; preflight fail-closed (denom-zero NaNs <0.1% and 100% explained). Pre-registered grid (e.g. 3 signals × lookback{30,60,90d} × rebalance{6,12,48} × fee{1,5,10,20}bps × slip{1,2,5,10}bps × cost_variant{symmetric,perp_heavy}=864) all reported; expanding WF 12m/3m/3m (8 splits); Holm AND BH alpha=0.05 (both); MDE; stability (sign-consistency>=0.70, 1st/2nd-half Sharpe corr>=0.5); signal-vs-placebo attribution (dominant share>0.5). Artifacts reports/campaign326_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (+gitignored full.json), SHA256-from-bytes. DoD: C326 verdict artifact on disk (EDGE_PROVEN or RETRACTED+binding constraint) + 5 SHA256 artifacts AND pytest tests/test_c326_* tests/test_preflight_c326.py -q green. NO-COAST: if C326 negative, immediately start C327 on same C312 5m data; never re-declare closure; do not rerun/re-skin C281B–C325.'
-next_campaign: C326_genuinely_new_usdt_m_5m
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T09:27:31Z) — MANDATORY HEAVY WORK: BUILD + RUN C327 (next genuinely-new stat-arb family on real on-disk C312 5m data). Verified 2026-11-16T09:27:31Z: env ready (verify_env.py ready:true, missing:[]), C312 cache data/cache/campaign312_usdt_m_ofi_5m readable (10 perps, 315,648 bars, 2023-01..2025-12), C326 complete formal negative (25/25 tests, 5 SHAs), and C327 not started (no scripts/tests/artifacts). State: C281B–C326 ALL COMPLETE FORMAL NEGATIVES (~32,727 pre-registered configs; binding multiple_testing). No costed-OOS edge ever survived — RESULT, not permission to stop. Do NOT exit with "reachable space closed / no new campaign" (hard violation). Mandatory: C327 must be genuinely-new vs C316–C326 (pre-registered cross-sectional intraday SIGNED JUMP-VARIATION / discontinuity SEASONAL DISLOCATION mean-reversion: from 5m log_return compute RV=sum r^2 vs bipower BV=(pi/2) sum |r_t||r_{t-1}|, jump variation JV=max(RV-BV,0), signed jump variation SJV=sign(sum r^2 over jumps)*JV, jump-intensity JV/RV; trailing same-tod baseline vs current; score=-dislocation; causal shift(1); xsec rank; dollar-neutral gross 1.0; signals sjv_dev, jv_ratio_dev, rv_bv_dev). DISTINCT from C317 (realized-vol LEVEL/higher-moment/lottery), C326 (single/multi-lag autocorrelation), C320 (seasonal return LEVEL). Reuse real log_return (from C326 cache or C312 perp_close) — do NOT create a byte-duplicate cache and label it new (hard no-relabeling rule); if a campaign327_* cache is built it MUST carry genuinely-distinct jump-variation fields. Create scripts/build_c327_<family>_features.py (only if genuinely-distinct cache), scripts/preflight_c327.py, scripts/run_c327_<family>_xsec_oos.py, tests/test_preflight_c327.py, tests/test_c327_<family>_xsec_oos.py; cache <100 MB, real_data_only:true, fabricated_data:false, executed_fills:false, causal shift(1), no network/resample/impute; NaN policy: denominators/values<=0->NaN, same-tod stats NaN-aware with explicit min_periods, exclude NaN obs, no ffill/impute, NaN-feature weight 0; preflight fail-closed (zero-variance/insufficient-obs NaNs only; raw log_return 0-NaN). Pre-registered grid (3 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}=864) all reported; expanding WF 12m/3m/3m (8 splits); Holm AND BH alpha=0.05 (both); MDE; stability (sign-consistency>=0.70, 1st/2nd-half Sharpe corr>=0.5); signal-vs-placebo attribution (dominant share>0.5). Artifacts reports/campaign327_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json (+gitignored full.json), SHA256-from-bytes. DoD: C327 verdict artifact on disk (EDGE_PROVEN or RETRACTED+binding constraint) + 5 SHA256 artifacts AND pytest tests/test_c327_* tests/test_preflight_c327.py -q green. NO-COAST: if C327 negative, immediately start C328 on same C312 5m data; never re-declare closure; do not rerun/re-skin C281B–C326.'
+next_campaign: C327_genuinely_new_usdt_m_5m
 active_campaign: none
-space_status: NO_EDGE_C281B_C325__C326_MANDATED
-closure_note: 'C281B–C325 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~31,863 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C325 (cross-sectional intraday AVERAGE TRADE SIZE SEASONAL DISLOCATION mean-reversion, 20261116T083849Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 24/24 C325 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C325 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C325.'
+space_status: NO_EDGE_C281B_C326__C327_MANDATED
+closure_note: 'C281B–C326 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~32,727 pre-registered configs; binding constraint universally multiple_testing; edge_claim NONE). C326 (cross-sectional intraday RETURN AUTOCORRELATION SEASONAL DISLOCATION mean-reversion, 20261116T092731Z, 864 configs, 0/0/0 Holm/BH/both) is COMPLETE with real on-disk artifacts + SHAs + 25/25 C326 tests green. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C326 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk data (C312 5m cache) until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — out-of-env only, never retry as economic work. Stale closure machinery is FROZEN/misleading. Do not rerun/re-skin/re-probe C281B–C326.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -552,6 +552,94 @@ c325_status:
     passed: 24
     failed: 0
     as_of_utc: 20261116T083849Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c326_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T092731Z
+  campaign: C326
+  family: cross_sectional_intraday_return_autocorrelation_seasonality_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {ac1_dev: 0.25183202440525015, ac2_dev: 0.2567633249845645, absac1_dev: 0.24190976863686203, ac1_placebo: 0.24949488197332337}
+  dominant_attribution: ac2_dev
+  dominant_share: 0.2567633249845645
+  attribution_ok: false
+  mde_bps_mean: NaN
+  observed_mean_bps_per_split: 0.0
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T092731Z
+  data_source: data/cache/campaign326_autocorr_seasonality_5m/<SYM>.npz (perp_close->log_return, abs_log_return=|log_return|; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [ac1_dev, ac2_dev, absac1_dev]
+  lookback_days: [30, 60, 90]
+  rebalance_bars: [6, 12, 48]
+  fee_bps: [1, 5, 10, 20]
+  slippage_bps: [1, 2, 5, 10]
+  cost_variant: [symmetric, perp_heavy]
+  selection: xsec_rank_dollar_neutral_gross_1p0_tercile
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  nan_policy: 'raw cache fields 0-NaN; autocorr NaN where same-tod window <min_periods or zero variance (fail-closed; NaN bars weight 0)'
+  definition_of_done: 'C326 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c326_* and tests/test_preflight_c326.py green'
+  no_coast_clause: 'C326 is a formal negative; next session MUST proceed to C327 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign326_autocorr_seasonality_5m
+    cache_total_bytes: 38477617
+    cache_max_shard_bytes: 4143555
+    cache_meta_sha256: 756044d3edf637a58aa3751a1298fb5d548464853ba99f851f1e7b88b283b37f
+    cache_provenance_sha256: 235415f1f280e25980a129c0d25c83d7d8949e40a47d777fb877069c4ecc7ae5
+    cache_manifest_sha256: dc6e86b8040dc938ce62fbb4a985916bd3ad85199e73eb102335322e88d82416
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261116T092731Z
+    artifacts:
+      oos_sweep: reports/campaign326_oos_sweep_20261116T092731Z.json
+      tradable_edge_registry: reports/campaign326_tradable_edge_registry_20261116T092731Z.json
+      summary: reports/campaign326_summary_20261116T092731Z.json
+      verdict: reports/campaign326_verdict_20261116T092731Z.json
+      binding_constraint: reports/campaign326_binding_constraint_20261116T092731Z.json
+      oos_sweep_full: reports/campaign326_oos_sweep_20261116T092731Z.full.json (gitignored)
+    oos_sweep_sha256: 32700294c6bb0c5be481781215ca2647ff30c4bd537266bd18c763c08a372eb6
+    tradable_edge_registry_sha256: 980b26ed39879da2cec278000a09125f8b0da16fb66d77fda296a584f6bd6e0c
+    summary_sha256: 860d515abf24343f6468ca04891aaf585eb6e2c3ae27cb67d7a03ff2b9873674
+    verdict_sha256: 0e683a9c5a5ddaf67bf7b49d75382ffada817d2857b6ad418a6b0c2ecd567048
+    binding_constraint_sha256: ca1dc42d4a06e8297402b1acd07ef8230d56cb58bf26e6207fbf76093b44d8dd
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_log_return_derived_no_network_ingest
+  scripts:
+  - scripts/build_c326_autocorr_seasonality_features.py
+  - scripts/preflight_c326.py
+  - scripts/run_c326_autocorr_seasonality_xsec_oos.py
+  tests:
+  - tests/test_preflight_c326.py
+  - tests/test_c326_autocorr_seasonality_xsec_oos.py
+  pytest:
+    passed: 25
+    failed: 0
+    as_of_utc: 20261116T092731Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false

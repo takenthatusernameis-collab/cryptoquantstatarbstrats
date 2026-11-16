@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "20261116T092528Z",
+  "campaign": 326,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "abs_log_return",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign326_autocorr_seasonality_5m",
+  "shard_sha256": {
+    "ADAUSDT": "32d58d1d08b6b1bf0a1c13d49d7825153f2657c93ae758aca14983b5d4436ea1",
+    "AVAXUSDT": "1123b68eb5d0d72b0cd50d6fe9954d278b9d6a48ccd3b4a44b0af1f06e822799",
+    "BNBUSDT": "5de6af24d110ca91f8723109a001a1ecc0b1b50c63c334ef4a1a375bb6821bab",
+    "BTCUSDT": "e5aa4ae0ab5167f1d0477a0e2fec5cb18dfbb112b0f26533d629a61cc4c94ff9",
+    "DOGEUSDT": "c666d977f41d67a1645bf1b7e9335331dcc99705bf3856591ec9638392f4d979",
+    "DOTUSDT": "8ec4a0618769b9da5e86a74e3ea9cf907d117db115c8a4f2375666945d67605b",
+    "ETHUSDT": "0b0301971fffd21f23bf1967440cddb2dda6c41b72912c136a2124e8ed3258d0",
+    "LINKUSDT": "eea4268d27ff61d14188a8a0fed5c124cb92b21b61b6248cf664120fb09bd3e6",
+    "SOLUSDT": "e73695d31054c3cb1461440f0d0d9e3349fd4af2d435f2303619710321a527d4",
+    "XRPUSDT": "e377dea02def0a2c93ef64584d02b1e600c322355c60f197b78fc0cb7f41fb9e"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 3459173,
+    "AVAXUSDT": 3982296,
+    "BNBUSDT": 3983117,
+    "BTCUSDT": 4104220,
+    "DOGEUSDT": 3857438,
+    "DOTUSDT": 3472440,
+    "ETHUSDT": 4143555,
+    "LINKUSDT": 3846663,
+    "SOLUSDT": 4039244,
+    "XRPUSDT": 3589471
+  },
+  "total_shard_bytes": 38477617,
+  "max_shard_bytes": 4143555,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "dc6e86b8040dc938ce62fbb4a985916bd3ad85199e73eb102335322e88d82416",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "abs_log_return": "|log_return|; always finite",
+    "autocorr_denominator": "runner: NaN where a same-tod window has <min_periods finite obs or zero variance (fail-closed; NaN bars get weight 0)",
+    "zero_activity_nan_ceiling": 0.001,
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "abs_log_return": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T092731Z",
+  "campaign": 326,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign326_oos_sweep_20261116T092731Z.json",
+  "oos_sweep_sha256": "32700294c6bb0c5be481781215ca2647ff30c4bd537266bd18c763c08a372eb6",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ac1_dev": 0.25183202440525015,
+    "ac2_dev": 0.2567633249845645,
+    "absac1_dev": 0.24190976863686203,
+    "ac1_placebo": 0.24949488197332337
+  },
+  "dominant_attribution": "ac2_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ac1_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.671746080012527,
+      -4.5760677942526495,
+      -4.7266796623464495,
+      -4.572936897714791,
+      -4.393202614569086,
+      -4.445193176131906,
+      -4.55240515839435,
+      -4.677469289467514
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -70.98751288639566,
+    "second_half_sharpe": -41.45760297394795,
+    "sharpe_corr": 0.9999091420971589,
+    "stable": false
+  },
+  "diagnosis": "C326 cross-sectional intraday RETURN AUTOCORRELATION SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
