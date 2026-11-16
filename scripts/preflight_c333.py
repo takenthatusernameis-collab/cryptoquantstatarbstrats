@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """C333 preflight: fail-closed verification of the real C333 USDT-M
-cross-sectional intraday PRICE-FLOW SYNCHRONICITY / RETURN-SIGNED-VOLUME
-CORRELATION SEASONAL DISLOCATION mean-reversion feature cache before the C333
-runner sweeps the pre-registered costed OOS grid.
+cross-sectional intraday MICROSTRUCTURE NOISE & EFFECTIVE SPREAD SEASONAL
+DISLOCATION mean-reversion feature cache before the C333 runner sweeps the
+pre-registered costed OOS grid.
 
 Verifies:
 - the per-asset float32 ``.npz`` shards exist under
-  ``data/cache/campaign333_return_volume_leadlag_5m/`` and every shard SHA256 +
+  ``data/cache/campaign333_microstructure_noise_5m/`` and every shard SHA256 +
   byte size matches the meta manifest;
 - meta flags (real_data_only:true, fabricated_data:false, executed_fills:false),
   interval=5m, source campaign=312, source host intact, no network ingest, no
@@ -15,15 +15,15 @@ Verifies:
 - the common 5m grid is non-empty and inside 2023-01..2025-12;
 - all 10 symbols present with finite, positive perp_close AND finite log_return on
   the common grid (log_return derived from perp_close, r[0]=0);
-- the genuinely-distinct price-flow fields are present and consistent:
-  signed_volume finite (signed taker buy-minus-sell volume), and
-  rv_lead_sign = sign(log_return) * sign(signed_volume) exactly (sign(0)=0);
+- the microstructure raw fields are present and finite: vwap (positive), notional
+  (non-negative), trade_count (non-negative);
 - the ``funding_rate`` leg is present and all-NaN (control only, USDT-M funding is
   unreachable in this environment);
-- PRE-REGISTERED NaN POLICY fail-closed gate: perp_close, log_return,
-  signed_volume, rv_lead_sign carry ZERO NaN (real, gap-free derived inputs). The
-  only other NaNs (zero-variance / insufficient-obs / min_periods trailing price-flow
-  correlation stats) are handled fail-closed in the RUNNER (NaN bars get weight 0).
+- PRE-REGISTERED NaN POLICY fail-closed gate: perp_close, log_return, vwap,
+  notional, trade_count carry ZERO NaN (real, gap-free derived inputs after NaN
+  fill). The only other NaNs (zero-variance / insufficient-obs / min_periods
+  trailing microstructure noise/spread stats) are handled fail-closed in the
+  RUNNER (NaN bars get weight 0).
 
 Never fetches, imputes, resamples, or fabricates data. Exit 0 iff ready:true.
 """
@@ -38,9 +38,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CACHE_DIR = ROOT / "data" / "cache" / "campaign333_return_volume_leadlag_5m"
-CACHE_META = ROOT / "data" / "cache" / "campaign333_return_volume_leadlag_5m.meta.json"
-CACHE_PROV = ROOT / "data" / "cache" / "campaign333_return_volume_leadlag_5m.provenance.json"
+CACHE_DIR = ROOT / "data" / "cache" / "campaign333_microstructure_noise_5m"
+CACHE_META = ROOT / "data" / "cache" / "campaign333_microstructure_noise_5m.meta.json"
+CACHE_PROV = ROOT / "data" / "cache" / "campaign333_microstructure_noise_5m.provenance.json"
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
 
@@ -49,21 +49,22 @@ EXPECTED_SOURCE_INTERVAL = "usdt_m_5m_klines_taker_delta_ms"
 EXPECTED_SOURCE_CAMPAIGN = 312
 N_SYMBOLS = 10
 
-FIELDS = ["index_ms", "perp_close", "log_return", "signed_volume", "rv_lead_sign",
-          "funding_rate"]
+FIELDS = ["index_ms", "perp_close", "log_return", "vwap", "notional",
+          "trade_count", "signed_volume", "funding_rate"]
 
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, sv: np.ndarray,
-                              rs: np.ndarray, fr: np.ndarray) -> dict:
-    """Raw-feature integrity: finite fields, rv_lead_sign identity, funding control."""
+def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, vp: np.ndarray,
+                              no: np.ndarray, tc: np.ndarray, sv: np.ndarray, fr: np.ndarray) -> dict:
+    """Raw-feature integrity: finite fields, funding control."""
     lr_nan = int(np.isnan(lr).sum())
+    vp_nan = int(np.isnan(vp).sum())
+    no_nan = int(np.isnan(no).sum())
+    tc_nan = int(np.isnan(tc).sum())
     sv_nan = int(np.isnan(sv).sum())
-    rs_nan = int(np.isnan(rs).sum())
-    rs_ok = bool(np.allclose(rs[1:], np.sign(lr[1:]) * np.sign(sv[:-1])))
     return {
         "len": int(len(pc)),
         "perp_close_all_finite": bool(np.isfinite(pc).all()),
@@ -71,19 +72,27 @@ def _feature_integrity_report(pc: np.ndarray, lr: np.ndarray, sv: np.ndarray,
         "log_return_nan": lr_nan,
         "log_return_all_finite": bool(np.isfinite(lr).all()),
         "log_return_first_zero": bool(len(lr) > 0 and lr[0] == 0.0),
+        "vwap_nan": vp_nan,
+        "vwap_all_finite": bool(np.isfinite(vp).all()),
+        "vwap_all_positive": bool((vp[np.isfinite(vp)] > 0).all()) if np.isfinite(vp).any() else False,
+        "notional_nan": no_nan,
+        "notional_all_finite": bool(np.isfinite(no).all()),
+        "notional_all_nonneg": bool((no[np.isfinite(no)] >= 0).all()) if np.isfinite(no).any() else False,
+        "trade_count_nan": tc_nan,
+        "trade_count_all_finite": bool(np.isfinite(tc).all()),
+        "trade_count_all_nonneg": bool((tc[np.isfinite(tc)] >= 0).all()) if np.isfinite(tc).any() else False,
         "signed_volume_nan": sv_nan,
         "signed_volume_all_finite": bool(np.isfinite(sv).all()),
-        "rv_lead_sign_nan": rs_nan,
-        "rv_lead_sign_all_finite": bool(np.isfinite(rs).all()),
-        "rv_lead_sign_identity_ok": rs_ok,
         "funding_all_nan_control_only": bool(np.isnan(fr).all()),
-        "raw_nan_total": lr_nan + sv_nan + rs_nan,
+        "raw_nan_total": lr_nan + vp_nan + no_nan + tc_nan + sv_nan,
         "ok": bool(np.isfinite(pc).all() and (pc[np.isfinite(pc)] > 0).all()
                    and np.isfinite(lr).all() and lr[0] == 0.0
-                   and np.isfinite(sv).all() and np.isfinite(rs).all()
-                   and rs_ok
+                   and np.isfinite(vp).all() and (vp[np.isfinite(vp)] > 0).all()
+                   and np.isfinite(no).all() and (no[np.isfinite(no)] >= 0).all()
+                   and np.isfinite(tc).all() and (tc[np.isfinite(tc)] >= 0).all()
+                   and np.isfinite(sv).all()
                    and np.isnan(fr).all()
-                   and (lr_nan + sv_nan + rs_nan) == 0),
+                   and (lr_nan + vp_nan + no_nan + tc_nan + sv_nan) == 0),
     }
 
 
@@ -228,10 +237,12 @@ def main() -> int:
                     ok = False
             pc = np.asarray(z["perp_close"], dtype=float)
             lr = np.asarray(z["log_return"], dtype=float)
+            vp = np.asarray(z["vwap"], dtype=float)
+            no = np.asarray(z["notional"], dtype=float)
+            tc = np.asarray(z["trade_count"], dtype=float)
             sv = np.asarray(z["signed_volume"], dtype=float)
-            rs = np.asarray(z["rv_lead_sign"], dtype=float)
             fr = np.asarray(z["funding_rate"], dtype=float)
-        rep = _feature_integrity_report(pc, lr, sv, rs, fr)
+        rep = _feature_integrity_report(pc, lr, vp, no, tc, sv, fr)
         d["fields"] = rep
         feature_integrity[s] = rep
         ok &= rep["ok"]
@@ -241,17 +252,17 @@ def main() -> int:
 
     checks["per_symbol"] = {"n_symbols": n_symbols, "detail": detail, "ok": bool(all_ok)}
     if not all_ok:
-        blocked.append("one or more symbols failed perp_close/log_return/signed_volume/rv_lead_sign/funding/grid checks")
+        blocked.append("one or more symbols failed perp_close/log_return/vwap/notional/trade_count/funding/grid checks")
     fi_ok = bool(feature_integrity and all(v.get("ok") is True for v in feature_integrity.values()))
     raw_nan_total = int(sum(v.get("raw_nan_total", 0) for v in feature_integrity.values()))
     checks["feature_integrity"] = {
         "ok": fi_ok,
         "raw_nan_total": raw_nan_total,
-        "policy": "perp_close/log_return/signed_volume/rv_lead_sign carry ZERO NaN; runner min_periods price-flow-stat NaNs fail-closed (weight 0)",
+        "policy": "perp_close/log_return/vwap/notional/trade_count carry ZERO NaN after fill; runner min_periods microstructure-stat NaNs fail-closed (weight 0)",
         "per_shard": feature_integrity,
     }
     if not fi_ok:
-        blocked.append("feature integrity check failed (NaN gap or rv_lead_sign identity mismatch) on one or more shards")
+        blocked.append("feature integrity check failed (NaN gap) on one or more shards")
 
     checks["provenance"] = {
         "path": str(CACHE_PROV.relative_to(ROOT)) if CACHE_PROV.exists() else str(CACHE_PROV),
