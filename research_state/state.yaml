@@ -1,15 +1,15 @@
-updated_at_utc: 20261116T005000Z
-handoff_refreshed_at_utc: 20261116T005000Z
+updated_at_utc: 20261116T005816Z
+handoff_refreshed_at_utc: 20261116T005816Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T00:50:00Z) — BUILD + RUN C317 (cross-sectional realized-volatility / higher-moment factors), THEN VERIFY + CLOSE. C281B–C316 are ALL formal negatives and remain FROZEN; C287 externally blocked (out-of-env only). Exactly ONE genuinely-new reachable heavy family remains and is REGISTERED as the active campaign: C317 cross-sectional VOLATILITY / HIGHER-MOMENT (rv, ivol, skew, maxret, dsvol) factors on real on-disk USDT-M 5m perp_close (never tested by any frozen campaign; NOT a re-skin of C315 momentum or C316 liquidity; no network ingest). Execute: (1) bootstrap_dev_env; (2) build C317 feature cache from real on-disk C312 perp_close shards (read-only, no network) with meta+provenance+SHA256; (3) preflight_c317.py --json -> ready:true/blocked_reasons:[]; (4) run_c317_vol_moment_xsec_oos.py -> 5 artifacts + gitignored full.json with SHA256-from-bytes, 1440 pre-registered configs, Holm+BH; (5) add tests/test_preflight_c317.py + tests/test_c317_vol_moment_xsec_oos.py, full suite green; (6) sync AGENTS.md + state.yaml with verdict/SHAs/binding; register next family only if one exists after C317, else space CLOSED; never create HANDOFF.md; (7) do NOT re-run/re-skin/re-probe C281B–C316 or C287. Guardrails: real_data_only:true, fabricated_data:false, executed_fills:false; per-leg fee/slippage grid on turnover; funding excluded (fapi 451); all configs reported; Holm+BH BOTH required; MDE+stability+attribution gates; fail-closed; cache <100 MB; slim sweep + gitignored full.json.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T00:58:16Z) — BUILD + RUN C317 (cross-sectional realized-volatility / higher-moment factors), THEN VERIFY + CLOSE. STATUS REGISTERED_NOT_STARTED (no C317 scripts/cache/preflight/runner/tests/artifacts on disk). C281B–C316 are ALL formal negatives and remain FROZEN; C287 externally blocked (out-of-env only). Exactly ONE genuinely-new reachable heavy family remains: C317 cross-sectional VOLATILITY / HIGHER-MOMENT (rv, ivol, skew, maxret, dsvol) factors on real on-disk USDT-M 5m perp_close (C312 shards, SHA-verified; no network ingest; NOT a re-skin of C315 momentum or C316 liquidity). MUST: (1) bootstrap_dev_env; (2) build C317 feature cache from read-only C312 perp_close with meta+provenance+SHA256 (<100 MB); (3) preflight_c317.py --json -> ready:true, blocked_reasons:[]; (4) run_c317_vol_moment_xsec_oos.py -> 5 artifacts + gitignored full.json with SHA256-from-bytes, 1440 pre-registered configs, Holm+BH, MDE/stability/attribution; (5) add tests/test_preflight_c317.py + tests/test_c317_vol_moment_xsec_oos.py and run full pytest green; (6) sync AGENTS.md + state.yaml with verdict/SHAs/binding; register next family only if one exists after C317 else declare space CLOSED; never create HANDOFF.md; (7) do NOT re-run/re-skin/re-probe C281B–C316 or C287. Guardrails: real_data_only:true, fabricated_data:false, executed_fills:false; per-leg fee/slippage on turnover; funding excluded (fapi 451); all configs reported; Holm+BH BOTH required; fail-closed provenance.'
 
 next_campaign: C317_cross_sectional_volatility_higher_moment_factors_5m
 active_campaign: C317
 c317_status:
   state: REGISTERED_NOT_STARTED
-  as_of_utc: 20261116T005000Z
+  as_of_utc: 20261116T005816Z
   campaign: C317
   family: cross_sectional_realized_volatility_higher_moment_factors_usdt_m_5m
   genuinely_new: true
