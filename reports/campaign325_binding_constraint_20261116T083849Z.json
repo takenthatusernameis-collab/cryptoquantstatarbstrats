@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T083849Z",
+  "campaign": 325,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign325_oos_sweep_20261116T083849Z.json",
+  "oos_sweep_sha256": "2847da4ab8367819109abfbd2f0752f29916960dfc357e8f424353e8ce1dcc26",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ats_dev": 0.23943252806543616,
+    "ats_ewm": 0.24529192582938647,
+    "svpt_dev": 0.277557446521545,
+    "ats_placebo": 0.23771809958363233
+  },
+  "dominant_attribution": "svpt_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ats_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -3.572211493286522,
+      -3.627055173161451,
+      -3.717886539841639,
+      -3.712122981856391,
+      -3.7071408353234734,
+      -3.8194838672178957,
+      -3.8571194773145283,
+      -3.427613040717718
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -60.06290106374069,
+    "second_half_sharpe": -22.013397031641915,
+    "sharpe_corr": 0.9995380089658584,
+    "stable": false
+  },
+  "diagnosis": "C325 cross-sectional intraday AVERAGE TRADE SIZE SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

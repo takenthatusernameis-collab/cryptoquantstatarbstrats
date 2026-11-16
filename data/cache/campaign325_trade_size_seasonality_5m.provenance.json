@@ -1,0 +1,204 @@
+{
+  "generated_at_utc": "20261116T083831Z",
+  "campaign": 325,
+  "part": "provenance",
+  "source_host": "https://data.binance.vision",
+  "note": "C325 features are a read-only derivation of real C312 USDT-M 5m perp_close + notional/trade_count/signed_volume (avg_trade_size=notional/trade_count, svpt=signed_volume/trade_count derived); no network, no fabrication, no resampling.",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "n_months": 36,
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "per_symbol": {
+    "ADAUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/ADAUSDT.npz",
+      "shard_sha256": "8b1a6362c93608b911f46485af7a86d8a5e739798d0d9620c2347310a74e201b",
+      "shard_bytes": 4803140,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "e070c450b9c6d333a75e43f18de4905c42d8b8963cdd5216e3bccf8701686a29",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "AVAXUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/AVAXUSDT.npz",
+      "shard_sha256": "8b545c59fe5de40df0fcd17c4353f702792bef1584aedd3e5ce8945004a884ba",
+      "shard_bytes": 5130598,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "e7e94d630ca8019400aa4aa5972a80922c12abca21dc6edfcd445012da51a462",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "BNBUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/BNBUSDT.npz",
+      "shard_sha256": "aac3b4362db0affe2064bf3badf9fcdc1a20f30c178943f7a8fb6171c7f9197c",
+      "shard_bytes": 5146232,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "54b039d52dcbc29cef74f4b912f257d3b71a7762d53f6322d1675da8a59a20c4",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "BTCUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/BTCUSDT.npz",
+      "shard_sha256": "02d4a66d633423acc08455fe8e47312999fba491e22e85bb5ccbec503c90ecf6",
+      "shard_bytes": 5217174,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "b4544f2b1e2166c04aff7b40a6e1886e824d907cc7a53d4352c418265d6a959b",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 43,
+      "svpt_nan": 43,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 43,
+        "notional_nonpos": 43
+      }
+    },
+    "DOGEUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/DOGEUSDT.npz",
+      "shard_sha256": "a6dfc1ecb46e786c9e91f127404fd22ec8f74477f626f71f18734b0925dcf2fe",
+      "shard_bytes": 5075594,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "2c0683064843bf91231ce7417012d92d351b7e5eb30227484b45305a682ad098",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "DOTUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/DOTUSDT.npz",
+      "shard_sha256": "46b1e9f2b533cc45f4a593269240b3a04839ad3fd1bd9c79e950f6dd6f87a2d8",
+      "shard_bytes": 4794791,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "b8b43a83a2d4a2a3e5c9856bb0b9fcdf4bc9acb72afbb1d5723445f45729a55c",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "ETHUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/ETHUSDT.npz",
+      "shard_sha256": "f911ca1ea1e71f9ad21eefc14f11aeee149ac05f41cd761a5f56ca3abfa09b4e",
+      "shard_bytes": 5279551,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "a2f1aa5803f88a266dd92929a396c35fc017d20e5e98adcd22394b3f6c8ada71",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "LINKUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/LINKUSDT.npz",
+      "shard_sha256": "5d9d503977713095c58e3890362dd01b501f22d34895bf1744d118d4cacde0e7",
+      "shard_bytes": 5035596,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "68315dfd747083b00890ac6736dcc922a14d05bb24675562ed460aa08f83b214",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "SOLUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/SOLUSDT.npz",
+      "shard_sha256": "407527316b2a86da5a38c7bb108a39a1cc9486c1107380d83cc90fda79f523cb",
+      "shard_bytes": 5166878,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "3cc4808b796dd3b93eb4054f8d9a6d7dd3c69d91c3a34765d9510650ffd4fe7f",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    },
+    "XRPUSDT": {
+      "status": "ok",
+      "n_bars": 315648,
+      "shard": "data/cache/campaign325_trade_size_seasonality_5m/XRPUSDT.npz",
+      "shard_sha256": "e6830f2eaaefd662a94e389faf6629d64f8fd05969eccf7174b85bf2ba8e1ef0",
+      "shard_bytes": 4884582,
+      "source": "campaign312_usdt_m_ofi_5m (perp_close,signed_volume,total_volume,trade_sign_sum,trade_count,notional)",
+      "source_sha256": "dad8fc610aea1b375407996273319aec29502894ce454ed6f04acf478ef6930f",
+      "log_return_nan": 0,
+      "avg_trade_size_nan": 24,
+      "svpt_nan": 24,
+      "funding_all_nan": true,
+      "zero_activity": {
+        "trade_count_nonpos": 24,
+        "notional_nonpos": 24
+      }
+    }
+  },
+  "total_shard_bytes": 50534136,
+  "max_shard_bytes": 5279551,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "562de94f66a2a909593b256895b7c79c624cc7c99f293ef29b2bcc73f93f4694",
+  "meta_sha256": "91844f47597f25eb3de6daaadcc6094b754b4ffd8676826d04758cff3becac98",
+  "provenance_sha256": "39f9cf41a7d92f18768fd07a7612b6eb62d79c7572df90c84f48e1a622bb7254"
+}
