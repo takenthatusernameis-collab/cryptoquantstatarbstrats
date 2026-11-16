@@ -5,7 +5,7 @@
 **Closure audit:** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`, SHA256-from-bytes of on-disk file) — `reachable_space: CLOSED`, `genuinely_new_families_tested: 36`, `total_configs_recorded: 17175`, `edge_proven: false`, `binding_constraint: multiple_testing`, `errors: []`, `n_survive_holm_total: 0`, `n_survive_bh_total: 18`, `n_survive_both_total: 0`.
 **Latest campaigns:** C317/C318 COMPLETE FORMAL NEGATIVES (20261116T013937Z / 20261116T015818Z). Full suite last verified 1729 passed / 1 failed (pre-existing frozen C313 gitignored full-sweep gap) / 2 skipped (403 s). `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-16T04:23:05Z) — TERMINAL: REACHABLE SPACE CLOSED
+## INITIAL TASK MESSAGE (2026-11-16T04:24:17Z) — TERMINAL: REACHABLE SPACE CLOSED
 
 **Status:** C281B–C318 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across 17,175 pre-registered configs, 36 genuinely-new families; binding constraint universally `multiple_testing`). C318 was the last genuinely-new reachable heavy family on current data. **No new campaign specification exists.**
 
@@ -24,6 +24,8 @@
 - [ ] Confirm `reports/program_closure_final_20261116T024519Z.json` SHA256 matches `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`
 - [ ] Confirm no C319+ campaign scripts/artifacts exist
 - [ ] Exit cleanly — no heavy work to perform
+
+**Bottleneck status:** All download/ingest bottlenecks REMOVED (C314 microsecond normalization, C312 cache feeds C315–C318). C287 externally blocked (451/403, no creds) — decoupled, never retry as economic work. Zero bottlenecks remain on current data scope.
 
 **Frozen/blocked (hard violations if touched):**
 - **C281B–C318:** FROZEN formal negatives — do NOT rerun, re-skin, re-probe, or "revalidate".
