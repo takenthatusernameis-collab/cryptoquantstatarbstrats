@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261116T073235Z",
+  "campaign": 322,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign322_oos_sweep_20261116T073235Z.json",
+  "oos_sweep_sha256": "fea5571b738e0dae3c9e85c6f5a14ad2f7f6a2144b6be479f638907dd60fb37e",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vwap_dev": 0.02070316989845635,
+    "vwap_z": 0.03165419616332911,
+    "close_vwap_spread": 0.4532367383597686,
+    "vwap_ewm": 0.021669220074178625,
+    "vwap_vol_z": 0.45009014889910076,
+    "placebo_noise": 0.02264652660516645
+  },
+  "dominant_attribution": "close_vwap_spread",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vwap_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -0.22037385938383308,
+      -0.10493155686807241,
+      -0.13135412293310308,
+      -0.5365212064565823,
+      -0.16605481161106356,
+      -0.14878154444901523,
+      -0.14686888563726674,
+      -0.23497929734419926
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -1.44512732010686,
+    "second_half_sharpe": -4.852358383364946,
+    "sharpe_corr": 0.9613486266472586,
+    "stable": false
+  },
+  "diagnosis": "C322 cross-sectional VWAP-CLOSE fair-value dislocation mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

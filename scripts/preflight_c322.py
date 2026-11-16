@@ -218,7 +218,7 @@ def main() -> int:
             ok &= vw_ok
             # log_vwap NaN exactly where vwap is not (finite and >0).
             vwap_val_ok = vw_finite & (vw > 0)
-            lv_nan_ok = bool(np.array_equal(np.isnan(lv), ~vw_val_ok) and np.isfinite(lv[vwap_val_ok]).all())
+            lv_nan_ok = bool(np.array_equal(np.isnan(lv), ~vwap_val_ok) and np.isfinite(lv[vwap_val_ok]).all())
             d["fields"]["log_vwap"] = {"len": int(len(lv)), "nan": int(np.isnan(lv).sum()),
                                        "nan_matches_vwap_missing": lv_nan_ok,
                                        "ok": lv_nan_ok}
