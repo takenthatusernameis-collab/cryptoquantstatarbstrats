@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T015818Z",
+  "campaign": 318,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign318_oos_sweep_20261116T015818Z.json",
+  "oos_sweep_sha256": "3cff5927e21799c1a7537947fae6daeb5ba11f49f3ca0b81b8f8604532ed84a6",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "beta": 0.04619985025994721,
+    "correlation": 0.24487720878958844,
+    "comoment": 0.5996590853272378,
+    "placebo_noise": 0.10926385562322663
+  },
+  "dominant_attribution": "comoment",
+  "attribution_ok": true,
+  "stability": {
+    "reference_config": {
+      "signal": "beta",
+      "L": 1008,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -0.08578929893208839,
+      0.10074528517515896,
+      0.013028909997008196,
+      -0.33119491414194535,
+      0.023642065518655248,
+      -0.0011283861309324267,
+      -0.03881139493685481,
+      0.15499649043707625
+    ],
+    "sign_consistency": 0.5,
+    "first_half_sharpe": -0.469239072048306,
+    "second_half_sharpe": 0.47538491349486467,
+    "sharpe_corr": -0.9622541972065618,
+    "stable": false
+  },
+  "diagnosis": "C318 cross-sectional covariance / beta co-movement stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
