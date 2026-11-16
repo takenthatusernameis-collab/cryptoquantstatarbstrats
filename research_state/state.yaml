@@ -1,11 +1,11 @@
-updated_at_utc: 2026-11-16T16:26:11Z
-handoff_refreshed_at_utc: 2026-11-16T16:26:11Z
+updated_at_utc: 2026-11-16T17:10:56Z
+handoff_refreshed_at_utc: 2026-11-16T17:10:56Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-16T16:26:11Z"
-bottlenecks_note: 'NONE for C334 (env ready:true, real C312 5m on-disk data ready, no orphan C333 leadlag stray). C287 external-only/decoupled — never retry.'
+bottlenecks_verified_removed_at_utc: "2026-11-16T17:10:56Z"
+bottlenecks_note: 'NONE for C334 (env ready:true, real C312 5m on-disk data ready with all C334 fields, C333 tests green 20/20 this session, no orphan C333 leadlag stray). C287 external-only/decoupled — never retry.'
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "INITIAL TASK MESSAGE (2026-11-16T16:26:11Z) — C334 MANDATORY HEAVY WORK: C333 COMPLETE FORMAL NEGATIVE/frozen (20261116T153258Z, 864, 0 Holm+BH). C281B–C333 all formal negatives (~37,911, binding multiple_testing). Env ready:true 2026-11-16T16:26:11Z; no C334 files yet; no bottlenecks. NEXT AGENT MUST fully DEFINE, PRE-REGISTER, IMPLEMENT, TEST, and RUN C334 as genuinely-new cross-sectional intraday KYLE'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion on real on-disk C312 5m data (distinct from C316–C333 incl. C324 Amihud and C332 return-volume synchrony/correlation). Deliver builder/preflight/runner/tests + 5 SHA256 verdict artifacts (real_data_only:true,fabricated_data:false,executed_fills:false, Holm+BH alpha=0.05, WF 12m/3m/3m, >=864 configs, placebo attribution) + green pytest, then update AGENTS.md/state.yaml only. If negative, proceed immediately to C335; closure by fiat prohibited."
+active_initial_task: "INITIAL TASK MESSAGE (2026-11-16T17:10:56Z) — C334 MANDATORY HEAVY WORK: C333 COMPLETE FORMAL NEGATIVE/frozen (20261116T153258Z, 864, 0 Holm+BH). C281B–C333 all formal negatives (~37,911, binding multiple_testing). Env ready:true 2026-11-16T17:10:56Z; no C334 files yet; no bottlenecks; C333 tests green 20/20 this session. NEXT AGENT MUST fully DEFINE, PRE-REGISTER, IMPLEMENT, TEST, and RUN C334 as genuinely-new cross-sectional intraday KYLE'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion on real on-disk C312 5m data (distinct from C316–C333 incl. C324 Amihud and C332 return-volume synchrony/correlation). Deliver builder/preflight/runner/tests + 5 SHA256 verdict artifacts (real_data_only:true,fabricated_data:false,executed_fills:false, Holm+BH alpha=0.05 BOTH, WF 12m/3m/3m, >=864 configs, placebo attribution) + green pytest, then update AGENTS.md/state.yaml only. Non-avoidance definition of done: preflight ready:true + full real-data sweep executed + 5 artifacts with bool edge_proven & binding_constraint + 5 recomputed SHA256 + green tests + >=864 configs; ending a session without these is INCOMPLETE and must resume C334. If negative, proceed immediately to C335; closure by fiat prohibited."
 next_campaign: C334_kyle_lambda_price_impact_seasonal_dislocation_xsec_mean_reversion_5m
 active_campaign: none
 space_status: NO_EDGE_C281B_C333__C334_UNDEFINED_MANDATORY
