@@ -1,0 +1,179 @@
+{
+  "generated_at_utc": "20261116T183311Z",
+  "campaign": 335,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "signed_volume",
+    "notional",
+    "vpin_bkt",
+    "vpin_ewm",
+    "toxicity_park",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign335_vpin_toxicity_5m",
+  "shard_sha256": {
+    "ADAUSDT": "7f78002e719c1c791d67eb58e3ca3e32936c57a671f3d21965860af5dbc068a6",
+    "AVAXUSDT": "649fc0219240690451efeb36a23d0a90f0427a98a0cbcf8b4196f0b62bc91c70",
+    "BNBUSDT": "f52f4b9271de3cb3c89a950ddfbb17ffafe22125561884cd61cceb5f8b5e0bd6",
+    "BTCUSDT": "955fb454bcd50d6f14c9592c1b51f067f330af7a81ef8d4dcb5086a3b0ebb6fa",
+    "DOGEUSDT": "8f54f1692a1fe78bb9f2a151db6b22b1fa776c694fec703f606b979ec12bf809",
+    "DOTUSDT": "8a80fffbf9e618b599c9e1f9722e40ba0eb707f836d93bc443e5fd6c85a23ef4",
+    "ETHUSDT": "4630bde3bea0c93f1757857538cb8f732ec2ce97be39b27bbfd729d94f15c48d",
+    "LINKUSDT": "7cebb50db9b163881e5cdcf5c42a19fba030cfc35eff6f9285231f206497725c",
+    "SOLUSDT": "aa504e7be5037881c11392b7574a1ddfcc713f450ce870cb9dfbc1c7a01d6415",
+    "XRPUSDT": "6c5ac532f1ee08eb8879dceb91e2a6dba552b651a84c5ec4d47ff093878b7541"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 8097412,
+    "AVAXUSDT": 8215604,
+    "BNBUSDT": 8411703,
+    "BTCUSDT": 8576886,
+    "DOGEUSDT": 8440424,
+    "DOTUSDT": 8072468,
+    "ETHUSDT": 8652683,
+    "LINKUSDT": 8396120,
+    "SOLUSDT": 8362751,
+    "XRPUSDT": 8277459
+  },
+  "total_shard_bytes": 83503510,
+  "max_shard_bytes": 8652683,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "vpin_halflife_bars": 24,
+  "vpin_min_periods_ewm": 24,
+  "toxicity_definition": "vpin_bkt=|signed_volume|/total_volume; vpin_ewm=EWMA(vpin_bkt,halflife=24 bars); toxicity_park=|signed_volume|/notional",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "11c22a6c34914b1a129bc7a20b9cca0ad3c27e1c4d4c1f0907fefa44b94c9615",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "signed_volume": "real taker buy/sell split from C312; always finite, may be signed/zero",
+    "notional": "real traded notional from C312; always finite, non-negative",
+    "vpin_bkt": "|signed_volume|/total_volume; total_volume<=0 -> NaN (fail-closed)",
+    "vpin_ewm": "EWMA of finite vpin_bkt (halflife=24 bars); NaN until >= 24 finite obs; NaN inputs excluded, no ffill/impute",
+    "toxicity_park": "|signed_volume|/notional; notional<=0 -> NaN (fail-closed)",
+    "runner_nan": "trailing same-bucket seasonal toxicity stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 43,
+        "vpin_ewm": 66,
+        "toxicity_park": 43
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "signed_volume": 0,
+        "notional": 0,
+        "vpin_bkt": 24,
+        "vpin_ewm": 47,
+        "toxicity_park": 24
+      }
+    }
+  }
+}

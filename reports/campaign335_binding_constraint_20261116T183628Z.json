@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T183628Z",
+  "campaign": 335,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign335_oos_sweep_20261116T183628Z.json",
+  "oos_sweep_sha256": "18bd0311834c12c923c0e50b4248b2127f58e1b07b7d4738fb0a0e206ad538cc",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vpin_bkt_dev": 0.3328018355872291,
+    "vpin_ewm_dev": 0.11689453489275856,
+    "toxicity_park_dev": 0.21648098175609864,
+    "toxicity_placebo": 0.33382264776391374
+  },
+  "dominant_attribution": "toxicity_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vpin_bkt_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.58967824957575,
+      -4.425930404134891,
+      -4.520028590207434,
+      -4.538789080665512,
+      -4.10083014805618,
+      -4.445427882466794,
+      -4.662010269097695,
+      -4.601712804251605
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -76.24396332808546,
+    "second_half_sharpe": -20.4358655021766,
+    "sharpe_corr": 0.9999884036895971,
+    "stable": false
+  },
+  "diagnosis": "C335 cross-sectional intraday ORDER-FLOW TOXICITY / VPIN SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
