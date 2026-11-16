@@ -1,0 +1,55 @@
+{
+  "generated_at_utc": "20261116T192501Z",
+  "campaign": 336,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign336_oos_sweep_20261116T192501Z.json",
+  "oos_sweep_sha256": "a5fbdb7daf7aafe94c1e8f872a4b678caaee2cf6675b9ff948c75bf66dddc2e2",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "sign_imbalance_dev": 0.17040625382423044,
+    "signed_vol_share_dev": 0.18280277582016422,
+    "notional_imb_dev": 0.16823928279214614,
+    "imb_ewm_dev": 0.08580756153126685,
+    "imb_ac1_dev": 0.038866383520373145,
+    "streak_len_dev": 0.1821442635631975,
+    "imb_persistence_placebo": 0.1717334789486218
+  },
+  "dominant_attribution": "signed_vol_share_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "sign_imbalance_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.324568958170829,
+      -4.182538616690108,
+      -4.377648359949962,
+      -4.187158710069605,
+      -4.115108706988441,
+      -4.162301714345427,
+      -4.473648298181617,
+      -4.310546637660446
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -50.07156926280052,
+    "second_half_sharpe": -30.42404952387182,
+    "sharpe_corr": 0.9999707273959432,
+    "stable": false
+  },
+  "diagnosis": "C336 cross-sectional intraday ORDER-FLOW PERSISTENCE / IMBALANCE AUTOCORRELATION SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
