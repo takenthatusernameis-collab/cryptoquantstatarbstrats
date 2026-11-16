@@ -86,10 +86,19 @@ def walk_path_sha(node, out):
 
 
 def _run_runner():
+    # The closure runner writes a fresh timestamped closure/audit pair into
+    # reports/ on every invocation. Those files are STALE C305-era artifacts that
+    # contradict the live campaign (see AGENTS.md closure-trap) and must never be
+    # left behind for a future session to mistake as authoritative. The test only
+    # consumes the runner's stdout JSON (integrity_ok etc.) and the state-pinned
+    # artifacts via ``pinned()``, so we delete exactly the files this run creates.
+    before = set(REPORTS.glob("program_closure_*"))
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "run_c305_program_closure_oos.py"), "--json"],
         capture_output=True, text=True,
     )
+    for p in set(REPORTS.glob("program_closure_*")) - before:
+        p.unlink(missing_ok=True)
     assert proc.returncode == 0, proc.stderr
     return json.loads(proc.stdout.strip())
 
