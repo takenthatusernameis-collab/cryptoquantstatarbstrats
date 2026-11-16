@@ -5,11 +5,11 @@ focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS 
 bottlenecks_verified_removed_at_utc: "2026-11-16T18:20:12Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-16T18:20:12Z: NONE for C335 (python scripts/verify_env.py --json -> ready:true, missing:[]; python 3.12.3/numpy 2.5.5/pandas 3.1.1; git tree clean). Real C312 5m base data on-disk verified field-by-field: 10 shards / 315,648 bars each, BTC representative NaN counts perp_close 0, signed_volume 0, total_volume 0, trade_count 0, trade_sign_sum 0, notional 0, vwap 43, funding_rate all-NaN control-only; **C335 flow fields verified 0-NaN on all 10 shards: trade_count 0, signed_volume 0, notional 0, trade_sign_sum 0, total_volume 0**. C334 feature cache data/cache/campaign334_price_impact_5m/ built read-only from C312 (57 MB, 10 shards, 315,648 bars, zero NaN); preflight_c334.py --json -> ready:true; full 864-config costed-OOS sweep executed on real shards. C333 frozen/committed and its 5 artifact SHAs re-verified from bytes; baseline pytest tests/test_preflight_c333.py -q -> 4 passed 2.14s. C334 scripts/tests/artifacts/cache all present and verified (19/19 C334 tests green; 5 SHA256-from-bytes verified). C287 external-only/decoupled — never retry.'
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C334 COMPLETE 20261116T172756Z: C333 COMPLETE FORMAL NEGATIVE/frozen (20261116T153258Z, 864, 0 Holm+BH). C281B–C334 all formal negatives (~38,775, binding multiple_testing). Env verified ready:true 2026-11-16T17:29:32Z; C312 fields verified field-by-field; C334 cache built (57 MB, 10 shards, 315,648 bars, zero NaN); preflight ready:true; full 864-config costed-OOS sweep executed on real C312 5m shards; 5 SHA256 verdict artifacts verified from bytes; pytest tests/test_c334_* tests/test_preflight_c334.py -q -> 19 passed. VERDICT: RETRACTED, edge_proven:false, binding_constraint: multiple_testing, attribution klambda_dev 0.2227 / klambda_notional_dev 0.2783 / impact_var_dev 0.2671 / klambda_placebo 0.2319. NEXT AGENT MUST proceed immediately to C335 (order-flow toxicity / VPIN seasonal dislocation mean-reversion, >=864 configs, Holm+BH alpha=0.05 BOTH); closure by fiat prohibited."
+active_initial_task: "C335 COMPLETE 20261116T183628Z: C334 COMPLETE FORMAL NEGATIVE/frozen (20261116T172756Z). C281B–C335 all formal negatives (~39,639, binding multiple_testing). Env verified ready:true 2026-11-16T19:12:25Z; C312 5m flow fields 0-NaN on all 10 shards (315,648 bars); C335 cache built (~83.5 MB), preflight ready:true; full 864-config costed-OOS sweep executed; 5 SHA256 artifacts verified from bytes (verdict e48d1771… RETRACTED, edge_proven:false, binding multiple_testing, attribution vpin_bkt_dev 0.3328/vpin_ewm_dev 0.1169/toxicity_park_dev 0.2165/toxicity_placebo 0.3338). No data/env/test blockers; C287 external/decoupled. NEXT AGENT MUST proceed immediately to C336 (cross-sectional intraday ORDER-FLOW PERSISTENCE / IMBALANCE AUTOCORRELATION seasonal dislocation mean-reversion, >=864 configs, Holm+BH alpha=0.05 BOTH, WF 12m/3m/3m) — build features/preflight/runner/tests, full real-data sweep, 5 artifacts; closure by fiat prohibited."
 next_campaign: C335_order_flow_toxicity_vpin_seasonal_dislocation_xsec_mean_reversion_5m
 active_campaign: none
 space_status: NO_EDGE_C281B_C334__C335_PENDING
-closure_note: 'C281B–C334 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~38,775 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C334 (KYLE\'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion, 20261116T172756Z, 864 configs, 0/0/0 Holm/BH/both, attribution klambda_dev 0.2227 / klambda_notional_dev 0.2783 / impact_var_dev 0.2671 / klambda_placebo 0.2319, 5 SHA256 artifacts f328f8ea/82c416e4/48585908/11f512b8/f2719aef, 19/19 tests) is COMPLETE and frozen. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit for that scope; C319–C334 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C335 is the next mandated campaign; start immediately — no planning gap.'
+closure_note: 'C281B–C335 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~39,639 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C334 (KYLE\'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion, 20261116T172756Z, 864 configs, 0/0/0 Holm/BH/both, attribution klambda_dev 0.2227 / klambda_notional_dev 0.2783 / impact_var_dev 0.2671 / klambda_placebo 0.2319, 5 SHA256 artifacts f328f8ea/82c416e4/48585908/11f512b8/f2719aef, 19/19 tests) is COMPLETE and frozen. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit for that scope; C319–C334 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C335 is the next mandated campaign; start immediately — no planning gap.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -4662,3 +4662,65 @@ c334_status:
   real_data_only: true
   fabricated_data: false
   executed_fills: false
+
+
+c335_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T183628Z
+  campaign: C335
+  family: cross_sectional_intraday_order_flow_toxicity_vpin_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: [C323_order_flow_levels, C328_C329_return_sign, C332_return_flow_synchrony, C334_kyle_lambda_price_impact]
+  verdict: RETRACTED
+  edge_proven: false
+  edge_claim: NONE
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {vpin_bkt_dev: 0.3328018355872291, vpin_ewm_dev: 0.11689453489275856, toxicity_park_dev: 0.21648098175609864, toxicity_placebo: 0.33382264776391374}
+  dominant_attribution: toxicity_placebo
+  dominant_share: 0.33382264776391374
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T183628Z
+  artifacts:
+    oos_sweep: {path: reports/campaign335_oos_sweep_20261116T183628Z.json, sha256: 18bd0311834c12c923c0e50b4248b2127f58e1b07b7d4738fb0a0e206ad538cc}
+    tradable_edge_registry: {path: reports/campaign335_tradable_edge_registry_20261116T183628Z.json, sha256: 02706db57936aeb1c717cff0546c7d9fdeed97655f4dbb3f509b282f887f7358}
+    summary: {path: reports/campaign335_summary_20261116T183628Z.json, sha256: f921f72990c390aecd8ed4c1cf971f7ffbdcfadf37c057cbd392093b9d45b3c0}
+    verdict: {path: reports/campaign335_verdict_20261116T183628Z.json, sha256: e48d1771e4ef69a6ba8a23e11d74d3207d01158ae4898279ec14ba0165f0aa5e}
+    binding_constraint: {path: reports/campaign335_binding_constraint_20261116T183628Z.json, sha256: 0b0e06a5009a2ffa984d571e8d7abbefab8c9ba9652ad7d0b1c7c2c77448356a}
+    oos_sweep_full: reports/campaign335_oos_sweep_20261116T183628Z.full.json (gitignored)
+  cache: {dir: data/cache/campaign335_vpin_toxicity_5m, meta_sha256: 52fef8c09c605acd5867b2d653d2251e05ac2da4f741ddedd2c2e5903d121457, provenance_sha256: 2bc044416d73247749b2dd32aa99d1ecf93a7bc3e46f5941feb8b31ec8eb8300}
+  scripts: [scripts/build_c335_vpin_toxicity_features.py, scripts/preflight_c335.py, scripts/run_c335_vpin_toxicity_xsec_oos.py]
+  tests: [tests/test_preflight_c335.py, tests/test_c335_vpin_toxicity_xsec_oos.py]
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+campaign336:
+  hypothesis: CROSS_SECTIONAL_INTRADAY_ORDER_FLOW_PERSISTENCE_IMBALANCE_AUTOCORRELATION_SEASONAL_DISLOCATION_MEAN_REVERSION
+  status: next_mandatory_heavy_work
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: [C323_order_flow_levels_ratios, C328_sign_run_returns, C329_sign_entropy_returns, C332_return_signed_volume_synchrony, C334_kyle_lambda_price_impact, C335_vpin_toxicity]
+  data_ready: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/ (perp_close,log_return,signed_volume,total_volume,trade_sign_sum,trade_count,notional usable 0-NaN; funding control-only NaN)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  definition_of_done: 'C336 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c336_* and tests/test_preflight_c336.py green'
+  signals_required: [flow_persistence_dev, imbalance_autocorr_dev, flow_half_life_or_streak_dev, flow_persistence_ewm_dev_or_placebo]
+  grid_min: 864
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  executed_fills: false
+  real_data_only: true
+  fabricated_data: false
