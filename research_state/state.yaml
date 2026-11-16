@@ -1,9 +1,9 @@
-updated_at_utc: 20261116T045549Z
-handoff_refreshed_at_utc: 20261116T045549Z
+updated_at_utc: 20261116T052443Z
+handoff_refreshed_at_utc: 20261116T052443Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T04:55:49Z) — MANDATORY HEAVY WORK: BUILD + RUN C320 (cross-sectional INTRADAY TIME-OF-DAY SEASONALITY mean-reversion, native USDT-M 5m). State: C281B–C319 are ALL COMPLETE FORMAL NEGATIVES on real data (C319 newest = cross-sectional cointegration/pairs mean-reversion, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding multiple_testing, real artifacts + SHAs on disk; corrects the earlier wrong "C319 removed/not executed" state). No costed-OOS edge has ever survived; that is a RESULT, not a reason to stop. Do NOT exit with "reachable space closed / no new campaign" — terminal closure by fiat is a hard violation. Mandatory: build+preflight+run+test C320 on data/cache/campaign312_usdt_m_ofi_5m (real 5m perp_close, 10 perps, 315,648 bars), signals = causal same-time-of-day / day-of-week seasonal deviation z-scores (tod_dev, tod_z, dow_dev, tod_rv, tod_ewm), grid 5 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}, expanding WF 12m/3m/3m, Holm AND BH alpha=0.05 (both), MDE, stability, seasonal-vs-placebo attribution. Definition of Done: campaign320 verdict artifact on disk (EDGE_PROVEN or RETRACTED + binding) with 5 SHA256-from-bytes artifacts AND pytest tests/test_c320_* tests/test_preflight_c320.py green. If C320 is itself a formal negative, immediately proceed to C321 (cross-sectional intraday range/breakout or overnight-vs-intraday split on the same C312 5m data) — do not re-declare closure. Do not rerun/re-skin C281B–C319; do not run stale closure generators; do not create HANDOFF.md. Full spec in AGENTS.md.'
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T05:24:42Z) — MANDATORY HEAVY WORK: BUILD + RUN C320 (cross-sectional INTRADAY TIME-OF-DAY SEASONALITY mean-reversion, native USDT-M 5m). State: C281B–C319 are ALL COMPLETE FORMAL NEGATIVES on real data (C319 newest = cross-sectional cointegration/pairs mean-reversion, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding multiple_testing, real artifacts + SHAs on disk). No costed-OOS edge has ever survived; that is a RESULT, not a reason to stop. Do NOT exit with "reachable space closed / no new campaign" — terminal closure by fiat is a hard violation. Mandatory: build+preflight+run+test C320 on data/cache/campaign312_usdt_m_ofi_5m (real 5m perp_close, 10 perps, 315,648 bars), signals = causal same-time-of-day / day-of-week seasonal deviation z-scores (tod_dev, tod_z, dow_dev, tod_rv, tod_ewm), grid 5 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}, expanding WF 12m/3m/3m, Holm AND BH alpha=0.05 (both), MDE, stability, seasonal-vs-placebo attribution. Definition of Done: campaign320 verdict artifact on disk (EDGE_PROVEN or RETRACTED + binding) with 5 SHA256-from-bytes artifacts AND pytest tests/test_c320_* tests/test_preflight_c320.py green. If C320 is itself a formal negative, immediately proceed to C321 (cross-sectional intraday range/breakout or overnight-vs-intraday split on the same C312 5m data) — do not re-declare closure. Do not rerun/re-skin C281B–C319; do not run stale closure generators; do not create HANDOFF.md. Full spec in AGENTS.md.'
 next_campaign: C320_intraday_time_of_day_seasonality_mean_reversion_usdt_m_5m
 active_campaign: none
 space_status: NO_EDGE_C281B_C319__C320_MANDATED
@@ -36,7 +36,14 @@ c319_status:
   notes: 'Real on-disk formal negative. Scripts: build_c319_cointegration_features.py, preflight_c319.py, run_c319_cointegration_xsec_oos.py. Tests: test_preflight_c319.py, test_c319_cointegration_xsec_oos.py (30/30 green). Cache: data/cache/campaign319_cointegration_5m (meta 16d1ec7b, prov 4753fd07, manifest 2ae43064). Do not rerun.'
 c320_next_family:
   state: MANDATED_NOT_STARTED
-  as_of_utc: 20261116T045549Z
+  as_of_utc: 20261116T052443Z
+  artifacts_on_disk: false
+  scripts_on_disk: false
+  tests_on_disk: false
+  verdict_on_disk: false
+  cache_ready: true
+  cache_source: data/cache/campaign312_usdt_m_ofi_5m
+  note: 'No C320 scripts/tests/artifacts present as of handoff refresh; C312 5m cache is real and on disk — no ingest bottleneck. Next session must implement build_c320, preflight_c320, run_c320 and tests, then execute to verdict.'
   campaign: C320
   family: cross_sectional_intraday_time_of_day_seasonality_mean_reversion_usdt_m_5m
   genuinely_new: true

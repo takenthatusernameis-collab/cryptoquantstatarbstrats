@@ -1,11 +1,11 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-16T05:11:36Z
-**Program state:** `ACTIVE — NO-EDGE CONFIRMED, NEXT FAMILY MANDATED`. C281B–C319 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~18,615 pre-registered configs; binding constraint universally `multiple_testing`). Terminal "closure by fiat" is PROHIBITED: the only honest exit is executing every pre-registered genuinely-new family on real on-disk data until one is proven unreachable with on-disk evidence. **C319 (cross-sectional cointegration / pairs mean-reversion) is now COMPLETE (formal negative, real artifacts on disk) — the previously-claimed "C319 removed / not executed" state was WRONG and is corrected here.** C320 is the mandated next heavy campaign (spec below).
+**Handoff refreshed:** 2026-11-16T05:24:42Z
+**Program state:** `ACTIVE — NO-EDGE CONFIRMED, NEXT FAMILY MANDATED`. C281B–C319 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~18,615 pre-registered configs; binding constraint universally `multiple_testing`). Terminal "closure by fiat" is PROHIBITED: the only honest exit is executing every pre-registered genuinely-new family on real on-disk data until one is proven unreachable with on-disk evidence. **C319 (cross-sectional cointegration / pairs mean-reversion) is COMPLETE (formal negative, real artifacts on disk).** C320 is the mandated next heavy campaign (spec below); C320 scripts/tests/artifacts are NOT yet on disk as of this refresh.
 **Closure audit (C281B–C318 scope, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318; C319 EXTENDS the record by one genuinely-new family (cointegration/pairs) and is also a formal negative. Do NOT regenerate this audit; do NOT run stale closure generators.
 **Latest campaigns:** C319 COMPLETE FORMAL NEGATIVE (20261116T045428Z, cointegration/pairs, 1440 configs, 0 survive Holm+BH). C317/C318 complete formal negatives (20261116T013937Z / 20261116T015818Z). `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-16T05:11:36Z) — MANDATORY HEAVY WORK: BUILD + RUN C320
+## INITIAL TASK MESSAGE (2026-11-16T05:24:42Z) — MANDATORY HEAVY WORK: BUILD + RUN C320
 
 **Mission (repo priority):** crypto quantitative statistical arbitrage — costed out-of-sample PnL on real, provable data. Economic progress = a real-data costed-OOS run, a passing test, or an artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation.
 
