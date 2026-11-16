@@ -1,38 +1,27 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-16T03:34:47Z — **C281B–C318 CLOSED (all COMPLETE FORMAL NEGATIVES; 0 tradable costed-OOS edge across 17,175 pre-registered configs across 36 campaigns; binding constraint universally `multiple_testing`). C287 remains externally blocked (out-of-env only; REST 451 / fapi 451 / bybit 403). PROGRAM CLOSURE AUDIT EMITTED: `reports/program_closure_final_20261116T024519Z.json` (sha256 `56af92343b0c6929fbd8b4fe69cd9b3e865e068433c94f84c4bbb9aeff8fb8fa`) with `reachable_space: CLOSED`, `genuinely_new_families_tested: 36`, `total_configs_recorded: 17175`, `edge_proven: false`, `binding_constraint: multiple_testing`, 0 errors. FULL SUITE 1729 passed / 1 failed (pre-existing frozen C313 full-sweep gitignored gap) / 2 skipped (403 s).** C317 → COMPLETE FORMAL NEGATIVE (20261116T013937Z). **C318 (cross-sectional COVARIANCE / BETA co-movement: beta/BAB, correlation, co-skewness, co-kurtosis, downside-beta) BUILT and RUN end-to-end → COMPLETE FORMAL NEGATIVE (`RETRACTED`, `edge_proven:false`, `binding_constraint:multiple_testing`, 0/1440 deterministic edge, 0 survive Holm+BH, dominant attribution comoment 0.5997).** Verified on-disk: `data/cache/campaign318_cov_beta_5m/` (10 perps, 315,648 bars, 27.82 MB, SHA-verified); 5 slim artifacts + gitignored full.json at `20261116T015818Z`; feature cache + meta + provenance + preflight `ready:true`; 27 C318 tests green; **FULL SUITE 1729 passed / 1 failed (pre-existing frozen C313 full-sweep gitignored gap) / 2 skipped (403 s)**. `active_campaign: C318` (COMPLETE); `oos_edge_proven: false`; `edge_claim: NONE`; **reachable space CLOSED (TEXT ONLY — C318 was the last genuinely-new reachable heavy family).** C317 (cross-sectional REALIZED-VOLATILITY / higher-moment: rv, ivol, skew, maxret, dsvol) was BUILT and RUN end-to-end → COMPLETE FORMAL NEGATIVE (`RETRACTED`, `edge_proven:false`, `binding_constraint:multiple_testing`, 0/1440 deterministic edge, 0 survive Holm+BH, dominant attribution lottery 0.6729). Verified on-disk: `data/cache/campaign317_vol_moment_5m/` (10 perps, 315,648 bars, 27.82 MB, SHA-verified); 5 slim artifacts + gitignored full.json at `20261116T013937Z`; feature cache + meta + provenance + preflight `ready:true`; 30 C317 tests green; **FULL SUITE 1700 passed / 2 skipped / 0 failed (423 s)**; `latest_campaign_done: C317`. **NO genuinely-new reachable heavy families remain.** The authoritative state is `reachable_space: CLOSED`.
+**Handoff refreshed:** 2026-11-16T03:37:12Z
+**Program state:** `CLOSED` — reachable heavy-work space exhausted on current real, provable data.
+**Closure audit:** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`, SHA256-from-bytes of on-disk file) — `reachable_space: CLOSED`, `genuinely_new_families_tested: 36`, `total_configs_recorded: 17175`, `edge_proven: false`, `binding_constraint: multiple_testing`, `errors: []`, `n_survive_holm_total: 0`, `n_survive_bh_total: 18`, `n_survive_both_total: 0`.
+**Latest campaigns:** C317/C318 COMPLETE FORMAL NEGATIVES (20261116T013937Z / 20261116T015818Z). Full suite last verified 1729 passed / 1 failed (pre-existing frozen C313 gitignored full-sweep gap) / 2 skipped (403 s). `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-16T03:34:47Z) — PROGRAM CLOSED; REACHABLE SPACE EXHAUSTED
+## INITIAL TASK MESSAGE (2026-11-16T03:37:12Z) — TERMINAL: REACHABLE SPACE CLOSED
 
-**STATUS: TERMINAL — C318 COMPLETE (20261116T015818Z); program closure audit emitted (20261116T024519Z).** All C281B–C318 are formal negatives; 0 tradable costed-OOS edge across 17,175 pre-registered configs (36 campaigns aggregated); binding constraint universally `multiple_testing`. **Reachable heavy-work space is CLOSED.** C318 was the last genuinely-new reachable family. No new campaign specification exists — do not invent one.
+**Status:** C281B–C318 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across 17,175 pre-registered configs, 36 genuinely-new families; binding constraint universally `multiple_testing`). C318 was the last genuinely-new reachable heavy family on current data. **No new campaign specification exists.**
 
-**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** C281B–C318 are ALL formal negatives and remain FROZEN (do not rerun/re-skin/re-probe). C287 is externally blocked (out-of-env only). **Zero genuinely-new reachable heavy families remain.** A session that re-runs C281B–C318, re-probes C287, or invents a re-skinned campaign is non-compliant and NOT economic progress.
+**Mission (repo priority):** crypto quantitative statistical arbitrage — costed OOS PnL on real, provable data. No further in-repo heavy work remains without new data/venue/frequency or external C287 unblocking.
 
-**Next-session options (only honest work remaining):**
-1. **External unblocking of C287** — requires out-of-env action (credentials, geography, testnet access: Binance testnet REST 451, fapi 451, Bybit 403, no creds). Do not attempt in-repo.
-2. **New data acquisition** — if new symbols, venues, or frequencies become available, a NEW campaign family could be registered. Not currently in scope.
-3. **Acknowledge closure and exit** — the closure audit is complete (`reports/program_closure_final_20261116T024519Z.json`, sha256 `56af92343b0c6929fbd8b4fe69cd9b3e865e068433c94f84c4bbb9aeff8fb8fa`); `reachable_space: CLOSED` is the authoritative state.
+**Mandatory next-session behavior (choose the only honest option available):**
+1. **Acknowledge closure and exit cleanly (default).** Do not run, modify, or re-skin any campaign. Do not emit new closure reports.
+2. **External unblock C287 only if out-of-env access is now available** (credentials/geography/testnet: Binance REST/fapi 451, Bybit 403). If access is still unavailable, record that fact and exit — do not probe/retry as economic work.
+3. **New data acquisition only if materially new real data is now present/ingestible** (new symbols/venues/frequencies not in C281B–C318 scope). If so, first prove reachability/provenance, register a genuinely-new (non-reskinned) family spec, and follow fail-closed gates — but do not fabricate data or invent scope absent real sources.
 
-**Guardrails (enforced — terminal state):**
-- **NO FABRICATED CAMPAIGNS** — do not invent C319, C320, etc. as "heavy work" to avoid closure. The reachable space on current data is EXHAUSTED.
-- **NO RE-RUNS** — C281B–C318 are frozen formal negatives. Re-running wastes compute and violates handoff.
-- **NO STALE CLOSURE GENERATORS** — `scripts/run_c305_program_closure_oos.py` and `scripts/run_program_closure_integrity_audit.py` are FROZEN C305-era artifacts. Do NOT run them; they emit incorrect state.
-- **PROVENANCE FIRST** — any new closure artifact must trace to all campaign verdicts with SHAs.
+**Definition of Done (terminal session):** handoff/state remain consistent (`reachable_space: CLOSED`, `active_campaign: none`, `next_campaign: none`); no C281B–C318 reruns/re-skins; no stale closure-generator runs; no fabricated campaigns (C319+). Any claim must be backed by on-disk artifacts/provenance.
 
-**Definition of Done (terminal):** session acknowledges `reachable_space: CLOSED` and exits cleanly. No new campaigns, no re-runs, no re-skins.
-
-**Guardrails (enforced — terminal state):**
-- **NO FABRICATED CAMPAIGNS** — do not invent C319, C320, etc. as "heavy work" to avoid closure. The reachable space on current data is EXHAUSTED.
-- **NO RE-RUNS** — C281B–C318 are frozen formal negatives. Re-running wastes compute and violates handoff.
-- **NO STALE CLOSURE GENERATORS** — `scripts/run_c305_program_closure_oos.py` and `scripts/run_program_closure_integrity_audit.py` are FROZEN C305-era artifacts (latest `program_closure_final_20261116T005430Z` = `campaign:C305 / CLOSED / genuinely_new_reachable_families=[]`). Do NOT run them; they emit incorrect state.
-- **PROVENANCE FIRST** — any new closure artifact must trace to all 18 campaign verdicts with SHAs.
-
-**Definition of Done (terminal):** either (a) proper final closure audit artifact emitted with correct aggregation, or (b) session acknowledges `reachable_space: CLOSED` and exits cleanly. No new campaigns, no re-runs, no re-skins.
-
-**Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):**
-- **C281B–C318** — formal negatives (0/15,000+ configs survive Holm+BH). Re-running, re-skinning, or re-probing any of these is a hard violation.
-- **C287** — external-only geographic/credential block (testnet 451, fapi 451, bybit 403, no creds). Do NOT re-probe C287 routes as economic work; unblocking requires out-of-env action only.
-- **Stale closure machinery** — `scripts/run_c305_program_closure_oos.py`, `scripts/run_program_closure_integrity_audit.py`, and all 283 `reports/program_closure_*` files are FROZEN C305-era artifacts. Re-running them or writing new closure reports from them is a hard violation.
+**Frozen/blocked (hard violations if touched):**
+- **C281B–C318:** FROZEN formal negatives — do NOT rerun, re-skin, re-probe, or "revalidate".
+- **C287:** externally blocked/decoupled (451/403, no creds) — out-of-env only; never retry as economic work.
+- **Stale closure machinery:** `scripts/run_c305_program_closure_oos.py`, `scripts/run_program_closure_integrity_audit.py`, and prior `reports/program_closure_*` C305-era artifacts are FROZEN/misleading — do NOT run or cite as current state. Current authoritative audit is only `reports/program_closure_final_20261116T024519Z.json` (sha above).
 
 **Environment / verification:**
 ```bash
