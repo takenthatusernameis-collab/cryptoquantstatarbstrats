@@ -1,52 +1,51 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-16T00:36:11Z — **C281B–C315 CLOSED (all COMPLETE FORMAL NEGATIVES; 0 tradable edge across 12,000+ pre-registered configs; binding constraint universally `multiple_testing`). C287 remains externally blocked (out-of-env only; REST 451 / fapi 451 / bybit 403). ONE genuinely-new reachable heavy family remains and is REGISTERED as the active campaign: C316 — cross-sectional size/volume/turnover LIQUIDITY factors on real on-disk USDT-M 5m data (never tested by any frozen campaign; NOT a re-skin; no network ingest).** Verified on-disk (2026-11-16T00:36:11Z): C312 source cache present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 perps, 315,648 bars, 2023-01..2025-12, SHA-verified read-only); **no C316 scripts/tests/artifacts exist yet** — C316 is REGISTERED_NOT_STARTED. Last recorded full suite (2026-11-15T23:53:56Z): **1642 passed / 2 skipped / 0 failed**; all C310–C315 slim artifacts on disk with SHA256-from-bytes matching `research_state/state.yaml`; `real_data_only:true, fabricated_data:false, executed_fills:false`. `latest_campaign_done: C315`; `active_campaign: C316`; `oos_edge_proven: false`; `edge_claim: NONE`. **No sessions blocked by missing data; the only economic work is to BUILD + RUN C316 end-to-end now.**
+**Handoff refreshed:** 2026-11-16T00:50:00Z — **C281B–C316 CLOSED (all COMPLETE FORMAL NEGATIVES; 0 tradable edge across 13,500+ pre-registered configs; binding constraint universally `multiple_testing`). C287 remains externally blocked (out-of-env only; REST 451 / fapi 451 / bybit 403). ONE genuinely-new reachable heavy family remains and is REGISTERED as the active campaign: C317 — cross-sectional REALIZED-VOLATILITY / higher-moment (low-vol, idiosyncratic-vol, skewness/lottery, MAX, downside-semivariance) factors on real on-disk USDT-M 5m `perp_close` (never tested by any frozen campaign; NOT a re-skin of C315 first-moment momentum or C316 liquidity; no network ingest).** Verified on-disk (2026-11-16T00:50:00Z): C316 COMPLETE — `data/cache/campaign316_liquidity_5m/` (10 perps, 315,648 bars, 59.9 MB, SHA-verified); 5 artifacts + gitignored full.json at `20261116T003953Z`; **no C317 scripts/tests/artifacts exist yet** — C317 is REGISTERED_NOT_STARTED. Last recorded full suite (2026-11-16T00:47Z): **1670 passed / 2 skipped / 0 failed** (1642 + 28 new C316 tests); all C310–C316 slim artifacts on disk with SHA256-from-bytes matching `research_state/state.yaml`; `real_data_only:true, fabricated_data:false, executed_fills:false`. `latest_campaign_done: C316`; `active_campaign: C317`; `oos_edge_proven: false`; `edge_claim: NONE`. **No sessions blocked by missing data; the only economic work is to BUILD + RUN C317 end-to-end now.**
 
-## INITIAL TASK MESSAGE (2026-11-16T00:06:08Z) — BUILD + RUN C316 (cross-sectional size/volume/turnover liquidity factors), THEN VERIFY + CLOSE
+## INITIAL TASK MESSAGE (2026-11-16T00:50:00Z) — BUILD + RUN C317 (cross-sectional realized-volatility / higher-moment factors), THEN VERIFY + CLOSE
 
-**STATUS: REGISTERED_NOT_STARTED — nothing on disk yet** (no scripts, no feature cache, no preflight, no runner, no tests, no artifacts). The next session MUST BUILD C316 end-to-end per steps 1–7 below; re-attesting closure, re-running C281B–C315, or re-probing C287 is non-compliant and NOT economic progress. Data bottleneck is NONE: C312 shards (10 perps × 315,648 bars, 2023-01..2025-12, SHA-verified) are read-only on disk.
+**STATUS: REGISTERED_NOT_STARTED — nothing on disk yet** (no C317 scripts, feature cache, preflight, runner, tests, or artifacts). The next session MUST BUILD C317 end-to-end per steps 1–7 below; re-attesting closure, re-running C281B–C316, or re-probing C287 is non-compliant and NOT economic progress. Data bottleneck is NONE: C312 shards (10 perps × 315,648 bars, 2023-01..2025-12, SHA-verified) are read-only on disk and carry `perp_close`.
 
-**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** C281B–C315 are ALL formal negatives and remain FROZEN (do not rerun/re-skin/re-probe). C287 is externally blocked (out-of-env only). **Exactly one genuinely-new reachable heavy family remains — register, build, and execute it this session: C316, cross-sectional SIZE / VOLUME / TURNOVER (liquidity) factors on the real on-disk USDT-M 5m data.** This is economically distinct from every frozen family (price-based cointegration/basis/momentum/lead-lag and COIN-M/spot OFI) and is NOT a re-skin. A session that only re-attests closure, or re-runs C281B–C315, or re-probes C287, is non-compliant and NOT economic progress.
+**Mission (repo priority = cryptoquantstatarbstrats → costed OOS stat-arb PnL on real, provable data):** C281B–C316 are ALL formal negatives and remain FROZEN (do not rerun/re-skin/re-probe). C287 is externally blocked (out-of-env only). **Exactly one genuinely-new reachable heavy family remains — register, build, and execute it this session: C317, cross-sectional REALIZED-VOLATILITY / higher-moment (low-vol, idiosyncratic-vol, skewness/lottery, MAX, downside-semivariance) factors on the real on-disk USDT-M 5m data.** This is economically distinct from every frozen family (carry/OFI/basis/lead-lag = C281B–C314; price first-moment momentum/reversal = C315; size/volume/turnover liquidity = C316) and is NOT a re-skin: it trades the SECOND and HIGHER moments of the return distribution, not the first moment or a liquidity characteristic. A session that only re-attests closure, or re-runs C281B–C316, or re-probes C287, is non-compliant and NOT economic progress.
 
 **THE PRIMARY DE-BOTTLENECK (no network ingest — all data already on disk, SHA-verified):**
-- `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` — 10 perps (BTC,ETH,BNB,SOL,XRP,ADA,DOGE,DOT,LINK,AVAX)USDT, 315,648 common-grid 5m bars, 2023-01..2025-12. Fields: `perp_close`, `total_volume`, `notional`, `trade_count`, `vwap`, `signed_volume`, `trade_sign_sum`, `funding_rate` (all-NaN).
-- These fields have NEVER been used for a size/volume/turnover/liquidity factor (prior use of this cache was OFI sign-flow only, C312). No download bottleneck — the heavy work is the factor build + preflight + costed OOS sweep + gates + attribution + tests + artifacts.
+- `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` — 10 perps (BTC,ETH,BNB,SOL,XRP,ADA,DOGE,DOT,LINK,AVAX)USDT, 315,648 common-grid 5m bars, 2023-01..2025-12. C317 needs only `perp_close` (real 5m close). No download bottleneck — the heavy work is the feature build + preflight + costed OOS sweep + gates + attribution + tests + artifacts.
 
-**C316 CAMPAIGN SPECIFICATION (non-negotiable, heavy-work forcing):**
-- **Objective:** prove or retract costed OOS edge for cross-sectional liquidity/size factors on 10 USDT-M linear perps, 2023-01..2025-12, native 5m.
-- **Signals (pre-registered, causal shift(1), cross-sectional rank, dollar-neutral gross 1.0):**
-  - `size` = -log(cum. trailing-L notional) (small-cap premium: long small, short large).
-  - `amihud` = trailing mean of |ret| / notional (illiquidity premium: long illiquid, short liquid).
-  - `turnover` = trailing total_volume / trailing |price change| (volume/volatility: long high, short low).
-  - `volume` = trailing log total_volume (long high, short low).
-  - `vwap_dev` = trailing (close - vwap)/vwap (where price sits vs intraday VWAP).
-  - Hold rebalance {6,12,48} bars; lookback L {288, 1008, 2016}.
-- **Data handling (fail-closed):** `total_volume`/`notional` are ~0.01% zero (a handful of 5m bars). For `size`/`amihud`/`turnover`/`volume`, guard division by zero (treat zero-notional bars as missing, never inf; carry-forward or drop the affected split bar — never fabricate). `funding_rate` is all-NaN → control only, excluded from PnL.
-- **Cost Model (real, charged on turnover):** fee {1,5,10,20} bps/leg; slippage {1,2,5,10} bps/leg; `symmetric`=(fee+slip) and `perp_heavy`=(1.5·fee+slip). Perp funding unreachable (fapi 451) → excluded (control only).
-- **Walk-Forward / OOS:** expanding train 12m → test 3m, roll 3m over 36m. Multiple-testing: Holm-Bonferroni AND Benjamini-Hochberg α=0.05 — BOTH must pass. MDE gate (observed mean > MDE mean). Stability gate (sign consistency ≥70% splits; first/second-half Sharpe corr ≥0.5). Attribution gate (dominant of {size, illiquidity, turnover/volume, placebo} share > 0.5 for a positive claim).
-- **Artifacts (MUST emit all 5 + gitignored full.json, bounded <100 MB):** `reports/campaign316_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` + gitignored `campaign316_oos_sweep_<TS>.full.json`, each with SHA256-from-bytes and `real_data_only:true,fabricated_data:false,executed_fills:false`.
-- **Scripts (MUST add):** `scripts/preflight_c316.py`, `scripts/run_c316_liquidity_xsec_oos.py` (+ any ingest/feature module).
-- **Tests (MUST add + pass):** `tests/test_preflight_c316.py`, `tests/test_c316_liquidity_xsec_oos.py`; full suite green.
+**C317 CAMPAIGN SPECIFICATION (non-negotiable, heavy-work forcing):**
+- **Objective:** prove or retract costed OOS edge for cross-sectional volatility / higher-moment factors on 10 USDT-M linear perps, 2023-01..2025-12, native 5m.
+- **Signals (pre-registered, causal shift(1), cross-sectional rank, dollar-neutral gross 1.0, LONG LOW / SHORT HIGH for risk factors):**
+  - `rv` = trailing-L realized vol = std of log-returns over L; score = `-rv` (low-vol premium: long low-vol, short high-vol).
+  - `ivol` = trailing-L idiosyncratic vol = std of (r_i − xsec-mean r) over L; score = `-ivol` (long low idio-vol).
+  - `skew` = trailing-L skewness of log-returns over L; score = `-skew` (lottery avoidance: long low-skew, short high-skew).
+  - `maxret` = trailing-L MAX single-bar log-return over L; score = `-max` (MAX/lottery-demand: long low-MAX, short high-MAX).
+  - `dsvol` = trailing-L downside semivariance = sqrt(mean(min(r,0)^2)) over L; score = `-dsvol` (long low downside-vol).
+  - Hold rebalance {6,12,48} bars; lookback L {288, 1008, 2016}. Warm-up: full-window trailing -> first L-1 bars NaN (fail-closed, never traded).
+- **Data handling (fail-closed):** derive `log_return` from `perp_close` (r[0]=0). A lookback without enough finite observations yields NaN -> not traded. Never fabricate/impute. `funding_rate` all-NaN -> control only, excluded from PnL.
+- **Cost Model (real, charged on turnover):** fee {1,5,10,20} bps/leg; slippage {1,2,5,10} bps/leg; `symmetric`=(fee+slip) and `perp_heavy`=(1.5·fee+slip). Perp funding unreachable (fapi 451) -> excluded (control only).
+- **Walk-Forward / OOS:** expanding train 12m -> test 3m, roll 3m over 36m (8 splits). Multiple-testing: Holm-Bonferroni AND Benjamini-Hochberg alpha=0.05 — BOTH must pass. MDE gate (observed mean vs MDE mean). Stability gate (sign consistency >=70% splits; first/second-half Sharpe corr >=0.5). Attribution gate (dominant of {low-volatility, lottery, downside, placebo} share > 0.5 for a positive claim).
+- **Artifacts (MUST emit all 5 + gitignored full.json, bounded <100 MB):** `reports/campaign317_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>.json` + gitignored `campaign317_oos_sweep_<TS>.full.json`, each with SHA256-from-bytes and `real_data_only:true,fabricated_data:false,executed_fills:false`.
+- **Scripts (MUST add):** `scripts/build_c317_vol_moment_features.py`, `scripts/preflight_c317.py`, `scripts/run_c317_vol_moment_xsec_oos.py`.
+- **Tests (MUST add + pass):** `tests/test_preflight_c317.py`, `tests/test_c317_vol_moment_xsec_oos.py`; full suite green.
 
 **Execute in order (all required):**
 1. `python scripts/bootstrap_dev_env.py` (deps importable).
-2. Build the C316 feature/liquidity cache from the real on-disk C312 shards (read-only; no network). Emit a `<100 MB` feature cache or compute in-runner; if cached, add `<cache>.meta.json` + `.provenance.json` with SHA256 and the three flags.
-3. `python scripts/preflight_c316.py --json` → `ready:true`, `blocked_reasons:[]` (fail-closed; any SHA mismatch vs C312 `.meta.json` → BLOCK).
-4. Run `scripts/run_c316_liquidity_xsec_oos.py` → emit the 5 artifacts + gitignored full.json with SHA256-from-bytes; ≥500 pre-registered configs with Holm+BH reported.
-5. Add/pass `tests/test_preflight_c316.py` + `tests/test_c316_liquidity_xsec_oos.py`; run `python -m pytest tests/ -q` → full suite green.
-6. Sync `AGENTS.md` + `research_state/state.yaml` with C316 verdict/SHAs/binding constraint. Register the next genuinely-new family as active ONLY if one exists after C316; otherwise space is CLOSED. Never create `HANDOFF.md`.
-7. Do NOT re-run/re-skin/re-probe C281B–C315 or C287.
+2. Build the C317 feature cache from the real on-disk C312 `perp_close` shards (read-only; no network). Emit a `<100 MB` feature cache + `<cache>.meta.json` + `.provenance.json` with SHA256 and the three flags.
+3. `python scripts/preflight_c317.py --json` -> `ready:true`, `blocked_reasons:[]` (fail-closed; any SHA mismatch vs C312 `.meta.json` -> BLOCK).
+4. Run `scripts/run_c317_vol_moment_xsec_oos.py` -> emit the 5 artifacts + gitignored full.json with SHA256-from-bytes; >=500 pre-registered configs (spec grid = 1440) with Holm+BH reported.
+5. Add/pass `tests/test_preflight_c317.py` + `tests/test_c317_vol_moment_xsec_oos.py`; run `python -m pytest tests/ -q` -> full suite green.
+6. Sync `AGENTS.md` + `research_state/state.yaml` with C317 verdict/SHAs/binding constraint. Register the next genuinely-new family as active ONLY if one exists after C317; otherwise declare the space CLOSED. Never create `HANDOFF.md`.
+7. Do NOT re-run/re-skin/re-probe C281B–C316 or C287.
 
-**Definition of Done (C316):** all 5 artifacts + full.json on disk with SHA256 provenance; ≥500 configs tested with Holm+BH reported; `edge_proven:true` OR formal negative with `binding_constraint`; feature cache <100 MB with correct flags (or in-runner compute, no cache); preflight ready:true; tests green; full suite green; state + handoff synced.
+**Definition of Done (C317):** all 5 artifacts + full.json on disk with SHA256 provenance; 1440 configs tested with Holm+BH reported; `edge_proven:true` OR formal negative with `binding_constraint`; feature cache <100 MB with correct flags; preflight ready:true; tests green; full suite green; state + handoff synced.
 
-**Guardrails (enforced — C316 session):**
+**Guardrails (enforced — C317 session):**
 - **No fabricated data / fail-closed / provenance-first:** `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`; SHA256-from-bytes for every artifact; missing/None/false gates BLOCK.
 - **Bounded resources:** per-asset `.npz` shards, each cache <100 MB; slim sweep artifact <100 MB (no per-bar series) + gitignored `full.json`.
-- **No overfitting:** ALL pre-registered configs reported; Holm+BH α=0.05 BOTH must pass; MDE + stability + attribution required.
-- **Costs real:** per-leg fee/slippage grid charged on turnover; model PnL labeled `executed_fills:false`. Perp funding unreachable (fapi 451) → excluded.
+- **No overfitting:** ALL pre-registered configs reported; Holm+BH alpha=0.05 BOTH must pass; MDE + stability + attribution required.
+- **Costs real:** per-leg fee/slippage grid charged on turnover; model PnL labeled `executed_fills:false`. Perp funding unreachable (fapi 451) -> excluded.
 
 **Frozen/blocked (do NOT rerun, re-skin, re-probe, or pivot to):**
-- **C281B–C315** — formal negatives (0/12,000+ configs survive Holm+BH). Re-running, re-skinning, or re-probing any of these is a hard violation.
+- **C281B–C316** — formal negatives (0/13,500+ configs survive Holm+BH). Re-running, re-skinning, or re-probing any of these is a hard violation.
 - **C287** — external-only geographic/credential block (testnet 451, fapi 451, bybit 403, no creds). Do NOT re-probe C287 routes as economic work; unblocking requires out-of-env action only.
 
 **Environment / verification:**
@@ -59,6 +58,21 @@ python -m pip install "pytest-asyncio>=0.23"   # only if async tests fail with "
 ```
 
 Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may be absent — do not claim they passed unless actually run. CI dependency note: run Step 0 bootstrap before campaign code; a missing-dependency traceback is a bootstrap gap, not a research result. Do not fix by editing `.github/workflows/main.yml`.
+
+## C316 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T00:40:00Z)
+
+- **Scripts PRESENT (uncommitted):** `scripts/build_c316_liquidity_features.py`, `scripts/preflight_c316.py`, `scripts/run_c316_liquidity_xsec_oos.py`.
+- **Tests COMPLETE & PASSING:** `tests/test_preflight_c316.py`, `tests/test_c316_liquidity_xsec_oos.py` (28/28 C316 tests green).
+- **Feature cache COMPLETE (real data, ~60 MB):** `data/cache/campaign316_liquidity_5m/` with 10 `.npz` shards (ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT) each holding `index_ms`, `perp_close`, `log_return`, `notional`, `total_volume`, `vwap`, `funding_rate` (all-NaN control-only). 315,648 common-grid 5m bars, 2023-01..2025-12. Total 59.9 MB, max shard 6.25 MB. `real_data_only:true, fabricated_data:false, executed_fills:false`. Read-only derivation of the real C312 shards; no network, no resampling, no imputation.
+  - meta SHA256 `6eb370a8ee7bb5e3c8ad441622cab7db1eae45c37dfd9689dcd3172e79890023`; provenance SHA256 `5b945fecffb83172c524bf2a4f714c42519ce82ca2edf7795e8290123067d8da`; manifest SHA256 `abc596768d27120e7b7b3bb302531c49aff4a31344f32578ccaecf0202f48c1e`.
+- **Preflight:** `python scripts/preflight_c316.py --json` → `ready:true`, `blocked_reasons:[]`, 10/10 shards, grid in window.
+- **Runner/artifacts COMPLETE at `20261116T003953Z`:** 1440 pre-registered configs (signal×lookback×rebalance×fee×slip×cost_variant), expanding WF 12m/3m/3m (8 splits). **VERDICT: RETRACTED**, `edge_proven:false`, `binding_constraint: multiple_testing` — 0 deterministic edge, 0 survive Holm, 0 survive BH, 0 survive both; 864/1440 configs had real exposure. Attribution shares: size 0.3325, illiquidity 0.3011, turnover_volume 0.0937, placebo 0.2728 (dominant size 0.3325 < 0.5 → attribution_ok false). All 5 artifacts + gitignored `full.json` on disk with SHA256-from-bytes:
+  - oos_sweep `411ff436e67d2bf11530b8a25a10e7443fe4bb0981b8895280ec42eab090fc95` (slim ~1.0 MB)
+  - tradable_edge_registry `161f588ce2ff2a3e5f91faa7acf8b1fd40fd88742ec41a6ad9bc05d84811b5c9`
+  - summary `206d0154c2dc67bcdc225d74ae8deb984e2acee222a94991290690fa9e848e29`
+  - verdict `e7d3839028f7cf02469129d9b3b5ca12f3221cc73fec2f5fc6d702b05cfe30d1`
+  - binding_constraint `fcfb060a88829a7ee2c17190f7f6050baa182695c6791e821afa0c8c5ecb400c`
+  - full sweep kept on disk as `reports/campaign316_oos_sweep_20261116T003953Z.full.json` (gitignored).
 
 ## C314 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-15T21:38:11Z)
 
@@ -138,6 +152,7 @@ Executed `20261115T111243Z` over a NEW real COIN-M aggTrades 1h ingest → RETRA
 
 ## Escalation
 
+- **C316 (COMPLETE FORMAL NEGATIVE, 20261116T003953Z):** cross-sectional size/volume/turnover liquidity stat-arb, 1440 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`; attribution dominant size 0.3325 (illiquidity 0.3011, turnover_volume 0.0937, placebo 0.2728); 5 artifacts + full.json + 28 C316 tests green; full suite 1670 passed / 2 skipped / 0 failed. De-bottleneck: real 5m liquidity/size factors from on-disk C312 shards (no network ingest).
 - **C315 (COMPLETE FORMAL NEGATIVE, 20261115T223831Z):** perp momentum / short-term reversal stat-arb, 3456 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, dominant attribution reversal 0.7015 (momentum 0.1467, placebo 0.1518); 5 artifacts + full.json + 23 C315 tests green; full suite 1642 passed / 2 skipped / 0 failed (verified 2026-11-15T23:53:56Z). De-bottleneck: real 5m prices on disk from C312 (no network ingest).
 - **C314 (COMPLETE FORMAL NEGATIVE, 20261115T214305Z):** spot-perp lead-lag stat-arb, 2304 configs, 0 deterministic edge, 0 survive Holm+BH, binding `multiple_testing`, leadlag_vs_noise_share 0.0003; 5 artifacts + full.json + 25 C314 tests green. De-bottleneck: spot 5m microsecond `open_time` (2025-01+) normalized to ms.
 - **C313 (COMPLETE FORMAL NEGATIVE, 20261115T204419Z):** 0/960 Holm+BH, binding `multiple_testing`; 5 artifacts + 23 tests green. Do not rerun.

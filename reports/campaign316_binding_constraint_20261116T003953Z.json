@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T003953Z",
+  "campaign": 316,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign316_oos_sweep_20261116T003953Z.json",
+  "oos_sweep_sha256": "411ff436e67d2bf11530b8a25a10e7443fe4bb0981b8895280ec42eab090fc95",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "size": 0.33248915617091673,
+    "illiquidity": 0.30105202833773176,
+    "turnover_volume": 0.09370460196051501,
+    "placebo_noise": 0.2727542135308364
+  },
+  "dominant_attribution": "size",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "size",
+      "L": 1008,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -0.19859353630496862,
+      -0.15017081345640776,
+      -0.046224319099176396,
+      0.04775591298730601,
+      -0.0017375385244458395,
+      -0.15748363269562882,
+      -0.030828088925772087,
+      -0.18681675063742026
+    ],
+    "sign_consistency": 0.125,
+    "first_half_sharpe": -0.9116850856332862,
+    "second_half_sharpe": -1.1882433009552158,
+    "sharpe_corr": 0.6878944097654117,
+    "stable": false
+  },
+  "diagnosis": "C316 cross-sectional liquidity (size/volume/turnover) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
