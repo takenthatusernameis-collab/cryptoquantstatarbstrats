@@ -1,0 +1,164 @@
+{
+  "generated_at_utc": "20261116T053110Z",
+  "campaign": 320,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "tod_dev",
+      "tod_z",
+      "dow_dev",
+      "tod_rv",
+      "tod_ewm"
+    ],
+    "lookbacks_days": [
+      30,
+      60,
+      90
+    ],
+    "rebalances_bars": [
+      6,
+      12,
+      48
+    ],
+    "fee_bps": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "slippage_bps": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "selection_frac": 0.33,
+    "cost_variants": [
+      "symmetric",
+      "perp_heavy"
+    ],
+    "alpha": 0.05,
+    "n_trials": 1440,
+    "total_runs": 1440
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "tod_dev",
+        "L": 60,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric"
+      },
+      "per_split_net": [
+        -4.416709123566303,
+        -4.570819766127172,
+        -4.6811442019484915,
+        -4.522650350872227,
+        -4.4743298136425125,
+        -4.706078975547475,
+        -4.615161202861357,
+        -4.765197921559496
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -47.85341238829955,
+      "second_half_sharpe": -42.312982218236854,
+      "sharpe_corr": 0.9999263620798248,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "tod_dev",
+        "L": 60,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric"
+      },
+      "tod_dev_net": -36.752091356125035,
+      "tod_z_net": -36.63114532542278,
+      "dow_dev_net": -34.465058431568046,
+      "tod_rv_net": -36.637562648188755,
+      "tod_ewm_net": -36.807413372533524,
+      "placebo_noise_net": -36.90927826552141,
+      "shares": {
+        "tod_dev": 0.16843108138420726,
+        "tod_z": 0.1678767980770911,
+        "dow_dev": 0.15794984305380075,
+        "tod_rv": 0.1679062080119596,
+        "tod_ewm": 0.1686846165356561,
+        "placebo_noise": 0.16915145293728517
+      },
+      "dominant": "placebo_noise",
+      "dominant_share": 0.16915145293728517,
+      "attribution_ok": false
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign320_oos_sweep_20261116T053110Z.json",
+      "sha256": "aa70118a1dc9010e71953540ee88e6e2b1e76434c319e87ccb1b420b2cc70b0f"
+    },
+    "registry": {
+      "path": "reports/campaign320_tradable_edge_registry_20261116T053110Z.json",
+      "sha256": "7e2db6c6e7b4f09ef06f3b18168f0a2a9546f23c40f1aad32a50b6f99a139b0d"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1440,
+    "n_with_exposure": 1440,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

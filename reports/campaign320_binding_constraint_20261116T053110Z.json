@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261116T053110Z",
+  "campaign": 320,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign320_oos_sweep_20261116T053110Z.json",
+  "oos_sweep_sha256": "aa70118a1dc9010e71953540ee88e6e2b1e76434c319e87ccb1b420b2cc70b0f",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "tod_dev": 0.16843108138420726,
+    "tod_z": 0.1678767980770911,
+    "dow_dev": 0.15794984305380075,
+    "tod_rv": 0.1679062080119596,
+    "tod_ewm": 0.1686846165356561,
+    "placebo_noise": 0.16915145293728517
+  },
+  "dominant_attribution": "placebo_noise",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "tod_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -4.416709123566303,
+      -4.570819766127172,
+      -4.6811442019484915,
+      -4.522650350872227,
+      -4.4743298136425125,
+      -4.706078975547475,
+      -4.615161202861357,
+      -4.765197921559496
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -47.85341238829955,
+    "second_half_sharpe": -42.312982218236854,
+    "sharpe_corr": 0.9999263620798248,
+    "stable": false
+  },
+  "diagnosis": "C320 cross-sectional intraday time-of-day / day-of-week seasonality stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
