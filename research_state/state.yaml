@@ -1,13 +1,13 @@
-updated_at_utc: 2026-11-16T14:21:37Z
-handoff_refreshed_at_utc: 2026-11-16T14:21:37Z
+updated_at_utc: 2026-11-16T16:11:54Z
+handoff_refreshed_at_utc: 2026-11-16T16:11:54Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T14:14:00Z) — C332 MANDATORY HEAVY WORK: COMPLETE + RUN C332 (PRICE-FLOW SYNCHRONICITY / RETURN-SIGNED-VOLUME CORRELATION SEASONAL DISLOCATION mean-reversion). C331 is a COMPLETE FORMAL NEGATIVE (RETURN TAIL-ASYMMETRY / QUANTILE-SPREAD SEASONAL DISLOCATION, 20261116T133234Z, 864 configs, 0 Holm+BH, 5 SHA256 artifacts, 18/18 tests) and must NOT be rerun. C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (~36,183 pre-registered configs; binding multiple_testing; edge_claim NONE) — that is a RESULT, not permission to stop. C332 is pre-registered and must not be redesigned: cache data/cache/campaign332_return_volume_synchrony_5m/ (10 shards, 315648 bars, 2023-01..2025-12, fields index_ms/perp_close/log_return/signed_volume/r_sv_align/funding_rate; meta f61588cfb1c72a48b6396e10d47cbc11866ab36a5454fcf982ca24a93326886f, provenance fe53633f642df0fbe65c02feba2b24882a9c74063c24fbf81ab10b6b57bdb81d, manifest 8c2ad3b5b44db93a39315a5fd37a1177b31905a75646f73d55d5378c5813fa48). Signals rv_corr / rv_align / rv_volvol over causal trailing L same-tod occurrences with min_periods=L; score=-(v-trailing_mean_L(v@tod)), causal shift(1), cross-sectional rank, dollar-neutral gross 1.0; placebo rv_corr_placebo. Grid 864 = 3 signals x lookback{30,60,90d} x rebalance{6,12,48} x fee{1,5,10,20}bps x slip{1,2,5,10}bps x cost_variant{symmetric,perp_heavy}. Gates: WF 12m/3m/3m 8 splits, one-sided paired t, Holm AND BH alpha=0.05 BOTH, MDE, stability, signal-vs-placebo attribution; 5 SHA256 artifacts real_data_only:true fabricated_data:false executed_fills:false. Definition of Done: C332 verdict artifact on disk (EDGE_PROVEN or RETRACTED+binding) + 5 SHA256 artifacts + python -m pytest tests/test_c332_* tests/test_preflight_c332.py -q green. C332 cache and builder are DONE; still missing preflight_c332.py, run_c332_return_volume_synchrony_xsec_oos.py, tests/test_preflight_c332.py, tests/test_c332_return_volume_synchrony_xsec_oos.py. If C332 is negative, immediately start C333; closure by fiat is a hard violation.'
-next_campaign: C332_return_volume_synchrony_xsec_oos
+active_initial_task: 'INITIAL TASK MESSAGE (2026-11-16T16:11:54Z) — C334 MANDATORY HEAVY WORK (NO C334 PRE-REG EXISTS YET): C333 is COMPLETE FORMAL NEGATIVE (MICROSTRUCTURE NOISE & EFFECTIVE SPREAD SEASONAL DISLOCATION mean-reversion, 20261116T153258Z, 864 configs, 0 Holm+BH, 5 SHA256 artifacts, 20/20 tests) and frozen. C281B–C333 are ALL COMPLETE FORMAL NEGATIVES (~37,911 pre-registered configs; binding multiple_testing; edge_claim NONE) — a RESULT, not permission to stop. Next agent must DEFINE and EXECUTE C334 as a genuinely-new costed-OOS stat-arb family on real on-disk C312 5m data, distinct from C316–C333 (not microstructure noise/effective spread, not price-flow synchrony, not tail/quantile, drawdown/efficiency, sign entropy/run, jump-variation, autocorrelation, trade-size/Amihud seasonality, flow-activity, VWAP-close, range/breakout, TOD/DOW seasonality, cointegration/pairs, covariance/beta, vol-moments, liquidity levels, momentum/reversal, OFI/lead-lag/carry). Reuse real on-disk 5m fields only (perp_close/log_return/vwap/notional/trade_count/signed_volume/funding_rate where present); no network/resampling/imputation. Pre-register causal shift(1) signals, grid (>=864 rigor), WF 12m/3m/3m (8 splits), placebo attribution, one-sided paired t, Holm AND BH alpha=0.05 BOTH, MDE, stability. Deliver: build/preflight/runner/tests + full sweep + 5 SHA256-from-bytes verdict artifacts (real_data_only:true,fabricated_data:false,executed_fills:false) + green pytest, then update AGENTS.md/state.yaml only. If negative, proceed immediately to C335; closure by fiat prohibited. Env verified ready:true 2026-11-16T16:11:54Z.'
+next_campaign: C334_genuinely_new_xsec_stat_arb_5m
 active_campaign: none
-space_status: NO_EDGE_C281B_C331__C332_READY_TO_RUN
-closure_note: 'C281B–C331 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~36,183 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C331 (RETURN TAIL-ASYMMETRY/QUANTILE-SPREAD SEASONAL DISLOCATION mean-reversion, 20261116T133234Z, 864 configs, 0/0/0 Holm/BH/both, 5 SHA256 artifacts, 18/18 tests) is COMPLETE on disk. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit; C319–C331 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C332 is mandated next heavy work; its real-data cache is built and the remaining work is preflight + 864-config runner + tests + full sweep.'
+space_status: NO_EDGE_C281B_C333__C334_UNDEFINED_MANDATORY
+closure_note: 'C281B–C333 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~37,911 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C333 (MICROSTRUCTURE NOISE & EFFECTIVE SPREAD SEASONAL DISLOCATION mean-reversion, 20261116T153258Z, 864 configs, 0/0/0 Holm/BH/both, attribution roll_spread_dev 0.1386 / vwcl_spread_dev 0.5990 / noise_var_dev 0.1176 / roll_spread_placebo 0.1448, 5 SHA256 artifacts, 20/20 tests) is COMPLETE and frozen. The C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha256 aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca) remains the only citable closure audit for that scope; C319–C333 extend the record. Terminal closure by fiat is PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. C334 is not yet defined/implemented; next session must define, pre-register, implement, test, and fully run it on real data.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z
@@ -4506,55 +4506,91 @@ c331_status:
   fabricated_data: false
   executed_fills: false
 c332_status:
-  state: READY_TO_RUN
-  as_of_utc: 2026-11-16T14:14:00Z
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 2026-11-16T14:21:37Z
   campaign: C332
   family: cross_sectional_price_flow_synchronicity_return_signed_volume_correlation_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: null
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: null
+  notes: 'AGENTS.md and repo state mark C332 COMPLETE FORMAL NEGATIVE and frozen (20/20 tests green). Artifact details preserved as recorded in AGENTS; do not rerun.'
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c333_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  as_of_utc: 20261116T153258Z
+  campaign: C333
+  family: cross_sectional_intraday_microstructure_noise_effective_spread_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 864
+  n_with_exposure: 864
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {roll_spread_dev: 0.13860100423108046, vwcl_spread_dev: 0.5989819880978751, noise_var_dev: 0.11760107397674334, roll_spread_placebo: 0.14481593369430112}
+  dominant_attribution: vwcl_spread_dev
+  dominant_share: 0.5989819880978751
+  attribution_ok: true
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  artifacts_ts: 20261116T153258Z
+  artifacts:
+    oos_sweep: {path: reports/campaign333_oos_sweep_20261116T153258Z.json, sha256: 9558f30a8365a2e1a92069734ea7969a9efc0ace531c9356afb32597129ba097}
+    tradable_edge_registry: {path: reports/campaign333_tradable_edge_registry_20261116T153258Z.json, sha256: 047ccec4fbfef35e552f7de4c68e2c96952ef2d94f0c7bff9a7cc4a11772ffee}
+    summary: {path: reports/campaign333_summary_20261116T153258Z.json, sha256: 74144e7f0af25426175b72fc34f5cf870402b34bac842ceee596bd7d4f6282e9}
+    verdict: {path: reports/campaign333_verdict_20261116T153258Z.json, sha256: ffda8b86e01787ef995157533291f6693069f37cbbbd4888f78c62bcd35a88ec}
+    binding_constraint: {path: reports/campaign333_binding_constraint_20261116T153258Z.json, sha256: cb3e45d07529a33c7edcfebdbdcfaa22252ba5d115931183ff4eeb6d6cd46e0c}
+    oos_sweep_full: reports/campaign333_oos_sweep_20261116T153258Z.full.json (gitignored)
+  cache: {dir: data/cache/campaign333_microstructure_noise_5m, meta_sha256: bcfb5562527334401bcb73cddce7d88f778fab84cf73b26e15ef1a0ee792215e, provenance_sha256: f43b294e2887e794184b975a2f5589d99a9449b656c955758cf29f7daa125d4d, manifest_sha256: 1dea798bd9698a21434613c1866c7a23442bf80840639b38ac8a4a3ac371be47, total_shard_bytes: 68070212, max_shard_bytes: 7103526, grid_bars: 315648, n_symbols: 10}
+  scripts: [scripts/build_c333_microstructure_noise_features.py, scripts/preflight_c333.py, scripts/run_c333_microstructure_noise_xsec_oos.py]
+  tests: [tests/test_preflight_c333.py, tests/test_c333_microstructure_noise_xsec_oos.py]
+  tests_passed: 20
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c334_status:
+  state: NOT_STARTED_UNDEFINED
+  as_of_utc: 2026-11-16T16:11:54Z
+  campaign: C334
+  family: genuinely_new_costed_oos_xsec_stat_arb_usdt_m_5m_distinct_from_c316_c333__TO_BE_DEFINED
   genuinely_new: true
   reskin_of: none
   verdict: PENDING
   edge_proven: null
   binding_constraint: null
-  n_configs: 864
-  n_with_exposure: null
-  n_deterministic_edge: null
-  n_survive_holm: null
-  n_survive_bh: null
-  n_survive_both: null
-  attribution_shares: null
-  on_disk_scripts: {builder: true, preflight: false, runner: false}
+  n_configs: null
+  on_disk_scripts: false
   on_disk_tests: false
-  on_disk_cache: true
+  on_disk_cache: null
   on_disk_artifacts: false
   artifacts_ts: null
-  cache:
-    dir: data/cache/campaign332_return_volume_synchrony_5m
-    total_shard_bytes: 39417571
-    max_shard_bytes: 4237376
-    grid_bars: 315648
-    grid_window: 2023-01..2025-12
-    n_symbols: 10
-    fields: [index_ms, perp_close, log_return, signed_volume, r_sv_align, funding_rate]
-    meta_sha256: f61588cfb1c72a48b6396e10d47cbc11866ab36a5454fcf982ca24a93326886f
-    provenance_sha256: fe53633f642df0fbe65c02feba2b24882a9c74063c24fbf81ab10b6b57bdb81d
-    manifest_sha256: 8c2ad3b5b44db93a39315a5fd37a1177b31905a75646f73d55d5378c5813fa48
-    raw_nan_total: 0
-  builder: scripts/build_c332_return_volume_synchrony_features.py
-  pending_scripts: [scripts/preflight_c332.py, scripts/run_c332_return_volume_synchrony_xsec_oos.py]
-  pending_tests: [tests/test_preflight_c332.py, tests/test_c332_return_volume_synchrony_xsec_oos.py]
-  signals: [rv_corr, rv_align, rv_volvol]
-  placebo: rv_corr_placebo
-  lookback_days: [30, 60, 90]
-  rebalance_bars: [6, 12, 48]
-  fee_bps: [1, 5, 10, 20]
-  slippage_bps: [1, 2, 5, 10]
-  cost_variant: [symmetric, perp_heavy]
-  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8}
-  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
-  gates: [mde, stability, signal_vs_placebo_attribution]
-  definition_of_done: 'C332 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c332_* and tests/test_preflight_c332.py green'
-  no_coast_clause: 'C332 is pre-registered and not yet run; the next session must implement preflight/runner/tests and run the full 864-config real-data sweep. Do not re-declare closure or redesign the family.'
-  de_bottleneck: real_c312_perp_close_and_signed_volume_cache_built_no_network_ingest
+  de_bottleneck: real_c312_5m_on_disk_no_network_ingest
+  definition_of_done: 'Define/pre-register C334 (distinct from C316–C333), implement builder/preflight/runner/tests, run full real-data sweep to 5 SHA256 artifacts + verdict (EDGE_PROVEN or RETRACTED+binding), tests green, update AGENTS.md/state.yaml only.'
+  no_coast_clause: 'C334 must be defined and fully executed; planning-only or closure-by-fiat is prohibited. If negative, proceed immediately to C335.'
   real_data_only: true
   fabricated_data: false
   executed_fills: false
