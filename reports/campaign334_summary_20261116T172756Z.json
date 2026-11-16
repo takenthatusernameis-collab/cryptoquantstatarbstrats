@@ -1,0 +1,164 @@
+{
+  "generated_at_utc": "20261116T172756Z",
+  "campaign": 334,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "klambda_dev",
+      "klambda_notional_dev",
+      "impact_var_dev"
+    ],
+    "lookbacks_days": [
+      30,
+      60,
+      90
+    ],
+    "rebalances_bars": [
+      6,
+      12,
+      48
+    ],
+    "fee_bps": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "slippage_bps": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "selection_frac": 0.33,
+    "cost_variants": [
+      "symmetric",
+      "perp_heavy"
+    ],
+    "alpha": 0.05,
+    "n_trials": 864,
+    "total_runs": 864
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "klambda_dev",
+        "L": 60,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric"
+      },
+      "per_split_net": [
+        -1.0103603133306571,
+        -3.9840250709379816,
+        -3.60053114735828,
+        -3.3153416561291267,
+        -3.498238453139581,
+        -3.575057656791285,
+        -3.4277458693287013,
+        -3.2201501408442876
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -2.566237655016769,
+      "second_half_sharpe": -25.978925890637395,
+      "sharpe_corr": 0.9998298593843703,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "klambda_dev",
+        "L": 60,
+        "H": 12,
+        "fee": 10,
+        "slip": 5,
+        "cv": "symmetric"
+      },
+      "klambda_dev_net": -25.6314503078599,
+      "klambda_notional_dev_net": -32.033438180329526,
+      "impact_var_dev_net": -30.740505952000518,
+      "klambda_placebo_net": -26.69077067010294,
+      "shares": {
+        "klambda_dev": 0.22269595414667484,
+        "klambda_notional_dev": 0.27831890097843776,
+        "impact_var_dev": 0.26708540569134426,
+        "klambda_placebo": 0.23189973918354315
+      },
+      "dominant": "klambda_notional_dev",
+      "dominant_share": 0.27831890097843776,
+      "attribution_ok": false
+    },
+    "data_quality": {
+      "reference_signal": "klambda_dev",
+      "reference_lookback": 60,
+      "reference_score_nan_share": 0.3959885695458232,
+      "note": "price-impact score NaN share is dominated by structural warmup (first ~L same-bucket occurrences per bucket) plus min_periods windows; zero-variance/non-positive denominators add negligible mass."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign334_oos_sweep_20261116T172756Z.json",
+      "sha256": "f328f8ea33e819af702c287f11e0eb8f0b4f43a775c8ad324fa1f0b086a550bf"
+    },
+    "registry": {
+      "path": "reports/campaign334_tradable_edge_registry_20261116T172756Z.json",
+      "sha256": "82c416e44797bfae555fb38675d491956ac65596594c5ada090635cfd82848c2"
+    }
+  },
+  "summary": {
+    "n_total_runs": 864,
+    "n_with_exposure": 864,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261116T172756Z",
+  "campaign": 334,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign334_oos_sweep_20261116T172756Z.json",
+  "oos_sweep_sha256": "f328f8ea33e819af702c287f11e0eb8f0b4f43a775c8ad324fa1f0b086a550bf",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "klambda_dev": 0.22269595414667484,
+    "klambda_notional_dev": 0.27831890097843776,
+    "impact_var_dev": 0.26708540569134426,
+    "klambda_placebo": 0.23189973918354315
+  },
+  "dominant_attribution": "klambda_notional_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "klambda_dev",
+      "L": 60,
+      "H": 12,
+      "fee": 10,
+      "slip": 5,
+      "cv": "symmetric"
+    },
+    "per_split_net": [
+      -1.0103603133306571,
+      -3.9840250709379816,
+      -3.60053114735828,
+      -3.3153416561291267,
+      -3.498238453139581,
+      -3.575057656791285,
+      -3.4277458693287013,
+      -3.2201501408442876
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -2.566237655016769,
+    "second_half_sharpe": -25.978925890637395,
+    "sharpe_corr": 0.9998298593843703,
+    "stable": false
+  },
+  "diagnosis": "C334 cross-sectional intraday KYLE'S LAMBDA / PRICE-IMPACT COEFFICIENT SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
