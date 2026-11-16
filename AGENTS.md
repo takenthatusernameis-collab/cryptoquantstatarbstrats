@@ -1,11 +1,12 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-16T05:42:16Z
-**Program state:** `ACTIVE — NO-EDGE CONFIRMED, NEXT FAMILY MANDATED`. C281B–C320 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~20,055 pre-registered configs; binding constraint universally `multiple_testing`). Terminal "closure by fiat" is PROHIBITED: the only honest exit is executing every pre-registered genuinely-new family on real on-disk data until one is proven unreachable with on-disk evidence. **C320 (cross-sectional intraday time-of-day / day-of-week seasonality mean-reversion) is COMPLETE (formal negative, real artifacts on disk).** C321 is the mandated next heavy campaign (spec below); C321 scripts/tests/artifacts are NOT yet on disk as of this refresh.
+**Handoff refreshed:** 2026-11-16T05:43:30Z
+**Program state:** `ACTIVE — NO-EDGE CONFIRMED, NEXT FAMILY MANDATED`. C281B–C320 are ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~20,055 pre-registered configs; binding constraint universally `multiple_testing`). Terminal "closure by fiat" is PROHIBITED: the only honest exit is executing every pre-registered genuinely-new family on real on-disk data until one is proven unreachable with on-disk evidence. **C320 (cross-sectional intraday time-of-day / day-of-week seasonality mean-reversion) is COMPLETE (formal negative, real artifacts on disk, scripts/tests committed).** C321 is the mandated next heavy campaign (spec below); C321 scripts/tests/artifacts are NOT yet on disk as of this refresh.
+**Bottleneck status (verified 2026-11-16T05:43:30Z):** `verify_env.py` → `ready:true`, `missing:[]`; C312/C319/C320 caches present and readable; `preflight_c320.py --json` → `ready:true`, `blocked_reasons:[]`; C320 tests 26/26 green; working tree clean (C320 scripts/tests committed, no uncommitted blocker). No network/ingest is needed for C321 — the real 5m `perp_close` grid is already on disk. The only known full-suite failure is the pre-existing frozen C313 gitignored full-sweep gap, not a C321 blocker.
 **Closure audit (C281B–C318 scope, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318; C319 EXTENDS the record by one genuinely-new family (cointegration/pairs) and is also a formal negative. Do NOT regenerate this audit; do NOT run stale closure generators.
 **Latest campaigns:** C320 COMPLETE FORMAL NEGATIVE (20261116T053110Z, intraday time-of-day / day-of-week seasonality, 1440 configs, 0 survive Holm+BH). C319 COMPLETE FORMAL NEGATIVE (20261116T045428Z, cointegration/pairs, 1440 configs, 0 survive Holm+BH). C317/C318 complete formal negatives (20261116T013937Z / 20261116T015818Z). `oos_edge_proven: false`; `edge_claim: NONE`.
 
-## INITIAL TASK MESSAGE (2026-11-16T05:42:16Z) — MANDATORY HEAVY WORK: BUILD + RUN C321
+## INITIAL TASK MESSAGE (2026-11-16T05:43:30Z) — MANDATORY HEAVY WORK: BUILD + RUN C321
 
 **Mission (repo priority):** crypto quantitative statistical arbitrage — costed out-of-sample PnL on real, provable data. Economic progress = a real-data costed-OOS run, a passing test, or an artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation.
 
@@ -21,8 +22,18 @@
 - **NO-COAST CLAUSE:** do NOT exit with "reachable space closed / no new campaign". Exiting without a C321 verdict artifact (or on-disk proof, with exact error text, that C312 5m data is unreachable/corrupt) is a hard violation. If C321 is itself a formal negative, immediately proceed to the next genuinely-new family (e.g., C322 on the same C312 5m data) — do NOT re-declare closure.
 - **Do NOT** rerun/re-skin C281B–C320; do NOT run stale closure generators; do NOT create `HANDOFF.md`.
 
-**C320 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T05:31:10Z):**
-- **Scripts PRESENT (uncommitted):** `scripts/build_c320_tod_seasonality_features.py`, `scripts/preflight_c320.py`, `scripts/run_c320_tod_seasonality_xsec_oos.py`.
+**START HERE — execute in this order, no improvisation, no closure talk:**
+1. `python scripts/verify_env.py --json` → require `ready:true`, `missing:[]` (already verified at 05:43:30Z; re-run only after an unexplained dependency error).
+2. Create exactly these five files, mirroring C320's structure/APIs: `scripts/build_c321_<family>_features.py`, `scripts/preflight_c321.py`, `scripts/run_c321_<family>_xsec_oos.py`, `tests/test_preflight_c321.py`, `tests/test_c321_<family>_xsec_oos.py`. Use `<family>` = `intraday_range_breakout` (or `overnight_intraday_split`).
+3. Build the feature cache: read-only derivation from `data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz` into `data/cache/campaign321_<family>_5m/` (10 shards, `<100 MB`, `real_data_only:true, fabricated_data:false, executed_fills:false`, causal `shift(1)` only).
+4. `python scripts/preflight_c321.py --json` → require `ready:true`, `blocked_reasons:[]`, 10/10 shards, full 315,648-bar grid in window.
+5. Run the full 1440-config sweep to real artifacts at `reports/campaign321_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<ts>.json` plus gitignored `full.json`; verify 5 SHA256-from-bytes and `edge_proven` is a real boolean.
+6. `python -m pytest tests/test_c321_* tests/test_preflight_c321.py -q` → must be green.
+7. Update ONLY `AGENTS.md` and `research_state/state.yaml` with the new verdict, binding constraint, all 5 artifact SHAs, config counts, attribution shares, and test counts. Do NOT create `HANDOFF.md`; do NOT touch frozen C281B–C320 artifacts.
+8. If C321 is a formal negative, immediately start C322 on the same C312 5m data (next genuinely-new family); a C321 negative is a RESULT, not permission to stop.
+
+**C320 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T05:43:30Z):**
+- **Scripts PRESENT and COMMITTED (working tree clean):** `scripts/build_c320_tod_seasonality_features.py`, `scripts/preflight_c320.py`, `scripts/run_c320_tod_seasonality_xsec_oos.py`.
 - **Tests COMPLETE & PASSING:** `tests/test_preflight_c320.py`, `tests/test_c320_tod_seasonality_xsec_oos.py` (26/26 C320 tests green).
 - **Feature cache COMPLETE (real data, ~27.82 MB):** `data/cache/campaign320_tod_seasonality_5m/` with 10 `.npz` shards (ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT) each holding `index_ms`, `perp_close`, `log_return`, `funding_rate` (all-NaN control-only). 315,648 common-grid 5m bars, 2023-01..2025-12. Total 27.82 MB, max shard ~3.0 MB. `real_data_only:true, fabricated_data:false, executed_fills:false`. Read-only derivation of the real C312 shards; no network, no resampling, no imputation.
   - meta SHA256 `9f670189d68e69264fa77a61fa71769c533e95541a0b7277b1b98a920f4f2d15`; provenance SHA256 `79f78d7d6e225e6f1df764c94de8e8b74922124c97336eed3cc0c92b277cf909`; manifest SHA256 `2ae4306465c17467090dfc136faa3aee4d06f2e27fb47c85aab514ddb4b87ddf`.
@@ -52,6 +63,7 @@ python -m pip install "pytest-asyncio>=0.23"   # only if async tests fail with "
 Known-good: Python 3.12.3, pandas 3.1.1, numpy 2.5.4, scipy 1.18.1, statsmodels 0.15.0, scikit-learn 1.9.1. `ruff`/`mypy` may be absent — do not claim they passed unless actually run. CI dependency note: run Step 0 bootstrap before campaign code; a missing-dependency traceback is a bootstrap gap, not a research result. Do not fix by editing `.github/workflows/main.yml`.
 
 **Last verified (2026-11-16T05:04:11Z):** `python scripts/verify_env.py --json` → `ready:true`, `missing:[]`. `python -m pytest tests/ -q` → **1759 passed / 1 failed / 2 skipped in ~399 s**; the single failure is the PRE-EXISTING frozen C313 gitignored full-sweep gap (`tests/test_c313_coinm_quarterly_carry_oos.py::test_full_sweep_exists_and_gitignored`) — NOT a regression. C319 alone: `pytest tests/test_c319_cointegration_xsec_oos.py tests/test_preflight_c319.py -q` → 30 passed. C320 alone: `pytest tests/test_c320_tod_seasonality_xsec_oos.py tests/test_preflight_c320.py -q` → 26 passed. Note: running the suite regenerates a `reports/program_closure_final_<TS>.json` (test_run_final_program_closure_audit.py side-effect); the pinned citable audit remains `...024519Z.json` (sha `aebd52…`).
+**Fresh verification (2026-11-16T05:43:30Z):** `verify_env.py` ready:true/missing:[]; `preflight_c320.py --json` ready:true/blocked_reasons:[]; C320 26/26 tests passed in 3.98 s; C312/C319/C320 caches present and readable; `git status` clean (C320 scripts/tests/artifacts committed). No C321 bottleneck from environment, data, or uncommitted code.
 
 ## C317 on-disk state (COMPLETE FORMAL NEGATIVE, verified 2026-11-16T01:37:10Z)
 
