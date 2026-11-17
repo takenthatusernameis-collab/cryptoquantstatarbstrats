@@ -1,14 +1,14 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T23:35:01Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T23:37:05Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C358 (timestamped 2026-11-17T23:35:01Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## INITIAL TASK MESSAGE — C358 (timestamped 2026-11-17T23:37:05Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
-**EXECUTE C358 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTIFRACTAL DETRENDED FLUCTUATION ANALYSIS (MF-DFA, generalized Hurst exponent h(q) across moments q) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+**EXECUTE C358 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTIFRACTAL DETRENDED FLUCTUATION ANALYSIS (MF-DFA, generalized Hurst exponent h(q) across moments q) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. (timestamped 2026-11-17T23:37:05Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
 
 ### State verified (no bottlenecks)
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
