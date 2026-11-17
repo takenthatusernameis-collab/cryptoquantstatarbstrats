@@ -1,0 +1,147 @@
+{
+  "generated_at_utc": "20261117T003821Z",
+  "campaign": 338,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "imb",
+    "sign",
+    "atsv",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign338_orderflow_entropy_5m",
+  "shard_sha256": {
+    "ADAUSDT": "c61e6c63cf8720e246ab68a2149f34f4507f4e00f116a1cc6fba7de1c09b4a5d",
+    "AVAXUSDT": "553a45510411c7544db23a2dbf0ce88c8a5a343f079d24f795fc4bf7349d65cc",
+    "BNBUSDT": "11b52e3995c7230821ef10aa56079fb41ec9675e6f58dfd76d521ed4d453df7a",
+    "BTCUSDT": "618ec98c8994d6652d7b3cb14a902007046cb9e878595cae4430c0fd69fea141",
+    "DOGEUSDT": "0228e1c7ccdef3e9767149fef41a88fac3a83871c306d9b42f6777cdf3ffe784",
+    "DOTUSDT": "854b0f75e6b5c56de0bf3d44b5dacbf73b94060d4a4ad72793d83ed63a189b35",
+    "ETHUSDT": "735cb7badf5c7b0d993edd1c66590b1d4dbc6d78e6e4409fa247aecd9ea04c23",
+    "LINKUSDT": "4b8c007c3a9333de3d024120629073af08f943630dfef839d9a6bdddc37f619c",
+    "SOLUSDT": "f7b2f8fcbd03c5dd9a53ac41cef36b236895b965fb61f7f7607ea4f9b825e502",
+    "XRPUSDT": "27c9e7b5185721cd7b4d2d561aa7e55f441c6e9c8d9d8bce8a6a127252a97900"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 4868501,
+    "AVAXUSDT": 5200048,
+    "BNBUSDT": 5212770,
+    "BTCUSDT": 5290393,
+    "DOGEUSDT": 5141599,
+    "DOTUSDT": 4863149,
+    "ETHUSDT": 5336583,
+    "LINKUSDT": 5101179,
+    "SOLUSDT": 5254932,
+    "XRPUSDT": 4948738
+  },
+  "total_shard_bytes": 51217892,
+  "max_shard_bytes": 5336583,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "field_definition": "imb=signed_volume/total_volume (total_volume<=0 -> NaN); sign=sign(trade_sign_sum) (trade_count<=0 -> NaN); atsv=total_volume/trade_count (trade_count<=0 -> NaN); runner computes entropy/burstiness/information metrics over trailing lookback L bars ending at bar t-1 (causal)",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "77b65da45e6efb9b1eb36133f0f8e760598a2c1145743900046ef72acfab5011",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "signed_volume": "real taker buy/sell signed volume from C312; always finite, may be signed/zero",
+    "total_volume": "real total volume from C312; always finite, non-negative",
+    "trade_count": "real trade count from C312; always finite, non-negative",
+    "trade_sign_sum": "real signed trade count from C312; always finite, signed",
+    "imb": "signed_volume/total_volume; total_volume<=0 -> NaN (fail-closed)",
+    "sign": "sign(trade_sign_sum); trade_count<=0 -> NaN (fail-closed)",
+    "atsv": "total_volume/trade_count; trade_count<=0 -> NaN (fail-closed)",
+    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "AVAXUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "BNBUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "BTCUSDT": {
+        "imb": 43,
+        "sign": 43,
+        "atsv": 43
+      },
+      "DOGEUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "DOTUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "ETHUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "LINKUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "SOLUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      },
+      "XRPUSDT": {
+        "imb": 24,
+        "sign": 24,
+        "atsv": 24
+      }
+    }
+  }
+}

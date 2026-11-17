@@ -1,0 +1,196 @@
+{
+  "generated_at_utc": "20261117T004211Z",
+  "campaign": 338,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "shannon_entropy_dev",
+      "cond_entropy1_dev",
+      "cond_entropy2_dev",
+      "perm_entropy_dev",
+      "mutual_info_dev",
+      "cv_intertrade_dev",
+      "hawkes_intensity_dev",
+      "burst_index_dev",
+      "transfer_entropy_dev",
+      "flow_info_share_dev",
+      "shannon_entropy_placebo",
+      "cond_entropy1_placebo",
+      "burst_index_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261118,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 4212,
+    "total_runs": 4212
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "shannon_entropy_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -1.4668251132577514,
+        -1.4608986443269718,
+        -1.4287907125796462,
+        -1.4709353342176068,
+        -1.3701155764644544,
+        -1.412941046281183,
+        -1.4550037871951704,
+        -1.371933601713995
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -87.78772920707547,
+      "second_half_sharpe": -40.28273111327166,
+      "sharpe_corr": 0.9998706534334095,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "shannon_entropy_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "shannon_entropy_dev_net": -1.249165216747981,
+      "cond_entropy1_dev_net": -1.165799354136468,
+      "cond_entropy2_dev_net": -1.1857250480128412,
+      "perm_entropy_dev_net": -0.8607860188764572,
+      "mutual_info_dev_net": -1.3266298528779195,
+      "cv_intertrade_dev_net": -0.4079222030289207,
+      "hawkes_intensity_dev_net": -0.01644840358376432,
+      "burst_index_dev_net": -0.4075110985241051,
+      "transfer_entropy_dev_net": -1.1782253803000908,
+      "flow_info_share_dev_net": -1.2748041517841755,
+      "shannon_entropy_placebo_net": -1.7019549424828613,
+      "cond_entropy1_placebo_net": -1.2240075801456003,
+      "burst_index_placebo_net": -0.4505569631613086,
+      "shares": {
+        "shannon_entropy_dev": 0.10033829335562795,
+        "cond_entropy1_dev": 0.09364199068372402,
+        "cond_entropy2_dev": 0.09524250764551301,
+        "perm_entropy_dev": 0.06914201493962521,
+        "mutual_info_dev": 0.10656058427478095,
+        "cv_intertrade_dev": 0.03276605618298091,
+        "hawkes_intensity_dev": 0.0013212061318166493,
+        "burst_index_dev": 0.03273303451070653,
+        "transfer_entropy_dev": 0.09464010225594356,
+        "flow_info_share_dev": 0.10239772228504121,
+        "shannon_entropy_placebo": 0.1367083008775126,
+        "cond_entropy1_placebo": 0.09831752437511188,
+        "burst_index_placebo": 0.03619066248161549
+      },
+      "dominant": "shannon_entropy_placebo",
+      "dominant_share": 0.1367083008775126,
+      "attribution_ok": false,
+      "placebo_seed": 20261118
+    },
+    "data_quality": {
+      "reference_signal": "shannon_entropy_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019937715429845904,
+      "note": "metric NaN share dominated by finite-obs requirements plus rare zero-activity bars."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign338_oos_sweep_20261117T004211Z.json",
+      "sha256": "ce28d711d994cafab391ab7e87f9f534b98e9b35ce624fb1e821400fce7392d4"
+    },
+    "registry": {
+      "path": "reports/campaign338_tradable_edge_registry_20261117T004211Z.json",
+      "sha256": "7041a3a72a04aa184844596b03df4c02e81ec147f138697cd4b1f9c732f274f2"
+    }
+  },
+  "summary": {
+    "n_total_runs": 4212,
+    "n_with_exposure": 4212,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

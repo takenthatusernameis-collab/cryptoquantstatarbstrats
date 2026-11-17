@@ -1,0 +1,61 @@
+{
+  "generated_at_utc": "20261117T004211Z",
+  "campaign": 338,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign338_oos_sweep_20261117T004211Z.json",
+  "oos_sweep_sha256": "ce28d711d994cafab391ab7e87f9f534b98e9b35ce624fb1e821400fce7392d4",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "shannon_entropy_dev": 0.10033829335562795,
+    "cond_entropy1_dev": 0.09364199068372402,
+    "cond_entropy2_dev": 0.09524250764551301,
+    "perm_entropy_dev": 0.06914201493962521,
+    "mutual_info_dev": 0.10656058427478095,
+    "cv_intertrade_dev": 0.03276605618298091,
+    "hawkes_intensity_dev": 0.0013212061318166493,
+    "burst_index_dev": 0.03273303451070653,
+    "transfer_entropy_dev": 0.09464010225594356,
+    "flow_info_share_dev": 0.10239772228504121,
+    "shannon_entropy_placebo": 0.1367083008775126,
+    "cond_entropy1_placebo": 0.09831752437511188,
+    "burst_index_placebo": 0.03619066248161549
+  },
+  "dominant_attribution": "shannon_entropy_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "shannon_entropy_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.4668251132577514,
+      -1.4608986443269718,
+      -1.4287907125796462,
+      -1.4709353342176068,
+      -1.3701155764644544,
+      -1.412941046281183,
+      -1.4550037871951704,
+      -1.371933601713995
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -87.78772920707547,
+    "second_half_sharpe": -40.28273111327166,
+    "sharpe_corr": 0.9998706534334095,
+    "stable": false
+  },
+  "diagnosis": "C338 cross-sectional intraday ORDER-FLOW ENTROPY / INFORMATION CONTENT / TRADE BURSTINESS SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

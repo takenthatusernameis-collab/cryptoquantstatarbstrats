@@ -303,7 +303,7 @@ def _entropy_from_counts(counts: np.ndarray, total: np.ndarray) -> np.ndarray:
         return out
     p = np.where(total[:, None] > 0, counts / np.maximum(total[:, None], 1.0), 0.0)
     ppos = p > 0
-    H = np.zeros(n, dtype=float)
+    H = np.zeros_like(p, dtype=float)
     np.multiply(p, np.log(p), out=H, where=ppos)
     H = -H.sum(axis=1)
     out[valid] = H[valid]
@@ -339,22 +339,10 @@ def _perm_pattern_id_vec(a: np.ndarray, b: np.ndarray, c: np.ndarray) -> np.ndar
     if len(idx) == 0:
         return out
     aa, bb, cc = a[idx], b[idx], c[idx]
-    # rank of each element within triplet (0=lowest..2=highest), ties broken by index order
-    order = np.lexsort((cc, bb, aa))  # indices into the triplet positions
-    ranks = np.empty(len(idx), dtype=np.int64)
-    # order[k] = position (0=a,1=b,2=c) that is k-th smallest
-    ranks[order] = np.arange(3)
-    # ranks[:, position] = rank of a,b,c ; permutation id from (rank_a, rank_b, rank_c)
     perm_to_id = {
         (0, 1, 2): 0, (0, 2, 1): 1, (1, 0, 2): 2,
         (1, 2, 0): 3, (2, 0, 1): 4, (2, 1, 0): 5,
     }
-    ids = np.array([perm_to_id.get(tuple(int(v) for v in r), -1)
-                    for r in np.stack([ranks, ranks, ranks], axis=1)], dtype=np.int64)
-    # NOTE: ranks above is per-triplet [rank_a, rank_b, rank_c]? lexsort returns positions;
-    # rebuild properly:
-    ra = np.empty(len(idx), dtype=np.int64); rb = np.empty(len(idx), dtype=np.int64); rc = np.empty(len(idx), dtype=np.int64)
-    ra[order] = np.arange(3); rb[order] = np.arange(3); rc[order] = np.arange(3)
     # that's wrong (all arange). Do explicit:
     # rank of value at position p among the 3 values:
     vals = np.stack([aa, bb, cc], axis=1)  # (k,3)
@@ -479,7 +467,7 @@ def _same_bucket_stats(bucket: np.ndarray, x: np.ndarray, window, min_periods: i
 # ------------------------------------------------------- metric computation (per asset, per lookback)
 def _bin_return(r: np.ndarray) -> np.ndarray:
     """Bin log_return into 3 categories: -1->0 (neg), ~0->1 (zero), 1->2 (pos)."""
-    out = np.full(len(r), -1, dtype=np.int64)
+    out = np.full(r.shape, -1, dtype=np.int64)
     fin = np.isfinite(r)
     out[fin] = np.where(r[fin] < 0, 0, np.where(r[fin] > 0, 2, 1)).astype(np.int64)
     return out
@@ -590,12 +578,13 @@ def compute_metrics(sign: np.ndarray, atsv: np.ndarray, r: np.ndarray,
     s2 = cs2[u + 1] - cs2[u - L + 1]
     mean = np.full(n, np.nan, dtype=float)
     var = np.full(n, np.nan, dtype=float)
-    valid = cnt >= min_periods
-    mean[u[valid]] = s1[valid] / np.maximum(cnt[valid], 1.0)
-    var[u[valid]] = s2[valid] / np.maximum(cnt[valid], 1.0) - mean[u[valid]] ** 2
+    pos_valid = cnt >= min_periods
+    mean[u[pos_valid]] = s1[pos_valid] / np.maximum(cnt[pos_valid], 1.0)
+    var[u[pos_valid]] = s2[pos_valid] / np.maximum(cnt[pos_valid], 1.0) - mean[u[pos_valid]] ** 2
     sd = np.sqrt(np.maximum(var, 0.0))
     cv = np.full(n, np.nan, dtype=float)
-    cv_valid = valid & (sd > 0) & (mean != 0)
+    cv_valid = np.zeros(n, dtype=bool)
+    cv_valid[u] = pos_valid & (sd[u] > 0) & (mean[u] != 0)
     cv[cv_valid] = sd[cv_valid] / np.abs(mean[cv_valid])
     res["cv"] = cv
     burst = np.full(n, np.nan, dtype=float)
@@ -705,15 +694,24 @@ def build_underlying(bs: dict) -> dict:
     Returns dict with matrices (n_assets, n_bars): one entry per base metric per
     lookback, plus placebo surrogates of shannon, cond1, burst."""
     bucket = bs["bucket"]
-    n_bars = bs["n_bars"]
+    n_assets = int(bs["n_assets"])
+    n_bars = int(bs["n_bars"])
     sign = bs["sign"]
     atsv = bs["atsv"]
     r = bs["log_return"]
     series: dict = {}
+    METRIC_KEYS = ("shannon", "cond1", "mi", "cond2", "perm", "cv", "burst",
+                   "hawkes", "te", "fis")
     for L in LOOKBACKS:
-        m = compute_metrics(sign, atsv, r, L, MIN_PERIODS_BASELINE)
-        for k, v in m.items():
-            series[(k, L)] = v
+        mats = {k: np.full((n_assets, n_bars), np.nan, dtype=float) for k in METRIC_KEYS}
+        for i in range(n_assets):
+            m = compute_metrics(np.asarray(sign[i], dtype=float),
+                                np.asarray(atsv[i], dtype=float),
+                                np.asarray(r[i], dtype=float), L, MIN_PERIODS_BASELINE)
+            for k in METRIC_KEYS:
+                mats[k][i] = np.asarray(m[k], dtype=float)
+        for k in METRIC_KEYS:
+            series[(k, L)] = mats[k]
     # placebos (recorded-seed phase randomization of the metric series)
     for L in LOOKBACKS:
         series[("shannon", L)]  # ensure exists
