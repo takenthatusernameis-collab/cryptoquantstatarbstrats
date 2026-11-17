@@ -1,15 +1,15 @@
-updated_at_utc: 2026-11-17T04:32:50Z
-handoff_refreshed_at_utc: 2026-11-17T04:32:50Z
+updated_at_utc: 2026-11-17T05:26:03Z
+handoff_refreshed_at_utc: 2026-11-17T05:26:03Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 bottlenecks_verified_removed_at_utc: "2026-11-17T04:32:50Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T04:29:11Z: C340 COMPLETE FORMAL NEGATIVE `20261117T032549Z` (2592 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution flow_cv_placebo 0.1803 < 0.5 → attribution_ok false); C341 COMPLETE FORMAL NEGATIVE `20261117T031751Z` (2592 configs, dominant pid_placebo 0.2004 < 0.5); C342 COMPLETE FORMAL NEGATIVE `20261117T034113Z` (2592 configs, dominant kurt_placebo 0.1842 < 0.5); C343 COMPLETE FORMAL NEGATIVE `20261117T041856Z` (1944 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution vcr_placebo 0.2445 < 0.5 → attribution_ok false); C344 COMPLETE FORMAL NEGATIVE `20261117T042911Z` (1296 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution chop_placebo 0.2519 < 0.5 → attribution_ok false); C337/C338/C339/C340/C341/C342/C343/C344 ALL COMPLETE FORMAL NEGATIVES (~72,000 configs, binding multiple_testing, edge_claim NONE). C345 NEXT ACTIVE — no bottlenecks. C312 5m ready (10 shards × 315648 bars, manifest_sha256 4859911b…). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
-first_action: "BEGIN C345 (2026-11-17T04:32:50Z) — C345 IS FULLY PRE-REGISTERED in AGENTS.md (NEXT ACTIVE CAMPAIGN — C345 section). Family: cross-sectional intraday CLOSE-LOCATION-WITHIN-TRAILING-EXTREME-ENVELOPE (Williams %R-style) x LAST-MOVE DIRECTION seasonal-dislocation mean-reversion stat-arb on real C312 perp_close only (price-only, volume-free; trailing rolling max/min of closes defines envelope, NO fabricated high/low). Distinct from C330 (path drawdown/efficiency), C326 (return autocorr), C344 (chop rate×dir), C343 (vol clustering), C317 (vol LEVELS). Pre-registered grid = 1944 configs: SIGNALS {wr_dev,wr_ext_dev,wr_placebo,wr_ext_placebo} x LOOKBACKS {60,120,240,480,960,1920} x REBALANCES {1,4,12} x FEES {0.0004,0.0007,0.0010} x SLIPS {0,0.0001,0.0002} x COST_VARIANTS {taker,maker_blend}. Placebo seed 20261119. Implement+run: build_c345_close_envelope_features.py → preflight_c345.py → run_c345_close_envelope_xsec_oos.py → pytest(tests/test_preflight_c345.py, tests/test_c345_close_envelope_xsec_oos.py) → 5 SHA256 artifacts → update AGENTS.md/state.yaml → set C346. C344 COMPLETE FORMAL NEGATIVE `20261117T042911Z` (1296 configs, RETRACTED, dominant chop_placebo 0.2519 < 0.5 → attribution_ok false, 0 Holm+BH, edge_proven false). Do NOT re-read/re-run frozen C281B-C344/C287."
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T05:26:03Z: C343 COMPLETE FORMAL NEGATIVE `20261117T041856Z` (1944 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution vcr_placebo 0.2445 < 0.5 → attribution_ok false); C344 COMPLETE FORMAL NEGATIVE `20261117T042911Z` (1296 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution chop_placebo 0.2519 < 0.5 → attribution_ok false); C345 COMPLETE FORMAL NEGATIVE `20261117T052603Z` (1296 configs; grid product of listed 4x6x3x3x3x2=1296, spec text "1944" was an arithmetic slip carried from C343; 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution wr_placebo 0.2596 < 0.5 → attribution_ok false); C337/C338/C339/C340/C341/C342/C343/C344/C345 ALL COMPLETE FORMAL NEGATIVES (~73,000+ configs, binding multiple_testing, edge_claim NONE). C346 NEXT ACTIVE — no bottlenecks. C312 5m ready (10 shards × 315648 bars). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
+first_action: "BEGIN C346 (2026-11-17T05:26:03Z) — C345 COMPLETE FORMAL NEGATIVE `20261117T052603Z` (1296 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution wr_placebo 0.2596 < 0.5 → attribution_ok false, edge_proven false). C345 IS DONE/frozen; do NOT re-run C281B-C345/C287. The next session MUST pre-register a genuinely-new, mechanically-distinct campaign family on real on-disk C312 5m perp_close (price-only, volume-free; no network, no fabrication, no relabeling frozen caches), then execute build → preflight → full costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → record truthful result in AGENTS.md/state.yaml → set C347 next. Apply C345 gates unchanged (Holm+BH alpha=0.05 over full grid, MDE, stability, signal-vs-placebo attribution; edge requires ALL). C287 external blocked/decoupled (451/403) — never retry."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C345 NEXT ACTIVE — FULLY PRE-REGISTERED in AGENTS.md. Family: close-location-within-trailing-extreme-envelope (Williams %R-style) x last-move direction seasonal dislocation, price-only from real C312 perp_close. Implement scripts/build_c345_close_envelope_features.py + scripts/preflight_c345.py + scripts/run_c345_close_envelope_xsec_oos.py + tests/test_preflight_c345.py + tests/test_c345_close_envelope_xsec_oos.py (1944-config grid, 8 splits 12m/3m, Holm+BH alpha0.05, MDE, stability, attribution; placebo seed 20261119) → build cache data/cache/campaign345_close_envelope_5m/ → preflight → full costed-OOS sweep → pytest → 5 SHA256 artifacts → update AGENTS.md/state.yaml → set C346 next. C344 COMPLETE FORMAL NEGATIVE `20261117T042911Z` (1296 configs, RETRACTED, dominant chop_placebo 0.2519 < 0.5 → attribution_ok false, 0 Holm+BH, edge_proven false). Do NOT rerun frozen C281B-C344/C287."
-active_campaign: C345_close_envelope_williams_r_last_move_direction_seasonal_dislocation_usdt_m_5m
-space_status: NO_EDGE_C281B_C344
-closure_note: 'C281B–C344 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~72,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C340 sweep complete (20261117T032549Z, 5 artifacts, RETRACTED, dominant flow_cv_placebo 0.1803 < 0.5). C341 frozen (20261117T031751Z, 2592, verdict RETRACTED, dominant pid_placebo 0.2004 → attribution_ok false). C342 frozen (20261117T034113Z, 2592, verdict RETRACTED, dominant kurt_placebo 0.1842 → attribution_ok false). C343 frozen (20261117T041856Z, 1944, verdict RETRACTED, dominant vcr_placebo 0.2445 → attribution_ok false). C344 frozen (20261117T042911Z, 1296, verdict RETRACTED, dominant chop_placebo 0.2519 → attribution_ok false). C337/C338/C339/C340/C341/C342/C343/C344 all DONE/frozen; C345 next active. C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) remains citable for that scope only; C319–C344 extend the record. Terminal closure by fiat PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 external blocked/decoupled — never retry. Handoff refreshed 2026-11-17T04:29:11Z: C337–C344 all complete formal negatives; C345 next active, spec to be pre-registered in AGENTS.md NEXT ACTIVE CAMPAIGN — C345 section.'
+active_initial_task: "C346 NEXT ACTIVE (2026-11-17T05:26:03Z) — pre-register a genuinely-new, mechanically-distinct campaign family on real on-disk C312 5m perp_close (price-only, volume-free; no network, no fabrication, no relabeling frozen caches as new), then execute build shard cache → preflight → full costed-OOS sweep → pytest (≥21 green tests) → 5 SHA256 artifacts → record truthful result (formal negative or edge) in AGENTS.md + state.yaml → set C347 next. Apply C345 gates unchanged (Holm+BH alpha=0.05 over full grid, MDE, stability, signal-vs-placebo attribution; edge requires ALL). Do NOT re-read/re-declare closure, re-run frozen C281B-C345/C287, or weaken any gate. C287 external blocked/decoupled (451/403) — never retry. C345 COMPLETE FORMAL NEGATIVE `20261117T052603Z` (1296 configs, RETRACTED, dominant wr_placebo 0.2596 < 0.5 → attribution_ok false, 0 Holm+BH, edge_proven false). Do NOT rerun frozen C281B-C345/C287."
+active_campaign: C346_next_genuinely_new_family_usdt_m_5m_pending_pre_registration
+space_status: NO_EDGE_C281B_C345
+closure_note: 'C281B–C345 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~73,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C340 sweep complete (20261117T032549Z, 5 artifacts, RETRACTED, dominant flow_cv_placebo 0.1803 < 0.5). C341 frozen (20261117T031751Z, 2592, verdict RETRACTED, dominant pid_placebo 0.2004 → attribution_ok false). C342 frozen (20261117T034113Z, 2592, verdict RETRACTED, dominant kurt_placebo 0.1842 → attribution_ok false). C343 frozen (20261117T041856Z, 1944, verdict RETRACTED, dominant vcr_placebo 0.2445 → attribution_ok false). C344 frozen (20261117T042911Z, 1296, verdict RETRACTED, dominant chop_placebo 0.2519 → attribution_ok false). C345 frozen (20261117T052603Z, 1296, verdict RETRACTED, dominant wr_placebo 0.2596 → attribution_ok false). C337/C338/C339/C340/C341/C342/C343/C344/C345 all DONE/frozen; C346 next active. C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) remains citable for that scope only; C319–C345 extend the record. Terminal closure by fiat PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 external blocked/decoupled — never retry. Handoff refreshed 2026-11-17T05:26:03Z: C337–C345 all complete formal negatives; C346 next active, pre-register + execute per C346 initial task message.'
 c340_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C340
@@ -5200,6 +5200,174 @@ c336_status:
     passed: 17
     failed: 0
     as_of_utc: 20261116T193600Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c344_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C344
+  family: cross_sectional_intraday_return_sign_change_chop_last_move_direction_overreaction_reversal_seasonal_dislocation_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C326 (signed-return autocorrelation first-moment lag 1), C343 (autocorrelation of |log_return| vol clustering), C317 (realized-vol LEVELS), C340/C341/C342 (volume/notional/price-impact), C315/C320 (raw seasonal RETURN mean-reversion). C344 = SIGN-CHANGE RATE over trailing lookback window x last-move direction and magnitude-conditioned overreaction reversal, price-only and volume-free.'
+  as_of_utc: 20261117T042911Z
+  grid_configs: 1296
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8, window: 2023-01..2025-12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 1296
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {chop_dev: 0.24553335628995843, mrv_dev: 0.25148852960441453, chop_placebo: 0.2518948957300163, mrv_placebo: 0.2510832183756107}
+  dominant_attribution: chop_placebo
+  dominant_share: 0.2518948957300163
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close; log_return=log(c[t]/c[t-1]), abs_ret=|log_return|, sq_ret=log_return^2 derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [chop_dev, mrv_dev, chop_placebo, mrv_placebo]
+  lookback_bars: [60, 120, 240, 480, 960, 1920]
+  rebalance_bars: [1, 4, 12]
+  fee: [0.0004, 0.0007, 0.0010]
+  slippage: [0, 0.0001, 0.0002]
+  cost_variant: [taker, maker_blend]
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C344 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c344_* and tests/test_preflight_c344.py green'
+  no_coast_clause: 'C344 is a formal negative; next session MUST proceed to C345 (close-location-within-trailing-extreme-envelope, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign344_return_chop_5m
+    cache_total_bytes: 49382851
+    cache_max_shard_bytes: 5315677
+    cache_meta_sha256: pending
+    cache_provenance_sha256: pending
+    cache_manifest_sha256: pending
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T042911Z
+    artifacts:
+      oos_sweep: reports/campaign344_oos_sweep_20261117T042911Z.json
+      tradable_edge_registry: reports/campaign344_tradable_edge_registry_20261117T042911Z.json
+      summary: reports/campaign344_summary_20261117T042911Z.json
+      verdict: reports/campaign344_verdict_20261117T042911Z.json
+      binding_constraint: reports/campaign344_binding_constraint_20261117T042911Z.json
+      oos_sweep_full: reports/campaign344_oos_sweep_20261117T042911Z.full.json (gitignored)
+    oos_sweep_sha256: 37d4b29b371661db7ff98c8fc94650f9bc8f4a79cd5edf9ca4b8f6d141d7d337
+    tradable_edge_registry_sha256: 43fe905ec069c2242bc1adbe45ef52d7113abe580c34ee8e888543ea49d04c86
+    summary_sha256: e4e4b8feed059a987e38e314f30bb091d11cfb3f8ccd04481ded5f287d7fb3e7
+    verdict_sha256: 0dc1a72af26f275485d1a862480bec27614c7c2006f9ca87ae6e3a5a6fd42cb9
+    binding_constraint_sha256: 5ea21c2b6c2fa03c9c1f12b51889975c55981c9b97ca5d3d6f6badf5dcad8664
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_sq_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c344_return_chop_features.py
+  - scripts/preflight_c344.py
+  - scripts/run_c344_return_chop_xsec_oos.py
+  tests:
+  - tests/test_preflight_c344.py
+  - tests/test_c344_return_chop_xsec_oos.py
+  pytest:
+    passed: 21
+    failed: 0
+    as_of_utc: 20261117T042911Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c345_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C345
+  family: cross_sectional_intraday_close_location_within_trailing_extreme_envelope_williams_r_last_move_direction_seasonal_dislocation_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C330 (realized-path drawdown/runup/path-efficiency), C326 (signed-return autocorrelation first-moment), C344 (sign-change rate x last-move direction), C343 (autocorrelation of |log_return| vol clustering), C317 (realized-vol LEVELS), C342/C340/C341 (volume/notional/price-impact), C315/C320 (raw seasonal RETURN mean-reversion). C345 = close position within trailing high-low envelope (clv_pos, Williams %R-style bounded [0,1]) x last-move direction, score = seasonal-dislocation of extension, price-only and volume-free.'
+  as_of_utc: 20261117T052603Z
+  grid_configs: 1296
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8, window: 2023-01..2025-12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 1296
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {wr_dev: 0.23879915608922545, wr_ext_dev: 0.24257157946393965, wr_placebo: 0.2595911069341407, wr_ext_placebo: 0.2590381575126941}
+  dominant_attribution: wr_placebo
+  dominant_share: 0.2595911069341407
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close; log_return=log(c[t]/c[t-1]), abs_ret=|log_return| derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [wr_dev, wr_ext_dev, wr_placebo, wr_ext_placebo]
+  lookback_bars: [60, 120, 240, 480, 960, 1920]
+  rebalance_bars: [1, 4, 12]
+  fee: [0.0004, 0.0007, 0.0010]
+  slippage: [0, 0.0001, 0.0002]
+  cost_variant: [taker, maker_blend]
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C345 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c345_* and tests/test_preflight_c345.py green'
+  no_coast_clause: 'C345 is a formal negative; next session MUST proceed to C346 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign345_close_envelope_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 3668a73f7d670f1c212899024a2365b7d0e365fa8841b61bbfa61314cc3c2cb3
+    cache_provenance_sha256: 367a650ffe97a4156366fb1f0498d4ccb342a426e0c74a75a7ed15221ff3b817
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T052603Z
+    artifacts:
+      oos_sweep: reports/campaign345_oos_sweep_20261117T052603Z.json
+      tradable_edge_registry: reports/campaign345_tradable_edge_registry_20261117T052603Z.json
+      summary: reports/campaign345_summary_20261117T052603Z.json
+      verdict: reports/campaign345_verdict_20261117T052603Z.json
+      binding_constraint: reports/campaign345_binding_constraint_20261117T052603Z.json
+      oos_sweep_full: reports/campaign345_oos_sweep_20261117T052603Z.full.json (gitignored)
+    oos_sweep_sha256: c0078c5539823d4ba4b2e7cec0e36e9fcc8ae4443487f4578a1d2316f7904616
+    tradable_edge_registry_sha256: 850ab7b2ccdf6b00d639c8592cc4ab58cdf328dcaae9a1e732b49f32a00f47b7
+    summary_sha256: b429572353168b26a7dfba9064dd71658733888bf2fa97c5cbd122256f4426c5
+    verdict_sha256: 52a3bbefe07a58b04fb66d715aed3f47781ae15f95758b1a58e1ffe48a15a92c
+    binding_constraint_sha256: 14fa2dd2ab9ae2e5b94ab5e463843bd9bb4221cf7b8cf14213810220e3e61643
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c345_close_envelope_features.py
+  - scripts/preflight_c345.py
+  - scripts/run_c345_close_envelope_xsec_oos.py
+  tests:
+  - tests/test_preflight_c345.py
+  - tests/test_c345_close_envelope_xsec_oos.py
+  pytest:
+    passed: 22
+    failed: 0
+    as_of_utc: 20261117T052603Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false

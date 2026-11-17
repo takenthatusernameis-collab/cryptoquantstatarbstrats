@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T052603Z",
+  "campaign": 345,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign345_oos_sweep_20261117T052603Z.json",
+  "oos_sweep_sha256": "c0078c5539823d4ba4b2e7cec0e36e9fcc8ae4443487f4578a1d2316f7904616",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "wr_dev": 0.23879915608922545,
+    "wr_ext_dev": 0.24257157946393965,
+    "wr_placebo": 0.2595911069341407,
+    "wr_ext_placebo": 0.2590381575126941
+  },
+  "dominant_attribution": "wr_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "wr_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -7.032483129465212,
+      -6.7484293479287025,
+      -6.941430557815173,
+      -6.986564377636236,
+      -6.979825025935701,
+      -6.735525783318418,
+      -6.916776560855532,
+      -7.178151377026137
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -64.06268990787777,
+    "second_half_sharpe": -43.96770049431586,
+    "sharpe_corr": 0.999973185724234,
+    "stable": false
+  },
+  "diagnosis": "C345 cross-sectional intraday CLOSE-LOCATION-WITHIN-TRAILING-ENVELOPE (Williams %R-style) x LAST-MOVE DIRECTION stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
