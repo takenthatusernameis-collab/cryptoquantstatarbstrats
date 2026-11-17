@@ -1,18 +1,32 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T21:53:28Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T21:57:26Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:55:42Z)
+## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:57:26Z, ACTIVE — NOT STARTED)
 
-**C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
+**EXECUTE C356 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-Context you must accept as true: C281B–C356 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92,000+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296 configs, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355. **NO BOTTLENECKS** — re-verified on disk 2026-11-17T21:33:16Z: runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0; `scipy.optimize.minimize_scalar` + `scipy.stats` OK), C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). C355 cache/scripts/tests/artifacts all on disk; see the C355 RESULT section. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates. Do NOT downscope the 1296-config grid. **The C356 spec below is COMPLETE and FROZEN — execute it verbatim.**
+**State verified 2026-11-17T21:57:26Z (no bottlenecks):**
+- C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
+- Runtime deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 (`scipy.optimize.minimize_scalar`, `scipy.stats` OK). If missing: `python scripts/bootstrap_dev_env.py` (idempotent).
+- C281B–C355 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355.
+- **C356 NOT STARTED:** no `scripts/build|preflight|run_c356*`, no `tests/test_*c356*`, no `data/cache/campaign356_multiscale_entropy_5m/`, no `reports/campaign356_*`.
+- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates.
 
-**C356 ECONOMIC-PROGRESS CONTRACT:** session completion requires all of: (1) `data/cache/campaign356_multiscale_entropy_5m/` with 10 shards + meta + provenance + SHA256 manifest, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `source_campaign:312`, < 100 MB; (2) `scripts/preflight_c356.py` → `ready:true`; (3) `scripts/run_c356_multiscale_entropy_xsec_oos.py` full 1296-config costed-OOS sweep → 5 SHA256 artifacts `reports/campaign356_*_<TS>Z.json` + gitignored `.full.json`; (4) `tests/test_preflight_c356.py` + `tests/test_c356_multiscale_entropy_xsec_oos.py` ≥21 green (incl. MSE brute-force equality test); (5) record truthful result in AGENTS.md + `research_state/state.yaml`, add C356 to frozen table with 5 SHAs, set C357 active. A prose-only or partial handoff is a HARD VIOLATION.
+**C356 pre-registered spec is COMPLETE and FROZEN — see "C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
+
+**Mandatory run sequence (economic progress = all of these):**
+1. `scripts/build_c356_multiscale_entropy_features.py` → `data/cache/campaign356_multiscale_entropy_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
+2. `python scripts/preflight_c356.py` → `ready:true`.
+3. `python scripts/run_c356_multiscale_entropy_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign356_*_<TS>Z.json` + gitignored `.full.json`.
+4. `python -m pytest tests/test_preflight_c356.py tests/test_c356_multiscale_entropy_xsec_oos.py -q` — **≥21 green incl. MSE brute-force equality test**.
+5. Record truthful result in this `AGENTS.md` (new C356 RESULT) + `research_state/state.yaml`; add C356 to frozen table with 5 SHAs (+ cache SHAs); set C357 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+
+Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION. The heavy sweep IS the deliverable.
 
 ---
 
