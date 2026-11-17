@@ -1,0 +1,213 @@
+{
+  "generated_at_utc": "20261117T082440Z",
+  "campaign": 348,
+  "part": "oos_sweep",
+  "analysis": "c348_realized_var_concentration_xsec_stat_arb_oos_5m",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "fail_closed": true,
+  "mandate": "C348 \u2014 test the cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) x SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296 pre-registered configs). Per-bar primitives: log_return=log(c[t]/c[t-1]) (r[0]=0) from real perp_close; abs_ret=|log_return|. Metrics over trailing lookback L bars ending at bar t: sq=r^2, sum_sq=sum(sq over window), hhi=sum((sq_i/sum_sq)^2) in [1/L,1], hhi_norm=(hhi-1/L)/(1-1/L) in [0,1]. Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real (hhi_dev, hhi_norm_dev) + 2 placebos (phase-randomized surrogates, never edges). Single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and valid denominators; seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0.",
+  "preflight": {
+    "cache": "data/cache/campaign348_realized_var_concentration_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign348_realized_var_concentration_5m.meta.json",
+    "cache_meta_sha256": "14228809f2a7ba43fc729426bb237057e768abc7e494207b60414ccd8eea0ae2",
+    "cache_provenance": "data/cache/campaign348_realized_var_concentration_5m.provenance.json",
+    "cache_provenance_sha256": "671aa00853a693be795ed1fcfd44faab37a147f81fc9f16cb2bec02f20760247",
+    "storage": "per_asset_float32_npz_shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "data_source": {
+    "cache": "data/cache/campaign348_realized_var_concentration_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign348_realized_var_concentration_5m.meta.json",
+    "cache_meta_sha256": "14228809f2a7ba43fc729426bb237057e768abc7e494207b60414ccd8eea0ae2",
+    "cache_provenance": "data/cache/campaign348_realized_var_concentration_5m.provenance.json",
+    "cache_provenance_sha256": "671aa00853a693be795ed1fcfd44faab37a147f81fc9f16cb2bec02f20760247",
+    "storage": "per_asset_float32_npz_shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "hhi_dev",
+      "hhi_norm_dev",
+      "hhi_placebo",
+      "hhi_norm_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261123,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 0
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "hhi_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -0.5451764958807135,
+        -0.6366159887833757,
+        -0.703202722305474,
+        -0.7328282864997591,
+        -0.654509526099482,
+        -0.7534912855872892,
+        -0.6367564709340635,
+        -0.6853803633727169
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -9.080313040967459,
+      "second_half_sharpe": -15.334956496378522,
+      "sharpe_corr": 0.9981497478988642,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "hhi_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "hhi_dev_net": 0.0,
+      "hhi_norm_dev_net": 0.0,
+      "hhi_placebo_net": 0.0,
+      "hhi_norm_placebo_net": 0.0,
+      "shares": {
+        "hhi_dev": 0.0,
+        "hhi_norm_dev": 0.0,
+        "hhi_placebo": 0.0,
+        "hhi_norm_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261123
+    },
+    "data_quality": {
+      "reference_signal": "hhi_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019920924574209242,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements."
+    }
+  },
+  "methodology": {
+    "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
+    "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
+    "primitives": "over trailing L bars ending at t: sq=r^2, sum_sq=sum(sq over window), hhi=sum((sq_i/sum_sq)^2) in [1/L,1], hhi_norm=(hhi-1/L)/(1-1/L) in [0,1].",
+    "signals": "hhi/hhi_norm over trailing L bars ending at t; score=-(v-m)/sd with m/sd trailing same-bucket mean/std (min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; NaN-score assets weight 0.",
+    "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
+    "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
+    "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
+    "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
+    "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
+    "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+    "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
+    "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
+    "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "results": [],
+  "summary": {
+    "n_total_runs": 0,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  }
+}

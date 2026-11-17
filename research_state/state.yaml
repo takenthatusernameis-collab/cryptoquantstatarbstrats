@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-17T07:37:40Z
-handoff_refreshed_at_utc: 2026-11-17T07:37:40Z
+updated_at_utc: 2026-11-17T08:14:35Z
+handoff_refreshed_at_utc: 2026-11-17T08:14:35Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C347
-next_campaign: C348_realized_var_concentration_xsec_usdt_m_5m
+latest_campaign_done: C348
+next_campaign: C349_next_genuinely_new_price_only_xsec_usdt_m_5m
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-17T06:35:00Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T07:37:40Z: C337-C347 ALL COMPLETE FORMAL NEGATIVES (~76,900+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C347 frozen 20261117T073740Z (1296 configs, RETRACTED, dominant dd_long_placebo 0.2783 < 0.5, attribution_ok false). BOTTLENECK REMOVED THIS SESSION: C347 full pipeline complete (build+preflight+cache+tests+full sweep on disk, 24/24 tests, 5 SHA256 artifacts). C348 NEXT ACTIVE (realized-variance concentration / HHI of squared returns x seasonal-dislocation, price-only, 1296 configs, spec pre-registered in AGENTS.md) — no bottlenecks. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
-first_action: "EXECUTE C348 NOW (2026-11-17T07:37:40Z): C347 COMPLETE FORMAL NEGATIVE frozen (20261117T073740Z, 1296, RETRACTED, dominant dd_long_placebo 0.2783, 0 Holm+BH). Do NOT re-run C281B-C347/C287. Build scripts/build_c348_realized_var_concentration_features.py -> data/cache/campaign348_realized_var_concentration_5m/ from real C312 perp_close (no network/fabrication). Preflight scripts/preflight_c348.py (ready:true). Run full costed-OOS sweep scripts/run_c348_realized_var_concentration_xsec_oos.py (1296 configs: 4 signals hhi_dev/hhi_norm_dev/hhi_placebo/hhi_norm_placebo x 6 lookbacks 60-1920 x 3 reb 1,4,12 x 3 fees x 3 slips x 2 costs; 8 splits 12m/3m/3m; placebo seed 20261123; Holm+BH alpha=0.05, MDE, stability ref hhi_dev L=240 H=4 fee=0.0007 slip=0.0001 taker, attribution>=0.5). Emit 5 SHA256 artifacts reports/campaign348_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + .full.json. Run tests (>=21 green). Record truthful result in AGENTS.md + state.yaml, freeze C348, set the next genuinely-new price-only family as active. Heavy sweep is economic progress — do not abort. C287 external blocked (451/403) — never retry."
+bottlenecks_verified_removed_at_utc: "2026-11-17T08:14:35Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T08:14:35Z: C281B-C348 ALL COMPLETE FORMAL NEGATIVES (~78,200+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C348 frozen 20261117T082608Z (1296 configs, RETRACTED, dominant hhi_placebo 0.3768 < 0.5, attribution_ok false). C348 full pipeline complete (build+preflight+cache+tests+full sweep on disk, 22/22 tests, 5 SHA256 artifacts). C349 NEXT ACTIVE (next genuinely-new price-only family, same C312 5m data) — no bottlenecks. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
+first_action: "EXECUTE C349 NOW (2026-11-17T08:14:35Z): C348 COMPLETE FORMAL NEGATIVE frozen (20261117T082608Z, 1296, RETRACTED, dominant hhi_placebo 0.3768, 0 Holm+BH). Do NOT re-run C281B-C348/C287. Design the next genuinely-new price-only cross-sectional intraday stat-arb family mechanically distinct from C281B-C348, derived from real C312 perp_close only (log_return, abs_ret, sq_ret, or higher-order path/distribution statistics). Build scripts/build_c349_<family>_features.py -> data/cache/campaign349_<family>_5m/ from real C312 perp_close (no network/fabrication). Preflight scripts/preflight_c349.py (ready:true). Run full costed-OOS sweep scripts/run_c349_<family>_xsec_oos.py (4 signals x 6 lookbacks x 3 reb x 3 fees x 3 slips x 2 costs; 8 splits 12m/3m/3m; placebo seed; Holm+BH alpha=0.05, MDE, stability, attribution>=0.5). Emit 5 SHA256 artifacts reports/campaign349_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + .full.json. Run tests (>=21 green). Record truthful result in AGENTS.md + state.yaml, freeze C349, set the next genuinely-new price-only family as active. Heavy sweep is economic progress — do not abort. C287 external blocked (451/403) — never retry."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C348 ACTIVE (2026-11-17T07:37:40Z): cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only. Pre-registered in AGENTS.md. Execute build -> preflight -> full 1296-config costed-OOS sweep -> pytest (>=21) -> 5 SHA256 artifacts -> record result -> freeze -> set the next genuinely-new price-only family as active. Gates unchanged (Holm+BH, MDE, stability, attribution; edge requires ALL). No bottlenecks. Do NOT re-run frozen C281B-C347/C287."
-active_campaign: C348_realized_var_concentration_xsec_usdt_m_5m
-space_status: NO_EDGE_C281B_C347
-closure_note: 'C281B–C347 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~76,900+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C347 frozen 20261117T073740Z (1296, RETRACTED, dominant dd_long_placebo 0.2783 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C347 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C348 pre-registered/active 2026-11-17T07:37:40Z. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C349 ACTIVE (2026-11-17T08:14:35Z): next genuinely-new price-only cross-sectional intraday stat-arb family on real C312 5m data (USDT-M 5m), mechanically distinct from C281B-C348. Pre-register signals, lookbacks, rebalances, fees, slips, cost variants, placebo seed, selection frac, ALPHA, gates (Holm+BH both, MDE, stability, attribution), verdict logic. Execute build -> preflight -> full costed-OOS sweep -> pytest (>=21) -> 5 SHA256 artifacts -> record result -> freeze -> set the next genuinely-new price-only family as active. Gates unchanged (Holm+BH, MDE, stability, attribution; edge requires ALL). No bottlenecks. Do NOT re-run frozen C281B-C348/C287."
+active_campaign: C349_next_genuinely_new_price_only_xsec_usdt_m_5m
+space_status: NO_EDGE_C281B_C348
+closure_note: 'C281B–C348 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~78,200+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C348 frozen 20261117T082608Z (1296, RETRACTED, dominant hhi_placebo 0.3768 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C348 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C349 pre-registered/active 2026-11-17T08:14:35Z. C287 external blocked/decoupled — never retry.'
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -166,6 +166,82 @@ c347_status:
     passed: 24
     failed: 0
     as_of_utc: 20261117T073740Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c348_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C348
+  family: cross_sectional_realized_var_concentration_hhi_squared_returns_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C347 (drawdown duration / time-under-water of cumulative centered-sum path, temporal persistence), C346 (R/S = magnitude of cumulative centered-sum range), C345 (close position in trailing envelope / Williams %R), C344 (sign-change/chop rate), C343 (autocorr of |r| / vol clustering), C330 (realized-path drawdown/runup/path-efficiency magnitude), C317 (realized-vol levels), C342/C340/C341 (volume/notional/price-impact), C315/C320 (raw return seasonal mean-reversion), C326 (lag-1 signed-return autocorr). C348 measures HHI of squared returns (variance concentration/distributional inequality within the window), distinct from duration, range magnitude, envelope position, chop count, vol autocorrelation, path drawdown, vol level, and point autocorrelation.'
+  as_of_utc: 20261117T082608Z
+  artifacts_ts: 20261117T082608Z
+  signals: [hhi_dev, hhi_norm_dev, hhi_placebo, hhi_norm_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261123
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'hhi_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {hhi_dev: 0.12317956359137552, hhi_norm_dev: 0.12317956359137552, hhi_placebo: 0.37682043640862445, hhi_norm_placebo: 0.37682043640862445}
+  dominant_attribution: hhi_placebo
+  dominant_share: 0.37682043640862445
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C348 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c348_* and tests/test_preflight_c348.py green'
+  no_coast_clause: 'C348 is a formal negative; next session MUST proceed to C349 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign348_realized_var_concentration_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 14228809f2a7ba43fc729426bb237057e768abc7e494207b60414ccd8eea0ae2
+    cache_provenance_sha256: 671aa00853a693be795ed1fcfd44faab37a147f81fc9f16cb2bec02f20760247
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T082608Z
+    artifacts:
+      oos_sweep: reports/campaign348_oos_sweep_20261117T082608Z.json
+      tradable_edge_registry: reports/campaign348_tradable_edge_registry_20261117T082608Z.json
+      summary: reports/campaign348_summary_20261117T082608Z.json
+      verdict: reports/campaign348_verdict_20261117T082608Z.json
+      binding_constraint: reports/campaign348_binding_constraint_20261117T082608Z.json
+      oos_sweep_full: reports/campaign348_oos_sweep_20261117T082608Z.full.json (gitignored)
+    oos_sweep_sha256: b951f1abe8c01c748aaca77c737aba56d72aa1fe9e5e9b77b894779eff871640
+    tradable_edge_registry_sha256: fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b
+    summary_sha256: fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2
+    verdict_sha256: 7338068e5f221cacf9320b4a6d9ca306459f3f479b0b12be4ef21d175b03ef81
+    binding_constraint_sha256: 85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c348_realized_var_concentration_features.py
+  - scripts/preflight_c348.py
+  - scripts/run_c348_realized_var_concentration_xsec_oos.py
+  tests:
+  - tests/test_preflight_c348.py
+  - tests/test_c348_realized_var_concentration_xsec_oos.py
+  pytest:
+    passed: 22
+    failed: 0
+    as_of_utc: 20261117T082608Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false

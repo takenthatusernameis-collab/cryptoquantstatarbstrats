@@ -1,0 +1,130 @@
+{
+  "generated_at_utc": "20261117T081833Z",
+  "campaign": 348,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "abs_ret",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign348_realized_var_concentration_5m",
+  "shard_sha256": {
+    "ADAUSDT": "c976d612e08ed74f0d94f1933875af6aceca4a5e0340873a73f967186b65b8cb",
+    "AVAXUSDT": "ca1c7ea3ee4a6143219a83c6f7f92b9cba5e7ee8e0fede6b02eb88d086724af7",
+    "BNBUSDT": "1bcafe18b706238fba1cb3392e65b54b21ccc29c2ba383cd91f6af5ee6cb884f",
+    "BTCUSDT": "d384cbf070e8b41f6920463062827f12731696a97bb8ebca03091aa1362b3742",
+    "DOGEUSDT": "05e75872f2c9a17fe217fe263f55de59ff16cfc3ea77d86c5446e66790634db1",
+    "DOTUSDT": "1b5e4b25be686258ce41888922acabf02abf100c2b7904699eb4c8ee0ff7ba38",
+    "ETHUSDT": "a3dc3f6df2ca91b68a08b26637babd6f7ed774b365cfe4a5cb0bb91450aafbe7",
+    "LINKUSDT": "711098125e35ad97f183b9a78fe89c06ec22affd049f7f1fea5635a8b1a781e5",
+    "SOLUSDT": "a64f935e6f3dc756c1be00871bd857d6649f51840dee1b608bc8dbe5bcb9ec92",
+    "XRPUSDT": "306c8040005746e8785291edcce758238bf7f712b27f8af55423fbcd1a3079e3"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 3459159,
+    "AVAXUSDT": 3982282,
+    "BNBUSDT": 3983103,
+    "BTCUSDT": 4104206,
+    "DOGEUSDT": 3857424,
+    "DOTUSDT": 3472426,
+    "ETHUSDT": 4143541,
+    "LINKUSDT": 3846649,
+    "SOLUSDT": 4039230,
+    "XRPUSDT": 3589457
+  },
+  "total_shard_bytes": 38477477,
+  "max_shard_bytes": 4143541,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "field_definition": "perp_close: real 5m kline close from C312 (strictly positive, gap-free); log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; abs_ret=|log_return|; funding_rate all-NaN control (USDT-M funding unreachable). Runner derives HHI-of-squared-returns metrics over trailing lookback L bars ending at t (causal): sq=r^2, sum_sq=sum(sq over window), hhi=sum((sq_i/sum_sq)^2) in [1/L,1], hhi_norm=(hhi-1/L)/(1-1/L) in [0,1] (NaN where t<L or sum_sq<=0).",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "abs_ret": "|log_return|; always finite",
+    "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
+    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; hhi/hhi_norm NaN where t<L or sum_sq<=0 or insufficient finite obs.",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "AVAXUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "BNBUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "BTCUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "DOGEUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "DOTUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "ETHUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "LINKUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "SOLUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      },
+      "XRPUSDT": {
+        "log_return": 0,
+        "abs_ret": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "generated_at_utc": "20261117T082440Z",
+  "campaign": 348,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "hhi_dev",
+      "hhi_norm_dev",
+      "hhi_placebo",
+      "hhi_norm_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261123,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 0
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "hhi_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -0.5451764958807135,
+        -0.6366159887833757,
+        -0.703202722305474,
+        -0.7328282864997591,
+        -0.654509526099482,
+        -0.7534912855872892,
+        -0.6367564709340635,
+        -0.6853803633727169
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -9.080313040967459,
+      "second_half_sharpe": -15.334956496378522,
+      "sharpe_corr": 0.9981497478988642,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "hhi_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "hhi_dev_net": 0.0,
+      "hhi_norm_dev_net": 0.0,
+      "hhi_placebo_net": 0.0,
+      "hhi_norm_placebo_net": 0.0,
+      "shares": {
+        "hhi_dev": 0.0,
+        "hhi_norm_dev": 0.0,
+        "hhi_placebo": 0.0,
+        "hhi_norm_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261123
+    },
+    "data_quality": {
+      "reference_signal": "hhi_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019920924574209242,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign348_oos_sweep_20261117T082440Z.json",
+      "sha256": "aa493640193960b7315199fb244a28f0bd3bd0b6e94e1308af636ac032c77b6b"
+    },
+    "registry": {
+      "path": "reports/campaign348_tradable_edge_registry_20261117T082440Z.json",
+      "sha256": "f29fa3ce307d4114ad064e9e6076436cc7c37e2008ec8f1227c19b3df9f09a90"
+    }
+  },
+  "summary": {
+    "n_total_runs": 0,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

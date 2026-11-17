@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T082440Z",
+  "campaign": 348,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign348_oos_sweep_20261117T082440Z.json",
+  "oos_sweep_sha256": "aa493640193960b7315199fb244a28f0bd3bd0b6e94e1308af636ac032c77b6b",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "hhi_dev": 0.0,
+    "hhi_norm_dev": 0.0,
+    "hhi_placebo": 0.0,
+    "hhi_norm_placebo": 0.0
+  },
+  "dominant_attribution": null,
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "hhi_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.5451764958807135,
+      -0.6366159887833757,
+      -0.703202722305474,
+      -0.7328282864997591,
+      -0.654509526099482,
+      -0.7534912855872892,
+      -0.6367564709340635,
+      -0.6853803633727169
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.080313040967459,
+    "second_half_sharpe": -15.334956496378522,
+    "sharpe_corr": 0.9981497478988642,
+    "stable": false
+  },
+  "diagnosis": "C348 cross-sectional intraday REALIZED-VARIANCE CONCENTRATION stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
