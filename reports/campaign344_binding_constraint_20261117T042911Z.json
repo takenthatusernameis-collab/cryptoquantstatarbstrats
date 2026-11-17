@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T042911Z",
+  "campaign": 344,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign344_oos_sweep_20261117T042911Z.json",
+  "oos_sweep_sha256": "37d4b29b371661db7ff98c8fc94650f9bc8f4a79cd5edf9ca4b8f6d141d7d337",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "chop_dev": 0.24553335628995843,
+    "mrv_dev": 0.25148852960441453,
+    "chop_placebo": 0.2518948957300163,
+    "mrv_placebo": 0.2510832183756107
+  },
+  "dominant_attribution": "chop_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "chop_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -7.042911138841393,
+      -7.227558295568421,
+      -7.269209870587421,
+      -7.103599575151489,
+      -7.000614649833256,
+      -7.078381733589277,
+      -7.173042512295503,
+      -7.369299447109256
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -78.38912382202085,
+    "second_half_sharpe": -51.92578780212119,
+    "sharpe_corr": 0.999907918304703,
+    "stable": false
+  },
+  "diagnosis": "C344 cross-sectional intraday RETURN SIGN-CHANGE (CHOP/WHIPSAW) RATE x LAST-MOVE DIRECTION / MAGNITUDE-CONDITIONED OVERREACTION-REVERSAL stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
