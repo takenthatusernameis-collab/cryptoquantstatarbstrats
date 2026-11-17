@@ -1,12 +1,90 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T15:11:12Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T16:09:13Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C352 (timestamped 2026-11-17T15:00:14Z, COMPLETED 2026-11-17T15:07:54Z)
+## INITIAL TASK MESSAGE — C353 (timestamped 2026-11-17T16:09:13Z, ACTIVE — EXECUTE FULL PIPELINE, NO RE-PLANNING)
+
+**C353 — CROSS-SECTIONAL INTRADAY VARIANCE-RATIO (Lo–MacKinlay) RANDOM-WALK DEVIATION × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED BELOW — DO NOT RE-PLAN, DO NOT DOWNSCOPE, DO NOT RE-RUN FROZEN CAMPAIGNS. EXECUTE build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set C354 active.**
+
+Context you must accept as true (already verified on disk this session 2026-11-17T16:09:13Z):
+- C281B–C352 are **ALL COMPLETE FORMAL NEGATIVES** on real C312 5m data (~82,100+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C352 `20261117T150754Z` frozen (1296 configs, RETRACTED, dominant `lw_abs_placebo` 0.3195, 0 Holm+BH). No edge proven through C352.
+- **NO BOTTLENOCKS — re-verified on disk 2026-11-17T16:09:13Z:** C312 5m input `data/cache/campaign312_usdt_m_ofi_5m/` — 10 shards (ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT) each **315,648 bars**, 2023-01..2025-12, field `perp_close` present (dtype float32, **0 NaN** in all 10 shards, verified); meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0; `scipy.optimize.minimize_scalar` and `scipy.stats` OK). C350/C351/C352 build/cache/scripts/tests/artifacts all on disk as scaffolding reference. C287 external blocked/decoupled (451/403) — never retry as economic work. If deps missing run `python scripts/bootstrap_dev_env.py` (idempotent).
+- **Do NOT** re-read/plan/re-declare closure, re-run frozen C281B–C352/C287, or weaken any gate. Do NOT downscope the 1296-config grid. The C353 spec below is COMPLETE and the scripts/cache/tests are already built & validated (see SCAFFOLDING note below) — any "let me define the pre-registration first" or "let me rebuild the kernel" detour is a HARD VIOLATION. RUN the full sweep.
+
+**C353 ECONOMIC-PROGRESS CONTRACT (non-negotiable):** session completion requires all of: (1) `data/cache/campaign353_variance_ratio_5m/` with 10 shards + meta + provenance + SHA256 manifest, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `source_campaign:312`, < 100 MB; (2) `scripts/preflight_c353.py` → `ready:true`; (3) `scripts/run_c353_variance_ratio_xsec_oos.py` full 1296-config costed-OOS sweep → 5 SHA256 artifacts `reports/campaign353_*_<TS>Z.json` + gitignored `.full.json`; (4) `tests/test_preflight_c353.py` + `tests/test_c353_variance_ratio_xsec_oos.py` ≥21 green (incl. variance-ratio brute-force equality test); (5) record truthful result in AGENTS.md + `research_state/state.yaml`, add C353 to frozen table with 5 SHAs, set C354 active. A prose-only or partial handoff is a HARD VIOLATION.
+
+**C353 SCAFFOLDING PRE-BUILT & VALIDATED (2026-11-17T16:09:13Z, by the prior session) — do NOT rebuild from scratch; RUN the sweep:** The C353 build/preflight/runner/test scripts, the `data/cache/campaign353_variance_ratio_5m/` cache (10 shards, 38.48 MB, preflight `ready:true`), and the test suite (28/28 green incl. the variance-ratio brute-force equality test at rtol=1e-9) ALREADY EXIST and were validated this session. The metric kernel was timing-checked (~16s for all 10 assets × 315,648 bars; full sweep est. ~2 min). C353 cache SHAs: meta `45f225006d3dfdbc1548cf700dbab9aa366bff43dc3f8e09d1077f560ff35af3`, provenance `8a3daa6931adda2abb309057dc87254d9ca5a334bbbe1dec44f5cc05800f0766`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38,477,477 bytes total, 4,143,541 max shard). The `reports/campaign353_*` dir is intentionally EMPTY (smoke artifacts were removed) — the next agent's remaining work is EXACTLY: (a) `python scripts/run_c353_variance_ratio_xsec_oos.py` (full 1296-config sweep, ~2 min), (b) `python -m pytest tests/test_preflight_c353.py tests/test_c353_variance_ratio_xsec_oos.py -q` (confirm ≥21 green, now 28), (c) capture the 5 SHA256 artifacts, (d) record the truthful result + SHAs in AGENTS.md and `research_state/state.yaml`, add C353 to the frozen table, set C354 active. This is the heavy economic-progress deliverable — do it, do not re-plan or re-derive the kernel.
+
+---
+
+## C353 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+
+C353 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C352. **This spec is complete and frozen — execute it verbatim.**
+
+**Distinctness proof (pre-registered):**
+- C353 measures the **variance ratio (Lo–MacKinlay) random-walk deviation** — a *multi-horizon second-moment* test of the random-walk null. For horizon `q`, the variance ratio `VR(q) = Var(r_t(q)) / (q · Var(r_t))` where `r_t(q) = Σ_{i=0}^{q-1} r_{t-i}` is the `q`-bar aggregated return. Under a random walk `VR(q) = 1`; `VR(q) > 1` indicates positive autocorrelation / trending / persistence; `VR(q) < 1` indicates mean-reversion / anti-persistence. C353 uses **two horizons `q ∈ {8, 16}`** and trades each asset's causal trailing same-(TOD × DOW) seasonal deviation of `VR(q)`.
+- **C326** measured lag-1 signed-return autocorrelation (single pairwise product at one lag). **C346** measured R/S (single-window range of cumulative centered sum, one effective scale). **C350** measured DFA α (time-domain multi-scale detrended fluctuation slope, OLS of log F(n) vs log n). **C351** measured GPH d (frequency-domain OLS log-periodogram regression slope). **C352** measured local-Whittle exact-MLE d (frequency-domain profile-likelihood minimization). **C343** measured autocorrelation of `|r|` (vol clustering). **C344** measured SIGN-CHANGE RATE. **C347** measured drawdown duration. **C345** measured close location within trailing envelope. **C317** measured realized-vol LEVELS. **C342/C340/C341** need volume/notional/price-impact. **C315/C320** trade raw seasonal RETURN mean-reversion.
+- C353 is distinct from all of the above: it is the **multi-horizon variance-ratio statistic `VR(q)`** (a normalized second-moment ratio across horizons q=8 and q=16), NOT a single-lag autocorrelation (C326), NOT a single-scale range (C346), NOT a detrended fluctuation slope (C350), NOT a frequency-domain long-memory estimate (C351/C352), NOT vol clustering (C343), NOT sign-change rate (C344). It is a genuinely-new time-domain multi-horizon second-moment random-walk-deviation family. Price-only (`perp_close` only), volume-free, no network, no fabrication, no resampling, no imputation.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign353_variance_ratio_5m/<SYM>.npz` per symbol from real C312 `perp_close` (identical 5-field layout to C350/C351/C352; no network, no fabrication, no resampling, no imputation):
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, 315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache < 100 MB (per-symbol float32 npz shards; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, per bar t)
+Intrinsic estimation window `W = 256` bars (fixed, decoupled from seasonal lookback L); horizons `q ∈ {8, 16}` (both divide W=256). For each bar t:
+- Take trailing `W` returns `r[t-W+1..t]` (NaN if `t < W` or any NaN in window).
+- **Step 1 — one-bar variance:** `mu = mean(window)`; `var1 = mean((window - mu)²)` (population variance of the 1-bar returns within the window). NaN if `var1 ≤ 0` or non-finite.
+- **Step 2 — q-bar aggregated-return variance:** for horizon `q`, form the `q`-bar overlapping aggregated returns `r_q[j] = Σ_{i=0}^{q-1} window[j+i]` for `j = 0..W-q` (length `W - q + 1`); `varq = mean((r_q - mean(r_q))²)`. (Alternative equivalent `q`-step variance estimator: use non-overlapping blocks — but the pre-registered, authoritative definition is the **overlapping** `q`-bar aggregated-return variance above; implement exactly this.)
+- **Step 3 — variance ratio:** `VR(q)[t] = varq / (q · var1)`. NaN if `t<W`, any NaN in window, `var1≤0` or `varq` non-finite, or `q·var1≤0`.
+- Real metrics produced: `vr8[t] = VR(8)[t]` and `vr16[t] = VR(16)[t]` (two distinct real signals).
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday × tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t]-seasonal_mean)/seasonal_std` for `v[t] ∈ {vr8[t], vr16[t]}` (symmetric z-fade).
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `vr8` and `vr16` for all bars per asset with a vectorized `sliding_window_view` + chunked cumulative-sum path (no Python loop over 315,648 bars × 10 assets), and it MUST pass a brute-force equality test against a reference per-window variance-ratio implementation (manual loop over windows, per-window `np.var` and explicit `q`-bar aggregation via `np.convolve`/`cumsum`).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `vr8_dev`, `vr16_dev`, `vr8_placebo`, `vr16_placebo` (2 real: VR(8) and VR(16); 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60, 120, 240, 480, 960, 1920)`; REBALANCES = `(1, 4, 12)`; FEES = `(0.0004, 0.0007, 0.0010)`; SLIPS = `(0.0, 0.0001, 0.0002)`; COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12. Placebo seed `20261219` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN). selection frac = 1/3, ALPHA = 0.05.
+- Reference config (stability/attribution): `vr8_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES = {vr8_dev, vr16_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `vr8_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (do ALL six, in order, no pauses)
+1. `scripts/build_c353_variance_ratio_features.py` → `data/cache/campaign353_variance_ratio_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget check).
+2. `scripts/preflight_c353.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
+3. `scripts/run_c353_variance_ratio_xsec_oos.py` — full 1296-config costed-OOS sweep. Emit 5 SHA256 artifacts + gitignored `.full.json`:
+   - `reports/campaign353_oos_sweep_<TS>Z.json` + `.full.json`
+   - `reports/campaign353_tradable_edge_registry_<TS>Z.json`
+   - `reports/campaign353_summary_<TS>Z.json`
+   - `reports/campaign353_verdict_<TS>Z.json`
+   - `reports/campaign353_binding_constraint_<TS>Z.json`
+4. `tests/test_preflight_c353.py` + `tests/test_c353_variance_ratio_xsec_oos.py` — ≥21 green (incl. variance-ratio brute-force equality test).
+5. Record the truthful result (formal negative or edge) in this `AGENTS.md` (new C353 RESULT section) + `research_state/state.yaml`; add C353 to the frozen table with its 5 SHAs; set C354 as active.
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts. The heavy sweep IS the economic progress — do NOT abort it.
+
+---
+
+## PREVIOUS INITIAL TASK MESSAGE — C352 (timestamped 2026-11-17T15:00:14Z, COMPLETED 2026-11-17T15:07:54Z)
 
 **C352 — CROSS-SECTIONAL INTRADAY LOCAL-WHITTLE EXACT MLE FRACTIONAL INTEGRATION ORDER d × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — COMPLETE.**
 
@@ -21,9 +99,9 @@ Context you must accept as true (already verified on disk):
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C352 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C352 DONE/frozen; C352 (local-Whittle exact MLE fractional integration order d × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → recorded → frozen → set C353 active.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C352 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C352 DONE/frozen; C352 (local-Whittle exact MLE fractional integration order d × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → recorded → frozen → set C353 active. C353 (variance-ratio Lo–MacKinlay random-walk deviation × seasonal-dislocation mean-reversion) is now ACTIVE with a COMPLETE pre-registered spec above — EXECUTE it, no re-planning.**
 
-**Bottlenecks: NONE** (re-verified 2026-11-17T15:11:12Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`). C351 build/cache on disk (`data/cache/campaign351_frac_diff_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign351_*_20261117T141619Z.json` + gitignored `.full.json`), tests 26/26 green. C351 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `gph_abs_dev` 0.2933 (< 0.5 → `attribution_ok:false`). C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green. C352 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `lw_abs_placebo` 0.3195 (< 0.5 → `attribution_ok:false`). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests.
+**Bottlenecks: NONE** (re-verified on disk 2026-11-17T16:09:13Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`, 0 NaN all shards; meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C350/C351/C352 caches/scripts/tests/artifacts all on disk (scaffolding reference). C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green. C352 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `lw_abs_placebo` 0.3195 (< 0.5 → `attribution_ok:false`). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests.
 
 **Closure audit (C281B–C318 scope only, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318 only; C319–C351 extend the record. Do NOT regenerate/run stale closure generators.
 
@@ -219,7 +297,7 @@ C352 = cross-sectional intraday LOCAL-WHITTLE EXACT MLE fractional integration o
 
 ## C353 ACTIVE — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
 
-C353 = the next genuinely-new price-only, volume-free, cross-sectional intraday stat-arb family on real C312 5m data, mechanically distinct from C281B–C352. Pre-registration to be defined by the next agentic session following the same rigor: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set C354 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families until one is proven unreachable with on-disk evidence.
+C353 = the next genuinely-new price-only, volume-free, cross-sectional intraday stat-arb family on real C312 5m data, mechanically distinct from C281B–C352. **Its COMPLETE pre-registered spec (variance-ratio Lo–MacKinlay random-walk deviation × seasonal-dislocation mean-reversion) is defined in full above under "C353 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)".** EXECUTE it: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set C354 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families until one is proven unreachable with on-disk evidence.
 
 ---
 
