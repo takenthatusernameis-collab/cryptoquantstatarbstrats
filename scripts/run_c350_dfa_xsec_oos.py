@@ -581,216 +581,68 @@ def compute_dfa_metrics(r: np.ndarray, W: int = DFA_W, scales=DFA_SCALES) -> dic
     return _compute_dfa_vectorized(r_arr, S_r, S_r2, W, scales, out)
 
 
-def _compute_dfa_vectorized(r: np.ndarray, S_r: np.ndarray, S_r2: np.ndarray,
-                            W: int, scales, out: dict) -> dict:
-    """Vectorized DFA across all bars using closed-form OLS residual sums.
+def _compute_dfa_vectorized(r: np.ndarray, S_r, S_r2, W: int, scales, out: dict) -> dict:
+    """Correct vectorized DFA scaling exponent alpha across all bars.
 
-    For a window ending at t (start s=t-W+1), demeaned profile:
-        y[k] = cum_r[k] - (k+1)*mean,   cum_r[k] = S_r[s+k+1]-S_r[s]
-    For a box of local indices [b0, b1) (length n):
-        Σ y    = Σ cum_r - mean * Σ(k+1)
-        Σ y^2  = Σ cum_r^2 - 2*mean*Σ((k+1)*cum_r) + mean^2 * Σ(k+1)^2
-        Σ t_c*y (for OLS slope) = Σ (t-t̄)*y
-    OLS residual SS = Σ y^2 - (Σ y)^2/n  ... (demeaned regression)
-    Actually residual SS around OLS line = Σ(y - a - b t)^2
-      = Σ y^2 - n*ȳ^2 - b^2 * Σ(t-t̄)^2  where b = Σ((t-t̄)(y-ȳ))/Σ((t-t̄)^2)
-      = Σ y^2 - n*ȳ^2 - (Σ((t-t̄)y))^2 / Σ((t-t̄)^2)
+    For each trailing window of length W ending at bar t (window = r[t-W+1..t]):
+      (1) demean the window; (2) profile y = cumsum(demeaned);
+      (3) split y into non-overlapping front boxes of scale n (every
+          pre-registered scale divides W=256, so the front boxes tile [0, W) and
+          the reference back segment coincides with the front, leaving F(n)
+          unchanged); (4) OLS-detrend each box; (5) F(n) = sqrt(mean squared
+          residual); (6) dfa[t] = alpha[t] = OLS slope of log F(n) vs log n.
 
-    This requires Σ y, Σ y^2, Σ((t-t̄)y) over each box. Because cum_r[k]
-    = S_r[s+k+1]-S_r[s] depends on s, we need per-window quantities. We use
-    the global prefix sums of r and r^2 and of (index*r) to obtain these
-    in closed form per (t, box)."""
+    dfa[t] is NaN for t < W, if any r in the window is NaN, or if any F(n) <= 0
+    (matching _dfa_alpha_single_window / _dfa_alpha_bruteforce).
+    Exact to ~1e-9 vs the brute-force reference. Vectorized over all windows via
+    sliding_window_view + chunked box detrending: O(n*W) time, O(chunk*W) memory.
+    S_r / S_r2 are accepted for signature compatibility but unused.
+    """
+    from numpy.lib.stride_tricks import sliding_window_view
+
+    r = np.asarray(r, dtype=float)
     n = len(r)
-    # Precompute prefix sums for higher-order terms
-    # cum_r[k] = S_r[s+k+1]-S_r[s] = sum_{j=s}^{s+k} r[j]
-    # Σ_{k in box} cum_r[k] = Σ_{k=b0..b1-1} (S_r[s+k+1]-S_r[s])
-    #                        = (Σ_{j=b0..b1-1} S_r[s+j+1]) - n*S_r[s]
-    # Σ S_r over an index range can be computed via a prefix-of-prefix array.
-    # Define PS[i] = Σ_{0..i-1} S_r  (prefix of prefix). Then
-    #   Σ_{j=b0..b1-1} S_r[s+j+1] = PS[s+b1] - PS[s+b0]
-    # Similarly Σ cum_r^2 needs Σ (S_r[s+k+1]-S_r[s])^2 which expands into
-    # Σ S_r^2, S_r, and constants — all obtainable from prefix-of-prefix of
-    # S_r and S_r^2.
-
-    # Prefix-of-prefix arrays (length n+2):
-    # PS1[i] = sum_{0..i-1} S_r[j]      (S_r has length n+1)
-    # PS2[i] = sum_{0..i-1} S_r[j]^2
-    S_r_sq = S_r * S_r
-    PS1 = np.concatenate([[0.0], np.cumsum(S_r)])       # len n+2
-    PS2 = np.concatenate([[0.0], np.cumsum(S_r_sq)])    # len n+2
-
-    # Also need Σ (k * cum_r[k]) and Σ cum_r^2 etc. These require
-    # prefix-of-(k*S_r[k]) and prefix-of-(S_r[k]^2) which we have via PS2 and a
-    # weighted prefix.
-    # P_kS1[i] = sum_{0..i-1} k * S_r[k]
-    idx = np.arange(len(S_r), dtype=float)
-    P_kS1 = np.concatenate([[0.0], np.cumsum(idx * S_r)])      # len n+2
-    # P_k2S1[i] = sum_{0..i-1} k^2 * S_r[k]  (not needed for slope; skip)
-
-    # For slope we need Σ((k-k̄)*cum_r) over box. k is global index (s+k).
-    # This is getting extremely algebra-heavy; to keep exactness and shippable
-    # code within budget, we compute DFA via a vectorized *sliding-window*
-    # approach that operates on the demeaned profile using cumulative sums
-    # computed per scale with a rolling update. Given the complexity, we use a
-    # pragmatic exact method: compute the demeaned profile for all windows via a
-    # 2D approach is O(n*W) memory (315648*256*8 = 646MB) — too big.
-    #
-    # FINAL DECISION: Use the vectorized kernel that computes, for each bar t
-    # and each scale n, the residual SS via direct summation over boxes but
-    # vectorized across bars using the closed-form cum_r identity, evaluating
-    # Σ y, Σ y^2, Σ((t-t̄)y) with prefix-of-prefix arrays. We implement this
-    # cleanly below for the FRONT segment only for all scales, then add the BACK
-    # segment. Because the back segment boxes are at fixed local offsets
-    # [W-b*n-n, W-b*n), and front at [b*n, (b+1)*n), both are contiguous ranges
-    # in local coords, we can compute each box's contributions with the prefix
-    # arrays indexed at s+local.
-    #
-    # To bound complexity we restrict scales to those with n<=W and compute
-    # exact closed forms. The implementation below is validated by brute force
-    # in tests; if any mismatch, the test fails closed.
-
-    # Because a fully closed-form derivation for all 6 scales × 2 segments ×
-    # 3 sufficient statistics is too large to guarantee correctness in one pass
-    # without iterative validation, and the task explicitly requires passing a
-    # brute-force equality test, we implement the vectorized path as an exact
-    # sliding computation per scale that is O(n * n_boxes) = O(n) per scale
-    # (since n_boxes = W/n and total box count across scales is bounded), using
-    # numpy slicing. This is exact and vectorized over bars.
-
-    # For each bar t, y depends on the window mean (which changes per t), so we
-    # cannot precompute y once. However, we can compute the per-bar DFA using
-    # the identity that OLS detrending residual SS is invariant to adding a
-    # constant to y (the intercept absorbs it). Therefore the *residual SS*
-    # only depends on the SHAPE of the profile, and adding the per-window mean
-    # correction (which is a constant per window) does NOT change residuals.
-    # Wait — the profile y itself is cumsum(demeaned r). The demeaning of r
-    # (subtracting window mean) subtracts a *linear* ramp from the profile
-    # (since cumsum of a constant c over k is c*(k+1)), and a linear ramp is
-    # absorbed by the OLS linear detrend! Therefore:
-    #   residual SS of y (from cumsum of demeaned r) == residual SS of
-    #   cumsum(r) (raw, without demeaning), because they differ by a linear
-    #   term that OLS detrending removes.
-    #
-    # THIS IS THE KEY SIMPLIFICATION: DFA residual SS is invariant to the window
-    # mean subtraction (linear detrend removes it). So we can use the raw
-    # cumulative sum of r within the window (no demeaning) and get identical
-    # residuals. This makes the profile a simple sliding cumsum of r, and the
-    # residual SS per box depends only on prefix sums of r and r^2 and
-    # index*r — all precomputable globally!
-
-    # Raw profile within window [s, t]: y_raw[k] = sum_{j=s..s+k} r[j]
-    #   = S_r[s+k+1]-S_r[s].
-    # For a box local [b0,b1) (n=b1-b0):
-    #   Σ y_raw = Σ_{k=b0..b1-1} (S_r[s+k+1]-S_r[s])
-    #           = (PS1[s+b1]-PS1[s+b0]) - n*S_r[s]
-    #   Σ y_raw^2 = Σ (S_r[s+k+1]-S_r[s])^2
-    #             = Σ S_r[s+k+1]^2 - 2*S_r[s]*Σ S_r[s+k+1] + n*S_r[s]^2
-    #             = (PS2[s+b1]-PS2[s+b0]) - 2*S_r[s]*(PS1[s+b1]-PS1[s+b0]) + n*S_r[s]^2
-    #   Σ (k * y_raw)  (k local 0..n-1, but OLS slope uses (k-k̄); we use global
-    #     local index within box: for front box b, local k = b*n + j, j=0..n-1)
-    #     = Σ_j (b*n+j) * (S_r[s+b*n+j+1]-S_r[s])
-    #     This needs Σ (b*n+j)*S_r[s+b*n+j+1] = prefix of (index*S_r) at shifted positions.
-    #     Define P_kS1 as above. Then
-    #     Σ_{j=0..n-1} (base+j)*S_r[s+base+j+1] where base=b*n
-    #       = Σ_{m=base..base+n-1} m * S_r[s+m+1]
-    #       = P_kS1[s+base+n+1] - P_kS1[s+base+1]
-    #     and Σ (base+j)*S_r[s] = S_r[s] * Σ(base+j) = S_r[s]*n*base + S_r[s]*n(n-1)/2
-    #   Then slope b_ols = (Σ(k-k̄)y) / Σ(k-k̄)^2. With k local = 0..n-1,
-    #     k̄=(n-1)/2, Σ(k-k̄)^2 = n(n^2-1)/12 (constant per scale).
-    #     Σ(k-k̄)y = Σ k*y - k̄*Σ y.
-    #   residual SS = Σ y^2 - (Σ y)^2/n - (Σ(k-k̄)y)^2 / Σ(k-k̄)^2.
-
-    # Precompute constant for slope denominator per scale
-    def slope_denom(n):
-        return n * (n * n - 1) / 12.0
-
-    valid_t = np.arange(W, n)
-    if len(valid_t) == 0:
+    valid_scales = [int(ns) for ns in scales if 2 <= int(ns) <= W]
+    n_win = n - W + 1
+    if n < W or n_win <= 1 or len(valid_scales) < 2:
         return out
-
-    alpha_all = np.full(len(valid_t), np.nan, dtype=float)
-    log_n_arr = np.log(np.asarray(scales, dtype=float))
-
-    # For each scale, accumulate log_F across valid bars
-    log_F_mat = np.full((len(valid_t), len(scales)), np.nan, dtype=float)
-    for si, nsc in enumerate(scales):
-        if nsc > W:
-            continue
-        n_boxes = W // nsc
-        if n_boxes <= 0:
-            continue
-        sdenom = slope_denom(nsc)
-        if sdenom <= 0:
-            continue
-        resid_ss_total = np.zeros(len(valid_t), dtype=float)
-        count_total = np.zeros(len(valid_t), dtype=float)
-        # front boxes: local base = b*nsc, b=0..n_boxes-1
-        for b in range(n_boxes):
-            base = b * nsc
-            # indices into S_r arrays: s+base+1 .. s+base+nsc
-            # s = valid_t - W + 1
-            s_vec = valid_t - W + 1
-            lo = s_vec + base
-            hi = lo + nsc
-            # Σ y_raw
-            sum_y = (PS1[hi] - PS1[lo]) - nsc * S_r[s_vec]
-            # Σ y_raw^2
-            sum_y2 = (PS2[hi] - PS2[lo]) - 2.0 * S_r[s_vec] * (PS1[hi] - PS1[lo]) + nsc * (S_r[s_vec] ** 2)
-            # Σ k*y_raw, k local 0..nsc-1 (local within box)
-            # Σ (base+j)*S_r[s+base+j+1] = P_kS1[s+base+nsc+1] - P_kS1[s+base+1]
-            # but local k = base+j, and we want local 0..nsc-1 => use j directly.
-            # Σ j*S_r[s+base+j+1] = Σ (m-base)*S_r[s+m+1], m=base..base+nsc-1
-            #  = (P_kS1[s+hi+1]-P_kS1[s+lo+1]) - base*(PS1[hi]-PS1[lo])
-            sum_kS = (P_kS1[s_vec + hi + 1] - P_kS1[s_vec + lo + 1]) - base * (PS1[hi] - PS1[lo])
-            # Σ j*S_r[s] = S_r[s]*nsc(nsc-1)/2
-            sum_k_const = S_r[s_vec] * (nsc * (nsc - 1) / 2.0)
-            sum_ky = sum_kS - sum_k_const
-            kbar = (nsc - 1) / 2.0
-            sum_kc_y = sum_ky - kbar * sum_y
-            ss_res = sum_y2 - (sum_y * sum_y) / nsc - (sum_kc_y * sum_kc_y) / sdenom
-            # ss_res can be tiny negative from float error; clamp
-            resid_ss_total += np.maximum(ss_res, 0.0)
-            count_total += nsc
-        # back boxes: local base = W - (b+1)*nsc, b=0..n_back-1 (distinct from front)
-        front_covered = n_boxes * nsc
-        n_back = (W - front_covered) // nsc
-        for b in range(n_back):
-            base = W - (b + 1) * nsc
-            s_vec = valid_t - W + 1
-            lo = s_vec + base
-            hi = lo + nsc
-            sum_y = (PS1[hi] - PS1[lo]) - nsc * S_r[s_vec]
-            sum_y2 = (PS2[hi] - PS2[lo]) - 2.0 * S_r[s_vec] * (PS1[hi] - PS1[lo]) + nsc * (S_r[s_vec] ** 2)
-            sum_kS = (P_kS1[s_vec + hi + 1] - P_kS1[s_vec + lo + 1]) - base * (PS1[hi] - PS1[lo])
-            sum_k_const = S_r[s_vec] * (nsc * (nsc - 1) / 2.0)
-            sum_ky = sum_kS - sum_k_const
-            kbar = (nsc - 1) / 2.0
-            sum_kc_y = sum_ky - kbar * sum_y
-            ss_res = sum_y2 - (sum_y * sum_y) / nsc - (sum_kc_y * sum_kc_y) / sdenom
-            resid_ss_total += np.maximum(ss_res, 0.0)
-            count_total += nsc
-        with np.errstate(divide="ignore", invalid="ignore"):
-            F_n = np.sqrt(resid_ss_total / np.where(count_total > 0, count_total, np.nan))
-        valid_F = np.isfinite(F_n) & (F_n > 0)
-        log_F_mat[:, si] = np.where(valid_F, np.log(F_n), np.nan)
-
-    # OLS slope of log F vs log n across scales
-    ln = log_n_arr  # (n_scales,)
-    ln_m = ln.mean()
+    ln = np.log(np.asarray(valid_scales, dtype=float))
+    ln_m = float(ln.mean())
     denom_ln = float(((ln - ln_m) ** 2).sum())
     if denom_ln <= 0:
         return out
-    for j in range(len(valid_t)):
-        row = log_F_mat[j]
-        if not np.isfinite(row).all():
-            continue
-        lF_m = row.mean()
-        alpha_all[j] = float(((ln - ln_m) * (row - lF_m)).sum() / denom_ln)
-
-    out["dfa"][valid_t] = alpha_all
-    valid_a = np.isfinite(alpha_all)
-    dfa_vals = np.where(valid_a, alpha_all, np.nan)
-    out["dfa_norm"][valid_t] = np.where(valid_a, alpha_all - 0.5, np.nan)
+    wins = sliding_window_view(r, W)  # (n_win, W); wins[i] = r[i..i+W-1]
+    alpha_all = np.full(n_win, np.nan, dtype=float)
+    chunk_cap = 20000
+    for c0 in range(0, n_win, chunk_cap):
+        c1 = min(c0 + chunk_cap, n_win)
+        chunk = np.array(wins[c0:c1], dtype=float)  # (m, W) copy
+        m = c1 - c0
+        y = np.cumsum(chunk - chunk.mean(axis=1, keepdims=True), axis=1)  # (m, W)
+        log_F = np.full((m, len(valid_scales)), np.nan, dtype=float)
+        for si, ns in enumerate(valid_scales):
+            nb = W // ns
+            if nb <= 0:
+                continue
+            front = y[:, :nb * ns].reshape(m, nb, ns)
+            tc = np.arange(ns, dtype=float) - (ns - 1) / 2.0
+            denom = float((tc * tc).sum())
+            if denom <= 0:
+                continue
+            seg_mean = front.mean(axis=2, keepdims=True)
+            slope = (front * tc).sum(axis=2, keepdims=True) / denom
+            resid = front - seg_mean - slope * tc
+            ss = (resid * resid).sum(axis=(1, 2))
+            F = np.sqrt(ss / float(nb * ns))
+            ok = np.isfinite(F) & (F > 0)
+            log_F[:, si] = np.where(ok, np.log(np.where(ok, F, 1.0)), np.nan)
+        row_ok = np.isfinite(log_F).all(axis=1)
+        lF_m = log_F.mean(axis=1, keepdims=True)
+        alpha = ((ln - ln_m) * (log_F - lF_m)).sum(axis=1) / denom_ln
+        alpha_all[c0:c1] = np.where(row_ok, alpha, np.nan)
+    # brute force defines dfa[t] for t in [W, n-1] => windows i=1..n_win-1 (drop i=0)
+    out["dfa"][W:] = alpha_all[1:]
+    out["dfa_norm"][W:] = alpha_all[1:] - 0.5
     return out
 
 

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T140129Z",
+  "campaign": 350,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign350_oos_sweep_20261117T140129Z.json",
+  "oos_sweep_sha256": "0f2a23039e47c790eddc2f7ad1a09921de9e13114f12faa19b5ffc3547eb0286",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "dfa_dev": 0.23560712447042648,
+    "dfa_norm_dev": 0.23560712447042648,
+    "dfa_placebo": 0.26439287552957347,
+    "dfa_norm_placebo": 0.26439287552957347
+  },
+  "dominant_attribution": "dfa_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "dfa_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.6963555153309626,
+      -1.4839317692515215,
+      -1.533227094317033,
+      -1.1998822069818353,
+      -1.6842683074524856,
+      -1.3610379367642866,
+      -1.6162186394975315,
+      -1.5469927030566992
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.260565631871957,
+    "second_half_sharpe": -12.877477035230228,
+    "sharpe_corr": 0.9973865445850436,
+    "stable": false
+  },
+  "diagnosis": "C350 cross-sectional intraday DETRENDED FLUCTUATION ANALYSIS (DFA) SCALING EXPONENT alpha stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
