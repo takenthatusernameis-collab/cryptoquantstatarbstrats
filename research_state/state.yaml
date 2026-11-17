@@ -1,23 +1,31 @@
-updated_at_utc: 2026-11-17T06:13:50Z
-handoff_refreshed_at_utc: 2026-11-17T06:13:50Z
+updated_at_utc: 2026-11-17T06:35:00Z
+handoff_refreshed_at_utc: 2026-11-17T06:35:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-17T06:13:50Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T06:13:50Z: C337-C345 ALL COMPLETE FORMAL NEGATIVES (~74,300+ configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C345 frozen 20261117T052603Z (1296 configs, wr_placebo 0.2596 < 0.5, attribution_ok false). C346 NEXT ACTIVE (Rescaled-Range/Hurst-proxy R/S seasonal-dislocation, price-only, 1296 configs, spec pre-registered in AGENTS.md) — no bottlenecks. C312 5m ready (10 shards × 315648 bars, perp_close). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
-first_action: "EXECUTE C346 NOW (2026-11-17T06:13:50Z): C345 COMPLETE FORMAL NEGATIVE frozen (20261117T052603Z, 1296, RETRACTED, wr_placebo 0.2596, 0 Holm+BH). Do NOT re-run C281B-C345/C287. Build scripts/build_c346_rescaled_range_features.py -> data/cache/campaign346_rescaled_range_5m/ from real C312 perp_close (no network/fabrication). Preflight scripts/preflight_c346.py (ready:true). Run full costed-OOS sweep scripts/run_c346_rescaled_range_xsec_oos.py (1296 configs: 4 signals rs_dev/rs_dir_dev/rs_placebo/rs_dir_placebo x 6 lookbacks 60-1920 x 3 reb 1,4,12 x 3 fees x 3 slips x 2 costs; 8 splits 12m/3m/3m; placebo seed 20261120; Holm+BH alpha=0.05, MDE, stability ref rs_dev L=240 H=4 fee=0.0007 slip=0.0001 taker, attribution>=0.5). Emit 5 SHA256 artifacts reports/campaign346_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + .full.json. Run tests (>=21 green). Record truthful result in AGENTS.md + state.yaml, freeze C346, set C347 next mechanically-distinct price-only family with concrete spec. Heavy sweep is economic progress — do not abort. C287 external blocked (451/403) — never retry."
+latest_campaign_done: C346
+next_campaign: C347_drawdown_duration_xsec_usdt_m_5m
+oos_edge_proven: false
+handoff:
+  single_authoritative: true
+  file: AGENTS.md
+  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
+bottlenecks_verified_removed_at_utc: "2026-11-17T06:35:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T06:35:00Z: C337-C346 ALL COMPLETE FORMAL NEGATIVES (~75,600+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C346 frozen 20261117T063205Z (1296 configs, RETRACTED, dominant rs_dir_placebo 0.4432 < 0.5, attribution_ok false). BOTTLENECK REMOVED THIS SESSION: C346 had been left half-built (build+preflight+cache present, runner/tests/artifacts MISSING); authored scripts/run_c346_rescaled_range_xsec_oos.py + 2 test files and executed the full 1296-config sweep to 5 SHA256 artifacts. C347 NEXT ACTIVE (cumulative-sum DRAWDOWN DURATION / time-under-water seasonal-dislocation, price-only, 1296 configs, spec pre-registered in AGENTS.md) — no bottlenecks. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
+first_action: "EXECUTE C347 NOW (2026-11-17T06:35:00Z): C346 COMPLETE FORMAL NEGATIVE frozen (20261117T063205Z, 1296, RETRACTED, dominant rs_dir_placebo 0.4432, 0 Holm+BH). Do NOT re-run C281B-C346/C287. Build scripts/build_c347_drawdown_duration_features.py -> data/cache/campaign347_drawdown_duration_5m/ from real C312 perp_close (no network/fabrication). Preflight scripts/preflight_c347.py (ready:true). Run full costed-OOS sweep scripts/run_c347_drawdown_duration_xsec_oos.py (1296 configs: 4 signals dd_long_dev/dd_frac_dev/dd_long_placebo/dd_frac_placebo x 6 lookbacks 60-1920 x 3 reb 1,4,12 x 3 fees x 3 slips x 2 costs; 8 splits 12m/3m/3m; placebo seed 20261121; Holm+BH alpha=0.05, MDE, stability ref dd_long_dev L=240 H=4 fee=0.0007 slip=0.0001 taker, attribution>=0.5). Emit 5 SHA256 artifacts reports/campaign347_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + .full.json. Run tests (>=21 green). Record truthful result in AGENTS.md + state.yaml, freeze C347, set C348 next. Heavy sweep is economic progress — do not abort. C287 external blocked (451/403) — never retry."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C346 ACTIVE (2026-11-17T06:13:50Z): Rescaled-Range/Hurst-proxy (R/S) seasonal-dislocation cross-sectional mean-reversion, USDT-M 5m, price-only. Pre-registered in AGENTS.md. Execute build -> preflight -> full 1296-config costed-OOS sweep -> pytest (>=21) -> 5 SHA256 artifacts -> record result -> freeze -> set C347 next. Gates unchanged (Holm+BH, MDE, stability, attribution; edge requires ALL). No bottlenecks. Do NOT re-run frozen C281B-C345/C287."
-active_campaign: C346_rescaled_range_hurst_proxy_xsec_usdt_m_5m
-space_status: NO_EDGE_C281B_C345
-closure_note: 'C281B–C345 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~74,300+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C345 frozen 20261117T052603Z (1296, RETRACTED, dominant wr_placebo 0.2596 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C345 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C346 pre-registered/active 2026-11-17T06:13:50Z. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C347 ACTIVE (2026-11-17T06:35:00Z): cumulative-sum DRAWDOWN DURATION / time-under-water seasonal-dislocation cross-sectional mean-reversion, USDT-M 5m, price-only. Pre-registered in AGENTS.md. Execute build -> preflight -> full 1296-config costed-OOS sweep -> pytest (>=21) -> 5 SHA256 artifacts -> record result -> freeze -> set C348 next. Gates unchanged (Holm+BH, MDE, stability, attribution; edge requires ALL). No bottlenecks. Do NOT re-run frozen C281B-C346/C287."
+active_campaign: C347_drawdown_duration_xsec_usdt_m_5m
+space_status: NO_EDGE_C281B_C346
+closure_note: 'C281B–C346 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~75,600+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C346 frozen 20261117T063205Z (1296, RETRACTED, dominant rs_dir_placebo 0.4432 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C346 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C347 pre-registered/active 2026-11-17T06:35:00Z. C287 external blocked/decoupled — never retry.'
 c346_status:
-  state: PRE_REGISTERED_ACTIVE
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
   family: cross_sectional_rescaled_range_hurst_proxy_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
   reskin_of: none
   distinct_from: 'C326 (lag-1 signed-return autocorr, first-moment), C343 (|r| autocorr / vol clustering), C344 (sign-change/chop rate), C330 (drawdown/path efficiency), C345 (close position in trailing envelope / Williams %R), C317 (realized-vol levels), C315/C320 (raw return seasonal mean-reversion). R/S captures cumulative range-dispersion dependence over the whole window (persistence proxy), not a point autocorrelation, not chop count, not envelope position.'
-  as_of_utc: 20261117T061350Z
+  as_of_utc: 20261117T063205Z
+  artifacts_ts: 20261117T063205Z
   signals: [rs_dev, rs_dir_dev, rs_placebo, rs_dir_placebo]
   n_configs: 1296
   grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
@@ -25,13 +33,66 @@ c346_status:
   wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
   stability_ref: 'rs_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
   gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
-  data: 'C312 5m on-disk: data/cache/campaign312_usdt_m_ofi_5m/ (10 shards x 315648 bars); real perp_close only; no network/ingest'
-  no_bottlenecks: true
-  expected_scripts: [scripts/build_c346_rescaled_range_features.py, scripts/preflight_c346.py, scripts/run_c346_rescaled_range_xsec_oos.py]
-  expected_tests: [tests/test_preflight_c346.py, tests/test_c346_rescaled_range_xsec_oos.py]
-  expected_cache: data/cache/campaign346_rescaled_range_5m
-  expected_artifacts: 'reports/campaign346_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json (+ gitignored .full.json)'
-  full_spec: AGENTS.md (INITIAL TASK MESSAGE 2026-11-17T06:13:50Z)
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {rs_dev: 0.06615372143908428, rs_dir_dev: 0.41792759953605163, rs_placebo: 0.07273709895889509, rs_dir_placebo: 0.44318158006596897}
+  dominant_attribution: rs_dir_placebo
+  dominant_share: 0.44318158006596897
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C346 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c346_* and tests/test_preflight_c346.py green'
+  no_coast_clause: 'C346 is a formal negative; next session MUST proceed to C347 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign346_rescaled_range_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: c3ac2f88f2152aab5bafa75f53750d6cee0dfd7a32234cbd6455ebfaae1bcc42
+    cache_provenance_sha256: 58fb05ca5849b405231188c60b52e22ef00d0f6deb070760ef0e52cd6838504a
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T063205Z
+    artifacts:
+      oos_sweep: reports/campaign346_oos_sweep_20261117T063205Z.json
+      tradable_edge_registry: reports/campaign346_tradable_edge_registry_20261117T063205Z.json
+      summary: reports/campaign346_summary_20261117T063205Z.json
+      verdict: reports/campaign346_verdict_20261117T063205Z.json
+      binding_constraint: reports/campaign346_binding_constraint_20261117T063205Z.json
+      oos_sweep_full: reports/campaign346_oos_sweep_20261117T063205Z.full.json (gitignored)
+    oos_sweep_sha256: 977a60576be0395b37ab6f8001fa1a11d5803ad361b3a77d72dfb780e5a8f784
+    tradable_edge_registry_sha256: e05a3d755a26ef3a819baacda9449dceea64c4803d359a6675dc93235849ca4c
+    summary_sha256: e2fec4319fc1ce8fea6fc3c55f4abaf2c8e9d4e5041771e6ce8340d4e04b890f
+    verdict_sha256: d846c590b179167d77802dc8d5681a456bc61916d715824f643438d2208aa87a
+    binding_constraint_sha256: 3f3f2468e598e1e66fa177f57a82a6f116f9940d397e284a92ca97105ce7e1d5
+    slim_sweep_bytes: 938613
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c346_rescaled_range_features.py
+  - scripts/preflight_c346.py
+  - scripts/run_c346_rescaled_range_xsec_oos.py
+  tests:
+  - tests/test_preflight_c346.py
+  - tests/test_c346_rescaled_range_xsec_oos.py
+  pytest:
+    passed: 23
+    failed: 0
+    as_of_utc: 20261117T063500Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
 c340_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C340
@@ -1236,7 +1297,6 @@ c316_status:
     full_json_gitignored: reports/campaign316_oos_sweep_20261116T003953Z.full.json
   rationale: 'No frozen campaign ever tested cross-sectional size/volume/turnover/liquidity factors on real USDT-M perp data. C312 cache holds perp_close, notional, total_volume, trade_count, vwap for 10 perps x 315,648 5m bars 2023-01..2025-12 -> no network ingest bottleneck.'
 coin_m_inverse_futures_space: C313_COMPLETE_FORMAL_NEGATIVE
-latest_campaign_done: C337
 c314_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261115T214305Z

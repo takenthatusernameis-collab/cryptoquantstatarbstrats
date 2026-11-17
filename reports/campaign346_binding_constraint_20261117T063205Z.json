@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T063205Z",
+  "campaign": 346,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign346_oos_sweep_20261117T063205Z.json",
+  "oos_sweep_sha256": "977a60576be0395b37ab6f8001fa1a11d5803ad361b3a77d72dfb780e5a8f784",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rs_dev": 0.06615372143908428,
+    "rs_dir_dev": 0.41792759953605163,
+    "rs_placebo": 0.07273709895889509,
+    "rs_dir_placebo": 0.44318158006596897
+  },
+  "dominant_attribution": "rs_dir_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rs_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.7904041592286324,
+      -1.70853000561118,
+      -1.5581673122038397,
+      -1.535815665484502,
+      -1.6606277858760503,
+      -1.5248866895004296,
+      -1.7060707845387992,
+      -1.6064380896100074
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -15.609559529761816,
+    "second_half_sharpe": -24.077949914403806,
+    "sharpe_corr": 0.9990518871328777,
+    "stable": false
+  },
+  "diagnosis": "C346 cross-sectional intraday RESCALED-RANGE / HURST-PROXY (R/S) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

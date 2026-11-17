@@ -1,0 +1,169 @@
+{
+  "generated_at_utc": "20261117T063205Z",
+  "campaign": 346,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "rs_dev",
+      "rs_dir_dev",
+      "rs_placebo",
+      "rs_dir_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261120,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 1296
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "dsr_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "rs_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -1.7904041592286324,
+        -1.70853000561118,
+        -1.5581673122038397,
+        -1.535815665484502,
+        -1.6606277858760503,
+        -1.5248866895004296,
+        -1.7060707845387992,
+        -1.6064380896100074
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -15.609559529761816,
+      "second_half_sharpe": -24.077949914403806,
+      "sharpe_corr": 0.9990518871328777,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "rs_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "rs_dev_net": -1.5342210546332549,
+      "rs_dir_dev_net": -9.692475473371061,
+      "rs_placebo_net": -1.686901148538382,
+      "rs_dir_placebo_net": -10.278159661644201,
+      "shares": {
+        "rs_dev": 0.06615372143908428,
+        "rs_dir_dev": 0.41792759953605163,
+        "rs_placebo": 0.07273709895889509,
+        "rs_dir_placebo": 0.44318158006596897
+      },
+      "dominant": "rs_dir_placebo",
+      "dominant_share": 0.44318158006596897,
+      "attribution_ok": false,
+      "placebo_seed": 20261120
+    },
+    "data_quality": {
+      "reference_signal": "rs_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019920924574209242,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign346_oos_sweep_20261117T063205Z.json",
+      "sha256": "977a60576be0395b37ab6f8001fa1a11d5803ad361b3a77d72dfb780e5a8f784"
+    },
+    "registry": {
+      "path": "reports/campaign346_tradable_edge_registry_20261117T063205Z.json",
+      "sha256": "e05a3d755a26ef3a819baacda9449dceea64c4803d359a6675dc93235849ca4c"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1296,
+    "n_with_exposure": 1296,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}
