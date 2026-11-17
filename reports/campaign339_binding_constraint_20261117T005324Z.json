@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261117T005324Z",
+  "campaign": 339,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign339_oos_sweep_20261117T005324Z.json",
+  "oos_sweep_sha256": "e891ad3cc82a6c5788a18cc6bd1dc5436e5f642c34b61607cf3a7a6b32704f65",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "align_dev": 0.09791575218213568,
+    "align_abs_dev": 0.097921406711522,
+    "align_z": 0.10754052706421521,
+    "align_placebo": 0.10869533227139969,
+    "align_abs_placebo": 0.1088246135430192,
+    "align_z_placebo": 0.47910236822770813
+  },
+  "dominant_attribution": "align_z_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "align_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9368682532267185,
+      -0.9375284294236614,
+      -0.910393834836772,
+      -1.0004238436660415,
+      -0.6937714614122841,
+      -0.8717514016255022,
+      -0.8621927876599017,
+      -0.900024119418882
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -28.582380478550043,
+    "second_half_sharpe": -10.274292274299343,
+    "sharpe_corr": 0.9999462947601643,
+    "stable": false
+  },
+  "diagnosis": "C339 cross-sectional intraday ORDER-FLOW / RETURN DIRECTION ALIGNMENT SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
