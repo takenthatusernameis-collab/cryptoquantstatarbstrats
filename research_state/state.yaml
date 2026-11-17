@@ -1,24 +1,24 @@
-updated_at_utc: 2026-11-17T16:09:13Z
-handoff_refreshed_at_utc: 2026-11-17T16:09:13Z
+updated_at_utc: 2026-11-17T16:19:18Z
+handoff_refreshed_at_utc: 2026-11-17T16:19:18Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C352
-next_campaign: C353_variance_ratio_lo_mackinlay_random_walk_deviation_x_seasonal_dislocation_mean_reversion_usdt_m_5m
+latest_campaign_done: C353
+next_campaign: C354_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
 bottlenecks_verified_removed_at_utc: "2026-11-17T16:09:13Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T16:09:13Z: C281B-C352 ALL COMPLETE FORMAL NEGATIVES (~82,100+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C352 FULL PIPELINE COMPLETE — build+preflight+cache+tests+full sweep on disk, 26/26 tests green, 5 SHA256 artifacts reports/campaign352_*_20261117T150754Z.json + .full.json; verdict RETRACTED (formal negative), edge_proven:false, binding multiple_testing, dominant lw_abs_placebo 0.3195 (<0.5 -> attribution_ok false). C352 frozen 20261117T150754Z. C353 ACTIVE — variance-ratio (Lo-MacKinlay) random-walk deviation x seasonal-dislocation mean-reversion, same C312 5m data, COMPLETE pre-registered spec in AGENTS.md (C353 — PRE-REGISTERED SPEC (ACTIVE — FROZEN)). C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN all shards, meta sha 49ee1f3...). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign353_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C353_variance_ratio_lo_mackinlay_random_walk_deviation_x_seasonal_dislocation_mean_reversion_usdt_m_5m
-queued_next_campaign_note: 'QUEUED, NOT ACTIVE — C352 recorded/frozen (it is now). C353 = variance-ratio (Lo-MacKinlay) random-walk deviation x seasonal-dislocation mean-reversion, same real C312 5m data. COMPLETE pre-registration in AGENTS.md section C353 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY). Do NOT re-plan; execute.'
-first_action: "EXECUTE C353 NOW (2026-11-17T16:09:13Z): C352 COMPLETE FORMAL NEGATIVE frozen (20261117T150754Z, 1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH). Do NOT re-run C281B-C352/C287. C353 is FULLY PRE-REGISTERED in AGENTS.md — variance-ratio (Lo-MacKinlay) random-walk deviation x seasonal-dislocation mean-reversion (USDT-M 5m, price-only, volume-free). Execute the pipeline verbatim: build scripts/build_c353_variance_ratio_features.py -> data/cache/campaign353_variance_ratio_5m/ ; preflight scripts/preflight_c353.py -> ready:true ; full 1296-config costed-OOS sweep scripts/run_c353_variance_ratio_xsec_oos.py -> 5 SHA256 artifacts reports/campaign353_*_<TS>Z.json + .full.json ; pytest tests/test_preflight_c353.py tests/test_c353_variance_ratio_xsec_oos.py >=21 green (incl. variance-ratio brute-force equality test) ; record -> freeze -> set C354 active. Any 'define the pre-registration first' detour is a HARD VIOLATION."
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T16:19:18Z: C281B-C353 ALL COMPLETE FORMAL NEGATIVES (~83,400+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C353 FULL PIPELINE COMPLETE — build+preflight+cache+tests+full sweep on disk, 28/28 tests green, 5 SHA256 artifacts reports/campaign353_*_20261117T161918Z.json + .full.json; verdict RETRACTED (formal negative), edge_proven:false, binding multiple_testing, dominant vr8_placebo 0.3065 (<0.5 -> attribution_ok false). C353 frozen 20261117T161918Z. C341-C353 caches/scripts/tests/artifacts all on disk as scaffolding reference. C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN all shards, meta sha 49ee1f3...). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign354_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C354_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
+queued_next_campaign_note: 'QUEUED, NOT ACTIVE — C353 recorded/frozen (20261117T161918Z, 1296, RETRACTED, dominant vr8_placebo 0.3065, 0 Holm+BH). C354 = next genuinely-new price-only, volume-free stat-arb family on real C312 5m data; its pre-registered spec must be defined and executed verbatim (build -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green -> 5 SHA256 artifacts -> record -> freeze -> set C355 active).'
+first_action: "EXECUTE C354 NEXT (2026-11-17T16:19:18Z): C353 COMPLETE FORMAL NEGATIVE frozen (20261117T161918Z, 1296 configs, RETRACTED, dominant vr8_placebo 0.3065, 0 Holm+BH, binding multiple_testing). Do NOT re-run C281B-C353/C287. C354 = next genuinely-new price-only, volume-free stat-arb family on real C312 5m data. Define its COMPLETE pre-registered spec (distinctness proof, raw inputs, runner-derived metric, 1296-config grid, gates, deliverables), then execute the pipeline verbatim: build -> preflight (ready:true) -> full 1296-config costed-OOS sweep -> pytest >=21 green -> 5 SHA256 artifacts reports/campaign354_*_<TS>Z.json + .full.json -> record -> freeze -> set C355 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C353 ACTIVE (2026-11-17T16:09:13Z) — CROSS-SECTIONAL INTRADAY VARIANCE-RATIO (Lo-MacKinlay) RANDOM-WALK DEVIATION x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED in AGENTS.md (C353 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)) — execute build -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green -> 5 SHA256 artifacts -> record -> freeze -> set C354 active. Grid: SIGNALS vr8_dev/vr16_dev/vr8_placebo/vr16_placebo x LOOKBACKS (60,120,240,480,960,1920) x REBALANCES (1,4,12) x FEES (0.0004,0.0007,0.0010) x SLIPS (0,0.0001,0.0002) x COST_VARIANTS (taker,maker_blend) = 1296; placebo seed 20261219. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED. C352 frozen formal negative 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH). C287 external blocked/decoupled — never retry."
-active_campaign: C353_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
-space_status: NO_EDGE_C281B_C352
-closure_note: 'C281B–C352 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~82,100+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C350 frozen 20261117T140129Z (1296, RETRACTED, dominant dfa_placebo 0.2644 → attribution_ok false). C351 frozen 20261117T141619Z (1296, RETRACTED, dominant gph_abs_dev 0.2933 → attribution_ok false). C352 frozen 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C352 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C352 frozen formal negative 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH); C353 active 2026-11-17T15:11:12Z. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C354 ACTIVE (2026-11-17T16:19:18Z) — define and execute the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data (mechanically distinct from C281B–C353). C353 (variance-ratio Lo-MacKinlay random-walk deviation x seasonal-dislocation mean-reversion) COMPLETE FORMAL NEGATIVE frozen 20261117T161918Z (1296, RETRACTED, dominant vr8_placebo 0.3065, 0 Holm+BH). Steps: (1) write C354 pre-registered spec + scripts (build/preflight/runner) + tests >=21 incl. metric brute-force equality; (2) build data/cache/campaign354_<family>_5m/ from real C312 perp_close only; (3) preflight -> ready:true; (4) full 1296-config costed-OOS sweep -> 5 SHA256 artifacts reports/campaign354_*_<TS>Z.json + .full.json; (5) pytest >=21 green; (6) record result in AGENTS.md + state.yaml, add C354 to frozen table with 5 SHAs, set C355 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry."
+active_campaign: C354_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
+space_status: NO_EDGE_C281B_C353
+closure_note: 'C281B–C353 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~83,400+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C350 frozen 20261117T140129Z (1296, RETRACTED, dominant dfa_placebo 0.2644 → attribution_ok false). C351 frozen 20261117T141619Z (1296, RETRACTED, dominant gph_abs_dev 0.2933 → attribution_ok false). C352 frozen 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195 → attribution_ok false). C353 frozen 20261117T161918Z (1296, RETRACTED, dominant vr8_placebo 0.3065 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C353 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C353 frozen formal negative 20261117T161918Z (1296, RETRACTED, dominant vr8_placebo 0.3065, 0 Holm+BH); C354 active 2026-11-17T16:19:18Z. C287 external blocked/decoupled — never retry.'
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -2158,6 +2158,83 @@ c352_status:
     passed: 26
     failed: 0
     as_of_utc: 20261117T150754Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c353_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C353
+  family: cross_sectional_variance_ratio_lo_mackinlay_random_walk_deviation_x_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C353 measures the multi-horizon variance-ratio VR(q) (Lo-MacKinlay random-walk test) across horizons q in {8,16} — a normalized second-moment ratio; distinct from single-lag autocorrelation (C326), R/S single-scale range (C346), DFA detrended fluctuation slope (C350), GPH frequency-domain OLS (C351), local-Whittle exact MLE (C352), |r| autocorr (C343), sign-change rate (C344), drawdown duration (C347), close-in-envelope (C345), realized-vol LEVELS (C317). Price-only (perp_close only), volume-free, no network, no fabrication.'
+  as_of_utc: 20261117T161918Z
+  artifacts_ts: 20261117T161918Z
+  signals: [vr8_dev, vr16_dev, vr8_placebo, vr16_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261219
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'vr8_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {vr8_dev: 0.0, vr16_dev: 0.0, vr8_placebo: 0.306532612528753, vr16_placebo: 0.0}
+  dominant_attribution: vr8_placebo
+  dominant_share: 0.306532612528753
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C353 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c353_* and tests/test_preflight_c353.py green'
+  no_coast_clause: 'C353 is a formal negative; next session MUST proceed to C354 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign353_variance_ratio_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 45f225006d3dfdbc1548cf700dbab9aa366bff43dc3f8e09d1077f560ff35af3
+    cache_provenance_sha256: 8a3daa6931adda2abb309057dc87254d9ca5a334bbbe1dec44f5cc05800f0766
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T161918Z
+    artifacts:
+      oos_sweep: reports/campaign353_oos_sweep_20261117T161918Z.json
+      tradable_edge_registry: reports/campaign353_tradable_edge_registry_20261117T161918Z.json
+      summary: reports/campaign353_summary_20261117T161918Z.json
+      verdict: reports/campaign353_verdict_20261117T161918Z.json
+      binding_constraint: reports/campaign353_binding_constraint_20261117T161918Z.json
+      oos_sweep_full: reports/campaign353_oos_sweep_20261117T161918Z.full.json (gitignored)
+    oos_sweep_sha256: fa0016cc882d375350f58b0117526abf4664fcf88b0eb4a87520a77c79b0301f
+    tradable_edge_registry_sha256: c9d919d6396cda5543e876c2b22cef9710ffee8bbd38c2ffd47caba0264ed616
+    summary_sha256: 0480ff13bd7f3ad9f7204e78bbdeccd9cb06e9417387a1e62e737b368bd66fb4
+    verdict_sha256: edad339416b9924549500a46741341d09410c6519f7c400021f5590cf734ae96
+    binding_constraint_sha256: e6e8480233daad2f193b5bded09589d1c9325f5eaf5525e5dabc1785e614ba55
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c353_variance_ratio_features.py
+  - scripts/preflight_c353.py
+  - scripts/run_c353_variance_ratio_xsec_oos.py
+  tests:
+  - tests/test_preflight_c353.py
+  - tests/test_c353_variance_ratio_xsec_oos.py
+  pytest:
+    passed: 28
+    failed: 0
+    as_of_utc: 20261117T161918Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false
