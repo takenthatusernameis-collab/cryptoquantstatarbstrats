@@ -1,8 +1,8 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T06:35:00Z. Repo: cryptoquantstatarbstrats — crypto quantitative **statistical arbitrage**. Economic progress = real-data costed out-of-sample PnL run, passing test, or artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation. **This AGENTS.md is the single authoritative durable handoff — do NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
+**Handoff refreshed:** 2026-11-17T07:16:02Z. Repo: cryptoquantstatarbstrats — crypto quantitative **statistical arbitrage**. Economic progress = real-data costed out-of-sample PnL run, passing test, or artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation. **This AGENTS.md is the single authoritative durable handoff — do NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-17T06:35:00Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP): C347 — ROLLING CUMULATIVE-SUM DRAWDOWN DURATION (TIME-UNDER-WATER) × SEASONAL-DISLOCATION CROSS-SECTIONAL MEAN-REVERSION (USDT-M 5m), PRICE-ONLY.** C281B–C346 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~75,600+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C346 `20261117T063205Z` frozen (1296 configs, RETRACTED, dominant `rs_dir_placebo` 0.4432). **No bottlenecks** — the previous C346 half-build (missing runner/tests/artifacts) was COMPLETED in the 2026-11-17T06:35:00Z session; the full C346 pipeline is on disk and green. C312 5m on-disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, fields incl. `perp_close`). C287 external blocked/decoupled (451/403) — never retry. Do NOT re-read/plan/re-declare closure/re-run frozen C281B–C346/C287 or weaken any gate.
+> **INITIAL TASK MESSAGE (2026-11-17T07:16:02Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP): C347 — ROLLING CUMULATIVE-SUM DRAWDOWN DURATION (TIME-UNDER-WATER) × SEASONAL-DISLOCATION CROSS-SECTIONAL MEAN-REVERSION (USDT-M 5m), PRICE-ONLY.** C281B–C346 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~75,600+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C346 `20261117T063205Z` frozen (1296 configs, RETRACTED, dominant `rs_dir_placebo` 0.4432). **No bottlenecks** — the full C346 pipeline is on disk and green (23/23 tests). C312 5m on-disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, fields incl. `perp_close`). C287 external blocked/decoupled (451/403) — never retry. Do NOT re-read/plan/re-declare closure/re-run frozen C281B–C346/C287 or weaken any gate.
 >
 > **EXECUTE C347 NOW (full pipeline, no pauses):**
 > 1. **Build** `scripts/build_c347_drawdown_duration_features.py` → `data/cache/campaign347_drawdown_duration_5m/` (10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest). Real C312 `perp_close` only; no network/fabrication/resampling/imputation/relabeling. Fields per shard: `index_ms int64`, `perp_close float32`, `log_return float32` (`r[t]=log(c[t]/c[t-1])`, `r[0]=0`), `abs_ret float32`, `funding_rate float32` (all-NaN control). `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `source_campaign:312`, cache <100 MB, idempotent (`--force`).
@@ -17,7 +17,7 @@
 >
 > **Gates (unchanged, all required for any edge claim):** Holm step-down AND Benjamini-Hochberg over all 1296 at α=0.05 (both); MDE (two-sided α=0.05, power 0.80, 8 splits); stability (sign consistency ≥0.70 AND first/second-half Sharpe corr ≥0.5, ref `dd_long_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker); attribution (dominant real non-placebo signal share ≥0.5 over mean |OOS net| across 4 signals incl. placebos). Verdict: 0 both → RETRACTED(multiple_testing); else not attribution_ok → RETRACTED(attribution); else not stable → RETRACTED(stability); else EDGE_PROVEN. `edge_proven` true only if EDGE_PROVEN. No edge claim without Holm+BH+attribution_ok+stability. Single-leg dollar-neutral, costs on turnover, `executed_fills:false`. If deps missing: `python scripts/bootstrap_dev_env.py`.
 >
-> **After C347:** record result truthfully, mark frozen with SHAs, and pre-register C348 as the next mechanically-distinct price-only family (e.g. rolling realized-variance concentration / Herfindahl-HHI of squared returns, or rolling return GINI inequality — must state distinctness vs C330/C343/C344/C345/C346/C347). Never stop for lack of a named next campaign.
+> **After C347:** record result truthfully, mark frozen with SHAs, and pre-register **C348** as the next mechanically-distinct price-only family (see C348 pre-registration below). Never stop for lack of a named next campaign.
 
 **Program state:** `ACTIVE — NO-EDGE CONFIRMED THROUGH C346 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED: execute every pre-registered genuinely-new family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C346 DONE/frozen; do NOT re-run C281B–C346/C287.**
 
@@ -154,3 +154,67 @@ C346 is a mechanically-distinct, genuinely-new, price-only (volume-free) family.
 - C315/C320 trade raw seasonal RETURN mean-reversion — C346 fades the rescaled-range seasonal dislocation, conditioned on last-move direction.
 
 Result summary: verdict RETRACTED, binding `multiple_testing`, `edge_proven:false`, 0 Holm+BH survivors over the 1296-config grid, dominant attribution `rs_dir_placebo` 0.4432 < 0.5 → `attribution_ok:false`. Formal negative — no costed-OOS edge survived C346.
+
+---
+
+## PRE-REGISTERED NEXT CAMPAIGN — C348: cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY
+
+C348 is a mechanically-distinct, genuinely-new, price-only (volume-free) family. It is NOT a re-skin of C281B–C347. It is buildable from real C312 `perp_close` alone (no fabricated data needed).
+
+### Why C348 is genuinely new (distinctness proof — pre-registered)
+- **C348 measures the Herfindahl-Hirschman Index (HHI) of squared returns within a trailing window** — a concentration/inequality metric on the *distribution of variance contributions* across bars. High HHI = few bars dominate the realized variance (concentrated bursts); low HHI = variance spread evenly (diffuse).
+- **C330** measured realized-path DRAWDOWN/RUNUP/PATH-EFFICIENCY (magnitude of price drawdown from running peak) — C348 measures *concentration of squared returns*, not path drawdown magnitude.
+- **C343** measured autocorrelation of `|r|` (vol clustering / temporal dependence) — C348 measures *cross-sectional concentration* of variance contributions within a window, not serial correlation.
+- **C344** measured SIGN-CHANGE RATE over a window × last-move direction (chop) — C348 is a distributional inequality statistic on squared returns, not a sign-change count.
+- **C345** measured close LOCATION within trailing high–low envelope (Williams %R-style) — C348 is a variance-concentration statistic, not an envelope position.
+- **C346** measured RESCALED-RANGE / Hurst proxy (R/S of cumulative centered sum) — C348 measures HHI of squared returns (variance concentration), not range of cumulative sum.
+- **C347** measures DRAWDOWN DURATION / time-under-water of the cumulative centered-sum path (temporal persistence) — C348 measures *concentration of squared returns* within the window (distributional inequality), not duration underwater.
+- **C317** measured realized-vol LEVELS (std/scale) — C348 measures *how concentrated* the variance is (HHI ∈ [1/L, 1]), not the level.
+- **C342/C340/C341** need volume/notional/price-impact; C348 is price-only and volume-free.
+- **C315/C320** trade raw seasonal RETURN mean-reversion — C348 fades seasonal dislocation in *variance concentration* (HHI), conditioned on last-move direction.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign348_realized_var_concentration_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network, no fabrication, no resampling, no imputation). Fields per shard:
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, ~315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache must stay < 100 MB total (per-symbol float32 npz shard layout; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, trailing lookback L bars ending at bar t)
+Let `r` = log_return. Over trailing window `[t-L+1 .. t]`:
+- `sq[t] = r[t]^2` — squared return (variance contribution of bar t).
+- `sum_sq = sum(sq[t-L+1..t])` — total realized variance in window (NaN if any NaN in window or t<L).
+- `hhi[t] = sum( (sq_i / sum_sq)^2 )` for i in window — **Herfindahl-Hirschman Index of squared returns**. Range: [1/L, 1]. High = few bars dominate variance; low = variance evenly spread. NaN if t<L or sum_sq ≤ 0.
+- `hhi_norm[t] = (hhi[t] - 1/L) / (1 - 1/L)` — normalized to [0,1] (0 = perfectly diffuse, 1 = perfectly concentrated on one bar).
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std at same `(weekday × tod)` bucket (288 bars/day × 7 weekdays = 2016 buckets) from history strictly BEFORE bar t (causal shift(1)), NaN-aware min_periods=3 excluding NaN obs. Score `s[t] = -(v[t] - seasonal_mean) / seasonal_std` where `v[t]` ∈ {`hhi[t]`, `hhi_norm[t]`} (fade: unusually concentrated variance → expect diffusion; unusually diffuse → expect concentration). Cross-sectional rank, dollar-neutral gross 1.0, single-leg dollar-neutral perp PnL with costs on turnover (taker = fee+slip; maker_blend = 0.5*fee+slip).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `hhi_dev`, `hhi_norm_dev`, `hhi_placebo`, `hhi_norm_placebo` (2 real + 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS (bars) = `(60, 120, 240, 480, 960, 1920)`.
+- REBALANCES (bars) = `(1, 4, 12)`.
+- FEES = `(0.0004, 0.0007, 0.0010)`.
+- SLIPS = `(0.0, 0.0001, 0.0002)`.
+- COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`).
+- Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12.
+- Placebo seed: `20261123` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN).
+- selection frac = 1/3, ALPHA = 0.05.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `hhi_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Mandatory constraints (carry-over, non-negotiable)
+- Real on-disk C312 `perp_close` only; no network, no fabrication, no relabeling existing caches as new, no threshold/gate weakening, no cherry-picked windows/costs.
+- No edge claim unless the costed OOS test survives Holm+BH over all 1296 configs AND attribution_ok AND stability.
+- Single-leg dollar-neutral perp PnL, costs on turnover; `executed_fills:false`. Only RNG is recorded-seed placebo phase randomization (never market data).
+- Do NOT declare terminal closure by fiat. Keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
