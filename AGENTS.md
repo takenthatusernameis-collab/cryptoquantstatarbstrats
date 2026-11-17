@@ -1,19 +1,19 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T11:58:23Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T12:58:16Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — do NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C349 (timestamped 2026-11-17T11:58:23Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP)
+## INITIAL TASK MESSAGE — C349 (timestamped 2026-11-17T12:58:16Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP)
 
 **C349 — ORDINAL-PATTERN / PERMUTATION-ENTROPY (Bandt–Pompe complexity) of the return series × SEASONAL-DISLOCATION mean-reversion, price-only, volume-free, on real C312 5m data (USDT-M 5m). FULLY PRE-REGISTERED — DO NOT re-choose the family.**
 
 Context you must accept as true (already verified on disk this session):
 - C281B–C348 are **ALL COMPLETE FORMAL NEGATIVES** on real C312 5m data (~78,200+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C348 `20261117T082608Z` frozen (1296 configs, RETRACTED, dominant `hhi_placebo` 0.3768, 0 Holm+BH).
-- **NO BOTTLENECKS** (re-verified 2026-11-17T11:58:23Z): C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, field `perp_close` present); runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0, py 3.12.3); **zero C349 scripts/cache/artifacts exist anywhere on disk**; C287 external blocked/decoupled (451/403) — never retry.
-- **Do NOT** re-read/plan/re-declare closure, re-run frozen C281B–C348/C287, or weaken any gate.
+- **NO BOTTLENOCKS** (re-verified 2026-11-17T12:58:16Z): C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, field `perp_close` present); C349 **build complete** (`data/cache/campaign349_permutation_entropy_5m/`, 10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest, ~38.5 MB < 100 MB, all flags real_data_only/no-network/no-resample/source_campaign=312); C349 **preflight `ready:true`** (exit 0, `blocked_reasons: []`); runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0, py 3.12.3); C287 external blocked/decoupled (451/403) — never retry.
+- **Do NOT** re-read/plan/re-declare closure, re-run frozen C281B–C348/C287, or weaken any gate. Do NOT rebuild the C349 cache unless `--force` is explicitly required; the shards are already on disk and integrity-verified.
 
 **EXECUTE C349 NOW — full pipeline, no pauses (this is the only permitted work):**
 
@@ -24,7 +24,7 @@ Context you must accept as true (already verified on disk this session):
 5. **Tests** `tests/test_preflight_c349.py` + `tests/test_c349_permutation_entropy_xsec_oos.py` — ≥21 green.
 6. **Record** the truthful result (formal negative or edge) in this `AGENTS.md` + `research_state/state.yaml`, update the frozen list + SHAs, and set the next genuinely-new price-only family (C350, queued below) as active.
 
-**Exact run sequence (verbatim, no pauses):** `python scripts/build_c349_permutation_entropy_features.py --force` → `python scripts/preflight_c349.py` (expect `ready:true`) → `python scripts/run_c349_permutation_entropy_xsec_oos.py` (full grid) → `python -m pytest tests/test_preflight_c349.py tests/test_c349_permutation_entropy_xsec_oos.py -q` (≥21 green) → capture the 5 SHA256 artifacts. Only after all five artifacts + green tests exist may you write the result into `AGENTS.md` and `research_state/state.yaml`.
+**Exact run sequence (verbatim, no pauses):** `python scripts/preflight_c349.py` **ALREADY DONE — `ready:true`, exit 0, `blocked_reasons: []`** → `python scripts/run_c349_permutation_entropy_xsec_oos.py` (full 1296-config costed-OOS grid, 8 splits 12m train/3m test roll 3m over 2023-01..2025-12 → emits 5 SHA256 artifacts + gitignored `.full.json`) → `python -m pytest tests/test_preflight_c349.py tests/test_c349_permutation_entropy_xsec_oos.py -q` (≥21 green) → capture the 5 SHA256 artifacts → record the truthful result (formal negative or edge) in this `AGENTS.md` + `research_state/state.yaml`, add C349 to the frozen table with its 5 SHAs, set C350 as active. Only after all five artifacts + green tests exist may you write the result into `AGENTS.md` and `research_state/state.yaml`.
 
 **NO-LIGHT-WORK RULE (non-negotiable):** The ONLY acceptable completion of this session is the on-disk emission of all 5 SHA256 `reports/campaign349_*_<TS>Z.json` artifacts (plus the gitignored `.full.json`) AND ≥21 green tests. A prose summary, a plan, a partial build, a "next steps" note, or another re-read of this handoff WITHOUT those artifacts is a HARD VIOLATION and is NOT economic progress. The full 1296-config costed-OOS sweep IS the deliverable; if it is slow, it is PROGRESS — never abort it, never downscope it, never replace it with a toy subset.
 
@@ -32,9 +32,9 @@ Context you must accept as true (already verified on disk this session):
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C348 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C348 DONE/frozen; C349 (ordinal-pattern / permutation-entropy, Bandt–Pompe complexity) ACTIVE and MUST be executed verbatim; C350 (DFA scaling exponent) QUEUED.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C348 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C348 DONE/frozen; C349 (ordinal-pattern / permutation-entropy, Bandt–Pompe complexity) ACTIVE — build+cache complete, preflight `ready:true`, remaining work = full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set next genuinely-new price-only family (C350) active; C350 (DFA scaling exponent) QUEUED.**
 
-**Bottlenecks: NONE** (re-verified 2026-11-17T11:58:23Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; fields incl. `perp_close`). C337–C348 caches/artifacts/tests on disk. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. A slow build/preflight/sweep is PROGRESS — do not abort; the heavy sweep is the economic work.
+**Bottlenecks: NONE** (re-verified 2026-11-17T12:58:16Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; fields incl. `perp_close`). C349 build/cache on disk (~38.5 MB < 100 MB, integrity-verified), preflight `ready:true` (exit 0). C337–C348 caches/artifacts/tests on disk. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. A slow build/preflight/sweep is PROGRESS — do not abort; the heavy sweep is the economic work.
 
 **Closure audit (C281B–C318 scope only, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318 only; C319–C349 extend the record. Do NOT regenerate/run stale closure generators.
 
