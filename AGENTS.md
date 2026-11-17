@@ -1,18 +1,18 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T20:32:33Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T21:33:16Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C355 (timestamped 2026-11-17T20:32:33Z)
+## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:33:16Z)
 
-**C355 — CROSS-SECTIONAL INTRADAY SAMPLE ENTROPY (SampEn) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C356 active.**
+**C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
 
-Context you must accept as true: C281B–C355 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~91,000+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296 configs, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355. **NO BOTTLENECKS** — re-verified on disk 2026-11-17T20:32:33Z: runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0; `scipy.optimize.minimize_scalar` + `scipy.stats` OK), C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). C355 cache/scripts/tests/artifacts all on disk; see the C355 RESULT section. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates. Do NOT downscope the 1296-config grid. **The C355 spec below is COMPLETE and FROZEN — execute it verbatim.**
+Context you must accept as true: C281B–C356 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92,000+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296 configs, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355. **NO BOTTLENECKS** — re-verified on disk 2026-11-17T21:33:16Z: runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0; `scipy.optimize.minimize_scalar` + `scipy.stats` OK), C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). C355 cache/scripts/tests/artifacts all on disk; see the C355 RESULT section. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates. Do NOT downscope the 1296-config grid. **The C356 spec below is COMPLETE and FROZEN — execute it verbatim.**
 
-**C355 ECONOMIC-PROGRESS CONTRACT:** session completion requires all of: (1) `data/cache/campaign355_sample_entropy_5m/` with 10 shards + meta + provenance + SHA256 manifest, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `source_campaign:312`, < 100 MB; (2) `scripts/preflight_c355.py` → `ready:true`; (3) `scripts/run_c355_sample_entropy_xsec_oos.py` full 1296-config costed-OOS sweep → 5 SHA256 artifacts `reports/campaign355_*_<TS>Z.json` + gitignored `.full.json`; (4) `tests/test_preflight_c355.py` + `tests/test_c355_sample_entropy_xsec_oos.py` ≥21 green (incl. SampEn brute-force equality test); (5) record truthful result in AGENTS.md + `research_state/state.yaml`, add C355 to frozen table with 5 SHAs, set C356 active. A prose-only or partial handoff is a HARD VIOLATION.
+**C356 ECONOMIC-PROGRESS CONTRACT:** session completion requires all of: (1) `data/cache/campaign356_multiscale_entropy_5m/` with 10 shards + meta + provenance + SHA256 manifest, `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `source_campaign:312`, < 100 MB; (2) `scripts/preflight_c356.py` → `ready:true`; (3) `scripts/run_c356_multiscale_entropy_xsec_oos.py` full 1296-config costed-OOS sweep → 5 SHA256 artifacts `reports/campaign356_*_<TS>Z.json` + gitignored `.full.json`; (4) `tests/test_preflight_c356.py` + `tests/test_c356_multiscale_entropy_xsec_oos.py` ≥21 green (incl. MSE brute-force equality test); (5) record truthful result in AGENTS.md + `research_state/state.yaml`, add C356 to frozen table with 5 SHAs, set C357 active. A prose-only or partial handoff is a HARD VIOLATION.
 
 ---
 
@@ -142,6 +142,7 @@ All: 0 Holm+BH survivors, binding `multiple_testing`, verdict RETRACTED, `edge_p
 | C353 | 20261117T161918Z | variance-ratio (Lo–MacKinlay) random-walk deviation × seasonal-dislocation MR | 1296 | vr8_placebo 0.3065 | `fa0016cc882d375350f58b0117526abf4664fcf88b0eb4a87520a77c79b0301f` | `edad339416b9924549500a46741341d09410c6519f7c400021f5590cf734ae96` |
 | C354 | 20261117T171655Z | Higuchi fractal dimension (HFD) × seasonal-dislocation MR | 1296 | hfd_placebo 0.2595 | `7a4b0a535616d52f757fff5d918da85161416fd148eb189c1f3f063bd5eb59f6` | `3f4138e4ec50a3710555c5f8f929afdf59556a4833f4746ec47424af6c72649a` |
 | C355 | 20261117T204322Z | Sample Entropy (SampEn) × seasonal-dislocation MR | 1296 | sampen_m3_placebo 0.3069 | `3febf019a380a23559b4d931ed301386fe77c4b5f979356d359367138b436ba8` | `590143e898ee54faecc834c0070fb3f5fb60dddf9fd8bf6b152eee8a62ae806c` |
+| C356 | TBD | Multiscale Entropy (MSE) × seasonal-dislocation MR | 1296 | TBD | TBD | TBD |
 
 C348 extra SHAs: tradable_edge_registry `fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b`, summary `fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2`, binding_constraint `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`.
 C349 extra SHAs: tradable_edge_registry `60ab151230b9211c2da943e3d990725422b7426a1d903d0ae4ca5bfa471b23a8`, summary `5e64f0197e05ea7a58fe86a0d637532ce1bef59c8c07bbdab975e6601fad2607`, binding_constraint `8f328590e3786454de51d3b13e06b5438ee2deace8f3bf9054d6345a62e7498c`.
@@ -457,9 +458,79 @@ Compute `sampen_m2` and `sampen_m3` for all bars per asset with a vectorized `sl
 
 ---
 
-## C355 ACTIVE — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
+## C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
 
-C355 = cross-sectional intraday SAMPLE ENTROPY (SampEn) × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. COMPLETE — build → preflight → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts → recorded → frozen → set C356 active. Verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant `sampen_m3_placebo` 0.3069. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
+**C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
+
+C356 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C355. **This spec is complete and frozen — execute it verbatim.**
+
+**Distinctness proof (pre-registered):**
+- C356 measures **Multiscale Entropy (MSE)** (Costa, Goldberger, Peng 2002, 2005) — a *multi-scale nonlinear regularity* profile. For a time series, MSE computes Sample Entropy (SampEn) at multiple coarse-grained time scales `τ = 1..τ_max`. At each scale `τ`, the series is coarse-grained by averaging non-overlapping windows of length `τ`, yielding a new series `y^{(τ)}` of length `N/τ`; SampEn is then computed on each `y^{(τ)}` with fixed embedding dimension `m` and tolerance `r`. The MSE profile is the vector `(SampEn(τ=1), SampEn(τ=2), ..., SampEn(τ=τ_max))`. Key scalars: `mse_slope` = OLS slope of SampEn vs `log(τ)` over `τ=1..τ_max` (negative = complexity loss at large scales / long-range regularity; positive = complexity gain); `mse_area` = area under the MSE curve (total complexity across scales). Low SampEn at small scales = local regularity; persistent high SampEn across scales = sustained irregularity/complexity.
+- **C355** measured **single-scale Sample Entropy (SampEn)** at fixed `W=64`, `m∈{2,3}`, `r=0.25` — one scale, no coarse-graining. **C349** measured permutation entropy (ordinal patterns, no template matching, no coarse-graining). **C354** measured Higuchi fractal dimension (curve-length scaling, first differences, no template matching). **C350** measured DFA α (detrended fluctuation slope, integration + detrending, OLS of log F(n) vs log n). **C351/C352** measured frequency-domain fractional-integration d (GPH OLS / local-Whittle MLE). **C353** measured Lo–MacKinlay variance ratio (second-moment ratio across horizons q=8,16). **C346** measured R/S (range of cumulative centered sum). **C343** measured autocorrelation of `|r|`. **C344** measured sign-change rate. **C326** measured lag-1 signed-return autocorrelation. **C345** measured close location in trailing envelope. **C317** measured realized-vol levels. **C342/C340/C341** need volume/notional/price-impact. **C315/C320** trade raw seasonal RETURN mean-reversion. **C356 is distinct from all of the above:** it is the *coarse-grained multi-scale SampEn profile* (MSE), computing SampEn at multiple time scales `τ=1..τ_max` on progressively coarse-grained series. This is fundamentally different from single-scale SampEn (C355), ordinal-pattern entropy (C349), curve-length fractal dimension (C354), detrended fluctuation (C350), frequency-domain long-memory (C351/C352), variance ratio (C353). Price-only (`perp_close` only), volume-free, no network, no fabrication, no resampling, no imputation.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign356_multiscale_entropy_5m/<SYM>.npz` per symbol from real C312 `perp_close` (identical 5-field layout to C350–C355; no network, no fabrication, no resampling, no imputation):
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, 315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache < 100 MB (per-symbol float32 npz shards; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, per bar t)
+Intrinsic window `W = 64` bars (fixed, decoupled from seasonal lookback L); coarse-graining scales `τ ∈ {1, 2, 4, 8, 16, 32}` (`τ_max = 32`; all divide 64); embedding dimension `m = 2`; tolerance `r = 0.25` (in z-score units at each scale). For each bar t:
+- Take trailing `W` returns `X = r[t-W+1..t]` (NaN if `t < W` or any NaN in window).
+- For each scale `τ ∈ {1, 2, 4, 8, 16, 32}`:
+  - **Coarse-grain:** partition `X` into `N_τ = W // τ` non-overlapping blocks of length `τ`; `y^{(τ)}[k] = mean(X[k·τ : (k+1)·τ])` for `k = 0..N_τ-1`.
+  - **Standardize:** `z^{(τ)} = (y^{(τ)} - mean(y^{(τ)})) / std(y^{(τ)})` (population std). NaN if `std ≤ 0` or non-finite.
+  - **SampEn on coarse-grained series:** build length-`m` templates `T_m[i] = z^{(τ)}[i .. i+m-1]` for `i = 0 .. N_τ-m`, and length-(m+1) templates `T_{m+1}[i] = z^{(τ)}[i .. i+m]` for `i = 0 .. N_τ-m-1`.
+  - **Pair counting (ordered pairs, `i ≠ j`):** `B_m^{(τ)} = #{(i,j): i≠j, max_{d<m}|T_m[i][d]-T_m[j][d]| < r}`; `A_m^{(τ)} = #{(i,j): i≠j, max_{d<m+1}|T_{m+1}[i][d]-T_{m+1}[j][d]| < r}`. Only self-pair `i==j` excluded; overlapping neighbours `|i-j|<m` INCLUDED.
+  - `SampEn^{(τ)}[t] = ln(B_m^{(τ)}) - ln(A_m^{(τ)}) = -ln(A_m^{(τ)} / B_m^{(τ)})`. NaN if `N_τ < m+1`, `A_m^{(τ)}==0`, or `B_m^{(τ)}==0`.
+- **MSE profile scalars (real metrics):**
+  - `mse_slope[t]` = OLS slope of `SampEn^{(τ)}` vs `log(τ)` over `τ ∈ {1,2,4,8,16,32}` (requires ≥ 3 finite SampEn points). Negative = complexity decays with scale (long-range regularity); positive = complexity grows with scale.
+  - `mse_area[t]` = trapezoidal area under `SampEn^{(τ)}` vs `τ` curve (sum over `τ` of `(SampEn^{(τ)}+SampEn^{(τ_next)})/2 * (τ_next-τ)`). Total complexity across scales.
+  - (Both NaN if < 3 finite SampEn points at the required scales.)
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday × tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t]-seasonal_mean)/seasonal_std` for `v[t] ∈ {mse_slope[t], mse_area[t]}` (symmetric z-fade).
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute MSE profile (`mse_slope`, `mse_area`) for all bars per asset with a vectorized `sliding_window_view` + chunked coarse-graining path (no Python loop over 315,648 bars × 10 assets). For each chunk, build coarse-grained series at all `τ` via `reshape` + `mean(axis=-1)`, then vectorized SampEn per scale via broadcasted Chebyshev template matching. It MUST pass a brute-force equality test against a reference per-window MSE implementation (manual loop over windows, explicit coarse-graining via loop over `τ`, per-scale `np.mean`, explicit SampEn double loop over `i,j` with `max(|...|)` Chebyshev distance).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `mse_slope_dev`, `mse_area_dev`, `mse_slope_placebo`, `mse_area_placebo` (2 real: MSE slope and MSE area; 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60, 120, 240, 480, 960, 1920)`; REBALANCES = `(1, 4, 12)`; FEES = `(0.0004, 0.0007, 0.0010)`; SLIPS = `(0.0, 0.0001, 0.0002)`; COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12. Placebo seed `20261222` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN). selection frac = 1/3, ALPHA = 0.05.
+- Reference config (stability/attribution): `mse_slope_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES = {mse_slope_dev, mse_area_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `mse_slope_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (do ALL six, in order, no pauses)
+1. `scripts/build_c356_multiscale_entropy_features.py` → `data/cache/campaign356_multiscale_entropy_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget check).
+2. `scripts/preflight_c356.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
+3. `scripts/run_c356_multiscale_entropy_xsec_oos.py` — full 1296-config costed-OOS sweep. Emit 5 SHA256 artifacts + gitignored `.full.json`:
+   - `reports/campaign356_oos_sweep_<TS>Z.json` + `.full.json`
+   - `reports/campaign356_tradable_edge_registry_<TS>Z.json`
+   - `reports/campaign356_summary_<TS>Z.json`
+   - `reports/campaign356_verdict_<TS>Z.json`
+   - `reports/campaign356_binding_constraint_<TS>Z.json`
+4. `tests/test_preflight_c356.py` + `tests/test_c356_multiscale_entropy_xsec_oos.py` — ≥21 green (incl. MSE brute-force equality test).
+5. Record the truthful result (formal negative or edge) in this `AGENTS.md` (new C356 RESULT section) + `research_state/state.yaml`; add C356 to the frozen table with its 5 SHAs; set C357 as active.
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts. The heavy sweep IS the economic progress — do NOT abort it.
+
+---
+
+## C356 ACTIVE — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
+
+C356 = cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. PRE-REGISTERED SPEC FROZEN ABOVE — execute verbatim: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
 
 ---
 
