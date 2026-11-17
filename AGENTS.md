@@ -1,40 +1,29 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T15:00:14Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T15:11:12Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C352 (timestamped 2026-11-17T15:00:14Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP)
+## INITIAL TASK MESSAGE — C352 (timestamped 2026-11-17T15:00:14Z, COMPLETED 2026-11-17T15:07:54Z)
 
-**C352 — CROSS-SECTIONAL INTRADAY LOCAL-WHITTLE EXACT MLE FRACTIONAL INTEGRATION ORDER d × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — DO NOT re-choose the family.**
+**C352 — CROSS-SECTIONAL INTRADAY LOCAL-WHITTLE EXACT MLE FRACTIONAL INTEGRATION ORDER d × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — COMPLETE.**
 
 Context you must accept as true (already verified on disk):
-- C281B–C351 are **ALL COMPLETE FORMAL NEGATIVES** on real C312 5m data (~80,800+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C351 `20261117T141619Z` frozen (1296 configs, RETRACTED, dominant `gph_abs_dev` 0.2933, 0 Holm+BH). No edge proven through C351.
-- **NO BOTTLENOCKS** (re-verified 2026-11-17T15:00:14Z; C352 is UNCLAIMED — no `campaign352_*` cache, scripts, tests, or artifacts exist yet, so start the pipeline fresh with no work lost): C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards verified present × 315,648 bars, 2023-01..2025-12, field `perp_close` present (dtype float32, 0-NaN) — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT); C351 build/cache on disk (`data/cache/campaign351_frac_diff_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign351_*_20261117T141619Z.json` + gitignored `.full.json`), tests 26/26 green; runtime deps importable — run `python scripts/bootstrap_dev_env.py` (idempotent) if missing. C287 external blocked/decoupled (451/403, no creds) — never retry.
-- **Do NOT** re-read/plan/re-declare closure, re-run frozen C281B–C351/C287, or weaken any gate. Do NOT downscope the 1296-config grid. Placebo seed is pre-registered as `20261218` (resolve spec ambiguity below in favor of `20261218`).
+- C281B–C352 are **ALL COMPLETE FORMAL NEGATIVES** on real C312 5m data (~82,100+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C352 `20261117T150754Z` frozen (1296 configs, RETRACTED, dominant `lw_abs_placebo` 0.3195, 0 Holm+BH). No edge proven through C352.
+- **NO BOTTLENOCKS** (re-verified 2026-11-17T15:11:12Z; C352 COMPLETE — `campaign352_*` cache, scripts, tests, and artifacts all on disk): C312 5m on disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards verified present × 315,648 bars, 2023-01..2025-12, field `perp_close` present (dtype float32, 0-NaN)); C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green; runtime deps importable. C287 external blocked/decoupled (451/403) — never retry.
+- **Do NOT** re-read/plan/re-declare closure, re-run frozen C281B–C352/C287, or weaken any gate. Do NOT downscope the 1296-config grid.
 
-**EXECUTE C352 NOW — full pipeline, no pauses (this is the only permitted work):**
-
-1. **Design (PRE-REGISTERED, NON-NEGOTIABLE):** execute the `C352 — PRE-REGISTERED SPEC (ACTIVE)` section below verbatim.
-2. **Build** `scripts/build_c352_localwhittle_features.py` → `data/cache/campaign352_localwhittle_5m/` (10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest). Real C312 `perp_close` only; cache <100 MB; idempotent (`--force`).
-3. **Preflight** `scripts/preflight_c352.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
-4. **Sweep** `scripts/run_c352_localwhittle_xsec_oos.py` — full pre-registered costed-OOS grid (1296 configs), 8 splits 12m train/3m test roll 3m over 2023-01..2025-12. Emit 5 SHA256 artifacts: `reports/campaign352_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
-5. **Tests** `tests/test_preflight_c352.py` + `tests/test_c352_localwhittle_xsec_oos.py` — ≥21 green (including a local-Whittle brute-force equality test).
-6. **Record** the truthful result (formal negative or edge) in this `AGENTS.md` + `research_state/state.yaml`, update the frozen list + SHAs, and set the next genuinely-new price-only family (C353) as active.
-
-**Exact run sequence (verbatim, no pauses):** `python scripts/build_c352_localwhittle_features.py` → `python scripts/preflight_c352.py` (must report `ready:true`) → `python scripts/run_c352_localwhittle_xsec_oos.py` (full 1296-config costed-OOS grid, 8 splits 12m train/3m test roll 3m over 2023-01..2025-12 → emits 5 SHA256 artifacts + gitignored `.full.json`) → `python -m pytest tests/test_preflight_c352.py tests/test_c352_localwhittle_xsec_oos.py -q` (≥21 green) → capture the 5 SHA256 artifacts → record the truthful result (formal negative or edge) in this `AGENTS.md` + `research_state/state.yaml`, add C352 to the frozen table with its 5 SHAs, set C353 as active. Only after all five artifacts + green tests exist may you write the result into `AGENTS.md` and `research_state/state.yaml`.
-
-**NO-LIGHT-WORK RULE (non-negotiable):** The ONLY acceptable completion of this session is the on-disk emission of all 5 SHA256 `reports/campaign352_*_<TS>Z.json` artifacts (plus the gitignored `.full.json`) AND ≥21 green tests. A prose summary, a plan, a partial build, a "next steps" note, or another re-read of this handoff WITHOUT those artifacts is a HARD VIOLATION and is NOT economic progress. The full 1296-config costed-OOS sweep IS the deliverable; if it is slow, it is PROGRESS — never abort it, never downscope it, never replace it with a toy subset.
+**C352 RESULT RECORDED** — full pipeline complete: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (26/26 green) → 5 SHA256 artifacts → result recorded below. C352 is now frozen; next campaign C353 is ACTIVE.
 
 ---
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C351 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C351 DONE/frozen; C352 (local-Whittle exact MLE fractional integration order d × seasonal-dislocation mean-reversion) ACTIVE — full pre-registration below; remaining work = build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set C353 active.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C352 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C352 DONE/frozen; C352 (local-Whittle exact MLE fractional integration order d × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → recorded → frozen → set C353 active.**
 
-**Bottlenecks: NONE** (re-verified 2026-11-17T15:00:14Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`). C351 build/cache on disk (`data/cache/campaign351_frac_diff_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign351_*_20261117T141619Z.json` + gitignored `.full.json`), tests 26/26 green. C351 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `gph_abs_dev` 0.2933 (< 0.5 → `attribution_ok:false`). C352 is UNCLAIMED (no cache/scripts/tests/artifacts on disk). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. The heavy C352 sweep IS the economic progress — do not abort.
+**Bottlenecks: NONE** (re-verified 2026-11-17T15:11:12Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`). C351 build/cache on disk (`data/cache/campaign351_frac_diff_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign351_*_20261117T141619Z.json` + gitignored `.full.json`), tests 26/26 green. C351 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `gph_abs_dev` 0.2933 (< 0.5 → `attribution_ok:false`). C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green. C352 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `lw_abs_placebo` 0.3195 (< 0.5 → `attribution_ok:false`). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests.
 
 **Closure audit (C281B–C318 scope only, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318 only; C319–C351 extend the record. Do NOT regenerate/run stale closure generators.
 
@@ -61,11 +50,13 @@ All: 0 Holm+BH survivors, binding `multiple_testing`, verdict RETRACTED, `edge_p
 | C349 | 20261117T130414Z | ordinal-pattern / permutation entropy (Bandt–Pompe) | 1296 | perm_ent_dev 0.2513 | `98d792fe1f7675f1b457b30a9aceab99c0923be22dd557328cb5f60f3efb8811` | `b91138b2dbc6319e6ff665cb7e46591c4bbb7b0dd299ee3e03b3c84f69f650dc` |
 | C350 | 20261117T140129Z | DFA scaling exponent α × seasonal-dislocation MR | 1296 | dfa_placebo 0.2644 | `0f2a23039e47c790eddc2f7ad1a09921de9e13114f12faa19b5ffc3547eb0286` | `ac90205fc7f86e12ce3795713bf182bb316952e7cc58b4086eeecf3378001c8f` |
 | C351 | 20261117T141619Z | GPH fractional integration order d × seasonal-dislocation MR | 1296 | gph_abs_dev 0.2933 | `7e82d2653d659c2c56bc429fdf24a75a029dfa8a8e5f2ff570bebacc8be533a2` | `e002a155f0a51d8d5128ccbb033000dd72bb1696b1adf668d33ab0c4bfce630c` |
+| C352 | 20261117T150754Z | local-Whittle EXACT MLE fractional integration order d × seasonal-dislocation MR | 1296 | lw_abs_placebo 0.3195 | `39657e8df596360efe4e42db7ec200df7265153f62db47d97b5a2fcd3d8775ec` | `82f9c754c1345551e18fcfd94beeba76200dbb2d8ccd3843ce7edc374f304d4b` |
 
 C348 extra SHAs: tradable_edge_registry `fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b`, summary `fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2`, binding_constraint `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`.
 C349 extra SHAs: tradable_edge_registry `60ab151230b9211c2da943e3d990725422b7426a1d903d0ae4ca5bfa471b23a8`, summary `5e64f0197e05ea7a58fe86a0d637532ce1bef59c8c07bbdab975e6601fad2607`, binding_constraint `8f328590e3786454de51d3b13e06b5438ee2deace8f3bf9054d6345a62e7498c`.
 C350 extra SHAs: tradable_edge_registry `111b9477136df90d90630cfec87d192c29f4132baa4fda2ade942095a8111995`, summary `72ee010c45d1e69629a404f9a0c51ad1fa0e4c79e19c71af47ca28b5985cfb49`, binding_constraint `05ee31dbbcc744d72262e210ab35f343151eadc9a879f241fd1e19aada995b3b`. C350 cache SHAs: meta `35fd3020e89b0411c6093265683ca1b23f48b968f6c66be7401f2e202e9ad2e9`, provenance `d4e3f82a4839490d6a4897bcecadda85fab82aae55a44d6e7efb19213d71b7ca`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 C351 extra SHAs: tradable_edge_registry `cdda03df34027a1762872dde3a615e8c37b26e021e385551b973d92b697a6d49`, summary `126036db2d4b5be7a33d3007bdf37acdb56ff0c6520b362c8410f2af1dfbaed9`, binding_constraint `4565e0099cc63da13ae8aa982b023f78d27bda39b48dd5031919be51db6bf134`. C351 cache SHAs: meta `dbbf70185b9c54d827d27438fec0d3f6bab906b52e155a3187692d9863d8f6c9`, provenance `21418fc702ec75d0741b488df5369f3ed96d11fae5b298d37bf4beaa622d35c2`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
+C352 extra SHAs: tradable_edge_registry `780e4832c7f141efbeb727b07fee1cf1555a923c562345150be9e85b3e617838`, summary `23f69c53ecda0373247b7acd9dd5303f417947ffb92831192af496fb3409ce4c`, binding_constraint `2be0403829208154287d987422dc0756404f62adbf4e1e25520383b5fd3eb75c`. C352 cache SHAs: meta `c098c40da9e0727f6a24b899318e10d94bdf63e9583c69d3d9990aa4bd28f71e`, provenance `fca1d81ec9b55ea2059024f841db75a0d49006a0993df751d82ad10fd3c18b9e`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 
 ---
 
@@ -129,6 +120,17 @@ C351 cross-sectional intraday Geweke–Porter–Hudak (GPH) log-periodogram frac
 
 ---
 
+## C352 RESULT (frozen 20261117T150754Z) — FORMAL NEGATIVE (RETRACTED)
+
+C352 cross-sectional intraday LOCAL-WHITTLE EXACT MLE fractional integration order d × seasonal-dislocation mean-reversion stat-arb on real C312 5m data: full 1296-config costed-OOS sweep complete on disk (5 SHA256 artifacts + gitignored `.full.json`, ts `20261117T150754Z`), tests 26/26 green (incl. local-Whittle brute-force equality test). The vectorized local-Whittle kernel passed equality vs the brute-force reference (~1e-4). Sweep ran the full pre-registered grid — no downscoping.
+- `verdict: RETRACTED`, `edge_proven:false`
+- `n_survive_both: 0` (`n_deterministic_edge: 0`, 0 Holm+BH survivors over 1296 configs) → binding constraint `multiple_testing`
+- `attribution_ok:false` — dominant attribution `lw_abs_placebo` 0.3195 (< 0.5); shares lw_dev / lw_abs_dev / lw_placebo / lw_abs_placebo. Binding constraint is multiple_testing (n_survive_both==0), so attribution did not change the verdict.
+- `stability` not required for the verdict (binding multiple_testing); reference config `lw_dev` L=240 H=4 fee=0.0007 slip=0.0001 taker.
+- Truthful result: formal negative, no edge claim. `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, source_campaign=312. Cache 38.48 MB (< 100 MB), max shard 4.14 MB.
+
+---
+
 ## C351 — PRE-REGISTERED SPEC (FROZEN / COMPLETED — kept for reference, do NOT re-run)
 
 C351 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C350.
@@ -186,7 +188,18 @@ Compute GPH d for all bars per asset with a vectorized `sliding_window_view` + c
 
 ---
 
-## C352 ACTIVE (set by C351 session 20261117T141619Z) — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
+## C352 RESULT (frozen 20261117T150754Z) — FORMAL NEGATIVE (RETRACTED)
+
+C352 cross-sectional intraday LOCAL-WHITTLE EXACT MLE fractional integration order d × seasonal-dislocation mean-reversion stat-arb on real C312 5m data: full 1296-config costed-OOS sweep complete on disk (5 SHA256 artifacts + gitignored `.full.json`, ts `20261117T150754Z`), tests 26/26 green (incl. local-Whittle brute-force equality test). The vectorized local-Whittle kernel passed equality vs the brute-force reference (~1e-4). Sweep ran the full pre-registered grid — no downscoping.
+- `verdict: RETRACTED`, `edge_proven:false`
+- `n_survive_both: 0` (`n_deterministic_edge: 0`, 0 Holm+BH survivors over 1296 configs) → binding constraint `multiple_testing`
+- `attribution_ok:false` — dominant attribution `lw_abs_placebo` 0.3195 (< 0.5); shares lw_dev / lw_abs_dev / lw_placebo / lw_abs_placebo. Binding constraint is multiple_testing (n_survive_both==0), so attribution did not change the verdict.
+- `stability` not required for the verdict (binding multiple_testing); reference config `lw_dev` L=240 H=4 fee=0.0007 slip=0.0001 taker.
+- Truthful result: formal negative, no edge claim. `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, source_campaign=312. Cache 38.48 MB (< 100 MB), max shard 4.14 MB.
+
+---
+
+## C352 — PRE-REGISTERED SPEC (FROZEN / COMPLETED — kept for reference, do NOT re-run)
 
 C352 = cross-sectional intraday LOCAL-WHITTLE EXACT MLE fractional integration order d × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m `perp_close`. Mechanically distinct from C351 (GPH log-periodogram *regression*: OLS of `log I(λ_j)` on `log(4 sin²(λ_j/2))`) — C352 uses *local-Whittle exact maximum likelihood*: `d_hat = argmin_d` over Fourier frequencies `j=1..m` (`m = W//2 - 1 = 127`) of the local-Whittle criterion `log(Ŝ(d)) − d·mean_j log(4 sin²(λ_j/2))`, where `Ŝ(d) = (1/m)·Σ_j I(λ_j)·(4 sin²(λ_j/2))^d`. Same 1296-config grid, same gates, same cache layout (`campaign352_localwhittle_5m`), placebo seed `20261218`.
 
@@ -201,6 +214,12 @@ C352 = cross-sectional intraday LOCAL-WHITTLE EXACT MLE fractional integration o
 **Gates (identical rigor — do NOT weaken):** Holm+BH both at alpha=0.05; MDE (two-sided alpha=0.05, power=0.80); stability (sign consistency >= 0.70 AND first/second-half Sharpe corr >= 0.5); attribution (mean |OOS net| per signal; dominant real non-placebo signal share >= 0.5); verdict logic identical (`n_survive_both==0 → RETRACTED (multiple_testing)`, etc.). Vectorized local-Whittle kernel must pass a brute-force equality test (per-window local-Whittle MLE via bounded scalar minimization over `d`).
 
 **Deliverables:** `scripts/build_c352_localwhittle_features.py` → `data/cache/campaign352_localwhittle_5m/` (10 shards + meta + provenance + manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget). `scripts/preflight_c352.py` → `ready:true`. `scripts/run_c352_localwhittle_xsec_oos.py` → full 1296-config costed-OOS sweep, 5 SHA256 artifacts + gitignored `.full.json`. `tests/test_preflight_c352.py` + `tests/test_c352_localwhittle_xsec_oos.py` — ≥21 green (incl. local-Whittle brute-force equality test). Record truthful result in AGENTS.md + `research_state/state.yaml`; freeze C352 (add to frozen table with 5 SHAs); set next genuinely-new price-only family active. Full sweep is the deliverable — do not abort/downscope.
+
+---
+
+## C353 ACTIVE — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
+
+C353 = the next genuinely-new price-only, volume-free, cross-sectional intraday stat-arb family on real C312 5m data, mechanically distinct from C281B–C352. Pre-registration to be defined by the next agentic session following the same rigor: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set C354 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families until one is proven unreachable with on-disk evidence.
 
 ---
 

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T150754Z",
+  "campaign": 352,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign352_oos_sweep_20261117T150754Z.json",
+  "oos_sweep_sha256": "39657e8df596360efe4e42db7ec200df7265153f62db47d97b5a2fcd3d8775ec",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "lw_dev": 0.1855342598933502,
+    "lw_abs_dev": 0.2626187042782229,
+    "lw_placebo": 0.23233114150304177,
+    "lw_abs_placebo": 0.31951589432538513
+  },
+  "dominant_attribution": "lw_abs_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "lw_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.3514148462337678,
+      -1.2180055930385834,
+      -1.1219782317969411,
+      -0.998948159809786,
+      -1.3315237711073726,
+      -0.9384230567995504,
+      -1.1725549153471602,
+      -1.0263498498632675
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -9.076878157681286,
+    "second_half_sharpe": -7.4808326897977535,
+    "sharpe_corr": 0.99748681245693,
+    "stable": false
+  },
+  "diagnosis": "C352 cross-sectional intraday local-Whittle EXACT MLE fractional integration order d stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

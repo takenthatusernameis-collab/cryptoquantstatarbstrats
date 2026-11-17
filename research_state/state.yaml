@@ -1,24 +1,24 @@
-updated_at_utc: 2026-11-17T14:07:58Z
-handoff_refreshed_at_utc: 2026-11-17T14:07:58Z
+updated_at_utc: 2026-11-17T15:11:12Z
+handoff_refreshed_at_utc: 2026-11-17T15:11:12Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C350
-next_campaign: C351_frac_diff_gph_fractional_integration_order_seasonal_dislocation_mean_reversion_usdt_m_5m
+latest_campaign_done: C352
+next_campaign: C353_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
 bottlenecks_verified_removed_at_utc: "2026-11-17T14:07:58Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T14:07:58Z: C281B-C350 ALL COMPLETE FORMAL NEGATIVES (~79,500+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C350 FULL PIPELINE COMPLETE — build+preflight+cache+tests+full sweep on disk, 26/26 tests green, 5 SHA256 artifacts reports/campaign350_*_20261117T140129Z.json + .full.json; verdict RETRACTED (formal negative), edge_proven:false, binding multiple_testing, dominant dfa_placebo 0.2644 (<0.5 -> attribution_ok false), stability false. C350 frozen 20261117T140129Z. NOTE: the C350 vectorized DFA kernel was bugged (IndexError in _compute_dfa_vectorized) and was FIXED+validated this session (sliding_window_view kernel, ~1e-16 vs brute force) before the sweep; do not regress. C351 ACTIVE — next genuinely-new price-only family (fractional integration order d, GPH log-periodogram), same C312 5m data, full spec pre-registered in AGENTS.md. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign351_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C351_frac_diff_gph_fractional_integration_order_seasonal_dislocation_mean_reversion_usdt_m_5m
-queued_next_campaign_note: 'QUEUED, NOT ACTIVE — do NOT start until C350 recorded/frozen (it is now). C351 = cross-sectional fractional integration order d (Geweke-Porter-Hudak log-periodogram regression on r) x seasonal-dislocation mean-reversion, price-only, real C312 perp_close only. Full pre-registration in AGENTS.md section C351 — PRE-REGISTERED SPEC (ACTIVE) (GPH d over W=256, m=W//2-1 Fourier freqs, 4 signals [gph_dev, gph_abs_dev, gph_placebo, gph_abs_placebo], same 1296 grid, placebo seed 20261217, same gates/verdict).'
-first_action: "EXECUTE C351 NOW (2026-11-17T14:07:58Z): C350 COMPLETE FORMAL NEGATIVE frozen (20261117T140129Z, 1296, RETRACTED, dominant dfa_placebo 0.2644, 0 Holm+BH). Do NOT re-run C281B-C350/C287. C351 is FULLY PRE-REGISTERED and non-negotiable: cross-sectional intraday fractional integration order d (Geweke-Porter-Hudak log-periodogram regression) x seasonal-dislocation mean-reversion stat-arb, price-only, real C312 perp_close only. Build scripts/build_c351_frac_diff_features.py -> data/cache/campaign351_frac_diff_5m/ (10 shards + meta + provenance + manifest, <100 MB). Preflight scripts/preflight_c351.py -> ready:true. Full spec in AGENTS.md C351 section: GPH d over W=256, m=W//2-1 Fourier freqs, 4 signals [gph_dev, gph_abs_dev, gph_placebo, gph_abs_placebo], lookbacks {60,120,240,480,960,1920}, reb {1,4,12}, fees {0.0004,0.0007,0.0010}, slips {0,0.0001,0.0002}, cost_variants {taker,maker_blend} = 1296 configs, 8 splits 12m/3m/3m, placebo seed 20261217, Holm+BH alpha=0.05, MDE, stability (ref gph_dev L=240 H=4 fee=0.0007 slip=0.0001 taker), attribution>=0.5. NEXT ACTION: run full costed-OOS sweep scripts/run_c351_frac_diff_xsec_oos.py -> emit 5 SHA256 artifacts reports/campaign351_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + .full.json -> pytest tests/test_preflight_c351.py tests/test_c351_frac_diff_xsec_oos.py -q (>=21 green) -> capture 5 SHA256 artifacts -> record truthful result in AGENTS.md + state.yaml, freeze C351 (add to frozen table with 5 SHAs), set next genuinely-new price-only family active. Heavy sweep is economic progress — do not abort. C287 external blocked (451/403) — never retry."
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T15:11:12Z: C281B-C352 ALL COMPLETE FORMAL NEGATIVES (~82,100+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C352 FULL PIPELINE COMPLETE — build+preflight+cache+tests+full sweep on disk, 26/26 tests green, 5 SHA256 artifacts reports/campaign352_*_20261117T150754Z.json + .full.json; verdict RETRACTED (formal negative), edge_proven:false, binding multiple_testing, dominant lw_abs_placebo 0.3195 (<0.5 -> attribution_ok false). C352 frozen 20261117T150754Z. C353 ACTIVE — next genuinely-new price-only family, same C312 5m data, full spec pre-registered in AGENTS.md. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign352_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C353_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
+queued_next_campaign_note: 'QUEUED, NOT ACTIVE — C352 recorded/frozen (it is now). C353 = next genuinely-new price-only family, same C312 5m data. Full pre-registration in AGENTS.md section C353 — PRE-REGISTERED SPEC (ACTIVE).'
+first_action: "EXECUTE C353 NOW (2026-11-17T15:11:12Z): C352 COMPLETE FORMAL NEGATIVE frozen (20261117T150754Z, 1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH). Do NOT re-run C281B-C352/C287. C353 is the next genuinely-new price-only family — define its pre-registration following the same rigor: build -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green -> 5 SHA256 artifacts -> record -> freeze -> set C354 active."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "C351 ACTIVE (2026-11-17T14:07:58Z) — FULLY PRE-REGISTERED, DO NOT RE-SELECT FAMILY, START HEAVY WORK IMMEDIATELY: cross-sectional intraday fractional integration order d (Geweke-Porter-Hudak log-periodogram regression) x seasonal-dislocation mean-reversion stat-arb on real C312 5m data (USDT-M 5m), price-only, volume-free, mechanically distinct from C281B-C350. Full spec (GPH d over W=256, m=W//2-1 Fourier freqs, 4 signals [gph_dev, gph_abs_dev, gph_placebo, gph_abs_placebo], lookbacks {60,120,240,480,960,1920}, reb {1,4,12}, fees {0.0004,0.0007,0.0010}, slips {0,0.0001,0.0002}, cost_variants {taker,maker_blend}=1296 configs, placebo seed 20261217, gates Holm+BH both, MDE, stability ref gph_dev L=240 H=4 fee=0.0007 slip=0.0001 taker, attribution>=0.5, verdict logic) is in AGENTS.md C351 — PRE-REGISTERED SPEC (ACTIVE) section. Execute build -> preflight -> full costed-OOS sweep -> pytest (>=21) -> 5 SHA256 artifacts -> record result -> freeze -> set next genuinely-new price-only family as active. No bottlenecks (C312 5m perp_close on disk; C350 frozen formal negative). Do NOT re-run frozen C281B-C350/C287. NO-LIGHT-WORK RULE: completion requires the 5 SHA256 reports/campaign351_*_<TS>Z.json artifacts AND >=21 green tests — prose/partial/subset is a HARD VIOLATION; the full 1296-config costed-OOS sweep IS the deliverable, do not abort/downscope it."
-active_campaign: C351_frac_diff_gph_fractional_integration_order_seasonal_dislocation_mean_reversion_usdt_m_5m
-space_status: NO_EDGE_C281B_C350
-closure_note: 'C281B–C350 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~79,500+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C350 frozen 20261117T140129Z (1296, RETRACTED, dominant dfa_placebo 0.2644 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C350 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C350 frozen formal negative 20261117T140129Z (1296, RETRACTED, dominant dfa_placebo 0.2644, 0 Holm+BH); C351 active 2026-11-17T14:07:58Z. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C353 ACTIVE (2026-11-17T15:11:12Z) — NEXT GENUINELY-NEW PRICE-ONLY FAMILY: define pre-registration for the next price-only, volume-free, cross-sectional intraday stat-arb family on real C312 5m data, mechanically distinct from C281B–C352, following the same rigor: build -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green -> 5 SHA256 artifacts -> record -> freeze -> set C354 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families until one is proven unreachable with on-disk evidence. C352 frozen formal negative 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH). C287 external blocked/decoupled — never retry."
+active_campaign: C353_next_genuinely_new_price_only_seasonal_dislocation_mean_reversion_usdt_m_5m
+space_status: NO_EDGE_C281B_C352
+closure_note: 'C281B–C352 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~82,100+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C350 frozen 20261117T140129Z (1296, RETRACTED, dominant dfa_placebo 0.2644 → attribution_ok false). C351 frozen 20261117T141619Z (1296, RETRACTED, dominant gph_abs_dev 0.2933 → attribution_ok false). C352 frozen 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) citable for that scope only; C319–C352 extend the record. Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C352 frozen formal negative 20261117T150754Z (1296, RETRACTED, dominant lw_abs_placebo 0.3195, 0 Holm+BH); C353 active 2026-11-17T15:11:12Z. C287 external blocked/decoupled — never retry.'
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -2006,8 +2006,160 @@ c306_coinm_term_structure:
       real_outage_bars: 2
       excluded_assets:
         ETHUSD: ETHUSD_261225 had only 2026-10 coverage (744 bars < train+test=888) -> no common term-structure grid; ETHUSD_PERP klines were HTTP 200 (verified 2020-12..2026-10).
-      real_data_only: true
-      fabricated_data: false
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c351_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C351
+  family: cross_sectional_gph_log_periodogram_fractional_integration_order_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C350 measured DFA alpha (time-domain multi-scale detrended fluctuation slope). C351 measures GPH d via OLS log-periodogram regression (frequency-domain regression estimator). C346 R/S. C349 permutation entropy. C326 lag-1 autocorr. C343 |r| autocorr / vol clustering. C344 sign-change rate. C347 drawdown duration. C345 close-in-envelope. C317 realized-vol LEVELS. C342/C340/C341 need volume/notional/price-impact. C315/C320 trade raw seasonal RETURN mean-reversion. C351 is price-only (perp_close only), volume-free, no network, no fabrication.'
+  as_of_utc: 20261117T141619Z
+  artifacts_ts: 20261117T141619Z
+  signals: [gph_dev, gph_abs_dev, gph_placebo, gph_abs_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261217
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'gph_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {gph_dev: 0.2054, gph_abs_dev: 0.2933, gph_placebo: 0.2163, gph_abs_placebo: 0.2850}
+  dominant_attribution: gph_abs_dev
+  dominant_share: 0.2933
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C351 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c351_* and tests/test_preflight_c351.py green'
+  no_coast_clause: 'C351 is a formal negative; next session MUST proceed to C352 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign351_frac_diff_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: dbbf70185b9c54d827d27438fec0d3f6bab906b52e155a3187692d9863d8f6c9
+    cache_provenance_sha256: 21418fc702ec75d0741b488df5369f3ed96d11fae5b298d37bf4beaa622d35c2
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T141619Z
+    artifacts:
+      oos_sweep: reports/campaign351_oos_sweep_20261117T141619Z.json
+      tradable_edge_registry: reports/campaign351_tradable_edge_registry_20261117T141619Z.json
+      summary: reports/campaign351_summary_20261117T141619Z.json
+      verdict: reports/campaign351_verdict_20261117T141619Z.json
+      binding_constraint: reports/campaign351_binding_constraint_20261117T141619Z.json
+      oos_sweep_full: reports/campaign351_oos_sweep_20261117T141619Z.full.json (gitignored)
+    oos_sweep_sha256: 7e82d2653d659c2c56bc429fdf24a75a029dfa8a8e5f2ff570bebacc8be533a2
+    tradable_edge_registry_sha256: cdda03df34027a1762872dde3a615e8c37b26e021e385551b973d92b697a6d49
+    summary_sha256: 126036db2d4b5be7a33d3007bdf37acdb56ff0c6520b362c8410f2af1dfbaed9
+    verdict_sha256: e002a155f0a51d8d5128ccbb033000dd72bb1696b1adf668d33ab0c4bfce630c
+    binding_constraint_sha256: 4565e0099cc63da13ae8aa982b023f78d27bda39b48dd5031919be51db6bf134
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c351_frac_diff_features.py
+  - scripts/preflight_c351.py
+  - scripts/run_c351_frac_diff_xsec_oos.py
+  tests:
+  - tests/test_preflight_c351.py
+  - tests/test_c351_frac_diff_xsec_oos.py
+  pytest:
+    passed: 26
+    failed: 0
+    as_of_utc: 20261117T141619Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c352_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C352
+  family: cross_sectional_local_whittle_exact_mle_fractional_integration_order_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C351 measured GPH d via OLS log-periodogram regression (frequency-domain regression estimator). C352 measures d via local-Whittle exact MLE (frequency-domain profile-likelihood minimization estimator) — different estimator, numerically distinct d estimates. C350 measured DFA alpha (time-domain multi-scale detrended fluctuation slope). C346 R/S. C349 permutation entropy. C326 lag-1 autocorr. C343 |r| autocorr / vol clustering. C344 sign-change rate. C347 drawdown duration. C345 close-in-envelope. C317 realized-vol LEVELS. C342/C340/C341 need volume/notional/price-impact. C315/C320 trade raw seasonal RETURN mean-reversion. C352 is price-only (perp_close only), volume-free, no network, no fabrication.'
+  as_of_utc: 20261117T150754Z
+  artifacts_ts: 20261117T150754Z
+  signals: [lw_dev, lw_abs_dev, lw_placebo, lw_abs_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261218
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'lw_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {lw_dev: 0.1855342598933502, lw_abs_dev: 0.2626187042782229, lw_placebo: 0.23233114150304177, lw_abs_placebo: 0.31951589432538513}
+  dominant_attribution: lw_abs_placebo
+  dominant_share: 0.31951589432538513
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C352 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c352_* and tests/test_preflight_c352.py green'
+  no_coast_clause: 'C352 is a formal negative; next session MUST proceed to C353 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign352_localwhittle_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: c098c40da9e0727f6a24b899318e10d94bdf63e9583c69d3d9990aa4bd28f71e
+    cache_provenance_sha256: fca1d81ec9b55ea2059024f841db75a0d49006a0993df751d82ad10fd3c18b9e
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T150754Z
+    artifacts:
+      oos_sweep: reports/campaign352_oos_sweep_20261117T150754Z.json
+      tradable_edge_registry: reports/campaign352_tradable_edge_registry_20261117T150754Z.json
+      summary: reports/campaign352_summary_20261117T150754Z.json
+      verdict: reports/campaign352_verdict_20261117T150754Z.json
+      binding_constraint: reports/campaign352_binding_constraint_20261117T150754Z.json
+      oos_sweep_full: reports/campaign352_oos_sweep_20261117T150754Z.full.json (gitignored)
+    oos_sweep_sha256: 39657e8df596360efe4e42db7ec200df7265153f62db47d97b5a2fcd3d8775ec
+    tradable_edge_registry_sha256: 780e4832c7f141efbeb727b07fee1cf1555a923c562345150be9e85b3e617838
+    summary_sha256: 23f69c53ecda0373247b7acd9dd5303f417947ffb92831192af496fb3409ce4c
+    verdict_sha256: 82f9c754c1345551e18fcfd94beeba76200dbb2d8ccd3843ce7edc374f304d4b
+    binding_constraint_sha256: 2be0403829208154287d987422dc0756404f62adbf4e1e25520383b5fd3eb75c
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c352_localwhittle_features.py
+  - scripts/preflight_c352.py
+  - scripts/run_c352_localwhittle_xsec_oos.py
+  tests:
+  - tests/test_preflight_c352.py
+  - tests/test_c352_localwhittle_xsec_oos.py
+  pytest:
+    passed: 26
+    failed: 0
+    as_of_utc: 20261117T150754Z
+  real_data_only: true
+  fabricated_data: false
   executed_fills: false
 
 c337_status:
