@@ -1,0 +1,165 @@
+{
+  "generated_at_utc": "20261117T015135Z",
+  "campaign": 340,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "total_volume",
+    "notional",
+    "trade_count",
+    "signed_volume",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign340_trading_activity_dispersion_5m",
+  "shard_sha256": {
+    "ADAUSDT": "5790e612d6b62968bb9d68c4a00b4b19b486da2d8b20f0854bae82b90e19197a",
+    "AVAXUSDT": "939fb7be209e234c73696b8589c95307ce6b4b122cca8f642dc49a9e34ba9744",
+    "BNBUSDT": "d0ae1e62e225a05dbcd4416a11a58053d098045b53fb408eefa6bdc0dee00785",
+    "BTCUSDT": "c8c03d84f4e620b5ad581e3dbe46e63be1e298ffc2a790abc8c0fa67382cf914",
+    "DOGEUSDT": "3791a7d693921518f470d14ba787c28391067db72dbf5caf2f539012fe58239b",
+    "DOTUSDT": "659b334fd426f8a2c7834ba172bc421162af89787b63a87ae64f3b3b2015fd9a",
+    "ETHUSDT": "7fc92d2ae69c3a64d60ac9e4f4c8bbfee5700430c542c7969c9751352cd475f7",
+    "LINKUSDT": "196e5f0d23f351f6d7f461485713bc1ebd5112e4f2c71e787e7ecb0847206733",
+    "SOLUSDT": "2ea03f3e530da7d57630b5c1eada45a6f15541c64e3e2bd09ecf8f790f0989b1",
+    "XRPUSDT": "737770c7dbcf5fc9c27d48764dbc6591d121c5f4e2633c71712982cf361d2ef0"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 6521231,
+    "AVAXUSDT": 6447848,
+    "BNBUSDT": 6829396,
+    "BTCUSDT": 7161583,
+    "DOGEUSDT": 6951603,
+    "DOTUSDT": 6441674,
+    "ETHUSDT": 7251732,
+    "LINKUSDT": 6844529,
+    "SOLUSDT": 6755374,
+    "XRPUSDT": 6777866
+  },
+  "total_shard_bytes": 67982836,
+  "max_shard_bytes": 7251732,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "field_definition": "total_volume, notional, trade_count, signed_volume: real per-bar trading-activity magnitudes from C312 (all 0-NaN verified); log_return=log(c[t]/c[t-1]) (r[0]=0) derived from perp_close; runner derives vol_cv=std(total_volume)/mean(total_volume), notional_cv=std(notional)/mean(notional), flow_cv=std(signed_volume)/mean(|signed_volume|), tc_cv=std(trade_count)/mean(trade_count) over trailing lookback L bars ending at bar t-1 (causal), NaN where mean<=0 or std undefined.",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "ffe1f5b76fc17b769746cdcaade018ebc291e359ededdc6249eac842dc201652",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "total_volume": "real total volume from C312; always finite, non-negative; runner NaN where mean<=0",
+    "notional": "real notional from C312; always finite, non-negative; runner NaN where mean<=0",
+    "trade_count": "real trade count from C312; always finite, non-negative; runner NaN where mean<=0",
+    "signed_volume": "real signed volume from C312; always finite, may be signed/zero; runner NaN where mean(|signed_volume|)<=0",
+    "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "AVAXUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "BNBUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "BTCUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "DOGEUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "DOTUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "ETHUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "LINKUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "SOLUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      },
+      "XRPUSDT": {
+        "total_volume": 0,
+        "notional": 0,
+        "trade_count": 0,
+        "signed_volume": 0,
+        "log_return": 0
+      }
+    }
+  }
+}
