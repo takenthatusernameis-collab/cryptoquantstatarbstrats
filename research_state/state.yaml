@@ -1,23 +1,23 @@
-updated_at_utc: 2026-11-17T22:33:20Z
-handoff_refreshed_at_utc: 2026-11-17T22:33:20Z
+updated_at_utc: 2026-11-17T22:52:00Z
+handoff_refreshed_at_utc: 2026-11-17T22:52:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C356
-next_campaign: C357_lempel_ziv_complexity_xsec_seasonal_dislocation_mr_usdt_m_5m
+latest_campaign_done: C357
+next_campaign: C358_mfdfa_xsec_seasonal_dislocation_mr_usdt_m_5m
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-17T22:33:20Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T22:33:20Z: C281B-C356 ALL COMPLETE FORMAL NEGATIVES (~92,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C356 frozen 20261117T221026Z (1296, RETRACTED, dominant mse_area_placebo 0.2559). C357 FULLY PRE-REGISTERED SPEC FROZEN in AGENTS.md (Lempel–Ziv Complexity LZC sign/magnitude-threshold, 1296 configs, placebo seed 20261223) — not yet executed, NO bottlenecks: C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign357_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C358_next_price_only_family_usdt_m_5m
-queued_next_campaign_note: 'Set active only after C357 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
-first_action: "EXECUTE C357 NOW (2026-11-17T22:33:20Z): C356 frozen formal negative (20261117T221026Z). Do NOT re-run C281B-C356/C287. C357 = cross-sectional intraday Lempel–Ziv Complexity (LZC, LZ76 sign + magnitude-threshold) x seasonal-dislocation mean-reversion (USDT-M 5m), price-only, 1296 configs, placebo seed 20261223 — FROZEN SPEC in AGENTS.md. Execute pipeline verbatim: build data/cache/campaign357_lempel_ziv_5m/ -> preflight (ready:true) -> full 1296-config costed-OOS sweep -> pytest >=21 green (incl. LZC brute-force equality) -> 5 SHA256 artifacts reports/campaign357_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml -> freeze -> set C358 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED."
-active_campaign: C357_lempel_ziv_complexity_xsec_seasonal_dislocation_mr_usdt_m_5m
-space_status: NO_EDGE_C281B_C356
-closure_note: 'C281B–C356 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~92,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C356 frozen 20261117T221026Z (1296, RETRACTED, dominant mse_area_placebo 0.2559). C357 pre-registered spec frozen 2026-11-17T22:33:20Z (LZC, 1296 configs) — ACTIVE, heavy execution required. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
-active_initial_task: "C357 ACTIVE (2026-11-17T22:33:20Z, FROZEN SPEC): Execute C357 Lempel–Ziv Complexity (LZ76, sign + magnitude-threshold) x seasonal-dislocation mean-reversion on real C312 5m data. Build cache campaign357_lempel_ziv_5m (real perp_close only) -> preflight ready:true -> full 1296-config costed-OOS sweep -> pytest >=21 green incl. brute-force LZC equality -> 5 SHA256 artifacts reports/campaign357_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml, freeze C357 with SHAs, set C358 active. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+bottlenecks_verified_removed_at_utc: "2026-11-17T22:52:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T22:52:00Z: C281B-C357 ALL COMPLETE FORMAL NEGATIVES (~93,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C357 frozen 20261117T224353Z (1296, RETRACTED, dominant lzc_sign_placebo 0.2856, 26/26 tests green incl. LZC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C358 FULLY PRE-REGISTERED SPEC FROZEN in AGENTS.md (Multifractal DFA generalized Hurst h(q), 1296 configs, placebo seed 20261224) — not yet executed, NO bottlenecks: C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign358_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C359_next_price_only_family_usdt_m_5m
+queued_next_campaign_note: 'Set active only after C358 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
+first_action: "EXECUTE C358 NOW (2026-11-17T22:52:00Z): C357 frozen formal negative (20261117T224353Z). Do NOT re-run C281B-C357/C287. C358 = cross-sectional intraday Multifractal Detrended Fluctuation Analysis (MF-DFA, generalized Hurst exponent h(q) across moments q) x seasonal-dislocation mean-reversion (USDT-M 5m), price-only, 1296 configs, placebo seed 20261224 — FROZEN SPEC in AGENTS.md. Execute pipeline verbatim: build data/cache/campaign358_mfdfa_5m/ -> preflight (ready:true) -> full 1296-config costed-OOS sweep -> pytest >=21 green (incl. MF-DFA brute-force equality) -> 5 SHA256 artifacts reports/campaign358_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml -> freeze -> set C359 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED."
+active_campaign: C358_mfdfa_xsec_seasonal_dislocation_mr_usdt_m_5m
+space_status: NO_EDGE_C281B_C357
+closure_note: 'C281B–C357 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~93,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C357 frozen 20261117T224353Z (1296, RETRACTED, dominant lzc_sign_placebo 0.2856). C358 pre-registered spec frozen 2026-11-17T22:52:00Z (MF-DFA, 1296 configs) — ACTIVE, heavy execution required. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C358 ACTIVE (2026-11-17T22:52:00Z, FROZEN SPEC): Execute C358 Multifractal Detrended Fluctuation Analysis (MF-DFA, generalized Hurst exponent h(q) across moments q) x seasonal-dislocation mean-reversion on real C312 5m data. Build cache campaign358_mfdfa_5m (real perp_close only) -> preflight ready:true -> full 1296-config costed-OOS sweep -> pytest >=21 green incl. brute-force MF-DFA equality -> 5 SHA256 artifacts reports/campaign358_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml, freeze C358 with SHAs, set C359 active. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -6061,6 +6061,158 @@ c355_status:
     passed: 25
     failed: 0
     as_of_utc: 20261117T204322Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c356_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C356
+  family: cross_sectional_multiscale_entropy_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C355 (single-scale Sample Entropy at fixed W=64, m in {2,3}, r=0.25), C349 (permutation entropy / Bandt-Pompe ordinal patterns), C354 (Higuchi fractal dimension / curve-length scaling), C350 (DFA scaling exponent), C351/C352 (frequency-domain fractional-integration d), C353 (Lo-MacKinlay variance ratio). C356 measures Multiscale Entropy (MSE, Costa/Goldberger/Peng), coarse-grained multi-scale SampEn profile over tau in {1,2,4,8,16,32}; price-only, volume-free, distinct from all above.'
+  as_of_utc: 20261117T221026Z
+  artifacts_ts: 20261117T221026Z
+  signals: [mse_slope_dev, mse_area_dev, mse_slope_placebo, mse_area_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261222
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'mse_slope_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {mse_slope_dev: 0.25, mse_area_dev: 0.25, mse_slope_placebo: 0.25, mse_area_placebo: 0.2559}
+  dominant_attribution: mse_area_placebo
+  dominant_share: 0.2559
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C356 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c356_* and tests/test_preflight_c356.py green'
+  no_coast_clause: 'C356 is a formal negative; next session MUST proceed to C357 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign356_multiscale_entropy_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 40af702f57533ccaeddcce8d46954b9c6afbd09dfe146c54d36cbab25437d42c
+    cache_provenance_sha256: d8caf5184bf724d20be17aa21a064c028bee501930d93653b548aa47bbd727f7
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T221026Z
+    artifacts:
+      oos_sweep: reports/campaign356_oos_sweep_20261117T221026Z.json
+      tradable_edge_registry: reports/campaign356_tradable_edge_registry_20261117T221026Z.json
+      summary: reports/campaign356_summary_20261117T221026Z.json
+      verdict: reports/campaign356_verdict_20261117T221026Z.json
+      binding_constraint: reports/campaign356_binding_constraint_20261117T221026Z.json
+      oos_sweep_full: reports/campaign356_oos_sweep_20261117T221026Z.full.json (gitignored)
+    oos_sweep_sha256: f4c5cf8e3094a65a0319fc2aed63c00a492fb36bec57ffccf4358e3ea5ddcf36
+    tradable_edge_registry_sha256: dde46ffaa971e25c011c89b0e2d8901964cb432c2823df6a22df7847782881a3
+    summary_sha256: d09ac9ac40902a803b474fc92a31bafa73b2680b7b3a5ae865d6a9d0e9c832ac
+    verdict_sha256: f3b8cb864be93f40c7af8e826e3d90f7e606584a47d072353ec64ab8a509c437
+    binding_constraint_sha256: 0eae5c460088c3e3be4156afb3bb4fcb6d1164d357d158f11a4ba5cb19334167
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c356_multiscale_entropy_features.py
+  - scripts/preflight_c356.py
+  - scripts/run_c356_multiscale_entropy_xsec_oos.py
+  tests:
+  - tests/test_preflight_c356.py
+  - tests/test_c356_multiscale_entropy_xsec_oos.py
+  pytest:
+    passed: 25
+    failed: 0
+    as_of_utc: 20261117T221026Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c357_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C357
+  family: cross_sectional_lempel_ziv_complexity_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C329 (Shannon entropy of binary sign sequence, probability-based), C344 (sign-change / chop rate, transition count), C349 (permutation / Bandt-Pompe ordinal entropy), C355 (single-scale Sample Entropy, tolerance template matching), C356 (Multiscale Entropy, coarse-grained SampEn profile), C354 (Higuchi fractal dimension, curve-length scaling), C350 (DFA detrended fluctuation slope), C351/C352 (frequency-domain fractional-integration d), C353 (Lo-MacKinlay variance ratio). C357 measures normalized Lempel–Ziv complexity (LZ76 phrase count, Kaspar–Schuster exhaustive parsing) of sign and magnitude-threshold binary sequences, W=256; price-only, volume-free, distinct from all above.'
+  as_of_utc: 20261117T224353Z
+  artifacts_ts: 20261117T224353Z
+  signals: [lzc_sign_dev, lzc_mag_dev, lzc_sign_placebo, lzc_mag_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261223
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'lzc_sign_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {lzc_sign_dev: 0.2067, lzc_mag_dev: 0.2289, lzc_sign_placebo: 0.2856, lzc_mag_placebo: 0.2787}
+  dominant_attribution: lzc_sign_placebo
+  dominant_share: 0.2856
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C357 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c357_* and tests/test_preflight_c357.py green'
+  no_coast_clause: 'C357 is a formal negative; next session MUST proceed to C358 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign357_lempel_ziv_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 1341c61faff2d49aacb1044f421f797c39663766d9879e662d3c2f136696edc8
+    cache_provenance_sha256: 915d928f07caa5bb40fd9a44ab2efa8505086afdf64355ecbe600a9b4fe90799
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T224353Z
+    artifacts:
+      oos_sweep: reports/campaign357_oos_sweep_20261117T224353Z.json
+      tradable_edge_registry: reports/campaign357_tradable_edge_registry_20261117T224353Z.json
+      summary: reports/campaign357_summary_20261117T224353Z.json
+      verdict: reports/campaign357_verdict_20261117T224353Z.json
+      binding_constraint: reports/campaign357_binding_constraint_20261117T224353Z.json
+      oos_sweep_full: reports/campaign357_oos_sweep_20261117T224353Z.full.json (gitignored)
+    oos_sweep_sha256: ebb610a78530263d7f24f189bcebc5e46be6f6d0c57436b73f1824691ed5bc89
+    tradable_edge_registry_sha256: 6df653dbc9d465c3c1598ea50a392902f47e5fcfa78143eab5c6f289a80fbf7a
+    summary_sha256: de0314c9dbaf84303c49f3bbcbb951fdb7305cda2f1bc164cf71cc00e7f209ec
+    verdict_sha256: 8a21578e6c970d2ba68ac21da338f7f5f43c03a7a7d08cb06741e9bc24d5c176
+    binding_constraint_sha256: 0a257a107237f1898c7a6e4c0bbee129b6867d35c91f681aa57a4934d6d6c74e
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c357_lempel_ziv_features.py
+  - scripts/preflight_c357.py
+  - scripts/run_c357_lempel_ziv_xsec_oos.py
+  tests:
+  - tests/test_preflight_c357.py
+  - tests/test_c357_lempel_ziv_xsec_oos.py
+  pytest:
+    passed: 26
+    failed: 0
+    as_of_utc: 20261117T224353Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false

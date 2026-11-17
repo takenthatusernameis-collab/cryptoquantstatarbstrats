@@ -1,32 +1,106 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T22:33:20Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T22:52:00Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C357 (timestamped 2026-11-17T22:33:20Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## INITIAL TASK MESSAGE — C358 (timestamped 2026-11-17T22:52:00Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
-**EXECUTE C357 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY LEMPEL–ZIV COMPLEXITY (LZC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+**EXECUTE C358 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTIFRACTAL DETRENDED FLUCTUATION ANALYSIS (MF-DFA, generalized Hurst exponent h(q) across moments q) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**State verified 2026-11-17T22:33:20Z (no bottlenecks):**
+**State verified 2026-11-17T22:52:00Z (no bottlenecks):**
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 (`scipy.optimize.minimize_scalar`, `scipy.stats` OK). If missing: `python scripts/bootstrap_dev_env.py` (idempotent).
-- C281B–C356 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C356 frozen `20261117T221026Z` (1296, RETRACTED, dominant `mse_area_placebo` 0.2559). No edge proven through C356.
-- **C357 NOT YET RUN:** no `campaign357_*` cache/scripts/tests/artifacts on disk. This session MUST produce them (economic progress = build+preflight+full sweep+tests+5 SHA256 artifacts + recorded result).
-- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C356/C287. Do NOT weaken gates.
+- C281B–C357 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~93k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C357 frozen `20261117T224353Z` (1296, RETRACTED, dominant `lzc_sign_placebo` 0.2856). No edge proven through C357.
+- **C358 NOT YET RUN:** no `campaign358_*` cache/scripts/tests/artifacts on disk. This session MUST produce them (economic progress = build+preflight+full sweep+tests+5 SHA256 artifacts + recorded result).
+- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C357/C287. Do NOT weaken gates.
 
-**C357 pre-registered spec is COMPLETE and FROZEN — see "C357 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
+**C358 pre-registered spec is COMPLETE and FROZEN — see "C358 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
 
 **Mandatory run sequence (economic progress = all of these):**
-1. `scripts/build_c357_lempel_ziv_features.py` → `data/cache/campaign357_lempel_ziv_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
-2. `python scripts/preflight_c357.py` → `ready:true`.
-3. `python scripts/run_c357_lempel_ziv_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign357_*_<TS>Z.json` + gitignored `.full.json`.
-4. `python -m pytest tests/test_preflight_c357.py tests/test_c357_lempel_ziv_xsec_oos.py -q` — **≥21 green incl. LZC brute-force equality test**.
-5. Record truthful result in this `AGENTS.md` (new C357 RESULT) + `research_state/state.yaml`; add C357 to frozen table with 5 SHAs (+ cache SHAs); set C358 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+1. `scripts/build_c358_mfdfa_features.py` → `data/cache/campaign358_mfdfa_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
+2. `python scripts/preflight_c358.py` → `ready:true`.
+3. `python scripts/run_c358_mfdfa_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign358_*_<TS>Z.json` + gitignored `.full.json`.
+4. `python -m pytest tests/test_preflight_c358.py tests/test_c358_mfdfa_xsec_oos.py -q` — **≥21 green incl. MF-DFA brute-force equality test**.
+5. Record truthful result in this `AGENTS.md` (new C358 RESULT) + `research_state/state.yaml`; add C358 to frozen table with 5 SHAs (+ cache SHAs); set C359 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION. The heavy sweep IS the deliverable.
+
+---
+
+## INITIAL TASK MESSAGE — C357 (timestamped 2026-11-17T22:33:20Z, COMPLETED 2026-11-17T22:50:00Z — kept for reference, do NOT re-run)
+
+**C357 — CROSS-SECTIONAL INTRADAY LEMPEL–ZIV COMPLEXITY (LZC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — COMPLETED.**
+
+**C357 RESULT RECORDED (frozen 2026-11-17T224353Z) — FORMAL NEGATIVE (RETRACTED).** Full pipeline complete: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (26/26 green incl. LZC brute-force equality test) → 5 SHA256 artifacts `reports/campaign357_*_20261117T224353Z.json` + `.full.json` → recorded. Verdict: `RETRACTED`, `edge_proven:false`, `n_survive_both:0` (binding `multiple_testing`), dominant `lzc_sign_placebo` 0.2856 (`attribution_ok:false`). C357 is now frozen; next campaign C358 is ACTIVE. **Do NOT re-run C357.**
+
+---
+
+## C358 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+
+**C358 — CROSS-SECTIONAL INTRADAY MULTIFRACTAL DETRENDED FLUCTUATION ANALYSIS (MF-DFA, generalized Hurst exponent h(q) across moments q) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C359 active.**
+
+C358 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C357. **This spec is complete and frozen — execute it verbatim.**
+
+**Distinctness proof (pre-registered):**
+- C358 measures the **generalized Hurst exponent h(q)** via **multifractal detrended fluctuation analysis (MF-DFA, Kantelhardt et al. 2002)** — a *multifractal* scaling profile across moments q. For an embedded/integrated series and scales `n ∈ {4,8,16,32,64,128}` within intrinsic window `W=256`, MF-DFA computes the q-th order fluctuation function `F_q(n) = [ (1/N_n) Σ_k (F²(n,k))^{q/2} ]^{1/q}` (where `F²(n,k)` is the detrended mean-square residual of the length-`n` box at position `k`), then the generalized Hurst exponent `h(q)` = OLS slope of `log F_q(n)` vs `log n`. Real scalars: `mfdfa_h0` = `h(q)` at `q=2` (the standard DFA exponent, recovered as a special case); `mfdfa_spread` = `h(q_min) − h(q_max)` over `q ∈ {−10,−5,−2,−1,1,2,5,10}` (the multifractal spectrum width — measures how scaling varies with moment sign). Both are genuinely-distinct real signals.
+- **C350** measured monofractal DFA α (single `q=2` detrended-fluctuation slope). **C358 is distinct:** it is the *multifractal* generalization — the full `h(q)` profile across signed moments `q ∈ {−10,−5,−2,−1,1,2,5,10}` and its width `Δh = h(−10)−h(+10)`. This is fundamentally different from single-moment DFA (C350), R/S (C346, single scale), GPH/local-Whittle long-memory d (C351/C352, frequency domain), variance ratio (C353, second moment), Lempel–Ziv complexity (C357, compression), permutation entropy (C349, ordinal), SampEn (C355), MSE (C356, coarse-grained SampEn), Higuchi (C354, curve-length). C343 |r| autocorr, C344 sign-change, C326 lag-1 autocorr, C345 close-in-envelope, C317 realized-vol levels: C358 is MF-DFA. C342/C340/C341 need volume/notional/price-impact; C358 is price-only and volume-free. C315/C320 trade raw seasonal RETURN mean-reversion — C358 fades seasonal dislocation in MF-DFA scaling.
+- Price-only (`perp_close` only), volume-free, no network, no fabrication, no resampling, no imputation.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign358_mfdfa_5m/<SYM>.npz` per symbol from real C312 `perp_close` (identical 5-field layout to C350–C357; no network, no fabrication, no resampling, no imputation):
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, 315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache < 100 MB (per-symbol float32 npz shards; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, per bar t)
+Intrinsic window `W = 256` bars (fixed, decoupled from seasonal lookback L); scales `n ∈ {4, 8, 16, 32, 64, 128}` (all divide 256); moments `q ∈ {−10, −5, −2, −1, 1, 2, 5, 10}` (nonzero, symmetric); detrending polynomial order `m = 1` (linear). For each bar t:
+- Take trailing `W` returns `X = r[t-W+1..t]` (NaN if `t < W` or any NaN in window); demean: `y = X - mean(X)`; integrate: `Y = cumsum(y)` (profile, length `W`).
+- For each scale `n`: split `Y` into non-overlapping front boxes of length `n` (every scale divides 256 so front boxes tile `[0,W)`; reference back segment coincides and leaves `F_q(n)` unchanged); within each box, OLS-detrend (subtract linear fit) → residual `ε`; `F²(n,k) = mean(ε²)` per box.
+- For each nonzero `q`: `F_q(n) = [ (1/N_n) Σ_k (F²(n,k))^{q/2} ]^{1/q}` (use `q=2` directly via sqrt; for `q<0` guard against zeros). NaN if any `F²(n,k)≤0` for `q<0`, or `N_n<1`.
+- `mfdfa_h0[t] = h(2) =` OLS slope of `log F_2(n)` vs `log n` over the 6 scales. (Recovers C350-style DFA α.)
+- `mfdfa_spread[t] = h(q_min) − h(q_max)` where `q_min=−10, q_max=+10`, i.e. `Δh = h(−10) − h(+10)` (each `h(q)` = OLS slope of `log F_q(n)` vs `log n`). NaN if either `h(−10)` or `h(+10)` is NaN (requires ≥ 4 finite `F_q(n)` points per slope).
+- Real metrics produced: `mfdfa_h0[t]` and `mfdfa_spread[t]`.
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday × tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t]-seasonal_mean)/seasonal_std` for `v[t] ∈ {mfdfa_h0[t], mfdfa_spread[t]}` (symmetric z-fade).
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `mfdfa_h0` and `mfdfa_spread` for all bars per asset with a vectorized `sliding_window_view` + chunked box-detrending path (no Python loop over 315,648 bars × 10 assets), and it MUST pass a brute-force equality test against a reference per-window MF-DFA implementation (manual loop over windows, per-box `np.polyfit` detrend, explicit `F_q(n)` and OLS slope).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `mfdfa_h0_dev`, `mfdfa_spread_dev`, `mfdfa_h0_placebo`, `mfdfa_spread_placebo` (2 real: h(2) and Δh; 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60, 120, 240, 480, 960, 1920)`; REBALANCES = `(1, 4, 12)`; FEES = `(0.0004, 0.0007, 0.0010)`; SLIPS = `(0.0, 0.0001, 0.0002)`; COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12. Placebo seed `20261224` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN). selection frac = 1/3, ALPHA = 0.05.
+- Reference config (stability/attribution): `mfdfa_h0_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES = {mfdfa_h0_dev, mfdfa_spread_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `mfdfa_h0_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (do ALL six, in order, no pauses)
+1. `scripts/build_c358_mfdfa_features.py` → `data/cache/campaign358_mfdfa_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget check).
+2. `scripts/preflight_c358.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
+3. `scripts/run_c358_mfdfa_xsec_oos.py` — full 1296-config costed-OOS sweep. Emit 5 SHA256 artifacts + gitignored `.full.json`:
+   - `reports/campaign358_oos_sweep_<TS>Z.json` + `.full.json`
+   - `reports/campaign358_tradable_edge_registry_<TS>Z.json`
+   - `reports/campaign358_summary_<TS>Z.json`
+   - `reports/campaign358_verdict_<TS>Z.json`
+   - `reports/campaign358_binding_constraint_<TS>Z.json`
+4. `tests/test_preflight_c358.py` + `tests/test_c358_mfdfa_xsec_oos.py` — ≥21 green (incl. MF-DFA brute-force equality test).
+5. Record the truthful result (formal negative or edge) in this `AGENTS.md` (new C358 RESULT section) + `research_state/state.yaml`; add C358 to the frozen table with its 5 SHAs; set C359 as active.
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts. The heavy sweep IS the economic progress — do NOT abort it.
 
 ---
 
@@ -123,7 +197,7 @@ Context you must accept as true (already verified on disk):
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C356 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C356 DONE/frozen; C356 (Multiscale Entropy × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts `reports/campaign356_*_20261117T221026Z.json` + `.full.json` → recorded → frozen → set C357 active. C356 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant `mse_area_placebo` 0.2559 (< 0.5 → `attribution_ok:false`). C357 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C357 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C357 DONE/frozen; C357 (Lempel–Ziv Complexity × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (26/26 green) → 5 SHA256 artifacts `reports/campaign357_*_20261117T224353Z.json` + `.full.json` → recorded → frozen → set C358 active. C357 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant `lzc_sign_placebo` 0.2856 (< 0.5 → `attribution_ok:false`). C358 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family (Multifractal Detrended Fluctuation Analysis, MF-DFA generalized Hurst h(q)) on real C312 5m data; its complete pre-registered spec is FROZEN above.**
 
 **Bottlenecks: NONE** (re-verified on disk 2026-11-17T16:09:13Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`, 0 NaN all shards; meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C350/C351/C352 caches/scripts/tests/artifacts all on disk (scaffolding reference). C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green. C352 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `lw_abs_placebo` 0.3195 (< 0.5 → `attribution_ok:false`). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests.
 
@@ -157,6 +231,7 @@ All: 0 Holm+BH survivors, binding `multiple_testing`, verdict RETRACTED, `edge_p
 | C354 | 20261117T171655Z | Higuchi fractal dimension (HFD) × seasonal-dislocation MR | 1296 | hfd_placebo 0.2595 | `7a4b0a535616d52f757fff5d918da85161416fd148eb189c1f3f063bd5eb59f6` | `3f4138e4ec50a3710555c5f8f929afdf59556a4833f4746ec47424af6c72649a` |
 | C355 | 20261117T204322Z | Sample Entropy (SampEn) × seasonal-dislocation MR | 1296 | sampen_m3_placebo 0.3069 | `3febf019a380a23559b4d931ed301386fe77c4b5f979356d359367138b436ba8` | `590143e898ee54faecc834c0070fb3f5fb60dddf9fd8bf6b152eee8a62ae806c` |
 | C356 | 20261117T221026Z | Multiscale Entropy (MSE) × seasonal-dislocation MR | 1296 | mse_area_placebo 0.2559 | `f4c5cf8e3094a65a0319fc2aed63c00a492fb36bec57ffccf4358e3ea5ddcf36` | `f3b8cb864be93f40c7af8e826e3d90f7e606584a47d072353ec64ab8a509c437` |
+| C357 | 20261117T224353Z | Lempel–Ziv Complexity (LZC, LZ76) × seasonal-dislocation MR | 1296 | lzc_sign_placebo 0.2856 | `ebb610a78530263d7f24f189bcebc5e46be6f6d0c57436b73f1824691ed5bc89` | `8a21578e6c970d2ba68ac21da338f7f5f43c03a7a7d08cb06741e9bc24d5c176` |
 
 C348 extra SHAs: tradable_edge_registry `fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b`, summary `fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2`, binding_constraint `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`.
 C349 extra SHAs: tradable_edge_registry `60ab151230b9211c2da943e3d990725422b7426a1d903d0ae4ca5bfa471b23a8`, summary `5e64f0197e05ea7a58fe86a0d637532ce1bef59c8c07bbdab975e6601fad2607`, binding_constraint `8f328590e3786454de51d3b13e06b5438ee2deace8f3bf9054d6345a62e7498c`.
@@ -166,6 +241,7 @@ C352 extra SHAs: tradable_edge_registry `780e4832c7f141efbeb727b07fee1cf1555a923
 C353 extra SHAs: tradable_edge_registry `c9d919d6396cda5543e876c2b22cef9710ffee8bbd38c2ffd47caba0264ed616`, summary `0480ff13bd7f3ad9f7204e78bbdeccd9cb06e9417387a1e62e737b368bd66fb4`, binding_constraint `e6e8480233daad2f193b5bded09589d1c9325f5eaf5525e5dabc1785e614ba55`. C353 cache SHAs: meta `45f225006d3dfdbc1548cf700dbab9aa366bff43dc3f8e09d1077f560ff35af3`, provenance `8a3daa6931adda2abb309057dc87254d9ca5a334bbbe1dec44f5cc05800f0766`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 C355 extra SHAs: tradable_edge_registry `b3c6f876c800e3cbdcde059e2bff6d1131141c295ae074a44f52757d71bb936b`, summary `dd25ee4e16693e2a1b587db1d062a12bc76026a07dfe73043b288cb6f2fd35de`, binding_constraint `0d3862c61f8e8cc90493565ddc6fad00b00c85dc684706360879166587bb5d53`. C355 cache SHAs: meta `8e827350211624253558aeda45931bf953b0ef03aad47700e0c3cdae1a328ebe`, provenance `2a777ed4aa3d2aea1f61e3f3a88fd7aabb7792f63874cc155f27f315652ea3f0`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 C356 extra SHAs: tradable_edge_registry `dde46ffaa971e25c011c89b0e2d8901964cb432c2823df6a22df7847782881a3`, summary `d09ac9ac40902a803b474fc92a31bafa73b2680b7b3a5ae865d6a9d0e9c832ac`, binding_constraint `0eae5c460088c3e3be4156afb3bb4fcb6d1164d357d158f11a4ba5cb19334167`. C356 cache SHAs: meta `40af702f57533ccaeddcce8d46954b9c6afbd09dfe146c54d36cbab25437d42c`, provenance `d8caf5184bf724d20be17aa21a064c028bee501930d93653b548aa47bbd727f7`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
+C357 extra SHAs: tradable_edge_registry `6df653dbc9d465c3c1598ea50a392902f47e5fcfa78143eab5c6f289a80fbf7a`, summary `de0314c9dbaf84303c49f3bbcbb951fdb7305cda2f1bc164cf71cc00e7f209ec`, binding_constraint `0a257a107237f1898c7a6e4c0bbee129b6867d35c91f681aa57a4934d6d6c74e`. C357 cache SHAs: meta `1341c61faff2d49aacb1044f421f797c39663766d9879e662d3c2f136696edc8`, provenance `915d928f07caa5bb40fd9a44ab2efa8505086afdf64355ecbe600a9b4fe90799`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38,477,477 bytes total, 4,143,541 max shard).
 
 ---
 
@@ -619,9 +695,14 @@ Compute `lzc_sign` and `lzc_mag` for all bars per asset with an efficient implem
 
 ---
 
-## C357 (placeholder — to be recorded by executor)
+## C357 RESULT (frozen 20261117T224353Z) — FORMAL NEGATIVE (RETRACTED)
 
-*No C357 result yet. Executor must run the full pipeline above and record verdict + 5 SHAs here, then freeze C357 and set C358 active.*
+C357 cross-sectional intraday LEMPEL–ZIV COMPLEXITY (LZC, LZ76) × seasonal-dislocation mean-reversion stat-arb on real C312 5m data: full 1296-config costed-OOS sweep complete on disk (5 SHA256 artifacts + gitignored `.full.json`, ts `20261117T224353Z`), tests 26/26 green (incl. LZC brute-force equality test). The vectorized LZC kernel (bytes.find longest-seen-prefix phrase count) passed equality vs the brute-force reference (maxdiff 0.0 on real windows). Sweep ran the full pre-registered grid — no downscoping. Kernel runtime ~7 min (LZ76 O(N²)-per-window on 315k bars × 10 assets × 2 sequences).
+- `verdict: RETRACTED`, `edge_proven:false`
+- `n_survive_both: 0` (`n_deterministic_edge: 0`, 0 Holm+BH survivors over 1296 configs) → binding constraint `multiple_testing`
+- `attribution_ok:false` — dominant attribution `lzc_sign_placebo` 0.2856 (< 0.5); shares lzc_sign_dev 0.2067 / lzc_mag_dev 0.2289 / lzc_sign_placebo 0.2856 / lzc_mag_placebo 0.2787. Binding constraint is multiple_testing (n_survive_both==0), so attribution did not change the verdict.
+- `stability` not required for the verdict (binding multiple_testing); reference config `lzc_sign_dev` L=240 H=4 fee=0.0007 slip=0.0001 taker: sign_consistency 0.0 (all 8 OOS splits negative).
+- PnL is real and non-trivial: all 1296 configs have non-zero turnover and non-zero net (all negative); costs dominate gross. Truthful result: formal negative, no edge claim. `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, source_campaign=312. Cache 38,477,477 bytes (< 100 MB), 4,143,541 max shard.
 
 ---
 
