@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "20261117T041856Z",
+  "campaign": 343,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign343_oos_sweep_20261117T041856Z.json",
+  "oos_sweep_sha256": "c1193a4e4dd708c87ad7f582c383ba1ceeec20b95ec044eabb17ae2123ba78a5",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vcl1_dev": 0.1079505183710588,
+    "vcl5_dev": 0.11383266613480836,
+    "vcr_dev": 0.24333702996386183,
+    "vcl1_placebo": 0.1461825586846209,
+    "vcl5_placebo": 0.14414875076010975,
+    "vcr_placebo": 0.24454847608554037
+  },
+  "dominant_attribution": "vcr_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vcl1_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.8903408231490143,
+      -0.8680499025511353,
+      -0.9572137072618028,
+      -0.7732153436497454,
+      -1.0233029242779677,
+      -0.8982333139708706,
+      -0.8839037404423775,
+      -0.5958974976073103
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -13.235140724217338,
+    "second_half_sharpe": -5.430441458207664,
+    "sharpe_corr": 0.9982048686573468,
+    "stable": false
+  },
+  "diagnosis": "C343 cross-sectional intraday VOLATILITY-CLUSTERING / ABSOLUTE-RETURN AUTOCORRELATION SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
