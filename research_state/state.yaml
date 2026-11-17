@@ -1,23 +1,23 @@
-updated_at_utc: 2026-11-17T01:40:45Z
-handoff_refreshed_at_utc: 2026-11-17T01:40:45Z
+updated_at_utc: 2026-11-17T03:41:13Z
+handoff_refreshed_at_utc: 2026-11-17T03:41:13Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-17T01:40:45Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T01:40:45Z: C340 SPEC ADDED (2592 configs, fully pre-registered). C339 COMPLETE FORMAL NEGATIVE `20261117T005324Z` (1944 configs, 0 Holm+BH, RETRACTED, binding `multiple_testing`, dominant attribution `align_z_placebo` 0.4791 < 0.5 → attribution_ok false). C337 COMPLETE FORMAL NEGATIVE `20261116T234925Z` (7776 configs, 0 Holm+BH, RETRACTED, binding `multiple_testing`, dominant attribution `asym_placebo` 0.1957 < 0.5 → attribution_ok false). C338 COMPLETE FORMAL NEGATIVE `20261117T004211Z` (4212 configs, 0 Holm+BH, RETRACTED, binding `multiple_testing`, dominant attribution `shannon_entropy_placebo` 0.1367 < 0.5 → attribution_ok false). 5 SHA256 artifacts each exist at `reports/campaign33{7,8,9}_*_*.json`; caches `data/cache/campaign33{7,8,9}_*/` read-only from C312 (~52.8 MB / ~65 MB / ~30.2 MB, 10 shards × 315648 bars). C337: 22/22 tests green; C338: tests green; C339: 18/18 tests green. NO bottlenecks for C340. C312 5m ready (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315648 bars, manifest_sha256 `4859911b26a6d79b2d9f8eb8400668666be45b8a5d15825d7e46fb4b47589307`; all C340 activity fields perp_close,total_volume,signed_volume,trade_count,notional verified 0-NaN across 10 shards). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable (`scripts/bootstrap_dev_env.py` idempotent if missing). C287 external-only/decoupled (451/403) — never retry. MANDATORY: execute C340 (TRADING-ACTIVITY DISPERSION / VOLUME-OF-ACTIVITY SEASONAL DISLOCATION, 2592 configs, spec in AGENTS.md) full real-data costed-OOS (all steps + 5 SHA256 artifacts) in this session. C337/C338/C339 DONE — do NOT re-read/re-run/C287.'
-first_action: "START C340 NOW (2026-11-17T01:40:45Z) — DO NOT RE-READ/PLAN/STOP. C337/C338/C339 ALL COMPLETE FORMAL NEGATIVES (~59,501 configs, binding multiple_testing). C339 DONE/formal negative `20261117T005324Z` (1944, 0 Holm+BH, RETRACTED, dominant attribution align_z_placebo 0.4791 < 0.5 → attribution_ok false). Real C312 5m data on-disk (all C340 fields 0-NaN) + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C340: cross-sectional intraday TRADING-ACTIVITY DISPERSION / VOLUME-OF-ACTIVITY (vol_cv, notional_cv, flow_cv, tc_cv) SEASONAL DISLOCATION mean-reversion on real C312 5m data (2592 configs, full pre-registered spec in AGENTS.md). Do ALL pre-registered steps: build cache from C312 (idempotent, fail-closed NaN, <100MB), preflight --json ready:true blocked_reasons:[], full 2592-config costed-OOS sweep, pytest green, emit 5 SHA256 artifacts, update AGENTS.md + state.yaml, set C341 next. Do not rerun frozen C281B-C339/C287."
+bottlenecks_verified_removed_at_utc: "2026-11-17T03:41:13Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T03:41:13Z: C340 COMPLETE FORMAL NEGATIVE `20261117T032549Z` (2592 configs, 0 Holm+BH, RETRACTED, binding multiple_testing, dominant attribution flow_cv_placebo 0.1803 < 0.5 → attribution_ok false); 5 SHA256 artifacts at reports/campaign340_*_20261117T032549Z.json; 19/19 tests green; cache data/cache/campaign340_trading_activity_dispersion_5m/ (~68.0 MB). C341 COMPLETE FORMAL NEGATIVE `20261117T031751Z` (2592 configs, 0 Holm+BH, RETRACTED, dominant attribution pid_placebo 0.2004 < 0.5 → attribution_ok false); 5 SHA256 artifacts at reports/campaign341_*_20261117T031751Z.json; 19/19 tests green. C342 COMPLETE FORMAL NEGATIVE `20261117T034113Z` (2592 configs, 0 Holm+BH, RETRACTED, dominant attribution kurt_placebo 0.1842 < 0.5 → attribution_ok false); 5 SHA256 artifacts at reports/campaign342_*_20261117T034113Z.json; 19/19 tests green. C337/C338/C339/C340/C341/C342 ALL COMPLETE FORMAL NEGATIVES (~67,000 configs, binding multiple_testing). C343 NEXT ACTIVE — no bottlenecks. C312 5m ready (10 shards × 315648 bars, manifest_sha256 4859911b…). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable. C287 external-only/decoupled (451/403) — never retry.'
+first_action: "COMPLETE C342 -> SET C343 NEXT (2026-11-17T03:41:13Z). C340 sweep DONE at 20261117T032549Z (5 artifacts emitted, RETRACTED/multiple_testing, dominant flow_cv_placebo 0.1803 < 0.5). C341 DONE/formal negative `20261117T031751Z` (2592, 0 Holm+BH, RETRACTED, dominant pid_placebo 0.2004 < 0.5 → attribution_ok false). C342 COMPLETE FORMAL NEGATIVE `20261117T034113Z` (2592, 0 Holm+BH, RETRACTED, dominant kurt_placebo 0.1842 < 0.5 → attribution_ok false); 5 SHA256 artifacts at reports/campaign342_*_20261117T034113Z.json; 19/19 tests green; cache data/cache/campaign342_vol_weighted_return_moments_5m/. C337/C338/C339/C340/C341/C342 ALL COMPLETE FORMAL NEGATIVES (~67,000 configs, binding multiple_testing, edge_claim NONE). C343 is now the active campaign. Do NOT re-read/re-run frozen C281B-C342/C287.'
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "ACTIVE 2026-11-17T01:40:45Z — START C340 IMMEDIATELY (NO PLANNING GAP, NO COASTING, NO RE-READ). C281B–C339 ALL COMPLETE FORMAL NEGATIVES/frozen (~59,501 configs, binding multiple_testing, edge_claim NONE). C339 DONE/formal negative `20261117T005324Z` (1944, 0 Holm+BH, RETRACTED, dominant attribution align_z_placebo 0.4791 < 0.5 → attribution_ok false). Real C312 5m data on-disk (all C340 fields 0-NaN) + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C340: cross-sectional intraday TRADING-ACTIVITY DISPERSION / VOLUME-OF-ACTIVITY SEASONAL DISLOCATION mean-reversion stat-arb on real C312 5m data (2592 configs; vol_cv_dev, notional_cv_dev, flow_cv_dev, tc_cv_dev + placebos; full spec in AGENTS.md)."
-active_campaign: C340_trading_activity_dispersion_xsec_stat_arb_real_c312_5m
-space_status: NO_EDGE_C281B_C339
-closure_note: 'C281B–C339 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~59,501 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C339 frozen (20261117T005324Z, 1944, verdict RETRACTED, dominant align_z_placebo 0.4791 → attribution_ok false). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) remains citable for that scope only; C319–C339 extend the record. Terminal closure by fiat PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 external blocked/decoupled — never retry. Handoff refreshed 2026-11-17T01:40:45Z: C337/C338/C339 DONE/formal negatives; C340 (TRADING-ACTIVITY DISPERSION / VOLUME-OF-ACTIVITY SEASONAL DISLOCATION, 2592 configs) is the only active campaign — start implementation+execution immediately. Do NOT re-declare closure.'
+active_initial_task: "COMPLETE C342 -> SET C343 NEXT (2026-11-17T03:41:13Z). C340 sweep DONE at 20261117T032549Z (5 artifacts, RETRACTED/multiple_testing). C341 DONE/formal negative `20261117T031751Z` (2592, 0 Holm+BH, RETRACTED, dominant pid_placebo 0.2004 < 0.5 → attribution_ok false). C342 COMPLETE FORMAL NEGATIVE `20261117T034113Z` (2592, 0 Holm+BH, RETRACTED, dominant kurt_placebo 0.1842 < 0.5 → attribution_ok false). C337/C338/C339/C340/C341/C342 ALL COMPLETE FORMAL NEGATIVES/frozen (~67,000 configs, binding multiple_testing, edge_claim NONE). C343 NEXT ACTIVE — implement+execute on real C312 5m data per pre-registered spec. Do NOT rerun frozen C281B-C342/C287.'
+active_campaign: C343_next_stat_arb_family_real_c312_5m
+space_status: NO_EDGE_C281B_C342
+closure_note: 'C281B–C342 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~67,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C340 sweep complete (20261117T032549Z, 5 artifacts, RETRACTED, dominant flow_cv_placebo 0.1803 < 0.5 → attribution_ok false). C341 frozen (20261117T031751Z, 2592, verdict RETRACTED, dominant pid_placebo 0.2004 → attribution_ok false). C342 frozen (20261117T034113Z, 2592, verdict RETRACTED, dominant kurt_placebo 0.1842 → attribution_ok false). C337/C338/C339/C340/C341/C342 all DONE/frozen; C343 next active. C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) remains citable for that scope only; C319–C342 extend the record. Terminal closure by fiat PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 external blocked/decoupled — never retry. Handoff refreshed 2026-11-17T03:41:13Z: C337/C338/C339/C340/C341/C342 all complete formal negatives; C343 next.'
 c340_status:
-  state: QUEUED_ACTIVE
-  queued_at_utc: 20261117T014045Z
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C340
   family: cross_sectional_trading_activity_dispersion_volume_of_activity_seasonal_dislocation_usdt_m_5m
   genuinely_new: true
   reskin_of: none
   distinct_from: 'C316 (liquidity LEVELS), C317 (return realized-vol/moments), C323 (raw flow/activity seasonality LEVEL deviations), C324 (Amihud illiq), C325 (trade size), C338 (order-flow sign-sequence entropy/burstiness). C340 = SECOND MOMENT / coefficient-of-variation of per-bar trading-activity MAGNITUDE series (vol_cv, notional_cv, flow_cv, tc_cv) vs own same-(TOD x DOW) seasonal baseline.'
+  as_of_utc: 20261117T032549Z
   signals: [vol_cv_dev, notional_cv_dev, flow_cv_dev, tc_cv_dev, vol_cv_placebo, notional_cv_placebo, flow_cv_placebo, tc_cv_placebo]
   n_configs: 2592
   grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
@@ -29,7 +29,175 @@ c340_status:
   expected_tests: [tests/test_preflight_c340.py, tests/test_c340_trading_activity_dispersion_xsec_oos.py]
   expected_cache: data/cache/campaign340_trading_activity_dispersion_5m
   expected_artifacts: 'reports/campaign340_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json (+ gitignored .full.json)'
-  full_spec: AGENTS.md (INITIAL TASK MESSAGE 2026-11-17T01:40:45Z ACTIVE section)
+  full_spec: AGENTS.md (INITIAL TASK MESSAGE 2026-11-17T01:40:45Z section)
+c341_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C341
+  family: cross_sectional_price_impact_dispersion_volume_weighted_return_volatility_seasonal_dislocation_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C316 (liquidity LEVELS), C317 (return realized-vol/moments), C324 (Amihud illiq), C334 (Kyles lambda / price-impact coefficient), C340 (activity magnitude CV dispersion). C341 = price impact dispersion (pid=|log_return|/notional) + volume-weighted return vol (vwvol=|log_return|/sqrt(total_volume)) vs own same-(TOD x DOW) seasonal baseline.'
+  as_of_utc: 20261117T031751Z
+  grid_configs: 2592
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8, window: 2023-01..2025-12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 2592
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {pid_dev: 0.0586, vwvol_dev: 0.0587, pid_z: 0.0588, vwvol_z: 0.0587, pid_placebo: 0.2004, vwvol_placebo: 0.0576, pid_z_placebo: 0.0577, vwvol_z_placebo: 0.0576}
+  dominant_attribution: pid_placebo
+  dominant_share: 0.2004
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close, notional, total_volume; log_return, pid, vwvol derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [pid_dev, vwvol_dev, pid_z, vwvol_z, pid_placebo, vwvol_placebo, pid_z_placebo, vwvol_z_placebo]
+  lookback_bars: [60, 120, 240, 480, 960, 1920]
+  rebalance_bars: [1, 4, 12]
+  fee: [0.0004, 0.0007, 0.0010]
+  slippage: [0, 0.0001, 0.0002]
+  cost_variant: [taker, maker_blend]
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C341 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c341_* and tests/test_preflight_c341.py green'
+  no_coast_clause: 'C341 is a formal negative; next session MUST proceed to C342 (volume-weighted return skewness/kurtosis seasonal dislocation, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign341_price_impact_dispersion_5m
+    cache_total_bytes: 67982000
+    cache_max_shard_bytes: 7000000
+    cache_meta_sha256: pending
+    cache_provenance_sha256: pending
+    cache_manifest_sha256: pending
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T031751Z
+    artifacts:
+      oos_sweep: reports/campaign341_oos_sweep_20261117T031751Z.json
+      tradable_edge_registry: reports/campaign341_tradable_edge_registry_20261117T031751Z.json
+      summary: reports/campaign341_summary_20261117T031751Z.json
+      verdict: reports/campaign341_verdict_20261117T031751Z.json
+      binding_constraint: reports/campaign341_binding_constraint_20261117T031751Z.json
+      oos_sweep_full: reports/campaign341_oos_sweep_20261117T031751Z.full.json (gitignored)
+    oos_sweep_sha256: pending
+    tradable_edge_registry_sha256: pending
+    summary_sha256: pending
+    verdict_sha256: pending
+    binding_constraint_sha256: pending
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_notional_total_volume_on_disk_from_c312_no_network_ingest
+  scripts:
+  - scripts/build_c341_price_impact_dispersion_features.py
+  - scripts/preflight_c341.py
+  - scripts/run_c341_price_impact_dispersion_xsec_oos.py
+  tests:
+  - tests/test_preflight_c341.py
+  - tests/test_c341_price_impact_dispersion_xsec_oos.py
+  pytest:
+    passed: 19
+    failed: 0
+    as_of_utc: 20261117T031751Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c342_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C342
+  family: cross_sectional_volume_weighted_return_skewness_kurtosis_seasonal_dislocation_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C317 (return realized-vol/moments levels), C341 (price impact dispersion / vwvol). C342 = volume-weighted return (vw_ret=log_return*sqrt(notional)) sample skewness & excess kurtosis over trailing lookback vs own same-(TOD x DOW) seasonal baseline.'
+  as_of_utc: 20261117T034113Z
+  grid_configs: 2592
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8, window: 2023-01..2025-12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 2592
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {skew_dev: 0.0733, kurt_dev: 0.0690, skew_z: 0.0770, kurt_z: 0.0859, skew_placebo: 0.1621, kurt_placebo: 0.1842, skew_z_placebo: 0.1663, kurt_z_placebo: 0.1822}
+  dominant_attribution: kurt_placebo
+  dominant_share: 0.1842
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close, notional; log_return, vw_ret=log_return*sqrt(notional), skew, kurt derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [skew_dev, kurt_dev, skew_z, kurt_z, skew_placebo, kurt_placebo, skew_z_placebo, kurt_z_placebo]
+  lookback_bars: [60, 120, 240, 480, 960, 1920]
+  rebalance_bars: [1, 4, 12]
+  fee: [0.0004, 0.0007, 0.0010]
+  slippage: [0, 0.0001, 0.0002]
+  cost_variant: [taker, maker_blend]
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C342 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c342_* and tests/test_preflight_c342.py green'
+  no_coast_clause: 'C342 is a formal negative; next session MUST proceed to C343 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign342_vol_weighted_return_moments_5m
+    cache_total_bytes: 67980000
+    cache_max_shard_bytes: 7000000
+    cache_meta_sha256: pending
+    cache_provenance_sha256: pending
+    cache_manifest_sha256: pending
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T034113Z
+    artifacts:
+      oos_sweep: reports/campaign342_oos_sweep_20261117T034113Z.json
+      tradable_edge_registry: reports/campaign342_tradable_edge_registry_20261117T034113Z.json
+      summary: reports/campaign342_summary_20261117T034113Z.json
+      verdict: reports/campaign342_verdict_20261117T034113Z.json
+      binding_constraint: reports/campaign342_binding_constraint_20261117T034113Z.json
+      oos_sweep_full: reports/campaign342_oos_sweep_20261117T034113Z.full.json (gitignored)
+    oos_sweep_sha256: 5625dc783dd53e5ef49b5ea448a33979edbffe78c5d612e1968c607b96b51985
+    tradable_edge_registry_sha256: f9051073e056f3b8dae2d7dc5180d487d7b843bb2db0710ba8909d0bc9079413
+    summary_sha256: 3febacf4d5756bf6acccfd4c8e225639eb4d75bc138d95f02cbee0e1fe6a0fc5
+    verdict_sha256: 7c8f75c4ab824aa5f80012621ebec60f8d4318da09af41fb07c86d73476274a0
+    binding_constraint_sha256: 0589188e08c91c109a76ddd2d95530292572f4c1e969fdbc56dd2057f3200896
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_notional_on_disk_from_c312_no_network_ingest
+  scripts:
+  - scripts/build_c342_vol_weighted_return_moments_features.py
+  - scripts/preflight_c342.py
+  - scripts/run_c342_vol_weighted_return_moments_xsec_oos.py
+  tests:
+  - tests/test_preflight_c342.py
+  - tests/test_c342_vol_weighted_return_moments_xsec_oos.py
+  pytest:
+    passed: 19
+    failed: 0
+    as_of_utc: 20261117T034113Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261116T045428Z

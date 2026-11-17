@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261117T032549Z",
+  "campaign": 340,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign340_oos_sweep_20261117T032549Z.json",
+  "oos_sweep_sha256": "71894a217471e70ba0658b1b40355f26c20008ed04cde7d9943b5cfdea166e0c",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vol_cv_dev": 0.07883797568396751,
+    "notional_cv_dev": 0.07863457110634069,
+    "flow_cv_dev": 0.08668886958375244,
+    "tc_cv_dev": 0.0803257629440843,
+    "vol_cv_placebo": 0.1692190406784705,
+    "notional_cv_placebo": 0.16901375210769445,
+    "flow_cv_placebo": 0.18034162533056,
+    "tc_cv_placebo": 0.15693840256513011
+  },
+  "dominant_attribution": "flow_cv_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vol_cv_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.5231380030840947,
+      -0.4966893427113877,
+      -0.6331647151998652,
+      -0.724249085576496,
+      -0.5942044779623635,
+      -0.5276424143388401,
+      -0.6582403753383863,
+      -0.5397417706956512
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -6.544221713569108,
+    "second_half_sharpe": -11.220996983651883,
+    "sharpe_corr": 0.996390705811581,
+    "stable": false
+  },
+  "diagnosis": "C340 cross-sectional intraday TRADING-ACTIVITY DISPERSION / VOLUME-OF-ACTIVITY SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

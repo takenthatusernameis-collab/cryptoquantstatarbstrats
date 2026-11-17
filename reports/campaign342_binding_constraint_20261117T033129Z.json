@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261117T033129Z",
+  "campaign": 342,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign342_oos_sweep_20261117T033129Z.json",
+  "oos_sweep_sha256": "d8fdc29fca0f1b648cc3ad357faab3b23c41de2751e10fe01150678940749c66",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "skew_dev": 0.07328364677445,
+    "kurt_dev": 0.06900334505637533,
+    "skew_z": 0.07700168893317555,
+    "kurt_z": 0.08590975725084782,
+    "skew_placebo": 0.16210849242836742,
+    "kurt_placebo": 0.1842273320479107,
+    "skew_z_placebo": 0.16625191391211452,
+    "kurt_z_placebo": 0.18221382359675872
+  },
+  "dominant_attribution": "kurt_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "skew_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.8110332972916138,
+      -0.7410690074809755,
+      -0.7487357253129248,
+      -0.7089757874504973,
+      -0.6958693993513368,
+      -0.4760627746463685,
+      -0.5951108921382773,
+      -0.7101776505769085
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -20.356416838724552,
+    "second_half_sharpe": -6.599600037322316,
+    "sharpe_corr": 0.9952158799268336,
+    "stable": false
+  },
+  "diagnosis": "C342 cross-sectional intraday VOLUME-WEIGHTED RETURN SKEWNESS/KURTOSIS SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
