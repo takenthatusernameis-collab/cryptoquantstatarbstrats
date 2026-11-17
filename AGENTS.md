@@ -1,30 +1,30 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T21:57:26Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-17T22:33:20Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority (from repo name): **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
 ---
 
-## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:57:26Z, COMPLETE — FORMAL NEGATIVE (RETRACTED))
+## INITIAL TASK MESSAGE — C357 (timestamped 2026-11-17T22:33:20Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
-**EXECUTE C356 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+**EXECUTE C357 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY LEMPEL–ZIV COMPLEXITY (LZC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**State verified 2026-11-17T21:57:26Z (no bottlenecks):**
+**State verified 2026-11-17T22:33:20Z (no bottlenecks):**
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 (`scipy.optimize.minimize_scalar`, `scipy.stats` OK). If missing: `python scripts/bootstrap_dev_env.py` (idempotent).
-- C281B–C355 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355.
-- **C356 COMPLETE:** `scripts/build_c356_multiscale_entropy_features.py`, `scripts/preflight_c356.py`, `scripts/run_c356_multiscale_entropy_xsec_oos.py`, `tests/test_preflight_c356.py`, `tests/test_c356_multiscale_entropy_xsec_oos.py`, `data/cache/campaign356_multiscale_entropy_5m/`, `reports/campaign356_*_20261117T221026Z.json` all on disk. Verdict: RETRACTED (formal negative), `edge_proven:false`.
-- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates.
+- C281B–C356 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C356 frozen `20261117T221026Z` (1296, RETRACTED, dominant `mse_area_placebo` 0.2559). No edge proven through C356.
+- **C357 NOT YET RUN:** no `campaign357_*` cache/scripts/tests/artifacts on disk. This session MUST produce them (economic progress = build+preflight+full sweep+tests+5 SHA256 artifacts + recorded result).
+- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C356/C287. Do NOT weaken gates.
 
-**C356 pre-registered spec is COMPLETE and FROZEN — see "C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
+**C357 pre-registered spec is COMPLETE and FROZEN — see "C357 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
 
 **Mandatory run sequence (economic progress = all of these):**
-1. `scripts/build_c356_multiscale_entropy_features.py` → `data/cache/campaign356_multiscale_entropy_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
-2. `python scripts/preflight_c356.py` → `ready:true`.
-3. `python scripts/run_c356_multiscale_entropy_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign356_*_<TS>Z.json` + gitignored `.full.json`.
-4. `python -m pytest tests/test_preflight_c356.py tests/test_c356_multiscale_entropy_xsec_oos.py -q` — **≥21 green incl. MSE brute-force equality test**.
-5. Record truthful result in this `AGENTS.md` (new C356 RESULT) + `research_state/state.yaml`; add C356 to frozen table with 5 SHAs (+ cache SHAs); set C357 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+1. `scripts/build_c357_lempel_ziv_features.py` → `data/cache/campaign357_lempel_ziv_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
+2. `python scripts/preflight_c357.py` → `ready:true`.
+3. `python scripts/run_c357_lempel_ziv_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign357_*_<TS>Z.json` + gitignored `.full.json`.
+4. `python -m pytest tests/test_preflight_c357.py tests/test_c357_lempel_ziv_xsec_oos.py -q` — **≥21 green incl. LZC brute-force equality test**.
+5. Record truthful result in this `AGENTS.md` (new C357 RESULT) + `research_state/state.yaml`; add C357 to frozen table with 5 SHAs (+ cache SHAs); set C358 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION. The heavy sweep IS the deliverable.
 
@@ -484,9 +484,9 @@ C356 cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation m
 
 ---
 
-## C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+## C356 — PRE-REGISTERED SPEC (FROZEN / COMPLETED — kept for reference, do NOT re-run)
 
-**C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
+**C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTED VERBATIM. Verdict: RETRACTED (formal negative), `edge_proven:false`.**
 
 C356 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C355. **This spec is complete and frozen — execute it verbatim.**
 
@@ -554,9 +554,74 @@ Compute MSE profile (`mse_slope`, `mse_area`) for all bars per asset with a vect
 
 ---
 
-## C356 COMPLETE — NEXT CAMPAIGN C357 ACTIVE
+## C357 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
 
-C356 cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data: PRE-REGISTERED SPEC EXECUTED VERBATIM — build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active. Verdict: RETRACTED (formal negative), `edge_proven:false`. C357 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
+**C357 — CROSS-SECTIONAL INTRADAY LEMPEL–ZIV COMPLEXITY (LZC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C358 active.**
+
+C357 is mechanically-distinct, genuinely-new, price-only (volume-free), buildable from real C312 `perp_close` alone. NOT a re-skin of C281B–C356. **This spec is complete and frozen — execute it verbatim.**
+
+**Distinctness proof (pre-registered):**
+- C357 measures **normalized Lempel–Ziv complexity (LZC, LZ76/Kaspar–Schuster)** — a *dictionary/compression-based complexity* measure. For a binary sequence `S = s1..sN`, LZ76 counts the number of phrases `c(N)` in the exhaustive parsing of `S` into the smallest set of distinct substrings not previously seen as prefixes of the parsed history. The normalized complexity is `LZC_norm = c(N) * log2(N) / N` (Kaspar–Schuster normalization), which converges to 1 for a maximally complex (pseudo-random) binary string and is lower for regular/predictable strings. This is a **pattern-dictionary growth** statistic, fundamentally different from probability/entropy counts.
+- **C329** measured Shannon entropy of the binary SIGN sequence (probability-based H = -Σ p log p over sign alphabet) — C357 uses the LZ76 dictionary phrase count `c(N)` on a binary sequence (compression-based), not Shannon entropy. **C344** measured sign-change / chop rate (count of transitions) — a local transition statistic, not a dictionary parsing. **C349** measured permutation (Bandt–Pompe) entropy over rank-orderings of m=3 consecutive returns (ordinal patterns, alphabet 6). **C355** measured single-scale Sample Entropy (tolerance-based template matching). **C356** measured Multiscale Entropy (coarse-grained SampEn profile). **C354** measured Higuchi fractal dimension (curve-length scaling). **C350** measured DFA α. **C351/C352** measured frequency-domain fractional-integration d. **C353** measured Lo–MacKinlay variance ratio. **C346** measured R/S. **C343** measured autocorrelation of `|r|`. **C326** measured lag-1 signed-return autocorrelation. **C345** measured close location in trailing envelope. **C317** measured realized-vol levels. **C342/C340/C341** need volume/notional/price-impact. **C315/C320** trade raw seasonal RETURN mean-reversion. **C357 is distinct from all of the above:** it is the normalized LZ76 dictionary-complexity of binary sequences derived from returns (sign and magnitude-threshold binarizations), a compression-based measure not used in C281B–C356. Price-only (`perp_close` only), volume-free, no network, no fabrication, no resampling, no imputation.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign357_lempel_ziv_5m/<SYM>.npz` per symbol from real C312 `perp_close` (identical 5-field layout to C350–C356; no network, no fabrication, no resampling, no imputation):
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, 315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache < 100 MB (per-symbol float32 npz shards; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, per bar t)
+Intrinsic window `W = 256` bars (fixed, decoupled from seasonal lookback L). For each bar t:
+- Take trailing `W` returns `X = r[t-W+1..t]` (NaN if `t < W` or any NaN in window).
+- **Binary sequence A (sign):** `s[i] = 1` if `X[i] >= 0` else `0`, for `i=0..W-1`.
+- **Binary sequence B (magnitude-threshold):** let `med = median(|X|)` over the window; `m[i] = 1` if `|X[i]| >= med` else `0`, for `i=0..W-1`. (If all `|X[i]|` identical so partition is degenerate, `m` is still well-defined by the `>= med` rule.)
+- **LZ76 complexity `c(N)`** (Kaspar–Schuster / LZ76 exhaustive parsing) for a binary sequence of length `N=W`: initialize `i=0, c=1, k=1, l=1` (0-indexed), incrementally scan to find whether `S[i+l-1]` appears in the vocabulary `S[i : i+k+l-1)` (history prefix window) by checking the substring `S[i+k : i+k+l]` against all positions in `S[i : i+k+l-1]`; when no match, increment `c`, set `i = i+k+l`, reset `k=1,l=1`; when match, increment `l` or adjust `k` per standard LZ76; continue until `i+k+l > N`. (Implement the standard LZ76 phrase-count algorithm exactly; the brute-force equality test below is authoritative.)
+- **Normalized LZC:** `LZC_norm = c(N) * log2(N) / N` for `N=W`.
+- Real metrics produced: `lzc_sign[t] = LZC_norm(s)` and `lzc_mag[t] = LZC_norm(m)` (two distinct real signals: sign-complexity and magnitude-threshold-complexity). Both in (0, ~1+ε] for finite N; higher = more complex/irregular.
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday × tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t]-seasonal_mean)/seasonal_std` for `v[t] ∈ {lzc_sign[t], lzc_mag[t]}` (symmetric z-fade).
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `lzc_sign` and `lzc_mag` for all bars per asset with an efficient implementation (vectorized `sliding_window_view` to extract windows + a compiled/optimized per-window LZ76 routine, or a vectorized/batched LZ76 over chunks; no naive per-bar Python object churn beyond what is necessary). It MUST pass a brute-force equality test against a reference per-window LZ76 implementation (manual loop over windows, explicit standard LZ76 parsing counting phrases `c(N)`).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `lzc_sign_dev`, `lzc_mag_dev`, `lzc_sign_placebo`, `lzc_mag_placebo` (2 real: LZC of sign sequence and LZC of magnitude-threshold sequence; 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60, 120, 240, 480, 960, 1920)`; REBALANCES = `(1, 4, 12)`; FEES = `(0.0004, 0.0007, 0.0010)`; SLIPS = `(0.0, 0.0001, 0.0002)`; COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12. Placebo seed `20261223` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN). selection frac = 1/3, ALPHA = 0.05.
+- Reference config (stability/attribution): `lzc_sign_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES = {lzc_sign_dev, lzc_mag_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `lzc_sign_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (do ALL six, in order, no pauses)
+1. `scripts/build_c357_lempel_ziv_features.py` → `data/cache/campaign357_lempel_ziv_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget check).
+2. `scripts/preflight_c357.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
+3. `scripts/run_c357_lempel_ziv_xsec_oos.py` — full 1296-config costed-OOS sweep. Emit 5 SHA256 artifacts + gitignored `.full.json`:
+   - `reports/campaign357_oos_sweep_<TS>Z.json` + `.full.json`
+   - `reports/campaign357_tradable_edge_registry_<TS>Z.json`
+   - `reports/campaign357_summary_<TS>Z.json`
+   - `reports/campaign357_verdict_<TS>Z.json`
+   - `reports/campaign357_binding_constraint_<TS>Z.json`
+4. `tests/test_preflight_c357.py` + `tests/test_c357_lempel_ziv_xsec_oos.py` — ≥21 green (incl. LZC brute-force equality test).
+5. Record the truthful result (formal negative or edge) in this `AGENTS.md` (new C357 RESULT section) + `research_state/state.yaml`; add C357 to the frozen table with its 5 SHAs (+ cache SHAs); set C358 as active with next genuinely-new price-only family spec placeholder.
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts. The heavy sweep IS the economic progress — do NOT abort it.
+
+---
+
+## C357 (placeholder — to be recorded by executor)
+
+*No C357 result yet. Executor must run the full pipeline above and record verdict + 5 SHAs here, then freeze C357 and set C358 active.*
 
 ---
 
