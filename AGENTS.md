@@ -1,22 +1,22 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-17T08:14:35Z. Repo: cryptoquantstatarbstrats — crypto quantitative **statistical arbitrage**. Economic progress = real-data costed out-of-sample PnL run, passing test, or artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation. **This AGENTS.md is the single authoritative durable handoff — do NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
+**Handoff refreshed:** 2026-11-17T08:31:15Z. Repo: cryptoquantstatarbstrats — crypto quantitative **statistical arbitrage**. Economic progress = real-data costed out-of-sample PnL run, passing test, or artifact update. A session that only re-reads this handoff, re-declares closure, or re-runs a frozen campaign is NOT economic progress and is a hard violation. **This AGENTS.md is the single authoritative durable handoff — do NOT create a separate HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-17T08:14:35Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP): C349 — next genuinely-new price-only cross-sectional intraday stat-arb family on real C312 5m data (USDT-M 5m). C348 `20261117T082608Z` frozen (1296 configs, RETRACTED, dominant `hhi_placebo` 0.3768, 0 Holm+BH, `edge_proven:false`). C281B–C348 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~78,200+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). **No bottlenecks** — C348 build+preflight+cache+tests+full sweep all on disk and green (22/22 tests); 5 SHA256 artifacts emitted at `20261117T082608Z`. C312 5m on-disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, fields incl. `perp_close`). C287 external blocked/decoupled (451/403) — never retry. Do NOT re-read/plan/re-declare closure/re-run frozen C281B–C348/C287 or weaken any gate.
+> **INITIAL TASK MESSAGE (2026-11-17T08:31:15Z, MANDATORY, START HERE — DO NOT RE-READ/PLAN/STOP): C349 — ORDINAL-PATTERN / PERMUTATION-ENTROPY (Bandt–Pompe complexity) of the return series × SEASONAL-DISLOCATION mean-reversion, price-only, volume-free, on real C312 5m data (USDT-M 5m). FULLY PRE-REGISTERED — do NOT re-choose the family. C348 `20261117T082608Z` frozen (1296 configs, RETRACTED, dominant `hhi_placebo` 0.3768, 0 Holm+BH, `edge_proven:false`). C281B–C348 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~78,200+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). **No bottlenecks** — C348 build+preflight+cache+tests+full sweep all on disk and green (22/22 tests); 5 SHA256 artifacts emitted at `20261117T082608Z`. C312 5m on-disk (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars, 2023-01..2025-12, fields incl. `perp_close`). C287 external blocked/decoupled (451/403) — never retry. Do NOT re-read/plan/re-declare closure/re-run frozen C281B–C348/C287 or weaken any gate.
 >
 > **EXECUTE C349 NOW (full pipeline, no pauses):**
-> 1. **Design** the next genuinely-new price-only (volume-free) cross-sectional intraday mean-reversion stat-arb family mechanically distinct from C281B–C348 — derived from real C312 `perp_close` only (log_return, abs_ret, sq_ret, or higher-order path/distribution statistics). No network/fabrication/resampling/imputation/relabeling. Pre-register: signals, lookbacks, rebalances, fees, slips, cost variants, placebo seed, selection frac, ALPHA, gates (Holm+BH both, MDE, stability, attribution), verdict logic.
-> 2. **Build** `scripts/build_c349_<family>_features.py` → `data/cache/campaign349_<family>_5m/` (10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest). Real C312 `perp_close` only; cache <100 MB; idempotent (`--force`).
+> 1. **Design (PRE-REGISTERED, NON-NEGOTIABLE — do NOT re-choose a family):** C349 = **ordinal-pattern / permutation-entropy (Bandt–Pompe complexity) of the return series × seasonal-dislocation mean-reversion**, price-only, volume-free, derived from real C312 `perp_close` only. The full pre-registered spec (signals, embedding dim, intrinsic window W, lookbacks, rebalances, fees, slips, cost variants, placebo seed, selection frac, ALPHA, gates, verdict logic, distinctness proof) is in the `PRE-REGISTERED NEXT CAMPAIGN — C349` section at the bottom of this file. Execute that spec verbatim — no network/fabrication/resampling/imputation/relabeling, no gate weakening.
+> 2. **Build** `scripts/build_c349_permutation_entropy_features.py` → `data/cache/campaign349_permutation_entropy_5m/` (10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest). Real C312 `perp_close` only; cache <100 MB; idempotent (`--force`).
 > 3. **Preflight** `scripts/preflight_c349.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
-> 4. **Sweep** `scripts/run_c349_<family>_xsec_oos.py` — full pre-registered costed-OOS grid, 8 splits 12m train/3m test roll 3m over 2023-01..2025-12. Emit 5 SHA256 artifacts: `reports/campaign349_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
-> 5. **Tests** `tests/test_preflight_c349.py` + `tests/test_c349_<family>_xsec_oos.py` — ≥21 green.
+> 4. **Sweep** `scripts/run_c349_permutation_entropy_xsec_oos.py` — full pre-registered costed-OOS grid, 8 splits 12m train/3m test roll 3m over 2023-01..2025-12. Emit 5 SHA256 artifacts: `reports/campaign349_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+> 5. **Tests** `tests/test_preflight_c349.py` + `tests/test_c349_permutation_entropy_xsec_oos.py` — ≥21 green.
 > 6. **Record** truthful result (formal negative or edge) in `AGENTS.md` + `research_state/state.yaml`, update frozen list + SHAs, and set the next genuinely-new price-only family as active. Heavy sweep is economic progress — do not abort.
 >
 > **C348 spec** — full pre-registered spec, grid (1296 configs), gates, and distinctness proof are in the `PRE-REGISTERED NEXT CAMPAIGN — C348` section below. Signals `hhi_dev`, `hhi_norm_dev`, `hhi_placebo`, `hhi_norm_placebo`; lookbacks `(60,120,240,480,960,1920)`; reb `(1,4,12)`; fees `(0.0004,0.0007,0.0010)`; slips `(0.0,0.0001,0.0002)`; cost variants `(taker,maker_blend)`; placebo seed `20261123`; selection frac 1/3; ALPHA 0.05. Gates: Holm+BH over all 1296 (BOTH), MDE, stability (ref `hhi_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker), attribution (dominant real non-placebo signal share ≥0.5). Verdict: 0 both → RETRACTED(multiple_testing); else not attribution_ok → RETRACTED(attribution); else not stable → RETRACTED(stability); else EDGE_PROVEN. No edge claim without Holm+BH+attribution_ok+stability. Single-leg dollar-neutral, costs on turnover, `executed_fills:false`.
 >
-> **After C348:** record result truthfully, mark frozen with SHAs, and set the next genuinely-new price-only family as active. Never stop for lack of a named next campaign.
+> **After C349:** record the truthful result (formal negative or edge), mark frozen with its 5 SHAs, and set the next genuinely-new price-only family as active. Never stop for lack of a named next campaign.
 
-**Program state:** `ACTIVE — NO-EDGE CONFIRMED THROUGH C348 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED: execute every pre-registered genuinely-new family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C348 DONE/frozen; do NOT re-run C281B–C348/C287.**
+**Program state:** `ACTIVE — NO-EDGE CONFIRMED THROUGH C348 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED: execute every pre-registered genuinely-new family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C348 DONE/frozen; C349 (ordinal-pattern / permutation-entropy, Bandt–Pompe complexity) PRE-REGISTERED/ACTIVE and MUST be executed verbatim — full spec at the bottom of this file. Do NOT re-run C281B–C348/C287.**
 
 **Bottlenecks:** **NONE.** C348 pipeline fully complete (build+preflight+cache+tests+full sweep on disk, 22/22 tests, 5 SHA256 artifacts at `20261117T082608Z`); C312 5m input data on-disk and sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; fields incl. `perp_close`); C337–C348 caches/artifacts on disk; C287 remains externally blocked/decoupled (451/403, no creds) — never retry as economic work. No blocker may defer C349. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. If a build/preflight/sweep is slow, it is PROGRESS — do not abort; the heavy sweep is the economic work.
 
@@ -182,7 +182,7 @@ Result summary: verdict RETRACTED, binding `multiple_testing`, `edge_proven:fals
 
 ---
 
-## MANDATORY CAMPAIGN — C348: cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY — ACTIVE / PENDING EXECUTION
+## MANDATORY CAMPAIGN — C348: cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY — PRE-REGISTERED SPEC (COMPLETE / FROZEN — result at end of section)
 
 C348 is a mechanically-distinct, genuinely-new, price-only (volume-free) family. It is NOT a re-skin of C281B–C347. It is buildable from real C312 `perp_close` alone (no fabricated data needed).
 
@@ -244,10 +244,6 @@ Seasonal baseline: trailing mean/std at same `(weekday × tod)` bucket (288 bars
 - Single-leg dollar-neutral perp PnL, costs on turnover; `executed_fills:false`. Only RNG is recorded-seed placebo phase randomization (never market data).
 - Do NOT declare terminal closure by fiat. Keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
 
----
-
-## MANDATORY CAMPAIGN — C348: cross-sectional intraday REALIZED-VARIANCE CONCENTRATION (HERFINDAHL-HHI OF SQUARED RETURNS) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY — COMPLETE / FROZEN
-
 **Result (truthful, on-disk):** `20261117T082608Z` — **COMPLETE FORMAL NEGATIVE**. verdict RETRACTED, binding `multiple_testing`, dominant attribution `hhi_placebo` 0.37682043640862445 < 0.5 → `attribution_ok:false`; 0 Holm+BH survivors; `edge_proven:false`. Grid executed in full: 1296 configs (4 signals × 6 lookbacks × 3 rebalances × 3 fees × 3 slips × 2 cost_variants). 8 splits 12m train/3m test roll 3m over 2023-01..2025-12. 5 SHA256 artifacts emitted + gitignored `.full.json`. 22/22 tests green (`tests/test_preflight_c348.py` + `tests/test_c348_realized_var_concentration_xsec_oos.py`). Cache `data/cache/campaign348_realized_var_concentration_5m/` (10 shards × 315,648 bars, 38.48 MB < 100 MB, real_data_only). Scripts: `scripts/build_c348_realized_var_concentration_features.py`, `scripts/preflight_c348.py`, `scripts/run_c348_realized_var_concentration_xsec_oos.py`. **DO NOT RE-RUN.**
 
 ### Artifacts (ts 20261117T082608Z)
@@ -258,3 +254,84 @@ Seasonal baseline: trailing mean/std at same `(weekday × tod)` bucket (288 bars
 - `reports/campaign348_binding_constraint_20261117T082608Z.json` (sha256 `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`)
 
 Result summary: verdict RETRACTED, binding `multiple_testing`, `edge_proven:false`, 0 Holm+BH survivors over the 1296-config grid, dominant attribution `hhi_placebo` 0.3768 < 0.5 → `attribution_ok:false`. Formal negative — no costed-OOS edge survived C348.
+---
+
+## PRE-REGISTERED NEXT CAMPAIGN — C349: cross-sectional intraday ORDINAL-PATTERN / PERMUTATION-ENTROPY (BANDT–POMPE COMPLEXITY) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY — ACTIVE / MANDATORY, EXECUTE VERBATIM
+
+C349 is a mechanically-distinct, genuinely-new, price-only (volume-free) family. It is NOT a re-skin of C281B–C348. It is buildable from real C312 `perp_close` alone (no fabricated data needed). This spec is fully pre-registered — the next session MUST execute it verbatim; do NOT re-choose the family, do NOT weaken any gate, do NOT stop for lack of a named next campaign.
+
+### Why C349 is genuinely new (distinctness proof — pre-registered)
+- **C349 measures the ORDINAL-PATTERN / PERMUTATION ENTROPY (Bandt–Pompe) of the return series** — the Shannon entropy of the distribution of *ordinal patterns* (rank orderings) of consecutive `m`-tuples of returns. It quantifies nonlinear temporal complexity / predictability of the ordering of successive returns over a window (a scalar in `[0, log(m!)]`). Low entropy = ordered/predictable rank dynamics; high entropy = random/disordered rank dynamics.
+- **C329** measured Shannon entropy of the *binary SIGN* (direction) sequence (alphabet `{up,down}`, size 2) plus EWM and max-run variants — C349 uses the *ordinal ranking* of consecutive returns (alphabet = `m!` permutations, size 6 for `m=3`) and thus captures full magnitude ordering, not just direction. Different functional AND different state space.
+- **C326** measured lag-1 signed-return AUTOCORRELATION (a single pairwise product) — C349 is a whole-window *nonlinear* complexity statistic (entropy of ordinal patterns), not a point autocorrelation.
+- **C343** measured autocorrelation of `|r|` (vol clustering / symmetric second-moment dependence) — C349 is a signed-ordering complexity statistic, not a vol-clustering autocorr.
+- **C344** measured SIGN-CHANGE RATE over a window × last-move direction (a chop count) — C349 is an entropy over ordinal patterns, not a sign-change count.
+- **C348** measured HERFINDAHL-HHI of squared returns (concentration of variance contributions across bars) — C349 measures ordinal-pattern entropy (complexity), a distributional statistic over rank-orderings, not variance concentration.
+- **C346** measured RESCALED-RANGE / Hurst proxy (range of cumulative centered sum) — C349 is an ordinal-pattern entropy, not a cumulative-path range.
+- **C347** measured DRAWDOWN DURATION / time-under-water of the cumulative centered-sum path — C349 is ordinal complexity, not a path duration.
+- **C345** measured close LOCATION within a trailing high–low envelope (Williams %R) — C349 is an ordinal-pattern entropy, not an envelope position.
+- **C317** measured realized-vol LEVELS (std/scale) — C349 is scale-invariant ordinal complexity.
+- **C342/C340/C341** need volume/notional/price-impact; C349 is price-only and volume-free.
+- **C315/C320** trade raw seasonal RETURN mean-reversion (signed return deviation) — C349 fades seasonal dislocation in *ordinal complexity*, conditioned on last-move direction.
+
+### Pre-registered raw inputs (build step)
+Build `data/cache/campaign349_permutation_entropy_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network, no fabrication, no resampling, no imputation). Fields per shard (identical layout to C348):
+```
+index_ms      int64    common 5m grid (intersection across all 10 perps, ~315,648 bars)
+perp_close    float32  real 5m kline close (execution price)
+log_return    float32  causal log-return r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control only; USDT-M funding unreachable — fapi 451)
+```
+Cache must stay < 100 MB total (per-symbol float32 npz shard layout; meta + provenance JSON; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest).
+
+### Runner-derived causal metrics (per asset, per bar t)
+Embedding dim `m = 3` (→ `m! = 6` ordinal patterns). Intrinsic window `W = 256` bars (fixed, decoupled from seasonal lookback L for tractability).
+- For each bar t, take the trailing `W` returns `r[t-W+1 .. t]` (NaN if `t < W` or any NaN in the window).
+- For every consecutive `m`-tuple `(r[i], r[i+1], r[i+2])` fully inside the window, assign its ordinal pattern `π ∈ S_3` by argsort of the tuple with deterministic tie-break by position index (e.g. `np.argsort(np.argsort(tuple, kind='stable'), kind='stable')` → Lehmer-code / rank vector mapped to a canonical pattern id 0..5).
+- `p_π` = relative frequency of each of the 6 patterns among all `m`-tuples in the window.
+- `perm_ent[t] = -Σ_π p_π ln p_π` (natural log), over patterns with `p_π>0`. NaN if `t < W` or any NaN in window or zero valid tuples.
+- `perm_ent_norm[t] = perm_ent[t] / ln(m!) = perm_ent[t] / ln(6)` ∈ `[0,1]`.
+- `last_move_dir[t] = sign(r[t])` — direction of most recent bar.
+
+Seasonal baseline: trailing mean/std of `v[t]` at the same `(weekday × tod)` bucket (288 bars/day × 7 weekdays = 2016 buckets) from history strictly BEFORE bar t (causal `shift(1)`), NaN-aware `min_periods=3` excluding NaN obs. Score `s[t] = -(v[t] - seasonal_mean) / seasonal_std` where `v[t] ∈ {perm_ent[t], perm_ent_norm[t]}` (fade: unusually low ordinal complexity = over-ordered → expect reversion to normal; unusually high = over-random → expect reversion; symmetric z-fade).
+
+Cross-sectional rank across the 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker = fee+slip; maker_blend = 0.5*fee+slip). `executed_fills:false`.
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `perm_ent_dev`, `perm_ent_norm_dev`, `perm_ent_placebo`, `perm_ent_norm_placebo` (2 real + 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS (seasonal-baseline history, bars) = `(60, 120, 240, 480, 960, 1920)`.
+- REBALANCES (bars) = `(1, 4, 12)`.
+- FEES = `(0.0004, 0.0007, 0.0010)`.
+- SLIPS = `(0.0, 0.0001, 0.0002)`.
+- COST_VARIANTS = `("taker", "maker_blend")`.
+- 4 × 6 × 3 × 3 × 3 × 2 = **1296 configs** (literal `N_TRIALS`).
+- Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits over 2023-01..2025-12.
+- Placebo seed: `20261125` (phase-randomized FFT surrogate + rank restoration to original marginal; NaN positions stay NaN).
+- selection frac = 1/3, ALPHA = 0.05.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config `perm_ent_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker).
+- **Attribution**: mean |OOS net| per signal across all its configs; shares = |mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict logic**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (do ALL six, in order, no pauses)
+1. `scripts/build_c349_permutation_entropy_features.py` → `data/cache/campaign349_permutation_entropy_5m/` (10 shards `<SYM>.npz` + `meta.json` + `provenance.json` + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; 100 MB budget check).
+2. `scripts/preflight_c349.py` — fail-closed cache/integrity/field/coverage checks → `ready:true`.
+3. `scripts/run_c349_permutation_entropy_xsec_oos.py` — full 1296-config costed-OOS sweep. Emit 5 SHA256 artifacts + gitignored `.full.json`:
+   - `reports/campaign349_oos_sweep_<TS>Z.json` + `.full.json`
+   - `reports/campaign349_tradable_edge_registry_<TS>Z.json`
+   - `reports/campaign349_summary_<TS>Z.json`
+   - `reports/campaign349_verdict_<TS>Z.json`
+   - `reports/campaign349_binding_constraint_<TS>Z.json`
+4. `tests/test_preflight_c349.py` + `tests/test_c349_permutation_entropy_xsec_oos.py` — ≥21 green.
+5. Record the truthful result (formal negative or edge) in this AGENTS.md (new C349 section) + `research_state/state.yaml`; add C349 to the frozen list with its 5 SHAs; set the next genuinely-new price-only family as active.
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts. The heavy sweep IS the economic progress — do NOT abort it.
+
+### Mandatory constraints (carry-over, non-negotiable)
+- Real on-disk C312 `perp_close` only; no network, no fabrication, no relabeling existing caches as new, no threshold/gate weakening, no cherry-picked windows/costs.
+- No edge claim unless the costed OOS test survives Holm+BH over all 1296 configs AND attribution_ok AND stability.
+- Single-leg dollar-neutral perp PnL, costs on turnover; `executed_fills:false`. Only RNG is recorded-seed placebo phase randomization (never market data).
+- Do NOT declare terminal closure by fiat. Keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
