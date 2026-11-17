@@ -6,7 +6,7 @@ Economic progress = a real-data costed out-of-sample PnL run, a passing test, or
 
 ---
 
-## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:57:26Z, ACTIVE — NOT STARTED)
+## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:57:26Z, COMPLETE — FORMAL NEGATIVE (RETRACTED))
 
 **EXECUTE C356 NOW (heavy work required; no re-planning, no spec changes, no downscoping): CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -14,7 +14,7 @@ Economic progress = a real-data costed out-of-sample PnL run, a passing test, or
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps importable: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 (`scipy.optimize.minimize_scalar`, `scipy.stats` OK). If missing: `python scripts/bootstrap_dev_env.py` (idempotent).
 - C281B–C355 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~92k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`). C355 frozen `20261117T204322Z` (1296, RETRACTED, dominant `sampen_m3_placebo` 0.3069). No edge proven through C355.
-- **C356 NOT STARTED:** no `scripts/build|preflight|run_c356*`, no `tests/test_*c356*`, no `data/cache/campaign356_multiscale_entropy_5m/`, no `reports/campaign356_*`.
+- **C356 COMPLETE:** `scripts/build_c356_multiscale_entropy_features.py`, `scripts/preflight_c356.py`, `scripts/run_c356_multiscale_entropy_xsec_oos.py`, `tests/test_preflight_c356.py`, `tests/test_c356_multiscale_entropy_xsec_oos.py`, `data/cache/campaign356_multiscale_entropy_5m/`, `reports/campaign356_*_20261117T221026Z.json` all on disk. Verdict: RETRACTED (formal negative), `edge_proven:false`.
 - C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C355/C287. Do NOT weaken gates.
 
 **C356 pre-registered spec is COMPLETE and FROZEN — see "C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)" below. Execute it verbatim.**
@@ -123,7 +123,7 @@ Context you must accept as true (already verified on disk):
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C355 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C355 DONE/frozen; C355 (Sample Entropy × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts `reports/campaign355_*_20261117T204322Z.json` + `.full.json` → recorded → frozen → set C356 active. C355 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant `sampen_m3_placebo` 0.3069 (< 0.5 → `attribution_ok:false`). C356 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data. Its pre-registered spec must be defined and frozen before execution.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C356 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C356 DONE/frozen; C356 (Multiscale Entropy × seasonal-dislocation mean-reversion) COMPLETE — full pipeline done: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts `reports/campaign356_*_20261117T221026Z.json` + `.full.json` → recorded → frozen → set C357 active. C356 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant `mse_area_placebo` 0.2559 (< 0.5 → `attribution_ok:false`). C357 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data.**
 
 **Bottlenecks: NONE** (re-verified on disk 2026-11-17T16:09:13Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; field `perp_close`, 0 NaN all shards; meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C350/C351/C352 caches/scripts/tests/artifacts all on disk (scaffolding reference). C352 build/cache on disk (`data/cache/campaign352_localwhittle_5m/`, ~38.48 MB < 100 MB, preflight `ready:true`), full 1296-config sweep complete (5 SHA256 artifacts `reports/campaign352_*_20261117T150754Z.json` + gitignored `.full.json`), tests 26/26 green. C352 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `lw_abs_placebo` 0.3195 (< 0.5 → `attribution_ok:false`). C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests.
 
@@ -156,7 +156,7 @@ All: 0 Holm+BH survivors, binding `multiple_testing`, verdict RETRACTED, `edge_p
 | C353 | 20261117T161918Z | variance-ratio (Lo–MacKinlay) random-walk deviation × seasonal-dislocation MR | 1296 | vr8_placebo 0.3065 | `fa0016cc882d375350f58b0117526abf4664fcf88b0eb4a87520a77c79b0301f` | `edad339416b9924549500a46741341d09410c6519f7c400021f5590cf734ae96` |
 | C354 | 20261117T171655Z | Higuchi fractal dimension (HFD) × seasonal-dislocation MR | 1296 | hfd_placebo 0.2595 | `7a4b0a535616d52f757fff5d918da85161416fd148eb189c1f3f063bd5eb59f6` | `3f4138e4ec50a3710555c5f8f929afdf59556a4833f4746ec47424af6c72649a` |
 | C355 | 20261117T204322Z | Sample Entropy (SampEn) × seasonal-dislocation MR | 1296 | sampen_m3_placebo 0.3069 | `3febf019a380a23559b4d931ed301386fe77c4b5f979356d359367138b436ba8` | `590143e898ee54faecc834c0070fb3f5fb60dddf9fd8bf6b152eee8a62ae806c` |
-| C356 | TBD | Multiscale Entropy (MSE) × seasonal-dislocation MR | 1296 | TBD | TBD | TBD |
+| C356 | 20261117T221026Z | Multiscale Entropy (MSE) × seasonal-dislocation MR | 1296 | mse_area_placebo 0.2559 | `f4c5cf8e3094a65a0319fc2aed63c00a492fb36bec57ffccf4358e3ea5ddcf36` | `f3b8cb864be93f40c7af8e826e3d90f7e606584a47d072353ec64ab8a509c437` |
 
 C348 extra SHAs: tradable_edge_registry `fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b`, summary `fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2`, binding_constraint `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`.
 C349 extra SHAs: tradable_edge_registry `60ab151230b9211c2da943e3d990725422b7426a1d903d0ae4ca5bfa471b23a8`, summary `5e64f0197e05ea7a58fe86a0d637532ce1bef59c8c07bbdab975e6601fad2607`, binding_constraint `8f328590e3786454de51d3b13e06b5438ee2deace8f3bf9054d6345a62e7498c`.
@@ -165,6 +165,7 @@ C351 extra SHAs: tradable_edge_registry `cdda03df34027a1762872dde3a615e8c37b26e0
 C352 extra SHAs: tradable_edge_registry `780e4832c7f141efbeb727b07fee1cf1555a923c562345150be9e85b3e617838`, summary `23f69c53ecda0373247b7acd9dd5303f417947ffb92831192af496fb3409ce4c`, binding_constraint `2be0403829208154287d987422dc0756404f62adbf4e1e25520383b5fd3eb75c`. C352 cache SHAs: meta `c098c40da9e0727f6a24b899318e10d94bdf63e9583c69d3d9990aa4bd28f71e`, provenance `fca1d81ec9b55ea2059024f841db75a0d49006a0993df751d82ad10fd3c18b9e`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 C353 extra SHAs: tradable_edge_registry `c9d919d6396cda5543e876c2b22cef9710ffee8bbd38c2ffd47caba0264ed616`, summary `0480ff13bd7f3ad9f7204e78bbdeccd9cb06e9417387a1e62e737b368bd66fb4`, binding_constraint `e6e8480233daad2f193b5bded09589d1c9325f5eaf5525e5dabc1785e614ba55`. C353 cache SHAs: meta `45f225006d3dfdbc1548cf700dbab9aa366bff43dc3f8e09d1077f560ff35af3`, provenance `8a3daa6931adda2abb309057dc87254d9ca5a334bbbe1dec44f5cc05800f0766`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 C355 extra SHAs: tradable_edge_registry `b3c6f876c800e3cbdcde059e2bff6d1131141c295ae074a44f52757d71bb936b`, summary `dd25ee4e16693e2a1b587db1d062a12bc76026a07dfe73043b288cb6f2fd35de`, binding_constraint `0d3862c61f8e8cc90493565ddc6fad00b00c85dc684706360879166587bb5d53`. C355 cache SHAs: meta `8e827350211624253558aeda45931bf953b0ef03aad47700e0c3cdae1a328ebe`, provenance `2a777ed4aa3d2aea1f61e3f3a88fd7aabb7792f63874cc155f27f315652ea3f0`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
+C356 extra SHAs: tradable_edge_registry `dde46ffaa971e25c011c89b0e2d8901964cb432c2823df6a22df7847782881a3`, summary `d09ac9ac40902a803b474fc92a31bafa73b2680b7b3a5ae865d6a9d0e9c832ac`, binding_constraint `0eae5c460088c3e3be4156afb3bb4fcb6d1164d357d158f11a4ba5cb19334167`. C356 cache SHAs: meta `40af702f57533ccaeddcce8d46954b9c6afbd09dfe146c54d36cbab25437d42c`, provenance `d8caf5184bf724d20be17aa21a064c028bee501930d93653b548aa47bbd727f7`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa` (38.48 MB total, 4.14 MB max shard).
 
 ---
 
@@ -472,6 +473,17 @@ Compute `sampen_m2` and `sampen_m3` for all bars per asset with a vectorized `sl
 
 ---
 
+## C356 RESULT (frozen 20261117T221026Z) — FORMAL NEGATIVE (RETRACTED)
+
+C356 cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation mean-reversion stat-arb on real C312 5m data: full 1296-config costed-OOS sweep complete on disk (5 SHA256 artifacts + gitignored `.full.json`, ts `20261117T221026Z`), tests 25/25 green (incl. MSE brute-force equality test). The vectorized MSE kernel passed equality vs the brute-force reference. Sweep ran the full pre-registered grid — no downscoping.
+- `verdict: RETRACTED`, `edge_proven:false`
+- `n_survive_both: 0` (`n_deterministic_edge: 0`, 0 Holm+BH survivors over 1296 configs) → binding constraint `multiple_testing`
+- `attribution_ok:false` — dominant attribution `mse_area_placebo` 0.2559 (< 0.5); shares mse_slope_dev / mse_area_dev / mse_slope_placebo / mse_area_placebo. Binding constraint is multiple_testing (n_survive_both==0), so attribution did not change the verdict.
+- `stability` not required for the verdict (binding multiple_testing); reference config `mse_slope_dev` L=240 H=4 fee=0.0007 slip=0.0001 taker.
+- Truthful result: formal negative, no edge claim. `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, source_campaign=312. Cache 38.48 MB (< 100 MB), max shard 4.14 MB.
+
+---
+
 ## C356 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
 
 **C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
@@ -542,9 +554,9 @@ Compute MSE profile (`mse_slope`, `mse_area`) for all bars per asset with a vect
 
 ---
 
-## C356 ACTIVE — NEXT GENUINELY-NEW PRICE-ONLY FAMILY
+## C356 COMPLETE — NEXT CAMPAIGN C357 ACTIVE
 
-C356 = cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. PRE-REGISTERED SPEC FROZEN ABOVE — execute verbatim: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
+C356 cross-sectional intraday MULTISCALE ENTROPY (MSE) × seasonal-dislocation mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data: PRE-REGISTERED SPEC EXECUTED VERBATIM — build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (25/25 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active. Verdict: RETRACTED (formal negative), `edge_proven:false`. C357 is now ACTIVE — the next genuinely-new price-only, volume-free stat-arb family on real C312 5m data. Terminal closure by fiat PROHIBITED — continue executing pre-registered genuinely-new price-only families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence.
 
 ---
 
