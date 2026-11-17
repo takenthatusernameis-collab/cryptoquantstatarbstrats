@@ -1,23 +1,23 @@
-updated_at_utc: 2026-11-17T23:37:23Z
-handoff_refreshed_at_utc: 2026-11-17T23:37:23Z
+updated_at_utc: 2026-11-17T23:54:47Z
+handoff_refreshed_at_utc: 2026-11-17T23:54:47Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C357
-next_campaign: C358_mfdfa_xsec_seasonal_dislocation_mr_usdt_m_5m
+latest_campaign_done: C358
+next_campaign: C359_next_price_only_family_usdt_m_5m
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-17T23:37:23Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-17T22:52:00Z: C281B-C357 ALL COMPLETE FORMAL NEGATIVES (~93,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C357 frozen 20261117T224353Z (1296, RETRACTED, dominant lzc_sign_placebo 0.2856, 26/26 tests green incl. LZC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C358 FULLY PRE-REGISTERED SPEC FROZEN in AGENTS.md (Multifractal DFA generalized Hurst h(q), 1296 configs, placebo seed 20261224) — not yet executed, NO bottlenecks: C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign358_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+bottlenecks_verified_removed_at_utc: "2026-11-17T23:54:47Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-17T23:54:47Z: C281B-C358 ALL COMPLETE FORMAL NEGATIVES (~95,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C358 frozen 20261117T235447Z (1296, RETRACTED, dominant mfdfa_spread_dev 0.3312, 23/23 tests green incl. MF-DFA brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C359 pre-registered spec placeholder in AGENTS.md — next session MUST design and pre-register genuinely-new price-only family. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign359_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
 queued_next_campaign: C359_next_price_only_family_usdt_m_5m
-queued_next_campaign_note: 'Set active only after C358 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
-first_action: "EXECUTE C358 NOW (2026-11-17T22:52:00Z): C357 frozen formal negative (20261117T224353Z). Do NOT re-run C281B-C357/C287. C358 = cross-sectional intraday Multifractal Detrended Fluctuation Analysis (MF-DFA, generalized Hurst exponent h(q) across moments q) x seasonal-dislocation mean-reversion (USDT-M 5m), price-only, 1296 configs, placebo seed 20261224 — FROZEN SPEC in AGENTS.md. Execute pipeline verbatim: build data/cache/campaign358_mfdfa_5m/ -> preflight (ready:true) -> full 1296-config costed-OOS sweep -> pytest >=21 green (incl. MF-DFA brute-force equality) -> 5 SHA256 artifacts reports/campaign358_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml -> freeze -> set C359 active. No edge claim unless Holm+BH over all 1296 configs AND attribution_ok AND stability. Terminal closure by fiat PROHIBITED."
-active_campaign: C358_mfdfa_xsec_seasonal_dislocation_mr_usdt_m_5m
-space_status: NO_EDGE_C281B_C357
-closure_note: 'C281B–C357 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~93,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C357 frozen 20261117T224353Z (1296, RETRACTED, dominant lzc_sign_placebo 0.2856). C358 pre-registered spec frozen 2026-11-17T22:52:00Z (MF-DFA, 1296 configs) — ACTIVE, heavy execution required. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
-active_initial_task: "C358 ACTIVE (2026-11-17T22:52:00Z, FROZEN SPEC): Execute C358 Multifractal Detrended Fluctuation Analysis (MF-DFA, generalized Hurst exponent h(q) across moments q) x seasonal-dislocation mean-reversion on real C312 5m data. Build cache campaign358_mfdfa_5m (real perp_close only) -> preflight ready:true -> full 1296-config costed-OOS sweep -> pytest >=21 green incl. brute-force MF-DFA equality -> 5 SHA256 artifacts reports/campaign358_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml, freeze C358 with SHAs, set C359 active. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+queued_next_campaign_note: 'Set active only after C359 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
+first_action: "EXECUTE C359 NOW (2026-11-17T23:54:47Z): C358 frozen formal negative (20261117T235447Z). Do NOT re-run C281B-C358/C287. C359 = NEXT GENUINELY-NEW PRICE-ONLY FAMILY (design and pre-register spec in AGENTS.md, then execute pipeline). C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign359_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION."
+active_campaign: C359_next_price_only_family_usdt_m_5m
+space_status: NO_EDGE_C281B_C358
+closure_note: 'C281B–C358 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~95,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C358 frozen 20261117T235447Z (1296, RETRACTED, dominant mfdfa_spread_dev 0.3312). C359 pre-registered spec placeholder in AGENTS.md — ACTIVE, heavy execution required. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C359 ACTIVE (2026-11-17T23:54:47Z, FROZEN SPEC PLACEHOLDER): Design and pre-register genuinely-new price-only stat-arb family distinct from all frozen campaigns C281B–C358. Must be a novel complexity/scaling/information-theoretic primitive on returns (e.g., wavelet leader multifractal spectrum, detrended cross-correlation coefficient, ordinal pattern transition entropy, or similar). Clone C358 structural template (build/preflight/runner/tests/artifacts) and adapt to new family. Execute pipeline: build cache -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign359_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml, freeze C359 with SHAs, set C360 active. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -6213,6 +6213,82 @@ c357_status:
     passed: 26
     failed: 0
     as_of_utc: 20261117T224353Z
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+c358_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C358
+  family: cross_sectional_multifractal_dfa_generalized_hurst_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C350 (monofractal DFA scaling exponent alpha at single q=2), C346 (R/S = single-window range), C349 (permutation entropy), C351/C352 (GPH/local-Whittle fractional integration d), C353 (variance ratio), C354 (Higuchi fractal dimension), C355 (Sample Entropy), C356 (Multiscale Entropy), C357 (Lempel-Ziv Complexity), C343 (|r| autocorr / vol clustering), C344 (sign-change / chop), C326 (lag-1 autocorr), C345 (close-in-envelope / Williams %R), C317 (realized-vol levels). C358 measures the FULL multifractal h(q) profile across q in {-10,-5,-2,-1,1,2,5,10} via MF-DFA (Kantelhardt et al. 2002): detrended box mean-square residuals F^2(n,k), F_q(n) = [(1/N_n) Sum_k (F^2(n,k))^{q/2}]^{1/q}, h(q) = OLS slope of log F_q(n) vs log n over scales n in {4,8,16,32,64,128} within W=256. Real scalars: mfdfa_h0 = h(2) (standard DFA exponent); mfdfa_spread = h(-10) - h(+10) (multifractal spectrum width). Price-only (perp_close), volume-free, distinct from all above.'
+  as_of_utc: 20261117T235447Z
+  artifacts_ts: 20261117T235447Z
+  signals: [mfdfa_h0_dev, mfdfa_spread_dev, mfdfa_h0_placebo, mfdfa_spread_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261224
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'mfdfa_h0_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {mfdfa_h0_dev: 0.1647740155871721, mfdfa_spread_dev: 0.33120772690627154, mfdfa_h0_placebo: 0.185816611477542, mfdfa_spread_placebo: 0.31820164602901435}
+  dominant_attribution: mfdfa_spread_dev
+  dominant_share: 0.33120772690627154
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C358 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c358_* and tests/test_preflight_c358.py green'
+  no_coast_clause: 'C358 is a formal negative; next session MUST proceed to C359 (next genuinely-new family, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign358_mfdfa_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655
+    cache_provenance_sha256: f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261117T235447Z
+    artifacts:
+      oos_sweep: reports/campaign358_oos_sweep_20261117T235447Z.json
+      tradable_edge_registry: reports/campaign358_tradable_edge_registry_20261117T235447Z.json
+      summary: reports/campaign358_summary_20261117T235447Z.json
+      verdict: reports/campaign358_verdict_20261117T235447Z.json
+      binding_constraint: reports/campaign358_binding_constraint_20261117T235447Z.json
+      oos_sweep_full: reports/campaign358_oos_sweep_20261117T235447Z.full.json (gitignored)
+    oos_sweep_sha256: 11a05f1428a1e1d22c4d0fc993c3fe76a69cdd0fd8e31704c2f8e3dc188095c9
+    tradable_edge_registry_sha256: 1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e
+    summary_sha256: 2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083
+    verdict_sha256: 2881c1ec03536b1b89b59c9b97517fa6855c2b20a13ab568d0f560684827656e
+    binding_constraint_sha256: 1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c358_mfdfa_features.py
+  - scripts/preflight_c358.py
+  - scripts/run_c358_mfdfa_xsec_oos.py
+  tests:
+  - tests/test_preflight_c358.py
+  - tests/test_c358_mfdfa_xsec_oos.py
+  pytest:
+    passed: 23
+    failed: 0
+    as_of_utc: 20261117T235447Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261117T235447Z",
+  "campaign": 358,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign358_oos_sweep_20261117T235447Z.json",
+  "oos_sweep_sha256": "11a05f1428a1e1d22c4d0fc993c3fe76a69cdd0fd8e31704c2f8e3dc188095c9",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "mfdfa_h0_dev": 0.1647740155871721,
+    "mfdfa_spread_dev": 0.33120772690627154,
+    "mfdfa_h0_placebo": 0.185816611477542,
+    "mfdfa_spread_placebo": 0.31820164602901435
+  },
+  "dominant_attribution": "mfdfa_spread_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "mfdfa_h0_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.6963555153309626,
+      -1.4839317692515215,
+      -1.533227094317033,
+      -1.1998822069818353,
+      -1.6842683074524856,
+      -1.3610379367642866,
+      -1.6162186394975315,
+      -1.5469927030566992
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.260565631871957,
+    "second_half_sharpe": -12.877477035230228,
+    "sharpe_corr": 0.9973865445850436,
+    "stable": false
+  },
+  "diagnosis": "C358 cross-sectional intraday MULTIFRACTAL DETRENDED FLUCTUATION ANALYSIS (MF-DFA) GENERALIZED HURST h(q) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

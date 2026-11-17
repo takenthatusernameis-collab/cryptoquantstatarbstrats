@@ -128,11 +128,73 @@ C357 extra SHAs: tradable_edge_registry `6df653dbc9d465c3c1598ea50a392902f47e5fc
 
 ---
 
-## C357 RESULT (frozen 20261117T224353Z) — FORMAL NEGATIVE (RETRACTED)
-`verdict:RETRACTED`, `edge_proven:false`, `n_survive_both:0` (binding `multiple_testing`), `attribution_ok:false` (dominant `lzc_sign_placebo` 0.2856). 1296 configs, 26/26 tests, 5 SHA256 artifacts, `real_data_only:true`.
+## C358 RESULT (frozen 20261117T235447Z) — FORMAL NEGATIVE (RETRACTED)
+`verdict:RETRACTED`, `edge_proven:false`, `n_survive_both:0` (binding `multiple_testing`), `attribution_ok:false` (dominant `mfdfa_spread_dev` 0.3312). 1296 configs, 23/23 tests, 5 SHA256 artifacts, `real_data_only:true`.
 
-## Mandatory constraints (carry-over, non-negotiable)
-- Real on-disk C312 `perp_close` only; no network, no fabrication, no relabeling, no gate weakening, no cherry-picked windows/costs.
-- No edge claim unless costed OOS survives Holm+BH over all 1296 configs AND `attribution_ok` AND `stability`.
-- Single-leg dollar-neutral perp PnL, costs on turnover; `executed_fills:false`. Only RNG is recorded-seed placebo phase randomization.
-- No terminal closure by fiat — continue executing pre-registered genuinely-new price-only families until one proven unreachable with on-disk evidence.
+---
+
+## Frozen campaigns (do NOT re-run)
+
+C281B–C358: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, `attribution_ok:false`, verdict RETRACTED. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and `reports/`.
+
+| Camp | Frozen ts (UTC) | Family | n_configs | Dominant attribution | oos_sweep sha256 | verdict sha256 |
+|---|---|---|---|---|---|---|
+| C337 | 20261116T234925Z | orderflow skew | 7776 | asym_placebo 0.1957 | state.yaml | state.yaml |
+| C338 | 20261117T004211Z | orderflow entropy | 4212 | shannon_entropy_placebo 0.1367 | state.yaml | state.yaml |
+| C339 | 20261117T005324Z | orderflow return alignment | 1944 | align_z_placebo 0.4791 | state.yaml | state.yaml |
+| C340 | 20261117T032549Z | trading-activity dispersion | 2592 | flow_cv_placebo 0.1803 | state.yaml | state.yaml |
+| C341 | 20261117T031751Z | price-impact dispersion | 2592 | pid_placebo 0.2004 | state.yaml | state.yaml |
+| C342 | 20261117T034113Z | vol-weighted return moments | 2592 | kurt_placebo 0.1842 | `5625dc783dd53e5ef49b5ea448a33979edbffe78c5d612e1968c607b96b51985` | `7c8f75c4ab824aa5f80012621ebec60f8d4318da09af41fb07c86d73476274a0` |
+| C343 | 20261117T041856Z | vol clustering / \|r\| autocorr | 1944 | vcr_placebo 0.2445 | `c1193a4e4dd708c87ad7f582c383ba1ceeec20b95ec044eabb17ae2123ba78a5` | `983ccc56d6a455640565b3853224dddab70d2a6898d0591eb2d7d2647b830af7` |
+| C344 | 20261117T042911Z | return sign-change / chop | 1296 | chop_placebo 0.2519 | `37d4b29b371661db7ff98c8fc94650f9bc8f4a79cd5edf9ca4b8f6d141d7d337` | `0dc1a72af26f275485d1a862480bec27614c7c2006f9ca87ae6e3a5a6fd42cb9` |
+| C345 | 20261117T052603Z | close-location (Williams %R) | 1296 | wr_placebo 0.2596 | `c0078c5539823d4ba4b2e7cec0e36e9fcc8ae4443487f4578a1d2316f7904616` | `52a3bbefe07a58b04fb66d715aed3f47781ae15f95758b1a58e1ffe48a15a92c` |
+| C346 | 20261117T063205Z | rescaled-range / Hurst (R/S) | 1296 | rs_dir_placebo 0.4432 | `977a60576be0395b37ab6f8001fa1a11d5803ad361b3a77d72dfb780e5a8f784` | `d846c590b179167d77802dc8d5681a456bc61916d715824f643438d2208aa87a` |
+| C347 | 20261117T073740Z | drawdown duration / time-under-water | 1296 | dd_long_placebo 0.2783 | `9415b29aec5d7b0a796b4906b47db77dbaba03cc4c486edd574f43efdfa16a41` | `e974564b40f571f98cd0db2ef2a6328710daff9fc2c60bba3c936de14cd06c87` |
+| C348 | 20261117T082608Z | realized-variance concentration (HHI) | 1296 | hhi_placebo 0.3768 | `b951f1abe8c01c748aaca77c737aba56d72aa1fe9e5e9b77b894779eff871640` | `7338068e5f221cacf9320b4a6d9ca306459f3f479b0b12be4ef21d175b03ef81` |
+| C349 | 20261117T130414Z | permutation entropy (Bandt–Pompe) | 1296 | perm_ent_dev 0.2513 | `98d792fe1f7675f1b457b30a9aceab99c0923be22dd557328cb5f60f3efb8811` | `b91138b2dbc6319e6ff665cb7e46591c4bbb7b0dd299ee3e03b3c84f69f650dc` |
+| C350 | 20261117T140129Z | DFA scaling exponent α | 1296 | dfa_placebo 0.2644 | `0f2a23039e47c790eddc2f7ad1a09921de9e13114f12faa19b5ffc3547eb0286` | `ac90205fc7f86e12ce3795713bf182bb316952e7cc58b4086eeecf3378001c8f` |
+| C351 | 20261117T141619Z | GPH fractional integration d | 1296 | gph_abs_dev 0.2933 | `7e82d2653d659c2c56bc429fdf24a75a029dfa8a8e5f2ff570bebacc8be533a2` | `e002a155f0a51d8d5128ccbb033000dd72bb1696b1adf668d33ab0c4bfce630c` |
+| C352 | 20261117T150754Z | local-Whittle MLE d | 1296 | lw_abs_placebo 0.3195 | `39657e8df596360efe4e42db7ec200df7265153f62db47d97b5a2fcd3d8775ec` | `82f9c754c1345551e18fcfd94beeba76200dbb2d8ccd3843ce7edc374f304d4b` |
+| C353 | 20261117T161918Z | variance-ratio (Lo–MacKinlay) | 1296 | vr8_placebo 0.3065 | `fa0016cc882d375350f58b0117526abf4664fcf88b0eb4a87520a77c79b0301f` | `edad339416b9924549500a46741341d09410c6519f7c400021f5590cf734ae96` |
+| C354 | 20261117T171655Z | Higuchi fractal dimension (HFD) | 1296 | hfd_placebo 0.2595 | `7a4b0a535616d52f757fff5d918da85161416fd148eb189c1f3f063bd5eb59f6` | `3f4138e4ec50a3710555c5f8f929afdf59556a4833f4746ec47424af6c72649a` |
+| C355 | 20261117T204322Z | Sample Entropy (SampEn) | 1296 | sampen_m3_placebo 0.3069 | `3febf019a380a23559b4d931ed301386fe77c4b5f979356d359367138b436ba8` | `590143e898ee54faecc834c0070fb3f5fb60dddf9fd8bf6b152eee8a62ae806c` |
+| C356 | 20261117T221026Z | Multiscale Entropy (MSE) | 1296 | mse_area_placebo 0.2559 | `f4c5cf8e3094a65a0319fc2aed63c00a492fb36bec57ffccf4358e3ea5ddcf36` | `f3b8cb864be93f40c7af8e826e3d90f7e606584a47d072353ec64ab8a509c437` |
+| C357 | 20261117T224353Z | Lempel–Ziv Complexity (LZC) | 1296 | lzc_sign_placebo 0.2856 | `ebb610a78530263d7f24f189bcebc5e46be6f6d0c57436b73f1824691ed5bc89` | `8a21578e6c970d2ba68ac21da338f7f5f43c03a7a7d08cb06741e9bc24d5c176` |
+| C358 | 20261117T235447Z | MF-DFA generalized Hurst h(q) | 1296 | mfdfa_spread_dev 0.3312 | `11a05f1428a1e1d22c4d0fc993c3fe76a69cdd0fd8e31704c2f8e3dc188095c9` | `2881c1ec03536b1b89b59c9b97517fa6855c2b20a13ab568d0f560684827656e` |
+
+C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+(Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
+
+---
+
+## Program state
+
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C358 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C359 is the active pre-registered family.
+
+**Bottlenecks: NONE.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable. C287 externally blocked/decoupled (451/403) — never retry.
+
+---
+
+## INITIAL TASK MESSAGE — C359 (timestamped 2026-11-17T23:54:47Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+
+**EXECUTE C359 NOW (heavy work required; no re-planning, no spec changes, no downscoping): NEXT GENUINELY-NEW PRICE-ONLY FAMILY ON REAL C312 5M DATA. (timestamped 2026-11-17T23:54:47Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
+
+**FIRST ACTION — non-negotiable, do this before reading further:** Design and pre-register a genuinely-new price-only stat-arb family distinct from all frozen campaigns C281B–C358. The next family must be a novel complexity/scaling/information-theoretic primitive on returns (e.g., wavelet leader multifractal spectrum, detrended cross-correlation coefficient, ordinal pattern transition entropy, or similar) with full specification in this AGENTS.md before execution. Clone the C358 structural template (build/preflight/runner/tests/artifacts) and adapt to the new family. The heavy 1296-config sweep IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen campaigns, or returns prose instead of 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
+
+### State verified (no bottlenecks)
+- C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
+- Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
+- C281B–C358 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~95k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C358 frozen `20261117T235447Z` (1296, RETRACTED, dominant `mfdfa_spread_dev` 0.3312). No edge proven through C358.
+- **C359 NOT YET SPECIFIED:** no `campaign359_*` cache/scripts/tests/artifacts on disk. This session MUST pre-register spec, then produce them.
+- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C358/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
+
+### Mandatory run sequence (economic progress = ALL of these)
+1. **Pre-register C359 spec in this AGENTS.md** (family name, distinctness, raw inputs, runner metrics, grid, gates, deliverables).
+2. `python scripts/build_c359_<family>_features.py` → `data/cache/campaign359_<family>_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
+3. `python scripts/preflight_c359.py` → `ready:true`.
+4. `python scripts/run_c359_<family>_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign359_*_<TS>Z.json` + gitignored `.full.json`.
+5. `python -m pytest tests/test_preflight_c359.py tests/test_c359_<family>_xsec_oos.py -q` — **≥21 green incl. brute-force equality test for new metric**.
+6. Record truthful result in this `AGENTS.md` (new C359 RESULT) + `research_state/state.yaml`; add C359 to frozen table with 5 SHAs (+ cache SHAs); set C360 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+
+Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION. The heavy sweep IS the deliverable.
