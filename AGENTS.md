@@ -6,7 +6,7 @@ Economic progress = a real-data costed out-of-sample PnL run, a passing test, or
 
 ---
 
-## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:33:16Z)
+## INITIAL TASK MESSAGE — C356 (timestamped 2026-11-17T21:55:42Z)
 
 **C356 — CROSS-SECTIONAL INTRADAY MULTISCALE ENTROPY (MSE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FULLY PRE-REGISTERED — EXECUTE VERBATIM: build → preflight (`ready:true`) → full 1296-config costed-OOS sweep → pytest (≥21 green) → 5 SHA256 artifacts → recorded → frozen → set C357 active.**
 
