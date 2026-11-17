@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-17T13:04:14Z
-handoff_refreshed_at_utc: 2026-11-17T13:04:14Z
+updated_at_utc: 2026-11-17T13:09:21Z
+handoff_refreshed_at_utc: 2026-11-17T13:09:21Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C349
@@ -9,7 +9,7 @@ handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-17T12:58:16Z"
+bottlenecks_verified_removed_at_utc: "2026-11-17T13:09:21Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-17T12:58:16Z: C281B-C348 ALL COMPLETE FORMAL NEGATIVES (~78,200+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C348 frozen 20261117T082608Z (1296 configs, RETRACTED, dominant hhi_placebo 0.3768 < 0.5, attribution_ok false). C348 full pipeline complete (build+preflight+cache+tests+full sweep on disk, 22/22 tests, 5 SHA256 artifacts). C349 FULL PIPELINE COMPLETE — build+preflight+cache+tests+full sweep on disk, 26/26 tests green, 5 SHA256 artifacts reports/campaign349_*_20261117T125619Z.json + .full.json; verdict RETRACTED (formal negative), edge_proven:false, binding multiple_testing, dominant perm_ent_dev 0.2513 (<0.5 -> attribution_ok false), stability false. C349 frozen 20261117T130414Z. C350 ACTIVE — next genuinely-new price-only family (DFA scaling exponent), same C312 5m data, full spec pre-registered in AGENTS.md. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign350_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION. Handoff COMPACTED 2026-11-17T12:58:16Z: frozen C337-C348 collapsed into one SHA table (full SHAs in state.yaml) to cut re-read cost. C312 5m ready (10 shards x 315648 bars, perp_close). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0); run python scripts/bootstrap_dev_env.py if needed. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires the 5 SHA256 reports/campaign350_*_<TS>Z.json artifacts + >=21 green tests; a prose-only or partial handoff is a HARD VIOLATION. Handoff COMPACTED 2026-11-17T11:58:23Z: frozen C337-C348 collapsed into one SHA table (full SHAs in state.yaml) to cut re-read cost.'
 queued_next_campaign: C350_dfa_scaling_exponent_seasonal_dislocation_mean_reversion_usdt_m_5m
 queued_next_campaign_note: 'QUEUED, NOT ACTIVE — do NOT start until C349 recorded/frozen. C350 = cross-sectional intraday Detrended Fluctuation Analysis (DFA) scaling exponent alpha x seasonal-dislocation mean-reversion, price-only, real C312 perp_close only. Compact pre-registration in AGENTS.md section QUEUED NEXT CAMPAIGN — C350 (embedding-free DFA on r over scales {4,8,16,32,64,128}, W=256, 4 signals, same 1296 grid, placebo seed 20261127, same gates/verdict).'
