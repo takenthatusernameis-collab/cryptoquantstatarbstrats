@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-17T22:52:00Z
-handoff_refreshed_at_utc: 2026-11-17T22:52:00Z
+updated_at_utc: 2026-11-17T23:37:23Z
+handoff_refreshed_at_utc: 2026-11-17T23:37:23Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C357
@@ -9,7 +9,7 @@ handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-17T22:52:00Z"
+bottlenecks_verified_removed_at_utc: "2026-11-17T23:37:23Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-17T22:52:00Z: C281B-C357 ALL COMPLETE FORMAL NEGATIVES (~93,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C357 frozen 20261117T224353Z (1296, RETRACTED, dominant lzc_sign_placebo 0.2856, 26/26 tests green incl. LZC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C358 FULLY PRE-REGISTERED SPEC FROZEN in AGENTS.md (Multifractal DFA generalized Hurst h(q), 1296 configs, placebo seed 20261224) — not yet executed, NO bottlenecks: C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign358_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
 queued_next_campaign: C359_next_price_only_family_usdt_m_5m
 queued_next_campaign_note: 'Set active only after C358 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
