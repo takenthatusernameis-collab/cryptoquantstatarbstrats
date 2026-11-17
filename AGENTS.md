@@ -32,9 +32,9 @@ Context you must accept as true (already verified on disk this session):
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C348 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C348 DONE/frozen; C349 (ordinal-pattern / permutation-entropy, Bandt–Pompe complexity) ACTIVE — build+cache complete, preflight `ready:true`, remaining work = full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set next genuinely-new price-only family (C350) active; C350 (DFA scaling exponent) QUEUED.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C349 (ALL FORMAL NEGATIVES)`. Terminal closure by fiat PROHIBITED:** execute every pre-registered genuinely-new price-only family on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. **C337–C349 DONE/frozen; C350 (cross-sectional intraday DFA scaling-exponent α × seasonal-dislocation mean-reversion) ACTIVE — full pre-registration in AGENTS.md QUEUED NEXT CAMPAIGN section; remaining work = build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set next genuinely-new price-only family active.**
 
-**Bottlenecks: NONE** (re-verified 2026-11-17T12:58:16Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; fields incl. `perp_close`). C349 build/cache on disk (~38.5 MB < 100 MB, integrity-verified), preflight `ready:true` (exit 0). C337–C348 caches/artifacts/tests on disk. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. A slow build/preflight/sweep is PROGRESS — do not abort; the heavy sweep is the economic work.
+**Bottlenecks: NONE** (re-verified 2026-11-17T13:04:14Z). C312 5m input data sufficient (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards — ADAUSDT, AVAXUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, DOTUSDT, ETHUSDT, LINKUSDT, SOLUSDT, XRPUSDT — × 315,648 bars, 2023-01..2025-12; fields incl. `perp_close`). C349 build/cache on disk (~38.5 MB < 100 MB, integrity-verified), preflight `ready:true` (exit 0), full sweep complete (5 SHA256 artifacts `reports/campaign349_*_20261117T125619Z.json` + `.full.json`), tests 26/26 green. C349 verdict: RETRACTED (formal negative), `edge_proven:false`, binding `multiple_testing`, dominant attribution `perm_ent_dev` 0.2513 (< 0.5 → `attribution_ok:false`), stability false. C337–C348 caches/artifacts/tests on disk. C287 externally blocked/decoupled (451/403, no creds) — never retry as economic work. If runtime deps missing, run `python scripts/bootstrap_dev_env.py` (idempotent) before tests. The heavy C350 sweep IS the economic progress — do not abort.
 
 **Closure audit (C281B–C318 scope only, unchanged):** `reports/program_closure_final_20261116T024519Z.json` (sha256 `aebd52b87b1a44fc61c16d8f020b6b7a1f048b83ac0179ebfc5177e095d78dca`) — `reachable_space: CLOSED` for C281B–C318 only; C319–C349 extend the record. Do NOT regenerate/run stale closure generators.
 
@@ -58,8 +58,10 @@ All: 0 Holm+BH survivors, binding `multiple_testing`, verdict RETRACTED, `edge_p
 | C346 | 20261117T063205Z | rescaled-range / Hurst proxy (R/S) | 1296 | rs_dir_placebo 0.4432 | `977a60576be0395b37ab6f8001fa1a11d5803ad361b3a77d72dfb780e5a8f784` | `d846c590b179167d77802dc8d5681a456bc61916d715824f643438d2208aa87a` |
 | C347 | 20261117T073740Z | drawdown duration / time-under-water | 1296 | dd_long_placebo 0.2783 | `9415b29aec5d7b0a796b4906b47db77dbaba03cc4c486edd574f43efdfa16a41` | `e974564b40f571f98cd0db2ef2a6328710daff9fc2c60bba3c936de14cd06c87` |
 | C348 | 20261117T082608Z | realized-variance concentration (HHI) | 1296 | hhi_placebo 0.3768 | `b951f1abe8c01c748aaca77c737aba56d72aa1fe9e5e9b77b894779eff871640` | `7338068e5f221cacf9320b4a6d9ca306459f3f479b0b12be4ef21d175b03ef81` |
+| C349 | 20261117T130414Z | ordinal-pattern / permutation entropy (Bandt–Pompe) | 1296 | perm_ent_dev 0.2513 | `98d792fe1f7675f1b457b30a9aceab99c0923be22dd557328cb5f60f3efb8811` | `b91138b2dbc6319e6ff665cb7e46591c4bbb7b0dd299ee3e03b3c84f69f650dc` |
 
 C348 extra SHAs: tradable_edge_registry `fd3c9aadfc6484b955e7a4164b687a396262662bacfc57871d30d3eea9056b7b`, summary `fa3ac0ce24a80af66cee791fd83692bf6bc2abac5219f10f8b1239d0a2f01ab2`, binding_constraint `85c07aa1f1dfe03dd075c3a401222fa13b2d0f1e0e096873d6b5b05e6a89f306`.
+C349 extra SHAs: tradable_edge_registry `60ab151230b9211c2da943e3d990725422b7426a1d903d0ae4ca5bfa471b23a8`, summary `5e64f0197e05ea7a58fe86a0d637532ce1bef59c8c07bbdab975e6601fad2607`, binding_constraint `8f328590e3786454de51d3b13e06b5438ee2deace8f3bf9054d6345a62e7498c`.
 
 ---
 
@@ -140,9 +142,22 @@ Cross-sectional rank across the 10 symbols → dollar-neutral gross 1.0 → sing
 
 ---
 
-## QUEUED NEXT CAMPAIGN — C350 (NOT ACTIVE; do NOT start until C349 is frozen)
+## C349 RESULT (frozen 20261117T130414Z) — FORMAL NEGATIVE (RETRACTED)
 
-Pre-registered now so a future session can never stall for lack of a named next family. Execute only after C349 is recorded/frozen.
+C349 ordinal-pattern / permutation-entropy (Bandt–Pompe) × seasonal-dislocation mean-reversion on real C312 5m data: full 1296-config costed-OOS sweep complete on disk (5 SHA256 artifacts + gitignored `.full.json`, ts `20261117T125619Z`), tests 26/26 green.
+- `verdict: RETRACTED`, `edge_proven:false`
+- `n_survive_both: 0` (0 Holm+BH survivors over 1296 configs) → binding constraint `multiple_testing`
+- `attribution_ok:false` — dominant attribution `perm_ent_dev` 0.2513 (< 0.5)
+- `stability:false` — reference config `perm_ent_dev` L=240 H=4 fee=0.0007 slip=0.0001 taker: sign consistency 0.00
+- Truthful result recorded: formal negative, no edge claim. `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, source_campaign=312.
+
+---
+
+## ACTIVE CAMPAIGN — C350 (NEXT SESSION INITIAL TASK — START HEAVY WORK IMMEDIATELY)
+
+C349 recorded/frozen 20261117T130414Z. C350 is now the active campaign — do NOT stall, do NOT re-declare closure, do NOT downscope. Execute the full pre-registered C350 pipeline verbatim (build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record → freeze → set next genuinely-new price-only family active).
+
+Pre-registered now so a future session can never stall for lack of a named next family. C350 is ACTIVE as of 20261117T130414Z.
 
 **C350 — cross-sectional intraday DETRENDED FLUCTUATION ANALYSIS (DFA) SCALING EXPONENT α × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), PRICE-ONLY.** Buildable from real C312 `perp_close` alone.
 
