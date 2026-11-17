@@ -1,0 +1,57 @@
+{
+  "generated_at_utc": "20261116T234925Z",
+  "campaign": 337,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign337_oos_sweep_20261116T234925Z.json",
+  "oos_sweep_sha256": "346c5493823974f8b8d75c1424122ebfa1c3a5de7044f847e83823cb92e9b572",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "skew_dev": 0.016795899895541973,
+    "asym_dev": 0.18659436127222156,
+    "skew_ewm_dev": 0.18659436127222156,
+    "asym_ewm_dev": 0.18659436127222156,
+    "skew_z": 0.01757764598617597,
+    "asym_z": 0.18688123701461998,
+    "skew_placebo": 0.023271933923272193,
+    "asym_placebo": 0.19569019936372514
+  },
+  "dominant_attribution": "asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "skew_dev",
+      "L": 240,
+      "w": "expanding",
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.1600783252597564,
+      -0.9779047011441894,
+      -1.0478026301328915,
+      -0.9616367112602842,
+      -0.7236304836323567,
+      -0.8927389175146193,
+      -1.0093162349811575,
+      -0.9244290018639946
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -13.26558461946516,
+    "second_half_sharpe": -8.551776664558018,
+    "sharpe_corr": 0.9999225010654903,
+    "stable": false
+  },
+  "diagnosis": "C337 cross-sectional intraday ORDER-FLOW SKEW / ASYMMETRIC IMPULSE SEASONAL DISLOCATION mean-reversion stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

@@ -1,15 +1,15 @@
-updated_at_utc: 2026-11-16T23:39:20Z
-handoff_refreshed_at_utc: 2026-11-16T23:39:20Z
+updated_at_utc: 2026-11-16T23:45:00Z
+handoff_refreshed_at_utc: 2026-11-16T23:45:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-bottlenecks_verified_removed_at_utc: "2026-11-16T23:39:20Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-16T23:39:20Z: NO bottlenecks for C337. Live checks: no scripts/build_c337*|preflight_c337*|run_c337*, no tests/*c337*, no data/cache/campaign337*, no reports/campaign337* (C337 NOT STARTED). C312 5m ready (data/cache/campaign312_usdt_m_ofi_5m/, 10 shards × 315648 bars, 67,629,110 bytes, manifest_sha256 4859911b26a6d79b2d9f8eb8400668666be45b8a5d15825d7e46fb4b47589307) with 0-NaN C337 fields (perp_close,total_volume,signed_volume,trade_count,trade_sign_sum,notional); vwap not required; funding all-NaN control-only. Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable (bootstrap_dev_env.py idempotent if missing). C336 frozen formal negative 20261116T192501Z (1728, 0 Holm+BH) — do not rerun. C287 external-only/decoupled (451/403) — never retry. MANDATORY: execute C337 full 7776-config real-data costed-OOS (all 6 steps + 5 SHA256 artifacts) then C338 same session if inputs reachable on-disk.'
-first_action: "START C337 NOW (2026-11-16T23:39:20Z) — DO NOT RE-READ/PLAN/STOP. 1) scripts/build_c337_orderflow_skew_features.py -> data/cache/campaign337_orderflow_skew_5m/ (idempotent, fail-closed NaN, <100MB) from C312. 2) preflight_c337.py --json ready. 3) run full 7776-config costed-OOS sweep. 4) green C337 tests. 5) emit 5 SHA256 artifacts. 6) update handoff/state + start C338 if reachable. Templates: C336 scripts/tests. Do not rerun frozen C281B-C336/C287."
+bottlenecks_verified_removed_at_utc: "2026-11-16T23:45:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-16T23:45:00Z: C337 COMPLETE FORMAL NEGATIVE `20261116T234925Z` (7776 configs, 0 Holm+BH, RETRACTED, binding `multiple_testing`, dominant attribution `asym_placebo` 0.1957 < 0.5 → attribution_ok false). 5 SHA256 artifacts exist at `reports/campaign337_*_20261116T234925Z.json`; cache `data/cache/campaign337_orderflow_skew_5m/` (~52.8 MB, 10 shards × 315648 bars, read-only from C312); 22/22 C337 tests green. NO bottlenecks for C338. C312 5m ready (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315648 bars, manifest_sha256 `4859911b26a6d79b2d9f8eb8400668666be45b8a5d15825d7e46fb4b47589307`). Runtime ready: py3.12.3, pytest 9.2.0, numpy/pandas/scipy importable (`scripts/bootstrap_dev_env.py` idempotent if missing). C336 frozen formal negative `20261116T192501Z` (1728, 0 Holm+BH) — do not rerun. C287 external-only/decoupled (451/403) — never retry. MANDATORY: execute C338 full 4212-config real-data costed-OOS (all steps + 5 SHA256 artifacts) in this session. C337 is DONE — do NOT re-read/re-run.'
+first_action: "START C338 NOW (2026-11-16T23:45:00Z) — DO NOT RE-READ/PLAN/STOP. 1) scripts/build_c338_orderflow_entropy_features.py -> data/cache/campaign338_orderflow_entropy_5m/ (idempotent, fail-closed NaN, <100MB) from C312. 2) preflight_c338.py --json ready:true,blocked_reasons:[]. 3) scripts/run_c338_orderflow_entropy_xsec_oos.py full 4212-config costed-OOS sweep, bounded mem, gitignored .full.json. 4) pytest tests/test_preflight_c338.py tests/test_c338_orderflow_entropy_xsec_oos.py -q green. 5) emit 5 SHA256 artifacts reports/campaign338_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json + gitignored .full.json. 6) update AGENTS.md + research_state/state.yaml: record C338 result truthfully. Templates: C337/C336 scripts/tests. Do not rerun frozen C281B-C337/C287."
 priority: statistical-arb edge discovery before infrastructure work
-active_initial_task: "ACTIVE 2026-11-16T23:39:20Z — START C337 IMMEDIATELY (NO PLANNING GAP, NO COASTING, NO RE-READ). C281B–C336 ALL COMPLETE FORMAL NEGATIVES/frozen (~41,367 configs, binding multiple_testing, edge_claim NONE). C337 NOT STARTED (verified). Real C312 5m data on-disk + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C337: cross-sectional intraday ORDER-FLOW SKEW / ASYMMETRIC IMPULSE SEASONAL DISLOCATION mean-reversion (USDT-M 5m). Per-bar fail-closed: imb=signed_volume/total_volume (tv>0), buy=max(sv,0), sell=abs(min(sv,0)), skew=mean((imb-mean)^3)/std^3 over lookback (insufficient/std<=0->NaN), asym=(buy-sell)/(buy+sell) (denom>0). Seasonal baseline=trailing same TODxDOW mean/std causal shift(1), NaN-aware min periods. Score=-(signal-baseline)/seasonal_std, xsec rank dollar-neutral gross 1.0 (exclude NaN, renorm). WF 12m/3m/3m, 8 splits, 2023-01..2025-12. Grid 7776 = 8 signals{skew_dev,asym_dev,skew_ewm_dev,asym_ewm_dev,skew_z,asym_z,skew_placebo,asym_placebo} x 6 lookbacks{60,120,240,480,960,1920} x 3 rebal{1,4,12} x 3 fee{0.0004,0.0007,0.0010} x 3 slip{0,0.0001,0.0002} x 2 cost{taker,maker_blend}. skew/asym_ewm_dev use EWMA halflife 24 bars (>=24 finite obs). Placebos=recorded-seed phase-randomized surrogates (same marginal, temporal alignment destroyed) — never counted as edges. Gates Holm+BH 0.05, MDE, stability, signal-vs-placebo; dominant REAL (non-placebo) signal >=0.5 for attribution_ok. Do ALL in order: (1) scripts/build_c337_orderflow_skew_features.py -> data/cache/campaign337_orderflow_skew_5m/ idempotent,<100MB (2) scripts/preflight_c337.py --json ready:true,blocked_reasons:[] (3) scripts/run_c337_orderflow_skew_xsec_oos.py full 7776 sweep, bounded mem, gitignored .full.json (4) pytest tests/test_preflight_c337.py tests/test_c337_orderflow_skew_xsec_oos.py -q green (5) 5 artifacts reports/campaign337_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json SHA256-from-bytes + gitignored .full.json (real_data_only:true,fabricated_data:false,executed_fills:false,source C312) (6) update AGENTS.md+state.yaml with truthful C337 result and activate C338 per queued spec. Do NOT shrink grid, re-run frozen campaigns, or declare closure. If on-disk proves unreachable record evidence and proceed to C338 same session. Done = cache+ready preflight+7776 real-data costed-OOS+5 SHA256 artifacts+green tests+handoff/state updated."
+active_initial_task: "ACTIVE 2026-11-16T23:45:00Z — START C338 IMMEDIATELY (NO PLANNING GAP, NO COASTING, NO RE-READ). C281B–C337 ALL COMPLETE FORMAL NEGATIVES/frozen (~49,143 configs, binding multiple_testing, edge_claim NONE). C337 DONE/formal negative `20261116T234925Z` (7776, 0 Holm+BH, RETRACTED, dominant attribution asym_placebo 0.1957 < 0.5 → attribution_ok false). Real C312 5m data on-disk + deps ready; NO bottlenecks (C287 external/decoupled only). Implement+execute C338: cross-sectional intraday ORDER-FLOW ENTROPY / INFORMATION CONTENT / TRADE BURSTINESS SEASONAL DISLOCATION mean-reversion stat-arb (USDT-M 5m), 4212 configs = 13 signals{shannon_entropy_dev,cond_entropy1_dev,cond_entropy2_dev,perm_entropy_dev,mutual_info_dev,cv_intertrade_dev,hawkes_intensity_dev,burst_index_dev,transfer_entropy_dev,flow_info_share_dev,shannon_entropy_placebo,cond_entropy1_placebo,burst_index_placebo} x 6 lookbacks{60,120,240,480,960,1920} x 3 rebal{1,4,12} x 3 fee{0.0004,0.0007,0.0010} x 3 slip{0,0.0001,0.0002} x 2 cost{taker,maker_blend}. Per-bar fail-closed: imb=signed_volume/total_volume (tv>0 -> NaN), sign=sign(trade_sign_sum) (trade_count<=0 -> NaN). Over trailing lookback L bars ending at bar t-1 (causal, shift(1)): entropy metrics shannon_entropy over sign-run distribution, cond_entropy k=1,2,3, mutual_info lag-1, perm_entropy m=3 tau=1; burstiness metrics cv_intertrade (proxy total_volume/trade_count), hawkes_intensity (fail-closed NaN on fit failure), burst_index=(cv^2-1)/(cv^2+1); information flow metrics transfer_entropy sign->next-bar log_return, flow_info_share=I(sign;return_{t+1})/H(return_{t+1}). Seasonal baseline=trailing same TODxDOW mean/std causal shift(1), NaN-aware min periods. Score=-(signal-baseline)/seasonal_std, xsec rank dollar-neutral gross 1.0 (exclude NaN, renorm). WF 12m/3m/3m, 8 splits, 2023-01..2025-12. Gates Holm+BH 0.05, MDE, stability, signal-vs-placebo; dominant REAL (non-placebo) signal >=0.5 for attribution_ok. Do ALL in order: (1) scripts/build_c338_orderflow_entropy_features.py -> data/cache/campaign338_orderflow_entropy_5m/ idempotent,<100MB (2) scripts/preflight_c338.py --json ready:true,blocked_reasons:[] (3) scripts/run_c338_orderflow_entropy_xsec_oos.py full 4212 sweep, bounded mem, gitignored .full.json (4) pytest tests/test_preflight_c338.py tests/test_c338_orderflow_entropy_xsec_oos.py -q green (5) 5 artifacts reports/campaign338_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json SHA256-from-bytes + gitignored .full.json (6) update AGENTS.md + state.yaml truthfully. Do NOT re-run frozen C281B-C337/C287."
 next_campaign: C338_orderflow_entropy_information_content_trade_burstiness_seasonal_dislocation_xsec_mean_reversion_5m
-active_campaign: C337_orderflow_skew_asymmetric_impulse_seasonal_dislocation_xsec_mean_reversion_5m
-space_status: NO_EDGE_C281B_C336
+active_campaign: C338_orderflow_entropy_information_content_trade_burstiness_seasonal_dislocation_xsec_mean_reversion_5m
+space_status: NO_EDGE_C281B_C337
 closure_note: 'C281B–C336 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~41,367 pre-registered configs; binding universally multiple_testing; edge_claim NONE). C336 frozen (20261116T192501Z, 1728, verdict 5a361209 RETRACTED). C281B–C318 closure audit reports/program_closure_final_20261116T024519Z.json (sha aebd52b8…) remains citable for that scope only; C319–C336 extend the record. Terminal closure by fiat PROHIBITED — keep executing pre-registered genuinely-new families on real on-disk C312 5m data until one is proven unreachable with on-disk evidence. C287 external blocked/decoupled — never retry. Handoff refreshed 2026-11-16T23:39:20Z: C337 active mandatory (NOT STARTED), no bottlenecks, full 7776-config spec + C338 queued in AGENTS.md — next session must start C337 immediately and not re-read/stop.'
 c319_status:
   state: COMPLETE_FORMAL_NEGATIVE
@@ -943,7 +943,7 @@ c316_status:
     full_json_gitignored: reports/campaign316_oos_sweep_20261116T003953Z.full.json
   rationale: 'No frozen campaign ever tested cross-sectional size/volume/turnover/liquidity factors on real USDT-M perp data. C312 cache holds perp_close, notional, total_volume, trade_count, vwap for 10 perps x 315,648 5m bars 2023-01..2025-12 -> no network ingest bottleneck.'
 coin_m_inverse_futures_space: C313_COMPLETE_FORMAL_NEGATIVE
-latest_campaign_done: C336
+latest_campaign_done: C337
 c314_status:
   state: COMPLETE_FORMAL_NEGATIVE
   as_of_utc: 20261115T214305Z
@@ -1428,25 +1428,89 @@ c306_coinm_term_structure:
   executed_fills: false
 
 c337_status:
-  state: NOT_STARTED
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C337
   family: cross_sectional_orderflow_skew_asymmetric_impulse_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
   reskin_of: none
-  as_of_utc: 2026-11-16T22:42:18Z
+  as_of_utc: 20261116T234925Z
   grid_configs: 7776
-  wf: {train_m: 12, val_m: 3, test_m: 3, n_splits: 8, window: 2023-01..2025-12}
-  on_disk_scripts: false
-  on_disk_tests: false
-  on_disk_cache: false
-  on_disk_artifacts: false
-  data_source_ready: data/cache/campaign312_usdt_m_ofi_5m (10 shards, 315648 bars; C337 fields 0-NaN)
-  bottlenecks: none
-  next_campaign_queued: C338_orderflow_entropy_information_content_trade_burstiness_seasonal_dislocation_xsec_mean_reversion_5m
+  wf: {train_m: 12, test_m: 3, roll_m: 3, n_splits: 8, window: 2023-01..2025-12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_configs: 7776
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {skew_dev: 0.016795899895541973, asym_dev: 0.18659436127222156, skew_ewm_dev: 0.18659436127222156, asym_ewm_dev: 0.18659436127222156, skew_z: 0.01757764598617597, asym_z: 0.18688123701461998, skew_placebo: 0.023271933923272193, asym_placebo: 0.19569019936372514}
+  dominant_attribution: asym_placebo
+  dominant_share: 0.19569019936372514
+  attribution_ok: false
+  on_disk_scripts: true
+  on_disk_tests: true
+  on_disk_cache: true
+  on_disk_artifacts: true
+  data_source: data/cache/campaign312_usdt_m_ofi_5m/<SYM>.npz (perp_close, signed_volume, total_volume; log_return, imb, buy_impulse, sell_impulse, asym derived; funding all-NaN control only)
+  universe: 10 USDT-M linear perps, 315648 common 5m bars, 2023-01..2025-12
+  signals: [skew_dev, asym_dev, skew_ewm_dev, asym_ewm_dev, skew_z, asym_z, skew_placebo, asym_placebo]
+  lookback_bars: [60, 120, 240, 480, 960, 1920]
+  seasonal_windows: [expanding, trailing_90d, trailing_180d]
+  rebalance_bars: [1, 4, 12]
+  fee: [0.0004, 0.0007, 0.0010]
+  slippage: [0, 0.0001, 0.0002]
+  cost_variant: [taker, maker_blend]
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  gates: [mde, stability, signal_vs_placebo_attribution]
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C337 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c337_* and tests/test_preflight_c337.py green'
+  no_coast_clause: 'C337 is a formal negative; next session MUST proceed to C338 (order-flow entropy / information content / trade burstiness seasonal dislocation, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign337_orderflow_skew_5m
+    cache_total_bytes: 52822230
+    cache_max_shard_bytes: 5599616
+    cache_meta_sha256: 3330673023deefcddd18d4683e89d189d7c4981323832b40904729642f32f9ab
+    cache_provenance_sha256: 0592d89bc8f1e64a4b55ae622d1625badc0418622a636f953cf56de99c7324f6
+    cache_manifest_sha256: ffcd9f64417d70bb1141c5cf4f8ad5826b2485d049b0af6e05164acf28b7f94d
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261116T234925Z
+    artifacts:
+      oos_sweep: reports/campaign337_oos_sweep_20261116T234925Z.json
+      tradable_edge_registry: reports/campaign337_tradable_edge_registry_20261116T234925Z.json
+      summary: reports/campaign337_summary_20261116T234925Z.json
+      verdict: reports/campaign337_verdict_20261116T234925Z.json
+      binding_constraint: reports/campaign337_binding_constraint_20261116T234925Z.json
+      oos_sweep_full: reports/campaign337_oos_sweep_20261116T234925Z.full.json (gitignored)
+    oos_sweep_sha256: 346c5493823974f8b8d75c1424122ebfa1c3a5de7044f847e83823cb92e9b572
+    tradable_edge_registry_sha256: ab0e3ebffc82813f297f05585246b3a9add3c599081cc80a0258099a00441af1
+    summary_sha256: 5f93b3aecea6ce534d7ffc98f6c84118045c72a70b777e32b03dc9d468025958
+    verdict_sha256: 8e5906e386188d455687f71c7b34f8d04a5965f7d1ce518596fb276b00d61041
+    binding_constraint_sha256: 68593adc1ef91f322801eb3259fca893b1ee3e903d21f412889b27aa02f07cfc
+    slim_sweep_bytes: ~1.0 MB
+  de_bottleneck: real_5m_perp_close_signed_volume_total_volume_on_disk_from_c312_no_network_ingest
+  scripts:
+  - scripts/build_c337_orderflow_skew_features.py
+  - scripts/preflight_c337.py
+  - scripts/run_c337_orderflow_skew_xsec_oos.py
+  tests:
+  - tests/test_preflight_c337.py
+  - tests/test_c337_orderflow_skew_xsec_oos.py
+  pytest:
+    passed: 22
+    failed: 0
+    as_of_utc: 20261116T234925Z
   real_data_only: true
   fabricated_data: false
   executed_fills: false
-  note: C306 artifacts/scripts/pytest are recorded under c306_coinm_term_structure (complete record at line ~1312); this C337 block intentionally carries no artifacts until C337 runs.
 
 c307_status:
   state: COMPLETE_RETRACTED_BY_C308

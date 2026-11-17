@@ -1,0 +1,137 @@
+{
+  "generated_at_utc": "20261116T234906Z",
+  "campaign": 337,
+  "part": "feature_build",
+  "interval": "5m",
+  "bar_ms": 300000,
+  "source_interval": "usdt_m_5m_klines_taker_delta_ms",
+  "source_campaign": 312,
+  "source_cache": "data/cache/campaign312_usdt_m_ofi_5m",
+  "source_meta": "data/cache/campaign312_usdt_m_ofi_5m.meta.json",
+  "source_meta_sha256": "49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b",
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "DOTUSDT",
+    "ETHUSDT",
+    "LINKUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "n_symbols": 10,
+  "n_universe": 10,
+  "n_grid_bars": 315648,
+  "window_start_month": "2023-01",
+  "window_end_month": "2025-12",
+  "grid_start_utc": "2023-01-01 00:00:00+00:00",
+  "grid_end_utc": "2025-12-31 23:55:00+00:00",
+  "grid_construction": "intersection_of_c312_perp_5m_bars",
+  "fields": [
+    "index_ms",
+    "perp_close",
+    "log_return",
+    "imb",
+    "buy_impulse",
+    "sell_impulse",
+    "asym",
+    "funding_rate"
+  ],
+  "storage": "per_asset_float32_npz_shards",
+  "shard_dir": "data/cache/campaign337_orderflow_skew_5m",
+  "shard_sha256": {
+    "ADAUSDT": "e39dc937ae046bc9ac5caffb472d1b04f8f9baf96707ded34439c7aabc157921",
+    "AVAXUSDT": "9a30999a9bda6df5462538b749a32441529f7f6675f1b98c15096dfa4dede0f4",
+    "BNBUSDT": "b163b61d68730ec76385b944221a02851b631019036cd941785b60ec82b114df",
+    "BTCUSDT": "10452810e36be3aedca37d3a28296405864f4c3f74274fcc7206b68baa9d534c",
+    "DOGEUSDT": "bd2fdaa2a2bd6a6d0fdc7e55a95c067a19cdd74837b1464069ef8c2913b89c05",
+    "DOTUSDT": "0fa570f216f1e15e6df38831880d710fe1f100feb4fbe590e23a35bb0128baa7",
+    "ETHUSDT": "bd0e16e6b8df17f59f826e2fed2769fd79b198d856a70e9f5a88647c8d78f2c3",
+    "LINKUSDT": "ee3cea50e9cf4ac09c2d7a73bcf60e17bf2e4aaf3dd124a99e62c62bdb268ee9",
+    "SOLUSDT": "a17d21bb14d9821440ad937f95eae98718d38f939306df5f4135070699e81385",
+    "XRPUSDT": "af129e44ef1179c070378d2d8679cd67f558683f8b6b8dbf48e69e71b77ad6af"
+  },
+  "shard_bytes": {
+    "ADAUSDT": 5012626,
+    "AVAXUSDT": 5119852,
+    "BNBUSDT": 5375333,
+    "BTCUSDT": 5546521,
+    "DOGEUSDT": 5368709,
+    "DOTUSDT": 5001261,
+    "ETHUSDT": 5599616,
+    "LINKUSDT": 5324182,
+    "SOLUSDT": 5270641,
+    "XRPUSDT": 5203489
+  },
+  "total_shard_bytes": 52822230,
+  "max_shard_bytes": 5599616,
+  "cache_budget_bytes": 100000000,
+  "push_limit_bytes": 100000000,
+  "under_push_limit": true,
+  "under_cache_budget": true,
+  "n_buckets_tod_dow": 2016,
+  "skew_definition": "imb=signed_volume/total_volume (total_volume<=0 -> NaN); buy_impulse=max(signed_volume,0); sell_impulse=abs(min(signed_volume,0)); asym=(buy_impulse-sell_impulse)/(buy_impulse+sell_impulse) (denom<=0 -> NaN); runner computes skew over trailing lookback bars and EWMA(halflife=24 bars)",
+  "funding_source": "unreachable_fapi_451_and_not_in_monthly_archives_nan_control_only",
+  "network_ingest": false,
+  "resample": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "fetch_real_data_only": true,
+  "fetch_fabricated_data": false,
+  "executed_fills": false,
+  "manifest_sha256": "ffcd9f64417d70bb1141c5cf4f8ad5826b2485d049b0af6e05164acf28b7f94d",
+  "nan_policy": {
+    "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
+    "signed_volume": "real taker buy/sell signed volume from C312 (read at build, not stored); always finite, may be signed/zero",
+    "total_volume": "real total volume from C312 (read at build, not stored); always finite, non-negative",
+    "imb": "signed_volume/total_volume; total_volume<=0 -> NaN (fail-closed)",
+    "buy_impulse": "max(signed_volume,0); always finite, non-negative",
+    "sell_impulse": "abs(min(signed_volume,0)); always finite, non-negative",
+    "asym": "(buy_impulse-sell_impulse)/(buy_impulse+sell_impulse); denom<=0 -> NaN (fail-closed)",
+    "runner_nan": "trailing same-bucket seasonal skew/asym stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0",
+    "raw_nan_observed": {
+      "ADAUSDT": {
+        "imb": 24,
+        "asym": 25
+      },
+      "AVAXUSDT": {
+        "imb": 24,
+        "asym": 52
+      },
+      "BNBUSDT": {
+        "imb": 24,
+        "asym": 25
+      },
+      "BTCUSDT": {
+        "imb": 43,
+        "asym": 43
+      },
+      "DOGEUSDT": {
+        "imb": 24,
+        "asym": 24
+      },
+      "DOTUSDT": {
+        "imb": 24,
+        "asym": 26
+      },
+      "ETHUSDT": {
+        "imb": 24,
+        "asym": 24
+      },
+      "LINKUSDT": {
+        "imb": 24,
+        "asym": 24
+      },
+      "SOLUSDT": {
+        "imb": 24,
+        "asym": 34
+      },
+      "XRPUSDT": {
+        "imb": 24,
+        "asym": 24
+      }
+    }
+  }
+}
