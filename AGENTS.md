@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T01:39:14Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T02:10:13Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
@@ -32,28 +32,36 @@ C360 (LEVERAGE / VOLATILITY-ASYMMETRY COUPLING × seasonal-dislocation mean-reve
 
 ---
 
-## INITIAL TASK MESSAGE — C360 (timestamped 2026-11-18T01:39:14Z, EXECUTED — FROZEN FORMAL NEGATIVE)
+## INITIAL TASK MESSAGE — C361 (timestamped 2026-11-18T02:10:13Z, ACTIVE — EXECUTE, heavy work required)
 
-**EXECUTE C360 NOW (heavy work required; no re-planning, no spec changes, no downscoping): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+**EXECUTE C361 NOW (heavy work required; no re-planning, no spec changes, no downscoping): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**FIRST ACTION — non-negotiable, do this before reading further:** the C360 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C359 structural template (`scripts/build_c359_opte_features.py`, `scripts/preflight_c359.py`, `scripts/run_c359_opte_xsec_oos.py`, `tests/test_preflight_c359.py`, `tests/test_c359_opte_xsec_oos.py`) into `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend OPTE→LVAC per the frozen spec below. (b) Then run, in order: `python scripts/build_c360_lvac_features.py` (materialize `data/cache/campaign360_lvac_5m/`), `python scripts/preflight_c360.py` (expect `ready:true`), `python scripts/run_c360_lvac_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python -m pytest tests/test_preflight_c360.py tests/test_c360_lvac_xsec_oos.py -q` (≥21 green). The C360 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification. C360 is the signed return × lagged-magnitude cross-correlation (leverage/volatility-asymmetry coupling) — a genuinely-new cross-moment distinct from C343 (`|r|` autocorr = magnitude–magnitude same series), C326 (lag-1 return autocorr), C344 (sign-change/chop), C345 (close-location), C342 (vol-weighted return moments) and every scaling/Hurst/entropy/ordinal family C346–C359; price-only (`perp_close`), volume-free. The heavy 1296-config sweep + ≥21 green tests (incl. LVAC brute-force equality) IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C359/C287, or returns prose / partial / stub scripts instead of the 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
+**FIRST ACTION — non-negotiable, do this before reading further:** the C361 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C360 structural template (`scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`) into `scripts/build_c361_rskek_features.py`, `scripts/preflight_c361.py`, `scripts/run_c361_rskek_xsec_oos.py`, `tests/test_preflight_c361.py`, `tests/test_c361_rskek_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend LVAC→RSKEK per the frozen spec below. (b) Then run, in order: `python scripts/build_c361_rskek_features.py` (materialize `data/cache/campaign361_rskek_5m/`), `python scripts/preflight_c361.py` (expect `ready:true`), `python scripts/run_c361_rskek_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python -m pytest tests/test_preflight_c361.py tests/test_c361_rskek_xsec_oos.py -q` (≥21 green). The C361 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification.
+
+**Why genuinely new (not a re-skin):** RSKEK computes per-bar, over a fixed trailing window W=256 of raw log-returns `r[t-W+1..t]`, the **equal-weight (unweighted) sample skewness** and **sample excess kurtosis** of the return distribution itself. Distinct from C342 (volume-weighted return skewness/kurtosis of `vw_ret=log_return*sqrt(notional)` — different series and volume weighting), C317 (realized-vol levels / 2nd moment), C348 (HHI concentration of squared returns), C343 (|r| autocorrelation / vol clustering), C360 (signed cross-moment `corr(r, |r|_{t-k})` leverage coupling), and every scaling/Hurst/entropy/ordinal/complexity family C346–C359. Price-only (`perp_close`), volume-free.
+
+The heavy 1296-config sweep + ≥21 green tests (incl. RSKEK brute-force equality) IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C360/C287, or returns prose / partial / stub scripts instead of the 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
 
 ### State verified (no bottlenecks)
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
-- C281B–C360 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~96k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C359 frozen `20261118T005752Z` (1296, RETRACTED, dominant `opte_ent_dev` 0.2616). C360 frozen `20261118T014623Z` (1296, RETRACTED, dominant `lvac_mean_placebo` 0.2977). No edge proven through C360.
-- **C360 EXECUTED:** `data/cache/campaign360_lvac_5m/` cache, 5 scripts, tests, and 5 SHA256 artifacts on disk. C361 is now the active pre-registered family.
+- C281B–C360 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~97k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C360 frozen `20261118T014623Z` (1296, RETRACTED, dominant `lvac_mean_placebo` 0.2977). No edge proven through C360.
+- **C361 NOT YET EXECUTED:** no `campaign361_*` scripts, cache, tests, or artifacts on disk. This session must create and run them end-to-end.
 - C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C360/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
 
 ### Mandatory run sequence (economic progress = ALL of these)
-
-C360 is complete (all 6 deliverables done: build → preflight → full 1296 sweep → pytest ≥21 green → 5 SHA256 artifacts captured → recorded below). C361 is now the active pre-registered family — set `next_campaign: C361_<next_genuinely_new_price_only_family>` in state.yaml with a placeholder spec. Do NOT re-run frozen C281B–C360/C287.
+1. Write `scripts/build_c361_rskek_features.py`, `scripts/preflight_c361.py`, `scripts/run_c361_rskek_xsec_oos.py`, `tests/test_preflight_c361.py`, `tests/test_c361_rskek_xsec_oos.py` (clone C360 template, adapt to RSKEK spec).
+2. `python scripts/build_c361_rskek_features.py` → `data/cache/campaign361_rskek_5m/` (SHA-manifested, <100 MB).
+3. `python scripts/preflight_c361.py` → must report `ready:true`.
+4. `python scripts/run_c361_rskek_xsec_oos.py` → full 1296-config costed-OOS sweep (no downscoping) producing 5 SHA256 artifacts `reports/campaign361_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + `.full.json`.
+5. `python -m pytest tests/test_preflight_c361.py tests/test_c361_rskek_xsec_oos.py -q` → ≥21 green, incl. RSKEK brute-force equality.
+6. Record truthful result in this `AGENTS.md` (C361 RESULT) + `research_state/state.yaml`; add C361 to frozen table with 5 SHAs (+ cache SHAs); set C362 active with next genuinely-new price-only family spec placeholder.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION.
 
 ---
 
-## C360 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+## C360 — ARCHIVED SPEC (EXECUTED — FROZEN FORMAL NEGATIVE, DO NOT re-run)
 
 **C360 — LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -112,7 +120,7 @@ Compute `lvac_mean` and `lvac_asym` for all bars per asset with vectorized `slid
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C360 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C361 is now the active pre-registered family.
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C360 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C361 (RSKEK) is the active pre-registered family — execute end-to-end now.**
 
 **Bottlenecks: NONE — environment fully ready.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry.
 
@@ -165,6 +173,57 @@ C359 was **ORDINAL PATTERN TRANSITION ENTROPY (OPTE)**: Bandt–Pompe ordinal pa
 
 ---
 
-## C361 — ACTIVE PRE-REGISTERED FAMILY (placeholder spec)
+## C361 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
 
-C361 is the next genuinely-new price-only family to execute on real C312 5m data. Spec placeholder — to be authored as `C361_<next_genuinely_new_price_only_family>` in state.yaml `next_campaign`. Same structural template as C360: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record in AGENTS.md + state.yaml. Do NOT re-run frozen C281B–C360/C287.
+**C361 — RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+
+### Distinctness (pre-registered)
+- RSKEK: within each trailing window of raw log-returns `X = r[t-W+1 .. t]` (W=256), compute the **equal-weight, unweighted** sample skewness and sample excess kurtosis of the return distribution:
+  - `μ = mean(X)`, `σ² = (1/W) Σ (x_i - μ)^2`, `σ = sqrt(σ²)`.
+  - `rskew[t] = (1/W) Σ ((x_i - μ)/σ)^3` (Fisher-Pearson sample skewness, population-style denominator W). NaN if `t < W`, any NaN in window, or `σ <= 0`.
+  - `rkurt[t] = (1/W) Σ ((x_i - μ)/σ)^4 - 3` (excess kurtosis). NaN if `t < W`, any NaN in window, or `σ <= 0`.
+  Genuinely distinct from C342 (volume-weighted return skewness/kurtosis of `vw_ret = log_return*sqrt(notional)` — different series and explicit volume weighting), C317 (realized-vol level / 2nd moment magnitude), C348 (HHI concentration of squared returns across bars), C343 (|r| autocorrelation / vol clustering), C360 (signed cross-moment `corr(r,|r|_{t-k})` leverage/vol-asymmetry coupling over lags), C345 (close-location in trailing envelope), C344 (sign-change/chop), and every scaling/Hurst/entropy/ordinal/complexity family C346–C359. Price-only (`perp_close`), volume-free.
+
+### Raw inputs (build)
+`data/cache/campaign361_rskek_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network/fabrication/resampling/imputation):
+```
+index_ms      int64    common 5m grid (intersection, 315,648 bars)
+perp_close    float32  real 5m kline close
+log_return    float32  r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control)
+```
+Cache < 100 MB; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest. (`rskek_params` = `{window_W:256}`.)
+
+### Runner-derived causal metrics (per asset, per bar t)
+`W=256`, trailing returns `X=r[t-W+1..t]` (NaN if `t<W` or any NaN). Over X: `μ=mean(X)`, `σ=sqrt(mean((X-μ)^2))`.
+- `rskew[t] = mean(((X-μ)/σ)^3)`; NaN if `σ <= 0`.
+- `rkurt[t] = mean(((X-μ)/σ)^4) - 3`; NaN if `σ <= 0`.
+- `last_move_dir[t]=sign(r[t])`.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{rskew,rkurt}`.
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `rskew` and `rkurt` for all bars per asset with vectorized `sliding_window_view` (and/or cumulative-sum moment identities) — no Python loop over 315,648 bars × 10 assets. MUST pass brute-force equality test against reference per-window RSKEK (manual loop over windows, explicit `np.mean`, `np.std` with `ddof=0`-consistent population moments, explicit standardized-moment sums).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `rskew_dev`, `rkurt_dev`, `rskew_placebo`, `rkurt_placebo` (2 real + 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60,120,240,480,960,1920)`; REBALANCES = `(1,4,12)`; FEES = `(0.0004,0.0007,0.0010)`; SLIPS = `(0.0,0.0001,0.0002)`; COST_VARIANTS = `("taker","maker_blend")`.
+- 4×6×3×3×3×2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261225` (phase-randomized FFT surrogate + rank restoration; NaN positions stay NaN). selection frac=1/3, ALPHA=0.05.
+- Reference config: `rskew_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES={rskew_dev,rkurt_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND BH over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config).
+- **Attribution**: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 4 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (ALL six, in order)
+1. `scripts/build_c361_rskek_features.py` → `data/cache/campaign361_rskek_5m/`
+2. `scripts/preflight_c361.py` → `ready:true`
+3. `scripts/run_c361_rskek_xsec_oos.py` → 5 SHA256 artifacts + `.full.json`: `oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint` (`reports/campaign361_*_<TS>Z.json`)
+4. `tests/test_preflight_c361.py` + `tests/test_c361_rskek_xsec_oos.py` — ≥21 green (incl. RSKEK brute-force equality test)
+5. Record truthful result in this `AGENTS.md` (C361 RESULT) + `research_state/state.yaml`; add C361 to frozen table with 5 SHAs (+ cache SHAs); set C362 active with next genuinely-new price-only family spec placeholder
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts

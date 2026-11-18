@@ -1,23 +1,23 @@
-updated_at_utc: 2026-11-18T01:46:23Z
-handoff_refreshed_at_utc: 2026-11-18T01:46:23Z
+updated_at_utc: 2026-11-18T02:10:13Z
+handoff_refreshed_at_utc: 2026-11-18T02:10:13Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C360
-next_campaign: C361_placeholder_next_genuinely_new_price_only_family
+next_campaign: C361_rskek_raw_return_skewness_kurtosis_seasonal_dislocation
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T01:46:23Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T01:46:23Z: C281B-C360 ALL COMPLETE FORMAL NEGATIVES (~96,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616, 24/24 tests green incl. OPTE brute-force equality exact maxdiff=0.0, 5 SHA256 artifacts + gitignored .full.json). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977, 23/23 tests green incl. LVAC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign360_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C361_placeholder_next_genuinely_new_price_only_family
+bottlenecks_verified_removed_at_utc: "2026-11-18T02:10:13Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T02:10:13Z: C281B-C360 ALL COMPLETE FORMAL NEGATIVES (~97,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977, 23/23 tests green incl. LVAC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign361_*_<TS>Z.json artifacts + >=21 green tests (incl. RSKEK brute-force equality); prose-only/partial handoff is a HARD VIOLATION. C361 RSKEK is pre-registered/active — scripts/cache/tests/artifacts NOT YET on disk; execute end-to-end now.'
+queued_next_campaign: C362_placeholder_next_genuinely_new_price_only_family
 queued_next_campaign_note: 'Set active only after C361 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
-first_action: "EXECUTE C361 NEXT (2026-11-18T01:46:23Z): C360 frozen formal negative (20261118T014623Z). Do NOT re-run C281B-C360/C287. C361 = next genuinely-new price-only family on real C312 5m data (placeholder spec in state.yaml). C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign361_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-active_campaign: C361_placeholder_next_genuinely_new_price_only_family
+first_action: "EXECUTE C361 NOW (2026-11-18T02:10:13Z): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. C360 frozen formal negative (20261118T014623Z). FIRST WRITE scripts/build_c361_rskek_features.py, scripts/preflight_c361.py, scripts/run_c361_rskek_xsec_oos.py, tests/test_preflight_c361.py, tests/test_c361_rskek_xsec_oos.py (clone C360 template, adapt to RSKEK: rskew/rkurt over W=256 raw returns, dev+placebo signals rskew_dev,rkurt_dev,rskew_placebo,rkurt_placebo, placebo seed 20261225, grid 4x6x3x3x3x2=1296, same gates Holm+BH/MDE/stability/attribution). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign361_*_<TS>Z.json -> record in AGENTS.md + state.yaml and freeze C361, set C362 active. C312 5m ready (meta 49ee1f3...), deps importable. C287 external-only/decoupled (451/403) — never retry. DO NOT re-run C281B-C360/C287. NO-LIGHT-WORK RULE: prose-only/partial handoff is a HARD VIOLATION."
+active_campaign: C361_rskek_raw_return_skewness_kurtosis_seasonal_dislocation
 space_status: NO_EDGE_C281B_C360
-closure_note: 'C281B–C360 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~96,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
-active_initial_task: "C360 COMPLETE (2026-11-18T01:46:23Z, FROZEN FORMAL NEGATIVE): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. lvac_mean[t] = mean over k=1..5 of corr(r[s],|r|[s-k]) within trailing W=256; lvac_asym = rho_1 - rho_5. Cloned C359 structural template into scripts/build_c360_lvac_features.py, scripts/run_c360_lvac_xsec_oos.py, scripts/preflight_c360.py, tests/test_preflight_c360.py, tests/test_c360_lvac_xsec_oos.py. Executed pipeline: build cache -> preflight ready:true -> full 1296-config costed-OOS sweep -> pytest 23/23 green incl. LVAC brute-force equality -> 5 SHA256 artifacts reports/campaign360_*_20261118T014623Z.json + .full.json. Recorded in AGENTS.md + state.yaml. Frozen C360 with SHAs. C361 now active with placeholder spec. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+closure_note: 'C281B–C360 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~97,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C361 RSKEK pre-registered and active — must be executed end-to-end.'
+active_initial_task: "EXECUTE C361 NOW (2026-11-18T02:10:13Z): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FIRST WRITE scripts/build_c361_rskek_features.py, scripts/preflight_c361.py, scripts/run_c361_rskek_xsec_oos.py, tests/test_preflight_c361.py, tests/test_c361_rskek_xsec_oos.py cloning C360 template and adapting to RSKEK: W=256 raw returns, rskew=mean(((X-mu)/sigma)^3), rkurt=mean(((X-mu)/sigma)^4)-3 (NaN if sigma<=0), signals rskew_dev,rkurt_dev,rskew_placebo,rkurt_placebo, placebo seed 20261225, grid 4x6x3x3x3x2=1296, ATTR_REPRESENTATIVES={rskew_dev,rkurt_dev}, stability_ref rskew_dev L=240 H=4 fee=0.0007 slip=0.0001 taker. THEN: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. RSKEK brute-force equality -> 5 SHA256 artifacts reports/campaign361_*_<TS>Z.json -> record AGENTS.md+state.yaml, freeze C361, set C362 active. No downscoping, no spec changes, no re-runs of frozen C281B-C360/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -6357,7 +6357,7 @@ c359_status:
     passed: 24
     failed: 0
     as_of_utc: 20261118T005752Z
-  lvac_params:
+  opte_params:
     window_W: 256
     ordinal_dimension_D: 5
     delay_tau: 1
@@ -6367,3 +6367,107 @@ c359_status:
   executed_fills: false
 
 c360_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C360
+  family: cross_sectional_leverage_volatility_asymmetry_coupling_lvac_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C343 (|r| autocorr = magnitude-magnitude same series), C326 (lag-1 return autocorr = return-return), C344 (sign-change/chop), C345 (close-location / Williams %R), C342 (vol-weighted return moments), C317 (realized vol), and every scaling/Hurst/entropy/ordinal-transition family C346-C359. LVAC is signed cross-moment corr(r[s], |r|[s-k]) for lags k=1..5 (leverage/volatility-asymmetry coupling), price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T014623Z
+  artifacts_ts: 20261118T014623Z
+  signals: [lvac_mean_dev, lvac_asym_dev, lvac_mean_placebo, lvac_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261224
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'lvac_mean_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_deterministic_edge: 0
+  n_survive_holm: 0
+  n_survive_bh: 0
+  n_survive_both: 0
+  attribution_shares: {lvac_mean_dev: 0.20793883362803509, lvac_asym_dev: 0.21288114685706633, lvac_mean_placebo: 0.29771819469184024, lvac_asym_placebo: 0.2814618248230584}
+  dominant_attribution: lvac_mean_placebo
+  dominant_share: 0.29771819469184024
+  attribution_ok: false
+  selection: xsec_rank_dollar_neutral_gross_1p0_equal_weight_top_bottom
+  multiple_testing: {holm_alpha: 0.05, bh_alpha: 0.05, both_required: true}
+  pnl_unit: USDT
+  funding: nan_control_only
+  definition_of_done: 'C360 verdict artifact on disk + 5 SHA256 artifacts + tests/test_c360_* and tests/test_preflight_c360.py green'
+  no_coast_clause: 'C360 is a formal negative; next session MUST proceed to C361 (RSKEK raw return skewness & excess kurtosis seasonal dislocation, same C312 5m data); do not re-declare closure.'
+  on_disk:
+    scripts: true
+    tests: true
+    cache: true
+    artifacts: true
+    cache_dir: data/cache/campaign360_lvac_5m
+    cache_total_bytes: 38477477
+    cache_max_shard_bytes: 4143541
+    cache_meta_sha256: 5ba5bfae583622447f505547ffacff1104b1cd300359ebda9c54e6a23ed8e751
+    cache_provenance_sha256: 80d7fccfbc8132e64ec738cf240cb68d2a646c1242b82314e0f6bead0146db2f
+    cache_manifest_sha256: 4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa
+    grid_bars: 315648
+    grid_window: 2023-01..2025-12
+    n_symbols: 10
+    artifacts_ts: 20261118T014623Z
+    artifacts:
+      oos_sweep: reports/campaign360_oos_sweep_20261118T014623Z.json
+      tradable_edge_registry: reports/campaign360_tradable_edge_registry_20261118T014623Z.json
+      summary: reports/campaign360_summary_20261118T014623Z.json
+      verdict: reports/campaign360_verdict_20261118T014623Z.json
+      binding_constraint: reports/campaign360_binding_constraint_20261118T014623Z.json
+      oos_sweep_full: reports/campaign360_oos_sweep_20261118T014623Z.full.json (gitignored)
+    oos_sweep_sha256: 0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd
+    tradable_edge_registry_sha256: 327de19a836b8ee793ef110ece0eebe08e564ed4eed3a4fec15458112b36f3b1
+    summary_sha256: b7035ece654490b1329f497dc883fa322e7beb417c91347bf114f5bc7f2019cb
+    verdict_sha256: acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b
+    binding_constraint_sha256: f8a4c19b85ee97e12d4012fde4b9ef68762e814ca693fe190bcb39fbb9eca585
+  de_bottleneck: real_5m_perp_close_on_disk_from_c312_log_return_abs_ret_derived_no_network_ingest
+  scripts:
+  - scripts/build_c360_lvac_features.py
+  - scripts/preflight_c360.py
+  - scripts/run_c360_lvac_xsec_oos.py
+  tests:
+  - tests/test_preflight_c360.py
+  - tests/test_c360_lvac_xsec_oos.py
+  pytest:
+    passed: 23
+    failed: 0
+    as_of_utc: 20261118T014623Z
+  lvac_params:
+    window_W: 256
+    n_lags: 5
+    lags: [1, 2, 3, 4, 5]
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
+
+c361_status:
+  state: PRE_REGISTERED_ACTIVE
+  campaign: C361
+  family: cross_sectional_raw_return_skewness_excess_kurtosis_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  reskin_of: none
+  distinct_from: 'C342 (volume-weighted return skewness/kurtosis of vw_ret=log_return*sqrt(notional), different series and volume weighting), C317 (realized-vol levels / 2nd moment), C348 (HHI concentration of squared returns), C343 (|r| autocorr / vol clustering), C360 (signed cross-moment corr(r,|r|_{t-k}) leverage coupling), C345 (close-location), C344 (sign-change/chop), and all scaling/Hurst/entropy/ordinal/complexity families C346-C359. Raw equal-weight sample skewness & excess kurtosis of log-returns, price-only, volume-free.'
+  as_of_utc: 2026-11-18T02:10:13Z
+  signals: [rskew_dev, rkurt_dev, rskew_placebo, rkurt_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261225
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rskew_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  gates: 'Holm+BH alpha=0.05 BOTH, MDE (two-sided alpha=0.05 power=0.80), stability (sign consistency>=0.70 AND first/second-half Sharpe corr>=0.5), signal-vs-placebo attribution (dominant real non-placebo signal >=0.5)'
+  on_disk:
+    scripts: false
+    tests: false
+    cache: false
+    artifacts: false
+  rskek_params:
+    window_W: 256
+  real_data_only: true
+  fabricated_data: false
+  executed_fills: false
