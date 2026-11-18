@@ -1,25 +1,25 @@
-updated_at_utc: 2026-11-18T11:00:07Z
-handoff_refreshed_at_utc: 2026-11-18T11:00:07Z
+updated_at_utc: 2026-11-18T12:51:26Z
+handoff_refreshed_at_utc: 2026-11-18T12:51:26Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C366
-next_campaign: C367
+latest_campaign_done: C368
+next_campaign: C369
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T11:00:07Z (no HANDOFF.md; C366 RQV FROZEN formal negative at 20261118T105747Z — 5 reports campaign366_*_20261118T105747Z.json + cache campaign366_rqv_5m present, 22/22 tests green; C367 is now ACTIVE and NOT STARTED — no campaign367 scripts/tests/cache/reports on disk; C312 5m source = 10 symbols x 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Prior 10:44:11Z block is SUPERSEDED by this 11:00:07Z refresh.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T11:00:07Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T11:00:07Z: C281B-C366 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382 share>0.50 placebo dominates, attribution_ok false, 22/22 tests green, 5 SHA256 artifacts present). C367 RQV successor NOT STARTED — no campaign367 scripts/tests/cache/reports on disk. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready (10x315648). C287 external-only/decoupled (451/403) — never retry. NO blockers; only execution remains. SINGLE authoritative timestamp = 2026-11-18T11:00:07Z. NO-LIGHT-WORK RULE: session completion requires finishing C367 = 3 scripts + 2 test files + cache campaign367_*_5m + preflight ready:true + 1296-config sweep + 5 SHA256 reports/campaign367_*_<TS>Z.json + >=21 green tests incl C367 brute-force equality; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C367
-queued_next_campaign_note: 'C366 RQV (Realized Quartic Variation / Kurtosis-Concentration of Squared Returns) is now FROZEN formal negative at 20261118T105747Z (1296 configs, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false). C367 next genuinely-new price-only family is the ACTIVE campaign to build end-to-end. Full spec to be authored in AGENTS.md following the C366 template: 4 signals (2 real + 2 placebos), 1296 configs (4x6x3x3x3x2), fixed intrinsic window, placebo_seed=20261231.'
-queued_campaign_c366: C366
-queued_campaign_c366_note: 'C366 RQV is now COMPLETE/FROZEN formal negative (20261118T105747Z): scripts build_c366_rqv_features.py/preflight_c366.py/run_c366_rqv_xsec_oos.py, tests test_preflight_c366.py/test_c366_rqv_xsec_oos.py, cache campaign366_rqv_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RQV brute-force equality. C366 RESULT recorded in AGENTS.md; activate C367.'
-first_action: "FINISH C367 NOW (2026-11-18T11:00:07Z, re-verified NOT STARTED): next genuinely-new price-only stat-arb family x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, on real C312 data. NO campaign367 scripts/tests/cache/reports exist — CREATE by cloning C366 pattern: 1) WRITE scripts/build_c367_*_features.py, scripts/preflight_c367.py, scripts/run_c367_*_xsec_oos.py. 2) WRITE tests/test_preflight_c367.py + tests/test_c367_*_xsec_oos.py (MUST include C367 brute-force equality: vectorized kernel vs per-window reference). 3) python3 scripts/build_c367_*_features.py -> data/cache/campaign367_*_5m/. 4) python3 scripts/preflight_c367.py -> ready:true. 5) python3 scripts/run_c367_*_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign367_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c367.py tests/test_c367_*_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C367 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C368. No downscoping/re-runs of frozen C281B-C366/C287; no gate weakening; no closure by fiat. Prose-only session is a hard violation."
+  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T12:51:26Z (no HANDOFF.md; C367 BPV frozen 20261118T110940Z + C368 RMAD/RABS frozen 20261118T115652Z — 5 reports each campaign367_*_20261118T110940Z.json / campaign368_*_20261118T115652Z.json present, report+cache SHAs re-hashed on disk and MATCH; C367 22/22 + C368 22/22 tests green; C369 GMD/IQR is now ACTIVE and NOT STARTED — no campaign369 scripts/tests/cache/reports on disk; C312 5m source = 10 symbols x 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Prior 11:00:07Z block (C366-done/C367-active) is SUPERSEDED by this 12:51:26Z refresh.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T12:51:26Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T12:51:26Z: C281B-C368 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C367 BPV frozen 20261118T110940Z (1296, RETRACTED, dominant jump_ratio_placebo 0.4523, attribution_ok false, 22/22 tests green, 5 SHA256 artifacts present, report SHAs re-verified on disk). C368 RMAD/RABS frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false, 22/22 tests green, 5 SHA256 artifacts present, report SHAs re-verified on disk). C369 GMD/IQR successor NOT STARTED — no campaign369 scripts/tests/cache/reports on disk. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready (10x315648). C287 external-only/decoupled (451/403) — never retry. NO blockers; only execution remains. SINGLE authoritative timestamp = 2026-11-18T12:51:26Z. NO-LIGHT-WORK RULE: session completion requires finishing C369 = 3 scripts (build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py) + 2 test files + cache campaign369_gmd_5m + preflight ready:true + 1296-config sweep + 5 SHA256 reports/campaign369_*_<TS>Z.json + >=21 green tests incl C369 GMD+IQR brute-force equality; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C369
+queued_next_campaign_note: 'C367 BPV (Bipower Variation / Jump-Activity Ratio) frozen 20261118T110940Z (1296, RETRACTED, dominant jump_ratio_placebo 0.4523, attribution_ok false) and C368 RMAD/RABS (Realized Median Absolute Deviation & Median-of-Absolutes) frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false) are both COMPLETE FORMAL NEGATIVES. C369 GMD/IQR (Gini Mean Difference & Interquartile Range) is the ACTIVE campaign to build end-to-end. Full spec is in the AGENTS.md INITIAL TASK MESSAGE: 4 signals (gmd_dev/iqr_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), intrinsic window W=256, placebo_seed=20261233.'
+queued_campaign_c368: C368
+queued_campaign_c368_note: 'C368 RMAD/RABS is COMPLETE/FROZEN formal negative (20261118T115652Z): scripts build_c368_rmad_features.py/preflight_c368.py/run_c368_rmad_xsec_oos.py, tests test_preflight_c368.py/test_c368_rmad_xsec_oos.py, cache campaign368_rmad_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RMAD/RABS brute-force equality. C368 RESULT recorded in AGENTS.md; C369 is now active.'
+first_action: "EXECUTE C369 NOW (2026-11-18T12:51:26Z, re-verified NOT STARTED): C369 = GINI MEAN DIFFERENCE (GMD) & INTERQUARTILE RANGE (IQR) x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, on real C312 data. NO campaign369 scripts/tests/cache/reports exist — CREATE by cloning C368 pattern: 1) WRITE scripts/build_c369_gmd_features.py, scripts/preflight_c369.py, scripts/run_c369_gmd_xsec_oos.py. 2) WRITE tests/test_preflight_c369.py + tests/test_c369_gmd_xsec_oos.py (MUST include C369 GMD+IQR brute-force equality: vectorized sliding_window_view+sort/percentile vs per-window reference). 3) python3 scripts/build_c369_gmd_features.py -> data/cache/campaign369_gmd_5m/. 4) python3 scripts/preflight_c369.py -> ready:true. 5) python3 scripts/run_c369_gmd_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign369_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c369.py tests/test_c369_gmd_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C369 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C370 (RAR/MADM). No downscoping/re-runs of frozen C281B-C368/C287; no gate weakening; no closure by fiat. Prose-only session is a hard violation."
 
-active_campaign: C367
-space_status: NO_EDGE_C281B_C366
-closure_note: 'C281B–C366 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C367 is now active — scripts/cache/tests/reports not yet on disk; start immediately.'
+active_campaign: C369
+space_status: NO_EDGE_C281B_C368
+closure_note: 'C281B–C368 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false, 22/22 tests green). C367 frozen 20261118T110940Z (1296, RETRACTED, dominant jump_ratio_placebo 0.4523, attribution_ok false, 22/22 tests green). C368 frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C369 is now active — scripts/cache/tests/reports not yet on disk; execute immediately.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -129,6 +129,82 @@ c366_status:
   cache_shas:
     meta: 'c2ee29553aa21d805477ca3dfbc79e709b2d2eb86a589ca2863ddde2373c8a42'
     provenance: '38104b17c511eb3906b2fe08c647523c23cccb8400df09f656c27ffe7c584ca1'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c367_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C367
+  family: cross_sectional_bipower_variation_jump_activity_ratio_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) total magnitude), C348 (HHI squared-return concentration), C361 (raw skew/kurt), C362 (Hill tail-index EVT), C363 (QATM quantile family), C364 (DSRV semivariance sign split), C365 (KER path geometry), C366 (RQV quarticity/concentration), C368 (RMAD median abs dev). BPV is a bipower-variation / jump-activity (continuous-vs-jump) decomposition family never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T110940Z
+  artifacts_ts: 20261118T110940Z
+  signals: [bpv_dev, jump_ratio_dev, bpv_placebo, jump_ratio_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261231
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'bpv_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [bpv_dev, jump_ratio_dev]
+  bpv_params: {window_W: 256}
+  scripts_present: [scripts/build_c367_bpv_features.py, scripts/preflight_c367.py, scripts/run_c367_bpv_xsec_oos.py]
+  tests_present: [tests/test_preflight_c367.py, tests/test_c367_bpv_xsec_oos.py]
+  cache_present: data/cache/campaign367_bpv_5m
+  artifacts_present: [reports/campaign367_oos_sweep_20261118T110940Z.json, reports/campaign367_tradable_edge_registry_20261118T110940Z.json, reports/campaign367_summary_20261118T110940Z.json, reports/campaign367_verdict_20261118T110940Z.json, reports/campaign367_binding_constraint_20261118T110940Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: jump_ratio_placebo
+  dominant_share: 0.4523408519835672
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: '1ced6aa4863592145e91c5ae9cb66df25d2a77a0473d973f88c2d76497c87de0'
+    tradable_edge_registry: '50439977ed568a52766bac4d7130875fac82cdd879be9fce7dca91c21808a20a'
+    summary: '3db474314fdbd514f62fbdf96d7fe74a6a0216748c7a25e295405fb32fb5382a'
+    verdict: 'a5301e22844c08c1a5462f7ff9f662d0f7eee486efe3d8fd994e6a4035d9faef'
+    binding_constraint: '66af9f508ca080bee7076507d0c951b94cca821d6d51073ad2cd8b4a0715c6a0'
+  cache_shas:
+    meta: '618a25263dbac022bba722404b2b6cfd2f8f16fc17db6221ca7a46aa8d700fbd'
+    provenance: '0f728d8c5f6af93079d770645009214ea9e5cb7d672e4a553729eb5f47807d4c'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c368_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C368
+  family: cross_sectional_realized_median_absolute_deviation_median_of_absolutes_volatility_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) L2 magnitude), C348 (HHI squared-return concentration), C361 (raw skew/kurt central moments), C362 (Hill tail-index EVT), C363 (QATM quantile family), C364 (DSRV semivariance sign split), C365 (KER path geometry), C366 (RQV quarticity/concentration), C367 (BPV bipower/jump ratio), C369 (GMD/IQR). RMAD/RABS are L1 median-absolute-deviation / median-of-absolutes robust dispersion statistics never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T115652Z
+  artifacts_ts: 20261118T115652Z
+  signals: [rmad_dev, rabs_dev, rmad_placebo, rabs_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261232
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rmad_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rmad_dev, rabs_dev]
+  rmad_params: {window_W: 256}
+  scripts_present: [scripts/build_c368_rmad_features.py, scripts/preflight_c368.py, scripts/run_c368_rmad_xsec_oos.py]
+  tests_present: [tests/test_preflight_c368.py, tests/test_c368_rmad_xsec_oos.py]
+  cache_present: data/cache/campaign368_rmad_5m
+  artifacts_present: [reports/campaign368_oos_sweep_20261118T115652Z.json, reports/campaign368_tradable_edge_registry_20261118T115652Z.json, reports/campaign368_summary_20261118T115652Z.json, reports/campaign368_verdict_20261118T115652Z.json, reports/campaign368_binding_constraint_20261118T115652Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: rmad_dev
+  dominant_share: 0.29882673185780123
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: 'c2347d030c8162dfd8c1e8e7e14128ff2d9d597b09f8837c9752da691cc319a7'
+    tradable_edge_registry: 'a72ac87a3a7dfa5656655b957602afd5e72f4c2683a74552ca86945f63b08efe'
+    summary: '8bc9f077f08cb921cc1b770de68b2ece4ebbdd48ea3c27aa465310a85969ec0f'
+    verdict: 'a618e995c63dd0aa05d655111947ca5f102480bcc731bee29453865a5f949b0c'
+    binding_constraint: '72f058368cdf00e8db512c07173e8e915e6a7158a5bccf0fda636a3134b959a4'
+  cache_shas:
+    meta: 'cde79282e88326d13ca0a7fa085b46499f61416fb1b5db5e0367b6b75d29fc48'
+    provenance: '7ead06b24d640133d84ba3856353683de7730ed8b2c809be73f605ffff1f7b61'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c360_status:
   state: COMPLETE_FORMAL_NEGATIVE
