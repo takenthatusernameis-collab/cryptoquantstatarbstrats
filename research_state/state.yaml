@@ -1,28 +1,28 @@
-updated_at_utc: 2026-11-18T23:17:09Z
-handoff_refreshed_at_utc: 2026-11-18T23:17:09Z
+updated_at_utc: 2026-11-18T23:20:56Z
+handoff_refreshed_at_utc: 2026-11-18T23:20:56Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C375
-next_campaign: C376
+latest_campaign_done: C376
+next_campaign: C377
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T23:17:09Z (disk): C375 ACOVK FROZEN formal negative (20261118T222249Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, RETRACTED, dominant acov_sum_placebo 0.4173, attribution_ok false); 5 artifacts reports/campaign375_*_20261118T222249Z.json (oos_sweep 512ea714..., verdict 19c52ccd... re-hashed and matched); cache data/cache/campaign375_acovk_5m/ (10x315648). ZERO campaign376_* files on disk - all of C376 is pure work to do. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C375. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb is the PRIMARY axis (dollar-neutral rank long-top/short-bottom, gross 1.0), seasonal-dislocation mean-reversion is the signal overlay, costed OOS + Holm AND BH is the only gate. C376 QSPREAD is ACTIVE (full spec in AGENTS.md INITIAL TASK MESSAGE). Bottlenecks: NONE. Next session: execute C376 end-to-end NOW; then C377 PSLOPE, C378 VOVR, C379 CURV (queue depth 4) with backlog to C383.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T23:20:56Z (disk): C376 QSPREAD FROZEN formal negative (20261118T232056Z, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, RETRACTED, binding multiple_testing, dominant qspread_ratio_placebo 0.2777, attribution_ok false, 22/22 tests green incl brute-force equality); 5 artifacts reports/campaign376_*_20261118T232056Z.json (oos_sweep 84e51c17..., verdict c2b1cee6...); cache data/cache/campaign376_qspread_5m/ (10x315648, 38.48 MB). C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C376. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb is the PRIMARY axis (dollar-neutral rank long-top/short-bottom, gross 1.0), seasonal-dislocation mean-reversion is the signal overlay, costed OOS + Holm AND BH is the only gate. C377 PSLOPE is ACTIVE (full spec in AGENTS.md INITIAL TASK MESSAGE). Bottlenecks: NONE. Next session: execute C377 end-to-end NOW; then C378 VOVR, C379 CURV (queue depth 3) with backlog to C383.'
 bottlenecks_verified_removed_at_utc: "2026-11-18T23:17:09Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T23:17:09Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C375 ALL COMPLETE FORMAL NEGATIVES. C375 ACOVK FROZEN (20261118T222249Z; dominant acov_sum_placebo 0.4173; 22/22 green incl brute-force). C376 QSPREAD is ACTIVE (qspread_ratio=(q90-q10)/max(q75-q25,eps), qspread_asym Bowley within-tail, W=256, placebo seed 20261240, ref qspread_ratio_dev L=240 H=4). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 4 (C376 active, C377 PSLOPE, C378 VOVR, C379 CURV pre-seeded) plus backlog to C383, so the queue can never be empty. NO-LIGHT-WORK RULE: the session must produce heavy artifacts for C376 (3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C376
-queued_next_campaign_note: 'C376 QSPREAD (realized quantile spread profile (q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry, W=256, 4 signals incl 2 placebos, 1296 configs, placebo seed 20261240, ref qspread_ratio_dev L=240 H=4 fee 0.0007 slip 0.0001 taker) is ACTIVE in AGENTS.md and must execute immediately (no planning turn). Then C377 PSLOPE (window OLS trend-slope t-statistic of log(close) on bar index, placebo seed 20261241), C378 VOVR (16x16-bar block realized-variance dispersion, placebo seed 20261242), C379 CURV (quadratic-trend curvature c*W^2 and curvature/drift tilt, placebo seed 20261243) are PRE-SEEDED with full executable specs in the AGENTS.md INITIAL TASK MESSAGE. Queue depth 4, backlog to C383 (SEMICOV, TURNINGPT, TAILMEM). Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T23:20:56Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C376 ALL COMPLETE FORMAL NEGATIVES. C376 QSPREAD FROZEN (20261118T232056Z; dominant qspread_ratio_placebo 0.2777; 22/22 green incl brute-force). C377 PSLOPE is ACTIVE (window OLS trend-slope t-statistic of log(close) on bar index, W=256, placebo seed 20261241, ref pslope_t_dev L=240 H=4). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 3 (C377 active, C378 VOVR, C379 CURV pre-seeded) plus backlog to C383, so the queue can never be empty. NO-LIGHT-WORK RULE: the session must produce heavy artifacts for C377 (3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
+queued_next_campaign: C377
+queued_next_campaign_note: 'C377 PSLOPE (window OLS trend-slope t-statistic pslope_t = b/sqrt((sse/(W-2))/sxx) and pslope_slope = b*W over log(close) on bar index, W=256, 4 signals incl 2 placebos, 1296 configs, placebo seed 20261241, ref pslope_t_dev L=240 H=4 fee 0.0007 slip 0.0001 taker) is ACTIVE in AGENTS.md and must execute immediately (no planning turn). Then C378 VOVR (16x16-bar block realized-variance dispersion, placebo seed 20261242), C379 CURV (quadratic-trend curvature c*W^2 and curvature/drift tilt, placebo seed 20261243) are PRE-SEEDED with full executable specs in the AGENTS.md INITIAL TASK MESSAGE. Queue depth 3, backlog to C383 (SEMICOV, TURNINGPT, TAILMEM). Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
 queued_campaign_c368: C368
 queued_campaign_c368_note: 'C368 RMAD/RABS is COMPLETE/FROZEN formal negative (20261118T115652Z): scripts build_c368_rmad_features.py/preflight_c368.py/run_c368_rmad_xsec_oos.py, tests test_preflight_c368.py/test_c368_rmad_xsec_oos.py, cache campaign368_rmad_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RMAD/RABS brute-force equality. C368 RESULT recorded in AGENTS.md; C369 is frozen.'
 queued_campaign_c369: C369
 queued_campaign_c369_note: 'C369 GMD/IQR is COMPLETE/FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C369 RESULT recorded in AGENTS.md; C370 is frozen.'
 queued_campaign_c370: C370
 queued_campaign_c370_note: 'C370 RAR/MADM is COMPLETE/FROZEN formal negative (20261118T140545Z): scripts build_c370_rarmadm_features.py/preflight_c370.py/run_c370_rarmadm_xsec_oos.py, tests test_preflight_c370.py/test_c370_rarmadm_xsec_oos.py, cache campaign370_rarmadm_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RAR/MADM brute-force equality. C370 RESULT recorded in AGENTS.md; C371 is frozen.'
-first_action: "EXECUTE C376 QSPREAD NOW (re-verified 2026-11-18T23:17:09Z): START WITH CODE/BUILD - NOT ANALYSIS. Follow the AGENTS.md INITIAL TASK MESSAGE + EXECUTION CARD exactly. C376 = QSPREAD (qspread_ratio=(q90-q10)/max(q75-q25,1e-12), qspread_asym=((q90-q50)-(q50-q10))/max(q90-q10,1e-12)) x causal seasonal-dislocation overlay, cross-sectional dollar-neutral long-top/short-bottom across 10 USDT-M perps, costed OOS, real C312 perp_close only (5m). CLONE C375 (scripts/build_c375_acovk_features.py, scripts/preflight_c375.py, scripts/run_c375_acovk_xsec_oos.py, tests/test_preflight_c375.py, tests/test_c375_acovk_xsec_oos.py) and adapt: 1) WRITE scripts/build_c376_qspread_features.py, scripts/preflight_c376.py, scripts/run_c376_qspread_xsec_oos.py. 2) WRITE tests/test_preflight_c376.py + tests/test_c376_qspread_xsec_oos.py (MUST include QSPREAD brute-force equality: vectorized sliding_window_view + np.percentile vs per-window reference, maxdiff < 1e-12). 3) python3 scripts/build_c376_qspread_features.py -> data/cache/campaign376_qspread_5m/. 4) python3 scripts/preflight_c376.py -> ready:true. 5) python3 scripts/run_c376_qspread_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign376_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c376.py tests/test_c376_qspread_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C376 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, then immediately execute pre-seeded C377 PSLOPE. No downscoping/re-runs of frozen C281B-C375/C287; no gate weakening; no closure by fiat."
-active_campaign: C376
-space_status: NO_EDGE_C281B_C375
-closure_note: 'C281B-C375 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C374 frozen 20261118T212227Z (1296, RETRACTED, dominant max_run_share_placebo 0.4773, attribution_ok false, 22/22 tests green). C375 frozen 20261118T222249Z (1296, RETRACTED, dominant acov_sum_placebo 0.4173, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C376 QSPREAD is ACTIVE - execute end-to-end NOW, then C377/C378/C379.'
+first_action: "EXECUTE C377 PSLOPE NOW (re-verified 2026-11-18T23:20:56Z): START WITH CODE/BUILD - NOT ANALYSIS. C377 = PSLOPE (window OLS trend slope of log(close) on bar index over W=256, signal = slope t-statistic b/sqrt((sse/(W-2))/sxx) and fitted net log-drift b*W) x causal seasonal-dislocation overlay, cross-sectional dollar-neutral long-top/short-bottom across 10 USDT-M perps, costed OOS, real C312 perp_close only (5m). CLONE C376 (scripts/build_c376_qspread_features.py, scripts/preflight_c376.py, scripts/run_c376_qspread_xsec_oos.py, tests/test_preflight_c376.py, tests/test_c376_qspread_xsec_oos.py) and adapt: 1) WRITE scripts/build_c377_pslope_features.py, scripts/preflight_c377.py, scripts/run_c377_pslope_xsec_oos.py. 2) WRITE tests/test_preflight_c377.py + tests/test_c377_pslope_xsec_oos.py (MUST include PSLOPE brute-force equality vs per-window np.polyfit/OLS, maxdiff < 1e-12). 3) python3 scripts/build_c377_pslope_features.py -> data/cache/campaign377_pslope_5m/. 4) python3 scripts/preflight_c377.py -> ready:true. 5) python3 scripts/run_c377_pslope_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign377_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c377.py tests/test_c377_pslope_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C377 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, then immediately execute pre-seeded C378 VOVR. No downscoping/re-runs of frozen C281B-C376/C287; no gate weakening; no closure by fiat."
+active_campaign: C377
+space_status: NO_EDGE_C281B_C376
+closure_note: 'C281B-C376 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C375 frozen 20261118T222249Z (1296, RETRACTED, dominant acov_sum_placebo 0.4173, attribution_ok false, 22/22 tests green). C376 frozen 20261118T232056Z (1296, RETRACTED, dominant qspread_ratio_placebo 0.2777, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C377 PSLOPE is ACTIVE - execute end-to-end NOW, then C378/C379.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -440,13 +440,53 @@ c375_status:
     provenance: '244368476b7d95dd91095b175047433b58bd23491c4733cf8c782f1f73053418'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
+c376_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C376
+  family: realized_quantile_spread_profile_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C363 (QATM Galton quantile skew + boxplot outlier rate), C369 (GMD/IQR level), C362 (Hill EVT tail index), C361/C371 (central moments), C364 (semivariance sign split), C366 (quarticity/top-k concentration), C374 (run-length geometry), C375 (autocovariance profile), C365 (KER path geometry). QSPREAD is the realized quantile-spread SHAPE (tail-vs-core spread ratio + Bowley within-tail asymmetry) never used before. Price-only (perp_close), volume-free.'
+  metrics: 'q10..q90 = np.percentile(X,[10,25,50,75,90]); qspread_ratio = (q90-q10)/max(q75-q25,1e-12); qspread_asym = ((q90-q50)-(q50-q10))/max(q90-q10,1e-12) over W=256'
+  signals: [qspread_ratio_dev, qspread_asym_dev, qspread_ratio_placebo, qspread_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261240
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'qspread_ratio_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [qspread_ratio_dev, qspread_asym_dev]
+  qspread_params: {window_W: 256, quantiles: [0.10, 0.25, 0.50, 0.75, 0.90]}
+  scripts_present: [scripts/build_c376_qspread_features.py, scripts/preflight_c376.py, scripts/run_c376_qspread_xsec_oos.py]
+  tests_present: [tests/test_preflight_c376.py, tests/test_c376_qspread_xsec_oos.py]
+  cache_present: data/cache/campaign376_qspread_5m
+  artifacts_present: [reports/campaign376_oos_sweep_20261118T232056Z.json, reports/campaign376_tradable_edge_registry_20261118T232056Z.json, reports/campaign376_summary_20261118T232056Z.json, reports/campaign376_verdict_20261118T232056Z.json, reports/campaign376_binding_constraint_20261118T232056Z.json]
+  as_of_utc: 20261118T232056Z
+  artifacts_ts: 20261118T232056Z
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: qspread_ratio_placebo
+  dominant_share: 0.2777
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: '84e51c17d661e72bd1a69f62a6d6da4c4e4275e7f02ba807fc1571de0f1495f9'
+    tradable_edge_registry: '92325dc43e1de19d32c3bd3a57f7925f36a292f42f0e526b882a02e0af693ce5'
+    summary: 'b08b379aff5cb25368891c47d5a40607de393f2acd9dd46e0d86f7182f1aa820'
+    verdict: 'c2b1cee6da4ace2def4451c9678197dfc299824d554d3bce6cd7e9d953c7468a'
+    binding_constraint: '838a08454456e0b82e834819bf62a018728f61bd5554b623cb26ac5c79877a78'
+  cache_shas:
+    meta: '0ceeaf10f48384afa9b2b8feadae9530fc4bd71b37a5e957de9fc4ba279084d2'
+    provenance: '8223d406500d532f595dc2aa268452ad072f11a33223bed9fc347188665b1744'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
 family_backlog_c373_plus:
   - 'C375 COMPLETE_FORMAL_NEGATIVE: ACOVK multi-lag realized autocovariance profile (acov_sum = g1+g2+g4+g8, acov_decay = g1-g8)'
-  - 'C376 ACTIVE: QSPREAD realized quantile spread profile ((q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry)'
-  - 'C377 backlog: PSLOPE window OLS trend-slope t-statistic of log(close) on bar index'
+  - 'C376 COMPLETE_FORMAL_NEGATIVE: QSPREAD realized quantile spread profile ((q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry)'
+  - 'C377 ACTIVE: PSLOPE window OLS trend-slope t-statistic of log(close) on bar index'
   - 'C378 backlog: VOVR volatility-of-volatility ratio (std of 16 sub-block RVs / mean sub-block RV)'
   - 'C379 backlog: CURV window quadratic-trend curvature of log(close) (c*W^2 curvature, curvature/drift tilt)'
-handoff_as_of_utc: 20261118T231709Z
-queue_depth: 4
+handoff_as_of_utc: 20261118T232056Z
+queue_depth: 3
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry

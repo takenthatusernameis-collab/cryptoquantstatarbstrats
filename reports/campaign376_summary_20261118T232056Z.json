@@ -1,0 +1,180 @@
+{
+  "generated_at_utc": "20261118T232056Z",
+  "campaign": 376,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "qspread_ratio_dev",
+      "qspread_asym_dev",
+      "qspread_ratio_placebo",
+      "qspread_asym_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261240,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 1296,
+    "qspread_params": {
+      "W": 256,
+      "quantiles": [
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        0.9
+      ],
+      "eps": 1e-12
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "qspread_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "qspread_ratio_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -1.5745853927610174,
+        -1.5457216901536248,
+        -1.8228473077092806,
+        -1.6152324365344761,
+        -1.5222288937428612,
+        -1.6349070820839617,
+        -1.5189717688873037,
+        -1.685043509389713
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -15.091570617018666,
+      "second_half_sharpe": -22.11319802577081,
+      "sharpe_corr": 0.9989177607160821,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "qspread_ratio_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "qspread_ratio_dev_net": -1.5248488817299337,
+      "qspread_asym_dev_net": -1.3955292854575365,
+      "qspread_ratio_placebo_net": -1.7504881834239003,
+      "qspread_asym_placebo_net": -1.6324889960212834,
+      "shares": {
+        "qspread_ratio_dev": 0.24191066469773603,
+        "qspread_asym_dev": 0.22139467136388702,
+        "qspread_ratio_placebo": 0.27770736174013055,
+        "qspread_asym_placebo": 0.2589873021982464
+      },
+      "dominant": "qspread_ratio_placebo",
+      "dominant_share": 0.27770736174013055,
+      "attribution_ok": false,
+      "placebo_seed": 20261240
+    },
+    "data_quality": {
+      "reference_signal": "qspread_ratio_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019974782035685368,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements (t<W=256)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign376_oos_sweep_20261118T232056Z.json",
+      "sha256": "84e51c17d661e72bd1a69f62a6d6da4c4e4275e7f02ba807fc1571de0f1495f9"
+    },
+    "registry": {
+      "path": "reports/campaign376_tradable_edge_registry_20261118T232056Z.json",
+      "sha256": "92325dc43e1de19d32c3bd3a57f7925f36a292f42f0e526b882a02e0af693ce5"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1296,
+    "n_with_exposure": 1296,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}
