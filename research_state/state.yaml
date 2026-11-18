@@ -1,27 +1,28 @@
-updated_at_utc: 2026-11-18T13:55:00Z
-handoff_refreshed_at_utc: 2026-11-18T13:55:00Z
+updated_at_utc: 2026-11-18T14:47:00Z
+handoff_refreshed_at_utc: 2026-11-18T14:47:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C369
-next_campaign: C370
+latest_campaign_done: C370
+next_campaign: C371
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T13:55:00Z (disk): no HANDOFF.md/duplicate; C369 frozen artifacts/cache present (campaign369_*_20261118T135451Z.json, data/cache/campaign369_gmd_5m/); C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648); C369 cloning template present (5 files); C369 GMD/IQR FROZEN formal negative (20261118T135451Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, RETRACTED, dominant iqr_dev 0.3383, attribution_ok false). C370 RAR/MADM QUEUED and NOT STARTED — no campaign370 scripts/tests/cache/reports on disk. Bottlenecks: NONE. Next session must START heavy execution immediately (write C370 scripts+tests, build, preflight, full 1296-config costed OOS sweep, tests incl brute-force equality, 5 SHA256 artifacts, durable record).'
-bottlenecks_verified_removed_at_utc: "2026-11-18T13:55:00Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T13:55:00Z: no blocked/inefficient sessions. C281B-C369 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C369 GMD/IQR FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C370 RAR/MADM NOT STARTED but fully specified and unblocked (clone C369). C312 5m source ready (10x315648), C369 cache/template ready, deps previously verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. ONLY execution remains. NO-LIGHT-WORK RULE: session must produce heavy artifacts for C370 (3 scripts + 2 tests + cache campaign370_rarmadm_5m + preflight ready:true + full 1296-config sweep + 5 SHA256 reports/campaign370_*_<TS>Z.json + >=21 green tests incl RAR+MADM brute-force equality). Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C370
-queued_next_campaign_note: 'C368 RMAD/RABS frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false) and C369 GMD/IQR frozen 20261118T135451Z (1296, RETRACTED, dominant iqr_dev 0.3383, attribution_ok false) are both COMPLETE FORMAL NEGATIVES. C370 RAR/MADM (Realized Absolute Return & Mean Absolute Deviation) is the QUEUED campaign to build end-to-end next. Full spec is in the AGENTS.md INITIAL TASK MESSAGE: 4 signals (rar_dev/madm_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), intrinsic window W=256, placebo_seed=20261234.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T14:47:00Z (disk): C370 RAR/MADM FROZEN formal negative (20261118T140545Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, RETRACTED, dominant madm_placebo 0.2687, attribution_ok false); 5 artifacts reports/campaign370_*_20261118T140545Z.json, cache data/cache/campaign370_rarmadm_5m/; C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648); C370 cloning template present (5 files); C371 RSK/RKT QUEUED and NOT STARTED — no campaign371 scripts/tests/cache/reports on disk. Bottlenecks: NONE. Next session must START heavy execution immediately (write C371 scripts+tests, build, preflight, full 1296-config costed OOS sweep, tests incl brute-force equality, 5 SHA256 artifacts, durable record).'
+bottlenecks_verified_removed_at_utc: "2026-11-18T14:47:00Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T14:47:00Z: no blocked/inefficient sessions. C281B-C370 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C370 RAR/MADM FROZEN formal negative (20261118T140545Z): scripts build_c370_rarmadm_features.py/preflight_c370.py/run_c370_rarmadm_xsec_oos.py, tests test_preflight_c370.py/test_c370_rarmadm_xsec_oos.py, cache campaign370_rarmadm_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RAR+MADM brute-force equality. C371 RSK/RKT NOT STARTED but fully specified and unblocked (clone C370). C312 5m source ready (10x315648), C370 cache/template ready, deps previously verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. ONLY execution remains. NO-LIGHT-WORK RULE: session must produce heavy artifacts for C371 (3 scripts + 2 tests + cache campaign371_rskrkt_5m + preflight ready:true + full 1296-config sweep + 5 SHA256 reports/campaign371_*_<TS>Z.json + >=21 green tests incl RSK+RKT brute-force equality). Prose-only/partial is a HARD VIOLATION.'
+queued_next_campaign: C371
+queued_next_campaign_note: 'C369 GMD/IQR frozen 20261118T135451Z (1296, RETRACTED, dominant iqr_dev 0.3383, attribution_ok false) and C370 RAR/MADM frozen 20261118T140545Z (1296, RETRACTED, dominant madm_placebo 0.2687, attribution_ok false) are both COMPLETE FORMAL NEGATIVES. C371 RSK/RKT (Realized Skewness & Realized Kurtosis) is the QUEUED campaign to build end-to-end next. Full spec is in the AGENTS.md INITIAL TASK MESSAGE: 4 signals (rsk_dev/rkt_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), intrinsic window W=256, placebo_seed=20261235.'
 queued_campaign_c368: C368
 queued_campaign_c368_note: 'C368 RMAD/RABS is COMPLETE/FROZEN formal negative (20261118T115652Z): scripts build_c368_rmad_features.py/preflight_c368.py/run_c368_rmad_xsec_oos.py, tests test_preflight_c368.py/test_c368_rmad_xsec_oos.py, cache campaign368_rmad_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RMAD/RABS brute-force equality. C368 RESULT recorded in AGENTS.md; C369 is frozen.'
 queued_campaign_c369: C369
-queued_campaign_c369_note: 'C369 GMD/IQR is COMPLETE/FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C369 RESULT recorded in AGENTS.md; C370 is next.'
-first_action: "EXECUTE C370 NOW (2026-11-18T13:55:00Z): START WITH CODE/BUILD — NOT ANALYSIS. C370 = REALIZED ABSOLUTE RETURN & MEAN ABSOLUTE DEVIATION (RAR/MADM) x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, real C312. NO campaign370 scripts/tests/cache/reports exist. CLONE C369 (scripts/build_c369_gmd_features.py, scripts/preflight_c369.py, scripts/run_c369_gmd_xsec_oos.py, tests/test_preflight_c369.py, tests/test_c369_gmd_xsec_oos.py) and adapt: 1) WRITE scripts/build_c370_rarmadm_features.py, scripts/preflight_c370.py, scripts/run_c370_rarmadm_xsec_oos.py. 2) WRITE tests/test_preflight_c370.py + tests/test_c370_rarmadm_xsec_oos.py (MUST include C370 RAR+MADM brute-force equality: vectorized sliding_window_view+cumulative-sums vs per-window reference). 3) python3 scripts/build_c370_rarmadm_features.py -> data/cache/campaign370_rarmadm_5m/. 4) python3 scripts/preflight_c370.py -> ready:true. 5) python3 scripts/run_c370_rarmadm_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign370_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c370.py tests/test_c370_rarmadm_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C370 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, activate next pre-seeded price-only family if turns allow. No downscoping/re-runs of frozen C281B-C369/C287; no gate weakening; no closure by fiat."
-
-active_campaign: C369
-space_status: NO_EDGE_C281B_C368
-closure_note: 'C281B–C368 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false, 22/22 tests green). C367 frozen 20261118T110940Z (1296, RETRACTED, dominant jump_ratio_placebo 0.4523, attribution_ok false, 22/22 tests green). C368 frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C369 is now active — scripts/cache/tests/reports not yet on disk; execute immediately.'
+queued_campaign_c369_note: 'C369 GMD/IQR is COMPLETE/FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C369 RESULT recorded in AGENTS.md; C370 is frozen.'
+queued_campaign_c370: C370
+queued_campaign_c370_note: 'C370 RAR/MADM is COMPLETE/FROZEN formal negative (20261118T140545Z): scripts build_c370_rarmadm_features.py/preflight_c370.py/run_c370_rarmadm_xsec_oos.py, tests test_preflight_c370.py/test_c370_rarmadm_xsec_oos.py, cache campaign370_rarmadm_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RAR/MADM brute-force equality. C370 RESULT recorded in AGENTS.md; C371 is next.'
+first_action: "EXECUTE C371 NOW (2026-11-18T14:47:00Z): START WITH CODE/BUILD — NOT ANALYSIS. C371 = REALIZED SKEWNESS & REALIZED KURTOSIS (RSK/RKT) x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, real C312. NO campaign371 scripts/tests/cache/reports exist. CLONE C370 (scripts/build_c370_rarmadm_features.py, scripts/preflight_c370.py, scripts/run_c370_rarmadm_xsec_oos.py, tests/test_preflight_c370.py, tests/test_c370_rarmadm_xsec_oos.py) and adapt: 1) WRITE scripts/build_c371_rskrkt_features.py, scripts/preflight_c371.py, scripts/run_c371_rskrkt_xsec_oos.py. 2) WRITE tests/test_preflight_c371.py + tests/test_c371_rskrkt_xsec_oos.py (MUST include C371 RSK+RKT brute-force equality: vectorized sliding_window_view+cumulative-sums vs per-window reference). 3) python3 scripts/build_c371_rskrkt_features.py -> data/cache/campaign371_rskrkt_5m/. 4) python3 scripts/preflight_c371.py -> ready:true. 5) python3 scripts/run_c371_rskrkt_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign371_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c371.py tests/test_c371_rskrkt_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C371 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, activate next pre-seeded price-only family if turns allow. No downscoping/re-runs of frozen C281B-C370/C287; no gate weakening; no closure by fiat."
+active_campaign: C370
+space_status: NO_EDGE_C281B_C370
+closure_note: 'C281B–C370 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false, 22/22 tests green). C367 frozen 20261118T110940Z (1296, RETRACTED, dominant jump_ratio_placebo 0.4523, attribution_ok false, 22/22 tests green). C368 frozen 20261118T115652Z (1296, RETRACTED, dominant rmad_dev 0.2988, attribution_ok false, 22/22 tests green). C369 frozen 20261118T135451Z (1296, RETRACTED, dominant iqr_dev 0.3383, attribution_ok false, 22/22 tests green). C370 frozen 20261118T140545Z (1296, RETRACTED, dominant madm_placebo 0.2687, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C371 is now active — scripts/cache/tests/reports not yet on disk; execute immediately.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -208,134 +209,79 @@ c368_status:
     meta: 'cde79282e88326d13ca0a7fa085b46499f61416fb1b5db5e0367b6b75d29fc48'
     provenance: '7ead06b24d640133d84ba3856353683de7730ed8b2c809be73f605ffff1f7b61'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
-c360_status:
+c369_status:
   state: COMPLETE_FORMAL_NEGATIVE
-  campaign: C360
-  family: cross_sectional_leverage_volatility_asymmetry_coupling_seasonal_dislocation_mean_reversion_usdt_m_5m
+  campaign: C369
+  family: cross_sectional_gini_mean_difference_interquartile_range_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
-  as_of_utc: 20261118T014623Z
-  artifacts_ts: 20261118T014623Z
-  signals: [lvac_mean_dev, lvac_asym_dev, lvac_mean_placebo, lvac_asym_placebo]
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) L2 magnitude), C348 (HHI squared-return concentration), C361 (raw skew/kurt central moments), C362 (Hill tail-index EVT), C363 (QATM quantile family), C364 (DSRV semivariance sign split), C365 (KER path geometry), C366 (RQV quarticity/concentration), C367 (BPV bipower/jump ratio), C368 (RMAD median abs dev), C370 (RAR/MADM L1 dispersion). GMD/IQR are pairwise L-estimator (GMD) + quantile spread (IQR) robust dispersion statistics never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T135451Z
+  artifacts_ts: 20261118T135451Z
+  signals: [gmd_dev, iqr_dev, gmd_placebo, iqr_placebo]
   n_configs: 1296
   grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
-  placebo_seed: 20261224
-  verdict: RETRACTED
-  edge_proven: false
-  binding_constraint: multiple_testing
-  n_survive_both: 0
-  dominant_attribution: lvac_mean_placebo
-  dominant_share: 0.2977
-  attribution_ok: false
-  tests_green: 23
-  artifacts:
-    oos_sweep: '0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd'
-    tradable_edge_registry: '327de19a836b8ee793ef110ece0eebe08e564ed4eed3a4fec15458112b36f3b1'
-    summary: 'b7035ece654490b1329f497dc883fa322e7beb417c91347bf114f5bc7f2019cb'
-    verdict: 'acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b'
-    binding_constraint: 'f8a4c19b85ee97e12d4012fde4b9ef68762e814ca693fe190bcb39fbb9eca585'
-  cache_shas:
-    meta: '5ba5bfae583622447f505547ffacff1104b1cd300359ebda9c54e6a23ed8e751'
-    provenance: '80d7fccfbc8132e64ec738cf240cb68d2a646c1242b82314e0f6bead0146db2f'
-    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
-c361_status:
-  state: COMPLETE_FORMAL_NEGATIVE
-  campaign: C361
-  family: cross_sectional_raw_return_skewness_excess_kurtosis_seasonal_dislocation_mean_reversion_usdt_m_5m
-  genuinely_new: true
-  distinct_from: 'C342 (volume-weighted skew/kurt of vw_ret=log_return*sqrt(notional)), C317 (realized vol / 2nd moment), C348 (HHI squared-return concentration), C343 (|r| autocorr/vol clustering), C360 (signed corr(r,|r|_{t-k}) leverage coupling), C345 (close-location), C344 (sign-change/chop), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). Price-only (perp_close), volume-free, equal-weight moments of raw log-returns.'
-  as_of_utc: 20261118T024715Z
-  artifacts_ts: 20261118T024715Z
-  signals: [rskew_dev, rkurt_dev, rskew_placebo, rkurt_placebo]
-  n_configs: 1296
-  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
-  placebo_seed: 20261225
+  placebo_seed: 20261233
   wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
-  stability_ref: 'rskew_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
-  attr_representatives: [rskew_dev, rkurt_dev]
+  stability_ref: 'gmd_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [gmd_dev, iqr_dev]
+  gmd_params: {window_W: 256}
+  scripts_present: [scripts/build_c369_gmd_features.py, scripts/preflight_c369.py, scripts/run_c369_gmd_xsec_oos.py]
+  tests_present: [tests/test_preflight_c369.py, tests/test_c369_gmd_xsec_oos.py]
+  cache_present: data/cache/campaign369_gmd_5m
+  artifacts_present: [reports/campaign369_oos_sweep_20261118T135451Z.json, reports/campaign369_tradable_edge_registry_20261118T135451Z.json, reports/campaign369_summary_20261118T135451Z.json, reports/campaign369_verdict_20261118T135451Z.json, reports/campaign369_binding_constraint_20261118T135451Z.json]
   verdict: RETRACTED
   edge_proven: false
   binding_constraint: multiple_testing
   n_survive_both: 0
-  dominant_attribution: rkurt_placebo
-  dominant_share: 0.4324
+  dominant_attribution: iqr_dev
+  dominant_share: 0.3383
   attribution_ok: false
-  tests_green: 23
+  tests_green: 22
   artifacts:
-    oos_sweep: 'b624fdf359ce6285f32784577845a65117a908a1eb110902ad0251aaa3749340'
-    tradable_edge_registry: 'e037e8889574fcf3c8a3e1a5fb1be3dd49717047595c95f7f5b7918f96879dd9'
-    summary: '390b04f0c31c13dda351dcfe424bfcdd6a70f3bf55361795c68d5015e9840422'
-    verdict: '83d13a26aec96d38494b0330d3a4255887f2d09d3283462fb4c09b585b3da3ed'
-    binding_constraint: '3c74387525001bb8d57a15956a2f16b64ab774f864a7734974c214231e8e05a1'
+    oos_sweep: 'ed93c318f8551798a81a97f8ca0a907dd2602187abfdedbae959f28d4110f58a'
+    tradable_edge_registry: 'ce178e43956b7d16b41905365ec27f66a25dcaf23d9a20bb1210a91cd3734377'
+    summary: '1f68cc4c2044fa732d48a62413f65640be9e2581ee0072efa1bb2be3192e68d0'
+    verdict: '549fbeea5aa05b389d570aec552943528cf0137e726b7b68543c918b7f189d75'
+    binding_constraint: '55e5dd104610f0da9bd2211e60cb4ae50464269a7581a0ca62abe586e7281e9d'
   cache_shas:
-    meta: '6b81f7ec02ff231958ca4cfe42b433c5ddeb33e6628f90e54ec6cc88e06b4424'
-    provenance: 'f0784f392147ea5af34151121cea5e9c4741b5b79ea5da2f667ec0b4169e635c'
+    meta: 'b0049dd0a3b114a66a7df32c753bb9608e9a606ebab4667e98fa1399400620fe'
+    provenance: 'e455871e144a44c9ca2fffb060f2232916e6fc4acca053c32ea3bb9386eeb051'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
-c362_status:
+c370_status:
   state: COMPLETE_FORMAL_NEGATIVE
-  campaign: C362
-  family: cross_sectional_hill_tail_index_extreme_returns_tail_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
+  campaign: C370
+  family: cross_sectional_realized_absolute_return_mean_absolute_deviation_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
-  distinct_from: 'C361 (raw skew/kurt central moments), C317 (realized vol), C348 (HHI), C343 (|r| autocorr), C360 (signed cross-moment leverage coupling), C344 (sign-change/chop), C345 (close-location), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). Hill tail-index is an extreme value theory tail-thickness statistic (tail index alpha), not a moment and not a cross-moment. Price-only (perp_close), volume-free.'
-  as_of_utc: 20261118T033729Z
-  artifacts_ts: 20261118T033729Z
-  signals: [hill_tail_dev, hill_sign_tail_dev, hill_tail_placebo, hill_sign_tail_placebo]
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) L2 RMS magnitude), C368 (median MAD/rabs median-based robust dispersion), C369 (GMD pairwise L-estimator + IQR quantile spread), C361 (raw skew/kurt central moments), C363 (QATM quantile/order-statistic), C364 (DSRV semivariance 2nd-moment sign split), C365 (KER path geometry), C366 (RQV quarticity/concentration), C367 (BPV bipower/jump ratio). RAR/MADM is an L1 dispersion family (realized absolute return + mean absolute deviation about the mean) never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T140545Z
+  artifacts_ts: 20261118T140545Z
+  signals: [rar_dev, madm_dev, rar_placebo, madm_placebo]
   n_configs: 1296
   grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
-  placebo_seed: 20261226
+  placebo_seed: 20261234
   wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
-  stability_ref: 'hill_tail_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
-  attr_representatives: [hill_tail_dev, hill_sign_tail_dev]
-  hill_params: {window_W: 256, n_exceed: 12}
+  stability_ref: 'rar_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rar_dev, madm_dev]
+  rarmadm_params: {window_W: 256}
+  scripts_present: [scripts/build_c370_rarmadm_features.py, scripts/preflight_c370.py, scripts/run_c370_rarmadm_xsec_oos.py]
+  tests_present: [tests/test_preflight_c370.py, tests/test_c370_rarmadm_xsec_oos.py]
+  cache_present: data/cache/campaign370_rarmadm_5m
+  artifacts_present: [reports/campaign370_oos_sweep_20261118T140545Z.json, reports/campaign370_tradable_edge_registry_20261118T140545Z.json, reports/campaign370_summary_20261118T140545Z.json, reports/campaign370_verdict_20261118T140545Z.json, reports/campaign370_binding_constraint_20261118T140545Z.json]
   verdict: RETRACTED
   edge_proven: false
   binding_constraint: multiple_testing
   n_survive_both: 0
-  dominant_attribution: hill_sign_tail_placebo
-  dominant_share: 0.31364801112427076
+  dominant_attribution: madm_placebo
+  dominant_share: 0.26873942465353046
   attribution_ok: false
-  tests_green: 23
+  tests_green: 22
   artifacts:
-    oos_sweep: '1b1f5f18e35f1f465555a8a8547db42473f65e605e7d9ca229a042938245ec3d'
-    tradable_edge_registry: '78f9d81e7b060b64ee2309b7668666f175aa2506fbdcb1e10ac03288db1f6553'
-    summary: '4fa345c77363a7cd0ff7b30a8574967798dcb4761dd4bad883453676e40cab82'
-    verdict: '24e9b0be1f48db8061c74872f199d860444da3be08560f51d3808ffb06f00637'
-    binding_constraint: '1085b11bd0b3c0e82abe24086fa4358f84fef7e80d9a055ff813ed4df794ca26'
-    full: '9c4b365cc460ea5e3cea8fcf7ffb3e2880acbff18ba7c609c6713ecd3db6b08b'
+    oos_sweep: '0819e8174a481faa20a8c276804a9e485a69cf5c63f7d2d154cf37155209aa9a'
+    tradable_edge_registry: '05dffa8529acbbafa874060d5fe237705d6914906e5c65a2628eebaa6d0a0e2f'
+    summary: 'ef3f9032acc8bd0e78d87e80ef15a28a22c2649ba42d6b8e539577623fd5912a'
+    verdict: 'f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060'
+    binding_constraint: 'f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060'
   cache_shas:
-    meta: 'cec80b1bf4a0fd6491b2fdceca9ae410af972cb2af239d45b925bcd360896a26'
-    provenance: '0c2a2b5240e3ec86b926724cf6224664459e8bd0d26709fc00b08b2f2608cb0a'
-    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
-c363_status:
-  state: COMPLETE_FORMAL_NEGATIVE
-  campaign: C363
-  family: cross_sectional_quantile_asymmetry_tail_mass_seasonal_dislocation_mean_reversion_usdt_m_5m
-  genuinely_new: true
-  distinct_from: 'C361 (raw skew/kurt central moments), C362 (Hill tail-index extreme value theory), C317 (realized vol 2nd moment), C348 (HHI squared-return concentration), C343 (|r| autocorr/vol clustering), C360 (signed cross-moment corr(r,|r|t-k) leverage coupling), C344 (sign-change/chop), C345 (close-location/Williams %R), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). QATM is a quantile/order-statistic family (Galton quantile skewness + boxplot outlier rate) never used before. Price-only (perp_close), volume-free.'
-  as_of_utc: 20261118T035157Z
-  artifacts_ts: 20261118T035030Z
-  signals: [qasym_dev, qout_dev, qasym_placebo, qout_placebo]
-  n_configs: 1296
-  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
-  placebo_seed: 20261227
-  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
-  stability_ref: 'qasym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
-  attr_representatives: [qasym_dev, qout_dev]
-  qatm_params: {window_W: 256}
-  verdict: RETRACTED
-  edge_proven: false
-  binding_constraint: multiple_testing
-  n_survive_both: 0
-  dominant_attribution: qasym_placebo
-  dominant_share: 0.3072
-  attribution_ok: false
-  tests_green: 23
-  artifacts:
-    oos_sweep: '6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b'
-    tradable_edge_registry: '921257c66d9a87fbf598375900a077bf4f9739751dd4ff08695dcb21c41965b0'
-    summary: 'b8caec7a7a0b4b72412b8833b8b04b7ff16bd23bea5ef576b5db6dab9088a5cf'
-    verdict: '34c55d3a53b2fd2a9e20ce54047ff45591e977292426b9411475939339b47639'
-    binding_constraint: '867389789707568db6b952036eef5c7c26f7a60e876ae0a192605b3143529398'
-  cache_shas:
-    meta: 'fcf8ef6daf351b8547bc9429e17a44286481a196e991f8e699baf5e251d2aff6'
-    provenance: '4eb871e13ba8d884ea91eebdff458e92cd9db1059e8be9f2213d5affffbf0f04'
+    meta: '710f2dfd31ee00009395e3f41214b7e484f48ab54ab49e40e6e9b8fc34c220d1'
+    provenance: '9a57986251c2fdc1c62f48ea6dd1768ede00c7651904ca3100b7e60e6b372b7f'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
