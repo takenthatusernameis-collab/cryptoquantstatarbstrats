@@ -1,22 +1,22 @@
-updated_at_utc: 2026-11-18T03:39:01Z
-handoff_refreshed_at_utc: 2026-11-18T03:39:01Z
+updated_at_utc: 2026-11-18T03:51:57Z
+handoff_refreshed_at_utc: 2026-11-18T03:51:57Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C362
-next_campaign: C363_qatm_quantile_asymmetry_tail_mass
+latest_campaign_done: C363
+next_campaign: C364
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T03:39:01Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T03:39:01Z: C281B-C362 ALL COMPLETE FORMAL NEGATIVES (~99k+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136, 23/23 tests green incl. Hill brute-force equality, 5 SHA256 artifacts). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars, meta sha256 49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b). C361 scripts/cache/tests/artifacts on disk under campaign361_*. C362 scripts/cache/tests/artifacts on disk under campaign362_*. C287 external-only/decoupled (451/403) — never retry. NO blockers. C363 QATM pre-registered active — next session must write full C363 spec and execute heavy work. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign363_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C363_qatm_quantile_asymmetry_tail_mass
-queued_next_campaign_note: 'C363 is now ACTIVE (pre-registered frozen spec). Pre-register next genuinely-new price-only family spec (C364) in AGENTS.md on C363 freeze so work never stalls.'
-first_action: "EXECUTE C363 NOW (2026-11-18T03:39:01Z): QUANTILE ASYMMETRY & TAIL-MASS (QATM) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FIRST WRITE scripts/build_c363_qatm_features.py, scripts/preflight_c363.py, scripts/run_c363_qatm_xsec_oos.py, tests/test_preflight_c363.py, tests/test_c363_qatm_xsec_oos.py with full frozen spec (grid=1296, placebo seed 20261227, gates identical, brute-force equality test). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign363_*_<TS>Z.json -> record in AGENTS.md + state.yaml, freeze C363, set C364 active. No downscoping, no spec changes, no re-runs of frozen C281B-C362/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
-active_campaign: C363_qatm_quantile_asymmetry_tail_mass
-space_status: NO_EDGE_C281B_C362
-closure_note: 'C281B–C362 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~99k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C363 QATM pre-registered and active — must be executed end-to-end.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T03:51:57Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T03:51:57Z: C281B-C363 ALL COMPLETE FORMAL NEGATIVES (~100k+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072, 23/23 tests green incl. QATM brute-force equality, 5 SHA256 artifacts). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars). C363 scripts/cache/tests/artifacts on disk under campaign363_*. C287 external-only/decoupled (451/403) — never retry. NO blockers. C364 is the active pre-registered next genuinely-new price-only family — execute heavy work. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign364_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C364
+queued_next_campaign_note: 'C364 is now ACTIVE (pre-registered placeholder). Define the next genuinely-new price-only family spec in AGENTS.md on C364 freeze so work never stalls.'
+first_action: "EXECUTE C364 NOW (2026-11-18T03:51:57Z): [NEXT GENUINELY-NEW PRICE-ONLY FAMILY] x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FIRST WRITE scripts/build_c364_*_features.py, scripts/preflight_c364.py, scripts/run_c364_*_xsec_oos.py, tests/test_preflight_c364.py, tests/test_c364_*_xsec_oos.py (clone C363 template, adapt to C364 spec). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign364_*_<TS>Z.json -> record in AGENTS.md + state.yaml, freeze C364, set C365 active. No downscoping, no spec changes, no re-runs of frozen C281B-C363/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+active_campaign: C364
+space_status: NO_EDGE_C281B_C363
+closure_note: 'C281B–C363 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C364 pre-registered and active — must be executed end-to-end.'
 c360_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C360
@@ -115,12 +115,13 @@ c362_status:
     provenance: '0c2a2b5240e3ec86b926724cf6224664459e8bd0d26709fc00b08b2f2608cb0a'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c363_status:
-  state: PRE_REGISTERED_ACTIVE_NOT_YET_EXECUTED
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C363
   family: cross_sectional_quantile_asymmetry_tail_mass_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
   distinct_from: 'C361 (raw skew/kurt central moments), C362 (Hill tail-index extreme value theory), C317 (realized vol 2nd moment), C348 (HHI squared-return concentration), C343 (|r| autocorr/vol clustering), C360 (signed cross-moment corr(r,|r|t-k) leverage coupling), C344 (sign-change/chop), C345 (close-location/Williams %R), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). QATM is a quantile/order-statistic family (Galton quantile skewness + boxplot outlier rate) never used before. Price-only (perp_close), volume-free.'
-  activated_utc: 20261118T033901Z
+  as_of_utc: 20261118T035157Z
+  artifacts_ts: 20261118T035030Z
   signals: [qasym_dev, qout_dev, qasym_placebo, qout_placebo]
   n_configs: 1296
   grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
@@ -129,12 +130,21 @@ c363_status:
   stability_ref: 'qasym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
   attr_representatives: [qasym_dev, qout_dev]
   qatm_params: {window_W: 256}
-  required_deliverables:
-    - scripts/build_c363_qatm_features.py
-    - scripts/preflight_c363.py
-    - scripts/run_c363_qatm_xsec_oos.py
-    - tests/test_preflight_c363.py
-    - tests/test_c363_qatm_xsec_oos.py
-    - data/cache/campaign363_qatm_5m/
-    - 5 SHA256 artifacts reports/campaign363_*_<TS>Z.json
-    - '>=21 pytest green incl. brute-force equality'
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: qasym_placebo
+  dominant_share: 0.3072
+  attribution_ok: false
+  tests_green: 23
+  artifacts:
+    oos_sweep: '6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b'
+    tradable_edge_registry: '921257c66d9a87fbf598375900a077bf4f9739751dd4ff08695dcb21c41965b0'
+    summary: 'b8caec7a7a0b4b72412b8833b8b04b7ff16bd23bea5ef576b5db6dab9088a5cf'
+    verdict: '34c55d3a53b2fd2a9e20ce54047ff45591e977292426b9411475939339b47639'
+    binding_constraint: '867389789707568db6b952036eef5c7c26f7a60e876ae0a192605b3143529398'
+  cache_shas:
+    meta: 'fcf8ef6daf351b8547bc9429e17a44286481a196e991f8e699baf5e251d2aff6'
+    provenance: '4eb871e13ba8d884ea91eebdff458e92cd9db1059e8be9f2213d5affffbf0f04'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'

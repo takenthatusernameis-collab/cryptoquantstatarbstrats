@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T03:45:13Z (re-verified: no bottlenecks — see INITIAL TASK MESSAGE). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T03:51:57Z (C363 QATM executed end-to-end — formal negative; C364 pre-registered active). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
@@ -60,35 +60,36 @@ C362 (HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY × seasonal-dislocatio
 
 ---
 
-## INITIAL TASK MESSAGE — C363 (issued 2026-11-18T03:45:13Z, ACTIVE — EXECUTE, heavy work required)
+## C363 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T035157Z)
 
-**EXECUTE C363 NOW (heavy work required; no re-planning, no spec changes, no downscoping): QUANTILE ASYMMETRY & TAIL-MASS (QATM) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+C363 (QUANTILE ASYMMETRY & TAIL-MASS (QATM) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a **FORMAL NEGATIVE**: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `qasym_placebo` 0.3072 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 23/23 tests green (incl. QATM brute-force equality). Cache `data/cache/campaign363_qatm_5m/` (10 shards × 315,648 bars, ~38.5 MB). NO EDGE through C363. Frozen — DO NOT re-run.
 
-**Environment verified 2026-11-18T03:45:13Z (bottlenecks cleared, re-checked this session — no blockers):** `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars = 10 shards confirmed on disk, meta+provenance on disk). C361/C362 templates present at `scripts/build_c362_hilltail_features.py`, `scripts/preflight_c362.py`, `scripts/run_c362_hilltail_xsec_oos.py`, `tests/test_preflight_c362.py`, `tests/test_c362_hilltail_xsec_oos.py`. **C363 does not exist yet** (re-verified: no `campaign363_*` scripts/cache/tests/artifacts). No `HANDOFF.md` duplicate. No bottlenecks — proceed directly to execution.
+- oos_sweep `6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b`
+- tradable_edge_registry `921257c66d9a87fbf598375900a077bf4f9739751dd4ff08695dcb21c41965b0`
+- summary `b8caec7a7a0b4b72412b8833b8b04b7ff16bd23bea5ef576b5db6dab9088a5cf`
+- verdict `34c55d3a53b2fd2a9e20ce54047ff45591e977292426b9411475939339b47639`
+- binding_constraint `867389789707568db6b952036eef5c7c26f7a60e876ae0a192605b3143529398`
+- cache: meta `fcf8ef6daf351b8547bc9429e17a44286481a196e991f8e699baf5e251d2aff6`, provenance `4eb871e13ba8d884ea91eebdff458e92cd9db1059e8be9f2213d5affffbf0f04`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
-**FIRST ACTION — non-negotiable, do this before reading further:** the C363 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C362 structural template (`scripts/build_c362_hilltail_features.py`, `scripts/preflight_c362.py`, `scripts/run_c362_hilltail_xsec_oos.py`, `tests/test_preflight_c362.py`, `tests/test_c362_hilltail_xsec_oos.py`) into `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend Hill→QATM per the frozen spec below. (b) Then run, in order: `python3 scripts/build_c363_qatm_features.py` (materialize `data/cache/campaign363_qatm_5m/`), `python3 scripts/preflight_c363.py` (expect `ready:true`), `python3 scripts/run_c363_qatm_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python3 -m pytest tests/test_preflight_c363.py tests/test_c363_qatm_xsec_oos.py -q` (≥21 green). The C363 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification.
+---
 
-**Why genuinely new (not a re-skin):** QATM computes per-bar, over a fixed trailing window W=256 of raw log-returns `X=r[t-W+1..t]`, two **order-statistic / quantile** scalars:
-- `qasym[t] = (Q0.75 + Q0.25 − 2·Q0.5) / (Q0.75 − Q0.25)` (Galton quantile skewness; up-side vs down-side dispersion around the median). NaN if `t<W`, any NaN in window, or IQR<=0.
-- `qout[t] = mean(|x − Q0.5| > 1.5·IQR)` (boxplot outlier / robust tail-mass rate). NaN if `t<W`, any NaN in window, or IQR<=0.
-Genuinely distinct from C361 (central moments 3/4 = raw skewness/excess kurtosis), C362 (Hill tail-index = extreme value tail thickness), C317 (realized-vol 2nd moment), C348 (HHI squared-return concentration), C343 (|r| autocorrelation / vol clustering), C360 (signed cross-moment `corr(r,|r|_{t-k})` leverage coupling), C345 (close-location / Williams %R), C344 (sign-change/chop), and every scaling/Hurst/entropy/ordinal/complexity family C346–C359. A quantile/order-statistic family has never been used. Price-only (`perp_close`), volume-free.
+## INITIAL TASK MESSAGE — C364 (issued 2026-11-18T03:51:57Z, ACTIVE — EXECUTE, heavy work required)
 
-The heavy 1296-config sweep + ≥21 green tests (incl. QATM brute-force equality) IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C362/C287, or returns prose / partial / stub scripts instead of the 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
+**EXECUTE C364 NOW (heavy work required; no re-planning, no spec changes, no downscoping): [NEXT GENUINELY-NEW PRICE-ONLY FAMILY] × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-### State verified (no bottlenecks)
-- C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
-- Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
-- C281B–C362 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~99k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C362 frozen `20261118T033729Z` (1296, RETRACTED, dominant `hill_sign_tail_placebo` 0.3136). No edge proven through C362.
-- **C363 NOT YET EXECUTED:** no `campaign363_*` scripts, cache, tests, or artifacts on disk. This session must create and run them end-to-end.
-- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C362/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
+C281B–C363 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~100k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C363 frozen `20261118T035157Z` (1296, RETRACTED, dominant `qasym_placebo` 0.3072). No edge proven through C363.
 
-### Mandatory run sequence (economic progress = ALL of these)
-1. Write `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py` (clone C362 template, adapt to QATM spec).
-2. `python scripts/build_c363_qatm_features.py` → `data/cache/campaign363_qatm_5m/` (SHA-manifested, <100 MB).
-3. `python scripts/preflight_c363.py` → must report `ready:true`.
-4. `python scripts/run_c363_qatm_xsec_oos.py` → full 1296-config costed-OOS sweep (no downscoping) producing 5 SHA256 artifacts `reports/campaign363_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + `.full.json`.
-5. `python -m pytest tests/test_preflight_c363.py tests/test_c363_qatm_xsec_oos.py -q` → ≥21 green, incl. QATM brute-force equality.
-6. Record truthful result in this `AGENTS.md` (C363 RESULT) + `research_state/state.yaml`; add C363 to frozen table with 5 SHAs (+ cache SHAs); set C364 active with next genuinely-new price-only family spec placeholder.
+**FIRST ACTION — non-negotiable:** C364 does not exist yet. This session must FIRST WRITE the 5 C364 scripts/tests (clone the C363 structural template: `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`), **build** cache `data/cache/campaign364_*/`, **preflight** (`ready:true`), run the full **1296-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts `reports/campaign364_*_<TS>Z.json` + `.full.json`, then update this handoff + `research_state/state.yaml` with the truthful C364 result and freeze it. On freeze, pre-register and set C365 active. Do NOT re-run frozen C281B–C363/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
+
+Environment verified: `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars). C287 externally blocked/decoupled (451/403) — never retry. No bottlenecks.
+
+Mandatory run sequence:
+1. Write `scripts/build_c364_*_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_*_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_*_xsec_oos.py` (clone C363 template, adapt to C364 spec).
+2. `python3 scripts/build_c364_*_features.py` → cache (SHA-manifested, <100 MB).
+3. `python3 scripts/preflight_c364.py` → must report `ready:true`.
+4. `python3 scripts/run_c364_*_xsec_oos.py` → full 1296-config costed-OOS sweep producing 5 SHA256 artifacts + `.full.json`.
+5. `python3 -m pytest tests/test_preflight_c364.py tests/test_c364_*_xsec_oos.py -q` → ≥21 green incl. brute-force equality.
+6. Record truthful result in this `AGENTS.md` (C364 RESULT) + `research_state/state.yaml`; add C364 to frozen table with 5 SHAs (+ cache SHAs); set C365 active.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION.
 
@@ -228,7 +229,7 @@ C362 was **HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY**: per-bar Hill t
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C362 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C363 (QATM) is the active pre-registered family — execute end-to-end now.**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C363 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C364 is the active pre-registered family — execute end-to-end now.**
 
 **Bottlenecks: NONE — environment fully ready.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry.
 
@@ -236,7 +237,7 @@ C362 was **HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY**: per-bar Hill t
 
 ## Frozen campaigns (do NOT re-run)
 
-C281B–C362: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, `attribution_ok:false`, verdict RETRACTED. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and `reports/`.
+C281B–C363: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, `attribution_ok:false`, verdict RETRACTED. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and `reports/`.
 
 | Camp | Frozen ts (UTC) | Family | n_configs | Dominant attribution | oos_sweep sha256 | verdict sha256 |
 |---|---|---|---|---|---|---|
@@ -266,6 +267,7 @@ C281B–C362: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C360 | 20261118T014623Z | leverage / volatility-asymmetry coupling (LVAC) | 1296 | lvac_mean_placebo 0.2977 | `0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd` | `acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b` |
 | C361 | 20261118T024715Z | raw return skewness & excess kurtosis (RSKEK) | 1296 | rkurt_placebo 0.4324 | `b624fdf359ce6285f32784577845a65117a908a1eb110902ad0251aaa3749340` | `83d13a26aec96d38494b0330d3a4255887f2d09d3283462fb4c09b585b3da3ed` |
 | C362 | 20261118T033729Z | Hill tail-index of extreme returns & tail asymmetry | 1296 | hill_sign_tail_placebo 0.3136 | `1b1f5f18e35f1f465555a8a8547db42473f65e605e7d9ca229a042938245ec3d` | `24e9b0be1f48db8061c74872f199d860444da3be08560f51d3808ffb06f00637` |
+| C363 | 20261118T035157Z | quantile asymmetry & tail-mass (QATM) | 1296 | qasym_placebo 0.3072 | `6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b` | `34c55d3a53b2fd2a9e20ce54047ff45591e977292426b9411475939339b47639` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -276,6 +278,8 @@ C360 extra SHAs: tradable_edge_registry `327de19a836b8ee793ef110ece0eebe08e564ed
 C361 extra SHAs: tradable_edge_registry `e037e8889574fcf3c8a3e1a5fb1be3dd49717047595c95f7f5b7918f96879dd9`, summary `390b04f0c31c13dda351dcfe424bfcdd6a70f3bf55361795c68d5015e9840422`, binding_constraint `3c74387525001bb8d57a15956a2f16b64ab774f864a7734974c214231e8e05a1`. C361 cache SHAs: meta `6b81f7ec02ff231958ca4cfe42b433c5ddeb33e6628f90e54ec6cc88e06b4424`, provenance `f0784f392147ea5af34151121cea5e9c4741b5b79ea5da2f667ec0b4169e635c`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C362 extra SHAs: tradable_edge_registry `78f9d81e7b060b64ee2309b7668666f175aa2506fbdcb1e10ac03288db1f6553`, summary `4fa345c77363a7cd0ff7b30a8574967798dcb4761dd4bad883453676e40cab82`, binding_constraint `1085b11bd0b3c0e82abe24086fa4358f84fef7e80d9a055ff813ed4df794ca26`. C362 cache SHAs: meta `cec80b1bf4a0fd6491b2fdceca9ae410af972cb2af239d45b925bcd360896a26`, provenance `0c2a2b5240e3ec86b926724cf6224664459e8bd0d26709fc00b08b2f2608cb0a`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C363 extra SHAs: tradable_edge_registry `921257c66d9a87fbf598375900a077bf4f9739751dd4ff08695dcb21c41965b0`, summary `b8caec7a7a0b4b72412b8833b8b04b7ff16bd23bea5ef576b5db6dab9088a5cf`, binding_constraint `867389789707568db6b952036eef5c7c26f7a60e876ae0a192605b3143529398`. C363 cache SHAs: meta `fcf8ef6daf351b8547bc9429e17a44286481a196e991f8e699baf5e251d2aff6`, provenance `4eb871e13ba8d884ea91eebdff458e92cd9db1059e8be9f2213d5affffbf0f04`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
@@ -343,6 +347,6 @@ Compute `rskew` and `rkurt` for all bars per asset with vectorized `sliding_wind
 
 ---
 
-## C362 — ACTIVE — EXECUTE NOW? NO — C362 ALREADY FROZEN
+## C363 — ACTIVE — EXECUTE NOW? NO — C363 ALREADY FROZEN
 
-C362 (Hill tail-index) was executed and frozen 20261118T033729Z as a formal negative. See C362 RESULT + C362 ARCHIVED SPEC above. Do NOT re-run. The next active family is C363 (QATM), specified in the INITIAL TASK MESSAGE at the top of this handoff.
+C363 (QUANTILE ASYMMETRY & TAIL-MASS / QATM) was executed and frozen 20261118T035157Z as a formal negative. See C363 RESULT + C363 ARCHIVED SPEC (in state.yaml / reports). Do NOT re-run. The next active family is C364, specified in the INITIAL TASK MESSAGE at the top of this handoff.

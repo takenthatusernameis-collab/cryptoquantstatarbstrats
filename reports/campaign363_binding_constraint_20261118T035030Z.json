@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T035030Z",
+  "campaign": 363,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign363_oos_sweep_20261118T035030Z.json",
+  "oos_sweep_sha256": "6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "qasym_dev": 0.2267568633247848,
+    "qout_dev": 0.20421584391568093,
+    "qasym_placebo": 0.3071730511945897,
+    "qout_placebo": 0.26185424156494447
+  },
+  "dominant_attribution": "qasym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "qasym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.8129376127084194,
+      -1.6970389589070733,
+      -1.8030677839268454,
+      -1.7811355971200904,
+      -1.756555352802058,
+      -1.7254552056027832,
+      -1.6779457459434306,
+      -1.7333618510729785
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -38.85448695646972,
+    "second_half_sharpe": -60.284206299343424,
+    "sharpe_corr": 0.999865624346215,
+    "stable": false
+  },
+  "diagnosis": "C363 cross-sectional intraday QUANTILE ASYMMETRY & TAIL-MASS (QATM) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
