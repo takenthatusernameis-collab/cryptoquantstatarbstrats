@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T02:39:10Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T02:40:01Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **NEXT SESSION — DO THIS IMMEDIATELY (no re-read-only pass, no re-planning):** Execute **C361 (RSKEK)** end-to-end per the frozen spec below. C361 scripts/cache/tests/artifacts do **not** exist yet; you must **write** the 5 C361 scripts/tests (clone C360 LVAC templates), **build** cache, **preflight** (`ready:true`), run the full **1296-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts, then update this handoff + `research_state/state.yaml` with the truthful C361 result and freeze it. This is heavy required work. Prose-only/partial/stub output is a hard violation.
+> **INITIAL TASK MESSAGE (2026-11-18T02:40:01Z) — NEXT SESSION: EXECUTE IMMEDIATELY (no re-read-only pass, no re-planning, no downscoping).** Execute **C361 (RSKEK)** end-to-end per the frozen spec below. C361 scripts/cache/tests/artifacts do **not** exist yet; you must **write** the 5 C361 scripts/tests (clone C360 LVAC templates), **build** cache, **preflight** (`ready:true`), run the full **1296-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts, then update this handoff + `research_state/state.yaml` with the truthful C361 result and freeze it. On freeze, pre-register and set **C362** active as the next genuinely-new price-only family so work never stalls. This is heavy required work. Prose-only/partial/stub output is a hard violation.
 
 ---
 
@@ -34,11 +34,11 @@ C360 (LEVERAGE / VOLATILITY-ASYMMETRY COUPLING × seasonal-dislocation mean-reve
 
 ---
 
-## INITIAL TASK MESSAGE — C361 (issued 2026-11-18T02:10:13Z, reaffirmed 2026-11-18T02:39:10Z, ACTIVE — EXECUTE, heavy work required)
+## INITIAL TASK MESSAGE — C361 (issued 2026-11-18T02:10:13Z, reaffirmed 2026-11-18T02:40:01Z, ACTIVE — EXECUTE, heavy work required)
 
 **EXECUTE C361 NOW (heavy work required; no re-planning, no spec changes, no downscoping): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**Environment verified 2026-11-18T02:39:10Z (bottlenecks cleared, re-checked):** `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, meta+provenance on disk). C360 templates present at `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`. **C361 does not exist yet** (no `campaign361_*` scripts/cache/tests/artifacts). No `HANDOFF.md` duplicate. No blockers — proceed directly to execution.
+**Environment verified 2026-11-18T02:40:01Z (bottlenecks cleared, re-checked):** `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, meta+provenance on disk). C360 templates present at `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`. **C361 does not exist yet** (no `campaign361_*` scripts/cache/tests/artifacts). No `HANDOFF.md` duplicate. No blockers — proceed directly to execution.
 
 **FIRST ACTION — non-negotiable, do this before reading further:** the C361 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C360 structural template (`scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`) into `scripts/build_c361_rskek_features.py`, `scripts/preflight_c361.py`, `scripts/run_c361_rskek_xsec_oos.py`, `tests/test_preflight_c361.py`, `tests/test_c361_rskek_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend LVAC→RSKEK per the frozen spec below. (b) Then run, in order: `python3 scripts/build_c361_rskek_features.py` (materialize `data/cache/campaign361_rskek_5m/`), `python3 scripts/preflight_c361.py` (expect `ready:true`), `python3 scripts/run_c361_rskek_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python3 -m pytest tests/test_preflight_c361.py tests/test_c361_rskek_xsec_oos.py -q` (≥21 green). The C361 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification.
 
@@ -231,3 +231,9 @@ Compute `rskew` and `rkurt` for all bars per asset with vectorized `sliding_wind
 4. `tests/test_preflight_c361.py` + `tests/test_c361_rskek_xsec_oos.py` — ≥21 green (incl. RSKEK brute-force equality test)
 5. Record truthful result in this `AGENTS.md` (C361 RESULT) + `research_state/state.yaml`; add C361 to frozen table with 5 SHAs (+ cache SHAs); set C362 active with next genuinely-new price-only family spec placeholder
 6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts
+
+---
+
+## C362 — PLACEHOLDER (to be fully pre-registered and activated immediately upon C361 freeze)
+
+On C361 freeze (5 SHA256 artifacts + ≥21 green tests recorded, C361 result/frozen table/state.yaml updated): pre-register and activate **C362** as the next genuinely-new price-only family on real C312 5m data. C362 must be distinct from all C281B–C361 families (not a reskin of realized-vol, vol-weighted moments, autocorr/chop, envelope/Williams %R, R/S, drawdown-duration, HHI, permutation/SampEn/MSE/LZC entropy, DFA/GPH/local-Whittle/VR/HFD/MF-DFA scaling, OPTE, LVAC, or raw skew/kurt). Suggested direction to evaluate at freeze time: **tail-index / extreme-return frequency** or **return autocorrelation of squared-signed terms** or another novel distributional/temporal-dependence statistic — but the implementing session MUST confirm distinctness and write the full frozen spec (signals, grid=1296, placebo seed, gates identical, brute-force equality test, 5 SHA256 artifacts, ≥21 tests) before execution. Do not stall after C361.
