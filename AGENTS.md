@@ -176,9 +176,9 @@ C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c54
 
 ---
 
-## INITIAL TASK MESSAGE — C359 (timestamped 2026-11-17T23:54:47Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## INITIAL TASK MESSAGE — C359 (timestamped 2026-11-18T00:00:00Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
-**EXECUTE C359 NOW (heavy work required; no re-planning, no spec changes, no downscoping): NEXT GENUINELY-NEW PRICE-ONLY FAMILY ON REAL C312 5M DATA. (timestamped 2026-11-17T23:54:47Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
+**EXECUTE C359 NOW (heavy work required; no re-planning, no spec changes, no downscoping): ORDINAL PATTERN TRANSITION ENTROPY (OPTE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. (timestamped 2026-11-18T00:00:00Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
 
 **FIRST ACTION — non-negotiable, do this before reading further:** Design and pre-register a genuinely-new price-only stat-arb family distinct from all frozen campaigns C281B–C358. The next family must be a novel complexity/scaling/information-theoretic primitive on returns (e.g., wavelet leader multifractal spectrum, detrended cross-correlation coefficient, ordinal pattern transition entropy, or similar) with full specification in this AGENTS.md before execution. Clone the C358 structural template (build/preflight/runner/tests/artifacts) and adapt to the new family. The heavy 1296-config sweep IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen campaigns, or returns prose instead of 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
 
