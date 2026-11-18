@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T222249Z",
+  "campaign": 375,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign375_oos_sweep_20261118T222249Z.json",
+  "oos_sweep_sha256": "512ea714143752b6adedd92cff7904cf6ce4ea54ff4bb6f8dac241fc5358ee8f",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "acov_sum_dev": 0.11038908014713247,
+    "acov_decay_dev": 0.10312959923395032,
+    "acov_sum_placebo": 0.4173287224817167,
+    "acov_decay_placebo": 0.3691525981372006
+  },
+  "dominant_attribution": "acov_sum_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "acov_sum_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.1103788917697028,
+      -1.1072934895009547,
+      -1.002690516306831,
+      -0.8920467118756924,
+      -1.0698829055060868,
+      -0.9541212184208332,
+      -0.9589743060974781,
+      -1.0653159868444524
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -11.45921487337719,
+    "second_half_sharpe": -18.21068674805576,
+    "sharpe_corr": 0.9972650497316179,
+    "stable": false
+  },
+  "diagnosis": "C375 cross-sectional intraday MULTI-LAG REALIZED AUTOCOVARIANCE PROFILE (ACOVK) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
