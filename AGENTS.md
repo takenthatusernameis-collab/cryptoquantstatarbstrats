@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T01:16:50Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T01:39:14Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
@@ -19,17 +19,17 @@ C359 (ORDINAL PATTERN TRANSITION ENTROPY × seasonal-dislocation mean-reversion)
 
 ---
 
-## INITIAL TASK MESSAGE — C360 (timestamped 2026-11-18T01:12:10Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## INITIAL TASK MESSAGE — C360 (timestamped 2026-11-18T01:39:14Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
 **EXECUTE C360 NOW (heavy work required; no re-planning, no spec changes, no downscoping): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**FIRST ACTION — non-negotiable, do this before reading further:** run `python scripts/build_c360_lvac_features.py` to materialize `data/cache/campaign360_lvac_5m/`. The C360 spec is already frozen below — DO NOT re-plan, re-design, re-scope, or seek clarification. C360 is the signed return × lagged-magnitude cross-correlation (leverage/volatility-asymmetry coupling) — a genuinely-new cross-moment distinct from C343 (`|r|` autocorr = magnitude–magnitude same series), C326 (lag-1 return autocorr), C344 (sign-change/chop), C345 (close-location), C342 (vol-weighted return moments) and every scaling/Hurst/entropy/ordinal family C346–C359; price-only (`perp_close`), volume-free. Clone the structural template from C359 (`scripts/build_c359_opte_features.py`, `scripts/run_c359_opte_xsec_oos.py`, `scripts/preflight_c359.py`, `tests/test_preflight_c359.py`, `tests/test_c359_opte_xsec_oos.py`) — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend OPTE→LVAC per spec. The heavy 1296-config sweep IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C359/C287, or returns prose instead of the 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
+**FIRST ACTION — non-negotiable, do this before reading further:** the C360 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C359 structural template (`scripts/build_c359_opte_features.py`, `scripts/preflight_c359.py`, `scripts/run_c359_opte_xsec_oos.py`, `tests/test_preflight_c359.py`, `tests/test_c359_opte_xsec_oos.py`) into `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend OPTE→LVAC per the frozen spec below. (b) Then run, in order: `python scripts/build_c360_lvac_features.py` (materialize `data/cache/campaign360_lvac_5m/`), `python scripts/preflight_c360.py` (expect `ready:true`), `python scripts/run_c360_lvac_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python -m pytest tests/test_preflight_c360.py tests/test_c360_lvac_xsec_oos.py -q` (≥21 green). The C360 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification. C360 is the signed return × lagged-magnitude cross-correlation (leverage/volatility-asymmetry coupling) — a genuinely-new cross-moment distinct from C343 (`|r|` autocorr = magnitude–magnitude same series), C326 (lag-1 return autocorr), C344 (sign-change/chop), C345 (close-location), C342 (vol-weighted return moments) and every scaling/Hurst/entropy/ordinal family C346–C359; price-only (`perp_close`), volume-free. The heavy 1296-config sweep + ≥21 green tests (incl. LVAC brute-force equality) IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C359/C287, or returns prose / partial / stub scripts instead of the 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
 
 ### State verified (no bottlenecks)
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
 - C281B–C359 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~96k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C359 frozen `20261118T005752Z` (1296, RETRACTED, dominant `opte_ent_dev` 0.2616). No edge proven through C359.
-- **C360 NOT YET RUN:** no `campaign360_*` cache/scripts/tests/artifacts on disk. This session MUST produce them.
+- **C360 NOT YET RUN:** no `campaign360_*` cache/scripts/tests/artifacts on disk — the C360 scripts must be AUTHORED by cloning C359 (see FIRST ACTION), then executed. This session MUST produce the 5 SHA256 artifacts + ≥21 green tests.
 - C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C359/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
 
 ### Mandatory run sequence (economic progress = ALL of these)
@@ -104,7 +104,7 @@ Compute `lvac_mean` and `lvac_asym` for all bars per asset with vectorized `slid
 
 **`ACTIVE — NO-EDGE CONFIRMED THROUGH C359 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C360 is the active pre-registered family.
 
-**Bottlenecks: NONE.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable. C287 externally blocked/decoupled (451/403) — never retry.
+**Bottlenecks: NONE — environment fully ready.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C359 template scripts present to clone. The only remaining work is authoring (clone C359 → C360) + running C360. C287 externally blocked/decoupled (451/403) — never retry.
 
 ---
 
