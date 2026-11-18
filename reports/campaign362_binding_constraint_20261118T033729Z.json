@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T033729Z",
+  "campaign": 362,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign362_oos_sweep_20261118T033729Z.json",
+  "oos_sweep_sha256": "1b1f5f18e35f1f465555a8a8547db42473f65e605e7d9ca229a042938245ec3d",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "hill_tail_dev": 0.1765212797487366,
+    "hill_sign_tail_dev": 0.21933425905016093,
+    "hill_tail_placebo": 0.2904964500768317,
+    "hill_sign_tail_placebo": 0.31364801112427076
+  },
+  "dominant_attribution": "hill_sign_tail_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "hill_tail_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.459395413714934,
+      -1.2644221304613759,
+      -1.1723331444531864,
+      -1.042623536838857,
+      -1.2888711086574258,
+      -1.2056070344270735,
+      -1.215008895652813,
+      -1.1209271845295303
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.134504011764719,
+    "second_half_sharpe": -20.285093378745216,
+    "sharpe_corr": 0.9996284868567906,
+    "stable": false
+  },
+  "diagnosis": "C362 cross-sectional intraday HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
