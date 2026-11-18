@@ -594,6 +594,7 @@ C281B–C364: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C369 | 20261118T135451Z | gini mean difference & interquartile range (GMD/IQR) | 1296 | iqr_dev 0.3383 | `ed93c318f8551798a81a97f8ca0a907dd2602187abfdedbae959f28d4110f58a` | `549fbeea5aa05b389d570aec552943528cf0137e726b7b68543c918b7f189d75` |
 | C370 | 20261118T140545Z | realized absolute return & mean absolute deviation (RAR/MADM) | 1296 | madm_placebo 0.2687 | `0819e8174a481faa20a8c276804a9e485a69cf5c63f7d2d154cf37155209aa9a` | `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060` |
 | C371 | 20261118T151130Z | realized skewness & realized kurtosis (RSK/RKT) | 1296 | rkt_placebo 0.4164 | `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be` | `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8` |
+| C372 | 20261118T160248Z | realized time-irreversibility / lagged-product cumulants (TIRV) | 1296 | tir4_placebo 0.4789 | `3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788` | `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -622,6 +623,8 @@ C369 extra SHAs: tradable_edge_registry `ce178e43956b7d16b41905365ec27f66a25dcaf
 C370 extra SHAs: tradable_edge_registry `05dffa8529acbbafa874060d5fe237705d6914906e5c65a2628eebaa6d0a0e2f`, summary `ef3f9032acc8bd0e78d87e80ef15a28a22c2649ba42d6b8e539577623fd5912a`, binding_constraint `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060`. C370 cache SHAs: meta `710f2dfd31ee00009395e3f41214b7e484f48ab54ab49e40e6e9b8fc34c220d1`, provenance `9a57986251c2fdc1c62f48ea6dd1768ede00c7651904ca3100b7e60e6b372b7f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 C371 extra SHAs: tradable_edge_registry `099e40dbfb950a4b4f8197de685db5f98c5d3ae0a2e51ae55ebf0e82d2cff6c2`, summary `e627c2746c0eec2f7cd115faa4a6a501167cdcfaedb3d53253bcbc2a80356c0b`, binding_constraint `8dc86c771e447abdf81070bcd6dccb46bbffae951531032c3e21cc4bf4e0475d`. C371 cache SHAs: meta `d762bc9ae1d44d36368d4adf3b13e7baf01bb8a3e3c263152b97802d44892874`, provenance `3cdef5b6e618fbea7ec19a456099b9e4129fbc62e2c5bb5ac34b8b4876b56399`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
+C372 extra SHAs: tradable_edge_registry `c4099295b3c5e73c0517f517c89be32dab5609d66618a5791de260bd763a0809`, summary `759d550a0aa3f1a550a3272b43c9154570339cb797cc2afe8ec8492c108cf552`, binding_constraint `4c4f4a39f1a04e1458d48f950c3ab71321d135fe9403ad299e6bef32130015ce`. C372 cache SHAs: meta `6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b`, provenance `faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
 ---
 
 ## C371 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T151130Z)
@@ -634,6 +637,21 @@ C371 (REALIZED SKEWNESS & REALIZED KURTOSIS (RSK/RKT) × SEASONAL-DISLOCATION me
 - verdict `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8`
 - binding_constraint `8dc86c771e447abdf81070bcd6dccb46bbffae951531032c3e21cc4bf4e0475d`
 - cache: meta `d762bc9ae1d44d36368d4adf3b13e7baf01bb8a3e3c263152b97802d44892874`, provenance `3cdef5b6e618fbea7ec19a456099b9e4129fbc62e2c5bb5ac34b8b4876b56399`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+(Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
+
+---
+
+## C372 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T160248Z)
+
+C372 (REALIZED TIME-IRREVERSIBILITY / LAGGED-PRODUCT CUMULANTS (TIRV) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `tir4_placebo` 0.4789 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. TIRV brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign372_tirv_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C372. Frozen — DO NOT re-run.
+
+- oos_sweep `3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788`
+- tradable_edge_registry `c4099295b3c5e73c0517f517c89be32dab5609d66618a5791de260bd763a0809`
+- summary `759d550a0aa3f1a550a3272b43c9154570339cb797cc2afe8ec8492c108cf552`
+- verdict `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6`
+- binding_constraint `4c4f4a39f1a04e1458d48f950c3ab71321d135fe9403ad299e6bef32130015ce`
+- cache: meta `6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b`, provenance `faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 

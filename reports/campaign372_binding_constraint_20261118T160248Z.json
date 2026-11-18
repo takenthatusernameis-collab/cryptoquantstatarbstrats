@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T160248Z",
+  "campaign": 372,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign372_oos_sweep_20261118T160248Z.json",
+  "oos_sweep_sha256": "3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "tir3_dev": 0.05818195293036854,
+    "tir4_dev": 0.05401196261365127,
+    "tir3_placebo": 0.40886944961344923,
+    "tir4_placebo": 0.478936634842531
+  },
+  "dominant_attribution": "tir4_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "tir3_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.9344711872464491,
+      -0.8702582861904898,
+      -1.0906129010992869,
+      -0.5424895601371025,
+      -0.9351498335779898,
+      -0.7390258301872707,
+      -0.8862955843971041,
+      -0.5542865747541258
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -4.302062415200932,
+    "second_half_sharpe": -5.250257806636528,
+    "sharpe_corr": 0.9992709647724748,
+    "stable": false
+  },
+  "diagnosis": "C372 cross-sectional intraday REALIZED TIME-IRREVERSIBILITY (TIRV) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
