@@ -176,25 +176,79 @@ C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c54
 
 ---
 
-## INITIAL TASK MESSAGE — C359 (timestamped 2026-11-18T00:00:00Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## INITIAL TASK MESSAGE — C359 (timestamped 2026-11-18T00:00:41Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
 
-**EXECUTE C359 NOW (heavy work required; no re-planning, no spec changes, no downscoping): ORDINAL PATTERN TRANSITION ENTROPY (OPTE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. (timestamped 2026-11-18T00:00:00Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
+**EXECUTE C359 NOW (heavy work required; no re-planning, no spec changes, no downscoping): ORDINAL PATTERN TRANSITION ENTROPY (OPTE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. (timestamped 2026-11-18T00:00:41Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)**
 
-**FIRST ACTION — non-negotiable, do this before reading further:** Design and pre-register a genuinely-new price-only stat-arb family distinct from all frozen campaigns C281B–C358. The next family must be a novel complexity/scaling/information-theoretic primitive on returns (e.g., wavelet leader multifractal spectrum, detrended cross-correlation coefficient, ordinal pattern transition entropy, or similar) with full specification in this AGENTS.md before execution. Clone the C358 structural template (build/preflight/runner/tests/artifacts) and adapt to the new family. The heavy 1296-config sweep IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen campaigns, or returns prose instead of 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
+**FIRST ACTION — non-negotiable, do this before reading further:** run `python scripts/build_c359_opte_features.py` to materialize `data/cache/campaign359_opte_5m/`. The C359 spec is already frozen below — DO NOT re-plan, re-design, re-scope, or seek clarification. C359 is ordinal pattern transition entropy (Bandt–Pompe ordinal patterns of dimension D=5 over trailing returns, then a first-order transition entropy rate + statistical complexity between consecutive patterns) — a TEMPORAL extension distinct from C349 permutation entropy (static marginal distribution only) and from all scaling/Hurst/entropy families C346–C358; price-only (`perp_close`), volume-free. Clone `scripts/build_c358_mfdfa_features.py`, `scripts/run_c358_mfdfa_xsec_oos.py`, `scripts/preflight_c358.py`, and `tests/test_c358_mfdfa_xsec_oos.py` as the structural template (identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern) and extend MF-DFA→OPTE. The heavy 1296-config sweep IS the deliverable — a session that only re-reads this message, re-declares closure, re-runs frozen C281B–C358/C287, or returns prose instead of 5 SHA256 artifacts + ≥21 green tests is a HARD VIOLATION.
 
 ### State verified (no bottlenecks)
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
 - C281B–C358 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~95k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C358 frozen `20261117T235447Z` (1296, RETRACTED, dominant `mfdfa_spread_dev` 0.3312). No edge proven through C358.
-- **C359 NOT YET SPECIFIED:** no `campaign359_*` cache/scripts/tests/artifacts on disk. This session MUST pre-register spec, then produce them.
+- **C359 NOT YET RUN:** no `campaign359_*` cache/scripts/tests/artifacts on disk. This session MUST produce them.
 - C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C358/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
 
 ### Mandatory run sequence (economic progress = ALL of these)
-1. **Pre-register C359 spec in this AGENTS.md** (family name, distinctness, raw inputs, runner metrics, grid, gates, deliverables).
-2. `python scripts/build_c359_<family>_features.py` → `data/cache/campaign359_<family>_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
-3. `python scripts/preflight_c359.py` → `ready:true`.
-4. `python scripts/run_c359_<family>_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign359_*_<TS>Z.json` + gitignored `.full.json`.
-5. `python -m pytest tests/test_preflight_c359.py tests/test_c359_<family>_xsec_oos.py -q` — **≥21 green incl. brute-force equality test for new metric**.
-6. Record truthful result in this `AGENTS.md` (new C359 RESULT) + `research_state/state.yaml`; add C359 to frozen table with 5 SHAs (+ cache SHAs); set C360 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+1. `python scripts/build_c359_opte_features.py` → `data/cache/campaign359_opte_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
+2. `python scripts/preflight_c359.py` → `ready:true`.
+3. `python scripts/run_c359_opte_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign359_*_<TS>Z.json` + gitignored `.full.json`.
+4. `python -m pytest tests/test_preflight_c359.py tests/test_c359_opte_xsec_oos.py -q` — **≥21 green incl. OPTE brute-force equality test**.
+5. Record truthful result in this `AGENTS.md` (new C359 RESULT) + `research_state/state.yaml`; add C359 to frozen table with 5 SHAs (+ cache SHAs); set C360 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION. The heavy sweep IS the deliverable.
+
+---
+
+## C359 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+
+**C359 — ORDINAL PATTERN TRANSITION ENTROPY (OPTE) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+
+### Distinctness (pre-registered)
+- OPTE: ordinal patterns of dimension D=5, delay τ=1, over trailing returns W=256 → each length-5 subsequence maps to one of 5! = 120 permutation states; consecutive states form transitions; build transition count matrix C (120×120), row-normalize to P; real scalars `opte_ent` = transition entropy rate `H = -Σ_i p_i Σ_j P_ij ln P_ij` (p = row-marginal state freq), and `opte_complexity` = statistical complexity `= opte_ent × JSD(P, U_120)` (Jensen–Shannon disequilibrium vs uniform transition matrix). Genuinely distinct from C349 permutation entropy (static marginal distribution of ordinal patterns only — no transitions), C358 MF-DFA h(q), C357 LZC, C356 MSE, C355 SampEn, C354 Higuchi, C353 variance ratio, C351/C352 GPH/local-Whittle d, C346 R/S, C343 |r| autocorr, C344 sign-change, C326 lag-1 autocorr, C345 close-in-envelope, C317 realized-vol; C342/C340/C341 need volume; C315/C320 trade raw seasonal return. Price-only (`perp_close`), volume-free.
+
+### Raw inputs (build)
+`data/cache/campaign359_opte_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network/fabrication/resampling/imputation):
+```
+index_ms      int64    common 5m grid (intersection, 315,648 bars)
+perp_close    float32  real 5m kline close
+log_return    float32  r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control)
+```
+Cache < 100 MB; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest.
+
+### Runner-derived causal metrics (per asset, per bar t)
+`W=256`, ordinal dimension `D=5`, delay `τ=1` (120 states), trailing returns `X=r[t-W+1..t]` (NaN if `t<W` or any NaN).
+- For each position `i ∈ [0, W-D]`: ordinal pattern `π_i` = argsort ranks of `X[i..i+4]` → state id in `[0,120)`.
+- Consecutive states `π_i → π_{i+1}` give transitions; transition count matrix `C` (120×120); `P = C / rowsum(C)` (rows with zero count → uniform); state marginal `p_i = rowsum(C)_i / Σ C`.
+- `opte_ent[t]` = `-Σ_i p_i Σ_j P_ij ln P_ij` (nats); NaN if `< 2` finite transitions.
+- `opte_complexity[t]` = `opte_ent[t] × JSD(P, U_120)`; NaN if either NaN.
+- `last_move_dir[t]=sign(r[t])`.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{opte_ent,opte_complexity}`.
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `opte_ent` and `opte_complexity` for all bars per asset with vectorized `sliding_window_view` + `np.argsort` ordinal encoding + chunked transition counting (no Python loop over 315,648 bars × 10 assets). MUST pass brute-force equality test against reference per-window OPTE (manual loop over windows, `np.argsort` per length-5 subsequence, explicit transition matrix, explicit entropy rate and JSD).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `opte_ent_dev`, `opte_complexity_dev`, `opte_ent_placebo`, `opte_complexity_placebo` (2 real + 2 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60,120,240,480,960,1920)`; REBALANCES = `(1,4,12)`; FEES = `(0.0004,0.0007,0.0010)`; SLIPS = `(0.0,0.0001,0.0002)`; COST_VARIANTS = `("taker","maker_blend")`.
+- 4×6×3×3×3×2 = **1296 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261224` (phase-randomized FFT surrogate + rank restoration; NaN positions stay NaN). selection frac=1/3, ALPHA=0.05.
+- Reference config: `opte_ent_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES={opte_ent_dev,opte_complexity_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND BH over all 1296 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config).
+- **Attribution**: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 4 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (ALL six, in order)
+1. `scripts/build_c359_opte_features.py` → `data/cache/campaign359_opte_5m/`
+2. `scripts/preflight_c359.py` → `ready:true`
+3. `scripts/run_c359_opte_xsec_oos.py` → 5 SHA256 artifacts + `.full.json`: `oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint` (`reports/campaign359_*_<TS>Z.json`)
+4. `tests/test_preflight_c359.py` + `tests/test_c359_opte_xsec_oos.py` — ≥21 green (incl. OPTE brute-force equality test)
+5. Record truthful result in this `AGENTS.md` (C359 RESULT) + `research_state/state.yaml`; add C359 to frozen table with 5 SHAs (+ cache SHAs); set C360 active with next genuinely-new price-only family spec placeholder
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts
