@@ -1,0 +1,173 @@
+{
+  "generated_at_utc": "20261118T105747Z",
+  "campaign": 366,
+  "part": "summary",
+  "analysis": "validation_summary",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "rqv_q_dev",
+      "rqv_conc_dev",
+      "rqv_q_placebo",
+      "rqv_conc_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261230,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 1296,
+    "rqv_params": {
+      "W": 256,
+      "top_k": 16
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "rqv_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "rqv_q_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -0.4474918988104551,
+        -0.3539401017733931,
+        -0.5563126674504436,
+        -0.4527579119397736,
+        -0.4329918350038071,
+        -0.4716520595960471,
+        -0.6129220279891981,
+        -0.6202666476599266
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -6.320051345259811,
+      "second_half_sharpe": -6.41558608763982,
+      "sharpe_corr": 0.9990492406407808,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "rqv_q_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "rqv_q_dev_net": -0.40277295782484007,
+      "rqv_conc_dev_net": -0.5809692942512084,
+      "rqv_q_placebo_net": -3.598433378127847,
+      "rqv_conc_placebo_net": -1.0565876631566051,
+      "shares": {
+        "rqv_q_dev": 0.07142930761060584,
+        "rqv_conc_dev": 0.10303133223118,
+        "rqv_q_placebo": 0.638160034553128,
+        "rqv_conc_placebo": 0.18737932560508616
+      },
+      "dominant": "rqv_q_placebo",
+      "dominant_share": 0.638160034553128,
+      "attribution_ok": false,
+      "placebo_seed": 20261230
+    },
+    "data_quality": {
+      "reference_signal": "rqv_q_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.01997699969586375,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements (t<W=256, \u03a3x\u00b2<=0)."
+    }
+  },
+  "artifacts": {
+    "oos_sweep": {
+      "path": "reports/campaign366_oos_sweep_20261118T105747Z.json",
+      "sha256": "aac24596c06662ef3f188950993dca4979e4dba65f7e91ec7bbad9d3d03f1ae5"
+    },
+    "registry": {
+      "path": "reports/campaign366_tradable_edge_registry_20261118T105747Z.json",
+      "sha256": "b59ded0869447feec23c90bf094bdd265e6574dd1360732c2c3d6070c8259f6c"
+    }
+  },
+  "summary": {
+    "n_total_runs": 1296,
+    "n_with_exposure": 1296,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  },
+  "binding_constraint": "multiple_testing"
+}

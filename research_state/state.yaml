@@ -1,25 +1,25 @@
-updated_at_utc: 2026-11-18T10:44:11Z
-handoff_refreshed_at_utc: 2026-11-18T10:44:11Z
+updated_at_utc: 2026-11-18T11:00:07Z
+handoff_refreshed_at_utc: 2026-11-18T11:00:07Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C365
-next_campaign: C366
+latest_campaign_done: C366
+next_campaign: C367
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T10:44:11Z (no HANDOFF.md; C365 KER FROZEN formal negative at 20261118T074457Z — 5 reports campaign365_*_20261118T074457Z.json + cache campaign365_ker_5m present, 22/22 tests green; C366 RQV is ACTIVE and NOT STARTED — no campaign366 scripts/tests/cache/reports on disk; C312 5m source = 10 symbols x 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Prior 07:39:47Z/07:44:57Z/07:50:02Z blocks are SUPERSEDED by this 10:44:11Z refresh.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T10:44:11Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T10:44:11Z: C281B-C365 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897 share<0.50, 22/22 tests green, 5 SHA256 artifacts present). C366 RQV NOT STARTED — no scripts/build_c366_rqv_features.py, scripts/preflight_c366.py, scripts/run_c366_rqv_xsec_oos.py, no tests/test_*c366*.py, no data/cache/campaign366_rqv_5m/, no reports/campaign366_* on disk. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready (10x315648). C287 external-only/decoupled (451/403) — never retry. NO blockers; only execution remains. SINGLE authoritative timestamp = 2026-11-18T10:44:11Z. NO-LIGHT-WORK RULE: session completion requires finishing C366 = 3 scripts + 2 test files + cache campaign366_rqv_5m + preflight ready:true + 1296-config sweep + 5 SHA256 reports/campaign366_*_<TS>Z.json + >=21 green tests incl RQV brute-force equality; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C366
-queued_next_campaign_note: 'C365 KER (Kaufman Efficiency Ratio / path straightness) is now FROZEN formal negative at 20261118T074457Z (1296 configs, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false). C366 RQV is the ACTIVE campaign to build end-to-end. Full spec in AGENTS.md C366 ACTIVE CAMPAIGN: 4 signals (rqv_q_dev, rqv_conc_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), W=256, top_k=16, placebo_seed=20261230.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T11:00:07Z (no HANDOFF.md; C366 RQV FROZEN formal negative at 20261118T105747Z — 5 reports campaign366_*_20261118T105747Z.json + cache campaign366_rqv_5m present, 22/22 tests green; C367 is now ACTIVE and NOT STARTED — no campaign367 scripts/tests/cache/reports on disk; C312 5m source = 10 symbols x 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Prior 10:44:11Z block is SUPERSEDED by this 11:00:07Z refresh.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T11:00:07Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T11:00:07Z: C281B-C366 ALL COMPLETE FORMAL NEGATIVES (0 Holm+BH, binding multiple_testing). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382 share>0.50 placebo dominates, attribution_ok false, 22/22 tests green, 5 SHA256 artifacts present). C367 RQV successor NOT STARTED — no campaign367 scripts/tests/cache/reports on disk. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready (10x315648). C287 external-only/decoupled (451/403) — never retry. NO blockers; only execution remains. SINGLE authoritative timestamp = 2026-11-18T11:00:07Z. NO-LIGHT-WORK RULE: session completion requires finishing C367 = 3 scripts + 2 test files + cache campaign367_*_5m + preflight ready:true + 1296-config sweep + 5 SHA256 reports/campaign367_*_<TS>Z.json + >=21 green tests incl C367 brute-force equality; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C367
+queued_next_campaign_note: 'C366 RQV (Realized Quartic Variation / Kurtosis-Concentration of Squared Returns) is now FROZEN formal negative at 20261118T105747Z (1296 configs, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false). C367 next genuinely-new price-only family is the ACTIVE campaign to build end-to-end. Full spec to be authored in AGENTS.md following the C366 template: 4 signals (2 real + 2 placebos), 1296 configs (4x6x3x3x3x2), fixed intrinsic window, placebo_seed=20261231.'
 queued_campaign_c366: C366
-queued_campaign_c366_note: 'C366 RQV (Realized Quartic Variation / Kurtosis-Concentration of Squared Returns) is ACTIVE: build/preflight/run scripts to be created under campaign366_*, then tests, cache, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest >=21 green incl RQV brute-force equality, then record C366 RESULT and activate C367.'
-first_action: "FINISH C366 NOW (2026-11-18T10:44:11Z, re-verified NOT STARTED): RQV (Realized Quartic Variation / Kurtosis-Concentration of Squared Returns) x seasonal-dislocation mean-reversion stat-arb, USDT-M 5m, price-only, on real C312 data. NO campaign366 scripts/tests/cache/reports exist — CREATE by cloning C365 pattern: 1) WRITE scripts/build_c366_rqv_features.py, scripts/preflight_c366.py, scripts/run_c366_rqv_xsec_oos.py. 2) WRITE tests/test_preflight_c366.py + tests/test_c366_rqv_xsec_oos.py (MUST include RQV brute-force equality: vectorized rqv_q=np.mean(X**4), rqv_conc=top-16 x^2 share vs per-window reference). 3) python3 scripts/build_c366_rqv_features.py -> data/cache/campaign366_rqv_5m/. 4) python3 scripts/preflight_c366.py -> ready:true. 5) python3 scripts/run_c366_rqv_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign366_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c366.py tests/test_c366_rqv_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C366 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C367. No downscoping/re-runs of frozen C281B-C365/C287; no gate weakening; no closure by fiat. Prose-only session is a hard violation."
+queued_campaign_c366_note: 'C366 RQV is now COMPLETE/FROZEN formal negative (20261118T105747Z): scripts build_c366_rqv_features.py/preflight_c366.py/run_c366_rqv_xsec_oos.py, tests test_preflight_c366.py/test_c366_rqv_xsec_oos.py, cache campaign366_rqv_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RQV brute-force equality. C366 RESULT recorded in AGENTS.md; activate C367.'
+first_action: "FINISH C367 NOW (2026-11-18T11:00:07Z, re-verified NOT STARTED): next genuinely-new price-only stat-arb family x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, on real C312 data. NO campaign367 scripts/tests/cache/reports exist — CREATE by cloning C366 pattern: 1) WRITE scripts/build_c367_*_features.py, scripts/preflight_c367.py, scripts/run_c367_*_xsec_oos.py. 2) WRITE tests/test_preflight_c367.py + tests/test_c367_*_xsec_oos.py (MUST include C367 brute-force equality: vectorized kernel vs per-window reference). 3) python3 scripts/build_c367_*_features.py -> data/cache/campaign367_*_5m/. 4) python3 scripts/preflight_c367.py -> ready:true. 5) python3 scripts/run_c367_*_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign367_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c367.py tests/test_c367_*_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C367 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C368. No downscoping/re-runs of frozen C281B-C366/C287; no gate weakening; no closure by fiat. Prose-only session is a hard violation."
 
-active_campaign: C366
-space_status: NO_EDGE_C281B_C365
-closure_note: 'C281B–C365 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C366 RQV active in-progress (scripts to be built; finish end-to-end).'
+active_campaign: C367
+space_status: NO_EDGE_C281B_C366
+closure_note: 'C281B–C366 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). C365 frozen 20261118T074457Z (1296, RETRACTED, dominant ker_er_dev 0.31897, attribution_ok false, 22/22 tests green). C366 frozen 20261118T105747Z (1296, RETRACTED, dominant rqv_q_placebo 0.6382, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C367 is now active — scripts/cache/tests/reports not yet on disk; start immediately.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -91,6 +91,44 @@ c365_status:
   cache_shas:
     meta: '137021e54df984932a38c64c44a39a0cd1d3d44aa1d1de7cdd838d0ca428267d'
     provenance: '22f0a73a92d27673108727b942d9bbb71da2c8f2fcdbc114d328ae6d4a8254e1'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c366_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C366
+  family: cross_sectional_realized_quartic_variation_kurtosis_concentration_squared_returns_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) total magnitude only, no concentration), C348 (HHI concentration across cross-section not within-window), C361 (raw skew/kurt central moments), C362 (Hill tail-index EVT), C363 (QATM quantile family), C364 (DSRV semivariance sign split), C365 (KER net-displacement/path-length path geometry). RQV is a within-window variance-concentration + raw quarticity family never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T105747Z
+  artifacts_ts: 20261118T105747Z
+  signals: [rqv_q_dev, rqv_conc_dev, rqv_q_placebo, rqv_conc_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261230
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rqv_q_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rqv_q_dev, rqv_conc_dev]
+  rqv_params: {window_W: 256, top_k: 16}
+  scripts_present: [scripts/build_c366_rqv_features.py, scripts/preflight_c366.py, scripts/run_c366_rqv_xsec_oos.py]
+  tests_present: [tests/test_preflight_c366.py, tests/test_c366_rqv_xsec_oos.py]
+  cache_present: data/cache/campaign366_rqv_5m
+  artifacts_present: [reports/campaign366_oos_sweep_20261118T105747Z.json, reports/campaign366_tradable_edge_registry_20261118T105747Z.json, reports/campaign366_summary_20261118T105747Z.json, reports/campaign366_verdict_20261118T105747Z.json, reports/campaign366_binding_constraint_20261118T105747Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: rqv_q_placebo
+  dominant_share: 0.6382
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: 'aac24596c06662ef3f188950993dca4979e4dba65f7e91ec7bbad9d3d03f1ae5'
+    tradable_edge_registry: 'b59ded0869447feec23c90bf094bdd265e6574dd1360732c2c3d6070c8259f6c'
+    summary: 'c515ab2b721d11be7117c33a54e2db54bf5ac8f5f8a438ea715cf4fde327f478'
+    verdict: '1fa3a763d10d7fbdcef7debd82b2ffef3928467dd059d7c61b281ee9c0d55e1a'
+    binding_constraint: 'dca985e55825299d3aa1b648d8b971d2c28600adfc0b48b2c8487c02c55c411e'
+  cache_shas:
+    meta: 'c2ee29553aa21d805477ca3dfbc79e709b2d2eb86a589ca2863ddde2373c8a42'
+    provenance: '38104b17c511eb3906b2fe08c647523c23cccb8400df09f656c27ffe7c584ca1'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c360_status:
   state: COMPLETE_FORMAL_NEGATIVE

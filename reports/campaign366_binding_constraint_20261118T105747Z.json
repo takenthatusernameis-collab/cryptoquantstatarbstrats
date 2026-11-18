@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T105747Z",
+  "campaign": 366,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign366_oos_sweep_20261118T105747Z.json",
+  "oos_sweep_sha256": "aac24596c06662ef3f188950993dca4979e4dba65f7e91ec7bbad9d3d03f1ae5",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rqv_q_dev": 0.07142930761060584,
+    "rqv_conc_dev": 0.10303133223118,
+    "rqv_q_placebo": 0.638160034553128,
+    "rqv_conc_placebo": 0.18737932560508616
+  },
+  "dominant_attribution": "rqv_q_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rqv_q_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.4474918988104551,
+      -0.3539401017733931,
+      -0.5563126674504436,
+      -0.4527579119397736,
+      -0.4329918350038071,
+      -0.4716520595960471,
+      -0.6129220279891981,
+      -0.6202666476599266
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -6.320051345259811,
+    "second_half_sharpe": -6.41558608763982,
+    "sharpe_corr": 0.9990492406407808,
+    "stable": false
+  },
+  "diagnosis": "C366 cross-sectional intraday REALIZED QUARTIC VARIATION / KURTOSIS-CONCENTRATION OF SQUARED RETURNS (RQV) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
