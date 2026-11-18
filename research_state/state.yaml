@@ -1,28 +1,28 @@
-updated_at_utc: 2026-11-18T19:28:27Z
-handoff_refreshed_at_utc: 2026-11-18T19:28:27Z
+updated_at_utc: 2026-11-18T20:19:08Z
+handoff_refreshed_at_utc: 2026-11-18T20:19:08Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C372
-next_campaign: C373
+latest_campaign_done: C373
+next_campaign: C374
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T19:28:27Z (disk): C372 TIRV FROZEN formal negative (20261118T160248Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, RETRACTED, dominant tir4_placebo 0.4789, attribution_ok false); 5 artifacts reports/campaign372_*_20261118T160248Z.json, cache data/cache/campaign372_tirv_5m/; C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648); C371 RSK/RKT FROZEN (20261118T151130Z). NO EDGE through C372. C373 is next (RLRV MedRV per family backlog). Queue depth 3: C373 RLRV active -> C374 SIGNRUN pre-seeded -> C375 ACOVK pre-seeded. Bottlenecks: NONE. Next session: execute C373 end-to-end.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T19:28:27Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T19:28:27Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C372 ALL COMPLETE FORMAL NEGATIVES. C372 TIRV FROZEN (20261118T160248Z): scripts/tests/cache/preflight/1296-config sweep/5 SHA256 reports/22 green incl brute-force. C373 is next (RLRV MedRV per family backlog). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). ONLY execution remains. NO-LIGHT-WORK RULE: session must produce heavy artifacts for C373 (3 scripts + 2 tests + cache + preflight ready:true + full sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-18T20:19:08Z (disk): C373 RLRV FROZEN formal negative (20261118T201908Z, 1296 configs, 0 Holm+BH survivors, edge_proven:false, RETRACTED, dominant medrv_rv_ratio_placebo 0.3766, attribution_ok false); 5 artifacts reports/campaign373_*_20261118T201908Z.json, cache data/cache/campaign373_rlrv_5m/; C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648); C372 TIRV FROZEN (20261118T160248Z), C371 RSK/RKT FROZEN (20261118T151130Z). NO EDGE through C373. C374 is next (SIGNRUN per family backlog). Queue depth 3: C374 SIGNRUN pre-seeded -> C375 ACOVK pre-seeded. Bottlenecks: NONE. Next session: execute C374 end-to-end.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T20:19:08Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T20:19:08Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C373 ALL COMPLETE FORMAL NEGATIVES. C373 RLRV FROZEN (20261118T201908Z): scripts/tests/cache/preflight/1296-config sweep/5 SHA256 reports/22 green incl brute-force. C374 SIGNRUN is next (signed run-length asymmetry per family backlog). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). ONLY execution remains. NO-LIGHT-WORK RULE: session must produce heavy artifacts for C374 (3 scripts + 2 tests + cache + preflight ready:true + full sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
 queued_next_campaign: C374
-queued_next_campaign_note: 'C373 RLRV MedRV is the ACTIVE campaign to build end-to-end NOW (no campaign373 scripts/tests/cache/reports on disk; verified 2026-11-18T19:28:27Z). C374 SIGNRUN (signed run-length asymmetry run_asym + max_run_share × seasonal-dislocation mean-reversion, W=256, 1296 configs, placebo seed 20261238, ref run_asym_dev L=240 H=4) is PRE-SEEDED in AGENTS.md and must execute immediately after C373 freezes with no planning turn. Then C375 ACOVK (multi-lag realized autocovariance profile acov_sum/acov_decay, W=256, lags 1/2/4/8, 1296 configs, placebo seed 20261239, ref acov_sum_dev L=240 H=4) is PRE-SEEDED with a full executable spec in AGENTS.md. Queue depth 3 so it can never be empty. Price-only, volume-free, close-only.'
+queued_next_campaign_note: 'C374 SIGNRUN (signed run-length asymmetry run_asym + max_run_share × seasonal-dislocation mean-reversion, W=256, 1296 configs, placebo seed 20261238, ref run_asym_dev L=240 H=4) is PRE-SEEDED in AGENTS.md and must execute immediately after C373 freezes with no planning turn. Then C375 ACOVK (multi-lag realized autocovariance profile acov_sum/acov_decay, W=256, lags 1/2/4/8, 1296 configs, placebo seed 20261239, ref acov_sum_dev L=240 H=4) is PRE-SEEDED with a full executable spec in AGENTS.md. Queue depth 2 so it can never be empty. Price-only, volume-free, close-only.'
 queued_campaign_c368: C368
 queued_campaign_c368_note: 'C368 RMAD/RABS is COMPLETE/FROZEN formal negative (20261118T115652Z): scripts build_c368_rmad_features.py/preflight_c368.py/run_c368_rmad_xsec_oos.py, tests test_preflight_c368.py/test_c368_rmad_xsec_oos.py, cache campaign368_rmad_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RMAD/RABS brute-force equality. C368 RESULT recorded in AGENTS.md; C369 is frozen.'
 queued_campaign_c369: C369
 queued_campaign_c369_note: 'C369 GMD/IQR is COMPLETE/FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C369 RESULT recorded in AGENTS.md; C370 is frozen.'
 queued_campaign_c370: C370
 queued_campaign_c370_note: 'C370 RAR/MADM is COMPLETE/FROZEN formal negative (20261118T140545Z): scripts build_c370_rarmadm_features.py/preflight_c370.py/run_c370_rarmadm_xsec_oos.py, tests test_preflight_c370.py/test_c370_rarmadm_xsec_oos.py, cache campaign370_rarmadm_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RAR/MADM brute-force equality. C370 RESULT recorded in AGENTS.md; C371 is frozen.'
-first_action: "EXECUTE C373 NOW (2026-11-18T19:28:27Z): START WITH CODE/BUILD — NOT ANALYSIS. C373 = RLRV MEDRV (median-of-three robust realized volatility + medrv_rv_ratio) x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, real C312 perp_close. NO campaign373 scripts/tests/cache/reports exist yet. CLONE C372 (scripts/build_c372_tirv_features.py, scripts/preflight_c372.py, scripts/run_c372_tirv_xsec_oos.py, tests/test_preflight_c372.py, tests/test_c372_tirv_xsec_oos.py) and adapt: 1) WRITE scripts/build_c373_rlrv_features.py, scripts/preflight_c373.py, scripts/run_c373_rlrv_xsec_oos.py. 2) WRITE tests/test_preflight_c373.py + tests/test_c373_rlrv_xsec_oos.py (MUST include C373 RLRV brute-force equality: vectorized cumsum vs per-window reference). 3) python3 scripts/build_c373_rlrv_features.py -> data/cache/campaign373_rlrv_5m/. 4) python3 scripts/preflight_c373.py -> ready:true. 5) python3 scripts/run_c373_rlrv_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign373_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c373.py tests/test_c373_rlrv_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C373 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, activate next pre-seeded price-only family if turns allow. No downscoping/re-runs of frozen C281B-C372/C287; no gate weakening; no closure by fiat."
-active_campaign: C373
-space_status: NO_EDGE_C281B_C372
-closure_note: 'C281B–C372 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C371 frozen 20261118T151130Z (1296, RETRACTED, dominant rkt_placebo 0.4164, attribution_ok false, 22/22 tests green). C372 frozen 20261118T160248Z (1296, RETRACTED, dominant tir4_placebo 0.4789, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C373 is now active — execute RLRV MedRV end-to-end per family backlog.'
+first_action: "EXECUTE C374 NOW (2026-11-18T20:19:08Z): START WITH CODE/BUILD — NOT ANALYSIS. C374 = SIGNRUN (signed run-length asymmetry run_asym + max_run_share) x seasonal-dislocation mean-reversion, USDT-M 5m, price-only, real C312 perp_close. NO campaign374 scripts/tests/cache/reports exist yet. CLONE C373 (scripts/build_c373_rlrv_features.py, scripts/preflight_c373.py, scripts/run_c373_rlrv_xsec_oos.py, tests/test_preflight_c373.py, tests/test_c373_rlrv_xsec_oos.py) and adapt: 1) WRITE scripts/build_c374_signrun_features.py, scripts/preflight_c374.py, scripts/run_c374_signrun_xsec_oos.py. 2) WRITE tests/test_preflight_c374.py + tests/test_c374_signrun_xsec_oos.py (MUST include C374 SIGNRUN brute-force equality: vectorized vs per-window reference). 3) python3 scripts/build_c374_signrun_features.py -> data/cache/campaign374_signrun_5m/. 4) python3 scripts/preflight_c374.py -> ready:true. 5) python3 scripts/run_c374_signrun_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign374_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c374.py tests/test_c374_signrun_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C374 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, activate next pre-seeded price-only family if turns allow. No downscoping/re-runs of frozen C281B-C373/C287; no gate weakening; no closure by fiat."
+active_campaign: C374
+space_status: NO_EDGE_C281B_C373
+closure_note: 'C281B–C373 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C372 frozen 20261118T160248Z (1296, RETRACTED, dominant tir4_placebo 0.4789, attribution_ok false, 22/22 tests green). C373 frozen 20261118T201908Z (1296, RETRACTED, dominant medrv_rv_ratio_placebo 0.3766, attribution_ok false, 22/22 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C374 is now active — execute SIGNRUN end-to-end per family backlog.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -323,6 +323,45 @@ c372_status:
     meta: '6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b'
     provenance: 'faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c373_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C373
+  family: realized_levy_jump_robust_medrv_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) not jump-robust), C367 (BPV/JAR = bipower variation / jump-activity ratio - adjacent products, not medians), C368 (RMAD/RABS = median absolute deviation - different estimator, no jump-robust scaling), C364 (DSRV = downside/upside semivariance - sign split, not jump-robust), C366 (RQV = quartic variation / top-k concentration - tail dominance, not jump-robust), C365 (KER = path geometry - displacement/path), C362 (Hill EVT), C361/C363/C371 (same-bar distributional moments). RLRV is a jump-robust realized volatility family using median-of-three adjacent absolute returns - never used before. Price-only (perp_close), volume-free.'
+  metrics: 'MedRV = (π/(6-4√3+π))·(W/(W-2))·Σ med(|x_{i-1}|,|x_i|,|x_{i+1}|)² over W=256; medrv_rv_ratio = MedRV/RV'
+  signals: [medrv_dev, medrv_rv_ratio_dev, medrv_placebo, medrv_rv_ratio_placebo]
+  n_configs: 1296
+  placebo_seed: 20261237
+  stability_ref: 'medrv_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [medrv_dev, medrv_rv_ratio_dev]
+  rlrv_params: {window_W: 256}
+  scripts_present: [scripts/build_c373_rlrv_features.py, scripts/preflight_c373.py, scripts/run_c373_rlrv_xsec_oos.py]
+  tests_present: [tests/test_preflight_c373.py, tests/test_c373_rlrv_xsec_oos.py]
+  cache_present: data/cache/campaign373_rlrv_5m
+  artifacts_present: [reports/campaign373_oos_sweep_20261118T201908Z.json, reports/campaign373_tradable_edge_registry_20261118T201908Z.json, reports/campaign373_summary_20261118T201908Z.json, reports/campaign373_verdict_20261118T201908Z.json, reports/campaign373_binding_constraint_20261118T201908Z.json]
+  as_of_utc: 20261118T201908Z
+  artifacts_ts: 20261118T201908Z
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: medrv_rv_ratio_placebo
+  dominant_share: 0.37662506223862763
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: '462c61784d59d6bd19c07b267494ddf38e7289a6f90dd72029f8832a0e47671a'
+    tradable_edge_registry: '2764c4be65481d2c7afbde00a4de3865f62598c4bf226fe9bed3dfb772bcca04'
+    summary: 'dbe114187fb931de816fe5c27c3853e983a72c77995532f22f866ae26fe23260'
+    verdict: '17f99b25680d8276c6e7a7519c5834bc6ac260338598d847f1d834da043d746e'
+    binding_constraint: 'ee399d05f2b8fe50e6ffc9eef23eaa5f4683e38e163f6b8ff31501c5e0e8ab1b'
+  cache_shas:
+    meta: '020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1'
+    provenance: 'facacb0392b1781618f4f08df1146a3adc9ca0a7ba8f3c7243474f3214d2e384'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
 family_backlog_c373_plus:
   - 'RLRV MedRV (median-of-three robust realized volatility + medrv_rv_ratio)'
   - 'SIGNRUN signed run-length asymmetry (run_asym + max run share)'

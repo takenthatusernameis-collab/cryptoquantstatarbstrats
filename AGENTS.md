@@ -640,6 +640,7 @@ C281B–C372: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C370 | 20261118T140545Z | realized absolute return & mean absolute deviation (RAR/MADM) | 1296 | madm_placebo 0.2687 | `0819e8174a481faa20a8c276804a9e485a69cf5c63f7d2d154cf37155209aa9a` | `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060` |
 | C371 | 20261118T151130Z | realized skewness & realized kurtosis (RSK/RKT) | 1296 | rkt_placebo 0.4164 | `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be` | `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8` |
 | C372 | 20261118T160248Z | realized time-irreversibility / lagged-product cumulants (TIRV) | 1296 | tir4_placebo 0.4789 | `3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788` | `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6` |
+| C373 | 20261118T201908Z | realized Lévy/jump-robust MedRV (RLRV) | 1296 | medrv_rv_ratio_placebo 0.3766 | `462c61784d59d6bd19c07b267494ddf38e7289a6f90dd72029f8832a0e47671a` | `17f99b25680d8276c6e7a7519c5834bc6ac260338598d847f1d834da043d746e` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -670,6 +671,8 @@ C371 extra SHAs: tradable_edge_registry `099e40dbfb950a4b4f8197de685db5f98c5d3ae
 
 C372 extra SHAs: tradable_edge_registry `c4099295b3c5e73c0517f517c89be32dab5609d66618a5791de260bd763a0809`, summary `759d550a0aa3f1a550a3272b43c9154570339cb797cc2afe8ec8492c108cf552`, binding_constraint `4c4f4a39f1a04e1458d48f950c3ab71321d135fe9403ad299e6bef32130015ce`. C372 cache SHAs: meta `6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b`, provenance `faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
+C373 extra SHAs: tradable_edge_registry `2764c4be65481d2c7afbde00a4de3865f62598c4bf226fe9bed3dfb772bcca04`, summary `dbe114187fb931de816fe5c27c3853e983a72c77995532f22f866ae26fe23260`, binding_constraint `ee399d05f2b8fe50e6ffc9eef23eaa5f4683e38e163f6b8ff31501c5e0e8ab1b`. C373 cache SHAs: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `facacb0392b1781618f4f08df1146a3adc9ca0a7ba8f3c7243474f3214d2e384`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
 ---
 
 ## C371 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T151130Z)
@@ -697,6 +700,21 @@ C372 (REALIZED TIME-IRREVERSIBILITY / LAGGED-PRODUCT CUMULANTS (TIRV) × SEASONA
 - verdict `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6`
 - binding_constraint `4c4f4a39f1a04e1458d48f950c3ab71321d135fe9403ad299e6bef32130015ce`
 - cache: meta `6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b`, provenance `faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+(Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
+
+---
+
+## C373 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T201908Z)
+
+C373 (REALIZED LÉVY/JUMP-ROBUST MedRV (RLRV) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `medrv_rv_ratio_placebo` 0.3766 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. RLRV brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign373_rlrv_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C373. Frozen — DO NOT re-run.
+
+- oos_sweep `462c61784d59d6bd19c07b267494ddf38e7289a6f90dd72029f8832a0e47671a`
+- tradable_edge_registry `2764c4be65481d2c7afbde00a4de3865f62598c4bf226fe9bed3dfb772bcca04`
+- summary `dbe114187fb931de816fe5c27c3853e983a72c77995532f22f866ae26fe23260`
+- verdict `17f99b25680d8276c6e7a7519c5834bc6ac260338598d847f1d834da043d746e`
+- binding_constraint `ee399d05f2b8fe50e6ffc9eef23eaa5f4683e38e163f6b8ff31501c5e0e8ab1b`
+- cache: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `facacb0392b1781618f4f08df1146a3adc9ca0a7ba8f3c7243474f3214d2e384`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
