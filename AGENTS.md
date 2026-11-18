@@ -652,6 +652,7 @@ C281B–C372: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C371 | 20261118T151130Z | realized skewness & realized kurtosis (RSK/RKT) | 1296 | rkt_placebo 0.4164 | `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be` | `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8` |
 | C372 | 20261118T160248Z | realized time-irreversibility / lagged-product cumulants (TIRV) | 1296 | tir4_placebo 0.4789 | `3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788` | `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6` |
 | C373 | 20261118T202427Z | realized Lévy/jump-robust MedRV (RLRV) | 1296 | medrv_rv_ratio_placebo 0.3766 | `b273c2ed4735744f944ae0072ae4755dba39a44c573fc9302acd87176ac88d62` | `c996e92c6de836946d57201a5d080abe1fd83319b804393a07922cf1cd60c222` |
+| C374 | 20261118T212227Z | signed run-length asymmetry (SIGNRUN) | 1296 | max_run_share_placebo 0.4773 | `80480e1f473cd7a50dbe9dd5a6c42b5824952f5d901a911472f51f346ac2d10d` | `cb9fd1d125741fab7dd43ff7efd9b8187319db7b24463f4908bdbe0f170adade` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -734,3 +735,16 @@ C373 (REALIZED LÉVY/JUMP-ROBUST MedRV (RLRV) × SEASONAL-DISLOCATION mean-rever
 ## C359 — ARCHIVED SPEC (frozen formal negative; kept for reproducibility, DO NOT re-run)
 
 C359 was **ORDINAL PATTERN TRANSITION ENTROPY (OPTE)**: Bandt–Pompe ordinal patterns of dimension D=5, delay τ=1 over trailing returns W=256 → 120 permutation states; consecutive states form transitions accumulated into a 120×120 count matrix C; `P=C/rowsum(C)` (zero rows → uniform); marginal `p_i=rowsum(C)_i/ΣC`; scalars `opte_ent = -Σ_i p_i Σ_j P_ij ln P_ij` (transition entropy rate, nats) and `opte_complexity = opte_ent × JSD(P, U_120)` (statistical complexity). Same 1296-config grid, seasonal-dislocation baseline, cross-sectional dollar-neutral construction, gates (Holm+BH+MDE+stability+attribution) and artifact layout as C360. Executed 20261118T005752Z → RETRACTED (multiple_testing). Scripts/cache/tests/artifacts on disk under `campaign359_*`.
+
+---
+
+## C374 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T212227Z)
+
+C374 (SIGNED RUN-LENGTH ASYMMETRY (SIGNRUN) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `max_run_share_placebo` 0.4773 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. SIGNRUN brute-force equality). Cache `data/cache/campaign374_signrun_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C374. Frozen — DO NOT re-run.
+
+- oos_sweep `80480e1f473cd7a50dbe9dd5a6c42b5824952f5d901a911472f51f346ac2d10d`
+- tradable_edge_registry `ac605492ee9510f31d0334ff6165c5c623bc841d7817b8fe65360ff50422ae4a`
+- summary `5e0ae2bb8886343a5c99794b0596cc81d419b345750def40bf2fa7406df2f8ba`
+- verdict `cb9fd1d125741fab7dd43ff7efd9b8187319db7b24463f4908bdbe0f170adade`
+- binding_constraint `7492e120993be80822b3e080bc7124a94d4176ffc95e78d0a5805193b0bfa820`
+- cache: meta/provenance/manifest in `data/cache/campaign374_signrun_5m/`

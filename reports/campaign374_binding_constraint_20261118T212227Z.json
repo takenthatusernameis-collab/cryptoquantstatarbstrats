@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T212227Z",
+  "campaign": 374,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign374_oos_sweep_20261118T212227Z.json",
+  "oos_sweep_sha256": "80480e1f473cd7a50dbe9dd5a6c42b5824952f5d901a911472f51f346ac2d10d",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "run_asym_dev": 0.21465157032104995,
+    "max_run_share_dev": 0.06608160098335897,
+    "run_asym_placebo": 0.24194755243111188,
+    "max_run_share_placebo": 0.4773192762644792
+  },
+  "dominant_attribution": "max_run_share_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "run_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.8700935272008539,
+      -1.208956489122604,
+      -1.003653252161153,
+      -1.4070513192200504,
+      -1.0059355225823683,
+      -0.8603607185956312,
+      -1.136168626956883,
+      -1.1512482979667702
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -5.5052310551514365,
+    "second_half_sharpe": -8.852096085015502,
+    "sharpe_corr": 0.9968371769272003,
+    "stable": false
+  },
+  "diagnosis": "C374 cross-sectional intraday REALIZED L\u00c9VY/JUMP-ROBUST MedRV (SIGNRUN) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
