@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T151130Z",
+  "campaign": 371,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign371_oos_sweep_20261118T151130Z.json",
+  "oos_sweep_sha256": "5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rsk_dev": 0.1472480111011811,
+    "rkt_dev": 0.11879502631456916,
+    "rsk_placebo": 0.31754251857435906,
+    "rkt_placebo": 0.41641444400989075
+  },
+  "dominant_attribution": "rkt_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rsk_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.7159088971356199,
+      -0.7881941774144032,
+      -0.8040559134104093,
+      -0.8881297795756184,
+      -0.8581723277400608,
+      -0.5518225304879016,
+      -0.736727335037169,
+      -0.7395430628443812
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -13.052903866723408,
+    "second_half_sharpe": -6.58510530817659,
+    "sharpe_corr": 0.998800553957729,
+    "stable": false
+  },
+  "diagnosis": "C371 cross-sectional intraday REALIZED SKEWNESS & REALIZED KURTOSIS (RSK/RKT) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

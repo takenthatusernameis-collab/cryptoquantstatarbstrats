@@ -597,6 +597,7 @@ C281B–C364: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C368 | 20261118T115652Z | realized median absolute deviation & median-of-absolutes volatility (RMAD/RABS) | 1296 | rmad_dev 0.2988 | `c2347d030c8162dfd8c1e8e7e14128ff2d9d597b09f8837c9752da691cc319a7` | `a618e995c63dd0aa05d655111947ca5f102480bcc731bee29453865a5f949b0c` |
 | C369 | 20261118T135451Z | gini mean difference & interquartile range (GMD/IQR) | 1296 | iqr_dev 0.3383 | `ed93c318f8551798a81a97f8ca0a907dd2602187abfdedbae959f28d4110f58a` | `549fbeea5aa05b389d570aec552943528cf0137e726b7b68543c918b7f189d75` |
 | C370 | 20261118T140545Z | realized absolute return & mean absolute deviation (RAR/MADM) | 1296 | madm_placebo 0.2687 | `0819e8174a481faa20a8c276804a9e485a69cf5c63f7d2d154cf37155209aa9a` | `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060` |
+| C371 | 20261118T151130Z | realized skewness & realized kurtosis (RSK/RKT) | 1296 | rkt_placebo 0.4164 | `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be` | `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -623,6 +624,20 @@ C368 extra SHAs: tradable_edge_registry `a72ac87a3a7dfa5656655b957602afd5e72f4c2
 C369 extra SHAs: tradable_edge_registry `ce178e43956b7d16b41905365ec27f66a25dcaf23d9a20bb1210a91cd3734377`, summary `1f68cc4c2044fa732d48a62413f65640be9e2581ee0072efa1bb2be3192e68d0`, binding_constraint `55e5dd104610f0da9bd2211e60cb4ae50464269a7581a0ca62abe586e7281e9d`. C369 cache SHAs: meta `b0049dd0a3b114a66a7df32c753bb9608e9a606ebab4667e98fa1399400620fe`, provenance `e455871e144a44c9ca2fffb060f2232916e6fc4acca053c32ea3bb9386eeb051`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C370 extra SHAs: tradable_edge_registry `05dffa8529acbbafa874060d5fe237705d6914906e5c65a2628eebaa6d0a0e2f`, summary `ef3f9032acc8bd0e78d87e80ef15a28a22c2649ba42d6b8e539577623fd5912a`, binding_constraint `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060`. C370 cache SHAs: meta `710f2dfd31ee00009395e3f41214b7e484f48ab54ab49e40e6e9b8fc34c220d1`, provenance `9a57986251c2fdc1c62f48ea6dd1768ede00c7651904ca3100b7e60e6b372b7f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+C371 extra SHAs: tradable_edge_registry `099e40dbfb950a4b4f8197de685db5f98c5d3ae0a2e51ae55ebf0e82d2cff6c2`, summary `e627c2746c0eec2f7cd115faa4a6a501167cdcfaedb3d53253bcbc2a80356c0b`, binding_constraint `8dc86c771e447abdf81070bcd6dccb46bbffae951531032c3e21cc4bf4e0475d`. C371 cache SHAs: meta `d762bc9ae1d44d36368d4adf3b13e7baf01bb8a3e3c263152b97802d44892874`, provenance `3cdef5b6e618fbea7ec19a456099b9e4129fbc62e2c5bb5ac34b8b4876b56399`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+---
+
+## C371 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T151130Z)
+
+C371 (REALIZED SKEWNESS & REALIZED KURTOSIS (RSK/RKT) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `rkt_placebo` 0.4164 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. RSK/RKT brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign371_rskrkt_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C371. Frozen — DO NOT re-run.
+
+- oos_sweep `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be`
+- tradable_edge_registry `099e40dbfb950a4b4f8197de685db5f98c5d3ae0a2e51ae55ebf0e82d2cff6c2`
+- summary `e627c2746c0eec2f7cd115faa4a6a501167cdcfaedb3d53253bcbc2a80356c0b`
+- verdict `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8`
+- binding_constraint `8dc86c771e447abdf81070bcd6dccb46bbffae951531032c3e21cc4bf4e0475d`
+- cache: meta `d762bc9ae1d44d36368d4adf3b13e7baf01bb8a3e3c263152b97802d44892874`, provenance `3cdef5b6e618fbea7ec19a456099b9e4129fbc62e2c5bb5ac34b8b4876b56399`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
