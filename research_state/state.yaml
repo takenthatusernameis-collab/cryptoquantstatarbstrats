@@ -1,23 +1,22 @@
-updated_at_utc: 2026-11-18T02:47:15Z
-handoff_refreshed_at_utc: 2026-11-18T02:47:15Z
+updated_at_utc: 2026-11-18T03:39:01Z
+handoff_refreshed_at_utc: 2026-11-18T03:39:01Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C361
-next_campaign: C362_placeholder_next_genuinely_new_price_only_family
+latest_campaign_done: C362
+next_campaign: C363_qatm_quantile_asymmetry_tail_mass
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T02:40:01Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T02:47:15Z (C361 executed): C281B-C361 ALL COMPLETE FORMAL NEGATIVES (~98,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324, 23/23 tests green incl. RSKEK brute-force equality, 5 SHA256 artifacts). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars, meta sha256 49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b). C361 scripts/cache/tests/artifacts on disk under campaign361_*. C287 external-only/decoupled (451/403) — never retry. NO blockers. C362 pre-registered active placeholder — next session must write full C362 spec and execute heavy work. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign362_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C362_placeholder_next_genuinely_new_price_only_family
-queued_next_campaign_note: 'C362 is now ACTIVE (pre-registered placeholder). Pre-register next genuinely-new price-only family spec in AGENTS.md so work never stalls.'
-first_action: "EXECUTE C362 NOW (2026-11-18T02:47:15Z): next genuinely-new price-only family on real C312 5m data (tail-index / extreme-return frequency or another novel distributional/temporal-dependence statistic, distinct from C281B-C361). FIRST WRITE scripts/build_c362_*_features.py, scripts/preflight_c362.py, scripts/run_c362_*_xsec_oos.py, tests/test_preflight_c362.py, tests/test_c362_*_xsec_oos.py with full frozen spec (grid=1296, placebo seed, gates identical, brute-force equality test). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign362_*_<TS>Z.json -> record in AGENTS.md + state.yaml, freeze C362, set C363 active. No downscoping, no spec changes, no re-runs of frozen C281B-C361/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
-active_campaign: C362_placeholder_next_genuinely_new_price_only_family
-space_status: NO_EDGE_C281B_C360
-closure_note: 'C281B–C360 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~97,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C361 RSKEK pre-registered and active — must be executed end-to-end. C362 to be pre-registered on C361 freeze.'
-active_initial_task: "EXECUTE C361 NOW (2026-11-18T02:40:01Z): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FIRST WRITE scripts/build_c361_rskek_features.py, scripts/preflight_c361.py, scripts/run_c361_rskek_xsec_oos.py, tests/test_preflight_c361.py, tests/test_c361_rskek_xsec_oos.py cloning C360 template and adapting to RSKEK: W=256 raw returns, rskew=mean(((X-mu)/sigma)^3), rkurt=mean(((X-mu)/sigma)^4)-3 (NaN if sigma<=0), signals rskew_dev,rkurt_dev,rskew_placebo,rkurt_placebo, placebo seed 20261225, grid 4x6x3x3x3x2=1296, ATTR_REPRESENTATIVES={rskew_dev,rkurt_dev}, stability_ref rskew_dev L=240 H=4 fee=0.0007 slip=0.0001 taker. THEN: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. RSKEK brute-force equality -> 5 SHA256 artifacts reports/campaign361_*_<TS>Z.json -> record AGENTS.md+state.yaml, freeze C361, set C362 active. No downscoping, no spec changes, no re-runs of frozen C281B-C360/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+bottlenecks_verified_removed_at_utc: "2026-11-18T03:39:01Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T03:39:01Z: C281B-C362 ALL COMPLETE FORMAL NEGATIVES (~99k+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136, 23/23 tests green incl. Hill brute-force equality, 5 SHA256 artifacts). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars, meta sha256 49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b). C361 scripts/cache/tests/artifacts on disk under campaign361_*. C362 scripts/cache/tests/artifacts on disk under campaign362_*. C287 external-only/decoupled (451/403) — never retry. NO blockers. C363 QATM pre-registered active — next session must write full C363 spec and execute heavy work. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign363_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C363_qatm_quantile_asymmetry_tail_mass
+queued_next_campaign_note: 'C363 is now ACTIVE (pre-registered frozen spec). Pre-register next genuinely-new price-only family spec (C364) in AGENTS.md on C363 freeze so work never stalls.'
+first_action: "EXECUTE C363 NOW (2026-11-18T03:39:01Z): QUANTILE ASYMMETRY & TAIL-MASS (QATM) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. FIRST WRITE scripts/build_c363_qatm_features.py, scripts/preflight_c363.py, scripts/run_c363_qatm_xsec_oos.py, tests/test_preflight_c363.py, tests/test_c363_qatm_xsec_oos.py with full frozen spec (grid=1296, placebo seed 20261227, gates identical, brute-force equality test). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign363_*_<TS>Z.json -> record in AGENTS.md + state.yaml, freeze C363, set C364 active. No downscoping, no spec changes, no re-runs of frozen C281B-C362/C287. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+active_campaign: C363_qatm_quantile_asymmetry_tail_mass
+space_status: NO_EDGE_C281B_C362
+closure_note: 'C281B–C362 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~99k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C363 QATM pre-registered and active — must be executed end-to-end.'
 c360_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C360
@@ -81,25 +80,61 @@ c361_status:
     provenance: 'f0784f392147ea5af34151121cea5e9c4741b5b79ea5da2f667ec0b4169e635c'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 c362_status:
-  state: PRE_REGISTERED_ACTIVE_NOT_YET_EXECUTED
+  state: COMPLETE_FORMAL_NEGATIVE
   campaign: C362
-  family: next_genuinely_new_price_only_family_usdt_m_5m_tbd
+  family: cross_sectional_hill_tail_index_extreme_returns_tail_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
   genuinely_new: true
-  distinct_from: 'C281B-C361 (not a reskin of realized-vol, vol-weighted moments, autocorr/chop, envelope/Williams %R, R/S, drawdown-duration, HHI, permutation/SampEn/MSE/LZC entropy, DFA/GPH/local-Whittle/VR/HFD/MF-DFA scaling, OPTE, LVAC, raw skew/kurt)'
-  activated_utc: 20261118T024715Z
-  signals: TBD
+  distinct_from: 'C361 (raw skew/kurt central moments), C317 (realized vol), C348 (HHI), C343 (|r| autocorr), C360 (signed cross-moment leverage coupling), C344 (sign-change/chop), C345 (close-location), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). Hill tail-index is an extreme value theory tail-thickness statistic (tail index alpha), not a moment and not a cross-moment. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T033729Z
+  artifacts_ts: 20261118T033729Z
+  signals: [hill_tail_dev, hill_sign_tail_dev, hill_tail_placebo, hill_sign_tail_placebo]
   n_configs: 1296
-  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296 (to be confirmed in full spec)'
-  placebo_seed: TBD
-  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12 (to be confirmed in full spec)'
-  stability_ref: TBD
-  attr_representatives: TBD
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261226
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'hill_tail_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [hill_tail_dev, hill_sign_tail_dev]
+  hill_params: {window_W: 256, n_exceed: 12}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: hill_sign_tail_placebo
+  dominant_share: 0.31364801112427076
+  attribution_ok: false
+  tests_green: 23
+  artifacts:
+    oos_sweep: '1b1f5f18e35f1f465555a8a8547db42473f65e605e7d9ca229a042938245ec3d'
+    tradable_edge_registry: '78f9d81e7b060b64ee2309b7668666f175aa2506fbdcb1e10ac03288db1f6553'
+    summary: '4fa345c77363a7cd0ff7b30a8574967798dcb4761dd4bad883453676e40cab82'
+    verdict: '24e9b0be1f48db8061c74872f199d860444da3be08560f51d3808ffb06f00637'
+    binding_constraint: '1085b11bd0b3c0e82abe24086fa4358f84fef7e80d9a055ff813ed4df794ca26'
+    full: '9c4b365cc460ea5e3cea8fcf7ffb3e2880acbff18ba7c609c6713ecd3db6b08b'
+  cache_shas:
+    meta: 'cec80b1bf4a0fd6491b2fdceca9ae410af972cb2af239d45b925bcd360896a26'
+    provenance: '0c2a2b5240e3ec86b926724cf6224664459e8bd0d26709fc00b08b2f2608cb0a'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c363_status:
+  state: PRE_REGISTERED_ACTIVE_NOT_YET_EXECUTED
+  campaign: C363
+  family: cross_sectional_quantile_asymmetry_tail_mass_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C361 (raw skew/kurt central moments), C362 (Hill tail-index extreme value theory), C317 (realized vol 2nd moment), C348 (HHI squared-return concentration), C343 (|r| autocorr/vol clustering), C360 (signed cross-moment corr(r,|r|t-k) leverage coupling), C344 (sign-change/chop), C345 (close-location/Williams %R), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). QATM is a quantile/order-statistic family (Galton quantile skewness + boxplot outlier rate) never used before. Price-only (perp_close), volume-free.'
+  activated_utc: 20261118T033901Z
+  signals: [qasym_dev, qout_dev, qasym_placebo, qout_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261227
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'qasym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [qasym_dev, qout_dev]
+  qatm_params: {window_W: 256}
   required_deliverables:
-    - scripts/build_c362_*_features.py
-    - scripts/preflight_c362.py
-    - scripts/run_c362_*_xsec_oos.py
-    - tests/test_preflight_c362.py
-    - tests/test_c362_*_xsec_oos.py
-    - data/cache/campaign362_*/
-    - 5 SHA256 artifacts reports/campaign362_*_<TS>Z.json
+    - scripts/build_c363_qatm_features.py
+    - scripts/preflight_c363.py
+    - scripts/run_c363_qatm_xsec_oos.py
+    - tests/test_preflight_c363.py
+    - tests/test_c363_qatm_xsec_oos.py
+    - data/cache/campaign363_qatm_5m/
+    - 5 SHA256 artifacts reports/campaign363_*_<TS>Z.json
     - '>=21 pytest green incl. brute-force equality'
