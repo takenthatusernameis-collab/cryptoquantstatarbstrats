@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T074457Z",
+  "campaign": 365,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign365_oos_sweep_20261118T074457Z.json",
+  "oos_sweep_sha256": "5e36f367773a9025ff6de66e13b30288eacbc8d0e9e7883c856f47d788ae1418",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ker_er_dev": 0.31897018314734976,
+    "ker_signed_dev": 0.18697740358273474,
+    "ker_er_placebo": 0.30657708838312,
+    "ker_signed_placebo": 0.18747532488679544
+  },
+  "dominant_attribution": "ker_er_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ker_er_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -2.00539312534003,
+      -2.0455796783729383,
+      -1.8861798790692281,
+      -2.2959630744121577,
+      -1.9403549437649377,
+      -1.9332056290677344,
+      -1.954267450584185,
+      -2.2992145916558244
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -13.793308916513816,
+    "second_half_sharpe": -13.142030195653764,
+    "sharpe_corr": 0.9998493180284319,
+    "stable": false
+  },
+  "diagnosis": "C365 cross-sectional intraday KAUFMAN EFFICIENCY RATIO / PATH-STRAIGHTNESS (KER) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

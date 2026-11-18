@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T07:39:47Z (single authoritative handoff; RE-VERIFIED on disk 2026-11-18T07:39:47Z — no HANDOFF.md/duplicate handoff files; **C364 DSRV is DONE and FROZEN** — 5 SHA256 reports present `campaign364_*_20261118T070416Z.json`, verdict RETRACTED, 0 Holm+BH survivors over 2592 configs, dominant `dsrv_ratio_placebo` 0.4716, 24/24 tests green, cache `data/cache/campaign364_dsrv_5m/` present; **C365 KER scripts PARTIALLY PRESENT** — `scripts/{build,preflight,run}_c365_*.py` exist and are syntax-valid + complete incl. KER brute-force reference, but `tests/*c365*` ABSENT, `data/cache/campaign365_ker_5m/` ABSENT, `reports/campaign365_*` ABSENT → C365 is the active campaign to FINISH end-to-end; C312 5m source ready `data/cache/campaign312_usdt_m_ofi_5m/` = 10 symbols × 315,648 bars each with `perp_close`; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only. **This refresh (2026-11-18T07:39:47Z) is the ONE authoritative timestamp — ignore any earlier per-section timestamp (the prior 06:52/07:09 blocks were stale/contradictory and are superseded).**
+**Handoff refreshed:** 2026-11-18T07:44:57Z (single authoritative handoff; RE-VERIFIED on disk 2026-11-18T07:44:57Z — no HANDOFF.md/duplicate handoff files; **C365 KER is DONE and FROZEN** — formal negative, 1296 configs costed-OOS, 0 Holm+BH survivors over 1296 configs, verdict RETRACTED, binding `multiple_testing`, dominant attribution `ker_er_dev` 0.31897 (< 0.50 share, attribution_ok false), 22/22 tests green incl. KER brute-force equality, 5 SHA256 reports `campaign365_*_20261118T074457Z.json`, cache `data/cache/campaign365_ker_5m/` present (10 shards × 315,648 bars, ~38.5 MB). **C366 RQV is now ACTIVE** — scripts/cache/tests/reports to be built end-to-end (heavy work, no downscoping); pre-registered placeholder spec present below. C312 5m source ready `data/cache/campaign312_usdt_m_ofi_5m/` = 10 symbols × 315,648 bars each with `perp_close`; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only. **This refresh (2026-11-18T07:44:57Z) is the ONE authoritative timestamp — ignore any earlier per-section timestamp (the prior 07:39:47Z block is superseded).**
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-18T07:39:47Z) — NEXT SESSION: FINISH C365 (KER) END-TO-END NOW. NO RE-READ-ONLY, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C364 OR ANY FROZEN CAMPAIGN. ZERO TOLERANCE FOR AVOIDANCE.**
+> **INITIAL TASK MESSAGE (2026-11-18T07:44:57Z) — NEXT SESSION: FINISH C366 (RQV) END-TO-END NOW. NO RE-READ-ONLY, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C364/C365 OR ANY FROZEN CAMPAIGN. ZERO TOLERANCE FOR AVOIDANCE.**
 > Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. The ONLY acceptable outcome of the next session is **real execution progress** — a real-data, costed, out-of-sample stat-arb edge attempt on the on-disk C312 5m data — leaving durable artifacts on disk.
 >
 > **Verified state (2026-11-18T07:39:47Z):** C281B–C364 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`); C364 verified (5 artifact SHAs + cache SHAs match `research_state/state.yaml` + this handoff). **C365 (KER) scripts already exist and are complete + syntax-valid + include a brute-force reference kernel** — `scripts/build_c365_ker_features.py`, `scripts/preflight_c365.py`, `scripts/run_c365_ker_xsec_oos.py`. **DO NOT rewrite these; do NOT re-run C364 or any frozen campaign (C281B–C364, C287).** C364 template is intact if you need a reference for the two missing C365 test files.
@@ -112,6 +112,19 @@ C364 (REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) ×
 
 ---
 
+## C365 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T074457Z)
+
+C365 (KAUFMAN EFFICIENCY RATIO / PATH-STRAIGHTNESS (KER) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a **FORMAL NEGATIVE**: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `ker_er_dev` 0.31897 (share < 0.50, so attribution_ok false; no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. KER brute-force equality). Cache `data/cache/campaign365_ker_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C365. Frozen — DO NOT re-run.
+
+- oos_sweep `5e36f367773a9025ff6de66e13b30288eacbc8d0e9e7883c856f47d788ae1418`
+- tradable_edge_registry `afc3ed6aaa8a7c92b96486fb63f375919298539f09bd1d2e9146ff0f56009b48`
+- summary `a651ec724409e48f0568da4da267a42b74bb7715f85d67e6f06e61a1b7e917b1`
+- verdict `ba9518053854ce56abd3965393673d054621b2c75ed8a897ca86463b54d9220b`
+- binding_constraint `fef7f58b1b5b87301135daafde697d68e5ec8e00369295a2cb1716580b58bed5`
+- cache: meta `137021e54df984932a38c64c44a39a0cd1d3d44aa1d1de7cdd838d0ca428267d`, provenance `22f0a73a92d27673108727b942d9bbb71da2c8f2fcdbc114d328ae6d4a8254e1`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+---
+
 ---
 
 ---
@@ -194,7 +207,7 @@ Compute `rv_down`, `rv_up`, `dsrv_asym`, `dsrv_ratio` for all bars per asset wit
 
 ---
 
-## C365 — ACTIVE SPEC (scripts build/preflight/run PRESENT; tests/cache/reports MISSING — FINISH END-TO-END)
+## C365 — ARCHIVED SPEC (EXECUTED — FROZEN FORMAL NEGATIVE, DO NOT re-run) — spec below retained for reference; see C365 RESULT for outcome
 
 **C365 — KAUFMAN EFFICIENCY RATIO / PATH-STRAIGHTNESS (KER) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -241,17 +254,17 @@ Compute `ker_er`, `ker_signed` for all bars per asset with vectorized `sliding_w
 - **Attribution**: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 4 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
 - **Verdict**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
 
-### Deliverables (ALL six, in order — clone C364 pattern under `campaign365_*`)
-1. `scripts/build_c365_ker_features.py` → `data/cache/campaign365_ker_5m/`
-2. `scripts/preflight_c365.py` → `ready:true`
-3. `scripts/run_c365_ker_xsec_oos.py` → 5 SHA256 artifacts + `.full.json`: `oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint` (`reports/campaign365_*_<TS>Z.json`)
-4. `tests/test_preflight_c365.py` + `tests/test_c365_ker_xsec_oos.py` — ≥21 green (incl. KER brute-force equality test)
-5. Record truthful result in this `AGENTS.md` (C365 RESULT) + `research_state/state.yaml`; add C365 to frozen table with 5 SHAs (+ cache SHAs); set C366 active with next genuinely-new price-only family spec placeholder
-6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts
+### Deliverables (ALL six, in order — clone C364 pattern under `campaign365_*`) — COMPLETE (frozen 20261118T074457Z)
+1. `scripts/build_c365_ker_features.py` → `data/cache/campaign365_ker_5m/` DONE (meta `137021e54d...`, provenance `22f0a73a...`, manifest `4d953a7d...`)
+2. `scripts/preflight_c365.py` → `ready:true` DONE
+3. `scripts/run_c365_ker_xsec_oos.py` → 5 SHA256 artifacts + `.full.json` DONE (`reports/campaign365_*_20261118T074457Z.json`)
+4. `tests/test_preflight_c365.py` + `tests/test_c365_ker_xsec_oos.py` — 22/22 green (incl. KER brute-force equality) DONE
+5. Record truthful result in this `AGENTS.md` (C365 RESULT) + `research_state/state.yaml`; add C365 to frozen table with 5 SHAs (+ cache SHAs); set C366 active DONE
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts DONE
 
 ---
 
-## C366 — ACTIVE-ON-C365-FREEZE SPEC (PRE-REGISTERED PLACEHOLDER — genuinely-new price-only family, so work never stalls)
+## C366 — ACTIVE CAMPAIGN (C365 FROZEN — RQV / REALIZED QUARTIC VARIATION × SEASONAL-DISLOCATION mean-reversion stat-arb)
 
 **C366 — REALIZED QUARTIC VARIATION / KURTOSIS-CONCENTRATION OF SQUARED RETURNS (RQV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -440,9 +453,9 @@ C362 was **HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY**: per-bar Hill t
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C364 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C365 KER is the active, in-progress campaign — scripts present, must be FINISHED end-to-end now (heavy work, no downscoping).**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C365 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C365 KER is FROZEN formal negative (20261118T074457Z); C366 RQV is now the active campaign — scripts/cache/tests/reports to be built end-to-end (heavy work, no downscoping).**
 
-**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T07:39:47Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars: ADA, AVAX, BNB, BTC, DOGE, DOT, ETH, LINK, SOL, XRP). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry. No queued/blocked sessions to unblock. **Outstanding heavy work (mandatory) for C365:** write 2 missing test files (`tests/test_preflight_c365.py`, `tests/test_c365_ker_xsec_oos.py`) + build `data/cache/campaign365_ker_5m/` + preflight `ready:true` + full 1296-config costed OOS sweep + ≥21 green tests incl. KER brute-force equality + 5 SHA256 artifacts `reports/campaign365_*_<TS>Z.json` + truthful C365 RESULT/state update + C366 activation on freeze. (C364 is DONE/FROZEN — do NOT rebuild or re-run it.)
+**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T07:39:47Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars: ADA, AVAX, BNB, BTC, DOGE, DOT, ETH, LINK, SOL, XRP). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry. No queued/blocked sessions to unblock. C365 complete: 2 test files written + cache `data/cache/campaign365_ker_5m/` built (~38.5 MB) + preflight `ready:true` + full 1296-config costed OOS sweep + 22/22 green tests incl. KER brute-force equality + 5 SHA256 artifacts `reports/campaign365_*_20261118T074457Z.json` + C365 RESULT/state recorded + C366 activated. (C364 and C365 are DONE/FROZEN — do NOT rebuild or re-run either.)
 
 ---
 
@@ -480,6 +493,7 @@ C281B–C364: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C362 | 20261118T033729Z | Hill tail-index of extreme returns & tail asymmetry | 1296 | hill_sign_tail_placebo 0.3136 | `1b1f5f18e35f1f465555a8a8547db42473f65e605e7d9ca229a042938245ec3d` | `24e9b0be1f48db8061c74872f199d860444da3be08560f51d3808ffb06f00637` |
 | C363 | 20261118T035157Z | quantile asymmetry & tail-mass (QATM) | 1296 | qasym_placebo 0.3072 | `6119846ba7763148de9f096909d42cb7d1ade2da2b281a9b5fca73d26067049b` | `34c55d3a53b2fd2a9e20ce54047ff45591e977292426b9411475939339b47639` |
 | C364 | 20261118T070416Z | realized semivariance / downside-upside volatility decomposition (DSRV) | 2592 | dsrv_ratio_placebo 0.4716 | `a8ebc63d66f89b48a5d9d04bb1cef1df803ec92fb5515738768f4d590ff98b60` | `d36417e6775cd310a28d544bdefc36ac50a49ab0b9170c4fbe38b1270335cb6f` |
+| C365 | 20261118T074457Z | kaufman efficiency ratio / path-straightness (KER) | 1296 | ker_er_dev 0.31897 | `5e36f367773a9025ff6de66e13b30288eacbc8d0e9e7883c856f47d788ae1418` | `ba9518053854ce56abd3965393673d054621b2c75ed8a897ca86463b54d9220b` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -494,6 +508,8 @@ C362 extra SHAs: tradable_edge_registry `78f9d81e7b060b64ee2309b7668666f175aa250
 C363 extra SHAs: tradable_edge_registry `921257c66d9a87fbf598375900a077bf4f9739751dd4ff08695dcb21c41965b0`, summary `b8caec7a7a0b4b72412b8833b8b04b7ff16bd23bea5ef576b5db6dab9088a5cf`, binding_constraint `867389789707568db6b952036eef5c7c26f7a60e876ae0a192605b3143529398`. C363 cache SHAs: meta `fcf8ef6daf351b8547bc9429e17a44286481a196e991f8e699baf5e251d2aff6`, provenance `4eb871e13ba8d884ea91eebdff458e92cd9db1059e8be9f2213d5affffbf0f04`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C364 extra SHAs: tradable_edge_registry `4c7ddc042c7d5e4e6839a112731a61725cb87dbf17fb2b66cb26e56274a1faa3`, summary `8698f1b138821116a26eb377688657408350a04f6e964fdafe763d2314c6b11d`, binding_constraint `8f4a25a222aa1063f734dcb226b2e7ff5fa3c8d2da4399bef7de01ea4f28724d`. C364 cache SHAs: meta `1b7f36c8d2afdb9b9c3a4b0f5e810edec9cfbe61b6e9d256223d3479b03cdddc`, provenance `286c4c2d972df1649a8f02356a4abbbd92fd3c17ebbcd53a55a9fb7b7f6a34a5`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C365 extra SHAs: tradable_edge_registry `afc3ed6aaa8a7c92b96486fb63f375919298539f09bd1d2e9146ff0f56009b48`, summary `a651ec724409e48f0568da4da267a42b74bb7715f85d67e6f06e61a1b7e917b1`, binding_constraint `fef7f58b1b5b87301135daafde697d68e5ec8e00369295a2cb1716580b58bed5`. C365 cache SHAs: meta `137021e54df984932a38c64c44a39a0cd1d3d44aa1d1de7cdd838d0ca428267d`, provenance `22f0a73a92d27673108727b942d9bbb71da2c8f2fcdbc114d328ae6d4a8254e1`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
