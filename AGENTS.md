@@ -1,67 +1,78 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-18T20:09:19Z (disk re-verified 2026-11-18T20:09:19Z). **Repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE — prioritization is therefore fixed: (1) cross-sectional relative-value stat-arb (dollar-neutral rank dispersion across the 10 USDT-M perps) is the PRIMARY axis, (2) seasonal-dislocation mean-reversion is the signal overlay on that primary axis, (3) costed out-of-sample validation with Holm+BH multiplicity control is the ONLY acceptance gate. Every campaign must be a stat-arb edge attempt on real on-disk C312 5m data, not a directional bet.** **C281B–C372 ALL FROZEN FORMAL NEGATIVES.** **C371 (RSK/RKT) FULLY EXECUTED & FROZEN (20261118T151130Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `rkt_placebo` 0.4164. **C372 (TIRV) FULLY EXECUTED & FROZEN (20261118T160248Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `tir4_placebo` 0.4789. All 5 SHA256 artifacts + cache on disk. **C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) is the ACTIVE next campaign — PRE-SEEDED, execute end-to-end now.** **Queue depth = 3 (C373 RLRV active → C374 SIGNRUN pre-seeded → C375 ACOVK pre-seeded) so the queue can never be empty.** **Bottlenecks: NONE.**
+**Handoff written:** 2026-11-18T20:09:19Z (disk re-verified 2026-11-18T20:24:27Z). **Repo name `cryptoquantstatarbstrats` = crypto quantitative STATISTICAL ARBITRAGE — prioritization is therefore fixed: (1) cross-sectional relative-value stat-arb (dollar-neutral rank dispersion across the 10 USDT-M perps) is the PRIMARY axis, (2) seasonal-dislocation mean-reversion is the signal overlay on that primary axis, (3) costed out-of-sample validation with Holm+BH multiplicity control is the ONLY acceptance gate. Every campaign must be a stat-arb edge attempt on real on-disk C312 5m data, not a directional bet.** **C281B–C373 ALL FROZEN FORMAL NEGATIVES.** **C371 (RSK/RKT) FULLY EXECUTED & FROZEN (20261118T151130Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `rkt_placebo` 0.4164. **C372 (TIRV) FULLY EXECUTED & FROZEN (20261118T160248Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `tir4_placebo` 0.4789. **C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) FULLY EXECUTED & FROZEN (20261118T202427Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `medrv_rv_ratio_placebo` 0.3766. All 5 SHA256 artifacts + cache on disk. **C374 (SIGNRUN — SIGNED RUN-LENGTH ASYMMETRY) is the ACTIVE next campaign — PRE-SEEDED, execute end-to-end now.** **Queue depth = 2 (C374 SIGNRUN active → C375 ACOVK pre-seeded) so the queue can never be empty.** **Bottlenecks: NONE.**
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a HARD VIOLATION. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (written 2026-11-18T20:09:19Z — ONE authoritative timestamp; supersedes all earlier session messages) — NEXT SESSION: EXECUTE C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) END-TO-END NOW. START WITH HEAVY EXECUTION (WRITE CODE → BUILD CACHE → PREFLIGHT → FULL COSTED-OOS SWEEP → PYTEST → 5 SHA256 ARTIFACTS), NOT RE-READING, RE-PLANNING, OR PROSE. NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C281B–C372 OR C287. ZERO TOLERANCE FOR AVOIDANCE.**
+> **INITIAL TASK MESSAGE (written 2026-11-18T20:09:19Z — ONE authoritative timestamp; supersedes all earlier session messages) — NEXT SESSION: EXECUTE C374 (SIGNRUN — SIGNED RUN-LENGTH ASYMMETRY) END-TO-END NOW. START WITH HEAVY EXECUTION (WRITE CODE → BUILD CACHE → PREFLIGHT → FULL COSTED-OOS SWEEP → PYTEST → 5 SHA256 ARTIFACTS), NOT RE-READING, RE-PLANNING, OR PROSE. NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C281B–C373 OR C287. ZERO TOLERANCE FOR AVOIDANCE.**
 >
 > **EXECUTION CARD (copy-paste order, no thought required):**
 > ```
-> cp scripts/build_c372_tirv_features.py            scripts/build_c373_rlrv_features.py
-> cp scripts/preflight_c372.py                      scripts/preflight_c373.py
-> cp scripts/run_c372_tirv_xsec_oos.py              scripts/run_c373_rlrv_xsec_oos.py
-> cp tests/test_preflight_c372.py                   tests/test_preflight_c373.py
-> cp tests/test_c372_tirv_xsec_oos.py               tests/test_c373_rlrv_xsec_oos.py
-> # adapt the 5 files to the C373 RLRV spec below (medrv + medrv_rv_ratio replacing TIRV metrics)
-> python3 scripts/build_c373_rlrv_features.py                 # -> data/cache/campaign373_rlrv_5m/
-> python3 scripts/preflight_c373.py                           # must print ready:true
-> python3 scripts/run_c373_rlrv_xsec_oos.py                   # FULL 1296-config costed OOS sweep
-> python3 -m pytest tests/test_preflight_c373.py tests/test_c373_rlrv_xsec_oos.py -q   # >=21 green
-> sha256sum reports/campaign373_*_<TS>Z.json                  # record 5 artifact SHAs
+> cp scripts/build_c373_rlrv_features.py            scripts/build_c374_signrun_features.py
+> cp scripts/preflight_c373.py                      scripts/preflight_c374.py
+> cp scripts/run_c373_rlrv_xsec_oos.py              scripts/run_c374_signrun_xsec_oos.py
+> cp tests/test_preflight_c373.py                   tests/test_preflight_c374.py
+> cp tests/test_c373_rlrv_xsec_oos.py               tests/test_c374_signrun_xsec_oos.py
+> # adapt the 5 files to the C374 SIGNRUN spec below (run_asym + max_run_share replacing RLRV metrics)
+> python3 scripts/build_c374_signrun_features.py                 # -> data/cache/campaign374_signrun_5m/
+> python3 scripts/preflight_c374.py                           # must print ready:true
+> python3 scripts/run_c374_signrun_xsec_oos.py                # FULL 1296-config costed OOS sweep
+> python3 -m pytest tests/test_preflight_c374.py tests/test_c374_signrun_xsec_oos.py -q   # >=21 green
+> sha256sum reports/campaign374_*_<TS>Z.json                  # record 5 artifact SHAs
 > ```
-> Target artifacts: `reports/campaign373_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
+> Target artifacts: `reports/campaign374_{oos_sweep,tradable_edge_registry,summary,verdict,binding_constraint}_<TS>Z.json` + gitignored `.full.json`.
 > Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Priority order is fixed by the repo name: **(1) cross-sectional relative-value stat-arb** — rank the 10 perps on the campaign signal, go dollar-neutral long-top/short-bottom (this is the arbitrage, never a directional bet); **(2) seasonal-dislocation mean-reversion overlay** — the signal itself is a causal seasonal-deviation score; **(3) costed OOS + Holm+BH validation** — the only acceptance gate, no gate weakening. The ONLY acceptable outcome is **real execution progress** — a real-data, costed, out-of-sample stat-arb edge attempt on on-disk C312 5m data — leaving durable artifacts on disk.
 >
-> **Verified state (2026-11-18T20:09:19Z, disk re-verified):** C281B–C372 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, RETRACTED). C371 (RSK/RKT) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign371_*_20261118T151130Z.json`, cache `data/cache/campaign371_rskrkt_5m/`. C372 (TIRV) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign372_*_20261118T160248Z.json`, cache `data/cache/campaign372_tirv_5m/`. **C373 EXISTS NOWHERE ON DISK** (verified: zero `scripts/*c373*`, `tests/*c373*`, `data/cache/campaign373_*`, `reports/campaign373_*`) — it is pure work to do. C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10 symbols × 315,648 bars). Deps verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Clone template on disk = C372's 5 files, all working. **DO THIS NOW (no planning detour):** clone C372 (`scripts/build_c372_tirv_features.py`, `scripts/preflight_c372.py`, `scripts/run_c372_tirv_xsec_oos.py`, `tests/test_preflight_c372.py`, `tests/test_c372_tirv_xsec_oos.py`) → adapt to C373 → build cache → preflight `ready:true` → run FULL 1296-config costed OOS sweep → pytest (≥21 green incl. RLRV brute-force equality) → write 5 SHA256 artifacts → record result. **Bottlenecks: NONE.**
+> **Verified state (2026-11-18T20:24:27Z, disk re-verified):** C281B–C373 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, RETRACTED). C371 (RSK/RKT) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign371_*_20261118T151130Z.json`, cache `data/cache/campaign371_rskrkt_5m/`. C372 (TIRV) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign372_*_20261118T160248Z.json`, cache `data/cache/campaign372_tirv_5m/`. **C373 (RLRV) DONE/FROZEN (20261118T202427Z):** 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign373_*_20261118T202427Z.json`, cache `data/cache/campaign373_rlrv_5m/`. **C374 EXISTS NOWHERE ON DISK** (verified: zero `scripts/*c374*`, `tests/*c374*`, `data/cache/campaign374_*`, `reports/campaign374_*`) — it is pure work to do. C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10 symbols × 315,648 bars). Deps verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Clone template on disk = C373's 5 files, all working. **DO THIS NOW (no planning detour):** clone C373 (`scripts/build_c373_rlrv_features.py`, `scripts/preflight_c373.py`, `scripts/run_c373_rlrv_xsec_oos.py`, `tests/test_preflight_c373.py`, `tests/test_c373_rlrv_xsec_oos.py`) → adapt to C374 → build cache → preflight `ready:true` → run FULL 1296-config costed OOS sweep → pytest (≥21 green incl. SIGNRUN brute-force equality) → write 5 SHA256 artifacts → record result. **Bottlenecks: NONE.**
 >
-> **ACTIVE — C373 (REALIZED LÉVY/JUMP-ROBUST MedRV × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`).** Jump-robust volatility estimator using median-of-three adjacent absolute returns: `MedRV[t] = (π/(6-4√3+π))·(W/(W-2))·Σ_{i=t-W+2..t} med(|x_{i-1}|,|x_i|,|x_{i+1}|)²` and its ratio to RV: `medrv_rv_ratio[t] = MedRV[t] / RV[t]`, `W=256`. This is a **jump-robust realized volatility** family — genuinely distinct from:
-> - C317 (RV = sqrt(Σ x²) — not jump-robust), C367 (BPV/JAR = bipower variation / jump-activity ratio — adjacent products, not medians), C368 (RMAD/RABS = median absolute deviation — different estimator, no jump-robust scaling), C364 (DSRV = downside/upside semivariance — sign split, not jump-robust), C366 (RQV = quartic variation / top-k concentration — tail dominance, not jump-robust), C365 (KER = path geometry — displacement/path), C362 (Hill EVT), C361/C363/C371 (same-bar distributional moments).
-> Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via sliding window medians of 3-bar absolute-return triples.
+> **ACTIVE — C374 (SIGNRUN — SIGNED RUN-LENGTH ASYMMETRY × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`).** Over trailing window W=256 returns `X=r[t-W+1..t]` with `s[i]=sign(x_i)`: `run_asym[t] = log(mean_len_positive/max(mean_len_negative,eps))` (log-ratio of mean like-sign run lengths, sign-aware), `max_run_share[t] = longest_run_len/W`. NaN if `t<W`, any NaN, or a sign class absent. Distinct from C344 (transition/chop count only), C357 (LZC dictionary complexity), C353 (variance ratio), C372 (lagged products), C349/C359 (ordinal/entropy) — this is **run-length geometry**, never used. Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via sliding window run-length computation.
 > - **Normative Python (must match brute-force test):**
 >   ```python
 >   W = 256
->   if t < W: medrv = nan; medrv_rv_ratio = nan
+>   if t < W: run_asym = nan; max_run_share = nan
 >   else:
 >       X = log_return[t-W+1:t+1]
->       # med(|x_{i-1}|, |x_i|, |x_{i+1}|) for i = t-W+2 .. t
->       triples = np.column_stack([np.abs(X[:-2]), np.abs(X[1:-1]), np.abs(X[2:])])
->       meds = np.median(triples, axis=1)                 # length W-2
->       c = np.pi / (6 - 4*np.sqrt(3) + np.pi)           # consistency constant
->       medrv = c * (W / (W-2)) * np.sum(meds**2)
->       rv = np.sum(X**2)
->       medrv_rv_ratio = medrv / rv if rv > 0 else nan
+>       signs = np.sign(X)
+>       # run lengths of positive and negative signs
+>       pos_runs = []; neg_runs = []
+>       curr_sign = signs[0]; curr_len = 1
+>       for s in signs[1:]:
+>           if s == curr_sign:
+>               curr_len += 1
+>           else:
+>               if curr_sign > 0: pos_runs.append(curr_len)
+>               elif curr_sign < 0: neg_runs.append(curr_len)
+>               curr_sign = s; curr_len = 1
+>       if curr_sign > 0: pos_runs.append(curr_len)
+>       elif curr_sign < 0: neg_runs.append(curr_len)
+>       mean_pos = np.mean(pos_runs) if pos_runs else np.nan
+>       mean_neg = np.mean(neg_runs) if neg_runs else np.nan
+>       if mean_neg > 0 and mean_pos > 0:
+>           run_asym = np.log(mean_pos / mean_neg)
+>       else:
+>           run_asym = np.nan
+>       max_run_share = max(pos_runs + neg_runs) / W if (pos_runs or neg_runs) else np.nan
 >   ```
->   NaN if `t<W`, any NaN in window, or not finite. `last_move_dir[t]=sign(r[t])`.
-> - **Distinctness (pre-registered, must appear in script docstring):** distinct from all prior families C281B–C372 (see full list in AGENTS.md).
-> - **Build:** `data/cache/campaign373_rlrv_5m/<SYM>.npz` per symbol from real C312 `perp_close` only (no network/fabrication/resampling/imputation): `index_ms` int64 (315,648 bars), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `rlrv_params={window_W:256}`.
-> - **Fast vectorized execution:** compute `medrv`, `medrv_rv_ratio` for all bars per asset with vectorized sliding window median of 3-bar absolute-return triples (no Python loop over 315,648 bars × 10 assets). **MUST pass brute-force equality** vs per-window reference above (`assert maxdiff < 1e-12`).
-> - **Grid (1296, literal `N_TRIALS`):** SIGNALS `{medrv_dev, medrv_rv_ratio_dev, medrv_placebo, medrv_rv_ratio_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`. 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261237` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `medrv_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={medrv_dev,medrv_rv_ratio_dev}`.
-> - **Seasonal baseline (causal):** trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (`shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{medrv,medrv_rv_ratio}`.
+>   NaN if `t<W`, any NaN in window, or a sign class absent. `last_move_dir[t]=sign(r[t])`.
+> - **Distinctness (pre-registered, must appear in script docstring):** distinct from all prior families C281B–C373 (see full list in AGENTS.md).
+> - **Build:** `data/cache/campaign374_signrun_5m/<SYM>.npz` per symbol from real C312 `perp_close` only (no network/fabrication/resampling/imputation): `index_ms` int64 (315,648 bars), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `signrun_params={window_W:256}`.
+> - **Fast vectorized execution:** compute `run_asym`, `max_run_share` for all bars per asset with vectorized sliding window run-length computation (no Python loop over 315,648 bars × 10 assets). **MUST pass brute-force equality** vs per-window reference above (`assert maxdiff < 1e-12`).
+> - **Grid (1296, literal `N_TRIALS`):** SIGNALS `{run_asym_dev, max_run_share_dev, run_asym_placebo, max_run_share_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`. 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261238` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `run_asym_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={run_asym_dev,max_run_share_dev}`.
+> - **Seasonal baseline (causal):** trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (`shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{run_asym,max_run_share}`.
 > - **Gates (identical, do NOT weaken):** one-sided paired t-test per-split OOS net vs 0; Holm step-down AND BH over all 1296 at α=0.05 (edge needs BOTH). MDE two-sided α=0.05 power 0.80 `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`. Stability: sign consistency ≥0.70 and first/second-half Sharpe corr ≥0.5 (ref). Attribution: mean |OOS net| per signal; shares over all 4 incl. placebos; dominant must be real non-placebo with share ≥0.5 for attribution_ok. Verdict: n_survive_both==0→RETRACTED(multiple_testing); >0 & !attribution_ok→RETRACTED(attribution); >0 & !stable→RETRACTED(stability); >0 & attribution_ok & stable→EDGE_PROVEN. `edge_proven=bool(edge_idx and verdict=="EDGE_PROVEN")`.
 >
 > **MANDATORY HEAVY-WORK SEQUENCE (execute in order, do not stop at planning):**
-> 1. WRITE `scripts/build_c373_rlrv_features.py`, `scripts/preflight_c373.py`, `scripts/run_c373_rlrv_xsec_oos.py` (clone C372, adapt; price-only).
-> 2. WRITE `tests/test_preflight_c373.py`, `tests/test_c373_rlrv_xsec_oos.py` (clone C372 tests). MUST include: RLRV brute-force equality (vectorized sliding median vs per-window reference), `N_TRIALS==1296`, Holm/BH correctness, dollar-neutral causality (no lookahead), WF split boundaries, surrogate determinism (same seed ⇒ same surrogate), build-shape/dtype/NaN-placement tests.
-> 3. BUILD: `python3 scripts/build_c373_rlrv_features.py` → `data/cache/campaign373_rlrv_5m/` (SHA-manifested, <100 MB, 10 shards × 315,648).
-> 4. PREFLIGHT: `python3 scripts/preflight_c373.py` → `ready:true`.
-> 5. FULL SWEEP (NO DOWNSCOPING): `python3 scripts/run_c373_rlrv_xsec_oos.py` → 5 SHA256 artifacts `reports/campaign373_*_<TS>Z.json` + gitignored `.full.json` (oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint).
-> 6. TESTS: `python3 -m pytest tests/test_preflight_c373.py tests/test_c373_rlrv_xsec_oos.py -q` → ≥21 GREEN incl. brute-force equality.
-> 7. DURABLE RECORD: update this AGENTS.md with `C373 RESULT` block + add C373 to the frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match (set `latest_campaign_done: C373`, `next_campaign: C374`). **On freeze (expected negative), immediately execute the pre-seeded C374 spec from the family backlog — no planning turn.**
+> 1. WRITE `scripts/build_c374_signrun_features.py`, `scripts/preflight_c374.py`, `scripts/run_c374_signrun_xsec_oos.py` (clone C373, adapt; price-only).
+> 2. WRITE `tests/test_preflight_c374.py`, `tests/test_c374_signrun_xsec_oos.py` (clone C373 tests). MUST include: SIGNRUN brute-force equality (vectorized sliding run-length vs per-window reference), `N_TRIALS==1296`, Holm/BH correctness, dollar-neutral causality (no lookahead), WF split boundaries, surrogate determinism (same seed ⇒ same surrogate), build-shape/dtype/NaN-placement tests.
+> 3. BUILD: `python3 scripts/build_c374_signrun_features.py` → `data/cache/campaign374_signrun_5m/` (SHA-manifested, <100 MB, 10 shards × 315,648).
+> 4. PREFLIGHT: `python3 scripts/preflight_c374.py` → `ready:true`.
+> 5. FULL SWEEP (NO DOWNSCOPING): `python3 scripts/run_c374_signrun_xsec_oos.py` → 5 SHA256 artifacts `reports/campaign374_*_<TS>Z.json` + gitignored `.full.json` (oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint).
+> 6. TESTS: `python3 -m pytest tests/test_preflight_c374.py tests/test_c374_signrun_xsec_oos.py -q` → ≥21 GREEN incl. brute-force equality.
+> 7. DURABLE RECORD: update this AGENTS.md with `C374 RESULT` block + add C374 to the frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match (set `latest_campaign_done: C374`, `next_campaign: C375`). **On freeze (expected negative), immediately execute the pre-seeded C375 spec from the family backlog — no planning turn.**
 >
-> **Continuity guarantee (no idle / no gaps):** If C373 cannot run for any reason, diagnose and fix and still execute the full heavy sequence — do not idle. C374+ must be a genuinely-new price-only family chosen from the family backlog below (SIGNRUN, ACOVK, QSPREAD).
+> **Continuity guarantee (no idle / no gaps):** If C374 cannot run for any reason, diagnose and fix and still execute the full heavy sequence — do not idle. C375+ must be a genuinely-new price-only family chosen from the family backlog below (ACOVK, QSPREAD).
 >
-> **C374 — PRE-SEEDED (execute immediately after C373 freezes; no planning turn).** SIGNRUN — SIGNED RUN-LENGTH ASYMMETRY × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`. Over trailing window W=256 returns `X=r[t-W+1..t]` with `s[i]=sign(x_i)`: `run_asym[t] = log(mean_len_positive/max(mean_len_negative,eps))` (log-ratio of mean like-sign run lengths, sign-aware), `max_run_share[t] = longest_run_len/W`. NaN if `t<W`, any NaN, or a sign class absent. Distinct from C344 (transition/chop count only), C357 (LZC dictionary complexity), C353 (variance ratio), C372 (lagged products), C349/C359 (ordinal/entropy) — this is **run-length geometry**, never used. Build/cache/grid/gates = identical C373 pattern under `campaign374_signrun_*`: cache fields `index_ms/perp_close/log_return/abs_ret/funding_rate`, `signrun_params={window_W:256}`; SIGNALS `{run_asym_dev, max_run_share_dev, run_asym_placebo, max_run_share_placebo}`; 4×6×3×3×3×2=**1296** configs; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`; WF 12m/3m roll 3m → 8 splits 2023-01..2025-12; placebo seed `20261238`; ref/stability `run_asym_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker`; `ATTR_REPRESENTATIVES={run_asym_dev,max_run_share_dev}`; brute-force equality test mandatory (`maxdiff < 1e-12`); deliverables identical 6-item pattern (3 scripts, 2 tests ≥21 green, cache, preflight `ready:true`, full sweep, 5 SHA256 reports, durable record + frozen row + state.yaml).
+> **C375 — PRE-SEEDED (execute immediately after C374 freezes; no planning turn).** MULTI-LAG REALIZED AUTOCOVARIANCE PROFILE (ACOVK) × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`. Over trailing window W=256 returns `X=r[t-W+1..t]`: `γ_k[t] = (1/(W-k))·Σ_{i=t-W+1+k..t} x_i·x_{i-k}` for `k∈{1,2,4,8}`; collapse to `acov_sum[t] = γ_1+γ_2+γ_4+γ_8` and `acov_decay[t] = γ_1 − γ_8`. NaN if `t<W`, any NaN in window, or not finite. Distinct from C326 (lag-1 return autocorrelation only), C353 (Lo–MacKinlay variance ratio), C343 (`|r|` magnitude autocorr), C372 (3rd/4th-order lagged-product cumulants), C360 (leverage cross-moment `corr(r,|r|_{t-k})`) — this is the **multi-lag linear autocovariance decay profile**, never used. Build/cache/grid/gates = identical C373 pattern under `campaign375_acovk_*`: cache fields `index_ms/perp_close/log_return/abs_ret/funding_rate`, `acovk_params={window_W:256, lags:[1,2,4,8]}`; SIGNALS `{acov_sum_dev, acov_decay_dev, acov_sum_placebo, acov_decay_placebo}`; 4×6×3×3×3×2=**1296** configs; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`; WF 12m/3m roll 3m → 8 splits 2023-01..2025-12; placebo seed `20261239`; ref/stability `acov_sum_dev, L=240, H=4, fee 0.0007, slip 0.0001, taker`; `ATTR_REPRESENTATIVES={acov_sum_dev,acov_decay_dev}`; brute-force equality test mandatory (`maxdiff < 1e-12`, vectorized cumulative-lag sums vs per-window reference loop); deliverables identical 6-item pattern (3 scripts, 2 tests ≥21 green, cache, preflight `ready:true`, full sweep, 5 SHA256 reports, durable record + frozen row + state.yaml `latest_campaign_done: C375`, `next_campaign: C376` from QSPREAD/backlog).
 >
 > **ANTI-AVOIDANCE (hard violations):** (1) any output without at least one of: new test files written, cache built, preflight passing, OOS sweep running, tests passing, or artifacts recorded; (2) planning/analysis/review/investigation without concurrent heavy execution; (3) stopping after tests but before build/preflight/sweep; (4) re-running any frozen campaign C281B–C372/C287; (5) reduced grid (<1296); (6) skipping brute-force equality tests; (7) freezing a campaign without adding its row + SHAs to the frozen table and `research_state/state.yaml`. Repo demands STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else is progress.
 
@@ -640,7 +651,7 @@ C281B–C372: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C370 | 20261118T140545Z | realized absolute return & mean absolute deviation (RAR/MADM) | 1296 | madm_placebo 0.2687 | `0819e8174a481faa20a8c276804a9e485a69cf5c63f7d2d154cf37155209aa9a` | `f932a314aefb7446fd53d929fca83d8df06d619c2f49b16a45e4b6ceb4aac060` |
 | C371 | 20261118T151130Z | realized skewness & realized kurtosis (RSK/RKT) | 1296 | rkt_placebo 0.4164 | `5150c94f697e290d5d32d32bd8cba95a8922147f997ba952b84a9618215e85be` | `be74cfdfb404c15682b7b4224ee328d3a37d4465243c6fb605835cf7d91d4ee8` |
 | C372 | 20261118T160248Z | realized time-irreversibility / lagged-product cumulants (TIRV) | 1296 | tir4_placebo 0.4789 | `3d8d542a11180f7910cff8942fba708e4f31aab54b762cab09c543fd6ce18788` | `35085dfd74e0426e64eb4ec05b588553e970dc6c405341741979ff497e19b6f6` |
-| C373 | 20261118T201908Z | realized Lévy/jump-robust MedRV (RLRV) | 1296 | medrv_rv_ratio_placebo 0.3766 | `462c61784d59d6bd19c07b267494ddf38e7289a6f90dd72029f8832a0e47671a` | `17f99b25680d8276c6e7a7519c5834bc6ac260338598d847f1d834da043d746e` |
+| C373 | 20261118T202427Z | realized Lévy/jump-robust MedRV (RLRV) | 1296 | medrv_rv_ratio_placebo 0.3766 | `b273c2ed4735744f944ae0072ae4755dba39a44c573fc9302acd87176ac88d62` | `c996e92c6de836946d57201a5d080abe1fd83319b804393a07922cf1cd60c222` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
@@ -671,7 +682,7 @@ C371 extra SHAs: tradable_edge_registry `099e40dbfb950a4b4f8197de685db5f98c5d3ae
 
 C372 extra SHAs: tradable_edge_registry `c4099295b3c5e73c0517f517c89be32dab5609d66618a5791de260bd763a0809`, summary `759d550a0aa3f1a550a3272b43c9154570339cb797cc2afe8ec8492c108cf552`, binding_constraint `4c4f4a39f1a04e1458d48f950c3ab71321d135fe9403ad299e6bef32130015ce`. C372 cache SHAs: meta `6690fe01770596250dce0af753dd876562b62cd41b2aa44d0835e63cff6e173b`, provenance `faf9e03a59cf1ec10109d0143d17e21015901d6fd0adb52b3578ea998f4ac424`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
-C373 extra SHAs: tradable_edge_registry `2764c4be65481d2c7afbde00a4de3865f62598c4bf226fe9bed3dfb772bcca04`, summary `dbe114187fb931de816fe5c27c3853e983a72c77995532f22f866ae26fe23260`, binding_constraint `ee399d05f2b8fe50e6ffc9eef23eaa5f4683e38e163f6b8ff31501c5e0e8ab1b`. C373 cache SHAs: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `facacb0392b1781618f4f08df1146a3adc9ca0a7ba8f3c7243474f3214d2e384`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+C373 extra SHAs: tradable_edge_registry `0e45d164e160525b41d035426e98e8e586ab699a2a5d653b993a379850daf75a`, summary `c4e04f3c2312d13627bdc8b7cd3c3025ef58e57541300814e8211c7404353b8e`, binding_constraint `b0d97de1c03b24fac98b6c3e842b0d3c2f060a219e1b999efeb9d89ee5526ee3`. C373 cache SHAs: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `8297cf7906d0f5ffc91028290c314ec4ab271b9722577fbaa2657d8012d4b79a`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 ---
 
@@ -705,16 +716,16 @@ C372 (REALIZED TIME-IRREVERSIBILITY / LAGGED-PRODUCT CUMULANTS (TIRV) × SEASONA
 
 ---
 
-## C373 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T201908Z)
+## C373 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T202427Z)
 
 C373 (REALIZED LÉVY/JUMP-ROBUST MedRV (RLRV) × SEASONAL-DISLOCATION mean-reversion stat-arb) was fully executed on real C312 5m data and is a FORMAL NEGATIVE: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `medrv_rv_ratio_placebo` 0.3766 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 22/22 tests green (incl. RLRV brute-force equality, `maxdiff < 1e-12`). Cache `data/cache/campaign373_rlrv_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C373. Frozen — DO NOT re-run.
 
-- oos_sweep `462c61784d59d6bd19c07b267494ddf38e7289a6f90dd72029f8832a0e47671a`
-- tradable_edge_registry `2764c4be65481d2c7afbde00a4de3865f62598c4bf226fe9bed3dfb772bcca04`
-- summary `dbe114187fb931de816fe5c27c3853e983a72c77995532f22f866ae26fe23260`
-- verdict `17f99b25680d8276c6e7a7519c5834bc6ac260338598d847f1d834da043d746e`
-- binding_constraint `ee399d05f2b8fe50e6ffc9eef23eaa5f4683e38e163f6b8ff31501c5e0e8ab1b`
-- cache: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `facacb0392b1781618f4f08df1146a3adc9ca0a7ba8f3c7243474f3214d2e384`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+- oos_sweep `b273c2ed4735744f944ae0072ae4755dba39a44c573fc9302acd87176ac88d62`
+- tradable_edge_registry `0e45d164e160525b41d035426e98e8e586ab699a2a5d653b993a379850daf75a`
+- summary `c4e04f3c2312d13627bdc8b7cd3c3025ef58e57541300814e8211c7404353b8e`
+- verdict `c996e92c6de836946d57201a5d080abe1fd83319b804393a07922cf1cd60c222`
+- binding_constraint `b0d97de1c03b24fac98b6c3e842b0d3c2f060a219e1b999efeb9d89ee5526ee3`
+- cache: meta `020b7edf8f129cc1bb8fb3707779960ad954124e0e23ecc8e1c47520611c64c1`, provenance `8297cf7906d0f5ffc91028290c314ec4ab271b9722577fbaa2657d8012d4b79a`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
