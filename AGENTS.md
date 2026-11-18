@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T02:35:30Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T02:39:10Z. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
@@ -34,11 +34,11 @@ C360 (LEVERAGE / VOLATILITY-ASYMMETRY COUPLING × seasonal-dislocation mean-reve
 
 ---
 
-## INITIAL TASK MESSAGE — C361 (timestamped 2026-11-18T02:10:13Z, ACTIVE — EXECUTE, heavy work required)
+## INITIAL TASK MESSAGE — C361 (issued 2026-11-18T02:10:13Z, reaffirmed 2026-11-18T02:39:10Z, ACTIVE — EXECUTE, heavy work required)
 
 **EXECUTE C361 NOW (heavy work required; no re-planning, no spec changes, no downscoping): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
-**Environment verified 2026-11-18T02:35:30Z (bottlenecks cleared):** `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, meta+provenance on disk). C360 templates present at `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`. **C361 does not exist yet** (no `campaign361_*` scripts/cache/tests/artifacts). No blockers — proceed directly to execution.
+**Environment verified 2026-11-18T02:39:10Z (bottlenecks cleared, re-checked):** `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, meta+provenance on disk). C360 templates present at `scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`. **C361 does not exist yet** (no `campaign361_*` scripts/cache/tests/artifacts). No `HANDOFF.md` duplicate. No blockers — proceed directly to execution.
 
 **FIRST ACTION — non-negotiable, do this before reading further:** the C361 scripts DO NOT EXIST yet — this session must FIRST WRITE them, THEN execute them. (a) Clone the C360 structural template (`scripts/build_c360_lvac_features.py`, `scripts/preflight_c360.py`, `scripts/run_c360_lvac_xsec_oos.py`, `tests/test_preflight_c360.py`, `tests/test_c360_lvac_xsec_oos.py`) into `scripts/build_c361_rskek_features.py`, `scripts/preflight_c361.py`, `scripts/run_c361_rskek_xsec_oos.py`, `tests/test_preflight_c361.py`, `tests/test_c361_rskek_xsec_oos.py` — identical grid, gates, Holm/BH, attribution, artifact layout, brute-force-equality test pattern — and extend LVAC→RSKEK per the frozen spec below. (b) Then run, in order: `python3 scripts/build_c361_rskek_features.py` (materialize `data/cache/campaign361_rskek_5m/`), `python3 scripts/preflight_c361.py` (expect `ready:true`), `python3 scripts/run_c361_rskek_xsec_oos.py` (full 1296-config costed-OOS sweep, no downscoping), `python3 -m pytest tests/test_preflight_c361.py tests/test_c361_rskek_xsec_oos.py -q` (≥21 green). The C361 spec is frozen — DO NOT re-plan, re-design, re-scope, or seek clarification.
 
