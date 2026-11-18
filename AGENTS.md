@@ -1,6 +1,6 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T03:51:57Z (C363 QATM executed end-to-end — formal negative; C364 pre-registered active). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T03:58:45Z (C363 QATM executed end-to-end — formal negative; C364 DSRV pre-registered active). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
@@ -75,23 +75,101 @@ C363 (QUANTILE ASYMMETRY & TAIL-MASS (QATM) × SEASONAL-DISLOCATION mean-reversi
 
 ## INITIAL TASK MESSAGE — C364 (issued 2026-11-18T03:51:57Z, ACTIVE — EXECUTE, heavy work required)
 
-**EXECUTE C364 NOW (heavy work required; no re-planning, no spec changes, no downscoping): [NEXT GENUINELY-NEW PRICE-ONLY FAMILY] × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+**EXECUTE C364 NOW (heavy work required; no re-planning, no spec changes, no downscoping): REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
 C281B–C363 are ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~100k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C363 frozen `20261118T035157Z` (1296, RETRACTED, dominant `qasym_placebo` 0.3072). No edge proven through C363.
 
-**FIRST ACTION — non-negotiable:** C364 does not exist yet. This session must FIRST WRITE the 5 C364 scripts/tests (clone the C363 structural template: `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`), **build** cache `data/cache/campaign364_*/`, **preflight** (`ready:true`), run the full **1296-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts `reports/campaign364_*_<TS>Z.json` + `.full.json`, then update this handoff + `research_state/state.yaml` with the truthful C364 result and freeze it. On freeze, pre-register and set C365 active. Do NOT re-run frozen C281B–C363/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
+**FIRST ACTION — non-negotiable:** C364 does not exist yet. This session must FIRST WRITE the 5 C364 scripts/tests (clone the C363 structural template: `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`), **build** cache `data/cache/campaign364_dsrv_5m/`, **preflight** (`ready:true`), run the full **2592-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts `reports/campaign364_*_<TS>Z.json` + `.full.json`, then update this handoff + `research_state/state.yaml` with the truthful C364 result and freeze it. On freeze, pre-register and set C365 active. Do NOT re-run frozen C281B–C363/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
 
 Environment verified: `python3` deps importable — numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0. C312 5m source ready at `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars). C287 externally blocked/decoupled (451/403) — never retry. No bottlenecks.
 
 Mandatory run sequence:
-1. Write `scripts/build_c364_*_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_*_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_*_xsec_oos.py` (clone C363 template, adapt to C364 spec).
-2. `python3 scripts/build_c364_*_features.py` → cache (SHA-manifested, <100 MB).
+1. Write `scripts/build_c364_dsrv_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_dsrv_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_dsrv_xsec_oos.py` (clone C363 template, adapt to C364 DSRV spec).
+2. `python3 scripts/build_c364_dsrv_features.py` → cache (SHA-manifested, <100 MB).
 3. `python3 scripts/preflight_c364.py` → must report `ready:true`.
-4. `python3 scripts/run_c364_*_xsec_oos.py` → full 1296-config costed-OOS sweep producing 5 SHA256 artifacts + `.full.json`.
-5. `python3 -m pytest tests/test_preflight_c364.py tests/test_c364_*_xsec_oos.py -q` → ≥21 green incl. brute-force equality.
+4. `python3 scripts/run_c364_dsrv_xsec_oos.py` → full 2592-config costed-OOS sweep producing 5 SHA256 artifacts + `.full.json`.
+5. `python3 -m pytest tests/test_preflight_c364.py tests/test_c364_dsrv_xsec_oos.py -q` → ≥21 green incl. brute-force equality.
 6. Record truthful result in this `AGENTS.md` (C364 RESULT) + `research_state/state.yaml`; add C364 to frozen table with 5 SHAs (+ cache SHAs); set C365 active.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION.
+
+---
+
+## C364 — ARCHIVED SPEC (PRE-REGISTERED — NEXT GENUINELY-NEW PRICE-ONLY FAMILY, TO BE EXECUTED)
+
+**C364 — REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+
+### Distinctness (pre-registered)
+DSRV decomposes the trailing-window realized variance into **downside semivariance** (sum of squared negative returns) and **upside semivariance** (sum of squared positive returns) — a genuine variance decomposition never used in any prior campaign.
+- For each bar t, over trailing window X = r[t-W+1 .. t] (W=256 fixed intrinsic window):
+  - `rv_down[t]` = Σ_{i: x_i < 0} x_i²  (downside realized semivariance)
+  - `rv_up[t]`   = Σ_{i: x_i > 0} x_i²  (upside realized semivariance)
+  - `rv_total[t]` = rv_down + rv_up = Σ x_i² (realized variance; same object as C317 RV but computed via decomposition)
+  - `dsrv_asym[t]` = log(rv_down / rv_up)  (log-ratio asymmetry; NaN if rv_up <= 0 or rv_down <= 0)
+  - `dsrv_ratio[t]` = rv_down / rv_up      (ratio asymmetry; NaN if rv_up <= 0)
+- Real scalars per window:
+  - `rv_down_dev[t]` = seasonal deviation of rv_down
+  - `rv_up_dev[t]`   = seasonal deviation of rv_up
+  - `dsrv_asym_dev[t]` = seasonal deviation of dsrv_asym
+  - `dsrv_ratio_dev[t]` = seasonal deviation of dsrv_ratio
+Genuinely distinct from:
+- C317 (realized vol = sqrt(Σ x_i²) — total magnitude only, no downside/upside split)
+- C342 (volume-weighted return moments — explicit volume weighting, different series)
+- C348 (HHI concentration of squared returns across bars — cross-bar concentration, not sign decomposition)
+- C343 (|r| autocorrelation / vol clustering — magnitude autocorrelation, no sign split)
+- C360 (signed cross-moment corr(r, |r|_{t-k}) — leverage coupling, different object)
+- C361 (raw skew/kurt = central moments of full distribution — moments, not semivariance decomposition)
+- C362 (Hill tail-index = extreme value theory tail-thickness alpha from exceedances — EVT, not semivariance)
+- C363 (QATM = Galton quantile skewness + boxplot outlier rate — quantile/order-statistic family)
+- C344 (sign-change/chop rate), C345 (close-location/Williams %R), and every scaling/Hurst/entropy/ordinal/complexity family C346–C359.
+Price-only (`perp_close`), volume-free.
+
+### Raw inputs (build)
+`data/cache/campaign364_dsrv_5m/<SYM>.npz` per symbol from real C312 `perp_close` (no network/fabrication/resampling/imputation):
+```
+index_ms      int64    common 5m grid (intersection, 315,648 bars)
+perp_close    float32  real 5m kline close
+log_return    float32  r[t]=log(c[t]/c[t-1]), r[0]=0
+abs_ret       float32  |log_return_t|
+funding_rate  float32  all-NaN (control)
+```
+Cache < 100 MB; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, SHA256 shard manifest. (`dsrv_params` = `{window_W:256}`.)
+
+### Runner-derived causal metrics (per asset, per bar t)
+`W=256`, trailing returns `X=r[t-W+1..t]` (NaN if `t<W` or any NaN).
+- `rv_down[t] = sum(x_i^2 for x_i in X if x_i < 0)`; NaN if no negative returns or any NaN in window.
+- `rv_up[t]   = sum(x_i^2 for x_i in X if x_i > 0)`; NaN if no positive returns or any NaN in window.
+- `rv_total[t] = rv_down + rv_up` (equals Σ x_i²; realized variance)
+- `dsrv_asym[t] = log(rv_down / rv_up)`; NaN if rv_down <= 0 or rv_up <= 0 or not finite.
+- `dsrv_ratio[t] = rv_down / rv_up`; NaN if rv_up <= 0 or not finite.
+- `last_move_dir[t] = sign(r[t])`.
+
+Seasonal baseline: trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (causal `shift(1)`), NaN-aware `min_periods=3`. Score `s[t] = -(v[t] - seasonal_mean) / seasonal_std` for `v ∈ {rv_down, rv_up, dsrv_asym, dsrv_ratio}`.
+Cross-sectional rank across 10 symbols → dollar-neutral gross 1.0 → single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5·fee+slip). `executed_fills:false`.
+
+### Fast vectorized execution requirement
+Compute `rv_down`, `rv_up`, `dsrv_asym`, `dsrv_ratio` for all bars per asset with vectorized `sliding_window_view` + cumulative sums over sign-masked squared returns (no Python loop over 315,648 bars × 10 assets). MUST pass brute-force equality test against reference per-window DSRV (manual loop over windows, explicit sign-masked sum of squares, explicit log-ratio and ratio).
+
+### Pre-registered grid — 1296 configs
+- SIGNALS = `rv_down_dev`, `rv_up_dev`, `dsrv_asym_dev`, `dsrv_ratio_dev`, `rv_down_placebo`, `rv_up_placebo`, `dsrv_asym_placebo`, `dsrv_ratio_placebo` (4 real + 4 phase-randomized-surrogate placebos; placebos never edges).
+- LOOKBACKS = `(60,120,240,480,960,1920)`; REBALANCES = `(1,4,12)`; FEES = `(0.0004,0.0007,0.0010)`; SLIPS = `(0.0,0.0001,0.0002)`; COST_VARIANTS = `("taker","maker_blend")`.
+- 8×6×3×3×3×2 = **2592 configs** (literal `N_TRIALS`). Walk-forward: 12m train / 3m test, roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261228` (phase-randomized FFT surrogate + rank restoration; NaN positions stay NaN). Selection frac=1/3, ALPHA=0.05.
+- Reference config: `dsrv_asym_dev`, L=240, H=4, fee=0.0007, slip=0.0001, taker. `ATTR_REPRESENTATIVES={rv_down_dev,rv_up_dev,dsrv_asym_dev,dsrv_ratio_dev}`.
+
+### Gates (identical rigor — do NOT weaken)
+- **Multiple testing**: one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND BH over all 2592 configs at alpha=0.05; edge requires BOTH.
+- **MDE**: two-sided alpha=0.05, power=0.80: `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`.
+- **Stability**: sign consistency ≥ 0.70 of splits AND first/second-half Sharpe corr ≥ 0.5 (reference config).
+- **Attribution**: mean |OOS net| per signal across its configs; shares = |mean|/sum(|means|) over all 8 incl. placebos; dominant must be a real (non-placebo) signal with share ≥ 0.5 for `attribution_ok`.
+- **Verdict**: `n_survive_both==0 → RETRACTED (multiple_testing)`; `>0 and not attribution_ok → RETRACTED (attribution)`; `>0 and not stable → RETRACTED (stability)`; `>0 and attribution_ok and stable → EDGE_PROVEN`. `edge_proven = bool(edge_idx and verdict=="EDGE_PROVEN")`.
+
+### Deliverables (ALL six, in order)
+1. `scripts/build_c364_dsrv_features.py` → `data/cache/campaign364_dsrv_5m/`
+2. `scripts/preflight_c364.py` → `ready:true`
+3. `scripts/run_c364_dsrv_xsec_oos.py` → 5 SHA256 artifacts + `.full.json`: `oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint` (`reports/campaign364_*_<TS>Z.json`)
+4. `tests/test_preflight_c364.py` + `tests/test_c364_dsrv_xsec_oos.py` — ≥21 green (incl. DSRV brute-force equality test)
+5. Record truthful result in this `AGENTS.md` (C364 RESULT) + `research_state/state.yaml`; add C364 to frozen table with 5 SHAs (+ cache SHAs); set C365 active with next genuinely-new price-only family spec placeholder
+6. Run sequence: build → preflight → full costed-OOS sweep → pytest → capture 5 SHA256 artifacts
 
 ---
 
