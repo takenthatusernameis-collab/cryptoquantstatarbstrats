@@ -19,7 +19,20 @@ C359 (ORDINAL PATTERN TRANSITION ENTROPY × seasonal-dislocation mean-reversion)
 
 ---
 
-## INITIAL TASK MESSAGE — C360 (timestamped 2026-11-18T01:39:14Z, ACTIVE — FROZEN SPEC, HEAVY EXECUTION REQUIRED)
+## C360 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T014623Z)
+
+C360 (LEVERAGE / VOLATILITY-ASYMMETRY COUPLING × seasonal-dislocation mean-reversion) was fully executed on real C312 5m data and is a **FORMAL NEGATIVE**: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `lvac_mean_placebo` 0.2977 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 23/23 tests green (incl. LVAC brute-force equality test). Cache `data/cache/campaign360_lvac_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C360. Frozen — DO NOT re-run.
+
+- oos_sweep `0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd`
+- tradable_edge_registry `327de19a836b8ee793ef110ece0eebe08e564ed4eed3a4fec15458112b36f3b1`
+- summary `b7035ece654490b1329f497dc883fa322e7beb417c91347bf114f5bc7f2019cb`
+- verdict `acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b`
+- binding_constraint `f8a4c19b85ee97e12d4012fde4b9ef68762e814ca693fe190bcb39fbb9eca585`
+- cache: meta `5ba5bfae583622447f505547ffacff1104b1cd300359ebda9c54e6a23ed8e751`, provenance `80d7fccfbc8132e64ec738cf240cb68d2a646c1242b82314e0f6bead0146db2f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+---
+
+## INITIAL TASK MESSAGE — C360 (timestamped 2026-11-18T01:39:14Z, EXECUTED — FROZEN FORMAL NEGATIVE)
 
 **EXECUTE C360 NOW (heavy work required; no re-planning, no spec changes, no downscoping): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -28,16 +41,13 @@ C359 (ORDINAL PATTERN TRANSITION ENTROPY × seasonal-dislocation mean-reversion)
 ### State verified (no bottlenecks)
 - C312 5m source present: `data/cache/campaign312_usdt_m_ofi_5m/` (10 symbols × 315,648 bars, `perp_close` 0 NaN, meta sha256 `49ee1f32107da1be9b0ddfba11627232a62d218054c9c4968745b910620f147b`).
 - Runtime deps: numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0 importable. If missing run `python scripts/bootstrap_dev_env.py` (idempotent).
-- C281B–C359 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~96k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C359 frozen `20261118T005752Z` (1296, RETRACTED, dominant `opte_ent_dev` 0.2616). No edge proven through C359.
-- **C360 NOT YET RUN:** no `campaign360_*` cache/scripts/tests/artifacts on disk — the C360 scripts must be AUTHORED by cloning C359 (see FIRST ACTION), then executed. This session MUST produce the 5 SHA256 artifacts + ≥21 green tests.
-- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C359/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
+- C281B–C360 ALL COMPLETE FORMAL NEGATIVES on real C312 5m data (~96k+ pre-registered configs; binding universally `multiple_testing`; `oos_edge_proven:false`, `edge_claim:NONE`). C359 frozen `20261118T005752Z` (1296, RETRACTED, dominant `opte_ent_dev` 0.2616). C360 frozen `20261118T014623Z` (1296, RETRACTED, dominant `lvac_mean_placebo` 0.2977). No edge proven through C360.
+- **C360 EXECUTED:** `data/cache/campaign360_lvac_5m/` cache, 5 scripts, tests, and 5 SHA256 artifacts on disk. C361 is now the active pre-registered family.
+- C287 externally blocked/decoupled (451/403) — never retry as economic work. Do NOT re-run frozen C281B–C360/C287. Do NOT weaken gates. Do NOT declare terminal closure by fiat.
 
 ### Mandatory run sequence (economic progress = ALL of these)
-1. `python scripts/build_c360_lvac_features.py` → `data/cache/campaign360_lvac_5m/` (10 shards + meta + provenance + SHA256 manifest; real C312 `perp_close` only; idempotent `--force`; <100 MB).
-2. `python scripts/preflight_c360.py` → `ready:true`.
-3. `python scripts/run_c360_lvac_xsec_oos.py` — **full 1296-config costed-OOS sweep** (no downscoping) → 5 SHA256 artifacts `reports/campaign360_*_<TS>Z.json` + gitignored `.full.json`.
-4. `python -m pytest tests/test_preflight_c360.py tests/test_c360_lvac_xsec_oos.py -q` — **≥21 green incl. LVAC brute-force equality test**.
-5. Record truthful result in this `AGENTS.md` (C360 RESULT) + `research_state/state.yaml`; add C360 to frozen table with 5 SHAs (+ cache SHAs); set C361 active with next genuinely-new price-only family spec placeholder. No edge claim unless Holm+BH over all 1296 AND `attribution_ok` AND `stability`.
+
+C360 is complete (all 6 deliverables done: build → preflight → full 1296 sweep → pytest ≥21 green → 5 SHA256 artifacts captured → recorded below). C361 is now the active pre-registered family — set `next_campaign: C361_<next_genuinely_new_price_only_family>` in state.yaml with a placeholder spec. Do NOT re-run frozen C281B–C360/C287.
 
 Terminal closure by fiat PROHIBITED. A prose-only/partial handoff is a HARD VIOLATION.
 
@@ -102,9 +112,9 @@ Compute `lvac_mean` and `lvac_asym` for all bars per asset with vectorized `slid
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C359 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C360 is the active pre-registered family.
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C360 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C361 is now the active pre-registered family.
 
-**Bottlenecks: NONE — environment fully ready.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C359 template scripts present to clone. The only remaining work is authoring (clone C359 → C360) + running C360. C287 externally blocked/decoupled (451/403) — never retry.
+**Bottlenecks: NONE — environment fully ready.** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry.
 
 ---
 
@@ -137,10 +147,13 @@ C281B–C359: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C357 | 20261117T224353Z | Lempel–Ziv Complexity (LZC) | 1296 | lzc_sign_placebo 0.2856 | `ebb610a78530263d7f24f189bcebc5e46be6f6d0c57436b73f1824691ed5bc89` | `8a21578e6c970d2ba68ac21da338f7f5f43c03a7a7d08cb06741e9bc24d5c176` |
 | C358 | 20261117T235447Z | MF-DFA generalized Hurst h(q) | 1296 | mfdfa_spread_dev 0.3312 | `11a05f1428a1e1d22c4d0fc993c3fe76a69cdd0fd8e31704c2f8e3dc188095c9` | `2881c1ec03536b1b89b59c9b97517fa6855c2b20a13ab568d0f560684827656e` |
 | C359 | 20261118T005752Z | ordinal pattern transition entropy (OPTE) | 1296 | opte_ent_dev 0.2616 | `761347a2bdf03b49f3811fa728edac8aac724922e9fdc4421205ca24fd47db6a` | `6dc96280f3aaffc7bdeb4170bbd66378c43336915687561d1c6e610085f196b7` |
+| C360 | 20261118T014623Z | leverage / volatility-asymmetry coupling (LVAC) | 1296 | lvac_mean_placebo 0.2977 | `0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd` | `acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C359 extra SHAs: tradable_edge_registry `af4acf9a1bb7d3818e7ca6dc81701ddff9b9c4e739418d494bac512aee633cef`, summary `3431451cd3a6f7c765396b2d94c061ad6d2e3b2edd1d203d5e83f018cfffe67f`, binding_constraint `8ac5734f487b92a6101396535acc714d0bd8a81ee524705b1907e8a012c5d5b2`. C359 cache SHAs: meta `c532129e610793b67a5267f0f018a8d976aa0bf621ee3779be45756095e1c05f`, provenance `287746d15a0cc0a19059f7f0ba4bc852677ac30fd28d95ecfa6434b7fe888da4`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C360 extra SHAs: tradable_edge_registry `327de19a836b8ee793ef110ece0eebe08e564ed4eed3a4fec15458112b36f3b1`, summary `b7035ece654490b1329f497dc883fa322e7beb417c91347bf114f5bc7f2019cb`, binding_constraint `f8a4c19b85ee97e12d4012fde4b9ef68762e814ca693fe190bcb39fbb9eca585`. C360 cache SHAs: meta `5ba5bfae583622447f505547ffacff1104b1cd300359ebda9c54e6a23ed8e751`, provenance `80d7fccfbc8132e64ec738cf240cb68d2a646c1242b82314e0f6bead0146db2f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
@@ -149,3 +162,9 @@ C359 extra SHAs: tradable_edge_registry `af4acf9a1bb7d3818e7ca6dc81701ddff9b9c4e
 ## C359 — ARCHIVED SPEC (frozen formal negative; kept for reproducibility, DO NOT re-run)
 
 C359 was **ORDINAL PATTERN TRANSITION ENTROPY (OPTE)**: Bandt–Pompe ordinal patterns of dimension D=5, delay τ=1 over trailing returns W=256 → 120 permutation states; consecutive states form transitions accumulated into a 120×120 count matrix C; `P=C/rowsum(C)` (zero rows → uniform); marginal `p_i=rowsum(C)_i/ΣC`; scalars `opte_ent = -Σ_i p_i Σ_j P_ij ln P_ij` (transition entropy rate, nats) and `opte_complexity = opte_ent × JSD(P, U_120)` (statistical complexity). Same 1296-config grid, seasonal-dislocation baseline, cross-sectional dollar-neutral construction, gates (Holm+BH+MDE+stability+attribution) and artifact layout as C360. Executed 20261118T005752Z → RETRACTED (multiple_testing). Scripts/cache/tests/artifacts on disk under `campaign359_*`.
+
+---
+
+## C361 — ACTIVE PRE-REGISTERED FAMILY (placeholder spec)
+
+C361 is the next genuinely-new price-only family to execute on real C312 5m data. Spec placeholder — to be authored as `C361_<next_genuinely_new_price_only_family>` in state.yaml `next_campaign`. Same structural template as C360: build → preflight → full 1296-config costed-OOS sweep → pytest ≥21 green → 5 SHA256 artifacts → record in AGENTS.md + state.yaml. Do NOT re-run frozen C281B–C360/C287.

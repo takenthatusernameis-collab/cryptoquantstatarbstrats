@@ -1,23 +1,23 @@
-updated_at_utc: 2026-11-18T01:39:14Z
-handoff_refreshed_at_utc: 2026-11-18T01:39:14Z
+updated_at_utc: 2026-11-18T01:46:23Z
+handoff_refreshed_at_utc: 2026-11-18T01:46:23Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C359
-next_campaign: C360_leverage_vol_asymmetry_coupling_lvac_usdt_m_5m
+latest_campaign_done: C360
+next_campaign: C361_placeholder_next_genuinely_new_price_only_family
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T01:39:14Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T01:39:14Z: C281B-C359 ALL COMPLETE FORMAL NEGATIVES (~96,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616, 24/24 tests green incl. OPTE brute-force equality exact maxdiff=0.0, 5 SHA256 artifacts + gitignored .full.json). C360 pre-registered spec (LVAC leverage/vol-asymmetry coupling) in AGENTS.md — ACTIVE, heavy execution required. C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign360_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C360_leverage_vol_asymmetry_coupling_lvac_usdt_m_5m
-queued_next_campaign_note: 'Set active only after C360 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
-first_action: "EXECUTE C360 NOW (2026-11-18T01:39:14Z): C359 frozen formal negative (20261118T005752Z). Do NOT re-run C281B-C359/C287. C360 = LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) — signed return x lagged-|return| cross-correlation (leverage effect) over W=256, lags k=1..5; scalars lvac_mean = mean_k rho_k, lvac_asym = rho_1 - rho_5. Price-only, volume-free. Clone C359 template (scripts/build_c359_opte_features.py etc.). C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign360_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION."
-active_campaign: C360_leverage_vol_asymmetry_coupling_lvac_usdt_m_5m
-space_status: NO_EDGE_C281B_C359
-closure_note: 'C281B–C359 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~96,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616). C360 pre-registered spec (LVAC) in AGENTS.md — ACTIVE, heavy execution required. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
-active_initial_task: "C360 ACTIVE (2026-11-18T01:39:14Z, FROZEN SPEC): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. lvac_mean[t] = mean over k=1..5 of corr(r[s],|r|[s-k]) within trailing W=256; lvac_asym = rho_1 - rho_5. Clone C359 structural template (scripts/build_c359_opte_features.py, scripts/run_c359_opte_xsec_oos.py, scripts/preflight_c359.py, tests/test_preflight_c359.py, tests/test_c359_opte_xsec_oos.py) and extend OPTE->LVAC. Execute pipeline: build cache -> preflight -> full 1296-config costed-OOS sweep -> pytest >=21 green incl. LVAC brute-force equality -> 5 SHA256 artifacts reports/campaign360_*_<TS>Z.json + .full.json -> record in AGENTS.md + state.yaml, freeze C360 with SHAs, set C361 active. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
+bottlenecks_verified_removed_at_utc: "2026-11-18T01:46:23Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T01:46:23Z: C281B-C360 ALL COMPLETE FORMAL NEGATIVES (~96,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616, 24/24 tests green incl. OPTE brute-force equality exact maxdiff=0.0, 5 SHA256 artifacts + gitignored .full.json). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977, 23/23 tests green incl. LVAC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign360_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C361_placeholder_next_genuinely_new_price_only_family
+queued_next_campaign_note: 'Set active only after C361 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
+first_action: "EXECUTE C361 NEXT (2026-11-18T01:46:23Z): C360 frozen formal negative (20261118T014623Z). Do NOT re-run C281B-C360/C287. C361 = next genuinely-new price-only family on real C312 5m data (placeholder spec in state.yaml). C312 5m ready (10 shards x 315648 bars, perp_close 0-NaN, meta sha 49ee1f3...), deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign361_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
+active_campaign: C361_placeholder_next_genuinely_new_price_only_family
+space_status: NO_EDGE_C281B_C360
+closure_note: 'C281B–C360 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~96,000+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C359 frozen 20261118T005752Z (1296, RETRACTED, dominant opte_ent_dev 0.2616). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry.'
+active_initial_task: "C360 COMPLETE (2026-11-18T01:46:23Z, FROZEN FORMAL NEGATIVE): LEVERAGE / VOLATILITY-ASYMMETRY COUPLING (LVAC) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. lvac_mean[t] = mean over k=1..5 of corr(r[s],|r|[s-k]) within trailing W=256; lvac_asym = rho_1 - rho_5. Cloned C359 structural template into scripts/build_c360_lvac_features.py, scripts/run_c360_lvac_xsec_oos.py, scripts/preflight_c360.py, tests/test_preflight_c360.py, tests/test_c360_lvac_xsec_oos.py. Executed pipeline: build cache -> preflight ready:true -> full 1296-config costed-OOS sweep -> pytest 23/23 green incl. LVAC brute-force equality -> 5 SHA256 artifacts reports/campaign360_*_20261118T014623Z.json + .full.json. Recorded in AGENTS.md + state.yaml. Frozen C360 with SHAs. C361 now active with placeholder spec. No downscoping, no spec changes, no re-runs of frozen campaigns. No edge claim unless Holm+BH over all 1296 AND attribution_ok AND stability."
 c346_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C346
@@ -6357,7 +6357,7 @@ c359_status:
     passed: 24
     failed: 0
     as_of_utc: 20261118T005752Z
-  opte_params:
+  lvac_params:
     window_W: 256
     ordinal_dimension_D: 5
     delay_tau: 1
@@ -6365,3 +6365,5 @@ c359_status:
   real_data_only: true
   fabricated_data: false
   executed_fills: false
+
+c360_status:
