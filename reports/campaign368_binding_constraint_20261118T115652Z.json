@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261118T115652Z",
+  "campaign": 368,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign368_oos_sweep_20261118T115652Z.json",
+  "oos_sweep_sha256": "c2347d030c8162dfd8c1e8e7e14128ff2d9d597b09f8837c9752da691cc319a7",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rmad_dev": 0.29882673185780123,
+    "rabs_dev": 0.21087726380752023,
+    "rmad_placebo": 0.27623356294701973,
+    "rabs_placebo": 0.21406244138765892
+  },
+  "dominant_attribution": "rmad_dev",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rmad_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.5592019732415554,
+      -0.6674081154983645,
+      -0.5410872929134036,
+      -0.9669542012796768,
+      -0.5404916340672535,
+      -0.5065714581405262,
+      -0.6335418592559734,
+      -0.713980145079616
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -4.008796391401369,
+    "second_half_sharpe": -7.371711613425174,
+    "sharpe_corr": 0.9961848934548748,
+    "stable": false
+  },
+  "diagnosis": "C368 cross-sectional intraday REALIZED MEDIAN ABSOLUTE DEVIATION & MEDIAN-OF-ABSOLUTES VOLATILITY (RMAD) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
