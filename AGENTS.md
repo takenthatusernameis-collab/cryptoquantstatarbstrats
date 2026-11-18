@@ -1,42 +1,51 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff written:** 2026-11-18T15:50Z (disk re-verified 2026-11-18T15:50Z). **C281B–C371 ALL FROZEN FORMAL NEGATIVES.** **C371 (RSK/RKT) FULLY EXECUTED & FROZEN (20261118T151130Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `rkt_placebo` 0.4164. All 5 SHA256 artifacts + cache on disk. **C372 (TIRV — REALIZED TIME-IRREVERSIBILITY) is the ACTIVE next campaign — PRE-SEEDED, execute end-to-end now.** **Bottlenecks: NONE.**
+**Handoff written:** 2026-11-18T16:07Z (disk re-verified 2026-11-18T16:07Z). **C281B–C372 ALL FROZEN FORMAL NEGATIVES.** **C371 (RSK/RKT) FULLY EXECUTED & FROZEN (20261118T151130Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `rkt_placebo` 0.4164. **C372 (TIRV) FULLY EXECUTED & FROZEN (20261118T160248Z):** 1296 configs costed-OOS, 0 Holm+BH survivors, `edge_proven:false`, RETRACTED, binding `multiple_testing`, dominant attribution `tir4_placebo` 0.4789. All 5 SHA256 artifacts + cache on disk. **C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) is the ACTIVE next campaign — PRE-SEEDED, execute end-to-end now.** **Bottlenecks: NONE.**
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a HARD VIOLATION. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (written 2026-11-18T15:50Z — ONE authoritative timestamp) — NEXT SESSION: EXECUTE C372 (REALIZED TIME-IRREVERSIBILITY, TIRV) END-TO-END NOW. START WITH HEAVY EXECUTION (WRITE CODE → BUILD CACHE → PREFLIGHT → FULL COSTED-OOS SWEEP → PYTEST → 5 SHA256 ARTIFACTS), NOT RE-READING, RE-PLANNING, OR PROSE. NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C281B–C371 OR C287. ZERO TOLERANCE FOR AVOIDANCE.**
+> **INITIAL TASK MESSAGE (written 2026-11-18T16:07Z — ONE authoritative timestamp) — NEXT SESSION: EXECUTE C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) END-TO-END NOW. START WITH HEAVY EXECUTION (WRITE CODE → BUILD CACHE → PREFLIGHT → FULL COSTED-OOS SWEEP → PYTEST → 5 SHA256 ARTIFACTS), NOT RE-READING, RE-PLANNING, OR PROSE. NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT, NO RE-RUN OF C281B–C372 OR C287. ZERO TOLERANCE FOR AVOIDANCE.**
 > Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only. The ONLY acceptable outcome is **real execution progress** — a real-data, costed, out-of-sample stat-arb edge attempt on on-disk C312 5m data — leaving durable artifacts on disk.
 >
-> **Verified state (2026-11-18T15:50Z):** C281B–C371 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, RETRACTED). C371 (RSK/RKT) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign371_*_20261118T151130Z.json`, cache `data/cache/campaign371_rskrkt_5m/`. C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10×315,648). Clone template on disk = C371's 5 files, all working. **DO THIS NOW (no planning detour):** clone C371 (`scripts/build_c371_rskrkt_features.py`, `scripts/preflight_c371.py`, `scripts/run_c371_rskrkt_xsec_oos.py`, `tests/test_preflight_c371.py`, `tests/test_c371_rskrkt_xsec_oos.py`) → adapt to C372 → build cache → preflight `ready:true` → run FULL 1296-config costed OOS sweep → pytest (≥21 green incl. TIRV brute-force equality) → write 5 SHA256 artifacts → record result. **Bottlenecks: NONE.**
+> **Verified state (2026-11-18T16:07Z):** C281B–C372 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, RETRACTED). C371 (RSK/RKT) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign371_*_20261118T151130Z.json`, cache `data/cache/campaign371_rskrkt_5m/`. C372 (TIRV) DONE/FROZEN: 1296 configs, 22/22 tests green, 5 artifacts `reports/campaign372_*_20261118T160248Z.json`, cache `data/cache/campaign372_tirv_5m/`. C312 source `data/cache/campaign312_usdt_m_ofi_5m/` ready (10×315,648). Clone template on disk = C371/C372's 5 files, all working. **DO THIS NOW (no planning detour):** clone C372 (`scripts/build_c372_tirv_features.py`, `scripts/preflight_c372.py`, `scripts/run_c372_tirv_xsec_oos.py`, `tests/test_preflight_c372.py`, `tests/test_c372_tirv_xsec_oos.py`) → adapt to C373 → build cache → preflight `ready:true` → run FULL 1296-config costed OOS sweep → pytest (≥21 green incl. RLRV brute-force equality) → write 5 SHA256 artifacts → record result. **Bottlenecks: NONE.**
 >
-> **ACTIVE — C372 (REALIZED TIME-IRREVERSIBILITY (TIRV) × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`).** Third- and fourth-order **lagged product** cumulants of returns: `tir3[t] = (1/(W-2)) Σ_{i=t-W+3..t} x_i·x_{i-1}·x_{i-2}` and `tir4[t] = (1/(W-3)) Σ_{i=t-W+4..t} x_i·x_{i-1}·x_{i-2}·x_{i-3}`, `W=256`. These probe temporal asymmetry (time-irreversibility) of the return process — odd-order lagged products are zero in a reversible Gaussian process and non-zero under asymmetric dynamics. Genuinely distinct from C326 (lag-1 autocorrelation — 2nd-order, single lag), C343 (`|r|` magnitude autocorrelation), C360 (leverage cross-moment), C353 (variance ratio), C365 (KER path geometry), C361/C363/C366/C371 (same-bar distributional moments — no lagged cross-products), C364 (semivariance sign split), C370 (L1 dispersion), C362 (Hill EVT), C344 (sign-change count), C349–C359 (entropy/complexity). Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via shifted cumulative sums of `x·x_1·x_2` and `x·x_1·x_2·x_3`.
+> **ACTIVE — C373 (REALIZED LÉVY/JUMP-ROBUST MedRV × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free, on real C312 `perp_close`).** Jump-robust volatility estimator using median-of-three adjacent absolute returns: `MedRV[t] = (π/(6-4√3+π))·(W/(W-2))·Σ_{i=t-W+2..t} med(|x_{i-1}|,|x_i|,|x_{i+1}|)²` and its ratio to RV: `medrv_rv_ratio[t] = MedRV[t] / RV[t]`, `W=256`. This is a **jump-robust realized volatility** family — genuinely distinct from:
+> - C317 (RV = sqrt(Σ x²) — not jump-robust), C367 (BPV/JAR = bipower variation / jump-activity ratio — adjacent products, not medians), C368 (RMAD/RABS = median absolute deviation — different estimator, no jump-robust scaling), C364 (DSRV = downside/upside semivariance — sign split, not jump-robust), C366 (RQV = quartic variation / top-k concentration — tail dominance, not jump-robust), C365 (KER = path geometry — displacement/path), C362 (Hill EVT), C361/C363/C371 (same-bar distributional moments).
+> Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via sliding window medians of 3-bar absolute-return triples.
 > - **Normative Python (must match brute-force test):**
 >   ```python
->   p3 = X[2:] * X[1:-1] * X[:-2]                 # length W-2
->   p4 = X[3:] * X[2:-1] * X[1:-2] * X[:-3]       # length W-3
->   tir3 = float(np.mean(p3)) if W >= 3 else nan
->   tir4 = float(np.mean(p4)) if W >= 4 else nan
+>   W = 256
+>   if t < W: medrv = nan; medrv_rv_ratio = nan
+>   else:
+>       X = log_return[t-W+1:t+1]
+>       # med(|x_{i-1}|, |x_i|, |x_{i+1}|) for i = t-W+2 .. t
+>       triples = np.column_stack([np.abs(X[:-2]), np.abs(X[1:-1]), np.abs(X[2:])])
+>       meds = np.median(triples, axis=1)                 # length W-2
+>       c = np.pi / (6 - 4*np.sqrt(3) + np.pi)           # consistency constant
+>       medrv = c * (W / (W-2)) * np.sum(meds**2)
+>       rv = np.sum(X**2)
+>       medrv_rv_ratio = medrv / rv if rv > 0 else nan
 >   ```
 >   NaN if `t<W`, any NaN in window, or not finite. `last_move_dir[t]=sign(r[t])`.
-> - **Distinctness (pre-registered, must appear in script docstring):** distinct from all prior families C281B–C371 (see full list in AGENTS.md).
-> - **Build:** `data/cache/campaign372_tirv_5m/<SYM>.npz` per symbol from real C312 `perp_close` only (no network/fabrication/resampling/imputation): `index_ms` int64 (315,648 bars), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `tirv_params={window_W:256}`.
-> - **Fast vectorized execution:** compute `tir3`, `tir4` for all bars per asset with cumulative sums of `q3[i]=x_i·x_{i-1}·x_{i-2}` and `q4[i]=x_i·x_{i-1}·x_{i-2}·x_{i-3}`, then windowed differences divided by `W-2`/`W-3` — no Python loop over 315,648 bars × 10 assets. **MUST pass brute-force equality** vs per-window reference above (`assert maxdiff < 1e-12`).
-> - **Grid (1296, literal `N_TRIALS`):** SIGNALS `{tir3_dev,tir4_dev,tir3_placebo,tir4_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`. 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261236` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `tir3_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={tir3_dev,tir4_dev}`.
-> - **Seasonal baseline (causal):** trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (`shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{tir3,tir4}`.
+> - **Distinctness (pre-registered, must appear in script docstring):** distinct from all prior families C281B–C372 (see full list in AGENTS.md).
+> - **Build:** `data/cache/campaign373_rlrv_5m/<SYM>.npz` per symbol from real C312 `perp_close` only (no network/fabrication/resampling/imputation): `index_ms` int64 (315,648 bars), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `rlrv_params={window_W:256}`.
+> - **Fast vectorized execution:** compute `medrv`, `medrv_rv_ratio` for all bars per asset with vectorized sliding window median of 3-bar absolute-return triples (no Python loop over 315,648 bars × 10 assets). **MUST pass brute-force equality** vs per-window reference above (`assert maxdiff < 1e-12`).
+> - **Grid (1296, literal `N_TRIALS`):** SIGNALS `{medrv_dev, medrv_rv_ratio_dev, medrv_placebo, medrv_rv_ratio_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`. 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261237` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `medrv_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={medrv_dev,medrv_rv_ratio_dev}`.
+> - **Seasonal baseline (causal):** trailing mean/std of `v[t]` at same `(weekday×tod)` bucket (2016 buckets) from history strictly BEFORE t (`shift(1)`), NaN-aware `min_periods=3`. Score `s[t]=-(v[t]-seasonal_mean)/seasonal_std` for `v∈{medrv,medrv_rv_ratio}`.
 > - **Gates (identical, do NOT weaken):** one-sided paired t-test per-split OOS net vs 0; Holm step-down AND BH over all 1296 at α=0.05 (edge needs BOTH). MDE two-sided α=0.05 power 0.80 `(t_{0.975}+t_{0.80})*s/sqrt(n_splits)`. Stability: sign consistency ≥0.70 and first/second-half Sharpe corr ≥0.5 (ref). Attribution: mean |OOS net| per signal; shares over all 4 incl. placebos; dominant must be real non-placebo with share ≥0.5 for attribution_ok. Verdict: n_survive_both==0→RETRACTED(multiple_testing); >0 & !attribution_ok→RETRACTED(attribution); >0 & !stable→RETRACTED(stability); >0 & attribution_ok & stable→EDGE_PROVEN. `edge_proven=bool(edge_idx and verdict=="EDGE_PROVEN")`.
 >
 > **MANDATORY HEAVY-WORK SEQUENCE (execute in order, do not stop at planning):**
-> 1. WRITE `scripts/build_c372_tirv_features.py`, `scripts/preflight_c372.py`, `scripts/run_c372_tirv_xsec_oos.py` (clone C371, adapt; price-only).
-> 2. WRITE `tests/test_preflight_c372.py`, `tests/test_c372_tirv_xsec_oos.py` (clone C371 tests). MUST include: TIRV brute-force equality (vectorized cumsum vs per-window reference), `N_TRIALS==1296`, Holm/BH correctness, dollar-neutral causality (no lookahead), WF split boundaries, surrogate determinism (same seed ⇒ same surrogate), build-shape/dtype/NaN-placement tests.
-> 3. BUILD: `python3 scripts/build_c372_tirv_features.py` → `data/cache/campaign372_tirv_5m/` (SHA-manifested, <100 MB, 10 shards × 315,648).
-> 4. PREFLIGHT: `python3 scripts/preflight_c372.py` → `ready:true`.
-> 5. FULL SWEEP (NO DOWNSCOPING): `python3 scripts/run_c372_tirv_xsec_oos.py` → 5 SHA256 artifacts `reports/campaign372_*_<TS>Z.json` + gitignored `.full.json` (oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint).
-> 6. TESTS: `python3 -m pytest tests/test_preflight_c372.py tests/test_c372_tirv_xsec_oos.py -q` → ≥21 GREEN incl. brute-force equality.
-> 7. DURABLE RECORD: update this AGENTS.md with `C372 RESULT` block + add C372 to the frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match (set `latest_campaign_done: C372`, `next_campaign: C373`). **On freeze (expected negative), immediately execute the pre-seeded C373 spec from the family backlog — no planning turn.**
+> 1. WRITE `scripts/build_c373_rlrv_features.py`, `scripts/preflight_c373.py`, `scripts/run_c373_rlrv_xsec_oos.py` (clone C372, adapt; price-only).
+> 2. WRITE `tests/test_preflight_c373.py`, `tests/test_c373_rlrv_xsec_oos.py` (clone C372 tests). MUST include: RLRV brute-force equality (vectorized sliding median vs per-window reference), `N_TRIALS==1296`, Holm/BH correctness, dollar-neutral causality (no lookahead), WF split boundaries, surrogate determinism (same seed ⇒ same surrogate), build-shape/dtype/NaN-placement tests.
+> 3. BUILD: `python3 scripts/build_c373_rlrv_features.py` → `data/cache/campaign373_rlrv_5m/` (SHA-manifested, <100 MB, 10 shards × 315,648).
+> 4. PREFLIGHT: `python3 scripts/preflight_c373.py` → `ready:true`.
+> 5. FULL SWEEP (NO DOWNSCOPING): `python3 scripts/run_c373_rlrv_xsec_oos.py` → 5 SHA256 artifacts `reports/campaign373_*_<TS>Z.json` + gitignored `.full.json` (oos_sweep, tradable_edge_registry, summary, verdict, binding_constraint).
+> 6. TESTS: `python3 -m pytest tests/test_preflight_c373.py tests/test_c373_rlrv_xsec_oos.py -q` → ≥21 GREEN incl. brute-force equality.
+> 7. DURABLE RECORD: update this AGENTS.md with `C373 RESULT` block + add C373 to the frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match (set `latest_campaign_done: C373`, `next_campaign: C374`). **On freeze (expected negative), immediately execute the pre-seeded C374 spec from the family backlog — no planning turn.**
 >
-> **Continuity guarantee (no idle / no gaps):** If C372 cannot run for any reason, diagnose and fix and still execute the full heavy sequence — do not idle. C373+ must be a genuinely-new price-only family chosen from the family backlog below (RLRV MedRV, SIGNRUN, ACOVK, QSPREAD).
+> **Continuity guarantee (no idle / no gaps):** If C373 cannot run for any reason, diagnose and fix and still execute the full heavy sequence — do not idle. C374+ must be a genuinely-new price-only family chosen from the family backlog below (SIGNRUN, ACOVK, QSPREAD).
 >
-> **ANTI-AVOIDANCE (hard violations):** (1) any output without at least one of: new test files written, cache built, preflight passing, OOS sweep running, tests passing, or artifacts recorded; (2) planning/analysis/review/investigation without concurrent heavy execution; (3) stopping after tests but before build/preflight/sweep; (4) re-running any frozen campaign C281B–C371/C287; (5) reduced grid (<1296); (6) skipping brute-force equality tests; (7) freezing a campaign without adding its row + SHAs to the frozen table and `research_state/state.yaml`. Repo demands STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else is progress.
+> **ANTI-AVOIDANCE (hard violations):** (1) any output without at least one of: new test files written, cache built, preflight passing, OOS sweep running, tests passing, or artifacts recorded; (2) planning/analysis/review/investigation without concurrent heavy execution; (3) stopping after tests but before build/preflight/sweep; (4) re-running any frozen campaign C281B–C372/C287; (5) reduced grid (<1296); (6) skipping brute-force equality tests; (7) freezing a campaign without adding its row + SHAs to the frozen table and `research_state/state.yaml`. Repo demands STATISTICAL ARBITRAGE EDGE DISCOVERY ON REAL DATA — nothing else is progress.
 
 ---
 
@@ -514,9 +523,9 @@ C362 was **HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY**: per-bar Hill t
 
 ## Program state
 
-**`ACTIVE — NO-EDGE CONFIRMED THROUGH C371 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C365–C371 all FROZEN formal negatives. **C372 (TIRV) is the ACTIVE campaign — begin C372 end-to-end immediately (heavy execution only).**
+**`ACTIVE — NO-EDGE CONFIRMED THROUGH C372 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. C365–C372 all FROZEN formal negatives. **C373 (RLRV — REALIZED LÉVY/JUMP-ROBUST MedRV) is the ACTIVE next campaign — PRE-SEEDED, execute end-to-end now.**
 
-**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T15:47Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 symbols × 315,648 bars). Deps verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 451/403 permanently blocked but DECOUPLED — never retry; not on the critical path. No queued/blocked sessions. **C371 FROZEN formal negative — `campaign371_*` scripts/tests/cache/reports present and frozen (20261118T151130Z).** **C372 TIRV PRE-SEEDED with full spec in the INITIAL TASK MESSAGE above** (4 signals tir3_dev/tir4_dev + 2 placebos, 1296 configs 4×6×3×3×3×2, W=256, placebo_seed=20261236, ref tir3_dev L=240 H=4). Next session must execute C372 end-to-end by cloning C371 (build, preflight, full 1296-config costed OOS sweep, pytest incl. brute-force equality, 5 SHA256 artifacts, durable record). Queue depth is 2 (C372 active, C373 pre-seeded backlog) so the queue can never be empty.
+**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T16:07Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 symbols × 315,648 bars). Deps verified importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C287 451/403 permanently blocked but DECOUPLED — never retry; not on the critical path. No queued/blocked sessions. **C371 FROZEN formal negative — `campaign371_*` scripts/tests/cache/reports present and frozen (20261118T151130Z).** **C372 FROZEN formal negative — `campaign372_*` scripts/tests/cache/reports present and frozen (20261118T160248Z).** **C373 RLRV PRE-SEEDED with full spec in the INITIAL TASK MESSAGE above** (4 signals medrv_dev/medrv_rv_ratio_dev + 2 placebos, 1296 configs 4×6×3×3×3×2, W=256, placebo_seed=20261237, ref medrv_dev L=240 H=4). Next session must execute C373 end-to-end by cloning C372 (build, preflight, full 1296-config costed OOS sweep, pytest incl. brute-force equality, 5 SHA256 artifacts, durable record). Queue depth is 2 (C373 active, C374 pre-seeded backlog) so the queue can never be empty.
 
 ## C371 — FROZEN CAMPAIGN (RSK/RKT; executed after C370 froze, see C371 RESULT block)
 
@@ -524,26 +533,40 @@ C371 (REALIZED SKEWNESS & REALIZED KURTOSIS × SEASONAL-DISLOCATION mean-reversi
 
 ---
 
-## C372 — PRE-SEEDED CAMPAIGN (TIRV; start immediately once C371 is frozen, no planning turn)
+## C372 — FROZEN CAMPAIGN (TIRV; executed after C371 froze, see C372 RESULT block)
 
-**C372 — REALIZED TIME-IRREVERSIBILITY (TIRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m, price-only, volume-free, on real C312 5m data).** Third- and fourth-order **lagged product** cumulants of returns: `tir3[t] = (1/(W-2)) Σ_{i=t-W+3..t} x_i·x_{i-1}·x_{i-2}` and `tir4[t] = (1/(W-3)) Σ_{i=t-W+4..t} x_i·x_{i-1}·x_{i-2}·x_{i-3}`, `W=256`. These probe temporal asymmetry (time-irreversibility) of the return process — odd-order lagged products are zero in a reversible Gaussian process and non-zero under asymmetric dynamics. Genuinely distinct from:
-- C326 (lag-1 return autocorrelation — 2nd-order, single lag), C343 (`|r|` magnitude autocorrelation), C360 (leverage cross-moment `corr(r[i], |r|[i-k])`), C353 (Lo–MacKinlay variance ratio), C365 (KER path geometry).
-- C361/C363/C366/C371 (same-bar distributional moments — no lagged cross-products), C364 (semivariance sign split), C370 (L1 dispersion), C362 (Hill EVT), C344 (sign-change count), C349–C359 (entropy/complexity families).
-Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via shifted cumulative sums of `x·x_1·x_2` and `x·x_1·x_2·x_3`.
+C372 (REALIZED TIME-IRREVERSIBILITY / LAGGED-PRODUCT CUMULANTS (TIRV) × SEASONAL-DISLOCATION mean-reversion stat-arb) is fully executed and frozen — see **C372 RESULT** block (frozen 20261118T160248Z). DO NOT re-run.
+
+---
+
+## C373 — PRE-SEEDED CAMPAIGN (RLRV; start immediately once C372 is frozen, no planning turn)
+
+**C373 — REALIZED LÉVY/JUMP-ROBUST MedRV (RLRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m, price-only, volume-free, on real C312 5m data).** Jump-robust volatility estimator using median-of-three adjacent absolute returns: `MedRV[t] = (π/(6-4√3+π))·(W/(W-2))·Σ_{i=t-W+2..t} med(|x_{i-1}|,|x_i|,|x_{i+1}|)²` and its ratio to RV: `medrv_rv_ratio[t] = MedRV[t] / RV[t]`, `W=256`. These probe jump-robust realized volatility — genuinely distinct from C317 (RV), C367 (BPV/JAR), C368 (RMAD/RABS), C364 (DSRV), C366 (RQV), C365 (KER), C362 (Hill EVT), C361/C363/C371 (same-bar distributional moments). Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via sliding window medians of 3-bar absolute-return triples.
 
 - **Normative Python (must match brute-force test):**
   ```python
-  p3 = X[2:] * X[1:-1] * X[:-2]                 # length W-2
-  p4 = X[3:] * X[2:-1] * X[1:-2] * X[:-3]       # length W-3
-  tir3 = float(np.mean(p3)) if W >= 3 else nan
-  tir4 = float(np.mean(p4)) if W >= 4 else nan
+  W = 256
+  if t < W: medrv = nan; medrv_rv_ratio = nan
+  else:
+      X = log_return[t-W+1:t+1]
+      triples = np.column_stack([np.abs(X[:-2]), np.abs(X[1:-1]), np.abs(X[2:])])
+      meds = np.median(triples, axis=1)
+      c = np.pi / (6 - 4*np.sqrt(3) + np.pi)
+      medrv = c * (W / (W-2)) * np.sum(meds**2)
+      rv = np.sum(X**2)
+      medrv_rv_ratio = medrv / rv if rv > 0 else nan
   ```
   NaN if `t<W`, any NaN in window, or not finite. `last_move_dir[t]=sign(r[t])`.
-- **Vectorized kernel:** cumulative sums of `q3[i]=x_i x_{i-1} x_{i-2}` and `q4[i]=x_i x_{i-1} x_{i-2} x_{i-3}`, then windowed differences divided by `W-2` / `W-3` — no Python loop over 315,648 bars × 10 assets. **MUST pass brute-force equality** vs the per-window reference above (`assert maxdiff < 1e-12`).
-- **Build:** `data/cache/campaign372_tirv_5m/<SYM>.npz` from real C312 `perp_close` only: `index_ms` int64 (315,648), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `tirv_params={window_W:256}`.
-- **Grid (1296, literal `N_TRIALS`):** SIGNALS `{tir3_dev,tir4_dev,tir3_placebo,tir4_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`; 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261236` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `tir3_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={tir3_dev,tir4_dev}`.
-- **Gates/verdict:** identical to C371 (one-sided paired t per split; Holm AND BH over 1296 at α=0.05; MDE power 0.80; stability sign consistency ≥0.70 and half-Sharpe corr ≥0.5; attribution share ≥0.5 by real non-placebo; RETRACTED(multiple_testing|attribution|stability) else EDGE_PROVEN).
-- **Deliverables — identical 6-item pattern under `campaign372_*`:** 3 scripts, 2 test files (≥21 green incl. TIRV brute-force equality), cache, preflight `ready:true`, full sweep with 5 SHA256 `reports/campaign372_*_<TS>Z.json` + `.full.json`, durable record + frozen-table row + state.yaml update (`latest_campaign_done: C372`, `next_campaign: C373`).
+
+- **Vectorized kernel:** sliding window median of 3-bar absolute-return triples via `np.lib.stride_tricks.sliding_window_view` — no Python loop over 315,648 bars × 10 assets. **MUST pass brute-force equality** vs the per-window reference above (`assert maxdiff < 1e-12`).
+
+- **Build:** `data/cache/campaign373_rlrv_5m/<SYM>.npz` from real C312 `perp_close` only: `index_ms` int64 (315,648), `perp_close` float32, `log_return` float32, `abs_ret` float32, `funding_rate` float32 all-NaN. SHA256 shard manifest; `real_data_only:true`, `fabricated_data:false`, `executed_fills:false`, `network_ingest:false`, `resample:false`, `interval:5m`, `source_campaign:312`, `rlrv_params={window_W:256}`.
+
+- **Grid (1296, literal `N_TRIALS`):** SIGNALS `{medrv_dev,medrv_rv_ratio_dev,medrv_placebo,medrv_rv_ratio_placebo}`; LOOKBACKS `(60,120,240,480,960,1920)`; REBALANCES `(1,4,12)`; FEES `(0.0004,0.0007,0.0010)`; SLIPS `(0.0,0.0001,0.0002)`; COST_VARIANTS `("taker","maker_blend")`; 4×6×3×3×3×2=1296. WF 12m train/3m test roll 3m → 8 OOS splits 2023-01..2025-12. Placebo seed `20261237` (phase-randomized FFT surrogate + rank restoration; NaNs stay NaN). Selection frac=1/3, ALPHA=0.05. Ref/stability config: `medrv_dev`, L=240, H=4, fee 0.0007, slip 0.0001, taker. `ATTR_REPRESENTATIVES={medrv_dev,medrv_rv_ratio_dev}`.
+
+- **Gates/verdict:** identical to C372 (one-sided paired t per split; Holm AND BH over 1296 at α=0.05; MDE power 0.80; stability sign consistency ≥0.70 and half-Sharpe corr ≥0.5; attribution share ≥0.5 by real non-placebo; RETRACTED(multiple_testing|attribution|stability) else EDGE_PROVEN).
+
+- **Deliverables — identical 6-item pattern under `campaign373_*`:** 3 scripts, 2 test files (≥21 green incl. RLRV brute-force equality), cache, preflight `ready:true`, full sweep with 5 SHA256 `reports/campaign373_*_<TS>Z.json` + `.full.json`, durable record + frozen-table row + state.yaml update (`latest_campaign_done: C373`, `next_campaign: C374`).
 
 ### Family backlog for C373+ (all price-only, volume-free, close-only; pick in order, do not reuse)
 1. **RLRV — Realized Lévy/Jump-Robust "MedRV" volatility**: median-of-three adjacent `|x|` scaled estimator (`MedRV = (π/(6-4√3+π))·(W/(W-2))·Σ med(|x_{i-1}|,|x_i|,|x_{i+1}|)^2`) plus its ratio to RV (`medrv_rv_ratio`). Distinct from BPV (adjacent products, C367), RMAD (C368), RV (C317).
@@ -555,7 +578,7 @@ Price-only (`perp_close`), volume-free, deterministic, `O(n)` vectorizable via s
 
 ## Frozen campaigns (do NOT re-run)
 
-C281B–C364: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, `attribution_ok:false`, verdict RETRACTED. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and `reports/`.
+C281B–C372: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`, `attribution_ok:false`, verdict RETRACTED. Full per-campaign SHAs + cache SHAs in `research_state/state.yaml` and `reports/`.
 
 | Camp | Frozen ts (UTC) | Family | n_configs | Dominant attribution | oos_sweep sha256 | verdict sha256 |
 |---|---|---|---|---|---|---|
