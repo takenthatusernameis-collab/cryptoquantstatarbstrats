@@ -4,12 +4,12 @@
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-18T06:52:07Z) — NEXT SESSION: EXECUTE C364 DSRV END-TO-END NOW. NO RE-READ-ONLY, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT. ZERO TOLERANCE FOR AVOIDANCE.**
+> **INITIAL TASK MESSAGE (2026-11-18T07:09:17Z) — NEXT SESSION: EXECUTE C365 KER END-TO-END NOW. NO RE-READ-ONLY, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT. ZERO TOLERANCE FOR AVOIDANCE.**
 > Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. The ONLY acceptable outcome of the next session is **real execution progress** — a real-data, costed, out-of-sample stat-arb edge attempt on the on-disk C312 5m data — leaving durable artifacts on disk.
 >
 > **Verified state (2026-11-18T06:52:07Z):** C281B–C363 ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`); C363 verified (5 artifact SHAs + cache SHAs match `research_state/state.yaml`). **C364 DSRV does NOT exist yet** — no `scripts/*c364*`, `tests/*c364*`, `data/cache/campaign364_dsrv_5m/`, or `reports/campaign364_*`. C363 template is intact (clone source). **DO NOT RE-RUN ANY FROZEN CAMPAIGN (C281B–C363, C287).**
 >
-> **ACTIVE CAMPAIGN: C364 — REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion (USDT-M 5m, price-only, volume-free, real C312 `perp_close`).** Full pre-registered spec: **`C364 — ARCHIVED SPEC`** below. Clone/adapt these frozen templates (do NOT modify them): `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`.
+> **ACTIVE CAMPAIGN: C365 — KAUFMAN EFFICIENCY RATIO / PATH-STRAIGHTNESS (KER) × SEASONAL-DISLOCATION mean-reversion (USDT-M 5m, price-only, volume-free, real C312 `perp_close`).** Full pre-registered spec: **`C365 — ARCHIVED SPEC`** below. Clone/adapt C364 (now frozen) templates (do NOT modify them): `scripts/build_c364_dsrv_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_dsrv_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_dsrv_xsec_oos.py`.
 >
 > **MANDATORY HEAVY-WORK SEQUENCE — EXECUTE IN ORDER, DO NOT STOP AT PLANNING:**
 > 1. **WRITE** 5 C364 scripts/tests (adapt C363 template to DSRV spec exactly): `scripts/build_c364_dsrv_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_dsrv_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_dsrv_xsec_oos.py`.
@@ -451,4 +451,4 @@ C359 was **ORDINAL PATTERN TRANSITION ENTROPY (OPTE)**: Bandt–Pompe ordinal pa
 
 ## C363 — FROZEN FORMAL NEGATIVE (do NOT re-run)
 
-C363 (QUANTILE ASYMMETRY & TAIL-MASS / QATM) was executed and frozen 20261118T035157Z as a formal negative (SHAs re-verified 2026-11-18). See C363 RESULT + C363 ARCHIVED SPEC (in state.yaml / reports). Do NOT re-run. The next active family is C364, specified in the INITIAL TASK MESSAGE at the top of this handoff.
+C363 (QUANTILE ASYMMETRY & TAIL-MASS / QATM) was executed and frozen 20261118T035157Z as a formal negative (SHAs re-verified 2026-11-18). See C363 RESULT + C363 ARCHIVED SPEC (in state.yaml / reports). Do NOT re-run. The next active family is C365, specified in the INITIAL TASK MESSAGE at the top of this handoff.
