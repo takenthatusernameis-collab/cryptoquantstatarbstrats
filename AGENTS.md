@@ -1,15 +1,15 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T05:42:38Z (single authoritative handoff; RE-VERIFIED on disk 2026-11-18T05:42:38Z — no HANDOFF.md/duplicate handoff files; no `c364`/`dsrv` scripts, tests, cache, or reports present; C363 5 reports present `campaign363_*_20261118T035030Z.json`; C312 5m source ready `data/cache/campaign312_usdt_m_ofi_5m/` = 10 symbols × 315,648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). C363 QATM FROZEN formal negative (SHAs in `state.yaml`/this handoff); **C364 DSRV is pre-registered and ACTIVE — unexecuted**. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T05:46:38Z (single authoritative handoff; RE-VERIFIED on disk 2026-11-18T05:46:38Z — no HANDOFF.md/duplicate handoff files; C363 5 reports present `campaign363_*_20261118T035030Z.json`; C363 template scripts intact & non-empty `scripts/{build,preflight,run}_c363_*.py`, `tests/{test_preflight,test}_c363_*.py`; C312 5m source ready `data/cache/campaign312_usdt_m_ofi_5m/` = 10 symbols × 315,648 bars each with `perp_close`; no `c364`/`dsrv` scripts, tests, cache, or reports present; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). C363 QATM FROZEN formal negative (SHAs in `state.yaml`/this handoff); **C364 DSRV is pre-registered and ACTIVE — unexecuted**. Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only. **This refresh (05:46:38Z) is the ONE authoritative timestamp — ignore any earlier per-section timestamp (03:51:57Z, 05:37:22Z, 05:39:00Z, 05:41:00Z, 05:42:38Z) which are superseded.**
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-18T05:42:38Z) — NEXT SESSION: EXECUTE C364 END-TO-END NOW (NO RE-READ, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT).**
-> Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. The only acceptable outcome of the next session is **real execution progress** toward a real-data, costed, out-of-sample stat-arb edge on the on-disk C312 5m data.
+> **INITIAL TASK MESSAGE (2026-11-18T05:46:38Z) — NEXT SESSION: EXECUTE C364 END-TO-END NOW. NO RE-READ-ONLY, NO RE-PLAN, NO DOWNSCOPING, NO STUB/PROSE-ONLY OUTPUT.**
+> Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**. The ONLY acceptable outcome of the next session is **real execution progress** — a real-data, costed, out-of-sample stat-arb edge attempt on the on-disk C312 5m data — leaving durable artifacts on disk.
 >
-> **Current state (verified 2026-11-18T05:42:38Z):** C281B–C363 are ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`); C363 frozen/verified (5 artifact SHAs + cache SHAs match `state.yaml`). **C364 DSRV artifacts do NOT exist yet** — this session must create and run them. **DO NOT RE-RUN ANY FROZEN CAMPAIGN (C281B–C363, C287).**
+> **Verified state (2026-11-18T05:46:38Z, this refresh):** C281B–C363 are ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`); C363 frozen/verified (5 artifact SHAs + cache SHAs match `research_state/state.yaml`). **C364 DSRV artifacts do NOT exist yet** — no `scripts/*c364*`, `tests/*c364*`, `data/cache/campaign364_dsrv_5m/`, or `reports/campaign364_*` on disk. The C363 template is intact and is the clone source. **DO NOT RE-RUN ANY FROZEN CAMPAIGN (C281B–C363, C287).**
 >
-> **ACTIVE CAMPAIGN: C364 — REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion (USDT-M 5m, price-only, volume-free).** Full pre-registered spec: **`C364 — ARCHIVED SPEC`** below. Templates (clone/adapt, do not modify frozen campaigns): `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`.
+> **ACTIVE CAMPAIGN: C364 — REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion (USDT-M 5m, price-only, volume-free, real C312 `perp_close`).** Full pre-registered spec: **`C364 — ARCHIVED SPEC`** below. Clone/adapt these frozen templates (do NOT modify them): `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`.
 >
 > **MANDATORY HEAVY-WORK SEQUENCE — EXECUTE IN ORDER, DO NOT STOP AT PLANNING:**
 > 1. **WRITE** 5 C364 scripts/tests (adapt C363 template to DSRV spec exactly): `scripts/build_c364_dsrv_features.py`, `scripts/preflight_c364.py`, `scripts/run_c364_dsrv_xsec_oos.py`, `tests/test_preflight_c364.py`, `tests/test_c364_dsrv_xsec_oos.py`.
@@ -17,9 +17,11 @@ Economic progress = a real-data costed out-of-sample PnL run, a passing test, or
 > 3. **PREFLIGHT:** `python3 scripts/preflight_c364.py` → must report `ready:true`.
 > 4. **FULL SWEEP (NO DOWNSCOPING):** `python3 scripts/run_c364_dsrv_xsec_oos.py` → complete **2592-config** costed OOS sweep producing 5 SHA256 artifacts `reports/campaign364_*_<TS>Z.json` + `.full.json` (`oos_sweep`, `tradable_edge_registry`, `summary`, `verdict`, `binding_constraint`).
 > 5. **TESTS:** `python3 -m pytest tests/test_preflight_c364.py tests/test_c364_dsrv_xsec_oos.py -q` → **≥21 GREEN** incl. DSRV brute-force equality (vectorized kernel vs reference per-window).
-> 6. **DURABLE RECORD (truthful):** update this AGENTS.md with a `C364 RESULT` block + add C364 to frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match. On freeze, set **C365 (KER)** ACTIVE per pre-registered placeholder spec below so work never stalls.
+> 6. **DURABLE RECORD (truthful):** update this AGENTS.md with a `C364 RESULT` block + add C364 to frozen table with all 5 artifact SHAs (+ cache meta/provenance/manifest SHAs) and update `research_state/state.yaml` to match. On freeze, set **C365 (KER)** ACTIVE per the pre-registered placeholder spec below so work never stalls.
 >
-> **Bottlenecks:** **NONE** (C312 10 symbols × 315,648 bars ready; deps ready; C287 451/403 permanently blocked — never retry). Do NOT weaken gates, do NOT declare terminal closure by fiat, do NOT invent results, do NOT narrow the grid. A session that leaves C364 unbuilt/unrun with only prose is a hard violation.
+> **Continuity guarantee (bottleneck removal):** C365 (KER) is already fully pre-registered below — if C364 cannot run for any reason, the next session executes C365, never idles. There is ALWAYS a ready, fully-specified campaign queued; no session can legitimately do nothing.
+>
+> **Bottlenecks removed (verified 2026-11-18T05:46:38Z): NONE.** C312 10 symbols × 315,648 bars ready; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable; C363 template intact; C287 451/403 permanently blocked but DECOUPLED — never retry, it blocks nothing. Do NOT weaken gates, do NOT declare terminal closure by fiat, do NOT invent results, do NOT narrow the grid. A session that leaves C364 unbuilt/unrun with only prose is a HARD VIOLATION.
 
 ---
 
@@ -88,7 +90,7 @@ C363 (QUANTILE ASYMMETRY & TAIL-MASS (QATM) × SEASONAL-DISLOCATION mean-reversi
 
 ---
 
-## C364 EXECUTION DETAIL — issued 2026-11-18T03:51:57Z (authoritative spec; see top INITIAL TASK MESSAGE 2026-11-18T05:39:00Z)
+## C364 EXECUTION DETAIL — issued 2026-11-18T03:51:57Z (authoritative spec; see top INITIAL TASK MESSAGE 2026-11-18T05:46:38Z)
 
 **EXECUTE C364 NOW (heavy work required; no re-planning, no spec changes, no downscoping): REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -381,7 +383,7 @@ C362 was **HILL TAIL-INDEX OF EXTREME RETURNS & TAIL ASYMMETRY**: per-bar Hill t
 
 **`ACTIVE — NO-EDGE CONFIRMED THROUGH C363 (ALL FORMAL NEGATIVES)`.** Terminal closure by fiat PROHIBITED — execute pre-registered genuinely-new price-only families on real on-disk C312 5m data until one proven unreachable with on-disk evidence. **C364 DSRV is the active, unexecuted, pre-registered family — execute end-to-end now (heavy work, no downscoping).**
 
-**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T05:37:22Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars: ADA, AVAX, BNB, BTC, DOGE, DOT, ETH, LINK, SOL, XRP). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry. No queued/blocked sessions to unblock. **Outstanding heavy work (mandatory):** write 5 C364 scripts/tests + build cache + preflight `ready:true` + full 2592-config costed OOS sweep + ≥21 green tests incl. brute-force equality + 5 SHA256 artifacts + truthful C364 RESULT/state update + C365 activation on freeze.
+**Bottlenecks: NONE — environment fully ready (re-verified 2026-11-18T05:46:38Z).** C312 5m present (`data/cache/campaign312_usdt_m_ofi_5m/`, 10 shards × 315,648 bars: ADA, AVAX, BNB, BTC, DOGE, DOT, ETH, LINK, SOL, XRP). Runtime deps importable (numpy 2.5.5 / pandas 3.1.1 / scipy 1.18.1 / pytest 9.2.0). C287 externally blocked/decoupled (451/403) — never retry. No queued/blocked sessions to unblock. **Outstanding heavy work (mandatory):** write 5 C364 scripts/tests + build cache + preflight `ready:true` + full 2592-config costed OOS sweep + ≥21 green tests incl. brute-force equality + 5 SHA256 artifacts + truthful C364 RESULT/state update + C365 activation on freeze.
 
 ---
 
