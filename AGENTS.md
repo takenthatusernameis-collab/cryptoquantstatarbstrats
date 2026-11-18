@@ -1,10 +1,10 @@
 # Durable Handoff — cryptoquantstatarbstrats (single authoritative)
 
-**Handoff refreshed:** 2026-11-18T03:58:45Z (C363 QATM executed end-to-end — formal negative; C364 DSRV pre-registered active). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
+**Handoff refreshed:** 2026-11-18T04:04:04Z (C363 QATM FROZEN formal negative — SHAs verified against `state.yaml`; C364 DSRV pre-registered and ACTIVE). Repo: `cryptoquantstatarbstrats` — crypto quantitative **statistical arbitrage**. Priority: **statistical-arb edge discovery on real on-disk C312 5m data**, fail-closed, costed out-of-sample, real-data-only.
 
 Economic progress = a real-data costed out-of-sample PnL run, a passing test, or a durable-artifact update. A session that only re-reads this handoff, re-declares closure, re-runs a frozen campaign, or re-plans is NOT economic progress and is a hard violation. **This AGENTS.md is the single durable handoff — DO NOT create HANDOFF.md or any duplicate handoff file; update this file in place.**
 
-> **INITIAL TASK MESSAGE (2026-11-18T03:45:13Z) — NEXT SESSION: EXECUTE IMMEDIATELY (no re-read-only pass, no re-planning, no downscoping).** Execute **C363 (QATM)** end-to-end per the frozen spec below. C361 (RSKEK) and C362 (Hill tail-index) are BOTH frozen formal negatives. C363 scripts/cache/tests/artifacts do **not** exist yet (re-verified 2026-11-18T03:45:13Z); you must **write** the 5 C363 scripts/tests (clone the C361/C362 structural templates), **build** cache, **preflight** (`ready:true`), run the full **1296-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. brute-force equality**. Produce the 5 SHA256 artifacts, then update this handoff + `research_state/state.yaml` with the truthful C363 result and freeze it. On freeze, pre-register and set **C364** active as the next genuinely-new price-only family so work never stalls. This is heavy required work. Prose-only/partial/stub output is a hard violation.
+> **INITIAL TASK MESSAGE (2026-11-18T04:04:04Z) — NEXT SESSION: EXECUTE IMMEDIATELY (no re-read-only pass, no re-planning, no downscoping).** Repo `cryptoquantstatarbstrats` = crypto quantitative **statistical arbitrage**; the top priority is **a real-data, costed, out-of-sample stat-arb edge on the on-disk C312 5m data**. C281B–**C363** are ALL frozen formal negatives (0 Holm+BH survivors, binding `multiple_testing`, `edge_proven:false`); C363 was re-verified frozen 2026-11-18 (all 5 artifact SHAs + cache SHAs match `state.yaml`). **Do NOT re-run any frozen campaign (C281B–C363, C287).** The single active next family is **C364 (DSRV)** — it is pre-registered below and its scripts/cache/tests/artifacts do **NOT** exist yet (verified 2026-11-18T04:04:04Z). Execute **C364 (REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION × SEASONAL-DISLOCATION mean-reversion stat-arb, USDT-M 5m, price-only, volume-free)** end-to-end: FIRST WRITE the 5 C364 scripts/tests (clone the C363 structural template: `scripts/build_c363_qatm_features.py`, `scripts/preflight_c363.py`, `scripts/run_c363_qatm_xsec_oos.py`, `tests/test_preflight_c363.py`, `tests/test_c363_qatm_xsec_oos.py`), **build** cache `data/cache/campaign364_dsrv_5m/`, **preflight** (`ready:true`), run the full **2592-config costed OOS sweep** (no downscoping), and get **≥21 tests green incl. DSRV brute-force equality**. Produce the 5 SHA256 artifacts `reports/campaign364_*_<TS>Z.json` + `.full.json`, then record the truthful result in this handoff + `research_state/state.yaml`, add C364 to the frozen table with 5 SHAs (+ cache SHAs), and pre-register/set **C365** active. This is heavy required work. Prose-only/partial/stub output, or any re-run of a frozen campaign, is a hard violation.
 
 ---
 
@@ -73,7 +73,7 @@ C363 (QUANTILE ASYMMETRY & TAIL-MASS (QATM) × SEASONAL-DISLOCATION mean-reversi
 
 ---
 
-## INITIAL TASK MESSAGE — C364 (issued 2026-11-18T03:51:57Z, ACTIVE — EXECUTE, heavy work required)
+## C364 EXECUTION DETAIL — issued 2026-11-18T03:51:57Z (authoritative spec; see top INITIAL TASK MESSAGE 2026-11-18T04:04:04Z)
 
 **EXECUTE C364 NOW (heavy work required; no re-planning, no spec changes, no downscoping): REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
 
@@ -425,6 +425,6 @@ Compute `rskew` and `rkurt` for all bars per asset with vectorized `sliding_wind
 
 ---
 
-## C363 — ACTIVE — EXECUTE NOW? NO — C363 ALREADY FROZEN
+## C363 — FROZEN FORMAL NEGATIVE (do NOT re-run)
 
-C363 (QUANTILE ASYMMETRY & TAIL-MASS / QATM) was executed and frozen 20261118T035157Z as a formal negative. See C363 RESULT + C363 ARCHIVED SPEC (in state.yaml / reports). Do NOT re-run. The next active family is C364, specified in the INITIAL TASK MESSAGE at the top of this handoff.
+C363 (QUANTILE ASYMMETRY & TAIL-MASS / QATM) was executed and frozen 20261118T035157Z as a formal negative (SHAs re-verified 2026-11-18). See C363 RESULT + C363 ARCHIVED SPEC (in state.yaml / reports). Do NOT re-run. The next active family is C364, specified in the INITIAL TASK MESSAGE at the top of this handoff.
