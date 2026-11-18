@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "20261118T070416Z",
+  "campaign": 364,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign364_oos_sweep_20261118T070416Z.json",
+  "oos_sweep_sha256": "a8ebc63d66f89b48a5d9d04bb1cef1df803ec92fb5515738768f4d590ff98b60",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rv_down_dev": 0.026924058759623885,
+    "rv_up_dev": 0.02265067528808846,
+    "dsrv_asym_dev": 0.060030231267852424,
+    "dsrv_ratio_dev": 0.06548053041896466,
+    "rv_down_placebo": 0.16264743599290546,
+    "rv_up_placebo": 0.09665932138615307,
+    "dsrv_asym_placebo": 0.09398703219562697,
+    "dsrv_ratio_placebo": 0.471620714690785
+  },
+  "dominant_attribution": "dsrv_ratio_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "dsrv_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.8176904278818061,
+      -0.9430488354165069,
+      -0.8490800431360166,
+      -0.7250489542165373,
+      -0.6826564690730104,
+      -1.1490157561348409,
+      -0.9239154985237886,
+      -0.9640698546517001
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -10.706497842632707,
+    "second_half_sharpe": -5.598835123817799,
+    "sharpe_corr": 0.9994100870062431,
+    "stable": false
+  },
+  "diagnosis": "C364 cross-sectional intraday REALIZED SEMIVARIANCE / DOWNSIDE-UPSIDE VOLATILITY DECOMPOSITION (DSRV) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
