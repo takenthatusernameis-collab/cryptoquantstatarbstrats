@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-18T07:09:17Z
-handoff_refreshed_at_utc: 2026-11-18T07:09:17Z
+updated_at_utc: 2026-11-18T07:39:47Z
+handoff_refreshed_at_utc: 2026-11-18T07:39:47Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C364
@@ -8,18 +8,78 @@ oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T06:42:54Z (no HANDOFF.md; C364 artifacts/cache/tests/reports ABSENT; C363 5 reports present campaign363_*_20261118T035030Z.json; C363 template intact; C312 5m source = 10 symbols × 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). C364 DSRV active/unexecuted; C365 KER pre-registered placeholder so work never stalls.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T06:42:54Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T06:42:54Z: C281B-C363 ALL COMPLETE FORMAL NEGATIVES (~100k+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072, 23/23 tests green, 5 SHA256 artifacts campaign363_*_20261118T035030Z.json present). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars). C287 external-only/decoupled (451/403) — never retry. NO blockers. C364 DSRV is the active pre-registered next genuinely-new price-only family — execute heavy work now. C365 KER pre-registered placeholder (1296 configs) so work never stalls on C364 freeze. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign364_*_<TS>Z.json artifacts + >=21 green tests; prose-only/partial handoff is a HARD VIOLATION.'
-queued_next_campaign: C365
-queued_next_campaign_note: 'C364 DSRV (Realized Semivariance / Downside-Upside Volatility Decomposition) is ACTIVE and unexecuted. Full spec in AGENTS.md C364 ARCHIVED SPEC: 8 signals (4 real: rv_down_dev, rv_up_dev, dsrv_asym_dev, dsrv_ratio_dev + 4 placebos), 2592 configs (8×6×3×3×3×2), W=256 intrinsic window, placebo_seed=20261228. C365 KER pre-registered as full placeholder in AGENTS.md so work never stalls on C364 freeze.'
-queued_campaign_c365: C365
-queued_campaign_c365_note: 'C365 KER (Kaufman Efficiency Ratio / path straightness) pre-registered placeholder: 4 signals (2 real: ker_er_dev, ker_signed_dev + 2 placebos), 1296 configs (4×6×3×3×3×2), W=256, placebo_seed=20261229. Set ACTIVE on C364 freeze.'
-first_action: "EXECUTE C365 NOW (2026-11-18T07:09:17Z): KER (Kaufman Efficiency Ratio / path straightness) x seasonal-dislocation mean-reversion stat-arb, USDT-M 5m, price-only, on real C312 data. 1) WRITE scripts/build_c365_ker_features.py, scripts/preflight_c365.py, scripts/run_c365_ker_xsec_oos.py, tests/test_preflight_c365.py, tests/test_c365_ker_xsec_oos.py (clone C364 pattern per AGENTS.md C365 spec). 2) build cache data/cache/campaign365_ker_5m/. 3) preflight ready:true. 4) FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign365_*_<TS>Z.json + .full.json. 5) pytest >=21 green incl. brute-force equality. 6) record truthful C365 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C366. No downscoping/re-runs of frozen C281B-C364/C287; no gate weakening; no closure by fiat. A prose-only session is a hard violation."
+  note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file. Re-verified on disk 2026-11-18T07:39:47Z (no HANDOFF.md; C364 FROZEN formal negative at 20261118T070416Z — 5 reports campaign364_*_20261118T070416Z.json + cache campaign364_dsrv_5m present, 24/24 tests green; C365 KER build/preflight/run scripts PRESENT + syntax-valid incl brute-force reference, but tests/cache/reports ABSENT -> C365 is the active campaign to FINISH end-to-end; C312 5m source = 10 symbols x 315648 bars; numpy 2.5.5/pandas 3.1.1/scipy 1.18.1/pytest 9.2.0 importable). Prior 06:52/07:09 handoff blocks were stale/contradictory (said C364 not started) and are SUPERSEDED by this 07:39:47Z refresh.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T07:39:47Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T07:39:47Z: STALE HANDOFF FIXED — prior 06:52/07:09 blocks wrongly said C364 not started / execute C364 DSRV while C364 was in fact already frozen at 070416Z; those stale instructions are superseded and must NOT be followed (do not rebuild/re-run C364). C281B-C364 ALL COMPLETE FORMAL NEGATIVES (~100k+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green, 5 SHA256 artifacts campaign364_*_20261118T070416Z.json present). C365 KER build/preflight/run scripts present+valid; tests/cache/reports absent -> FINISH C365. Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars). C287 external-only/decoupled (451/403) — never retry. NO blockers. C366 RQV pre-registered placeholder (1296 configs) so work never stalls on C365 freeze. NO-LIGHT-WORK RULE: session completion requires finishing C365 = 2 test files + cache campaign365_ker_5m + preflight ready:true + 1296-config sweep + 5 SHA256 reports/campaign365_*_<TS>Z.json + >=21 green tests incl KER brute-force; prose-only/partial handoff is a HARD VIOLATION.'
+queued_next_campaign: C366
+queued_next_campaign_note: 'C365 KER (Kaufman Efficiency Ratio / path straightness) is the ACTIVE in-progress campaign (build/preflight/run scripts present; tests/cache/reports missing). Full spec in AGENTS.md C365 ACTIVE SPEC: 4 signals (ker_er_dev, ker_signed_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), W=256, placebo_seed=20261229. C366 RQV pre-registered placeholder so work never stalls on C365 freeze.'
+queued_campaign_c366: C366
+queued_campaign_c366_note: 'C366 RQV (Realized Quartic Variation / Kurtosis-Concentration of Squared Returns) pre-registered placeholder: 4 signals (2 real: rqv_q_dev, rqv_conc_dev + 2 placebos), 1296 configs (4x6x3x3x3x2), W=256, top_k=16, placebo_seed=20261230. Set ACTIVE on C365 freeze.'
+first_action: "FINISH C365 NOW (2026-11-18T07:39:47Z): KER (Kaufman Efficiency Ratio / path straightness) x seasonal-dislocation mean-reversion stat-arb, USDT-M 5m, price-only, on real C312 data. build/preflight/run scripts ALREADY EXIST (scripts/{build,preflight,run}_c365_*.py) — do NOT rewrite them; do NOT re-run frozen C364 or any frozen campaign. 1) WRITE 2 missing test files tests/test_preflight_c365.py + tests/test_c365_ker_xsec_oos.py (clone C364 test patterns, adapt to KER; MUST include KER brute-force equality test: vectorized ker_er/ker_signed kernel vs per-window reference net_disp=|c[t]-c[t-W]|, path_len=sum|c[i]-c[i-1]|). 2) python3 scripts/build_c365_ker_features.py -> data/cache/campaign365_ker_5m/. 3) python3 scripts/preflight_c365.py -> ready:true. 4) python3 scripts/run_c365_ker_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign365_*_<TS>Z.json + .full.json. 5) pytest tests/test_preflight_c365.py tests/test_c365_ker_xsec_oos.py -> >=21 green incl brute-force equality. 6) record truthful C365 RESULT in AGENTS.md + state.yaml, freeze with SHAs, activate C366 RQV. No downscoping/re-runs of frozen C281B-C364/C287; no gate weakening; no closure by fiat. A prose-only session is a hard violation."
 
 active_campaign: C365
-space_status: NO_EDGE_C281B_C363
-closure_note: 'C281B–C363 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C364 DSRV pre-registered and active — must be executed end-to-end.'
+space_status: NO_EDGE_C281B_C364
+closure_note: 'C281B–C364 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C361 frozen 20261118T024715Z (1296, RETRACTED, dominant rkurt_placebo 0.4324). C362 frozen 20261118T033729Z (1296, RETRACTED, dominant hill_sign_tail_placebo 0.3136). C363 frozen 20261118T035157Z (1296, RETRACTED, dominant qasym_placebo 0.3072). C364 frozen 20261118T070416Z (2592, RETRACTED, dominant dsrv_ratio_placebo 0.4716, 24/24 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled — never retry. C365 KER active in-progress (scripts present; finish end-to-end).'
+c364_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C364
+  family: cross_sectional_realized_semivariance_downside_upside_volatility_decomposition_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol sqrt(sum x^2) total magnitude only, no downside/upside split), C342 (vol-weighted return moments), C348 (HHI concentration of squared returns across bars), C343 (|r| autocorr/vol clustering), C360 (signed cross-moment leverage coupling), C361 (raw skew/kurt central moments), C362 (Hill tail-index EVT), C363 (QATM quantile family), C344 (sign-change/chop), C345 (close-location), C346-C359 (scaling/Hurst/entropy/ordinal/complexity). DSRV is a sign-decomposed semivariance (rv_down + rv_up) never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261118T070416Z
+  artifacts_ts: 20261118T070416Z
+  signals: [rv_down_dev, rv_up_dev, dsrv_asym_dev, dsrv_ratio_dev, rv_down_placebo, rv_up_placebo, dsrv_asym_placebo, dsrv_ratio_placebo]
+  n_configs: 2592
+  grid_arithmetic: '8 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 2592'
+  placebo_seed: 20261228
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'dsrv_asym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rv_down_dev, rv_up_dev, dsrv_asym_dev, dsrv_ratio_dev]
+  dsrv_params: {window_W: 256}
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: dsrv_ratio_placebo
+  dominant_share: 0.471620714690785
+  attribution_ok: false
+  tests_green: 24
+  artifacts:
+    oos_sweep: 'a8ebc63d66f89b48a5d9d04bb1cef1df803ec92fb5515738768f4d590ff98b60'
+    tradable_edge_registry: '4c7ddc042c7d5e4e6839a112731a61725cb87dbf17fb2b66cb26e56274a1faa3'
+    summary: '8698f1b138821116a26eb377688657408350a04f6e964fdafe763d2314c6b11d'
+    verdict: 'd36417e6775cd310a28d544bdefc36ac50a49ab0b9170c4fbe38b1270335cb6f'
+    binding_constraint: '8f4a25a222aa1063f734dcb226b2e7ff5fa3c8d2da4399bef7de01ea4f28724d'
+  cache_shas:
+    meta: '1b7f36c8d2afdb9b9c3a4b0f5e810edec9cfbe61b6e9d256223d3479b03cdddc'
+    provenance: '286c4c2d972df1649a8f02356a4abbbd92fd3c17ebbcd53a55a9fb7b7f6a34a5'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c365_status:
+  state: IN_PROGRESS_SCRIPTS_PRESENT
+  campaign: C365
+  family: cross_sectional_kaufman_efficiency_ratio_path_straightness_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C317 (realized vol magnitude), C348 (HHI squared-return concentration), C344 (sign-change/chop), C353 (Lo-MacKinlay variance ratio), C346/C350 (Hurst/DFA scaling), C343 (|r| autocorr), C360 (leverage cross-moment), C361 (raw skew/kurt), C362 (Hill EVT), C363 (QATM quantile), C364 (DSRV semivariance split). KER is net-displacement/path-length path-geometry, never used before. Price-only (perp_close), volume-free.'
+  signals: [ker_er_dev, ker_signed_dev, ker_er_placebo, ker_signed_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261229
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'ker_er_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [ker_er_dev, ker_signed_dev]
+  ker_params: {window_W: 256}
+  scripts_present: [scripts/build_c365_ker_features.py, scripts/preflight_c365.py, scripts/run_c365_ker_xsec_oos.py]
+  missing: [tests/test_preflight_c365.py, tests/test_c365_ker_xsec_oos.py, data/cache/campaign365_ker_5m, reports/campaign365_*]
+  verdict: null
+  edge_proven: null
+  binding_constraint: null
+  n_survive_both: null
+  dominant_attribution: null
+  dominant_share: null
+  attribution_ok: null
+  tests_green: null
+  artifacts: {}
+  cache_shas: {}
 c360_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C360
