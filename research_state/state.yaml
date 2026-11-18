@@ -1,5 +1,5 @@
-updated_at_utc: 2026-11-18T02:10:13Z
-handoff_refreshed_at_utc: 2026-11-18T02:10:13Z
+updated_at_utc: 2026-11-18T02:35:30Z
+handoff_refreshed_at_utc: 2026-11-18T02:35:30Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
 latest_campaign_done: C360
@@ -9,8 +9,8 @@ handoff:
   single_authoritative: true
   file: AGENTS.md
   note: 'AGENTS.md is the single durable handoff; do NOT create a duplicate HANDOFF.md or any other handoff file.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T02:10:13Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-18T02:10:13Z: C281B-C360 ALL COMPLETE FORMAL NEGATIVES (~97,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977, 23/23 tests green incl. LVAC brute-force equality, 5 SHA256 artifacts + gitignored .full.json). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign361_*_<TS>Z.json artifacts + >=21 green tests (incl. RSKEK brute-force equality); prose-only/partial handoff is a HARD VIOLATION. C361 RSKEK is pre-registered/active — scripts/cache/tests/artifacts NOT YET on disk; execute end-to-end now.'
+bottlenecks_verified_removed_at_utc: "2026-11-18T02:35:30Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-18T02:35:30Z (session handoff refresh): C281B-C360 ALL COMPLETE FORMAL NEGATIVES (~97,000+ pre-registered configs, 0 Holm+BH, binding multiple_testing, edge_claim NONE). C360 frozen 20261118T014623Z (1296, RETRACTED, dominant lvac_mean_placebo 0.2977, 23/23 tests green incl. LVAC brute-force equality, 5 SHA256 artifacts). Runtime deps importable (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). C312 5m source ready: data/cache/campaign312_usdt_m_ofi_5m/ (10 symbols x 315648 bars, meta+prov present). C287 external-only/decoupled (451/403) — never retry. NO-LIGHT-WORK RULE: session completion requires 5 SHA256 reports/campaign361_*_<TS>Z.json artifacts + >=21 green tests (incl. RSKEK brute-force equality); prose-only/partial handoff is a HARD VIOLATION. C361 RSKEK pre-registered/active — scripts/cache/tests/artifacts NOT YET on disk; EXECUTE end-to-end now.'
 queued_next_campaign: C362_placeholder_next_genuinely_new_price_only_family
 queued_next_campaign_note: 'Set active only after C361 is fully executed, recorded, and frozen with 5 SHAs + tests green.'
 first_action: "EXECUTE C361 NOW (2026-11-18T02:10:13Z): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) x SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data. C360 frozen formal negative (20261118T014623Z). FIRST WRITE scripts/build_c361_rskek_features.py, scripts/preflight_c361.py, scripts/run_c361_rskek_xsec_oos.py, tests/test_preflight_c361.py, tests/test_c361_rskek_xsec_oos.py (clone C360 template, adapt to RSKEK: rskew/rkurt over W=256 raw returns, dev+placebo signals rskew_dev,rkurt_dev,rskew_placebo,rkurt_placebo, placebo seed 20261225, grid 4x6x3x3x3x2=1296, same gates Holm+BH/MDE/stability/attribution). THEN run: build -> preflight ready:true -> full 1296 costed-OOS sweep -> pytest >=21 green incl. brute-force equality -> 5 SHA256 artifacts reports/campaign361_*_<TS>Z.json -> record in AGENTS.md + state.yaml and freeze C361, set C362 active. C312 5m ready (meta 49ee1f3...), deps importable. C287 external-only/decoupled (451/403) — never retry. DO NOT re-run C281B-C360/C287. NO-LIGHT-WORK RULE: prose-only/partial handoff is a HARD VIOLATION."
