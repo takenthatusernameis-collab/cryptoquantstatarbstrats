@@ -34,6 +34,19 @@ C360 (LEVERAGE / VOLATILITY-ASYMMETRY COUPLING × seasonal-dislocation mean-reve
 
 ---
 
+## C361 RESULT — FROZEN FORMAL NEGATIVE (frozen 20261118T024715Z)
+
+C361 (RAW RETURN SKEWNESS & EXCESS KURTOSIS × seasonal-dislocation mean-reversion) was fully executed on real C312 5m data and is a **FORMAL NEGATIVE**: 1296 configs costed-OOS, **0 Holm+BH survivors**, `edge_proven:false`, binding `multiple_testing`, dominant attribution `rkurt_placebo` 0.4324 (placebos dominate — no real-vs-placebo separation). All 5 SHA256 artifacts + gitignored `.full.json` on disk; 23/23 tests green (incl. RSKEK brute-force equality). Cache `data/cache/campaign361_rskek_5m/` (10 shards × 315,648 bars, 38.5 MB). NO EDGE through C361. Frozen — DO NOT re-run.
+
+- oos_sweep `b624fdf359ce6285f32784577845a65117a908a1eb110902ad0251aaa3749340`
+- tradable_edge_registry `e037e8889574fcf3c8a3e1a5fb1be3dd49717047595c95f7f5b7918f96879dd9`
+- summary `390b04f0c31c13dda351dcfe424bfcdd6a70f3bf55361795c68d5015e9840422`
+- verdict `83d13a26aec96d38494b0330d3a4255887f2d09d3283462fb4c09b585b3da3ed`
+- binding_constraint `3c74387525001bb8d57a15956a2f16b64ab774f864a7734974c214231e8e05a1`
+- cache: meta `6b81f7ec02ff231958ca4cfe42b433c5ddeb33e6628f90e54ec6cc88e06b4424`, provenance `f0784f392147ea5af34151121cea5e9c4741b5b79ea5da2f667ec0b4169e635c`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`
+
+---
+
 ## INITIAL TASK MESSAGE — C361 (issued 2026-11-18T02:10:13Z, reaffirmed 2026-11-18T02:40:01Z, ACTIVE — EXECUTE, heavy work required)
 
 **EXECUTE C361 NOW (heavy work required; no re-planning, no spec changes, no downscoping): RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
@@ -160,12 +173,15 @@ C281B–C359: ALL FORMAL NEGATIVES, 0 Holm+BH survivors, binding `multiple_testi
 | C358 | 20261117T235447Z | MF-DFA generalized Hurst h(q) | 1296 | mfdfa_spread_dev 0.3312 | `11a05f1428a1e1d22c4d0fc993c3fe76a69cdd0fd8e31704c2f8e3dc188095c9` | `2881c1ec03536b1b89b59c9b97517fa6855c2b20a13ab568d0f560684827656e` |
 | C359 | 20261118T005752Z | ordinal pattern transition entropy (OPTE) | 1296 | opte_ent_dev 0.2616 | `761347a2bdf03b49f3811fa728edac8aac724922e9fdc4421205ca24fd47db6a` | `6dc96280f3aaffc7bdeb4170bbd66378c43336915687561d1c6e610085f196b7` |
 | C360 | 20261118T014623Z | leverage / volatility-asymmetry coupling (LVAC) | 1296 | lvac_mean_placebo 0.2977 | `0aef7f67d5fc84e604abe0d7091bbad0fc6f69fe14714ed194788bab859177dd` | `acac28ae5fadb802f42b4b4264b6a9cb1101aaadb65e5ac4d1b9ec760bc54d3b` |
+| C361 | 20261118T024715Z | raw return skewness & excess kurtosis (RSKEK) | 1296 | rkurt_placebo 0.4324 | `b624fdf359ce6285f32784577845a65117a908a1eb110902ad0251aaa3749340` | `83d13a26aec96d38494b0330d3a4255887f2d09d3283462fb4c09b585b3da3ed` |
 
 C358 extra SHAs: tradable_edge_registry `1b7a29cae878e97bdd6f952264709dd22358c547e8b48a74b7ec912ea1132f7e`, summary `2998bb4440b93ce293fb87c298ae9c386c19147910d220677fdf2ad660c4a083`, binding_constraint `1a7ad762a238efec0c98cc752745479352657347953b732215bf0a2c7ee46830`. C358 cache SHAs: meta `4a12a5d594afb9e23690a88c439c4dd6ed7b875619d01533ac5fa2e9a72e3655`, provenance `f173ca343bb0188aba9ad46e8e8976f49f452235e504bf93bec2b668fc03c886`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C359 extra SHAs: tradable_edge_registry `af4acf9a1bb7d3818e7ca6dc81701ddff9b9c4e739418d494bac512aee633cef`, summary `3431451cd3a6f7c765396b2d94c061ad6d2e3b2edd1d203d5e83f018cfffe67f`, binding_constraint `8ac5734f487b92a6101396535acc714d0bd8a81ee524705b1907e8a012c5d5b2`. C359 cache SHAs: meta `c532129e610793b67a5267f0f018a8d976aa0bf621ee3779be45756095e1c05f`, provenance `287746d15a0cc0a19059f7f0ba4bc852677ac30fd28d95ecfa6434b7fe888da4`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 C360 extra SHAs: tradable_edge_registry `327de19a836b8ee793ef110ece0eebe08e564ed4eed3a4fec15458112b36f3b1`, summary `b7035ece654490b1329f497dc883fa322e7beb417c91347bf114f5bc7f2019cb`, binding_constraint `f8a4c19b85ee97e12d4012fde4b9ef68762e814ca693fe190bcb39fbb9eca585`. C360 cache SHAs: meta `5ba5bfae583622447f505547ffacff1104b1cd300359ebda9c54e6a23ed8e751`, provenance `80d7fccfbc8132e64ec738cf240cb68d2a646c1242b82314e0f6bead0146db2f`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
+
+C361 extra SHAs: tradable_edge_registry `e037e8889574fcf3c8a3e1a5fb1be3dd49717047595c95f7f5b7918f96879dd9`, summary `390b04f0c31c13dda351dcfe424bfcdd6a70f3bf55361795c68d5015e9840422`, binding_constraint `3c74387525001bb8d57a15956a2f16b64ab774f864a7734974c214231e8e05a1`. C361 cache SHAs: meta `6b81f7ec02ff231958ca4cfe42b433c5ddeb33e6628f90e54ec6cc88e06b4424`, provenance `f0784f392147ea5af34151121cea5e9c4741b5b79ea5da2f667ec0b4169e635c`, manifest `4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa`.
 
 (Full per-campaign SHAs in `research_state/state.yaml` and `reports/`.)
 
@@ -177,11 +193,10 @@ C359 was **ORDINAL PATTERN TRANSITION ENTROPY (OPTE)**: Bandt–Pompe ordinal pa
 
 ---
 
-## C361 — PRE-REGISTERED SPEC (ACTIVE — FROZEN, EXECUTE EXACTLY)
+## C361 — ARCHIVED SPEC (frozen formal negative; kept for reproducibility, DO NOT re-run)
 
-**C361 — RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK) × SEASONAL-DISLOCATION mean-reversion stat-arb (USDT-M 5m), price-only, volume-free, on real C312 5m data.**
+C361 was **RAW RETURN SKEWNESS & EXCESS KURTOSIS (RSKEK)**: equal-weight unweighted sample skewness and sample excess kurtosis over trailing W=256 raw log-returns per bar; `rskew[t]=mean(((X-mu)/sigma)^3)`, `rkurt[t]=mean(((X-mu)/sigma)^4)-3`, NaN if t<W, any NaN in window, or sigma<=0. Seasonal baseline at same (weekday,tod) bucket; cross-sectional dollar-neutral single-leg perp PnL with costs on turnover. Executed 20261118T024715Z on real C312 5m data → RETRACTED (multiple_testing), 0 Holm+BH survivors over 1296 configs, dominant attribution rkurt_placebo 0.4324 (placebos dominate, no real-vs-placebo separation). Scripts/cache/tests/artifacts on disk under `campaign361_*`.
 
-### Distinctness (pre-registered)
 - RSKEK: within each trailing window of raw log-returns `X = r[t-W+1 .. t]` (W=256), compute the **equal-weight, unweighted** sample skewness and sample excess kurtosis of the return distribution:
   - `μ = mean(X)`, `σ² = (1/W) Σ (x_i - μ)^2`, `σ = sqrt(σ²)`.
   - `rskew[t] = (1/W) Σ ((x_i - μ)/σ)^3` (Fisher-Pearson sample skewness, population-style denominator W). NaN if `t < W`, any NaN in window, or `σ <= 0`.
@@ -234,6 +249,6 @@ Compute `rskew` and `rkurt` for all bars per asset with vectorized `sliding_wind
 
 ---
 
-## C362 — PLACEHOLDER (to be fully pre-registered and activated immediately upon C361 freeze)
+## C362 — ACTIVE (PRE-REGISTERED PLACEHOLDER — implement full spec before executing)
 
-On C361 freeze (5 SHA256 artifacts + ≥21 green tests recorded, C361 result/frozen table/state.yaml updated): pre-register and activate **C362** as the next genuinely-new price-only family on real C312 5m data. C362 must be distinct from all C281B–C361 families (not a reskin of realized-vol, vol-weighted moments, autocorr/chop, envelope/Williams %R, R/S, drawdown-duration, HHI, permutation/SampEn/MSE/LZC entropy, DFA/GPH/local-Whittle/VR/HFD/MF-DFA scaling, OPTE, LVAC, or raw skew/kurt). Suggested direction to evaluate at freeze time: **tail-index / extreme-return frequency** or **return autocorrelation of squared-signed terms** or another novel distributional/temporal-dependence statistic — but the implementing session MUST confirm distinctness and write the full frozen spec (signals, grid=1296, placebo seed, gates identical, brute-force equality test, 5 SHA256 artifacts, ≥21 tests) before execution. Do not stall after C361.
+C362 is the next genuinely-new price-only family on real C312 5m data, to be activated immediately upon C361 freeze (done 20261118T024715Z). C362 must be distinct from all C281B–C361 families (not a reskin of realized-vol, vol-weighted moments, autocorr/chop, envelope/Williams %R, R/S, drawdown-duration, HHI, permutation/SampEn/MSE/LZC entropy, DFA/GPH/local-Whittle/VR/HFD/MF-DFA scaling, OPTE, LVAC, or raw skew/kurt). Suggested direction to evaluate: **tail-index / extreme-return frequency** or **return autocorrelation of squared-signed terms** or another novel distributional/temporal-dependence statistic. The implementing session MUST confirm distinctness and write the full frozen spec (signals, grid=1296, placebo seed, gates identical, brute-force equality test, 5 SHA256 artifacts, ≥21 tests) under `campaign362_*`, then execute build → preflight → full costed-OOS sweep → pytest ≥21 green, record truthful result in AGENTS.md + research_state/state.yaml, freeze C362, and set C363 active. Do not stall after C361.
