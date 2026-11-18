@@ -445,3 +445,8 @@ family_backlog_c373_plus:
   - 'C376 ACTIVE: QSPREAD realized quantile spread profile ((q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry)'
   - 'C377 backlog: PSLOPE window OLS trend-slope t-statistic of log(close) on bar index'
   - 'C378 backlog: VOVR volatility-of-volatility ratio (std of 16 sub-block RVs / mean sub-block RV)'
+  - 'C379 backlog: CURV window quadratic-trend curvature of log(close) (c*W^2 curvature, curvature/drift tilt)'
+handoff_as_of_utc: 20261118T231521Z
+queue_depth: 4
+bottlenecks: none
+c287_status: permanently_blocked_decoupled_never_retry
