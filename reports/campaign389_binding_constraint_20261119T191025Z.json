@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T191025Z",
+  "campaign": 389,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign389_oos_sweep_20261119T191025Z.json",
+  "oos_sweep_sha256": "085ba04cbd05b64961aac4a90529eadf6ad5445457718e20a28231a2a958f323",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "minrv_dev": 0.0838290129577821,
+    "minrv_rv_ratio_dev": 0.22515961057252293,
+    "minrv_placebo": 0.37578192873028504,
+    "minrv_rv_ratio_placebo": 0.31522944773941
+  },
+  "dominant_attribution": "minrv_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "minrv_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.3116931214001542,
+      -0.41112308509552764,
+      -0.2625716477900562,
+      -0.6300989266329415,
+      -0.4071693971179497,
+      -0.23908433581653948,
+      -0.3155051857391691,
+      -0.5668261675784044
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -2.861282741284726,
+    "second_half_sharpe": -3.1295991866646813,
+    "sharpe_corr": 0.9939871242086836,
+    "stable": false
+  },
+  "diagnosis": "C389 cross-sectional intraday MINRV (minimum realized variance / jump-robust RV ratio) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
