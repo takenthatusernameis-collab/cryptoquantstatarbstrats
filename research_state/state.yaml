@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-19T10:56:00Z
-handoff_refreshed_at_utc: 2026-11-19T10:56:00Z
+updated_at_utc: 2026-11-19T13:19:49Z
+handoff_refreshed_at_utc: 2026-11-19T13:19:49Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C386
-next_campaign: C387
+latest_campaign_done: C387
+next_campaign: C388
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -14,8 +14,8 @@ bottlenecks_note: 'RE-VERIFIED 2026-11-19T06:28:57Z: no blocked/inefficient sess
 queued_next_campaign: C387
 queued_next_campaign_note: 'C386 PRROUGH is FROZEN formal negative (1296 costed-OOS configs, 0 Holm+BH survivors, dominant rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green, reports/campaign386_*_20261119T095708Z.json). C387 BANDX (normalized-band crossing intensity asymmetry) is ACTIVE and fully pre-registered in AGENTS.md INITIAL TASK MESSAGE: over W=256 returns x=r[t-W+1..t], in-window mu=mean(x), sd=std(x), z-path z_i=(r_i-mu)/max(sd,eps); band boundaries +/-1; xup[t]=upward crossings, xdn[t]=downward crossings; bandx_int[t]=(xup+xdn)/max(sum|Delta z_i|,eps); bandx_asym[t]=(xdn-xup)/max(xdn+xup,eps). Distinct from C344 sign-change/chop, C374 SIGNRUN run lengths, C382 TAILMEM exceedance persistence, C383 TURNINGPT-R Delta r sign changes. PLACEBO_SEED=20261251, cache campaign387_bandx_5m with bandx_params {window_W:256}, ref bandx_int_dev L=240 H=4 fee 0.0007 slip 0.0001 taker, 1296 configs, same gates. Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
 first_action: "RUN C387 BANDX SWEEP NOW (handoff refreshed 2026-11-19T10:56:00Z): C387 build+preflight+tests DONE (cache data/cache/campaign387_bandx_5m/ 10x315648 bars 38.5 MB, preflight ready:true, 27/27 tests green incl brute-force equality). C386 PRROUGH is FROZEN formal negative (1296 configs, 0 Holm+BH survivors, RETRACTED multiple_testing, dominant rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green, reports/campaign386_*_20261119T095708Z.json). Do NOT re-run C386 or any frozen C281B-C385 campaign; never touch archive/void_c381/. REMAINING: 1) python3 scripts/run_c387_bandx_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign387_*_<TS>Z.json + .full.json. 2) pytest tests/test_preflight_c387.py tests/test_c387_bandx_xsec_oos.py -q -> >=21 green. 3) Record truthful C387 RESULT in AGENTS.md + state.yaml (latest_campaign_done: C387, next_campaign: C388), add frozen-table row with 5 SHAs + cache SHAs, then immediately execute pre-seeded C388 MADR. No downscoping/re-runs of frozen C281B-C386/C287 or the void C381; no gate weakening; no closure by fiat."
-active_campaign: C387
-space_status: NO_EDGE_C281B_C386
+active_campaign: C388
+space_status: NO_EDGE_C281B_C387
 closure_note: 'C281B-C386 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C387 BANDX is the next active campaign - build it end-to-end now (cache campaign387_bandx_5m, bandx_params {window_W:256}, PLACEBO_SEED 20261251).'
 c381_void:
   state: VOID_NOT_A_RESULT
@@ -814,10 +814,85 @@ family_backlog_c373_plus:
   - 'C383 COMPLETE_FORMAL_NEGATIVE: TURNINGPT-R second-difference turning-point rate over W=256 log-returns (seed 20261247)'
   - 'C384 COMPLETE_FORMAL_NEGATIVE: EXTPOS extremum-timing asymmetry over W=256 price window (u_max - u_min, max(u_max,u_min)) (seed 20261248)'
   - 'C385 COMPLETE_FORMAL_NEGATIVE: HALFRANGE window amplitude half-life asymmetry over W=256/Q=64 (seed 20261249)'
-  - 'C386 ACTIVE: PRROUGH price-path second-difference roughness (curv_mass/path_len + up/down curvature-mass asymmetry; seed 20261250)'
-  - 'C387 PRE-SEEDED: BANDX normalized-band crossing intensity asymmetry (seed 20261251)'
+  - 'C386 COMPLETE_FORMAL_NEGATIVE: PRROUGH price-path second-difference roughness (curv_mass/path_len + up/down curvature-mass asymmetry; seed 20261250)'
+  - 'C387 COMPLETE_FORMAL_NEGATIVE: BANDX normalized-band crossing intensity asymmetry (seed 20261251)'
+  - 'C388 ACTIVE: MADR first-moment upside/downside capture ratio (seed 20261252)'
 
-handoff_as_of_utc: 2026-11-19T09:14:30Z
+handoff_as_of_utc: 2026-11-19T13:19:49Z
 queue_depth: 2
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry
+
+c386_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C386
+  family: price_path_second_difference_roughness_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C365 (KER net-displacement/path-length path geometry), C383 (TURNINGPT-R Delta-r sign-change count rate), C379 (CURV OLS quadratic coefficient). PRROUGH is a second-difference curvature-mass path-roughness ratio with up/down curvature asymmetry, never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T095708Z
+  artifacts_ts: 20261119T095708Z
+  signals: [rough_ratio_dev, rough_asym_dev, rough_ratio_placebo, rough_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261250
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'rough_ratio_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [rough_ratio_dev, rough_asym_dev]
+  prrough_params: {window_W: 256, eps: 1e-12}
+  scripts_present: [scripts/build_c386_prrough_features.py, scripts/preflight_c386.py, scripts/run_c386_prrough_xsec_oos.py]
+  tests_present: [tests/test_preflight_c386.py, tests/test_c386_prrough_xsec_oos.py]
+  cache_present: data/cache/campaign386_prrough_5m
+  artifacts_present: [reports/campaign386_oos_sweep_20261119T095708Z.json, reports/campaign386_tradable_edge_registry_20261119T095708Z.json, reports/campaign386_summary_20261119T095708Z.json, reports/campaign386_verdict_20261119T095708Z.json, reports/campaign386_binding_constraint_20261119T095708Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: rough_asym_placebo
+  dominant_share: 0.2992
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '7da6897c9ae193d317f5deeeb4e881a84362f30f5b8e7d2602d329a618e5d445'
+    tradable_edge_registry: '2eb2b5dad1c3662a38640e2c8749233e846000b80fb87d9aae54bb19ea1ee8e9'
+    summary: '204f8b0bd2cbe0dd76f7fe69d9d27aa44c8c661fd77b0f209663d97a1b4659f8'
+    verdict: '6cbc1069f8789a0a98e292eea7c2268e15a7e8f2a16893784cb02d87d7037814'
+    binding_constraint: '3ac591c239a45968f86e81a9b79adb8780db209cb8b5cac5011f7c8aa635aedd'
+
+c387_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C387
+  family: normalized_band_crossing_intensity_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C344 (raw sign-change/chop rate), C374 (SIGNRUN run lengths), C382 (TAILMEM exceedance persistence), C383 (TURNINGPT-R Delta-r sign changes). BANDX is normalized-band crossing intensity per unit normalized travel with up/down asymmetry, never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T130622Z
+  artifacts_ts: 20261119T130622Z
+  signals: [bandx_int_dev, bandx_asym_dev, bandx_int_placebo, bandx_asym_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261251
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'bandx_int_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [bandx_int_dev, bandx_asym_dev]
+  bandx_params: {window_W: 256}
+  scripts_present: [scripts/build_c387_bandx_features.py, scripts/preflight_c387.py, scripts/run_c387_bandx_xsec_oos.py]
+  tests_present: [tests/test_preflight_c387.py, tests/test_c387_bandx_xsec_oos.py]
+  cache_present: data/cache/campaign387_bandx_5m
+  artifacts_present: [reports/campaign387_oos_sweep_20261119T130622Z.json, reports/campaign387_tradable_edge_registry_20261119T130622Z.json, reports/campaign387_summary_20261119T130622Z.json, reports/campaign387_verdict_20261119T130622Z.json, reports/campaign387_binding_constraint_20261119T130622Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: bandx_asym_placebo
+  dominant_share: 0.3096
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '7f32b2b4b6ab94ee3851078ea35ba5d898aba155cccb71bfce9e65ebcfaae3fe'
+    tradable_edge_registry: '355f17b17a5bb55c9da7b0b8b38347c9a8d705cb2d557d2a86e2ed268e536432'
+    summary: '68abb2f5cb53ec09fda41ff41754a4f51f7fa840460cc04dc0908ae74f56b229'
+    verdict: '06d3aa10448865ccca1f14172460f952b65b3eeb64570b0aa9797aa2d05da28d'
+    binding_constraint: '9765cf2db719f054e2867d640786088ab7c30ea0d410b102720ce2f0bd983f76'
+  cache_shas:
+    meta: '18e0d554820001238acd967b9a7d40740b8e9ce5d65034c6cc4a919ee67350c7'
+    provenance: '51e4cdc305f563e803341a390722965cabba423b0e349d7a7b9f9957ac33857e'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
