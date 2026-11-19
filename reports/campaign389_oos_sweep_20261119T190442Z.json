@@ -1,0 +1,218 @@
+{
+  "generated_at_utc": "20261119T190442Z",
+  "campaign": 389,
+  "part": "oos_sweep",
+  "analysis": "c389_minrv_xsec_stat_arb_oos_5m",
+  "verdict": "RETRACTED",
+  "edge_proven": false,
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "fail_closed": true,
+  "mandate": "C389 \u2014 test the cross-sectional intraday MINRV (minimum realized variance / jump-robust RV ratio) x SEASONAL-DISLOCATION mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296 pre-registered configs). Per-bar primitives: perp_close real 5m kline close; log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. MINRV scalars over fixed intrinsic window W=256 returns ending at close bar t, X=r[t-W+1..t] (W returns): rv=sum(x_i**2); minrv=(pi/2)*(W/(W-1))*sum(min(x_i**2, x_{i-1}**2)) (minimum realized variance \u2014 jump-robust estimator from the min of adjacent squared returns); minrv_rv_ratio=minrv/max(rv,eps) (jump-robustness ratio; small when jumps dominate), eps=1e-12. NaN if t<W, any NaN/non-finite in X, rv<=eps, or non-finite output. Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real (minrv_dev, minrv_rv_ratio_dev) + 2 placebos (phase-randomized surrogates, never edges). Single-leg dollar-neutral perp PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and valid denominators; seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0.",
+  "preflight": {
+    "cache": "data/cache/campaign389_minrv_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign389_minrv_5m.meta.json",
+    "cache_meta_sha256": "6f408eeda4851268febebf8fee187e66a02912ff34773dab66f7deec65d4d5f3",
+    "cache_provenance": "data/cache/campaign389_minrv_5m.provenance.json",
+    "cache_provenance_sha256": "b8a8ea959a82b236bd10cbc1e624087bddaed6354322afe06803984f6d39b7c1",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "data_source": {
+    "cache": "data/cache/campaign389_minrv_5m",
+    "cache_sha256": "4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa",
+    "cache_meta": "data/cache/campaign389_minrv_5m.meta.json",
+    "cache_meta_sha256": "6f408eeda4851268febebf8fee187e66a02912ff34773dab66f7deec65d4d5f3",
+    "cache_provenance": "data/cache/campaign389_minrv_5m.provenance.json",
+    "cache_provenance_sha256": "b8a8ea959a82b236bd10cbc1e624087bddaed6354322afe06803984f6d39b7c1",
+    "storage": "per_asset float32 npz shards",
+    "source_campaign": 312,
+    "network_ingest": false,
+    "total_shard_bytes": 38477477,
+    "max_shard_bytes": 4143541,
+    "under_push_limit": true,
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "universe": {
+    "symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "DOTUSDT",
+      "ETHUSDT",
+      "LINKUSDT",
+      "SOLUSDT",
+      "XRPUSDT"
+    ],
+    "n_assets": 10,
+    "common_grid_bars": 315648,
+    "common_grid_start_utc": "2023-01-01 00:00:00+00:00",
+    "common_grid_end_utc": "2025-12-31 23:55:00+00:00",
+    "n_splits": 8
+  },
+  "config": {
+    "walk_forward": {
+      "train_m": 12,
+      "test_m": 3,
+      "roll_m": 3
+    },
+    "signals": [
+      "minrv_dev",
+      "minrv_rv_ratio_dev",
+      "minrv_placebo",
+      "minrv_rv_ratio_placebo"
+    ],
+    "lookbacks_bars": [
+      60,
+      120,
+      240,
+      480,
+      960,
+      1920
+    ],
+    "rebalances_bars": [
+      1,
+      4,
+      12
+    ],
+    "fee": [
+      0.0004,
+      0.0007,
+      0.001
+    ],
+    "slippage": [
+      0.0,
+      0.0001,
+      0.0002
+    ],
+    "selection_frac": 0.3333333333333333,
+    "cost_variants": [
+      "taker",
+      "maker_blend"
+    ],
+    "placebo_seed": 20261253,
+    "min_periods_baseline": 3,
+    "alpha": 0.05,
+    "n_trials": 1296,
+    "total_runs": 0,
+    "minrv_params": {
+      "window_W": 256,
+      "eps": 1e-12
+    }
+  },
+  "gates": {
+    "fail_closed": true,
+    "multiple_testing": {
+      "holm_alpha": 0.05,
+      "bh_alpha": 0.05,
+      "n_survive_holm": 0,
+      "n_survive_bh": 0,
+      "n_survive_both": 0,
+      "n_edge_proven": 0
+    },
+    "minrv_mde": {
+      "n_splits": 8,
+      "mde_bps_mean": NaN,
+      "observed_mean_bps_per_split": 0.0
+    },
+    "stability": {
+      "reference_config": {
+        "signal": "minrv_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "per_split_net": [
+        -0.3116931214001542,
+        -0.41112308509552764,
+        -0.2625716477900562,
+        -0.6300989266329415,
+        -0.4071693971179497,
+        -0.23908433581653948,
+        -0.3155051857391691,
+        -0.5668261675784044
+      ],
+      "sign_consistency": 0.0,
+      "first_half_sharpe": -2.861282741284726,
+      "second_half_sharpe": -3.1295991866646813,
+      "sharpe_corr": 0.9939871242086836,
+      "stable": false
+    },
+    "attribution": {
+      "reference_config": {
+        "signal": "minrv_dev",
+        "L": 240,
+        "H": 4,
+        "fee": 0.0007,
+        "slip": 0.0001,
+        "cv": "taker"
+      },
+      "minrv_dev_net": 0.0,
+      "minrv_rv_ratio_dev_net": 0.0,
+      "minrv_placebo_net": 0.0,
+      "minrv_rv_ratio_placebo_net": 0.0,
+      "shares": {
+        "minrv_dev": 0.0,
+        "minrv_rv_ratio_dev": 0.0,
+        "minrv_placebo": 0.0,
+        "minrv_rv_ratio_placebo": 0.0
+      },
+      "dominant": null,
+      "dominant_share": 0.0,
+      "attribution_ok": false,
+      "placebo_seed": 20261253
+    },
+    "data_quality": {
+      "reference_signal": "minrv_dev",
+      "reference_lookback": 240,
+      "reference_score_nan_share": 0.019974782035685368,
+      "note": "metric NaN share dominated by finite-obs/denominator requirements (t<W-1=255)."
+    }
+  },
+  "methodology": {
+    "buckets": "(weekday,tod)=dayofweek*288+seconds-of-day//300 (0..2015), exact 288 bars per UTC day.",
+    "raw_features": "log_return=log(c[t]/c[t-1]) (r[0]=0) from real strictly-positive perp_close; abs_ret=|log_return|.",
+    "primitives": "fixed intrinsic window W=256 returns ending at close bar t, X=r[t-W+1..t] (W returns): rv=sum(x_i**2); minrv=(pi/2)*(W/(W-1))*sum(min(x_i**2, x_{i-1}**2)) (minimum realized variance); minrv_rv_ratio=minrv/max(rv,eps).",
+    "signals": "minrv/minrv_rv_ratio over fixed W=256; score=-(v-m)/sd with m/sd trailing same-bucket mean/std (min_periods=3, excluding NaN, causal shift(1)); cross-sectional rank, dollar-neutral gross 1.0; NaN-score assets weight 0.",
+    "pnl": "single-leg perp: pnl = sum_i pos_i * perp_ret_i.",
+    "costs": "charged on turnover; taker = fee+slip; maker_blend = 0.5*fee+slip.",
+    "missing_data": "non-finite -> NaN; never impute/ffill; insufficient valid obs -> NaN -> not traded (fail-closed).",
+    "multiple_testing": "one-sided paired t-test of per-split OOS net vs 0; Holm step-down AND Benjamini-Hochberg over all 1296 configs at alpha=0.05.",
+    "mde": "two-sided alpha=0.05, power=0.80: (t_{0.975}+t_{0.80})*s/sqrt(n_splits).",
+    "attribution": "mean |OOS net| per signal across all its configs; shares=|mean|/sum(|means|) over all 4 signals incl. placebos; dominant must be a real (non-placebo) signal with share >= 0.5 for attribution_ok.",
+    "stability": "sign consistency >= 0.70 of splits AND first/second-half Sharpe corr >= 0.5.",
+    "placebo": "phase-randomized surrogate via FFT phase randomization + rank restoration to original marginal; deterministic seed recorded; same marginal distribution, destroyed temporal alignment.",
+    "minrv_vectorization_note": "MINRV via sliding_window_view(returns, 257) over per-asset return series aligned to close bars; rv=sum(x^2) and minrv=sum(min(x_i^2,x_{i-1}^2)) computed via sign/shifted reductions over (n_windows, W) matrix; window-NaN enforced by finite-count over the W-bar trailing returns. No Python loop over bars x assets \u2014 validated against brute force with maxdiff < 1e-12 in tests.",
+    "funding": "USDT-M funding unreachable (fapi 451) -> excluded (control leg).",
+    "real_data_only": true,
+    "fabricated_data": false,
+    "executed_fills": false
+  },
+  "results": [],
+  "summary": {
+    "n_total_runs": 0,
+    "n_with_exposure": 0,
+    "n_edge_proven_deterministic": 0,
+    "n_survive_holm": 0,
+    "n_survive_bh": 0,
+    "n_survive_both": 0,
+    "verdict": "RETRACTED",
+    "edge_proven": false,
+    "binding_constraint": "multiple_testing"
+  }
+}
