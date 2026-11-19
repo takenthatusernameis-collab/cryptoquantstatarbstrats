@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T090642Z",
+  "campaign": 385,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign385_oos_sweep_20261119T090642Z.json",
+  "oos_sweep_sha256": "a9129a71a1493d07f08278b57350a53b497c5e315a70383d88fe90703d95ad7a",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "halfrange_tilt_dev": 0.24417964673732587,
+    "amp_concentration_dev": 0.23324822990764194,
+    "halfrange_tilt_placebo": 0.26310125040047505,
+    "amp_concentration_placebo": 0.25947087295455706
+  },
+  "dominant_attribution": "halfrange_tilt_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "halfrange_tilt_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.7546602136396814,
+      -1.860574787583238,
+      -1.841435254317696,
+      -1.8727601172678698,
+      -1.6393421730001505,
+      -1.7050610489456663,
+      -1.5949199781718808,
+      -1.6524194060313695
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -39.63797952817978,
+    "second_half_sharpe": -41.9663035635187,
+    "sharpe_corr": 0.9999349244494774,
+    "stable": false
+  },
+  "diagnosis": "C385 cross-sectional intraday HALFRANGE (window amplitude half-life asymmetry) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-19T06:44:37Z
-handoff_refreshed_at_utc: 2026-11-19T06:44:37Z
+updated_at_utc: 2026-11-19T09:06:42Z
+handoff_refreshed_at_utc: 2026-11-19T09:06:42Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C383
-next_campaign: C384
+latest_campaign_done: C385
+next_campaign: C386
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -11,12 +11,12 @@ handoff:
   note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-19T06:28:57Z (disk): C377 PSLOPE FROZEN 20261119T002526Z (0 survivors, dominant pslope_t_dev 0.3149); C378 VOVR FROZEN 20261119T003707Z (dominant vovr_cv_dev 0.3274); C379 CURV FROZEN 20261119T013128Z (dominant curv_tilt_placebo 0.6133); C380 SEMICOV FROZEN 20261119T023818Z (dominant semicov_decay_placebo 0.4446); C382 TAILMEM FROZEN 20261119T054658Z (0 survivors, dominant tailmem_decay_placebo 0.3850, attribution_ok false). C381 execution attempt is VOID and QUARANTINED read-only at archive/void_c381/ (3 scripts, 2 tests, 30 reports, README): kernel is the C380 SEMICOV signed-conditional lag covariance (not turning-point rate), artifacts label campaign 380, tests were named test_semicov_* and 1 failed on placebo seed - never freeze, cite, copy or re-run it; reports/ has zero campaign381 files. C383 TURNINGPT-R is ACTIVE and must be executed end-to-end immediately. C384 EXTPOS and C385 HALFRANGE are pre-seeded. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C382. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb (dollar-neutral rank long-top/short-bottom, gross 1.0) is PRIMARY; seasonal-dislocation mean-reversion is the signal overlay; costed OOS + Holm AND BH is the only gate. Queue depth 3 (C383 active -> C384 -> C385). Bottlenecks: NONE.'
 bottlenecks_verified_removed_at_utc: "2026-11-19T05:36:33Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-19T06:28:57Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C382 ALL COMPLETE FORMAL NEGATIVES. C381 attempt VOID and its code+artifacts (plus the last stray duplicate campaign380_oos_sweep_20261119T043810Z.full.json, moved out of reports/ this session) are quarantined under archive/void_c381/ so it cannot be copied or re-run; reports/ now holds only the frozen campaign380 set 20261119T023818Z and the frozen campaign382 set 20261119T054658Z; residual risk is removed by mandatory rewrite guards in the AGENTS.md INITIAL TASK MESSAGE: artifact campaign integer must equal the campaign, mandate string must name the new metric, kernel-equality guard must show the metric differs from SEMICOV, placebo seed must match the runner constant, and N_TRIALS must equal 1296. C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 3 (C383 TURNINGPT-R active, C384 EXTPOS, C385 HALFRANGE) so the queue can never be empty. NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C384
+queued_next_campaign: C386
 queued_next_campaign_note: 'C384 EXTPOS (extremum-timing asymmetry) is ACTIVE: W=256, over price window X=c[t-W+1..t]: u_max=argmax(X)/(W-1), u_min=argmin(X)/(W-1); extpos_tilt=u_max-u_min; extpos_recency=max(u_max,u_min); NaN if t<W-1 or non-finite. Signals extpos_tilt_dev, extpos_recency_dev + 2 phase-randomized placebos; 1296 configs; PLACEBO_SEED 20261248; ref extpos_tilt_dev L=240 H=4 fee 0.0007 slip 0.0001 taker; cache campaign384_extpos_5m; vectorize sliding_window_view(perp_close,256)+argmax/argmin. Then C385 HALFRANGE (window amplitude half-life asymmetry, seed 20261249). Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
 first_action: "EXECUTE C384 EXTPOS NOW (re-verified 2026-11-19T06:44:37Z): START WITH CODE/BUILD - NOT ANALYSIS. C383 TURNINGPT-R is FROZEN formal negative (1296 configs, 0 Holm+BH survivors, RETRACTED multiple_testing, dominant turningpt_imb_placebo 0.3624, attribution_ok false). Do not re-run, freeze, cite or copy C381 (read-only archive/void_c381/). CLONE C380 plumbing (scripts/build_c380_semicov_features.py, scripts/preflight_c380.py, scripts/run_c380_semicov_xsec_oos.py, tests/test_preflight_c380.py, tests/test_c380_semicov_xsec_oos.py) ONLY as a starting point, then fully re-specify: 1) WRITE scripts/build_c384_extpos_features.py, scripts/preflight_c384.py, scripts/run_c384_extpos_xsec_oos.py. 2) WRITE tests/test_preflight_c384.py + tests/test_c384_extpos_xsec_oos.py including EXTPOS brute-force equality (maxdiff < 1e-12) and guards: artifact campaign == 384, mandate contains EXTPOS, N_TRIALS == 1296, placebo seed == 20261248, extpos metric not allclose to SEMICOV. 3) python3 scripts/build_c384_extpos_features.py -> data/cache/campaign384_extpos_5m/. 4) python3 scripts/preflight_c384.py -> ready:true. 5) python3 scripts/run_c384_extpos_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign384_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c384.py tests/test_c384_extpos_xsec_oos.py -q -> >=21 green. 7) Record truthful C384 RESULT in AGENTS.md + state.yaml (latest_campaign_done: C384, next_campaign: C385), add frozen-table row with 5 SHAs + cache SHAs, then immediately execute pre-seeded C385. No downscoping/re-runs of frozen C281B-C383/C287 or the void C381; no gate weakening; no closure by fiat."
-active_campaign: C384
-space_status: NO_EDGE_C281B_C383
-closure_note: 'C281B-C383 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (1296, RETRACTED, dominant pslope_t_dev 0.3149, 23/23 green). C378 frozen 20261119T003707Z (1296, RETRACTED, dominant vovr_cv_dev 0.3274, 23/23 green). C379 frozen 20261119T013128Z (1296, RETRACTED, dominant curv_tilt_placebo 0.6133, 23/23 green). C380 frozen 20261119T023818Z (1296, RETRACTED, dominant semicov_decay_placebo 0.4446, 22/22 green). C382 frozen 20261119T054658Z (1296, RETRACTED, dominant tailmem_decay_placebo 0.3850, 23/23 green). C383 frozen 20261119T064437Z (1296, RETRACTED, dominant turningpt_imb_placebo 0.3624, 23/23 green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380, 1 failing guard test) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C384 EXTPOS is ACTIVE - execute end-to-end NOW, then C385 HALFRANGE.'
+active_campaign: C386
+space_status: NO_EDGE_C281B_C385
+closure_note: 'C281B-C385 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C386 is the next active campaign - pre-register a genuinely-new price-only family and execute end-to-end now.'
 c381_void:
   state: VOID_NOT_A_RESULT
   campaign: C381
@@ -724,6 +724,84 @@ c383_status:
     provenance: '11fb25b7bad644b63d3b5ca19eb222be38e6729108537ec841dd52a265b62cb2'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
+c384_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C384
+  family: extremum_timing_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C345 close-location, C347 time-under-water, C365 KER, C378 VOVR, C379 CURV. EXTPOS measures extremum timing (argmax/argmin position within W=256 price window and recency) never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T065746Z
+  artifacts_ts: 20261119T065746Z
+  signals: [extpos_tilt_dev, extpos_recency_dev, extpos_tilt_placebo, extpos_recency_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261248
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'extpos_tilt_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [extpos_tilt_dev, extpos_recency_dev]
+  extpos_params: {window_W: 256}
+  scripts_present: [scripts/build_c384_extpos_features.py, scripts/preflight_c384.py, scripts/run_c384_extpos_xsec_oos.py]
+  tests_present: [tests/test_preflight_c384.py, tests/test_c384_extpos_xsec_oos.py]
+  cache_present: data/cache/campaign384_extpos_5m
+  artifacts_present: [reports/campaign384_oos_sweep_20261119T065746Z.json, reports/campaign384_tradable_edge_registry_20261119T065746Z.json, reports/campaign384_summary_20261119T065746Z.json, reports/campaign384_verdict_20261119T065746Z.json, reports/campaign384_binding_constraint_20261119T065746Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: extpos_recency_placebo
+  dominant_share: 0.35
+  attribution_ok: false
+  tests_green: 22
+  artifacts:
+    oos_sweep: 'fa2a3d60ce2d9a069b987d9b0018d952d1c6d6b92360a1982f5abd7f542ca86d'
+    tradable_edge_registry: '21051cba900f748f77b835510d10116d0d5f37dd24210e23ebb04a5a6dc3e09f'
+    summary: 'cd5a205adf575488ec636d4e5139851afc495eca5fe1ca89e512394a4887bcb8'
+    verdict: 'b2bb2a47924241d83dd6d121adce19e4ec1bb7be0a7622f1ae9816f874e7f72f'
+    binding_constraint: '88c05a28d7a488eaecdad532a21311b4c35936fdc2c1dbc951d9a25f9e226d8c'
+  cache_shas:
+    meta: 'e729be8f5788861d0a5b7ca616f65295cd5eafea3dfa5a14e1871afe1092383f'
+    provenance: 'c47e6f63dc7db3e25947ce4b6e6d8d03bb6bb29109e9cd6ee279d53c399327a7'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c385_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C385
+  family: window_amplitude_half_life_asymmetry_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C345 close-location, C347 time-under-water, C365 KER, C378 VOVR, C384 EXTPOS, C379 CURV. HALFRANGE measures window-amplitude half-life asymmetry (recent-vs-oldest quartile range migration and sweep concentration) over W=256/Q=64 never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T090642Z
+  artifacts_ts: 20261119T090642Z
+  signals: [halfrange_tilt_dev, amp_concentration_dev, halfrange_tilt_placebo, amp_concentration_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261249
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'halfrange_tilt_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [halfrange_tilt_dev, amp_concentration_dev]
+  halfrange_params: {window_W: 256, q: 64, quartiles: 4}
+  scripts_present: [scripts/build_c385_halfrange_features.py, scripts/preflight_c385.py, scripts/run_c385_halfrange_xsec_oos.py]
+  tests_present: [tests/test_preflight_c385.py, tests/test_c385_halfrange_xsec_oos.py]
+  cache_present: data/cache/campaign385_halfrange_5m
+  artifacts_present: [reports/campaign385_oos_sweep_20261119T090642Z.json, reports/campaign385_tradable_edge_registry_20261119T090642Z.json, reports/campaign385_summary_20261119T090642Z.json, reports/campaign385_verdict_20261119T090642Z.json, reports/campaign385_binding_constraint_20261119T090642Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: halfrange_tilt_placebo
+  dominant_share: 0.2631
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: 'a9129a71a1493d07f08278b57350a53b497c5e315a70383d88fe90703d95ad7a'
+    tradable_edge_registry: '6df61a3e10a49d7b073525a0be271203159b496984e8c16689f3374ffc9eec7f'
+    summary: '416076e7c1ed2efc2c4567f3e0d84208f8f0bd15b587a2f6b3787cc2b35a29ad'
+    verdict: 'b0bf1337dd947d1d0ead7138b28dd6f672f5001503f7b00ec748cadf880a4bc9'
+    binding_constraint: '457c64c975a9b1deea91718848647393f7977dd2432f89635b9dd32f8fa8df30'
+  cache_shas:
+    meta: '472cf9076fcdae4274c7cc37438a1f95ad0a6b3a36112d3659dfcd6804ce6f2a'
+    provenance: '26d023ceb6b6b611ae3cf6c2989a80ead596df81a00343eaf7a46a9287f0c557'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
 family_backlog_c373_plus:
   - 'C375 COMPLETE_FORMAL_NEGATIVE: ACOVK multi-lag realized autocovariance profile (acov_sum = g1+g2+g4+g8, acov_decay = g1-g8)'
   - 'C376 COMPLETE_FORMAL_NEGATIVE: QSPREAD realized quantile spread profile ((q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry)'
@@ -734,10 +812,11 @@ family_backlog_c373_plus:
   - 'C381 VOID_NOT_A_RESULT: clone-and-rename of C380 SEMICOV; quarantined under archive/void_c381/ - never freeze/cite/re-run'
   - 'C382 COMPLETE_FORMAL_NEGATIVE: TAILMEM extreme-indicator persistence (lag-1/lag-4 autocorrelation of 1{|r_t| >= q90(|r|,W)} and their difference)'
   - 'C383 COMPLETE_FORMAL_NEGATIVE: TURNINGPT-R second-difference turning-point rate over W=256 log-returns (seed 20261247)'
-  - 'C384 ACTIVE: EXTPOS extremum-timing asymmetry over W=256 price window (u_max - u_min, max(u_max,u_min)) (seed 20261248)'
-  - 'C385 pre-seeded from family backlog: HALFRANGE window amplitude half-life asymmetry (seed 20261249)'
+  - 'C384 COMPLETE_FORMAL_NEGATIVE: EXTPOS extremum-timing asymmetry over W=256 price window (u_max - u_min, max(u_max,u_min)) (seed 20261248)'
+  - 'C385 COMPLETE_FORMAL_NEGATIVE: HALFRANGE window amplitude half-life asymmetry over W=256/Q=64 (seed 20261249)'
+  - 'C386 NEXT ACTIVE: pre-register a genuinely-new price-only family (never a rename of C281B-C385) and execute end-to-end'
 
-handoff_as_of_utc: 20261119T062857Z
-queue_depth: 3
+handoff_as_of_utc: 20261119T090642Z
+queue_depth: 1
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry
