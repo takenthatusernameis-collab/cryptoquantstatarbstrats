@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T140855Z",
+  "campaign": 388,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign388_oos_sweep_20261119T140855Z.json",
+  "oos_sweep_sha256": "2604d79f316ceeae8461a00746ceb2ae092f3034ef033d51a39c926e58a6650c",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "madr_ratio_dev": 0.24465114259041737,
+    "madr_asym_dev": 0.24533916018949145,
+    "madr_ratio_placebo": 0.258033574693865,
+    "madr_asym_placebo": 0.2519761225262262
+  },
+  "dominant_attribution": "madr_ratio_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "madr_ratio_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.1772411292309122,
+      -0.9102525517686896,
+      -1.0625688017725614,
+      -1.2503242979328293,
+      -1.0732976867932162,
+      -0.9359057839687864,
+      -1.019762937133911,
+      -0.8626482671115165
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -8.566270181484219,
+    "second_half_sharpe": -12.114103276461273,
+    "sharpe_corr": 0.995717264222885,
+    "stable": false
+  },
+  "diagnosis": "C388 cross-sectional intraday MADR (first-moment upside/downside capture ratio) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}

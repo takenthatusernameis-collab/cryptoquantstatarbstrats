@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-19T13:19:49Z
-handoff_refreshed_at_utc: 2026-11-19T13:19:49Z
+updated_at_utc: 2026-11-19T14:10:00Z
+handoff_refreshed_at_utc: 2026-11-19T14:10:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C387
-next_campaign: C388
+latest_campaign_done: C388
+next_campaign: null
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -11,12 +11,12 @@ handoff:
   note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-19T06:28:57Z (disk): C377 PSLOPE FROZEN 20261119T002526Z (0 survivors, dominant pslope_t_dev 0.3149); C378 VOVR FROZEN 20261119T003707Z (dominant vovr_cv_dev 0.3274); C379 CURV FROZEN 20261119T013128Z (dominant curv_tilt_placebo 0.6133); C380 SEMICOV FROZEN 20261119T023818Z (dominant semicov_decay_placebo 0.4446); C382 TAILMEM FROZEN 20261119T054658Z (0 survivors, dominant tailmem_decay_placebo 0.3850, attribution_ok false). C381 execution attempt is VOID and QUARANTINED read-only at archive/void_c381/ (3 scripts, 2 tests, 30 reports, README): kernel is the C380 SEMICOV signed-conditional lag covariance (not turning-point rate), artifacts label campaign 380, tests were named test_semicov_* and 1 failed on placebo seed - never freeze, cite, copy or re-run it; reports/ has zero campaign381 files. C383 TURNINGPT-R is ACTIVE and must be executed end-to-end immediately. C384 EXTPOS and C385 HALFRANGE are pre-seeded. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C382. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb (dollar-neutral rank long-top/short-bottom, gross 1.0) is PRIMARY; seasonal-dislocation mean-reversion is the signal overlay; costed OOS + Holm AND BH is the only gate. Queue depth 3 (C383 active -> C384 -> C385). Bottlenecks: NONE.'
 bottlenecks_verified_removed_at_utc: "2026-11-19T09:13:52Z"
 bottlenecks_note: 'RE-VERIFIED 2026-11-19T06:28:57Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C382 ALL COMPLETE FORMAL NEGATIVES. C381 attempt VOID and its code+artifacts (plus the last stray duplicate campaign380_oos_sweep_20261119T043810Z.full.json, moved out of reports/ this session) are quarantined under archive/void_c381/ so it cannot be copied or re-run; reports/ now holds only the frozen campaign380 set 20261119T023818Z and the frozen campaign382 set 20261119T054658Z; residual risk is removed by mandatory rewrite guards in the AGENTS.md INITIAL TASK MESSAGE: artifact campaign integer must equal the campaign, mandate string must name the new metric, kernel-equality guard must show the metric differs from SEMICOV, placebo seed must match the runner constant, and N_TRIALS must equal 1296. C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 3 (C383 TURNINGPT-R active, C384 EXTPOS, C385 HALFRANGE) so the queue can never be empty. NO-LIGHT-WORK RULE: each session must produce 3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality. Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C387
-queued_next_campaign_note: 'C386 PRROUGH is FROZEN formal negative (1296 costed-OOS configs, 0 Holm+BH survivors, dominant rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green, reports/campaign386_*_20261119T095708Z.json). C387 BANDX (normalized-band crossing intensity asymmetry) is ACTIVE and fully pre-registered in AGENTS.md INITIAL TASK MESSAGE: over W=256 returns x=r[t-W+1..t], in-window mu=mean(x), sd=std(x), z-path z_i=(r_i-mu)/max(sd,eps); band boundaries +/-1; xup[t]=upward crossings, xdn[t]=downward crossings; bandx_int[t]=(xup+xdn)/max(sum|Delta z_i|,eps); bandx_asym[t]=(xdn-xup)/max(xdn+xup,eps). Distinct from C344 sign-change/chop, C374 SIGNRUN run lengths, C382 TAILMEM exceedance persistence, C383 TURNINGPT-R Delta r sign changes. PLACEBO_SEED=20261251, cache campaign387_bandx_5m with bandx_params {window_W:256}, ref bandx_int_dev L=240 H=4 fee 0.0007 slip 0.0001 taker, 1296 configs, same gates. Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
-first_action: "RUN C387 BANDX SWEEP NOW (handoff refreshed 2026-11-19T10:56:00Z): C387 build+preflight+tests DONE (cache data/cache/campaign387_bandx_5m/ 10x315648 bars 38.5 MB, preflight ready:true, 27/27 tests green incl brute-force equality). C386 PRROUGH is FROZEN formal negative (1296 configs, 0 Holm+BH survivors, RETRACTED multiple_testing, dominant rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green, reports/campaign386_*_20261119T095708Z.json). Do NOT re-run C386 or any frozen C281B-C385 campaign; never touch archive/void_c381/. REMAINING: 1) python3 scripts/run_c387_bandx_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign387_*_<TS>Z.json + .full.json. 2) pytest tests/test_preflight_c387.py tests/test_c387_bandx_xsec_oos.py -q -> >=21 green. 3) Record truthful C387 RESULT in AGENTS.md + state.yaml (latest_campaign_done: C387, next_campaign: C388), add frozen-table row with 5 SHAs + cache SHAs, then immediately execute pre-seeded C388 MADR. No downscoping/re-runs of frozen C281B-C386/C287 or the void C381; no gate weakening; no closure by fiat."
-active_campaign: C388
-space_status: NO_EDGE_C281B_C387
-closure_note: 'C281B-C386 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C387 BANDX is the next active campaign - build it end-to-end now (cache campaign387_bandx_5m, bandx_params {window_W:256}, PLACEBO_SEED 20261251).'
+queued_next_campaign: null
+queued_next_campaign_note: 'C388 MADR is FROZEN formal negative (frozen 20261119T140855Z): 1296 costed-OOS configs, 0 Holm+BH survivors, dominant madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green, reports/campaign388_*_20261119T140855Z.json. No next campaign pre-seeded; the next session must select a genuinely-new price-only family from the C380+ backlog (or propose a new one), write its spec into AGENTS.md INITIAL TASK MESSAGE, then build end-to-end: 3 scripts + 2 tests, build -> preflight ready:true -> full 1296-config costed OOS sweep -> pytest >=21 green -> 5 SHA256 reports -> record RESULT + SHAs.'
+first_action: "C388 MADR sweep is DONE (frozen formal negative, reports/campaign388_*_20261119T140855Z*). NEXT ACTION: select the next genuinely-new price-only family from the C380+ backlog (or propose a new one), write its spec into AGENTS.md INITIAL TASK MESSAGE, then build end-to-end: python3 scripts/build_c38X_*_features.py -> data/cache/campaign38X_*_5m/, python3 scripts/preflight_c38X.py -> ready:true, python3 scripts/run_c38X_*_xsec_oos.py -> FULL 1296-config costed OOS sweep, pytest tests/test_preflight_c38X.py tests/test_c38X_*_xsec_oos.py -q -> >=21 green incl brute-force equality, sha256sum reports/campaign38X_*_<TS>Z.json, record RESULT + SHAs in AGENTS.md + state.yaml. No re-runs of frozen C281B-C388 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
+active_campaign: null
+space_status: NO_EDGE_C281B_C388
+closure_note: 'C281B-C388 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. No next campaign pre-seeded; next session must select a genuinely-new price-only family from the C380+ backlog and build it end-to-end.'
 c381_void:
   state: VOID_NOT_A_RESULT
   campaign: C381
@@ -895,4 +895,42 @@ c387_status:
   cache_shas:
     meta: '18e0d554820001238acd967b9a7d40740b8e9ce5d65034c6cc4a919ee67350c7'
     provenance: '51e4cdc305f563e803341a390722965cabba423b0e349d7a7b9f9957ac33857e'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+c388_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C388
+  family: first_moment_upside_downside_capture_ratio_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C387 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. MADR is the first-moment upside/downside capture ratio (sum of positive log returns / sum of negative log returns magnitude over W=256), never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T140855Z
+  artifacts_ts: 20261119T140855Z
+  signals: [madr_ratio_dev, madr_ratio_placebo]
+  n_configs: 1296
+  grid_arithmetic: '2 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261252
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'madr_ratio_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [madr_ratio_dev]
+  madr_params: {window_W: 256}
+  scripts_present: [scripts/build_c388_madr_features.py, scripts/preflight_c388.py, scripts/run_c388_madr_xsec_oos.py]
+  tests_present: [tests/test_preflight_c388.py, tests/test_c388_madr_xsec_oos.py]
+  cache_present: data/cache/campaign388_madr_5m
+  artifacts_present: [reports/campaign388_oos_sweep_20261119T140855Z.json, reports/campaign388_tradable_edge_registry_20261119T140855Z.json, reports/campaign388_summary_20261119T140855Z.json, reports/campaign388_verdict_20261119T140855Z.json, reports/campaign388_binding_constraint_20261119T140855Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: madr_ratio_placebo
+  dominant_share: 0.2580
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '2604d79f316ceeae8461a00746ceb2ae092f3034ef033d51a39c926e58a6650c'
+    tradable_edge_registry: '0aef556cea2eaff79b1dc19ba407375588c0f2fcf15b249f09994cbcae8d9a28'
+    summary: 'cd2d43955e3e2ee3fe668069f61c379b71c713aca33ed6ae05f65b882f7cfb0a'
+    verdict: '0c9edf21cb4d0eb491e89264162c3ecac69b1d0d478f2a9d7e1466706cfe6b19'
+    binding_constraint: '5c5afe348338f5bb865d8a934e0cb8757be338d882ebe39a1382eeafb09cecfe'
+  cache_shas:
+    meta: '04783b239042833a0d0dbfd38da99f620792f20dbea995dff8016e85f1d08ff6'
+    provenance: '3e414e029a6adbecefad418f31c2fe87e244da22193011e9ed52f147ff6731f6'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
