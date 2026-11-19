@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """C386 — rigorous costed out-of-sample test of the cross-sectional intraday
-PRROUGH (window amplitude half-life asymmetry) x SEASONAL-DISLOCATION
+PRROUGH (price-path second-difference roughness) x SEASONAL-DISLOCATION
 mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296
 pre-registered configs).
 
@@ -15,7 +15,7 @@ ordinal-pattern-transition-entropy families, leverage/volatility-asymmetry
 coupling (LVAC, C360), raw return skewness & excess kurtosis (RSKEK, C361),
 Hill tail-index / tail asymmetry (Hill, C362), quantile asymmetry & tail-mass
 (QATM, C363), realized semivariance / downside-upside decomposition (DSRV,
-C364), Kaufman efficiency ratio / path-straightness (KER, C365), realized
+C364), Kaufman efficiency ratio / path-straightness (KER, C65), realized
 quartic variation / kurtosis-concentration of squared returns (RQV, C366),
 bipower variation / jump-activity ratio (BPV/JAR, C367), median-based robust
 dispersion (RMAD/RABS, C368), robust-dispersion L-estimator / quantile-spread
@@ -31,22 +31,28 @@ family, extreme-indicator persistence (TAILMEM, C382),
 second-difference turning-point rate (TURNINGPT, C383), and extremum-timing
 asymmetry (EXTPOS, C384).
 C386 is the first campaign to trade each asset's CAUSAL trailing same-(TOD x
-DOW) seasonal deviation of PRROUGH window-amplitude scalars of log-prices:
+DOW) seasonal deviation of PRROUGH price-path second-difference roughness
+scalars:
 
-    For each bar t, trailing prices X = c[t-W+1 .. t] (W=256), Q = W/4 = 64:
-        full_range[t]   = max(X) - min(X)
-        recent_range[t] = max(X[-Q:]) - min(X[-Q:])   (recent quarter)
-        oldest_range[t] = max(X[:Q]) - min(X[:Q])     (oldest quarter)
-        rough_ratio[t]  = (recent_range - oldest_range) / full_range
-        rough_asym[t] = full_range / sum_{q=1..4} range(quartile_q)
+    For each bar t, trailing prices P = c[t-W .. t] (W=256, W+1 prices):
+        d  = diff(P, 1)                            # W first differences
+        s  = diff(P, 2)                            # W-1 second differences
+        path_len   = sum(|d|)                      # gross first-difference travel
+        curv_mass  = sum(|s|)                      # gross curvature mass
+        rough_ratio  = curv_mass / max(path_len, eps)   # jaggedness per unit travel
+        curv_up    = sum(|s| where d[1:] > 0)      # curvature mass on rising legs
+        curv_down  = sum(|s| where d[1:] < 0)      # curvature mass on falling legs
+        rough_asym = (curv_down - curv_up) / max(curv_down + curv_up, eps)
 
-NaN if t<W-1, any NaN/non-finite in window, or zero denominator.
-Distinct from C345 close-location (current close position in envelope), C347
-time-under-water, C365 KER (net displacement / full path length), C378 VOVR
-(cross-sub-block RV dispersion), C384 EXTPOS (extremum timing positions),
-C379 CURV (window quadratic-trend curvature) — PRROUGH is window-amplitude
-half-life asymmetry (recent-vs-oldest quartile range migration and sweep
-dominance), never used. Price-only (perp_close), volume-free.
+NaN if t<W, any NaN/non-finite in window, path_len<=eps, curv_down+curv_up<=eps,
+or non-finite output. Distinct from C345 close-location (current close position
+in envelope), C347 time-under-water, C365 KER (net displacement / full path
+length; PRROUGH has no net-displacement term and is built from second
+differences), C378 VOVR (cross-sub-block RV dispersion), C384 EXTPOS (extremum
+timing positions), C379 CURV (window quadratic-trend curvature; PRROUGH never
+fits a polynomial), C383 TURNINGPT-R (sign-change count rate of Delta r; PRROUGH
+is a magnitude ratio of price curvature mass) — PRROUGH is price-path
+second-difference roughness, never used. Price-only (perp_close), volume-free.
 """
 
 from __future__ import annotations
@@ -766,27 +772,28 @@ def main(argv: list[str] | None = None) -> int:
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C386 — test the cross-sectional intraday PRROUGH (window amplitude "
-            "half-life asymmetry) x SEASONAL-DISLOCATION mean-reversion stat-arb "
+            "C386 — test the cross-sectional intraday PRROUGH (price-path second-"
+            "difference roughness) x SEASONAL-DISLOCATION mean-reversion stat-arb "
             "family on 10 USDT-M linear perps at native 5m (1296 pre-registered "
             "configs). Per-bar primitives: perp_close real 5m kline close; "
             "log_return=log(c[t]/c[t-1]) (r[0]=0); abs_ret=|log_return|. PRROUGH "
-            "scalars over fixed intrinsic window W=256 bars ending at bar t, Q=W/4=64, "
-            "price window X=c[t-W+1..t]: full_range=max(X)-min(X); "
-            "recent_range=max(X[-Q:])-min(X[-Q:]); oldest_range=max(X[:Q])-min(X[:Q]); "
-            "rough_ratio=(recent_range-oldest_range)/full_range (half-range amplitude "
-            "migration into the recent quarter vs the oldest quarter); "
-            "rough_asym=full_range/sum_{q=1..4} range(quartile_q) (sweep dominance "
-            "vs steady quartile travel). Seasonal baseline = trailing mean/std at same "
-            "(weekday,tod) bucket from history strictly before bar t (causal "
-            "shift(1)), NaN-aware, excluding NaN obs. Signals: 2 real "
-            "(rough_ratio_dev, rough_asym_dev) + 2 placebos (phase-randomized "
-            "surrogates, never edges). Single-leg dollar-neutral perp PnL with costs on "
-            "turnover (taker=fee+slip; maker_blend=0.5*fee+slip). Gates: Holm+BH at "
-            "alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo attribution. "
-            "PRE-REGISTERED NaN policy: metric NaN unless sufficient finite obs and valid "
-            "denominators; seasonal stats NaN-aware min_periods excluding NaN obs; "
-            "NaN-score bars weight 0."
+            "scalars over fixed intrinsic window W=256 bars ending at bar t, P=c[t-W..t] "
+            "(W+1 prices): first differences d=diff(P,1) (W values), second differences "
+            "s=diff(P,2) (W-1 values); path_len=sum(|d|) (gross first-difference travel); "
+            "curv_mass=sum(|s|) (gross second-difference curvature mass); "
+            "rough_ratio=curv_mass/max(path_len,eps) (dimensionless path roughness per "
+            "unit travel); curv_up=sum(|s| where d[1:]>0), curv_down=sum(|s| where "
+            "d[1:]<0); rough_asym=(curv_down-curv_up)/max(curv_down+curv_up,eps) "
+            "(curvature-mass roughness asymmetry between falling and rising legs). "
+            "Seasonal baseline = trailing mean/std at same (weekday,tod) bucket from "
+            "history strictly before bar t (causal shift(1)), NaN-aware, excluding NaN "
+            "obs. Signals: 2 real (rough_ratio_dev, rough_asym_dev) + 2 placebos "
+            "(phase-randomized surrogates, never edges). Single-leg dollar-neutral perp "
+            "PnL with costs on turnover (taker=fee+slip; maker_blend=0.5*fee+slip). "
+            "Gates: Holm+BH at alpha=0.05 (BOTH), MDE, stability, signal-vs-placebo "
+            "attribution. PRE-REGISTERED NaN policy: metric NaN unless sufficient finite "
+            "obs and valid denominators; seasonal stats NaN-aware min_periods excluding "
+            "NaN obs; NaN-score bars weight 0."
         ),
         "preflight": dataset_block, "data_source": dataset_block,
         "universe": {"symbols": symbols, "n_assets": bs["n_assets"],
