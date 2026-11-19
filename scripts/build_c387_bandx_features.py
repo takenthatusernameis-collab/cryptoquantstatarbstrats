@@ -356,7 +356,7 @@ def main(argv: list[str] | None = None) -> int:
             "log_return": "causal log-return from real strictly-positive perp_close; always finite (r[0]=0)",
             "abs_ret": "|log_return|; always finite",
             "funding_rate": "all-NaN control only (USDT-M funding unreachable in this environment)",
-            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; PRROUGH scalars NaN where t<W-1, any NaN/non-finite in window, W<4, zero denominator, or non-finite output.",
+            "runner_nan": "trailing same-bucket seasonal stats NaN-aware min_periods excluding NaN obs; NaN-score bars weight 0; BANDX scalars NaN where t<W-1, any NaN/non-finite in window, W<4, zero denominator, or non-finite output.",
             "raw_nan_observed": raw_nan_observed,
         },
     }

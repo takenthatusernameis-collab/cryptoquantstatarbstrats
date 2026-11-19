@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """C387 — rigorous costed out-of-sample test of the cross-sectional intraday
-BANDX (normalized-band crossing intensity asymmetry) x SEASONAL-DISLOCATION
+BANDX (normalized band-crossing intensity asymmetry) x SEASONAL-DISLOCATION
 mean-reversion stat-arb family on 10 USDT-M linear perps at native 5m (1296
 pre-registered configs).
 
@@ -781,7 +781,7 @@ def main(argv: list[str] | None = None) -> int:
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
         "fail_closed": True,
         "mandate": (
-            "C387 — test the cross-sectional intraday BANDX (normalized-band crossing "
+            "C387 — test the cross-sectional intraday BANDX (normalized band-crossing "
             "intensity asymmetry) x SEASONAL-DISLOCATION mean-reversion stat-arb "
             "family on 10 USDT-M linear perps at native 5m (1296 pre-registered "
             "configs). Per-bar primitives: perp_close real 5m kline close; "
@@ -881,10 +881,10 @@ def main(argv: list[str] | None = None) -> int:
         rr.pop("oos_net_per_split", None)
         slim_results.append(rr)
     slim["results"] = slim_results
-    op = reports / f"campaign386_oos_sweep_{ts}.json"
+    op = reports / f"campaign387_oos_sweep_{ts}.json"
     op.write_text(json.dumps(slim, indent=2, default=jdefault) + "\n")
     sweep_sha = sha256_file(op)
-    full = reports / f"campaign386_oos_sweep_{ts}.full.json"
+    full = reports / f"campaign387_oos_sweep_{ts}.full.json"
     full.write_text(json.dumps(sweep_obj, indent=2, default=jdefault) + "\n")
 
     surviving = [results[i] for i in edge_idx if rej_holm[i] and rej_bh[i]]
@@ -902,7 +902,7 @@ def main(argv: list[str] | None = None) -> int:
         "verdict": verdict,
         "real_data_only": True, "fabricated_data": False, "executed_fills": False,
     }
-    op_reg = reports / f"campaign386_tradable_edge_registry_{ts}.json"
+    op_reg = reports / f"campaign387_tradable_edge_registry_{ts}.json"
     op_reg.write_text(json.dumps(registry, indent=2, default=jdefault) + "\n")
     reg_sha = sha256_file(op_reg)
 
@@ -916,7 +916,7 @@ def main(argv: list[str] | None = None) -> int:
                       "registry": {"path": str(op_reg.relative_to(ROOT)), "sha256": reg_sha}},
         "summary": sweep_obj["summary"], "binding_constraint": binding,
     }
-    op_sum = reports / f"campaign386_summary_{ts}.json"
+    op_sum = reports / f"campaign387_summary_{ts}.json"
     op_sum.write_text(json.dumps(summary, indent=2, default=jdefault) + "\n")
     sum_sha = sha256_file(op_sum)
 
@@ -958,7 +958,7 @@ def main(argv: list[str] | None = None) -> int:
             "Only RNG is recorded-seed placebo phase randomization (not market data)",
         ],
     }
-    op_ver = reports / f"campaign386_verdict_{ts}.json"
+    op_ver = reports / f"campaign387_verdict_{ts}.json"
     op_ver.write_text(json.dumps(verdict_obj, indent=2, default=jdefault) + "\n")
     ver_sha = sha256_file(op_ver)
 

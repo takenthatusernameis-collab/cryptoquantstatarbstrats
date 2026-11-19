@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """C387 preflight: fail-closed verification of the real C387 USDT-M
-cross-sectional intraday PRROUGH (window amplitude half-life asymmetry) x
+cross-sectional intraday BANDX (normalized-band crossing intensity asymmetry) x
 seasonal-dislocation feature cache before the C387 runner sweeps the
 pre-registered costed OOS grid.
 
