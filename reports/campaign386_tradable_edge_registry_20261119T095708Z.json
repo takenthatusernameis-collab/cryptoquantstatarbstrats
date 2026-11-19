@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "20261119T095708Z",
+  "campaign": 386,
+  "part": "registry",
+  "analysis": "tradable_edge_registry",
+  "n_tradable": 0,
+  "n_edge_proven_deterministic": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_ok": false,
+  "attribution_shares": {
+    "rough_ratio_dev": 0.22038400165091224,
+    "rough_asym_dev": 0.23949757687196638,
+    "rough_ratio_placebo": 0.24094363650464873,
+    "rough_asym_placebo": 0.29917478497247274
+  },
+  "tradable_configs": [],
+  "oos_sweep_artifact": "reports/campaign386_oos_sweep_20261119T095708Z.json",
+  "oos_sweep_sha256": "7da6897c9ae193d317f5deeeb4e881a84362f30f5b8e7d2602d329a618e5d445",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false
+}

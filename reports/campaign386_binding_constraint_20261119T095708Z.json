@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T095708Z",
+  "campaign": 386,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign386_oos_sweep_20261119T095708Z.json",
+  "oos_sweep_sha256": "7da6897c9ae193d317f5deeeb4e881a84362f30f5b8e7d2602d329a618e5d445",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "rough_ratio_dev": 0.22038400165091224,
+    "rough_asym_dev": 0.23949757687196638,
+    "rough_ratio_placebo": 0.24094363650464873,
+    "rough_asym_placebo": 0.29917478497247274
+  },
+  "dominant_attribution": "rough_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "rough_ratio_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.962095687460033,
+      -0.9249480194689881,
+      -0.9802124718830297,
+      -1.3182286485570267,
+      -1.0221251963443916,
+      -1.1516901996481776,
+      -1.1279291271761231,
+      -1.0375844464516737
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -6.613554982477602,
+    "second_half_sharpe": -19.412394094717747,
+    "sharpe_corr": 0.9939249890279928,
+    "stable": false
+  },
+  "diagnosis": "C386 cross-sectional intraday PRROUGH (window amplitude half-life asymmetry) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
