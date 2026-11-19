@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T232656Z",
+  "campaign": 394,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign394_oos_sweep_20261119T232656Z.json",
+  "oos_sweep_sha256": "4e4032afcd00caded2d017196dcca496539d07cd67429eb42f5f4b9f12cf8c41",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "ces_spread_dev": 0.09100662110036846,
+    "ces_asym_dev": 0.2877968986095476,
+    "ces_spread_placebo": 0.13704807902779254,
+    "ces_asym_placebo": 0.48414840126229136
+  },
+  "dominant_attribution": "ces_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "ces_spread_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.34744057135122897,
+      -0.27463273110136366,
+      -0.1257636972166915,
+      -0.5220273100072148,
+      -0.2675258645405755,
+      -0.14360026778253815,
+      -0.2727119406912978,
+      -0.42621635774475103
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -2.2264172817489505,
+    "second_half_sharpe": -2.7693230858262847,
+    "sharpe_corr": 0.9842759956130416,
+    "stable": false
+  },
+  "diagnosis": "C394 cross-sectional intraday CTES (conditional tail expectation / expected shortfall tail spread & asymmetry) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
