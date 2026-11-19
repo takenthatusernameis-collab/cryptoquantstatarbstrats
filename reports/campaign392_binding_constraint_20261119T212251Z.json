@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T212251Z",
+  "campaign": 392,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign392_oos_sweep_20261119T212251Z.json",
+  "oos_sweep_sha256": "3c5aca2ec106b7727c8b80a6386d644de00d4284abd3c5b6d4217bae34195b67",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "dd_asym_dev": 0.18400020157393462,
+    "dd_share_dev": 0.18222669155283508,
+    "dd_asym_placebo": 0.3191381650241575,
+    "dd_share_placebo": 0.3146349418490729
+  },
+  "dominant_attribution": "dd_asym_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "dd_asym_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.44380407010131706,
+      -0.609895444905037,
+      -0.49689425892518596,
+      -0.25422120434259715,
+      -0.4398483601020894,
+      -0.8164879362092559,
+      -0.6213796005118871,
+      -0.8770547758515003
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -3.5092269627800223,
+    "second_half_sharpe": -4.005204260601095,
+    "sharpe_corr": 0.9782583168894902,
+    "stable": false
+  },
+  "diagnosis": "C392 cross-sectional intraday DDRUN (max drawdown vs max run-up asymmetry) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
