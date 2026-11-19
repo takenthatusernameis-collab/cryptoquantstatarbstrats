@@ -53,7 +53,7 @@ SRC_DIR = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m"
 SRC_META = ROOT / "data" / "cache" / "campaign312_usdt_m_ofi_5m.meta.json"
 DST_DIR = ROOT / "data" / "cache" / "campaign394_ctes_5m"
 DST_META = ROOT / "data" / "cache" / "campaign394_ctes_5m.meta.json"
-DST_PROV = ROOT / "data" / "cache" / "campaign394_ctes_5m.provenance.json
+DST_PROV = ROOT / "data" / "cache" / "campaign394_ctes_5m.provenance.json"
 
 PUSH_LIMIT_BYTES = 100_000_000
 CACHE_BUDGET_BYTES = 100_000_000
