@@ -1,9 +1,9 @@
-updated_at_utc: 2026-11-19T22:10:02Z
-handoff_refreshed_at_utc: 2026-11-19T22:10:02Z
+updated_at_utc: 2026-11-19T22:18:00Z
+handoff_refreshed_at_utc: 2026-11-19T22:18:00Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C392
-next_campaign: C393
+latest_campaign_done: C393
+next_campaign: C394
 oos_edge_proven: false
 handoff:
   single_authoritative: true
@@ -14,7 +14,7 @@ bottlenecks_note: 'RE-VERIFIED 2026-11-19T20:13:17Z: no blocked or inefficient s
 queued_next_campaign: C394
 queued_next_campaign_note: 'C391 XSKEW3 and C392 DDRUN are FROZEN (20261119T210319Z, 20261119T212251Z). C393 VTERM is ACTIVE and UNSTARTED (no scripts/c393*, no tests/*c393*, no data/cache/campaign393_vterm_5m/, no reports/campaign393_* on disk). Pre-seeded queue after it: C394 (next genuinely new price-only family, spec written at execution), C395 (next genuinely new price-only family, spec written at execution). Each is price-only, close-only, volume-free on real C312 5m and follows the identical 3 scripts + 2 tests + cache + preflight + full 1296-config costed OOS sweep + 5 SHA256 reports pattern. Build strictly in order; never reuse a kernel and never rename-only.'
 first_action: "C393 VTERM is the ACTIVE campaign and is UNSTARTED: no scripts/c393*, no tests/*c393*, no data/cache/campaign393_vterm_5m/, no reports/campaign393_* on disk. NEXT ACTION: build C393 VTERM end-to-end per AGENTS.md INITIAL TASK MESSAGE: 3 scripts + 2 tests, build -> cache data/cache/campaign393_vterm_5m/, preflight -> ready:true, full literal 1296-config costed OOS sweep, python3 -m pytest tests/test_preflight_c393.py tests/test_c393_vterm_xsec_oos.py -q -> >=21 green incl VTERM brute-force equality (maxdiff < 1e-12), sha256sum reports/campaign393_*_<TS>Z.json, then record RESULT + SHAs here and AGENTS.md and advance queue to C394. Never re-run frozen C281B-C392 or C287; never touch archive/void_c381/; no gate weakening; no closure by fiat."
-active_campaign: C393
+active_campaign: C394
 space_status: NO_EDGE_C281B_C390
 closure_note: 'C281B-C390 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~130k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (pslope_t_dev 0.3149). C378 frozen 20261119T003707Z (vovr_cv_dev 0.3274). C379 frozen 20261119T013128Z (curv_tilt_placebo 0.6133). C380 frozen 20261119T023818Z (semicov_decay_placebo 0.4446). C382 frozen 20261119T054658Z (tailmem_decay_placebo 0.3850). C383 frozen 20261119T064437Z (turningpt_imb_placebo 0.3624). C384 frozen 20261119T065746Z (extpos_recency_placebo 0.3500). C385 frozen 20261119T090642Z (halfrange_tilt_placebo 0.2631, attribution_ok false). C386 PRROUGH frozen 20261119T095708Z (rough_asym_placebo 0.2992, attribution_ok false, 27/27 tests green). C387 BANDX frozen 20261119T130622Z (bandx_asym_placebo 0.3096, attribution_ok false, 27/27 tests green). C388 MADR frozen 20261119T140855Z (madr_ratio_placebo 0.2580, attribution_ok false, 27/27 tests green). C389 MINRV frozen 20261119T191025Z (minrv_placebo 0.3758, 27/27 tests green). C390 XCOEX frozen 20261119T190904Z (coex_1_placebo 0.3515, 27/27 tests green). C381 attempt is VOID (SEMICOV duplicate kernel, campaign label 380) and is not a result. Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C391 XSKEW3 FROZEN 20261119T210319Z (xskew3_raw_placebo 0.4615, 27/27 tests green). C392 DDRUN FROZEN 20261119T212251Z (dd_asym_placebo 0.3191, 27/27 tests green). C393 VTERM is ACTIVE and UNSTARTED; queue pre-seeded C394 -> C395. Next session must build C393 VTERM end-to-end per AGENTS.md INITIAL TASK MESSAGE, then freeze its truthful RESULT + SHAs.'
 c381_void:
@@ -1008,7 +1008,124 @@ c390_status:
     summary: '809b25217d4f6cceb0ee314eabd2a9d6b789257fdd95871bbf5338f789aa7fa3'
     verdict: 'f97b16229b174f329056ed14935db8e5fb050a0658d3851be0563f05abd078d2'
     binding_constraint: '747e314bfb941c02461b2be501f5db33ee9bcd5c7e19635703499214510d2342'
-  cache_shas:
+    cache_shas:
     meta: '8edf9191b54e248027a8bc9d88cbd880da9ce79fbc1e3c8645174cf163e71f95'
     provenance: 'f180fdb018515d955a59f9ac661885f800888a32f25e7bae010af67bb0321968'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c391_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C391
+  family: lag_1_cross_third_moment_time_irreversibility_xskew3_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C390 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. XSKEW3 measures lag-1 cross third-moment time-irreversibility (E[r_i * r_j^2] asymmetry) within W=256 returns, never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T210319Z
+  artifacts_ts: 20261119T210319Z
+  signals: [xskew3_gap_dev, xskew3_raw_dev, xskew3_gap_placebo, xskew3_raw_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261255
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'xskew3_raw_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [xskew3_gap_dev, xskew3_raw_dev]
+  xskew3_params: {window_W: 256, lag: 1, eps: 1e-12}
+  scripts_present: [scripts/build_c391_xskew3_features.py, scripts/preflight_c391.py, scripts/run_c391_xskew3_xsec_oos.py]
+  tests_present: [tests/test_preflight_c391.py, tests/test_c391_xskew3_xsec_oos.py]
+  cache_present: data/cache/campaign391_xskew3_5m
+  artifacts_present: [reports/campaign391_oos_sweep_20261119T210319Z.json, reports/campaign391_tradable_edge_registry_20261119T210319Z.json, reports/campaign391_summary_20261119T210319Z.json, reports/campaign391_verdict_20261119T210319Z.json, reports/campaign391_binding_constraint_20261119T210319Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: xskew3_raw_placebo
+  dominant_share: 0.4615
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '3607b4d351edb08df144bba32dd15fb71e06a57bde26ae2976a1f091ab449361'
+    tradable_edge_registry: '6a243beec384debc67416bbe832cc125bfee7378a88023dcfdd8c44a6e6fce43'
+    summary: '21329d847af0ff4cbfbcec2ab27daa7cd6cdb7b35f4d40c649858825046bab76'
+    verdict: 'd154d1b7ea0102a27a7940cb43fabc271690badd4adda063a674ca8856a54080'
+    binding_constraint: 'cadab971cd2e46f3fe2ae8b932e24214ec7ac7c037fc1262362fb3b1b552edf8'
+  cache_shas:
+    meta: 'a2296d40ad9a33fcbfc6d6491e369005984ee5cd2d98fcb054a837e1271ed12c'
+    provenance: 'af8f18bee3a0e3d75f3397daac7d1ef015c7cc3059bc6068a3e722788acdb2a3'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c392_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C392
+  family: max_drawdown_vs_max_runup_asymmetry_ddrun_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C391 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. DDRUN measures max drawdown vs max run-up asymmetry within W=256 returns (dd_asym = log(max_drawdown / max(max_runup, eps)), dd_share = max_drawdown / (max_drawdown + max_runup)), never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T212251Z
+  artifacts_ts: 20261119T212251Z
+  signals: [dd_asym_dev, dd_share_dev, dd_asym_placebo, dd_share_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261256
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'dd_asym_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [dd_asym_dev, dd_share_dev]
+  ddrun_params: {window_W: 256, eps: 1e-12}
+  scripts_present: [scripts/build_c392_ddrun_features.py, scripts/preflight_c392.py, scripts/run_c392_ddrun_xsec_oos.py]
+  tests_present: [tests/test_preflight_c392.py, tests/test_c392_ddrun_xsec_oos.py]
+  cache_present: data/cache/campaign392_ddrun_5m
+  artifacts_present: [reports/campaign392_oos_sweep_20261119T212251Z.json, reports/campaign392_tradable_edge_registry_20261119T212251Z.json, reports/campaign392_summary_20261119T212251Z.json, reports/campaign392_verdict_20261119T212251Z.json, reports/campaign392_binding_constraint_20261119T212251Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: dd_asym_placebo
+  dominant_share: 0.3191
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: '3c5aca2ec106b7727c8b80a6386d644de00d4284abd3c5b6d4217bae34195b67'
+    tradable_edge_registry: 'db7255a9e1c68826d56e6b2d16eae801d2f1dfb682a01a6c01b539dcbaf9f984'
+    summary: 'dfbbb8c5f6d54c892ea7e2b11940cf98727446d0e8ddb670cac8d41a369ef6e2'
+    verdict: '4f504083d57b836d5a35c361779bfd8fd5f9e9b17e71c6d4c0274dec3a48ff0b'
+    binding_constraint: '931289a7bd5e8172cd454427f4ddd8854d3003a877b5a9a6be098acd2d80da67'
+  cache_shas:
+    meta: 'bb1ee5b222293f8eefd44ed81a34b222b200f233693a27ee19032ce5a4ffda70'
+    provenance: 'eb0aee1fd03f409fcc64ba018361043fc278a19d12c8c63da2d34a0f6881e417'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c393_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C393
+  family: volume_term_structure_asymmetry_vterm_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'All prior price-only families C377-C392 plus moment/entropy/scaling families C346-C360 and orderflow C337-C341. VTERM measures front-half vs back-half realized variance asymmetry within W=256 returns: rv_front = sum of first 128 squared returns, rv_back = sum of last 128 squared returns; vterm_level = log(rv_back / max(rv_front, eps)), vterm_ratio = rv_back / (rv_front + rv_back), eps=1e-12. Never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T221900Z
+  artifacts_ts: 20261119T221900Z
+  signals: [vterm_level_dev, vterm_ratio_dev, vterm_level_placebo, vterm_ratio_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261257
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'vterm_level_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [vterm_level_dev, vterm_ratio_dev]
+  vterm_params: {window_W: 256, split: 128, eps: 1e-12}
+  scripts_present: [scripts/build_c393_vterm_features.py, scripts/preflight_c393.py, scripts/run_c393_vterm_xsec_oos.py]
+  tests_present: [tests/test_preflight_c393.py, tests/test_c393_vterm_xsec_oos.py]
+  cache_present: data/cache/campaign393_vterm_5m
+  artifacts_present: [reports/campaign393_oos_sweep_20261119T221900Z.json, reports/campaign393_tradable_edge_registry_20261119T221900Z.json, reports/campaign393_summary_20261119T221900Z.json, reports/campaign393_verdict_20261119T221900Z.json, reports/campaign393_binding_constraint_20261119T221900Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: vterm_level_placebo
+  dominant_share: 0.27869664320421955
+  attribution_ok: false
+  tests_green: 27
+  artifacts:
+    oos_sweep: 'daaa8f3ee0957e1e69315791fc86149bc0ffaf9e9c45b9d63cda76d6bd8bb69b'
+    tradable_edge_registry: 'f7ed265004be558820ec20988eeb45804592f484853351548f224f76b7c83ee4'
+    summary: 'a732ab40bf35a6d71e9ba0897019c5651bff657f64df70808f981335efd9de6f'
+    verdict: '93cdf8f6d75a32bbb0a0fdab101d38ab59b2afaa40a0c47c1d058d8ec8113cf9'
+    binding_constraint: 'f3f35d96686e83860ce2ba658ee7c1e4e88877d4aa9fe853bd13e21b5a4555da'
+  cache_shas:
+    meta: '445204e4f7f499e187976b010c23a1efae61112fb9384e8b3561478a7b5978ef'
+    provenance: '4a59b7a616990d08cdd56aaaac0c27be797e6234d18901521ec9818386e64f3d'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'

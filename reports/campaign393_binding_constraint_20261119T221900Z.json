@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T221900Z",
+  "campaign": 393,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign393_oos_sweep_20261119T221900Z.json",
+  "oos_sweep_sha256": "daaa8f3ee0957e1e69315791fc86149bc0ffaf9e9c45b9d63cda76d6bd8bb69b",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "vterm_level_dev": 0.22619939278089402,
+    "vterm_ratio_dev": 0.22116104365584602,
+    "vterm_level_placebo": 0.27869664320421955,
+    "vterm_ratio_placebo": 0.27394292035904044
+  },
+  "dominant_attribution": "vterm_level_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "vterm_level_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -1.114931704124646,
+      -1.0533771916679178,
+      -1.1001101969772218,
+      -1.1366892143181884,
+      -1.2269254217946286,
+      -1.1438700539443554,
+      -0.8984847185226603,
+      -1.4732466482308986
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -36.033782708821285,
+    "second_half_sharpe": -5.7745597572254885,
+    "sharpe_corr": 0.9962717159752705,
+    "stable": false
+  },
+  "diagnosis": "C393 cross-sectional intraday VTERM (volatility term structure: front-vs-back realized variance ratio) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
