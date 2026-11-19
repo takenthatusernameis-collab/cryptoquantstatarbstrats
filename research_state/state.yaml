@@ -1,28 +1,28 @@
-updated_at_utc: 2026-11-19T00:25:26Z
-handoff_refreshed_at_utc: 2026-11-19T00:25:26Z
+updated_at_utc: 2026-11-19T01:40:40Z
+handoff_refreshed_at_utc: 2026-11-19T01:40:40Z
 repo: cryptoquantstatarbstrats
 focus: crypto quant stat-arb strategies, fail-closed, real-data-only costed OOS edge validation
-latest_campaign_done: C377
-next_campaign: C378
+latest_campaign_done: C379
+next_campaign: C380
 oos_edge_proven: false
 handoff:
   single_authoritative: true
   file: AGENTS.md
-  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-19T00:25:26Z (disk): C377 PSLOPE FROZEN formal negative (20261119T002526Z, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, RETRACTED, binding multiple_testing, dominant pslope_t_dev 0.3149, attribution_ok false, 23/23 tests green incl brute-force equality); 5 artifacts reports/campaign377_*_20261119T002526Z.json (oos_sweep ca593541..., verdict b1b4462f...); cache data/cache/campaign377_pslope_5m/ (10x315648, 38.48 MB). C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C377. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb is the PRIMARY axis (dollar-neutral rank long-top/short-bottom, gross 1.0), seasonal-dislocation mean-reversion is the signal overlay, costed OOS + Holm AND BH is the only gate. C378 VOVR is ACTIVE (full spec in AGENTS.md INITIAL TASK MESSAGE). Bottlenecks: NONE. Next session: execute C378 end-to-end NOW; then C379 CURV (queue depth 3) with backlog to C383.'
-bottlenecks_verified_removed_at_utc: "2026-11-18T23:17:09Z"
-bottlenecks_note: 'RE-VERIFIED 2026-11-19T00:25:26Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C377 ALL COMPLETE FORMAL NEGATIVES. C377 PSLOPE FROZEN (20261119T002526Z; dominant pslope_t_dev 0.3149; 23/23 green incl brute-force). C378 VOVR is ACTIVE (volatility-of-volatility ratio over 16x16-bar blocks, W=256, placebo seed 20261242, ref vovr_cv_dev L=240 H=4). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 3 (C378 active, C379 CURV, C380 SEMICOV pre-seeded) plus backlog to C383, so the queue can never be empty. NO-LIGHT-WORK RULE: the session must produce heavy artifacts for C378 (3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
-queued_next_campaign: C378
-queued_next_campaign_note: 'C378 VOVR (volatility-of-volatility ratio: 16 contiguous blocks of BL=16 bars over W=256 window, brv_j=sum(x^2) per block, vovr_cv=sd/max(m,eps) cross-sub-block RV dispersion and vovr_trend=OLS slope of brv_j on j / max(m,eps), 4 signals incl 2 placebos, 1296 configs, placebo seed 20261242, ref vovr_cv_dev L=240 H=4 fee 0.0007 slip 0.0001 taker) is ACTIVE in AGENTS.md and must execute immediately (no planning turn). Then C379 CURV (quadratic-trend curvature c*W^2 and curvature/drift tilt, placebo seed 20261243) is PRE-SEEDED with full executable spec in the AGENTS.md INITIAL TASK MESSAGE. Queue depth 3, backlog to C383 (SEMICOV, TURNINGPT, TAILMEM). Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
+  note: 'AGENTS.md is the single durable handoff; do NOT create HANDOFF.md or any other handoff file. Re-verified 2026-11-19T01:40:40Z (disk): C377 PSLOPE FROZEN formal negative (20261119T002526Z, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, RETRACTED, binding multiple_testing, dominant pslope_t_dev 0.3149, attribution_ok false, 23/23 tests green incl brute-force equality); C378 VOVR FROZEN formal negative (20261119T003707Z, 1296 configs, dominant vovr_cv_dev 0.3274, attribution_ok false, 23/23 green); C379 CURV FROZEN formal negative (20261119T013128Z, 1296 configs costed-OOS, 0 Holm+BH survivors, edge_proven:false, RETRACTED, binding multiple_testing, dominant curv_tilt_placebo 0.6133, attribution_ok false, 23/23 green incl brute-force equality); 5 artifacts each reports/campaign377_*_20261119T002526Z.json, campaign378_*_20261119T003707Z.json, campaign379_*_20261119T013128Z.json. C312 source data/cache/campaign312_usdt_m_ofi_5m/ ready (10x315648, perp_close only). NO EDGE through C379. PRIORITY per repo name cryptoquantstatarbstrats: cross-sectional relative-value stat-arb is the PRIMARY axis (dollar-neutral rank long-top/short-bottom, gross 1.0), seasonal-dislocation mean-reversion is the signal overlay, costed OOS + Holm AND BH is the only gate. C380 SEMICOV is ACTIVE (signed-conditional lag covariance, spec in family backlog item 5 / AGENTS.md INITIAL TASK MESSAGE). Bottlenecks: NONE. Next session: execute C380 end-to-end NOW; then C381 TURNINGPT (queue depth 3) with backlog to C383.'
+bottlenecks_verified_removed_at_utc: "2026-11-19T01:40:40Z"
+bottlenecks_note: 'RE-VERIFIED 2026-11-19T01:40:40Z: no blocked/inefficient sessions; no external data fetches needed; C287 451/403 decoupled and NOT on critical path. C281B-C379 ALL COMPLETE FORMAL NEGATIVES. C377 PSLOPE FROZEN (20261119T002526Z; dominant pslope_t_dev 0.3149; 23/23 green incl brute-force). C378 VOVR FROZEN (20261119T003707Z; dominant vovr_cv_dev 0.3274; 23/23 green incl brute-force). C379 CURV FROZEN (20261119T013128Z; dominant curv_tilt_placebo 0.6133; 23/23 green incl brute-force). C312 5m source ready (10x315648); deps verified (numpy 2.5.5, pandas 3.1.1, scipy 1.18.1, pytest 9.2.0). Queue depth 3 (C380 SEMICOV active, C381 TURNINGPT, C382 TAILMEM pre-seeded) plus backlog to C383, so the queue can never be empty. NO-LIGHT-WORK RULE: the session must produce heavy artifacts for C380 (3 scripts + 2 tests + cache + preflight ready:true + full 1296-config sweep + 5 SHA256 reports + >=21 green tests incl brute-force equality). Prose-only/partial is a HARD VIOLATION.'
+queued_next_campaign: C380
+queued_next_campaign_note: 'C380 SEMICOV (signed-conditional lag covariance: for lags k in {1,2,4}, cov(r_t, r_{t-k} | r_{t-k}<0) - cov(r_t, r_{t-k} | r_{t-k}>0) over W=256; collapse to semicov_sum and semicov_decay; 4 signals incl 2 placebos, 1296 configs, placebo seed from family backlog, ref semicov_sum_dev L=240 H=4 fee 0.0007 slip 0.0001 taker) is ACTIVE in AGENTS.md and must execute immediately (no planning turn). Then C381 TURNINGPT (second-difference turning-point rate) and C382 TAILMEM (extreme-indicator persistence) are pre-seeded. Queue depth 3, backlog to C383. Price-only, volume-free, close-only, cross-sectional dollar-neutral stat-arb.'
 queued_campaign_c368: C368
 queued_campaign_c368_note: 'C368 RMAD/RABS is COMPLETE/FROZEN formal negative (20261118T115652Z): scripts build_c368_rmad_features.py/preflight_c368.py/run_c368_rmad_xsec_oos.py, tests test_preflight_c368.py/test_c368_rmad_xsec_oos.py, cache campaign368_rmad_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RMAD/RABS brute-force equality. C368 RESULT recorded in AGENTS.md; C369 is frozen.'
 queued_campaign_c369: C369
 queued_campaign_c369_note: 'C369 GMD/IQR is COMPLETE/FROZEN formal negative (20261118T135451Z): scripts build_c369_gmd_features.py/preflight_c369.py/run_c369_gmd_xsec_oos.py, tests test_preflight_c369.py/test_c369_gmd_xsec_oos.py, cache campaign369_gmd_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl GMD+IQR brute-force equality. C369 RESULT recorded in AGENTS.md; C370 is frozen.'
 queued_campaign_c370: C370
 queued_campaign_c370_note: 'C370 RAR/MADM is COMPLETE/FROZEN formal negative (20261118T140545Z): scripts build_c370_rarmadm_features.py/preflight_c370.py/run_c370_rarmadm_xsec_oos.py, tests test_preflight_c370.py/test_c370_rarmadm_xsec_oos.py, cache campaign370_rarmadm_5m, preflight ready:true, full 1296-config sweep, 5 SHA256 reports, pytest 22/22 green incl RAR/MADM brute-force equality. C370 RESULT recorded in AGENTS.md; C371 is frozen.'
-first_action: "EXECUTE C378 VOVR NOW (re-verified 2026-11-19T00:25:26Z): START WITH CODE/BUILD - NOT ANALYSIS. C378 = VOVR (volatility-of-volatility ratio over W=256 split into NB=16 blocks of BL=16 bars: brv_j=sum(x^2) per block, vovr_cv=sd/max(m,1e-12) cross-sub-block RV dispersion, vovr_trend=OLS slope of brv_j on j/max(m,1e-12) early-vs-late volatility shift) x causal seasonal-dislocation overlay, cross-sectional dollar-neutral long-top/short-bottom across 10 USDT-M perps, costed OOS, real C312 perp_close only (5m). CLONE C377 (scripts/build_c377_pslope_features.py, scripts/preflight_c377.py, scripts/run_c377_pslope_xsec_oos.py, tests/test_preflight_c377.py, tests/test_c377_pslope_xsec_oos.py) and adapt: 1) WRITE scripts/build_c378_vovr_features.py, scripts/preflight_c378.py, scripts/run_c378_vovr_xsec_oos.py. 2) WRITE tests/test_preflight_c378.py + tests/test_c378_vovr_xsec_oos.py (MUST include VOVR brute-force equality, maxdiff < 1e-12). 3) python3 scripts/build_c378_vovr_features.py -> data/cache/campaign378_vovr_5m/. 4) python3 scripts/preflight_c378.py -> ready:true. 5) python3 scripts/run_c378_vovr_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign378_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c378.py tests/test_c378_vovr_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C378 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, then immediately execute pre-seeded C379 CURV. No downscoping/re-runs of frozen C281B-C377/C287; no gate weakening; no closure by fiat."
-active_campaign: C378
-space_status: NO_EDGE_C281B_C377
-closure_note: 'C281B-C377 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C375 frozen 20261118T222249Z (1296, RETRACTED, dominant acov_sum_placebo 0.4173, attribution_ok false, 22/22 tests green). C376 frozen 20261118T232056Z (1296, RETRACTED, dominant qspread_ratio_placebo 0.2777, attribution_ok false, 22/22 tests green). C377 frozen 20261119T002526Z (1296, RETRACTED, dominant pslope_t_dev 0.3149, attribution_ok false, 23/23 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C378 VOVR is ACTIVE - execute end-to-end NOW, then C379/C380.'
+first_action: "EXECUTE C380 SEMICOV NOW (re-verified 2026-11-19T01:40:40Z): START WITH CODE/BUILD - NOT ANALYSIS. C380 = SEMICOV (signed-conditional lag covariance over W=256: for lags k in {1,2,4}, semicov[k] = cov(r_t, r_{t-k} | r_{t-k}<0) - cov(r_t, r_{t-k} | r_{t-k}>0); semicov_sum = sum_k semicov[k], semicov_decay = semicov[1] - semicov[4]) x causal seasonal-dislocation overlay, cross-sectional dollar-neutral long-top/short-bottom across 10 USDT-M perps, costed OOS, real C312 perp_close only (5m). CLONE C379 (scripts/build_c379_curv_features.py, scripts/preflight_c379.py, scripts/run_c379_curv_xsec_oos.py, tests/test_preflight_c379.py, tests/test_c379_curv_xsec_oos.py) and adapt: 1) WRITE scripts/build_c380_semicov_features.py, scripts/preflight_c380.py, scripts/run_c380_semicov_xsec_oos.py. 2) WRITE tests/test_preflight_c380.py + tests/test_c380_semicov_xsec_oos.py (MUST include SEMICOV brute-force equality, maxdiff < 1e-12). 3) python3 scripts/build_c380_semicov_features.py -> data/cache/campaign380_semicov_5m/. 4) python3 scripts/preflight_c380.py -> ready:true. 5) python3 scripts/run_c380_semicov_xsec_oos.py -> FULL 1296-config costed OOS sweep -> 5 SHA256 reports/campaign380_*_<TS>Z.json + .full.json. 6) pytest tests/test_preflight_c380.py tests/test_c380_semicov_xsec_oos.py -q -> >=21 green incl brute-force equality. 7) record truthful C380 RESULT in AGENTS.md + state.yaml, freeze with all SHAs, then immediately execute pre-seeded C381 TURNINGPT. No downscoping/re-runs of frozen C281B-C379/C287; no gate weakening; no closure by fiat."
+active_campaign: C380
+space_status: NO_EDGE_C281B_C379
+closure_note: 'C281B-C379 ALL COMPLETE FORMAL NEGATIVES (0 tradable costed-OOS edge across ~100k+ pre-registered configs; binding universally multiple_testing; edge_claim NONE). C377 frozen 20261119T002526Z (1296, RETRACTED, dominant pslope_t_dev 0.3149, attribution_ok false, 23/23 tests green). C378 frozen 20261119T003707Z (1296, RETRACTED, dominant vovr_cv_dev 0.3274, attribution_ok false, 23/23 tests green). C379 frozen 20261119T013128Z (1296, RETRACTED, dominant curv_tilt_placebo 0.6133, attribution_ok false, 23/23 tests green). Terminal closure by fiat PROHIBITED. C287 external blocked/decoupled - never retry. C380 SEMICOV is ACTIVE - execute end-to-end NOW, then C381/C382.'
 c364_status:
   state: COMPLETE_FORMAL_NEGATIVE
   campaign: C364
@@ -520,13 +520,92 @@ c377_status:
     provenance: '3fc329bbb563225da4bfc0540669fb049ea800a049fd824a6d98fd476ba17319'
     manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
 
+c378_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C378
+  family: volatility_of_volatility_ratio_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C366 (RQV within-window 4th moment/top-k concentration), C317 (RV total magnitude), C368 (RMAD), C373 (MedRV), C375 (ACOVK), C376 (QSPREAD), C377 (PSLOPE). VOVR is cross-sub-block RV dispersion (std of 16 sub-block RVs / mean sub-block RV) never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T003707Z
+  artifacts_ts: 20261119T003707Z
+  signals: [vovr_cv_dev, vovr_trend_dev, vovr_cv_placebo, vovr_trend_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261242
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'vovr_cv_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [vovr_cv_dev, vovr_trend_dev]
+  vovr_params: {window_W: 256, n_blocks: 16, block_len: 16}
+  scripts_present: [scripts/build_c378_vovr_features.py, scripts/preflight_c378.py, scripts/run_c378_vovr_xsec_oos.py]
+  tests_present: [tests/test_preflight_c378.py, tests/test_c378_vovr_xsec_oos.py]
+  cache_present: data/cache/campaign378_vovr_5m
+  artifacts_present: [reports/campaign378_oos_sweep_20261119T003707Z.json, reports/campaign378_tradable_edge_registry_20261119T003707Z.json, reports/campaign378_summary_20261119T003707Z.json, reports/campaign378_verdict_20261119T003707Z.json, reports/campaign378_binding_constraint_20261119T003707Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: vovr_cv_dev
+  dominant_share: 0.3274
+  attribution_ok: false
+  tests_green: 23
+  artifacts:
+    oos_sweep: 'f105a5a060cc7472fdff4dfc03c5fbcfc8d7b90f2a8082861baffdf7fd4fd9f9'
+    tradable_edge_registry: '038d0dad19ec5a58e795a90098cb99ce675a5be226e15957a5cf28e388a0d3ab'
+    summary: '7a9b5b4a459823eb496f38a2a55899a87b026bd8223da1dfc7c944ca5fdd80c2'
+    verdict: '30eb7baa9d782a5be1fe3240545157c5f1549c9a8e9e57b16b40537d0454e7f8'
+    binding_constraint: 'e157b9e5264609266cac7d4fbba7a146495a65363609b8c3160905a55328d166'
+  cache_shas:
+    meta: '6a8724977c4115909d76f34bf98b384ef4ffe0fa70d4751268c9782c30665041'
+    provenance: '9768f0016bc82c8d564aa5e2a26e54c158c360f6d1d147a6810cd426be9f4bd5'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
+c379_status:
+  state: COMPLETE_FORMAL_NEGATIVE
+  campaign: C379
+  family: window_quadratic_trend_curvature_seasonal_dislocation_mean_reversion_usdt_m_5m
+  genuinely_new: true
+  distinct_from: 'C377 (PSLOPE linear slope t-stat only), C365 (KER net-displacement/path-length), C366 (RQV quarticity), C368 (RMAD), C373 (MedRV), C375 (ACOVK), C376 (QSPREAD), C378 (VOVR cross-sub-block RV dispersion). CURV is fitted quadratic-trend curvature (c*W^2 acceleration + curvature/drift tilt) of log(close), never used before. Price-only (perp_close), volume-free.'
+  as_of_utc: 20261119T013128Z
+  artifacts_ts: 20261119T013128Z
+  signals: [curv_shape_dev, curv_tilt_dev, curv_shape_placebo, curv_tilt_placebo]
+  n_configs: 1296
+  grid_arithmetic: '4 signals x 6 lookbacks {60,120,240,480,960,1920} x 3 rebalances {1,4,12} x 3 fees {0.0004,0.0007,0.0010} x 3 slips {0,0.0001,0.0002} x 2 cost_variants {taker,maker_blend} = 1296'
+  placebo_seed: 20261243
+  wf: '12m train / 3m test, roll 3m, 8 splits, 2023-01..2025-12'
+  stability_ref: 'curv_shape_dev, L=240, H=4, fee=0.0007, slip=0.0001, taker'
+  attr_representatives: [curv_shape_dev, curv_tilt_dev]
+  curv_params: {window_W: 256, poly_degree: 2}
+  scripts_present: [scripts/build_c379_curv_features.py, scripts/preflight_c379.py, scripts/run_c379_curv_xsec_oos.py]
+  tests_present: [tests/test_preflight_c379.py, tests/test_c379_curv_xsec_oos.py]
+  cache_present: data/cache/campaign379_curv_5m
+  artifacts_present: [reports/campaign379_oos_sweep_20261119T013128Z.json, reports/campaign379_tradable_edge_registry_20261119T013128Z.json, reports/campaign379_summary_20261119T013128Z.json, reports/campaign379_verdict_20261119T013128Z.json, reports/campaign379_binding_constraint_20261119T013128Z.json]
+  verdict: RETRACTED
+  edge_proven: false
+  binding_constraint: multiple_testing
+  n_survive_both: 0
+  dominant_attribution: curv_tilt_placebo
+  dominant_share: 0.6133354622550176
+  attribution_ok: false
+  tests_green: 23
+  artifacts:
+    oos_sweep: '7d8a1450bb69c241c9b578ec08fb99c65d3ca5b939d64d3e8cdebf694343138f'
+    tradable_edge_registry: 'd40d6bf1bdad0de0b8b585da38f22becaed674113b0a379ffe7192dda69ea215'
+    summary: '9fc68ddac1ff6f3ce42a47431d404f2238a048872e22af65fcfe39f7c4cb504a'
+    verdict: '9234261cb1f37505d672431fbb1b5ee4e4cf5832e975c784f5a3bc51c477c5e3'
+    binding_constraint: '774cc79dda35ac303953c09ec3c37883101fb3044949561b749e29b8ee256e1d'
+  cache_shas:
+    meta: 'ff4ad68a92151cb5b96585d2398aef0af9d26fe79808e8e36a03791a7b9c3a6b'
+    provenance: '281d59876df1d9f33fc1ebf2fa3acd824ab2c2681d67bf5a6c129043332f70b'
+    manifest: '4d953a7d839991000c3460dec48ddd0c54aaefa28b0e39cf06103c81dfbdfdaa'
+
 family_backlog_c373_plus:
   - 'C375 COMPLETE_FORMAL_NEGATIVE: ACOVK multi-lag realized autocovariance profile (acov_sum = g1+g2+g4+g8, acov_decay = g1-g8)'
   - 'C376 COMPLETE_FORMAL_NEGATIVE: QSPREAD realized quantile spread profile ((q90-q10)/max(q75-q25,eps) + Bowley within-tail asymmetry)'
   - 'C377 COMPLETE_FORMAL_NEGATIVE: PSLOPE window OLS trend-slope t-statistic of log(close) on bar index'
-  - 'C378 ACTIVE: VOVR volatility-of-volatility ratio (std of 16 sub-block RVs / mean sub-block RV)'
-  - 'C379 backlog: CURV window quadratic-trend curvature of log(close) (c*W^2 curvature, curvature/drift tilt)'
-handoff_as_of_utc: 20261119T002526Z
+  - 'C378 COMPLETE_FORMAL_NEGATIVE: VOVR volatility-of-volatility ratio (std of 16 sub-block RVs / mean sub-block RV)'
+  - 'C379 COMPLETE_FORMAL_NEGATIVE: CURV window quadratic-trend curvature of log(close) (c*W^2 curvature, curvature/drift tilt)'
+  - 'C380 backlog: SEMICOV signed-conditional lag covariance (cov(r_t, r_{t-k} | r_{t-k}<0) - cov(r_t, r_{t-k} | r_{t-k}>0) for k in {1,2,4})'
+handoff_as_of_utc: 20261119T013128Z
 queue_depth: 3
 bottlenecks: none
 c287_status: permanently_blocked_decoupled_never_retry
