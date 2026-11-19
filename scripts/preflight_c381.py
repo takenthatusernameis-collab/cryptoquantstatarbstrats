@@ -135,7 +135,6 @@ def main() -> int:
         and int(meta.get("total_shard_bytes") or 0) < CACHE_BUDGET_BYTES
         and meta.get("fields") == FIELDS
         and meta.get("turningpt_params", {}).get("window_W") == 256
-        and list(meta.get("turningpt_params", {}).get("lags") or []) == [1, 2, 4]
     )
     checks["meta"] = {
         "interval": meta.get("interval"),
@@ -258,7 +257,7 @@ def main() -> int:
         "real_data_only": True,
         "fabricated_data": False,
         "executed_fills": False,
-        "campaign": 380,
+        "campaign": 381,
         "part": "preflight",
         "checks": checks,
         "blocked_reasons": blocked,

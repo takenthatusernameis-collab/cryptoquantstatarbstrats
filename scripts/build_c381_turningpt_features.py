@@ -205,7 +205,7 @@ def main(argv: list[str] | None = None) -> int:
             "built": False,
             "verified": True,
             "note": "C381 cache already present and faithful (SHA/size/content OK); left untouched.",
-            "campaign": 380,
+            "campaign": 381,
             "part": "feature_build",
             "symbols": symbols,
             "n_symbols": len(symbols),
@@ -295,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
 
     meta = {
         "generated_at_utc": ts,
-        "campaign": 380,
+        "campaign": 381,
         "part": "feature_build",
         "interval": "5m",
         "bar_ms": BAR_MS,
@@ -364,7 +364,7 @@ def main(argv: list[str] | None = None) -> int:
 
     prov = {
         "generated_at_utc": ts,
-        "campaign": 380,
+        "campaign": 381,
         "part": "provenance",
         "source_host": "https://data.binance.vision",
         "note": "C380 features are a read-only derivation of real C312 USDT-M 5m perp_close (log_return, abs_ret derived); no network, no fabrication, no resampling.",
@@ -389,7 +389,7 @@ def main(argv: list[str] | None = None) -> int:
 
     summary = {
         "built": True,
-        "campaign": 380,
+        "campaign": 381,
         "part": "feature_build",
         "symbols": symbols,
         "n_symbols": len(symbols),

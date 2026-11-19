@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "20261119T043810Z",
+  "campaign": 380,
+  "part": "binding_constraint",
+  "analysis": "binding_constraint_diagnosis",
+  "verdict": "RETRACTED",
+  "real_data_only": true,
+  "fabricated_data": false,
+  "executed_fills": false,
+  "oos_sweep_artifact": "reports/campaign380_oos_sweep_20261119T043810Z.json",
+  "oos_sweep_sha256": "ba329c6e2cac2c5bdd270ea90f4c62d118a634a4b0d95c4b8765a432dea93a7d",
+  "binding_constraint": "multiple_testing",
+  "n_deterministic_edge": 0,
+  "n_survive_holm": 0,
+  "n_survive_bh": 0,
+  "n_survive_both": 0,
+  "attribution_shares": {
+    "turningpt_sum_dev": 0.12044945411569623,
+    "turningpt_decay_dev": 0.11762382194178006,
+    "turningpt_sum_placebo": 0.32875012292936545,
+    "turningpt_decay_placebo": 0.43317660101315825
+  },
+  "dominant_attribution": "turningpt_decay_placebo",
+  "attribution_ok": false,
+  "stability": {
+    "reference_config": {
+      "signal": "turningpt_sum_dev",
+      "L": 240,
+      "H": 4,
+      "fee": 0.0007,
+      "slip": 0.0001,
+      "cv": "taker"
+    },
+    "per_split_net": [
+      -0.913441378405482,
+      -0.856031099657003,
+      -0.8704004597181126,
+      -1.3148071695149346,
+      -0.93682612829983,
+      -0.9932226733585781,
+      -0.8263967496764153,
+      -0.9334426276068523
+    ],
+    "sign_consistency": 0.0,
+    "first_half_sharpe": -5.21789979811733,
+    "second_half_sharpe": -15.28850900362885,
+    "sharpe_corr": 0.9930927927949923,
+    "stable": false
+  },
+  "diagnosis": "C380 cross-sectional intraday SIGNED-CONDITIONAL LAG COVARIANCE (TURNINGPT) stat-arb does not survive validation; formal negative. Binding constraint: multiple_testing.",
+  "note": "Diagnosis only; never an edge claim. No threshold weakening."
+}
